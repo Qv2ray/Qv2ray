@@ -23,68 +23,28 @@
 <context>
     <name>ConnectionInfoWidget</name>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configuration Details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connect/Disconnect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit Connection as JSON</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Latency Test</source>
-        <translation type="unfinished">Тест задержки</translation>
-    </message>
-    <message>
-        <source>Delete Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Тест задержки</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation type="unfinished">Протокол</translation>
+        <translation type="obsolete">Протокол</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">Адрес</translation>
+        <translation type="obsolete">Адрес</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Порт</translation>
-    </message>
-    <message>
-        <source>Link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>QR Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Порт</translation>
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation type="unfinished">Подписка</translation>
+        <translation type="obsolete">Подписка</translation>
     </message>
     <message>
         <source>Share Link</source>
-        <translation type="unfinished">Поделитесь ссылкой</translation>
+        <translation type="obsolete">Поделитесь ссылкой</translation>
     </message>
     <message>
         <source>(Ignored %1 complex config(s))</source>
@@ -135,37 +95,10 @@
     </message>
 </context>
 <context>
-    <name>ConnectionSettingsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ConnectionWidget</name>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>500ms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type: vmess + tls + ws</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>0KB / 0KB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
 </context>
 <context>
@@ -248,52 +181,60 @@
         <source>Move to...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Link to...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Group</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
     <message>
         <source>Import file</source>
-        <translation>Импорт файла</translation>
+        <translation type="vanished">Импорт файла</translation>
     </message>
     <message>
         <source>Name/Prefix</source>
-        <translation>Имя/Префикс</translation>
+        <translation type="vanished">Имя/Префикс</translation>
     </message>
     <message>
         <source>Import Source</source>
-        <translation>Источник импорта</translation>
+        <translation type="vanished">Источник импорта</translation>
     </message>
     <message>
         <source>Existing File</source>
-        <translation>Существующий файл</translation>
+        <translation type="vanished">Существующий файл</translation>
     </message>
     <message>
         <source> secs</source>
-        <translation>секунд</translation>
+        <translation type="vanished">секунд</translation>
     </message>
     <message>
         <source>Hide Qv2ray</source>
-        <translation>Скрыть Qv2ray</translation>
+        <translation type="vanished">Скрыть Qv2ray</translation>
     </message>
     <message>
         <source>Share Link</source>
-        <translation>Поделитесь ссылкой</translation>
+        <translation type="vanished">Поделитесь ссылкой</translation>
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation>Подписка</translation>
+        <translation type="vanished">Подписка</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Импорт</translation>
+        <translation type="vanished">Импорт</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>Путь</translation>
+        <translation type="vanished">Путь</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation>Выбрать</translation>
+        <translation type="vanished">Выбрать</translation>
     </message>
     <message>
         <source>Inbound</source>
@@ -312,12 +253,8 @@
         <translation type="vanished">Открыть в JSON редакторе</translation>
     </message>
     <message>
-        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>VMess / QRCode</source>
-        <translation>VMess / QRCode</translation>
+        <translation type="vanished">VMess / QRCode</translation>
     </message>
     <message>
         <source>VMess Connection String</source>
@@ -333,7 +270,7 @@
     </message>
     <message>
         <source>Go</source>
-        <translation>Далее</translation>
+        <translation type="vanished">Далее</translation>
     </message>
     <message>
         <source>After</source>
@@ -345,43 +282,43 @@
     </message>
     <message>
         <source>Error List</source>
-        <translation>Список ошибок</translation>
+        <translation type="vanished">Список ошибок</translation>
     </message>
     <message>
         <source>Subscriptions / Manually Input</source>
-        <translation>Подписки / Ввод вручную</translation>
+        <translation type="vanished">Подписки / Ввод вручную</translation>
     </message>
     <message>
         <source>Manually Input Connections</source>
-        <translation>Входные соединения вручную</translation>
+        <translation type="vanished">Входные соединения вручную</translation>
     </message>
     <message>
         <source>Route Editor</source>
-        <translation>Редактор маршрутов</translation>
+        <translation type="vanished">Редактор маршрутов</translation>
     </message>
     <message>
         <source>Open Route Editor</source>
-        <translation>Открыть редактор маршрута</translation>
+        <translation type="vanished">Открыть редактор маршрута</translation>
     </message>
     <message>
         <source>Subscription Manager</source>
-        <translation>Управление подпиской</translation>
+        <translation type="vanished">Управление подпиской</translation>
     </message>
     <message>
         <source>Open Subscription Manager</source>
-        <translation>Открыть менеджер подписок</translation>
+        <translation type="vanished">Открыть менеджер подписок</translation>
     </message>
     <message>
         <source>Connection Editor</source>
-        <translation>Редактор подключений</translation>
+        <translation type="vanished">Редактор подключений</translation>
     </message>
     <message>
         <source>Open Connection Editor</source>
-        <translation>Открыть редактор подключений</translation>
+        <translation type="vanished">Открыть редактор подключений</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Отмена</translation>
+        <translation type="vanished">Отмена</translation>
     </message>
     <message>
         <source>Select file to import</source>
@@ -432,219 +369,191 @@
         <translation type="vanished">Не удалось сохранить файл, пожалуйста, проверьте, есть ли у вас необходимые разрешения</translation>
     </message>
     <message>
-        <source>QRCode File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Screenshot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Json Editor</source>
-        <translation type="unfinished">Редактор Json</translation>
-    </message>
-    <message>
-        <source>Open JSON Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A prefix to the imported connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection Share Link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste share link here, one line for each.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Редактор Json</translation>
     </message>
 </context>
 <context>
     <name>InboundEditor</name>
     <message>
         <source>Inbound Editor</source>
-        <translation>Входящий редактор</translation>
+        <translation type="vanished">Входящий редактор</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation>Тег</translation>
+        <translation type="vanished">Тег</translation>
     </message>
     <message>
         <source>Tag of this inbound entry</source>
-        <translation>Тег этой входящей записи</translation>
+        <translation type="vanished">Тег этой входящей записи</translation>
     </message>
     <message>
         <source>Listening</source>
-        <translation>Прослушивание</translation>
+        <translation type="vanished">Прослушивание</translation>
     </message>
     <message>
         <source>Hostname or IP Address</source>
-        <translation>Имя хоста или IP-адрес</translation>
+        <translation type="vanished">Имя хоста или IP-адрес</translation>
     </message>
     <message>
         <source>:</source>
-        <translation>:</translation>
+        <translation type="vanished">:</translation>
     </message>
     <message>
         <source>Port: 1080|80-85</source>
-        <translation>Порт: 1080|80-85</translation>
+        <translation type="vanished">Порт: 1080|80-85</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation>Протокол</translation>
+        <translation type="vanished">Протокол</translation>
     </message>
     <message>
         <source>Allocation Settings</source>
-        <translation>Настройки распределения</translation>
+        <translation type="vanished">Настройки распределения</translation>
     </message>
     <message>
         <source>Strategy</source>
-        <translation>Стратегия</translation>
+        <translation type="vanished">Стратегия</translation>
     </message>
     <message>
         <source>always</source>
-        <translation>всегда</translation>
+        <translation type="vanished">всегда</translation>
     </message>
     <message>
         <source>random</source>
-        <translation>случайный</translation>
+        <translation type="vanished">случайный</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation>Обновить</translation>
+        <translation type="vanished">Обновить</translation>
     </message>
     <message>
         <source>Concurrency</source>
-        <translation>Согласие</translation>
+        <translation type="vanished">Согласие</translation>
     </message>
     <message>
         <source>Sniffing Settings</source>
-        <translation>Настройки привязки</translation>
+        <translation type="vanished">Настройки привязки</translation>
     </message>
     <message>
         <source>Destination Override</source>
-        <translation>Переопределение назначения</translation>
+        <translation type="vanished">Переопределение назначения</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Включено</translation>
+        <translation type="vanished">Включено</translation>
     </message>
     <message>
         <source>HTTP Inbound Settings</source>
-        <translation>Параметры HTTP InBound</translation>
+        <translation type="vanished">Параметры HTTP InBound</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation>Время ожидания истекло</translation>
+        <translation type="vanished">Время ожидания истекло</translation>
     </message>
     <message>
         <source>Allow Transparent</source>
-        <translation>Разрешить прозрачность</translation>
+        <translation type="vanished">Разрешить прозрачность</translation>
     </message>
     <message>
         <source>User Level</source>
-        <translation>Уровень пользователя</translation>
+        <translation type="vanished">Уровень пользователя</translation>
     </message>
     <message>
         <source>-</source>
-        <translation>-</translation>
+        <translation type="vanished">-</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Пароль</translation>
+        <translation type="vanished">Пароль</translation>
     </message>
     <message>
         <source>+</source>
-        <translation>+</translation>
+        <translation type="vanished">+</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Добавить</translation>
+        <translation type="vanished">Добавить</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>Имя пользователя</translation>
+        <translation type="vanished">Имя пользователя</translation>
     </message>
     <message>
         <source>Accounts</source>
-        <translation>Аккаунты</translation>
+        <translation type="vanished">Аккаунты</translation>
     </message>
     <message>
         <source>SOCKS Inbound Settings</source>
-        <translation>Настройки SOCKS InBound</translation>
+        <translation type="vanished">Настройки SOCKS InBound</translation>
     </message>
     <message>
         <source>Auth</source>
-        <translation>Авторизация</translation>
+        <translation type="vanished">Авторизация</translation>
     </message>
     <message>
         <source>Enable UDP</source>
-        <translation>Включить UDP</translation>
+        <translation type="vanished">Включить UDP</translation>
     </message>
     <message>
         <source>Local UDP IP</source>
-        <translation>Локальный UDP IP</translation>
+        <translation type="vanished">Локальный UDP IP</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Dokodemo-Door Inbound Settings</source>
-        <translation>Настройки Inbound Dokodemo-Door</translation>
+        <translation type="vanished">Настройки Inbound Dokodemo-Door</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation>IP-Адрес</translation>
+        <translation type="vanished">IP-Адрес</translation>
     </message>
     <message>
         <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-        <translation>Не требуется при настройке &quot;Follow Redirect&quot;</translation>
+        <translation type="vanished">Не требуется при настройке &quot;Follow Redirect&quot;</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation type="vanished">Порт</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation>Сеть</translation>
+        <translation type="vanished">Сеть</translation>
     </message>
     <message>
         <source>TCP</source>
-        <translation>TCP</translation>
+        <translation type="vanished">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation>UDP</translation>
+        <translation type="vanished">UDP</translation>
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation>Использовать переадресацию</translation>
+        <translation type="vanished">Использовать переадресацию</translation>
     </message>
     <message>
         <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-        <translation>Если вы хотите использовать tProxy, перейдите в Preference Window для включения этой функции.</translation>
+        <translation type="vanished">Если вы хотите использовать tProxy, перейдите в Preference Window для включения этой функции.</translation>
     </message>
     <message>
         <source>MTProto Inbound Settings</source>
-        <translation>Параметры HTTP InBound</translation>
+        <translation type="vanished">Параметры HTTP InBound</translation>
     </message>
     <message>
         <source>EMail Address</source>
-        <translation>Адрес email</translation>
+        <translation type="vanished">Адрес email</translation>
     </message>
     <message>
         <source>Secret</source>
-        <translation>Секрет</translation>
+        <translation type="vanished">Секрет</translation>
     </message>
     <message>
         <source>SECRET</source>
-        <translation>СЕКРЕТ</translation>
+        <translation type="vanished">СЕКРЕТ</translation>
     </message>
     <message>
         <source>Inbound type not supported</source>
@@ -676,13 +585,6 @@
     </message>
 </context>
 <context>
-    <name>InboundSettingsWidget</name>
-    <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>JsonEditor</name>
     <message>
         <source>Dialog</source>
@@ -690,19 +592,19 @@
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="vanished">OK</translation>
     </message>
     <message>
         <source>Json Structure Preview</source>
-        <translation>Просмотр структуры Json</translation>
+        <translation type="vanished">Просмотр структуры Json</translation>
     </message>
     <message>
         <source>Format JSON</source>
-        <translation>Формат Json</translation>
+        <translation type="vanished">Формат Json</translation>
     </message>
     <message>
         <source>Json Editor</source>
-        <translation>Редактор Json</translation>
+        <translation type="vanished">Редактор Json</translation>
     </message>
     <message>
         <source>Json Contains Syntax Errors</source>
@@ -732,20 +634,12 @@
         <source>Please fix the JSON errors before continue</source>
         <translation type="vanished">Пожалуйста, исправьте JSON ошибки перед продолжением</translation>
     </message>
-    <message>
-        <source>JSON Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove All Comments</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
+        <translation type="vanished">Qv2ray</translation>
     </message>
     <message>
         <source>Connect</source>
@@ -864,71 +758,27 @@
         <translation type="vanished">График скорости</translation>
     </message>
     <message>
-        <source>Locate Current Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Click to toggle show/hide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>  Speed Graph</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear chart data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>  Log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation>Скорость</translation>
-    </message>
-    <message>
-        <source>Upload/Download speed</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Скорость</translation>
     </message>
     <message>
         <source>0.00 B/s
 0.00 B/s</source>
-        <translation>0.00 B/s
+        <translation type="vanished">0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation>Данные</translation>
-    </message>
-    <message>
-        <source>Upload/Download Data</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Данные</translation>
     </message>
     <message>
         <source>0.00 B
 0.00 B</source>
-        <translation>0.00 B
+        <translation type="vanished">0.00 B
 0.00 B</translation>
     </message>
     <message>
@@ -1339,104 +1189,92 @@
         <source>Share Connection</source>
         <translation type="vanished">Поделиться подключением</translation>
     </message>
-    <message>
-        <source>Plugins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Groups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OutboundEditor</name>
     <message>
         <source>Tag</source>
-        <translation>Тег</translation>
+        <translation type="vanished">Тег</translation>
     </message>
     <message>
         <source>Tag of this outbound setting</source>
-        <translation>Метка этой настройки исходящего трафика</translation>
+        <translation type="vanished">Метка этой настройки исходящего трафика</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>Сервер</translation>
+        <translation type="vanished">Сервер</translation>
     </message>
     <message>
         <source>Hostname or IP/IPv6 Address</source>
-        <translation>Имя хоста или IP/IPv6 адрес</translation>
+        <translation type="vanished">Имя хоста или IP/IPv6 адрес</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation type="vanished">Порт</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation type="vanished">Тип</translation>
     </message>
     <message>
         <source>Socks</source>
-        <translation>Socks</translation>
+        <translation type="vanished">Socks</translation>
     </message>
     <message>
         <source>Use Mux</source>
-        <translation>Использовать Mux</translation>
+        <translation type="vanished">Использовать Mux</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Включено</translation>
+        <translation type="vanished">Включено</translation>
     </message>
     <message>
         <source>Edit Connection Settings</source>
-        <translation>Изменить настройки подключения</translation>
+        <translation type="vanished">Изменить настройки подключения</translation>
     </message>
     <message>
         <source>Stream Settings</source>
-        <translation>Настройки потока</translation>
+        <translation type="vanished">Настройки потока</translation>
     </message>
     <message>
         <source>Misc Settings</source>
-        <translation>Прочие настройки</translation>
+        <translation type="vanished">Прочие настройки</translation>
     </message>
     <message>
         <source>Mux Concurrency</source>
-        <translation>Mux Согласие</translation>
+        <translation type="vanished">Mux Согласие</translation>
     </message>
     <message>
         <source>Use Forward Proxy</source>
-        <translation>Использовать Ретрансляция прокси</translation>
+        <translation type="vanished">Использовать Ретрансляция прокси</translation>
     </message>
     <message>
         <source>Outbound Settings</source>
-        <translation>Настройки соединения</translation>
+        <translation type="vanished">Настройки соединения</translation>
     </message>
     <message>
         <source>UUID</source>
-        <translation>UUID</translation>
+        <translation type="vanished">UUID</translation>
     </message>
     <message>
         <source>Alter ID</source>
-        <translation>ID Alter</translation>
+        <translation type="vanished">ID Alter</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>Защита</translation>
+        <translation type="vanished">Защита</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation type="vanished">Email</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Пароль</translation>
+        <translation type="vanished">Пароль</translation>
     </message>
     <message>
         <source>Encryption Method</source>
-        <translation>Метод шифрования</translation>
+        <translation type="vanished">Метод шифрования</translation>
     </message>
     <message>
         <source>chacha20-ietf-poly1305</source>
@@ -1444,15 +1282,15 @@
     </message>
     <message>
         <source>Level</source>
-        <translation>Уровень</translation>
+        <translation type="vanished">Уровень</translation>
     </message>
     <message>
         <source>OTA</source>
-        <translation>OTA</translation>
+        <translation type="vanished">OTA</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>Имя пользователя</translation>
+        <translation type="vanished">Имя пользователя</translation>
     </message>
     <message>
         <source>Unknown outbound type.</source>
@@ -1522,51 +1360,51 @@
     </message>
     <message>
         <source>UI Theme</source>
-        <translation>Тема интерфейса</translation>
+        <translation type="vanished">Тема интерфейса</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Включено</translation>
+        <translation type="vanished">Включено</translation>
     </message>
     <message>
         <source>Darkmode UI Icons</source>
-        <translation>Темные иконки интерфейса</translation>
+        <translation type="vanished">Темные иконки интерфейса</translation>
     </message>
     <message>
         <source>Darkmode Tray Icon</source>
-        <translation>Светлая иконка в трее</translation>
+        <translation type="vanished">Светлая иконка в трее</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation>Язык (Language)</translation>
+        <translation type="vanished">Язык (Language)</translation>
     </message>
     <message>
         <source>Log Level</source>
-        <translation>Детализация журнала</translation>
+        <translation type="vanished">Детализация журнала</translation>
     </message>
     <message>
         <source>none</source>
-        <translation>никто</translation>
+        <translation type="vanished">никто</translation>
     </message>
     <message>
         <source>debug</source>
-        <translation>отладка</translation>
+        <translation type="vanished">отладка</translation>
     </message>
     <message>
         <source>info</source>
-        <translation>информация</translation>
+        <translation type="vanished">информация</translation>
     </message>
     <message>
         <source>warning</source>
-        <translation>внимание</translation>
+        <translation type="vanished">внимание</translation>
     </message>
     <message>
         <source>error</source>
-        <translation>ошибка</translation>
+        <translation type="vanished">ошибка</translation>
     </message>
     <message>
         <source>Config</source>
-        <translation>Конфигурация</translation>
+        <translation type="vanished">Конфигурация</translation>
     </message>
     <message>
         <source>Subscription</source>
@@ -1574,23 +1412,23 @@
     </message>
     <message>
         <source>Select</source>
-        <translation>Выбрать</translation>
+        <translation type="vanished">Выбрать</translation>
     </message>
     <message>
         <source>Auto Connect</source>
-        <translation>Автоподключение</translation>
+        <translation type="vanished">Автоподключение</translation>
     </message>
     <message>
         <source>Inbound Settings</source>
-        <translation>Настройки соединения</translation>
+        <translation type="vanished">Настройки соединения</translation>
     </message>
     <message>
         <source>Listening Address</source>
-        <translation>Адрес прослушивания</translation>
+        <translation type="vanished">Адрес прослушивания</translation>
     </message>
     <message>
         <source>HTTP</source>
-        <translation>HTTP</translation>
+        <translation type="vanished">HTTP</translation>
     </message>
     <message>
         <source>SOCKS</source>
@@ -1598,23 +1436,23 @@
     </message>
     <message>
         <source>Set System Proxy</source>
-        <translation>Установить системным прокси</translation>
+        <translation type="vanished">Установить системным прокси</translation>
     </message>
     <message>
         <source>SOCKS Settings</source>
-        <translation>Настройки SOCKS</translation>
+        <translation type="vanished">Настройки SOCKS</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation type="vanished">Порт</translation>
     </message>
     <message>
         <source>UDP Support</source>
-        <translation>Поддержка UDP</translation>
+        <translation type="vanished">Поддержка UDP</translation>
     </message>
     <message>
         <source>Launch at Login</source>
-        <translation>Запуск при входе</translation>
+        <translation type="vanished">Запуск при входе</translation>
     </message>
     <message>
         <source>API Subsystem</source>
@@ -1622,19 +1460,19 @@
     </message>
     <message>
         <source>Authentication</source>
-        <translation>Аутентификация</translation>
+        <translation type="vanished">Аутентификация</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>Имя пользователя</translation>
+        <translation type="vanished">Имя пользователя</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Пароль</translation>
+        <translation type="vanished">Пароль</translation>
     </message>
     <message>
         <source>HTTP Settings</source>
-        <translation>Настройки HTTP</translation>
+        <translation type="vanished">Настройки HTTP</translation>
     </message>
     <message>
         <source>PAC Settings</source>
@@ -1650,7 +1488,7 @@
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Use Proxy</source>
@@ -1710,15 +1548,15 @@
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>Настройки соединения</translation>
+        <translation type="vanished">Настройки соединения</translation>
     </message>
     <message>
         <source>General Connection Settings</source>
-        <translation>Общие настройки соединения</translation>
+        <translation type="vanished">Общие настройки соединения</translation>
     </message>
     <message>
         <source>Enable Proxy</source>
-        <translation>Включить прокси</translation>
+        <translation type="vanished">Включить прокси</translation>
     </message>
     <message>
         <source>Bypass Chinese Mainland</source>
@@ -1726,91 +1564,87 @@
     </message>
     <message>
         <source>API Port</source>
-        <translation>Порт API</translation>
+        <translation type="vanished">Порт API</translation>
     </message>
     <message>
         <source>Use Local DNS</source>
-        <translation>Использовать локальный DNS</translation>
+        <translation type="vanished">Использовать локальный DNS</translation>
     </message>
     <message>
         <source>Custom DNS List</source>
-        <translation>Пользовательский список DNS</translation>
+        <translation type="vanished">Пользовательский список DNS</translation>
     </message>
     <message>
         <source>Forward Proxy</source>
-        <translation>Ретрансляция прокси</translation>
+        <translation type="vanished">Ретрансляция прокси</translation>
     </message>
     <message>
         <source>Only simple config is supported.</source>
-        <translation>Поддерживаются только простые настройки.</translation>
+        <translation type="vanished">Поддерживаются только простые настройки.</translation>
     </message>
     <message>
         <source>Build Info</source>
-        <translation>Информация о сборке</translation>
+        <translation type="vanished">Информация о сборке</translation>
     </message>
     <message>
         <source>Extra Build Info</source>
-        <translation>Дополнительная информация о сборке</translation>
+        <translation type="vanished">Дополнительная информация о сборке</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation type="vanished">Тип</translation>
     </message>
     <message>
         <source>Socks</source>
-        <translation>Socks</translation>
+        <translation type="vanished">Socks</translation>
     </message>
     <message>
         <source>Host Address</source>
-        <translation>Адрес хоста</translation>
+        <translation type="vanished">Адрес хоста</translation>
     </message>
     <message>
         <source>Network Toolbar Settings</source>
-        <translation>Настройки панели инструментов сети</translation>
+        <translation type="vanished">Настройки панели инструментов сети</translation>
     </message>
     <message>
         <source>Apply Network Speed Bar UI Settings</source>
-        <translation>Применить настройки панели скорости сети</translation>
+        <translation type="vanished">Применить настройки панели скорости сети</translation>
     </message>
     <message>
         <source>Items</source>
-        <translation>Объекты</translation>
+        <translation type="vanished">Объекты</translation>
     </message>
     <message>
         <source>General Settings</source>
-        <translation>Общие настройки</translation>
+        <translation type="vanished">Общие настройки</translation>
     </message>
     <message>
         <source>Maximum log lines</source>
-        <translation>Максимальное количество строк в журнале</translation>
+        <translation type="vanished">Максимальное количество строк в журнале</translation>
     </message>
     <message>
         <source> lines</source>
-        <translation>строки</translation>
+        <translation type="vanished">строки</translation>
     </message>
     <message>
         <source>V2ray Settings</source>
-        <translation>Настройки V2ray</translation>
+        <translation type="vanished">Настройки V2ray</translation>
     </message>
     <message>
         <source>Core Executable Path</source>
-        <translation>Путь к ядру v2ray</translation>
+        <translation type="vanished">Путь к ядру v2ray</translation>
     </message>
     <message>
         <source>V2ray Assets Directory</source>
-        <translation>Каталог активов V2ray</translation>
+        <translation type="vanished">Каталог активов V2ray</translation>
     </message>
     <message>
         <source>Check V2ray Core Settings</source>
-        <translation>Проверьте настройки ядра V2ray</translation>
+        <translation type="vanished">Проверьте настройки ядра V2ray</translation>
     </message>
     <message>
         <source>UDP Local IP</source>
-        <translation>UDP Локальный IP-адрес</translation>
-    </message>
-    <message>
-        <source>Transparent Proxy Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">UDP Локальный IP-адрес</translation>
     </message>
     <message>
         <source>Address</source>
@@ -1818,15 +1652,15 @@
     </message>
     <message>
         <source>TCP</source>
-        <translation type="unfinished">TCP</translation>
+        <translation type="obsolete">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation type="unfinished">UDP</translation>
+        <translation type="obsolete">UDP</translation>
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation type="unfinished">Использовать переадресацию</translation>
+        <translation type="obsolete">Использовать переадресацию</translation>
     </message>
     <message>
         <source>TCP Fast Open</source>
@@ -1838,11 +1672,11 @@
     </message>
     <message>
         <source>-</source>
-        <translation>-</translation>
+        <translation type="vanished">-</translation>
     </message>
     <message>
         <source>+</source>
-        <translation>+</translation>
+        <translation type="vanished">+</translation>
     </message>
     <message>
         <source>Page Y Offset</source>
@@ -1850,55 +1684,55 @@
     </message>
     <message>
         <source>Pages</source>
-        <translation>Страницы</translation>
+        <translation type="vanished">Страницы</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation>Линии</translation>
+        <translation type="vanished">Линии</translation>
     </message>
     <message>
         <source>This feature is not stable and no documentation is provided, please use it at your own risk!</source>
-        <translation>Эта функция нестабильна и документация не предоставляется, используйте ее на свой страх и риск!</translation>
+        <translation type="vanished">Эта функция нестабильна и документация не предоставляется, используйте ее на свой страх и риск!</translation>
     </message>
     <message>
         <source>Text Style</source>
-        <translation>Стиль текста</translation>
+        <translation type="vanished">Стиль текста</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>Шрифт</translation>
+        <translation type="vanished">Шрифт</translation>
     </message>
     <message>
         <source>Bold</source>
-        <translation>Жирный</translation>
+        <translation type="vanished">Жирный</translation>
     </message>
     <message>
         <source>Italic</source>
-        <translation>Курсив</translation>
+        <translation type="vanished">Курсив</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Размер</translation>
+        <translation type="vanished">Размер</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Цвет</translation>
+        <translation type="vanished">Цвет</translation>
     </message>
     <message>
         <source>A:</source>
-        <translation>А:</translation>
+        <translation type="vanished">А:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation type="vanished">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation type="vanished">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation type="vanished">B:</translation>
     </message>
     <message>
         <source>...</source>
@@ -1906,35 +1740,35 @@
     </message>
     <message>
         <source>Style</source>
-        <translation>Стиль</translation>
+        <translation type="vanished">Стиль</translation>
     </message>
     <message>
         <source>Content</source>
-        <translation>Контент</translation>
+        <translation type="vanished">Контент</translation>
     </message>
     <message>
         <source>Content Type</source>
-        <translation>Тип контента</translation>
+        <translation type="vanished">Тип контента</translation>
     </message>
     <message>
         <source>Text/Tag</source>
-        <translation>Текст/Тег</translation>
+        <translation type="vanished">Текст/Тег</translation>
     </message>
     <message>
         <source>You can config how the network speed toolbar looks like in this panel</source>
-        <translation>Вы можете настроить как выглядит панель скорости сети на этой панели</translation>
+        <translation type="vanished">Вы можете настроить как выглядит панель скорости сети на этой панели</translation>
     </message>
     <message>
         <source>About</source>
-        <translation>О программе</translation>
+        <translation type="vanished">О программе</translation>
     </message>
     <message>
         <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
+        <translation type="vanished">Qv2ray</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation>Версия:</translation>
+        <translation type="vanished">Версия:</translation>
     </message>
     <message>
         <source>Official Repo:</source>
@@ -1954,23 +1788,23 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Отменить</translation>
+        <translation type="vanished">Отменить</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>Об инструментарии Qt</translation>
+        <translation type="vanished">Об инструментарии Qt</translation>
     </message>
     <message>
         <source>Use Darkmode Theme</source>
-        <translation>Использовать темную тему</translation>
+        <translation type="vanished">Использовать темную тему</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Стр.</translation>
+        <translation type="vanished">Стр.</translation>
     </message>
     <message>
         <source>Item(s)</source>
-        <translation>Объекты</translation>
+        <translation type="vanished">Объекты</translation>
     </message>
     <message>
         <source>Enable tProxy Support</source>
@@ -1982,7 +1816,7 @@
     </message>
     <message>
         <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
-        <translation>Панель инструментов сети Qv2ray отключена и все еще тестируется. Добавьте --withToolbarPlugin для включения.</translation>
+        <translation type="vanished">Панель инструментов сети Qv2ray отключена и все еще тестируется. Добавьте --withToolbarPlugin для включения.</translation>
     </message>
     <message>
         <source>Version: %1</source>
@@ -2034,15 +1868,15 @@
     </message>
     <message>
         <source>Apply network toolbar settings</source>
-        <translation>Применить настройки панели инструментов сети</translation>
+        <translation type="vanished">Применить настройки панели инструментов сети</translation>
     </message>
     <message>
         <source>All other modified settings will be applied as well after this object.</source>
-        <translation>Все остальные измененные настройки будут применены и после этого объекта.</translation>
+        <translation type="vanished">Все остальные измененные настройки будут применены и после этого объекта.</translation>
     </message>
     <message>
         <source>Do you want to continue?</source>
-        <translation>Вы хотите продолжить?</translation>
+        <translation type="vanished">Вы хотите продолжить?</translation>
     </message>
     <message>
         <source>Dangerous Operation</source>
@@ -2121,216 +1955,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Bypass CN Mainland</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Advanced Route Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can configure route rules for all simple connection config here.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>License</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Official Repo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Built Time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Update Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stable Release</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Testing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Appearance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Behavior</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transparent Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Network Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>:</source>
-        <translation type="unfinished">:</translation>
-    </message>
-    <message>
-        <source>User-Agent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Kernel Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>API SubSystem</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin Kernel Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabling V2ray Integration will allow the kernel benefit from the V2ray routing engine.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray Integration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If not checked, these features will be disabled:
-
-Advanced Routing Settings
-Bypass CN websites and IPs
-Direct connection of Local LAN addresses
-Custom DNS Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port Allocation Start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page Y Axis Offset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ignored Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin Interface</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Advanced Behavior</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AllowInsecure By Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Test Latency Periodcally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>These settings may be useful.
-But could damage your server if improperly used.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AllowInsecureCiphers By Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Quiet Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Recent Jumplist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Connections</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">:</translation>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation type="unfinished">Системный прокси</translation>
-    </message>
-    <message>
-        <source>Custom Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Network Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DNS Intercept</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>redirect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>tproxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outbound Mark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sniffing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use V2ray DNS for Freedom Outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bypass Bittorrent Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Системный прокси</translation>
     </message>
     <message>
         <source>Note</source>
@@ -2345,11 +1975,6 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>These settings are for Qv2ray itself.
-For example, for updating subscriptions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disabling API Subsystem</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2361,76 +1986,120 @@ For example, for updating subscriptions.</source>
         <source>Speed chart and traffic statistics will be disabled.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Use built-in darkmode Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NTP Checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check date and time from server:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which is too high.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please synchronize your system to use V2Ray.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time Inaccurate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which is a little high.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time Somewhat Inaccurate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which looks good.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray may not suffer from time inaccuracy.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time Accurate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to lookup server: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Unsupported share link format.</source>
-        <translation>Неподдерживаемый формат ссылки.</translation>
+        <translation type="vanished">Неподдерживаемый формат ссылки.</translation>
     </message>
     <message>
         <source>SS URI is too short</source>
-        <translation>URI Shadowsocks слишком короткий.</translation>
+        <translation type="vanished">URI Shadowsocks слишком короткий.</translation>
     </message>
     <message>
         <source>Can&apos;t find the colon separator between method and password</source>
-        <translation>Не удается найти разделитель двоеточий между методом и паролем</translation>
+        <translation type="vanished">Не удается найти разделитель двоеточий между методом и паролем</translation>
     </message>
     <message>
         <source>Can&apos;t find the at separator between password and hostname</source>
-        <translation>Не удается найти разделитель между паролем и именем хоста</translation>
+        <translation type="vanished">Не удается найти разделитель между паролем и именем хоста</translation>
     </message>
     <message>
         <source>Can&apos;t find the colon separator between hostname and port</source>
-        <translation>Не удается найти разделитель двоеточий между именем хоста и портом</translation>
+        <translation type="vanished">Не удается найти разделитель двоеточий между именем хоста и портом</translation>
     </message>
     <message>
         <source>VMess string should start with &apos;vmess://&apos;</source>
-        <translation>VMess строка должна начинаться с &apos;vmess://&apos;</translation>
+        <translation type="vanished">VMess строка должна начинаться с &apos;vmess://&apos;</translation>
     </message>
     <message>
         <source>VMess string should be a valid base64 string</source>
-        <translation>VMess строка должна быть корректной строкой base64</translation>
+        <translation type="vanished">VMess строка должна быть корректной строкой base64</translation>
     </message>
     <message>
         <source>JSON should not be empty</source>
-        <translation>JSON не должен быть пустым</translation>
-    </message>
-    <message>
-        <source>seems like a v1 vmess, we don&apos;t support it</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">JSON не должен быть пустым</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Внимание</translation>
+        <translation type="vanished">Внимание</translation>
     </message>
     <message>
         <source>Qv2ray cannot load the config file from here:</source>
-        <translation>Qv2ray не может загрузить файл конфигурации отсюда:</translation>
+        <translation type="vanished">Qv2ray не может загрузить файл конфигурации отсюда:</translation>
     </message>
     <message>
         <source>Cannot Start Qv2ray</source>
-        <translation>Невозможно запустить Qv2ray</translation>
+        <translation type="vanished">Невозможно запустить Qv2ray</translation>
     </message>
     <message>
         <source>Cannot find a place to store config files.</source>
-        <translation>Не удается найти место для хранения конфигурационных файлов.</translation>
+        <translation type="vanished">Не удается найти место для хранения конфигурационных файлов.</translation>
     </message>
     <message>
         <source>Qv2ray has searched these paths below:</source>
-        <translation>Qv2ray искал эти пути ниже:</translation>
-    </message>
-    <message>
-        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Qv2ray искал эти пути ниже:</translation>
     </message>
     <message>
         <source>Qv2ray will now exit.</source>
-        <translation>Qv2ray теперь выйдет.</translation>
+        <translation type="vanished">Qv2ray теперь выйдет.</translation>
     </message>
     <message>
         <source>Failed to initialise Qv2ray</source>
-        <translation>Не удалось инициализировать Qv2ray</translation>
+        <translation type="vanished">Не удалось инициализировать Qv2ray</translation>
     </message>
     <message>
         <source>Failed to determine the location of config file.</source>
@@ -2438,15 +2107,15 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Please report if you think it&apos;s a bug.</source>
-        <translation>Пожалуйста, сообщите, если вы считаете об этом, если это ошибка.</translation>
+        <translation type="vanished">Пожалуйста, сообщите, если вы считаете об этом, если это ошибка.</translation>
     </message>
     <message>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
-        <translation>Вы не можете запустить Qv2ray как root, пожалуйста, используйте --I-just-wanna-run-with-root, если вы хотите это сделать.</translation>
+        <translation type="vanished">Вы не можете запустить Qv2ray как root, пожалуйста, используйте --I-just-wanna-run-with-root, если вы хотите это сделать.</translation>
     </message>
     <message>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
-        <translation> --&gt; ИСПОЛЬЗУЙТЕ ЕГО НА СВОЙ СТРАХ И РИСК!</translation>
+        <translation type="vanished"> --&gt; ИСПОЛЬЗУЙТЕ ЕГО НА СВОЙ СТРАХ И РИСК!</translation>
     </message>
     <message>
         <source>Cannot load languages</source>
@@ -2458,55 +2127,39 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Qv2ray Cannot Continue</source>
-        <translation>Qv2ray не может продолжить</translation>
+        <translation type="vanished">Qv2ray не может продолжить</translation>
     </message>
     <message>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-        <translation>Вы используете более низкую версию Qv2ray по сравнению с текущим файлом конфигурации.</translation>
+        <translation type="vanished">Вы используете более низкую версию Qv2ray по сравнению с текущим файлом конфигурации.</translation>
     </message>
     <message>
         <source>Please check if there&apos;s an issue explaining about it.</source>
-        <translation>Пожалуйста, проверьте, есть ли проблема с объяснением этого.</translation>
+        <translation type="vanished">Пожалуйста, проверьте, есть ли проблема с объяснением этого.</translation>
     </message>
     <message>
         <source>Or submit a new issue if you think this is an error.</source>
-        <translation>Или отправьте новую проблему, если вы считаете, что это ошибка.</translation>
+        <translation type="vanished">Или отправьте новую проблему, если вы считаете, что это ошибка.</translation>
     </message>
     <message>
         <source>Dependency Missing</source>
-        <translation>Зависимость отсутствует</translation>
+        <translation type="vanished">Зависимость отсутствует</translation>
     </message>
     <message>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
-        <translation>Это может быть вызвано отсутствием пакета `openssl` в вашей системе.</translation>
+        <translation type="vanished">Это может быть вызвано отсутствием пакета `openssl` в вашей системе.</translation>
     </message>
     <message>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
-        <translation>Если вы используете AppImage из Github Action, пожалуйста, сообщите об ошибке.</translation>
+        <translation type="vanished">Если вы используете AppImage из Github Action, пожалуйста, сообщите об ошибке.</translation>
     </message>
     <message>
         <source>Cannot find openssl libs</source>
-        <translation>Не удается найти openssl libs</translation>
-    </message>
-    <message>
-        <source>Failed to determine the location of config file:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A workaround is to remove the this file and restart Qv2ray:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Debug version</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Не удается найти openssl libs</translation>
     </message>
     <message>
         <source>Technical Details</source>
-        <translation>Технические детали</translation>
+        <translation type="vanished">Технические детали</translation>
     </message>
     <message>
         <source>Connected</source>
@@ -2518,39 +2171,35 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Custom Text</source>
-        <translation>Собственный текст</translation>
+        <translation type="vanished">Собственный текст</translation>
     </message>
     <message>
         <source>Current Time</source>
-        <translation>Текущее время</translation>
+        <translation type="vanished">Текущее время</translation>
     </message>
     <message>
         <source>Current Date</source>
-        <translation>Текущая дата</translation>
+        <translation type="vanished">Текущая дата</translation>
     </message>
     <message>
         <source>Current Qv2ray Version</source>
-        <translation>Текущая версия Qv2ray</translation>
+        <translation type="vanished">Текущая версия Qv2ray</translation>
     </message>
     <message>
         <source>Current Connection Name</source>
-        <translation>Текущее имя соединения</translation>
+        <translation type="vanished">Текущее имя соединения</translation>
     </message>
     <message>
         <source>Current Connection Status</source>
-        <translation>Текущий статус подключения</translation>
+        <translation type="vanished">Текущий статус подключения</translation>
     </message>
     <message>
         <source>Total Upload Speed</source>
-        <translation>Общая скорость отдачи</translation>
+        <translation type="vanished">Общая скорость отдачи</translation>
     </message>
     <message>
         <source>Total Download Speed</source>
-        <translation>Общая скорость загрузки</translation>
-    </message>
-    <message>
-        <source>Current Connection Latency</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Общая скорость загрузки</translation>
     </message>
     <message>
         <source>Upload Speed for Specific Tag</source>
@@ -2562,11 +2211,11 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Total Uploaded Data</source>
-        <translation>Всего загруженных данных</translation>
+        <translation type="vanished">Всего загруженных данных</translation>
     </message>
     <message>
         <source>Total Downloaded Data</source>
-        <translation>Всего загружено данных</translation>
+        <translation type="vanished">Всего загружено данных</translation>
     </message>
     <message>
         <source>Uploaded Data for Specific Tag</source>
@@ -2598,11 +2247,11 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>N/A</source>
-        <translation>N/A</translation>
+        <translation type="vanished">N/A</translation>
     </message>
     <message>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - кросс-платформенный Qt фронтенд для V2ray.</translation>
+        <translation type="vanished">Qv2ray - кросс-платформенный Qt фронтенд для V2ray.</translation>
     </message>
     <message>
         <source>Disable gRPC API subsystems.</source>
@@ -2621,94 +2270,6 @@ For example, for updating subscriptions.</source>
         <translation type="vanished">Включить плагин панели инструментов сети Qv2ray</translation>
     </message>
     <message>
-        <source>invalid ssd link: json: field %1 must exist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>invalid ssd link: json: field %1 must be valid port number</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>invalid ssd link: json: field %1 must be an array</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>skipping invalid ssd server: server must be an object</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>skipping invalid ssd server: missing required field %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: should begin with ssd://</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: base64 parse failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: json parse failed: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: found non-object json, aborting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deprecated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configuration Upgrade Failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unsupported config version number: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 - %2 (rate %3)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(Complex config)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Outbound</source>
         <translation type="unfinished">Outbound</translation>
     </message>
@@ -2716,155 +2277,24 @@ For example, for updating subscriptions.</source>
         <source>Inbound</source>
         <translation type="unfinished">Входящее</translation>
     </message>
-    <message>
-        <source>core executable file %1 does not exist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>cannot open core executable file %1 in read-only mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>core executable file %1 is an empty file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>core executable file %1 is too short to be executed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>cannot deduce the type of core executable file %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Windows PE executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>macOS Mach-O executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ELF x86 executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ELF amd64 executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ELF arm64 executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ELF arm executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>other ELF executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unknown abi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Kernel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Share Link Parser</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown type.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Capability</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection State Change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection Change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Statistics Event</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>System Proxy Event</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deepin Detected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>trusted abi</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
     <message>
         <source>Disable gRPC API subsystems.</source>
-        <translation type="unfinished">Отключить подсистемы gRPC API.</translation>
+        <translation type="obsolete">Отключить подсистемы gRPC API.</translation>
     </message>
     <message>
         <source>Explicitly run Qv2ray as root.</source>
-        <translation type="unfinished">Явно запускайте Qv2ray как root.</translation>
+        <translation type="obsolete">Явно запускайте Qv2ray как root.</translation>
     </message>
     <message>
         <source>Enable Debug Output</source>
-        <translation type="unfinished">Включить отладочный вывод</translation>
-    </message>
-    <message>
-        <source>Disable manually set QT_SCALE_FACTOR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disable plugin feature</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Включить отладочный вывод</translation>
     </message>
     <message>
         <source>Enable Qv2ray network toolbar plugin</source>
-        <translation type="unfinished">Включить плагин панели инструментов сети Qv2ray</translation>
-    </message>
-</context>
-<context>
-    <name>Qv2ray::components::QvUpdateChecker</name>
-    <message>
-        <source>Qv2ray Update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A new version of Qv2ray has been found:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Включить плагин панели инструментов сети Qv2ray</translation>
     </message>
 </context>
 <context>
@@ -2884,120 +2314,59 @@ For example, for updating subscriptions.</source>
         <source>System Proxy</source>
         <translation type="obsolete">Системный прокси</translation>
     </message>
-    <message>
-        <source>Cannot load plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>cannot be loaded.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This plugin was built against an older/newer version of the Plugin Interface.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabling a plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The plugin will become fully functional after restarting Qv2ray.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
-    <message>
-        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
     <message>
-        <source>Default Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File does not exist.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group does not exist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Update Subscription</source>
-        <translation type="unfinished">Обновить подписку</translation>
-    </message>
-    <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Обновить подписку</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::core::kernel::V2rayKernelInstance</name>
     <message>
         <source>V2ray core executable not found.</source>
-        <translation>Исполняемый файл ядра V2ray не найден.</translation>
+        <translation type="vanished">Исполняемый файл ядра V2ray не найден.</translation>
     </message>
     <message>
         <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation>Файл ядра V2ray не может быть открыт, убедитесь, что вместо папки есть файл.</translation>
-    </message>
-    <message>
-        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
-Expected core ABI is %1, but got actual %2.<byte value="xd"/>
-Maybe you have downloaded the wrong core?</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Файл ядра V2ray не может быть открыт, убедитесь, что вместо папки есть файл.</translation>
     </message>
     <message>
         <source>V2ray assets path is not valid.</source>
-        <translation>Недопустимый путь к ресурсам V2ray.</translation>
+        <translation type="vanished">Недопустимый путь к ресурсам V2ray.</translation>
     </message>
     <message>
         <source>No geoip.dat in assets path.</source>
-        <translation>Нет geoip.dat в пути активов.</translation>
+        <translation type="vanished">Нет geoip.dat в пути активов.</translation>
     </message>
     <message>
         <source>No geosite.dat in assets path.</source>
-        <translation>Нет geosite.dat в пути активов.</translation>
+        <translation type="vanished">Нет geosite.dat в пути активов.</translation>
     </message>
     <message>
         <source>V2ray core failed with an exit code: </source>
-        <translation>Ядро V2ray вышло из строя с кодом выхода:</translation>
+        <translation type="vanished">Ядро V2ray вышло из строя с кодом выхода:</translation>
     </message>
     <message>
         <source>V2ray core returns empty string.</source>
-        <translation>Ядро V2ray возвращает пустую строку.</translation>
+        <translation type="vanished">Ядро V2ray возвращает пустую строку.</translation>
     </message>
     <message>
         <source>Configuration Error</source>
-        <translation>Ошибка конфигурации</translation>
+        <translation type="vanished">Ошибка конфигурации</translation>
     </message>
     <message>
         <source>Cannot start V2ray</source>
-        <translation>Невозможно запустить V2ray</translation>
+        <translation type="vanished">Невозможно запустить V2ray</translation>
     </message>
     <message>
         <source>V2ray core settings is incorrect.</source>
-        <translation>Настройки ядра V2ray неверны.</translation>
+        <translation type="vanished">Настройки ядра V2ray неверны.</translation>
     </message>
     <message>
         <source>The error is: </source>
-        <translation>Ошибка:</translation>
-    </message>
-    <message>
-        <source>Invalid V2ray Instance Status.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray kernel failed to start.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Ошибка:</translation>
     </message>
 </context>
 <context>
@@ -3036,191 +2405,191 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Route Detail Settings</source>
-        <translation>Параметры детализации маршрута</translation>
+        <translation type="vanished">Параметры детализации маршрута</translation>
     </message>
     <message>
         <source>Source IP Matches</source>
-        <translation>Источник IP Соответствия</translation>
+        <translation type="vanished">Источник IP Соответствия</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Статус</translation>
+        <translation type="vanished">Статус</translation>
     </message>
     <message>
         <source>Add default inbound from global config</source>
-        <translation>Добавить входящие по умолчанию из глобальной конфигурации</translation>
+        <translation type="vanished">Добавить входящие по умолчанию из глобальной конфигурации</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation type="vanished">Порт</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation>Тэг</translation>
+        <translation type="vanished">Тэг</translation>
     </message>
     <message>
         <source>Add outbound</source>
-        <translation>Добавить исходящий</translation>
+        <translation type="vanished">Добавить исходящий</translation>
     </message>
     <message>
         <source>Delete outbound</source>
-        <translation>Удалить исходящий</translation>
+        <translation type="vanished">Удалить исходящий</translation>
     </message>
     <message>
         <source>Edit outbound</source>
-        <translation>Изменить исходящий</translation>
+        <translation type="vanished">Изменить исходящий</translation>
     </message>
     <message>
         <source>Add Freedom outbound</source>
-        <translation>Добавить свободу исходящих</translation>
+        <translation type="vanished">Добавить свободу исходящих</translation>
     </message>
     <message>
         <source>Add blackhole outbound</source>
-        <translation>Добавить черный дыра исходящих</translation>
+        <translation type="vanished">Добавить черный дыра исходящих</translation>
     </message>
     <message>
         <source>Routes</source>
-        <translation>Маршруты</translation>
+        <translation type="vanished">Маршруты</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Включено</translation>
+        <translation type="vanished">Включено</translation>
     </message>
     <message>
         <source>Outbound</source>
-        <translation>Outbound</translation>
+        <translation type="vanished">Outbound</translation>
     </message>
     <message>
         <source>Add new route</source>
-        <translation>Добавить новый маршрут</translation>
+        <translation type="vanished">Добавить новый маршрут</translation>
     </message>
     <message>
         <source>Use Balancers</source>
-        <translation>Использовать балансиры</translation>
+        <translation type="vanished">Использовать балансиры</translation>
     </message>
     <message>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="vanished">...</translation>
     </message>
     <message>
         <source>Target IP List</source>
-        <translation>Список адресов IP</translation>
+        <translation type="vanished">Список адресов IP</translation>
     </message>
     <message>
         <source>Target Domain List</source>
-        <translation>Список адресов</translation>
+        <translation type="vanished">Список адресов</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation>Сеть</translation>
+        <translation type="vanished">Сеть</translation>
     </message>
     <message>
         <source>TCP</source>
-        <translation>TCP</translation>
+        <translation type="vanished">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation>UDP</translation>
+        <translation type="vanished">UDP</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation>Оба</translation>
+        <translation type="vanished">Оба</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation>Протокол</translation>
+        <translation type="vanished">Протокол</translation>
     </message>
     <message>
         <source>Inbound</source>
-        <translation>Входящее</translation>
+        <translation type="vanished">Входящее</translation>
     </message>
     <message>
         <source>Add From Global Settings</source>
-        <translation>Добавить из глобальных настроек</translation>
+        <translation type="vanished">Добавить из глобальных настроек</translation>
     </message>
     <message>
         <source>Add Black Hole</source>
-        <translation>Запуск черной дыры</translation>
+        <translation type="vanished">Запуск черной дыры</translation>
     </message>
     <message>
         <source>Add Direct</source>
-        <translation>Добавить прямую</translation>
+        <translation type="vanished">Добавить прямую</translation>
     </message>
     <message>
         <source>Selected Inbound/Outbound Info</source>
-        <translation>Выбранная информация о входящих/исходящих</translation>
+        <translation type="vanished">Выбранная информация о входящих/исходящих</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>Хост</translation>
+        <translation type="vanished">Хост</translation>
     </message>
     <message>
         <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-        <translation>Правило без входящего соединения означает, что нет входящего ограничения.</translation>
+        <translation type="vanished">Правило без входящего соединения означает, что нет входящего ограничения.</translation>
     </message>
     <message>
         <source>Edit Selection</source>
-        <translation>Изменение выделения</translation>
+        <translation type="vanished">Изменение выделения</translation>
     </message>
     <message>
         <source>Delete Selection</source>
-        <translation>Удалить выделение</translation>
+        <translation type="vanished">Удалить выделение</translation>
     </message>
     <message>
         <source>General Settings</source>
-        <translation>Общие настройки</translation>
+        <translation type="vanished">Общие настройки</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
-        <translation>Стратегия домена</translation>
+        <translation type="vanished">Стратегия домена</translation>
     </message>
     <message>
         <source>Default Outbound</source>
-        <translation>Исходящий по умолчанию</translation>
+        <translation type="vanished">Исходящий по умолчанию</translation>
     </message>
     <message>
         <source>Rule Order Settings</source>
-        <translation>Настройки заказов</translation>
+        <translation type="vanished">Настройки заказов</translation>
     </message>
     <message>
         <source>Drag and drop to re-order the rules.</source>
-        <translation>Перетащите для изменения порядка правил.</translation>
+        <translation type="vanished">Перетащите для изменения порядка правил.</translation>
     </message>
     <message>
         <source>Rule Settings</source>
-        <translation>Настройки правил</translation>
+        <translation type="vanished">Настройки правил</translation>
     </message>
     <message>
         <source>Rule Status</source>
-        <translation>Правило Статус</translation>
+        <translation type="vanished">Правило Статус</translation>
     </message>
     <message>
         <source>Rule Tag</source>
-        <translation>Тег правила</translation>
+        <translation type="vanished">Тег правила</translation>
     </message>
     <message>
         <source>HTTP</source>
-        <translation>HTTP</translation>
+        <translation type="vanished">HTTP</translation>
     </message>
     <message>
         <source>TLS</source>
-        <translation>TLS</translation>
+        <translation type="vanished">TLS</translation>
     </message>
     <message>
         <source>BitTorrent</source>
-        <translation>BitTorrent</translation>
+        <translation type="vanished">BitTorrent</translation>
     </message>
     <message>
         <source>e.g. 80, 443, 8000-8080</source>
-        <translation>напр. 80, 443, 8000-8080</translation>
+        <translation type="vanished">напр. 80, 443, 8000-8080</translation>
     </message>
     <message>
         <source>Balancers</source>
-        <translation>Балансеры</translation>
+        <translation type="vanished">Балансеры</translation>
     </message>
     <message>
         <source>Users List</source>
-        <translation>Список пользователей</translation>
+        <translation type="vanished">Список пользователей</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3360,82 +2729,30 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Add Rule</source>
-        <translation>Добавить правило</translation>
+        <translation type="vanished">Добавить правило</translation>
     </message>
     <message>
         <source>Add an Inbound</source>
-        <translation>Новый входящий</translation>
+        <translation type="vanished">Новый входящий</translation>
     </message>
     <message>
         <source>Add an Outbound</source>
-        <translation>Новый входящий</translation>
+        <translation type="vanished">Новый входящий</translation>
     </message>
     <message>
         <source>Misc Settings</source>
-        <translation>Прочие настройки</translation>
+        <translation type="vanished">Прочие настройки</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Переименование</translation>
+        <translation type="vanished">Переименование</translation>
     </message>
 </context>
 <context>
     <name>RouteSettingsMatrix</name>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Direct</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Domain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>IP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use built-in route schemes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import route scheme from file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export route scheme to file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Built-in Schemes...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import Scheme...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export Scheme...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Domain Strategy</source>
-        <translation type="unfinished">Стратегия домена</translation>
+        <translation type="obsolete">Стратегия домена</translation>
     </message>
 </context>
 <context>
@@ -3494,41 +2811,41 @@ Maybe you have downloaded the wrong core?</source>
     <name>ScreenShot</name>
     <message>
         <source>ScreenShot</source>
-        <translation>Скриншот</translation>
+        <translation type="vanished">Скриншот</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Размер</translation>
+        <translation type="vanished">Размер</translation>
     </message>
     <message>
         <source>FG</source>
-        <translation>FG</translation>
+        <translation type="vanished">FG</translation>
     </message>
     <message>
         <source>Screen Shot</source>
-        <translation>Снимок экрана</translation>
+        <translation type="vanished">Снимок экрана</translation>
     </message>
 </context>
 <context>
     <name>SpeedPlotView</name>
     <message>
         <source>Total Upload</source>
-        <translation>Всего загружено</translation>
+        <translation type="vanished">Всего загружено</translation>
     </message>
     <message>
         <source>Total Download</source>
-        <translation>Всего скачать</translation>
+        <translation type="vanished">Всего скачать</translation>
     </message>
 </context>
 <context>
     <name>StreamSettingsWidget</name>
     <message>
         <source>Stream Settings Widget</source>
-        <translation>Виджет настроек потока</translation>
+        <translation type="vanished">Виджет настроек потока</translation>
     </message>
     <message>
         <source>Transport Protocol</source>
-        <translation>Транспортный протокол</translation>
+        <translation type="vanished">Транспортный протокол</translation>
     </message>
     <message>
         <source>TLS</source>
@@ -3536,55 +2853,55 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Включено</translation>
+        <translation type="vanished">Включено</translation>
     </message>
     <message>
         <source>TLS Settings</source>
-        <translation>Настройки TLS</translation>
+        <translation type="vanished">Настройки TLS</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation>сервер</translation>
+        <translation type="vanished">сервер</translation>
     </message>
     <message>
         <source>ALPN</source>
-        <translation>ALPN</translation>
+        <translation type="vanished">ALPN</translation>
     </message>
     <message>
         <source>SOCK Options</source>
-        <translation>Опции SOCK</translation>
+        <translation type="vanished">Опции SOCK</translation>
     </message>
     <message>
         <source>Mark</source>
-        <translation>Mark</translation>
+        <translation type="vanished">Mark</translation>
     </message>
     <message>
         <source>TCP Fast Open</source>
-        <translation>TCP Fast Open</translation>
+        <translation type="vanished">TCP Fast Open</translation>
     </message>
     <message>
         <source>Protocol Settings</source>
-        <translation>Настройки протокола</translation>
+        <translation type="vanished">Настройки протокола</translation>
     </message>
     <message>
         <source>Request</source>
-        <translation>Запрос</translation>
+        <translation type="vanished">Запрос</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation type="vanished">Тип</translation>
     </message>
     <message>
         <source>Response</source>
-        <translation>Ответ</translation>
+        <translation type="vanished">Ответ</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>Путь</translation>
+        <translation type="vanished">Путь</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>Имя хоста</translation>
+        <translation type="vanished">Имя хоста</translation>
     </message>
     <message>
         <source>/wsPath</source>
@@ -3592,71 +2909,63 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Headers</source>
-        <translation>Headers</translation>
+        <translation type="vanished">Headers</translation>
     </message>
     <message>
         <source>MTU</source>
-        <translation>мТУ</translation>
+        <translation type="vanished">мТУ</translation>
     </message>
     <message>
         <source>TTI (ms)</source>
-        <translation>TTI (мс)</translation>
+        <translation type="vanished">TTI (мс)</translation>
     </message>
     <message>
         <source>Uplink Capacity (MB/s)</source>
-        <translation>Емкость восходящей линии связи (МБ/с)</translation>
+        <translation type="vanished">Емкость восходящей линии связи (МБ/с)</translation>
     </message>
     <message>
         <source>Congestion</source>
-        <translation>Контроль заторов</translation>
+        <translation type="vanished">Контроль заторов</translation>
     </message>
     <message>
         <source>Downlink Capacity (MB/s)</source>
-        <translation>Емкость нисходящей линии связи (МБ/с)</translation>
+        <translation type="vanished">Емкость нисходящей линии связи (МБ/с)</translation>
     </message>
     <message>
         <source>Read Buffer Size (MB)</source>
-        <translation>Размер буфера чтения (МБ)</translation>
+        <translation type="vanished">Размер буфера чтения (МБ)</translation>
     </message>
     <message>
         <source>Write Buffer Size (MB)</source>
-        <translation>Размер буфера записи (МБ)</translation>
+        <translation type="vanished">Размер буфера записи (МБ)</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>Безопасность</translation>
+        <translation type="vanished">Безопасность</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation>Key</translation>
+        <translation type="vanished">Key</translation>
     </message>
     <message>
         <source>keys</source>
-        <translation>keys</translation>
+        <translation type="vanished">keys</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Редактировать</translation>
+        <translation type="vanished">Редактировать</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>Сброс настроек</translation>
+        <translation type="vanished">Сброс настроек</translation>
     </message>
     <message>
         <source>Allow Insecure Certificates</source>
-        <translation>Разрешить небезопасные сертификаты</translation>
+        <translation type="vanished">Разрешить небезопасные сертификаты</translation>
     </message>
     <message>
         <source>tProxy Mode</source>
-        <translation>Режим tProxy</translation>
-    </message>
-    <message>
-        <source>Enable TLS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Allow Insecure Ciphers</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Режим tProxy</translation>
     </message>
 </context>
 <context>
@@ -3703,81 +3012,69 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>B</source>
         <comment>bytes</comment>
-        <translation>B</translation>
+        <translation type="vanished">B</translation>
     </message>
     <message>
         <source>KiB</source>
         <comment>kibibytes (1024 bytes)</comment>
-        <translation>KiB</translation>
+        <translation type="vanished">KiB</translation>
     </message>
     <message>
         <source>MiB</source>
         <comment>mebibytes (1024 kibibytes)</comment>
-        <translation>MiB</translation>
+        <translation type="vanished">MiB</translation>
     </message>
     <message>
         <source>GiB</source>
         <comment>gibibytes (1024 mibibytes)</comment>
-        <translation>GiB</translation>
+        <translation type="vanished">GiB</translation>
     </message>
     <message>
         <source>TiB</source>
         <comment>tebibytes (1024 gibibytes)</comment>
-        <translation>TiB</translation>
+        <translation type="vanished">TiB</translation>
     </message>
     <message>
         <source>PiB</source>
         <comment>pebibytes (1024 tebibytes)</comment>
-        <translation>PiB</translation>
+        <translation type="vanished">PiB</translation>
     </message>
     <message>
         <source>EiB</source>
         <comment>exbibytes (1024 pebibytes)</comment>
-        <translation>EiB</translation>
+        <translation type="vanished">EiB</translation>
     </message>
     <message>
         <source>/s</source>
         <comment>per second</comment>
-        <translation>/s</translation>
+        <translation type="vanished">/s</translation>
     </message>
 </context>
 <context>
     <name>w_GroupManager</name>
     <message>
-        <source>Group Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add Subscription</source>
-        <translation type="unfinished">Добавить подписку</translation>
+        <translation type="obsolete">Добавить подписку</translation>
     </message>
     <message>
         <source>Remove Subscription</source>
-        <translation type="unfinished">Удалить подписку</translation>
-    </message>
-    <message>
-        <source>Group Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Удалить подписку</translation>
     </message>
     <message>
         <source>Subscription Address</source>
-        <translation type="unfinished">Адрес подписки</translation>
+        <translation type="obsolete">Адрес подписки</translation>
     </message>
     <message>
         <source>Update Interval</source>
-        <translation type="unfinished">Интервалы обновления</translation>
+        <translation type="obsolete">Интервалы обновления</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation type="unfinished">Дней</translation>
+        <translation type="obsolete">Дней</translation>
     </message>
     <message>
         <source>Last Updated</source>
-        <translation type="unfinished">Последнее обновление</translation>
+        <translation type="obsolete">Последнее обновление</translation>
     </message>
     <message>
         <source>Connection List</source>
@@ -3785,110 +3082,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation type="unfinished">Обновить данные подписки</translation>
-    </message>
-    <message>
-        <source>Group Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Created At</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connections</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Обновить данные подписки</translation>
     </message>
     <message>
         <source>Delete Selection</source>
-        <translation type="unfinished">Удалить выделение</translation>
-    </message>
-    <message>
-        <source>Export Selection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subscription Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This group is a subscription</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Удалить выделение</translation>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation type="unfinished">Настройки соединения</translation>
-    </message>
-    <message>
-        <source>Route Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>w_PluginManager</name>
-    <message>
-        <source>Plugin Manager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Author</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Library Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>State</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Capability</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Special Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manually Edit Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin Metadata</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin Not Loaded</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Local Plugin Folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Online help about plugins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>?</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Настройки соединения</translation>
     </message>
 </context>
 <context>

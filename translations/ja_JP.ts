@@ -24,35 +24,35 @@
     <name>ConnectionInfoWidget</name>
     <message>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="vanished">Form</translation>
     </message>
     <message>
         <source>Configuration Details</source>
-        <translation>構成の詳細</translation>
+        <translation type="vanished">構成の詳細</translation>
     </message>
     <message>
         <source>Connect/Disconnect</source>
-        <translation>接続/切断</translation>
+        <translation type="vanished">接続/切断</translation>
     </message>
     <message>
         <source>Edit Connection</source>
-        <translation>項目を編集</translation>
+        <translation type="vanished">項目を編集</translation>
     </message>
     <message>
         <source>Edit Connection as JSON</source>
-        <translation>項目をJSONとして編集</translation>
+        <translation type="vanished">項目をJSONとして編集</translation>
     </message>
     <message>
         <source>Latency Test</source>
-        <translation>遅延テスト</translation>
+        <translation type="vanished">遅延テスト</translation>
     </message>
     <message>
         <source>Delete Connection</source>
-        <translation>項目を削除</translation>
+        <translation type="vanished">項目を削除</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>グループ</translation>
+        <translation type="vanished">グループ</translation>
     </message>
     <message>
         <source>type</source>
@@ -60,7 +60,7 @@
     </message>
     <message>
         <source>Protocol</source>
-        <translation>プロトコル</translation>
+        <translation type="vanished">プロトコル</translation>
     </message>
     <message>
         <source>proto</source>
@@ -68,7 +68,7 @@
     </message>
     <message>
         <source>Address</source>
-        <translation>アドレス</translation>
+        <translation type="vanished">アドレス</translation>
     </message>
     <message>
         <source>addr</source>
@@ -76,7 +76,7 @@
     </message>
     <message>
         <source>Port</source>
-        <translation>ポート</translation>
+        <translation type="vanished">ポート</translation>
     </message>
     <message>
         <source>port</source>
@@ -84,23 +84,23 @@
     </message>
     <message>
         <source>Link</source>
-        <translation>リンク</translation>
+        <translation type="vanished">リンク</translation>
     </message>
     <message>
         <source>QR Code</source>
-        <translation>QRコード</translation>
+        <translation type="vanished">QRコード</translation>
     </message>
     <message>
         <source>Group Name</source>
-        <translation>グループ名</translation>
+        <translation type="vanished">グループ名</translation>
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation>サブスクリプションリンク</translation>
+        <translation type="vanished">サブスクリプションリンク</translation>
     </message>
     <message>
         <source>Share Link</source>
-        <translation>リンクを共有</translation>
+        <translation type="vanished">リンクを共有</translation>
     </message>
     <message>
         <source>(Ignored %1 complex config(s))</source>
@@ -154,34 +154,34 @@
     <name>ConnectionSettingsWidget</name>
     <message>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="vanished">Form</translation>
     </message>
 </context>
 <context>
     <name>ConnectionWidget</name>
     <message>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="vanished">Form</translation>
     </message>
     <message>
         <source>Connection Name</source>
-        <translation>接続名</translation>
+        <translation type="vanished">接続名</translation>
     </message>
     <message>
         <source>500ms</source>
-        <translation>500ms</translation>
+        <translation type="vanished">500ms</translation>
     </message>
     <message>
         <source>Type: vmess + tls + ws</source>
-        <translation>タイプ: vmess + tls + ws</translation>
+        <translation type="vanished">タイプ: vmess + tls + ws</translation>
     </message>
     <message>
         <source>0KB / 0KB</source>
-        <translation>0KB / 0KB</translation>
+        <translation type="vanished">0KB / 0KB</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="vanished">OK</translation>
     </message>
 </context>
 <context>
@@ -264,52 +264,60 @@
         <source>Move to...</source>
         <translation>移動して...</translation>
     </message>
+    <message>
+        <source>Link to...</source>
+        <translation>リンクして...</translation>
+    </message>
+    <message>
+        <source>New Group</source>
+        <translation>新しいグループ</translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
     <message>
         <source>Import file</source>
-        <translation>インポートファイル</translation>
+        <translation type="vanished">インポートファイル</translation>
     </message>
     <message>
         <source>Name/Prefix</source>
-        <translation>名前/プレフィックス</translation>
+        <translation type="vanished">名前/プレフィックス</translation>
     </message>
     <message>
         <source>Import Source</source>
-        <translation>インポート元</translation>
+        <translation type="vanished">インポート元</translation>
     </message>
     <message>
         <source>Existing File</source>
-        <translation>既存のファイル</translation>
+        <translation type="vanished">既存のファイル</translation>
     </message>
     <message>
         <source> secs</source>
-        <translation> 秒</translation>
+        <translation type="vanished"> 秒</translation>
     </message>
     <message>
         <source>Hide Qv2ray</source>
-        <translation>Qv2rayを非表示</translation>
+        <translation type="vanished">Qv2rayを非表示</translation>
     </message>
     <message>
         <source>Share Link</source>
-        <translation>リンク共有</translation>
+        <translation type="vanished">リンク共有</translation>
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation>サブスクリプションリンク</translation>
+        <translation type="vanished">サブスクリプションリンク</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>インポート</translation>
+        <translation type="vanished">インポート</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>パス</translation>
+        <translation type="vanished">パス</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation>選択</translation>
+        <translation type="vanished">選択</translation>
     </message>
     <message>
         <source>Inbound</source>
@@ -329,11 +337,11 @@
     </message>
     <message>
         <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-        <translation>複雑構成としてインポート（ルーティングルールとインバウンドを手動で編集）</translation>
+        <translation type="vanished">複雑構成としてインポート（ルーティングルールとインバウンドを手動で編集）</translation>
     </message>
     <message>
         <source>VMess / QRCode</source>
-        <translation>VMess / QRCode</translation>
+        <translation type="vanished">VMess / QRCode</translation>
     </message>
     <message>
         <source>VMess Connection String</source>
@@ -349,7 +357,7 @@
     </message>
     <message>
         <source>Go</source>
-        <translation>実行</translation>
+        <translation type="vanished">実行</translation>
     </message>
     <message>
         <source>After</source>
@@ -361,43 +369,43 @@
     </message>
     <message>
         <source>Error List</source>
-        <translation>エラーリスト</translation>
+        <translation type="vanished">エラーリスト</translation>
     </message>
     <message>
         <source>Subscriptions / Manually Input</source>
-        <translation>サブスクリプション/手動入力</translation>
+        <translation type="vanished">サブスクリプション/手動入力</translation>
     </message>
     <message>
         <source>Manually Input Connections</source>
-        <translation>接続を手動で入力する</translation>
+        <translation type="vanished">接続を手動で入力する</translation>
     </message>
     <message>
         <source>Route Editor</source>
-        <translation>ルーティングエディター</translation>
+        <translation type="vanished">ルーティングエディター</translation>
     </message>
     <message>
         <source>Open Route Editor</source>
-        <translation>ルーティングエディターを開く</translation>
+        <translation type="vanished">ルーティングエディターを開く</translation>
     </message>
     <message>
         <source>Subscription Manager</source>
-        <translation>サブスクリプションマネージャー</translation>
+        <translation type="vanished">サブスクリプションマネージャー</translation>
     </message>
     <message>
         <source>Open Subscription Manager</source>
-        <translation>サブスクリプションマネージャーを開く</translation>
+        <translation type="vanished">サブスクリプションマネージャーを開く</translation>
     </message>
     <message>
         <source>Connection Editor</source>
-        <translation>接続エディター</translation>
+        <translation type="vanished">接続エディター</translation>
     </message>
     <message>
         <source>Open Connection Editor</source>
-        <translation>接続エディターを開く</translation>
+        <translation type="vanished">接続エディターを開く</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation type="vanished">キャンセル</translation>
     </message>
     <message>
         <source>Select file to import</source>
@@ -449,218 +457,218 @@
     </message>
     <message>
         <source>QRCode File</source>
-        <translation>QRコード画像ファイル</translation>
+        <translation type="vanished">QRコード画像ファイル</translation>
     </message>
     <message>
         <source>Screenshot</source>
-        <translation>スクリーンショット</translation>
+        <translation type="vanished">スクリーンショット</translation>
     </message>
     <message>
         <source>Delay</source>
-        <translation>後</translation>
+        <translation type="vanished">後</translation>
     </message>
     <message>
         <source>Json Editor</source>
-        <translation>JSONエディター</translation>
+        <translation type="vanished">JSONエディター</translation>
     </message>
     <message>
         <source>Open JSON Editor</source>
-        <translation>JSONエディターを開く</translation>
+        <translation type="vanished">JSONエディターを開く</translation>
     </message>
     <message>
         <source>A prefix to the imported connection</source>
-        <translation>インポート接続のプレフィックス</translation>
+        <translation type="vanished">インポート接続のプレフィックス</translation>
     </message>
     <message>
         <source>Connection Share Link</source>
-        <translation>接続共有リンク</translation>
+        <translation type="vanished">接続共有リンク</translation>
     </message>
     <message>
         <source>Paste share link here, one line for each.</source>
-        <translation>ここに vmess:// を1行ずつ貼り付けます。</translation>
+        <translation type="vanished">ここに vmess:// を1行ずつ貼り付けます。</translation>
     </message>
 </context>
 <context>
     <name>InboundEditor</name>
     <message>
         <source>Inbound Editor</source>
-        <translation>インバウンドエディター</translation>
+        <translation type="vanished">インバウンドエディター</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation>タグ</translation>
+        <translation type="vanished">タグ</translation>
     </message>
     <message>
         <source>Tag of this inbound entry</source>
-        <translation>このインバウンドエントリのタグ</translation>
+        <translation type="vanished">このインバウンドエントリのタグ</translation>
     </message>
     <message>
         <source>Listening</source>
-        <translation>リスニング</translation>
+        <translation type="vanished">リスニング</translation>
     </message>
     <message>
         <source>Hostname or IP Address</source>
-        <translation>ホスト名またはIPアドレス</translation>
+        <translation type="vanished">ホスト名またはIPアドレス</translation>
     </message>
     <message>
         <source>:</source>
-        <translation>:</translation>
+        <translation type="vanished">:</translation>
     </message>
     <message>
         <source>Port: 1080|80-85</source>
-        <translation>ポート: 1080|80-85</translation>
+        <translation type="vanished">ポート: 1080|80-85</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation>プロトコル</translation>
+        <translation type="vanished">プロトコル</translation>
     </message>
     <message>
         <source>Allocation Settings</source>
-        <translation>割り当て設定</translation>
+        <translation type="vanished">割り当て設定</translation>
     </message>
     <message>
         <source>Strategy</source>
-        <translation>ルール</translation>
+        <translation type="vanished">ルール</translation>
     </message>
     <message>
         <source>always</source>
-        <translation>always</translation>
+        <translation type="vanished">always</translation>
     </message>
     <message>
         <source>random</source>
-        <translation>random</translation>
+        <translation type="vanished">random</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation>リフレッシュ</translation>
+        <translation type="vanished">リフレッシュ</translation>
     </message>
     <message>
         <source>Concurrency</source>
-        <translation>同時接続数</translation>
+        <translation type="vanished">同時接続数</translation>
     </message>
     <message>
         <source>Sniffing Settings</source>
-        <translation>フィルター設定</translation>
+        <translation type="vanished">フィルター設定</translation>
     </message>
     <message>
         <source>Destination Override</source>
-        <translation>目標上書き</translation>
+        <translation type="vanished">目標上書き</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>有効</translation>
+        <translation type="vanished">有効</translation>
     </message>
     <message>
         <source>HTTP Inbound Settings</source>
-        <translation>HTTPインバウンド設定</translation>
+        <translation type="vanished">HTTPインバウンド設定</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation>タイムアウト</translation>
+        <translation type="vanished">タイムアウト</translation>
     </message>
     <message>
         <source>Allow Transparent</source>
-        <translation>透明を許可</translation>
+        <translation type="vanished">透明を許可</translation>
     </message>
     <message>
         <source>User Level</source>
-        <translation>ユーザーレベル</translation>
+        <translation type="vanished">ユーザーレベル</translation>
     </message>
     <message>
         <source>-</source>
-        <translation>-</translation>
+        <translation type="vanished">-</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>パスワード</translation>
+        <translation type="vanished">パスワード</translation>
     </message>
     <message>
         <source>+</source>
-        <translation>+</translation>
+        <translation type="vanished">+</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>追加</translation>
+        <translation type="vanished">追加</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>ユーザー名</translation>
+        <translation type="vanished">ユーザー名</translation>
     </message>
     <message>
         <source>Accounts</source>
-        <translation>アカウント</translation>
+        <translation type="vanished">アカウント</translation>
     </message>
     <message>
         <source>SOCKS Inbound Settings</source>
-        <translation>SOCKSインバウンド設定</translation>
+        <translation type="vanished">SOCKSインバウンド設定</translation>
     </message>
     <message>
         <source>Auth</source>
-        <translation>認証</translation>
+        <translation type="vanished">認証</translation>
     </message>
     <message>
         <source>Enable UDP</source>
-        <translation>UDPを有効にする</translation>
+        <translation type="vanished">UDPを有効にする</translation>
     </message>
     <message>
         <source>Local UDP IP</source>
-        <translation>ローカルUDP IP</translation>
+        <translation type="vanished">ローカルUDP IP</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Dokodemo-Door Inbound Settings</source>
-        <translation>どこでもドアのインバウンド設定</translation>
+        <translation type="vanished">どこでもドアのインバウンド設定</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation>IPアドレス</translation>
+        <translation type="vanished">IPアドレス</translation>
     </message>
     <message>
         <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-        <translation>「リダイレクトに従う」を設定する場合は不要</translation>
+        <translation type="vanished">「リダイレクトに従う」を設定する場合は不要</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>ポート</translation>
+        <translation type="vanished">ポート</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation>ネットワーク</translation>
+        <translation type="vanished">ネットワーク</translation>
     </message>
     <message>
         <source>TCP</source>
-        <translation>TCP</translation>
+        <translation type="vanished">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation>UDP</translation>
+        <translation type="vanished">UDP</translation>
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation>リダイレクトに従う</translation>
+        <translation type="vanished">リダイレクトに従う</translation>
     </message>
     <message>
         <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-        <translation>tProxyを使用する場合は、設定ウィンドウに移動してこの機能を有効にしてください。</translation>
+        <translation type="vanished">tProxyを使用する場合は、設定ウィンドウに移動してこの機能を有効にしてください。</translation>
     </message>
     <message>
         <source>MTProto Inbound Settings</source>
-        <translation>MTProtoインバウンド設定</translation>
+        <translation type="vanished">MTProtoインバウンド設定</translation>
     </message>
     <message>
         <source>EMail Address</source>
-        <translation>電子メールアドレス</translation>
+        <translation type="vanished">電子メールアドレス</translation>
     </message>
     <message>
         <source>Secret</source>
-        <translation>Secret</translation>
+        <translation type="vanished">Secret</translation>
     </message>
     <message>
         <source>SECRET</source>
-        <translation>SECRET</translation>
+        <translation type="vanished">SECRET</translation>
     </message>
     <message>
         <source>Inbound type not supported</source>
@@ -695,7 +703,7 @@
     <name>InboundSettingsWidget</name>
     <message>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="vanished">Form</translation>
     </message>
 </context>
 <context>
@@ -706,19 +714,19 @@
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="vanished">OK</translation>
     </message>
     <message>
         <source>Json Structure Preview</source>
-        <translation>JSON構造プレビュー</translation>
+        <translation type="vanished">JSON構造プレビュー</translation>
     </message>
     <message>
         <source>Format JSON</source>
-        <translation>JSON初期化</translation>
+        <translation type="vanished">JSON初期化</translation>
     </message>
     <message>
         <source>Json Editor</source>
-        <translation>JSONエディター</translation>
+        <translation type="vanished">JSONエディター</translation>
     </message>
     <message>
         <source>Json Contains Syntax Errors</source>
@@ -750,18 +758,18 @@
     </message>
     <message>
         <source>JSON Editor</source>
-        <translation>JSONエディター</translation>
+        <translation type="vanished">JSONエディター</translation>
     </message>
     <message>
         <source>Remove All Comments</source>
-        <translation>コメントを全削除</translation>
+        <translation type="vanished">コメントを全削除</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
+        <translation type="vanished">Qv2ray</translation>
     </message>
     <message>
         <source>Connect</source>
@@ -881,39 +889,39 @@
     </message>
     <message>
         <source>Locate Current Connection</source>
-        <translation>現在の接続先を特定する</translation>
+        <translation type="vanished">現在の接続先を特定する</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>検索</translation>
+        <translation type="vanished">検索</translation>
     </message>
     <message>
         <source>Import Connection</source>
-        <translation>項目をインポート</translation>
+        <translation type="vanished">項目をインポート</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation>並べ替え</translation>
+        <translation type="vanished">並べ替え</translation>
     </message>
     <message>
         <source>Click to toggle show/hide</source>
-        <translation>クリックして表示/非表示を切り替えます</translation>
+        <translation type="vanished">クリックして表示/非表示を切り替えます</translation>
     </message>
     <message>
         <source>  Speed Graph</source>
-        <translation>  転送量図</translation>
+        <translation type="vanished">  転送量図</translation>
     </message>
     <message>
         <source>Clear chart data</source>
-        <translation>チャートデータをクリア</translation>
+        <translation type="vanished">チャートデータをクリア</translation>
     </message>
     <message>
         <source>  Log</source>
-        <translation>  ログ</translation>
+        <translation type="vanished">  ログ</translation>
     </message>
     <message>
         <source>Clear log</source>
-        <translation>ログをクリア</translation>
+        <translation type="vanished">ログをクリア</translation>
     </message>
     <message>
         <source>Not Connected</source>
@@ -921,30 +929,30 @@
     </message>
     <message>
         <source>Speed</source>
-        <translation>回線速度</translation>
+        <translation type="vanished">回線速度</translation>
     </message>
     <message>
         <source>Upload/Download speed</source>
-        <translation>アップロード/ダウンロード速度</translation>
+        <translation type="vanished">アップロード/ダウンロード速度</translation>
     </message>
     <message>
         <source>0.00 B/s
 0.00 B/s</source>
-        <translation>0.00 B/s
+        <translation type="vanished">0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation>転送量</translation>
+        <translation type="vanished">転送量</translation>
     </message>
     <message>
         <source>Upload/Download Data</source>
-        <translation>アップロード/ダウンロード転送量</translation>
+        <translation type="vanished">アップロード/ダウンロード転送量</translation>
     </message>
     <message>
         <source>0.00 B
 0.00 B</source>
-        <translation>0.00 B
+        <translation type="vanished">0.00 B
 0.00 B</translation>
     </message>
     <message>
@@ -1361,102 +1369,102 @@
     </message>
     <message>
         <source>Plugins</source>
-        <translation>プラグイン</translation>
+        <translation type="vanished">プラグイン</translation>
     </message>
     <message>
         <source>Groups</source>
-        <translation>グループ</translation>
+        <translation type="vanished">グループ</translation>
     </message>
     <message>
         <source>Add Connection</source>
-        <translation>項目を作成</translation>
+        <translation type="vanished">項目を作成</translation>
     </message>
 </context>
 <context>
     <name>OutboundEditor</name>
     <message>
         <source>Tag</source>
-        <translation>タグ</translation>
+        <translation type="vanished">タグ</translation>
     </message>
     <message>
         <source>Tag of this outbound setting</source>
-        <translation>このアウトバウンド設定のタグ</translation>
+        <translation type="vanished">このアウトバウンド設定のタグ</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>ホスト</translation>
+        <translation type="vanished">ホスト</translation>
     </message>
     <message>
         <source>Hostname or IP/IPv6 Address</source>
-        <translation>ホスト名またはIPv4 / IPv6アドレス</translation>
+        <translation type="vanished">ホスト名またはIPv4 / IPv6アドレス</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>ポート</translation>
+        <translation type="vanished">ポート</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>タイプ</translation>
+        <translation type="vanished">タイプ</translation>
     </message>
     <message>
         <source>Socks</source>
-        <translation>Socks</translation>
+        <translation type="vanished">Socks</translation>
     </message>
     <message>
         <source>Use Mux</source>
-        <translation>Muxを使う</translation>
+        <translation type="vanished">Muxを使う</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>有効</translation>
+        <translation type="vanished">有効</translation>
     </message>
     <message>
         <source>Edit Connection Settings</source>
-        <translation>接続設定の編集</translation>
+        <translation type="vanished">接続設定の編集</translation>
     </message>
     <message>
         <source>Stream Settings</source>
-        <translation>ストリーム設定</translation>
+        <translation type="vanished">ストリーム設定</translation>
     </message>
     <message>
         <source>Misc Settings</source>
-        <translation>その他の設定</translation>
+        <translation type="vanished">その他の設定</translation>
     </message>
     <message>
         <source>Mux Concurrency</source>
-        <translation>Muxの同時接続数</translation>
+        <translation type="vanished">Muxの同時接続数</translation>
     </message>
     <message>
         <source>Use Forward Proxy</source>
-        <translation>フォワードプロキシを使う</translation>
+        <translation type="vanished">フォワードプロキシを使う</translation>
     </message>
     <message>
         <source>Outbound Settings</source>
-        <translation>アウトバウンド設定</translation>
+        <translation type="vanished">アウトバウンド設定</translation>
     </message>
     <message>
         <source>UUID</source>
-        <translation>UUID</translation>
+        <translation type="vanished">UUID</translation>
     </message>
     <message>
         <source>Alter ID</source>
-        <translation>アルターID</translation>
+        <translation type="vanished">アルターID</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>セキュリティ</translation>
+        <translation type="vanished">セキュリティ</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation>電子メール</translation>
+        <translation type="vanished">電子メール</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>パスワード</translation>
+        <translation type="vanished">パスワード</translation>
     </message>
     <message>
         <source>Encryption Method</source>
-        <translation>暗号化方法</translation>
+        <translation type="vanished">暗号化方法</translation>
     </message>
     <message>
         <source>chacha20-ietf-poly1305</source>
@@ -1464,15 +1472,15 @@
     </message>
     <message>
         <source>Level</source>
-        <translation>レベル</translation>
+        <translation type="vanished">レベル</translation>
     </message>
     <message>
         <source>OTA</source>
-        <translation>OTA</translation>
+        <translation type="vanished">OTA</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>ユーザー名</translation>
+        <translation type="vanished">ユーザー名</translation>
     </message>
     <message>
         <source>Unknown outbound type.</source>
@@ -1542,51 +1550,51 @@
     </message>
     <message>
         <source>UI Theme</source>
-        <translation>UIテーマ</translation>
+        <translation type="vanished">UIテーマ</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>有効</translation>
+        <translation type="vanished">有効</translation>
     </message>
     <message>
         <source>Darkmode UI Icons</source>
-        <translation>ダークモードUIアイコン</translation>
+        <translation type="vanished">ダークモードUIアイコン</translation>
     </message>
     <message>
         <source>Darkmode Tray Icon</source>
-        <translation>ダークモードトレイアイコン</translation>
+        <translation type="vanished">ダークモードトレイアイコン</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation>言語</translation>
+        <translation type="vanished">言語</translation>
     </message>
     <message>
         <source>Log Level</source>
-        <translation>ログレベル</translation>
+        <translation type="vanished">ログレベル</translation>
     </message>
     <message>
         <source>none</source>
-        <translation>なし</translation>
+        <translation type="vanished">なし</translation>
     </message>
     <message>
         <source>debug</source>
-        <translation>デバッグ</translation>
+        <translation type="vanished">デバッグ</translation>
     </message>
     <message>
         <source>info</source>
-        <translation>info</translation>
+        <translation type="vanished">info</translation>
     </message>
     <message>
         <source>warning</source>
-        <translation>警告</translation>
+        <translation type="vanished">警告</translation>
     </message>
     <message>
         <source>error</source>
-        <translation>エラー</translation>
+        <translation type="vanished">エラー</translation>
     </message>
     <message>
         <source>Config</source>
-        <translation>項目</translation>
+        <translation type="vanished">項目</translation>
     </message>
     <message>
         <source>Subscription</source>
@@ -1594,23 +1602,23 @@
     </message>
     <message>
         <source>Select</source>
-        <translation>選択</translation>
+        <translation type="vanished">選択</translation>
     </message>
     <message>
         <source>Auto Connect</source>
-        <translation>自動接続</translation>
+        <translation type="vanished">自動接続</translation>
     </message>
     <message>
         <source>Inbound Settings</source>
-        <translation>インバウンド設定</translation>
+        <translation type="vanished">インバウンド設定</translation>
     </message>
     <message>
         <source>Listening Address</source>
-        <translation>リスニングアドレス</translation>
+        <translation type="vanished">リスニングアドレス</translation>
     </message>
     <message>
         <source>HTTP</source>
-        <translation>HTTP</translation>
+        <translation type="vanished">HTTP</translation>
     </message>
     <message>
         <source>SOCKS</source>
@@ -1618,23 +1626,23 @@
     </message>
     <message>
         <source>Set System Proxy</source>
-        <translation>システムプロキシに設定する</translation>
+        <translation type="vanished">システムプロキシに設定する</translation>
     </message>
     <message>
         <source>SOCKS Settings</source>
-        <translation>SOCKS設定</translation>
+        <translation type="vanished">SOCKS設定</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>ポート</translation>
+        <translation type="vanished">ポート</translation>
     </message>
     <message>
         <source>UDP Support</source>
-        <translation>UDPサポート</translation>
+        <translation type="vanished">UDPサポート</translation>
     </message>
     <message>
         <source>Launch at Login</source>
-        <translation>ログイン時に起動</translation>
+        <translation type="vanished">ログイン時に起動</translation>
     </message>
     <message>
         <source>API Subsystem</source>
@@ -1642,19 +1650,19 @@
     </message>
     <message>
         <source>Authentication</source>
-        <translation>認証</translation>
+        <translation type="vanished">認証</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>ユーザー名</translation>
+        <translation type="vanished">ユーザー名</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>パスワード</translation>
+        <translation type="vanished">パスワード</translation>
     </message>
     <message>
         <source>HTTP Settings</source>
-        <translation>HTTP設定</translation>
+        <translation type="vanished">HTTP設定</translation>
     </message>
     <message>
         <source>PAC Settings</source>
@@ -1670,7 +1678,7 @@
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Use Proxy</source>
@@ -1730,15 +1738,15 @@
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>接続設定</translation>
+        <translation type="vanished">接続設定</translation>
     </message>
     <message>
         <source>General Connection Settings</source>
-        <translation>一般接続設定</translation>
+        <translation type="vanished">一般接続設定</translation>
     </message>
     <message>
         <source>Enable Proxy</source>
-        <translation>プロキシを有効にする</translation>
+        <translation type="vanished">プロキシを有効にする</translation>
     </message>
     <message>
         <source>Bypass Chinese Mainland</source>
@@ -1746,91 +1754,91 @@
     </message>
     <message>
         <source>API Port</source>
-        <translation>APIポート</translation>
+        <translation type="vanished">APIポート</translation>
     </message>
     <message>
         <source>Use Local DNS</source>
-        <translation>ローカルDNSを使用する</translation>
+        <translation type="vanished">ローカルDNSを使用する</translation>
     </message>
     <message>
         <source>Custom DNS List</source>
-        <translation>カスタムDNSリスト</translation>
+        <translation type="vanished">カスタムDNSリスト</translation>
     </message>
     <message>
         <source>Forward Proxy</source>
-        <translation>フォワードプロキシ</translation>
+        <translation type="vanished">フォワードプロキシ</translation>
     </message>
     <message>
         <source>Only simple config is supported.</source>
-        <translation>簡易構成のみがサポートされています。</translation>
+        <translation type="vanished">簡易構成のみがサポートされています。</translation>
     </message>
     <message>
         <source>Build Info</source>
-        <translation>ビルド情報</translation>
+        <translation type="vanished">ビルド情報</translation>
     </message>
     <message>
         <source>Extra Build Info</source>
-        <translation>追加ビルド情報</translation>
+        <translation type="vanished">追加ビルド情報</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>タイプ</translation>
+        <translation type="vanished">タイプ</translation>
     </message>
     <message>
         <source>Socks</source>
-        <translation>Socks</translation>
+        <translation type="vanished">Socks</translation>
     </message>
     <message>
         <source>Host Address</source>
-        <translation>ホストアドレス</translation>
+        <translation type="vanished">ホストアドレス</translation>
     </message>
     <message>
         <source>Network Toolbar Settings</source>
-        <translation>ネットワークツールバーの設定</translation>
+        <translation type="vanished">ネットワークツールバーの設定</translation>
     </message>
     <message>
         <source>Apply Network Speed Bar UI Settings</source>
-        <translation>ネットワークスピードバーのUI設定を適用する</translation>
+        <translation type="vanished">ネットワークスピードバーのUI設定を適用する</translation>
     </message>
     <message>
         <source>Items</source>
-        <translation>アイテム</translation>
+        <translation type="vanished">アイテム</translation>
     </message>
     <message>
         <source>General Settings</source>
-        <translation>一般設定</translation>
+        <translation type="vanished">一般設定</translation>
     </message>
     <message>
         <source>Maximum log lines</source>
-        <translation>最大ログ行</translation>
+        <translation type="vanished">最大ログ行</translation>
     </message>
     <message>
         <source> lines</source>
-        <translation> 行</translation>
+        <translation type="vanished"> 行</translation>
     </message>
     <message>
         <source>V2ray Settings</source>
-        <translation>V2ray設定</translation>
+        <translation type="vanished">V2ray設定</translation>
     </message>
     <message>
         <source>Core Executable Path</source>
-        <translation>コア実行可能ファイルパス</translation>
+        <translation type="vanished">コア実行可能ファイルパス</translation>
     </message>
     <message>
         <source>V2ray Assets Directory</source>
-        <translation>V2rayアセットフォルダー</translation>
+        <translation type="vanished">V2rayアセットフォルダー</translation>
     </message>
     <message>
         <source>Check V2ray Core Settings</source>
-        <translation>V2ray Core設定を確認する</translation>
+        <translation type="vanished">V2ray Core設定を確認する</translation>
     </message>
     <message>
         <source>UDP Local IP</source>
-        <translation>UDP ローカル IP</translation>
+        <translation type="vanished">UDP ローカル IP</translation>
     </message>
     <message>
         <source>Transparent Proxy Settings</source>
-        <translation>透過プロキシ設定</translation>
+        <translation type="vanished">透過プロキシ設定</translation>
     </message>
     <message>
         <source>All settings below will only be applied onto simple connection.</source>
@@ -1846,15 +1854,15 @@
     </message>
     <message>
         <source>TCP</source>
-        <translation>TCP</translation>
+        <translation type="vanished">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation>UDP</translation>
+        <translation type="vanished">UDP</translation>
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation>リダイレクトに従う</translation>
+        <translation type="vanished">リダイレクトに従う</translation>
     </message>
     <message>
         <source>Override Connection SockOpt Settings</source>
@@ -1882,11 +1890,11 @@
     </message>
     <message>
         <source>-</source>
-        <translation>-</translation>
+        <translation type="vanished">-</translation>
     </message>
     <message>
         <source>+</source>
-        <translation>+</translation>
+        <translation type="vanished">+</translation>
     </message>
     <message>
         <source>Page Y Offset</source>
@@ -1894,55 +1902,55 @@
     </message>
     <message>
         <source>Pages</source>
-        <translation>ページ数</translation>
+        <translation type="vanished">ページ数</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation>行</translation>
+        <translation type="vanished">行</translation>
     </message>
     <message>
         <source>This feature is not stable and no documentation is provided, please use it at your own risk!</source>
-        <translation>この機能は安定しておらず、ドキュメントも提供されていません。自己責任で使用してください！</translation>
+        <translation type="vanished">この機能は安定しておらず、ドキュメントも提供されていません。自己責任で使用してください！</translation>
     </message>
     <message>
         <source>Text Style</source>
-        <translation>テキストスタイル</translation>
+        <translation type="vanished">テキストスタイル</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>フォント</translation>
+        <translation type="vanished">フォント</translation>
     </message>
     <message>
         <source>Bold</source>
-        <translation>Bold</translation>
+        <translation type="vanished">Bold</translation>
     </message>
     <message>
         <source>Italic</source>
-        <translation>斜体</translation>
+        <translation type="vanished">斜体</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>サイズ</translation>
+        <translation type="vanished">サイズ</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>色</translation>
+        <translation type="vanished">色</translation>
     </message>
     <message>
         <source>A:</source>
-        <translation>A:</translation>
+        <translation type="vanished">A:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation type="vanished">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation type="vanished">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation type="vanished">B:</translation>
     </message>
     <message>
         <source>...</source>
@@ -1950,35 +1958,35 @@
     </message>
     <message>
         <source>Style</source>
-        <translation>スタイル</translation>
+        <translation type="vanished">スタイル</translation>
     </message>
     <message>
         <source>Content</source>
-        <translation>コンテンツ</translation>
+        <translation type="vanished">コンテンツ</translation>
     </message>
     <message>
         <source>Content Type</source>
-        <translation>コンテンツタイプ</translation>
+        <translation type="vanished">コンテンツタイプ</translation>
     </message>
     <message>
         <source>Text/Tag</source>
-        <translation>テキスト/タグ</translation>
+        <translation type="vanished">テキスト/タグ</translation>
     </message>
     <message>
         <source>You can config how the network speed toolbar looks like in this panel</source>
-        <translation>このパネルでは、ネットワーク速度ツールバーの外観を設定できます</translation>
+        <translation type="vanished">このパネルでは、ネットワーク速度ツールバーの外観を設定できます</translation>
     </message>
     <message>
         <source>About</source>
-        <translation>このソフトについて</translation>
+        <translation type="vanished">このソフトについて</translation>
     </message>
     <message>
         <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
+        <translation type="vanished">Qv2ray</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation>バージョン：</translation>
+        <translation type="vanished">バージョン：</translation>
     </message>
     <message>
         <source>Official Repo:</source>
@@ -1998,23 +2006,23 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation type="vanished">キャンセル</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>Qtについて</translation>
+        <translation type="vanished">Qtについて</translation>
     </message>
     <message>
         <source>Use Darkmode Theme</source>
-        <translation>ダークモードテーマを使用する</translation>
+        <translation type="vanished">ダークモードテーマを使用する</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>ページ</translation>
+        <translation type="vanished">ページ</translation>
     </message>
     <message>
         <source>Item(s)</source>
-        <translation>アイテム</translation>
+        <translation type="vanished">アイテム</translation>
     </message>
     <message>
         <source>Enable tProxy Support</source>
@@ -2026,7 +2034,7 @@
     </message>
     <message>
         <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
-        <translation>Qv2rayネットワークツールバーは無効になっており、まだテスト中です。 --withToolbarPluginを追加して有効にします。</translation>
+        <translation type="vanished">Qv2rayネットワークツールバーは無効になっており、まだテスト中です。 --withToolbarPluginを追加して有効にします。</translation>
     </message>
     <message>
         <source>Version: %1</source>
@@ -2078,15 +2086,15 @@
     </message>
     <message>
         <source>Apply network toolbar settings</source>
-        <translation>ネットワークツールバー設定を適用する</translation>
+        <translation type="vanished">ネットワークツールバー設定を適用する</translation>
     </message>
     <message>
         <source>All other modified settings will be applied as well after this object.</source>
-        <translation>All other modified settings will be applied as well after this object.</translation>
+        <translation type="vanished">All other modified settings will be applied as well after this object.</translation>
     </message>
     <message>
         <source>Do you want to continue?</source>
-        <translation>続けますか？</translation>
+        <translation type="vanished">続けますか？</translation>
     </message>
     <message>
         <source>Dangerous Operation</source>
@@ -2170,7 +2178,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Bypass CN Mainland</source>
-        <translation>中国本土をバイパス</translation>
+        <translation type="vanished">中国本土をバイパス</translation>
     </message>
     <message>
         <source>Blocked Domains</source>
@@ -2186,11 +2194,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Advanced Route Settings</source>
-        <translation>ルート詳細設定</translation>
+        <translation type="vanished">ルート詳細設定</translation>
     </message>
     <message>
         <source>You can configure route rules for all simple connection config here.</source>
-        <translation>ここで、すべての簡易構成のルーティングルールを設定できます。</translation>
+        <translation type="vanished">ここで、すべての簡易構成のルーティングルールを設定できます。</translation>
     </message>
     <message>
         <source>Connection</source>
@@ -2202,15 +2210,15 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>License</source>
-        <translation>ライセンス</translation>
+        <translation type="vanished">ライセンス</translation>
     </message>
     <message>
         <source>Official Repo</source>
-        <translation>公式レポ</translation>
+        <translation type="vanished">公式レポ</translation>
     </message>
     <message>
         <source>Built Time</source>
-        <translation>ビルド時間</translation>
+        <translation type="vanished">ビルド時間</translation>
     </message>
     <message>
         <source>Update Settings</source>
@@ -2218,35 +2226,35 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Update Channel</source>
-        <translation>更新チャネル</translation>
+        <translation type="vanished">更新チャネル</translation>
     </message>
     <message>
         <source>Stable Release</source>
-        <translation>安定版</translation>
+        <translation type="vanished">安定版</translation>
     </message>
     <message>
         <source>Testing</source>
-        <translation>テスト版</translation>
+        <translation type="vanished">テスト版</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation>外観</translation>
+        <translation type="vanished">外観</translation>
     </message>
     <message>
         <source>Behavior</source>
-        <translation>動作</translation>
+        <translation type="vanished">動作</translation>
     </message>
     <message>
         <source>Transparent Proxy</source>
-        <translation>透過型プロキシ</translation>
+        <translation type="vanished">透過型プロキシ</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>グループ</translation>
+        <translation type="vanished">グループ</translation>
     </message>
     <message>
         <source>Network Settings</source>
-        <translation>ネットワーク設定</translation>
+        <translation type="vanished">ネットワーク設定</translation>
     </message>
     <message>
         <source>Use Custom Proxy</source>
@@ -2258,7 +2266,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>:</source>
-        <translation>:</translation>
+        <translation type="vanished">:</translation>
     </message>
     <message>
         <source>Proxy Type</source>
@@ -2266,27 +2274,27 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>User-Agent</source>
-        <translation>ユーザーエージェント</translation>
+        <translation type="vanished">ユーザーエージェント</translation>
     </message>
     <message>
         <source>Kernel Settings</source>
-        <translation>カーネル設定</translation>
+        <translation type="vanished">カーネル設定</translation>
     </message>
     <message>
         <source>API SubSystem</source>
-        <translation>サブシステムAPI</translation>
+        <translation type="vanished">サブシステムAPI</translation>
     </message>
     <message>
         <source>Plugin Kernel Settings</source>
-        <translation>プラグインのカーネル設定</translation>
+        <translation type="vanished">プラグインのカーネル設定</translation>
     </message>
     <message>
         <source>Enabling V2ray Integration will allow the kernel benefit from the V2ray routing engine.</source>
-        <translation>V2Ray統合を有効にすると、カーネルはV2Rayルーティングエンジンの恩恵を受けることができます。</translation>
+        <translation type="vanished">V2Ray統合を有効にすると、カーネルはV2Rayルーティングエンジンの恩恵を受けることができます。</translation>
     </message>
     <message>
         <source>V2ray Integration</source>
-        <translation>V2Rayの統合</translation>
+        <translation type="vanished">V2Rayの統合</translation>
     </message>
     <message>
         <source>If not checked, these features will be disabled:
@@ -2295,7 +2303,7 @@ Advanced Routing Settings
 Bypass CN websites and IPs
 Direct connection of Local LAN addresses
 Custom DNS Settings</source>
-        <translation>有効にしないと、これらの機能は無効になります：
+        <translation type="vanished">有効にしないと、これらの機能は無効になります：
 
 高度なルーティング設定
 中国本土のウェブサイトおよびIPバイパス
@@ -2304,11 +2312,11 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</source>
-        <translation>有効な場合、Qv2ray は各カーネルプラグインにそれぞれ HTTP と SOCKS 用のポートを割り当てます。</translation>
+        <translation type="vanished">有効な場合、Qv2ray は各カーネルプラグインにそれぞれ HTTP と SOCKS 用のポートを割り当てます。</translation>
     </message>
     <message>
         <source>Port Allocation Start</source>
-        <translation>ポート割り当て開始</translation>
+        <translation type="vanished">ポート割り当て開始</translation>
     </message>
     <message>
         <source>All settings below will only be applied on simple connection.</source>
@@ -2316,81 +2324,81 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Page Y Axis Offset</source>
-        <translation>ページY軸オフセット</translation>
+        <translation type="vanished">ページY軸オフセット</translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation>色を選択</translation>
+        <translation type="vanished">色を選択</translation>
     </message>
     <message>
         <source>Ignored Version</source>
-        <translation>バージョン無視</translation>
+        <translation type="vanished">バージョン無視</translation>
     </message>
     <message>
         <source>Plugin Interface</source>
-        <translation>プラグインインタフェース</translation>
+        <translation type="vanished">プラグインインタフェース</translation>
     </message>
     <message>
         <source>Advanced Behavior</source>
-        <translation>高度的な動作</translation>
+        <translation type="vanished">高度的な動作</translation>
     </message>
     <message>
         <source>AllowInsecure By Default</source>
-        <translation>安全でない証明書を許可する</translation>
+        <translation type="vanished">安全でない証明書を許可する</translation>
     </message>
     <message>
         <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
 This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-        <translation>インポート時にすべての項目に対して「AllowInsecure」の設定を有効にします。
+        <translation type="vanished">インポート時にすべての項目に対して「AllowInsecure」の設定を有効にします。
 これは証明書の問題を緩和することができますが、TLS MITM 攻撃を受けるリスクが高くなります。</translation>
     </message>
     <message>
         <source>Test Latency Periodcally</source>
-        <translation>周期的の遅延テスト</translation>
+        <translation type="vanished">周期的の遅延テスト</translation>
     </message>
     <message>
         <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation>サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
+        <translation type="vanished">サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
 有効にすると、Qv2ray はより正確なレイテンシ値が得られますが、サーバーは制限される可能性が高くなります。</translation>
     </message>
     <message>
         <source>These settings may be useful.
 But could damage your server if improperly used.</source>
-        <translation>以下の設定は特定の効果があります。
+        <translation type="vanished">以下の設定は特定の効果があります。
 しかし、不適切な使用の場合、不都合が生じる可能性があります。</translation>
     </message>
     <message>
         <source>AllowInsecureCiphers By Default</source>
-        <translation>安全でない暗号を許可する</translation>
+        <translation type="vanished">安全でない暗号を許可する</translation>
     </message>
     <message>
         <source>Quiet Mode</source>
-        <translation>サイレントモード</translation>
+        <translation type="vanished">サイレントモード</translation>
     </message>
     <message>
         <source>Recent Jumplist</source>
-        <translation>最近の項目</translation>
+        <translation type="vanished">最近の項目</translation>
     </message>
     <message>
         <source> Connections</source>
-        <translation> 個</translation>
+        <translation type="vanished"> 個</translation>
     </message>
     <message>
         <source>Qv2ray Proxy</source>
-        <translation>Qv2ray プロキシ</translation>
+        <translation type="vanished">Qv2ray プロキシ</translation>
     </message>
     <message>
         <source>No Proxy</source>
-        <translation>使用しない</translation>
+        <translation type="vanished">使用しない</translation>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation>システムプロキシを使う</translation>
+        <translation type="vanished">システムプロキシを使う</translation>
     </message>
     <message>
         <source>Custom Proxy</source>
-        <translation>カスタムプロキシを使う</translation>
+        <translation type="vanished">カスタムプロキシを使う</translation>
     </message>
     <message>
         <source>Curtom Proxy</source>
@@ -2398,39 +2406,39 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Network Options</source>
-        <translation>ネットワーク設定</translation>
+        <translation type="vanished">ネットワーク設定</translation>
     </message>
     <message>
         <source>DNS Intercept</source>
-        <translation>DNSインターセプト</translation>
+        <translation type="vanished">DNSインターセプト</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation>モード</translation>
+        <translation type="vanished">モード</translation>
     </message>
     <message>
         <source>redirect</source>
-        <translation>リダイレクト</translation>
+        <translation type="vanished">リダイレクト</translation>
     </message>
     <message>
         <source>tproxy</source>
-        <translation>tプロキシ</translation>
+        <translation type="vanished">tプロキシ</translation>
     </message>
     <message>
         <source>Outbound Mark</source>
-        <translation>アウトバウンドマーク</translation>
+        <translation type="vanished">アウトバウンドマーク</translation>
     </message>
     <message>
         <source>Sniffing</source>
-        <translation>フィルター</translation>
+        <translation type="vanished">フィルター</translation>
     </message>
     <message>
         <source>Use V2ray DNS for Freedom Outbound</source>
-        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
+        <translation type="vanished">フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
     </message>
     <message>
         <source>Bypass Bittorrent Protocol</source>
-        <translation>ビットトレントプロトコルをバイパス</translation>
+        <translation type="vanished">ビットトレントプロトコルをバイパス</translation>
     </message>
     <message>
         <source>Note</source>
@@ -2447,7 +2455,7 @@ But could damage your server if improperly used.</source>
     <message>
         <source>These settings are for Qv2ray itself.
 For example, for updating subscriptions.</source>
-        <translation>これらの設定はQv2ray自体のためのものです。
+        <translation type="vanished">これらの設定はQv2ray自体のためのものです。
 例えば、サブスクリプションの更新などです。</translation>
     </message>
     <message>
@@ -2462,76 +2470,128 @@ For example, for updating subscriptions.</source>
         <source>Speed chart and traffic statistics will be disabled.</source>
         <translation>スピードチャートや交通統計は無効になります。</translation>
     </message>
+    <message>
+        <source>Use built-in darkmode Theme</source>
+        <translation>プリセットダークモードテーマを使用する</translation>
+    </message>
+    <message>
+        <source>NTP Checker</source>
+        <translation>ネットワークタイムチェッカー</translation>
+    </message>
+    <message>
+        <source>Check date and time from server:</source>
+        <translation>サーバーからの日時の確認：</translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which is too high.</source>
+        <translation>あなたの時間オフセットは %1 秒ですが、これは高すぎます。</translation>
+    </message>
+    <message>
+        <source>Please synchronize your system to use V2Ray.</source>
+        <translation>V2Rayを使用するには、システムの時間を同期してください。</translation>
+    </message>
+    <message>
+        <source>Time Inaccurate</source>
+        <translation>時間不正確</translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which is a little high.</source>
+        <translation>あなたの時間オフセットは %1 秒で、少し高いです。</translation>
+    </message>
+    <message>
+        <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
+        <translation>V2Rayはまだ動作するかもしれませんが、システムの時間を同期させることをお勧めします。</translation>
+    </message>
+    <message>
+        <source>Time Somewhat Inaccurate</source>
+        <translation>時間多少不正確</translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which looks good.</source>
+        <translation>あなたの時間オフセットは %1 秒ですが、これは良さそうです。</translation>
+    </message>
+    <message>
+        <source>V2Ray may not suffer from time inaccuracy.</source>
+        <translation>V2Rayが正常に動作します。</translation>
+    </message>
+    <message>
+        <source>Time Accurate</source>
+        <translation>時間正確</translation>
+    </message>
+    <message>
+        <source>Failed to lookup server: %1</source>
+        <translation>サーバの検索に失敗しました：%1</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Unsupported share link format.</source>
-        <translation>サポートされていない共有リンク形式。</translation>
+        <translation type="vanished">サポートされていない共有リンク形式。</translation>
     </message>
     <message>
         <source>SS URI is too short</source>
-        <translation>SS URIが短すぎます</translation>
+        <translation type="vanished">SS URIが短すぎます</translation>
     </message>
     <message>
         <source>Can&apos;t find the colon separator between method and password</source>
-        <translation>メソッドとパスワードの間にコロンセパレーターが見つかりません</translation>
+        <translation type="vanished">メソッドとパスワードの間にコロンセパレーターが見つかりません</translation>
     </message>
     <message>
         <source>Can&apos;t find the at separator between password and hostname</source>
-        <translation>パスワードとホスト名の間の「アット」セパレーターが見つかりません</translation>
+        <translation type="vanished">パスワードとホスト名の間の「アット」セパレーターが見つかりません</translation>
     </message>
     <message>
         <source>Can&apos;t find the colon separator between hostname and port</source>
-        <translation>ホスト名とポートの間にコロンセパレーターが見つかりません</translation>
+        <translation type="vanished">ホスト名とポートの間にコロンセパレーターが見つかりません</translation>
     </message>
     <message>
         <source>VMess string should start with &apos;vmess://&apos;</source>
-        <translation>VMess文字列は「vmess://」で始まる必要があります</translation>
+        <translation type="vanished">VMess文字列は「vmess://」で始まる必要があります</translation>
     </message>
     <message>
         <source>VMess string should be a valid base64 string</source>
-        <translation>VMess文字列は有効なbase64文字列でなければなりません</translation>
+        <translation type="vanished">VMess文字列は有効なbase64文字列でなければなりません</translation>
     </message>
     <message>
         <source>JSON should not be empty</source>
-        <translation>JSONを空にしないでください</translation>
+        <translation type="vanished">JSONを空にしないでください</translation>
     </message>
     <message>
         <source>seems like a v1 vmess, we don&apos;t support it</source>
-        <translation>V1のVMessリンクの可能性があります，現在非対応です</translation>
+        <translation type="vanished">V1のVMessリンクの可能性があります，現在非対応です</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>警告</translation>
+        <translation type="vanished">警告</translation>
     </message>
     <message>
         <source>Qv2ray cannot load the config file from here:</source>
-        <translation>Qv2rayはここから設定ファイルをロードできません：</translation>
+        <translation type="vanished">Qv2rayはここから設定ファイルをロードできません：</translation>
     </message>
     <message>
         <source>Cannot Start Qv2ray</source>
-        <translation>Qv2rayを起動できません</translation>
+        <translation type="vanished">Qv2rayを起動できません</translation>
     </message>
     <message>
         <source>Cannot find a place to store config files.</source>
-        <translation>設定ファイルの保存先が見つかりません。</translation>
+        <translation type="vanished">設定ファイルの保存先が見つかりません。</translation>
     </message>
     <message>
         <source>Qv2ray has searched these paths below:</source>
-        <translation>Qv2rayは以下のパスを検索しました：</translation>
+        <translation type="vanished">Qv2rayは以下のパスを検索しました：</translation>
     </message>
     <message>
         <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-        <translation>通常、これらの場所すべてに対する書き込み権限がないことを意味します。</translation>
+        <translation type="vanished">通常、これらの場所すべてに対する書き込み権限がないことを意味します。</translation>
     </message>
     <message>
         <source>Qv2ray will now exit.</source>
-        <translation>Qv2rayは終了します。</translation>
+        <translation type="vanished">Qv2rayは終了します。</translation>
     </message>
     <message>
         <source>Failed to initialise Qv2ray</source>
-        <translation>Qv2rayの初期化に失敗しました</translation>
+        <translation type="vanished">Qv2rayの初期化に失敗しました</translation>
     </message>
     <message>
         <source>Failed to determine the location of config file.</source>
@@ -2539,15 +2599,15 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Please report if you think it&apos;s a bug.</source>
-        <translation>バグだと思われる場合は報告してください。</translation>
+        <translation type="vanished">バグだと思われる場合は報告してください。</translation>
     </message>
     <message>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
-        <translation>Qv2rayをルートとして実行することはできません。本当に実行したい場合は、--I-just-wanna-run-with-rootを使用してください。</translation>
+        <translation type="vanished">Qv2rayをルートとして実行することはできません。本当に実行したい場合は、--I-just-wanna-run-with-rootを使用してください。</translation>
     </message>
     <message>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
-        <translation> --&gt; 自己責任で使用してください！</translation>
+        <translation type="vanished"> --&gt; 自己責任で使用してください！</translation>
     </message>
     <message>
         <source>Cannot load languages</source>
@@ -2559,55 +2619,55 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Qv2ray Cannot Continue</source>
-        <translation>Qv2rayを続行できません</translation>
+        <translation type="vanished">Qv2rayを続行できません</translation>
     </message>
     <message>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-        <translation>現在の構成ファイルと比較して、より低いバージョンのQv2rayを実行しています。</translation>
+        <translation type="vanished">現在の構成ファイルと比較して、より低いバージョンのQv2rayを実行しています。</translation>
     </message>
     <message>
         <source>Please check if there&apos;s an issue explaining about it.</source>
-        <translation>関連説明があるかどうかを確認してください。</translation>
+        <translation type="vanished">関連説明があるかどうかを確認してください。</translation>
     </message>
     <message>
         <source>Or submit a new issue if you think this is an error.</source>
-        <translation>または、これがエラーだと思う場合は、新しい問題として送信してください。</translation>
+        <translation type="vanished">または、これがエラーだと思う場合は、新しい問題として送信してください。</translation>
     </message>
     <message>
         <source>Dependency Missing</source>
-        <translation>依存関係がありません</translation>
+        <translation type="vanished">依存関係がありません</translation>
     </message>
     <message>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
-        <translation>これは、システムに `openssl`パッケージが存在しないことが原因である可能性があります。</translation>
+        <translation type="vanished">これは、システムに `openssl`パッケージが存在しないことが原因である可能性があります。</translation>
     </message>
     <message>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
-        <translation>Github ActionsのAppImageを使用している場合は、バグを報告してください。</translation>
+        <translation type="vanished">Github ActionsのAppImageを使用している場合は、バグを報告してください。</translation>
     </message>
     <message>
         <source>Cannot find openssl libs</source>
-        <translation>OpenSSLライブラリが見つかりません</translation>
+        <translation type="vanished">OpenSSLライブラリが見つかりません</translation>
     </message>
     <message>
         <source>Failed to determine the location of config file:</source>
-        <translation>構成ファイルの場所を特定できませんでした：</translation>
+        <translation type="vanished">構成ファイルの場所を特定できませんでした：</translation>
     </message>
     <message>
         <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-        <translation>Qv2rayは設定ファイルを見つけましたが、いくつかのエラーのためにロードに失敗しました。</translation>
+        <translation type="vanished">Qv2rayは設定ファイルを見つけましたが、いくつかのエラーのためにロードに失敗しました。</translation>
     </message>
     <message>
         <source>A workaround is to remove the this file and restart Qv2ray:</source>
-        <translation>回避策は、このファイルを削除してQv2rayを再起動することです：</translation>
+        <translation type="vanished">回避策は、このファイルを削除してQv2rayを再起動することです：</translation>
     </message>
     <message>
         <source>Debug version</source>
-        <translation>デバッグバージョン</translation>
+        <translation type="vanished">デバッグバージョン</translation>
     </message>
     <message>
         <source>Technical Details</source>
-        <translation>技術詳細</translation>
+        <translation type="vanished">技術詳細</translation>
     </message>
     <message>
         <source>Not connected</source>
@@ -2623,39 +2683,39 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Custom Text</source>
-        <translation>Custom Text</translation>
+        <translation type="vanished">Custom Text</translation>
     </message>
     <message>
         <source>Current Time</source>
-        <translation>Current Time</translation>
+        <translation type="vanished">Current Time</translation>
     </message>
     <message>
         <source>Current Date</source>
-        <translation>Current Date</translation>
+        <translation type="vanished">Current Date</translation>
     </message>
     <message>
         <source>Current Qv2ray Version</source>
-        <translation>Current Qv2ray Version</translation>
+        <translation type="vanished">Current Qv2ray Version</translation>
     </message>
     <message>
         <source>Current Connection Name</source>
-        <translation>Current Connection Name</translation>
+        <translation type="vanished">Current Connection Name</translation>
     </message>
     <message>
         <source>Current Connection Status</source>
-        <translation>Current Connection Status</translation>
+        <translation type="vanished">Current Connection Status</translation>
     </message>
     <message>
         <source>Total Upload Speed</source>
-        <translation>Total Upload Speed</translation>
+        <translation type="vanished">Total Upload Speed</translation>
     </message>
     <message>
         <source>Total Download Speed</source>
-        <translation>Total Download Speed</translation>
+        <translation type="vanished">Total Download Speed</translation>
     </message>
     <message>
         <source>Current Connection Latency</source>
-        <translation>現在の接続遅延</translation>
+        <translation type="vanished">現在の接続遅延</translation>
     </message>
     <message>
         <source>Upload Speed for Specific Tag</source>
@@ -2667,11 +2727,11 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Total Uploaded Data</source>
-        <translation>Total Uploaded Data</translation>
+        <translation type="vanished">Total Uploaded Data</translation>
     </message>
     <message>
         <source>Total Downloaded Data</source>
-        <translation>Total Downloaded Data</translation>
+        <translation type="vanished">Total Downloaded Data</translation>
     </message>
     <message>
         <source>Uploaded Data for Specific Tag</source>
@@ -2703,11 +2763,11 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>N/A</source>
-        <translation>なし</translation>
+        <translation type="vanished">なし</translation>
     </message>
     <message>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - V2ray用のクロスプラットフォームQtフロントエンド。</translation>
+        <translation type="vanished">Qv2ray - V2ray用のクロスプラットフォームQtフロントエンド。</translation>
     </message>
     <message>
         <source>Disable gRPC API subsystems.</source>
@@ -2727,51 +2787,51 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must exist</source>
-        <translation>無効なssdリンク：json：フィールド%1が存在する必要があります</translation>
+        <translation type="vanished">無効なssdリンク：json：フィールド%1が存在する必要があります</translation>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must be valid port number</source>
-        <translation>無効なssdリンク：json：フィールド%1は有効なポート番号でなければなりません</translation>
+        <translation type="vanished">無効なssdリンク：json：フィールド%1は有効なポート番号でなければなりません</translation>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-        <translation>無効なssdリンク：json：フィールド%1は &apos;string&apos;型でなければなりません</translation>
+        <translation type="vanished">無効なssdリンク：json：フィールド%1は &apos;string&apos;型でなければなりません</translation>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must be an array</source>
-        <translation>無効なssdリンク：json：フィールド%1は配列でなければなりません</translation>
+        <translation type="vanished">無効なssdリンク：json：フィールド%1は配列でなければなりません</translation>
     </message>
     <message>
         <source>skipping invalid ssd server: server must be an object</source>
-        <translation>無効なssdサーバーをスキップ：serverはオブジェクトでなければなりません</translation>
+        <translation type="vanished">無効なssdサーバーをスキップ：serverはオブジェクトでなければなりません</translation>
     </message>
     <message>
         <source>skipping invalid ssd server: missing required field %1</source>
-        <translation>無効なssdサーバーをスキップしています：必須フィールド%1がありません</translation>
+        <translation type="vanished">無効なssdサーバーをスキップしています：必須フィールド%1がありません</translation>
     </message>
     <message>
         <source>skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-        <translation>無効なssdサーバーをスキップしています：フィールド%1はstring型でなければなりません</translation>
+        <translation type="vanished">無効なssdサーバーをスキップしています：フィールド%1はstring型でなければなりません</translation>
     </message>
     <message>
         <source>Invalid ssd link: should begin with ssd://</source>
-        <translation>無効なssdリンク：「ssd://」で始まる必要があります</translation>
+        <translation type="vanished">無効なssdリンク：「ssd://」で始まる必要があります</translation>
     </message>
     <message>
         <source>Invalid ssd link: base64 parse failed</source>
-        <translation>無効なssdリンク：base64の解析に失敗しました</translation>
+        <translation type="vanished">無効なssdリンク：base64の解析に失敗しました</translation>
     </message>
     <message>
         <source>Invalid ssd link: json parse failed: </source>
-        <translation>無効なssdリンク：JSON解析に失敗しました： </translation>
+        <translation type="vanished">無効なssdリンク：JSON解析に失敗しました： </translation>
     </message>
     <message>
         <source>Invalid ssd link: found non-object json, aborting</source>
-        <translation>無効なssdリンク：非オブジェクトjsonが見つかりました</translation>
+        <translation type="vanished">無効なssdリンク：非オブジェクトjsonが見つかりました</translation>
     </message>
     <message>
         <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-        <translation>無効なssdリンク：rc4-md5暗号化はv2ray-coreでサポートされていません</translation>
+        <translation type="vanished">無効なssdリンク：rc4-md5暗号化はv2ray-coreでサポートされていません</translation>
     </message>
     <message>
         <source>Invalid port encountered. using fallback value.</source>
@@ -2787,43 +2847,43 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Default Group</source>
-        <translation>デフォルトグループ</translation>
+        <translation type="vanished">デフォルトグループ</translation>
     </message>
     <message>
         <source>Deprecated</source>
-        <translation>非推奨</translation>
+        <translation type="vanished">非推奨</translation>
     </message>
     <message>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation>PACは非推奨になり、使用を推奨されなくなりました。</translation>
+        <translation type="vanished">PACは非推奨になり、使用を推奨されなくなりました。</translation>
     </message>
     <message>
         <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation>今後削除されるか、プラグインとして提供されます。</translation>
+        <translation type="vanished">今後削除されるか、プラグインとして提供されます。</translation>
     </message>
     <message>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation>PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
+        <translation type="vanished">PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
     </message>
     <message>
         <source>Configuration Upgrade Failed</source>
-        <translation>構成のアップグレードに失敗しました</translation>
+        <translation type="vanished">構成のアップグレードに失敗しました</translation>
     </message>
     <message>
         <source>Unsupported config version number: </source>
-        <translation>サポートされていない構成バージョン番号： </translation>
+        <translation type="vanished">サポートされていない構成バージョン番号： </translation>
     </message>
     <message>
         <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-        <translation>まずQv2ray v2.0 / v2.1にアップグレードしてから、もう一度試してください。</translation>
+        <translation type="vanished">まずQv2ray v2.0 / v2.1にアップグレードしてから、もう一度試してください。</translation>
     </message>
     <message>
         <source>%1 - %2 (rate %3)</source>
-        <translation>%1 - %2 (%3 倍)</translation>
+        <translation type="vanished">%1 - %2 (%3 倍)</translation>
     </message>
     <message>
         <source>(Complex config)</source>
-        <translation>（複雑構成）</translation>
+        <translation type="vanished">（複雑構成）</translation>
     </message>
     <message>
         <source>Outbound</source>
@@ -2835,99 +2895,99 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>core executable file %1 does not exist</source>
-        <translation>コア実行可能ファイル%1は存在しません</translation>
+        <translation type="vanished">コア実行可能ファイル%1は存在しません</translation>
     </message>
     <message>
         <source>cannot open core executable file %1 in read-only mode</source>
-        <translation>コア実行可能ファイル%1を読み取り専用モードで開けません</translation>
+        <translation type="vanished">コア実行可能ファイル%1を読み取り専用モードで開けません</translation>
     </message>
     <message>
         <source>core executable file %1 is an empty file</source>
-        <translation>コア実行可能ファイル%1は空のファイルです</translation>
+        <translation type="vanished">コア実行可能ファイル%1は空のファイルです</translation>
     </message>
     <message>
         <source>core executable file %1 is too short to be executed</source>
-        <translation>コア実行可能ファイル%1は実行するには短すぎます</translation>
+        <translation type="vanished">コア実行可能ファイル%1は実行するには短すぎます</translation>
     </message>
     <message>
         <source>cannot deduce the type of core executable file %1</source>
-        <translation>コア実行可能ファイル%1のタイプを推測できません</translation>
+        <translation type="vanished">コア実行可能ファイル%1のタイプを推測できません</translation>
     </message>
     <message>
         <source>Windows PE executable</source>
-        <translation>Windows PE実行可能ファイル</translation>
+        <translation type="vanished">Windows PE実行可能ファイル</translation>
     </message>
     <message>
         <source>macOS Mach-O executable</source>
-        <translation>macOS Mach-O実行可能ファイル</translation>
+        <translation type="vanished">macOS Mach-O実行可能ファイル</translation>
     </message>
     <message>
         <source>ELF x86 executable</source>
-        <translation>ELF x86実行可能ファイル</translation>
+        <translation type="vanished">ELF x86実行可能ファイル</translation>
     </message>
     <message>
         <source>ELF amd64 executable</source>
-        <translation>ELF amd64実行可能ファイル</translation>
+        <translation type="vanished">ELF amd64実行可能ファイル</translation>
     </message>
     <message>
         <source>ELF arm64 executable</source>
-        <translation>ELF arm64実行可能ファイル</translation>
+        <translation type="vanished">ELF arm64実行可能ファイル</translation>
     </message>
     <message>
         <source>ELF arm executable</source>
-        <translation>ELF arm 実行可能ファイル</translation>
+        <translation type="vanished">ELF arm 実行可能ファイル</translation>
     </message>
     <message>
         <source>other ELF executable</source>
-        <translation>他のELF実行可能ファイル</translation>
+        <translation type="vanished">他のELF実行可能ファイル</translation>
     </message>
     <message>
         <source>unknown abi</source>
-        <translation>不明なABI</translation>
+        <translation type="vanished">不明なABI</translation>
     </message>
     <message>
         <source>Normal Plugin</source>
-        <translation>通常のプラグイン</translation>
+        <translation type="vanished">通常のプラグイン</translation>
     </message>
     <message>
         <source>Kernel</source>
-        <translation>カーネル</translation>
+        <translation type="vanished">カーネル</translation>
     </message>
     <message>
         <source>Share Link Parser</source>
-        <translation>シェアリンクパーサー</translation>
+        <translation type="vanished">シェアリンクパーサー</translation>
     </message>
     <message>
         <source>Unknown type.</source>
-        <translation>タイプ不明。</translation>
+        <translation type="vanished">タイプ不明。</translation>
     </message>
     <message>
         <source>No Capability</source>
-        <translation>無能力</translation>
+        <translation type="vanished">無能力</translation>
     </message>
     <message>
         <source>Connection State Change</source>
-        <translation>接続状態の変更</translation>
+        <translation type="vanished">接続状態の変更</translation>
     </message>
     <message>
         <source>Connection Change</source>
-        <translation>接続の変更</translation>
+        <translation type="vanished">接続の変更</translation>
     </message>
     <message>
         <source>Statistics Event</source>
-        <translation>統計イベント</translation>
+        <translation type="vanished">統計イベント</translation>
     </message>
     <message>
         <source>System Proxy Event</source>
-        <translation>システムプロキシイベント</translation>
+        <translation type="vanished">システムプロキシイベント</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>不明</translation>
+        <translation type="vanished">不明</translation>
     </message>
     <message>
         <source>Deepin Detected</source>
-        <translation>Deepin検出</translation>
+        <translation type="vanished">Deepin検出</translation>
     </message>
     <message>
         <source>Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. </source>
@@ -2943,42 +3003,42 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
-        <translation>Deepinのバカ、間違ったHTTPS_PROXYとFTP_PROXYの環境変数を設定します。</translation>
+        <translation type="vanished">Deepinのバカ、間違ったHTTPS_PROXYとFTP_PROXYの環境変数を設定します。</translation>
     </message>
     <message>
         <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
-        <translation>元のスキームのhttpがhttpsとftpに間違って置き換えられてしまい、問題が発生しています。</translation>
+        <translation type="vanished">元のスキームのhttpがhttpsとftpに間違って置き換えられてしまい、問題が発生しています。</translation>
     </message>
     <message>
         <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
-        <translation>Qv2rayでは元に戻すことはできません。何かあっても私たちのせいにしないでください。</translation>
+        <translation type="vanished">Qv2rayでは元に戻すことはできません。何かあっても私たちのせいにしないでください。</translation>
     </message>
     <message>
         <source>trusted abi</source>
-        <translation>信頼できるABI</translation>
+        <translation type="vanished">信頼できるABI</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
     <message>
         <source>Disable gRPC API subsystems.</source>
-        <translation>gRPC APIサブシステムを無効にします。</translation>
+        <translation type="vanished">gRPC APIサブシステムを無効にします。</translation>
     </message>
     <message>
         <source>Explicitly run Qv2ray as root.</source>
-        <translation>ルートとしてQv2rayを明示的に実行します。</translation>
+        <translation type="vanished">ルートとしてQv2rayを明示的に実行します。</translation>
     </message>
     <message>
         <source>Enable Debug Output</source>
-        <translation>デバッグ出力を有効にする</translation>
+        <translation type="vanished">デバッグ出力を有効にする</translation>
     </message>
     <message>
         <source>Disable manually set QT_SCALE_FACTOR</source>
-        <translation>QT_SCALE_FACTORの手動設定を無効にする</translation>
+        <translation type="vanished">QT_SCALE_FACTORの手動設定を無効にする</translation>
     </message>
     <message>
         <source>Disable plugin feature</source>
-        <translation>プラグインの機能を無効にする</translation>
+        <translation type="vanished">プラグインの機能を無効にする</translation>
     </message>
     <message>
         <source>Enable HiDPI support for Qt</source>
@@ -2990,18 +3050,18 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Enable Qv2ray network toolbar plugin</source>
-        <translation>Qv2rayネットワークツールバープラグインを有効にする</translation>
+        <translation type="vanished">Qv2rayネットワークツールバープラグインを有効にする</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
         <source>Qv2ray Update</source>
-        <translation>Qv2rayの更新</translation>
+        <translation type="vanished">Qv2rayの更新</translation>
     </message>
     <message>
         <source>A new version of Qv2ray has been found:</source>
-        <translation>Qv2rayの新しいバージョンが見つかりました：</translation>
+        <translation type="vanished">Qv2rayの新しいバージョンが見つかりました：</translation>
     </message>
 </context>
 <context>
@@ -3023,120 +3083,120 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Cannot load plugin</source>
-        <translation>プラグインをロードできない</translation>
+        <translation type="vanished">プラグインをロードできない</translation>
     </message>
     <message>
         <source>cannot be loaded.</source>
-        <translation>を読み込むことができません。</translation>
+        <translation type="vanished">を読み込むことができません。</translation>
     </message>
     <message>
         <source>This plugin was built against an older/newer version of the Plugin Interface.</source>
-        <translation>このプラグインは、プラグインインターフェイスの古いバージョン/新しいバージョンに対応して構築されています。</translation>
+        <translation type="vanished">このプラグインは、プラグインインターフェイスの古いバージョン/新しいバージョンに対応して構築されています。</translation>
     </message>
     <message>
         <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-        <translation>プラグインの提供者に連絡するか、Qv2ray 制作チームに問題を報告してください。</translation>
+        <translation type="vanished">プラグインの提供者に連絡するか、Qv2ray 制作チームに問題を報告してください。</translation>
     </message>
     <message>
         <source>Enabling a plugin</source>
-        <translation>プラグインを有効にする</translation>
+        <translation type="vanished">プラグインを有効にする</translation>
     </message>
     <message>
         <source>The plugin will become fully functional after restarting Qv2ray.</source>
-        <translation>プラグインを正しく動作するには、Qv2rayを再起動する必要があります。</translation>
+        <translation type="vanished">プラグインを正しく動作するには、Qv2rayを再起動する必要があります。</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
     <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-        <translation>プラグインカーネルの起動に失敗しました。アウトバウンドの設定を確認してください。</translation>
+        <translation type="vanished">プラグインカーネルの起動に失敗しました。アウトバウンドの設定を確認してください。</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
     <message>
         <source>Default Group</source>
-        <translation>デフォルトグループ</translation>
+        <translation type="vanished">デフォルトグループ</translation>
     </message>
     <message>
         <source>File does not exist.</source>
-        <translation>ファイルが存在しません。</translation>
+        <translation type="vanished">ファイルが存在しません。</translation>
     </message>
     <message>
         <source>Group does not exist</source>
-        <translation>グループが存在しません</translation>
+        <translation type="vanished">グループが存在しません</translation>
     </message>
     <message>
         <source>Update Subscription</source>
-        <translation>サブスクリプションを更新</translation>
+        <translation type="vanished">サブスクリプションを更新</translation>
     </message>
     <message>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation>アップストリームから返されるノードは %1 つだけです。続行してもよろしいですか？</translation>
+        <translation type="vanished">アップストリームから返されるノードは %1 つだけです。続行してもよろしいですか？</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::core::kernel::V2rayKernelInstance</name>
     <message>
         <source>V2ray core executable not found.</source>
-        <translation>V2rayコア実行可能ファイルが見つかりません。</translation>
+        <translation type="vanished">V2rayコア実行可能ファイルが見つかりません。</translation>
     </message>
     <message>
         <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation>V2rayコアファイルを開けません。フォルダーの代わりにファイルがあることを確認してください。</translation>
+        <translation type="vanished">V2rayコアファイルを開けません。フォルダーの代わりにファイルがあることを確認してください。</translation>
     </message>
     <message>
         <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
 Expected core ABI is %1, but got actual %2.<byte value="xd"/>
 Maybe you have downloaded the wrong core?</source>
-        <translation>V2Rayコアはプラットフォームと互換性がありません。
+        <translation type="vanished">V2Rayコアはプラットフォームと互換性がありません。
 予想されるコアABIは%1ですが、実際は%2でした。
 間違ったコアをダウンロードした可能性がありませんか？</translation>
     </message>
     <message>
         <source>V2ray assets path is not valid.</source>
-        <translation>V2rayアセットのパスが無効です。</translation>
+        <translation type="vanished">V2rayアセットのパスが無効です。</translation>
     </message>
     <message>
         <source>No geoip.dat in assets path.</source>
-        <translation>アセットパスにgeoip.datはありません。</translation>
+        <translation type="vanished">アセットパスにgeoip.datはありません。</translation>
     </message>
     <message>
         <source>No geosite.dat in assets path.</source>
-        <translation>アセットパスにgeosite.datはありません。</translation>
+        <translation type="vanished">アセットパスにgeosite.datはありません。</translation>
     </message>
     <message>
         <source>V2ray core failed with an exit code: </source>
-        <translation>V2rayコアがエラー終了しました、終了コード: </translation>
+        <translation type="vanished">V2rayコアがエラー終了しました、終了コード: </translation>
     </message>
     <message>
         <source>V2ray core returns empty string.</source>
-        <translation>V2rayコアは空の文字列を返します。</translation>
+        <translation type="vanished">V2rayコアは空の文字列を返します。</translation>
     </message>
     <message>
         <source>Configuration Error</source>
-        <translation>構成エラー</translation>
+        <translation type="vanished">構成エラー</translation>
     </message>
     <message>
         <source>Cannot start V2ray</source>
-        <translation>V2rayを起動できません</translation>
+        <translation type="vanished">V2rayを起動できません</translation>
     </message>
     <message>
         <source>V2ray core settings is incorrect.</source>
-        <translation>V2rayコアの設定が正しくありません。</translation>
+        <translation type="vanished">V2rayコアの設定が正しくありません。</translation>
     </message>
     <message>
         <source>The error is: </source>
-        <translation>エラーは次のとおりです: </translation>
+        <translation type="vanished">エラーは次のとおりです: </translation>
     </message>
     <message>
         <source>Invalid V2ray Instance Status.</source>
-        <translation>無効なV2rayインスタンスステータス。</translation>
+        <translation type="vanished">無効なV2rayインスタンスステータス。</translation>
     </message>
     <message>
         <source>V2ray kernel failed to start.</source>
-        <translation>V2rayカーネルの起動に失敗しました。</translation>
+        <translation type="vanished">V2rayカーネルの起動に失敗しました。</translation>
     </message>
 </context>
 <context>
@@ -3175,191 +3235,191 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Route Detail Settings</source>
-        <translation>ルート詳細設定</translation>
+        <translation type="vanished">ルート詳細設定</translation>
     </message>
     <message>
         <source>Source IP Matches</source>
-        <translation>ソースIPマッチング</translation>
+        <translation type="vanished">ソースIPマッチング</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>ステータス</translation>
+        <translation type="vanished">ステータス</translation>
     </message>
     <message>
         <source>Add default inbound from global config</source>
-        <translation>グローバル設定からデフォルトのインバウンドを追加</translation>
+        <translation type="vanished">グローバル設定からデフォルトのインバウンドを追加</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>ポート</translation>
+        <translation type="vanished">ポート</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation>タグ</translation>
+        <translation type="vanished">タグ</translation>
     </message>
     <message>
         <source>Add outbound</source>
-        <translation>アウトバウンドを追加</translation>
+        <translation type="vanished">アウトバウンドを追加</translation>
     </message>
     <message>
         <source>Delete outbound</source>
-        <translation>アウトバウンドを削除</translation>
+        <translation type="vanished">アウトバウンドを削除</translation>
     </message>
     <message>
         <source>Edit outbound</source>
-        <translation>アウトバウンドを編集</translation>
+        <translation type="vanished">アウトバウンドを編集</translation>
     </message>
     <message>
         <source>Add Freedom outbound</source>
-        <translation>フリーアウトバウンドを追加</translation>
+        <translation type="vanished">フリーアウトバウンドを追加</translation>
     </message>
     <message>
         <source>Add blackhole outbound</source>
-        <translation>ブラックホールアウトバウンドを追加</translation>
+        <translation type="vanished">ブラックホールアウトバウンドを追加</translation>
     </message>
     <message>
         <source>Routes</source>
-        <translation>ルート</translation>
+        <translation type="vanished">ルート</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>有効</translation>
+        <translation type="vanished">有効</translation>
     </message>
     <message>
         <source>Outbound</source>
-        <translation>アウトバウンド</translation>
+        <translation type="vanished">アウトバウンド</translation>
     </message>
     <message>
         <source>Add new route</source>
-        <translation>新しいルートを追加</translation>
+        <translation type="vanished">新しいルートを追加</translation>
     </message>
     <message>
         <source>Use Balancers</source>
-        <translation>バランサーを使用する</translation>
+        <translation type="vanished">バランサーを使用する</translation>
     </message>
     <message>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="vanished">...</translation>
     </message>
     <message>
         <source>Target IP List</source>
-        <translation>ターゲットIPリスト</translation>
+        <translation type="vanished">ターゲットIPリスト</translation>
     </message>
     <message>
         <source>Target Domain List</source>
-        <translation>ターゲットドメインリスト</translation>
+        <translation type="vanished">ターゲットドメインリスト</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation>ネットワーク</translation>
+        <translation type="vanished">ネットワーク</translation>
     </message>
     <message>
         <source>TCP</source>
-        <translation>TCP</translation>
+        <translation type="vanished">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation>UDP</translation>
+        <translation type="vanished">UDP</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation>両方</translation>
+        <translation type="vanished">両方</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation>プロトコル</translation>
+        <translation type="vanished">プロトコル</translation>
     </message>
     <message>
         <source>Inbound</source>
-        <translation>インバウンド</translation>
+        <translation type="vanished">インバウンド</translation>
     </message>
     <message>
         <source>Add From Global Settings</source>
-        <translation>グローバル設定から追加</translation>
+        <translation type="vanished">グローバル設定から追加</translation>
     </message>
     <message>
         <source>Add Black Hole</source>
-        <translation>ブラックホールを追加</translation>
+        <translation type="vanished">ブラックホールを追加</translation>
     </message>
     <message>
         <source>Add Direct</source>
-        <translation>直接接続を追加</translation>
+        <translation type="vanished">直接接続を追加</translation>
     </message>
     <message>
         <source>Selected Inbound/Outbound Info</source>
-        <translation>選択したインバウンド/アウトバウンドの情報</translation>
+        <translation type="vanished">選択したインバウンド/アウトバウンドの情報</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>ホスト</translation>
+        <translation type="vanished">ホスト</translation>
     </message>
     <message>
         <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-        <translation>接続ルールのないインバウンドは、接続制限のないインバウンドを意味します。</translation>
+        <translation type="vanished">接続ルールのないインバウンドは、接続制限のないインバウンドを意味します。</translation>
     </message>
     <message>
         <source>Edit Selection</source>
-        <translation>選択したものを編集</translation>
+        <translation type="vanished">選択したものを編集</translation>
     </message>
     <message>
         <source>Delete Selection</source>
-        <translation>選択したものを削除</translation>
+        <translation type="vanished">選択したものを削除</translation>
     </message>
     <message>
         <source>General Settings</source>
-        <translation>一般設定</translation>
+        <translation type="vanished">一般設定</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
-        <translation>ドメインポリシー</translation>
+        <translation type="vanished">ドメインポリシー</translation>
     </message>
     <message>
         <source>Default Outbound</source>
-        <translation>デフォルトのアウトバウンド</translation>
+        <translation type="vanished">デフォルトのアウトバウンド</translation>
     </message>
     <message>
         <source>Rule Order Settings</source>
-        <translation>ルールの順番設定</translation>
+        <translation type="vanished">ルールの順番設定</translation>
     </message>
     <message>
         <source>Drag and drop to re-order the rules.</source>
-        <translation>ルール順番を変更するには、ドラッグアンドドロップします。</translation>
+        <translation type="vanished">ルール順番を変更するには、ドラッグアンドドロップします。</translation>
     </message>
     <message>
         <source>Rule Settings</source>
-        <translation>ルール設定</translation>
+        <translation type="vanished">ルール設定</translation>
     </message>
     <message>
         <source>Rule Status</source>
-        <translation>ルールステータス</translation>
+        <translation type="vanished">ルールステータス</translation>
     </message>
     <message>
         <source>Rule Tag</source>
-        <translation>ルールタグ</translation>
+        <translation type="vanished">ルールタグ</translation>
     </message>
     <message>
         <source>HTTP</source>
-        <translation>HTTP</translation>
+        <translation type="vanished">HTTP</translation>
     </message>
     <message>
         <source>TLS</source>
-        <translation>TLS</translation>
+        <translation type="vanished">TLS</translation>
     </message>
     <message>
         <source>BitTorrent</source>
-        <translation>BitTorrent</translation>
+        <translation type="vanished">BitTorrent</translation>
     </message>
     <message>
         <source>e.g. 80, 443, 8000-8080</source>
-        <translation>例えば 80, 443, 8000-8080</translation>
+        <translation type="vanished">例えば 80, 443, 8000-8080</translation>
     </message>
     <message>
         <source>Balancers</source>
-        <translation>バランサー</translation>
+        <translation type="vanished">バランサー</translation>
     </message>
     <message>
         <source>Users List</source>
-        <translation>ユーザーリスト</translation>
+        <translation type="vanished">ユーザーリスト</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3499,58 +3559,58 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Add Rule</source>
-        <translation>ルールを追加</translation>
+        <translation type="vanished">ルールを追加</translation>
     </message>
     <message>
         <source>Add an Inbound</source>
-        <translation>インバウンドを追加する</translation>
+        <translation type="vanished">インバウンドを追加する</translation>
     </message>
     <message>
         <source>Add an Outbound</source>
-        <translation>アウトバウンドを追加する</translation>
+        <translation type="vanished">アウトバウンドを追加する</translation>
     </message>
     <message>
         <source>Misc Settings</source>
-        <translation>その他の設定</translation>
+        <translation type="vanished">その他の設定</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation>リネーム</translation>
+        <translation type="vanished">リネーム</translation>
     </message>
 </context>
 <context>
     <name>RouteSettingsMatrix</name>
     <message>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="vanished">Form</translation>
     </message>
     <message>
         <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
-        <translation>「geoip:」または「geosite:」で始まる行は、geoip.datおよびgeosite.datから自動補完されます</translation>
+        <translation type="vanished">「geoip:」または「geosite:」で始まる行は、geoip.datおよびgeosite.datから自動補完されます</translation>
     </message>
     <message>
         <source>Direct</source>
-        <translation>直接接続</translation>
+        <translation type="vanished">直接接続</translation>
     </message>
     <message>
         <source>Proxy</source>
-        <translation>プロキシで接続</translation>
+        <translation type="vanished">プロキシで接続</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation>ブロック</translation>
+        <translation type="vanished">ブロック</translation>
     </message>
     <message>
         <source>Domain</source>
-        <translation>ドメイン</translation>
+        <translation type="vanished">ドメイン</translation>
     </message>
     <message>
         <source>IP</source>
-        <translation>IP</translation>
+        <translation type="vanished">IP</translation>
     </message>
     <message>
         <source>Use built-in route schemes</source>
-        <translation>プリセットルーティングスキームを使用する</translation>
+        <translation type="vanished">プリセットルーティングスキームを使用する</translation>
     </message>
     <message>
         <source>Built-in Schemes</source>
@@ -3558,7 +3618,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Import route scheme from file</source>
-        <translation>ファイルからスキームをインポートする</translation>
+        <translation type="vanished">ファイルからスキームをインポートする</translation>
     </message>
     <message>
         <source>Import Scheme</source>
@@ -3566,7 +3626,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Export route scheme to file</source>
-        <translation>スキームをファイルにエクスポート</translation>
+        <translation type="vanished">スキームをファイルにエクスポート</translation>
     </message>
     <message>
         <source>Export Scheme</source>
@@ -3578,19 +3638,19 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Built-in Schemes...</source>
-        <translation>プリセットスキーム...</translation>
+        <translation type="vanished">プリセットスキーム...</translation>
     </message>
     <message>
         <source>Import Scheme...</source>
-        <translation>スキームをインポート...</translation>
+        <translation type="vanished">スキームをインポート...</translation>
     </message>
     <message>
         <source>Export Scheme...</source>
-        <translation>スキームをエクスポート...</translation>
+        <translation type="vanished">スキームをエクスポート...</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
-        <translation>ドメインポリシー</translation>
+        <translation type="vanished">ドメインポリシー</translation>
     </message>
     <message>
         <source>Route Settings</source>
@@ -3658,41 +3718,41 @@ Maybe you have downloaded the wrong core?</source>
     <name>ScreenShot</name>
     <message>
         <source>ScreenShot</source>
-        <translation>スクリーンショット</translation>
+        <translation type="vanished">スクリーンショット</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>サイズ</translation>
+        <translation type="vanished">サイズ</translation>
     </message>
     <message>
         <source>FG</source>
-        <translation>FG</translation>
+        <translation type="vanished">FG</translation>
     </message>
     <message>
         <source>Screen Shot</source>
-        <translation>スクリーンショット</translation>
+        <translation type="vanished">スクリーンショット</translation>
     </message>
 </context>
 <context>
     <name>SpeedPlotView</name>
     <message>
         <source>Total Upload</source>
-        <translation>合計アップロード</translation>
+        <translation type="vanished">合計アップロード</translation>
     </message>
     <message>
         <source>Total Download</source>
-        <translation>合計ダウンロード</translation>
+        <translation type="vanished">合計ダウンロード</translation>
     </message>
 </context>
 <context>
     <name>StreamSettingsWidget</name>
     <message>
         <source>Stream Settings Widget</source>
-        <translation>ストリーム設定ウィジェット</translation>
+        <translation type="vanished">ストリーム設定ウィジェット</translation>
     </message>
     <message>
         <source>Transport Protocol</source>
-        <translation>転送プロトコル</translation>
+        <translation type="vanished">転送プロトコル</translation>
     </message>
     <message>
         <source>TLS</source>
@@ -3700,55 +3760,55 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>有効</translation>
+        <translation type="vanished">有効</translation>
     </message>
     <message>
         <source>TLS Settings</source>
-        <translation>TLS設定</translation>
+        <translation type="vanished">TLS設定</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation>サーバー</translation>
+        <translation type="vanished">サーバー</translation>
     </message>
     <message>
         <source>ALPN</source>
-        <translation>ALPN</translation>
+        <translation type="vanished">ALPN</translation>
     </message>
     <message>
         <source>SOCK Options</source>
-        <translation>SOCKオプション</translation>
+        <translation type="vanished">SOCKオプション</translation>
     </message>
     <message>
         <source>Mark</source>
-        <translation>マーク</translation>
+        <translation type="vanished">マーク</translation>
     </message>
     <message>
         <source>TCP Fast Open</source>
-        <translation>TCP Fast Open</translation>
+        <translation type="vanished">TCP Fast Open</translation>
     </message>
     <message>
         <source>Protocol Settings</source>
-        <translation>プロトコル設定</translation>
+        <translation type="vanished">プロトコル設定</translation>
     </message>
     <message>
         <source>Request</source>
-        <translation>リクエスト</translation>
+        <translation type="vanished">リクエスト</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>タイプ</translation>
+        <translation type="vanished">タイプ</translation>
     </message>
     <message>
         <source>Response</source>
-        <translation>レスポンス</translation>
+        <translation type="vanished">レスポンス</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>パス</translation>
+        <translation type="vanished">パス</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>ホスト</translation>
+        <translation type="vanished">ホスト</translation>
     </message>
     <message>
         <source>/wsPath</source>
@@ -3756,71 +3816,71 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Headers</source>
-        <translation>ヘッダー</translation>
+        <translation type="vanished">ヘッダー</translation>
     </message>
     <message>
         <source>MTU</source>
-        <translation>MTU</translation>
+        <translation type="vanished">MTU</translation>
     </message>
     <message>
         <source>TTI (ms)</source>
-        <translation>TTI (ms)</translation>
+        <translation type="vanished">TTI (ms)</translation>
     </message>
     <message>
         <source>Uplink Capacity (MB/s)</source>
-        <translation>アップリンク容量 (MB/s)</translation>
+        <translation type="vanished">アップリンク容量 (MB/s)</translation>
     </message>
     <message>
         <source>Congestion</source>
-        <translation>輻輳制御</translation>
+        <translation type="vanished">輻輳制御</translation>
     </message>
     <message>
         <source>Downlink Capacity (MB/s)</source>
-        <translation>ダウンリンク容量 (MB/s)</translation>
+        <translation type="vanished">ダウンリンク容量 (MB/s)</translation>
     </message>
     <message>
         <source>Read Buffer Size (MB)</source>
-        <translation>読み取りバッファサイズ (MB)</translation>
+        <translation type="vanished">読み取りバッファサイズ (MB)</translation>
     </message>
     <message>
         <source>Write Buffer Size (MB)</source>
-        <translation>書き込みバッファサイズ (MB)</translation>
+        <translation type="vanished">書き込みバッファサイズ (MB)</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>セキュリティ</translation>
+        <translation type="vanished">セキュリティ</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation>キー</translation>
+        <translation type="vanished">キー</translation>
     </message>
     <message>
         <source>keys</source>
-        <translation>keys</translation>
+        <translation type="vanished">keys</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>編集</translation>
+        <translation type="vanished">編集</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>リセット</translation>
+        <translation type="vanished">リセット</translation>
     </message>
     <message>
         <source>Allow Insecure Certificates</source>
-        <translation>安全でない証明書を許可する</translation>
+        <translation type="vanished">安全でない証明書を許可する</translation>
     </message>
     <message>
         <source>tProxy Mode</source>
-        <translation>tProxy モード</translation>
+        <translation type="vanished">tProxy モード</translation>
     </message>
     <message>
         <source>Enable TLS</source>
-        <translation>TLSを有効にする</translation>
+        <translation type="vanished">TLSを有効にする</translation>
     </message>
     <message>
         <source>Allow Insecure Ciphers</source>
-        <translation>安全でない暗号を許可する</translation>
+        <translation type="vanished">安全でない暗号を許可する</translation>
     </message>
 </context>
 <context>
@@ -3902,61 +3962,61 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>B</source>
         <comment>bytes</comment>
-        <translation>B</translation>
+        <translation type="vanished">B</translation>
     </message>
     <message>
         <source>KiB</source>
         <comment>kibibytes (1024 bytes)</comment>
-        <translation>KiB</translation>
+        <translation type="vanished">KiB</translation>
     </message>
     <message>
         <source>MiB</source>
         <comment>mebibytes (1024 kibibytes)</comment>
-        <translation>MiB</translation>
+        <translation type="vanished">MiB</translation>
     </message>
     <message>
         <source>GiB</source>
         <comment>gibibytes (1024 mibibytes)</comment>
-        <translation>GiB</translation>
+        <translation type="vanished">GiB</translation>
     </message>
     <message>
         <source>TiB</source>
         <comment>tebibytes (1024 gibibytes)</comment>
-        <translation>TiB</translation>
+        <translation type="vanished">TiB</translation>
     </message>
     <message>
         <source>PiB</source>
         <comment>pebibytes (1024 tebibytes)</comment>
-        <translation>PiB</translation>
+        <translation type="vanished">PiB</translation>
     </message>
     <message>
         <source>EiB</source>
         <comment>exbibytes (1024 pebibytes)</comment>
-        <translation>EiB</translation>
+        <translation type="vanished">EiB</translation>
     </message>
     <message>
         <source>/s</source>
         <comment>per second</comment>
-        <translation>/s</translation>
+        <translation type="vanished">/s</translation>
     </message>
 </context>
 <context>
     <name>w_GroupManager</name>
     <message>
         <source>Group Editor</source>
-        <translation>グループ編集</translation>
+        <translation type="vanished">グループ編集</translation>
     </message>
     <message>
         <source>Group List</source>
-        <translation>グループ一覧</translation>
+        <translation type="vanished">グループ一覧</translation>
     </message>
     <message>
         <source>Add Subscription</source>
-        <translation>サブスクリプションを追加</translation>
+        <translation type="vanished">サブスクリプションを追加</translation>
     </message>
     <message>
         <source>Remove Subscription</source>
-        <translation>サブスクリプションを削除</translation>
+        <translation type="vanished">サブスクリプションを削除</translation>
     </message>
     <message>
         <source>Group Details</source>
@@ -3964,23 +4024,23 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Group Name</source>
-        <translation>グループ名</translation>
+        <translation type="vanished">グループ名</translation>
     </message>
     <message>
         <source>Subscription Address</source>
-        <translation>アドレス</translation>
+        <translation type="vanished">アドレス</translation>
     </message>
     <message>
         <source>Update Interval</source>
-        <translation>更新間隔</translation>
+        <translation type="vanished">更新間隔</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation>日ごと</translation>
+        <translation type="vanished">日ごと</translation>
     </message>
     <message>
         <source>Last Updated</source>
-        <translation>最終更新</translation>
+        <translation type="vanished">最終更新</translation>
     </message>
     <message>
         <source>Connection List</source>
@@ -3988,110 +4048,110 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation>サブスクリプションデータの更新</translation>
+        <translation type="vanished">サブスクリプションデータの更新</translation>
     </message>
     <message>
         <source>Group Info</source>
-        <translation>グループ情報</translation>
+        <translation type="vanished">グループ情報</translation>
     </message>
     <message>
         <source>Created At</source>
-        <translation>作成日</translation>
+        <translation type="vanished">作成日</translation>
     </message>
     <message>
         <source>Connections</source>
-        <translation>項目</translation>
+        <translation type="vanished">項目</translation>
     </message>
     <message>
         <source>Delete Selection</source>
-        <translation>選択したものを削除</translation>
+        <translation type="vanished">選択したものを削除</translation>
     </message>
     <message>
         <source>Export Selection</source>
-        <translation>選択したものをエクスポート</translation>
+        <translation type="vanished">選択したものをエクスポート</translation>
     </message>
     <message>
         <source>Subscription Settings</source>
-        <translation>サブスクリプション設定</translation>
+        <translation type="vanished">サブスクリプション設定</translation>
     </message>
     <message>
         <source>This group is a subscription</source>
-        <translation>このグループはサブスクリプションです</translation>
+        <translation type="vanished">このグループはサブスクリプションです</translation>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>接続設定</translation>
+        <translation type="vanished">接続設定</translation>
     </message>
     <message>
         <source>Route Settings</source>
-        <translation>ルート設定</translation>
+        <translation type="vanished">ルート設定</translation>
     </message>
 </context>
 <context>
     <name>w_PluginManager</name>
     <message>
         <source>Plugin Manager</source>
-        <translation>プラグインマネージャ</translation>
+        <translation type="vanished">プラグインマネージャ</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation>プラグイン一覧</translation>
+        <translation type="vanished">プラグイン一覧</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>名称</translation>
+        <translation type="vanished">名称</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation>作成者</translation>
+        <translation type="vanished">作成者</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation>説明</translation>
+        <translation type="vanished">説明</translation>
     </message>
     <message>
         <source>Library Path</source>
-        <translation>パス</translation>
+        <translation type="vanished">パス</translation>
     </message>
     <message>
         <source>State</source>
-        <translation>状態</translation>
+        <translation type="vanished">状態</translation>
     </message>
     <message>
         <source>Capability</source>
-        <translation>機能</translation>
+        <translation type="vanished">機能</translation>
     </message>
     <message>
         <source>Special Type</source>
-        <translation>特殊タイプ</translation>
+        <translation type="vanished">特殊タイプ</translation>
     </message>
     <message>
         <source>Manually Edit Settings</source>
-        <translation>設定を手動で編集する</translation>
+        <translation type="vanished">設定を手動で編集する</translation>
     </message>
     <message>
         <source>Plugin Metadata</source>
-        <translation>プラグインのメタデータ</translation>
+        <translation type="vanished">プラグインのメタデータ</translation>
     </message>
     <message>
         <source>Plugin Settings</source>
-        <translation>プラグイン設定</translation>
+        <translation type="vanished">プラグイン設定</translation>
     </message>
     <message>
         <source>Plugin Not Loaded</source>
-        <translation>プラグインがロードされていない</translation>
+        <translation type="vanished">プラグインがロードされていない</translation>
     </message>
     <message>
         <source>Open Local Plugin Folder</source>
-        <translation>ローカルプラグインフォルダを開く</translation>
+        <translation type="vanished">ローカルプラグインフォルダを開く</translation>
     </message>
     <message>
         <source>Online help about plugins</source>
-        <translation>プラグインに関するオンラインヘルプ</translation>
+        <translation type="vanished">プラグインに関するオンラインヘルプ</translation>
     </message>
     <message>
         <source>?</source>
-        <translation>?</translation>
+        <translation type="vanished">?</translation>
     </message>
 </context>
 <context>

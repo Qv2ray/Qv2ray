@@ -4,6 +4,7 @@
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
+#include "components/ntp/QvNTPClient.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/V2rayKernelInteractions.hpp"
@@ -16,6 +17,7 @@
 #include <QCompleter>
 #include <QDesktopServices>
 #include <QFileDialog>
+#include <QHostInfo>
 #include <QStyle>
 #include <QStyleFactory>
 
@@ -1032,4 +1034,44 @@ void PreferencesWindow::on_socksSniffingCB_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.socksSettings.sniffing = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_pushButton_clicked()
+{
+    const auto ntpTitle = tr("NTP Checker");
+    const auto ntpHint = tr("Check date and time from server:");
+    QString ntpServer = QInputDialog::getText(this, ntpTitle, ntpHint, QLineEdit::Normal, "202.118.1.46").trimmed();
+
+    auto client = new ntp::NtpClient(this);
+    connect(client, &ntp::NtpClient::replyReceived, [&](const QHostAddress &, quint16, const ntp::NtpReply &reply) {
+        const int offsetSecTotal = reply.localClockOffset() / 1000;
+        if (offsetSecTotal >= 90 || offsetSecTotal <= -90)
+        {
+            const auto inaccurateWarning = tr("Your time offset is %1 seconds, which is too high.") + NEWLINE + //
+                                           tr("Please synchronize your system to use V2Ray.");
+            QvMessageBoxWarn(this, tr("Time Inaccurate"), inaccurateWarning.arg(offsetSecTotal));
+        }
+        else if (offsetSecTotal > 15 || offsetSecTotal < -15)
+        {
+            const auto smallErrorWarning = tr("Your time offset is %1 seconds, which is a little high.") + NEWLINE + //
+                                           tr("V2Ray may still work, but we suggest you synchronize your clock.");
+            QvMessageBoxInfo(this, tr("Time Somewhat Inaccurate"), smallErrorWarning.arg(offsetSecTotal));
+        }
+        else
+        {
+            const auto accurateInfo = tr("Your time offset is %1 seconds, which looks good.") + NEWLINE + //
+                                      tr("V2Ray may not suffer from time inaccuracy.");
+            QvMessageBoxInfo(this, tr("Time Accurate"), accurateInfo.arg(offsetSecTotal));
+        }
+    });
+
+    const auto hostInfo = QHostInfo::fromName(ntpServer);
+    if (hostInfo.error() == QHostInfo::NoError)
+    {
+        client->sendRequest(hostInfo.addresses().first(), 123);
+    }
+    else
+    {
+        QvMessageBoxWarn(this, ntpTitle, tr("Failed to lookup server: %1").arg(hostInfo.errorString()));
+    }
 }

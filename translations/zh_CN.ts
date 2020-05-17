@@ -12,67 +12,67 @@
     <name>ConnectionInfoWidget</name>
     <message>
         <source>Form</source>
-        <translation>窗体</translation>
+        <translation type="vanished">窗体</translation>
     </message>
     <message>
         <source>Configuration Details</source>
-        <translation>配置详情</translation>
+        <translation type="vanished">配置详情</translation>
     </message>
     <message>
         <source>Connect/Disconnect</source>
-        <translation>连接/断开</translation>
+        <translation type="vanished">连接/断开</translation>
     </message>
     <message>
         <source>Edit Connection</source>
-        <translation>编辑连接</translation>
+        <translation type="vanished">编辑连接</translation>
     </message>
     <message>
         <source>Edit Connection as JSON</source>
-        <translation>将连接编辑为 JSON</translation>
+        <translation type="vanished">将连接编辑为 JSON</translation>
     </message>
     <message>
         <source>Latency Test</source>
-        <translation>测试延迟</translation>
+        <translation type="vanished">测试延迟</translation>
     </message>
     <message>
         <source>Delete Connection</source>
-        <translation>删除连接</translation>
+        <translation type="vanished">删除连接</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>分组</translation>
+        <translation type="vanished">分组</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation>协议</translation>
+        <translation type="vanished">协议</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation>地址</translation>
+        <translation type="vanished">地址</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>端口</translation>
+        <translation type="vanished">端口</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>链接</translation>
+        <translation type="vanished">链接</translation>
     </message>
     <message>
         <source>QR Code</source>
-        <translation>二维码</translation>
+        <translation type="vanished">二维码</translation>
     </message>
     <message>
         <source>Group Name</source>
-        <translation>分组名称</translation>
+        <translation type="vanished">分组名称</translation>
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation>订阅链接</translation>
+        <translation type="vanished">订阅链接</translation>
     </message>
     <message>
         <source>Share Link</source>
-        <translation>分享链接</translation>
+        <translation type="vanished">分享链接</translation>
     </message>
     <message>
         <source>(Ignored %1 complex config(s))</source>
@@ -126,34 +126,34 @@
     <name>ConnectionSettingsWidget</name>
     <message>
         <source>Form</source>
-        <translation>窗体</translation>
+        <translation type="vanished">窗体</translation>
     </message>
 </context>
 <context>
     <name>ConnectionWidget</name>
     <message>
         <source>Form</source>
-        <translation>窗体</translation>
+        <translation type="vanished">窗体</translation>
     </message>
     <message>
         <source>Connection Name</source>
-        <translation>连接名称</translation>
+        <translation type="vanished">连接名称</translation>
     </message>
     <message>
         <source>500ms</source>
-        <translation>500ms</translation>
+        <translation type="vanished">500ms</translation>
     </message>
     <message>
         <source>Type: vmess + tls + ws</source>
-        <translation>类型: vmess + tls + ws</translation>
+        <translation type="vanished">类型: vmess + tls + ws</translation>
     </message>
     <message>
         <source>0KB / 0KB</source>
-        <translation>0KB / 0KB</translation>
+        <translation type="vanished">0KB / 0KB</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>好</translation>
+        <translation type="vanished">好</translation>
     </message>
 </context>
 <context>
@@ -194,52 +194,60 @@
         <source>Move to...</source>
         <translation>移动到...</translation>
     </message>
+    <message>
+        <source>Link to...</source>
+        <translation>链接到...</translation>
+    </message>
+    <message>
+        <source>New Group</source>
+        <translation>新分组</translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
     <message>
         <source>Import file</source>
-        <translation>导入文件</translation>
+        <translation type="vanished">导入文件</translation>
     </message>
     <message>
         <source>Name/Prefix</source>
-        <translation>名称/前缀</translation>
+        <translation type="vanished">名称/前缀</translation>
     </message>
     <message>
         <source>Import Source</source>
-        <translation>导入源</translation>
+        <translation type="vanished">导入源</translation>
     </message>
     <message>
         <source>Existing File</source>
-        <translation>已存在的文件</translation>
+        <translation type="vanished">已存在的文件</translation>
     </message>
     <message>
         <source> secs</source>
-        <translation> 秒</translation>
+        <translation type="vanished"> 秒</translation>
     </message>
     <message>
         <source>Hide Qv2ray</source>
-        <translation>隐藏 Qv2ray</translation>
+        <translation type="vanished">隐藏 Qv2ray</translation>
     </message>
     <message>
         <source>Share Link</source>
-        <translation>分享链接</translation>
+        <translation type="vanished">分享链接</translation>
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation>订阅链接</translation>
+        <translation type="vanished">订阅链接</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>导入</translation>
+        <translation type="vanished">导入</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>路径</translation>
+        <translation type="vanished">路径</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation>选择</translation>
+        <translation type="vanished">选择</translation>
     </message>
     <message>
         <source>Edit Config</source>
@@ -251,7 +259,7 @@
     </message>
     <message>
         <source>VMess / QRCode</source>
-        <translation>VMess / 二维码</translation>
+        <translation type="vanished">VMess / 二维码</translation>
     </message>
     <message>
         <source>VMess Connection String</source>
@@ -259,7 +267,7 @@
     </message>
     <message>
         <source>Go</source>
-        <translation>开始</translation>
+        <translation type="vanished">开始</translation>
     </message>
     <message>
         <source>Place your vmess:// here, one line for each.</source>
@@ -267,43 +275,43 @@
     </message>
     <message>
         <source>Error List</source>
-        <translation>错误列表</translation>
+        <translation type="vanished">错误列表</translation>
     </message>
     <message>
         <source>Subscriptions / Manually Input</source>
-        <translation>订阅/手动输入</translation>
+        <translation type="vanished">订阅/手动输入</translation>
     </message>
     <message>
         <source>Manually Input Connections</source>
-        <translation>手动输入连接</translation>
+        <translation type="vanished">手动输入连接</translation>
     </message>
     <message>
         <source>Route Editor</source>
-        <translation>路由编辑器</translation>
+        <translation type="vanished">路由编辑器</translation>
     </message>
     <message>
         <source>Open Route Editor</source>
-        <translation>打开路由编辑器</translation>
+        <translation type="vanished">打开路由编辑器</translation>
     </message>
     <message>
         <source>Subscription Manager</source>
-        <translation>订阅管理</translation>
+        <translation type="vanished">订阅管理</translation>
     </message>
     <message>
         <source>Open Subscription Manager</source>
-        <translation>打开订阅管理器</translation>
+        <translation type="vanished">打开订阅管理器</translation>
     </message>
     <message>
         <source>Connection Editor</source>
-        <translation>连接编辑器</translation>
+        <translation type="vanished">连接编辑器</translation>
     </message>
     <message>
         <source>Open Connection Editor</source>
-        <translation>打开连接编辑器</translation>
+        <translation type="vanished">打开连接编辑器</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation type="vanished">取消</translation>
     </message>
     <message>
         <source>Select file to import</source>
@@ -355,222 +363,222 @@
     </message>
     <message>
         <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-        <translation>作为复杂配置导入（手动编辑路由规则与入站）</translation>
+        <translation type="vanished">作为复杂配置导入（手动编辑路由规则与入站）</translation>
     </message>
     <message>
         <source>QRCode File</source>
-        <translation>二维码文件</translation>
+        <translation type="vanished">二维码文件</translation>
     </message>
     <message>
         <source>Screenshot</source>
-        <translation>二维码截屏</translation>
+        <translation type="vanished">二维码截屏</translation>
     </message>
     <message>
         <source>Delay</source>
-        <translation>延迟</translation>
+        <translation type="vanished">延迟</translation>
     </message>
     <message>
         <source>Json Editor</source>
-        <translation>Json 编辑器</translation>
+        <translation type="vanished">Json 编辑器</translation>
     </message>
     <message>
         <source>Open JSON Editor</source>
-        <translation>打开 Json 编辑器</translation>
+        <translation type="vanished">打开 Json 编辑器</translation>
     </message>
     <message>
         <source>A prefix to the imported connection</source>
-        <translation>导入链接的名称前缀</translation>
+        <translation type="vanished">导入链接的名称前缀</translation>
     </message>
     <message>
         <source>Connection Share Link</source>
-        <translation>节点分享链接</translation>
+        <translation type="vanished">节点分享链接</translation>
     </message>
     <message>
         <source>Paste share link here, one line for each.</source>
-        <translation>在此粘贴，一行一个。</translation>
+        <translation type="vanished">在此粘贴，一行一个。</translation>
     </message>
 </context>
 <context>
     <name>InboundEditor</name>
     <message>
         <source>Inbound Editor</source>
-        <translation>入站编辑器</translation>
+        <translation type="vanished">入站编辑器</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation>标签</translation>
+        <translation type="vanished">标签</translation>
     </message>
     <message>
         <source>Tag of this inbound entry</source>
-        <translation>此入站条目的标签</translation>
+        <translation type="vanished">此入站条目的标签</translation>
     </message>
     <message>
         <source>Listening</source>
-        <translation>正在监听</translation>
+        <translation type="vanished">正在监听</translation>
     </message>
     <message>
         <source>Hostname or IP Address</source>
-        <translation>主机名或IP地址</translation>
+        <translation type="vanished">主机名或IP地址</translation>
     </message>
     <message>
         <source>:</source>
-        <translation>:</translation>
+        <translation type="vanished">:</translation>
     </message>
     <message>
         <source>Port: 1080|80-85</source>
-        <translation>端口： 1080|80-85</translation>
+        <translation type="vanished">端口： 1080|80-85</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation>协议</translation>
+        <translation type="vanished">协议</translation>
     </message>
     <message>
         <source>Allocation Settings</source>
-        <translation>分配设置</translation>
+        <translation type="vanished">分配设置</translation>
     </message>
     <message>
         <source>Strategy</source>
-        <translation>策略</translation>
+        <translation type="vanished">策略</translation>
     </message>
     <message>
         <source>always</source>
-        <translation>总是</translation>
+        <translation type="vanished">总是</translation>
     </message>
     <message>
         <source>random</source>
-        <translation>随机</translation>
+        <translation type="vanished">随机</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation>刷新</translation>
+        <translation type="vanished">刷新</translation>
     </message>
     <message>
         <source>Concurrency</source>
-        <translation>并发连接数</translation>
+        <translation type="vanished">并发连接数</translation>
     </message>
     <message>
         <source>Sniffing Settings</source>
-        <translation>筛选设置</translation>
+        <translation type="vanished">筛选设置</translation>
     </message>
     <message>
         <source>Destination Override</source>
-        <translation>目标覆盖</translation>
+        <translation type="vanished">目标覆盖</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>已启用</translation>
+        <translation type="vanished">已启用</translation>
     </message>
     <message>
         <source>HTTP Inbound Settings</source>
-        <translation>HTTP 入站设置</translation>
+        <translation type="vanished">HTTP 入站设置</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation>超时</translation>
+        <translation type="vanished">超时</translation>
     </message>
     <message>
         <source>Allow Transparent</source>
-        <translation>允许透明</translation>
+        <translation type="vanished">允许透明</translation>
     </message>
     <message>
         <source>User Level</source>
-        <translation>用户级别</translation>
+        <translation type="vanished">用户级别</translation>
     </message>
     <message>
         <source>-</source>
-        <translation>-</translation>
+        <translation type="vanished">-</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>密码</translation>
+        <translation type="vanished">密码</translation>
     </message>
     <message>
         <source>+</source>
-        <translation>+</translation>
+        <translation type="vanished">+</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>添加</translation>
+        <translation type="vanished">添加</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>用户名</translation>
+        <translation type="vanished">用户名</translation>
     </message>
     <message>
         <source>Accounts</source>
-        <translation>账户</translation>
+        <translation type="vanished">账户</translation>
     </message>
     <message>
         <source>SOCKS Inbound Settings</source>
-        <translation>SOCKS 入站设置</translation>
+        <translation type="vanished">SOCKS 入站设置</translation>
     </message>
     <message>
         <source>Auth</source>
-        <translation>认证</translation>
+        <translation type="vanished">认证</translation>
     </message>
     <message>
         <source>Enable UDP</source>
-        <translation>启用 UDP</translation>
+        <translation type="vanished">启用 UDP</translation>
     </message>
     <message>
         <source>Local UDP IP</source>
-        <translation>本地UDP IP</translation>
+        <translation type="vanished">本地UDP IP</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Dokodemo-Door Inbound Settings</source>
-        <translation>Dokodemo-Door 入站设置</translation>
+        <translation type="vanished">Dokodemo-Door 入站设置</translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation>IP 地址</translation>
+        <translation type="vanished">IP 地址</translation>
     </message>
     <message>
         <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-        <translation>当设置 &quot;跟随重定向&quot; 时，不必使用</translation>
+        <translation type="vanished">当设置 &quot;跟随重定向&quot; 时，不必使用</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>端口</translation>
+        <translation type="vanished">端口</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation>网络</translation>
+        <translation type="vanished">网络</translation>
     </message>
     <message>
         <source>TCP</source>
-        <translation>TCP</translation>
+        <translation type="vanished">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation>UDP</translation>
+        <translation type="vanished">UDP</translation>
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation>跟随重定向</translation>
+        <translation type="vanished">跟随重定向</translation>
     </message>
     <message>
         <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-        <translation>如果您想要使用 tProxy，请前往首选项窗口启用此功能。</translation>
+        <translation type="vanished">如果您想要使用 tProxy，请前往首选项窗口启用此功能。</translation>
     </message>
     <message>
         <source>MTProto Inbound Settings</source>
-        <translation>MTProto 入站设置</translation>
+        <translation type="vanished">MTProto 入站设置</translation>
     </message>
     <message>
         <source>EMail Address</source>
-        <translation>邮件地址</translation>
+        <translation type="vanished">邮件地址</translation>
     </message>
     <message>
         <source>Secret</source>
-        <translation>密文</translation>
+        <translation type="vanished">密文</translation>
     </message>
     <message>
         <source>SECRET</source>
-        <translation>SECRET</translation>
+        <translation type="vanished">SECRET</translation>
     </message>
     <message>
         <source>Inbound type not supported</source>
@@ -605,26 +613,26 @@
     <name>InboundSettingsWidget</name>
     <message>
         <source>Form</source>
-        <translation>窗体</translation>
+        <translation type="vanished">窗体</translation>
     </message>
 </context>
 <context>
     <name>JsonEditor</name>
     <message>
         <source>OK</source>
-        <translation>好</translation>
+        <translation type="vanished">好</translation>
     </message>
     <message>
         <source>Json Structure Preview</source>
-        <translation>Json 结构预览</translation>
+        <translation type="vanished">Json 结构预览</translation>
     </message>
     <message>
         <source>Format JSON</source>
-        <translation>格式化 JSON</translation>
+        <translation type="vanished">格式化 JSON</translation>
     </message>
     <message>
         <source>Json Editor</source>
-        <translation>Json 编辑器</translation>
+        <translation type="vanished">Json 编辑器</translation>
     </message>
     <message>
         <source>Json Contains Syntax Errors</source>
@@ -652,18 +660,18 @@
     </message>
     <message>
         <source>JSON Editor</source>
-        <translation>JSON 编辑器</translation>
+        <translation type="vanished">JSON 编辑器</translation>
     </message>
     <message>
         <source>Remove All Comments</source>
-        <translation>移除所有注释</translation>
+        <translation type="vanished">移除所有注释</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
+        <translation type="vanished">Qv2ray</translation>
     </message>
     <message>
         <source>Subscriptions</source>
@@ -679,58 +687,58 @@
     </message>
     <message>
         <source>Import Connection</source>
-        <translation>导入连接</translation>
+        <translation type="vanished">导入连接</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation>排序</translation>
+        <translation type="vanished">排序</translation>
     </message>
     <message>
         <source>Click to toggle show/hide</source>
-        <translation>点击切换显示/隐藏</translation>
+        <translation type="vanished">点击切换显示/隐藏</translation>
     </message>
     <message>
         <source>  Speed Graph</source>
-        <translation>  速度图像</translation>
+        <translation type="vanished">  速度图像</translation>
     </message>
     <message>
         <source>Clear chart data</source>
-        <translation>清除图表数据</translation>
+        <translation type="vanished">清除图表数据</translation>
     </message>
     <message>
         <source>  Log</source>
-        <translation>  日志</translation>
+        <translation type="vanished">  日志</translation>
     </message>
     <message>
         <source>Clear log</source>
-        <translation>清除日志</translation>
+        <translation type="vanished">清除日志</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation>速度</translation>
+        <translation type="vanished">速度</translation>
     </message>
     <message>
         <source>Upload/Download speed</source>
-        <translation>上传/下载速度</translation>
+        <translation type="vanished">上传/下载速度</translation>
     </message>
     <message>
         <source>0.00 B/s
 0.00 B/s</source>
-        <translation>0.00 B/s
+        <translation type="vanished">0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation>数据</translation>
+        <translation type="vanished">数据</translation>
     </message>
     <message>
         <source>Upload/Download Data</source>
-        <translation>上传/下载流量</translation>
+        <translation type="vanished">上传/下载流量</translation>
     </message>
     <message>
         <source>0.00 B
 0.00 B</source>
-        <translation>0.00 B
+        <translation type="vanished">0.00 B
 0.00 B</translation>
     </message>
     <message>
@@ -915,11 +923,11 @@
     </message>
     <message>
         <source>Locate Current Connection</source>
-        <translation>定位到当前连接</translation>
+        <translation type="vanished">定位到当前连接</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>搜索</translation>
+        <translation type="vanished">搜索</translation>
     </message>
     <message>
         <source>Not Connected</source>
@@ -999,102 +1007,102 @@
     </message>
     <message>
         <source>Plugins</source>
-        <translation>插件</translation>
+        <translation type="vanished">插件</translation>
     </message>
     <message>
         <source>Groups</source>
-        <translation>分组</translation>
+        <translation type="vanished">分组</translation>
     </message>
     <message>
         <source>Add Connection</source>
-        <translation>添加连接</translation>
+        <translation type="vanished">添加连接</translation>
     </message>
 </context>
 <context>
     <name>OutboundEditor</name>
     <message>
         <source>Tag</source>
-        <translation>标签</translation>
+        <translation type="vanished">标签</translation>
     </message>
     <message>
         <source>Tag of this outbound setting</source>
-        <translation>此出站设置的标签</translation>
+        <translation type="vanished">此出站设置的标签</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>主机</translation>
+        <translation type="vanished">主机</translation>
     </message>
     <message>
         <source>Hostname or IP/IPv6 Address</source>
-        <translation>主机名或 IP/IPv6 地址</translation>
+        <translation type="vanished">主机名或 IP/IPv6 地址</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>端口</translation>
+        <translation type="vanished">端口</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>类型</translation>
+        <translation type="vanished">类型</translation>
     </message>
     <message>
         <source>Socks</source>
-        <translation>Socks</translation>
+        <translation type="vanished">Socks</translation>
     </message>
     <message>
         <source>Use Mux</source>
-        <translation>使用Mux</translation>
+        <translation type="vanished">使用Mux</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>已启用</translation>
+        <translation type="vanished">已启用</translation>
     </message>
     <message>
         <source>Edit Connection Settings</source>
-        <translation>编辑连接设置</translation>
+        <translation type="vanished">编辑连接设置</translation>
     </message>
     <message>
         <source>Stream Settings</source>
-        <translation>流设置</translation>
+        <translation type="vanished">流设置</translation>
     </message>
     <message>
         <source>Misc Settings</source>
-        <translation>其他设置</translation>
+        <translation type="vanished">其他设置</translation>
     </message>
     <message>
         <source>Mux Concurrency</source>
-        <translation>Mux 并发</translation>
+        <translation type="vanished">Mux 并发</translation>
     </message>
     <message>
         <source>Use Forward Proxy</source>
-        <translation>使用前置代理</translation>
+        <translation type="vanished">使用前置代理</translation>
     </message>
     <message>
         <source>Outbound Settings</source>
-        <translation>出站设置</translation>
+        <translation type="vanished">出站设置</translation>
     </message>
     <message>
         <source>UUID</source>
-        <translation>UUID</translation>
+        <translation type="vanished">UUID</translation>
     </message>
     <message>
         <source>Alter ID</source>
-        <translation>Alter ID</translation>
+        <translation type="vanished">Alter ID</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>安全</translation>
+        <translation type="vanished">安全</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation>邮箱</translation>
+        <translation type="vanished">邮箱</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>密码</translation>
+        <translation type="vanished">密码</translation>
     </message>
     <message>
         <source>Encryption Method</source>
-        <translation>加密方法</translation>
+        <translation type="vanished">加密方法</translation>
     </message>
     <message>
         <source>chacha20-ietf-poly1305</source>
@@ -1102,15 +1110,15 @@
     </message>
     <message>
         <source>Level</source>
-        <translation>级别</translation>
+        <translation type="vanished">级别</translation>
     </message>
     <message>
         <source>OTA</source>
-        <translation>OTA</translation>
+        <translation type="vanished">OTA</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>用户名</translation>
+        <translation type="vanished">用户名</translation>
     </message>
     <message>
         <source>Unknown outbound type.</source>
@@ -1180,63 +1188,63 @@
     </message>
     <message>
         <source>UI Theme</source>
-        <translation>界面主题</translation>
+        <translation type="vanished">界面主题</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>已启用</translation>
+        <translation type="vanished">已启用</translation>
     </message>
     <message>
         <source>Darkmode UI Icons</source>
-        <translation>深色模式 UI 图标</translation>
+        <translation type="vanished">深色模式 UI 图标</translation>
     </message>
     <message>
         <source>Darkmode Tray Icon</source>
-        <translation>深色模式托盘图标</translation>
+        <translation type="vanished">深色模式托盘图标</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation>语言</translation>
+        <translation type="vanished">语言</translation>
     </message>
     <message>
         <source>Log Level</source>
-        <translation>日志等级</translation>
+        <translation type="vanished">日志等级</translation>
     </message>
     <message>
         <source>none</source>
-        <translation>不使用</translation>
+        <translation type="vanished">不使用</translation>
     </message>
     <message>
         <source>debug</source>
-        <translation>调试</translation>
+        <translation type="vanished">调试</translation>
     </message>
     <message>
         <source>info</source>
-        <translation>信息</translation>
+        <translation type="vanished">信息</translation>
     </message>
     <message>
         <source>warning</source>
-        <translation>警告</translation>
+        <translation type="vanished">警告</translation>
     </message>
     <message>
         <source>error</source>
-        <translation>错误</translation>
+        <translation type="vanished">错误</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation>选择</translation>
+        <translation type="vanished">选择</translation>
     </message>
     <message>
         <source>Inbound Settings</source>
-        <translation>入站设置</translation>
+        <translation type="vanished">入站设置</translation>
     </message>
     <message>
         <source>Listening Address</source>
-        <translation>监听地址</translation>
+        <translation type="vanished">监听地址</translation>
     </message>
     <message>
         <source>HTTP</source>
-        <translation>HTTP</translation>
+        <translation type="vanished">HTTP</translation>
     </message>
     <message>
         <source>SOCKS</source>
@@ -1244,23 +1252,23 @@
     </message>
     <message>
         <source>Set System Proxy</source>
-        <translation>设置系统代理</translation>
+        <translation type="vanished">设置系统代理</translation>
     </message>
     <message>
         <source>SOCKS Settings</source>
-        <translation>SOCKS 设置</translation>
+        <translation type="vanished">SOCKS 设置</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>端口</translation>
+        <translation type="vanished">端口</translation>
     </message>
     <message>
         <source>UDP Support</source>
-        <translation>UDP 支持</translation>
+        <translation type="vanished">UDP 支持</translation>
     </message>
     <message>
         <source>Launch at Login</source>
-        <translation>登录时启动</translation>
+        <translation type="vanished">登录时启动</translation>
     </message>
     <message>
         <source>API Subsystem</source>
@@ -1268,19 +1276,19 @@
     </message>
     <message>
         <source>Authentication</source>
-        <translation>身份验证</translation>
+        <translation type="vanished">身份验证</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>用户名</translation>
+        <translation type="vanished">用户名</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>密码</translation>
+        <translation type="vanished">密码</translation>
     </message>
     <message>
         <source>HTTP Settings</source>
-        <translation>HTTP 设置</translation>
+        <translation type="vanished">HTTP 设置</translation>
     </message>
     <message>
         <source>PAC Settings</source>
@@ -1296,7 +1304,7 @@
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Use Proxy</source>
@@ -1356,15 +1364,15 @@
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>连接设置</translation>
+        <translation type="vanished">连接设置</translation>
     </message>
     <message>
         <source>General Connection Settings</source>
-        <translation>常规连接设置</translation>
+        <translation type="vanished">常规连接设置</translation>
     </message>
     <message>
         <source>Enable Proxy</source>
-        <translation>启用代理</translation>
+        <translation type="vanished">启用代理</translation>
     </message>
     <message>
         <source>Bypass Chinese Mainland</source>
@@ -1372,95 +1380,95 @@
     </message>
     <message>
         <source>API Port</source>
-        <translation>API 端口</translation>
+        <translation type="vanished">API 端口</translation>
     </message>
     <message>
         <source>Use Local DNS</source>
-        <translation>使用本地 DNS</translation>
+        <translation type="vanished">使用本地 DNS</translation>
     </message>
     <message>
         <source>Custom DNS List</source>
-        <translation>自定义 DNS 列表</translation>
+        <translation type="vanished">自定义 DNS 列表</translation>
     </message>
     <message>
         <source>Forward Proxy</source>
-        <translation>前置代理</translation>
+        <translation type="vanished">前置代理</translation>
     </message>
     <message>
         <source>Only simple config is supported.</source>
-        <translation>只支持简单配置。</translation>
+        <translation type="vanished">只支持简单配置。</translation>
     </message>
     <message>
         <source>Build Info</source>
-        <translation>编译信息</translation>
+        <translation type="vanished">编译信息</translation>
     </message>
     <message>
         <source>Extra Build Info</source>
-        <translation>额外编译信息</translation>
+        <translation type="vanished">额外编译信息</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>类型</translation>
+        <translation type="vanished">类型</translation>
     </message>
     <message>
         <source>Socks</source>
-        <translation>SOCKS</translation>
+        <translation type="vanished">SOCKS</translation>
     </message>
     <message>
         <source>Host Address</source>
-        <translation>主机地址</translation>
+        <translation type="vanished">主机地址</translation>
     </message>
     <message>
         <source>Network Toolbar Settings</source>
-        <translation>网络工具栏设置</translation>
+        <translation type="vanished">网络工具栏设置</translation>
     </message>
     <message>
         <source>Apply Network Speed Bar UI Settings</source>
-        <translation>应用网络速度栏界面设置</translation>
+        <translation type="vanished">应用网络速度栏界面设置</translation>
     </message>
     <message>
         <source>Items</source>
-        <translation>项目</translation>
+        <translation type="vanished">项目</translation>
     </message>
     <message>
         <source>General Settings</source>
-        <translation>常规设置</translation>
+        <translation type="vanished">常规设置</translation>
     </message>
     <message>
         <source>Maximum log lines</source>
-        <translation>日志最大行数</translation>
+        <translation type="vanished">日志最大行数</translation>
     </message>
     <message>
         <source> lines</source>
-        <translation> 行</translation>
+        <translation type="vanished"> 行</translation>
     </message>
     <message>
         <source>V2ray Settings</source>
-        <translation>V2ray 设置</translation>
+        <translation type="vanished">V2ray 设置</translation>
     </message>
     <message>
         <source>Core Executable Path</source>
-        <translation>核心可执行文件路径</translation>
+        <translation type="vanished">核心可执行文件路径</translation>
     </message>
     <message>
         <source>V2ray Assets Directory</source>
-        <translation>V2ray 资源目录</translation>
+        <translation type="vanished">V2ray 资源目录</translation>
     </message>
     <message>
         <source>Check V2ray Core Settings</source>
-        <translation>检查 V2ray 核心设置</translation>
+        <translation type="vanished">检查 V2ray 核心设置</translation>
     </message>
     <message>
         <source>UDP Local IP</source>
-        <translation>UDP 本地IP</translation>
+        <translation type="vanished">UDP 本地IP</translation>
     </message>
     <message>
         <source>-</source>
-        <translation>-</translation>
+        <translation type="vanished">-</translation>
     </message>
     <message>
         <source>+</source>
-        <translation>+</translation>
+        <translation type="vanished">+</translation>
     </message>
     <message>
         <source>Page Y Offset</source>
@@ -1468,55 +1476,55 @@
     </message>
     <message>
         <source>Pages</source>
-        <translation>页面</translation>
+        <translation type="vanished">页面</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation>行</translation>
+        <translation type="vanished">行</translation>
     </message>
     <message>
         <source>This feature is not stable and no documentation is provided, please use it at your own risk!</source>
-        <translation>此功能不够稳定，且暂无文档，使用时需自负风险！</translation>
+        <translation type="vanished">此功能不够稳定，且暂无文档，使用时需自负风险！</translation>
     </message>
     <message>
         <source>Text Style</source>
-        <translation>文字样式</translation>
+        <translation type="vanished">文字样式</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>字体</translation>
+        <translation type="vanished">字体</translation>
     </message>
     <message>
         <source>Bold</source>
-        <translation>粗体</translation>
+        <translation type="vanished">粗体</translation>
     </message>
     <message>
         <source>Italic</source>
-        <translation>斜体</translation>
+        <translation type="vanished">斜体</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>大小</translation>
+        <translation type="vanished">大小</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>颜色</translation>
+        <translation type="vanished">颜色</translation>
     </message>
     <message>
         <source>A:</source>
-        <translation>A:</translation>
+        <translation type="vanished">A:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation type="vanished">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation type="vanished">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation type="vanished">B:</translation>
     </message>
     <message>
         <source>...</source>
@@ -1524,35 +1532,35 @@
     </message>
     <message>
         <source>Style</source>
-        <translation>样式</translation>
+        <translation type="vanished">样式</translation>
     </message>
     <message>
         <source>Content</source>
-        <translation>内容</translation>
+        <translation type="vanished">内容</translation>
     </message>
     <message>
         <source>Content Type</source>
-        <translation>内容类型</translation>
+        <translation type="vanished">内容类型</translation>
     </message>
     <message>
         <source>Text/Tag</source>
-        <translation>文本/标签</translation>
+        <translation type="vanished">文本/标签</translation>
     </message>
     <message>
         <source>You can config how the network speed toolbar looks like in this panel</source>
-        <translation>您可以设定网络速度工具栏的外观</translation>
+        <translation type="vanished">您可以设定网络速度工具栏的外观</translation>
     </message>
     <message>
         <source>About</source>
-        <translation>关于</translation>
+        <translation type="vanished">关于</translation>
     </message>
     <message>
         <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
+        <translation type="vanished">Qv2ray</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation>版本：</translation>
+        <translation type="vanished">版本：</translation>
     </message>
     <message>
         <source>Official Repo:</source>
@@ -1572,23 +1580,23 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation type="vanished">取消</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>关于 Qt</translation>
+        <translation type="vanished">关于 Qt</translation>
     </message>
     <message>
         <source>Use Darkmode Theme</source>
-        <translation>使用暗色模式主题</translation>
+        <translation type="vanished">使用暗色模式主题</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>页</translation>
+        <translation type="vanished">页</translation>
     </message>
     <message>
         <source>Item(s)</source>
-        <translation>项目</translation>
+        <translation type="vanished">项目</translation>
     </message>
     <message>
         <source>Enable tProxy Support</source>
@@ -1600,7 +1608,7 @@
     </message>
     <message>
         <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
-        <translation>Qv2ray 的网络工具栏已被禁用，请使用 --withToolbarPlugin 来启用。</translation>
+        <translation type="vanished">Qv2ray 的网络工具栏已被禁用，请使用 --withToolbarPlugin 来启用。</translation>
     </message>
     <message>
         <source>Version: %1</source>
@@ -1652,15 +1660,15 @@
     </message>
     <message>
         <source>Apply network toolbar settings</source>
-        <translation>应用网络工具栏设置</translation>
+        <translation type="vanished">应用网络工具栏设置</translation>
     </message>
     <message>
         <source>All other modified settings will be applied as well after this object.</source>
-        <translation>已经编辑的其它设置也会被同时应用。</translation>
+        <translation type="vanished">已经编辑的其它设置也会被同时应用。</translation>
     </message>
     <message>
         <source>Do you want to continue?</source>
-        <translation>你想继续吗？</translation>
+        <translation type="vanished">你想继续吗？</translation>
     </message>
     <message>
         <source>Dangerous Operation</source>
@@ -1732,7 +1740,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Transparent Proxy Settings</source>
-        <translation>透明代理设置</translation>
+        <translation type="vanished">透明代理设置</translation>
     </message>
     <message>
         <source>All settings below will only be applied onto simple connection.</source>
@@ -1748,15 +1756,15 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>TCP</source>
-        <translation>TCP</translation>
+        <translation type="vanished">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation>UDP</translation>
+        <translation type="vanished">UDP</translation>
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation>跟随重定向</translation>
+        <translation type="vanished">跟随重定向</translation>
     </message>
     <message>
         <source>Override Connection SockOpt Settings</source>
@@ -1784,7 +1792,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Config</source>
-        <translation>配置</translation>
+        <translation type="vanished">配置</translation>
     </message>
     <message>
         <source>Subscription</source>
@@ -1792,11 +1800,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Auto Connect</source>
-        <translation>自动连接</translation>
+        <translation type="vanished">自动连接</translation>
     </message>
     <message>
         <source>Bypass CN Mainland</source>
-        <translation>绕过中国大陆</translation>
+        <translation type="vanished">绕过中国大陆</translation>
     </message>
     <message>
         <source>Blocked Domains</source>
@@ -1812,11 +1820,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Advanced Route Settings</source>
-        <translation>高级路由设置</translation>
+        <translation type="vanished">高级路由设置</translation>
     </message>
     <message>
         <source>You can configure route rules for all simple connection config here.</source>
-        <translation>您可在此为所有简单连接配置路由规则。</translation>
+        <translation type="vanished">您可在此为所有简单连接配置路由规则。</translation>
     </message>
     <message>
         <source>Connection</source>
@@ -1828,15 +1836,15 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>License</source>
-        <translation>许可证</translation>
+        <translation type="vanished">许可证</translation>
     </message>
     <message>
         <source>Official Repo</source>
-        <translation>官方仓库</translation>
+        <translation type="vanished">官方仓库</translation>
     </message>
     <message>
         <source>Built Time</source>
-        <translation>构建时间</translation>
+        <translation type="vanished">构建时间</translation>
     </message>
     <message>
         <source>Update Settings</source>
@@ -1844,35 +1852,35 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Update Channel</source>
-        <translation>更新通道</translation>
+        <translation type="vanished">更新通道</translation>
     </message>
     <message>
         <source>Stable Release</source>
-        <translation>稳定通道</translation>
+        <translation type="vanished">稳定通道</translation>
     </message>
     <message>
         <source>Testing</source>
-        <translation>测试通道</translation>
+        <translation type="vanished">测试通道</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation>外观</translation>
+        <translation type="vanished">外观</translation>
     </message>
     <message>
         <source>Behavior</source>
-        <translation>行为</translation>
+        <translation type="vanished">行为</translation>
     </message>
     <message>
         <source>Transparent Proxy</source>
-        <translation>透明代理</translation>
+        <translation type="vanished">透明代理</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>分组</translation>
+        <translation type="vanished">分组</translation>
     </message>
     <message>
         <source>Network Settings</source>
-        <translation>网络设置</translation>
+        <translation type="vanished">网络设置</translation>
     </message>
     <message>
         <source>Use Custom Proxy</source>
@@ -1884,7 +1892,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>:</source>
-        <translation>:</translation>
+        <translation type="vanished">:</translation>
     </message>
     <message>
         <source>Proxy Type</source>
@@ -1892,7 +1900,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>User-Agent</source>
-        <translation>User Agent</translation>
+        <translation type="vanished">User Agent</translation>
     </message>
     <message>
         <source>Qv2ray/2 NetworkRequestHelper</source>
@@ -1900,23 +1908,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Kernel Settings</source>
-        <translation>内核设置</translation>
+        <translation type="vanished">内核设置</translation>
     </message>
     <message>
         <source>API SubSystem</source>
-        <translation>API 子系统</translation>
+        <translation type="vanished">API 子系统</translation>
     </message>
     <message>
         <source>Plugin Kernel Settings</source>
-        <translation>插件内核设置</translation>
+        <translation type="vanished">插件内核设置</translation>
     </message>
     <message>
         <source>Enabling V2ray Integration will allow the kernel benefit from the V2ray routing engine.</source>
-        <translation>启用 V2Ray 插件集成将允许核心受益于 V2Ray 的路由引擎。</translation>
+        <translation type="vanished">启用 V2Ray 插件集成将允许核心受益于 V2Ray 的路由引擎。</translation>
     </message>
     <message>
         <source>V2ray Integration</source>
-        <translation>V2Ray 集成</translation>
+        <translation type="vanished">V2Ray 集成</translation>
     </message>
     <message>
         <source>If not checked, these features will be disabled:
@@ -1925,7 +1933,7 @@ Advanced Routing Settings
 Bypass CN websites and IPs
 Direct connection of Local LAN addresses
 Custom DNS Settings</source>
-        <translation>若不勾选此选项，插件的下列功能将被禁用：
+        <translation type="vanished">若不勾选此选项，插件的下列功能将被禁用：
 
 高级路由设定
 绕过中国大陆
@@ -1934,11 +1942,11 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</source>
-        <translation>如果启用，Qv2ray 将为每个内核插件分配端口，分别用于 HTTP 和 SOCKS。</translation>
+        <translation type="vanished">如果启用，Qv2ray 将为每个内核插件分配端口，分别用于 HTTP 和 SOCKS。</translation>
     </message>
     <message>
         <source>Port Allocation Start</source>
-        <translation>端口分配起始值</translation>
+        <translation type="vanished">端口分配起始值</translation>
     </message>
     <message>
         <source>All settings below will only be applied on simple connection.</source>
@@ -1946,81 +1954,81 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Page Y Axis Offset</source>
-        <translation>页面 Y 轴偏移</translation>
+        <translation type="vanished">页面 Y 轴偏移</translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation>选择颜色</translation>
+        <translation type="vanished">选择颜色</translation>
     </message>
     <message>
         <source>Ignored Version</source>
-        <translation>忽略版本</translation>
+        <translation type="vanished">忽略版本</translation>
     </message>
     <message>
         <source>Plugin Interface</source>
-        <translation>插件接口</translation>
+        <translation type="vanished">插件接口</translation>
     </message>
     <message>
         <source>Advanced Behavior</source>
-        <translation>高级行为</translation>
+        <translation type="vanished">高级行为</translation>
     </message>
     <message>
         <source>AllowInsecure By Default</source>
-        <translation>允许不安全的证书</translation>
+        <translation type="vanished">允许不安全的证书</translation>
     </message>
     <message>
         <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
 This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-        <translation>导入链接时默认启用 &quot;AllowInsecure&quot; 选项。
+        <translation type="vanished">导入链接时默认启用 &quot;AllowInsecure&quot; 选项。
 可能对部分机场/节点的证书问题有所帮助，但更可能会使您遭受来自第三人的 TLS MITM 攻击。</translation>
     </message>
     <message>
         <source>Test Latency Periodcally</source>
-        <translation>定时测试延迟</translation>
+        <translation type="vanished">定时测试延迟</translation>
     </message>
     <message>
         <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation>连接到节点之后，对节点进行周期性的延迟监测。
+        <translation type="vanished">连接到节点之后，对节点进行周期性的延迟监测。
 若启用，Qv2ray 对节点的延迟监测将会更加准确，但这也许会提升您服务器被暴露的风险。</translation>
     </message>
     <message>
         <source>These settings may be useful.
 But could damage your server if improperly used.</source>
-        <translation>以下设定可能很有用。
+        <translation type="vanished">以下设定可能很有用。
 但若使用不当，可能会造成负面影响。</translation>
     </message>
     <message>
         <source>AllowInsecureCiphers By Default</source>
-        <translation>允许不安全的 TLS 算法</translation>
+        <translation type="vanished">允许不安全的 TLS 算法</translation>
     </message>
     <message>
         <source>Quiet Mode</source>
-        <translation>安静模式</translation>
+        <translation type="vanished">安静模式</translation>
     </message>
     <message>
         <source>Recent Jumplist</source>
-        <translation>最近列表</translation>
+        <translation type="vanished">最近列表</translation>
     </message>
     <message>
         <source> Connections</source>
-        <translation> 个</translation>
+        <translation type="vanished"> 个</translation>
     </message>
     <message>
         <source>Qv2ray Proxy</source>
-        <translation>Qv2ray 代理</translation>
+        <translation type="vanished">Qv2ray 代理</translation>
     </message>
     <message>
         <source>No Proxy</source>
-        <translation>不使用代理</translation>
+        <translation type="vanished">不使用代理</translation>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation>使用系统代理</translation>
+        <translation type="vanished">使用系统代理</translation>
     </message>
     <message>
         <source>Custom Proxy</source>
-        <translation>使用自定义代理</translation>
+        <translation type="vanished">使用自定义代理</translation>
     </message>
     <message>
         <source>Curtom Proxy</source>
@@ -2028,39 +2036,39 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Network Options</source>
-        <translation>网络选项</translation>
+        <translation type="vanished">网络选项</translation>
     </message>
     <message>
         <source>DNS Intercept</source>
-        <translation>DNS 拦截</translation>
+        <translation type="vanished">DNS 拦截</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation>模式</translation>
+        <translation type="vanished">模式</translation>
     </message>
     <message>
         <source>redirect</source>
-        <translation>重定向</translation>
+        <translation type="vanished">重定向</translation>
     </message>
     <message>
         <source>tproxy</source>
-        <translation>tProxy</translation>
+        <translation type="vanished">tProxy</translation>
     </message>
     <message>
         <source>Outbound Mark</source>
-        <translation>出站 Mark</translation>
+        <translation type="vanished">出站 Mark</translation>
     </message>
     <message>
         <source>Sniffing</source>
-        <translation>嗅探</translation>
+        <translation type="vanished">嗅探</translation>
     </message>
     <message>
         <source>Use V2ray DNS for Freedom Outbound</source>
-        <translation>为自由出站使用 V2Ray DNS</translation>
+        <translation type="vanished">为自由出站使用 V2Ray DNS</translation>
     </message>
     <message>
         <source>Bypass Bittorrent Protocol</source>
-        <translation>绕过 BitTorrent 协议</translation>
+        <translation type="vanished">绕过 BitTorrent 协议</translation>
     </message>
     <message>
         <source>Note</source>
@@ -2077,7 +2085,7 @@ But could damage your server if improperly used.</source>
     <message>
         <source>These settings are for Qv2ray itself.
 For example, for updating subscriptions.</source>
-        <translation>这些设定是针对 Qv2ray 本身的。
+        <translation type="vanished">这些设定是针对 Qv2ray 本身的。
 例如，用在更新订阅时。</translation>
     </message>
     <message>
@@ -2092,148 +2100,200 @@ For example, for updating subscriptions.</source>
         <source>Speed chart and traffic statistics will be disabled.</source>
         <translation>速度图表和流量统计功能将不再可用。</translation>
     </message>
+    <message>
+        <source>Use built-in darkmode Theme</source>
+        <translation>使用内置暗色模式主题</translation>
+    </message>
+    <message>
+        <source>NTP Checker</source>
+        <translation>网络时间检查器</translation>
+    </message>
+    <message>
+        <source>Check date and time from server:</source>
+        <translation>从NTP服务器检查日期与时间：</translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which is too high.</source>
+        <translation>你的时间偏差为 %1 秒，太高了。</translation>
+    </message>
+    <message>
+        <source>Please synchronize your system to use V2Ray.</source>
+        <translation>请同步系统时间，否则无法正常使用 V2Ray。</translation>
+    </message>
+    <message>
+        <source>Time Inaccurate</source>
+        <translation>时间不准</translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which is a little high.</source>
+        <translation>你的时间偏差为 %1 秒，有点高。</translation>
+    </message>
+    <message>
+        <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
+        <translation>V2Ray 可能不受影响，但我们建议同步时间。</translation>
+    </message>
+    <message>
+        <source>Time Somewhat Inaccurate</source>
+        <translation>时间略有偏差</translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which looks good.</source>
+        <translation>你的时间偏差为 %1 秒，没有问题。</translation>
+    </message>
+    <message>
+        <source>V2Ray may not suffer from time inaccuracy.</source>
+        <translation>V2Ray 会正常工作。</translation>
+    </message>
+    <message>
+        <source>Time Accurate</source>
+        <translation>时间准确</translation>
+    </message>
+    <message>
+        <source>Failed to lookup server: %1</source>
+        <translation>无法查找服务器：%1</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Unsupported share link format.</source>
-        <translation>不支持的分享链接格式。</translation>
+        <translation type="vanished">不支持的分享链接格式。</translation>
     </message>
     <message>
         <source>SS URI is too short</source>
-        <translation>SS URI 太短了</translation>
+        <translation type="vanished">SS URI 太短了</translation>
     </message>
     <message>
         <source>Can&apos;t find the colon separator between method and password</source>
-        <translation>无法找到 method 和 password 之间的冒号分隔符</translation>
+        <translation type="vanished">无法找到 method 和 password 之间的冒号分隔符</translation>
     </message>
     <message>
         <source>Can&apos;t find the at separator between password and hostname</source>
-        <translation>无法找到 password 和 hostname 之间的分隔符</translation>
+        <translation type="vanished">无法找到 password 和 hostname 之间的分隔符</translation>
     </message>
     <message>
         <source>Can&apos;t find the colon separator between hostname and port</source>
-        <translation>无法找到 host 和 port 之间的冒号分隔符</translation>
+        <translation type="vanished">无法找到 host 和 port 之间的冒号分隔符</translation>
     </message>
     <message>
         <source>VMess string should start with &apos;vmess://&apos;</source>
-        <translation>VMess 链接应以 &apos;vmess://&apos; 开始</translation>
+        <translation type="vanished">VMess 链接应以 &apos;vmess://&apos; 开始</translation>
     </message>
     <message>
         <source>VMess string should be a valid base64 string</source>
-        <translation>VMess 链接应该是一个有效的 base64 字符串</translation>
+        <translation type="vanished">VMess 链接应该是一个有效的 base64 字符串</translation>
     </message>
     <message>
         <source>JSON should not be empty</source>
-        <translation>JSON 不应该为空</translation>
+        <translation type="vanished">JSON 不应该为空</translation>
     </message>
     <message>
         <source>seems like a v1 vmess, we don&apos;t support it</source>
-        <translation>似乎导入了 v1 版本的 VMess，我们不支持</translation>
+        <translation type="vanished">似乎导入了 v1 版本的 VMess，我们不支持</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>警告</translation>
+        <translation type="vanished">警告</translation>
     </message>
     <message>
         <source>Qv2ray cannot load the config file from here:</source>
-        <translation>Qv2ray 无法从这里加载配置文件：</translation>
+        <translation type="vanished">Qv2ray 无法从这里加载配置文件：</translation>
     </message>
     <message>
         <source>Cannot Start Qv2ray</source>
-        <translation>无法启动 Qv2ray</translation>
+        <translation type="vanished">无法启动 Qv2ray</translation>
     </message>
     <message>
         <source>Cannot find a place to store config files.</source>
-        <translation>找不到保存配置文件的地方。</translation>
+        <translation type="vanished">找不到保存配置文件的地方。</translation>
     </message>
     <message>
         <source>Qv2ray has searched these paths below:</source>
-        <translation>Qv2ray 搜索了以下路径：</translation>
+        <translation type="vanished">Qv2ray 搜索了以下路径：</translation>
     </message>
     <message>
         <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-        <translation>这通常意味着您没有所有这些位置的文件写入权限。</translation>
+        <translation type="vanished">这通常意味着您没有所有这些位置的文件写入权限。</translation>
     </message>
     <message>
         <source>Qv2ray will now exit.</source>
-        <translation>Qv2ray 现在将退出。</translation>
+        <translation type="vanished">Qv2ray 现在将退出。</translation>
     </message>
     <message>
         <source>Failed to initialise Qv2ray</source>
-        <translation>初始化 Qv2ray 失败</translation>
+        <translation type="vanished">初始化 Qv2ray 失败</translation>
     </message>
     <message>
         <source>Please report if you think it&apos;s a bug.</source>
-        <translation>如果您认为它是一个bug，请&apos;报告。</translation>
+        <translation type="vanished">如果您认为它是一个bug，请&apos;报告。</translation>
     </message>
     <message>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
-        <translation>您不能以root用户身份运行Qv2ray，如果您确实想这样做，请使用 --I-just-wanna-run-with-root。</translation>
+        <translation type="vanished">您不能以root用户身份运行Qv2ray，如果您确实想这样做，请使用 --I-just-wanna-run-with-root。</translation>
     </message>
     <message>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
-        <translation> --&gt; 请自负风险！</translation>
+        <translation type="vanished"> --&gt; 请自负风险！</translation>
     </message>
     <message>
         <source>Debug version</source>
-        <translation>调试版</translation>
+        <translation type="vanished">调试版</translation>
     </message>
     <message>
         <source>Qv2ray Cannot Continue</source>
-        <translation>Qv2ray 无法继续</translation>
+        <translation type="vanished">Qv2ray 无法继续</translation>
     </message>
     <message>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-        <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray。</translation>
+        <translation type="vanished">与当前配置文件相比，您正在运行一个较低版本的 Qv2ray。</translation>
     </message>
     <message>
         <source>Please check if there&apos;s an issue explaining about it.</source>
-        <translation>请检查是否存在&apos;有关此问题的说明。</translation>
+        <translation type="vanished">请检查是否存在&apos;有关此问题的说明。</translation>
     </message>
     <message>
         <source>Or submit a new issue if you think this is an error.</source>
-        <translation>或者如果你认为这是一个错误，请提交一个新问题。</translation>
+        <translation type="vanished">或者如果你认为这是一个错误，请提交一个新问题。</translation>
     </message>
     <message>
         <source>Dependency Missing</source>
-        <translation>缺少依赖关系</translation>
+        <translation type="vanished">缺少依赖关系</translation>
     </message>
     <message>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
-        <translation>这可能是系统中缺少`openssl`软件包造成的。</translation>
+        <translation type="vanished">这可能是系统中缺少`openssl`软件包造成的。</translation>
     </message>
     <message>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
-        <translation>如果您使用的是来自 Github Action 的 AppImage，请报告错误。</translation>
+        <translation type="vanished">如果您使用的是来自 Github Action 的 AppImage，请报告错误。</translation>
     </message>
     <message>
         <source>Cannot find openssl libs</source>
-        <translation>找不到 OpenSSL 库</translation>
+        <translation type="vanished">找不到 OpenSSL 库</translation>
     </message>
     <message>
         <source>Failed to determine the location of config file:</source>
-        <translation>无法确定配置文件的位置：</translation>
+        <translation type="vanished">无法确定配置文件的位置：</translation>
     </message>
     <message>
         <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-        <translation>Qv2ray已找到配置文件，但由于某些错误而无法加载。</translation>
+        <translation type="vanished">Qv2ray已找到配置文件，但由于某些错误而无法加载。</translation>
     </message>
     <message>
         <source>A workaround is to remove the this file and restart Qv2ray:</source>
-        <translation>一种解决方法是删除此文件并重新启动Qv2ray：</translation>
+        <translation type="vanished">一种解决方法是删除此文件并重新启动Qv2ray：</translation>
     </message>
     <message>
         <source>Technical Details</source>
-        <translation>技术细节</translation>
+        <translation type="vanished">技术细节</translation>
     </message>
     <message>
         <source>N/A</source>
-        <translation>不适用</translation>
+        <translation type="vanished">不适用</translation>
     </message>
     <message>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - V2ray的跨平台Qt前端。</translation>
+        <translation type="vanished">Qv2ray - V2ray的跨平台Qt前端。</translation>
     </message>
     <message>
         <source>Disable gRPC API subsystems.</source>
@@ -2253,83 +2313,83 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Default Group</source>
-        <translation>默认分组</translation>
+        <translation type="vanished">默认分组</translation>
     </message>
     <message>
         <source>Deprecated</source>
-        <translation>已经过时</translation>
+        <translation type="vanished">已经过时</translation>
     </message>
     <message>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation>PAC 已经被标记为过时的功能，并且我们不建议您继续使用。</translation>
+        <translation type="vanished">PAC 已经被标记为过时的功能，并且我们不建议您继续使用。</translation>
     </message>
     <message>
         <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation>它可能会在将来某个版本被移除，或者作为单独的插件提供。</translation>
+        <translation type="vanished">它可能会在将来某个版本被移除，或者作为单独的插件提供。</translation>
     </message>
     <message>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation>PAC 目前将会继续工作，但是我们强烈建议您切换使用 V2ray 自带的路由功能。</translation>
+        <translation type="vanished">PAC 目前将会继续工作，但是我们强烈建议您切换使用 V2ray 自带的路由功能。</translation>
     </message>
     <message>
         <source>Configuration Upgrade Failed</source>
-        <translation>配置升级失败</translation>
+        <translation type="vanished">配置升级失败</translation>
     </message>
     <message>
         <source>Unsupported config version number: </source>
-        <translation>不支持的配置文件版本: </translation>
+        <translation type="vanished">不支持的配置文件版本: </translation>
     </message>
     <message>
         <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-        <translation>请先升级到 Qv2ray v2.0/v2.1 再重试。</translation>
+        <translation type="vanished">请先升级到 Qv2ray v2.0/v2.1 再重试。</translation>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must exist</source>
-        <translation>SSD 链接无效: json: 必选字段 %1 不存在</translation>
+        <translation type="vanished">SSD 链接无效: json: 必选字段 %1 不存在</translation>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must be valid port number</source>
-        <translation>SSD 链接无效: json: 字段 %1 应为有效的端口号</translation>
+        <translation type="vanished">SSD 链接无效: json: 字段 %1 应为有效的端口号</translation>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-        <translation>SSD 链接无效: json: 字段 %1 必须为字符串类型</translation>
+        <translation type="vanished">SSD 链接无效: json: 字段 %1 必须为字符串类型</translation>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must be an array</source>
-        <translation>SSD 链接无效: json: 字段 %1 必须为数组类型</translation>
+        <translation type="vanished">SSD 链接无效: json: 字段 %1 必须为数组类型</translation>
     </message>
     <message>
         <source>skipping invalid ssd server: server must be an object</source>
-        <translation>跳过无效的 ssd 服务器: 服务器必须是一个对象</translation>
+        <translation type="vanished">跳过无效的 ssd 服务器: 服务器必须是一个对象</translation>
     </message>
     <message>
         <source>skipping invalid ssd server: missing required field %1</source>
-        <translation>跳过无效的 ssd 服务器: 必选字段 %1 缺失</translation>
+        <translation type="vanished">跳过无效的 ssd 服务器: 必选字段 %1 缺失</translation>
     </message>
     <message>
         <source>skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-        <translation>跳过无效的 ssd 服务器: 字段 %1 须为字符串类型</translation>
+        <translation type="vanished">跳过无效的 ssd 服务器: 字段 %1 须为字符串类型</translation>
     </message>
     <message>
         <source>Invalid ssd link: should begin with ssd://</source>
-        <translation>SSD 链接无效: 必须以 ssd:// 开头</translation>
+        <translation type="vanished">SSD 链接无效: 必须以 ssd:// 开头</translation>
     </message>
     <message>
         <source>Invalid ssd link: base64 parse failed</source>
-        <translation>SSD 链接无效: 无法作为 Base64 解析</translation>
+        <translation type="vanished">SSD 链接无效: 无法作为 Base64 解析</translation>
     </message>
     <message>
         <source>Invalid ssd link: json parse failed: </source>
-        <translation>SSD 链接无效: JSON 语法分析失败: </translation>
+        <translation type="vanished">SSD 链接无效: JSON 语法分析失败: </translation>
     </message>
     <message>
         <source>Invalid ssd link: found non-object json, aborting</source>
-        <translation>SSD 链接无效: 解析到非对象的 JSON，已终止</translation>
+        <translation type="vanished">SSD 链接无效: 解析到非对象的 JSON，已终止</translation>
     </message>
     <message>
         <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-        <translation>SSD 链接无效: v2ray-core 不支持 rc4-md5 加密方式</translation>
+        <translation type="vanished">SSD 链接无效: v2ray-core 不支持 rc4-md5 加密方式</translation>
     </message>
     <message>
         <source>Invalid port encountered. using fallback value.</source>
@@ -2353,55 +2413,55 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Custom Text</source>
-        <translation>自定义文本</translation>
+        <translation type="vanished">自定义文本</translation>
     </message>
     <message>
         <source>Current Time</source>
-        <translation>当前时间</translation>
+        <translation type="vanished">当前时间</translation>
     </message>
     <message>
         <source>Current Date</source>
-        <translation>当前日期</translation>
+        <translation type="vanished">当前日期</translation>
     </message>
     <message>
         <source>Current Qv2ray Version</source>
-        <translation>当前 Qv2ray 版本</translation>
+        <translation type="vanished">当前 Qv2ray 版本</translation>
     </message>
     <message>
         <source>Current Connection Name</source>
-        <translation>当前连接名称</translation>
+        <translation type="vanished">当前连接名称</translation>
     </message>
     <message>
         <source>Current Connection Status</source>
-        <translation>当前连接状态</translation>
+        <translation type="vanished">当前连接状态</translation>
     </message>
     <message>
         <source>Total Upload Speed</source>
-        <translation>总上传速度</translation>
+        <translation type="vanished">总上传速度</translation>
     </message>
     <message>
         <source>Total Download Speed</source>
-        <translation>总下载速度</translation>
+        <translation type="vanished">总下载速度</translation>
     </message>
     <message>
         <source>Total Uploaded Data</source>
-        <translation>总上传数据</translation>
+        <translation type="vanished">总上传数据</translation>
     </message>
     <message>
         <source>Total Downloaded Data</source>
-        <translation>总下载数据</translation>
+        <translation type="vanished">总下载数据</translation>
     </message>
     <message>
         <source>Current Connection Latency</source>
-        <translation>当前连接延迟</translation>
+        <translation type="vanished">当前连接延迟</translation>
     </message>
     <message>
         <source>%1 - %2 (rate %3)</source>
-        <translation>%1 - %2 (%3倍)</translation>
+        <translation type="vanished">%1 - %2 (%3倍)</translation>
     </message>
     <message>
         <source>(Complex config)</source>
-        <translation>（复杂配置）</translation>
+        <translation type="vanished">（复杂配置）</translation>
     </message>
     <message>
         <source>Outbound</source>
@@ -2413,99 +2473,99 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>core executable file %1 does not exist</source>
-        <translation>核心可执行文件 %1 不存在</translation>
+        <translation type="vanished">核心可执行文件 %1 不存在</translation>
     </message>
     <message>
         <source>cannot open core executable file %1 in read-only mode</source>
-        <translation>无法以只读模式打开核心可执行文件 %1</translation>
+        <translation type="vanished">无法以只读模式打开核心可执行文件 %1</translation>
     </message>
     <message>
         <source>core executable file %1 is an empty file</source>
-        <translation>核心可执行文件 %1 是空文件</translation>
+        <translation type="vanished">核心可执行文件 %1 是空文件</translation>
     </message>
     <message>
         <source>core executable file %1 is too short to be executed</source>
-        <translation>核心可执行文件 %1 文件过小</translation>
+        <translation type="vanished">核心可执行文件 %1 文件过小</translation>
     </message>
     <message>
         <source>cannot deduce the type of core executable file %1</source>
-        <translation>无法推测核心可执行文件 %1 的类型</translation>
+        <translation type="vanished">无法推测核心可执行文件 %1 的类型</translation>
     </message>
     <message>
         <source>Windows PE executable</source>
-        <translation>Windows PE 可执行文件</translation>
+        <translation type="vanished">Windows PE 可执行文件</translation>
     </message>
     <message>
         <source>macOS Mach-O executable</source>
-        <translation>macOS Mach-O 可执行文件</translation>
+        <translation type="vanished">macOS Mach-O 可执行文件</translation>
     </message>
     <message>
         <source>ELF x86 executable</source>
-        <translation>ELF x86 可执行文件</translation>
+        <translation type="vanished">ELF x86 可执行文件</translation>
     </message>
     <message>
         <source>ELF amd64 executable</source>
-        <translation>ELF amd64 可执行文件</translation>
+        <translation type="vanished">ELF amd64 可执行文件</translation>
     </message>
     <message>
         <source>ELF arm64 executable</source>
-        <translation>ELF arm64 可执行文件</translation>
+        <translation type="vanished">ELF arm64 可执行文件</translation>
     </message>
     <message>
         <source>ELF arm executable</source>
-        <translation>ELF arm 可执行文件</translation>
+        <translation type="vanished">ELF arm 可执行文件</translation>
     </message>
     <message>
         <source>other ELF executable</source>
-        <translation>其他 ELF 可执行文件</translation>
+        <translation type="vanished">其他 ELF 可执行文件</translation>
     </message>
     <message>
         <source>unknown abi</source>
-        <translation>未知 ABI</translation>
+        <translation type="vanished">未知 ABI</translation>
     </message>
     <message>
         <source>Normal Plugin</source>
-        <translation>普通插件</translation>
+        <translation type="vanished">普通插件</translation>
     </message>
     <message>
         <source>Kernel</source>
-        <translation>内核</translation>
+        <translation type="vanished">内核</translation>
     </message>
     <message>
         <source>Share Link Parser</source>
-        <translation>分享链接解析器</translation>
+        <translation type="vanished">分享链接解析器</translation>
     </message>
     <message>
         <source>Unknown type.</source>
-        <translation>未知类型。</translation>
+        <translation type="vanished">未知类型。</translation>
     </message>
     <message>
         <source>No Capability</source>
-        <translation>无能力</translation>
+        <translation type="vanished">无能力</translation>
     </message>
     <message>
         <source>Connection State Change</source>
-        <translation>改变连接状态</translation>
+        <translation type="vanished">改变连接状态</translation>
     </message>
     <message>
         <source>Connection Change</source>
-        <translation>改变连接</translation>
+        <translation type="vanished">改变连接</translation>
     </message>
     <message>
         <source>Statistics Event</source>
-        <translation>统计数据事件</translation>
+        <translation type="vanished">统计数据事件</translation>
     </message>
     <message>
         <source>System Proxy Event</source>
-        <translation>系统代理事件</translation>
+        <translation type="vanished">系统代理事件</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>未知</translation>
+        <translation type="vanished">未知</translation>
     </message>
     <message>
         <source>Deepin Detected</source>
-        <translation>检测到 Deepin</translation>
+        <translation type="vanished">检测到 Deepin</translation>
     </message>
     <message>
         <source>Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. </source>
@@ -2521,42 +2581,42 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
-        <translation>Deepin可能自作聪明，为你设置了错误的 HTTPS_PROXY 和 FTP_PROXY 环境变量。</translation>
+        <translation type="vanished">Deepin可能自作聪明，为你设置了错误的 HTTPS_PROXY 和 FTP_PROXY 环境变量。</translation>
     </message>
     <message>
         <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
-        <translation>原来正确的 http:// 可能被错误地替换为 https:// 和 ftp://，导致这个问题。</translation>
+        <translation type="vanished">原来正确的 http:// 可能被错误地替换为 https:// 和 ftp://，导致这个问题。</translation>
     </message>
     <message>
         <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
-        <translation>Qv2ray 很遗憾无法帮你改回来。若因此遇到问题，请勿指责吾等。</translation>
+        <translation type="vanished">Qv2ray 很遗憾无法帮你改回来。若因此遇到问题，请勿指责吾等。</translation>
     </message>
     <message>
         <source>trusted abi</source>
-        <translation>受信 ABI</translation>
+        <translation type="vanished">受信 ABI</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
     <message>
         <source>Disable gRPC API subsystems.</source>
-        <translation>禁用 gRPC API 子系统。</translation>
+        <translation type="vanished">禁用 gRPC API 子系统。</translation>
     </message>
     <message>
         <source>Explicitly run Qv2ray as root.</source>
-        <translation>以 root 身份运行 Qv2ray。</translation>
+        <translation type="vanished">以 root 身份运行 Qv2ray。</translation>
     </message>
     <message>
         <source>Enable Debug Output</source>
-        <translation>启用调试输出</translation>
+        <translation type="vanished">启用调试输出</translation>
     </message>
     <message>
         <source>Disable manually set QT_SCALE_FACTOR</source>
-        <translation>禁用 QT_SCALE_FACTOR</translation>
+        <translation type="vanished">禁用 QT_SCALE_FACTOR</translation>
     </message>
     <message>
         <source>Disable plugin feature</source>
-        <translation>禁用插件功能</translation>
+        <translation type="vanished">禁用插件功能</translation>
     </message>
     <message>
         <source>Enable HiDPI support for Qt</source>
@@ -2568,18 +2628,18 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Enable Qv2ray network toolbar plugin</source>
-        <translation>启用 Qv2ray 网络工具栏插件</translation>
+        <translation type="vanished">启用 Qv2ray 网络工具栏插件</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
         <source>Qv2ray Update</source>
-        <translation>升级 Qv2ray</translation>
+        <translation type="vanished">升级 Qv2ray</translation>
     </message>
     <message>
         <source>A new version of Qv2ray has been found:</source>
-        <translation>找到新的版本：</translation>
+        <translation type="vanished">找到新的版本：</translation>
     </message>
 </context>
 <context>
@@ -2601,120 +2661,120 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Cannot load plugin</source>
-        <translation>无法加载插件</translation>
+        <translation type="vanished">无法加载插件</translation>
     </message>
     <message>
         <source>cannot be loaded.</source>
-        <translation>无法加载。</translation>
+        <translation type="vanished">无法加载。</translation>
     </message>
     <message>
         <source>This plugin was built against an older/newer version of the Plugin Interface.</source>
-        <translation>这个插件是基于更旧或更新的插件接口构建的。</translation>
+        <translation type="vanished">这个插件是基于更旧或更新的插件接口构建的。</translation>
     </message>
     <message>
         <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-        <translation>请联系插件提供者，或向 Qv2ray 工作组报告该问题。</translation>
+        <translation type="vanished">请联系插件提供者，或向 Qv2ray 工作组报告该问题。</translation>
     </message>
     <message>
         <source>Enabling a plugin</source>
-        <translation>启用插件</translation>
+        <translation type="vanished">启用插件</translation>
     </message>
     <message>
         <source>The plugin will become fully functional after restarting Qv2ray.</source>
-        <translation>插件可能需要重启 Qv2ray 之后才能完全正常工作。</translation>
+        <translation type="vanished">插件可能需要重启 Qv2ray 之后才能完全正常工作。</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
     <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-        <translation>一个插件内核启动失败。请检查出站设置。</translation>
+        <translation type="vanished">一个插件内核启动失败。请检查出站设置。</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
     <message>
         <source>Default Group</source>
-        <translation>默认分组</translation>
+        <translation type="vanished">默认分组</translation>
     </message>
     <message>
         <source>File does not exist.</source>
-        <translation>文件不存在。</translation>
+        <translation type="vanished">文件不存在。</translation>
     </message>
     <message>
         <source>Group does not exist</source>
-        <translation>分组不存在</translation>
+        <translation type="vanished">分组不存在</translation>
     </message>
     <message>
         <source>Update Subscription</source>
-        <translation>更新订阅</translation>
+        <translation type="vanished">更新订阅</translation>
     </message>
     <message>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation>订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
+        <translation type="vanished">订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::core::kernel::V2rayKernelInstance</name>
     <message>
         <source>V2ray core executable not found.</source>
-        <translation>V2ray 核心可执行文件未找到。</translation>
+        <translation type="vanished">V2ray 核心可执行文件未找到。</translation>
     </message>
     <message>
         <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation>无法打开 V2ray 核心文件，请检查对应的文件存在而不是文件夹。</translation>
+        <translation type="vanished">无法打开 V2ray 核心文件，请检查对应的文件存在而不是文件夹。</translation>
     </message>
     <message>
         <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
 Expected core ABI is %1, but got actual %2.<byte value="xd"/>
 Maybe you have downloaded the wrong core?</source>
-        <translation>V2Ray 核心与您的平台不兼容。
+        <translation type="vanished">V2Ray 核心与您的平台不兼容。
 期待的核心 ABI 为 %1，但实际为 %2。
 您也许下载了错误的核心？</translation>
     </message>
     <message>
         <source>V2ray assets path is not valid.</source>
-        <translation>V2ray Assets 路径不可用。</translation>
+        <translation type="vanished">V2ray Assets 路径不可用。</translation>
     </message>
     <message>
         <source>No geoip.dat in assets path.</source>
-        <translation>没有在 Assets 路径找到 geoip.dat。</translation>
+        <translation type="vanished">没有在 Assets 路径找到 geoip.dat。</translation>
     </message>
     <message>
         <source>No geosite.dat in assets path.</source>
-        <translation>没有在 Assets 路径找到 geosite.dat。</translation>
+        <translation type="vanished">没有在 Assets 路径找到 geosite.dat。</translation>
     </message>
     <message>
         <source>V2ray core failed with an exit code: </source>
-        <translation>V2ray 核心退出代码： </translation>
+        <translation type="vanished">V2ray 核心退出代码： </translation>
     </message>
     <message>
         <source>V2ray core returns empty string.</source>
-        <translation>V2ray 核心返回空字符串。</translation>
+        <translation type="vanished">V2ray 核心返回空字符串。</translation>
     </message>
     <message>
         <source>Configuration Error</source>
-        <translation>配置错误</translation>
+        <translation type="vanished">配置错误</translation>
     </message>
     <message>
         <source>Cannot start V2ray</source>
-        <translation>无法启动 V2ray</translation>
+        <translation type="vanished">无法启动 V2ray</translation>
     </message>
     <message>
         <source>V2ray core settings is incorrect.</source>
-        <translation>V2ray 核心设置不正确。</translation>
+        <translation type="vanished">V2ray 核心设置不正确。</translation>
     </message>
     <message>
         <source>The error is: </source>
-        <translation>错误是： </translation>
+        <translation type="vanished">错误是： </translation>
     </message>
     <message>
         <source>Invalid V2ray Instance Status.</source>
-        <translation>V2ray 实例状态无效。</translation>
+        <translation type="vanished">V2ray 实例状态无效。</translation>
     </message>
     <message>
         <source>V2ray kernel failed to start.</source>
-        <translation>V2ray 核心启动失败。</translation>
+        <translation type="vanished">V2ray 核心启动失败。</translation>
     </message>
 </context>
 <context>
@@ -2753,191 +2813,191 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Route Detail Settings</source>
-        <translation>路由详细设置</translation>
+        <translation type="vanished">路由详细设置</translation>
     </message>
     <message>
         <source>Source IP Matches</source>
-        <translation>源 IP 匹配</translation>
+        <translation type="vanished">源 IP 匹配</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>状态</translation>
+        <translation type="vanished">状态</translation>
     </message>
     <message>
         <source>Add default inbound from global config</source>
-        <translation>从全局配置中添加默认的入站设置</translation>
+        <translation type="vanished">从全局配置中添加默认的入站设置</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation>端口</translation>
+        <translation type="vanished">端口</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation>标签</translation>
+        <translation type="vanished">标签</translation>
     </message>
     <message>
         <source>Add outbound</source>
-        <translation>添加出站</translation>
+        <translation type="vanished">添加出站</translation>
     </message>
     <message>
         <source>Delete outbound</source>
-        <translation>删除出站</translation>
+        <translation type="vanished">删除出站</translation>
     </message>
     <message>
         <source>Edit outbound</source>
-        <translation>编辑出站</translation>
+        <translation type="vanished">编辑出站</translation>
     </message>
     <message>
         <source>Add Freedom outbound</source>
-        <translation>添加自由出站</translation>
+        <translation type="vanished">添加自由出站</translation>
     </message>
     <message>
         <source>Add blackhole outbound</source>
-        <translation>添加黑洞出站</translation>
+        <translation type="vanished">添加黑洞出站</translation>
     </message>
     <message>
         <source>Routes</source>
-        <translation>路由</translation>
+        <translation type="vanished">路由</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>已启用</translation>
+        <translation type="vanished">已启用</translation>
     </message>
     <message>
         <source>Outbound</source>
-        <translation>出站</translation>
+        <translation type="vanished">出站</translation>
     </message>
     <message>
         <source>Add new route</source>
-        <translation>添加新路由</translation>
+        <translation type="vanished">添加新路由</translation>
     </message>
     <message>
         <source>Use Balancers</source>
-        <translation>使用负载均衡</translation>
+        <translation type="vanished">使用负载均衡</translation>
     </message>
     <message>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="vanished">...</translation>
     </message>
     <message>
         <source>Target IP List</source>
-        <translation>目标 IP 列表</translation>
+        <translation type="vanished">目标 IP 列表</translation>
     </message>
     <message>
         <source>Target Domain List</source>
-        <translation>目标域名列表</translation>
+        <translation type="vanished">目标域名列表</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation>网络</translation>
+        <translation type="vanished">网络</translation>
     </message>
     <message>
         <source>TCP</source>
-        <translation>TCP</translation>
+        <translation type="vanished">TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation>UDP</translation>
+        <translation type="vanished">UDP</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation>全部</translation>
+        <translation type="vanished">全部</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation>协议</translation>
+        <translation type="vanished">协议</translation>
     </message>
     <message>
         <source>Inbound</source>
-        <translation>入站</translation>
+        <translation type="vanished">入站</translation>
     </message>
     <message>
         <source>Add From Global Settings</source>
-        <translation>从全局设置添加</translation>
+        <translation type="vanished">从全局设置添加</translation>
     </message>
     <message>
         <source>Add Black Hole</source>
-        <translation>添加黑洞</translation>
+        <translation type="vanished">添加黑洞</translation>
     </message>
     <message>
         <source>Add Direct</source>
-        <translation>添加直连</translation>
+        <translation type="vanished">添加直连</translation>
     </message>
     <message>
         <source>Selected Inbound/Outbound Info</source>
-        <translation>选定进出站信息</translation>
+        <translation type="vanished">选定进出站信息</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>主机</translation>
+        <translation type="vanished">主机</translation>
     </message>
     <message>
         <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-        <translation>没有入站连接的规则意味着没有入站限制。</translation>
+        <translation type="vanished">没有入站连接的规则意味着没有入站限制。</translation>
     </message>
     <message>
         <source>Edit Selection</source>
-        <translation>编辑所选项</translation>
+        <translation type="vanished">编辑所选项</translation>
     </message>
     <message>
         <source>Delete Selection</source>
-        <translation>删除所选项</translation>
+        <translation type="vanished">删除所选项</translation>
     </message>
     <message>
         <source>General Settings</source>
-        <translation>常规设置</translation>
+        <translation type="vanished">常规设置</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
-        <translation>域名策略</translation>
+        <translation type="vanished">域名策略</translation>
     </message>
     <message>
         <source>Default Outbound</source>
-        <translation>默认出站</translation>
+        <translation type="vanished">默认出站</translation>
     </message>
     <message>
         <source>Rule Order Settings</source>
-        <translation>规则顺序设置</translation>
+        <translation type="vanished">规则顺序设置</translation>
     </message>
     <message>
         <source>Drag and drop to re-order the rules.</source>
-        <translation>拖放以重新排序规则。</translation>
+        <translation type="vanished">拖放以重新排序规则。</translation>
     </message>
     <message>
         <source>Rule Settings</source>
-        <translation>规则设置</translation>
+        <translation type="vanished">规则设置</translation>
     </message>
     <message>
         <source>Rule Status</source>
-        <translation>规则状态</translation>
+        <translation type="vanished">规则状态</translation>
     </message>
     <message>
         <source>Rule Tag</source>
-        <translation>规则标签</translation>
+        <translation type="vanished">规则标签</translation>
     </message>
     <message>
         <source>HTTP</source>
-        <translation>HTTP</translation>
+        <translation type="vanished">HTTP</translation>
     </message>
     <message>
         <source>TLS</source>
-        <translation>TLS</translation>
+        <translation type="vanished">TLS</translation>
     </message>
     <message>
         <source>BitTorrent</source>
-        <translation>BitTorrent</translation>
+        <translation type="vanished">BitTorrent</translation>
     </message>
     <message>
         <source>e.g. 80, 443, 8000-8080</source>
-        <translation>例如：80、443、8000-8080</translation>
+        <translation type="vanished">例如：80、443、8000-8080</translation>
     </message>
     <message>
         <source>Balancers</source>
-        <translation>负载均衡器</translation>
+        <translation type="vanished">负载均衡器</translation>
     </message>
     <message>
         <source>Users List</source>
-        <translation>用户列表</translation>
+        <translation type="vanished">用户列表</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3077,58 +3137,58 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Add Rule</source>
-        <translation>添加路由规则</translation>
+        <translation type="vanished">添加路由规则</translation>
     </message>
     <message>
         <source>Add an Inbound</source>
-        <translation>添加一个入站</translation>
+        <translation type="vanished">添加一个入站</translation>
     </message>
     <message>
         <source>Add an Outbound</source>
-        <translation>添加一个出站</translation>
+        <translation type="vanished">添加一个出站</translation>
     </message>
     <message>
         <source>Misc Settings</source>
-        <translation>杂项设置</translation>
+        <translation type="vanished">杂项设置</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation>重命名</translation>
+        <translation type="vanished">重命名</translation>
     </message>
 </context>
 <context>
     <name>RouteSettingsMatrix</name>
     <message>
         <source>Form</source>
-        <translation>窗体</translation>
+        <translation type="vanished">窗体</translation>
     </message>
     <message>
         <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
-        <translation>以“geoip:”或“geosite:”开头的行可以自动补全</translation>
+        <translation type="vanished">以“geoip:”或“geosite:”开头的行可以自动补全</translation>
     </message>
     <message>
         <source>Direct</source>
-        <translation>直连</translation>
+        <translation type="vanished">直连</translation>
     </message>
     <message>
         <source>Proxy</source>
-        <translation>代理</translation>
+        <translation type="vanished">代理</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation>阻断</translation>
+        <translation type="vanished">阻断</translation>
     </message>
     <message>
         <source>Domain</source>
-        <translation>域名</translation>
+        <translation type="vanished">域名</translation>
     </message>
     <message>
         <source>IP</source>
-        <translation>IP</translation>
+        <translation type="vanished">IP</translation>
     </message>
     <message>
         <source>Use built-in route schemes</source>
-        <translation>使用预置路由方案</translation>
+        <translation type="vanished">使用预置路由方案</translation>
     </message>
     <message>
         <source>Built-in Schemes</source>
@@ -3136,7 +3196,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Import route scheme from file</source>
-        <translation>从文件导入路由方案</translation>
+        <translation type="vanished">从文件导入路由方案</translation>
     </message>
     <message>
         <source>Import Scheme</source>
@@ -3144,7 +3204,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Export route scheme to file</source>
-        <translation>导出方案到文件</translation>
+        <translation type="vanished">导出方案到文件</translation>
     </message>
     <message>
         <source>Export Scheme</source>
@@ -3156,19 +3216,19 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Built-in Schemes...</source>
-        <translation>预置方案...</translation>
+        <translation type="vanished">预置方案...</translation>
     </message>
     <message>
         <source>Import Scheme...</source>
-        <translation>导入方案...</translation>
+        <translation type="vanished">导入方案...</translation>
     </message>
     <message>
         <source>Export Scheme...</source>
-        <translation>导出方案...</translation>
+        <translation type="vanished">导出方案...</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
-        <translation>域名策略</translation>
+        <translation type="vanished">域名策略</translation>
     </message>
     <message>
         <source>Route Settings</source>
@@ -3236,41 +3296,41 @@ Maybe you have downloaded the wrong core?</source>
     <name>ScreenShot</name>
     <message>
         <source>ScreenShot</source>
-        <translation>屏幕截图</translation>
+        <translation type="vanished">屏幕截图</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>大小</translation>
+        <translation type="vanished">大小</translation>
     </message>
     <message>
         <source>FG</source>
-        <translation>FG</translation>
+        <translation type="vanished">FG</translation>
     </message>
     <message>
         <source>Screen Shot</source>
-        <translation>截屏</translation>
+        <translation type="vanished">截屏</translation>
     </message>
 </context>
 <context>
     <name>SpeedPlotView</name>
     <message>
         <source>Total Upload</source>
-        <translation>总上传量</translation>
+        <translation type="vanished">总上传量</translation>
     </message>
     <message>
         <source>Total Download</source>
-        <translation>总下载量</translation>
+        <translation type="vanished">总下载量</translation>
     </message>
 </context>
 <context>
     <name>StreamSettingsWidget</name>
     <message>
         <source>Stream Settings Widget</source>
-        <translation>流设置控件</translation>
+        <translation type="vanished">流设置控件</translation>
     </message>
     <message>
         <source>Transport Protocol</source>
-        <translation>传输协议</translation>
+        <translation type="vanished">传输协议</translation>
     </message>
     <message>
         <source>TLS</source>
@@ -3278,55 +3338,55 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>已启用</translation>
+        <translation type="vanished">已启用</translation>
     </message>
     <message>
         <source>TLS Settings</source>
-        <translation>TLS 设置</translation>
+        <translation type="vanished">TLS 设置</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation>服务器</translation>
+        <translation type="vanished">服务器</translation>
     </message>
     <message>
         <source>ALPN</source>
-        <translation>ALPN</translation>
+        <translation type="vanished">ALPN</translation>
     </message>
     <message>
         <source>SOCK Options</source>
-        <translation>SOCK 选项</translation>
+        <translation type="vanished">SOCK 选项</translation>
     </message>
     <message>
         <source>Mark</source>
-        <translation>Mark</translation>
+        <translation type="vanished">Mark</translation>
     </message>
     <message>
         <source>TCP Fast Open</source>
-        <translation>TCP 快速打开</translation>
+        <translation type="vanished">TCP 快速打开</translation>
     </message>
     <message>
         <source>Protocol Settings</source>
-        <translation>协议设置</translation>
+        <translation type="vanished">协议设置</translation>
     </message>
     <message>
         <source>Request</source>
-        <translation>请求</translation>
+        <translation type="vanished">请求</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>类型</translation>
+        <translation type="vanished">类型</translation>
     </message>
     <message>
         <source>Response</source>
-        <translation>响应</translation>
+        <translation type="vanished">响应</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>路径</translation>
+        <translation type="vanished">路径</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation>主机</translation>
+        <translation type="vanished">主机</translation>
     </message>
     <message>
         <source>/wsPath</source>
@@ -3334,71 +3394,71 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Headers</source>
-        <translation>请求头</translation>
+        <translation type="vanished">请求头</translation>
     </message>
     <message>
         <source>MTU</source>
-        <translation>MTU</translation>
+        <translation type="vanished">MTU</translation>
     </message>
     <message>
         <source>TTI (ms)</source>
-        <translation>TTI (ms)</translation>
+        <translation type="vanished">TTI (ms)</translation>
     </message>
     <message>
         <source>Uplink Capacity (MB/s)</source>
-        <translation>上行容量 (MB/s)</translation>
+        <translation type="vanished">上行容量 (MB/s)</translation>
     </message>
     <message>
         <source>Congestion</source>
-        <translation>拥塞控制</translation>
+        <translation type="vanished">拥塞控制</translation>
     </message>
     <message>
         <source>Downlink Capacity (MB/s)</source>
-        <translation>下行容量 (MB/s)</translation>
+        <translation type="vanished">下行容量 (MB/s)</translation>
     </message>
     <message>
         <source>Read Buffer Size (MB)</source>
-        <translation>读取缓冲区大小 (MB)</translation>
+        <translation type="vanished">读取缓冲区大小 (MB)</translation>
     </message>
     <message>
         <source>Write Buffer Size (MB)</source>
-        <translation>写入缓冲区大小 (MB)</translation>
+        <translation type="vanished">写入缓冲区大小 (MB)</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>安全选项</translation>
+        <translation type="vanished">安全选项</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation>密钥</translation>
+        <translation type="vanished">密钥</translation>
     </message>
     <message>
         <source>keys</source>
-        <translation>密钥</translation>
+        <translation type="vanished">密钥</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>编辑</translation>
+        <translation type="vanished">编辑</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>重置</translation>
+        <translation type="vanished">重置</translation>
     </message>
     <message>
         <source>Allow Insecure Certificates</source>
-        <translation>允许不安全的证书</translation>
+        <translation type="vanished">允许不安全的证书</translation>
     </message>
     <message>
         <source>tProxy Mode</source>
-        <translation>tProxy 工作模式</translation>
+        <translation type="vanished">tProxy 工作模式</translation>
     </message>
     <message>
         <source>Enable TLS</source>
-        <translation>启用 TLS</translation>
+        <translation type="vanished">启用 TLS</translation>
     </message>
     <message>
         <source>Allow Insecure Ciphers</source>
-        <translation>允许不安全的 TLS 算法</translation>
+        <translation type="vanished">允许不安全的 TLS 算法</translation>
     </message>
 </context>
 <context>
@@ -3444,61 +3504,61 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>B</source>
         <comment>bytes</comment>
-        <translation>B</translation>
+        <translation type="vanished">B</translation>
     </message>
     <message>
         <source>KiB</source>
         <comment>kibibytes (1024 bytes)</comment>
-        <translation>KiB</translation>
+        <translation type="vanished">KiB</translation>
     </message>
     <message>
         <source>MiB</source>
         <comment>mebibytes (1024 kibibytes)</comment>
-        <translation>MiB</translation>
+        <translation type="vanished">MiB</translation>
     </message>
     <message>
         <source>GiB</source>
         <comment>gibibytes (1024 mibibytes)</comment>
-        <translation>GiB</translation>
+        <translation type="vanished">GiB</translation>
     </message>
     <message>
         <source>TiB</source>
         <comment>tebibytes (1024 gibibytes)</comment>
-        <translation>TiB</translation>
+        <translation type="vanished">TiB</translation>
     </message>
     <message>
         <source>PiB</source>
         <comment>pebibytes (1024 tebibytes)</comment>
-        <translation>PiB</translation>
+        <translation type="vanished">PiB</translation>
     </message>
     <message>
         <source>EiB</source>
         <comment>exbibytes (1024 pebibytes)</comment>
-        <translation>EiB</translation>
+        <translation type="vanished">EiB</translation>
     </message>
     <message>
         <source>/s</source>
         <comment>per second</comment>
-        <translation>/s</translation>
+        <translation type="vanished">/s</translation>
     </message>
 </context>
 <context>
     <name>w_GroupManager</name>
     <message>
         <source>Group Editor</source>
-        <translation>组编辑器</translation>
+        <translation type="vanished">组编辑器</translation>
     </message>
     <message>
         <source>Group List</source>
-        <translation>组列表</translation>
+        <translation type="vanished">组列表</translation>
     </message>
     <message>
         <source>Add Subscription</source>
-        <translation>添加订阅</translation>
+        <translation type="vanished">添加订阅</translation>
     </message>
     <message>
         <source>Remove Subscription</source>
-        <translation>删除订阅</translation>
+        <translation type="vanished">删除订阅</translation>
     </message>
     <message>
         <source>Group Details</source>
@@ -3506,23 +3566,23 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Group Name</source>
-        <translation>分组名称</translation>
+        <translation type="vanished">分组名称</translation>
     </message>
     <message>
         <source>Subscription Address</source>
-        <translation>订阅地址</translation>
+        <translation type="vanished">订阅地址</translation>
     </message>
     <message>
         <source>Update Interval</source>
-        <translation>更新间隔</translation>
+        <translation type="vanished">更新间隔</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation>天</translation>
+        <translation type="vanished">天</translation>
     </message>
     <message>
         <source>Last Updated</source>
-        <translation>最后更新</translation>
+        <translation type="vanished">最后更新</translation>
     </message>
     <message>
         <source>Connection List</source>
@@ -3530,110 +3590,110 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation>更新订阅数据</translation>
+        <translation type="vanished">更新订阅数据</translation>
     </message>
     <message>
         <source>Group Info</source>
-        <translation>分组信息</translation>
+        <translation type="vanished">分组信息</translation>
     </message>
     <message>
         <source>Created At</source>
-        <translation>创建于</translation>
+        <translation type="vanished">创建于</translation>
     </message>
     <message>
         <source>Connections</source>
-        <translation>连接</translation>
+        <translation type="vanished">连接</translation>
     </message>
     <message>
         <source>Delete Selection</source>
-        <translation>删除所选项</translation>
+        <translation type="vanished">删除所选项</translation>
     </message>
     <message>
         <source>Export Selection</source>
-        <translation>导出所选项</translation>
+        <translation type="vanished">导出所选项</translation>
     </message>
     <message>
         <source>Subscription Settings</source>
-        <translation>订阅设置</translation>
+        <translation type="vanished">订阅设置</translation>
     </message>
     <message>
         <source>This group is a subscription</source>
-        <translation>此分组是是一个订阅</translation>
+        <translation type="vanished">此分组是是一个订阅</translation>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>连接设置</translation>
+        <translation type="vanished">连接设置</translation>
     </message>
     <message>
         <source>Route Settings</source>
-        <translation>路由设定</translation>
+        <translation type="vanished">路由设定</translation>
     </message>
 </context>
 <context>
     <name>w_PluginManager</name>
     <message>
         <source>Plugin Manager</source>
-        <translation>插件管理器</translation>
+        <translation type="vanished">插件管理器</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation>插件列表</translation>
+        <translation type="vanished">插件列表</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>名称</translation>
+        <translation type="vanished">名称</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation>作者</translation>
+        <translation type="vanished">作者</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation>描述</translation>
+        <translation type="vanished">描述</translation>
     </message>
     <message>
         <source>Library Path</source>
-        <translation>路径</translation>
+        <translation type="vanished">路径</translation>
     </message>
     <message>
         <source>State</source>
-        <translation>状态</translation>
+        <translation type="vanished">状态</translation>
     </message>
     <message>
         <source>Capability</source>
-        <translation>能力</translation>
+        <translation type="vanished">能力</translation>
     </message>
     <message>
         <source>Special Type</source>
-        <translation>类型</translation>
+        <translation type="vanished">类型</translation>
     </message>
     <message>
         <source>Manually Edit Settings</source>
-        <translation>手动编辑设定</translation>
+        <translation type="vanished">手动编辑设定</translation>
     </message>
     <message>
         <source>Plugin Metadata</source>
-        <translation>元数据</translation>
+        <translation type="vanished">元数据</translation>
     </message>
     <message>
         <source>Plugin Settings</source>
-        <translation>设定</translation>
+        <translation type="vanished">设定</translation>
     </message>
     <message>
         <source>Plugin Not Loaded</source>
-        <translation>插件未加载</translation>
+        <translation type="vanished">插件未加载</translation>
     </message>
     <message>
         <source>Open Local Plugin Folder</source>
-        <translation>打开本地插件目录</translation>
+        <translation type="vanished">打开本地插件目录</translation>
     </message>
     <message>
         <source>Online help about plugins</source>
-        <translation>获取关于插件的在线帮助</translation>
+        <translation type="vanished">获取关于插件的在线帮助</translation>
     </message>
     <message>
         <source>?</source>
-        <translation>?</translation>
+        <translation type="vanished">?</translation>
     </message>
 </context>
 <context>

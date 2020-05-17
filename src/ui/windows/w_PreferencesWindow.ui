@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>864</width>
-    <height>614</height>
+    <width>1131</width>
+    <height>869</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -633,6 +633,20 @@ But could damage your server if improperly used.</string>
             </property>
            </widget>
           </item>
+          <item row="6" column="1">
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Check Date and Time from Network</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_31">
+            <property name="text">
+             <string>NTP</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -734,8 +748,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>824</width>
-            <height>516</height>
+            <width>1044</width>
+            <height>740</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">

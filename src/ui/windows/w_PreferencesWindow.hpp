@@ -170,6 +170,8 @@ class PreferencesWindow
 
     void on_socksSniffingCB_stateChanged(int arg1);
 
+    void on_pushButton_clicked();
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;
