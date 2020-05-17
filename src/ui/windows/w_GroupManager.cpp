@@ -62,7 +62,6 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     if (groupList->count() > 0)
     {
         groupList->setCurrentItem(groupList->item(0));
-        on_groupList_itemClicked(groupList->item(0));
     }
     else
     {
