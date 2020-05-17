@@ -217,14 +217,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reload Subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Would you like to reload the subscription?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Deleting a subscription</source>
         <translation type="unfinished"></translation>
     </message>
@@ -256,6 +248,14 @@
         <source>New Group</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation type="unfinished">Обновить подписку</translation>
+    </message>
+    <message>
+        <source>Would you like to update the subscription?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
@@ -269,11 +269,11 @@
     </message>
     <message>
         <source>Import Source</source>
-        <translation>Источник импорта</translation>
+        <translation type="vanished">Источник импорта</translation>
     </message>
     <message>
         <source>Existing File</source>
-        <translation>Существующий файл</translation>
+        <translation type="vanished">Существующий файл</translation>
     </message>
     <message>
         <source> secs</source>
@@ -289,7 +289,7 @@
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation>Подписка</translation>
+        <translation type="vanished">Подписка</translation>
     </message>
     <message>
         <source>Import</source>
@@ -321,7 +321,7 @@
     </message>
     <message>
         <source>VMess / QRCode</source>
-        <translation>VMess / QRCode</translation>
+        <translation type="vanished">VMess / QRCode</translation>
     </message>
     <message>
         <source>VMess Connection String</source>
@@ -353,7 +353,7 @@
     </message>
     <message>
         <source>Subscriptions / Manually Input</source>
-        <translation>Подписки / Ввод вручную</translation>
+        <translation type="vanished">Подписки / Ввод вручную</translation>
     </message>
     <message>
         <source>Manually Input Connections</source>
@@ -361,23 +361,23 @@
     </message>
     <message>
         <source>Route Editor</source>
-        <translation>Редактор маршрутов</translation>
+        <translation type="vanished">Редактор маршрутов</translation>
     </message>
     <message>
         <source>Open Route Editor</source>
-        <translation>Открыть редактор маршрута</translation>
+        <translation type="vanished">Открыть редактор маршрута</translation>
     </message>
     <message>
         <source>Subscription Manager</source>
-        <translation>Управление подпиской</translation>
+        <translation type="vanished">Управление подпиской</translation>
     </message>
     <message>
         <source>Open Subscription Manager</source>
-        <translation>Открыть менеджер подписок</translation>
+        <translation type="vanished">Открыть менеджер подписок</translation>
     </message>
     <message>
         <source>Connection Editor</source>
-        <translation>Редактор подключений</translation>
+        <translation type="vanished">Редактор подключений</translation>
     </message>
     <message>
         <source>Open Connection Editor</source>
@@ -444,10 +444,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connection Share Link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Paste share link here, one line for each.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -469,6 +465,58 @@
     </message>
     <message>
         <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import To Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detected Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input Manually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simple Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complex Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Route / Complex Connection Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can manually input connection here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to import connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1324,14 +1372,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Groups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Click to toggle show/hide</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1357,6 +1397,14 @@
     </message>
     <message>
         <source>Upload/Download Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups / Subscriptions</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2939,6 +2987,14 @@ Custom DNS Settings</source>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Another process is using the port required to start the connection:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
@@ -2956,6 +3012,10 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to start connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3801,7 +3861,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation type="unfinished">Настройки соединения</translation>
+        <translation type="obsolete">Настройки соединения</translation>
     </message>
     <message>
         <source>Group Editor</source>
@@ -3853,10 +3913,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>This group is a subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

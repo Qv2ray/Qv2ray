@@ -164,11 +164,11 @@
     </message>
     <message>
         <source>Reload Subscription</source>
-        <translation>更新订阅</translation>
+        <translation type="vanished">更新订阅</translation>
     </message>
     <message>
         <source>Would you like to reload the subscription?</source>
-        <translation>您要更新此订阅吗？</translation>
+        <translation type="vanished">您要更新此订阅吗？</translation>
     </message>
     <message>
         <source>Deleting a subscription</source>
@@ -202,6 +202,14 @@
         <source>New Group</source>
         <translation>新分组</translation>
     </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation>更新订阅</translation>
+    </message>
+    <message>
+        <source>Would you like to update the subscription?</source>
+        <translation>您要更新订阅吗？</translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
@@ -215,11 +223,11 @@
     </message>
     <message>
         <source>Import Source</source>
-        <translation>导入源</translation>
+        <translation type="vanished">导入源</translation>
     </message>
     <message>
         <source>Existing File</source>
-        <translation>已存在的文件</translation>
+        <translation type="vanished">已存在的文件</translation>
     </message>
     <message>
         <source> secs</source>
@@ -235,7 +243,7 @@
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation>订阅链接</translation>
+        <translation type="vanished">订阅链接</translation>
     </message>
     <message>
         <source>Import</source>
@@ -259,7 +267,7 @@
     </message>
     <message>
         <source>VMess / QRCode</source>
-        <translation>VMess / 二维码</translation>
+        <translation type="vanished">VMess / 二维码</translation>
     </message>
     <message>
         <source>VMess Connection String</source>
@@ -279,7 +287,7 @@
     </message>
     <message>
         <source>Subscriptions / Manually Input</source>
-        <translation>订阅/手动输入</translation>
+        <translation type="vanished">订阅/手动输入</translation>
     </message>
     <message>
         <source>Manually Input Connections</source>
@@ -287,23 +295,23 @@
     </message>
     <message>
         <source>Route Editor</source>
-        <translation>路由编辑器</translation>
+        <translation type="vanished">路由编辑器</translation>
     </message>
     <message>
         <source>Open Route Editor</source>
-        <translation>打开路由编辑器</translation>
+        <translation type="vanished">打开路由编辑器</translation>
     </message>
     <message>
         <source>Subscription Manager</source>
-        <translation>订阅管理</translation>
+        <translation type="vanished">订阅管理</translation>
     </message>
     <message>
         <source>Open Subscription Manager</source>
-        <translation>打开订阅管理器</translation>
+        <translation type="vanished">打开订阅管理器</translation>
     </message>
     <message>
         <source>Connection Editor</source>
-        <translation>连接编辑器</translation>
+        <translation type="vanished">连接编辑器</translation>
     </message>
     <message>
         <source>Open Connection Editor</source>
@@ -391,11 +399,63 @@
     </message>
     <message>
         <source>Connection Share Link</source>
-        <translation>节点分享链接</translation>
+        <translation type="vanished">节点分享链接</translation>
     </message>
     <message>
         <source>Paste share link here, one line for each.</source>
         <translation>在此粘贴，一行一个。</translation>
+    </message>
+    <message>
+        <source>Import To Group</source>
+        <translation>导入组中</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>链接</translation>
+    </message>
+    <message>
+        <source>QR Code</source>
+        <translation>二维码</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>图像</translation>
+    </message>
+    <message>
+        <source>Detected Link</source>
+        <translation>检测到的链接</translation>
+    </message>
+    <message>
+        <source>Input Manually</source>
+        <translation>手动输入</translation>
+    </message>
+    <message>
+        <source>Simple Editor</source>
+        <translation>简单编辑器</translation>
+    </message>
+    <message>
+        <source>Complex Editor</source>
+        <translation>复杂编辑器</translation>
+    </message>
+    <message>
+        <source>Open Route / Complex Connection Editor</source>
+        <translation>打开路由/复杂连接编辑器</translation>
+    </message>
+    <message>
+        <source>You can manually input connection here.</source>
+        <translation>你可在此手动输入连接信息。</translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>高级</translation>
+    </message>
+    <message>
+        <source>New Connection</source>
+        <translation>添加连接</translation>
+    </message>
+    <message>
+        <source>Failed to import connection</source>
+        <translation>连接导入失败</translation>
     </message>
 </context>
 <context>
@@ -1011,11 +1071,19 @@
     </message>
     <message>
         <source>Groups</source>
-        <translation>分组</translation>
+        <translation type="vanished">分组</translation>
     </message>
     <message>
         <source>Add Connection</source>
+        <translation type="vanished">添加连接</translation>
+    </message>
+    <message>
+        <source>New Connection</source>
         <translation>添加连接</translation>
+    </message>
+    <message>
+        <source>Groups / Subscriptions</source>
+        <translation>分组/订阅</translation>
     </message>
 </context>
 <context>
@@ -2698,6 +2766,14 @@ For example, for updating subscriptions.</source>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation>一个插件内核启动失败。请检查出站设置。</translation>
     </message>
+    <message>
+        <source>Another process is using the port required to start the connection:</source>
+        <translation>另一进程正在使用启动此连接所需的端口：</translation>
+    </message>
+    <message>
+        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
+        <translation>入站标签 %2 需要端口 %1</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
@@ -2720,6 +2796,10 @@ For example, for updating subscriptions.</source>
     <message>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
         <translation>订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
+    </message>
+    <message>
+        <source>Failed to start connection</source>
+        <translation>连接启动失败</translation>
     </message>
 </context>
 <context>
@@ -3630,11 +3710,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>连接设置</translation>
+        <translation type="vanished">连接设置</translation>
     </message>
     <message>
         <source>Route Settings</source>
-        <translation>路由设定</translation>
+        <translation type="vanished">路由设定</translation>
     </message>
     <message>
         <source>Name</source>

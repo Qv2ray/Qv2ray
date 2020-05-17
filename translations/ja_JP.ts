@@ -234,11 +234,11 @@
     </message>
     <message>
         <source>Reload Subscription</source>
-        <translation>サブスクリプションを更新</translation>
+        <translation type="vanished">サブスクリプションを更新</translation>
     </message>
     <message>
         <source>Would you like to reload the subscription?</source>
-        <translation>サブスクリプションを更新しますか？</translation>
+        <translation type="vanished">サブスクリプションを更新しますか？</translation>
     </message>
     <message>
         <source>Deleting a subscription</source>
@@ -272,6 +272,14 @@
         <source>New Group</source>
         <translation>新しいグループ</translation>
     </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation>サブスクリプションを更新</translation>
+    </message>
+    <message>
+        <source>Would you like to update the subscription?</source>
+        <translation>サブスクリプションを更新しますか？</translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
@@ -285,11 +293,11 @@
     </message>
     <message>
         <source>Import Source</source>
-        <translation>インポート元</translation>
+        <translation type="vanished">インポート元</translation>
     </message>
     <message>
         <source>Existing File</source>
-        <translation>既存のファイル</translation>
+        <translation type="vanished">既存のファイル</translation>
     </message>
     <message>
         <source> secs</source>
@@ -305,7 +313,7 @@
     </message>
     <message>
         <source>Subscription Link</source>
-        <translation>サブスクリプションリンク</translation>
+        <translation type="vanished">サブスクリプションリンク</translation>
     </message>
     <message>
         <source>Import</source>
@@ -341,7 +349,7 @@
     </message>
     <message>
         <source>VMess / QRCode</source>
-        <translation>VMess / QRCode</translation>
+        <translation type="vanished">VMess / QRCode</translation>
     </message>
     <message>
         <source>VMess Connection String</source>
@@ -373,7 +381,7 @@
     </message>
     <message>
         <source>Subscriptions / Manually Input</source>
-        <translation>サブスクリプション/手動入力</translation>
+        <translation type="vanished">サブスクリプション/手動入力</translation>
     </message>
     <message>
         <source>Manually Input Connections</source>
@@ -381,23 +389,23 @@
     </message>
     <message>
         <source>Route Editor</source>
-        <translation>ルーティングエディター</translation>
+        <translation type="vanished">ルーティングエディター</translation>
     </message>
     <message>
         <source>Open Route Editor</source>
-        <translation>ルーティングエディターを開く</translation>
+        <translation type="vanished">ルーティングエディターを開く</translation>
     </message>
     <message>
         <source>Subscription Manager</source>
-        <translation>サブスクリプションマネージャー</translation>
+        <translation type="vanished">サブスクリプションマネージャー</translation>
     </message>
     <message>
         <source>Open Subscription Manager</source>
-        <translation>サブスクリプションマネージャーを開く</translation>
+        <translation type="vanished">サブスクリプションマネージャーを開く</translation>
     </message>
     <message>
         <source>Connection Editor</source>
-        <translation>接続エディター</translation>
+        <translation type="vanished">接続エディター</translation>
     </message>
     <message>
         <source>Open Connection Editor</source>
@@ -481,11 +489,63 @@
     </message>
     <message>
         <source>Connection Share Link</source>
-        <translation>接続共有リンク</translation>
+        <translation type="vanished">接続共有リンク</translation>
     </message>
     <message>
         <source>Paste share link here, one line for each.</source>
         <translation>ここに vmess:// を1行ずつ貼り付けます。</translation>
+    </message>
+    <message>
+        <source>Import To Group</source>
+        <translation>グループにインポート</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>リンク</translation>
+    </message>
+    <message>
+        <source>QR Code</source>
+        <translation>QRコード</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>画像</translation>
+    </message>
+    <message>
+        <source>Detected Link</source>
+        <translation>検出リンク</translation>
+    </message>
+    <message>
+        <source>Input Manually</source>
+        <translation>手動</translation>
+    </message>
+    <message>
+        <source>Simple Editor</source>
+        <translation>簡単エディター</translation>
+    </message>
+    <message>
+        <source>Complex Editor</source>
+        <translation>複雑エディター</translation>
+    </message>
+    <message>
+        <source>Open Route / Complex Connection Editor</source>
+        <translation>ルート/複雑エディターを開く</translation>
+    </message>
+    <message>
+        <source>You can manually input connection here.</source>
+        <translation>ここで接続を手動で入力する。</translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>その他</translation>
+    </message>
+    <message>
+        <source>New Connection</source>
+        <translation>新しい項目</translation>
+    </message>
+    <message>
+        <source>Failed to import connection</source>
+        <translation>接続のインポート失敗</translation>
     </message>
 </context>
 <context>
@@ -1373,11 +1433,19 @@
     </message>
     <message>
         <source>Groups</source>
-        <translation>グループ</translation>
+        <translation type="vanished">グループ</translation>
     </message>
     <message>
         <source>Add Connection</source>
-        <translation>項目を作成</translation>
+        <translation type="vanished">項目を作成</translation>
+    </message>
+    <message>
+        <source>New Connection</source>
+        <translation>新しい項目</translation>
+    </message>
+    <message>
+        <source>Groups / Subscriptions</source>
+        <translation>グループ/サブスクリプション</translation>
     </message>
 </context>
 <context>
@@ -3120,6 +3188,14 @@ For example, for updating subscriptions.</source>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation>プラグインカーネルの起動に失敗しました。アウトバウンドの設定を確認してください。</translation>
     </message>
+    <message>
+        <source>Another process is using the port required to start the connection:</source>
+        <translation>別のプロセスは、接続の開始に必要なポートを使用しています：</translation>
+    </message>
+    <message>
+        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
+        <translation>タグ %2 のポート %1</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
@@ -3142,6 +3218,10 @@ For example, for updating subscriptions.</source>
     <message>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
         <translation>アップストリームから返されるノードは %1 つだけです。続行してもよろしいですか？</translation>
+    </message>
+    <message>
+        <source>Failed to start connection</source>
+        <translation>接続起動失敗</translation>
     </message>
 </context>
 <context>
@@ -4088,11 +4168,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>接続設定</translation>
+        <translation type="vanished">接続設定</translation>
     </message>
     <message>
         <source>Route Settings</source>
-        <translation>ルート設定</translation>
+        <translation type="vanished">ルート設定</translation>
     </message>
     <message>
         <source>Name</source>

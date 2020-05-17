@@ -156,14 +156,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reload Subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Would you like to reload the subscription?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Deleting a subscription</source>
         <translation type="unfinished"></translation>
     </message>
@@ -193,6 +185,14 @@
     </message>
     <message>
         <source>New Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Would you like to update the subscription?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -243,18 +243,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import Source</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VMess / QRCode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection Share Link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Paste share link here, one line for each.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -295,31 +283,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Subscriptions / Manually Input</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Subscription Manager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Manually Input Connections</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connection Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Open Connection Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Route Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Route Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -328,18 +296,6 @@
     </message>
     <message>
         <source>Open JSON Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subscription Manager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subscription Link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Existing File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -356,6 +312,58 @@
     </message>
     <message>
         <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import To Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detected Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input Manually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simple Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complex Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Route / Complex Connection Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can manually input connection here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to import connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -859,14 +867,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Groups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Click to toggle show/hide</source>
         <translation type="unfinished"></translation>
     </message>
@@ -910,6 +910,14 @@
     <message>
         <source>0.00 B
 0.00 B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups / Subscriptions</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2005,6 +2013,14 @@ Custom DNS Settings</source>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Another process is using the port required to start the connection:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
@@ -2022,6 +2038,10 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to start connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2864,14 +2884,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
