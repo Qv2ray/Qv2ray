@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>860</width>
-    <height>650</height>
+    <width>882</width>
+    <height>687</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -181,14 +181,14 @@
              <string>Import Connection</string>
             </property>
             <property name="text">
-             <string>Add Connection</string>
+             <string>New Connection</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="subsButton">
             <property name="text">
-             <string>Groups</string>
+             <string>Groups / Subscriptions</string>
             </property>
            </widget>
           </item>
