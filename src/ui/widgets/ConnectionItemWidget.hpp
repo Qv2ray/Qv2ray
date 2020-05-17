@@ -5,12 +5,6 @@
 
 #include <QWidget>
 
-enum ITEM_TYPE
-{
-    GROUP_HEADER_ITEM,
-    NODE_ITEM
-};
-
 class ConnectionItemWidget
     : public QWidget
     , private Ui::ConnectionWidget
@@ -36,7 +30,7 @@ class ConnectionItemWidget
     }
     inline bool IsConnection() const
     {
-        return itemType == NODE_ITEM;
+        return connectionId != NullConnectionId;
     }
   signals:
     void RequestWidgetFocus(const ConnectionItemWidget *me);
@@ -55,7 +49,6 @@ class ConnectionItemWidget
   private:
     explicit ConnectionItemWidget(QWidget *parent = nullptr);
     QString originalItemName;
-    ITEM_TYPE itemType;
     ConnectionId connectionId;
     GroupId groupId;
 };

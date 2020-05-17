@@ -258,6 +258,7 @@ namespace Qv2ray::core::handlers
                 if (!connectionFile.remove())
                     LOG(MODULE_CONNECTION, "Failed to remove connection config file")
             }
+            connections.remove(id);
         }
         return true;
     }
@@ -625,6 +626,7 @@ namespace Qv2ray::core::handlers
         groups[groupId].connections << newId;
         connections[newId].creationDate = system_clock::to_time_t(system_clock::now());
         connections[newId].displayName = displayName;
+        connections[newId].__qvConnectionRefCount = 1;
         emit OnConnectionCreated({ newId, groupId }, displayName);
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Created, displayName, "" });
         UpdateConnection(newId, root);

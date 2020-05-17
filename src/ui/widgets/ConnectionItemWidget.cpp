@@ -20,7 +20,6 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionGroupPair &id, QWidge
     connectionId = id.connectionId;
     groupId = id.groupId;
     originalItemName = GetDisplayName(id.connectionId);
-    itemType = NODE_ITEM;
     //
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
     //
@@ -60,7 +59,6 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     delete renameTxt;
     //
     groupId = id;
-    itemType = GROUP_HEADER_ITEM;
     originalItemName = GetDisplayName(id);
     RecalculateConnectionsCount();
     //
@@ -80,7 +78,7 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
 
 void ConnectionItemWidget::BeginConnection()
 {
-    if (itemType == NODE_ITEM)
+    if (IsConnection())
     {
         ConnectionManager->StartConnection(connectionId, groupId);
     }
@@ -95,13 +93,13 @@ bool ConnectionItemWidget::NameMatched(const QString &arg) const
     auto searchString = arg.toLower();
     auto headerMatched = GetDisplayName(groupId).toLower().contains(arg);
 
-    if (itemType != NODE_ITEM)
+    if (IsConnection())
     {
-        return headerMatched;
+        return headerMatched || GetDisplayName(connectionId).toLower().contains(searchString);
     }
     else
     {
-        return headerMatched || GetDisplayName(connectionId).toLower().contains(searchString);
+        return headerMatched;
     }
 }
 

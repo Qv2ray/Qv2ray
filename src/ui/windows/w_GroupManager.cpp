@@ -137,6 +137,7 @@ void GroupManager::reloadGroupRCMActions()
 {
     connectionListRCMenu_CopyToMenu->clear();
     connectionListRCMenu_MoveToMenu->clear();
+    connectionListRCMenu_LinkToMenu->clear();
     for (const auto &group : ConnectionManager->AllGroups())
     {
         auto cpAction = new QAction(GetDisplayName(group), connectionListRCMenu_CopyToMenu);

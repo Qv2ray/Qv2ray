@@ -218,7 +218,7 @@ void ConnectionInfoWidget::OnDisConnected(const ConnectionGroupPair &id)
 
 void ConnectionInfoWidget::on_latencyBtn_clicked()
 {
-    if (connectionId == NullConnectionId)
+    if (connectionId != NullConnectionId)
     {
         ConnectionManager->StartLatencyTest(connectionId);
     }
