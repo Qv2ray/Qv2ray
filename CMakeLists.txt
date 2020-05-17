@@ -248,7 +248,13 @@ endif()
 
 # Qt language translations
 add_custom_target(lupdate
-    COMMAND lupdate ${QV2RAY_UI_SOURCES} ${QV2RAY_SOURCES_NO_MAIN} -ts ${TRANSLATIONS_TS} -locations none
+    COMMAND lupdate ${QV2RAY_BASE_HEADERS}
+                    ${QV2RAY_LIB_SOURCES}
+                    ${QVPLUGIN_INTERFACE_HEADERS}
+                    ${QV2RAY_UI_SOURCES}
+                    ${QV2RAY_UI_FORMS}
+                    ${QNODEEDITOR_QRC_RESOURCES}
+                    ${SINGLEAPPLICATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
