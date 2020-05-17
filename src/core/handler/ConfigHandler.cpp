@@ -345,7 +345,7 @@ namespace Qv2ray::core::handlers
         auto errMsg = kernelHandler->StartConnection({ id, group }, root);
         if (errMsg)
         {
-            QvMessageBoxWarn(nullptr, tr("Failed to start connection"), errMsg.value());
+            QvMessageBoxWarn(nullptr, tr("Failed to start connection"), *errMsg);
         }
         return !errMsg.has_value();
     }
