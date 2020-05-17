@@ -39,12 +39,13 @@ namespace Qv2ray::core::handlers
 
       private slots:
         void OnKernelCrashed_p(const QString &msg);
-        void OnKernelLogAvailable_p(const QString &log);
-        void OnStatsDataArrived_p(const quint64 uploadSpeed, const quint64 downloadSpeed);
+        void OnKernelLog_p(const QString &log);
+        void OnStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed);
 
       private:
-        QMap<QString, QvPluginKernel *> kernels;
-        QMap<QString, QvPluginKernel *> activeKernels;
+        QMap<QString, QString> outboundKernelMap;
+        // Since QMap does not support std::unique_ptr, we use std::map<>
+        std::map<QString, std::unique_ptr<QvPluginKernel>> activeKernels;
         QMap<QString, int> inboundPorts;
         CONFIGROOT root;
         V2rayKernelInstance *vCoreInstance = nullptr;

@@ -4,22 +4,28 @@
 #include "core/connection/Generation.hpp"
 namespace Qv2ray::core::handlers
 {
-#define isConnected (vCoreInstance->KernelStarted || !activeKernels.isEmpty())
+#define isConnected (vCoreInstance->KernelStarted || !activeKernels.empty())
     KernelInstanceHandler::KernelInstanceHandler(QObject *parent) : QObject(parent)
     {
         KernelInstance = this;
         vCoreInstance = new V2rayKernelInstance(this);
-        connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnStatsDataArrived_p);
-        connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLogAvailable_p);
+        connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnStatsDataRcvd_p);
+        connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLog_p);
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
         //
         auto kernelList = PluginHost->GetPluginKernels();
-        for (const auto &kernelInfo : kernelList.keys())
+        for (const auto &internalName : kernelList.keys())
         {
-            auto kernel = kernelList.value(kernelInfo).get();
-            kernels[kernelInfo] = kernel;
-            connect(kernel, &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
-            connect(kernel, &QvPluginKernel::OnKernelLogAvaliable, this, &KernelInstanceHandler::OnKernelLogAvailable_p);
+            auto kernel = kernelList.value(internalName);
+            for (const auto &protocol : kernel)
+            {
+                if (outboundKernelMap.contains(protocol))
+                {
+                    LOG(MODULE_PLUGINHOST, "Found multiple kernel providers for a protocol: " + protocol)
+                    continue;
+                }
+                outboundKernelMap.insert(protocol, internalName);
+            }
         }
     }
 
@@ -46,6 +52,7 @@ namespace Qv2ray::core::handlers
             inboundInfo.push_back({ inbound["protocol"].toString(), inbound["port"].toInt(), inbound["tag"].toString() });
         }
         //
+        using k = Qv2rayPlugin::QvPluginKernel;
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
             if (isComplex)
@@ -56,8 +63,8 @@ namespace Qv2ray::core::handlers
             //
             // Process outbounds.
             {
-                OUTBOUNDS new_outbounds;
-                auto pluginPort = GlobalConfig.pluginConfig.portAllocationStart;
+                OUTBOUNDS processedOutbounds;
+                auto _PluginPortAlloc = GlobalConfig.pluginConfig.portAllocationStart;
                 //
                 /// Key = Original Outbound Tag, Value = QStringList containing new outbound lists.
                 for (const auto &outbound_v : fullConfig["outbounds"].toArray())
@@ -65,43 +72,57 @@ namespace Qv2ray::core::handlers
                     const auto &outbound = outbound_v.toObject();
                     const auto &outProtocol = outbound["protocol"].toString();
                     //
-                    if (!kernels.contains(outProtocol))
+                    if (!outboundKernelMap.contains(outProtocol))
                     {
                         // Normal outbound, or the one without a plugin supported.
-                        new_outbounds.push_back(outbound);
+                        // Marked as processed.
+                        processedOutbounds.push_back(outbound);
                         continue;
                     }
-                    LOG(MODULE_CONNECTION, "Get kernel plugin: " + outProtocol)
-                    auto &kernel = kernels[outProtocol];
-                    disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
-                    activeKernels.insert(outProtocol, kernel);
+                    {
+                        auto kernel = PluginHost->CreatePluginKernel(outboundKernelMap[outProtocol]);
+                        LOG(MODULE_CONNECTION, "Get kernel plugin: " + outProtocol)
+                        // New object does not need disconnect?
+                        // disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
+                        activeKernels[outProtocol] = std::move(kernel);
+                    }
                     //
-                    QMap<QString, int> pluginInboundPort;
+                    //
+                    QMap<QvPluginKernel::KernelSetting, QVariant> _inboundSettings;
                     const auto &originalOutboundTag = outbound["tag"].toString();
                     for (const auto &[inProtocol, inPort, inTag] : inboundInfo)
                     {
+                        // Ignore unsupported protocol.
                         if (!QStringList{ "http", "socks" }.contains(inProtocol))
                             continue;
-                        pluginInboundPort.insert(inProtocol, pluginPort);
-                        LOG(MODULE_VCORE, "Plugin Integration: " + QSTRN(pluginPort) + " = " + inProtocol + "(" + inTag + ") --> " + outProtocol)
                         //
-                        const auto &freedomTag = "plugin_" + inTag + "_" + inProtocol + "-" + QSTRN(inPort) + "_" + QSTRN(pluginPort);
-                        const auto &pluginOutSettings = GenerateHTTPSOCKSOut("127.0.0.1", pluginPort, false, "", "");
-                        const auto &direct = GenerateOutboundEntry(inProtocol, pluginOutSettings, {}, {}, "0.0.0.0", freedomTag);
+                        _inboundSettings[k::KERNEL_HTTP_ENABLED] = _inboundSettings[k::KERNEL_HTTP_ENABLED].toBool() || inProtocol == "http";
+                        _inboundSettings[k::KERNEL_SOCKS_ENABLED] = _inboundSettings[k::KERNEL_SOCKS_ENABLED].toBool() || inProtocol == "socks";
+                        //
+                        _inboundSettings.insert(inProtocol.toLower() == "http" ? k::KERNEL_HTTP_PORT : k::KERNEL_SOCKS_PORT, _PluginPortAlloc);
+                        //
+                        LOG(MODULE_VCORE,
+                            "V2ray Integration: " + QSTRN(_PluginPortAlloc) + " = " + inProtocol + "(" + inTag + ") --> " + outProtocol)
+                        //
+                        const auto freedomTag = "plugin_" + inTag + "_" + inProtocol + "-" + QSTRN(inPort) + "_" + QSTRN(_PluginPortAlloc);
+                        const auto pluginOutSettings = GenerateHTTPSOCKSOut("127.0.0.1", _PluginPortAlloc, false, "", "");
+                        const auto direct = GenerateOutboundEntry(inProtocol, pluginOutSettings, {}, {}, "0.0.0.0", freedomTag);
                         //
                         // Add the integration outbound to the list.
-                        new_outbounds.push_back(direct);
+                        processedOutbounds.push_back(direct);
 
                         LOG(MODULE_CONNECTION, "Appended originalOutboundTag, inTag, freedomTag into processedOutboundList")
                         pluginProcessedOutboundList.append({ originalOutboundTag, inTag, freedomTag });
-                        pluginPort++;
+                        _PluginPortAlloc++;
                     }
-                    pluginInboundPort.insert("enable_udp", GlobalConfig.inboundConfig.socksUDP ? 1 : 0);
+                    _inboundSettings[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksUDP;
+                    _inboundSettings[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksLocalIP;
+                    _inboundSettings[k::KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
                     LOG(MODULE_CONNECTION, "Sending connection settings to kernel.")
-                    kernel->SetConnectionSettings(GlobalConfig.inboundConfig.listenip, pluginInboundPort, outbound["settings"].toObject());
+                    activeKernels[outProtocol]->SetConnectionSettings(_inboundSettings, outbound["settings"].toObject());
                 }
                 LOG(MODULE_CONNECTION, "Applying new outbound settings.")
-                fullConfig["outbounds"] = new_outbounds;
+                fullConfig["outbounds"] = processedOutbounds;
             }
             //
             // Process routing entries
@@ -153,10 +174,12 @@ namespace Qv2ray::core::handlers
             currentId = id;
             lastConnectionId = id;
             bool success = true;
-            for (auto &kernel : activeKernels.keys())
+            for (auto &[kernel, kernelObject] : activeKernels)
             {
                 LOG(MODULE_CONNECTION, "Starting kernel: " + kernel)
-                bool status = activeKernels[kernel]->StartKernel();
+                bool status = kernelObject->StartKernel();
+                connect(kernelObject.get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
+                connect(kernelObject.get(), &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p);
                 success = success && status;
                 if (!status)
                 {
@@ -175,13 +198,11 @@ namespace Qv2ray::core::handlers
             if (!result.has_value())
             {
                 emit OnConnected(id);
-                PluginHost->Send_ConnectivityEvent(
-                    { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
+                PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
             }
             else
             {
-                PluginHost->Send_ConnectivityEvent(
-                    { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
+                PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
             }
             return result;
         }
@@ -190,27 +211,38 @@ namespace Qv2ray::core::handlers
             LOG(MODULE_CONNECTION, "Starting kernel without V2ray Integration")
             auto firstOutbound = fullConfig["outbounds"].toArray().first().toObject();
             const auto protocol = firstOutbound["protocol"].toString();
-            if (kernels.contains(protocol))
+            if (outboundKernelMap.contains(protocol))
             {
                 LOG(MODULE_CONNECTION, "Found existing kernel for: " + protocol)
-                auto &kernel = kernels[firstOutbound["protocol"].toString()];
-                activeKernels[protocol] = kernel;
-                QMap<QString, int> pluginInboundPort;
+                {
+                    auto kernel = PluginHost->CreatePluginKernel(outboundKernelMap[firstOutbound["protocol"].toString()]);
+                    activeKernels[protocol] = std::move(kernel);
+                }
+                QMap<QvPluginKernel::KernelSetting, QVariant> pluginInboundPort;
                 for (const auto &[_protocol, _port, _tag] : inboundInfo)
                 {
-                    pluginInboundPort[_protocol] = _port;
+                    pluginInboundPort[k::KERNEL_HTTP_ENABLED] = pluginInboundPort[k::KERNEL_HTTP_ENABLED].toBool() || _protocol == "http";
+                    pluginInboundPort[k::KERNEL_SOCKS_ENABLED] = pluginInboundPort[k::KERNEL_SOCKS_ENABLED].toBool() || _protocol == "socks";
+                    //
+                    pluginInboundPort.insert(_protocol.toLower() == "http" ? k::KERNEL_HTTP_PORT : k::KERNEL_SOCKS_PORT, _port);
                 }
-                connect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
+                connect(activeKernels[protocol].get(), &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataRcvd_p);
+                connect(activeKernels[protocol].get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
+                connect(activeKernels[protocol].get(), &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p);
                 currentId = id;
                 lastConnectionId = id;
-                pluginInboundPort.insert("enable_udp", GlobalConfig.inboundConfig.socksUDP ? 1 : 0);
-                kernel->SetConnectionSettings(GlobalConfig.inboundConfig.listenip, pluginInboundPort, firstOutbound["settings"].toObject());
-                bool result = kernel->StartKernel();
+                //
+                pluginInboundPort[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksUDP;
+                pluginInboundPort[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksLocalIP;
+                pluginInboundPort[k::KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
+                //
+                activeKernels[protocol]->SetConnectionSettings(pluginInboundPort, firstOutbound["settings"].toObject());
+
+                bool result = activeKernels[protocol]->StartKernel();
                 if (result)
                 {
                     emit OnConnected(id);
-                    PluginHost->Send_ConnectivityEvent(
-                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
+                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
                     return {};
                 }
                 else
@@ -226,14 +258,12 @@ namespace Qv2ray::core::handlers
                 auto result = vCoreInstance->StartConnection(fullConfig);
                 if (result.has_value())
                 {
-                    PluginHost->Send_ConnectivityEvent(
-                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
+                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
                 }
                 else
                 {
                     emit OnConnected(id);
-                    PluginHost->Send_ConnectivityEvent(
-                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
+                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
                 }
                 return result;
             }
@@ -255,7 +285,7 @@ namespace Qv2ray::core::handlers
         currentId.clear();
     }
 
-    void KernelInstanceHandler::OnKernelLogAvailable_p(const QString &log)
+    void KernelInstanceHandler::OnKernelLog_p(const QString &log)
     {
         emit OnKernelLogAvailable(currentId, log);
     }
@@ -264,23 +294,21 @@ namespace Qv2ray::core::handlers
     {
         if (isConnected)
         {
-            PluginHost->Send_ConnectivityEvent(
-                { GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnecting });
+            PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnecting });
             if (vCoreInstance->KernelStarted)
             {
                 vCoreInstance->StopConnection();
             }
             //
-            for (const auto &kernel : activeKernels.keys())
+            for (const auto &[kernel, kernelObject] : activeKernels)
             {
                 LOG(MODULE_CONNECTION, "Stopping plugin kernel: " + kernel)
-                disconnect(activeKernels[kernel], &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
-                activeKernels[kernel]->StopKernel();
+                kernelObject->StopKernel();
             }
+            activeKernels.clear();
             // Copy
             emit OnDisconnected(currentId);
-            PluginHost->Send_ConnectivityEvent(
-                { GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnected });
+            PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnected });
             currentId.clear();
         }
         else
@@ -289,7 +317,7 @@ namespace Qv2ray::core::handlers
         }
     }
 
-    void KernelInstanceHandler::OnStatsDataArrived_p(const quint64 uploadSpeed, const quint64 downloadSpeed)
+    void KernelInstanceHandler::OnStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed)
     {
         if (isConnected)
         {

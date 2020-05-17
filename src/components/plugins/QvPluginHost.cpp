@@ -312,18 +312,31 @@ namespace Qv2ray::components::plugins
         return "";
     }
 
-    const QMap<QString, std::shared_ptr<QvPluginKernel>> QvPluginHost::GetPluginKernels() const
+    const std::unique_ptr<QvPluginKernel> QvPluginHost::CreatePluginKernel(const QString &pluginInternalName) const
     {
-        QMap<QString, std::shared_ptr<QvPluginKernel>> kernels;
+        if (!plugins.contains(pluginInternalName))
+            return nullptr;
+        const auto &plugin = plugins.value(pluginInternalName);
+        if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_KERNEL))
+        {
+            return plugin.pluginInterface->CreateKernel();
+        }
+        return nullptr;
+    }
+
+    const QMap<QString, QList<QString>> QvPluginHost::GetPluginKernels() const
+    {
+        QMap<QString, QList<QString>> kernels;
         for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_KERNEL))
             {
-                auto kern = plugin.pluginInterface->GetKernel();
-                for (const auto &cap : kern->KernelOutboundCapabilities())
+                QStringList outbounds;
+                for (const auto &info : plugin.metadata.KernelOutboundCapabilities)
                 {
-                    kernels.insert(cap.protocol, kern);
+                    outbounds << info.protocol;
                 }
+                kernels.insert(plugin.metadata.InternalName, outbounds);
             }
         }
         return kernels;
