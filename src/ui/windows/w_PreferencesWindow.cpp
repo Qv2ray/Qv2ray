@@ -308,7 +308,10 @@ void PreferencesWindow::on_buttonBox_accepted()
         {
             NEEDRESTART
         }
-        StyleManager->ApplyStyle(CurrentConfig.uiConfig.theme);
+        if (CurrentConfig.uiConfig.theme != GlobalConfig.uiConfig.theme)
+        {
+            StyleManager->ApplyStyle(CurrentConfig.uiConfig.theme);
+        }
         SaveGlobalSettings(CurrentConfig);
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
         if (NeedRestart)
