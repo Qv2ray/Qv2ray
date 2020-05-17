@@ -221,7 +221,7 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    bool QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid, bool blockSignal)
+    bool QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
     {
         CheckConnectionExistanceEx(id, false);
         LOG(MODULE_CONNECTION, "Removing connection : " + id.toString())
@@ -262,21 +262,22 @@ namespace Qv2ray::core::handlers
         return true;
     }
 
-    bool QvConfigHandler::LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId, bool blockSignal)
+    bool QvConfigHandler::LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId)
     {
         CheckConnectionExistanceEx(id, false);
-        if (!groups[newGroupId].connections.contains(id))
+        if (groups[newGroupId].connections.contains(id))
         {
-            groups[newGroupId].connections.append(id);
+            LOG(MODULE_CONNECTION, "Connection not linked since " + id.toString() + " is already in the group " + newGroupId.toString())
+            return false;
         }
+        groups[newGroupId].connections.append(id);
+        connections[id].__qvConnectionRefCount++;
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::LinkedWithGroup, connections[id].displayName, "" });
-
         emit OnConnectionLinkedWithGroup({ id, newGroupId });
-
-        return {};
+        return true;
     }
 
-    bool QvConfigHandler::MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid, bool blockSignal)
+    bool QvConfigHandler::MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid)
     {
         CheckConnectionExistanceEx(id, false);
         CheckGroupExistanceEx(targetGid, false);
@@ -303,7 +304,8 @@ namespace Qv2ray::core::handlers
             connections[id].__qvConnectionRefCount++;
         }
 
-        emit OnConnectionMovedToGroup({ id, targetGid }, sourceGid);
+        emit OnConnectionRemovedFromGroup({ id, sourceGid });
+        emit OnConnectionLinkedWithGroup({ id, targetGid });
 
         return true;
     }

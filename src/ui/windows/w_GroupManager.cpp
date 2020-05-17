@@ -77,7 +77,7 @@ void GroupManager::onRCMDeleteConnectionTriggered()
     const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &item : list)
     {
-        ConnectionManager->RemoveConnectionFromGroup(ConnectionId(item), currentGroupId, true);
+        ConnectionManager->RemoveConnectionFromGroup(ConnectionId(item), currentGroupId);
     }
     reloadConnectionsList(currentGroupId);
 }
@@ -209,7 +209,7 @@ void GroupManager::onRCMActionTriggered_Link()
     const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &connId : list)
     {
-        ConnectionManager->LinkConnectionWithGroup(ConnectionId(connId), groupId, false);
+        ConnectionManager->LinkConnectionWithGroup(ConnectionId(connId), groupId);
     }
     reloadConnectionsList(currentGroupId);
 }
@@ -222,7 +222,7 @@ void GroupManager::onRCMActionTriggered_Move()
     const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &connId : list)
     {
-        ConnectionManager->MoveConnectionFromToGroup(ConnectionId(connId), currentGroupId, groupId, false);
+        ConnectionManager->MoveConnectionFromToGroup(ConnectionId(connId), currentGroupId, groupId);
     }
     reloadConnectionsList(currentGroupId);
 }
