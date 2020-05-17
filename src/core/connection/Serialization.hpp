@@ -1,5 +1,6 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
+#include "common/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection
 {
@@ -15,7 +16,11 @@ namespace Qv2ray::core::connection
         const inline auto QV2RAY_SSD_DEFAULT_NAME_PATTERN = QObject::tr("%1 - %2 (rate %3)");
         //
         // General
-        QString DecodeSubscriptionString(const QByteArray &arr);
+        inline const QString TryDecodeSubscriptionString(const QByteArray &arr)
+        {
+            auto result = QString::fromUtf8(arr).trimmed();
+            return result.contains("://") ? result : SafeBase64Decode(result);
+        }
         QMultiHash<QString, CONFIGROOT> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
                                                                 QString *newGroupName = nullptr);
         const QString ConvertConfigToString(const ConnectionGroupPair &id, bool isSip002 = false);

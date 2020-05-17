@@ -1,7 +1,6 @@
 #include "Serialization.hpp"
 
 #include "Generation.hpp"
-#include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/handler/ConfigHandler.hpp"
@@ -49,7 +48,7 @@ namespace Qv2ray::core::connection
                     {
                         CONFIGROOT root;
                         auto outbound = GenerateOutboundEntry(val.first, OUTBOUNDSETTING(val.second), {});
-                        root.insert("outbounds", QJsonArray{ outbound });
+                        QJsonIO::SetValue(root, outbound, "outbounds", 0);
                         connectionConf.insert(key, root);
                     }
                 }
@@ -108,14 +107,5 @@ namespace Qv2ray::core::connection
             return sharelink;
         }
 
-        QString DecodeSubscriptionString(const QByteArray &arr)
-        {
-            // String may start with: vmess:// and ss://
-            // We only process vmess:// here
-            // Some subscription providers may use plain vmess:// saperated by
-            // lines But others may use base64 of above.
-            auto result = QString::fromUtf8(arr).trimmed();
-            return result.contains("://") ? result : SafeBase64Decode(result);
-        }
     } // namespace Serialization
 } // namespace Qv2ray::core::connection

@@ -576,7 +576,7 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
 void MainWindow::on_importConfigButton_clicked()
 {
     ImportConfigWindow w(this);
-    w.ImportConnection();
+    w.PerformImportConnection();
 }
 
 void MainWindow::on_action_RCM_EditAsComplex_triggered()

@@ -20,12 +20,22 @@
 #include <QJsonObject>
 #include <QThread>
 
+constexpr auto LINK_PAGE = 0;
+constexpr auto QRCODE_PAGE = 1;
+constexpr auto MANUAL_PAGE = 2;
+constexpr auto ADVANCED_PAGE = 3;
+
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
-    // nameTxt->setText(tr("My Connection Imported at: ") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
+    nameTxt->setText(tr("New Connection") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
     QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
+    //
+    for (const auto &gid : ConnectionManager->AllGroups())
+    {
+        groupCombo->addItem(GetDisplayName(gid), gid.toString());
+    }
 }
 
 void ImportConfigWindow::UpdateColorScheme()
@@ -54,27 +64,47 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     // false and disable the checkbox
     keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
     routeEditBtn->setEnabled(!outboundsOnly);
+    groupCombo->setEnabled(false);
     this->exec();
     QMultiHash<QString, CONFIGROOT> conn;
-    for (const auto &connEntry : connections.values())
+    for (const auto &connEntry : connectionsToNewGroup.values())
+    {
+        conn += connEntry;
+    }
+    for (const auto &connEntry : connectionsToExistingGroup.values())
     {
         conn += connEntry;
     }
     return result() == Accepted ? conn : QMultiHash<QString, CONFIGROOT>{};
 }
 
-int ImportConfigWindow::ImportConnection()
+int ImportConfigWindow::PerformImportConnection()
 {
     this->exec();
     int count = 0;
-    for (const auto &groupName : connections.keys())
+    for (const auto &groupObject : connectionsToNewGroup)
     {
-        GroupId groupId = groupName.isEmpty() ? DefaultGroupId : ConnectionManager->CreateGroup(groupName, false);
-        const auto groupObject = connections[groupName];
+        const auto groupName = connectionsToNewGroup.key(groupObject);
+        GroupId groupId = ConnectionManager->CreateGroup(groupName, false);
         for (const auto &connConf : groupObject)
         {
             auto connName = groupObject.key(connConf);
 
+            auto [protocol, host, port] = GetConnectionInfo(connConf);
+            if (connName.isEmpty())
+            {
+                connName = protocol + "/" + host + ":" + QSTRN(port) + "-" + GenerateRandomString(5);
+            }
+            ConnectionManager->CreateConnection(connConf, connName, groupId, true);
+        }
+    }
+
+    for (const auto &groupObject : connectionsToExistingGroup)
+    {
+        const auto groupId = connectionsToExistingGroup.key(groupObject);
+        for (const auto &connConf : groupObject)
+        {
+            auto connName = groupObject.key(connConf);
             auto [protocol, host, port] = GetConnectionInfo(connConf);
             if (connName.isEmpty())
             {
@@ -116,7 +146,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     if (_r == QDialog::Accepted)
     {
         auto str = DecodeQRCode(pix);
-
+        qrImageLabel->setPixmap(QPixmap::fromImage(pix));
         if (str.trimmed().isEmpty())
         {
             LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
@@ -124,7 +154,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         }
         else
         {
-            vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
+            qrCodeLinkTxt->setText(str.trimmed());
         }
     }
 }
@@ -135,7 +165,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
     switch (tabWidget->currentIndex())
     {
-        case 0:
+        case LINK_PAGE:
         {
             QStringList linkList = SplitLines(vmessConnectionStringTxt->toPlainText());
             //
@@ -165,11 +195,19 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                     linkErrors[link] = QSTRN(linkErrors.count() + 1) + ": " + errMessage;
                     continue;
                 }
-                else
+                else if (newGroupName.isEmpty())
                 {
                     for (const auto &conf : config)
                     {
-                        AddToGroup(newGroupName, config.key(conf), conf);
+                        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(config.key(conf), conf);
+                    }
+                }
+                else
+                {
+
+                    for (const auto &conf : config)
+                    {
+                        connectionsToNewGroup[newGroupName].insert(config.key(conf), conf);
                     }
                 }
             }
@@ -189,7 +227,26 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             break;
         }
-        case 2:
+        case QRCODE_PAGE:
+        {
+            QString errorMsg;
+            const auto root = ConvertConfigFromString(qrCodeLinkTxt->text(), &aliasPrefix, &errorMsg);
+            if (!errorMsg.isEmpty())
+            {
+                QvMessageBoxWarn(this, tr("Failed to import connection"), errorMsg);
+                break;
+            }
+            for (const auto &conf : root)
+            {
+                connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(root.key(conf), conf);
+            }
+            break;
+        }
+        case MANUAL_PAGE:
+        {
+            break;
+        }
+        case ADVANCED_PAGE:
         {
             // From File...
             bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
@@ -203,7 +260,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             aliasPrefix += "_" + QFileInfo(path).fileName();
             CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
-            AddToGroup("", aliasPrefix, config);
+            connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(aliasPrefix, config);
             break;
         }
     }
@@ -275,7 +332,7 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         //
-        AddToGroup("", alias, root);
+        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, root);
         accept();
     }
 }
@@ -291,12 +348,13 @@ void ImportConfigWindow::on_subscriptionButton_clicked()
     GroupManager w(this);
     w.exec();
     auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
-    connections.clear();
+    connectionsToNewGroup.clear();
+    connectionsToExistingGroup.clear();
 
     if (importToComplex)
     {
         auto [alias, conf] = w.GetSelectedConfig();
-        AddToGroup("", alias, conf);
+        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, conf);
     }
 
     accept();
@@ -311,7 +369,7 @@ void ImportConfigWindow::on_routeEditBtn_clicked()
 
     if (isChanged)
     {
-        AddToGroup("", alias, result);
+        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, result);
         accept();
     }
 }
@@ -331,7 +389,7 @@ void ImportConfigWindow::on_jsonEditBtn_clicked()
 
     if (isChanged)
     {
-        AddToGroup("", alias, CONFIGROOT(result));
+        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, CONFIGROOT(result));
         accept();
     }
 }

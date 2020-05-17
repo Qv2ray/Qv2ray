@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
-#include "common/HTTPRequestHelper.hpp"
 #include "components/latency/QvTCPing.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
@@ -152,7 +151,7 @@ namespace Qv2ray::core::handlers
         void timerEvent(QTimerEvent *event) override;
 
       private:
-        bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData);
+        bool CHUpdateSubscription_p(const GroupId &id, const QString &url);
 
       private:
         int saveTimerId;
@@ -163,8 +162,6 @@ namespace Qv2ray::core::handlers
         QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
       private:
-        QvHttpRequestHelper *httpHelper;
-        bool isHttpRequestInProgress = false;
         QvTCPingHelper *tcpingHelper;
         KernelInstanceHandler *kernelHandler;
     };

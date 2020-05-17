@@ -66,7 +66,6 @@ namespace Qv2ray::core::connection
         CONFIGROOT Deserialize(const QString &vmessStr, QString *alias, QString *errMessage)
         {
 #define default CONFIGROOT()
-            LOG(MODULE_SETTINGS, "Trying to convert from a vmess string.")
             QString vmess = vmessStr;
 
             if (vmess.trimmed() != vmess)

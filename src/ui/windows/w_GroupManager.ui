@@ -105,7 +105,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../resources.qrc">
+           <iconset resource="../../../resources.qrc">
             <normaloff>:/assets/icons/ui_light/add.png</normaloff>:/assets/icons/ui_light/add.png</iconset>
           </property>
          </widget>
@@ -125,7 +125,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../resources.qrc">
+           <iconset resource="../../../resources.qrc">
             <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
           </property>
          </widget>
@@ -227,6 +227,9 @@
          <property name="checkable">
           <bool>true</bool>
          </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
          <layout class="QFormLayout" name="formLayout_3">
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
@@ -321,26 +324,6 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_3">
-      <attribute name="title">
-       <string>Connection Settings</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="connectionSettingsLayout"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_4">
-      <attribute name="title">
-       <string>Route Settings</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="routeSettingsLayout"/>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>
@@ -352,7 +335,7 @@
   <tabstop>updateIntervalSB</tabstop>
  </tabstops>
  <resources>
-  <include location="../../resources.qrc"/>
+  <include location="../../../resources.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -66,9 +66,9 @@ namespace Qv2ray::common
         request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, ua);
     }
 
-    QByteArray QvHttpRequestHelper::Get(const QString &url)
+    QByteArray QvHttpRequestHelper::Get(const QUrl &url)
     {
-        request.setUrl({ url });
+        request.setUrl(url);
         setAccessManagerAttributes(accessManager);
         auto _reply = accessManager.get(request);
         //

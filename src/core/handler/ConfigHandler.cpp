@@ -66,7 +66,6 @@ namespace Qv2ray::core::handlers
         connect(kernelHandler, &KernelInstanceHandler::OnDisconnected, this, &QvConfigHandler::OnDisconnected);
         //
         tcpingHelper = new QvTCPingHelper(5, this);
-        httpHelper = new QvHttpRequestHelper(this);
         connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
         // Save per 1 minutes.
@@ -369,7 +368,6 @@ namespace Qv2ray::core::handlers
     {
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
         delete kernelHandler;
-        delete httpHelper;
         CHSaveConfigData();
     }
 
@@ -465,57 +463,33 @@ namespace Qv2ray::core::handlers
     bool QvConfigHandler::UpdateSubscription(const GroupId &id)
     {
         CheckGroupExistanceEx(id, false);
-        if (isHttpRequestInProgress || !groups[id].isSubscription)
+        if (!groups[id].isSubscription)
         {
             return false;
         }
-        isHttpRequestInProgress = true;
-        auto data = httpHelper->Get(groups[id].subscriptionOption.address);
-        isHttpRequestInProgress = false;
-        return CHUpdateSubscription_p(id, data);
+        return CHUpdateSubscription_p(id, groups[id].subscriptionOption.address);
     }
 
-    bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData)
+    bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QString &url)
     {
         CheckGroupExistanceEx(id, false);
         if (!groups.contains(id))
         {
             return false;
         }
-        QMultiHash<QString, CONFIGROOT> allSubscriptionConnections;
-        //
-        //
         //
         // ====================================================================================== Begin reading subscription
+        auto _newConnections = GetConnectionConfigFromSubscription(url, GetDisplayName(id));
+        if (_newConnections.count() < 5)
         {
-            auto subscriptionLines = SplitLines(DecodeSubscriptionString(subscriptionData));
-            for (const auto &line : subscriptionLines)
-            {
-                QString __alias;
-                QString __errMessage;
-                // Assign a group name, to pass the name check.
-                QString __groupName = GetDisplayName(id);
-                auto connectionConfigMap = ConvertConfigFromString(line.trimmed(), &__alias, &__errMessage, &__groupName);
-                if (!__errMessage.isEmpty())
-                    LOG(MODULE_SUBSCRIPTION, "Error: " + __errMessage)
-                for (const auto &val : connectionConfigMap)
-                {
-                    allSubscriptionConnections.insert(connectionConfigMap.key(val), val);
-                }
-            }
-            if (allSubscriptionConnections.count() < 5)
-            {
-                LOG(MODULE_SUBSCRIPTION, "Find a subscription with less than 5 connections.")
-                if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
-                                    tr("%1 entrie(s) have been found from the subscription source, do you want to continue?")
-                                        .arg(allSubscriptionConnections.count())) != QMessageBox::Yes)
+            LOG(MODULE_SUBSCRIPTION, "Find a subscription with less than 5 connections.")
+            if (QvMessageBoxAsk(
+                    nullptr, tr("Update Subscription"),
+                    tr("%1 entrie(s) have been found from the subscription source, do you want to continue?").arg(_newConnections.count())) !=
+                QMessageBox::Yes)
 
-                    return false;
-            }
+                return false;
         }
-        // ====================================================================================== End reading subscription
-        //
-        //
         //
         // ====================================================================================== Begin Connection Data Storage
         // Anyway, we try our best to preserve the connection id.
@@ -540,9 +514,9 @@ namespace Qv2ray::core::handlers
         auto originalConnectionIdList = groups[id].connections;
         groups[id].connections.clear();
         //
-        for (const auto &config : allSubscriptionConnections)
+        for (const auto &config : _newConnections)
         {
-            const auto _alias = allSubscriptionConnections.key(config);
+            const auto _alias = _newConnections.key(config);
             QString errMessage;
 
             if (!errMessage.isEmpty())
@@ -562,7 +536,7 @@ namespace Qv2ray::core::handlers
                 LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
                 auto _conn = nameMap.take(_alias);
                 groups[id].connections << _conn;
-                UpdateConnection(_conn, config);
+                UpdateConnection(_conn, config, true);
                 // Remove Connection Id from the list.
                 originalConnectionIdList.removeAll(_conn);
                 typeMap.remove(typeMap.key(_conn));
@@ -573,7 +547,7 @@ namespace Qv2ray::core::handlers
                 auto _conn = typeMap.take(outboundData);
                 groups[id].connections << _conn;
                 // Update Connection Properties
-                UpdateConnection(_conn, config);
+                UpdateConnection(_conn, config, true);
                 RenameConnection(_conn, _alias);
                 // Remove Connection Id from the list.
                 originalConnectionIdList.removeAll(_conn);
@@ -583,7 +557,7 @@ namespace Qv2ray::core::handlers
             {
                 // New connection id is required since nothing matched found...
                 LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                CreateConnection(config, _alias, id);
+                CreateConnection(config, _alias, id, true);
             }
             // ====================================================================================== End guessing new ConnectionId
         }

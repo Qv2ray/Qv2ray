@@ -257,7 +257,7 @@ GroupManager::~GroupManager()
 void GroupManager::on_addGroupButton_clicked()
 {
     auto const key = tr("New Group") + " - " + GenerateRandomString(5);
-    auto id = ConnectionManager->CreateGroup(key, true);
+    auto id = ConnectionManager->CreateGroup(key, false);
     //
     auto item = new QListWidgetItem(key);
     item->setData(Qt::UserRole, id.toString());
@@ -266,7 +266,7 @@ void GroupManager::on_addGroupButton_clicked()
 
 void GroupManager::on_updateButton_clicked()
 {
-    if (QvMessageBoxAsk(this, tr("Reload Subscription"), tr("Would you like to reload the subscription?")) == QMessageBox::Yes)
+    if (QvMessageBoxAsk(this, tr("Update Subscription"), tr("Would you like to update the subscription?")) == QMessageBox::Yes)
     {
         this->setEnabled(false);
         ConnectionManager->UpdateSubscription(currentGroupId);

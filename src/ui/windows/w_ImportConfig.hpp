@@ -15,7 +15,7 @@ class ImportConfigWindow
   public:
     explicit ImportConfigWindow(QWidget *parent = nullptr);
     ~ImportConfigWindow();
-    int ImportConnection();
+    int PerformImportConnection();
     QMultiHash<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
 
   private:
@@ -43,19 +43,8 @@ class ImportConfigWindow
 
   private:
     void UpdateColorScheme();
-    QMap<QString, QMultiHash<QString, CONFIGROOT>> connections;
     QMap<QString, QString> linkErrors;
-    void AddToGroup(const QString &groupName, const QString &alias, const CONFIGROOT &root)
-    {
-        if (connections.contains(groupName))
-        {
-            connections[groupName].insert(alias, root);
-        }
-        else
-        {
-            QMultiHash<QString, CONFIGROOT> temp;
-            temp.insert(alias, root);
-            connections.insert(groupName, temp);
-        }
-    }
+    //
+    QHash<GroupId, QMultiHash<QString, CONFIGROOT>> connectionsToExistingGroup;
+    QHash<QString, QMultiHash<QString, CONFIGROOT>> connectionsToNewGroup;
 };
