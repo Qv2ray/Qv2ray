@@ -65,7 +65,7 @@ namespace
     {
         int res;
         int opt;
-        timeval tv = { 0 };
+        timeval tv = { 0, 0 };
         tv.tv_sec = timeout_sec;
         tv.tv_usec = 0;
         if ((res = setnonblocking(sockno, opt)) != 0)
@@ -73,7 +73,7 @@ namespace
         if ((res = ::connect(sockno, addr, addrlen)) < 0)
         {
 #ifdef _WIN32
-            if (WSAGetLastError() != WSAEWOULDBLOCK)
+            if (WSAGetLastError() == WSAEWOULDBLOCK)
             {
 #else
             if (errno == EINPROGRESS)
