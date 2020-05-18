@@ -1,3 +1,12 @@
+qv2ray (2.6.0~rc2-1) unstable; urgency=medium
+
+  * fix: fixed tcping message
+  * refactor: refactored auto update algorithm
+  * fix: fixed Windows non-block TCPing
+  * fix: UI tweak, prevent connection list taking too much space
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Mon, 18 May 2020 12:01:50 +0800
+
 qv2ray (2.6.0~rc1-1) unstable; urgency=medium
 
   * NTP Check
