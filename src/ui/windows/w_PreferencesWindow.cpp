@@ -1043,7 +1043,10 @@ void PreferencesWindow::on_pushButton_clicked()
 {
     const auto ntpTitle = tr("NTP Checker");
     const auto ntpHint = tr("Check date and time from server:");
-    QString ntpServer = QInputDialog::getText(this, ntpTitle, ntpHint, QLineEdit::Normal, "202.118.1.46").trimmed();
+    bool ok = false;
+    QString ntpServer = QInputDialog::getText(this, ntpTitle, ntpHint, QLineEdit::Normal, "202.118.1.46", &ok).trimmed();
+    if (!ok)
+        return;
 
     auto client = new ntp::NtpClient(this);
     connect(client, &ntp::NtpClient::replyReceived, [&](const QHostAddress &, quint16, const ntp::NtpReply &reply) {
