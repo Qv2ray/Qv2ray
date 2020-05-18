@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>864</width>
-    <height>614</height>
+    <width>934</width>
+    <height>664</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -224,17 +224,17 @@
             </item>
             <item row="3" column="1">
              <layout class="QFormLayout" name="formLayout_16">
-              <item row="1" column="1">
+              <item row="2" column="1">
                <widget class="QComboBox" name="autoStartConnCombo"/>
               </item>
-              <item row="1" column="0">
+              <item row="2" column="0">
                <widget class="QLabel" name="label_61">
                 <property name="text">
                  <string>Config</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
+              <item row="1" column="1">
                <widget class="QComboBox" name="autoStartSubsCombo">
                 <property name="minimumSize">
                  <size>
@@ -249,12 +249,37 @@
                 </item>
                </widget>
               </item>
-              <item row="0" column="0">
+              <item row="1" column="0">
                <widget class="QLabel" name="label_60">
                 <property name="text">
                  <string>Group</string>
                 </property>
                </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QRadioButton" name="noAutoConnectRB">
+                  <property name="text">
+                   <string>None</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="lastConnectedRB">
+                  <property name="text">
+                   <string>Last Connected</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="fixedAutoConnectRB">
+                  <property name="text">
+                   <string>Fixed</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
@@ -274,6 +299,22 @@
             <string>Network Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_13">
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="label_89">
+              <property name="font">
+               <font>
+                <italic>true</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_67">
               <property name="text">
@@ -288,99 +329,97 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_71">
-              <property name="text">
-               <string>Qv2ray Proxy</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
-               <widget class="QRadioButton" name="qvProxyNoProxy">
+            <item row="3" column="1">
+             <layout class="QFormLayout" name="formLayout_3">
+              <item row="0" column="0" colspan="2">
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <item>
+                 <widget class="QRadioButton" name="qvProxyNoProxy">
+                  <property name="text">
+                   <string>None</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="qvProxySystemProxy">
+                  <property name="text">
+                   <string>System Proxy</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="qvProxyCustomProxy">
+                  <property name="text">
+                   <string>Custom Proxy</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_33">
                 <property name="text">
-                 <string>No Proxy</string>
+                 <string>Type</string>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QRadioButton" name="qvProxySystemProxy">
+              <item row="1" column="1">
+               <widget class="QComboBox" name="qvProxyTypeCombo">
+                <item>
+                 <property name="text">
+                  <string notr="true">http</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">socks</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_32">
                 <property name="text">
-                 <string>System Proxy</string>
+                 <string>Server</string>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QRadioButton" name="qvProxyCustomProxy">
-                <property name="text">
-                 <string>Custom Proxy</string>
-                </property>
-               </widget>
+              <item row="2" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QLineEdit" name="qvProxyAddressTxt"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_74">
+                  <property name="text">
+                   <string>:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="qvProxyPortCB">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
             <item row="3" column="0">
-             <widget class="QLabel" name="label_64">
+             <widget class="QLabel" name="label_71">
               <property name="text">
-               <string>Custom Proxy</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QComboBox" name="qvProxyTypeCombo">
-              <item>
-               <property name="text">
-                <string notr="true">http</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">socks</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QLineEdit" name="qvProxyAddressTxt"/>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_74">
-                <property name="text">
-                 <string>:</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="qvProxyPortCB">
-                <property name="minimum">
-                 <number>0</number>
-                </property>
-                <property name="maximum">
-                 <number>65535</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="0" colspan="2">
-             <widget class="QLabel" name="label_89">
-              <property name="font">
-               <font>
-                <italic>true</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>These settings are for Qv2ray itself.
-For example, for updating subscriptions.</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
+               <string>Qv2ray Proxy</string>
               </property>
              </widget>
             </item>
@@ -396,7 +435,7 @@ For example, for updating subscriptions.</string>
             <item row="1" column="0">
              <widget class="QLabel" name="label_82">
               <property name="text">
-               <string>AllowInsecure By Default</string>
+               <string>Set AllowInsecure By Default</string>
               </property>
              </widget>
             </item>
@@ -443,14 +482,14 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
               </property>
               <property name="text">
                <string>These settings may be useful.
-But could damage your server if improperly used.</string>
+But could dramatically damage your server if improperly used.</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_85">
               <property name="text">
-               <string>AllowInsecureCiphers By Default</string>
+               <string>Set AllowInsecureCiphers By Default</string>
               </property>
              </widget>
             </item>
@@ -748,8 +787,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1044</width>
-            <height>740</height>
+            <width>888</width>
+            <height>558</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">

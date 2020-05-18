@@ -15,15 +15,10 @@ namespace Qv2ray::core::handlers
         ~KernelInstanceHandler();
 
         std::optional<QString> StartConnection(const ConnectionGroupPair &id, const CONFIGROOT &root);
-        void RestartConnection();
         void StopConnection();
         const ConnectionGroupPair CurrentConnection() const
         {
             return currentId;
-        }
-        bool isConnected(const ConnectionGroupPair &id) const
-        {
-            return id == currentId;
         }
         const QMap<QString, int> InboundPorts() const
         {
@@ -50,7 +45,6 @@ namespace Qv2ray::core::handlers
         CONFIGROOT root;
         V2rayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
-        ConnectionGroupPair lastConnectionId = {};
     };
     inline const KernelInstanceHandler *KernelInstance;
 } // namespace Qv2ray::core::handlers

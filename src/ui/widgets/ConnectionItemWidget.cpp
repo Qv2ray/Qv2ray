@@ -80,7 +80,7 @@ void ConnectionItemWidget::BeginConnection()
 {
     if (IsConnection())
     {
-        ConnectionManager->StartConnection(connectionId, groupId);
+        ConnectionManager->StartConnection({ connectionId, groupId });
     }
     else
     {
@@ -91,15 +91,15 @@ void ConnectionItemWidget::BeginConnection()
 bool ConnectionItemWidget::NameMatched(const QString &arg) const
 {
     auto searchString = arg.toLower();
-    auto headerMatched = GetDisplayName(groupId).toLower().contains(arg);
+    auto isGroupNameMatched = GetDisplayName(groupId).toLower().contains(arg);
 
     if (IsConnection())
     {
-        return headerMatched || GetDisplayName(connectionId).toLower().contains(searchString);
+        return isGroupNameMatched || GetDisplayName(connectionId).toLower().contains(searchString);
     }
     else
     {
-        return headerMatched;
+        return isGroupNameMatched;
     }
 }
 

@@ -101,9 +101,10 @@ namespace Qv2ray::base
     {
         QList<ConnectionId> connections;
         bool isSubscription;
+        RoutingId routingId;
         SubscriptionConfigObject subscriptionOption;
         GroupObject() : __Qv2rayConfigObjectBase(), connections(), isSubscription(false), subscriptionOption(){};
-        JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, subscriptionOption), B(__Qv2rayConfigObjectBase))
+        JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routingId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
     struct ConnectionObject : __Qv2rayConfigObjectBase

@@ -1,6 +1,7 @@
 #pragma once
 #include "base/models/CoreObjectModels.hpp"
 #include "base/models/QvConfigIdentifier.hpp"
+#include "base/models/QvCoreSettings.hpp"
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <chrono>
@@ -29,26 +30,28 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfig_SystemProxy, F(setSystemProxy))
     };
 
-    struct Qv2rayConfig_SocksInbound
+    struct Qv2rayConfig_ProtocolInboundBase
     {
         int port;
         bool useAuth;
-        bool enableUDP;
-        QString localIP;
-        objects::AccountObject account;
         bool sniffing;
-        Qv2rayConfig_SocksInbound() : port(1089), useAuth(false), enableUDP(true), localIP("127.0.0.1"), account(), sniffing(false){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_SocksInbound, F(port, useAuth, enableUDP, localIP, account, sniffing))
+        objects::AccountObject account;
+        Qv2rayConfig_ProtocolInboundBase(int _port = 0) : port(_port), useAuth(false), sniffing(false), account(){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, account))
     };
 
-    struct Qv2rayConfig_HttpInbound
+    struct Qv2rayConfig_SocksInbound : Qv2rayConfig_ProtocolInboundBase
     {
-        int port;
-        bool useAuth;
-        objects::AccountObject account;
-        bool sniffing;
-        Qv2rayConfig_HttpInbound() : port(8889), useAuth(false), account(), sniffing(false){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_HttpInbound, F(port, useAuth, account, sniffing))
+        bool enableUDP;
+        QString localIP;
+        Qv2rayConfig_SocksInbound() : Qv2rayConfig_ProtocolInboundBase(1089), enableUDP(true), localIP("127.0.0.1"){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_SocksInbound, B(Qv2rayConfig_ProtocolInboundBase), F(enableUDP, localIP))
+    };
+
+    struct Qv2rayConfig_HttpInbound : Qv2rayConfig_ProtocolInboundBase
+    {
+        Qv2rayConfig_HttpInbound() : Qv2rayConfig_ProtocolInboundBase(8889){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_HttpInbound, B(Qv2rayConfig_ProtocolInboundBase))
     };
 
     struct Qv2rayConfig_tProxy
@@ -263,6 +266,7 @@ namespace Qv2ray::base::config
         int logLevel;
         //
         ConnectionGroupPair autoStartId;
+        ConnectionGroupPair lastConnectedId;
         Qv2rayAutoConnectionBehavior autoStartBehavior;
         //
         // Key = groupId, connectionId
@@ -295,9 +299,9 @@ namespace Qv2ray::base::config
               advancedConfig(),                      //
               connectionConfig(){};
 
-        JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                   //
-                            F(config_version, tProxySupport, autoStartId, autoStartBehavior, logLevel),           //
-                            F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
+        JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                          //
+                            F(config_version, tProxySupport, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
+                            F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig),        //
                             F(inboundConfig, outboundConfig, connectionConfig))
     };
 } // namespace Qv2ray::base::config

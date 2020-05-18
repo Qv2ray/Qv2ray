@@ -37,11 +37,6 @@ namespace Qv2ray::core::handlers
 
     std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionGroupPair &id, const CONFIGROOT &root)
     {
-        if (isConnected)
-        {
-            StopConnection();
-        }
-        activeKernels.clear();
         this->root = root;
         bool isComplex = IsComplexConfig(root);
         auto fullConfig = GenerateRuntimeConfig(root);
@@ -146,14 +141,15 @@ namespace Qv2ray::core::handlers
             }
             //
             // Process routing entries
+            //
             {
                 LOG(MODULE_CONNECTION, "Started processing route tables.")
                 QJsonArray newRules;
-                auto unprocessedOutbound = pluginProcessedOutboundList;
-                const auto rules = fullConfig["routing"].toObject()["rules"].toArray();
+                auto unProcessedOutbounds = pluginProcessedOutboundList;
+                const auto &rules = fullConfig["routing"].toObject()["rules"].toArray();
                 for (auto i = 0; i < rules.count(); i++)
                 {
-                    const auto rule = rules.at(i).toObject();
+                    const auto &rule = rules.at(i).toObject();
                     //
                     bool ruleProcessed = false;
                     for (const auto &[originalTag, inboundTag, newOutboundTag] : pluginProcessedOutboundList)
@@ -167,7 +163,7 @@ namespace Qv2ray::core::handlers
                             newRule["inboundTag"] = QJsonArray{ inboundTag };
                             newRules.push_back(newRule);
                             ruleProcessed = true;
-                            unprocessedOutbound.removeOne({ originalTag, inboundTag, newOutboundTag });
+                            unProcessedOutbounds.removeOne({ originalTag, inboundTag, newOutboundTag });
                         }
                     }
                     if (!ruleProcessed)
@@ -176,7 +172,7 @@ namespace Qv2ray::core::handlers
                     }
                 }
 
-                for (const auto &[originalTag, inboundTag, newOutboundTag] : unprocessedOutbound)
+                for (const auto &[originalTag, inboundTag, newOutboundTag] : unProcessedOutbounds)
                 {
                     LOG(MODULE_CONNECTION, "Adding new plugin outbound rule.")
                     QJsonObject integrationRule;
@@ -189,40 +185,42 @@ namespace Qv2ray::core::handlers
                 routing["rules"] = newRules;
                 fullConfig["routing"] = routing;
             }
+            //
             // ================================================================================================
             //
-            currentId = id;
-            lastConnectionId = id;
-            bool success = true;
+            bool hasAllKernelStarted = true;
             for (auto &[kernel, kernelObject] : activeKernels)
             {
                 LOG(MODULE_CONNECTION, "Starting kernel: " + kernel)
                 bool status = kernelObject->StartKernel();
                 connect(kernelObject.get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
                 connect(kernelObject.get(), &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p);
-                success = success && status;
+                hasAllKernelStarted = hasAllKernelStarted && status;
                 if (!status)
                 {
                     LOG(MODULE_CONNECTION, "Plugin Kernel: " + kernel + " failed to start.")
                     break;
                 }
             }
-            if (!success)
+            if (!hasAllKernelStarted)
             {
                 StopConnection();
                 return tr("A plugin kernel failed to start. Please check the outbound settings.");
             }
+            currentId = id;
             //
+            // Also start V2ray-core.
             auto result = vCoreInstance->StartConnection(fullConfig);
             //
-            if (!result.has_value())
+            if (result.has_value())
             {
-                emit OnConnected(id);
-                PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
+                StopConnection();
+                PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
             }
             else
             {
-                PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
+                emit OnConnected(id);
+                PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
             }
             return result;
         }
@@ -250,7 +248,6 @@ namespace Qv2ray::core::handlers
                 connect(activeKernels[protocol].get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
                 connect(activeKernels[protocol].get(), &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p);
                 currentId = id;
-                lastConnectionId = id;
                 //
                 pluginInboundPort[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
                 pluginInboundPort[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
@@ -258,27 +255,28 @@ namespace Qv2ray::core::handlers
                 //
                 activeKernels[protocol]->SetConnectionSettings(pluginInboundPort, firstOutbound["settings"].toObject());
 
-                bool result = activeKernels[protocol]->StartKernel();
-                if (result)
+                bool kernelStarted = activeKernels[protocol]->StartKernel();
+                if (kernelStarted)
                 {
                     emit OnConnected(id);
                     PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
-                    return {};
+                    return std::nullopt;
                 }
                 else
                 {
                     return tr("A plugin kernel failed to start. Please check the outbound settings.");
+                    StopConnection();
                 }
             }
             else
             {
                 LOG(MODULE_CONNECTION, "Starting V2ray without kernel")
                 currentId = id;
-                lastConnectionId = id;
                 auto result = vCoreInstance->StartConnection(fullConfig);
                 if (result.has_value())
                 {
                     PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
+                    StopConnection();
                 }
                 else
                 {
@@ -290,19 +288,11 @@ namespace Qv2ray::core::handlers
         }
     }
 
-    void KernelInstanceHandler::RestartConnection()
-    {
-        StopConnection();
-        StartConnection(lastConnectionId, root);
-    }
-
     void KernelInstanceHandler::OnKernelCrashed_p(const QString &msg)
     {
-        StopConnection();
         emit OnCrashed(currentId, msg);
         emit OnDisconnected(currentId);
-        lastConnectionId = currentId;
-        currentId.clear();
+        StopConnection();
     }
 
     void KernelInstanceHandler::OnKernelLog_p(const QString &log)
@@ -319,22 +309,20 @@ namespace Qv2ray::core::handlers
             {
                 vCoreInstance->StopConnection();
             }
-            //
             for (const auto &[kernel, kernelObject] : activeKernels)
             {
                 LOG(MODULE_CONNECTION, "Stopping plugin kernel: " + kernel)
                 kernelObject->StopKernel();
             }
-            activeKernels.clear();
-            // Copy
             emit OnDisconnected(currentId);
             PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnected });
-            currentId.clear();
         }
         else
         {
             LOG(MODULE_CORE_HANDLER, "Cannot disconnect when there's nothing connected.")
         }
+        currentId.clear();
+        activeKernels.clear();
     }
 
     void KernelInstanceHandler::OnStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed)

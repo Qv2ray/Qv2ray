@@ -4,6 +4,7 @@ set(QV2RAY_BASE_HEADERS
     ${CMAKE_SOURCE_DIR}/src/base/models/QvConfigIdentifier.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvRuntimeConfig.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvSafeType.hpp
+    ${CMAKE_SOURCE_DIR}/src/base/models/QvCoreSettings.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvSettingsObject.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvStartupConfig.hpp
     ${CMAKE_SOURCE_DIR}/src/base/Qv2rayBase.hpp

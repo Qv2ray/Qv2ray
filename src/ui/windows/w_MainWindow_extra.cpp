@@ -39,6 +39,17 @@ void MainWindow::MWClearSystemProxy()
     }
 }
 
+bool MainWindow::StartAutoConnectionEntry()
+{
+    switch (GlobalConfig.autoStartBehavior)
+    {
+        case AUTO_CONNECTION_NONE: return false;
+        case AUTO_CONNECTION_FIXED: return ConnectionManager->StartConnection(GlobalConfig.autoStartId);
+        case AUTO_CONNECTION_LAST_CONNECTED: return ConnectionManager->StartConnection(GlobalConfig.lastConnectedId);
+    }
+    Q_UNREACHABLE();
+}
+
 void MainWindow::CheckSubscriptionsUpdate()
 {
     QStringList updateList;

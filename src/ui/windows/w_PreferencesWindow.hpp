@@ -172,6 +172,12 @@ class PreferencesWindow
 
     void on_pushButton_clicked();
 
+    void on_noAutoConnectRB_clicked();
+
+    void on_lastConnectedRB_clicked();
+
+    void on_fixedAutoConnectRB_clicked();
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

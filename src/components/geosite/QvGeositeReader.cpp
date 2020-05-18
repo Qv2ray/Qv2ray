@@ -26,7 +26,7 @@ namespace Qv2ray::components::geosite
         GeoSiteList sites;
         sites.ParseFromArray(content.data(), content.size());
 
-        for (auto e : sites.entry())
+        for (const auto &e : sites.entry())
         {
             // We want to use lower string.
             list << QString::fromStdString(e.country_code()).toLower();

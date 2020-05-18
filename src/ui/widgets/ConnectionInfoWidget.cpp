@@ -149,7 +149,7 @@ void ConnectionInfoWidget::on_connectBtn_clicked()
     }
     else
     {
-        ConnectionManager->StartConnection(connectionId, groupId);
+        ConnectionManager->StartConnection({ connectionId, groupId });
     }
 }
 

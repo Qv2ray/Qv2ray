@@ -311,30 +311,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     }
     //
     // Find and start if there is an auto-connection
-    auto needShowWindow = true;
-
-    if (GlobalConfig.autoStartId.connectionId != NullConnectionId)
-    {
-        // If true means connected. So inverse.
-        needShowWindow = !ConnectionManager->StartConnection(GlobalConfig.autoStartId.connectionId, GlobalConfig.autoStartId.groupId);
-    }
-    if (needShowWindow && connectionListWidget->topLevelItemCount() > 0)
+    auto connectionStarted = StartAutoConnectionEntry();
+    if (!connectionStarted && connectionListWidget->topLevelItemCount() > 0)
     {
         // Select the first connection.
-        auto item = (connectionListWidget->topLevelItem(0)->childCount() > 0) ? connectionListWidget->topLevelItem(0)->child(0) :
-                                                                                connectionListWidget->topLevelItem(0);
+        const auto &topLevelItem = connectionListWidget->topLevelItem(0);
+        const auto &item = (topLevelItem->childCount() > 0) ? topLevelItem->child(0) : topLevelItem;
         connectionListWidget->setCurrentItem(item);
         on_connectionListWidget_itemClicked(item, 0);
     }
     ReloadRecentConnectionList(GlobalConfig.uiConfig.recentConnections);
     //
-    if (needShowWindow)
+    tray_action_ShowHide->setText(connectionStarted ? tr("Hide") : tr("Show"));
+    if (!connectionStarted)
         this->show();
     //
-    tray_action_ShowHide->setText(needShowWindow ? tr("Hide") : tr("Show"));
     CheckSubscriptionsUpdate();
     //
-    splitter->setSizes(QList<int>() << 100 << 300);
+    splitter->setSizes({ 100, 300 });
     qvLogTimerId = startTimer(1000);
     //
     auto checker = new QvUpdateChecker(this);

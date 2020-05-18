@@ -18,8 +18,6 @@
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QHostInfo>
-#include <QStyle>
-#include <QStyleFactory>
 
 using Qv2ray::common::validation::IsValidIPAddress;
 
@@ -35,8 +33,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
 {
     setupUi(this);
     //
-    // We currently don't support this feature.
-    //    tProxyGroupBox->setVisible(false);
     tProxyCheckBox->setVisible(false);
     label_7->setVisible(false);
     //
@@ -60,7 +56,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
     themeCombo->addItems(StyleManager->AllStyles());
     //
-    qvVersion->setText(QV2RAY_VERSION_STRING "-" + QSTRN(QV2RAY_VERSION_BUILD));
+    qvVersion->setText(QV2RAY_VERSION_STRING ":" + QSTRN(QV2RAY_VERSION_BUILD));
     qvBuildInfo->setText(QV2RAY_BUILD_INFO);
     qvBuildExInfo->setText(QV2RAY_BUILD_EXTRA_INFO);
     qvBuildTime->setText(__DATE__ " " __TIME__);
@@ -189,24 +185,28 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     cancelIgnoreVersionBtn->setEnabled(!CurrentConfig.updateConfig.ignoredVersion.isEmpty());
     ignoredNextVersion->setText(CurrentConfig.updateConfig.ignoredVersion);
     //
-    // Empty for global config.
-    auto autoStartConnId = CurrentConfig.autoStartId.connectionId;
-    auto autoStartGroupId = CurrentConfig.autoStartId.groupId;
-
-    for (const auto &group : ConnectionManager->AllGroups())
+    //
     {
-        autoStartSubsCombo->addItem(GetDisplayName(group), group.toString());
+        noAutoConnectRB->setChecked(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_NONE);
+        lastConnectedRB->setChecked(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_LAST_CONNECTED);
+        fixedAutoConnectRB->setChecked(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_FIXED);
+        //
+        autoStartConnCombo->setEnabled(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_FIXED);
+        autoStartSubsCombo->setEnabled(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_FIXED);
+        //
+        auto autoStartConnId = CurrentConfig.autoStartId.connectionId;
+        auto autoStartGroupId = CurrentConfig.autoStartId.groupId;
+        //
+        for (const auto &group : ConnectionManager->AllGroups()) //
+            autoStartSubsCombo->addItem(GetDisplayName(group), group.toString());
+
+        autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
+
+        for (const auto &conn : ConnectionManager->Connections(autoStartGroupId))
+            autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
+
+        autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
     }
-
-    autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
-
-    for (const auto &conn : ConnectionManager->Connections(autoStartGroupId))
-    {
-        autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
-    }
-
-    autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
-
     // FP Settings
     if (CurrentConfig.connectionConfig.forwardProxyConfig.type.trimmed().isEmpty())
     {
@@ -1080,4 +1080,28 @@ void PreferencesWindow::on_pushButton_clicked()
     {
         QvMessageBoxWarn(this, ntpTitle, tr("Failed to lookup server: %1").arg(hostInfo.errorString()));
     }
+}
+
+void PreferencesWindow::on_noAutoConnectRB_clicked()
+{
+    LOADINGCHECK
+    CurrentConfig.autoStartBehavior = AUTO_CONNECTION_NONE;
+    autoStartConnCombo->setEnabled(false);
+    autoStartSubsCombo->setEnabled(false);
+}
+
+void PreferencesWindow::on_lastConnectedRB_clicked()
+{
+    LOADINGCHECK
+    CurrentConfig.autoStartBehavior = AUTO_CONNECTION_LAST_CONNECTED;
+    autoStartConnCombo->setEnabled(false);
+    autoStartSubsCombo->setEnabled(false);
+}
+
+void PreferencesWindow::on_fixedAutoConnectRB_clicked()
+{
+    LOADINGCHECK
+    CurrentConfig.autoStartBehavior = AUTO_CONNECTION_FIXED;
+    autoStartConnCombo->setEnabled(true);
+    autoStartSubsCombo->setEnabled(true);
 }

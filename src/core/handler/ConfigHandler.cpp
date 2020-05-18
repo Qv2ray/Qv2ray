@@ -337,22 +337,25 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    bool QvConfigHandler::StartConnection(const ConnectionId &id, const GroupId &group)
+    bool QvConfigHandler::StartConnection(const ConnectionGroupPair &identifier)
     {
-        CheckConnectionExistanceEx(id, false);
-        connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
-        CONFIGROOT root = GetConnectionRoot(id);
-        auto errMsg = kernelHandler->StartConnection({ id, group }, root);
+        CheckConnectionExistanceEx(identifier.connectionId, false);
+        connections[identifier.connectionId].lastConnected = system_clock::to_time_t(system_clock::now());
+        CONFIGROOT root = GetConnectionRoot(identifier.connectionId);
+        auto errMsg = kernelHandler->StartConnection(identifier, root);
         if (errMsg)
         {
             QvMessageBoxWarn(nullptr, tr("Failed to start connection"), *errMsg);
+            return false;
         }
-        return !errMsg.has_value();
+        GlobalConfig.lastConnectedId = identifier;
+        return true;
     }
 
     void QvConfigHandler::RestartConnection() // const ConnectionId &id
     {
-        kernelHandler->RestartConnection();
+        kernelHandler->StopConnection();
+        kernelHandler->StartConnection(GlobalConfig.lastConnectedId, GetConnectionRoot(GlobalConfig.lastConnectedId.connectionId));
     }
 
     void QvConfigHandler::StopConnection() // const ConnectionId &id

@@ -162,6 +162,7 @@ class MainWindow
     void MWSetSystemProxy();
     void MWClearSystemProxy();
     void CheckSubscriptionsUpdate();
+    bool StartAutoConnectionEntry();
     //
     void UpdateColorScheme();
     //

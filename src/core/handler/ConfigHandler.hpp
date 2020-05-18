@@ -29,12 +29,6 @@ namespace Qv2ray::core::handlers
       public slots:
         //
         //
-        inline bool StartConnection(const ConnectionGroupPair &identifier)
-        {
-            return StartConnection(identifier.connectionId, identifier.groupId);
-        }
-        //
-        //
         inline const QList<ConnectionId> Connections() const
         {
             return connections.keys();
@@ -61,28 +55,22 @@ namespace Qv2ray::core::handlers
 
         bool IsConnected(const ConnectionGroupPair &id) const
         {
-            return kernelHandler->isConnected(id);
+            return kernelHandler->CurrentConnection() == id;
         }
 
         bool IsConnected(const ConnectionId &id) const
         {
             return kernelHandler->CurrentConnection().connectionId == id;
         }
-
         //
         //
         void CHSaveConfigData();
         const QList<GroupId> Subscriptions() const;
-        //
-        // Get Options
-        // const GroupId GetGroupIdByDisplayName(const QString &displayName) const;
-        // TRY NOT TO USE THIS FUNCTION
-        // const ConnectionId GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const;
         const QList<GroupId> GetGroupId(const ConnectionId &connId) const;
         //
         // Connectivity Operationss
-        bool StartConnection(const ConnectionId &identifier, const GroupId &group);
-        void StopConnection(); // const ConnectionId &id
+        bool StartConnection(const ConnectionGroupPair &identifier);
+        void StopConnection();
         void RestartConnection();
         //
         // Connection Operations.
