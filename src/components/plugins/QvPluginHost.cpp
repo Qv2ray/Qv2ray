@@ -55,21 +55,21 @@ namespace Qv2ray::components::plugins
                     info.pluginLoader->unload();
                     continue;
                 }
-                info.metadata = info.pluginInterface->GetMetadata();
-                if (plugins.contains(info.metadata.InternalName))
-                {
-                    LOG(MODULE_PLUGINHOST, "Found another plugin with the same internal name: " + info.metadata.InternalName + ". Skipped")
-                    continue;
-                }
 
                 if (info.pluginInterface->QvPluginInterfaceVersion != QV2RAY_PLUGIN_INTERFACE_VERSION)
                 {
                     // The plugin was built for a not-compactable version of Qv2ray. Don't load the plugin by default.
-                    LOG(MODULE_PLUGINHOST, info.metadata.InternalName + " is built with an older Interface, ignoring")
+                    LOG(MODULE_PLUGINHOST, info.libraryPath + " is built with an older Interface, ignoring")
                     QvMessageBoxWarn(nullptr, tr("Cannot load plugin"),
-                                     info.metadata.Name + " " + tr("cannot be loaded.") + NEWLINE NEWLINE +
+                                     tr("The plugin located here cannot be loaded: ") + NEWLINE + info.libraryPath + NEWLINE NEWLINE +
                                          tr("This plugin was built against an older/newer version of the Plugin Interface.") + NEWLINE +
                                          tr("Please contact the plugin provider or report the issue to Qv2ray Workgroup."));
+                    continue;
+                }
+                info.metadata = info.pluginInterface->GetMetadata();
+                if (plugins.contains(info.metadata.InternalName))
+                {
+                    LOG(MODULE_PLUGINHOST, "Found another plugin with the same internal name: " + info.metadata.InternalName + ". Skipped")
                     continue;
                 }
                 connect(plugin, SIGNAL(PluginLog(const QString &)), this, SLOT(QvPluginLog(const QString &)));
