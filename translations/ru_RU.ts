@@ -1400,11 +1400,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>New Connection</source>
+        <source>Groups / Subscriptions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groups / Subscriptions</source>
+        <source>New</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2982,6 +2982,13 @@ Custom DNS Settings</source>
     </message>
 </context>
 <context>
+    <name>Qv2ray::components::tcping::QvTCPingHelper</name>
+    <message>
+        <source>Timeout</source>
+        <translation type="unfinished">Время ожидания истекло</translation>
+    </message>
+</context>
+<context>
     <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
     <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
@@ -3837,7 +3844,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Interval</source>
-        <translation type="unfinished">Интервалы обновления</translation>
+        <translation type="obsolete">Интервалы обновления</translation>
     </message>
     <message>
         <source>Days</source>
@@ -3913,6 +3920,10 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>This group is a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Notify Interval</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -913,11 +913,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>New Connection</source>
+        <source>Groups / Subscriptions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groups / Subscriptions</source>
+        <source>New</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2008,6 +2008,13 @@ Custom DNS Settings</source>
     </message>
 </context>
 <context>
+    <name>Qv2ray::components::tcping::QvTCPingHelper</name>
+    <message>
+        <source>Timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
     <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
@@ -2875,15 +2882,15 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Update Interval</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Days</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update Subscription Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Notify Interval</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1441,11 +1441,15 @@
     </message>
     <message>
         <source>New Connection</source>
-        <translation>新しい項目</translation>
+        <translation type="vanished">新しい項目</translation>
     </message>
     <message>
         <source>Groups / Subscriptions</source>
         <translation>グループ/サブスクリプション</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>作成</translation>
     </message>
 </context>
 <context>
@@ -3183,6 +3187,13 @@ For example, for updating subscriptions.</source>
     </message>
 </context>
 <context>
+    <name>Qv2ray::components::tcping::QvTCPingHelper</name>
+    <message>
+        <source>Timeout</source>
+        <translation>タイムアウト</translation>
+    </message>
+</context>
+<context>
     <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
     <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
@@ -4120,7 +4131,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Interval</source>
-        <translation>更新間隔</translation>
+        <translation type="vanished">更新間隔</translation>
     </message>
     <message>
         <source>Days</source>
@@ -4189,6 +4200,10 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Groups</source>
         <translation>グループ</translation>
+    </message>
+    <message>
+        <source>Update Notify Interval</source>
+        <translation>更新間隔</translation>
     </message>
 </context>
 <context>
