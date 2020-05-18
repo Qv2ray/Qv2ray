@@ -2,7 +2,6 @@
 
 #include "3rdparty/libsemver/version.hpp"
 #include "base/Qv2rayBase.hpp"
-#include "common/HTTPRequestHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
@@ -17,10 +16,9 @@ const inline QMap<int, QString> UpdateChannelLink //
 
 namespace Qv2ray::components
 {
-    QvUpdateChecker::QvUpdateChecker(QObject *parent) : QObject(parent)
+    QvUpdateChecker::QvUpdateChecker(QObject *parent) : QObject(parent), requestHelper(this)
     {
-        requestHelper = new QvHttpRequestHelper(this);
-        connect(requestHelper, &QvHttpRequestHelper::OnRequestFinished, this, &QvUpdateChecker::VersionUpdate);
+        connect(&requestHelper, &QvHttpRequestHelper::OnRequestFinished, this, &QvUpdateChecker::VersionUpdate);
     }
     QvUpdateChecker::~QvUpdateChecker()
     {
@@ -28,9 +26,11 @@ namespace Qv2ray::components
     void QvUpdateChecker::CheckUpdate()
     {
 #ifndef DISABLE_AUTO_UPDATE
+        if (QFile(QV2RAY_CONFIG_DIR + "QV2RAY_FEATURE_DISABLE_AUTO_UPDATE").exists())
+            return;
         auto updateChannel = GlobalConfig.updateConfig.updateChannel;
         LOG(MODULE_NETWORK, "Start checking update for channel ID: " + QSTRN(updateChannel))
-        requestHelper->AsyncGet(UpdateChannelLink[updateChannel]);
+        requestHelper.AsyncGet(UpdateChannelLink[updateChannel]);
 #endif
     }
     void QvUpdateChecker::VersionUpdate(QByteArray &data)

@@ -337,7 +337,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     splitter->setSizes(QList<int>() << 100 << 300);
     qvLogTimerId = startTimer(1000);
     //
-    UpdateChecker.CheckUpdate();
+    auto checker = new QvUpdateChecker(this);
+    checker->CheckUpdate();
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)

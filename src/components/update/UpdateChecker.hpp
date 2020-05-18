@@ -1,4 +1,6 @@
 #pragma once
+#include "common/HTTPRequestHelper.hpp"
+
 #include <QObject>
 namespace Qv2ray::common
 {
@@ -27,8 +29,7 @@ namespace Qv2ray::components
 
       private:
         void VersionUpdate(QByteArray &data);
-        common::QvHttpRequestHelper *requestHelper;
+        common::QvHttpRequestHelper requestHelper;
     };
-    inline QvUpdateChecker UpdateChecker;
 } // namespace Qv2ray::components
 using namespace Qv2ray::components;
