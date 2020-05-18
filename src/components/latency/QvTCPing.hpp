@@ -16,7 +16,7 @@ namespace Qv2ray::components::tcping
         Q_OBJECT
 
       public:
-        explicit QvTCPingHelper(const int defaultCount = 5, QObject *parent = nullptr);
+        explicit QvTCPingHelper(const int defaultCount = 3, QObject *parent = nullptr);
         void TestLatency(const ConnectionId &connectionId);
         void StopAllLatenceTest();
       signals:

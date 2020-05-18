@@ -235,12 +235,18 @@ namespace Qv2ray::components::tcping
             currentCount++;
             QThread::msleep(500);
         }
-
-        data.avg = data.avg / successCount;
         freeaddrinfo(resolved);
-        data.avg = std::min(data.avg, QVTCPING_VALUE_ERROR);
-        data.worst = std::min(data.worst, QVTCPING_VALUE_ERROR);
-        data.best = std::min(data.best, QVTCPING_VALUE_ERROR);
+        if (successCount > 0)
+        {
+            data.avg = data.avg / successCount;
+        }
+        else
+        {
+            data.avg = QVTCPING_VALUE_ERROR;
+            data.worst = QVTCPING_VALUE_ERROR;
+            data.best = QVTCPING_VALUE_ERROR;
+            data.errorMessage = tr("Timeout");
+        }
         return data;
     }
 
