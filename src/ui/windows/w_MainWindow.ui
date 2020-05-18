@@ -181,7 +181,7 @@
              <string>Import Connection</string>
             </property>
             <property name="text">
-             <string>New Connection</string>
+             <string>New</string>
             </property>
            </widget>
           </item>
