@@ -449,22 +449,20 @@ namespace Qv2ray::core::handlers
     //        return { groups[id].address, groups[id].lastUpdatedDate, groups[id].updateInterval };
     //    }
 
-    bool QvConfigHandler::SetSubscriptionData(const GroupId &id, bool isSubscription, const QString &address, float updateInterval)
+    bool QvConfigHandler::SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription, const std::optional<QString> &address,
+                                              std::optional<float> updateInterval)
     {
         CheckGroupExistanceEx(id, false);
-        if (!groups.contains(id))
-        {
-            return false;
-        }
-        groups[id].isSubscription = isSubscription;
-        if (!address.isEmpty())
-        {
-            groups[id].subscriptionOption.address = address;
-        }
-        if (updateInterval != -1)
-        {
-            groups[id].subscriptionOption.updateInterval = updateInterval;
-        }
+
+        if (isSubscription.has_value())
+            groups[id].isSubscription = ACCESS_OPTIONAL_VALUE(isSubscription);
+
+        if (address.has_value())
+            groups[id].subscriptionOption.address = ACCESS_OPTIONAL_VALUE(address);
+
+        if (updateInterval.has_value())
+            groups[id].subscriptionOption.updateInterval = ACCESS_OPTIONAL_VALUE(updateInterval);
+
         return true;
     }
 

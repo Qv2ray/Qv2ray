@@ -333,14 +333,12 @@ void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QLi
 
 void GroupManager::on_subAddrTxt_textEdited(const QString &arg1)
 {
-    auto newUpdateInterval = updateIntervalSB->value();
-    ConnectionManager->SetSubscriptionData(currentGroupId, true, arg1, newUpdateInterval);
+    ConnectionManager->SetSubscriptionData(currentGroupId, std::nullopt, arg1);
 }
 
 void GroupManager::on_updateIntervalSB_valueChanged(double arg1)
 {
-    auto newAddress = subAddrTxt->text().trimmed();
-    ConnectionManager->SetSubscriptionData(currentGroupId, true, newAddress, arg1);
+    ConnectionManager->SetSubscriptionData(currentGroupId, std::nullopt, std::nullopt, arg1);
 }
 
 void GroupManager::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
