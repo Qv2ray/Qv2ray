@@ -37,6 +37,8 @@ namespace Qv2ray::core::handlers
 
     std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionGroupPair &id, const CONFIGROOT &root)
     {
+        StopConnection();
+        
         this->root = root;
         bool isComplex = IsComplexConfig(root);
         auto fullConfig = GenerateRuntimeConfig(root);
