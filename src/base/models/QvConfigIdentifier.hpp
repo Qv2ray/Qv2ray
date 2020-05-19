@@ -74,8 +74,8 @@ namespace Qv2ray::base
         JSONSTRUCT_REGISTER(ConnectionGroupPair, F(connectionId, groupId))
     };
     //
-    constexpr unsigned int QVTCPING_VALUE_ERROR = 99999;
-    constexpr unsigned int QVTCPING_VALUE_NODATA = QVTCPING_VALUE_ERROR - 1;
+    constexpr unsigned int LATENCY_TEST_VALUE_ERROR = 99999;
+    constexpr unsigned int LATENCY_TEST_VALUE_NODATA = LATENCY_TEST_VALUE_ERROR - 1;
     using namespace std::chrono;
 
     struct __Qv2rayConfigObjectBase
@@ -116,7 +116,7 @@ namespace Qv2ray::base
         //
         int __qvConnectionRefCount;
         //
-        ConnectionObject() : lastConnected(), latency(QVTCPING_VALUE_NODATA), upLinkData(0), downLinkData(0), __qvConnectionRefCount(0){};
+        ConnectionObject() : lastConnected(), latency(LATENCY_TEST_VALUE_NODATA), upLinkData(0), downLinkData(0), __qvConnectionRefCount(0){};
         JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, upLinkData, downLinkData), B(__Qv2rayConfigObjectBase))
     };
 
@@ -133,3 +133,6 @@ namespace Qv2ray::base
 
 using namespace Qv2ray::base;
 Q_DECLARE_METATYPE(ConnectionGroupPair);
+Q_DECLARE_METATYPE(ConnectionId);
+Q_DECLARE_METATYPE(GroupId);
+Q_DECLARE_METATYPE(RoutingId);

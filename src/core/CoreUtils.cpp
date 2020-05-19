@@ -62,6 +62,8 @@ namespace Qv2ray::core
         }
     }
 
+    ///
+    /// [Protocol, Host, Port]
     const std::tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
     {
         if (status != nullptr)

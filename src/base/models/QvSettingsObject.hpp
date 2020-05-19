@@ -230,8 +230,15 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(setAllowInsecure, setAllowInsecureCiphers, testLatencyPeriodcally))
     };
 
+    enum Qv2rayLatencyTestingMethod
+    {
+        TCPING,
+        ICMPING
+    };
+
     struct Qv2rayConfig_Network
     {
+        Qv2rayLatencyTestingMethod latencyTestingMethod;
         enum Qv2rayProxyType : int
         {
             QVPROXY_NONE = 0,
@@ -249,7 +256,7 @@ namespace Qv2ray::base::config
               type("http"),            //
               port(8000),              //
               userAgent("Qv2ray/$VERSION WebRequestHelper"){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(proxyType, type, address, port, userAgent))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, proxyType, type, address, port, userAgent))
     };
 
     enum Qv2rayAutoConnectionBehavior

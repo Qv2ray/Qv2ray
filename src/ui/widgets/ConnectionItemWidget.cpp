@@ -24,11 +24,11 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionGroupPair &id, QWidge
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
     //
     auto latency = GetConnectionLatency(id.connectionId);
-    latencyLabel->setText(latency == QVTCPING_VALUE_NODATA ?     //
-                              tr("Not Tested") :                 //
-                              (latency == QVTCPING_VALUE_ERROR ? //
-                                   tr("Error") :                 //
-                                   (QSTRN(latency) + " ms")));   //
+    latencyLabel->setText(latency == LATENCY_TEST_VALUE_NODATA ?     //
+                              tr("Not Tested") :                     //
+                              (latency == LATENCY_TEST_VALUE_ERROR ? //
+                                   tr("Error") :                     //
+                                   (QSTRN(latency) + " ms")));       //
     //
     connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id.connectionId));
     auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
@@ -151,11 +151,11 @@ void ConnectionItemWidget::OnLatencyTestStart(const ConnectionId &id)
         latencyLabel->setText(tr("Testing..."));
     }
 }
-void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const uint average)
+void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const int average)
 {
     if (id == connectionId)
     {
-        latencyLabel->setText(average == QVTCPING_VALUE_ERROR ? tr("Error") : QSTRN(average) + tr("ms"));
+        latencyLabel->setText(average == LATENCY_TEST_VALUE_ERROR ? tr("Error") : QSTRN(average) + tr("ms"));
     }
 }
 

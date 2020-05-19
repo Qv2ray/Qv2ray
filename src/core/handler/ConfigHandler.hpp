@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
-#include "components/latency/QvTCPing.hpp"
+#include "components/latency/LatencyTest.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/KernelInstanceHandler.hpp"
@@ -116,11 +116,11 @@ namespace Qv2ray::core::handlers
         void OnConnectionModified(const ConnectionId &id);
         void OnConnectionRenamed(const ConnectionId &Id, const QString &originalName, const QString &newName);
         //
-        void OnConnectionRemovedFromGroup(const ConnectionGroupPair &pairId);
         void OnConnectionLinkedWithGroup(const ConnectionGroupPair &newPair);
+        void OnConnectionRemovedFromGroup(const ConnectionGroupPair &pairId);
         //
         void OnLatencyTestStarted(const ConnectionId &id);
-        void OnLatencyTestFinished(const ConnectionId &id, const uint average);
+        void OnLatencyTestFinished(const ConnectionId &id, const int average);
         //
         void OnGroupCreated(const GroupId &id, const QString &displayName);
         void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
@@ -133,7 +133,7 @@ namespace Qv2ray::core::handlers
         //
       private slots:
         void OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage);
-        void OnLatencyDataArrived_p(const QvTCPingResultObject &data);
+        void OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &data);
         void OnStatsDataArrived_p(const ConnectionGroupPair &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
 
       protected:
@@ -151,7 +151,7 @@ namespace Qv2ray::core::handlers
         QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
       private:
-        QvTCPingHelper *tcpingHelper;
+        LatencyTestHost *tcpingHelper;
         KernelInstanceHandler *kernelHandler;
     };
 
