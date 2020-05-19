@@ -39,7 +39,9 @@ namespace Qv2ray::components::latency
                 for (auto i = 0; i < count; i++)
                 {
                     resultData.totalCount++;
-                    const auto &[latency, errMessage] = ping.ping(host);
+                    const auto pair = ping.ping(host);
+                    const auto &errMessage = pair.second;
+                    const long _latency = pair.first;
                     if (!errMessage.isEmpty())
                     {
                         resultData.errorMessage.append(NEWLINE + errMessage);
@@ -47,12 +49,28 @@ namespace Qv2ray::components::latency
                     }
                     else
                     {
-                        resultData.avg += latency;
-                        resultData.best = std::min(resultData.best, latency);
-                        resultData.worst = std::max(resultData.worst, latency);
+#ifdef Q_OS_WIN
+                        // Is it Windows?
+    #undef min
+    #undef max
+#endif
+                        resultData.avg += _latency;
+                        resultData.best = std::min(resultData.best, _latency);
+                        resultData.worst = std::max(resultData.worst, _latency);
                     }
                 }
-                resultData.avg = resultData.avg / (resultData.totalCount - resultData.failedCount) / 1000;
+                if (resultData.totalCount != resultData.failedCount != 0)
+                {
+                    resultData.errorMessage.clear();
+                    resultData.avg = resultData.avg / (resultData.totalCount - resultData.failedCount) / 1000;
+                }
+                else
+                {
+                    resultData.avg = LATENCY_TEST_VALUE_ERROR;
+                    LOG(MODULE_NETWORK, resultData.errorMessage)
+                }
+                //
+                //
                 break;
             }
         }

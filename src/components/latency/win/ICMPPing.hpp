@@ -26,10 +26,9 @@ namespace Qv2ray::components::latency::icmping
         static const uint64_t DEFAULT_TIMEOUT = 10000U;
 
       public:
-        QPair<uint64_t, QString> ping(const QString &ipAddr);
+        QPair<long, QString> ping(const QString &ipAddr);
 
       private:
-        HANDLE hIcmpFile;
         uint64_t timeout = DEFAULT_TIMEOUT;
     };
 } // namespace Qv2ray::components::latency::icmping

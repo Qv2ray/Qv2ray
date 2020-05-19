@@ -233,8 +233,13 @@ namespace Qv2ray::components::latency::tcping
                 noAddress = false;
                 successCount++;
                 auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-                auto ms = milliseconds.count();
+                long ms = milliseconds.count();
                 data.avg += ms;
+#ifdef Q_OS_WIN
+                // Is it Windows?
+    #undef min
+    #undef max
+#endif
                 data.worst = std::min(data.worst, ms);
                 data.best = std::max(data.best, ms);
 

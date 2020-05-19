@@ -1,58 +1,87 @@
+#include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
-    #include "ICMPPing.hpp"
-
-    #include <icmpapi.h>
+//
+    #include <WS2tcpip.h>
+//
+    #include <Windows.h>
+//
     #include <iphlpapi.h>
-    #include <winsock2.h>
+//
+    #include <IcmpAPI.h>
+//
+    #include <QEventLoop>
+    #include <QHostInfo>
 namespace Qv2ray::components::latency::icmping
 {
-    ICMPPinger::ICMPPinger(UINT64 timeout = DEFAULT_TIMEOUT)
+    ICMPPing::ICMPPing(uint64_t timeout)
     {
-        // create icmp handle
-        if ((this->hIcmpFile = IcmpCreateFile()) == INVALID_HANDLE_VALUE)
-        {
-            throw "IcmpCreateFile failed";
-        }
 
         // remember the timeout
+        // UNUSED
         this->timeout = timeout;
     }
 
-    ICMPPinger::~ICMPPinger()
+    ICMPPing ::~ICMPPing()
     {
-        // release the handle on destruction
-        IcmpCloseHandle(this->hIcmpFile);
     }
-
-    std::pair<std::optional<UINT64>, std::optional<std::string>> ICMPPinger::ping(const std::string &ipAddr)
+    QPair<long, QString> ICMPPing::ping(const QString &ipAddr)
     {
-        // convert network address
-        const auto addr = inet_addr(ipAddr.c_str());
-        if (addr == INADDR_NONE)
+        HANDLE hIcmpFile;
+        // create icmp handle
+        if ((hIcmpFile = IcmpCreateFile()) == INVALID_HANDLE_VALUE)
         {
-            return std::pair(std::nullopt, "invalid ip address: " + ipAddr);
+            throw "IcmpCreateFile failed";
+        }
+        QList<QHostAddress> addresses;
+        {
+            QEventLoop loop;
+            QHostInfo::fromName(ipAddr).lookupHost(ipAddr, &loop, [&](const QHostInfo &h) {
+                for (const auto &addr : h.addresses())
+                {
+                    if (addr.protocol() == QAbstractSocket::IPv4Protocol)
+                    {
+                        addresses << addr;
+                    }
+                }
+                loop.quit();
+            });
+            loop.exec();
+        }
+        if (addresses.isEmpty())
+        {
+            return { 0, QObject::tr("DNS lookup failed.") };
+        }
+        // Parse the destination IP address.
+        IN_ADDR dest_ip{};
+        if (1 != InetPtonA(AF_INET, addresses.first().toString().toStdString().c_str(), &dest_ip))
+        {
+            return { 255, "Cannot convert IP address: " + addresses.first().toString() };
         }
 
-        // request buffer
-        const static char bufRequest[] = "echo test";
+        // Payload to send.
+        constexpr WORD payload_size = 1;
+        unsigned char payload[payload_size]{ 42 };
 
-        // response buffer
-        const auto responseSize = sizeof(ICMP_ECHO_REPLY) + sizeof(bufRequest);
-        const std::unique_ptr<char> bufRecv(new (char[responseSize]));
+        // Reply buffer for exactly 1 echo reply, payload data, and 8 bytes for ICMP error message.
+        constexpr DWORD reply_buf_size = sizeof(ICMP_ECHO_REPLY) + payload_size + 8;
+        unsigned char reply_buf[reply_buf_size]{};
 
-        // send echo
-        auto ret =
-            IcmpSendEcho(this->hIcmpFile, addr, (LPVOID) bufRequest, sizeof(bufRequest), NULL, bufRecv.get(), responseSize, this->timeout);
+        // Make the echo request.
+        DWORD reply_count = IcmpSendEcho(hIcmpFile, dest_ip.S_un.S_addr, payload, payload_size, NULL, reply_buf, reply_buf_size, 10000);
 
-        // ret == 0: failed
-        if (ret == 0)
+        // Return value of 0 indicates failure, try to get error info.
+        if (reply_count == 0)
         {
-            return std::pair(std::nullopt, "IcmpSendEcho returned error");
+            auto e = GetLastError();
+            DWORD buf_size = 1000;
+            TCHAR buf[1000];
+            GetIpErrorString(e, buf, &buf_size);
+            return { 255, "IcmpSendEcho returned error (" + QString::fromStdWString(buf) + ")" };
         }
-
-        // read round-trip time
-        PICMP_ECHO_REPLY pReply = (PICMP_ECHO_REPLY) bufRecv.get();
-        return std::pair(pReply->RoundTripTime, std::nullopt);
+        // release the handle on destruction
+        IcmpCloseHandle(hIcmpFile);
+        const ICMP_ECHO_REPLY *r = (const ICMP_ECHO_REPLY *) reply_buf;
+        return QPair<long, QString>(r->RoundTripTime * 1000, QString{});
     }
 } // namespace Qv2ray::components::latency::icmping
 #endif

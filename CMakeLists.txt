@@ -324,7 +324,7 @@ if(UNIX AND NOT APPLE AND NOT WIN32)
 endif()
 
 if(WIN32)
-    target_link_libraries(qv2ray wininet wsock32 ws2_32 user32)
+    target_link_libraries(qv2ray-baselib wininet wsock32 ws2_32 user32 Iphlpapi)
     install(TARGETS qv2ray RUNTIME DESTINATION .)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION lang)
