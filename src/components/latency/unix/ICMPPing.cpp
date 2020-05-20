@@ -7,6 +7,8 @@
 
 #include <QObject>
 #ifdef Q_OS_UNIX
+    #include <unistd.h>
+    //
     #include <fcntl.h>
     #include <netdb.h>
     #include <netinet/in.h>
@@ -14,7 +16,6 @@
     #include <resolv.h>
     #include <sys/socket.h>
     #include <sys/time.h>
-    #include <unistd.h>
 
 // constexpr auto EPING_SOCK = -1;  // Socket creation failed
 // constexpr auto EPING_TTL = -2;   // Setting TTL failed
