@@ -26,6 +26,29 @@
 // constexpr auto EPING_UNK = -8;   // Unknown error
 
     #define ECHO_PACKET_SIZE 64
+    #ifdef Q_OS_MAC
+        #define SOL_IP 0
+struct icmphdr
+{
+    uint8_t type; /* message type */
+    uint8_t code; /* type sub-code */
+    uint16_t checksum;
+    union
+    {
+        struct
+        {
+            uint16_t id;
+            uint16_t sequence;
+        } echo;           /* echo datagram */
+        uint32_t gateway; /* gateway address */
+        struct
+        {
+            uint16_t __glibc_reserved;
+            uint16_t mtu;
+        } frag; /* path mtu discovery */
+    } un;
+};
+    #endif
 
 /// ICMP echo request packet, response packet is the same when using SOCK_DGRAM
 struct icmp_echo
@@ -162,11 +185,11 @@ namespace Qv2ray::components::latency::icmping
                 {
                     return { 1000000 * (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec), {} };
                 }
-                case ICMP_DEST_UNREACH:
+                case ICMP_UNREACH:
                 {
                     return { 0, "EPING_DST: " + QObject::tr("Destination unreachable") };
                 }
-                case ICMP_TIME_EXCEEDED:
+                case ICMP_TIMXCEED:
                 {
                     return { 0, "EPING_TIME: " + QObject::tr("Timeout") };
                 }
