@@ -157,6 +157,61 @@
     </message>
 </context>
 <context>
+    <name>DnsSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Client IP</source>
+        <translation>客户端 IP</translation>
+    </message>
+    <message>
+        <source>Tag</source>
+        <translation>标签</translation>
+    </message>
+    <message>
+        <source>DNS Servers</source>
+        <translation>DNS 服务器</translation>
+    </message>
+    <message>
+        <source>DNS Server Settings</source>
+        <translation>DNS 服务器设置</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <source>Detail Settings</source>
+        <translation>详细设置</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>端口</translation>
+    </message>
+    <message>
+        <source>Domains</source>
+        <translation>域名</translation>
+    </message>
+    <message>
+        <source>Expectd IPs</source>
+        <translation>期待 IP</translation>
+    </message>
+    <message>
+        <source>Static Resolved Domains</source>
+        <translation>静态解析域名</translation>
+    </message>
+    <message>
+        <source>Domain</source>
+        <translation>域名</translation>
+    </message>
+    <message>
+        <source>Resolved IP</source>
+        <translation>解析 IP</translation>
+    </message>
+</context>
+<context>
     <name>GroupManager</name>
     <message>
         <source>Connection Management</source>
@@ -451,7 +506,7 @@
     </message>
     <message>
         <source>New Connection</source>
-        <translation>添加连接</translation>
+        <translation type="vanished">添加连接</translation>
     </message>
     <message>
         <source>Failed to import connection</source>
@@ -2046,7 +2101,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>AllowInsecure By Default</source>
-        <translation>允许不安全的证书</translation>
+        <translation type="vanished">允许不安全的证书</translation>
     </message>
     <message>
         <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
@@ -2067,12 +2122,12 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     <message>
         <source>These settings may be useful.
 But could damage your server if improperly used.</source>
-        <translation>以下设定可能很有用。
+        <translation type="vanished">以下设定可能很有用。
 但若使用不当，可能会造成负面影响。</translation>
     </message>
     <message>
         <source>AllowInsecureCiphers By Default</source>
-        <translation>允许不安全的 TLS 算法</translation>
+        <translation type="vanished">允许不安全的 TLS 算法</translation>
     </message>
     <message>
         <source>Quiet Mode</source>
@@ -2092,7 +2147,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>No Proxy</source>
-        <translation>不使用代理</translation>
+        <translation type="vanished">不使用代理</translation>
     </message>
     <message>
         <source>System Proxy</source>
@@ -2157,7 +2212,7 @@ But could damage your server if improperly used.</source>
     <message>
         <source>These settings are for Qv2ray itself.
 For example, for updating subscriptions.</source>
-        <translation>这些设定是针对 Qv2ray 本身的。
+        <translation type="vanished">这些设定是针对 Qv2ray 本身的。
 例如，用在更新订阅时。</translation>
     </message>
     <message>
@@ -2231,6 +2286,54 @@ For example, for updating subscriptions.</source>
     <message>
         <source>NTP</source>
         <translation>NTP</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>不使用</translation>
+    </message>
+    <message>
+        <source>Last Connected</source>
+        <translation>最后一个连接</translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation>固定连接</translation>
+    </message>
+    <message>
+        <source>These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation>这些设定是针对 Qv2ray 本身的。
+例如，用在更新订阅时。</translation>
+    </message>
+    <message>
+        <source>Latency Test Method</source>
+        <translation>延迟测试方案</translation>
+    </message>
+    <message>
+        <source>TCPing</source>
+        <translation>TCPing</translation>
+    </message>
+    <message>
+        <source>ICMPing</source>
+        <translation>ICMPing</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>服务器</translation>
+    </message>
+    <message>
+        <source>Set AllowInsecure By Default</source>
+        <translation>默认设置 AllowInsecure</translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could dramatically damage your server if improperly used.</source>
+        <translation>以下设定可能很有用。
+但若使用不当，可能会造成负面影响。</translation>
+    </message>
+    <message>
+        <source>Set AllowInsecureCiphers By Default</source>
+        <translation>默认设置 AllowInsecureCiphers</translation>
     </message>
 </context>
 <context>
@@ -2675,6 +2778,42 @@ For example, for updating subscriptions.</source>
         <source>trusted abi</source>
         <translation>受信 ABI</translation>
     </message>
+    <message>
+        <source>Timeout</source>
+        <translation>超时</translation>
+    </message>
+    <message>
+        <source>DNS lookup failed.</source>
+        <translation>DNS 解析失败。</translation>
+    </message>
+    <message>
+        <source>Socket creation failed</source>
+        <translation>套接字创建失败</translation>
+    </message>
+    <message>
+        <source>Failed to setup TTL value</source>
+        <translation>无法设置 TTL 值</translation>
+    </message>
+    <message>
+        <source>Setting timeout failed</source>
+        <translation>定时失败</translation>
+    </message>
+    <message>
+        <source>Unresolvable hostname</source>
+        <translation>域名解析失败</translation>
+    </message>
+    <message>
+        <source>Sending echo request failed</source>
+        <translation>ICMP 包发送失败</translation>
+    </message>
+    <message>
+        <source>Destination unreachable</source>
+        <translation>目标不可达</translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation>未知错误</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
@@ -2745,7 +2884,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>cannot be loaded.</source>
-        <translation>无法加载。</translation>
+        <translation type="vanished">无法加载。</translation>
     </message>
     <message>
         <source>This plugin was built against an older/newer version of the Plugin Interface.</source>
@@ -2763,12 +2902,16 @@ For example, for updating subscriptions.</source>
         <source>The plugin will become fully functional after restarting Qv2ray.</source>
         <translation>插件可能需要重启 Qv2ray 之后才能完全正常工作。</translation>
     </message>
+    <message>
+        <source>The plugin located here cannot be loaded: </source>
+        <translation>无法加载位于此处的插件: </translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::components::tcping::QvTCPingHelper</name>
     <message>
         <source>Timeout</source>
-        <translation>超时</translation>
+        <translation type="vanished">超时</translation>
     </message>
 </context>
 <context>

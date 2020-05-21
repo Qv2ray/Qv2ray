@@ -185,6 +185,61 @@
     </message>
 </context>
 <context>
+    <name>DnsSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <source>Client IP</source>
+        <translation>クライアントIP</translation>
+    </message>
+    <message>
+        <source>Tag</source>
+        <translation>タグ</translation>
+    </message>
+    <message>
+        <source>DNS Servers</source>
+        <translation>DNSサーバー</translation>
+    </message>
+    <message>
+        <source>DNS Server Settings</source>
+        <translation>DNSサーバーの設定</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>アドレス</translation>
+    </message>
+    <message>
+        <source>Detail Settings</source>
+        <translation>詳細設定</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>ポート</translation>
+    </message>
+    <message>
+        <source>Domains</source>
+        <translation>ドメイン</translation>
+    </message>
+    <message>
+        <source>Expectd IPs</source>
+        <translation>期待されるIP</translation>
+    </message>
+    <message>
+        <source>Static Resolved Domains</source>
+        <translation>静的解決ドメイン</translation>
+    </message>
+    <message>
+        <source>Domain</source>
+        <translation>ドメイン</translation>
+    </message>
+    <message>
+        <source>Resolved IP</source>
+        <translation>解決済みIP</translation>
+    </message>
+</context>
+<context>
     <name>ExportConfigWindow</name>
     <message>
         <source>Export Config</source>
@@ -541,7 +596,7 @@
     </message>
     <message>
         <source>New Connection</source>
-        <translation>新しい項目</translation>
+        <translation type="vanished">新しい項目</translation>
     </message>
     <message>
         <source>Failed to import connection</source>
@@ -2416,7 +2471,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>AllowInsecure By Default</source>
-        <translation>安全でない証明書を許可する</translation>
+        <translation type="vanished">安全でない証明書を許可する</translation>
     </message>
     <message>
         <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
@@ -2437,12 +2492,12 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     <message>
         <source>These settings may be useful.
 But could damage your server if improperly used.</source>
-        <translation>以下の設定は特定の効果があります。
+        <translation type="vanished">以下の設定は特定の効果があります。
 しかし、不適切な使用の場合、不都合が生じる可能性があります。</translation>
     </message>
     <message>
         <source>AllowInsecureCiphers By Default</source>
-        <translation>安全でない暗号を許可する</translation>
+        <translation type="vanished">安全でない暗号を許可する</translation>
     </message>
     <message>
         <source>Quiet Mode</source>
@@ -2462,7 +2517,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>No Proxy</source>
-        <translation>使用しない</translation>
+        <translation type="vanished">使用しない</translation>
     </message>
     <message>
         <source>System Proxy</source>
@@ -2527,7 +2582,7 @@ But could damage your server if improperly used.</source>
     <message>
         <source>These settings are for Qv2ray itself.
 For example, for updating subscriptions.</source>
-        <translation>これらの設定はQv2ray自体のためのものです。
+        <translation type="vanished">これらの設定はQv2ray自体のためのものです。
 例えば、サブスクリプションの更新などです。</translation>
     </message>
     <message>
@@ -2601,6 +2656,54 @@ For example, for updating subscriptions.</source>
     <message>
         <source>NTP</source>
         <translation>NTP</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>なし</translation>
+    </message>
+    <message>
+        <source>Last Connected</source>
+        <translation>最後に接続された項目</translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation>固定項目</translation>
+    </message>
+    <message>
+        <source>These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation>これらの設定はQv2ray自体のためのものです。
+例えば、サブスクリプションの更新などです。</translation>
+    </message>
+    <message>
+        <source>Latency Test Method</source>
+        <translation>遅延テスト方法</translation>
+    </message>
+    <message>
+        <source>TCPing</source>
+        <translation>TCPing</translation>
+    </message>
+    <message>
+        <source>ICMPing</source>
+        <translation>ICMPing</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>サーバー</translation>
+    </message>
+    <message>
+        <source>Set AllowInsecure By Default</source>
+        <translation>デフォルトで AllowInsecure を設定する</translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could dramatically damage your server if improperly used.</source>
+        <translation>以下の設定は特定の効果があります。
+しかし、不適切な使用の場合、不都合が生じる可能性があります。</translation>
+    </message>
+    <message>
+        <source>Set AllowInsecureCiphers By Default</source>
+        <translation>デフォルトで AllowInsecureCiphers を設定する</translation>
     </message>
 </context>
 <context>
@@ -3097,6 +3200,42 @@ For example, for updating subscriptions.</source>
         <source>trusted abi</source>
         <translation>信頼できるABI</translation>
     </message>
+    <message>
+        <source>Timeout</source>
+        <translation>タイムアウト</translation>
+    </message>
+    <message>
+        <source>DNS lookup failed.</source>
+        <translation>DNS検索に失敗しました。</translation>
+    </message>
+    <message>
+        <source>Socket creation failed</source>
+        <translation>ソケット作成に失敗しました</translation>
+    </message>
+    <message>
+        <source>Failed to setup TTL value</source>
+        <translation>TTL値の設定に失敗しました</translation>
+    </message>
+    <message>
+        <source>Setting timeout failed</source>
+        <translation>タイムアウトの設定に失敗しました</translation>
+    </message>
+    <message>
+        <source>Unresolvable hostname</source>
+        <translation>ホスト名が解決不能</translation>
+    </message>
+    <message>
+        <source>Sending echo request failed</source>
+        <translation>エコー要求の送信に失敗しました</translation>
+    </message>
+    <message>
+        <source>Destination unreachable</source>
+        <translation>目的地に到達できません</translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
@@ -3167,7 +3306,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>cannot be loaded.</source>
-        <translation>を読み込むことができません。</translation>
+        <translation type="vanished">を読み込むことができません。</translation>
     </message>
     <message>
         <source>This plugin was built against an older/newer version of the Plugin Interface.</source>
@@ -3185,12 +3324,16 @@ For example, for updating subscriptions.</source>
         <source>The plugin will become fully functional after restarting Qv2ray.</source>
         <translation>プラグインを正しく動作するには、Qv2rayを再起動する必要があります。</translation>
     </message>
+    <message>
+        <source>The plugin located here cannot be loaded: </source>
+        <translation>ここにあるプラグインは読み込めません: </translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::components::tcping::QvTCPingHelper</name>
     <message>
         <source>Timeout</source>
-        <translation>タイムアウト</translation>
+        <translation type="vanished">タイムアウト</translation>
     </message>
 </context>
 <context>
