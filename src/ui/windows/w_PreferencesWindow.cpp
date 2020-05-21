@@ -1012,6 +1012,7 @@ void PreferencesWindow::on_qvProxyCustomProxy_clicked()
     SET_PROXY_UI_ENABLE(true);
     qvProxyNoProxy->setChecked(false);
     qvProxySystemProxy->setChecked(false);
+    qvProxyCustomProxy->setChecked(true);
 }
 
 void PreferencesWindow::on_qvProxySystemProxy_clicked()
@@ -1020,6 +1021,7 @@ void PreferencesWindow::on_qvProxySystemProxy_clicked()
     SET_PROXY_UI_ENABLE(false);
     qvProxyNoProxy->setChecked(false);
     qvProxyCustomProxy->setChecked(false);
+    qvProxySystemProxy->setChecked(true);
 }
 
 void PreferencesWindow::on_qvProxyNoProxy_clicked()
@@ -1028,6 +1030,7 @@ void PreferencesWindow::on_qvProxyNoProxy_clicked()
     SET_PROXY_UI_ENABLE(false);
     qvProxySystemProxy->setChecked(false);
     qvProxyCustomProxy->setChecked(false);
+    qvProxyNoProxy->setChecked(true);
 }
 
 void PreferencesWindow::on_DnsFreedomCb_stateChanged(int arg1)
@@ -1117,11 +1120,20 @@ void PreferencesWindow::on_latencyTCPingRB_clicked()
     LOADINGCHECK
     CurrentConfig.networkConfig.latencyTestingMethod = TCPING;
     latencyICMPingRB->setChecked(false);
+    latencyTCPingRB->setChecked(true);
 }
 
 void PreferencesWindow::on_latencyICMPingRB_clicked()
 {
     LOADINGCHECK
+#ifdef Q_OS_MAC
+    #warning No ICMPing support on macOS
+    CurrentConfig.networkConfig.latencyTestingMethod = TCPING;
+    latencyICMPingRB->setChecked(false);
+    latencyTCPingRB->setChecked(true);
+#else
     CurrentConfig.networkConfig.latencyTestingMethod = ICMPING;
+    latencyICMPingRB->setChecked(true);
     latencyTCPingRB->setChecked(false);
+#endif
 }

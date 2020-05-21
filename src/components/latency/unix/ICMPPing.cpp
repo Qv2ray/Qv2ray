@@ -100,38 +100,37 @@ namespace Qv2ray::components::latency::icmping
             return { 0, "EPING_SOCK:" + QObject::tr("Socket creation failed") };
 
         // resolve hostname
-        hostent *hname = gethostbyname(address.toStdString().c_str());
-        if (!hname)
+        hostent *resolvedAddress = gethostbyname(address.toStdString().c_str());
+        if (!resolvedAddress)
             return { 0, "EPING_HOST: " + QObject::tr("Unresolvable hostname") };
 
         // set IP address to ping
-        sockaddr_in addr_ping, *addr;
-        memset(&addr_ping, 0, sizeof(addr_ping));
-        addr_ping.sin_family = hname->h_addrtype;
-        addr_ping.sin_port = 0;
-        memcpy(&addr_ping.sin_addr, hname->h_addr, hname->h_length);
-        addr = &addr_ping;
+        sockaddr_in targetAddress;
+        memset(&targetAddress, 0, sizeof(targetAddress));
+        targetAddress.sin_family = resolvedAddress->h_addrtype;
+        targetAddress.sin_port = 0;
+        memcpy(&targetAddress.sin_addr, resolvedAddress->h_addr, resolvedAddress->h_length);
 
         // prepare echo request packet
-        icmp req;
-        memset(&req, 0, sizeof(req));
-        req.icmp_type = ICMP_ECHO;
-        req.icmp_hun.ih_idseq.icd_id = 0; // SOCK_DGRAM & 0 => id will be set by kernel
+        icmp _icmp_request;
+        memset(&_icmp_request, 0, sizeof(_icmp_request));
+        _icmp_request.icmp_type = ICMP_ECHO;
+        _icmp_request.icmp_hun.ih_idseq.icd_id = 0; // SOCK_DGRAM & 0 => id will be set by kernel
         unsigned short sent_seq;
-        req.icmp_hun.ih_idseq.icd_seq = sent_seq = seq++;
-        req.icmp_cksum = ping_checksum(reinterpret_cast<char *>(&req), sizeof(req));
+        _icmp_request.icmp_hun.ih_idseq.icd_seq = sent_seq = seq++;
+        _icmp_request.icmp_cksum = ping_checksum(reinterpret_cast<char *>(&_icmp_request), sizeof(_icmp_request));
 
         // send echo request
         gettimeofday(&start, NULL);
-        if (sendto(socketId, &req, sizeof(icmp), 0, (struct sockaddr *) addr, sizeof(*addr)) <= 0)
+        if (sendto(socketId, &_icmp_request, sizeof(icmp), 0, (struct sockaddr *) &targetAddress, sizeof(targetAddress)) <= 0)
             return { 0, "EPING_SEND: " + QObject::tr("Sending echo request failed") };
 
         // receive response (if any)
-        sockaddr_in r_addr;
-        slen = sizeof(r_addr);
+        sockaddr_in remove_addr;
+        slen = sizeof(remove_addr);
         int rlen;
         icmp resp;
-        while ((rlen = recvfrom(socketId, &resp, sizeof(icmp), 0, (struct sockaddr *) &r_addr, &slen)) > 0)
+        while ((rlen = recvfrom(socketId, &resp, sizeof(icmp), 0, (struct sockaddr *) &remove_addr, &slen)) > 0)
         {
             gettimeofday(&end, NULL);
 
