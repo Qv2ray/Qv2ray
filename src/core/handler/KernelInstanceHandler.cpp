@@ -218,13 +218,13 @@ namespace Qv2ray::core::handlers
             {
                 StopConnection();
                 PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
+                return result;
             }
             else
             {
                 emit OnConnected(id);
                 PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
             }
-            return result;
         }
         else
         {
@@ -262,7 +262,6 @@ namespace Qv2ray::core::handlers
                 {
                     emit OnConnected(id);
                     PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
-                    return std::nullopt;
                 }
                 else
                 {
@@ -279,15 +278,17 @@ namespace Qv2ray::core::handlers
                 {
                     PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
                     StopConnection();
+                    return result;
                 }
                 else
                 {
                     emit OnConnected(id);
                     PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
                 }
-                return result;
             }
         }
+        // Return
+        return std::nullopt;
     }
 
     void KernelInstanceHandler::OnKernelCrashed_p(const QString &msg)

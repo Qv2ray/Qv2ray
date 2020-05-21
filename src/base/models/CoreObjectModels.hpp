@@ -7,6 +7,24 @@
 
 namespace Qv2ray::base::objects
 {
+    struct DNSObject
+    {
+        struct DNSServerObject
+        {
+            QString QV2RAY_DNS_NAME;
+            bool QV2RAY_DNS_IS_PURE_ADDRESS;
+            QString address;
+            int port;
+            QList<QString> domains;
+            QString expectIPs;
+            JSONSTRUCT_REGISTER(DNSServerObject, F(QV2RAY_DNS_NAME, QV2RAY_DNS_IS_PURE_ADDRESS, address, port, domains, expectIPs))
+        };
+        QMap<QString, QString> hosts;
+        QList<DNSServerObject> servers;
+        QString clientIp;
+        QString tag;
+        JSONSTRUCT_REGISTER(DNSObject, F(hosts, servers, clientIp, tag))
+    };
     //
     // Used in config generation
     struct AccountObject
