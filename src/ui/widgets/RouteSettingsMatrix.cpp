@@ -61,13 +61,13 @@ void RouteSettingsMatrixWidget::SetRouteConfig(const Qv2rayConfig_Routing &conf)
 {
     domainStrategyCombo->setCurrentText(conf.domainStrategy);
     //
-    directDomainTxt->setText(conf.domains.direct.join(NEWLINE));
-    proxyDomainTxt->setText(conf.domains.proxy.join(NEWLINE));
-    blockDomainTxt->setText(conf.domains.block.join(NEWLINE));
+    directDomainTxt->setPlainText(conf.domains.direct.join(NEWLINE));
+    proxyDomainTxt->setPlainText(conf.domains.proxy.join(NEWLINE));
+    blockDomainTxt->setPlainText(conf.domains.block.join(NEWLINE));
     //
-    blockIPTxt->setText(conf.ips.block.join(NEWLINE));
-    directIPTxt->setText(conf.ips.direct.join(NEWLINE));
-    proxyIPTxt->setText(conf.ips.proxy.join(NEWLINE));
+    blockIPTxt->setPlainText(conf.ips.block.join(NEWLINE));
+    directIPTxt->setPlainText(conf.ips.direct.join(NEWLINE));
+    proxyIPTxt->setPlainText(conf.ips.proxy.join(NEWLINE));
 }
 
 Qv2rayConfig_Routing RouteSettingsMatrixWidget::GetRouteConfig() const
