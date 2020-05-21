@@ -17,63 +17,34 @@
     #include <resolv.h>
     #include <sys/socket.h>
     #include <sys/time.h>
-
-// constexpr auto EPING_SOCK = -1;  // Socket creation failed
-// constexpr auto EPING_TTL = -2;   // Setting TTL failed
-// constexpr auto EPING_SETTO = -3; // Setting timeout failed
-// constexpr auto EPING_HOST = -4;  // Unresolvable hostname
-// constexpr auto EPING_SEND = -5;  // Sending echo request failed
-// constexpr auto EPING_DST = -6;   // Destination unreachable
-// constexpr auto EPING_TIME = -7;  // Timeout
-// constexpr auto EPING_UNK = -8;   // Unknown error
-
-    #define ECHO_PACKET_SIZE 64
     #ifdef Q_OS_MAC
         #define SOL_IP 0
-struct icmphdr
-{
-    uint8_t type; /* message type */
-    uint8_t code; /* type sub-code */
-    uint16_t checksum;
-    union
-    {
-        struct
-        {
-            uint16_t id;
-            uint16_t sequence;
-        } echo;           /* echo datagram */
-        uint32_t gateway; /* gateway address */
-        struct
-        {
-            uint16_t __glibc_reserved;
-            uint16_t mtu;
-        } frag; /* path mtu discovery */
-    } un;
-};
     #endif
 
-/// ICMP echo request packet, response packet is the same when using SOCK_DGRAM
-struct icmp_echo
-{
-    icmphdr icmp;
-    char data[ECHO_PACKET_SIZE - sizeof(icmphdr)];
-};
 namespace Qv2ray::components::latency::icmping
 {
     /// 1s complementary checksum
-    unsigned short ping_checksum(icmp_echo *b, int len)
+    uint16_t ping_checksum(const char *buf, size_t size)
     {
-        unsigned short *buf = reinterpret_cast<unsigned short *>(b);
-        unsigned int sum = 0;
-        unsigned short result;
+        size_t i;
+        uint64_t sum = 0;
 
-        for (sum = 0; len > 1; len -= 2) sum += *buf++;
-        if (len == 1)
-            sum += *(unsigned char *) buf;
-        sum = (sum >> 16) + (sum & 0xFFFF);
-        sum += (sum >> 16);
-        result = ~sum;
-        return result;
+        for (i = 0; i < size; i += 2)
+        {
+            sum += *(uint16_t *) buf;
+            buf += 2;
+        }
+        if (size - i > 0)
+        {
+            sum += *(uint8_t *) buf;
+        }
+
+        while ((sum >> 16) != 0)
+        {
+            sum = (sum & 0xffff) + (sum >> 16);
+        }
+
+        return (uint16_t) ~sum;
     }
     void ICMPPing::deinit()
     {
@@ -142,76 +113,45 @@ namespace Qv2ray::components::latency::icmping
         addr = &addr_ping;
 
         // prepare echo request packet
-        icmp_echo req;
+        icmp req;
         memset(&req, 0, sizeof(req));
-        req.icmp.type = ICMP_ECHO;
-        req.icmp.un.echo.id = 0; // SOCK_DGRAM & 0 => id will be set by kernel
-        //
-        size_t i;
-        for (i = 0; i < sizeof(req.data) - 1; i++)
-        {
-            req.data[i] = i + '0';
-        }
-        req.data[i] = 0;
-        //
+        req.icmp_type = ICMP_ECHO;
+        req.icmp_hun.ih_idseq.icd_id = 0; // SOCK_DGRAM & 0 => id will be set by kernel
         unsigned short sent_seq;
-        req.icmp.un.echo.sequence = sent_seq = seq++;
-        req.icmp.checksum = ping_checksum(&req, sizeof(req));
+        req.icmp_hun.ih_idseq.icd_seq = sent_seq = seq++;
+        req.icmp_cksum = ping_checksum(reinterpret_cast<char *>(&req), sizeof(req));
 
         // send echo request
         gettimeofday(&start, NULL);
-        if (sendto(socketId, &req, ECHO_PACKET_SIZE, 0, (struct sockaddr *) addr, sizeof(*addr)) <= 0)
+        if (sendto(socketId, &req, sizeof(icmp), 0, (struct sockaddr *) addr, sizeof(*addr)) <= 0)
             return { 0, "EPING_SEND: " + QObject::tr("Sending echo request failed") };
 
         // receive response (if any)
-
         sockaddr_in r_addr;
         slen = sizeof(r_addr);
         int rlen;
-        icmp_echo resp;
-        while ((rlen = recvfrom(socketId, &resp, ECHO_PACKET_SIZE, 0, (struct sockaddr *) &r_addr, &slen)) > 0)
+        icmp resp;
+        while ((rlen = recvfrom(socketId, &resp, sizeof(icmp), 0, (struct sockaddr *) &r_addr, &slen)) > 0)
         {
             gettimeofday(&end, NULL);
 
             // skip malformed
-            if (rlen != ECHO_PACKET_SIZE)
+            if (rlen != sizeof(icmp))
                 continue;
 
             // skip the ones we didn't send
-            if (resp.icmp.un.echo.sequence != sent_seq)
+            if (resp.icmp_hun.ih_idseq.icd_seq != sent_seq)
                 continue;
 
-            switch (resp.icmp.type)
+            switch (resp.icmp_type)
             {
-                case ICMP_ECHOREPLY:
-                {
-                    return { 1000000 * (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec), {} };
-                }
-                case ICMP_UNREACH:
-                {
-                    return { 0, "EPING_DST: " + QObject::tr("Destination unreachable") };
-                }
-                case ICMP_TIMXCEED:
-                {
-                    return { 0, "EPING_TIME: " + QObject::tr("Timeout") };
-                }
-                default:
-                {
-                    return { 0, "EPING_UNK: " + QObject::tr("Unknown error") };
-                }
+                case ICMP_ECHOREPLY: return { 1000000 * (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec), {} };
+                case ICMP_UNREACH: return { 0, "EPING_DST: " + QObject::tr("Destination unreachable") };
+                case ICMP_TIMXCEED: return { 0, "EPING_TIME: " + QObject::tr("Timeout") };
+                default: return { 0, "EPING_UNK: " + QObject::tr("Unknown error") };
             }
         }
-
         return { 0, "EPING_TIME: " + QObject::tr("Timeout") };
     }
-
-    //#include <iostream>
-    //    int xmain()
-    //    {
-    //        init();
-    //        std::cout << ping("baidu.com") << std::endl;
-    //        deinit();
-    //        return 0;
-    //    }
 } // namespace Qv2ray::components::latency::icmping
 #endif
