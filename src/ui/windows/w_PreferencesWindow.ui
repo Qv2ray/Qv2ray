@@ -201,13 +201,6 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="tProxyCheckBox">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="1">
              <widget class="QCheckBox" name="quietModeCB">
               <property name="text">
@@ -242,11 +235,6 @@
                   <height>0</height>
                  </size>
                 </property>
-                <item>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </item>
                </widget>
               </item>
               <item row="1" column="0">
@@ -290,6 +278,13 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="tProxyCheckBox">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
@@ -315,17 +310,55 @@ For example, for updating subscriptions.</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
+            <item row="2" column="0">
              <widget class="QLabel" name="label_67">
               <property name="text">
                <string>User-Agent</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="2" column="1">
              <widget class="QLineEdit" name="qvNetworkUATxt">
               <property name="text">
                <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_34">
+              <property name="text">
+               <string>Latency Test Method</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <item>
+               <widget class="QRadioButton" name="latencyTCPingRB">
+                <property name="text">
+                 <string>TCPing</string>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="latencyICMPingRB">
+                <property name="text">
+                 <string>ICMPing</string>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_71">
+              <property name="text">
+               <string>Qv2ray Proxy</string>
               </property>
              </widget>
             </item>
@@ -338,6 +371,9 @@ For example, for updating subscriptions.</string>
                   <property name="text">
                    <string>None</string>
                   </property>
+                  <property name="autoExclusive">
+                   <bool>false</bool>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -345,12 +381,18 @@ For example, for updating subscriptions.</string>
                   <property name="text">
                    <string>System Proxy</string>
                   </property>
+                  <property name="autoExclusive">
+                   <bool>false</bool>
+                  </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QRadioButton" name="qvProxyCustomProxy">
                   <property name="text">
                    <string>Custom Proxy</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -415,13 +457,6 @@ For example, for updating subscriptions.</string>
                </layout>
               </item>
              </layout>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_71">
-              <property name="text">
-               <string>Qv2ray Proxy</string>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>

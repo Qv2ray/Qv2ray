@@ -178,6 +178,10 @@ class PreferencesWindow
 
     void on_fixedAutoConnectRB_clicked();
 
+    void on_latencyTCPingRB_clicked();
+
+    void on_latencyICMPingRB_clicked();
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

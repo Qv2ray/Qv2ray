@@ -97,7 +97,7 @@ class MainWindow
     //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
     //
-    void ReloadRecentConnectionList(const QList<ConnectionGroupPair> &items);
+    void ReloadRecentConnectionList();
 
   protected:
     void timerEvent(QTimerEvent *event) override;

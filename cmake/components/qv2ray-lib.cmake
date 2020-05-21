@@ -32,10 +32,16 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/components/geosite/QvGeositeReader.cpp
     ${CMAKE_SOURCE_DIR}/src/components/geosite/QvGeositeReader.hpp
     #
-    ${CMAKE_SOURCE_DIR}/src/components/latency/QvTCPing.cpp
-    ${CMAKE_SOURCE_DIR}/src/components/latency/QvTCPing.hpp
-    ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPinger.cpp
-    ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPinger.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTest.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTest.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTestThread.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTestThread.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/TCPing.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/TCPing.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPing.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPing.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/unix/ICMPPing.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/unix/ICMPPing.hpp
     #
     ${CMAKE_SOURCE_DIR}/src/components/ntp/QvNTPClient.cpp
     ${CMAKE_SOURCE_DIR}/src/components/ntp/QvNTPClient.hpp

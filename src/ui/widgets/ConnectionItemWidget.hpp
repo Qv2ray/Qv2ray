@@ -40,7 +40,7 @@ class ConnectionItemWidget
     void OnConnectionStatsArrived(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
     void OnLatencyTestStart(const ConnectionId &id);
     void OnConnectionModified(const ConnectionId &id);
-    void OnLatencyTestFinished(const ConnectionId &id, const uint average);
+    void OnLatencyTestFinished(const ConnectionId &id, const int average);
     void RecalculateConnectionsCount();
     void OnConnectionItemRenamed(const ConnectionId &id, const QString &, const QString &newName);
     void OnGroupItemRenamed(const GroupId &id, const QString &, const QString &newName);

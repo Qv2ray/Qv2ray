@@ -65,8 +65,8 @@ namespace Qv2ray::core::handlers
         connect(kernelHandler, &KernelInstanceHandler::OnConnected, this, &QvConfigHandler::OnConnected);
         connect(kernelHandler, &KernelInstanceHandler::OnDisconnected, this, &QvConfigHandler::OnDisconnected);
         //
-        tcpingHelper = new QvTCPingHelper(5, this);
-        connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
+        tcpingHelper = new LatencyTestHost(5, this);
+        connect(tcpingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
         // Save per 1 minutes.
         saveTimerId = startTimer(1 * 60 * 1000);
@@ -135,7 +135,7 @@ namespace Qv2ray::core::handlers
     void QvConfigHandler::StartLatencyTest(const ConnectionId &id)
     {
         emit OnLatencyTestStarted(id);
-        tcpingHelper->TestLatency(id);
+        tcpingHelper->TestLatency(id, GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     const QList<GroupId> QvConfigHandler::Subscriptions() const
@@ -375,6 +375,7 @@ namespace Qv2ray::core::handlers
     QvConfigHandler::~QvConfigHandler()
     {
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
+        tcpingHelper->StopAllLatencyTest();
         delete kernelHandler;
         CHSaveConfigData();
     }
@@ -385,11 +386,11 @@ namespace Qv2ray::core::handlers
         return connectionRootCache.value(id);
     }
 
-    void QvConfigHandler::OnLatencyDataArrived_p(const QvTCPingResultObject &result)
+    void QvConfigHandler::OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &result)
     {
-        CheckConnectionExistanceEx(result.connectionId, nothing);
-        connections[result.connectionId].latency = result.avg;
-        emit OnLatencyTestFinished(result.connectionId, result.avg);
+        CheckConnectionExistanceEx(id, nothing);
+        connections[id].latency = result.avg;
+        emit OnLatencyTestFinished(id, result.avg);
     }
 
     bool QvConfigHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart)
@@ -435,19 +436,6 @@ namespace Qv2ray::core::handlers
         groups[id].displayName = newName;
         return {};
     }
-
-    //    const std::tuple<QString, int64_t, float> QvConfigHandler::GetSubscriptionData(const GroupId &id) const
-    //    {
-    //        CheckGroupExistanceEx(id, {});
-    //        std::tuple<QString, int64_t, float> result;
-
-    //        if (!groups[id].isSubscription)
-    //        {
-    //            return result;
-    //        }
-
-    //        return { groups[id].address, groups[id].lastUpdatedDate, groups[id].updateInterval };
-    //    }
 
     bool QvConfigHandler::SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription, const std::optional<QString> &address,
                                               std::optional<float> updateInterval)

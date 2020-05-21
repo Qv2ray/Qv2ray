@@ -29,6 +29,15 @@ using Qv2ray::common::validation::IsValidIPAddress;
     if (finishedLoading)                                                                                                                        \
         NeedRestart = true;
 
+#define SET_PROXY_UI_ENABLE(_enabled)                                                                                                           \
+    qvProxyTypeCombo->setEnabled(_enabled);                                                                                                     \
+    qvProxyAddressTxt->setEnabled(_enabled);                                                                                                    \
+    qvProxyPortCB->setEnabled(_enabled);
+
+#define SET_AUTOSTART_UI_ENABLED(_enabled)                                                                                                      \
+    autoStartConnCombo->setEnabled(_enabled);                                                                                                   \
+    autoStartSubsCombo->setEnabled(_enabled);
+
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), CurrentConfig()
 {
     setupUi(this);
@@ -136,28 +145,20 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
     pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
     //
+    //
+    latencyTCPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == TCPING);
+    latencyICMPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == ICMPING);
+    //
     qvProxyPortCB->setValue(CurrentConfig.networkConfig.port);
     qvProxyAddressTxt->setText(CurrentConfig.networkConfig.address);
     qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
     qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
-    switch (CurrentConfig.networkConfig.proxyType)
-    {
-        case Qv2rayConfig_Network::QVPROXY_NONE:
-        {
-            qvProxyNoProxy->setChecked(true);
-            break;
-        }
-        case Qv2rayConfig_Network::QVPROXY_SYSTEM:
-        {
-            qvProxySystemProxy->setChecked(true);
-            break;
-        }
-        case Qv2rayConfig_Network::QVPROXY_CUSTOM:
-        {
-            qvProxyCustomProxy->setChecked(true);
-            break;
-        }
-    }
+    //
+    qvProxyNoProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_NONE);
+    qvProxySystemProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_SYSTEM);
+    qvProxyCustomProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_CUSTOM);
+    //
+    SET_PROXY_UI_ENABLE(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_CUSTOM)
     //
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     //
@@ -191,8 +192,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
         lastConnectedRB->setChecked(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_LAST_CONNECTED);
         fixedAutoConnectRB->setChecked(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_FIXED);
         //
-        autoStartConnCombo->setEnabled(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_FIXED);
-        autoStartSubsCombo->setEnabled(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_FIXED);
+        SET_AUTOSTART_UI_ENABLED(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_FIXED);
         //
         auto autoStartConnId = CurrentConfig.autoStartId.connectionId;
         auto autoStartGroupId = CurrentConfig.autoStartId.groupId;
@@ -1009,16 +1009,28 @@ void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 void PreferencesWindow::on_qvProxyCustomProxy_clicked()
 {
     CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_CUSTOM;
+    SET_PROXY_UI_ENABLE(true);
+    qvProxyNoProxy->setChecked(false);
+    qvProxySystemProxy->setChecked(false);
+    qvProxyCustomProxy->setChecked(true);
 }
 
 void PreferencesWindow::on_qvProxySystemProxy_clicked()
 {
     CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_SYSTEM;
+    SET_PROXY_UI_ENABLE(false);
+    qvProxyNoProxy->setChecked(false);
+    qvProxyCustomProxy->setChecked(false);
+    qvProxySystemProxy->setChecked(true);
 }
 
 void PreferencesWindow::on_qvProxyNoProxy_clicked()
 {
     CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_NONE;
+    SET_PROXY_UI_ENABLE(false);
+    qvProxySystemProxy->setChecked(false);
+    qvProxyCustomProxy->setChecked(false);
+    qvProxyNoProxy->setChecked(true);
 }
 
 void PreferencesWindow::on_DnsFreedomCb_stateChanged(int arg1)
@@ -1086,22 +1098,42 @@ void PreferencesWindow::on_noAutoConnectRB_clicked()
 {
     LOADINGCHECK
     CurrentConfig.autoStartBehavior = AUTO_CONNECTION_NONE;
-    autoStartConnCombo->setEnabled(false);
-    autoStartSubsCombo->setEnabled(false);
+    SET_AUTOSTART_UI_ENABLED(false);
 }
 
 void PreferencesWindow::on_lastConnectedRB_clicked()
 {
     LOADINGCHECK
     CurrentConfig.autoStartBehavior = AUTO_CONNECTION_LAST_CONNECTED;
-    autoStartConnCombo->setEnabled(false);
-    autoStartSubsCombo->setEnabled(false);
+    SET_AUTOSTART_UI_ENABLED(false);
 }
 
 void PreferencesWindow::on_fixedAutoConnectRB_clicked()
 {
     LOADINGCHECK
     CurrentConfig.autoStartBehavior = AUTO_CONNECTION_FIXED;
-    autoStartConnCombo->setEnabled(true);
-    autoStartSubsCombo->setEnabled(true);
+    SET_AUTOSTART_UI_ENABLED(true);
+}
+
+void PreferencesWindow::on_latencyTCPingRB_clicked()
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.latencyTestingMethod = TCPING;
+    latencyICMPingRB->setChecked(false);
+    latencyTCPingRB->setChecked(true);
+}
+
+void PreferencesWindow::on_latencyICMPingRB_clicked()
+{
+    LOADINGCHECK
+#ifdef Q_OS_MAC
+    #warning No ICMPing support on macOS
+    CurrentConfig.networkConfig.latencyTestingMethod = TCPING;
+    latencyICMPingRB->setChecked(false);
+    latencyTCPingRB->setChecked(true);
+#else
+    CurrentConfig.networkConfig.latencyTestingMethod = ICMPING;
+    latencyICMPingRB->setChecked(true);
+    latencyTCPingRB->setChecked(false);
+#endif
 }
