@@ -181,7 +181,7 @@ namespace Qv2ray::components::latency::tcping
     LatencyTestResult TestTCPLatency(const QString &host, int port, int testCount)
     {
         LatencyTestResult data;
-        double successCount = 0, errorCount = 0;
+        int successCount = 0;
         addrinfo *resolved;
         int errcode;
 
@@ -212,19 +212,10 @@ namespace Qv2ray::components::latency::tcping
                 if (errcode != -EADDRNOTAVAIL)
                 {
                     LOG(MODULE_NETWORK, "error connecting to host: " + host + ":" + QSTRN(port) + " " + strerror(-errcode))
-                    errorCount++;
                 }
                 else
                 {
-                    if (noAddress)
-                    {
-                        LOG(MODULE_NETWORK, "no address error")
-                    }
-                    else
-                    {
-                        LOG(MODULE_NETWORK, "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
-                    }
-
+                    LOG(MODULE_NETWORK, noAddress ? "no address" : "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
                     noAddress = true;
                 }
             }
