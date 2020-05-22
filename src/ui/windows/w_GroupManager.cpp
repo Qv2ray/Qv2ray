@@ -322,8 +322,6 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     lastUpdatedLabel->setText(timeToString(groupMetaObject.lastUpdatedDate));
     createdAtLabel->setText(timeToString(groupMetaObject.creationDate));
     updateIntervalSB->setValue(groupMetaObject.subscriptionOption.updateInterval);
-    groupIncludeKeywords->setEnabled(groupMetaObject.isSubscription);
-    groupExcludeKeywords->setEnabled(groupMetaObject.isSubscription);
     IncludeKeywords->clear();
     for (const auto &key : groupMetaObject.subscriptionOption.IncludeKeywords)
     {
@@ -344,7 +342,7 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     }
     IncludeRelation->setCurrentText(groupMetaObject.subscriptionOption.IncludeRelation);
     ExcludeRelation->setCurrentText(groupMetaObject.subscriptionOption.ExcludeRelation);
-    
+
     //
     reloadConnectionsList(currentGroupId);
 }
@@ -398,8 +396,6 @@ void GroupManager::on_connectionsList_currentItemChanged(QListWidgetItem *curren
 void GroupManager::on_groupIsSubscriptionGroup_clicked(bool checked)
 {
     ConnectionManager->SetSubscriptionData(currentGroupId, checked);
-    groupIncludeKeywords->setEnabled(checked);
-    groupExcludeKeywords->setEnabled(checked);
 }
 
 void GroupManager::on_groupNameTxt_textEdited(const QString &arg1)
