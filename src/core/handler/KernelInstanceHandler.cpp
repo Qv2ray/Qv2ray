@@ -41,7 +41,7 @@ namespace Qv2ray::core::handlers
         
         this->root = root;
         bool isComplex = IsComplexConfig(root);
-        auto fullConfig = GenerateRuntimeConfig(root);
+        auto fullConfig = GenerateFinalConfig(root);
         inboundPorts = GetConfigInboundPorts(fullConfig);
         //
         // Check inbound port allocation issue.

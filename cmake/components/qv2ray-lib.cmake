@@ -72,13 +72,18 @@ set(QV2RAY_LIB_SOURCES
     #
     ${CMAKE_SOURCE_DIR}/src/core/connection/ConnectionIO.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/ConnectionIO.hpp
-    ${CMAKE_SOURCE_DIR}/src/core/connection/Generation.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/Generation.hpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/final.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/inbounds.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/outbounds.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/filters.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/routing.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/misc.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization.hpp
-    ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization_ss.cpp
-    ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization_ssd.cpp
-    ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization_vmess.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/ss.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/ssd.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/vmess.cpp
     #
     ${CMAKE_SOURCE_DIR}/src/core/CoreUtils.cpp
     ${CMAKE_SOURCE_DIR}/src/core/CoreUtils.hpp

@@ -1,14 +1,10 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-namespace Qv2ray::core::connection
+namespace Qv2ray::core::connection::connectionIO
 {
-    namespace ConnectionIO
-    {
-        // File Protocol
-        CONFIGROOT ConvertConfigFromFile(const QString &sourceFilePath, bool importComplex);
-        QMultiHash<QString, CONFIGROOT> GetConnectionConfigFromSubscription(const QUrl &subscriptionUrl, const QString &groupName);
-    } // namespace ConnectionIO
-} // namespace Qv2ray::core::connection
+    CONFIGROOT ConvertConfigFromFile(const QString &sourceFilePath, bool importComplex);
+    QMultiHash<QString, CONFIGROOT> GetConnectionConfigFromSubscription(const QUrl &subscriptionUrl, const QString &groupName);
+} // namespace Qv2ray::core::connection::connectionIO
 
 using namespace Qv2ray::core::connection;
-using namespace Qv2ray::core::connection::ConnectionIO;
+using namespace Qv2ray::core::connection::connectionIO;

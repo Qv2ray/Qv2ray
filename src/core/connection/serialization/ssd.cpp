@@ -10,7 +10,7 @@
 #include "core/connection/Generation.hpp"
 #include "core/connection/Serialization.hpp"
 
-namespace Qv2ray::core::connection::Serialization
+namespace Qv2ray::core::connection::serialization
 {
 
     namespace ssd

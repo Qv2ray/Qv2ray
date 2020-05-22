@@ -94,7 +94,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             auto filePath = d.getSaveFileName(this, GetDisplayName(id));
             if (filePath.isEmpty())
                 return;
-            auto root = GenerateRuntimeConfig(ConnectionManager->GetConnectionRoot(id));
+            auto root = GenerateFinalConfig(ConnectionManager->GetConnectionRoot(id));
             //
             // Apply export filter
             ExportConnectionFilter(root);
@@ -117,7 +117,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             for (const auto &connId : list)
             {
                 ConnectionId id(connId);
-                auto root = GenerateRuntimeConfig(ConnectionManager->GetConnectionRoot(id));
+                auto root = GenerateFinalConfig(ConnectionManager->GetConnectionRoot(id));
                 //
                 // Apply export filter
                 ExportConnectionFilter(root);

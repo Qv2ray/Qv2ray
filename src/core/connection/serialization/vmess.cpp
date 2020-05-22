@@ -1,12 +1,12 @@
-#include "Generation.hpp"
-#include "Serialization.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
+#include "core/connection/Generation.hpp"
+#include "core/connection/Serialization.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
 namespace Qv2ray::core::connection
 {
-    namespace Serialization::vmess
+    namespace serialization::vmess
     {
 
         // From https://github.com/2dust/v2rayN/wiki/分享链接格式说明(ver-2)

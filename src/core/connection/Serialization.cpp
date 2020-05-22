@@ -8,7 +8,7 @@
 
 namespace Qv2ray::core::connection
 {
-    namespace Serialization
+    namespace serialization
     {
         QMultiHash<QString, CONFIGROOT> ConvertConfigFromString(const QString &link, QString *prefix, QString *errMessage, QString *newGroupName)
         {
