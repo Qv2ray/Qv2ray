@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>645</width>
-    <height>453</height>
+    <width>674</width>
+    <height>483</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -187,7 +187,7 @@
      </widget>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Static Resolved Domains</string>
+       <string>Statically Resolved Domains</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">

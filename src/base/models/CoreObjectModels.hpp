@@ -16,7 +16,7 @@ namespace Qv2ray::base::objects
             QString address;
             int port;
             QList<QString> domains;
-            QString expectIPs;
+            QList<QString> expectIPs;
             JSONSTRUCT_REGISTER(DNSServerObject, F(QV2RAY_DNS_NAME, QV2RAY_DNS_IS_PURE_ADDRESS, address, port, domains, expectIPs))
         };
         QMap<QString, QString> hosts;
