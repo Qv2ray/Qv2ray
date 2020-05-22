@@ -41,6 +41,7 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_tProxy
     {
         QString tProxyIP;
+        QString tProxyV6IP;
         int port;
         bool hasTCP;
         bool hasUDP;
@@ -48,8 +49,8 @@ namespace Qv2ray::base::config
         QString mode;
         bool dnsIntercept;
         Qv2rayConfig_tProxy()
-            : tProxyIP("127.0.0.1"), port(12345), hasTCP(true), hasUDP(false), followRedirect(true), mode("tproxy"), dnsIntercept(true){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_tProxy, F(tProxyIP, port, hasTCP, hasUDP, followRedirect, mode, dnsIntercept))
+            : tProxyIP("127.0.0.1"),tProxyV6IP(""), port(12345), hasTCP(true), hasUDP(false), followRedirect(true), mode("tproxy"), dnsIntercept(true){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_tProxy, F(tProxyIP,tProxyV6IP, port, hasTCP, hasUDP, followRedirect, mode, dnsIntercept))
     };
 
     struct Qv2rayConfig_Inbounds

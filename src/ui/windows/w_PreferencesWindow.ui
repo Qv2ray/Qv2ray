@@ -916,7 +916,7 @@ Custom DNS Settings</string>
             <x>0</x>
             <y>0</y>
             <width>888</width>
-            <height>558</height>
+            <height>594</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -935,7 +935,7 @@ Custom DNS Settings</string>
              <item row="0" column="1">
               <widget class="QLineEdit" name="listenIPTxt">
                <property name="placeholderText">
-                <string notr="true">'localhost', or IPv4 address, e.g. '127.0.0.1' or IPv6 address with brackets, e.g. [::1]</string>
+                <string notr="true">IPv4 address, e.g. '127.0.0.1' or IPv6 address with brackets, e.g. [::1]</string>
                </property>
               </widget>
              </item>
@@ -1218,22 +1218,12 @@ Custom DNS Settings</string>
                 <bool>false</bool>
                </property>
                <layout class="QFormLayout" name="formLayout_11">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_73">
-                  <property name="text">
-                   <string>Listening Address</string>
-                  </property>
-                  <property name="textFormat">
-                   <enum>Qt::PlainText</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="1">
                  <layout class="QHBoxLayout" name="horizontalLayout_8">
                   <item>
                    <widget class="QLineEdit" name="tproxyListenAddr">
                     <property name="placeholderText">
-                     <string>127.0.0.1</string>
+                     <string>IPv4 address, e.g. '127.0.0.1'</string>
                     </property>
                    </widget>
                   </item>
@@ -1259,7 +1249,7 @@ Custom DNS Settings</string>
                   </item>
                  </layout>
                 </item>
-                <item row="1" column="0">
+                <item row="2" column="0">
                  <widget class="QLabel" name="label_72">
                   <property name="text">
                    <string>Network Options</string>
@@ -1269,7 +1259,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
+                <item row="2" column="1">
                  <layout class="QHBoxLayout" name="horizontalLayout">
                   <item>
                    <widget class="QCheckBox" name="tproxyEnableTCP">
@@ -1321,7 +1311,7 @@ Custom DNS Settings</string>
                   </item>
                  </layout>
                 </item>
-                <item row="2" column="0">
+                <item row="3" column="0">
                  <widget class="QLabel" name="label_78">
                   <property name="text">
                    <string>Mode</string>
@@ -1331,7 +1321,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
+                <item row="3" column="1">
                  <widget class="QComboBox" name="tproxyMode">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1351,7 +1341,7 @@ Custom DNS Settings</string>
                   </item>
                  </widget>
                 </item>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_79">
                   <property name="text">
                    <string>Outbound Mark</string>
@@ -1361,7 +1351,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <widget class="QSpinBox" name="outboundMark">
                   <property name="minimum">
                    <number>0</number>
@@ -1371,6 +1361,39 @@ Custom DNS Settings</string>
                   </property>
                   <property name="value">
                    <number>255</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_73">
+                  <property name="text">
+                   <string>Listening IPv4 Address</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_90">
+                  <property name="text">
+                   <string>Listening IPv6 Address</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="tproxyListenV6Addr">
+                  <property name="toolTip">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="placeholderText">
+                   <string>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</string>
                   </property>
                  </widget>
                 </item>

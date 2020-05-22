@@ -950,6 +950,7 @@ void MainWindow::on_action_RCM_SetAutoConnection_triggered()
         auto widget = GetItemWidget(current);
         const auto identifier = widget->Identifier();
         GlobalConfig.autoStartId = identifier;
+        GlobalConfig.autoStartBehavior = AUTO_CONNECTION_FIXED;
         if (!GlobalConfig.uiConfig.quietMode)
         {
             hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(identifier.connectionId)));

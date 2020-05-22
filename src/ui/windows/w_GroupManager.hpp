@@ -32,6 +32,14 @@ class GroupManager
 
     void on_groupList_itemSelectionChanged();
 
+    void on_IncludeRelation_currentTextChanged(const QString &arg1);
+
+    void on_ExcludeRelation_currentTextChanged(const QString &arg1);
+
+    void on_IncludeKeywords_textChanged();
+
+    void on_ExcludeKeywords_textChanged();
+
     void on_groupList_itemClicked(QListWidgetItem *item);
 
     void on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);

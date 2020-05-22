@@ -322,8 +322,53 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     lastUpdatedLabel->setText(timeToString(groupMetaObject.lastUpdatedDate));
     createdAtLabel->setText(timeToString(groupMetaObject.creationDate));
     updateIntervalSB->setValue(groupMetaObject.subscriptionOption.updateInterval);
+    groupIncludeKeywords->setEnabled(groupMetaObject.isSubscription);
+    groupExcludeKeywords->setEnabled(groupMetaObject.isSubscription);
+    IncludeKeywords->clear();
+    for (const auto &key : groupMetaObject.subscriptionOption.IncludeKeywords)
+    {
+        auto str = key.trimmed();
+        if (!str.isEmpty())
+        {
+            IncludeKeywords->appendPlainText(str);
+        }
+    }
+    ExcludeKeywords->clear();
+    for (const auto &key : groupMetaObject.subscriptionOption.ExcludeKeywords)
+    {
+        auto str = key.trimmed();
+        if (!str.isEmpty())
+        {
+            ExcludeKeywords->appendPlainText(str);
+        }
+    }
+    IncludeRelation->setCurrentText(groupMetaObject.subscriptionOption.IncludeRelation);
+    ExcludeRelation->setCurrentText(groupMetaObject.subscriptionOption.ExcludeRelation);
+    
     //
     reloadConnectionsList(currentGroupId);
+}
+
+void GroupManager::on_IncludeRelation_currentTextChanged(const QString &arg1)
+{
+    ConnectionManager->SetSubscriptionIncludeRelation(currentGroupId, arg1);
+}
+
+void GroupManager::on_ExcludeRelation_currentTextChanged(const QString &arg1)
+{
+    ConnectionManager->SetSubscriptionExcludeRelation(currentGroupId, arg1);
+}
+
+void GroupManager::on_IncludeKeywords_textChanged()
+{
+    QStringList keywords = IncludeKeywords->toPlainText().replace("\r", "").split("\n");
+    ConnectionManager->SetSubscriptionIncludeKeywords(currentGroupId, keywords);
+}
+
+void GroupManager::on_ExcludeKeywords_textChanged()
+{
+    QStringList keywords = ExcludeKeywords->toPlainText().replace("\r", "").split("\n");
+    ConnectionManager->SetSubscriptionExcludeKeywords(currentGroupId, keywords);
 }
 
 void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *)
@@ -353,6 +398,8 @@ void GroupManager::on_connectionsList_currentItemChanged(QListWidgetItem *curren
 void GroupManager::on_groupIsSubscriptionGroup_clicked(bool checked)
 {
     ConnectionManager->SetSubscriptionData(currentGroupId, checked);
+    groupIncludeKeywords->setEnabled(checked);
+    groupExcludeKeywords->setEnabled(checked);
 }
 
 void GroupManager::on_groupNameTxt_textEdited(const QString &arg1)

@@ -93,8 +93,12 @@ namespace Qv2ray::base
     {
         QString address;
         float updateInterval;
-        SubscriptionConfigObject() : address(""), updateInterval(10){};
-        JSONSTRUCT_REGISTER(SubscriptionConfigObject, F(updateInterval, address))
+        QString IncludeRelation;
+        QString ExcludeRelation;
+        QList<QString> IncludeKeywords;
+        QList<QString> ExcludeKeywords;
+        SubscriptionConfigObject() : address(""), updateInterval(10), IncludeRelation("Or"),ExcludeRelation("And"),IncludeKeywords(QStringList{}),ExcludeKeywords(QStringList{}) {};
+        JSONSTRUCT_REGISTER(SubscriptionConfigObject, F(updateInterval, address,IncludeRelation,ExcludeRelation,IncludeKeywords,ExcludeKeywords))
     };
 
     struct GroupObject : __Qv2rayConfigObjectBase

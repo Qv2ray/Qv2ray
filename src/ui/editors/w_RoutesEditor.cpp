@@ -673,18 +673,73 @@ void RouteEditor::on_addDefaultBtn_clicked()
     // Add default connection from GlobalConfig
     //
     auto _Inconfig = GlobalConfig.inboundConfig;
+    QJsonObject sniffingOff{ { "enabled", false } };
+    QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
     //
-    auto _in_httpConf = GenerateHTTPIN(QList<AccountObject>() << _Inconfig.httpSettings.account);
-    auto _in_socksConf = GenerateSocksIN((_Inconfig.socksSettings.useAuth ? "password" : "noauth"), //
-                                         QList<AccountObject>() << _Inconfig.socksSettings.account, //
-                                         _Inconfig.socksSettings.enableUDP,                         //
-                                         _Inconfig.socksSettings.localIP);
-    //
-    auto _in_HTTP = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.httpSettings.port, "http", _in_httpConf, "HTTP_gConf");
-    auto _in_SOCKS = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.socksSettings.port, "socks", _in_socksConf, "SOCKS_gConf");
-    //
-    AddInbound(_in_HTTP);
-    AddInbound(_in_SOCKS);
+    if (_Inconfig.useHTTP){
+        INBOUND _in_HTTP;
+        _in_HTTP.insert("listen", _Inconfig.listenip);
+        _in_HTTP.insert("port", _Inconfig.httpSettings.port);
+        _in_HTTP.insert("protocol", "http");
+        _in_HTTP.insert("tag", "http_gConf");
+        if (!_Inconfig.httpSettings.sniffing)
+        {
+            _in_HTTP.insert("sniffing", sniffingOff);
+        }
+        else
+        {
+            _in_HTTP.insert("sniffing", sniffingOn);
+        }
+
+        if (_Inconfig.httpSettings.useAuth)
+        {
+            auto httpInSettings = GenerateHTTPIN(QList<AccountObject>() << _Inconfig.httpSettings.account);
+            _in_HTTP.insert("settings", httpInSettings);
+        }
+
+        AddInbound(_in_HTTP);
+    }
+    if (_Inconfig.useSocks){
+        auto _in_socksConf = GenerateSocksIN((_Inconfig.socksSettings.useAuth ? "password" : "noauth"), //
+                                             QList<AccountObject>() << _Inconfig.socksSettings.account, //
+                                             _Inconfig.socksSettings.enableUDP,                         //
+                                             _Inconfig.socksSettings.localIP);
+        auto _in_SOCKS = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.socksSettings.port, "socks", _in_socksConf, "SOCKS_gConf");
+        if (!_Inconfig.socksSettings.sniffing)
+        {
+            _in_SOCKS.insert("sniffing", sniffingOff);
+        }
+        else{
+            _in_SOCKS.insert("sniffing", sniffingOn);
+        }
+        AddInbound(_in_SOCKS);
+    }
+
+    if (_Inconfig.useTPROXY){
+        QList<QString> networks;
+        if (_Inconfig.tProxySettings.hasTCP)
+            networks << "tcp";
+        if (_Inconfig.tProxySettings.hasUDP)
+            networks << "udp";
+        const auto tproxy_network = networks.join(",");
+        auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
+        QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+        QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", _Inconfig.tProxySettings.mode } } } };
+        
+        auto _in_TPROXY = GenerateInboundEntry(_Inconfig.tProxySettings.tProxyIP, _Inconfig.tProxySettings.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf");
+        _in_TPROXY.insert("sniffing", tproxy_sniff);
+        _in_TPROXY.insert("streamSettings", tproxy_streamSettings);
+        AddInbound(_in_TPROXY);
+
+        if (_Inconfig.tProxySettings.tProxyV6IP != ""){
+            auto _in_TPROXY = GenerateInboundEntry(_Inconfig.tProxySettings.tProxyV6IP, _Inconfig.tProxySettings.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf_V6");
+            _in_TPROXY.insert("sniffing", tproxy_sniff);
+            _in_TPROXY.insert("streamSettings", tproxy_streamSettings);
+            AddInbound(_in_TPROXY);
+        }
+
+    }
+
     CHECKEMPTYRULES
 }
 void RouteEditor::on_insertBlackBtn_clicked()

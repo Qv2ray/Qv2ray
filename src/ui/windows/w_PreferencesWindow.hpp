@@ -152,6 +152,8 @@ class PreferencesWindow
 
     void on_tproxyListenAddr_textEdited(const QString &arg1);
 
+    void on_tproxyListenV6Addr_textEdited(const QString &arg1);
+
     void on_jumpListCountSB_valueChanged(int arg1);
 
     void on_outboundMark_valueChanged(int arg1);

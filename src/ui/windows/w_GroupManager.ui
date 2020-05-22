@@ -231,6 +231,15 @@
           <bool>false</bool>
          </property>
          <layout class="QFormLayout" name="formLayout_3">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
+          <property name="rowWrapPolicy">
+           <enum>QFormLayout::DontWrapRows</enum>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
@@ -303,17 +312,117 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="1" column="3">
+          <widget class="QGroupBox" name="groupExcludeKeywords">
+           <property name="title">
+            <string>Exclude keyword(s)</string>
+           </property>
+           <widget class="QPlainTextEdit" name="ExcludeKeywords">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>40</y>
+              <width>161</width>
+              <height>71</height>
+             </rect>
+            </property>
+            <property name="placeholderText">
+             <string>Leave blank to not exclude any</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="ExcludeRelation">
+            <property name="geometry">
+             <rect>
+              <x>170</x>
+              <y>120</y>
+              <width>94</width>
+              <height>37</height>
+             </rect>
+            </property>
+            <item>
+             <property name="text">
+              <string>And</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Or</string>
+             </property>
+            </item>
+           </widget>
+           <widget class="QLabel" name="label_8">
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>130</y>
+              <width>71</width>
+              <height>23</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Relation</string>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QGroupBox" name="groupIncludeKeywords">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="title">
+            <string>Include keyword(s)</string>
+           </property>
+           <widget class="QPlainTextEdit" name="IncludeKeywords">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>40</y>
+              <width>161</width>
+              <height>71</height>
+             </rect>
+            </property>
+            <property name="placeholderText">
+             <string>Leave blank to include all</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_7">
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>130</y>
+              <width>71</width>
+              <height>23</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Relation</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="IncludeRelation">
+            <property name="geometry">
+             <rect>
+              <x>150</x>
+              <y>120</y>
+              <width>94</width>
+              <height>37</height>
+             </rect>
+            </property>
+            <item>
+             <property name="text">
+              <string>Or</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>And</string>
+             </property>
+            </item>
+           </widget>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QPushButton" name="updateButton">

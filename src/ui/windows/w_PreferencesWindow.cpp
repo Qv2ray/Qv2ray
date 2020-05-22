@@ -20,6 +20,8 @@
 #include <QHostInfo>
 
 using Qv2ray::common::validation::IsValidIPAddress;
+using Qv2ray::common::validation::IsIPv4Address;
+using Qv2ray::common::validation::IsIPv6Address;
 
 #define LOADINGCHECK                                                                                                                            \
     if (!finishedLoading)                                                                                                                       \
@@ -120,6 +122,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     bool have_tproxy = CurrentConfig.inboundConfig.useTPROXY;
     tproxGroupBox->setChecked(have_tproxy);
     tproxyListenAddr->setText(CurrentConfig.inboundConfig.tProxySettings.tProxyIP);
+    tproxyListenV6Addr->setText(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP);
     tProxyPort->setValue(CurrentConfig.inboundConfig.tProxySettings.port);
     tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasTCP);
     tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasUDP);
@@ -284,9 +287,17 @@ void PreferencesWindow::on_buttonBox_accepted()
         // Duplicates detected.
         QvMessageBoxWarn(this, tr("Preferences"), tr("Duplicated port numbers detected, please check the port number settings."));
     }
-    else if (CurrentConfig.inboundConfig.listenip.toLower() != "localhost" && !IsValidIPAddress(CurrentConfig.inboundConfig.listenip))
+    else if (!IsValidIPAddress(CurrentConfig.inboundConfig.listenip))
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid inbound listening address."));
+    }
+    else if (!IsIPv4Address(CurrentConfig.inboundConfig.tProxySettings.tProxyIP))
+    {
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ivp4 address."));
+    }
+    else if (CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP!="" && !IsIPv6Address(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP))
+    {
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ipv6 address."));
     }
     else
     {
@@ -365,7 +376,7 @@ void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
     NEEDRESTART
     CurrentConfig.inboundConfig.listenip = arg1;
 
-    if (IsValidIPAddress(arg1))
+    if (arg1=="" || IsValidIPAddress(arg1))
     {
         BLACK(listenIPTxt)
     }
@@ -987,6 +998,30 @@ void PreferencesWindow::on_tproxyListenAddr_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.tProxyIP = arg1;
+
+    if (arg1=="" || IsIPv4Address(arg1))
+    {
+        BLACK(tproxyListenAddr)
+    }
+    else
+    {
+        RED(tproxyListenAddr)
+    }
+}
+
+void PreferencesWindow::on_tproxyListenV6Addr_textEdited(const QString &arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP = arg1;
+
+    if (arg1=="" || IsIPv6Address(arg1))
+    {
+        BLACK(tproxyListenV6Addr)
+    }
+    else
+    {
+        RED(tproxyListenV6Addr)
+    }
 }
 
 void PreferencesWindow::on_jumpListCountSB_valueChanged(int arg1)

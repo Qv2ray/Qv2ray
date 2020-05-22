@@ -46,84 +46,91 @@ namespace Qv2ray::core::connection::generation::final
         // Just to ensure there's AT LEAST 1 possible inbound is being configured.
         if (!root.contains("inbounds") || root.value("inbounds").toArray().empty())
         {
+#define INCONF GlobalConfig.inboundConfig
             INBOUNDS inboundsList;
-            QJsonObject sniffingObject{ { "enabled", false } };
+            const QJsonObject sniffingOff{ { "enabled", false } };
+            const QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+
             // HTTP Inbound
             if (GlobalConfig.inboundConfig.useHTTP)
             {
-                INBOUND httpInBoundObject;
-                httpInBoundObject.insert("listen", GlobalConfig.inboundConfig.listenip);
-                httpInBoundObject.insert("port", GlobalConfig.inboundConfig.httpSettings.port);
-                httpInBoundObject.insert("protocol", "http");
-                httpInBoundObject.insert("tag", "http_IN");
-                if (!GlobalConfig.inboundConfig.httpSettings.sniffing)
+                INBOUND httpInBoundObject =                        //
+                    GenerateInboundEntry(INCONF.listenip,          //
+                                         INCONF.httpSettings.port, //
+                                         "http",                   //
+                                         INBOUNDSETTING{},         //
+                                         "http_IN",                //
+                                         { INCONF.httpSettings.sniffing ? sniffingOn : sniffingOff });
+                if (INCONF.httpSettings.useAuth)
                 {
-                    httpInBoundObject.insert("sniffing", sniffingObject);
-                }
-
-                if (GlobalConfig.inboundConfig.httpSettings.useAuth)
-                {
-                    auto httpInSettings = GenerateHTTPIN(QList<AccountObject>() << GlobalConfig.inboundConfig.httpSettings.account);
-                    httpInBoundObject.insert("settings", httpInSettings);
+                    httpInBoundObject.insert("settings", GenerateHTTPIN({ INCONF.httpSettings.account }));
                 }
 
                 inboundsList.append(httpInBoundObject);
             }
 
             // SOCKS Inbound
-            if (GlobalConfig.inboundConfig.useSocks)
+            if (INCONF.useSocks)
             {
-                INBOUND socksInBoundObject;
-                socksInBoundObject.insert("listen", GlobalConfig.inboundConfig.listenip);
-                socksInBoundObject.insert("port", GlobalConfig.inboundConfig.socksSettings.port);
-                socksInBoundObject.insert("protocol", "socks");
-                socksInBoundObject.insert("tag", "socks_IN");
-                if (!GlobalConfig.inboundConfig.socksSettings.sniffing)
-                {
-                    socksInBoundObject.insert("sniffing", sniffingObject);
-                }
-
-                auto socksInSettings =
-                    GenerateSocksIN(GlobalConfig.inboundConfig.socksSettings.useAuth ? "password" : "noauth",
-                                    QList<AccountObject>() << GlobalConfig.inboundConfig.socksSettings.account,
-                                    GlobalConfig.inboundConfig.socksSettings.enableUDP, GlobalConfig.inboundConfig.socksSettings.localIP);
-                socksInBoundObject.insert("settings", socksInSettings);
+                INBOUND socksInBoundObject =                                                                   //
+                    GenerateInboundEntry(INCONF.listenip,                                                      //
+                                         INCONF.socksSettings.port,                                            //
+                                         "socks",                                                              //
+                                         GenerateSocksIN(INCONF.socksSettings.useAuth ? "password" : "noauth", //
+                                                         { INCONF.socksSettings.account },                     //
+                                                         INCONF.socksSettings.enableUDP,                       //
+                                                         INCONF.socksSettings.localIP),                        //
+                                         "socks_IN",                                                           //
+                                         { INCONF.socksSettings.sniffing ? sniffingOn : sniffingOff });
                 inboundsList.append(socksInBoundObject);
             }
 
             // TPROXY
-            if (GlobalConfig.inboundConfig.useTPROXY)
+            if (INCONF.useTPROXY)
             {
-                INBOUND tproxyInBoundObject;
-                tproxyInBoundObject.insert("listen", GlobalConfig.inboundConfig.tProxySettings.tProxyIP);
-                tproxyInBoundObject.insert("port", GlobalConfig.inboundConfig.tProxySettings.port);
-                tproxyInBoundObject.insert("protocol", "dokodemo-door");
-                tproxyInBoundObject.insert("tag", "tproxy_IN");
-
                 QList<QString> networks;
-                if (GlobalConfig.inboundConfig.tProxySettings.hasTCP)
+                if (INCONF.tProxySettings.hasTCP)
                     networks << "tcp";
-                if (GlobalConfig.inboundConfig.tProxySettings.hasUDP)
+                if (INCONF.tProxySettings.hasUDP)
                     networks << "udp";
                 const auto tproxy_network = networks.join(",");
+                {
+                    LOG(MODULE_CONNECTION, "Processing tProxy IPv4 inbound")
+                    INBOUND tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyIP,                        //
+                                                            INCONF.tProxySettings.port,                            //
+                                                            "dokodemo-door",                                       //
+                                                            GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0), //
+                                                            "tproxy_IN",                                           //
+                                                            {
+                                                                { "enabled", true },                            //
+                                                                { "destOverride", QJsonArray{ "http", "tls" } } //
+                                                            });
+                    tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
+                    inboundsList.append(tProxyIn);
+                }
+                //
+                if (!INCONF.tProxySettings.tProxyV6IP.isEmpty())
+                {
+                    LOG(MODULE_CONNECTION, "Processing tProxy IPv6 inbound")
+                    INBOUND tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyV6IP,                      //
+                                                            INCONF.tProxySettings.port,                            //
+                                                            "dokodemo-door",                                       //
+                                                            GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0), //
+                                                            "tproxy_IN_V6",                                        //
+                                                            {
+                                                                { "enabled", true },                            //
+                                                                { "destOverride", QJsonArray{ "http", "tls" } } //
+                                                            });
+                    tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
 
-                auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
-                tproxyInBoundObject.insert("settings", tproxyInSettings);
-
-                QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-                tproxyInBoundObject.insert("sniffing", tproxy_sniff);
-                //                    tproxyInBoundObject.insert("sniffing", sniffingObject);
-
-                QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", GlobalConfig.inboundConfig.tProxySettings.mode } } } };
-                tproxyInBoundObject.insert("streamSettings", tproxy_streamSettings);
-
-                inboundsList.append(tproxyInBoundObject);
+                    inboundsList.append(tProxyIn);
+                }
             }
 
             root["inbounds"] = inboundsList;
             DEBUG(MODULE_CONNECTION, "Added global config inbounds to the config")
         }
-
+#undef INCONF
         // Process every inbounds to make sure a tag is configured, fixed
         // API 0 speed issue when no tag is configured.
         INBOUNDS newTaggedInbounds(root["inbounds"].toArray());

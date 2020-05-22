@@ -105,6 +105,12 @@ namespace Qv2ray::core::handlers
         bool UpdateSubscription(const GroupId &id);
         bool SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription = std::nullopt,
                                  const std::optional<QString> &address = std::nullopt, std::optional<float> updateInterval = std::nullopt);
+
+        bool SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords);
+        bool SetSubscriptionIncludeRelation(const GroupId &id, const QString &Relation);
+        bool SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords);
+        bool SetSubscriptionExcludeRelation(const GroupId &id, const QString &Relation);
+
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
         // const std::tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
