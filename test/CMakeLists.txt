@@ -1,7 +1,3 @@
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-enable_testing()
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 function(ADD_QV2RAY_TEST TEST_NAME TEST_SOURCE)
     add_executable(${TEST_NAME} ${TEST_SOURCE} catch.hpp)
     target_include_directories(${TEST_NAME} 

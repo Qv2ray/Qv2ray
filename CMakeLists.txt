@@ -11,8 +11,6 @@ endif()
 set(QV2RAY_VERSION_STRING "${QV2RAY_VERSION}${QV2RAY_VERSION_SUFFIX}")
 project(qv2ray)
 
-include(CTest)
-
 set(VERSION_LIST ${QV2RAY_VERSION})
 string(REPLACE "." ";" VERSION_LIST ${VERSION_LIST})
 separate_arguments(VERSION_LIST)
@@ -88,7 +86,7 @@ set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
-set(BUILD_TESTING ON CACHE BOOL "Build test")
+set(BUILD_TESTING OFF CACHE BOOL "Build test")
 if(UNIX AND NOT APPLE)
     set(QV2RAY_USE_BUILTIN_DARKTHEME OFF CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
 else()
@@ -243,6 +241,7 @@ target_include_directories(qv2ray-baselib PUBLIC
     )
 
 if (BUILD_TESTING)
+    include(CTest)
     add_subdirectory(test)
 endif()
 
