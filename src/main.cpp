@@ -13,8 +13,6 @@
 #include <QLocale>
 #include <QObject>
 #include <QStandardPaths>
-#include <QStyle>
-#include <QStyleFactory>
 #include <QTranslator>
 #include <csignal>
 #include <memory>
