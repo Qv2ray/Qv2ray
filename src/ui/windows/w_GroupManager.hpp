@@ -7,6 +7,9 @@
 #include <QDialog>
 #include <QMenu>
 
+class DnsSettingsWidget;
+class RouteSettingsMatrixWidget;
+
 class GroupManager
     : public QDialog
     , private Ui::w_GroupManager
@@ -68,6 +71,9 @@ class GroupManager
     void reloadGroupRCMActions();
     //
     void ExportConnectionFilter(CONFIGROOT &root);
+    //
+    DnsSettingsWidget *dnsSettingsWidget;
+    RouteSettingsMatrixWidget *routeSettingsWidget;
     //
     QMenu *connectionListRCMenu = new QMenu(this);
     QAction *exportConnectionAction = new QAction(tr("Export Connection(s)"), connectionListRCMenu);

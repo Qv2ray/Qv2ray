@@ -4,6 +4,8 @@
 #include "core/connection/Generation.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/widgets/DnsSettingsWidget.hpp"
+#include "ui/widgets/RouteSettingsMatrix.hpp"
 
 #include <QFileDialog>
 #include <QListWidgetItem>
@@ -32,6 +34,16 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     QvMessageBusConnect(GroupManager);
+    //
+    dnsSettingsWidget = new DnsSettingsWidget(this);
+    routeSettingsWidget = new RouteSettingsMatrixWidget(GlobalConfig.kernelConfig.AssetsPath(), this);
+    //
+    dnsSettingsGB->setLayout(new QGridLayout(dnsSettingsGB));
+    dnsSettingsGB->layout()->addWidget(dnsSettingsWidget);
+    //
+    routeSettingsGB->setLayout(new QGridLayout(routeSettingsGB));
+    routeSettingsGB->layout()->addWidget(routeSettingsWidget);
+    //
     UpdateColorScheme();
     connectionListRCMenu->addSection(tr("Connection Management"));
     connectionListRCMenu->addAction(exportConnectionAction);
