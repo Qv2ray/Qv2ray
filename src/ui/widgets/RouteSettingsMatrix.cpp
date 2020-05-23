@@ -49,7 +49,7 @@ QList<QAction *> RouteSettingsMatrixWidget::getBuiltInSchemes()
     return list;
 }
 
-QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv2ray::base::config::Qv2rayConfig_Routing &scheme)
+QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv2rayConfig_Routing &scheme)
 {
     QAction *action = new QAction(this);
     action->setText(name);
@@ -72,7 +72,7 @@ void RouteSettingsMatrixWidget::SetRouteConfig(const Qv2rayConfig_Routing &conf)
 
 Qv2rayConfig_Routing RouteSettingsMatrixWidget::GetRouteConfig() const
 {
-    config::Qv2rayConfig_Routing conf;
+    Qv2rayConfig_Routing conf;
     conf.domainStrategy = this->domainStrategyCombo->currentText();
     conf.domains.block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
     conf.domains.direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
