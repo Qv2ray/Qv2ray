@@ -54,8 +54,7 @@ void MainWindow::CheckSubscriptionsUpdate()
 {
     QStringList updateList;
 
-    auto subscriptions = ConnectionManager->Subscriptions();
-    for (const auto &entry : subscriptions)
+    for (const auto &entry : ConnectionManager->Subscriptions())
     {
         const auto info = ConnectionManager->GetGroupMetaObject(entry);
         //
@@ -63,8 +62,8 @@ void MainWindow::CheckSubscriptionsUpdate()
         if (info.subscriptionOption.updateInterval == 0)
             continue;
         //
-        const auto &lastRenewDate = QDateTime::fromTime_t(info.lastUpdatedDate);
-        const auto &renewTime = lastRenewDate.addSecs(info.subscriptionOption.updateInterval * 86400);
+        const auto lastRenewDate = QDateTime::fromTime_t(info.lastUpdatedDate);
+        const auto renewTime = lastRenewDate.addSecs(info.subscriptionOption.updateInterval * 86400);
         LOG(MODULE_SUBSCRIPTION,                                                                    //
             "Subscription \"" + info.displayName + "\": " +                                         //
                 NEWLINE + " --> Last renewal time: " + lastRenewDate.toString() +                   //
@@ -81,8 +80,11 @@ void MainWindow::CheckSubscriptionsUpdate()
     if (!updateList.isEmpty())
     {
         QvMessageBoxWarn(this, tr("Update Subscriptions"),
-                         tr("There are subscriptions need to be updated, please go to subscriptions window to update them.") + NEWLINE +
-                             NEWLINE + tr("These subscriptions are out-of-date: ") + NEWLINE + updateList.join(";"));
+                         tr("There are subscriptions to be updated, please go to Group Manager to update them.") + //
+                             NEWLINE + NEWLINE +                                                                   //
+                             tr("These subscriptions are out-of-date: ") +                                         //
+                             NEWLINE +                                                                             //
+                             updateList.join(NEWLINE));
         on_subsButton_clicked();
     }
 }

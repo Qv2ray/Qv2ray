@@ -23,7 +23,7 @@ namespace Qv2ray::core::handlers
     {
         Q_OBJECT
       public:
-        explicit QvConfigHandler();
+        explicit QvConfigHandler(QObject *parent = nullptr);
         ~QvConfigHandler();
 
       public slots:
@@ -64,7 +64,7 @@ namespace Qv2ray::core::handlers
         }
         //
         //
-        void CHSaveConfigData();
+        void SaveConnectionConfig();
         const QList<GroupId> Subscriptions() const;
         const QList<GroupId> GetGroupId(const ConnectionId &connId) const;
         //

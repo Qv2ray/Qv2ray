@@ -361,7 +361,7 @@ int main(int argc, char *argv[])
     font.setFamily("Microsoft YaHei");
     _qApp.setFont(font);
 #endif
-    StyleManager = new QvStyleManager();
+    StyleManager = new QvStyleManager(qApp);
     StyleManager->ApplyStyle(confObject.uiConfig.theme);
 
 #if (QV2RAY_USE_BUILTIN_DARKTHEME)
@@ -398,22 +398,19 @@ int main(int argc, char *argv[])
         _qApp.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
     }
 #endif
-#ifndef QT_DEBUG
-
     try
     {
-#endif
-        //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
+        // Initialise Connection Handler
+        PluginHost = new QvPluginHost(qApp);
+        ConnectionManager = new QvConfigHandler(qApp);
+
 #ifdef Q_OS_LINUX
         _qApp.setFallbackSessionManagementEnabled(false);
         QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { //
-            ConnectionManager->CHSaveConfigData();
+            ConnectionManager->SaveConnectionConfig();
             LOG(MODULE_INIT, "Quit triggered by session manager.")
         });
 #endif
-        // Initialise Connection Handler
-        PluginHost = new QvPluginHost();
-        ConnectionManager = new QvConfigHandler();
 
         // Show MainWindow
         MainWindow w;
@@ -424,23 +421,17 @@ int main(int argc, char *argv[])
             w.activateWindow();
         });
 #ifndef Q_OS_WIN
-        signal(SIGUSR1, [](int) { emit MainWindow::MainWindowInstance->StartConnection(); });
-        signal(SIGUSR2, [](int) { emit MainWindow::MainWindowInstance->StopConnection(); });
+        signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
+        signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
         auto rcode = _qApp.exec();
-        delete ConnectionManager;
-        delete PluginHost;
-        delete StyleManager;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
-#ifndef QT_DEBUG
     }
-    catch (...)
+    catch (std::exception e)
     {
         QvMessageBoxWarn(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
-        LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
+        LOG(MODULE_INIT, "EXCEPTION THROWN: " + QString(e.what()))
         return -99;
     }
-
-#endif
 }

@@ -40,8 +40,6 @@
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
 #define NumericString(i) (QString("%1").arg(i, 30, 10, QLatin1Char('0')))
 
-MainWindow *MainWindow::MainWindowInstance = nullptr;
-
 QvMessageBusSlotImpl(MainWindow)
 {
     switch (msg)
@@ -154,7 +152,6 @@ void MainWindow::ReloadRecentConnectionList()
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
-    MainWindow::MainWindowInstance = this;
     QvMessageBusConnect(MainWindow);
     //
     infoWidget = new ConnectionInfoWidget(this);

@@ -32,7 +32,6 @@ class MainWindow
   public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
-    static MainWindow *MainWindowInstance;
   signals:
     void StartConnection() const;
     void StopConnection() const;

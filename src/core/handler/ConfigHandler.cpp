@@ -7,7 +7,7 @@
 
 namespace Qv2ray::core::handlers
 {
-    QvConfigHandler::QvConfigHandler()
+    QvConfigHandler::QvConfigHandler(QObject *parent) : QObject(parent)
     {
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
         const auto connectionJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "connections.json"));
@@ -74,12 +74,8 @@ namespace Qv2ray::core::handlers
         pingConnectionTimerId = startTimer(60 * 1000);
     }
 
-    void QvConfigHandler::CHSaveConfigData()
+    void QvConfigHandler::SaveConnectionConfig()
     {
-        // Do not copy construct.
-        // GlobalConfig.connections = connections.keys();
-        // GlobalConfig.groups = groups.keys();
-        //
         QJsonObject connectionsObject;
         for (const auto &key : connections.keys())
         {
@@ -100,7 +96,7 @@ namespace Qv2ray::core::handlers
     {
         if (event->timerId() == saveTimerId)
         {
-            CHSaveConfigData();
+            SaveConnectionConfig();
         }
         else if (event->timerId() == pingAllTimerId)
         {
@@ -118,7 +114,7 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::StartLatencyTest()
     {
-        for (auto connection : connections.keys())
+        for (const auto &connection : connections.keys())
         {
             StartLatencyTest(connection);
         }
@@ -126,7 +122,7 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::StartLatencyTest(const GroupId &id)
     {
-        for (auto connection : groups[id].connections)
+        for (const auto &connection : groups[id].connections)
         {
             StartLatencyTest(connection);
         }
@@ -142,7 +138,7 @@ namespace Qv2ray::core::handlers
     {
         QList<GroupId> subsList;
 
-        for (auto group : groups.keys())
+        for (const auto &group : groups.keys())
         {
             if (groups[group].isSubscription)
             {
@@ -153,31 +149,6 @@ namespace Qv2ray::core::handlers
         return subsList;
     }
 
-    //    const ConnectionId QvConfigHandler::GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const
-    //    {
-    //        CheckGroupExistanceEx(group, NullConnectionId);
-    //        for (auto conn : groups[group].connections)
-    //        {
-    //            if (connections[conn].displayName == displayName)
-    //            {
-    //                return conn;
-    //            }
-    //        }
-
-    //        return NullConnectionId;
-    //    }
-    //    const GroupId QvConfigHandler::GetGroupIdByDisplayName(const QString &displayName) const
-    //    {
-    //        for (auto group : groups.keys())
-    //        {
-    //            if (groups[group].displayName == displayName)
-    //            {
-    //                return group;
-    //            }
-    //        }
-
-    //        return NullGroupId;
-    //    }
     void QvConfigHandler::ClearGroupUsage(const GroupId &id)
     {
         for (const auto &conn : groups[id].connections)
@@ -216,7 +187,7 @@ namespace Qv2ray::core::handlers
         OnConnectionRenamed(id, connections[id].displayName, newName);
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Renamed, newName, connections[id].displayName });
         connections[id].displayName = newName;
-        CHSaveConfigData();
+        SaveConnectionConfig();
         return {};
     }
 
@@ -328,7 +299,7 @@ namespace Qv2ray::core::handlers
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::FullyRemoved, groups[id].displayName, "" });
         //
         groups.remove(id);
-        CHSaveConfigData();
+        SaveConnectionConfig();
         emit OnGroupDeleted(id, list);
         if (id == DefaultGroupId)
         {
@@ -361,7 +332,7 @@ namespace Qv2ray::core::handlers
     void QvConfigHandler::StopConnection() // const ConnectionId &id
     {
         kernelHandler->StopConnection();
-        CHSaveConfigData();
+        SaveConnectionConfig();
     }
 
     void QvConfigHandler::OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage)
@@ -377,7 +348,7 @@ namespace Qv2ray::core::handlers
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
         tcpingHelper->StopAllLatencyTest();
         delete kernelHandler;
-        CHSaveConfigData();
+        SaveConnectionConfig();
     }
 
     const CONFIGROOT QvConfigHandler::GetConnectionRoot(const ConnectionId &id) const
@@ -420,7 +391,7 @@ namespace Qv2ray::core::handlers
         groups[id].creationDate = system_clock::to_time_t(system_clock::now());
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Created, displayName, "" });
         emit OnGroupCreated(id, displayName);
-        CHSaveConfigData();
+        SaveConnectionConfig();
         return id;
     }
 
@@ -572,7 +543,7 @@ namespace Qv2ray::core::handlers
         auto originalConnectionIdList = groups[id].connections;
         groups[id].connections.clear();
         //
-        int filteredconnections=0;
+        int filteredconnections = 0;
         for (const auto &config : _newConnections)
         {
             const auto _alias = _newConnections.key(config);
@@ -589,77 +560,89 @@ namespace Qv2ray::core::handlers
             auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
 
             // filter connections
-            int i;bool includeconfig;
-            i=0;
-            if (groups[id].subscriptionOption.IncludeRelation=="And"){
-                includeconfig=true;
+            int i;
+            bool includeconfig;
+            i = 0;
+            if (groups[id].subscriptionOption.IncludeRelation == "And")
+            {
+                includeconfig = true;
                 for (const auto &key : groups[id].subscriptionOption.IncludeKeywords)
                 {
                     auto str = key.trimmed();
                     if (!str.isEmpty())
                     {
                         i++;
-                        if (_alias.indexOf(str, 0)==-1){
-                            includeconfig=false;
+                        if (_alias.indexOf(str, 0) == -1)
+                        {
+                            includeconfig = false;
                             break;
                         }
                     }
                 }
             }
-            else { //Or relation
-                includeconfig=false;
+            else
+            { // Or relation
+                includeconfig = false;
                 for (const auto &key : groups[id].subscriptionOption.IncludeKeywords)
                 {
                     auto str = key.trimmed();
                     if (!str.isEmpty())
                     {
                         i++;
-                        if (_alias.indexOf(str, 0)!=-1){
-                            includeconfig=true;
+                        if (_alias.indexOf(str, 0) != -1)
+                        {
+                            includeconfig = true;
                             break;
                         }
                     }
                 }
             }
-            if (i==0) includeconfig=true; //If includekeywords is empty then include all configs.
+            if (i == 0)
+                includeconfig = true; // If includekeywords is empty then include all configs.
 
-            if (includeconfig==true){
-                i=0;
-                if (groups[id].subscriptionOption.ExcludeRelation=="Or"){
-                    includeconfig=true;
+            if (includeconfig == true)
+            {
+                i = 0;
+                if (groups[id].subscriptionOption.ExcludeRelation == "Or")
+                {
+                    includeconfig = true;
                     for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
                     {
                         auto str = key.trimmed();
                         if (!str.isEmpty())
                         {
                             i++;
-                            if (_alias.indexOf(str, 0)!=-1){
-                                includeconfig=false;
+                            if (_alias.indexOf(str, 0) != -1)
+                            {
+                                includeconfig = false;
                                 break;
                             }
                         }
                     }
                 }
-                else { //And relation
-                    includeconfig=false;
+                else
+                { // And relation
+                    includeconfig = false;
                     for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
                     {
                         auto str = key.trimmed();
                         if (!str.isEmpty())
                         {
                             i++;
-                            if (_alias.indexOf(str, 0)==-1){
-                                includeconfig=true;
+                            if (_alias.indexOf(str, 0) == -1)
+                            {
+                                includeconfig = true;
                                 break;
                             }
                         }
                     }
                 }
-                if (i==0) includeconfig=true; //If excludekeywords is empty then don't exclude any configs.
+                if (i == 0)
+                    includeconfig = true; // If excludekeywords is empty then don't exclude any configs.
             }
-            
 
-            if (includeconfig==true){
+            if (includeconfig == true)
+            {
                 filteredconnections++;
                 //
                 // ====================================================================================== Begin guessing new ConnectionId
@@ -698,10 +681,10 @@ namespace Qv2ray::core::handlers
         if (filteredconnections < 5)
         {
             LOG(MODULE_SUBSCRIPTION, "Filtered out less than 5 connections.")
-            if (QvMessageBoxAsk(
-                    nullptr, tr("Update Subscription"),
-                    tr("%1 out of %2 entrie(s) have been filtered out, do you want to continue?").arg(filteredconnections).arg(_newConnections.count())) !=
-                QMessageBox::Yes)
+            if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                                tr("%1 out of %2 entrie(s) have been filtered out, do you want to continue?")
+                                    .arg(filteredconnections)
+                                    .arg(_newConnections.count())) != QMessageBox::Yes)
             {
                 for (const auto &config : _newConnections)
                 {
@@ -750,10 +733,8 @@ namespace Qv2ray::core::handlers
                         CreateConnection(config, _alias, id, true);
                     }
                     // ====================================================================================== End guessing new ConnectionId
-                
                 }
             }
-                
         }
 
         // Check if anything left behind (not being updated or changed significantly)
@@ -800,7 +781,7 @@ namespace Qv2ray::core::handlers
         UpdateConnection(newId, root);
         if (!skipSaveConfig)
         {
-            CHSaveConfigData();
+            SaveConnectionConfig();
         }
         return { newId, groupId };
     }

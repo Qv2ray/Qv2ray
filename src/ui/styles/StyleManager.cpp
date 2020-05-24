@@ -10,7 +10,7 @@
 
 namespace Qv2ray::ui::styles
 {
-    QvStyleManager::QvStyleManager()
+    QvStyleManager::QvStyleManager(QObject *parent) : QObject(parent)
     {
         ReloadStyles();
     }
