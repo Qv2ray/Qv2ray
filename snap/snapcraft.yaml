@@ -135,12 +135,12 @@ parts:
       - libuv1
       - libsodium23
     cmake-parameters:
-      -DCMAKE_BUILD_TYPE=Release
-      -DSSR_UVW_WITH_QT=1
-      -DUSE_SYSTEM_SODIUM=ON
-      -DUSE_SYSTEM_LIBUV=ON
-      -DSTATIC_LINK_LIBUV=OFF
-      -DSTATIC_LINK_SODIUM=OFF
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DSSR_UVW_WITH_QT=1
+      - -DUSE_SYSTEM_SODIUM=ON
+      - -DUSE_SYSTEM_LIBUV=ON
+      - -DSTATIC_LINK_LIBUV=OFF
+      - -DSTATIC_LINK_SODIUM=OFF
     override-build: |
       snapcraftctl build
       install -Dm644 libQvSSRPlugin.so /usr/share/qv2ray/plugins/libQvSSRPlugin.so
