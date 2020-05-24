@@ -123,19 +123,18 @@ void MainWindow::ReloadRecentConnectionList()
         auto action = new QAction(tray_RecentConnectionsMenu);
         action->setText(GetDisplayName(item.connectionId));
         action->setData(QVariant::fromValue(item));
-        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed,
-                [action](const ConnectionId &_t1, const QString &, const QString &_t3) {
-                    if (_t1.toString() == action->data().toString())
-                    {
-                        action->setText(_t3);
-                    }
-                });
+        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [=](const ConnectionId &_t1, const QString &, const QString &_t3) {
+            if (action && _t1 == action->data().value<ConnectionGroupPair>().connectionId)
+            {
+                action->setText(_t3);
+            }
+        });
         connect(action, &QAction::triggered, [action]() { //
             emit ConnectionManager->StartConnection(action->data().value<ConnectionGroupPair>());
         });
         newActions << action;
     }
-    for (const auto action : tray_RecentConnectionsMenu->actions())
+    for (const auto &action : tray_RecentConnectionsMenu->actions())
     {
         tray_RecentConnectionsMenu->removeAction(action);
         action->deleteLater();
