@@ -194,9 +194,8 @@ void GroupManager::reloadConnectionsList(const GroupId &group)
         connectionsTable->setItem(i, 1, typeItem);
         connectionsTable->setItem(i, 2, hostPortItem);
         connectionsTable->setItem(i, 3, groupsItem);
-        //
-        connectionsTable->resizeColumnsToContents();
     }
+    connectionsTable->resizeColumnsToContents();
 }
 
 void GroupManager::onRCMActionTriggered_Copy()
