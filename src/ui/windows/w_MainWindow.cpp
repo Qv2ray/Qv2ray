@@ -330,7 +330,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     ReloadRecentConnectionList();
     //
-    tray_action_ShowHide->setText(connectionStarted ? tr("Hide") : tr("Show"));
+    tray_action_ShowHide->setText(!connectionStarted ? tr("Hide") : tr("Show"));
     if (!connectionStarted)
         this->show();
     //
