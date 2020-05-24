@@ -51,7 +51,6 @@ parts:
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
-      - qttools5-dev-tools
       - qttools5-dev
       - qt5-default
       - libgrpc++-dev
@@ -113,3 +112,37 @@ parts:
     plugin: nil
     stage-packages:
       - qt5-gtk-platformtheme
+
+  qv2ray-ssr-plugin:
+    plugin: cmake
+    source-type: git
+    source: https://github.com/Qv2ray/QvPlugin-SSR
+    build-packages:
+      - build-essential
+      - libsodium-dev
+      - libuv1-dev
+      - libssl-dev
+      - qttools5-dev
+      - qt5-default
+    stage-packages:
+      - libgcc1
+      - libstdc++6
+      - libssl1.1
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5network5
+      - libqt5widgets5
+      - libuv1
+      - libsodium23
+    cmake-parameters:
+      -DCMAKE_BUILD_TYPE=Release
+      -DSSR_UVW_WITH_QT=1
+      -DUSE_SYSTEM_SODIUM=ON
+      -DUSE_SYSTEM_LIBUV=ON
+      -DSTATIC_LINK_LIBUV=OFF
+      -DSTATIC_LINK_SODIUM=OFF
+    override-build: |
+      snapcraftctl build
+      install -Dm644 libQvSSRPlugin.so /usr/share/qv2ray/plugins/libQvSSRPlugin.so
+    after:
+      - desktop-qt5
