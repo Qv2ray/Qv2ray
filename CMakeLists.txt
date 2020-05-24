@@ -121,7 +121,7 @@ endif()
 if(EMBED_TRANSLATIONS)
     add_definitions(-DEMBED_TRANSLATIONS)
     configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
-    list(APPEND QV2RAY_UI_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
+    set(QV2RAY_EMBED_TRANSLATION_QRC ${CMAKE_BINARY_DIR}/translations.qrc)
 endif()
 
 
@@ -203,6 +203,7 @@ add_executable(qv2ray
     ${QV2RAY_UI_FORMS}
     ${SINGLEAPPLICATION_SOURCES}
     ${QNODEEDITOR_QRC_RESOURCES}
+    ${QV2RAY_EMBED_TRANSLATION_QRC}
     ${QRC_RESOURCES}
     ${QM_FILES}
     )
