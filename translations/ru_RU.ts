@@ -211,15 +211,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Static Resolved Domains</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Domain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Resolved IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statically Resolved Domains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New DNS</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1256,7 +1260,7 @@
     </message>
     <message>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-        <translation>Есть подписки, которые необходимо обновить, перейдите в окно подписок, чтобы обновить их.</translation>
+        <translation type="vanished">Есть подписки, которые необходимо обновить, перейдите в окно подписок, чтобы обновить их.</translation>
     </message>
     <message>
         <source>These subscriptions are out-of-date: </source>
@@ -1456,6 +1460,14 @@
     </message>
     <message>
         <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear Recent Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1757,7 +1769,7 @@
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Use Proxy</source>
@@ -2536,6 +2548,30 @@ But could dramatically damage your server if improperly used.</source>
         <source>Set AllowInsecureCiphers By Default</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening IPv4 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening IPv6 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ivp4 address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ipv6 address.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -3134,6 +3170,10 @@ But could dramatically damage your server if improperly used.</source>
     </message>
     <message>
         <source>Failed to start connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3979,7 +4019,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation type="obsolete">Настройки соединения</translation>
+        <translation type="unfinished">Настройки соединения</translation>
     </message>
     <message>
         <source>Group Editor</source>
@@ -4035,6 +4075,50 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Notify Interval</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave blank to exclude nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave blank to include all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only import when containing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only import when NOT containing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per-group DNS Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per-group Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per-group Advanced Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

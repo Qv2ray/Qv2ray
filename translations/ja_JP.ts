@@ -228,7 +228,7 @@
     </message>
     <message>
         <source>Static Resolved Domains</source>
-        <translation>静的解決ドメイン</translation>
+        <translation type="vanished">静的解決ドメイン</translation>
     </message>
     <message>
         <source>Domain</source>
@@ -237,6 +237,14 @@
     <message>
         <source>Resolved IP</source>
         <translation>解決済みIP</translation>
+    </message>
+    <message>
+        <source>Statically Resolved Domains</source>
+        <translation>静的解決ドメイン</translation>
+    </message>
+    <message>
+        <source>New DNS</source>
+        <translation>新しいDNS</translation>
     </message>
 </context>
 <context>
@@ -1336,7 +1344,7 @@
     </message>
     <message>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-        <translation>更新が必要なサブスクリプションがあります。サブスクリプションウィンドウに移動して更新してください。</translation>
+        <translation type="vanished">更新が必要なサブスクリプションがあります。サブスクリプションウィンドウに移動して更新してください。</translation>
     </message>
     <message>
         <source>These subscriptions are out-of-date: </source>
@@ -1505,6 +1513,14 @@
     <message>
         <source>New</source>
         <translation>作成</translation>
+    </message>
+    <message>
+        <source>Clear Recent Connections</source>
+        <translation>最近の項目をクリア</translation>
+    </message>
+    <message>
+        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
+        <translation>更新が必要なサブスクリプションがあります。サブスクリプションウィンドウに移動して更新してください。</translation>
     </message>
 </context>
 <context>
@@ -1805,7 +1821,7 @@
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Use Proxy</source>
@@ -2705,6 +2721,30 @@ But could dramatically damage your server if improperly used.</source>
         <source>Set AllowInsecureCiphers By Default</source>
         <translation>デフォルトで AllowInsecureCiphers を設定する</translation>
     </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
+        <translation>IPv4アドレス、例えば、127.0.0.1</translation>
+    </message>
+    <message>
+        <source>Listening IPv4 Address</source>
+        <translation>リスニングIPv4アドレス</translation>
+    </message>
+    <message>
+        <source>Listening IPv6 Address</source>
+        <translation>リスニングIPv6アドレス</translation>
+    </message>
+    <message>
+        <source>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</source>
+        <translation>IPv6アドレスを括弧付きで指定します、例えば、[::1]。空欄のままにしておくとIPv6を無効にします。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ivp4 address.</source>
+        <translation>無効なtProxyリスニングIPv4アドレス。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ipv6 address.</source>
+        <translation>無効なtProxyリスニングIPv6アドレス。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -3376,6 +3416,10 @@ But could dramatically damage your server if improperly used.</source>
     <message>
         <source>Failed to start connection</source>
         <translation>接続起動失敗</translation>
+    </message>
+    <message>
+        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>%2 つのエントリのうち %1 がフィルタリングされましたが、続行しますか?</translation>
     </message>
 </context>
 <context>
@@ -4322,7 +4366,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation type="vanished">接続設定</translation>
+        <translation>接続設定</translation>
     </message>
     <message>
         <source>Route Settings</source>
@@ -4347,6 +4391,50 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Update Notify Interval</source>
         <translation>更新間隔</translation>
+    </message>
+    <message>
+        <source>Import Filters</source>
+        <translation>インポートフィルタ</translation>
+    </message>
+    <message>
+        <source>Leave blank to exclude nothing</source>
+        <translation>空欄のままにして、何も除外しないようにします</translation>
+    </message>
+    <message>
+        <source>Relation</source>
+        <translation>関連</translation>
+    </message>
+    <message>
+        <source>Leave blank to include all</source>
+        <translation>すべてを含む場合は空白のままにしてください</translation>
+    </message>
+    <message>
+        <source>Only import when containing...</source>
+        <translation>含む場合のみインポートする...</translation>
+    </message>
+    <message>
+        <source>Only import when NOT containing...</source>
+        <translation>含まれていない場合のみインポートして...</translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation>DNS設定</translation>
+    </message>
+    <message>
+        <source>Per-group DNS Settings</source>
+        <translation>グループごとのDNS設定</translation>
+    </message>
+    <message>
+        <source>Per-group Connection Settings</source>
+        <translation>グループごとの接続設定</translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation>ルート詳細設定</translation>
+    </message>
+    <message>
+        <source>Per-group Advanced Route Settings</source>
+        <translation>グループごとのルート設定</translation>
     </message>
 </context>
 <context>

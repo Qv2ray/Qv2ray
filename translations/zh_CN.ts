@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Static Resolved Domains</source>
-        <translation>静态解析域名</translation>
+        <translation type="vanished">静态解析域名</translation>
     </message>
     <message>
         <source>Domain</source>
@@ -209,6 +209,14 @@
     <message>
         <source>Resolved IP</source>
         <translation>解析 IP</translation>
+    </message>
+    <message>
+        <source>Statically Resolved Domains</source>
+        <translation>静态解析域名</translation>
+    </message>
+    <message>
+        <source>New DNS</source>
+        <translation>新DNS</translation>
     </message>
 </context>
 <context>
@@ -982,7 +990,7 @@
     </message>
     <message>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-        <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
+        <translation type="vanished">有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
     <message>
         <source>These subscriptions are out-of-date: </source>
@@ -1143,6 +1151,14 @@
     <message>
         <source>New</source>
         <translation>新建</translation>
+    </message>
+    <message>
+        <source>Clear Recent Connections</source>
+        <translation>清除最近连接</translation>
+    </message>
+    <message>
+        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
+        <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
 </context>
 <context>
@@ -1431,7 +1447,7 @@
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Use Proxy</source>
@@ -2335,6 +2351,30 @@ But could dramatically damage your server if improperly used.</source>
         <source>Set AllowInsecureCiphers By Default</source>
         <translation>默认设置 AllowInsecureCiphers</translation>
     </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
+        <translation>IPv4 地址，例如 127.0.0.1</translation>
+    </message>
+    <message>
+        <source>Listening IPv4 Address</source>
+        <translation>IPv4 监听地址</translation>
+    </message>
+    <message>
+        <source>Listening IPv6 Address</source>
+        <translation>IPv6 监听地址</translation>
+    </message>
+    <message>
+        <source>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</source>
+        <translation>带方括号的 IPv6 地址，例如 [::1]。留空会禁用 IPv6 入站。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ivp4 address.</source>
+        <translation>无效的 IPv4 监听地址。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ipv6 address.</source>
+        <translation>无效的 IPv6 监听地址。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2954,6 +2994,10 @@ But could dramatically damage your server if improperly used.</source>
     <message>
         <source>Failed to start connection</source>
         <translation>连接启动失败</translation>
+    </message>
+    <message>
+        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>%2 条连接中仅有 %1 条可用，确定要继续吗？</translation>
     </message>
 </context>
 <context>
@@ -3864,7 +3908,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation type="vanished">连接设置</translation>
+        <translation>连接设置</translation>
     </message>
     <message>
         <source>Route Settings</source>
@@ -3889,6 +3933,50 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Update Notify Interval</source>
         <translation>提醒间隔</translation>
+    </message>
+    <message>
+        <source>Import Filters</source>
+        <translation>导入过滤器</translation>
+    </message>
+    <message>
+        <source>Leave blank to exclude nothing</source>
+        <translation>留空不排除</translation>
+    </message>
+    <message>
+        <source>Relation</source>
+        <translation>关系</translation>
+    </message>
+    <message>
+        <source>Leave blank to include all</source>
+        <translation>留空包含全部</translation>
+    </message>
+    <message>
+        <source>Only import when containing...</source>
+        <translation>只导入包含特定...</translation>
+    </message>
+    <message>
+        <source>Only import when NOT containing...</source>
+        <translation>只导入不包含特定...</translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation>DNS 设置</translation>
+    </message>
+    <message>
+        <source>Per-group DNS Settings</source>
+        <translation>分组 DNS 设置</translation>
+    </message>
+    <message>
+        <source>Per-group Connection Settings</source>
+        <translation>分组连接设置</translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation>高级路由设置</translation>
+    </message>
+    <message>
+        <source>Per-group Advanced Route Settings</source>
+        <translation>分组高级路由设置</translation>
     </message>
 </context>
 <context>
