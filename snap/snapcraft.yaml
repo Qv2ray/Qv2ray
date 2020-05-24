@@ -117,6 +117,7 @@ parts:
     plugin: cmake
     source-type: git
     source: https://github.com/Qv2ray/QvPlugin-SSR.git
+    source-branch: dev
     build-packages:
       - build-essential
       - libsodium-dev
@@ -149,6 +150,7 @@ parts:
     plugin: cmake
     source-type: git
     source: https://github.com/Qv2ray/QvPlugin-Trojan.git
+    source-branch: dev
     build-packages:
       - build-essential
       - libboost-system-dev
