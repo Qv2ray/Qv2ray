@@ -116,7 +116,14 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
 void MainWindow::ReloadRecentConnectionList()
 {
     QList<ConnectionGroupPair> newRecentConnections;
-    QList<QAction *> newActions;
+    //
+    for (const auto &_action : recentConnectionsActionList)
+    {
+        tray_RecentConnectionsMenu->removeAction(_action);
+        delete _action;
+    }
+    recentConnectionsActionList.clear();
+    //
     const auto iterateRange = std::min(GlobalConfig.uiConfig.maxJumpListCount, GlobalConfig.uiConfig.recentConnections.count());
     for (auto i = 0; i < iterateRange; i++)
     {
@@ -125,28 +132,23 @@ void MainWindow::ReloadRecentConnectionList()
         {
             continue;
         }
-        auto action = new QAction(tray_RecentConnectionsMenu);
-        action->setText(GetDisplayName(item.connectionId) + " (" + GetDisplayName(item.groupId) + ")");
-        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [=](const ConnectionId &_t1, const QString &, const QString &_t3) {
-            if (action && _t1 == item.connectionId)
-            {
-                action->setText(_t3);
-            }
-        });
-        connect(action, &QAction::triggered, [=]() { //
-            emit ConnectionManager->StartConnection(item);
-        });
-        newActions << action;
+
         newRecentConnections << item;
-    }
-    for (const auto &_action : recentConnectionsActionList)
-    {
-        tray_RecentConnectionsMenu->removeAction(_action);
-        delete _action;
+        auto action = tray_RecentConnectionsMenu->addAction(                               //
+            GetDisplayName(item.connectionId) + " (" + GetDisplayName(item.groupId) + ")", //
+            [=]() {                                                                        //
+                emit ConnectionManager->StartConnection(item);
+            }); //
+
+        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed,           //
+                [=](const ConnectionId &_t1, const QString &, const QString &_t3) { //
+                    if (_t1 == item.connectionId)                                   //
+                        action->setText(_t3);                                       //
+                });                                                                 //
+
+        recentConnectionsActionList << action;
     }
     GlobalConfig.uiConfig.recentConnections = newRecentConnections;
-    tray_RecentConnectionsMenu->addActions(newActions);
-    recentConnectionsActionList = newActions;
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -221,7 +223,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     tray_RootMenu->addSeparator();
     tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
-    tray_RootMenu->addAction(tray_ClearRecentConnectionsAction);
+    tray_RecentConnectionsMenu->addAction(tray_ClearRecentConnectionsAction);
+    tray_RecentConnectionsMenu->addSeparator();
     //
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_Start);
@@ -242,6 +245,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [&]() {
         GlobalConfig.uiConfig.recentConnections.clear();
         ReloadRecentConnectionList();
+        if (!GlobalConfig.uiConfig.quietMode)
+        {
+            hTray.showMessage("Qv2ray", tr("Recent connections' jump list cleared."));
+        }
     });
     connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
@@ -321,6 +328,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     const auto connectionStarted = StartAutoConnectionEntry();
     if (!connectionStarted && connectionListWidget->topLevelItemCount() > 0)
     {
+        ReloadRecentConnectionList();
         // Select the first connection.
         const auto &topLevelItem = connectionListWidget->topLevelItem(0);
         const auto &item = (topLevelItem->childCount() > 0) ? topLevelItem->child(0) : topLevelItem;
@@ -328,7 +336,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         on_connectionListWidget_itemClicked(item, 0);
     }
     //
-    ReloadRecentConnectionList();
     //
     tray_action_ShowHide->setText(!connectionStarted ? tr("Hide") : tr("Show"));
     if (!connectionStarted)

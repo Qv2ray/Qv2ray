@@ -31,7 +31,10 @@ namespace Qv2ray::core::handlers
         //
         inline const QList<ConnectionId> Connections() const
         {
-            return connections.keys();
+            auto k = connections.keys();
+            std::sort(k.begin(), k.end(),
+                      [&](const auto &idA, const auto &idB) { return connections[idA].displayName < connections[idB].displayName; });
+            return k;
         }
         inline const QList<ConnectionId> Connections(const GroupId &groupId) const
         {
@@ -40,7 +43,9 @@ namespace Qv2ray::core::handlers
         }
         inline QList<GroupId> AllGroups() const
         {
-            return groups.keys();
+            auto k = groups.keys();
+            std::sort(k.begin(), k.end(), [&](const auto &idA, const auto &idB) { return groups[idA].displayName < groups[idB].displayName; });
+            return k;
         }
         inline const ConnectionObject GetConnectionMetaObject(const ConnectionId &id) const
         {
