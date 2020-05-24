@@ -401,7 +401,7 @@ int main(int argc, char *argv[])
     try
     {
         // Initialise Connection Handler
-        PluginHost = new QvPluginHost(qApp);
+        PluginHost = new QvPluginHost();
         ConnectionManager = new QvConfigHandler(qApp);
 
 #ifdef Q_OS_LINUX
@@ -425,6 +425,7 @@ int main(int argc, char *argv[])
         signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
         auto rcode = _qApp.exec();
+        delete PluginHost;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
     }
