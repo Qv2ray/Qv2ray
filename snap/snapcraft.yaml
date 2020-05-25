@@ -63,6 +63,7 @@ parts:
       - pkg-config
       - libzxingcore-dev
       - libqnodeeditor-dev
+      - libqt5opengl5-dev
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -73,6 +74,7 @@ parts:
       - libqt5gui5
       - libqt5network5
       - libqt5widgets5
+      - libqt5opengl5
       - libglib2.0-bin
       - libzxingcore1
       - libqnodeeditor
