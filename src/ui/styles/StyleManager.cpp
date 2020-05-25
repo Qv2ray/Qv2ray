@@ -59,8 +59,6 @@ namespace Qv2ray::ui::styles
                 qApp->processEvents();
                 //
                 const auto content = StringFromFile(s.qssPath);
-                QString paletteColor = content.mid(20, 7);
-                qApp->setPalette(QPalette(QColor(paletteColor)));
                 qApp->setStyleSheet(content);
                 return true;
             }
