@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ConnectionStyle.hpp"
-#include "Node.hpp"
-#include "NodeData.hpp"
+#include <nodes/internal/ConnectionStyle.hpp>
+#include <nodes/internal/Node.hpp>
+#include <nodes/internal/NodeData.hpp>
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "ui/messaging/QvMessageBus.hpp"

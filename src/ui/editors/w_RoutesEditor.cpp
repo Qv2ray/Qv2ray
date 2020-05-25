@@ -1,9 +1,9 @@
 #include "w_RoutesEditor.hpp"
 
-#include "FlowScene.hpp"
-#include "FlowView.hpp"
-#include "FlowViewStyle.hpp"
-#include "NodeStyle.hpp"
+#include <nodes/internal/FlowScene.hpp>
+#include <nodes/internal/FlowView.hpp>
+#include <nodes/internal/FlowViewStyle.hpp>
+#include <nodes/internal/NodeStyle.hpp>
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Generation.hpp"
