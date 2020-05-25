@@ -6,10 +6,6 @@ icon: assets/icons/qv2ray.png
 grade: stable
 confinement: strict
 
-package-repositories:
-  - type: apt
-    ppa: ymshenyu/qv2ray-deps
-
 plugs:
   gsettings:
   gtk-3-themes:
@@ -62,8 +58,6 @@ parts:
       - protobuf-compiler-grpc
       - pkg-config
       - libzxingcore-dev
-      - libqnodeeditor-dev
-      - libqt5opengl5-dev
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -74,17 +68,14 @@ parts:
       - libqt5gui5
       - libqt5network5
       - libqt5widgets5
-      - libqt5opengl5
       - libglib2.0-bin
       - libzxingcore1
-      - libqnodeeditor
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -DEMBED_TRANSLATIONS=ON
       - -DFALL_BACK_TO_XDG_OPEN=ON
       - -DQV2RAY_ZXING_PROVIDER=package
-      - -DQV2RAY_QNODEEDITOR_PROVIDER=package
     override-pull: |
       snapcraftctl pull
       build_number=$(cat makespec/BUILDVERSION)
