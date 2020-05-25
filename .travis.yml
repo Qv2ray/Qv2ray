@@ -19,7 +19,7 @@ script:
   - sudo apt-get autoremove lxd --purge
   - sudo /snap/bin/lxd waitready
   - sudo /snap/bin/lxd init --auto
-  - sudo snapcraft --use-lxd
+  - sudo snapcraft --use-lxd --enable-experimental-package-repositories
 
 after_failure:
   - sudo journalctl -u snapd
