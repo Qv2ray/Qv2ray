@@ -979,6 +979,10 @@
         <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Recent connections&apos; jump list cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OutboundEditor</name>

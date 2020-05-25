@@ -1160,6 +1160,10 @@
         <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
         <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
+    <message>
+        <source>Recent connections&apos; jump list cleared.</source>
+        <translation>已清空最近连接列表。</translation>
+    </message>
 </context>
 <context>
     <name>OutboundEditor</name>
