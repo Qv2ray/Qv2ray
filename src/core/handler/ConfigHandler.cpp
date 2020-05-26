@@ -3,9 +3,10 @@
 #include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/connection/Serialization.hpp"
+#include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
-namespace Qv2ray::core::handlers
+namespace Qv2ray::core::handler
 {
     QvConfigHandler::QvConfigHandler(QObject *parent) : QObject(parent)
     {
@@ -312,8 +313,11 @@ namespace Qv2ray::core::handlers
     {
         CheckConnectionExistanceEx(identifier.connectionId, false);
         connections[identifier.connectionId].lastConnected = system_clock::to_time_t(system_clock::now());
+        //
         CONFIGROOT root = GetConnectionRoot(identifier.connectionId);
-        auto errMsg = kernelHandler->StartConnection(identifier, root);
+        const auto fullConfig = RouteManager->GenerateFinalConfig(root, groups[identifier.groupId].routeConfigId);
+        //
+        auto errMsg = kernelHandler->StartConnection(identifier, fullConfig);
         if (errMsg)
         {
             QvMessageBoxWarn(nullptr, tr("Failed to start connection"), *errMsg);
@@ -325,8 +329,8 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::RestartConnection() // const ConnectionId &id
     {
-        kernelHandler->StopConnection();
-        kernelHandler->StartConnection(GlobalConfig.lastConnectedId, GetConnectionRoot(GlobalConfig.lastConnectedId.connectionId));
+        StopConnection();
+        StartConnection(GlobalConfig.lastConnectedId);
     }
 
     void QvConfigHandler::StopConnection() // const ConnectionId &id
@@ -445,14 +449,14 @@ namespace Qv2ray::core::handlers
         return true;
     }
 
-    bool QvConfigHandler::SetSubscriptionIncludeRelation(const GroupId &id, const QString &Relation)
+    bool QvConfigHandler::SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
         CheckGroupExistanceEx(id, false);
         if (!groups.contains(id))
         {
             return false;
         }
-        groups[id].subscriptionOption.IncludeRelation = Relation;
+        groups[id].subscriptionOption.IncludeRelation = relation;
 
         return true;
     }
@@ -477,14 +481,14 @@ namespace Qv2ray::core::handlers
         return true;
     }
 
-    bool QvConfigHandler::SetSubscriptionExcludeRelation(const GroupId &id, const QString &Relation)
+    bool QvConfigHandler::SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
         CheckGroupExistanceEx(id, false);
         if (!groups.contains(id))
         {
             return false;
         }
-        groups[id].subscriptionOption.ExcludeRelation = Relation;
+        groups[id].subscriptionOption.ExcludeRelation = relation;
 
         return true;
     }
@@ -563,7 +567,7 @@ namespace Qv2ray::core::handlers
             int i;
             bool includeconfig;
             i = 0;
-            if (groups[id].subscriptionOption.IncludeRelation == "And")
+            if (groups[id].subscriptionOption.IncludeRelation == RELATION_AND)
             {
                 includeconfig = true;
                 for (const auto &key : groups[id].subscriptionOption.IncludeKeywords)
@@ -603,7 +607,7 @@ namespace Qv2ray::core::handlers
             if (includeconfig == true)
             {
                 i = 0;
-                if (groups[id].subscriptionOption.ExcludeRelation == "Or")
+                if (groups[id].subscriptionOption.ExcludeRelation == RELATION_OR)
                 {
                     includeconfig = true;
                     for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
@@ -786,7 +790,7 @@ namespace Qv2ray::core::handlers
         return { newId, groupId };
     }
 
-} // namespace Qv2ray::core::handlers
+} // namespace Qv2ray::core::handler
 
 #undef CheckIdExistance
 #undef CheckGroupExistanceEx

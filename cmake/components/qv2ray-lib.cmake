@@ -93,7 +93,7 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/core/handler/KernelInstanceHandler.cpp
     ${CMAKE_SOURCE_DIR}/src/core/handler/KernelInstanceHandler.hpp
     ${CMAKE_SOURCE_DIR}/src/core/handler/RouteHandler.cpp
-    ${CMAKE_SOURCE_DIR}/src/core/handler/RouteHandler.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/handler/RouteHandler.hpp
     #
     ${CMAKE_SOURCE_DIR}/src/core/kernel/APIBackend.cpp
     ${CMAKE_SOURCE_DIR}/src/core/kernel/APIBackend.hpp

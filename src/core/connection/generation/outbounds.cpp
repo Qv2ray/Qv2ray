@@ -6,7 +6,7 @@ namespace Qv2ray::core::connection::generation::outbounds
     {
         OUTBOUNDSETTING root;
         JADD(domainStrategy, redirect, userLevel)
-        RROOT
+        return root;
     }
     OUTBOUNDSETTING GenerateBlackHoleOUT(bool useHTTP)
     {
@@ -14,22 +14,22 @@ namespace Qv2ray::core::connection::generation::outbounds
         QJsonObject resp;
         resp.insert("type", useHTTP ? "http" : "none");
         root.insert("response", resp);
-        RROOT
+        return root;
     }
 
-    OUTBOUNDSETTING GenerateShadowSocksOUT(const QList<ShadowSocksServerObject> &servers)
+    OUTBOUNDSETTING GenerateShadowSocksOUT(const QList<ShadowSocksServerObject> &_servers)
     {
         OUTBOUNDSETTING root;
         QJsonArray x;
 
-        for (auto server : servers)
+        for (const auto &server : _servers)
         {
-            x.append(GenerateShadowSocksServerOUT(server.email, server.address, server.port, server.method, server.password, server.ota,
-                                                  server.level));
+            x.append(GenerateShadowSocksServerOUT(server.email, server.address, server.port, server.method, //
+                                                  server.password, server.ota, server.level));
         }
 
         root.insert("servers", x);
-        RROOT
+        return root;
     }
 
     OUTBOUNDSETTING GenerateShadowSocksServerOUT(const QString &email, const QString &address, int port, const QString &method,
@@ -37,32 +37,20 @@ namespace Qv2ray::core::connection::generation::outbounds
     {
         OUTBOUNDSETTING root;
         JADD(email, address, port, method, password, level, ota)
-        RROOT
+        return root;
     }
 
-    OUTBOUNDSETTING GenerateHTTPSOCKSOut(const QString &address, int port, bool useAuth, const QString &username, const QString &password)
+    OUTBOUNDSETTING GenerateHTTPSOCKSOut(const QString &addr, int port, bool useAuth, const QString &username, const QString &password)
     {
         OUTBOUNDSETTING root;
-        QJsonArray servers;
+        QJsonIO::SetValue(root, addr, "servers", 0, "address");
+        QJsonIO::SetValue(root, port, "servers", 0, "port");
+        if (useAuth)
         {
-            QJsonObject oneServer;
-            oneServer["address"] = address;
-            oneServer["port"] = port;
-
-            if (useAuth)
-            {
-                QJsonArray users;
-                QJsonObject oneUser;
-                oneUser["user"] = username;
-                oneUser["pass"] = password;
-                users.push_back(oneUser);
-                oneServer["users"] = users;
-            }
-
-            servers.push_back(oneServer);
+            QJsonIO::SetValue(root, username, "servers", 0, "users", 0, "user");
+            QJsonIO::SetValue(root, password, "servers", 0, "users", 0, "pass");
         }
-        JADD(servers)
-        RROOT
+        return root;
     }
 
     OUTBOUND GenerateOutboundEntry(const QString &protocol, const OUTBOUNDSETTING &settings, const QJsonObject &streamSettings,
@@ -70,6 +58,6 @@ namespace Qv2ray::core::connection::generation::outbounds
     {
         OUTBOUND root;
         JADD(sendThrough, protocol, settings, tag, streamSettings, mux)
-        RROOT
+        return root;
     }
 } // namespace Qv2ray::core::connection::generation::outbounds

@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>998</width>
-    <height>656</height>
+    <width>930</width>
+    <height>630</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>655</width>
-    <height>440</height>
+    <width>930</width>
+    <height>630</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -161,7 +161,7 @@
    <item row="1" column="1">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -353,12 +353,12 @@
               <widget class="QComboBox" name="IncludeRelation">
                <item>
                 <property name="text">
-                 <string notr="true">Or</string>
+                 <string notr="true">And</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string notr="true">And</string>
+                 <string notr="true">Or</string>
                 </property>
                </item>
               </widget>
@@ -408,26 +408,6 @@
         <widget class="QGroupBox" name="dnsSettingsGB">
          <property name="title">
           <string>Per-group DNS Settings</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_4">
-      <attribute name="title">
-       <string>Connection Settings</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_7">
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="connectionSettingsGB">
-         <property name="title">
-          <string>Per-group Connection Settings</string>
          </property>
          <property name="checkable">
           <bool>true</bool>

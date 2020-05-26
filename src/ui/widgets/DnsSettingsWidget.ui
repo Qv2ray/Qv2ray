@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>674</width>
-    <height>483</height>
+    <width>755</width>
+    <height>543</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -128,15 +128,12 @@
            </layout>
           </item>
           <item>
-           <widget class="QGroupBox" name="detailsSetingsGB">
+           <widget class="QGroupBox" name="detailsSettingsGB">
             <property name="title">
              <string>Detail Settings</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>

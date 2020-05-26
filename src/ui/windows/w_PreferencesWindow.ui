@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabWidgetPage1">
       <attribute name="title">
@@ -1425,7 +1425,7 @@ Custom DNS Settings</string>
       <attribute name="title">
        <string>Connection Settings</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_14">
+      <layout class="QGridLayout" name="gridLayout" rowstretch="0,1" columnstretch="2,1" columnminimumwidth="0,1">
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_10">
          <item>
@@ -1468,6 +1468,23 @@ Custom DNS Settings</string>
               </property>
              </widget>
             </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_76">
+              <property name="text">
+               <string>Bypass Bittorrent Protocol</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="bypassBTCb">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_75">
               <property name="text">
@@ -1502,42 +1519,12 @@ Custom DNS Settings</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_21">
-              <property name="text">
-               <string>Custom DNS List</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QPlainTextEdit" name="DNSListTxt"/>
-            </item>
-            <item row="2" column="1">
-             <widget class="QCheckBox" name="bypassBTCb">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_76">
-              <property name="text">
-               <string>Bypass Bittorrent Protocol</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
            </layout>
           </widget>
          </item>
         </layout>
        </item>
-       <item row="0" column="1">
+       <item row="0" column="1" rowspan="2">
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
           <widget class="QGroupBox" name="fpGroupBox">
@@ -1668,6 +1655,9 @@ Custom DNS Settings</string>
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QGridLayout" name="dnsSettingsLayout"/>
        </item>
       </layout>
      </widget>
@@ -2079,7 +2069,6 @@ Custom DNS Settings</string>
   <tabstop>httpAuthPasswordTxt</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
-  <tabstop>DNSListTxt</tabstop>
   <tabstop>fpGroupBox</tabstop>
   <tabstop>fpTypeCombo</tabstop>
   <tabstop>fpAddressTx</tabstop>

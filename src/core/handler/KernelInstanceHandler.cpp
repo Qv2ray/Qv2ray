@@ -4,7 +4,7 @@
 #include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
 
-namespace Qv2ray::core::handlers
+namespace Qv2ray::core::handler
 {
 #define isConnected (vCoreInstance->KernelStarted || !activeKernels.empty())
     KernelInstanceHandler::KernelInstanceHandler(QObject *parent) : QObject(parent)
@@ -33,15 +33,12 @@ namespace Qv2ray::core::handlers
 
     KernelInstanceHandler::~KernelInstanceHandler()
     {
+        StopConnection();
     }
 
-    std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionGroupPair &id, const CONFIGROOT &root)
+    std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionGroupPair &id, CONFIGROOT fullConfig)
     {
         StopConnection();
-        
-        this->root = root;
-        bool isComplex = IsComplexConfig(root);
-        auto fullConfig = GenerateFinalConfig(root);
         inboundPorts = GetConfigInboundPorts(fullConfig);
         //
         // Check inbound port allocation issue.
@@ -72,16 +69,13 @@ namespace Qv2ray::core::handlers
         using k = Qv2rayPlugin::QvPluginKernel;
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
-            if (isComplex)
-            {
-                LOG(MODULE_CONNECTION, "WARNING: Complex connection config support of this feature has not been tested.")
-            }
             QList<std::tuple<QString, QString, QString>> pluginProcessedOutboundList;
             //
             // Process outbounds.
+            //
             {
                 OUTBOUNDS processedOutbounds;
-                auto _PluginPortAlloc = GlobalConfig.pluginConfig.portAllocationStart;
+                auto pluginPort = GlobalConfig.pluginConfig.portAllocationStart;
                 //
                 /// Key = Original Outbound Tag, Value = QStringList containing new outbound lists.
                 for (const auto &outbound_v : fullConfig["outbounds"].toArray())
@@ -94,11 +88,12 @@ namespace Qv2ray::core::handlers
                         // Normal outbound, or the one without a plugin supported.
                         // Marked as processed.
                         processedOutbounds.push_back(outbound);
+                        LOG(MODULE_CONNECTION, "Outbound protocol " + outProtocol + " is not a registered plugin outbound.")
                         continue;
                     }
                     {
+                        LOG(MODULE_CONNECTION, "Creating kernel plugin instance for protocol" + outProtocol)
                         auto kernel = PluginHost->CreatePluginKernel(outboundKernelMap[outProtocol]);
-                        LOG(MODULE_CONNECTION, "Get kernel plugin: " + outProtocol)
                         // New object does not need disconnect?
                         // disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                         activeKernels[outProtocol] = std::move(kernel);
@@ -106,23 +101,24 @@ namespace Qv2ray::core::handlers
                     //
                     //
                     QMap<QvPluginKernel::KernelSetting, QVariant> _inboundSettings;
-                    const auto &originalOutboundTag = outbound["tag"].toString();
+                    const auto originalOutboundTag = outbound["tag"].toString();
                     for (const auto &[inProtocol, inPort, inTag] : inboundInfo)
                     {
                         // Ignore unsupported protocol.
                         if (!QStringList{ "http", "socks" }.contains(inProtocol))
+                        {
+                            LOG(MODULE_CONNECTION, "Inbound protocol: " + inProtocol + " is not a valid protocol for plugins.")
                             continue;
+                        }
                         //
                         _inboundSettings[k::KERNEL_HTTP_ENABLED] = _inboundSettings[k::KERNEL_HTTP_ENABLED].toBool() || inProtocol == "http";
                         _inboundSettings[k::KERNEL_SOCKS_ENABLED] = _inboundSettings[k::KERNEL_SOCKS_ENABLED].toBool() || inProtocol == "socks";
+                        _inboundSettings.insert(inProtocol.toLower() == "http" ? k::KERNEL_HTTP_PORT : k::KERNEL_SOCKS_PORT, pluginPort);
+                        LOG(MODULE_VCORE, "V2rayIntegration: " + QSTRN(pluginPort) + "=" + inProtocol + "(" + inTag + ") --> " + outProtocol)
                         //
-                        _inboundSettings.insert(inProtocol.toLower() == "http" ? k::KERNEL_HTTP_PORT : k::KERNEL_SOCKS_PORT, _PluginPortAlloc);
                         //
-                        LOG(MODULE_VCORE,
-                            "V2ray Integration: " + QSTRN(_PluginPortAlloc) + " = " + inProtocol + "(" + inTag + ") --> " + outProtocol)
-                        //
-                        const auto freedomTag = "plugin_" + inTag + "_" + inProtocol + "-" + QSTRN(inPort) + "_" + QSTRN(_PluginPortAlloc);
-                        const auto pluginOutSettings = GenerateHTTPSOCKSOut("127.0.0.1", _PluginPortAlloc, false, "", "");
+                        const auto freedomTag = "plugin_" + inTag + "_" + inProtocol + "-" + QSTRN(inPort) + "_" + QSTRN(pluginPort);
+                        const auto pluginOutSettings = GenerateHTTPSOCKSOut("127.0.0.1", pluginPort, false, "", "");
                         const auto direct = GenerateOutboundEntry(inProtocol, pluginOutSettings, {}, {}, "0.0.0.0", freedomTag);
                         //
                         // Add the integration outbound to the list.
@@ -130,7 +126,7 @@ namespace Qv2ray::core::handlers
 
                         LOG(MODULE_CONNECTION, "Appended originalOutboundTag, inTag, freedomTag into processedOutboundList")
                         pluginProcessedOutboundList.append({ originalOutboundTag, inTag, freedomTag });
-                        _PluginPortAlloc++;
+                        pluginPort++;
                     }
                     _inboundSettings[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
                     _inboundSettings[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
@@ -335,4 +331,4 @@ namespace Qv2ray::core::handlers
             emit OnStatsDataAvailable(currentId, uploadSpeed, downloadSpeed);
         }
     }
-} // namespace Qv2ray::core::handlers
+} // namespace Qv2ray::core::handler

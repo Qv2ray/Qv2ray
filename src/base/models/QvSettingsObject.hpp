@@ -4,24 +4,10 @@
 
 #include <chrono>
 
-const int QV2RAY_CONFIG_VERSION = 13;
+const int QV2RAY_CONFIG_VERSION = 14;
 
 namespace Qv2ray::base::config
 {
-    struct Qv2rayConfig_ForwardProxy
-    {
-        bool enableForwardProxy;
-        QString type;
-        QString serverAddress;
-        int port;
-        bool useAuth;
-        QString username;
-        QString password;
-        Qv2rayConfig_ForwardProxy()
-            : enableForwardProxy(false), type("http"), serverAddress("127.0.0.1"), port(8008), useAuth(false), username(), password(){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_ForwardProxy, F(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
-    };
-
     struct Qv2rayConfig_UI
     {
         QString theme;
@@ -37,36 +23,6 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfig_UI,
                             F(theme, language, quietMode, useDarkTheme, useDarkTrayIcon, maximumLogLines, maxJumpListCount, recentConnections))
     };
-
-    struct Qv2rayConfig_Routing
-    {
-        struct Qv2rayRouteConfig_Impl
-        {
-            QList<QString> direct;
-            QList<QString> block;
-            QList<QString> proxy;
-            Qv2rayRouteConfig_Impl(){};
-            friend bool operator==(const Qv2rayRouteConfig_Impl &left, const Qv2rayRouteConfig_Impl &right)
-            {
-                return left.direct == right.direct && left.block == right.block && left.proxy == right.proxy;
-            }
-            Qv2rayRouteConfig_Impl(const QList<QString> &_direct, const QList<QString> &_block, const QList<QString> &_proxy)
-                : direct(_direct), block(_block), proxy(_proxy){};
-            JSONSTRUCT_REGISTER(Qv2rayRouteConfig_Impl, F(proxy, block, direct))
-        };
-        QString domainStrategy;
-        Qv2rayRouteConfig_Impl domains;
-        Qv2rayRouteConfig_Impl ips;
-        friend bool operator==(const Qv2rayConfig_Routing &left, const Qv2rayConfig_Routing &right)
-        {
-            return left.domainStrategy == right.domainStrategy && left.domains == right.domains && left.ips == right.ips;
-        }
-        Qv2rayConfig_Routing(){};
-        Qv2rayConfig_Routing(const Qv2rayRouteConfig_Impl &_domains, const Qv2rayRouteConfig_Impl &_ips, const QString &ds)
-            : domainStrategy(ds), domains(_domains), ips(_ips){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Routing, F(domainStrategy, domains, ips))
-    };
-
     struct Qv2rayConfig_Plugin
     {
         QMap<QString, bool> pluginStates;
@@ -76,22 +32,6 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfig_Plugin, F(pluginStates, v2rayIntegration, portAllocationStart))
     };
 
-    struct Qv2rayConfig_Connection
-    {
-        bool bypassCN;
-        bool bypassBT;
-        bool enableProxy;
-        bool v2rayFreedomDNS;
-        bool withLocalDNS;
-        Qv2rayConfig_Routing routeConfig;
-        QList<QString> dnsList;
-        Qv2rayConfig_ForwardProxy forwardProxyConfig;
-        Qv2rayConfig_Connection()
-            : bypassCN(true), bypassBT(false), enableProxy(true), v2rayFreedomDNS(false), withLocalDNS(false), routeConfig(),
-              dnsList(QStringList{ "8.8.4.4", "1.1.1.1" }){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Connection,
-                            F(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
-    };
     struct Qv2rayConfig_Kernel
     {
         bool enableAPI;
@@ -214,10 +154,10 @@ namespace Qv2ray::base::config
         Qv2rayConfig_Kernel kernelConfig;
         Qv2rayConfig_Update updateConfig;
         Qv2rayConfig_Network networkConfig;
-        Qv2rayConfig_Inbounds inboundConfig;
-        Qv2rayConfig_Outbounds outboundConfig;
+        QvConfig_Inbounds inboundConfig;
+        QvConfig_Outbounds outboundConfig;
         Qv2rayConfig_Advanced advancedConfig;
-        Qv2rayConfig_Connection connectionConfig;
+        GroupRoutingConfig defaultRouteConfig;
 
         Qv2rayConfigObject()
             : config_version(QV2RAY_CONFIG_VERSION), //
@@ -233,11 +173,11 @@ namespace Qv2ray::base::config
               inboundConfig(),                       //
               outboundConfig(),                      //
               advancedConfig(),                      //
-              connectionConfig(){};
+              defaultRouteConfig(){};
 
         JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                          //
                             F(config_version, tProxySupport, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
                             F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig),        //
-                            F(inboundConfig, outboundConfig, connectionConfig))
+                            F(inboundConfig, outboundConfig, defaultRouteConfig))
     };
 } // namespace Qv2ray::base::config

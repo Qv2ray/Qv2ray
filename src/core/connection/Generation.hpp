@@ -7,14 +7,13 @@ namespace Qv2ray::core::connection::generation
 {
     namespace routing
     {
-        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, const QString &defaultOutboundTag);
         ROUTERULE GenerateSingleRouteRule(const QString &str, bool isDomain, const QString &outboundTag, const QString &type = "field");
         ROUTERULE GenerateSingleRouteRule(const QStringList &list, bool isDomain, const QString &outboundTag, const QString &type = "field");
+        QJsonObject GenerateDNS(bool withLocalhost, const QvConfig_DNS &dnsServer);
     } // namespace routing
 
     namespace misc
     {
-        QJsonObject GenerateDNS(bool withLocalhost, const QStringList &dnsServers);
         QJsonObject GenerateAPIEntry(const QString &tag, bool withHandler = true, bool withLogger = true, bool withStats = true);
     } // namespace misc
 
@@ -43,17 +42,17 @@ namespace Qv2ray::core::connection::generation
                                        const QString &tag = OUTBOUND_TAG_PROXY);
     } // namespace outbounds
 
-    namespace final
-    {
-        CONFIGROOT GenerateFinalConfig(CONFIGROOT root);
-    }
+    // namespace final
+    // {
+    //     CONFIGROOT GenerateFinalConfig(CONFIGROOT root);
+    // }
 
     namespace filters
     {
         // mark all outbound
         void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root);
         void DNSInterceptFilter(CONFIGROOT &root);
-        void bypassBTFilter(CONFIGROOT &root);
+        void BypassBTFilter(CONFIGROOT &root);
     } // namespace filters
 
 } // namespace Qv2ray::core::connection::generation
@@ -64,6 +63,5 @@ using namespace Qv2ray::core::connection::generation;
 using namespace Qv2ray::core::connection::generation::filters;
 using namespace Qv2ray::core::connection::generation::inbounds;
 using namespace Qv2ray::core::connection::generation::outbounds;
-using namespace Qv2ray::core::connection::generation::final;
 using namespace Qv2ray::core::connection::generation::routing;
 using namespace Qv2ray::core::connection::generation::misc;

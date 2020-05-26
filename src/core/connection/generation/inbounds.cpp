@@ -6,7 +6,7 @@ namespace Qv2ray::core::connection::generation::inbounds
     {
         INBOUNDSETTING root;
         JADD(address, port, network, timeout, followRedirect, userLevel)
-        RROOT
+        return root;
     }
 
     INBOUNDSETTING GenerateHTTPIN(const QList<AccountObject> &_accounts, int timeout, bool allowTransparent, int userLevel)
@@ -25,7 +25,7 @@ namespace Qv2ray::core::connection::generation::inbounds
             JADD(accounts)
 
         JADD(timeout, allowTransparent, userLevel)
-        RROOT
+        return root;
     }
 
     INBOUNDSETTING GenerateSocksIN(const QString &auth, const QList<AccountObject> &_accounts, bool udp, const QString &ip, int userLevel)
@@ -50,7 +50,7 @@ namespace Qv2ray::core::connection::generation::inbounds
         {
             JADD(auth, userLevel)
         }
-        RROOT
+        return root;
     }
 
     INBOUND GenerateInboundEntry(const QString &listen, int port, const QString &protocol, const INBOUNDSETTING &settings, const QString &tag,
@@ -60,6 +60,6 @@ namespace Qv2ray::core::connection::generation::inbounds
         DEBUG(MODULE_CONNECTION, "Allocation is not used here, Not Implemented")
         Q_UNUSED(allocate)
         JADD(listen, port, protocol, settings, tag, sniffing)
-        RROOT
+        return root;
     }
 } // namespace Qv2ray::core::connection::generation::inbounds

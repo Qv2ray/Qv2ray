@@ -5,7 +5,7 @@
 #include <QObject>
 #include <optional>
 
-namespace Qv2ray::core::handlers
+namespace Qv2ray::core::handler
 {
     class KernelInstanceHandler : public QObject
     {
@@ -14,7 +14,7 @@ namespace Qv2ray::core::handlers
         explicit KernelInstanceHandler(QObject *parent = nullptr);
         ~KernelInstanceHandler();
 
-        std::optional<QString> StartConnection(const ConnectionGroupPair &id, const CONFIGROOT &root);
+        std::optional<QString> StartConnection(const ConnectionGroupPair &id, CONFIGROOT root);
         void StopConnection();
         const ConnectionGroupPair CurrentConnection() const
         {
@@ -42,9 +42,8 @@ namespace Qv2ray::core::handlers
         // Since QMap does not support std::unique_ptr, we use std::map<>
         std::map<QString, std::unique_ptr<QvPluginKernel>> activeKernels;
         QMap<QString, int> inboundPorts;
-        CONFIGROOT root;
         V2rayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
     };
     inline const KernelInstanceHandler *KernelInstance;
-} // namespace Qv2ray::core::handlers
+} // namespace Qv2ray::core::handler

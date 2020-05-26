@@ -29,15 +29,19 @@ class DnsSettingsWidget
 
     void on_removeServerBtn_clicked();
 
-    void on_detailsSetingsGB_clicked(bool checked);
-
     void on_serversListbox_currentRowChanged(int currentRow);
+
+    void on_serverAddressTxt_textEdited(const QString &arg1);
+
+    void on_serverPortSB_valueChanged(int arg1);
+
+    void on_detailsSettingsGB_clicked();
 
   private:
     void ShowCurrentDnsServerDetails();
     QvMessageBusSlotDecl;
     DNSObject dns;
-    int currentServerIndex;
+    // int currentServerIndex;
     //
     Qv2ray::ui::widgets::AutoCompleteTextEdit *domainListTxt;
     Qv2ray::ui::widgets::AutoCompleteTextEdit *ipListTxt;

@@ -1,4 +1,5 @@
 #pragma once
+#include "QvCoreSettings.hpp"
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <QHash>
@@ -45,11 +46,11 @@ namespace Qv2ray::base
     class __QvRoute;
     typedef IDType<__QvGroup> GroupId;
     typedef IDType<__QvConnection> ConnectionId;
-    typedef IDType<__QvRoute> RoutingId;
+    typedef IDType<__QvRoute> GroupRoutingId;
     //
     inline const static auto NullConnectionId = ConnectionId("null");
     inline const static auto NullGroupId = GroupId("null");
-    inline const static auto NullRoutingId = RoutingId("null");
+    inline const static auto NullRoutingId = GroupRoutingId("null");
     //
     class ConnectionGroupPair
     {
@@ -89,26 +90,63 @@ namespace Qv2ray::base
         JSONSTRUCT_REGISTER(__Qv2rayConfigObjectBase, F(displayName, creationDate, lastUpdatedDate))
     };
 
+    struct GroupRoutingConfig : __Qv2rayConfigObjectBase
+    {
+        bool overrideDNS;
+        config::QvConfig_DNS dnsConfig;
+        //
+        bool overrideRoute;
+        config::QvConfig_Route routeConfig;
+        //
+        bool overrideConnectionConfig;
+        config::QvConfig_Connection connectionConfig;
+        //
+        bool overrideForwardProxyConfig;
+        config::QvConfig_ForwardProxy forwardProxyConfig;
+        //
+        GroupRoutingConfig()
+            : overrideDNS(false),               //
+              overrideRoute(false),             //
+              overrideConnectionConfig(false),  //
+              overrideForwardProxyConfig(false) //
+              {};
+        JSONSTRUCT_REGISTER(GroupRoutingConfig,                            //
+                            F(overrideRoute, routeConfig),                 //
+                            F(overrideDNS, dnsConfig),                     //
+                            F(overrideConnectionConfig, connectionConfig), //
+                            F(overrideForwardProxyConfig, forwardProxyConfig))
+    };
+
+    enum SubscriptionFilterRelation
+    {
+        RELATION_AND = 0,
+        RELATION_OR = 1
+    };
+
     struct SubscriptionConfigObject
     {
         QString address;
         float updateInterval;
-        QString IncludeRelation;
-        QString ExcludeRelation;
+        SubscriptionFilterRelation IncludeRelation;
+        SubscriptionFilterRelation ExcludeRelation;
         QList<QString> IncludeKeywords;
         QList<QString> ExcludeKeywords;
-        SubscriptionConfigObject() : address(""), updateInterval(10), IncludeRelation("Or"),ExcludeRelation("And"),IncludeKeywords(QStringList{}),ExcludeKeywords(QStringList{}) {};
-        JSONSTRUCT_REGISTER(SubscriptionConfigObject, F(updateInterval, address,IncludeRelation,ExcludeRelation,IncludeKeywords,ExcludeKeywords))
+        SubscriptionConfigObject()
+            : address(""), updateInterval(10),                             //
+              IncludeRelation(RELATION_OR), ExcludeRelation(RELATION_AND), //
+              IncludeKeywords(), ExcludeKeywords(){};
+        JSONSTRUCT_REGISTER(SubscriptionConfigObject,
+                            F(updateInterval, address, IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
     };
 
     struct GroupObject : __Qv2rayConfigObjectBase
     {
         QList<ConnectionId> connections;
         bool isSubscription;
-        RoutingId routingId;
+        GroupRoutingId routeConfigId;
         SubscriptionConfigObject subscriptionOption;
         GroupObject() : __Qv2rayConfigObjectBase(), connections(), isSubscription(false), subscriptionOption(){};
-        JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routingId, subscriptionOption), B(__Qv2rayConfigObjectBase))
+        JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
     struct ConnectionObject : __Qv2rayConfigObjectBase
@@ -139,4 +177,4 @@ using namespace Qv2ray::base;
 Q_DECLARE_METATYPE(ConnectionGroupPair);
 Q_DECLARE_METATYPE(ConnectionId);
 Q_DECLARE_METATYPE(GroupId);
-Q_DECLARE_METATYPE(RoutingId);
+Q_DECLARE_METATYPE(GroupRoutingId);

@@ -3,6 +3,7 @@
 #include "common/QvHelpers.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "ui/widgets/DnsSettingsWidget.hpp"
 #include "ui/widgets/RouteSettingsMatrix.hpp"
@@ -106,7 +107,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             auto filePath = d.getSaveFileName(this, GetDisplayName(id));
             if (filePath.isEmpty())
                 return;
-            auto root = GenerateFinalConfig(ConnectionManager->GetConnectionRoot(id));
+            auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId });
             //
             // Apply export filter
             ExportConnectionFilter(root);
@@ -129,7 +130,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             for (const auto &connId : list)
             {
                 ConnectionId id(connId);
-                auto root = GenerateFinalConfig(ConnectionManager->GetConnectionRoot(id));
+                auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId });
                 //
                 // Apply export filter
                 ExportConnectionFilter(root);
@@ -351,21 +352,21 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
             ExcludeKeywords->appendPlainText(str);
         }
     }
-    IncludeRelation->setCurrentText(groupMetaObject.subscriptionOption.IncludeRelation);
-    ExcludeRelation->setCurrentText(groupMetaObject.subscriptionOption.ExcludeRelation);
+    IncludeRelation->setCurrentIndex(groupMetaObject.subscriptionOption.IncludeRelation);
+    ExcludeRelation->setCurrentIndex(groupMetaObject.subscriptionOption.ExcludeRelation);
 
     //
     reloadConnectionsList(currentGroupId);
 }
 
-void GroupManager::on_IncludeRelation_currentTextChanged(const QString &arg1)
+void GroupManager::on_IncludeRelation_currentTextChanged(const QString &)
 {
-    ConnectionManager->SetSubscriptionIncludeRelation(currentGroupId, arg1);
+    ConnectionManager->SetSubscriptionIncludeRelation(currentGroupId, (SubscriptionFilterRelation) IncludeRelation->currentIndex());
 }
 
-void GroupManager::on_ExcludeRelation_currentTextChanged(const QString &arg1)
+void GroupManager::on_ExcludeRelation_currentTextChanged(const QString &)
 {
-    ConnectionManager->SetSubscriptionExcludeRelation(currentGroupId, arg1);
+    ConnectionManager->SetSubscriptionExcludeRelation(currentGroupId, (SubscriptionFilterRelation) ExcludeRelation->currentIndex());
 }
 
 void GroupManager::on_IncludeKeywords_textChanged()
@@ -432,6 +433,7 @@ void GroupManager::on_exportSelectedConnBtn_clicked()
 void GroupManager::ExportConnectionFilter(CONFIGROOT &root)
 {
     root.remove("api");
+    root.remove("stats");
     QJsonArray inbounds = root["inbounds"].toArray();
     for (int i = root["inbounds"].toArray().count() - 1; i >= 0; i--)
     {

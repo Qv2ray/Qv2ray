@@ -11,6 +11,7 @@
 #include "core/settings/SettingsBackend.hpp"
 #include "src/plugin-interface/QvPluginInterface.hpp"
 #include "ui/styles/StyleManager.hpp"
+#include "ui/widgets/DnsSettingsWidget.hpp"
 #include "ui/widgets/RouteSettingsMatrix.hpp"
 
 #include <QColorDialog>
@@ -19,9 +20,9 @@
 #include <QFileDialog>
 #include <QHostInfo>
 
-using Qv2ray::common::validation::IsValidIPAddress;
 using Qv2ray::common::validation::IsIPv4Address;
 using Qv2ray::common::validation::IsIPv6Address;
+using Qv2ray::common::validation::IsValidIPAddress;
 
 #define LOADINGCHECK                                                                                                                            \
     if (!finishedLoading)                                                                                                                       \
@@ -130,7 +131,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tProxySettings.mode);
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
     dnsIntercept->setChecked(CurrentConfig.inboundConfig.tProxySettings.dnsIntercept);
-    DnsFreedomCb->setChecked(CurrentConfig.connectionConfig.v2rayFreedomDNS);
+    DnsFreedomCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS);
     //
     //
     vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
@@ -139,11 +140,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     statsPortBox->setValue(CurrentConfig.kernelConfig.statsPort);
     //
     //
-    bypassCNCb->setChecked(CurrentConfig.connectionConfig.bypassCN);
-    bypassBTCb->setChecked(CurrentConfig.connectionConfig.bypassBT);
-    proxyDefaultCb->setChecked(CurrentConfig.connectionConfig.enableProxy);
+    bypassCNCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassCN);
+    bypassBTCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT);
+    proxyDefaultCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
     //
-    localDNSCb->setChecked(CurrentConfig.connectionConfig.withLocalDNS);
+    localDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS);
     //
     pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
     pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
@@ -170,15 +171,9 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     setAllowInsecureCiphersCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecureCiphers);
     setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
     //
-    DNSListTxt->clear();
-    for (const auto &dnsStr : CurrentConfig.connectionConfig.dnsList)
-    {
-        auto str = dnsStr.trimmed();
-        if (!str.isEmpty())
-        {
-            DNSListTxt->appendPlainText(str);
-        }
-    }
+    dnsSettingsWidget = new DnsSettingsWidget(this);
+    dnsSettingsWidget->SetDNSObject(CurrentConfig.defaultRouteConfig.dnsConfig);
+    dnsSettingsLayout->addWidget(dnsSettingsWidget);
 
 #ifdef DISABLE_AUTO_UPDATE
     updateSettingsGroupBox->setEnabled(false);
@@ -211,18 +206,18 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
         autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
     }
     // FP Settings
-    if (CurrentConfig.connectionConfig.forwardProxyConfig.type.trimmed().isEmpty())
+    if (CurrentConfig.defaultRouteConfig.forwardProxyConfig.type.trimmed().isEmpty())
     {
-        CurrentConfig.connectionConfig.forwardProxyConfig.type = "http";
+        CurrentConfig.defaultRouteConfig.forwardProxyConfig.type = "http";
     }
 
-    fpGroupBox->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
-    fpUsernameTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.username);
-    fpPasswordTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.password);
-    fpAddressTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress);
-    fpTypeCombo->setCurrentText(CurrentConfig.connectionConfig.forwardProxyConfig.type);
-    fpPortSB->setValue(CurrentConfig.connectionConfig.forwardProxyConfig.port);
-    fpUseAuthCB->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.useAuth);
+    fpGroupBox->setChecked(CurrentConfig.defaultRouteConfig.forwardProxyConfig.enableForwardProxy);
+    fpUsernameTx->setText(CurrentConfig.defaultRouteConfig.forwardProxyConfig.username);
+    fpPasswordTx->setText(CurrentConfig.defaultRouteConfig.forwardProxyConfig.password);
+    fpAddressTx->setText(CurrentConfig.defaultRouteConfig.forwardProxyConfig.serverAddress);
+    fpTypeCombo->setCurrentText(CurrentConfig.defaultRouteConfig.forwardProxyConfig.type);
+    fpPortSB->setValue(CurrentConfig.defaultRouteConfig.forwardProxyConfig.port);
+    fpUseAuthCB->setChecked(CurrentConfig.defaultRouteConfig.forwardProxyConfig.useAuth);
     fpUsernameTx->setEnabled(fpUseAuthCB->isChecked());
     fpPasswordTx->setEnabled(fpUseAuthCB->isChecked());
     //
@@ -232,7 +227,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     finishedLoading = true;
     routeSettingsWidget = new RouteSettingsMatrixWidget(CurrentConfig.kernelConfig.AssetsPath(), this);
-    routeSettingsWidget->SetRouteConfig(CurrentConfig.connectionConfig.routeConfig);
+    routeSettingsWidget->SetRouteConfig(CurrentConfig.defaultRouteConfig.routeConfig);
     advRouteSettingsLayout->addWidget(routeSettingsWidget);
 }
 
@@ -240,9 +235,10 @@ QvMessageBusSlotImpl(PreferencesWindow)
 {
     switch (msg)
     {
-        case UPDATE_COLORSCHEME:
-            break; //
-            MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
+        MBShowDefaultImpl;
+        MBHideDefaultImpl;
+        MBRetranslateDefaultImpl;
+        case UPDATE_COLORSCHEME: break;
     }
 }
 
@@ -295,7 +291,8 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ivp4 address."));
     }
-    else if (CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP!="" && !IsIPv6Address(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP))
+    else if (CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP != "" &&
+             !IsIPv6Address(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP))
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ipv6 address."));
     }
@@ -314,11 +311,14 @@ void PreferencesWindow::on_buttonBox_accepted()
                 LOG(MODULE_UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language)
             }
         }
-        CurrentConfig.connectionConfig.routeConfig = routeSettingsWidget->GetRouteConfig();
-        if (!(CurrentConfig.connectionConfig.routeConfig == GlobalConfig.connectionConfig.routeConfig))
+        CurrentConfig.defaultRouteConfig.routeConfig = routeSettingsWidget->GetRouteConfig();
+        if (!(CurrentConfig.defaultRouteConfig.routeConfig == GlobalConfig.defaultRouteConfig.routeConfig))
         {
             NEEDRESTART
         }
+        CurrentConfig.defaultRouteConfig.dnsConfig = dnsSettingsWidget->GetDNSObject();
+        //
+        //
         if (CurrentConfig.uiConfig.theme != GlobalConfig.uiConfig.theme)
         {
             StyleManager->ApplyStyle(CurrentConfig.uiConfig.theme);
@@ -376,7 +376,7 @@ void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
     NEEDRESTART
     CurrentConfig.inboundConfig.listenip = arg1;
 
-    if (arg1=="" || IsValidIPAddress(arg1))
+    if (arg1 == "" || IsValidIPAddress(arg1))
     {
         BLACK(listenIPTxt)
     }
@@ -416,13 +416,13 @@ void PreferencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 void PreferencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.connectionConfig.enableProxy = arg1 == Qt::Checked;
+    CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_localDNSCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.connectionConfig.withLocalDNS = arg1 == Qt::Checked;
+    CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_selectVAssetBtn_clicked()
@@ -454,32 +454,6 @@ void PreferencesWindow::on_vCorePathTxt_textEdited(const QString &arg1)
     CurrentConfig.kernelConfig.KernelPath(arg1);
 }
 
-void PreferencesWindow::on_DNSListTxt_textChanged()
-{
-    LOADINGCHECK
-    try
-    {
-        QStringList hosts = DNSListTxt->toPlainText().replace("\r", "").split("\n");
-        CurrentConfig.connectionConfig.dnsList.clear();
-
-        for (const auto &host : hosts)
-        {
-            if (host != "" && host != "\r")
-            {
-                // Not empty, so we save.
-                CurrentConfig.connectionConfig.dnsList.push_back(host);
-                NEEDRESTART
-            }
-        }
-
-        BLACK(DNSListTxt)
-    }
-    catch (...)
-    {
-        RED(DNSListTxt)
-    }
-}
-
 void PreferencesWindow::on_aboutQt_clicked()
 {
     QApplication::aboutQt();
@@ -495,11 +469,9 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 {
     LOADINGCHECK
 #ifdef Q_OS_LINUX
-
     // Setting up tProxy for linux
     // Steps:
-    // --> 1. Copy V2ray core files to the QV2RAY_TPROXY_VCORE_PATH and
-    // QV2RAY_TPROXY_VCTL_PATH dir.
+    // --> 1. Copy V2ray core files to the QV2RAY_TPROXY_VCORE_PATH and QV2RAY_TPROXY_VCTL_PATH dir.
     // --> 2. Change GlobalConfig.v2CorePath.
     // --> 3. Call `pkexec setcap
     // CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2ray core.
@@ -618,7 +590,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 void PreferencesWindow::on_bypassCNCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.connectionConfig.bypassCN = arg1 == Qt::Checked;
+    CurrentConfig.defaultRouteConfig.connectionConfig.bypassCN = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_bypassBTCb_stateChanged(int arg1)
@@ -630,7 +602,7 @@ void PreferencesWindow::on_bypassBTCb_stateChanged(int arg1)
                          tr("To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.") + NEWLINE +
                              tr("tproxy inbound's sniffing is enabled by default."));
     }
-    CurrentConfig.connectionConfig.bypassBT = arg1 == Qt::Checked;
+    CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_statsPortBox_valueChanged(int arg1)
@@ -768,13 +740,13 @@ void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
 void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.connectionConfig.forwardProxyConfig.type = arg1.toLower();
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.type = arg1.toLower();
 }
 
 void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress = arg1;
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.serverAddress = arg1;
 
     if (IsValidIPAddress(arg1))
     {
@@ -789,13 +761,13 @@ void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
 void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
 {
     LOADINGCHECK
-    CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.port = arg1;
 }
 
 void PreferencesWindow::on_fpUseAuthCB_stateChanged(int arg1)
 {
     bool authEnabled = arg1 == Qt::Checked;
-    CurrentConfig.connectionConfig.forwardProxyConfig.useAuth = authEnabled;
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.useAuth = authEnabled;
     fpUsernameTx->setEnabled(authEnabled);
     fpPasswordTx->setEnabled(authEnabled);
 }
@@ -803,19 +775,19 @@ void PreferencesWindow::on_fpUseAuthCB_stateChanged(int arg1)
 void PreferencesWindow::on_fpUsernameTx_textEdited(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.connectionConfig.forwardProxyConfig.username = arg1;
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.username = arg1;
 }
 
 void PreferencesWindow::on_fpPasswordTx_textEdited(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.connectionConfig.forwardProxyConfig.password = arg1;
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.password = arg1;
 }
 
 void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
 {
     LOADINGCHECK
-    CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.port = arg1;
 }
 
 void PreferencesWindow::on_checkVCoreSettings_clicked()
@@ -854,7 +826,7 @@ void PreferencesWindow::on_fpGroupBox_clicked(bool checked)
 {
     LOADINGCHECK
     NEEDRESTART
-    CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = checked;
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.enableForwardProxy = checked;
 }
 
 void PreferencesWindow::on_maxLogLinesSB_valueChanged(int arg1)
@@ -999,7 +971,7 @@ void PreferencesWindow::on_tproxyListenAddr_textEdited(const QString &arg1)
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.tProxyIP = arg1;
 
-    if (arg1=="" || IsIPv4Address(arg1))
+    if (arg1 == "" || IsIPv4Address(arg1))
     {
         BLACK(tproxyListenAddr)
     }
@@ -1014,7 +986,7 @@ void PreferencesWindow::on_tproxyListenV6Addr_textEdited(const QString &arg1)
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP = arg1;
 
-    if (arg1=="" || IsIPv6Address(arg1))
+    if (arg1 == "" || IsIPv6Address(arg1))
     {
         BLACK(tproxyListenV6Addr)
     }
@@ -1071,7 +1043,7 @@ void PreferencesWindow::on_qvProxyNoProxy_clicked()
 void PreferencesWindow::on_DnsFreedomCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.connectionConfig.v2rayFreedomDNS = arg1 == Qt::Checked;
+    CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_httpSniffingCB_stateChanged(int arg1)

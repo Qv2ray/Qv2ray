@@ -17,7 +17,8 @@
 
 #define CheckConnectionExistanceEx(id, val) CheckIdExistance(connections, id, val)
 #define CheckConnectionExistance(id) CheckConnectionExistanceEx(id, tr("Connection does not exist"))
-namespace Qv2ray::core::handlers
+
+namespace Qv2ray::core::handler
 {
     class QvConfigHandler : public QObject
     {
@@ -27,8 +28,6 @@ namespace Qv2ray::core::handlers
         ~QvConfigHandler();
 
       public slots:
-        //
-        //
         inline const QList<ConnectionId> Connections() const
         {
             auto k = connections.keys();
@@ -112,9 +111,9 @@ namespace Qv2ray::core::handlers
                                  const std::optional<QString> &address = std::nullopt, std::optional<float> updateInterval = std::nullopt);
 
         bool SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords);
-        bool SetSubscriptionIncludeRelation(const GroupId &id, const QString &Relation);
         bool SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords);
-        bool SetSubscriptionExcludeRelation(const GroupId &id, const QString &Relation);
+        bool SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation);
+        bool SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation);
 
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
         // const std::tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
@@ -166,7 +165,7 @@ namespace Qv2ray::core::handlers
         KernelInstanceHandler *kernelHandler;
     };
 
-    inline ::Qv2ray::core::handlers::QvConfigHandler *ConnectionManager = nullptr;
-} // namespace Qv2ray::core::handlers
+    inline ::Qv2ray::core::handler::QvConfigHandler *ConnectionManager = nullptr;
+} // namespace Qv2ray::core::handler
 
-using namespace Qv2ray::core::handlers;
+using namespace Qv2ray::core::handler;

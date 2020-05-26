@@ -3,62 +3,32 @@ namespace Qv2ray::core::connection::generation::filters
 {
     void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root)
     {
-        QJsonObject sockoptObj{ { "mark", mark } };
-        QJsonObject streamSettingsObj{ { "sockopt", sockoptObj } };
-        OUTBOUNDS outbounds(root["outbounds"].toArray());
-        for (auto i = 0; i < outbounds.count(); i++)
+        for (auto i = 0; i < root["outbounds"].toArray().count(); i++)
         {
-            auto _outbound = outbounds[i].toObject();
-            if (_outbound.contains("streamSettings"))
-            {
-                auto _streamSetting = _outbound["streamSettings"].toObject();
-                if (_streamSetting.contains("sockopt"))
-                {
-                    auto _sockopt = _streamSetting["sockopt"].toObject();
-                    _sockopt.insert("mark", mark);
-                    _streamSetting["sockopt"] = _sockopt;
-                }
-                else
-                {
-                    _streamSetting.insert("sockopt", sockoptObj);
-                }
-                _outbound["streamSettings"] = _streamSetting;
-            }
-            else
-            {
-                _outbound.insert("streamSettings", streamSettingsObj);
-            }
-            outbounds[i] = _outbound;
+            QJsonIO::SetValue(root, mark, "outbounds", i, "streamSettings", "sockopt", "mark");
         }
-        root["outbounds"] = outbounds;
     }
 
     void DNSInterceptFilter(CONFIGROOT &root)
     {
-        // dns outBound
-        QJsonObject dnsOutboundObj{ { "protocol", "dns" }, { "tag", "dns-out" } };
-        OUTBOUNDS outbounds(root["outbounds"].toArray());
-        outbounds.append(dnsOutboundObj);
-        root["outbounds"] = outbounds;
-
-        // dns route
-        QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" }, { "port", "53" }, { "type", "field" } };
-        ROUTING routing(root["routing"].toObject());
-        QJsonArray _rules(routing["rules"].toArray());
+        // Static DNS Objects
+        static const QJsonObject dnsOutboundObj{ { "protocol", "dns" }, { "tag", "dns-out" } };
+        static const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" }, { "port", "53" }, { "type", "field" } };
+        // DNS Outbound
+        QJsonIO::SetValue(root, dnsOutboundObj, "outbounds", root["outbounds"].toArray().count());
+        // DNS Route
+        auto _rules = QJsonIO::GetValue(root, "routing", "rules").toArray();
         _rules.insert(0, dnsRoutingRuleObj);
-        routing["rules"] = _rules;
-        root["routing"] = routing;
+        QJsonIO::SetValue(root, _rules, "routing", "rules");
     }
 
-    void bypassBTFilter(CONFIGROOT &root)
+    void BypassBTFilter(CONFIGROOT &root)
     {
-        QJsonObject bypassBTRuleObj{ { "protocol", QJsonArray::fromStringList(QStringList{ "bittorrent" }) },
-                                     { "outboundTag", OUTBOUND_TAG_DIRECT },
-                                     { "type", "field" } };
-        ROUTING routing(root["routing"].toObject());
-        QJsonArray _rules(routing["rules"].toArray());
+        static const QJsonObject bypassBTRuleObj{ { "protocol", QJsonArray{ "bittorrent" } },
+                                                  { "outboundTag", OUTBOUND_TAG_DIRECT },
+                                                  { "type", "field" } };
+        auto _rules = QJsonIO::GetValue(root, "routing", "rules").toArray();
         _rules.insert(0, bypassBTRuleObj);
-        routing["rules"] = _rules;
-        root["routing"] = routing;
+        QJsonIO::SetValue(root, _rules, "routing", "rules");
     }
 } // namespace Qv2ray::core::connection::generation::filters

@@ -3,6 +3,7 @@
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "src/components/plugins/QvPluginHost.hpp"
 #include "ui/styles/StyleManager.hpp"
@@ -128,10 +129,17 @@ bool initialiseQv2ray()
             //
             LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
             QvMessageBoxWarn(nullptr, QObject::tr("Failed to initialise Qv2ray"),
-                             QObject::tr("Failed to determine the location of config file:") + NEWLINE +
-                                 QObject::tr("Qv2ray has found a config file, but it failed to be loaded due to some errors.") + NEWLINE +
-                                 QObject::tr("A workaround is to remove the this file and restart Qv2ray:") + NEWLINE + QV2RAY_CONFIG_FILE +
-                                 QObject::tr("Qv2ray will now exit.") + NEWLINE + QObject::tr("Please report if you think it's a bug."));
+                             QObject::tr("Failed to determine the location of config file:") +                                   //
+                                 NEWLINE +                                                                                       //
+                                 QObject::tr("Qv2ray has found a config file, but it failed to be loaded due to some errors.") + //
+                                 NEWLINE +                                                                                       //
+                                 QObject::tr("A workaround is to remove the this file and restart Qv2ray:") +                    //
+                                 NEWLINE +                                                                                       //
+                                 QV2RAY_CONFIG_FILE +                                                                            //
+                                 NEWLINE +                                                                                       //
+                                 QObject::tr("Qv2ray will now exit.") +                                                          //
+                                 NEWLINE +                                                                                       //
+                                 QObject::tr("Please report if you think it's a bug."));                                         //
             return false;
         }
 
@@ -140,7 +148,10 @@ bool initialiseQv2ray()
         conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
         conf.logLevel = 3;
         conf.uiConfig.language = QLocale::system().name();
-        //
+        conf.defaultRouteConfig.dnsConfig.servers << QvConfig_DNS::DNSServerObject{ "1.1.1.1" } //
+                                                  << QvConfig_DNS::DNSServerObject{ "8.8.8.8" } //
+                                                  << QvConfig_DNS::DNSServerObject{ "8.8.4.4" };
+
         // Save initial config.
         SaveGlobalSettings(conf);
         LOG(MODULE_INIT, "Created initial config file.")
@@ -402,6 +413,7 @@ int main(int argc, char *argv[])
     {
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
+        RouteManager = new RouteHandler(qApp);
         ConnectionManager = new QvConfigHandler(qApp);
 
 #ifdef Q_OS_LINUX
