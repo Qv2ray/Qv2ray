@@ -12,7 +12,7 @@
 	url = https://github.com/Qv2ray/PureSource/
 [submodule "3rdparty/zxing-cpp"]
 	path = 3rdparty/zxing-cpp
-	url = https://github.com/nu-book/zxing-cpp
+	url = https://github.com/Qv2ray/zxing-cpp
 [submodule "src/plugin-interface"]
 	path = src/plugin-interface
 	url = https://github.com/Qv2ray/QvPlugin-Interface/
