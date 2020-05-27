@@ -1,33 +1,3 @@
-# Directories to look for dependencies
-set(DIRS "${CMAKE_BINARY_DIR}")
-
-# Path used for searching by FIND_XXX(), with appropriate suffixes added
-if(CMAKE_PREFIX_PATH)
-    foreach(dir ${CMAKE_PREFIX_PATH})
-        list(APPEND DIRS "${dir}/bin" "${dir}/lib")
-    endforeach()
-endif()
-
-# Append Qt's lib folder which is two levels above Qt5Widgets_DIR
-list(APPEND DIRS "${Qt5Widgets_DIR}/../..")
-list(APPEND DIRS "/usr/local/lib")
-list(APPEND DIRS "/usr/lib")
-
-if(MSVC)
-    set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
-endif()
-
-include(InstallRequiredSystemLibraries)
-
-message(STATUS "APPS: ${APPS}")
-message(STATUS "QT_PLUGINS: ${QT_PLUGINS}")
-message(STATUS "DIRS: ${DIRS}")
-
-install(CODE "
-   include(BundleUtilities)
-   fixup_bundle(\"${APPS}\"   \"\"   \"${DIRS}\")
-   " COMPONENT Runtime)
-
 # Packaging
 set(CPACK_PACKAGE_VENDOR "Qv2ray Development Group")
 set(CPACK_PACKAGE_VERSION ${QV2RAY_VERSION_STRING})
@@ -82,3 +52,33 @@ if(APPLE)
 endif()
 
 include(CPack)
+
+# Directories to look for dependencies
+set(DIRS "${CMAKE_BINARY_DIR}")
+
+# Path used for searching by FIND_XXX(), with appropriate suffixes added
+if(CMAKE_PREFIX_PATH)
+    foreach(dir ${CMAKE_PREFIX_PATH})
+        list(APPEND DIRS "${dir}/bin" "${dir}/lib")
+    endforeach()
+endif()
+
+# Append Qt's lib folder which is two levels above Qt5Widgets_DIR
+list(APPEND DIRS "${Qt5Widgets_DIR}/../..")
+list(APPEND DIRS "/usr/local/lib")
+list(APPEND DIRS "/usr/lib")
+
+if(MSVC)
+    set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
+endif()
+
+include(InstallRequiredSystemLibraries)
+
+message(STATUS "APPS: ${APPS}")
+message(STATUS "QT_PLUGINS: ${QT_PLUGINS}")
+message(STATUS "DIRS: ${DIRS}")
+
+install(CODE "
+   include(BundleUtilities)
+   fixup_bundle(\"${APPS}\"   \"\"   \"${DIRS}\")
+   " COMPONENT Runtime)
