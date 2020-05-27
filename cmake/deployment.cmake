@@ -23,8 +23,10 @@ message(STATUS "APPS: ${APPS}")
 message(STATUS "QT_PLUGINS: ${QT_PLUGINS}")
 message(STATUS "DIRS: ${DIRS}")
 
-install(CODE "include(BundleUtilities)
-      fixup_bundle(\"${APPS}\" \"${QT_PLUGINS}\" \"${DIRS}\")")
+install(CODE "
+   include(BundleUtilities)
+   fixup_bundle(\"${APPS}\"   \"\"   \"${DIRS}\")
+   " COMPONENT Runtime)
 
 # Packaging
 set(CPACK_PACKAGE_VENDOR "Qv2ray Development Group")
