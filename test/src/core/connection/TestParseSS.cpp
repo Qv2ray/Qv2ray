@@ -2,7 +2,7 @@
 #include "src/core/connection/Serialization.hpp"
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-using namespace Qv2ray::core::connection::Serialization;
+using namespace Qv2ray::core::connection::serialization;
 
 SCENARIO("Test Parse Shadowsocks url", "[ParseSSUrl]")
 {

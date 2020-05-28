@@ -1,4 +1,5 @@
 #pragma once
+#include "libs/QJsonStruct/QJsonIO.hpp"
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <QList>
@@ -7,6 +8,41 @@
 
 namespace Qv2ray::base::objects
 {
+    struct DNSObject
+    {
+        struct DNSServerObject
+        {
+            bool QV2RAY_DNS_IS_COMPLEX_DNS;
+            QString address;
+            int port;
+            QList<QString> domains;
+            QList<QString> expectIPs;
+            DNSServerObject(){};
+            DNSServerObject(const QString &_address)
+                : QV2RAY_DNS_IS_COMPLEX_DNS(false), //
+                  address(_address),                //
+                  port(53)                          //
+                  {};
+            friend bool operator==(const DNSServerObject &left, const DNSServerObject &right)
+            {
+                return left.QV2RAY_DNS_IS_COMPLEX_DNS == right.QV2RAY_DNS_IS_COMPLEX_DNS && //
+                       left.address == right.address &&                                     //
+                       left.port == right.port &&                                           //
+                       left.domains == right.domains &&                                     //
+                       left.expectIPs == right.expectIPs;
+            }
+            JSONSTRUCT_REGISTER(DNSServerObject, F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs))
+        };
+        QMap<QString, QString> hosts;
+        QList<DNSServerObject> servers;
+        QString clientIp;
+        QString tag;
+        friend bool operator==(const DNSObject &left, const DNSObject &right)
+        {
+            return left.hosts == right.hosts && left.servers == right.servers && left.clientIp == right.clientIp && left.tag == right.tag;
+        }
+        JSONSTRUCT_REGISTER(DNSObject, F(hosts, servers, clientIp, tag))
+    };
     //
     // Used in config generation
     struct AccountObject

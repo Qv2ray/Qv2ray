@@ -1,11 +1,11 @@
-#include "Generation.hpp"
-#include "Serialization.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
+#include "core/connection/Generation.hpp"
+#include "core/connection/Serialization.hpp"
 
 namespace Qv2ray::core::connection
 {
-    namespace Serialization::ss
+    namespace serialization::ss
     {
         CONFIGROOT Deserialize(const QString &ssUri, QString *alias, QString *errMessage)
         {

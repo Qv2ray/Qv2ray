@@ -17,10 +17,10 @@ namespace Qv2ray::ui::styles
         QString qssPath;
     };
 
-    class QvStyleManager
+    class QvStyleManager : QObject
     {
       public:
-        QvStyleManager();
+        QvStyleManager(QObject *parent = nullptr);
         inline QStringList AllStyles() const
         {
             return styles.keys();

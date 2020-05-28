@@ -150,6 +150,65 @@
     </message>
 </context>
 <context>
+    <name>DnsSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Servers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Server Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detail Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Domains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Expectd IPs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Domain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolved IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statically Resolved Domains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New DNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GroupManager</name>
     <message>
         <source>Connection Management</source>
@@ -356,10 +415,6 @@
     </message>
     <message>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -723,10 +778,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>These subscriptions are out-of-date: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -918,6 +969,18 @@
     </message>
     <message>
         <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear Recent Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent connections&apos; jump list cleared.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1334,10 +1397,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>System Proxy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1350,16 +1409,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>These settings are for Qv2ray itself.
-For example, for updating subscriptions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Advanced Behavior</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AllowInsecure By Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1374,15 +1424,6 @@ This could resolve the certificate issues, but also could let one performing TLS
     <message>
         <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>These settings may be useful.
-But could damage your server if improperly used.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AllowInsecureCiphers By Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1528,10 +1569,6 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Transparent Proxy Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>127.0.0.1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1684,6 +1721,80 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>About Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latency Test Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TCPing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ICMPing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set AllowInsecure By Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could dramatically damage your server if improperly used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set AllowInsecureCiphers By Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening IPv4 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening IPv6 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ivp4 address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ipv6 address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1945,6 +2056,42 @@ Custom DNS Settings</source>
         <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS lookup failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Socket creation failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to setup TTL value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting timeout failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unresolvable hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sending echo request failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination unreachable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
@@ -1987,10 +2134,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>cannot be loaded.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This plugin was built against an older/newer version of the Plugin Interface.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2006,11 +2149,8 @@ Custom DNS Settings</source>
         <source>The plugin will become fully functional after restarting Qv2ray.</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>Qv2ray::components::tcping::QvTCPingHelper</name>
     <message>
-        <source>Timeout</source>
+        <source>The plugin located here cannot be loaded: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2049,6 +2189,10 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Failed to start connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2891,6 +3035,54 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Notify Interval</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave blank to exclude nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave blank to include all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only import when containing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only import when NOT containing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per-group DNS Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per-group Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per-group Advanced Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

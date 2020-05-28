@@ -58,10 +58,16 @@ namespace Qv2ray::common
         {
             info.dir().mkpath(info.dir().path());
         }
+        const auto replaceFilePath = info.absoluteFilePath() + ".qvcache." + GenerateRandomString(5);
         bool override = targetFile.exists();
-        targetFile.open(QFile::WriteOnly);
-        targetFile.write(text.toUtf8());
-        targetFile.close();
+        {
+            QFile replaceFile{ replaceFilePath };
+            replaceFile.open(QFile::WriteOnly);
+            replaceFile.write(text.toUtf8());
+            replaceFile.close();
+            targetFile.remove();
+            replaceFile.rename(info.absoluteFilePath());
+        }
         return override;
     }
 

@@ -1,10 +1,7 @@
 #include "w_ImportConfig.hpp"
 
-#include "core/CoreUtils.hpp"
-#include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Serialization.hpp"
 #include "core/handler/ConfigHandler.hpp"
-#include "core/kernel/V2rayKernelInteractions.hpp"
 #include "ui/common/QRCodeHelper.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
@@ -28,7 +25,7 @@ constexpr auto ADVANCED_PAGE = 3;
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
-    nameTxt->setText(tr("New Connection") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
+    // nameTxt->setText(tr("New Connection") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
     QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
     //

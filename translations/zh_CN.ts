@@ -157,6 +157,69 @@
     </message>
 </context>
 <context>
+    <name>DnsSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Client IP</source>
+        <translation>客户端 IP</translation>
+    </message>
+    <message>
+        <source>Tag</source>
+        <translation>标签</translation>
+    </message>
+    <message>
+        <source>DNS Servers</source>
+        <translation>DNS 服务器</translation>
+    </message>
+    <message>
+        <source>DNS Server Settings</source>
+        <translation>DNS 服务器设置</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <source>Detail Settings</source>
+        <translation>详细设置</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>端口</translation>
+    </message>
+    <message>
+        <source>Domains</source>
+        <translation>域名</translation>
+    </message>
+    <message>
+        <source>Expectd IPs</source>
+        <translation>期待 IP</translation>
+    </message>
+    <message>
+        <source>Static Resolved Domains</source>
+        <translation type="vanished">静态解析域名</translation>
+    </message>
+    <message>
+        <source>Domain</source>
+        <translation>域名</translation>
+    </message>
+    <message>
+        <source>Resolved IP</source>
+        <translation>解析 IP</translation>
+    </message>
+    <message>
+        <source>Statically Resolved Domains</source>
+        <translation>静态解析域名</translation>
+    </message>
+    <message>
+        <source>New DNS</source>
+        <translation>新DNS</translation>
+    </message>
+</context>
+<context>
     <name>GroupManager</name>
     <message>
         <source>Connection Management</source>
@@ -451,7 +514,7 @@
     </message>
     <message>
         <source>New Connection</source>
-        <translation>添加连接</translation>
+        <translation type="vanished">添加连接</translation>
     </message>
     <message>
         <source>Failed to import connection</source>
@@ -927,7 +990,7 @@
     </message>
     <message>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-        <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
+        <translation type="vanished">有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
     <message>
         <source>These subscriptions are out-of-date: </source>
@@ -1088,6 +1151,18 @@
     <message>
         <source>New</source>
         <translation>新建</translation>
+    </message>
+    <message>
+        <source>Clear Recent Connections</source>
+        <translation>清除最近连接</translation>
+    </message>
+    <message>
+        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
+        <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
+    </message>
+    <message>
+        <source>Recent connections&apos; jump list cleared.</source>
+        <translation>已清空最近连接列表。</translation>
     </message>
 </context>
 <context>
@@ -1376,7 +1451,7 @@
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+        <translation type="vanished">127.0.0.1</translation>
     </message>
     <message>
         <source>Use Proxy</source>
@@ -2046,7 +2121,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>AllowInsecure By Default</source>
-        <translation>允许不安全的证书</translation>
+        <translation type="vanished">允许不安全的证书</translation>
     </message>
     <message>
         <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
@@ -2067,12 +2142,12 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     <message>
         <source>These settings may be useful.
 But could damage your server if improperly used.</source>
-        <translation>以下设定可能很有用。
+        <translation type="vanished">以下设定可能很有用。
 但若使用不当，可能会造成负面影响。</translation>
     </message>
     <message>
         <source>AllowInsecureCiphers By Default</source>
-        <translation>允许不安全的 TLS 算法</translation>
+        <translation type="vanished">允许不安全的 TLS 算法</translation>
     </message>
     <message>
         <source>Quiet Mode</source>
@@ -2092,7 +2167,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>No Proxy</source>
-        <translation>不使用代理</translation>
+        <translation type="vanished">不使用代理</translation>
     </message>
     <message>
         <source>System Proxy</source>
@@ -2157,7 +2232,7 @@ But could damage your server if improperly used.</source>
     <message>
         <source>These settings are for Qv2ray itself.
 For example, for updating subscriptions.</source>
-        <translation>这些设定是针对 Qv2ray 本身的。
+        <translation type="vanished">这些设定是针对 Qv2ray 本身的。
 例如，用在更新订阅时。</translation>
     </message>
     <message>
@@ -2231,6 +2306,82 @@ For example, for updating subscriptions.</source>
     <message>
         <source>NTP</source>
         <translation>NTP</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>不使用</translation>
+    </message>
+    <message>
+        <source>Last Connected</source>
+        <translation>最后一个连接</translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation>固定连接</translation>
+    </message>
+    <message>
+        <source>These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation>这些设定是针对 Qv2ray 本身的。
+例如，用在更新订阅时。</translation>
+    </message>
+    <message>
+        <source>Latency Test Method</source>
+        <translation>延迟测试方案</translation>
+    </message>
+    <message>
+        <source>TCPing</source>
+        <translation>TCPing</translation>
+    </message>
+    <message>
+        <source>ICMPing</source>
+        <translation>ICMPing</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>服务器</translation>
+    </message>
+    <message>
+        <source>Set AllowInsecure By Default</source>
+        <translation>默认设置 AllowInsecure</translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could dramatically damage your server if improperly used.</source>
+        <translation>以下设定可能很有用。
+但若使用不当，可能会造成负面影响。</translation>
+    </message>
+    <message>
+        <source>Set AllowInsecureCiphers By Default</source>
+        <translation>默认设置 AllowInsecureCiphers</translation>
+    </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
+        <translation>IPv4 地址，例如 127.0.0.1</translation>
+    </message>
+    <message>
+        <source>Listening IPv4 Address</source>
+        <translation>IPv4 监听地址</translation>
+    </message>
+    <message>
+        <source>Listening IPv6 Address</source>
+        <translation>IPv6 监听地址</translation>
+    </message>
+    <message>
+        <source>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</source>
+        <translation>带方括号的 IPv6 地址，例如 [::1]。留空会禁用 IPv6 透明代理。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ivp4 address.</source>
+        <translation>无效的透明代理 IPv4 监听地址。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ipv6 address.</source>
+        <translation>无效的透明代理 IPv6 监听地址。</translation>
+    </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
+        <translation>IPv4 地址，例如 127.0.0.1；或带方括号的 IPv6 地址，例如 [::1]。</translation>
     </message>
 </context>
 <context>
@@ -2675,6 +2826,42 @@ For example, for updating subscriptions.</source>
         <source>trusted abi</source>
         <translation>受信 ABI</translation>
     </message>
+    <message>
+        <source>Timeout</source>
+        <translation>超时</translation>
+    </message>
+    <message>
+        <source>DNS lookup failed.</source>
+        <translation>DNS 解析失败。</translation>
+    </message>
+    <message>
+        <source>Socket creation failed</source>
+        <translation>套接字创建失败</translation>
+    </message>
+    <message>
+        <source>Failed to setup TTL value</source>
+        <translation>无法设置 TTL 值</translation>
+    </message>
+    <message>
+        <source>Setting timeout failed</source>
+        <translation>定时失败</translation>
+    </message>
+    <message>
+        <source>Unresolvable hostname</source>
+        <translation>域名解析失败</translation>
+    </message>
+    <message>
+        <source>Sending echo request failed</source>
+        <translation>ICMP 包发送失败</translation>
+    </message>
+    <message>
+        <source>Destination unreachable</source>
+        <translation>目标不可达</translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation>未知错误</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
@@ -2745,7 +2932,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>cannot be loaded.</source>
-        <translation>无法加载。</translation>
+        <translation type="vanished">无法加载。</translation>
     </message>
     <message>
         <source>This plugin was built against an older/newer version of the Plugin Interface.</source>
@@ -2763,12 +2950,16 @@ For example, for updating subscriptions.</source>
         <source>The plugin will become fully functional after restarting Qv2ray.</source>
         <translation>插件可能需要重启 Qv2ray 之后才能完全正常工作。</translation>
     </message>
+    <message>
+        <source>The plugin located here cannot be loaded: </source>
+        <translation>无法加载位于此处的插件: </translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::components::tcping::QvTCPingHelper</name>
     <message>
         <source>Timeout</source>
-        <translation>超时</translation>
+        <translation type="vanished">超时</translation>
     </message>
 </context>
 <context>
@@ -2811,6 +3002,10 @@ For example, for updating subscriptions.</source>
     <message>
         <source>Failed to start connection</source>
         <translation>连接启动失败</translation>
+    </message>
+    <message>
+        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>%2 条连接中仅有 %1 条可用，确定要继续吗？</translation>
     </message>
 </context>
 <context>
@@ -3721,7 +3916,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation type="vanished">连接设置</translation>
+        <translation>连接设置</translation>
     </message>
     <message>
         <source>Route Settings</source>
@@ -3746,6 +3941,50 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Update Notify Interval</source>
         <translation>提醒间隔</translation>
+    </message>
+    <message>
+        <source>Import Filters</source>
+        <translation>导入过滤器</translation>
+    </message>
+    <message>
+        <source>Leave blank to exclude nothing</source>
+        <translation>留空不排除</translation>
+    </message>
+    <message>
+        <source>Relation</source>
+        <translation>关系</translation>
+    </message>
+    <message>
+        <source>Leave blank to include all</source>
+        <translation>留空包含全部</translation>
+    </message>
+    <message>
+        <source>Only import when containing...</source>
+        <translation>只导入包含特定...</translation>
+    </message>
+    <message>
+        <source>Only import when NOT containing...</source>
+        <translation>只导入不包含特定...</translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation>DNS 设置</translation>
+    </message>
+    <message>
+        <source>Per-group DNS Settings</source>
+        <translation>分组 DNS 设置</translation>
+    </message>
+    <message>
+        <source>Per-group Connection Settings</source>
+        <translation>分组连接设置</translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation>高级路由设置</translation>
+    </message>
+    <message>
+        <source>Per-group Advanced Route Settings</source>
+        <translation>分组高级路由设置</translation>
     </message>
 </context>
 <context>

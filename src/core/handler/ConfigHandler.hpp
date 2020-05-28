@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
-#include "components/latency/QvTCPing.hpp"
+#include "components/latency/LatencyTest.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/KernelInstanceHandler.hpp"
@@ -17,27 +17,23 @@
 
 #define CheckConnectionExistanceEx(id, val) CheckIdExistance(connections, id, val)
 #define CheckConnectionExistance(id) CheckConnectionExistanceEx(id, tr("Connection does not exist"))
-namespace Qv2ray::core::handlers
+
+namespace Qv2ray::core::handler
 {
     class QvConfigHandler : public QObject
     {
         Q_OBJECT
       public:
-        explicit QvConfigHandler();
+        explicit QvConfigHandler(QObject *parent = nullptr);
         ~QvConfigHandler();
 
       public slots:
-        //
-        //
-        inline bool StartConnection(const ConnectionGroupPair &identifier)
-        {
-            return StartConnection(identifier.connectionId, identifier.groupId);
-        }
-        //
-        //
         inline const QList<ConnectionId> Connections() const
         {
-            return connections.keys();
+            auto k = connections.keys();
+            std::sort(k.begin(), k.end(),
+                      [&](const auto &idA, const auto &idB) { return connections[idA].displayName < connections[idB].displayName; });
+            return k;
         }
         inline const QList<ConnectionId> Connections(const GroupId &groupId) const
         {
@@ -46,7 +42,9 @@ namespace Qv2ray::core::handlers
         }
         inline QList<GroupId> AllGroups() const
         {
-            return groups.keys();
+            auto k = groups.keys();
+            std::sort(k.begin(), k.end(), [&](const auto &idA, const auto &idB) { return groups[idA].displayName < groups[idB].displayName; });
+            return k;
         }
         inline const ConnectionObject GetConnectionMetaObject(const ConnectionId &id) const
         {
@@ -61,28 +59,22 @@ namespace Qv2ray::core::handlers
 
         bool IsConnected(const ConnectionGroupPair &id) const
         {
-            return kernelHandler->isConnected(id);
+            return kernelHandler->CurrentConnection() == id;
         }
 
         bool IsConnected(const ConnectionId &id) const
         {
             return kernelHandler->CurrentConnection().connectionId == id;
         }
-
         //
         //
-        void CHSaveConfigData();
+        void SaveConnectionConfig();
         const QList<GroupId> Subscriptions() const;
-        //
-        // Get Options
-        // const GroupId GetGroupIdByDisplayName(const QString &displayName) const;
-        // TRY NOT TO USE THIS FUNCTION
-        // const ConnectionId GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const;
         const QList<GroupId> GetGroupId(const ConnectionId &connId) const;
         //
         // Connectivity Operationss
-        bool StartConnection(const ConnectionId &identifier, const GroupId &group);
-        void StopConnection(); // const ConnectionId &id
+        bool StartConnection(const ConnectionGroupPair &identifier);
+        void StopConnection();
         void RestartConnection();
         //
         // Connection Operations.
@@ -111,11 +103,19 @@ namespace Qv2ray::core::handlers
         const GroupId CreateGroup(const QString &displayName, bool isSubscription);
         const std::optional<QString> DeleteGroup(const GroupId &id);
         const std::optional<QString> RenameGroup(const GroupId &id, const QString &newName);
+        const GroupRoutingId GetGroupRoutingId(const GroupId &id);
         // const optional<QString> DuplicateGroup(const GroupId &id);
         //
         // Subscriptions
-        bool SetSubscriptionData(const GroupId &id, bool isSubscription, const QString &address = "", float updateInterval = -1);
         bool UpdateSubscription(const GroupId &id);
+        bool SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription = std::nullopt,
+                                 const std::optional<QString> &address = std::nullopt, std::optional<float> updateInterval = std::nullopt);
+
+        bool SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords);
+        bool SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords);
+        bool SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation);
+        bool SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation);
+
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
         // const std::tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
@@ -127,11 +127,11 @@ namespace Qv2ray::core::handlers
         void OnConnectionModified(const ConnectionId &id);
         void OnConnectionRenamed(const ConnectionId &Id, const QString &originalName, const QString &newName);
         //
-        void OnConnectionRemovedFromGroup(const ConnectionGroupPair &pairId);
         void OnConnectionLinkedWithGroup(const ConnectionGroupPair &newPair);
+        void OnConnectionRemovedFromGroup(const ConnectionGroupPair &pairId);
         //
         void OnLatencyTestStarted(const ConnectionId &id);
-        void OnLatencyTestFinished(const ConnectionId &id, const uint average);
+        void OnLatencyTestFinished(const ConnectionId &id, const int average);
         //
         void OnGroupCreated(const GroupId &id, const QString &displayName);
         void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
@@ -144,7 +144,7 @@ namespace Qv2ray::core::handlers
         //
       private slots:
         void OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage);
-        void OnLatencyDataArrived_p(const QvTCPingResultObject &data);
+        void OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &data);
         void OnStatsDataArrived_p(const ConnectionGroupPair &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
 
       protected:
@@ -162,11 +162,11 @@ namespace Qv2ray::core::handlers
         QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
       private:
-        QvTCPingHelper *tcpingHelper;
+        LatencyTestHost *tcpingHelper;
         KernelInstanceHandler *kernelHandler;
     };
 
-    inline ::Qv2ray::core::handlers::QvConfigHandler *ConnectionManager = nullptr;
-} // namespace Qv2ray::core::handlers
+    inline ::Qv2ray::core::handler::QvConfigHandler *ConnectionManager = nullptr;
+} // namespace Qv2ray::core::handler
 
-using namespace Qv2ray::core::handlers;
+using namespace Qv2ray::core::handler;

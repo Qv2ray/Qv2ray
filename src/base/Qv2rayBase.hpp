@@ -134,6 +134,11 @@ namespace Qv2ray
         list << QString("/usr/local/share/qv2ray/" + dirName);
         // For AppImage?
         list << QString(QDir(QCoreApplication::applicationDirPath() + "/../share/qv2ray/" + dirName).absolutePath());
+        // For Snap
+        if (qEnvironmentVariableIsSet("SNAP"))
+        {
+            list << QString(qEnvironmentVariable("SNAP") + "/usr/share/qv2ray/" + dirName);
+        }
 #elif defined(Q_OS_MAC)
         // macOS platform directories.
         list << QDir(QCoreApplication::applicationDirPath() + "/../Resources/" + dirName).absolutePath();

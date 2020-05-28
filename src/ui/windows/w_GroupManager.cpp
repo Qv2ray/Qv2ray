@@ -3,7 +3,10 @@
 #include "common/QvHelpers.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/widgets/DnsSettingsWidget.hpp"
+#include "ui/widgets/RouteSettingsMatrix.hpp"
 
 #include <QFileDialog>
 #include <QListWidgetItem>
@@ -32,6 +35,16 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     QvMessageBusConnect(GroupManager);
+    //
+    dnsSettingsWidget = new DnsSettingsWidget(this);
+    routeSettingsWidget = new RouteSettingsMatrixWidget(GlobalConfig.kernelConfig.AssetsPath(), this);
+    //
+    dnsSettingsGB->setLayout(new QGridLayout(dnsSettingsGB));
+    dnsSettingsGB->layout()->addWidget(dnsSettingsWidget);
+    //
+    routeSettingsGB->setLayout(new QGridLayout(routeSettingsGB));
+    routeSettingsGB->layout()->addWidget(routeSettingsWidget);
+    //
     UpdateColorScheme();
     connectionListRCMenu->addSection(tr("Connection Management"));
     connectionListRCMenu->addAction(exportConnectionAction);
@@ -94,7 +107,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             auto filePath = d.getSaveFileName(this, GetDisplayName(id));
             if (filePath.isEmpty())
                 return;
-            auto root = GenerateRuntimeConfig(ConnectionManager->GetConnectionRoot(id));
+            auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId });
             //
             // Apply export filter
             ExportConnectionFilter(root);
@@ -117,7 +130,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             for (const auto &connId : list)
             {
                 ConnectionId id(connId);
-                auto root = GenerateRuntimeConfig(ConnectionManager->GetConnectionRoot(id));
+                auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId });
                 //
                 // Apply export filter
                 ExportConnectionFilter(root);
@@ -182,9 +195,8 @@ void GroupManager::reloadConnectionsList(const GroupId &group)
         connectionsTable->setItem(i, 1, typeItem);
         connectionsTable->setItem(i, 2, hostPortItem);
         connectionsTable->setItem(i, 3, groupsItem);
-        //
-        connectionsTable->resizeColumnsToContents();
     }
+    connectionsTable->resizeColumnsToContents();
 }
 
 void GroupManager::onRCMActionTriggered_Copy()
@@ -298,6 +310,12 @@ void GroupManager::on_removeGroupButton_clicked()
 
 void GroupManager::on_buttonBox_accepted()
 {
+    if (currentGroupId != NullGroupId)
+    {
+        const auto routeId = ConnectionManager->GetGroupRoutingId(currentGroupId);
+        RouteManager->SetDNSSettings(routeId, dnsSettingsGB->isChecked(), dnsSettingsWidget->GetDNSObject());
+        RouteManager->SetAdvancedRouteSettings(routeId, routeSettingsGB->isChecked(), routeSettingsWidget->GetRouteConfig());
+    }
     // Nothing?
 }
 
@@ -322,25 +340,86 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     lastUpdatedLabel->setText(timeToString(groupMetaObject.lastUpdatedDate));
     createdAtLabel->setText(timeToString(groupMetaObject.creationDate));
     updateIntervalSB->setValue(groupMetaObject.subscriptionOption.updateInterval);
+    IncludeKeywords->clear();
+    for (const auto &key : groupMetaObject.subscriptionOption.IncludeKeywords)
+    {
+        auto str = key.trimmed();
+        if (!str.isEmpty())
+        {
+            IncludeKeywords->appendPlainText(str);
+        }
+    }
+    ExcludeKeywords->clear();
+    for (const auto &key : groupMetaObject.subscriptionOption.ExcludeKeywords)
+    {
+        auto str = key.trimmed();
+        if (!str.isEmpty())
+        {
+            ExcludeKeywords->appendPlainText(str);
+        }
+    }
+    IncludeRelation->setCurrentIndex(groupMetaObject.subscriptionOption.IncludeRelation);
+    ExcludeRelation->setCurrentIndex(groupMetaObject.subscriptionOption.ExcludeRelation);
     //
+    // Load DNS / Route config
+    const auto routeId = ConnectionManager->GetGroupRoutingId(currentGroupId);
+    {
+        const auto &[overrideDns, dns] = RouteManager->GetDNSSettings(routeId);
+        dnsSettingsWidget->SetDNSObject(dns);
+        dnsSettingsGB->setChecked(overrideDns);
+    }
+    {
+        const auto &[overrideRoute, route] = RouteManager->GetAdvancedRoutingSettings(routeId);
+        routeSettingsWidget->SetRouteConfig(route);
+        routeSettingsGB->setChecked(overrideRoute);
+    }
     reloadConnectionsList(currentGroupId);
 }
 
-void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *)
+void GroupManager::on_IncludeRelation_currentTextChanged(const QString &)
 {
-    on_groupList_itemClicked(current);
+    ConnectionManager->SetSubscriptionIncludeRelation(currentGroupId, (SubscriptionFilterRelation) IncludeRelation->currentIndex());
+}
+
+void GroupManager::on_ExcludeRelation_currentTextChanged(const QString &)
+{
+    ConnectionManager->SetSubscriptionExcludeRelation(currentGroupId, (SubscriptionFilterRelation) ExcludeRelation->currentIndex());
+}
+
+void GroupManager::on_IncludeKeywords_textChanged()
+{
+    QStringList keywords = IncludeKeywords->toPlainText().replace("\r", "").split("\n");
+    ConnectionManager->SetSubscriptionIncludeKeywords(currentGroupId, keywords);
+}
+
+void GroupManager::on_ExcludeKeywords_textChanged()
+{
+    QStringList keywords = ExcludeKeywords->toPlainText().replace("\r", "").split("\n");
+    ConnectionManager->SetSubscriptionExcludeKeywords(currentGroupId, keywords);
+}
+
+void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *priv)
+{
+    if (priv)
+    {
+        const auto group = ConnectionManager->GetGroupMetaObject(currentGroupId);
+        RouteManager->SetDNSSettings(group.routeConfigId, dnsSettingsGB->isChecked(), dnsSettingsWidget->GetDNSObject());
+        RouteManager->SetAdvancedRouteSettings(group.routeConfigId, routeSettingsGB->isChecked(), routeSettingsWidget->GetRouteConfig());
+    }
+    if (current)
+    {
+        on_groupList_itemClicked(current);
+    }
 }
 
 void GroupManager::on_subAddrTxt_textEdited(const QString &arg1)
 {
-    auto newUpdateInterval = updateIntervalSB->value();
-    ConnectionManager->SetSubscriptionData(currentGroupId, true, arg1, newUpdateInterval);
+    ConnectionManager->SetSubscriptionData(currentGroupId, std::nullopt, arg1);
 }
 
 void GroupManager::on_updateIntervalSB_valueChanged(double arg1)
 {
-    auto newAddress = subAddrTxt->text().trimmed();
-    ConnectionManager->SetSubscriptionData(currentGroupId, true, newAddress, arg1);
+    ConnectionManager->SetSubscriptionData(currentGroupId, std::nullopt, std::nullopt, arg1);
 }
 
 void GroupManager::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
@@ -380,6 +459,7 @@ void GroupManager::on_exportSelectedConnBtn_clicked()
 void GroupManager::ExportConnectionFilter(CONFIGROOT &root)
 {
     root.remove("api");
+    root.remove("stats");
     QJsonArray inbounds = root["inbounds"].toArray();
     for (int i = root["inbounds"].toArray().count() - 1; i >= 0; i--)
     {

@@ -398,6 +398,22 @@ namespace Qv2ray
                 root["inboundConfig"] = inboundConfig;
                 break;
             }
+            case 13:
+            {
+                const auto dnsList = QJsonIO::GetValue(root, "connectionConfig", "dnsList").toArray();
+                auto connectionConfig = root["connectionConfig"].toObject();
+                QJsonObject defaultRouteConfig;
+                defaultRouteConfig["forwardProxyConfig"] = connectionConfig.take("forwardProxyConfig");
+                defaultRouteConfig["routeConfig"] = connectionConfig.take("routeConfig");
+
+                for (auto i = 0; i < dnsList.count(); i++)
+                {
+                    QJsonIO::SetValue(defaultRouteConfig, dnsList[i], "dnsConfig", "servers", i, "address");
+                    QJsonIO::SetValue(defaultRouteConfig, false, "dnsConfig", "servers", i, "QV2RAY_DNS_IS_COMPLEX_DNS");
+                }
+                root["defaultRouteConfig"] = defaultRouteConfig;
+                break;
+            }
             default:
             {
                 //
@@ -415,7 +431,7 @@ namespace Qv2ray
         }
         root["config_version"] = root["config_version"].toInt() + 1;
         return root;
-    }
+    } // namespace Qv2ray
 
     // Exported function
     QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, const QJsonObject &original)

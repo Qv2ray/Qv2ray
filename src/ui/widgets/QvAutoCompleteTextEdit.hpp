@@ -50,14 +50,14 @@
 
 #pragma once
 #include <QAbstractItemModel>
-#include <QTextEdit>
+#include <QPlainTextEdit>
 QT_BEGIN_NAMESPACE
 class QCompleter;
 QT_END_NAMESPACE
 
 namespace Qv2ray::ui::widgets
 {
-    class AutoCompleteTextEdit : public QTextEdit
+    class AutoCompleteTextEdit : public QPlainTextEdit
     {
         Q_OBJECT
 

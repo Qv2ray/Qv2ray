@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ConnectionStyle.hpp"
-#include "Node.hpp"
-#include "NodeData.hpp"
+#include <nodes/internal/ConnectionStyle.hpp>
+#include <nodes/internal/Node.hpp>
+#include <nodes/internal/NodeData.hpp>
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
@@ -99,7 +99,7 @@ class RouteEditor
     void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
 
   public slots:
-    void onNodeClicked(QtNodes::Node &n);
+    void onNodeClicked(Node &n);
     void onConnectionCreated(QtNodes::Connection const &c);
     void onConnectionDeleted(QtNodes::Connection const &c);
 
@@ -123,9 +123,9 @@ class RouteEditor
     //
     // ---------------------------- Node Graph Impl --------------------------
     void SetupNodeWidget();
-    QHash<QString, Node *> inboundNodes;
-    QHash<QString, Node *> outboundNodes;
-    QHash<QString, Node *> ruleNodes;
+    QHash<QString, QUuid> inboundNodes;
+    QHash<QString, QUuid> outboundNodes;
+    QHash<QString, QUuid> ruleNodes;
     //
     FlowScene *nodeScene;
     // ---------------------------- Extra Source File Headers ----------------

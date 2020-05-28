@@ -3,6 +3,7 @@
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "src/components/plugins/QvPluginHost.hpp"
 #include "ui/styles/StyleManager.hpp"
@@ -13,8 +14,6 @@
 #include <QLocale>
 #include <QObject>
 #include <QStandardPaths>
-#include <QStyle>
-#include <QStyleFactory>
 #include <QTranslator>
 #include <csignal>
 #include <memory>
@@ -130,10 +129,17 @@ bool initialiseQv2ray()
             //
             LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
             QvMessageBoxWarn(nullptr, QObject::tr("Failed to initialise Qv2ray"),
-                             QObject::tr("Failed to determine the location of config file:") + NEWLINE +
-                                 QObject::tr("Qv2ray has found a config file, but it failed to be loaded due to some errors.") + NEWLINE +
-                                 QObject::tr("A workaround is to remove the this file and restart Qv2ray:") + NEWLINE + QV2RAY_CONFIG_FILE +
-                                 QObject::tr("Qv2ray will now exit.") + NEWLINE + QObject::tr("Please report if you think it's a bug."));
+                             QObject::tr("Failed to determine the location of config file:") +                                   //
+                                 NEWLINE +                                                                                       //
+                                 QObject::tr("Qv2ray has found a config file, but it failed to be loaded due to some errors.") + //
+                                 NEWLINE +                                                                                       //
+                                 QObject::tr("A workaround is to remove the this file and restart Qv2ray:") +                    //
+                                 NEWLINE +                                                                                       //
+                                 QV2RAY_CONFIG_FILE +                                                                            //
+                                 NEWLINE +                                                                                       //
+                                 QObject::tr("Qv2ray will now exit.") +                                                          //
+                                 NEWLINE +                                                                                       //
+                                 QObject::tr("Please report if you think it's a bug."));                                         //
             return false;
         }
 
@@ -142,7 +148,10 @@ bool initialiseQv2ray()
         conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
         conf.logLevel = 3;
         conf.uiConfig.language = QLocale::system().name();
-        //
+        conf.defaultRouteConfig.dnsConfig.servers << QvConfig_DNS::DNSServerObject{ "1.1.1.1" } //
+                                                  << QvConfig_DNS::DNSServerObject{ "8.8.8.8" } //
+                                                  << QvConfig_DNS::DNSServerObject{ "8.8.4.4" };
+
         // Save initial config.
         SaveGlobalSettings(conf);
         LOG(MODULE_INIT, "Created initial config file.")
@@ -363,7 +372,7 @@ int main(int argc, char *argv[])
     font.setFamily("Microsoft YaHei");
     _qApp.setFont(font);
 #endif
-    StyleManager = new QvStyleManager();
+    StyleManager = new QvStyleManager(qApp);
     StyleManager->ApplyStyle(confObject.uiConfig.theme);
 
 #if (QV2RAY_USE_BUILTIN_DARKTHEME)
@@ -400,22 +409,20 @@ int main(int argc, char *argv[])
         _qApp.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
     }
 #endif
-#ifndef QT_DEBUG
-
     try
     {
-#endif
-        //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
+        // Initialise Connection Handler
+        PluginHost = new QvPluginHost();
+        ConnectionManager = new QvConfigHandler(qApp);
+        RouteManager = new RouteHandler(qApp);
+
 #ifdef Q_OS_LINUX
         _qApp.setFallbackSessionManagementEnabled(false);
         QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { //
-            ConnectionManager->CHSaveConfigData();
+            ConnectionManager->SaveConnectionConfig();
             LOG(MODULE_INIT, "Quit triggered by session manager.")
         });
 #endif
-        // Initialise Connection Handler
-        PluginHost = new QvPluginHost();
-        ConnectionManager = new QvConfigHandler();
 
         // Show MainWindow
         MainWindow w;
@@ -426,23 +433,18 @@ int main(int argc, char *argv[])
             w.activateWindow();
         });
 #ifndef Q_OS_WIN
-        signal(SIGUSR1, [](int) { emit MainWindow::MainWindowInstance->StartConnection(); });
-        signal(SIGUSR2, [](int) { emit MainWindow::MainWindowInstance->StopConnection(); });
+        signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
+        signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
         auto rcode = _qApp.exec();
-        delete ConnectionManager;
         delete PluginHost;
-        delete StyleManager;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
-#ifndef QT_DEBUG
     }
-    catch (...)
+    catch (std::exception e)
     {
         QvMessageBoxWarn(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
-        LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
+        LOG(MODULE_INIT, "EXCEPTION THROWN: " + QString(e.what()))
         return -99;
     }
-
-#endif
 }

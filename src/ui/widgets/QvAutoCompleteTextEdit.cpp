@@ -63,10 +63,10 @@
 
 namespace Qv2ray::ui::widgets
 {
-    AutoCompleteTextEdit::AutoCompleteTextEdit(const QString &prefix, const QStringList &sourceStrings, QWidget *parent) : QTextEdit(parent)
+    AutoCompleteTextEdit::AutoCompleteTextEdit(const QString &prefix, const QStringList &sourceStrings, QWidget *parent) : QPlainTextEdit(parent)
     {
         this->prefix = prefix;
-        this->setLineWrapMode(QTextEdit::NoWrap);
+        this->setLineWrapMode(QPlainTextEdit::NoWrap);
         c = new QCompleter(this);
         c->setModel(new QStringListModel(sourceStrings, c));
         c->setWidget(this);
@@ -108,7 +108,7 @@ namespace Qv2ray::ui::widgets
         if (c)
             c->setWidget(this);
 
-        QTextEdit::focusInEvent(e);
+        QPlainTextEdit::focusInEvent(e);
     }
 
     void AutoCompleteTextEdit::keyPressEvent(QKeyEvent *e)
@@ -142,7 +142,7 @@ namespace Qv2ray::ui::widgets
             }
         }
 
-        QTextEdit::keyPressEvent(e);
+        QPlainTextEdit::keyPressEvent(e);
 
         if (!c || (hasCtrlOrShiftModifier && e->text().isEmpty()))
             return;

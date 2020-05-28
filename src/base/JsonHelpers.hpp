@@ -10,4 +10,10 @@
 // Add key value pair into JSON named 'root'
 #define JADDEx(field) root.insert(#field, field);
 #define JADD(...) FOR_EACH(JADDEx, __VA_ARGS__)
-#define RROOT return root;
+
+#define JAUTOREMOVE(jObj, key)                                                                                                                  \
+    {                                                                                                                                           \
+        if ((jObj[key].isArray() && jObj[key].toArray().isEmpty()) || (jObj[key].isObject() && jObj[key].toObject().isEmpty()) ||               \
+            (jObj[key].isString() && jObj[key].toString().isEmpty()))                                                                           \
+            jObj.remove(key);                                                                                                                   \
+    }

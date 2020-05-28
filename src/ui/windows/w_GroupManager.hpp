@@ -7,6 +7,9 @@
 #include <QDialog>
 #include <QMenu>
 
+class DnsSettingsWidget;
+class RouteSettingsMatrixWidget;
+
 class GroupManager
     : public QDialog
     , private Ui::w_GroupManager
@@ -23,33 +26,25 @@ class GroupManager
 
   private slots:
     void on_addGroupButton_clicked();
-
     void on_updateButton_clicked();
-
     void on_removeGroupButton_clicked();
-
     void on_buttonBox_accepted();
-
     void on_groupList_itemSelectionChanged();
-
+    void on_IncludeRelation_currentTextChanged(const QString &arg1);
+    void on_ExcludeRelation_currentTextChanged(const QString &arg1);
+    void on_IncludeKeywords_textChanged();
+    void on_ExcludeKeywords_textChanged();
     void on_groupList_itemClicked(QListWidgetItem *item);
-
     void on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-
     void on_subAddrTxt_textEdited(const QString &arg1);
-
     void on_updateIntervalSB_valueChanged(double arg1);
-
     void on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-
     void on_groupIsSubscriptionGroup_clicked(bool checked);
-
     void on_groupNameTxt_textEdited(const QString &arg1);
     void onRCMDeleteConnectionTriggered();
     void onRCMExportConnectionTriggered();
     void on_deleteSelectedConnBtn_clicked();
     void on_exportSelectedConnBtn_clicked();
-
     void on_connectionsTable_customContextMenuRequested(const QPoint &pos);
 
   private:
@@ -60,6 +55,9 @@ class GroupManager
     void reloadGroupRCMActions();
     //
     void ExportConnectionFilter(CONFIGROOT &root);
+    //
+    DnsSettingsWidget *dnsSettingsWidget;
+    RouteSettingsMatrixWidget *routeSettingsWidget;
     //
     QMenu *connectionListRCMenu = new QMenu(this);
     QAction *exportConnectionAction = new QAction(tr("Export Connection(s)"), connectionListRCMenu);

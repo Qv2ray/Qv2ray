@@ -4,6 +4,7 @@ set(QV2RAY_BASE_HEADERS
     ${CMAKE_SOURCE_DIR}/src/base/models/QvConfigIdentifier.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvRuntimeConfig.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvSafeType.hpp
+    ${CMAKE_SOURCE_DIR}/src/base/models/QvCoreSettings.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvSettingsObject.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvStartupConfig.hpp
     ${CMAKE_SOURCE_DIR}/src/base/Qv2rayBase.hpp
@@ -31,10 +32,16 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/components/geosite/QvGeositeReader.cpp
     ${CMAKE_SOURCE_DIR}/src/components/geosite/QvGeositeReader.hpp
     #
-    ${CMAKE_SOURCE_DIR}/src/components/latency/QvTCPing.cpp
-    ${CMAKE_SOURCE_DIR}/src/components/latency/QvTCPing.hpp
-    ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPinger.cpp
-    ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPinger.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTest.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTest.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTestThread.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTestThread.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/TCPing.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/TCPing.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPing.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPing.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/unix/ICMPPing.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/unix/ICMPPing.hpp
     #
     ${CMAKE_SOURCE_DIR}/src/components/ntp/QvNTPClient.cpp
     ${CMAKE_SOURCE_DIR}/src/components/ntp/QvNTPClient.hpp
@@ -65,13 +72,18 @@ set(QV2RAY_LIB_SOURCES
     #
     ${CMAKE_SOURCE_DIR}/src/core/connection/ConnectionIO.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/ConnectionIO.hpp
-    ${CMAKE_SOURCE_DIR}/src/core/connection/Generation.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/Generation.hpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/final.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/inbounds.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/outbounds.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/filters.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/routing.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/generation/misc.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization.hpp
-    ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization_ss.cpp
-    ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization_ssd.cpp
-    ${CMAKE_SOURCE_DIR}/src/core/connection/Serialization_vmess.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/ss.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/ssd.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/vmess.cpp
     #
     ${CMAKE_SOURCE_DIR}/src/core/CoreUtils.cpp
     ${CMAKE_SOURCE_DIR}/src/core/CoreUtils.hpp
@@ -80,6 +92,8 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/core/handler/ConfigHandler.hpp
     ${CMAKE_SOURCE_DIR}/src/core/handler/KernelInstanceHandler.cpp
     ${CMAKE_SOURCE_DIR}/src/core/handler/KernelInstanceHandler.hpp
+    ${CMAKE_SOURCE_DIR}/src/core/handler/RouteHandler.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/handler/RouteHandler.hpp
     #
     ${CMAKE_SOURCE_DIR}/src/core/kernel/APIBackend.cpp
     ${CMAKE_SOURCE_DIR}/src/core/kernel/APIBackend.hpp

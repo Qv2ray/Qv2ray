@@ -11,7 +11,7 @@
     }
  },
  "contents": [
-   { "x": 130, "y": 205, "type": "file", "path": "@CMAKE_BINARY_DIR@/qv2ray.app" },
+   { "x": 130, "y": 205, "type": "file", "path": "@CMAKE_INSTALL_PREFIX@/qv2ray.app" },
    { "x": 375, "y": 205, "type": "link", "path": "/Applications" }
  ]
 }

@@ -1,4 +1,4 @@
-﻿#include "CoreUtils.hpp"
+#include "CoreUtils.hpp"
 
 #include "common/QvHelpers.hpp"
 #include "core/connection/Serialization.hpp"
@@ -62,6 +62,8 @@ namespace Qv2ray::core
         }
     }
 
+    ///
+    /// [Protocol, Host, Port]
     const std::tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
     {
         if (status != nullptr)
@@ -155,11 +157,6 @@ namespace Qv2ray::core
     {
         return TruncateString(ConnectionManager->GetGroupMetaObject(id).displayName, limit);
     }
-
-    //    const GroupId GetConnectionGroupId(const ConnectionId &id)
-    //    {
-    //        return ConnectionManager->GetConnectionMetaObject(id).groupId;
-    //    }
 
     const QMap<QString, int> GetConfigInboundPorts(const CONFIGROOT &root)
     {

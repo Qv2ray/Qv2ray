@@ -40,8 +40,6 @@
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
 #define NumericString(i) (QString("%1").arg(i, 30, 10, QLatin1Char('0')))
 
-MainWindow *MainWindow::MainWindowInstance = nullptr;
-
 QvMessageBusSlotImpl(MainWindow)
 {
     switch (msg)
@@ -115,38 +113,47 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
     on_locateBtn_clicked();
 }
 
-void MainWindow::ReloadRecentConnectionList(const QList<ConnectionGroupPair> &items)
+void MainWindow::ReloadRecentConnectionList()
 {
-    QList<QAction *> newActions;
-    for (const auto &item : items)
+    QList<ConnectionGroupPair> newRecentConnections;
+    //
+    for (const auto &_action : recentConnectionsActionList)
     {
-        auto action = new QAction(tray_RecentConnectionsMenu);
-        action->setText(GetDisplayName(item.connectionId));
-        action->setData(QVariant::fromValue(item));
-        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed,
-                [action](const ConnectionId &_t1, const QString &, const QString &_t3) {
-                    if (_t1.toString() == action->data().toString())
-                    {
-                        action->setText(_t3);
-                    }
-                });
-        connect(action, &QAction::triggered, [action]() { //
-            emit ConnectionManager->StartConnection(action->data().value<ConnectionGroupPair>());
-        });
-        newActions << action;
+        tray_RecentConnectionsMenu->removeAction(_action);
+        delete _action;
     }
-    for (const auto action : tray_RecentConnectionsMenu->actions())
+    recentConnectionsActionList.clear();
+    //
+    const auto iterateRange = std::min(GlobalConfig.uiConfig.maxJumpListCount, GlobalConfig.uiConfig.recentConnections.count());
+    for (auto i = 0; i < iterateRange; i++)
     {
-        tray_RecentConnectionsMenu->removeAction(action);
-        action->deleteLater();
+        const auto &item = GlobalConfig.uiConfig.recentConnections.at(i);
+        if (newRecentConnections.contains(item))
+        {
+            continue;
+        }
+
+        newRecentConnections << item;
+        auto action = tray_RecentConnectionsMenu->addAction(                               //
+            GetDisplayName(item.connectionId) + " (" + GetDisplayName(item.groupId) + ")", //
+            [=]() {                                                                        //
+                emit ConnectionManager->StartConnection(item);
+            }); //
+
+        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed,           //
+                [=](const ConnectionId &_t1, const QString &, const QString &_t3) { //
+                    if (_t1 == item.connectionId)                                   //
+                        action->setText(_t3);                                       //
+                });                                                                 //
+
+        recentConnectionsActionList << action;
     }
-    tray_RecentConnectionsMenu->addActions(newActions);
+    GlobalConfig.uiConfig.recentConnections = newRecentConnections;
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
-    MainWindow::MainWindowInstance = this;
     QvMessageBusConnect(MainWindow);
     //
     infoWidget = new ConnectionInfoWidget(this);
@@ -186,7 +193,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         if (connectionNodes.contains(pair))
             connectionNodes.value(pair)->setText(MW_ITEM_COL_NAME, newName); //
     });
-    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const uint avg) {
+    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const int avg) {
         ConnectionGroupPair pair = { id, ConnectionManager->GetGroupId(id).first() };
         if (connectionNodes.contains(pair))
             connectionNodes.value(pair)->setText(MW_ITEM_COL_PING, NumericString(avg)); //
@@ -213,9 +220,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_ShowPreferencesWindow);
     tray_RootMenu->addMenu(tray_SystemProxyMenu);
-    // This feature is not ready
-    // tray_RootMenu->addSeparator();
-    // tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
+    //
+    tray_RootMenu->addSeparator();
+    tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
+    tray_RecentConnectionsMenu->addAction(tray_ClearRecentConnectionsAction);
+    tray_RecentConnectionsMenu->addSeparator();
+    //
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_Start);
     tray_RootMenu->addAction(tray_action_Stop);
@@ -232,6 +242,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
+    connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [&]() {
+        GlobalConfig.uiConfig.recentConnections.clear();
+        ReloadRecentConnectionList();
+        if (!GlobalConfig.uiConfig.quietMode)
+        {
+            hTray.showMessage("Qv2ray", tr("Recent connections' jump list cleared."));
+        }
+    });
     connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
     // Actions for right click the log text browser
@@ -296,45 +314,36 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     sortBtn->setMenu(sortMenu);
     //
-    LOG(MODULE_UI, "Loading data...") //
-    auto groups = ConnectionManager->AllGroups();
-
-    for (auto group : groups)
+    LOG(MODULE_UI, "Loading data...")
+    for (const auto &group : ConnectionManager->AllGroups())
     {
         MWAddGroupItem_p(group);
-        auto connections = ConnectionManager->Connections(group);
-
-        for (const auto &connection : connections)
+        for (const auto &connection : ConnectionManager->Connections(group))
         {
             MWAddConnectionItem_p({ connection, group });
         }
     }
     //
     // Find and start if there is an auto-connection
-    auto needShowWindow = true;
-
-    if (GlobalConfig.autoStartId.connectionId != NullConnectionId)
+    const auto connectionStarted = StartAutoConnectionEntry();
+    if (!connectionStarted && connectionListWidget->topLevelItemCount() > 0)
     {
-        // If true means connected. So inverse.
-        needShowWindow = !ConnectionManager->StartConnection(GlobalConfig.autoStartId.connectionId, GlobalConfig.autoStartId.groupId);
-    }
-    if (needShowWindow && connectionListWidget->topLevelItemCount() > 0)
-    {
+        ReloadRecentConnectionList();
         // Select the first connection.
-        auto item = (connectionListWidget->topLevelItem(0)->childCount() > 0) ? connectionListWidget->topLevelItem(0)->child(0) :
-                                                                                connectionListWidget->topLevelItem(0);
+        const auto &topLevelItem = connectionListWidget->topLevelItem(0);
+        const auto &item = (topLevelItem->childCount() > 0) ? topLevelItem->child(0) : topLevelItem;
         connectionListWidget->setCurrentItem(item);
         on_connectionListWidget_itemClicked(item, 0);
     }
-    ReloadRecentConnectionList(GlobalConfig.uiConfig.recentConnections);
     //
-    if (needShowWindow)
+    //
+    tray_action_ShowHide->setText(!connectionStarted ? tr("Hide") : tr("Show"));
+    if (!connectionStarted)
         this->show();
     //
-    tray_action_ShowHide->setText(needShowWindow ? tr("Hide") : tr("Show"));
     CheckSubscriptionsUpdate();
     //
-    splitter->setSizes(QList<int>() << 100 << 300);
+    splitter->setSizes({ 100, 300 });
     qvLogTimerId = startTimer(1000);
     //
     auto checker = new QvUpdateChecker(this);
@@ -659,6 +668,10 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
     connetionStatusLabel->setText(tr("Connected: ") + name);
     //
+    GlobalConfig.uiConfig.recentConnections.removeAll(id);
+    GlobalConfig.uiConfig.recentConnections.push_front(id);
+    ReloadRecentConnectionList();
+    //
     ConnectionManager->StartLatencyTest(id.connectionId);
     if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
     {
@@ -955,6 +968,7 @@ void MainWindow::on_action_RCM_SetAutoConnection_triggered()
         auto widget = GetItemWidget(current);
         const auto identifier = widget->Identifier();
         GlobalConfig.autoStartId = identifier;
+        GlobalConfig.autoStartBehavior = AUTO_CONNECTION_FIXED;
         if (!GlobalConfig.uiConfig.quietMode)
         {
             hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(identifier.connectionId)));

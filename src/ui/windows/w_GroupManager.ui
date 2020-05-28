@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>617</height>
+    <width>1059</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>655</width>
-    <height>440</height>
+    <width>1000</width>
+    <height>730</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -231,6 +231,15 @@
           <bool>false</bool>
          </property>
          <layout class="QFormLayout" name="formLayout_3">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
+          <property name="rowWrapPolicy">
+           <enum>QFormLayout::DontWrapRows</enum>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
@@ -299,26 +308,132 @@
             </item>
            </layout>
           </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Import Filters</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1,0,1">
+             <item row="1" column="2" colspan="2">
+              <widget class="QPlainTextEdit" name="ExcludeKeywords">
+               <property name="placeholderText">
+                <string>Leave blank to exclude nothing</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QComboBox" name="ExcludeRelation">
+               <item>
+                <property name="text">
+                 <string notr="true">And</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">Or</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Relation</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" colspan="2">
+              <widget class="QPlainTextEdit" name="IncludeKeywords">
+               <property name="placeholderText">
+                <string>Leave blank to include all</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="IncludeRelation">
+               <item>
+                <property name="text">
+                 <string notr="true">And</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">Or</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Relation</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Only import when containing...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" colspan="2">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Only import when NOT containing...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
         <widget class="QPushButton" name="updateButton">
          <property name="text">
-          <string>Update Subscription Data</string>
+          <string>Update Subscription</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>DNS Settings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="dnsSettingsGB">
+         <property name="title">
+          <string>Override Global DNS Settings</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>Advanced Route Settings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="routeSettingsGB">
+         <property name="title">
+          <string>Override Global Advanced Route Settings</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
          </property>
         </widget>
        </item>

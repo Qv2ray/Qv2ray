@@ -10,6 +10,7 @@ set(QV2RAY_UI_FORMS
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/RouteSettingsMatrix.ui
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/InboundSettingsWidget.ui
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/ConnectionSettingsWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/DnsSettingsWidget.ui
     #
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_GroupManager.ui
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_ImportConfig.ui
@@ -57,6 +58,8 @@ set(QV2RAY_UI_SOURCES
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/StreamSettingsWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/InboundSettingsWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/InboundSettingsWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/DnsSettingsWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/DnsSettingsWidget.hpp
     # Editors
     ${CMAKE_SOURCE_DIR}/src/ui/editors/w_InboundEditor.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/editors/w_InboundEditor.hpp

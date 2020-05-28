@@ -49,7 +49,7 @@ QList<QAction *> RouteSettingsMatrixWidget::getBuiltInSchemes()
     return list;
 }
 
-QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv2ray::base::config::Qv2rayConfig_Routing &scheme)
+QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const QvConfig_Route &scheme)
 {
     QAction *action = new QAction(this);
     action->setText(name);
@@ -57,22 +57,22 @@ QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv
     return action;
 }
 
-void RouteSettingsMatrixWidget::SetRouteConfig(const Qv2rayConfig_Routing &conf)
+void RouteSettingsMatrixWidget::SetRouteConfig(const QvConfig_Route &conf)
 {
     domainStrategyCombo->setCurrentText(conf.domainStrategy);
     //
-    directDomainTxt->setText(conf.domains.direct.join(NEWLINE));
-    proxyDomainTxt->setText(conf.domains.proxy.join(NEWLINE));
-    blockDomainTxt->setText(conf.domains.block.join(NEWLINE));
+    directDomainTxt->setPlainText(conf.domains.direct.join(NEWLINE));
+    proxyDomainTxt->setPlainText(conf.domains.proxy.join(NEWLINE));
+    blockDomainTxt->setPlainText(conf.domains.block.join(NEWLINE));
     //
-    blockIPTxt->setText(conf.ips.block.join(NEWLINE));
-    directIPTxt->setText(conf.ips.direct.join(NEWLINE));
-    proxyIPTxt->setText(conf.ips.proxy.join(NEWLINE));
+    blockIPTxt->setPlainText(conf.ips.block.join(NEWLINE));
+    directIPTxt->setPlainText(conf.ips.direct.join(NEWLINE));
+    proxyIPTxt->setPlainText(conf.ips.proxy.join(NEWLINE));
 }
 
-Qv2rayConfig_Routing RouteSettingsMatrixWidget::GetRouteConfig() const
+QvConfig_Route RouteSettingsMatrixWidget::GetRouteConfig() const
 {
-    config::Qv2rayConfig_Routing conf;
+    QvConfig_Route conf;
     conf.domainStrategy = this->domainStrategyCombo->currentText();
     conf.domains.block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
     conf.domains.direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
@@ -117,7 +117,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
             return;
 
         // write the scheme onto the window
-        this->SetRouteConfig(static_cast<Qv2rayConfig_Routing>(scheme));
+        this->SetRouteConfig(static_cast<QvConfig_Route>(scheme));
 
         // done
         LOG(MODULE_SETTINGS, "Imported route config: " + scheme.name + " by: " + scheme.author)

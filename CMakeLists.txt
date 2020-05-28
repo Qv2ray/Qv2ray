@@ -11,8 +11,6 @@ endif()
 set(QV2RAY_VERSION_STRING "${QV2RAY_VERSION}${QV2RAY_VERSION_SUFFIX}")
 project(qv2ray)
 
-include(CTest)
-
 set(VERSION_LIST ${QV2RAY_VERSION})
 string(REPLACE "." ";" VERSION_LIST ${VERSION_LIST})
 separate_arguments(VERSION_LIST)
@@ -88,7 +86,7 @@ set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
-set(BUILD_TESTING ON CACHE BOOL "Build test")
+set(BUILD_TESTING OFF CACHE BOOL "Build test")
 if(UNIX AND NOT APPLE)
     set(QV2RAY_USE_BUILTIN_DARKTHEME OFF CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
 else()
@@ -123,7 +121,7 @@ endif()
 if(EMBED_TRANSLATIONS)
     add_definitions(-DEMBED_TRANSLATIONS)
     configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
-    list(APPEND QV2RAY_UI_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
+    set(QV2RAY_EMBED_TRANSLATION_QRC ${CMAKE_BINARY_DIR}/translations.qrc)
 endif()
 
 
@@ -205,6 +203,7 @@ add_executable(qv2ray
     ${QV2RAY_UI_FORMS}
     ${SINGLEAPPLICATION_SOURCES}
     ${QNODEEDITOR_QRC_RESOURCES}
+    ${QV2RAY_EMBED_TRANSLATION_QRC}
     ${QRC_RESOURCES}
     ${QM_FILES}
     )
@@ -243,6 +242,7 @@ target_include_directories(qv2ray-baselib PUBLIC
     )
 
 if (BUILD_TESTING)
+    include(CTest)
     add_subdirectory(test)
 endif()
 
@@ -324,24 +324,17 @@ if(UNIX AND NOT APPLE AND NOT WIN32)
 endif()
 
 if(WIN32)
-    target_link_libraries(qv2ray wininet wsock32 ws2_32 user32)
+    find_package(OpenSSL REQUIRED)
+    target_link_libraries(qv2ray-baselib wininet wsock32 ws2_32 user32 Iphlpapi OpenSSL::SSL OpenSSL::Crypto)
     install(TARGETS qv2ray RUNTIME DESTINATION .)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION lang)
-    endif()
-
-    if(CMAKE_CL_64)
-        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1-x64.dll DESTINATION .)
-        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1-x64.dll DESTINATION .)
-    else()
-        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1.dll DESTINATION .)
-        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1.dll DESTINATION .)
     endif()
 
     add_custom_command(TARGET qv2ray POST_BUILD
         COMMAND windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
         )
     install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
-    set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
+    set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
     include(cmake/deployment.cmake)
 endif()

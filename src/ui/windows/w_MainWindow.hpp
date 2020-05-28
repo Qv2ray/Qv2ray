@@ -32,7 +32,6 @@ class MainWindow
   public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
-    static MainWindow *MainWindowInstance;
   signals:
     void StartConnection() const;
     void StopConnection() const;
@@ -97,7 +96,7 @@ class MainWindow
     //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
     //
-    void ReloadRecentConnectionList(const QList<ConnectionGroupPair> &items);
+    void ReloadRecentConnectionList();
 
   protected:
     void timerEvent(QTimerEvent *event) override;
@@ -118,8 +117,9 @@ class MainWindow
     QMenu *tray_RootMenu = new QMenu(this);
     QMenu *tray_SystemProxyMenu = new QMenu(tr("System Proxy"), this);
     QMenu *tray_RecentConnectionsMenu = new QMenu(tr("Recent Connections"), this);
+    QAction *tray_ClearRecentConnectionsAction = new QAction(tr("Clear Recent Connections"), this);
     //
-    QList<QAction> recentConnections;
+    QList<QAction *> recentConnectionsActionList;
     //
     QAction *tray_action_ShowHide = new QAction(tr("Hide"), this);
     QAction *tray_action_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
@@ -162,6 +162,7 @@ class MainWindow
     void MWSetSystemProxy();
     void MWClearSystemProxy();
     void CheckSubscriptionsUpdate();
+    bool StartAutoConnectionEntry();
     //
     void UpdateColorScheme();
     //

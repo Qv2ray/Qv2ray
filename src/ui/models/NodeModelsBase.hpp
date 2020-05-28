@@ -1,7 +1,7 @@
 #pragma once
 
-#include "NodeDataModel.hpp"
-#include "PortType.hpp"
+#include <nodes/internal/NodeDataModel.hpp>
+#include <nodes/internal/PortType.hpp>
 #include "common/QvHelpers.hpp"
 
 #include <QLabel>
