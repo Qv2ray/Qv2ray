@@ -18,7 +18,7 @@ class DnsSettingsWidget
   public:
     explicit DnsSettingsWidget(QWidget *parent = nullptr);
     void SetDNSObject(const DNSObject &dns);
-    DNSObject GetDNSObject() const;
+    DNSObject GetDNSObject();
 
   private slots:
     void on_dnsClientIPTxt_textEdited(const QString &arg1);
@@ -36,6 +36,10 @@ class DnsSettingsWidget
     void on_serverPortSB_valueChanged(int arg1);
 
     void on_detailsSettingsGB_clicked();
+
+    void on_addStaticHostBtn_clicked();
+
+    void on_removeStaticHostBtn_clicked();
 
   private:
     void ShowCurrentDnsServerDetails();

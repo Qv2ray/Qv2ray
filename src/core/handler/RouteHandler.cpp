@@ -39,7 +39,7 @@ namespace Qv2ray::core::handler
         //
         if (!enableProxy)
         {
-            // This is added to disable all proxies, as a alternative  influence of #64
+            // This is added to disable all proxies, as a alternative influence of #64
             rulesList.append(GenerateSingleRouteRule("regexp:.*", true, OUTBOUND_TAG_DIRECT));
             rulesList.append(GenerateSingleRouteRule("0.0.0.0/0", false, OUTBOUND_TAG_DIRECT));
             rulesList.append(GenerateSingleRouteRule("::/0", false, OUTBOUND_TAG_DIRECT));
@@ -358,7 +358,7 @@ namespace Qv2ray::core::handler
             {
                 if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.tProxySettings.dnsIntercept)
                 {
-                    DNSInterceptFilter(root);
+                    DNSInterceptFilter(root, !GlobalConfig.inboundConfig.tProxySettings.tProxyV6IP.isEmpty());
                 }
 
                 if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)

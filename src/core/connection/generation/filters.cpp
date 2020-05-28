@@ -9,11 +9,18 @@ namespace Qv2ray::core::connection::generation::filters
         }
     }
 
-    void DNSInterceptFilter(CONFIGROOT &root)
+    void DNSInterceptFilter(CONFIGROOT &root, const bool have_ipv6)
     {
         // Static DNS Objects
         static const QJsonObject dnsOutboundObj{ { "protocol", "dns" }, { "tag", "dns-out" } };
-        static const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" }, { "port", "53" }, { "type", "field" } };
+        QJsonArray dnsRouteInTag;
+        if (have_ipv6){
+            dnsRouteInTag = QJsonArray{ "tproxy_IN", "tproxy_IN_V6" };
+        }
+        else{
+            dnsRouteInTag = QJsonArray{ "tproxy_IN" };
+        }
+        static const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" }, { "port", "53" }, { "type", "field" }, { "inboundTag", dnsRouteInTag } };
         // DNS Outbound
         QJsonIO::SetValue(root, dnsOutboundObj, "outbounds", root["outbounds"].toArray().count());
         // DNS Route

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>934</width>
-    <height>664</height>
+    <width>897</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tabWidgetPage1">
+     <widget class="QWidget" name="generalSettingsPage">
       <attribute name="title">
        <string>General Settings</string>
       </attribute>
@@ -618,7 +618,7 @@ But could dramatically damage your server if improperly used.</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="kernelSettingsPage">
       <attribute name="title">
        <string>Kernel Settings</string>
       </attribute>
@@ -897,7 +897,7 @@ Custom DNS Settings</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabWidgetPage2">
+     <widget class="QWidget" name="inboundSettingsPage">
       <attribute name="title">
        <string>Inbound Settings</string>
       </attribute>
@@ -915,7 +915,7 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>888</width>
+            <width>851</width>
             <height>594</height>
            </rect>
           </property>
@@ -935,7 +935,7 @@ Custom DNS Settings</string>
              <item row="0" column="1">
               <widget class="QLineEdit" name="listenIPTxt">
                <property name="placeholderText">
-                <string notr="true">IPv4 address, e.g. '127.0.0.1' or IPv6 address with brackets, e.g. [::1]</string>
+                <string>IPv4 address, e.g. '127.0.0.1' or IPv6 address with brackets, e.g. [::1]</string>
                </property>
               </widget>
              </item>
@@ -1283,13 +1283,6 @@ Custom DNS Settings</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="tproxyFollowRedirect">
-                    <property name="text">
-                     <string>Follow Redirect</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
                    <widget class="QCheckBox" name="dnsIntercept">
                     <property name="text">
                      <string>DNS Intercept</string>
@@ -1421,247 +1414,248 @@ Custom DNS Settings</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabWidgetPage3">
+     <widget class="QWidget" name="connectionSettingsPage">
       <attribute name="title">
        <string>Connection Settings</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout" rowstretch="0,1" columnstretch="2,1" columnminimumwidth="0,1">
+      <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
        <item row="0" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_10">
-         <item>
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>General Connection Settings</string>
-           </property>
-           <layout class="QFormLayout" name="formLayout">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_16">
-              <property name="text">
-               <string>Enable Proxy</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="proxyDefaultCb">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_17">
-              <property name="text">
-               <string>Bypass CN Mainland</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="bypassCNCb">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_76">
-              <property name="text">
-               <string>Bypass Bittorrent Protocol</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QCheckBox" name="bypassBTCb">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_75">
-              <property name="text">
-               <string>Use V2ray DNS for Freedom Outbound</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="DnsFreedomCb">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_18">
-              <property name="text">
-               <string>Use Local DNS</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QCheckBox" name="localDNSCb">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>General Connection Settings</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Enable Proxy</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="proxyDefaultCb">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>Bypass CN Mainland</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="bypassCNCb">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_76">
+            <property name="text">
+             <string>Bypass Bittorrent Protocol</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="bypassBTCb">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_75">
+            <property name="text">
+             <string>Use V2ray DNS for Direct Conenction</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="DnsFreedomCb">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Use Local DNS</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QCheckBox" name="localDNSCb">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item row="0" column="1" rowspan="2">
-        <layout class="QVBoxLayout" name="verticalLayout_7">
-         <item>
-          <widget class="QGroupBox" name="fpGroupBox">
-           <property name="title">
-            <string>Forward Proxy</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-           <layout class="QFormLayout" name="formLayout_8">
-            <item row="0" column="0" colspan="2">
-             <widget class="QLabel" name="label_65">
-              <property name="text">
-               <string>Only simple config is supported.</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_49">
-              <property name="text">
-               <string>Type</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QComboBox" name="fpTypeCombo">
-              <item>
-               <property name="text">
-                <string>HTTP</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Socks</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_50">
-              <property name="text">
-               <string>Host Address</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="fpAddressTx"/>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_51">
-              <property name="text">
-               <string>Port</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QSpinBox" name="fpPortSB">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-              <property name="value">
-               <number>8000</number>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_54">
-              <property name="text">
-               <string>Authentication</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QCheckBox" name="fpUseAuthCB">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_52">
-              <property name="text">
-               <string>Username</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QLineEdit" name="fpUsernameTx"/>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_53">
-              <property name="text">
-               <string>Password</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLineEdit" name="fpPasswordTx"/>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QGroupBox" name="dnsSettingsGB">
+         <property name="title">
+          <string>DNS Settings</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="dnsSettingsLayout"/>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item row="1" column="0">
-        <layout class="QGridLayout" name="dnsSettingsLayout"/>
+        <widget class="QGroupBox" name="fpGroupBox">
+         <property name="title">
+          <string>Forward Proxy</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <layout class="QFormLayout" name="formLayout_8">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label_65">
+            <property name="text">
+             <string>Only simple config is supported.</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_49">
+            <property name="text">
+             <string>Type</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="fpTypeCombo">
+            <item>
+             <property name="text">
+              <string>HTTP</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Socks</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_50">
+            <property name="text">
+             <string>Host Address</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="fpAddressTx"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_51">
+            <property name="text">
+             <string>Port</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="fpPortSB">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>65535</number>
+            </property>
+            <property name="value">
+             <number>8000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_54">
+            <property name="text">
+             <string>Authentication</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QCheckBox" name="fpUseAuthCB">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_52">
+            <property name="text">
+             <string>Username</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="fpUsernameTx"/>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_53">
+            <property name="text">
+             <string>Password</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLineEdit" name="fpPasswordTx"/>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="advRouteSettingsPage">
       <attribute name="title">
        <string>Advanced Route Settings</string>
       </attribute>
@@ -1681,7 +1675,7 @@ Custom DNS Settings</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabWidgetPage5">
+     <widget class="QWidget" name="aboutPage">
       <attribute name="title">
        <string>About</string>
       </attribute>
@@ -2069,7 +2063,6 @@ Custom DNS Settings</string>
   <tabstop>httpAuthPasswordTxt</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
-  <tabstop>fpGroupBox</tabstop>
   <tabstop>fpTypeCombo</tabstop>
   <tabstop>fpAddressTx</tabstop>
   <tabstop>fpPortSB</tabstop>

@@ -2576,6 +2576,10 @@ But could dramatically damage your server if improperly used.</source>
         <source>Invalid tproxy listening ipv6 address.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>

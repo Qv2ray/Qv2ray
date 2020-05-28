@@ -84,7 +84,6 @@ class PreferencesWindow
     void on_tProxyPort_valueChanged(int arg1);
     void on_tproxyEnableTCP_toggled(bool checked);
     void on_tproxyEnableUDP_toggled(bool checked);
-    void on_tproxyFollowRedirect_toggled(bool checked);
     void on_tproxyMode_currentTextChanged(const QString &arg1);
     void on_tproxyListenAddr_textEdited(const QString &arg1);
     void on_tproxyListenV6Addr_textEdited(const QString &arg1);

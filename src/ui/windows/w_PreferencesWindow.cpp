@@ -127,7 +127,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     tProxyPort->setValue(CurrentConfig.inboundConfig.tProxySettings.port);
     tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasTCP);
     tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasUDP);
-    tproxyFollowRedirect->setChecked(CurrentConfig.inboundConfig.tProxySettings.followRedirect);
     tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tProxySettings.mode);
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
     dnsIntercept->setChecked(CurrentConfig.inboundConfig.tProxySettings.dnsIntercept);
@@ -173,7 +172,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     dnsSettingsWidget = new DnsSettingsWidget(this);
     dnsSettingsWidget->SetDNSObject(CurrentConfig.defaultRouteConfig.dnsConfig);
-    dnsSettingsLayout->addWidget(dnsSettingsWidget);
+    dnsSettingsGB->setLayout(new QGridLayout(dnsSettingsGB));
+    dnsSettingsGB->layout()->addWidget(dnsSettingsWidget);
 
 #ifdef DISABLE_AUTO_UPDATE
     updateSettingsGroupBox->setEnabled(false);
@@ -932,8 +932,17 @@ void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_tproxGroupBox_toggled(bool arg1)
 {
+#ifndef Q_OS_LINUX
+    Q_UNUSED(arg1)
+    // No such tProxy thing on Windows and macOS
+    QvMessageBoxWarn(this, tr("Preferences"), tr("tProxy is not supported on macOS and Windows"));
+    CurrentConfig.inboundConfig.useTPROXY = false;
+    tproxGroupBox->setChecked(false);
+#else
     NEEDRESTART
     CurrentConfig.inboundConfig.useTPROXY = arg1;
+#endif
+
 }
 
 void PreferencesWindow::on_tProxyPort_valueChanged(int arg1)
@@ -952,12 +961,6 @@ void PreferencesWindow::on_tproxyEnableUDP_toggled(bool checked)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.hasUDP = checked;
-}
-
-void PreferencesWindow::on_tproxyFollowRedirect_toggled(bool checked)
-{
-    NEEDRESTART
-    CurrentConfig.inboundConfig.tProxySettings.followRedirect = checked;
 }
 
 void PreferencesWindow::on_tproxyMode_currentTextChanged(const QString &arg1)
