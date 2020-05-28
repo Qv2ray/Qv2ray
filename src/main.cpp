@@ -413,8 +413,8 @@ int main(int argc, char *argv[])
     {
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
-        RouteManager = new RouteHandler(qApp);
         ConnectionManager = new QvConfigHandler(qApp);
+        RouteManager = new RouteHandler(qApp);
 
 #ifdef Q_OS_LINUX
         _qApp.setFallbackSessionManagementEnabled(false);

@@ -10,6 +10,7 @@ namespace Qv2ray::core::handler
         Q_OBJECT
       public:
         explicit RouteHandler(QObject *parent = nullptr);
+        ~RouteHandler();
         void SaveRoutes() const;
         //
         QPair<bool, QvConfig_DNS> GetDNSSettings(const GroupRoutingId &id) const

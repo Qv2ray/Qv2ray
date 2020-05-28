@@ -15,6 +15,11 @@ namespace Qv2ray::core::handler
         }
     }
 
+    RouteHandler::~RouteHandler()
+    {
+        SaveRoutes();
+    }
+
     void RouteHandler::SaveRoutes() const
     {
         QJsonObject routingObject;

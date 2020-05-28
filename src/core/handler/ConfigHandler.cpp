@@ -90,6 +90,7 @@ namespace Qv2ray::core::handler
             groupObject[key.toString()] = groups[key].toJson();
         }
         StringToFile(JsonToString(groupObject), QV2RAY_CONFIG_DIR + "groups.json");
+        RouteManager->SaveRoutes();
         SaveGlobalSettings();
     }
 
