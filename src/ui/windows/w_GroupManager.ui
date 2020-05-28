@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>930</width>
-    <height>630</height>
+    <width>1059</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>930</width>
-    <height>630</height>
+    <width>1000</width>
+    <height>730</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -161,7 +161,7 @@
    <item row="1" column="1">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -393,7 +393,7 @@
        <item>
         <widget class="QPushButton" name="updateButton">
          <property name="text">
-          <string>Update Subscription Data</string>
+          <string>Update Subscription</string>
          </property>
         </widget>
        </item>
@@ -407,7 +407,7 @@
        <item row="0" column="0">
         <widget class="QGroupBox" name="dnsSettingsGB">
          <property name="title">
-          <string>Per-group DNS Settings</string>
+          <string>Override Global DNS Settings</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -427,7 +427,7 @@
        <item row="0" column="0">
         <widget class="QGroupBox" name="routeSettingsGB">
          <property name="title">
-          <string>Per-group Advanced Route Settings</string>
+          <string>Override Global Advanced Route Settings</string>
          </property>
          <property name="checkable">
           <bool>true</bool>

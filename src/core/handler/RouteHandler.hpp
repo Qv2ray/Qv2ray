@@ -12,6 +12,18 @@ namespace Qv2ray::core::handler
         explicit RouteHandler(QObject *parent = nullptr);
         void SaveRoutes() const;
         //
+        QPair<bool, QvConfig_DNS> GetDNSSettings(const GroupRoutingId &id) const
+        {
+            return { configs[id].overrideDNS, configs[id].dnsConfig };
+        }
+        QPair<bool, QvConfig_Route> GetAdvancedRoutingSettings(const GroupRoutingId &id) const
+        {
+            return { configs[id].overrideRoute, configs[id].routeConfig };
+        }
+        //
+        bool SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns);
+        bool SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_Route &dns);
+        //
         // Final Config Generation
         CONFIGROOT GenerateFinalConfig(const ConnectionGroupPair &pair) const;
         CONFIGROOT GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId) const;

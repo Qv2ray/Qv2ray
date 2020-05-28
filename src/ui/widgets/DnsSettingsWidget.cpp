@@ -47,6 +47,7 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns)
     //
     dnsClientIPTxt->setText(dns.clientIp);
     dnsTagTxt->setText(dns.tag);
+    serversListbox->clear();
     for (const auto &server : dns.servers)
     {
         serversListbox->addItem(server.address);

@@ -103,6 +103,7 @@ namespace Qv2ray::core::handler
         const GroupId CreateGroup(const QString &displayName, bool isSubscription);
         const std::optional<QString> DeleteGroup(const GroupId &id);
         const std::optional<QString> RenameGroup(const GroupId &id, const QString &newName);
+        const GroupRoutingId GetGroupRoutingId(const GroupId &id);
         // const optional<QString> DuplicateGroup(const GroupId &id);
         //
         // Subscriptions

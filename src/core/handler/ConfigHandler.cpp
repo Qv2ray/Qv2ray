@@ -399,6 +399,15 @@ namespace Qv2ray::core::handler
         return id;
     }
 
+    const GroupRoutingId QvConfigHandler::GetGroupRoutingId(const GroupId &id)
+    {
+        if (groups[id].routeConfigId == NullRoutingId)
+        {
+            groups[id].routeConfigId = GroupRoutingId{ GenerateRandomString() };
+        }
+        return groups[id].routeConfigId;
+    }
+
     const std::optional<QString> QvConfigHandler::RenameGroup(const GroupId &id, const QString &newName)
     {
         CheckGroupExistance(id);

@@ -25,6 +25,19 @@ namespace Qv2ray::core::handler
         StringToFile(JsonToString(routingObject), QV2RAY_CONFIG_DIR + "routes.json");
     }
 
+    bool RouteHandler::SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns)
+    {
+        configs[id].overrideDNS = overrideGlobal;
+        configs[id].dnsConfig = dns;
+        return true;
+    }
+    bool RouteHandler::SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_Route &route)
+    {
+        configs[id].overrideRoute = overrideGlobal;
+        configs[id].routeConfig = route;
+        return true;
+    }
+
     // -------------------------- BEGIN CONFIG GENERATIONS
     ROUTING RouteHandler::GenerateRoutes(bool enableProxy, bool bypassCN, const QString &outTag, const QvConfig_Route &routeConfig) const
     {
@@ -95,8 +108,7 @@ namespace Qv2ray::core::handler
     // We need copy construct here
     CONFIGROOT RouteHandler::GenerateFinalConfig(const ConnectionGroupPair &pair) const
     {
-        return GenerateFinalConfig(ConnectionManager->GetConnectionRoot(pair.connectionId),
-                                   ConnectionManager->GetGroupMetaObject(pair.groupId).routeConfigId);
+        return GenerateFinalConfig(ConnectionManager->GetConnectionRoot(pair.connectionId), ConnectionManager->GetGroupRoutingId(pair.groupId));
     };
     CONFIGROOT RouteHandler::GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId) const
     {

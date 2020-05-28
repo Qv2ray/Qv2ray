@@ -310,6 +310,12 @@ void GroupManager::on_removeGroupButton_clicked()
 
 void GroupManager::on_buttonBox_accepted()
 {
+    if (currentGroupId != NullGroupId)
+    {
+        const auto routeId = ConnectionManager->GetGroupRoutingId(currentGroupId);
+        RouteManager->SetDNSSettings(routeId, dnsSettingsGB->isChecked(), dnsSettingsWidget->GetDNSObject());
+        RouteManager->SetAdvancedRouteSettings(routeId, routeSettingsGB->isChecked(), routeSettingsWidget->GetRouteConfig());
+    }
     // Nothing?
 }
 
@@ -354,8 +360,19 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     }
     IncludeRelation->setCurrentIndex(groupMetaObject.subscriptionOption.IncludeRelation);
     ExcludeRelation->setCurrentIndex(groupMetaObject.subscriptionOption.ExcludeRelation);
-
     //
+    // Load DNS / Route config
+    const auto routeId = ConnectionManager->GetGroupRoutingId(currentGroupId);
+    {
+        const auto &[overrideDns, dns] = RouteManager->GetDNSSettings(routeId);
+        dnsSettingsWidget->SetDNSObject(dns);
+        dnsSettingsGB->setChecked(overrideDns);
+    }
+    {
+        const auto &[overrideRoute, route] = RouteManager->GetAdvancedRoutingSettings(routeId);
+        routeSettingsWidget->SetRouteConfig(route);
+        routeSettingsGB->setChecked(overrideRoute);
+    }
     reloadConnectionsList(currentGroupId);
 }
 
@@ -381,9 +398,18 @@ void GroupManager::on_ExcludeKeywords_textChanged()
     ConnectionManager->SetSubscriptionExcludeKeywords(currentGroupId, keywords);
 }
 
-void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *)
+void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *priv)
 {
-    on_groupList_itemClicked(current);
+    if (priv)
+    {
+        const auto group = ConnectionManager->GetGroupMetaObject(currentGroupId);
+        RouteManager->SetDNSSettings(group.routeConfigId, dnsSettingsGB->isChecked(), dnsSettingsWidget->GetDNSObject());
+        RouteManager->SetAdvancedRouteSettings(group.routeConfigId, routeSettingsGB->isChecked(), routeSettingsWidget->GetRouteConfig());
+    }
+    if (current)
+    {
+        on_groupList_itemClicked(current);
+    }
 }
 
 void GroupManager::on_subAddrTxt_textEdited(const QString &arg1)
