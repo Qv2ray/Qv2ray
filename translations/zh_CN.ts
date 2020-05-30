@@ -216,7 +216,11 @@
     </message>
     <message>
         <source>New DNS</source>
-        <translation>新DNS</translation>
+        <translation type="vanished">新DNS</translation>
+    </message>
+    <message>
+        <source>DNS List</source>
+        <translation>DNS 列表</translation>
     </message>
 </context>
 <context>
@@ -1535,7 +1539,7 @@
     </message>
     <message>
         <source>Custom DNS List</source>
-        <translation>自定义 DNS 列表</translation>
+        <translation type="vanished">自定义 DNS 列表</translation>
     </message>
     <message>
         <source>Forward Proxy</source>
@@ -1911,7 +1915,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation>跟随重定向</translation>
+        <translation type="vanished">跟随重定向</translation>
     </message>
     <message>
         <source>Override Connection SockOpt Settings</source>
@@ -2211,7 +2215,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Use V2ray DNS for Freedom Outbound</source>
-        <translation>为自由出站使用 V2Ray DNS</translation>
+        <translation type="vanished">为自由出站使用 V2Ray DNS</translation>
     </message>
     <message>
         <source>Bypass Bittorrent Protocol</source>
@@ -2381,7 +2385,15 @@ But could dramatically damage your server if improperly used.</source>
     </message>
     <message>
         <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
-        <translation>IPv4 地址，例如 127.0.0.1；或带方括号的 IPv6 地址，例如 [::1]。</translation>
+        <translation>IPv4 地址，例如 127.0.0.1；或带方括号的 IPv6 地址，例如 [::1]</translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Direct Conenction</source>
+        <translation>为直连使用 V2Ray DNS</translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation>DNS 设置</translation>
     </message>
 </context>
 <context>
@@ -2963,11 +2975,7 @@ But could dramatically damage your server if improperly used.</source>
     </message>
 </context>
 <context>
-    <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
-    <message>
-        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-        <translation>一个插件内核启动失败。请检查出站设置。</translation>
-    </message>
+    <name>Qv2ray::core::handler::KernelInstanceHandler</name>
     <message>
         <source>Another process is using the port required to start the connection:</source>
         <translation>另一进程正在使用启动此连接所需的端口：</translation>
@@ -2976,20 +2984,24 @@ But could dramatically damage your server if improperly used.</source>
         <source>Port %1 for inbound tag: &quot;%2&quot;</source>
         <translation>入站标签 %2 需要端口 %1</translation>
     </message>
+    <message>
+        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+        <translation>一个插件内核启动失败。请检查出站设置。</translation>
+    </message>
 </context>
 <context>
-    <name>Qv2ray::core::handlers::QvConfigHandler</name>
+    <name>Qv2ray::core::handler::QvConfigHandler</name>
     <message>
         <source>Default Group</source>
         <translation>默认分组</translation>
     </message>
     <message>
-        <source>File does not exist.</source>
-        <translation type="vanished">文件不存在。</translation>
-    </message>
-    <message>
         <source>Group does not exist</source>
         <translation>分组不存在</translation>
+    </message>
+    <message>
+        <source>Failed to start connection</source>
+        <translation>连接启动失败</translation>
     </message>
     <message>
         <source>Update Subscription</source>
@@ -3000,12 +3012,54 @@ But could dramatically damage your server if improperly used.</source>
         <translation>订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
     </message>
     <message>
+        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>%2 条连接中仅有 %1 条可用，确定要继续吗？</translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
+    <message>
+        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+        <translation type="vanished">一个插件内核启动失败。请检查出站设置。</translation>
+    </message>
+    <message>
+        <source>Another process is using the port required to start the connection:</source>
+        <translation type="vanished">另一进程正在使用启动此连接所需的端口：</translation>
+    </message>
+    <message>
+        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
+        <translation type="vanished">入站标签 %2 需要端口 %1</translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::handlers::QvConfigHandler</name>
+    <message>
+        <source>Default Group</source>
+        <translation type="vanished">默认分组</translation>
+    </message>
+    <message>
+        <source>File does not exist.</source>
+        <translation type="vanished">文件不存在。</translation>
+    </message>
+    <message>
+        <source>Group does not exist</source>
+        <translation type="vanished">分组不存在</translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation type="vanished">更新订阅</translation>
+    </message>
+    <message>
+        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation type="vanished">订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
+    </message>
+    <message>
         <source>Failed to start connection</source>
-        <translation>连接启动失败</translation>
+        <translation type="vanished">连接启动失败</translation>
     </message>
     <message>
         <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation>%2 条连接中仅有 %1 条可用，确定要继续吗？</translation>
+        <translation type="vanished">%2 条连接中仅有 %1 条可用，确定要继续吗？</translation>
     </message>
 </context>
 <context>
@@ -3884,7 +3938,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation>更新订阅数据</translation>
+        <translation type="vanished">更新订阅数据</translation>
     </message>
     <message>
         <source>Group Info</source>
@@ -3916,7 +3970,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>连接设置</translation>
+        <translation type="vanished">连接设置</translation>
     </message>
     <message>
         <source>Route Settings</source>
@@ -3972,11 +4026,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Per-group DNS Settings</source>
-        <translation>分组 DNS 设置</translation>
+        <translation type="vanished">分组 DNS 设置</translation>
     </message>
     <message>
         <source>Per-group Connection Settings</source>
-        <translation>分组连接设置</translation>
+        <translation type="vanished">分组连接设置</translation>
     </message>
     <message>
         <source>Advanced Route Settings</source>
@@ -3984,7 +4038,19 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Per-group Advanced Route Settings</source>
-        <translation>分组高级路由设置</translation>
+        <translation type="vanished">分组高级路由设置</translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation>更新订阅</translation>
+    </message>
+    <message>
+        <source>Override Global DNS Settings</source>
+        <translation>覆盖全局 DNS 设置</translation>
+    </message>
+    <message>
+        <source>Override Global Advanced Route Settings</source>
+        <translation>覆盖全局高级路由设置</translation>
     </message>
 </context>
 <context>

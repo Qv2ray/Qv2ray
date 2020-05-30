@@ -204,7 +204,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>New DNS</source>
+        <source>DNS List</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1584,10 +1584,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Follow Redirect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>DNS Intercept</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1616,15 +1612,7 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use V2ray DNS for Freedom Outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use Local DNS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Custom DNS List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1795,6 +1783,14 @@ But could dramatically damage your server if improperly used.</source>
     </message>
     <message>
         <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Direct Conenction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2155,11 +2151,7 @@ But could dramatically damage your server if improperly used.</source>
     </message>
 </context>
 <context>
-    <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
-    <message>
-        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
+    <name>Qv2ray::core::handler::KernelInstanceHandler</name>
     <message>
         <source>Another process is using the port required to start the connection:</source>
         <translation type="unfinished"></translation>
@@ -2168,9 +2160,13 @@ But could dramatically damage your server if improperly used.</source>
         <source>Port %1 for inbound tag: &quot;%2&quot;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
-    <name>Qv2ray::core::handlers::QvConfigHandler</name>
+    <name>Qv2ray::core::handler::QvConfigHandler</name>
     <message>
         <source>Default Group</source>
         <translation type="unfinished"></translation>
@@ -2180,15 +2176,15 @@ But could dramatically damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Failed to start connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Update Subscription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to start connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3030,10 +3026,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Update Subscription Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Update Notify Interval</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3066,23 +3058,19 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Per-group DNS Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Per-group Connection Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Advanced Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Per-group Advanced Route Settings</source>
+        <source>Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Override Global DNS Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Override Global Advanced Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

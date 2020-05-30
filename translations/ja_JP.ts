@@ -244,7 +244,11 @@
     </message>
     <message>
         <source>New DNS</source>
-        <translation>新しいDNS</translation>
+        <translation type="vanished">新しいDNS</translation>
+    </message>
+    <message>
+        <source>DNS List</source>
+        <translation>DNSリスト</translation>
     </message>
 </context>
 <context>
@@ -1909,7 +1913,7 @@
     </message>
     <message>
         <source>Custom DNS List</source>
-        <translation>カスタムDNSリスト</translation>
+        <translation type="vanished">カスタムDNSリスト</translation>
     </message>
     <message>
         <source>Forward Proxy</source>
@@ -2009,7 +2013,7 @@
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation>リダイレクトに従う</translation>
+        <translation type="vanished">リダイレクトに従う</translation>
     </message>
     <message>
         <source>Override Connection SockOpt Settings</source>
@@ -2581,7 +2585,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Use V2ray DNS for Freedom Outbound</source>
-        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
+        <translation type="vanished">フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
     </message>
     <message>
         <source>Bypass Bittorrent Protocol</source>
@@ -2751,7 +2755,15 @@ But could dramatically damage your server if improperly used.</source>
     </message>
     <message>
         <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
-        <translation>IPv4アドレス、例えば、127.0.0.1；またはIPv6アドレスを括弧付きで指定します、例えば、[::1]。</translation>
+        <translation>IPv4アドレス、例えば、127.0.0.1；またはIPv6アドレスを括弧付きで指定します、例えば、[::1]</translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Direct Conenction</source>
+        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation>DNS設定</translation>
     </message>
 </context>
 <context>
@@ -3385,33 +3397,33 @@ But could dramatically damage your server if improperly used.</source>
     </message>
 </context>
 <context>
-    <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
-    <message>
-        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-        <translation>プラグインカーネルの起動に失敗しました。アウトバウンドの設定を確認してください。</translation>
-    </message>
+    <name>Qv2ray::core::handler::KernelInstanceHandler</name>
     <message>
         <source>Another process is using the port required to start the connection:</source>
-        <translation>別のプロセスは、接続の開始に必要なポートを使用しています：</translation>
+        <translation>別のプロセスは、接続の必要なポートを使用しています：</translation>
     </message>
     <message>
         <source>Port %1 for inbound tag: &quot;%2&quot;</source>
         <translation>タグ %2 のポート %1</translation>
     </message>
+    <message>
+        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+        <translation>プラグインカーネルの起動に失敗しました。アウトバウンドの設定を確認してください。</translation>
+    </message>
 </context>
 <context>
-    <name>Qv2ray::core::handlers::QvConfigHandler</name>
+    <name>Qv2ray::core::handler::QvConfigHandler</name>
     <message>
         <source>Default Group</source>
         <translation>デフォルトグループ</translation>
     </message>
     <message>
-        <source>File does not exist.</source>
-        <translation type="vanished">ファイルが存在しません。</translation>
-    </message>
-    <message>
         <source>Group does not exist</source>
         <translation>グループが存在しません</translation>
+    </message>
+    <message>
+        <source>Failed to start connection</source>
+        <translation>接続起動失敗</translation>
     </message>
     <message>
         <source>Update Subscription</source>
@@ -3422,12 +3434,54 @@ But could dramatically damage your server if improperly used.</source>
         <translation>アップストリームから返されるノードは %1 つだけです。続行してもよろしいですか？</translation>
     </message>
     <message>
+        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>%2 つのエントリのうち %1 がフィルタリングされましたが、続行しますか?</translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
+    <message>
+        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+        <translation type="vanished">プラグインカーネルの起動に失敗しました。アウトバウンドの設定を確認してください。</translation>
+    </message>
+    <message>
+        <source>Another process is using the port required to start the connection:</source>
+        <translation type="vanished">別のプロセスは、接続の開始に必要なポートを使用しています：</translation>
+    </message>
+    <message>
+        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
+        <translation type="vanished">タグ %2 のポート %1</translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::handlers::QvConfigHandler</name>
+    <message>
+        <source>Default Group</source>
+        <translation type="vanished">デフォルトグループ</translation>
+    </message>
+    <message>
+        <source>File does not exist.</source>
+        <translation type="vanished">ファイルが存在しません。</translation>
+    </message>
+    <message>
+        <source>Group does not exist</source>
+        <translation type="vanished">グループが存在しません</translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation type="vanished">サブスクリプションを更新</translation>
+    </message>
+    <message>
+        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation type="vanished">アップストリームから返されるノードは %1 つだけです。続行してもよろしいですか？</translation>
+    </message>
+    <message>
         <source>Failed to start connection</source>
-        <translation>接続起動失敗</translation>
+        <translation type="vanished">接続起動失敗</translation>
     </message>
     <message>
         <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation>%2 つのエントリのうち %1 がフィルタリングされましたが、続行しますか?</translation>
+        <translation type="vanished">%2 つのエントリのうち %1 がフィルタリングされましたが、続行しますか?</translation>
     </message>
 </context>
 <context>
@@ -4342,7 +4396,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation>サブスクリプションデータの更新</translation>
+        <translation type="vanished">サブスクリプションデータの更新</translation>
     </message>
     <message>
         <source>Group Info</source>
@@ -4374,7 +4428,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection Settings</source>
-        <translation>接続設定</translation>
+        <translation type="vanished">接続設定</translation>
     </message>
     <message>
         <source>Route Settings</source>
@@ -4430,11 +4484,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Per-group DNS Settings</source>
-        <translation>グループごとのDNS設定</translation>
+        <translation type="vanished">グループごとのDNS設定</translation>
     </message>
     <message>
         <source>Per-group Connection Settings</source>
-        <translation>グループごとの接続設定</translation>
+        <translation type="vanished">グループごとの接続設定</translation>
     </message>
     <message>
         <source>Advanced Route Settings</source>
@@ -4442,7 +4496,19 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Per-group Advanced Route Settings</source>
-        <translation>グループごとのルート設定</translation>
+        <translation type="vanished">グループごとのルート設定</translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation>サブスクリプションを更新</translation>
+    </message>
+    <message>
+        <source>Override Global DNS Settings</source>
+        <translation>グローバルDNS設定のオーバーライド</translation>
+    </message>
+    <message>
+        <source>Override Global Advanced Route Settings</source>
+        <translation>グローバルルート設定のオーバーライド</translation>
     </message>
 </context>
 <context>
