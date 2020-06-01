@@ -26,6 +26,24 @@ If appropriate, please attach some screenshots.
  - OS Type: (Windows, Linux or macOS)
  - Built from the source or download from the release?
  - Version string in the Preferences Window
+ 
+ **Affected Qv2ray installation source**
+ 
+- ArchLinuxCN - Stable
+- ArchLinuxCN - Dev-git
+- ArchLinux AUR - Stable
+- ArchLinux AUR - Development
+- Fedora - Stable
+- Fedora - Preview
+- openSUSE - Stable
+- openSUSE - Preview
+- Flathub
+- Snap
+- Homebrew Cask
+- Scoop
+- Chocolatey
+- Compile manually
+- Github Release
 
 **Other Info**
 
