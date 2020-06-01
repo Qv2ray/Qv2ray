@@ -61,6 +61,7 @@ Qv2ray 日志：
 - Snap 包
 - Homebrew Cask
 - Scoop
+- Chocolatey
 - 手动编译
 - Github Release
 
