@@ -62,6 +62,11 @@
   <td>Scoop</td>
   <td><a href="https://github.com/lukesampson/scoop-extras/blob/master/bucket/qv2ray.json"><img alt="scoop" src="https://img.shields.io/badge/scoop--extras-available-blue" /></a></td>
  </tr>
+ 
+ <tr>
+ <td>Chocolatey</td>
+ <td><a href="https://chocolatey.org/packages/qv2ray"><img alt="Chocolatey Version" src="https://img.shields.io/chocolatey/v/qv2ray"></a></td>
+ </tr>
 
  <tr>
   <td>Snapcraft</td>
