@@ -35,11 +35,11 @@ class DnsSettingsWidget
 
     void on_serverPortSB_valueChanged(int arg1);
 
-    void on_detailsSettingsGB_clicked();
-
     void on_addStaticHostBtn_clicked();
 
     void on_removeStaticHostBtn_clicked();
+
+    void on_detailsSettingsGB_toggled(bool arg1);
 
   private:
     void ShowCurrentDnsServerDetails();

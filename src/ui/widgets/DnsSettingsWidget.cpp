@@ -27,6 +27,8 @@ DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)
     //
     domainsLayout->addWidget(domainListTxt);
     expectedIPsLayout->addWidget(ipListTxt);
+    detailsSettingsGB->setCheckable(true);
+    detailsSettingsGB->setChecked(false);
     UPDATEUI
 }
 
@@ -84,7 +86,10 @@ DNSObject DnsSettingsWidget::GetDNSObject()
     dns.hosts.clear();
     for (auto i = 0; i < staticResolvedDomainsTable->rowCount(); i++)
     {
-        dns.hosts[staticResolvedDomainsTable->item(i, 0)->text()] = staticResolvedDomainsTable->item(i, 1)->text();
+        const auto &item1 = staticResolvedDomainsTable->item(i, 0);
+        const auto &item2 = staticResolvedDomainsTable->item(i, 1);
+        if (item1 && item2)
+            dns.hosts[item1->text()] = item2->text();
     }
     return dns;
 }
@@ -146,12 +151,6 @@ void DnsSettingsWidget::on_serverPortSB_valueChanged(int arg1)
     dns.servers[currentServerIndex].port = arg1;
 }
 
-void DnsSettingsWidget::on_detailsSettingsGB_clicked()
-{
-    dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS = detailsSettingsGB->isChecked();
-    detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
-}
-
 void DnsSettingsWidget::on_addStaticHostBtn_clicked()
 {
     if (staticResolvedDomainsTable->rowCount() >= 0)
@@ -162,4 +161,11 @@ void DnsSettingsWidget::on_removeStaticHostBtn_clicked()
 {
     if (staticResolvedDomainsTable->rowCount() >= 0)
         staticResolvedDomainsTable->removeRow(staticResolvedDomainsTable->currentRow());
+}
+
+void DnsSettingsWidget::on_detailsSettingsGB_toggled(bool arg1)
+{
+    if (currentServerIndex > 0)
+        dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS = arg1;
+    // detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
 }

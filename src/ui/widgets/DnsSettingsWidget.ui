@@ -132,23 +132,6 @@
             <item row="0" column="1">
              <widget class="QLineEdit" name="serverAddressTxt"/>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>Port</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QSpinBox" name="serverPortSB">
-              <property name="buttonSymbols">
-               <enum>QAbstractSpinBox::NoButtons</enum>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
           <item>
@@ -159,26 +142,50 @@
             <property name="checkable">
              <bool>true</bool>
             </property>
-            <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,1">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Domains</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
+            <layout class="QGridLayout" name="_2" rowstretch="0,0,1">
+             <item row="1" column="1">
               <widget class="QLabel" name="label_4">
                <property name="text">
                 <string>Expectd IPs</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
+             <item row="2" column="0">
               <layout class="QGridLayout" name="domainsLayout"/>
              </item>
-             <item row="1" column="1">
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Domains</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
               <layout class="QGridLayout" name="expectedIPsLayout"/>
+             </item>
+             <item row="0" column="0" colspan="2">
+              <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
+               <item>
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Port</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="serverPortSB">
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::NoButtons</enum>
+                 </property>
+                 <property name="maximum">
+                  <number>65535</number>
+                 </property>
+                 <property name="value">
+                  <number>53</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>
