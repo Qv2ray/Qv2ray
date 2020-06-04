@@ -1479,7 +1479,7 @@ Custom DNS Settings</string>
           <item row="3" column="0">
            <widget class="QLabel" name="label_75">
             <property name="text">
-             <string>Use V2ray DNS for Direct Conenction</string>
+             <string>Use V2ray DNS for Direct Connection</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>

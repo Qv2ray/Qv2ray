@@ -2759,11 +2759,15 @@ But could dramatically damage your server if improperly used.</source>
     </message>
     <message>
         <source>Use V2ray DNS for Direct Conenction</source>
-        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
+        <translation type="vanished">フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
     </message>
     <message>
         <source>DNS Settings</source>
         <translation>DNS設定</translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Direct Connection</source>
+        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
     </message>
 </context>
 <context>

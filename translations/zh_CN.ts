@@ -2389,11 +2389,15 @@ But could dramatically damage your server if improperly used.</source>
     </message>
     <message>
         <source>Use V2ray DNS for Direct Conenction</source>
-        <translation>为直连使用 V2Ray DNS</translation>
+        <translation type="vanished">为直连使用 V2Ray DNS</translation>
     </message>
     <message>
         <source>DNS Settings</source>
         <translation>DNS 设置</translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Direct Connection</source>
+        <translation>为直连使用 V2Ray DNS</translation>
     </message>
 </context>
 <context>

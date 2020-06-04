@@ -1786,11 +1786,11 @@ But could dramatically damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use V2ray DNS for Direct Conenction</source>
+        <source>DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DNS Settings</source>
+        <source>Use V2ray DNS for Direct Connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
