@@ -241,7 +241,7 @@
             <item row="1" column="1">
              <widget class="QSpinBox" name="alterLineEdit">
               <property name="maximum">
-               <number>1024</number>
+               <number>65535</number>
               </property>
               <property name="value">
                <number>16</number>
