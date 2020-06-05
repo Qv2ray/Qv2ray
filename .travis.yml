@@ -2,25 +2,8 @@ language: shell
 os: linux
 dist: bionic
 
-env:
-  global:
-    - LC_ALL: C.UTF-8
-    - LANG: C.UTF-8
-
-addons:
-  snaps:
-    - name: snapcraft
-      channel: edge
-      confinement: classic
-    - name: multipass
-      channel: stable
-      confinement: classic
-
 script:
-  - snapcraft
-
-after_failure:
-  - sudo journalctl -u snapd
+  - echo Refreshing launchpad repository
 
 deploy:
   - provider: launchpad
