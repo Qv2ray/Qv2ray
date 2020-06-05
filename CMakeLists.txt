@@ -82,6 +82,7 @@ endif()
 # ==================================================================================
 set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
 set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
+set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication provider")
 set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
@@ -222,6 +223,7 @@ target_link_libraries(qv2ray-baselib
 target_link_libraries(qv2ray
     qv2ray-baselib
     ${QNODEEDITOR_LIBRARY}
+    ${SINGLEAPPLICATION_LIBRARY}
     )
 
 target_include_directories(qv2ray PUBLIC
