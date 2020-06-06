@@ -69,7 +69,6 @@ namespace Qv2ray::core::handler
         using k = Qv2rayPlugin::QvPluginKernel;
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
-            QList<std::tuple<QString, QString, QString>> pluginProcessedOutboundList;
             //
             // Process outbounds.
             //
@@ -101,36 +100,23 @@ namespace Qv2ray::core::handler
                     //
                     //
                     QMap<QvPluginKernel::KernelSetting, QVariant> _inboundSettings;
-                    const auto originalOutboundTag = outbound["tag"].toString();
-                    for (const auto &[inProtocol, inPort, inTag] : inboundInfo)
-                    {
-                        // Ignore unsupported protocol.
-                        if (!QStringList{ "http", "socks" }.contains(inProtocol))
-                        {
-                            LOG(MODULE_CONNECTION, "Inbound protocol: " + inProtocol + " is not a valid protocol for plugins.")
-                            continue;
-                        }
-                        //
-                        _inboundSettings[k::KERNEL_HTTP_ENABLED] = _inboundSettings[k::KERNEL_HTTP_ENABLED].toBool() || inProtocol == "http";
-                        _inboundSettings[k::KERNEL_SOCKS_ENABLED] = _inboundSettings[k::KERNEL_SOCKS_ENABLED].toBool() || inProtocol == "socks";
-                        _inboundSettings.insert(inProtocol.toLower() == "http" ? k::KERNEL_HTTP_PORT : k::KERNEL_SOCKS_PORT, pluginPort);
-                        LOG(MODULE_VCORE, "V2rayIntegration: " + QSTRN(pluginPort) + "=" + inProtocol + "(" + inTag + ") --> " + outProtocol)
-                        //
-                        //
-                        const auto freedomTag = "plugin_" + inTag + "_" + inProtocol + "-" + QSTRN(inPort) + "_" + QSTRN(pluginPort);
-                        const auto pluginOutSettings = GenerateHTTPSOCKSOut("127.0.0.1", pluginPort, false, "", "");
-                        const auto direct = GenerateOutboundEntry(inProtocol, pluginOutSettings, {}, {}, "0.0.0.0", freedomTag);
-                        //
-                        // Add the integration outbound to the list.
-                        processedOutbounds.push_back(direct);
 
-                        LOG(MODULE_CONNECTION, "Appended originalOutboundTag, inTag, freedomTag into processedOutboundList")
-                        pluginProcessedOutboundList.append({ originalOutboundTag, inTag, freedomTag });
-                        pluginPort++;
-                    }
+                    _inboundSettings[k::KERNEL_HTTP_ENABLED] = false;
+                    _inboundSettings[k::KERNEL_SOCKS_ENABLED] = true;
+                    _inboundSettings.insert(k::KERNEL_SOCKS_PORT, pluginPort);
+                    LOG(MODULE_VCORE, "V2rayIntegration: " + QSTRN(pluginPort) + "=" + outProtocol)
+
+                    const auto pluginOutSettings = GenerateHTTPSOCKSOut("127.0.0.1", pluginPort, false, "", "");
+                    const auto pluginOut = GenerateOutboundEntry("socks", pluginOutSettings, {}, {}, "0.0.0.0", outbound["tag"].toString());
+                    //
+                    // Add the integration outbound to the list.
+                    processedOutbounds.push_back(pluginOut);
+
+                    pluginPort++;
+
                     _inboundSettings[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
                     _inboundSettings[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
-                    _inboundSettings[k::KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
+                    _inboundSettings[k::KERNEL_LISTEN_ADDRESS] = "127.0.0.1";
                     LOG(MODULE_CONNECTION, "Sending connection settings to kernel.")
                     activeKernels[outProtocol]->SetConnectionSettings(_inboundSettings, outbound["settings"].toObject());
                 }
@@ -140,49 +126,7 @@ namespace Qv2ray::core::handler
             //
             // Process routing entries
             //
-            {
-                LOG(MODULE_CONNECTION, "Started processing route tables.")
-                QJsonArray newRules;
-                auto unProcessedOutbounds = pluginProcessedOutboundList;
-                const auto &rules = fullConfig["routing"].toObject()["rules"].toArray();
-                for (auto i = 0; i < rules.count(); i++)
-                {
-                    const auto &rule = rules.at(i).toObject();
-                    //
-                    bool ruleProcessed = false;
-                    for (const auto &[originalTag, inboundTag, newOutboundTag] : pluginProcessedOutboundList)
-                    {
-                        // Check if a rule corresponds to the plugin outbound.
-                        if (rule["outboundTag"] == originalTag)
-                        {
-                            LOG(MODULE_CONNECTION, "Replacing existed plugin outbound rule.")
-                            auto newRule = rule;
-                            newRule["outboundTag"] = newOutboundTag;
-                            newRule["inboundTag"] = QJsonArray{ inboundTag };
-                            newRules.push_back(newRule);
-                            ruleProcessed = true;
-                            unProcessedOutbounds.removeOne({ originalTag, inboundTag, newOutboundTag });
-                        }
-                    }
-                    if (!ruleProcessed)
-                    {
-                        newRules.append(rule);
-                    }
-                }
-
-                for (const auto &[originalTag, inboundTag, newOutboundTag] : unProcessedOutbounds)
-                {
-                    LOG(MODULE_CONNECTION, "Adding new plugin outbound rule.")
-                    QJsonObject integrationRule;
-                    integrationRule["type"] = "field";
-                    integrationRule["outboundTag"] = newOutboundTag;
-                    integrationRule["inboundTag"] = QJsonArray{ inboundTag };
-                    newRules.push_back(integrationRule);
-                }
-                auto routing = fullConfig["routing"].toObject();
-                routing["rules"] = newRules;
-                fullConfig["routing"] = routing;
-            }
+            // No needs to process routing entries since each plugin is map to an unique outbound with the same tag.
             //
             // ================================================================================================
             //
