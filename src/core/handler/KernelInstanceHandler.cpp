@@ -180,6 +180,7 @@ namespace Qv2ray::core::handler
                 }
                 QMap<QvPluginKernel::KernelSetting, QVariant> pluginInboundPort;
                 for (const auto &[_protocol, _port, _tag] : inboundInfo)
+                if ((_protocol == "http")||(_protocol == "socks"))
                 {
                     pluginInboundPort[k::KERNEL_HTTP_ENABLED] = pluginInboundPort[k::KERNEL_HTTP_ENABLED].toBool() || _protocol == "http";
                     pluginInboundPort[k::KERNEL_SOCKS_ENABLED] = pluginInboundPort[k::KERNEL_SOCKS_ENABLED].toBool() || _protocol == "socks";
