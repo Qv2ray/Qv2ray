@@ -323,7 +323,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="label_64">
               <property name="text">
-               <string>Curtom Proxy</string>
+               <string>Custom Proxy</string>
               </property>
              </widget>
             </item>
@@ -344,7 +344,7 @@
             <item row="3" column="0">
              <widget class="QLabel" name="label_66">
               <property name="text">
-               <string>Curtom Proxy</string>
+               <string>Custom Proxy</string>
               </property>
              </widget>
             </item>

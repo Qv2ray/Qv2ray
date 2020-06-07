@@ -1962,7 +1962,7 @@ But could damage your server if improperly used.</source>
         <translation>使用自定义代理</translation>
     </message>
     <message>
-        <source>Curtom Proxy</source>
+        <source>Custom Proxy</source>
         <translation>自定义代理</translation>
     </message>
     <message>

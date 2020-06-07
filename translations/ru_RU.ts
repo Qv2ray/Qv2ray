@@ -2236,7 +2236,7 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Curtom Proxy</source>
+        <source>Custom Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
