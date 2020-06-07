@@ -2552,7 +2552,7 @@ But could damage your server if improperly used.</source>
         <translation>カスタムプロキシを使う</translation>
     </message>
     <message>
-        <source>Curtom Proxy</source>
+        <source>Custom Proxy</source>
         <translation type="vanished">カスタムプロキシ</translation>
     </message>
     <message>
