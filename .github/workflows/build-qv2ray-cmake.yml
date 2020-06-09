@@ -173,7 +173,7 @@ jobs:
           squashfs-root/AppRun AppDir/usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
           mkdir debian
-          https://github.com/Qv2ray/Distribution/releases/download/0.0.0/fakeDeb.tar.gz
+          wget https://github.com/Qv2ray/Distribution/releases/download/0.0.0/fakeDeb.tar.gz
           tar xzf fakeDeb.tar.gz -C debian
           cd debian
           cp ../Qv2ray.AppImage opt/qv2ray/
