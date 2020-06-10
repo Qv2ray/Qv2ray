@@ -50,9 +50,8 @@ parts:
       - software-properties-common
     override-pull: |
       sudo add-apt-repository ppa:ymshenyu/libuv
-      sudo add-apt-repository ppa:ymshenyu/qt
       sudo apt-get update
-      sudo apt-get dist-upgrade
+      sudo apt-get -y dist-upgrade
 
   qv2ray:
     plugin: cmake
