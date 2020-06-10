@@ -20,7 +20,7 @@
    <string>Group Editor</string>
   </property>
   <property name="sizeGripEnabled">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <property name="modal">
    <bool>true</bool>
