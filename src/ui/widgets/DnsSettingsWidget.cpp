@@ -107,6 +107,7 @@ void DnsSettingsWidget::on_addServerBtn_clicked()
 {
     DNSObject::DNSServerObject o;
     o.address = "1.1.1.1";
+    o.port = 53;
     dns.servers.push_back(o);
     serversListbox->addItem(o.address);
     serversListbox->setCurrentRow(serversListbox->count() - 1);
