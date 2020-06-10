@@ -15,9 +15,12 @@ pool:
 steps:
 - checkout: self
   submodules: recursive
+- task: NodeTool@0 
+  inputs:
+    versionSpec: '12.x'
 - script: |
     sudo xcode-select -s /Applications/Xcode_10.3.app
-    brew install protobuf grpc ninja qt5
+    brew install protobuf grpc ninja qt5 pkg-config
     npm install -g appdmg
   displayName: Prepare dependencies
 - script: |
@@ -26,13 +29,11 @@ steps:
     cd build
     cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
     cmake --build .
-    appdmg ../assets/package_dmg.json ../Qv2ray.dmg
+    sudo cmake --install .
+    appdmg ../assets/package_dmg.json ../qv2ray-legacy.dmg
   displayName: Build Qv2ray
   env:
     Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
-- script: |
-    cp build/qv2ray-*.dmg ./qv2ray-legacy.dmg
-  displayName: Copy binary
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'qv2ray-legacy.dmg'
