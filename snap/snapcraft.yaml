@@ -44,6 +44,16 @@ apps:
       desktop: "usr/share/applications/qv2ray.desktop"
 
 parts:
+  ppa:
+    plugin: nil
+    build-packages:
+      - software-properties-common
+    override-pull: |
+      sudo add-apt-repository ppa:ymshenyu/libuv
+      sudo add-apt-repository ppa:ymshenyu/qt
+      sudo apt-get update
+      sudo apt-get dist-upgrade
+
   qv2ray:
     plugin: cmake
     source-type: git
