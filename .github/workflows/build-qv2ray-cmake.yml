@@ -176,8 +176,7 @@ jobs:
           wget https://github.com/Qv2ray/Distribution/releases/download/0.0.0/fakeDeb.tar.gz
           tar xzf fakeDeb.tar.gz -C debian
           cd debian
-          tree
-          cp ../Qv2ray.AppImage opt/qv2ray/
+          cp ../Qv2ray.AppImage opt/qv2ray/Qv2ray.AppImage
           dpkg-deb -b . ../qv2ray.deb
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
         if: matrix.platform == 'ubuntu-16.04'
