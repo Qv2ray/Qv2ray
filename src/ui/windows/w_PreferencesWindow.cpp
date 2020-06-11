@@ -325,7 +325,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         }
         SaveGlobalSettings(CurrentConfig);
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
-        if (NeedRestart)
+        if (NeedRestart && !KernelInstance->CurrentConnection().isEmpty())
         {
             this->setEnabled(false);
             qApp->processEvents();

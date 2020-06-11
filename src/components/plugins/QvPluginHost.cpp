@@ -279,7 +279,7 @@ namespace Qv2ray::components::plugins
             if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
             {
                 auto serializer = plugin.pluginInterface->GetSerializer();
-                if (serializer->OutboundProtocols().contains(protocol))
+                if (serializer && serializer->OutboundProtocols().contains(protocol))
                 {
                     auto info = serializer->GetOutboundInfo(protocol, o);
                     *status = true;
@@ -301,7 +301,7 @@ namespace Qv2ray::components::plugins
             if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
             {
                 auto serializer = plugin.pluginInterface->GetSerializer();
-                if (serializer->OutboundProtocols().contains(protocol))
+                if (serializer && serializer->OutboundProtocols().contains(protocol))
                 {
                     auto link = serializer->SerializeOutbound(protocol, alias, groupName, outboundSettings);
                     *status = true;
