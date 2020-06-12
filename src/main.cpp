@@ -224,7 +224,7 @@ int main(int argc, char *argv[])
     QFont font;
     font.setPointSize(9);
     font.setFamily("Microsoft YaHei");
-    _qApp.setFont(font);
+    app.setFont(font);
 #endif
     StyleManager = new QvStyleManager(qvApp);
     StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
