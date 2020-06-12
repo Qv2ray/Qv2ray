@@ -1,9 +1,22 @@
 #pragma once
+#include <QtGlobal>
 // Qv2ray build features.
-//
-// Always use libgRPC++ on windows platform.
+
+#ifdef Q_OS_LINUX
+    #define CanHasLibQvb 1
+    #define NativeDarkmode 0
+#elif defined(Q_OS_MAC)
+    #define CanHasLibQvb 1
+    #define NativeDarkmode 0
+#elif defined(Q_OS_WIN)
+    #define CanHasLibQvb 0
+    #define NativeDarkmode 1
+#endif
+
 #ifdef BACKEND_LIBQVB
-    #ifdef _WIN32
-        #error "libQvb is not supported on Windows Platform"
+    #if !QvHasFeature(CanHasLibQvb)
+        #error Qv2ray API backend libQvb is not supported on this platform
     #endif
 #endif
+
+#define QvHasFeature(feat) ((feat / 1) == 1)

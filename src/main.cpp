@@ -1,4 +1,3 @@
-#include "3rdparty/SingleApplication/singleapplication.h"
 #include "common/CommandArgs.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
@@ -27,7 +26,7 @@ void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
     ExitQv2ray();
-    qApp->exit(-99);
+    qvApp->exit(-99);
 }
 
 bool initialiseQv2ray()
@@ -372,7 +371,7 @@ int main(int argc, char *argv[])
     font.setFamily("Microsoft YaHei");
     _qApp.setFont(font);
 #endif
-    StyleManager = new QvStyleManager(qApp);
+    StyleManager = new QvStyleManager(qvApp);
     StyleManager->ApplyStyle(confObject.uiConfig.theme);
 
 #if (QV2RAY_USE_BUILTIN_DARKTHEME)
@@ -413,8 +412,8 @@ int main(int argc, char *argv[])
     {
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
-        ConnectionManager = new QvConfigHandler(qApp);
-        RouteManager = new RouteHandler(qApp);
+        ConnectionManager = new QvConfigHandler(qvApp);
+        RouteManager = new RouteHandler(qvApp);
 
 #ifdef Q_OS_LINUX
         _qApp.setFallbackSessionManagementEnabled(false);

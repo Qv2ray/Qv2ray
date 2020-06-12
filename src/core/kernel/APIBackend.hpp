@@ -2,14 +2,11 @@
 #include "base/Qv2rayBase.hpp"
 #ifndef BACKEND_LIBQVB
     #include "v2ray_api.grpc.pb.h"
-    #include "v2ray_api.pb.h"
-    #include "v2ray_geosite.pb.h"
 
     #include <grpc++/grpc++.h>
 #endif
-
 // Check 10 times before telling user that API has failed.
-constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 30;
+constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 60;
 
 namespace Qv2ray::core::kernel
 {

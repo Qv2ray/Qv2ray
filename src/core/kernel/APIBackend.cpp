@@ -1,6 +1,7 @@
 #include "APIBackend.hpp"
 
 #ifndef BACKEND_LIBQVB
+    #include "v2ray_api.pb.h"
 using namespace v2ray::core::app::stats::command;
 using grpc::Channel;
 using grpc::ClientContext;
@@ -74,16 +75,16 @@ namespace Qv2ray::core::kernel
                 if (!dialed)
                 {
                     auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.kernelConfig.statsPort);
-#ifndef BACKEND_LIBQVB
-                    LOG(MODULE_VCORE, "gRPC Version: " + QString::fromStdString(grpc::Version()))
-                    Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
-                    StatsService service;
-                    Stub = service.NewStub(Channel);
-#else
+#ifdef BACKEND_LIBQVB
                     auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
                     LOG(MODULE_VCORE, QString(str))
                     LOG(MODULE_VCORE, "Currently, libqvb does not support speed reporting, your stats might go wrong.")
                     free(str);
+#else
+                    LOG(MODULE_VCORE, "gRPC Version: " + QString::fromStdString(grpc::Version()))
+                    Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
+                    v2ray::core::app::stats::command::StatsService service;
+                    Stub = service.NewStub(Channel);
 #endif
                     dialed = true;
                 }

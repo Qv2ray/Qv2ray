@@ -328,7 +328,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         if (NeedRestart && !KernelInstance->CurrentConnection().isEmpty())
         {
             this->setEnabled(false);
-            qApp->processEvents();
+            qvApp->processEvents();
             ConnectionManager->RestartConnection();
         }
         emit accept();
