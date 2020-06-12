@@ -1,8 +1,10 @@
 #include "DarkmodeDetector.hpp"
 
+#include "base/Qv2rayApplication.hpp"
 #include "base/Qv2rayBase.hpp"
+
+#include <QStyle>
 #ifdef Q_OS_LINUX
-    #include <QStyle>
 #elif defined(Q_OS_WIN32)
     #include <QSettings>
 #else

@@ -55,18 +55,18 @@ namespace Qv2ray::ui::styles
             case QvStyle::QVSTYLE_QSS:
             {
                 LOG(MODULE_UI, "Applying UI QSS style: " + s.qssPath)
-                qvApp->setStyle(QStyleFactory::create("fusion"));
-                qvApp->processEvents();
+                qApp->setStyle(QStyleFactory::create("fusion"));
+                qApp->processEvents();
                 //
                 const auto content = StringFromFile(s.qssPath);
-                qvApp->setStyleSheet(content);
+                qApp->setStyleSheet(content);
                 return true;
             }
             case QvStyle::QVSTYLE_FACTORY:
             {
                 LOG(MODULE_UI, "Applying UI style: " + s.Name)
-                qvApp->setStyle(QStyleFactory::create(s.Name));
-                qvApp->setStyleSheet("");
+                qApp->setStyle(QStyleFactory::create(s.Name));
+                qApp->setStyleSheet("");
                 return true;
             }
             default: return false;

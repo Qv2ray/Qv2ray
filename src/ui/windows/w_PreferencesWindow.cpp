@@ -328,7 +328,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         if (NeedRestart && !KernelInstance->CurrentConnection().isEmpty())
         {
             this->setEnabled(false);
-            qvApp->processEvents();
+            qApp->processEvents();
             ConnectionManager->RestartConnection();
         }
         emit accept();
@@ -942,7 +942,6 @@ void PreferencesWindow::on_tproxGroupBox_toggled(bool arg1)
     NEEDRESTART
     CurrentConfig.inboundConfig.useTPROXY = arg1;
 #endif
-
 }
 
 void PreferencesWindow::on_tProxyPort_valueChanged(int arg1)
