@@ -9,9 +9,9 @@ namespace Qv2ray
         Q_OBJECT
       public:
         explicit Qv2rayApplication(int &argc, char *argv[]);
-        bool SecondaryInstanceCheck();
+        bool SetupQv2ray();
+        bool InitilizeConfigurations();
         static void SetHiDPIEnableState(bool enabled);
-        bool Initilize();
         bool CheckSettingsPathAvailability(const QString &_path, bool checkExistingConfig);
 
       private:
@@ -19,6 +19,4 @@ namespace Qv2ray
     };
 } // namespace Qv2ray
 
-#ifdef qApp
-    #define qvApp (static_cast<Qv2ray::Qv2rayApplication *>(QCoreApplication::instance()))
-#endif
+#define qvApp (static_cast<Qv2ray::Qv2rayApplication *>(QCoreApplication::instance()))

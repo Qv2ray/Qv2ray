@@ -1,6 +1,6 @@
 #include "Qv2rayApplication.hpp"
 
-#include "Qv2rayBase.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
@@ -16,7 +16,7 @@ namespace Qv2ray
         LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
     }
 
-    bool Qv2rayApplication::SecondaryInstanceCheck()
+    bool Qv2rayApplication::SetupQv2ray()
     {
         if (isSecondary())
         {
@@ -46,7 +46,7 @@ namespace Qv2ray
         }
     }
 
-    bool Qv2rayApplication::Initilize()
+    bool Qv2rayApplication::InitilizeConfigurations()
     {
         if (initilized)
         {

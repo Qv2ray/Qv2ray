@@ -200,8 +200,8 @@ add_executable(qv2ray
     ${GUI_TYPE}
     src/main.cpp
     assets/qv2ray.rc
-    ${QV2RAY_UI_SOURCES}
     ${QV2RAY_UI_FORMS}
+    ${QV2RAY_UI_SOURCES}
     ${SINGLEAPPLICATION_SOURCES}
     ${QNODEEDITOR_QRC_RESOURCES}
     ${QV2RAY_EMBED_TRANSLATION_QRC}

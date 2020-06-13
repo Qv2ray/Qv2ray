@@ -1,11 +1,11 @@
-#include "base/Qv2rayApplication.hpp"
+#include "Qv2rayApplication.hpp"
 #include "common/CommandArgs.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
+#include "components/plugins/QvPluginHost.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
-#include "src/components/plugins/QvPluginHost.hpp"
 #include "ui/styles/StyleManager.hpp"
 #include "ui/windows/w_MainWindow.hpp"
 
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     Qv2rayApplication::SetHiDPIEnableState(!StartupOption.noScaleFactors);
     //
     Qv2rayApplication app(argc, argv);
-    if (app.SecondaryInstanceCheck())
+    if (app.SetupQv2ray())
     {
         LOG(MODULE_INIT, "Secondary instance detected.")
         return 0;
@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
 #endif
     //
     // Qv2ray Initialize, find possible config paths and verify them.
-    if (!qvApp->Initilize())
+    if (!qvApp->InitilizeConfigurations())
     {
         LOG(MODULE_INIT, "Failed to initialise Qv2ray, exiting.")
         return -1;

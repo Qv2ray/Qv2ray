@@ -10,8 +10,6 @@ set(QV2RAY_BASE_HEADERS
     ${CMAKE_SOURCE_DIR}/src/base/Qv2rayBase.hpp
     ${CMAKE_SOURCE_DIR}/src/base/Qv2rayFeatures.hpp
     ${CMAKE_SOURCE_DIR}/src/base/Qv2rayLog.hpp
-    ${CMAKE_SOURCE_DIR}/src/base/Qv2rayApplication.cpp
-    ${CMAKE_SOURCE_DIR}/src/base/Qv2rayApplication.hpp
     )
 
 set(QV2RAY_LIB_SOURCES
