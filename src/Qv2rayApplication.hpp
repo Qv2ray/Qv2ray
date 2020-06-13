@@ -1,9 +1,24 @@
 #pragma once
 
-#include "3rdparty/SingleApplication/singleapplication.h"
+#include "libs/QJsonStruct/QJsonStruct.hpp"
+
+#include <SingleApplication>
 
 namespace Qv2ray
 {
+    struct Qv2rayInterProcessArguments
+    {
+        enum Argument
+        {
+            SHOWWINDOW = 0,
+            PROTOCOLHANDLER = 1,
+            EXITQV2RAY = 2,
+        };
+        Argument argument;
+        QString data;
+
+        JSONSTRUCT_REGISTER(Qv2rayInterProcessArguments, F(argument, data))
+    };
     class Qv2rayApplication : public SingleApplication
     {
         Q_OBJECT
@@ -13,6 +28,9 @@ namespace Qv2ray
         bool InitilizeConfigurations();
         static void SetHiDPIEnableState(bool enabled);
         bool CheckSettingsPathAvailability(const QString &_path, bool checkExistingConfig);
+
+      private slots:
+        void onMessageReceived(quint32 clientID, QByteArray msg);
 
       private:
         bool initilized = false;

@@ -18,14 +18,20 @@ namespace Qv2ray
 
     bool Qv2rayApplication::SetupQv2ray()
     {
+        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
         if (isSecondary())
         {
-            sendMessage(arguments().join(' ').toUtf8());
-            QEventLoop loop;
-            ExitQv2ray();
+            const auto argument = arguments().join(' ');
+            sendMessage(argument.toUtf8());
             return true;
         }
         return false;
+    }
+
+    void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray msg)
+    {
+        LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + " message received.")
+        const auto args = Qv2rayInterProcessArguments::fromJson(JsonFromString(msg));
     }
 
     void Qv2rayApplication::SetHiDPIEnableState(bool enabled)

@@ -2317,7 +2317,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Last Connected</source>
-        <translation>最后一个连接</translation>
+        <translation>记忆上次的连接</translation>
     </message>
     <message>
         <source>Fixed</source>
