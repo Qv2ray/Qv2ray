@@ -256,7 +256,7 @@ add_custom_target(lupdate
                     ${QV2RAY_UI_SOURCES}
                     ${QV2RAY_UI_FORMS}
                     ${QNODEEDITOR_QRC_RESOURCES}
-                    ${SINGLEAPPLICATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none
+                    ${SINGLEAPPLICATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none -noobsolete
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
