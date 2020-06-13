@@ -12,14 +12,17 @@ namespace Qv2ray
         {
             NORMAL = 0,
             QV2RAY_LINK = 1,
-            EXIT = 2
+            EXIT = 2,
+            RECONNECT = 3,
+            DISCONNECT = 4
         };
-        Argument argument;
+        QList<Argument> arguments;
         QString version;
-        QString path;
         QString data;
+        QList<QString> links;
+        QList<QString> fullArgs;
 
-        JSONSTRUCT_REGISTER(Qv2rayProcessArguments, F(argument, version, path, data))
+        JSONSTRUCT_REGISTER(Qv2rayProcessArguments, F(arguments, version, data, links, fullArgs))
     };
 
     inline Qv2rayProcessArguments Qv2rayProcessArgument;

@@ -27,10 +27,21 @@ namespace Qv2ray
         return false;
     }
 
-    void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray msg)
+    void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray _msg)
     {
-        LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + " message received.")
-        const auto args = Qv2rayProcessArguments::fromJson(JsonFromString(msg));
+        const auto msg = Qv2rayProcessArguments::fromJson(JsonFromString(_msg));
+        LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + ", message received, version: " + msg.version)
+        for (const auto &argument : msg.arguments)
+        {
+            switch (argument)
+            {
+                case Qv2rayProcessArguments::EXIT: ExitQv2ray(); break;
+                case Qv2rayProcessArguments::NORMAL:
+                case Qv2rayProcessArguments::RECONNECT:
+                case Qv2rayProcessArguments::DISCONNECT:
+                case Qv2rayProcessArguments::QV2RAY_LINK: break;
+            }
+        }
     }
 
     bool Qv2rayApplication::InitilizeConfigurations()
@@ -240,9 +251,8 @@ namespace Qv2ray
         {
             QCoreApplication coreApp(argc, argv);
             const auto &args = coreApp.arguments();
-            Qv2rayProcessArgument.path = args.first();
             Qv2rayProcessArgument.version = QV2RAY_VERSION_STRING;
-            Qv2rayProcessArgument.data = args.join(" ");
+            Qv2rayProcessArgument.fullArgs = args;
             switch (ParseCommandLine(&errorMessage))
             {
                 case QUIT:
@@ -254,10 +264,7 @@ namespace Qv2ray
                     LOG(MODULE_INIT, errorMessage)
                     return false;
                 }
-                case CONTINUE:
-                {
-                    break;
-                }
+                default: break;
             }
         }
         // noScaleFactors = disable HiDPI
@@ -281,11 +288,15 @@ namespace Qv2ray
     Qv2rayApplication::commandline_status Qv2rayApplication::ParseCommandLine(QString *errorMessage)
     {
         QCommandLineParser parser;
-        QCommandLineOption noAPIOption("noAPI", tr("Disable gRPC API subsystem."));
+        //
+        QCommandLineOption noAPIOption("noAPI", tr("Disable gRPC API subsystem"));
         QCommandLineOption noPluginsOption("noPlugin", tr("Disable plugins feature"));
         QCommandLineOption noScaleFactorOption("noScaleFactor", tr("Disable Qt UI scale factor"));
         QCommandLineOption debugOption("debug", tr("Enable debug output"));
-
+        QCommandLineOption disconnectOption("disconnect", tr("Stop current connection"));
+        QCommandLineOption reconnectOption("reconnect", tr("Reconnect last connection"));
+        QCommandLineOption exitOption("exit", tr("Exit Qv2ray"));
+        //
         parser.setApplicationDescription(tr("Qv2ray - A cross-platform Qt frontend for V2ray."));
         parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
         //
@@ -293,6 +304,10 @@ namespace Qv2ray
         parser.addOption(noPluginsOption);
         parser.addOption(noScaleFactorOption);
         parser.addOption(debugOption);
+        parser.addOption(disconnectOption);
+        parser.addOption(reconnectOption);
+        parser.addOption(exitOption);
+        //
         auto helpOption = parser.addHelpOption();
         auto versionOption = parser.addVersionOption();
 
@@ -312,6 +327,33 @@ namespace Qv2ray
         {
             parser.showHelp();
             return QUIT;
+        }
+
+        for (const auto &arg : parser.positionalArguments())
+        {
+            if (arg.startsWith("qv2ray://"))
+            {
+                Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::QV2RAY_LINK;
+                Qv2rayProcessArgument.links << arg;
+            }
+        }
+
+        if (parser.isSet(exitOption))
+        {
+            DEBUG(MODULE_INIT, "disconnectOption is set.")
+            Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::EXIT;
+        }
+
+        if (parser.isSet(disconnectOption))
+        {
+            DEBUG(MODULE_INIT, "disconnectOption is set.")
+            Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::DISCONNECT;
+        }
+
+        if (parser.isSet(reconnectOption))
+        {
+            DEBUG(MODULE_INIT, "reconnectOption is set.")
+            Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::RECONNECT;
         }
 
         if (parser.isSet(noAPIOption))
