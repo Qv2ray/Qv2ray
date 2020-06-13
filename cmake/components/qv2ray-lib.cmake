@@ -15,8 +15,6 @@ set(QV2RAY_BASE_HEADERS
 set(QV2RAY_LIB_SOURCES
     # headers
     ${CMAKE_SOURCE_DIR}/src/base/Qv2rayLog.cpp
-    ${CMAKE_SOURCE_DIR}/src/common/CommandArgs.cpp
-    ${CMAKE_SOURCE_DIR}/src/common/CommandArgs.hpp
     ${CMAKE_SOURCE_DIR}/src/common/HTTPRequestHelper.cpp
     ${CMAKE_SOURCE_DIR}/src/common/HTTPRequestHelper.hpp
     ${CMAKE_SOURCE_DIR}/src/common/QJsonModel.cpp

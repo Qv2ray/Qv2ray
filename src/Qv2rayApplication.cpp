@@ -9,11 +9,11 @@ namespace Qv2ray
     Qv2rayApplication::Qv2rayApplication(int &argc, char *argv[])
         : SingleApplication(argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion)
     {
-        LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
-        LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
-        LOG("QV2RAY_BUILD_NUMBER", QSTRN(QV2RAY_VERSION_BUILD))
-        LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
         LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
+        LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
+        DEBUG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
+        DEBUG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
+        DEBUG("QV2RAY_BUILD_NUMBER", QSTRN(QV2RAY_VERSION_BUILD))
     }
 
     bool Qv2rayApplication::SetupQv2ray()
@@ -21,8 +21,7 @@ namespace Qv2ray
         connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
         if (isSecondary())
         {
-            const auto argument = arguments().join(' ');
-            sendMessage(argument.toUtf8());
+            sendMessage(JsonToString(Qv2rayProcessArgument.toJson()).toUtf8());
             return true;
         }
         return false;
@@ -31,25 +30,7 @@ namespace Qv2ray
     void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray msg)
     {
         LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + " message received.")
-        const auto args = Qv2rayInterProcessArguments::fromJson(JsonFromString(msg));
-    }
-
-    void Qv2rayApplication::SetHiDPIEnableState(bool enabled)
-    {
-        if (enabled)
-        {
-            LOG(MODULE_INIT, "High DPI scaling is enabled.")
-            QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-            QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
-#endif
-        }
-        else
-        {
-            LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
-            LOG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
-            qputenv("QT_SCALE_FACTOR", "1");
-        }
+        const auto args = Qv2rayProcessArguments::fromJson(JsonFromString(msg));
     }
 
     bool Qv2rayApplication::InitilizeConfigurations()
@@ -122,17 +103,16 @@ namespace Qv2ray
             // Check if the dirs are write-able
             if (!hasPossibleNewLocation)
             {
-                //
                 // None of the path above can be used as a dir for storing config.
                 // Even the last folder failed to pass the check.
                 LOG(MODULE_INIT, "FATAL")
                 LOG(MODULE_INIT, " ---> CANNOT find a proper place to store Qv2ray config files.")
-                QvMessageBoxWarn(nullptr, QObject::tr("Cannot Start Qv2ray"),
-                                 QObject::tr("Cannot find a place to store config files.") + NEWLINE +
-                                     QObject::tr("Qv2ray has searched these paths below:") + NEWLINE + NEWLINE + //
-                                     configFilePaths.join(NEWLINE) + NEWLINE +
-                                     QObject::tr("It usually means you don't have the write permission to all of those locations.") +
-                                     QObject::tr("Qv2ray will now exit."));
+                QvMessageBoxWarn(nullptr, tr("Cannot Start Qv2ray"),
+                                 tr("Cannot find a place to store config files.") + NEWLINE +                                          //
+                                     tr("Qv2ray has searched these paths below:") + NEWLINE + NEWLINE +                                //
+                                     configFilePaths.join(NEWLINE) + NEWLINE +                                                         //
+                                     tr("It usually means you don't have the write permission to all of those locations.") + NEWLINE + //
+                                     tr("Qv2ray will now exit."));                                                                     //
                 return false;
             }
             // Found a valid config dir, with write permission, but assume no config is located in it.
@@ -151,13 +131,13 @@ namespace Qv2ray
                 // Otherwise Qv2ray would have loaded this config already instead of notifying to create a new config in this folder.
                 //
                 LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
-                QvMessageBoxWarn(nullptr, QObject::tr("Failed to initialise Qv2ray"),
-                                 QObject::tr("Failed to determine the location of config file:") + NEWLINE +                                   //
-                                     QObject::tr("Qv2ray has found a config file, but it failed to be loaded due to some errors.") + NEWLINE + //
-                                     QObject::tr("A workaround is to remove the this file and restart Qv2ray:") + NEWLINE +                    //
-                                     QV2RAY_CONFIG_FILE + NEWLINE +                                                                            //
-                                     QObject::tr("Qv2ray will now exit.") + NEWLINE +                                                          //
-                                     QObject::tr("Please report if you think it's a bug."));                                                   //
+                QvMessageBoxWarn(nullptr, tr("Failed to initialise Qv2ray"),
+                                 tr("Failed to determine the location of config file:") + NEWLINE +                                   //
+                                     tr("Qv2ray has found a config file, but it failed to be loaded due to some errors.") + NEWLINE + //
+                                     tr("A workaround is to remove the this file and restart Qv2ray:") + NEWLINE +                    //
+                                     QV2RAY_CONFIG_FILE + NEWLINE +                                                                   //
+                                     tr("Qv2ray will now exit.") + NEWLINE +                                                          //
+                                     tr("Please report if you think it's a bug."));                                                   //
                 return false;
             }
 
@@ -272,8 +252,7 @@ namespace Qv2ray
             {
                 LOG(MODULE_SETTINGS, "Exception raised when checking config: " + configFile.fileName())
                 // LOG(INIT, e->what())
-                QvMessageBoxWarn(nullptr, QObject::tr("Warning"),
-                                 QObject::tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
+                QvMessageBoxWarn(nullptr, tr("Warning"), tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
                 return false;
             }
         }
@@ -282,4 +261,111 @@ namespace Qv2ray
             return true;
         }
     }
+
+    bool Qv2rayApplication::PreInitilize(int argc, char *argv[])
+    {
+        QCoreApplication consoleApp(argc, argv);
+        QString errorMessage;
+
+        const auto &args = consoleApp.arguments();
+        Qv2rayProcessArgument.path = args.first();
+        Qv2rayProcessArgument.version = QV2RAY_VERSION_STRING;
+        Qv2rayProcessArgument.data = args.join(" ");
+        switch (ParseCommandLine(&errorMessage))
+        {
+            case QUIT:
+            {
+                return false;
+            }
+            case ERROR:
+            {
+                LOG(MODULE_INIT, errorMessage)
+                return false;
+            }
+            case CONTINUE:
+            {
+                break;
+            }
+        }
+        // noScaleFactors = disable HiDPI
+        if (StartupOption.noScaleFactor)
+        {
+            LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
+            LOG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
+            qputenv("QT_SCALE_FACTOR", "1");
+        }
+        else
+        {
+            LOG(MODULE_INIT, "High DPI scaling is enabled.")
+            QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+            QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
+        }
+        return true;
+    }
+
+    Qv2rayApplication::commandline_status Qv2rayApplication::ParseCommandLine(QString *errorMessage)
+    {
+        QCommandLineParser parser;
+        QCommandLineOption noAPIOption("noAPI", tr("Disable gRPC API subsystem."));
+        QCommandLineOption noPluginsOption("noPlugin", tr("Disable plugins feature"));
+        QCommandLineOption noScaleFactorOption("noScaleFactor", tr("Disable Qt UI scale factor"));
+        QCommandLineOption debugOption("debug", tr("Enable debug output"));
+
+        parser.setApplicationDescription(tr("Qv2ray - A cross-platform Qt frontend for V2ray."));
+        parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
+        //
+        parser.addOption(noAPIOption);
+        parser.addOption(noPluginsOption);
+        parser.addOption(noScaleFactorOption);
+        parser.addOption(debugOption);
+        auto helpOption = parser.addHelpOption();
+        auto versionOption = parser.addVersionOption();
+
+        if (!parser.parse(arguments()))
+        {
+            *errorMessage = parser.errorText();
+            return ERROR;
+        }
+
+        if (parser.isSet(versionOption))
+        {
+            parser.showVersion();
+            return QUIT;
+        }
+
+        if (parser.isSet(helpOption))
+        {
+            parser.showHelp();
+            return QUIT;
+        }
+
+        if (parser.isSet(noAPIOption))
+        {
+            DEBUG(MODULE_INIT, "noAPIOption is set.")
+            StartupOption.noAPI = true;
+        }
+
+        if (parser.isSet(debugOption))
+        {
+            DEBUG(MODULE_INIT, "debugOption is set.")
+            StartupOption.debugLog = true;
+        }
+
+        if (parser.isSet(noScaleFactorOption))
+        {
+            DEBUG(MODULE_INIT, "noScaleFactorOption is set.")
+            StartupOption.noScaleFactor = true;
+        }
+
+        if (parser.isSet(noPluginsOption))
+        {
+            DEBUG(MODULE_INIT, "noPluginOption is set.")
+            StartupOption.noPlugins = true;
+        }
+
+        return CONTINUE;
+    }
+
 } // namespace Qv2ray

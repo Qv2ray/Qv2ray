@@ -1,5 +1,4 @@
 #include "Qv2rayApplication.hpp"
-#include "common/CommandArgs.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "components/plugins/QvPluginHost.hpp"
@@ -17,11 +16,6 @@
 #include <QTranslator>
 #include <csignal>
 #include <memory>
-
-#ifdef Q_OS_UNIX
-    // For unix root user check
-    #include "unistd.h"
-#endif
 
 void signalHandler(int signum)
 {
@@ -53,58 +47,7 @@ int main(int argc, char *argv[])
 #endif
     //
     // parse the command line before starting as a Qt application
-    {
-        std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
-        //
-        // Install a default translator. From the OS/DE
-        Qv2rayTranslator = std::make_unique<QvTranslator>();
-        Qv2rayTranslator->InstallTranslation(QLocale::system().name());
-        QvCommandArgParser parser;
-        QString errorMessage;
-
-        switch (parser.ParseCommandLine(&errorMessage))
-        {
-            case CommandLineOk: break;
-
-            case CommandLineError:
-                std::cout << "Invalid command line arguments" << std::endl;
-                std::cout << errorMessage.toStdString() << std::endl;
-                std::cout << parser.Parser()->helpText().toStdString() << std::endl;
-                break;
-
-            case CommandLineVersionRequested:
-                LOG("Qv2ray", QV2RAY_VERSION_STRING)
-                LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
-                LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
-                return 0;
-
-            case CommandLineHelpRequested:
-            {
-                std::cout << parser.Parser()->helpText().toStdString() << std::endl;
-                return 0;
-            }
-        }
-    }
-    //
-    // finished: command line parsing
-    //
-
-#ifdef Q_OS_UNIX
-    // Unix OS root user check.
-    // Do not use getuid() here since it's installed as owned by the root,
-    // someone may accidently setuid to it.
-    if (!StartupOption.forceRunAsRootUser && geteuid() == 0)
-    {
-        LOG("ERROR", QObject::tr("You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so."))
-        LOG("ERROR", QObject::tr(" --> USE IT AT YOUR OWN RISK!"))
-        return 1;
-    }
-#endif
-    //
-    // Early initialisation
-    // noScaleFactors = disable HiDPI
-    Qv2rayApplication::SetHiDPIEnableState(!StartupOption.noScaleFactors);
-    //
+    Qv2rayApplication::PreInitilize(argc, argv);
     Qv2rayApplication app(argc, argv);
     if (app.SetupQv2ray())
     {

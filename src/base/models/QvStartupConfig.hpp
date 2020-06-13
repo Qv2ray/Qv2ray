@@ -1,22 +1,26 @@
 #pragma once
 
-namespace Qv2ray
+namespace Qv2ray::base
 {
-    namespace base
+    struct QvStartupOptions
     {
-        struct QvStartupOptions
-        {
-            /// No API subsystem
-            bool noAPI;
-            /// Explicitly run as root user.
-            bool forceRunAsRootUser;
-            /// Enable Debug Log.
-            bool debugLog;
-            /// Disable Qt scale factors support.
-            bool noScaleFactors;
-            /// Disable all plugin features.
-            bool noPlugins;
-        };
-    } // namespace base
-    inline base::QvStartupOptions StartupOption = base::QvStartupOptions();
-} // namespace Qv2ray
+        /// No API subsystem
+        bool noAPI;
+
+        /// Enable Debug Log.
+        bool debugLog;
+
+        /// Disable Qt scale factors support.
+        bool noScaleFactor;
+
+        /// Disable all plugin features.
+        bool noPlugins;
+
+        /// Exit existing Qv2ray instance
+        bool exitQv2ray;
+
+        ///
+    };
+} // namespace Qv2ray::base
+
+inline Qv2ray::base::QvStartupOptions StartupOption = Qv2ray::base::QvStartupOptions();
