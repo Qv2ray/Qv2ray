@@ -130,6 +130,10 @@ namespace Qv2ray
         //
 #ifdef Q_OS_LINUX
         // Linux platform directories.
+        list << QString("/lib/qv2ray/" + dirName);
+        list << QString("/usr/lib/qv2ray/" + dirName);
+        list << QString("/usr/local/lib/qv2ray/" + dirName);
+        //
         list << QString("/usr/share/qv2ray/" + dirName);
         list << QString("/usr/local/share/qv2ray/" + dirName);
         // For AppImage?
