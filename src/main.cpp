@@ -47,7 +47,10 @@ int main(int argc, char *argv[])
 #endif
     //
     // parse the command line before starting as a Qt application
-    Qv2rayApplication::PreInitilize(argc, argv);
+    if (!Qv2rayApplication::PreInitilize(argc, argv))
+    {
+        return -1;
+    }
     Qv2rayApplication app(argc, argv);
     if (app.SetupQv2ray())
     {
@@ -210,8 +213,8 @@ int main(int argc, char *argv[])
     {
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
-        ConnectionManager = new QvConfigHandler(qvApp);
-        RouteManager = new RouteHandler(qvApp);
+        ConnectionManager = new QvConfigHandler();
+        RouteManager = new RouteHandler();
 
 #ifdef Q_OS_LINUX
         qvApp->setFallbackSessionManagementEnabled(false);
@@ -234,6 +237,8 @@ int main(int argc, char *argv[])
         signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
         auto rcode = app.exec();
+        delete ConnectionManager;
+        delete RouteManager;
         delete PluginHost;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
