@@ -311,6 +311,25 @@ namespace Qv2ray
                 case QV2RAY_ERROR: LOG(MODULE_INIT, errorMessage) return false;
                 default: break;
             }
+#ifdef Q_OS_WIN
+            const auto urlScheme = applicationName();
+            const auto appPath = QDir::toNativeSeparators(applicationFilePath());
+            const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + urlScheme;
+
+            QSettings reg(regPath, QSettings::NativeFormat);
+
+            reg.setValue("Default", "Qv2ray");
+            reg.setValue("URL Protocol", "");
+
+            reg.beginGroup("DefaultIcon");
+            reg.setValue("Default", QString("%1,1").arg(appPath));
+            reg.endGroup();
+
+            reg.beginGroup("shell");
+            reg.beginGroup("open");
+            reg.beginGroup("command");
+            reg.setValue("Default", appPath + " %1");
+#endif
         }
 
         // noScaleFactors = disable HiDPI

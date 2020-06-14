@@ -31,13 +31,14 @@ namespace Qv2ray
 
     class Qv2rayApplication : public SingleApplication
     {
+        Q_OBJECT
         enum commandline_status
         {
             QV2RAY_ERROR,
             QV2RAY_QUIT,
             QV2RAY_CONTINUE
         };
-        Q_OBJECT
+
       public:
         static bool PreInitilize(int argc, char *argv[]);
         explicit Qv2rayApplication(int &argc, char *argv[]);
