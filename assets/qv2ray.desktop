@@ -15,7 +15,8 @@ Categories=Network;Qt;
 Terminal=false
 Icon=qv2ray
 Exec=qv2ray
-Actions=debug;noPlugin;noScaleFactor;noAPI;withToolbarPlugin;
+MimeType=x-scheme-handler/qv2ray;
+Actions=debug;noPlugin;noScaleFactor;noAPI;
 
 [Desktop Action debug]
 Name=Start with Debug Mode
@@ -40,10 +41,3 @@ Name=Start without gRPC API
 Name[zh_CN]=不使用 gRPC API 启动
 Name[ja]=gRPC使用せずに起動
 Exec=qv2ray --noAPI
-
-[Desktop Action withToolbarPlugin]
-Name=Start with Toolbar Plugin
-Name[zh_CN]=使用工具栏插件启动
-Name[ja]=ツールバープラグイン使用するで起動
-Exec=qv2ray --withToolbarPlugin
-
