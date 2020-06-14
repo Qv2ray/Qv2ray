@@ -38,7 +38,7 @@ class ConnectionInfoWidget
     void on_latencyBtn_clicked();
 
   private:
-    void UpdateColorScheme();
+    void updateColorScheme();
     QvMessageBusSlotDecl;
     ConnectionId connectionId = NullConnectionId;
     GroupId groupId = NullGroupId;

@@ -20,7 +20,7 @@ QvMessageBusSlotImpl(ConnectionInfoWidget)
     }
 }
 
-void ConnectionInfoWidget::UpdateColorScheme()
+void ConnectionInfoWidget::updateColorScheme()
 {
     latencyBtn->setIcon(QICON_R("ping_gauge.png"));
     deleteBtn->setIcon(QICON_R("delete.png"));
@@ -42,7 +42,7 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     setupUi(this);
     //
     QvMessageBusConnect(ConnectionInfoWidget);
-    UpdateColorScheme();
+    updateColorScheme();
     //
     shareLinkTxt->setAutoFillBackground(true);
     shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));

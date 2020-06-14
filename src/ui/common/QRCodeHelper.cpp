@@ -7,7 +7,7 @@
 #include "TextUtfEncoding.h"
 #include "base/Qv2rayBase.hpp"
 
-namespace Qv2ray::common
+namespace Qv2ray::ui
 {
     using namespace ZXing;
     QString DecodeQRCode(const QImage &source)
@@ -67,4 +67,4 @@ namespace Qv2ray::common
             return {};
         }
     }
-} // namespace Qv2ray::common
+} // namespace Qv2ray::ui

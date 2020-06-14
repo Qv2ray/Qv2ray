@@ -6,7 +6,7 @@
 #include "ui/common/UIBase.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 
-PluginManageWindow::PluginManageWindow(QWidget *parent) : QDialog(parent)
+PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog(parent)
 {
     setupUi(this);
     for (auto &plugin : PluginHost->AvailablePlugins())

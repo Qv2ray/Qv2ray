@@ -31,7 +31,7 @@
         }                                                                                                                                       \
         return _list;                                                                                                                           \
     }())
-GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
+GroupManager::GroupManager(QWidget *parent) : QvDialog(parent)
 {
     setupUi(this);
     QvMessageBusConnect(GroupManager);
@@ -45,7 +45,7 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     routeSettingsGB->setLayout(new QGridLayout(routeSettingsGB));
     routeSettingsGB->layout()->addWidget(routeSettingsWidget);
     //
-    UpdateColorScheme();
+    updateColorScheme();
     connectionListRCMenu->addSection(tr("Connection Management"));
     connectionListRCMenu->addAction(exportConnectionAction);
     connectionListRCMenu->addAction(deleteConnectionAction);
@@ -239,7 +239,7 @@ void GroupManager::onRCMActionTriggered_Move()
     reloadConnectionsList(currentGroupId);
 }
 
-void GroupManager::UpdateColorScheme()
+void GroupManager::updateColorScheme()
 {
     addGroupButton->setIcon(QICON_R("add.png"));
     removeGroupButton->setIcon(QICON_R("delete.png"));

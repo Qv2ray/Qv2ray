@@ -25,6 +25,7 @@ set(QV2RAY_UI_SOURCES
     ${CMAKE_SOURCE_DIR}/src/Qv2rayApplication.cpp
     ${CMAKE_SOURCE_DIR}/src/Qv2rayApplication.hpp
     # Common Utils
+    ${CMAKE_SOURCE_DIR}/src/ui/common/QvDialog.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/common/QRCodeHelper.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/common/QRCodeHelper.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/common/UIBase.hpp

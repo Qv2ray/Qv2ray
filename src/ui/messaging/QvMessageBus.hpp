@@ -25,7 +25,7 @@
         break;
 
 #define MBUpdateColorSchemeDefaultImpl                                                                                                          \
-    case UPDATE_COLORSCHEME: this->UpdateColorScheme(); break;
+    case UPDATE_COLORSCHEME: this->updateColorScheme(); break;
 
 namespace Qv2ray::ui::messaging
 {

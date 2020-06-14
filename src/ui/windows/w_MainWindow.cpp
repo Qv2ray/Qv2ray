@@ -48,7 +48,7 @@ QvMessageBusSlotImpl(MainWindow)
     }
 }
 
-void MainWindow::UpdateColorScheme()
+void MainWindow::updateColorScheme()
 {
     hTray.setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
     //
@@ -166,7 +166,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     speedChart->addWidget(speedChartWidget);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
-    UpdateColorScheme();
+    updateColorScheme();
     //
     //
     connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [&](const ConnectionGroupPair &, const QString &reason) {

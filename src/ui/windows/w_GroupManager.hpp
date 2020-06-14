@@ -1,17 +1,17 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
+#include "ui/common/QvDialog.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_GroupManager.h"
 
-#include <QDialog>
 #include <QMenu>
 
 class DnsSettingsWidget;
 class RouteSettingsMatrixWidget;
 
 class GroupManager
-    : public QDialog
+    : public QvDialog
     , private Ui::w_GroupManager
 {
     Q_OBJECT
@@ -48,6 +48,12 @@ class GroupManager
     void on_connectionsTable_customContextMenuRequested(const QPoint &pos);
 
   private:
+    void processCommands(const QStringList &commands, const QMap<QString, QString> &args)
+    {
+        Q_UNUSED(commands)
+        Q_UNUSED(args)
+    }
+    void updateColorScheme();
     void reloadConnectionsList(const GroupId &group);
     void onRCMActionTriggered_Move();
     void onRCMActionTriggered_Copy();
@@ -65,7 +71,6 @@ class GroupManager
     QMenu *connectionListRCMenu_CopyToMenu = new QMenu(tr("Copy to..."));
     QMenu *connectionListRCMenu_MoveToMenu = new QMenu(tr("Move to..."));
     QMenu *connectionListRCMenu_LinkToMenu = new QMenu(tr("Link to..."));
-    void UpdateColorScheme();
     bool isUpdateInProgress = false;
     GroupId currentGroupId = NullGroupId;
     ConnectionId currentConnectionId = NullConnectionId;

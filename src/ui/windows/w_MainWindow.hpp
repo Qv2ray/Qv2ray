@@ -164,7 +164,7 @@ class MainWindow
     void CheckSubscriptionsUpdate();
     bool StartAutoConnectionEntry();
     //
-    void UpdateColorScheme();
+    void updateColorScheme();
     //
     void MWAddConnectionItem_p(const ConnectionGroupPair &id);
     void MWAddGroupItem_p(const GroupId &groupId);

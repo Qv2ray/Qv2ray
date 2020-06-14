@@ -41,7 +41,7 @@ using Qv2ray::common::validation::IsValidIPAddress;
     autoStartConnCombo->setEnabled(_enabled);                                                                                                   \
     autoStartSubsCombo->setEnabled(_enabled);
 
-PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), CurrentConfig()
+PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), CurrentConfig()
 {
     setupUi(this);
     //
