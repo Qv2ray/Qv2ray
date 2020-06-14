@@ -20,6 +20,12 @@ class GroupManager
     explicit GroupManager(QWidget *parent = nullptr);
     ~GroupManager();
     std::tuple<QString, CONFIGROOT> GetSelectedConfig();
+    void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
+    {
+        Q_UNUSED(command)
+        Q_UNUSED(commands)
+        Q_UNUSED(args)
+    }
 
   private:
     QvMessageBusSlotDecl;
@@ -48,12 +54,7 @@ class GroupManager
     void on_connectionsTable_customContextMenuRequested(const QPoint &pos);
 
   private:
-    void processCommands(const QStringList &commands, const QMap<QString, QString> &args)
-    {
-        Q_UNUSED(commands)
-        Q_UNUSED(args)
-    }
-    void updateColorScheme();
+    void updateColorScheme() override;
     void reloadConnectionsList(const GroupId &group);
     void onRCMActionTriggered_Move();
     void onRCMActionTriggered_Copy();

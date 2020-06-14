@@ -348,6 +348,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     auto checker = new QvUpdateChecker(this);
     checker->CheckUpdate();
+    //
+    connect(this, &MainWindow::ProcessCommandSignal, this, &MainWindow::ProcessCommand);
+}
+
+void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QString, QString> args)
+{
+    if (commands.isEmpty())
+        return;
+    if (command == "open")
+    {
+        const auto subcommand = commands.takeFirst();
+        if (subcommand == "preference")
+        {
+            // PreferencesWindow w(this);
+            // w.processCommands(command, commands, args);
+            // w.exec();
+        }
+    }
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)

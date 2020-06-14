@@ -16,6 +16,12 @@ class ImportConfigWindow
     ~ImportConfigWindow();
     int PerformImportConnection();
     QMultiHash<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
+    void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
+    {
+        Q_UNUSED(command)
+        Q_UNUSED(commands)
+        Q_UNUSED(args)
+    }
 
   private:
     QvMessageBusSlotDecl;
@@ -33,12 +39,7 @@ class ImportConfigWindow
     void on_jsonEditBtn_clicked();
 
   private:
-    void processCommands(const QStringList &commands, const QMap<QString, QString> &args)
-    {
-        Q_UNUSED(commands)
-        Q_UNUSED(args)
-    }
-    void updateColorScheme();
+    void updateColorScheme() override;
     QMap<QString, QString> linkErrors;
     //
     QHash<GroupId, QMultiHash<QString, CONFIGROOT>> connectionsToExistingGroup;

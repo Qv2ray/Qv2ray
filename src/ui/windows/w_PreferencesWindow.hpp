@@ -17,14 +17,31 @@ class PreferencesWindow
   public:
     explicit PreferencesWindow(QWidget *parent = nullptr);
     ~PreferencesWindow();
-
-  private:
-    void processCommands(const QStringList &commands, const QMap<QString, QString> &args)
+    void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
     {
+        const static QMap<QString, int> indexMap{
+            { "general", 0 },    //
+            { "kernel", 1 },     //
+            { "inbound", 2 },    //
+            { "connection", 3 }, //
+            { "route", 4 },      //
+            { "about", 5 }       //
+        };
+
+        if (commands.isEmpty())
+            return;
+        if (command == "open")
+        {
+            const auto c = commands.takeFirst();
+            tabWidget->setCurrentIndex(indexMap[c]);
+        }
+        Q_UNUSED(command)
         Q_UNUSED(commands)
         Q_UNUSED(args)
     }
-    void updateColorScheme(){};
+
+  private:
+    void updateColorScheme() override{};
     QvMessageBusSlotDecl;
 
   private slots:

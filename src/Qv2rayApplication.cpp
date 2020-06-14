@@ -52,7 +52,11 @@ namespace Qv2ray
         {
             switch (argument)
             {
-                case Qv2rayProcessArguments::EXIT: ExitQv2ray(); break;
+                case Qv2rayProcessArguments::EXIT:
+                {
+                    ExitQv2ray();
+                    break;
+                }
                 case Qv2rayProcessArguments::NORMAL:
                 {
                     mainWindow->show();
@@ -72,6 +76,21 @@ namespace Qv2ray
                 }
                 case Qv2rayProcessArguments::QV2RAY_LINK:
                 {
+                    for (const auto &link : msg.links)
+                    {
+                        const auto url = QUrl::fromUserInput(link);
+                        const auto command = url.host();
+                        const auto subcommands = url.path().split("/", { 1 });
+                        QMap<QString, QString> args;
+                        for (const auto &kvp : QUrlQuery(url).queryItems())
+                        {
+                            args.insert(kvp.first, kvp.second);
+                        }
+                        if (command == "open")
+                        {
+                            emit mainWindow->ProcessCommandSignal(command, subcommands, args);
+                        }
+                    }
                     break;
                 }
             }

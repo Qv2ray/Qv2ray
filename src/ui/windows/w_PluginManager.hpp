@@ -14,6 +14,12 @@ class PluginManageWindow
   public:
     explicit PluginManageWindow(QWidget *parent = nullptr);
     ~PluginManageWindow();
+    void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
+    {
+        Q_UNUSED(command)
+        Q_UNUSED(commands)
+        Q_UNUSED(args)
+    }
   private slots:
     void on_pluginListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void on_pluginListWidget_itemClicked(QListWidgetItem *item);
@@ -24,12 +30,7 @@ class PluginManageWindow
     void on_toolButton_clicked();
 
   private:
-    void processCommands(const QStringList &commands, const QMap<QString, QString> &args)
-    {
-        Q_UNUSED(commands)
-        Q_UNUSED(args)
-    }
-    void updateColorScheme(){};
+    void updateColorScheme() override{};
     std::unique_ptr<QWidget> settingsWidget;
     bool isLoading = true;
 };
