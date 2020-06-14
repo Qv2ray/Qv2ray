@@ -307,8 +307,8 @@ namespace Qv2ray
             Qv2rayProcessArgument.fullArgs = args;
             switch (ParseCommandLine(&errorMessage))
             {
-                case QUIT: return false;
-                case ERROR: LOG(MODULE_INIT, errorMessage) return false;
+                case QV2RAY_QUIT: return false;
+                case QV2RAY_ERROR: LOG(MODULE_INIT, errorMessage) return false;
                 default: break;
             }
         }
@@ -360,19 +360,19 @@ namespace Qv2ray
         if (!parser.parse(arguments()))
         {
             *errorMessage = parser.errorText();
-            return ERROR;
+            return QV2RAY_ERROR;
         }
 
         if (parser.isSet(versionOption))
         {
             parser.showVersion();
-            return QUIT;
+            return QV2RAY_QUIT;
         }
 
         if (parser.isSet(helpOption))
         {
             parser.showHelp();
-            return QUIT;
+            return QV2RAY_QUIT;
         }
 
         for (const auto &arg : parser.positionalArguments())
@@ -426,7 +426,7 @@ namespace Qv2ray
             StartupOption.noPlugins = true;
         }
 
-        return CONTINUE;
+        return QV2RAY_CONTINUE;
     }
 
 } // namespace Qv2ray

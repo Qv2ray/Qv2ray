@@ -33,9 +33,9 @@ namespace Qv2ray
     {
         enum commandline_status
         {
-            ERROR,
-            QUIT,
-            CONTINUE
+            QV2RAY_ERROR,
+            QV2RAY_QUIT,
+            QV2RAY_CONTINUE
         };
         Q_OBJECT
       public:
