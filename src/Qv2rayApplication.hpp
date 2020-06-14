@@ -4,6 +4,8 @@
 
 #include <SingleApplication>
 
+class MainWindow;
+
 namespace Qv2ray
 {
     struct Qv2rayProcessArguments
@@ -39,15 +41,18 @@ namespace Qv2ray
       public:
         static bool PreInitilize(int argc, char *argv[]);
         explicit Qv2rayApplication(int &argc, char *argv[]);
-        //
         bool SetupQv2ray();
-        bool InitilizeConfigurations();
-        bool CheckSettingsPathAvailability(const QString &_path, bool checkExistingConfig);
+        bool FindAndCreateInitialConfiguration();
+        bool LoadConfiguration();
+        void InitilizeGlobalVariables();
+        int RunQv2ray();
+        void DeallocateGlobalVariables();
 
       private slots:
         void onMessageReceived(quint32 clientID, QByteArray msg);
 
       private:
+        MainWindow *mainWindow;
         static commandline_status ParseCommandLine(QString *errorMessage);
         bool initilized = false;
     };

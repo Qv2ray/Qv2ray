@@ -36,6 +36,7 @@ class MainWindow
     void StartConnection() const;
     void StopConnection() const;
     void RestartConnection() const;
+    void ProcessCommand(const QStringList &command, const QMap<QString, QString> &args);
 
   private:
     QvMessageBusSlotDecl;

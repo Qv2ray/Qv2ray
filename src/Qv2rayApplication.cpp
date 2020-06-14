@@ -3,7 +3,14 @@
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
+#include "core/handler/ConfigHandler.hpp"
+#include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/styles/StyleManager.hpp"
+#include "ui/windows/w_MainWindow.hpp"
+
+#include <QUrl>
+#include <QUrlQuery>
 
 namespace Qv2ray
 {
@@ -47,14 +54,38 @@ namespace Qv2ray
             {
                 case Qv2rayProcessArguments::EXIT: ExitQv2ray(); break;
                 case Qv2rayProcessArguments::NORMAL:
+                {
+                    mainWindow->show();
+                    mainWindow->raise();
+                    mainWindow->activateWindow();
+                    break;
+                }
                 case Qv2rayProcessArguments::RECONNECT:
+                {
+                    ConnectionManager->RestartConnection();
+                    break;
+                }
                 case Qv2rayProcessArguments::DISCONNECT:
-                case Qv2rayProcessArguments::QV2RAY_LINK: break;
+                {
+                    ConnectionManager->StopConnection();
+                    break;
+                }
+                case Qv2rayProcessArguments::QV2RAY_LINK:
+                {
+                    break;
+                }
             }
         }
     }
 
-    bool Qv2rayApplication::InitilizeConfigurations()
+    int Qv2rayApplication::RunQv2ray()
+    {
+        // Show MainWindow
+        mainWindow = new MainWindow();
+        return exec();
+    }
+
+    bool Qv2rayApplication::FindAndCreateInitialConfiguration()
     {
         if (initilized)
         {
@@ -71,7 +102,6 @@ namespace Qv2ray
         //
         //
         // Some built-in search paths for Qv2ray to find configs. (load the first one if possible).
-        //
         QStringList configFilePaths;
         const auto useManualConfigPath = qEnvironmentVariableIsSet(QV2RAY_CONFIG_PATH_ENV_NAME);
         const auto manualConfigPath = qEnvironmentVariable(QV2RAY_CONFIG_PATH_ENV_NAME);
@@ -199,76 +229,71 @@ namespace Qv2ray
             QDir().mkdir(QV2RAY_GENERATED_DIR);
             LOG(MODULE_INIT, "Created config generation dir at: " + QV2RAY_GENERATED_DIR)
         }
-
         return true;
-    } // namespace Qv2ray
+    }
 
-    bool Qv2rayApplication::CheckSettingsPathAvailability(const QString &_path, bool checkExistingConfig)
+    bool Qv2rayApplication::LoadConfiguration()
     {
-        auto path = _path;
+        // Load the config for upgrade, but do not parse it to the struct.
+        auto conf = JsonFromString(StringFromFile(QV2RAY_CONFIG_FILE));
+        const auto configVersion = conf["config_version"].toInt();
 
-        if (!path.endsWith("/"))
-            path.append("/");
-
-        // Does not exist.
-        if (!QDir(path).exists())
-            return false;
-
+        if (configVersion > QV2RAY_CONFIG_VERSION)
         {
-            // A temp file used to test file permissions in that folder.
-            QFile testFile(path + ".qv2ray_test_file" + QSTRN(QTime::currentTime().msecsSinceStartOfDay()));
-
-            if (!testFile.open(QFile::OpenModeFlag::ReadWrite))
-            {
-                LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
-                LOG(MODULE_SETTINGS, "---> Cannot create a new file or open a file for writing.")
-                return false;
-            }
-
-            testFile.write("Qv2ray test file, feel free to remove.");
-            testFile.flush();
-            testFile.close();
-
-            if (!testFile.remove())
-            {
-                // This is rare, as we can create a file but failed to remove it.
-                LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
-                LOG(MODULE_SETTINGS, "---> Cannot remove a file.")
-                return false;
-            }
-        }
-
-        if (!checkExistingConfig)
-        {
-            // Just pass the test
-            return true;
-        }
-
-        // Check if an existing config is found.
-        QFile configFile(path + "Qv2ray.conf");
-
-        // No such config file.
-        if (!configFile.exists())
-            return false;
-
-        if (!configFile.open(QIODevice::ReadWrite))
-        {
-            LOG(MODULE_SETTINGS, "File: " + configFile.fileName() + " cannot be opened!")
+            // Config version is larger than the current version...
+            // This is rare but it may happen....
+            QvMessageBoxWarn(nullptr, tr("Qv2ray Cannot Continue"),                                                           //
+                             tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE + //
+                                 tr("Please check if there's an issue explaining about it.") + NEWLINE +                      //
+                                 tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +             //
+                                 tr("Qv2ray will now exit."));
             return false;
         }
 
-        const auto err = VerifyJsonString(StringFromFile(configFile));
-        if (!err.isEmpty())
+        if (configVersion < QV2RAY_CONFIG_VERSION)
         {
-            LOG(MODULE_INIT, "Json parse returns: " + err)
-            return false;
+            // That is, config file needs to be upgraded.
+            conf = Qv2ray::UpgradeSettingsVersion(configVersion, QV2RAY_CONFIG_VERSION, conf);
         }
 
-        // If the file format is valid.
-        const auto conf = JsonFromString(StringFromFile(configFile));
-        LOG(MODULE_SETTINGS, "Found a config file, v=" + conf["config_version"].toString() + " path=" + path)
-        configFile.close();
+        // Load config object from upgraded config QJsonObject
+        auto confObject = Qv2rayConfigObject::fromJson(conf);
+
+        if (confObject.uiConfig.language.isEmpty())
+        {
+            // Prevent empty.
+            LOG(MODULE_UI, "Setting default UI language to system locale.")
+            confObject.uiConfig.language = QLocale::system().name();
+        }
+
+        if (!Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
+        {
+            QvMessageBoxWarn(nullptr, "Translation Failed",
+                             "Cannot load translation for " + confObject.uiConfig.language + NEWLINE + //
+                                 "English is now used." + NEWLINE + NEWLINE +                          //
+                                 "Please go to Preferences Window to change language or open an Issue");
+        }
+
+        // Let's save the config.
+        SaveGlobalSettings(confObject);
         return true;
+    }
+
+    void Qv2rayApplication::InitilizeGlobalVariables()
+    {
+        StyleManager = new QvStyleManager();
+        PluginHost = new QvPluginHost();
+        RouteManager = new RouteHandler();
+        ConnectionManager = new QvConfigHandler();
+        StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
+    }
+
+    void Qv2rayApplication::DeallocateGlobalVariables()
+    {
+        delete ConnectionManager;
+        delete RouteManager;
+        delete PluginHost;
+        delete StyleManager;
     }
 
     bool Qv2rayApplication::PreInitilize(int argc, char *argv[])
