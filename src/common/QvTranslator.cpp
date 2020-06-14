@@ -53,11 +53,12 @@ namespace Qv2ray::common
                 translatorNew->load(code + ".qm", path);
                 if (pTranslator)
                 {
-                    LOG(MODULE_INIT, "Removed translations")
+                    LOG(MODULE_UI, "Removed translations")
                     qApp->removeTranslator(pTranslator.get());
                 }
                 this->pTranslator.reset(translatorNew);
                 qApp->installTranslator(pTranslator.get());
+                LOG(MODULE_UI, "Successfully installed a translator for " + code)
                 return true;
             }
         }

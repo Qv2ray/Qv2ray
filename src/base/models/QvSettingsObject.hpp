@@ -4,7 +4,7 @@
 
 #include <chrono>
 
-const int QV2RAY_CONFIG_VERSION = 14;
+constexpr int QV2RAY_CONFIG_VERSION = 14;
 
 namespace Qv2ray::base::config
 {

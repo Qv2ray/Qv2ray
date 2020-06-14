@@ -48,24 +48,13 @@ int main(int argc, char *argv[])
     //
     // parse the command line before starting as a Qt application
     if (!Qv2rayApplication::PreInitilize(argc, argv))
-    {
         return -1;
-    }
+
     Qv2rayApplication app(argc, argv);
-    if (app.SetupQv2ray())
-    {
-        LOG(MODULE_INIT, "Secondary instance detected.")
+
+    if (!app.SetupQv2ray())
         return 0;
-    }
-    app.setQuitOnLastWindowClosed(false);
-    //
-    // Not duplicated.
-    // Install a default translater. From the OS/DE
-    Qv2rayTranslator = std::make_unique<QvTranslator>();
-    const auto systemLang = QLocale::system().name();
-    const auto setLangResult = Qv2rayTranslator->InstallTranslation(systemLang) ? "Succeed" : "Failed";
-    LOG(MODULE_UI, "Installing a tranlator from OS: " + systemLang + " -- " + setLangResult)
-    //
+
     LOG("LICENCE", NEWLINE                                                                                               //
         "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE                                                        //
         "This is free software, and you are welcome to redistribute it" NEWLINE                                          //
@@ -89,11 +78,11 @@ int main(int argc, char *argv[])
             NEWLINE)                                                                                                     //
     //
 #ifdef QT_DEBUG
-    std::cout << "WARNING: =================== This is a debug build, many features are not stable enough. ===================" << std::endl;
+    std::cerr << "WARNING: =================== This is a debug build, many features are not stable enough. ===================" << std::endl;
 #endif
     //
     // Qv2ray Initialize, find possible config paths and verify them.
-    if (!qvApp->InitilizeConfigurations())
+    if (!app.InitilizeConfigurations())
     {
         LOG(MODULE_INIT, "Failed to initialise Qv2ray, exiting.")
         return -1;
@@ -101,9 +90,9 @@ int main(int argc, char *argv[])
 
     // Load the config for upgrade, but do not parse it to the struct.
     auto conf = JsonFromString(StringFromFile(QV2RAY_CONFIG_FILE));
-    auto confVersion = conf["config_version"].toVariant().toString().toInt();
+    const auto configVersion = conf["config_version"].toInt();
 
-    if (confVersion > QV2RAY_CONFIG_VERSION)
+    if (configVersion > QV2RAY_CONFIG_VERSION)
     {
         // Config version is larger than the current version...
         // This is rare but it may happen....
@@ -115,10 +104,10 @@ int main(int argc, char *argv[])
         return -2;
     }
 
-    if (confVersion < QV2RAY_CONFIG_VERSION)
+    if (configVersion < QV2RAY_CONFIG_VERSION)
     {
         // That is, config file needs to be upgraded.
-        conf = Qv2ray::UpgradeSettingsVersion(confVersion, QV2RAY_CONFIG_VERSION, conf);
+        conf = Qv2ray::UpgradeSettingsVersion(configVersion, QV2RAY_CONFIG_VERSION, conf);
     }
 
     {
@@ -132,14 +121,11 @@ int main(int argc, char *argv[])
             confObject.uiConfig.language = QLocale::system().name();
         }
 
-        if (Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
-        {
-            LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language)
-        }
-        else
+        if (!Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
         {
             QvMessageBoxWarn(nullptr, "Translation Failed",
-                             "Cannot load translation for " + confObject.uiConfig.language + ", English is now used." + NEWLINE + NEWLINE +
+                             "Cannot load translation for " + confObject.uiConfig.language + NEWLINE + //
+                                 "English is now used." + NEWLINE + NEWLINE +                          //
                                  "Please go to Preferences Window to change language or open an Issue");
         }
 
@@ -175,50 +161,20 @@ int main(int argc, char *argv[])
     StyleManager = new QvStyleManager(qvApp);
     StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
 
-#if (QV2RAY_USE_BUILTIN_DARKTHEME)
-    LOG(MODULE_UI, "Using built-in theme.")
-
-    if (GlobalConfig.uiConfig.useDarkTheme)
-    {
-        LOG(MODULE_UI, " --> Using built-in dark theme.")
-        // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
-        app.setStyle("Fusion");
-        QPalette darkPalette;
-        QColor darkColor = QColor(45, 45, 45);
-        QColor disabledColor = QColor(127, 127, 127);
-        // See Qv2rayBase.hpp MACRO --> BLACK(obj)
-        QColor defaultTextColor = QColor(210, 210, 210);
-        darkPalette.setColor(QPalette::Window, darkColor);
-        darkPalette.setColor(QPalette::WindowText, defaultTextColor);
-        darkPalette.setColor(QPalette::Disabled, QPalette::WindowText, disabledColor);
-        darkPalette.setColor(QPalette::Base, QColor(18, 18, 18));
-        darkPalette.setColor(QPalette::AlternateBase, darkColor);
-        darkPalette.setColor(QPalette::ToolTipBase, defaultTextColor);
-        darkPalette.setColor(QPalette::ToolTipText, defaultTextColor);
-        darkPalette.setColor(QPalette::Text, defaultTextColor);
-        darkPalette.setColor(QPalette::Disabled, QPalette::Text, disabledColor);
-        darkPalette.setColor(QPalette::Button, darkColor);
-        darkPalette.setColor(QPalette::ButtonText, defaultTextColor);
-        darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, disabledColor);
-        darkPalette.setColor(QPalette::BrightText, Qt::red);
-        darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
-        darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
-        darkPalette.setColor(QPalette::HighlightedText, Qt::black);
-        darkPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
-        app.setPalette(darkPalette);
-        app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
-    }
-#endif
     try
     {
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
         ConnectionManager = new QvConfigHandler();
         RouteManager = new RouteHandler();
+#ifndef Q_OS_WIN
+        signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
+        signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
+#endif
 
 #ifdef Q_OS_LINUX
         qvApp->setFallbackSessionManagementEnabled(false);
-        QObject::connect(qvApp, &QGuiApplication::commitDataRequest, [] { //
+        QObject::connect(qvApp, &QGuiApplication::commitDataRequest, [] {
             ConnectionManager->SaveConnectionConfig();
             LOG(MODULE_INIT, "Quit triggered by session manager.")
         });
@@ -232,10 +188,7 @@ int main(int argc, char *argv[])
             w.raise();
             w.activateWindow();
         });
-#ifndef Q_OS_WIN
-        signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
-        signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
-#endif
+
         auto rcode = app.exec();
         delete ConnectionManager;
         delete RouteManager;

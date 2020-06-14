@@ -80,11 +80,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     themeCombo->setCurrentText(CurrentConfig.uiConfig.theme);
     darkThemeCB->setChecked(CurrentConfig.uiConfig.useDarkTheme);
     darkTrayCB->setChecked(CurrentConfig.uiConfig.useDarkTrayIcon);
-#if (QV2RAY_USE_BUILTIN_DARKTHEME)
-    // If we use built in theme, it should always be fusion.
-    themeCombo->setEnabled(!CurrentConfig.uiConfig.useDarkTheme);
-    darkThemeLabel->setText(tr("Use built-in darkmode Theme"));
-#endif
     languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
@@ -655,16 +650,6 @@ void PreferencesWindow::on_darkThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTheme = arg1 == Qt::Checked;
-#if (QV2RAY_USE_BUILTIN_DARKTHEME)
-    themeCombo->setEnabled(arg1 != Qt::Checked);
-
-    if (arg1 == Qt::Checked)
-    {
-        themeCombo->setCurrentIndex(QStyleFactory::keys().indexOf("Fusion"));
-        CurrentConfig.uiConfig.theme = "Fusion";
-    }
-
-#endif
 }
 
 void PreferencesWindow::on_darkTrayCB_stateChanged(int arg1)

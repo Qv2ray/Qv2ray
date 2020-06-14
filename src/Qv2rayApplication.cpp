@@ -2,10 +2,13 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
+#include "common/QvTranslator.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
 namespace Qv2ray
 {
+    constexpr auto QV2RAY_CONFIG_PATH_ENV_NAME = "QV2RAY_CONFIG_PATH";
+
     Qv2rayApplication::Qv2rayApplication(int &argc, char *argv[])
         : SingleApplication(argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion)
     {
@@ -18,13 +21,20 @@ namespace Qv2ray
 
     bool Qv2rayApplication::SetupQv2ray()
     {
+        // Install a default translater. From the OS/DE
+        Qv2rayTranslator = std::make_unique<QvTranslator>();
+        const auto &systemLang = QLocale::system().name();
+        const auto setLangResult = Qv2rayTranslator->InstallTranslation(systemLang) ? "Succeed" : "Failed";
+        LOG(MODULE_UI, "Installing a tranlator from OS: " + systemLang + " -- " + setLangResult)
+        //
+        setQuitOnLastWindowClosed(false);
         connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
         if (isSecondary())
         {
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson()).toUtf8());
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray _msg)
@@ -55,6 +65,7 @@ namespace Qv2ray
         // Non-standard paths needs special handing for "_debug"
         const auto currentPathConfig = applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
         const auto homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+        //
         // Standard paths already handles the "_debug" suffix for us.
         const auto configQv2ray = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
         //
@@ -62,10 +73,19 @@ namespace Qv2ray
         // Some built-in search paths for Qv2ray to find configs. (load the first one if possible).
         //
         QStringList configFilePaths;
-        configFilePaths << currentPathConfig;
-        configFilePaths << configQv2ray;
-        configFilePaths << homeQv2ray;
-        //
+        const auto useManualConfigPath = qEnvironmentVariableIsSet(QV2RAY_CONFIG_PATH_ENV_NAME);
+        const auto manualConfigPath = qEnvironmentVariable(QV2RAY_CONFIG_PATH_ENV_NAME);
+        if (useManualConfigPath)
+        {
+            LOG(MODULE_INIT, "Using config path from env: " + manualConfigPath)
+            configFilePaths << manualConfigPath;
+        }
+        else
+        {
+            configFilePaths << currentPathConfig;
+            configFilePaths << configQv2ray;
+            configFilePaths << homeQv2ray;
+        }
         QString configPath = "";
         bool hasExistingConfig = false;
 
@@ -102,15 +122,21 @@ namespace Qv2ray
         {
             // If there's no existing config.
             //
-            // Create new config at these dirs, these are default values for each
-            // platform.
+            // Create new config at these dirs, these are default values for each platform.
+            if (useManualConfigPath)
+            {
+                configPath = manualConfigPath;
+            }
+            else
+            {
 #if defined(Q_OS_WIN) && !defined(QV2RAY_NO_ASIDECONFIG)
-            configPath = currentPathConfig;
+                configPath = currentPathConfig;
 #else
-            configPath = configQv2ray;
+                configPath = configQv2ray;
 #endif
-            bool mkpathResult = QDir().mkpath(configPath);
-            bool hasPossibleNewLocation = mkpathResult && CheckSettingsPathAvailability(configPath, false);
+            }
+
+            bool hasPossibleNewLocation = QDir().mkpath(configPath) && CheckSettingsPathAvailability(configPath, false);
             // Check if the dirs are write-able
             if (!hasPossibleNewLocation)
             {
@@ -126,6 +152,7 @@ namespace Qv2ray
                                      tr("Qv2ray will now exit."));                                                                     //
                 return false;
             }
+
             // Found a valid config dir, with write permission, but assume no config is located in it.
             LOG(MODULE_INIT, "Set " + configPath + " as the config path.")
             SetConfigDirPath(configPath);
@@ -174,7 +201,7 @@ namespace Qv2ray
         }
 
         return true;
-    }
+    } // namespace Qv2ray
 
     bool Qv2rayApplication::CheckSettingsPathAvailability(const QString &_path, bool checkExistingConfig)
     {
@@ -255,18 +282,12 @@ namespace Qv2ray
             Qv2rayProcessArgument.fullArgs = args;
             switch (ParseCommandLine(&errorMessage))
             {
-                case QUIT:
-                {
-                    return false;
-                }
-                case ERROR:
-                {
-                    LOG(MODULE_INIT, errorMessage)
-                    return false;
-                }
+                case QUIT: return false;
+                case ERROR: LOG(MODULE_INIT, errorMessage) return false;
                 default: break;
             }
         }
+
         // noScaleFactors = disable HiDPI
         if (StartupOption.noScaleFactor)
         {

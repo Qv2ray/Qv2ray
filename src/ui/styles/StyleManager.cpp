@@ -6,7 +6,10 @@
 #include <QApplication>
 #include <QColor>
 #include <QPalette>
+#include <QStyle>
 #include <QStyleFactory>
+
+constexpr auto QV2RAY_BUILT_IN_DARK_MODE_NAME = "Built-in Darkmode";
 
 namespace Qv2ray::ui::styles
 {
@@ -18,6 +21,7 @@ namespace Qv2ray::ui::styles
     void QvStyleManager::ReloadStyles()
     {
         styles.clear();
+        styles.insert(QV2RAY_BUILT_IN_DARK_MODE_NAME, {});
         for (const auto &key : QStyleFactory::keys())
         {
             LOG(MODULE_UI, "Found factory style: " + key)
@@ -49,6 +53,48 @@ namespace Qv2ray::ui::styles
     {
         if (!styles.contains(style))
             return false;
+
+        if (style == QV2RAY_BUILT_IN_DARK_MODE_NAME)
+        {
+            LOG(MODULE_UI, "Applying built-in darkmode theme.")
+            // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
+            qApp->setStyle("Fusion");
+            QPalette darkPalette;
+            //
+            QColor darkColor(45, 45, 45);
+            QColor disabledColor(127, 127, 127);
+            QColor defaultTextColor(210, 210, 210);
+            //
+            darkPalette.setColor(QPalette::Window, darkColor);
+            darkPalette.setColor(QPalette::Button, darkColor);
+            darkPalette.setColor(QPalette::AlternateBase, darkColor);
+            //
+            darkPalette.setColor(QPalette::Text, defaultTextColor);
+            darkPalette.setColor(QPalette::ButtonText, defaultTextColor);
+            darkPalette.setColor(QPalette::WindowText, defaultTextColor);
+            darkPalette.setColor(QPalette::ToolTipBase, defaultTextColor);
+            darkPalette.setColor(QPalette::ToolTipText, defaultTextColor);
+            //
+            darkPalette.setColor(QPalette::Disabled, QPalette::Text, disabledColor);
+            darkPalette.setColor(QPalette::Disabled, QPalette::WindowText, disabledColor);
+            darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, disabledColor);
+            darkPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
+            //
+            darkPalette.setColor(QPalette::Base, QColor(18, 18, 18));
+            darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+            darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+            //
+            darkPalette.setColor(QPalette::BrightText, Qt::red);
+            darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+            qApp->setPalette(darkPalette);
+            qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
+            return true;
+        }
+        else
+        {
+            qApp->setPalette(QStyleFactory::create("fusion")->standardPalette());
+        }
+
         const auto &s = styles[style];
         switch (s.Type)
         {

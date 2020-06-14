@@ -431,7 +431,7 @@ namespace Qv2ray
         }
         root["config_version"] = root["config_version"].toInt() + 1;
         return root;
-    } // namespace Qv2ray
+    }
 
     // Exported function
     QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, const QJsonObject &original)
