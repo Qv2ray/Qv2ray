@@ -143,7 +143,6 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     if (_r == QDialog::Accepted)
     {
         auto str = DecodeQRCode(pix);
-        qrImageLabel->setPixmap(QPixmap::fromImage(pix));
         if (str.trimmed().isEmpty())
         {
             LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))

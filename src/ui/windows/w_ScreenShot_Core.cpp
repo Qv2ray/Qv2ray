@@ -9,11 +9,10 @@
 
 #define QV2RAY_SCREENSHOT_DIM_RATIO 0.6f
 
-ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubberBand::Rectangle, this))
+ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(QRubberBand::Rectangle, this)
 {
     setupUi(this);
-    // Fusion prevents the KDE Plasma Breeze's "Move window when dragging in the
-    // empty area" issue
+    // Fusion prevents the KDE Plasma Breeze's "Move window when dragging in the empty area" issue
     this->setStyle(QStyleFactory::create("Fusion"));
     //
     label->setAttribute(Qt::WA_TranslucentBackground);
@@ -34,22 +33,20 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
 QImage ScreenShotWindow::DoScreenShot()
 {
     LOG(MODULE_IMPORT, "We currently only support the current screen.")
-    // The msleep is the only solution which prevent capturing our windows
-    // again. It works on KDE,
+    // The msleep is the only solution which prevent capturing our windows again. It works on KDE,
     // https://www.qtcentre.org/threads/55708-Get-Desktop-Screenshot-Without-Application-Window-Being-Shown?p=248993#post248993
     QThread::msleep(100);
     QApplication::processEvents();
     //
-    auto pos = QCursor::pos();
-    desktopImage = QGuiApplication::screenAt(pos)->grabWindow(0);
+    desktopImage = qApp->screenAt(QCursor::pos())->grabWindow(0);
     //
     int w = desktopImage.width();
     int h = desktopImage.height();
-    QImage bg_grey(w, h, QImage::Format_RGB32);
     //
     int r, g, b;
-    auto _xdesktopImg = desktopImage.toImage();
+    const auto _xdesktopImg = desktopImage.toImage();
 
+    QImage bg_grey(w, h, QImage::Format_RGB32);
     for (int i = 0; i < w; i++)
     {
         for (int j = 0; j < h; j++)
@@ -79,12 +76,10 @@ void ScreenShotWindow::pSize()
     imgH = abs(end.y() - origin.y());
     imgX = origin.x() < end.x() ? origin.x() : end.x();
     imgY = origin.y() < end.y() ? origin.y() : end.y();
-    DEBUG("Capture Mouse Position", QSTRN(imgW) + " " + QSTRN(imgH) + " " + QSTRN(imgX) + " " + QSTRN(imgY))
-    rubber->setGeometry(imgX, imgY, imgW, imgH);
-    fg->setGeometry(rubber->geometry());
-    auto copied = desktopImage.copy(fg->x() * devicePixelRatio(), fg->y() * devicePixelRatio(), fg->width() * devicePixelRatio(),
-                                    fg->height() * devicePixelRatio());
-    fg->setPixmap(copied);
+    rubber.setGeometry(imgX, imgY, imgW, imgH);
+    fg->setGeometry(rubber.geometry());
+    fg->setPixmap(desktopImage.copy(fg->x() * devicePixelRatio(), fg->y() * devicePixelRatio(), fg->width() * devicePixelRatio(),
+                                    fg->height() * devicePixelRatio()));
 }
 
 bool ScreenShotWindow::event(QEvent *e)
@@ -112,9 +107,9 @@ void ScreenShotWindow::keyPressEvent(QKeyEvent *e)
 void ScreenShotWindow::mousePressEvent(QMouseEvent *e)
 {
     origin = e->pos();
-    rubber->setGeometry(origin.x(), origin.y(), 0, 0);
-    rubber->show();
-    rubber->raise();
+    rubber.setGeometry(origin.x(), origin.y(), 0, 0);
+    rubber.show();
+    rubber.raise();
     // label->hide();
     // startBtn->hide();
 }
@@ -128,7 +123,6 @@ void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
         //
         label->setText(QString("%1x%2").arg(imgW).arg(imgH));
         label->adjustSize();
-        //
         //
         QRect labelRect(label->contentsRect());
         QRect btnRect(startBtn->contentsRect());
@@ -171,6 +165,6 @@ ScreenShotWindow::~ScreenShotWindow()
 void ScreenShotWindow::on_startBtn_clicked()
 {
     resultImage = desktopImage.copy(imgX, imgY, imgW, imgH).toImage();
-    rubber->hide();
+    rubber.hide();
     accept();
 }
