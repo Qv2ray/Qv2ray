@@ -202,6 +202,7 @@ namespace Qv2ray::core::handler
                 if (INCONF.tProxySettings.hasUDP)
                     networks << "udp";
                 const auto tproxy_network = networks.join(",");
+                // tProxy IPv4 Settings
                 {
                     LOG(MODULE_CONNECTION, "Processing tProxy IPv4 inbound")
                     INBOUND tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyIP,                        //
@@ -213,10 +214,9 @@ namespace Qv2ray::core::handler
                                                                 { "enabled", true },                            //
                                                                 { "destOverride", QJsonArray{ "http", "tls" } } //
                                                             });
-                    tProxyIn.insert("streamSettings", { { "sockopt", { { "tproxy", INCONF.tProxySettings.mode } } } });
+                    tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
                     inboundsList.append(tProxyIn);
                 }
-                //
                 if (!INCONF.tProxySettings.tProxyV6IP.isEmpty())
                 {
                     LOG(MODULE_CONNECTION, "Processing tProxy IPv6 inbound")
@@ -229,7 +229,7 @@ namespace Qv2ray::core::handler
                                                                 { "enabled", true },                            //
                                                                 { "destOverride", QJsonArray{ "http", "tls" } } //
                                                             });
-                    tProxyIn.insert("streamSettings", { { "sockopt", { { "tproxy", INCONF.tProxySettings.mode } } } });
+                    tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
                     inboundsList.append(tProxyIn);
                 }
             }
