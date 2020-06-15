@@ -357,13 +357,20 @@ void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QStr
     if (command == "open")
     {
         const auto subcommand = commands.takeFirst();
+        QvDialog *w;
         if (subcommand == "preference")
-        {
-            auto preferenceWindow = new PreferencesWindow();
-            preferenceWindow->processCommands(command, commands, args);
-            preferenceWindow->open();
-            QvAutoDelete(preferenceWindow);
-        }
+            w = new PreferencesWindow();
+        else if (subcommand == "plugin")
+            w = new PluginManageWindow();
+        else if (subcommand == "group")
+            w = new GroupManager();
+        else if (subcommand == "import")
+            w = new ImportConfigWindow();
+        else
+            return;
+        w->processCommands(command, commands, args);
+        w->open();
+        QvAutoDelete(w);
     }
 }
 
@@ -522,7 +529,7 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_preferencesBtn_clicked()
 {
-    PreferencesWindow(this).exec();
+    ProcessCommand("open", { "preference", "general" }, {});
 }
 void MainWindow::on_clearlogButton_clicked()
 {

@@ -17,7 +17,7 @@ class PreferencesWindow
   public:
     explicit PreferencesWindow(QWidget *parent = nullptr);
     ~PreferencesWindow();
-    void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
+    void processCommands(QString command, QStringList commands, QMap<QString, QString>) override
     {
         const static QMap<QString, int> indexMap{
             { "general", 0 },    //
@@ -35,9 +35,6 @@ class PreferencesWindow
             const auto c = commands.takeFirst();
             tabWidget->setCurrentIndex(indexMap[c]);
         }
-        Q_UNUSED(command)
-        Q_UNUSED(commands)
-        Q_UNUSED(args)
     }
 
   private:

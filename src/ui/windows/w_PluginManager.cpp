@@ -23,6 +23,7 @@ PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog(parent)
 
 PluginManageWindow::~PluginManageWindow()
 {
+    DEBUG(MODULE_UI, "Plugin window destructor.")
 }
 
 void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)

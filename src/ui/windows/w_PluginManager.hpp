@@ -14,11 +14,20 @@ class PluginManageWindow
   public:
     explicit PluginManageWindow(QWidget *parent = nullptr);
     ~PluginManageWindow();
-    void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
+    void processCommands(QString command, QStringList commands, QMap<QString, QString>) override
     {
-        Q_UNUSED(command)
-        Q_UNUSED(commands)
-        Q_UNUSED(args)
+        if (commands.isEmpty())
+            return;
+        if (command == "open")
+        {
+            const auto c = commands.takeFirst();
+            if (c == "plugindir")
+                on_openPluginFolder_clicked();
+            if (c == "metadata")
+                tabWidget->setCurrentIndex(0);
+            if (c == "settings")
+                tabWidget->setCurrentIndex(1);
+        }
     }
   private slots:
     void on_pluginListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);

@@ -18,9 +18,18 @@ class ImportConfigWindow
     QMultiHash<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
     void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
     {
-        Q_UNUSED(command)
-        Q_UNUSED(commands)
-        Q_UNUSED(args)
+        const static QMap<QString, int> indexMap{ { "link", 0 },   //
+                                                  { "qr", 1 },     //
+                                                  { "manual", 2 }, //
+                                                  { "advanced", 3 } };
+        nameTxt->setText(args["name"]);
+        if (commands.isEmpty())
+            return;
+        if (command == "open")
+        {
+            const auto c = commands.takeFirst();
+            tabWidget->setCurrentIndex(indexMap[c]);
+        }
     }
 
   private:

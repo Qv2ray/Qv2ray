@@ -20,11 +20,19 @@ class GroupManager
     explicit GroupManager(QWidget *parent = nullptr);
     ~GroupManager();
     std::tuple<QString, CONFIGROOT> GetSelectedConfig();
-    void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
+    void processCommands(QString command, QStringList commands, QMap<QString, QString>) override
     {
-        Q_UNUSED(command)
-        Q_UNUSED(commands)
-        Q_UNUSED(args)
+        const static QMap<QString, int> indexMap{ { "connection", 0 },   //
+                                                  { "subscription", 1 }, //
+                                                  { "dns", 2 },          //
+                                                  { "route", 3 } };
+        if (commands.isEmpty())
+            return;
+        if (command == "open")
+        {
+            const auto c = commands.takeFirst();
+            tabWidget->setCurrentIndex(indexMap[c]);
+        }
     }
 
   private:

@@ -263,6 +263,7 @@ std::tuple<QString, CONFIGROOT> GroupManager::GetSelectedConfig()
 
 GroupManager::~GroupManager()
 {
+    DEBUG(MODULE_UI, "Group window destructor.")
 }
 
 void GroupManager::on_addGroupButton_clicked()

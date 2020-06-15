@@ -45,6 +45,7 @@ QvMessageBusSlotImpl(ImportConfigWindow)
 
 ImportConfigWindow::~ImportConfigWindow()
 {
+    DEBUG(MODULE_UI, "Import window destructor.");
 }
 
 QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
