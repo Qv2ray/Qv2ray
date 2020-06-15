@@ -96,7 +96,7 @@
 ## Special Thanks
 - **Quality Assurance & User Experience:** [@DuckSoft](https://github.com/DuckSoft/)
 - **Debian-based distro Packager:** [@ymshenyu](https://github.com/ymshenyu)
-
+- [**JetBrains Developer Toolbox**](https://www.jetbrains.com/?from=Qv2ray)
 -------------------------------
 
 ## Copyright
