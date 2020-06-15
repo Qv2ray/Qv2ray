@@ -190,9 +190,11 @@ namespace Qv2ray::base::objects
             bool congestion = false;
             int readBufferSize = 1;
             int writeBufferSize = 1;
+            QString seed;
             HeaderObject header;
             KCPObject() : header(){};
-            JSONSTRUCT_REGISTER(KCPObject, F(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header))
+            JSONSTRUCT_REGISTER(KCPObject,
+                                F(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header, seed))
         };
         //
         //

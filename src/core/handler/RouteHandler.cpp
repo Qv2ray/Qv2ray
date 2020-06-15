@@ -213,7 +213,7 @@ namespace Qv2ray::core::handler
                                                                 { "enabled", true },                            //
                                                                 { "destOverride", QJsonArray{ "http", "tls" } } //
                                                             });
-                    tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
+                    tProxyIn.insert("streamSettings", { { "sockopt", { { "tproxy", INCONF.tProxySettings.mode } } } });
                     inboundsList.append(tProxyIn);
                 }
                 //
@@ -229,8 +229,7 @@ namespace Qv2ray::core::handler
                                                                 { "enabled", true },                            //
                                                                 { "destOverride", QJsonArray{ "http", "tls" } } //
                                                             });
-                    tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
-
+                    tProxyIn.insert("streamSettings", { { "sockopt", { { "tproxy", INCONF.tProxySettings.mode } } } });
                     inboundsList.append(tProxyIn);
                 }
             }
@@ -387,6 +386,8 @@ namespace Qv2ray::core::handler
                 {
                     BypassBTFilter(root);
                 }
+                // Process mKCP seed.
+                mKCPSeedFilter(root);
             }
         }
 

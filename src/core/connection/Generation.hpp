@@ -53,6 +53,7 @@ namespace Qv2ray::core::connection::generation
         void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root);
         void DNSInterceptFilter(CONFIGROOT &root, const bool have_ipv6);
         void BypassBTFilter(CONFIGROOT &root);
+        void mKCPSeedFilter(CONFIGROOT &root);
     } // namespace filters
 
 } // namespace Qv2ray::core::connection::generation

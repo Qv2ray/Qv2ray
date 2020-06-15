@@ -80,6 +80,8 @@ class StreamSettingsWidget
 
     void on_allowInsecureCiphersCB_stateChanged(int arg1);
 
+    void on_kcpSeedTxt_textEdited(const QString &arg1);
+
   private:
     QvMessageBusSlotDecl;
     StreamSettingsObject stream;

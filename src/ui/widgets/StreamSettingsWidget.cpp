@@ -13,12 +13,10 @@ QvMessageBusSlotImpl(StreamSettingsWidget)
 {
     switch (msg)
     {
+        MBRetranslateDefaultImpl;
         case UPDATE_COLORSCHEME:
         case HIDE_WINDOWS:
-        case SHOW_WINDOWS:
-            break;
-            //
-            MBRetranslateDefaultImpl
+        case SHOW_WINDOWS: break;
     }
 }
 
@@ -63,6 +61,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
     kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
     kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
+    kcpSeedTxt->setText(stream.kcpSettings.seed);
     // DS
     dsPathTxt->setText(stream.dsSettings.path);
     // QUIC
@@ -289,4 +288,9 @@ void StreamSettingsWidget::on_alpnTxt_textChanged()
 void StreamSettingsWidget::on_allowInsecureCiphersCB_stateChanged(int arg1)
 {
     stream.tlsSettings.allowInsecureCiphers = arg1 == Qt::Checked;
+}
+
+void StreamSettingsWidget::on_kcpSeedTxt_textEdited(const QString &arg1)
+{
+    stream.kcpSettings.seed = arg1;
 }
