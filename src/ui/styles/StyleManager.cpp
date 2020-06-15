@@ -53,12 +53,12 @@ namespace Qv2ray::ui::styles
     {
         if (!styles.contains(style))
             return false;
-
+        qApp->setStyle("fusion");
         if (style == QV2RAY_BUILT_IN_DARK_MODE_NAME)
         {
             LOG(MODULE_UI, "Applying built-in darkmode theme.")
             // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
-            qApp->setStyle("Fusion");
+
             QPalette darkPalette;
             //
             QColor darkColor(45, 45, 45);
@@ -90,10 +90,6 @@ namespace Qv2ray::ui::styles
             qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
             return true;
         }
-        else
-        {
-            qApp->setPalette(QStyleFactory::create("fusion")->standardPalette());
-        }
 
         const auto &s = styles[style];
         switch (s.Type)
@@ -101,21 +97,25 @@ namespace Qv2ray::ui::styles
             case QvStyle::QVSTYLE_QSS:
             {
                 LOG(MODULE_UI, "Applying UI QSS style: " + s.qssPath)
-                qApp->setStyle(QStyleFactory::create("fusion"));
-                qApp->processEvents();
-                //
                 const auto content = StringFromFile(s.qssPath);
                 qApp->setStyleSheet(content);
-                return true;
+                break;
             }
             case QvStyle::QVSTYLE_FACTORY:
             {
                 LOG(MODULE_UI, "Applying UI style: " + s.Name)
-                qApp->setStyle(QStyleFactory::create(s.Name));
+                const auto &style = QStyleFactory::create(s.Name);
+                qApp->setPalette(style->standardPalette());
+                qApp->setStyle(style);
                 qApp->setStyleSheet("");
-                return true;
+                break;
             }
-            default: return false;
+            default:
+            {
+                return false;
+            }
         }
+        qApp->processEvents();
+        return true;
     }
 } // namespace Qv2ray::ui::styles

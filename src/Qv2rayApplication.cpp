@@ -38,7 +38,7 @@ namespace Qv2ray
         connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
         if (isSecondary())
         {
-            sendMessage(JsonToString(Qv2rayProcessArgument.toJson()).toUtf8());
+            sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
             return false;
         }
         return true;
@@ -48,6 +48,7 @@ namespace Qv2ray
     {
         const auto msg = Qv2rayProcessArguments::fromJson(JsonFromString(_msg));
         LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + ", message received, version: " + msg.version)
+        DEBUG(MODULE_INIT, _msg)
         for (const auto &argument : msg.arguments)
         {
             switch (argument)
