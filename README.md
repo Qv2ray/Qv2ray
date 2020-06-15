@@ -111,7 +111,7 @@
 Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) 
 
 ```
-    Qv2ray, A Qt frontend for v2ray. Written in c++
+    Qv2ray, A Qt frontend for v2ray. Written in C++
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
