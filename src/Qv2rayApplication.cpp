@@ -81,7 +81,8 @@ namespace Qv2ray
                     {
                         const auto url = QUrl::fromUserInput(link);
                         const auto command = url.host();
-                        const auto subcommands = url.path().split("/", { 1 });
+                        auto subcommands = url.path().split("/");
+                        subcommands.removeAll("");
                         QMap<QString, QString> args;
                         for (const auto &kvp : QUrlQuery(url).queryItems())
                         {
