@@ -57,10 +57,7 @@ GroupManager::GroupManager(QWidget *parent) : QvDialog(parent)
     connect(exportConnectionAction, &QAction::triggered, this, &GroupManager::onRCMExportConnectionTriggered);
     connect(deleteConnectionAction, &QAction::triggered, this, &GroupManager::onRCMDeleteConnectionTriggered);
     //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, //
-            [&]() {                                                           //
-                this->reloadConnectionsList(currentGroupId);                  //
-            });
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &GroupManager::reloadCurrentGroup);
     //
     connect(ConnectionManager, &QvConfigHandler::OnGroupCreated, this, &GroupManager::reloadGroupRCMActions);
     connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &GroupManager::reloadGroupRCMActions);
@@ -172,6 +169,8 @@ void GroupManager::reloadGroupRCMActions()
 
 void GroupManager::reloadConnectionsList(const GroupId &group)
 {
+    if (group == NullGroupId)
+        return;
     connectionsTable->clearContents();
     connectionsTable->model()->removeRows(0, connectionsTable->rowCount());
     const auto &connections = ConnectionManager->Connections(group);

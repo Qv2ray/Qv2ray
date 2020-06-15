@@ -62,6 +62,10 @@ class GroupManager
     void on_connectionsTable_customContextMenuRequested(const QPoint &pos);
 
   private:
+    void reloadCurrentGroup()
+    {
+        this->reloadConnectionsList(currentGroupId);
+    }
     void updateColorScheme() override;
     void reloadConnectionsList(const GroupId &group);
     void onRCMActionTriggered_Move();
