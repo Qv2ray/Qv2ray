@@ -17,8 +17,8 @@ namespace Qv2ray::core::connection
             {
                 auto conf = vmess::Deserialize(link, prefix, errMessage);
                 //
-                auto allowIC = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
                 auto allowI = GlobalConfig.advancedConfig.setAllowInsecure;
+                auto allowIC = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
                 if (allowI || allowIC)
                 {
                     QJsonIO::SetValue(conf, allowI, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecure");
@@ -107,5 +107,5 @@ namespace Qv2ray::core::connection
             return sharelink;
         }
 
-    } // namespace Serialization
+    } // namespace serialization
 } // namespace Qv2ray::core::connection

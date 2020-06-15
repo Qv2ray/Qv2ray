@@ -99,8 +99,9 @@ int main(int argc, char *argv[])
         QvMessageBoxWarn(nullptr, QObject::tr("Dependency Missing"),
                          QObject::tr("Cannot find openssl libs") + NEWLINE +
                              QObject::tr("This could be caused by a missing of `openssl` package in your system.") + NEWLINE +
-                             QObject::tr("If you are using an AppImage from Github Action, please report a bug.") + NEWLINE + NEWLINE +
-                             QObject::tr("Technical Details") + NEWLINE + "OSsl.Rq.V=" + osslReqVersion + NEWLINE +
+                             QObject::tr("If you are using an AppImage from Github Action, please report a bug.") + NEWLINE + //
+                             NEWLINE + QObject::tr("Technical Details") + NEWLINE +                                           //
+                             "OSsl.Rq.V=" + osslReqVersion + NEWLINE +                                                        //
                              "OSsl.Cr.V=" + osslCurVersion);
         return -3;
     }
