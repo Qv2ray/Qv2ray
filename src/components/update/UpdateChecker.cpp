@@ -16,13 +16,14 @@ const inline QMap<int, QString> UpdateChannelLink //
 
 namespace Qv2ray::components
 {
-    QvUpdateChecker::QvUpdateChecker(QObject *parent) : QObject(parent), requestHelper(this)
+    QvUpdateChecker::QvUpdateChecker(QObject *parent) : QObject(parent)
     {
-        connect(&requestHelper, &QvHttpRequestHelper::OnRequestFinished, this, &QvUpdateChecker::VersionUpdate);
     }
+
     QvUpdateChecker::~QvUpdateChecker()
     {
     }
+
     void QvUpdateChecker::CheckUpdate()
     {
 #ifndef DISABLE_AUTO_UPDATE
@@ -30,14 +31,15 @@ namespace Qv2ray::components
             return;
         auto updateChannel = GlobalConfig.updateConfig.updateChannel;
         LOG(MODULE_NETWORK, "Start checking update for channel ID: " + QSTRN(updateChannel))
-        requestHelper.AsyncGet(UpdateChannelLink[updateChannel]);
+        AsyncHttpGet(UpdateChannelLink[updateChannel], &QvUpdateChecker::VersionUpdate);
 #endif
     }
-    void QvUpdateChecker::VersionUpdate(QByteArray &data)
+
+    void QvUpdateChecker::VersionUpdate(const QByteArray &data)
     {
         // Version update handler.
         auto doc = QJsonDocument::fromJson(data);
-        QJsonObject root = doc.isArray() ? doc.array().first().toObject() : doc.object();
+        auto root = doc.isArray() ? doc.array().first().toObject() : doc.object();
         if (root.isEmpty())
             return;
         //
@@ -45,9 +47,9 @@ namespace Qv2ray::components
         const auto currentVersionStr = QString(QV2RAY_VERSION_STRING);
         const auto ignoredVersionStr = GlobalConfig.updateConfig.ignoredVersion.isEmpty() ? "0.0.0" : GlobalConfig.updateConfig.ignoredVersion;
         //
-        auto newVersion = semver::version::from_string(newVersionStr.toStdString());
-        auto currentVersion = semver::version::from_string(currentVersionStr.toStdString());
-        auto ignoredVersion = semver::version::from_string(ignoredVersionStr.toStdString());
+        const auto newVersion = semver::version::from_string(newVersionStr.toStdString());
+        const auto currentVersion = semver::version::from_string(currentVersionStr.toStdString());
+        const auto ignoredVersion = semver::version::from_string(ignoredVersionStr.toStdString());
         //
         LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersionStr + //
                                " Current: " + currentVersionStr +             //
@@ -63,8 +65,7 @@ namespace Qv2ray::components
                 return;
             }
             const auto link = root["html_url"].toString("");
-            auto result = QvMessageBoxAsk(nullptr, //
-                                          tr("Qv2ray Update"),
+            auto result = QvMessageBoxAsk(nullptr, tr("Qv2ray Update"),
                                           tr("A new version of Qv2ray has been found:") + //
                                               "v" + newVersionStr + NEWLINE + NEWLINE +   //
                                               name + NEWLINE "------------" NEWLINE +     //

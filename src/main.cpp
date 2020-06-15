@@ -60,7 +60,6 @@ int main(int argc, char *argv[])
         "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE                       //
         "Copyright (c) 2020 xyz347 (@xyz347): X2Struct (Apache)" NEWLINE                                                 //
         "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE                                             //
-        "Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE                                   //
         "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE                                                //
         "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE                                 //
         "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (Qv2ray group modified version) (BSD-3-Clause)" NEWLINE //

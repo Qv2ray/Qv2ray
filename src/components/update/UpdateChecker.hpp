@@ -2,10 +2,6 @@
 #include "common/HTTPRequestHelper.hpp"
 
 #include <QObject>
-namespace Qv2ray::common
-{
-    class QvHttpRequestHelper;
-}
 namespace Qv2ray::components
 {
     struct QvUpdateInfo
@@ -28,8 +24,7 @@ namespace Qv2ray::components
         void OnCheckUpdateCompleted(bool hasUpdate, const QvUpdateInfo &updateInfo);
 
       private:
-        void VersionUpdate(QByteArray &data);
-        common::QvHttpRequestHelper requestHelper;
+        void static VersionUpdate(const QByteArray &data);
     };
 } // namespace Qv2ray::components
 using namespace Qv2ray::components;

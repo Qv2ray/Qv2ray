@@ -26,8 +26,7 @@ namespace Qv2ray::core::connection::connectionIO
     QMultiHash<QString, CONFIGROOT> GetConnectionConfigFromSubscription(const QUrl &subscriptionUrl, const QString &groupName)
     {
         QMultiHash<QString, CONFIGROOT> subscriptionContent;
-        QvHttpRequestHelper helper;
-        const auto data = helper.Get(subscriptionUrl);
+        const auto data = HttpGet(subscriptionUrl);
         auto subscriptionLines = SplitLines(TryDecodeSubscriptionString(data));
         for (const auto &line : subscriptionLines)
         {
