@@ -88,7 +88,7 @@ namespace Qv2ray
                         }
                         if (command == "open")
                         {
-                            emit mainWindow->ProcessCommandSignal(command, subcommands, args);
+                            emit mainWindow->ProcessCommand(command, subcommands, args);
                         }
                     }
                     break;
@@ -309,6 +309,7 @@ namespace Qv2ray
 
     void Qv2rayApplication::DeallocateGlobalVariables()
     {
+        delete mainWindow;
         delete ConnectionManager;
         delete RouteManager;
         delete PluginHost;

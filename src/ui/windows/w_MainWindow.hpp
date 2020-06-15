@@ -32,17 +32,16 @@ class MainWindow
   public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
+    void ProcessCommand(QString command, QStringList commands, QMap<QString, QString> args);
 
   signals:
     void StartConnection() const;
     void StopConnection() const;
     void RestartConnection() const;
-    void ProcessCommandSignal(QString command, QStringList commands, QMap<QString, QString> args);
 
   private:
     QvMessageBusSlotDecl;
   private slots:
-    void ProcessCommand(QString command, QStringList commands, QMap<QString, QString> args);
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void on_preferencesBtn_clicked();
     void on_clearlogButton_clicked();

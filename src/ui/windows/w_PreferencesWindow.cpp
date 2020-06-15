@@ -239,6 +239,7 @@ QvMessageBusSlotImpl(PreferencesWindow)
 
 PreferencesWindow::~PreferencesWindow()
 {
+    DEBUG(MODULE_UI, "Preference window destructor.")
 }
 
 void PreferencesWindow::on_buttonBox_accepted()

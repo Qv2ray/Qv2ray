@@ -9,3 +9,5 @@ class QvDialog : public QDialog
     virtual void processCommands(QString command, QStringList commands, QMap<QString, QString> args) = 0;
     virtual void updateColorScheme() = 0;
 };
+
+#define QvAutoDelete(w) connect(w, &QDialog::finished, [w]() { delete w; })

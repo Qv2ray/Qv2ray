@@ -348,8 +348,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     auto checker = new QvUpdateChecker(this);
     checker->CheckUpdate();
-    //
-    connect(this, &MainWindow::ProcessCommandSignal, this, &MainWindow::ProcessCommand);
 }
 
 void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QString, QString> args)
@@ -361,9 +359,10 @@ void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QStr
         const auto subcommand = commands.takeFirst();
         if (subcommand == "preference")
         {
-            // PreferencesWindow w(this);
-            // w.processCommands(command, commands, args);
-            // w.exec();
+            auto preferenceWindow = new PreferencesWindow();
+            preferenceWindow->processCommands(command, commands, args);
+            preferenceWindow->open();
+            QvAutoDelete(preferenceWindow);
         }
     }
 }
