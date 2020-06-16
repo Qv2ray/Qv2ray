@@ -497,7 +497,10 @@ namespace Qv2ray::core::handler
         CheckGroupExistanceEx(id, nothing);
         if (!groups[id].isSubscription)
             return;
-        asyncRequestHelper->AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) { CHUpdateSubscription_p(id, d); });
+        asyncRequestHelper->AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) {
+            CHUpdateSubscription_p(id, d);
+            emit OnSubscriptionAsyncUpdateFinished(id);
+        });
     }
 
     bool QvConfigHandler::UpdateSubscription(const GroupId &id)

@@ -7,9 +7,6 @@
 #include "ui_w_MainWindow.h"
 
 #include <QMainWindow>
-#include <QMenu>
-#include <QScrollBar>
-#include <QSystemTrayIcon>
 
 // ==========================================================================================
 #include "ui/widgets/ConnectionInfoWidget.hpp"
@@ -111,7 +108,6 @@ class MainWindow
     QHash<ConnectionGroupPair, std::shared_ptr<QTreeWidgetItem>> connectionNodes;
     // Charts
     SpeedWidget *speedChartWidget;
-    QSystemTrayIcon hTray;
     SyntaxHighlighter *vCoreLogHighlighter;
     ConnectionInfoWidget *infoWidget;
     //

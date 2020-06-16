@@ -2,6 +2,7 @@
 
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
+#include <QSystemTrayIcon>
 #include <SingleApplication>
 
 class MainWindow;
@@ -49,10 +50,25 @@ namespace Qv2ray
         int RunQv2ray();
         void DeallocateGlobalVariables();
 
+      public:
+        QSystemTrayIcon **GetTrayIcon()
+        {
+            return &hTray;
+        }
+        void showMessage(const QString &m, const QIcon &icon, int msecs = 10000)
+        {
+            hTray->showMessage("Qv2ray", m, icon, msecs);
+        }
+        void showMessage(const QString &m, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int msecs = 10000)
+        {
+            hTray->showMessage("Qv2ray", m, icon, msecs);
+        }
+
       private slots:
         void onMessageReceived(quint32 clientID, QByteArray msg);
 
       private:
+        QSystemTrayIcon *hTray;
         MainWindow *mainWindow;
         static commandline_status ParseCommandLine(QString *errorMessage);
         bool initilized = false;
@@ -60,3 +76,4 @@ namespace Qv2ray
 } // namespace Qv2ray
 
 #define qvApp (static_cast<Qv2ray::Qv2rayApplication *>(QCoreApplication::instance()))
+#define qvAppTrayIcon (*qvApp->GetTrayIcon())

@@ -24,6 +24,8 @@ namespace Qv2ray
         DEBUG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
         DEBUG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
         DEBUG("QV2RAY_BUILD_NUMBER", QSTRN(QV2RAY_VERSION_BUILD))
+        //
+        hTray = new QSystemTrayIcon(this);
     }
 
     bool Qv2rayApplication::SetupQv2ray()

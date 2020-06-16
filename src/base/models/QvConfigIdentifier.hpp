@@ -66,7 +66,7 @@ namespace Qv2ray::base
         }
         bool isEmpty() const
         {
-            return connectionId == NullConnectionId;
+            return groupId == NullGroupId || connectionId == NullConnectionId;
         }
         friend bool operator==(const ConnectionGroupPair &lhs, const ConnectionGroupPair &rhs)
         {

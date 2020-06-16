@@ -68,6 +68,14 @@ namespace Qv2ray::core::handler
         {
             return kernelHandler->CurrentConnection().connectionId == id;
         }
+
+        inline void IgnoreSubscriptionUpdate(const GroupId &group)
+        {
+            if (groups[group].isSubscription)
+            {
+                groups[group].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
+            }
+        }
         //
         //
         void SaveConnectionConfig();
@@ -140,7 +148,7 @@ namespace Qv2ray::core::handler
         void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
         void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
         //
-        void OnSubscriptionUpdateFinished(const GroupId &id);
+        void OnSubscriptionAsyncUpdateFinished(const GroupId &id);
         void OnConnected(const ConnectionGroupPair &id);
         void OnDisconnected(const ConnectionGroupPair &id);
         void OnKernelCrashed(const ConnectionGroupPair &id, const QString &errMessage);

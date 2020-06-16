@@ -1,5 +1,6 @@
 #include "common/QvHelpers.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
+#include "src/Qv2rayApplication.hpp"
 #include "w_MainWindow.hpp"
 
 void MainWindow::MWSetSystemProxy()
@@ -16,10 +17,10 @@ void MainWindow::MWSetSystemProxy()
     {
         proxyAddress = "localhost";
         SetSystemProxy(proxyAddress, httpPort, socksPort);
-        hTray.setIcon(Q_TRAYICON("tray-systemproxy.png"));
+        qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy.png"));
         if (!GlobalConfig.uiConfig.quietMode)
         {
-            hTray.showMessage("Qv2ray", tr("System proxy configured."));
+            qvApp->showMessage(tr("System proxy configured."));
         }
     }
     else
@@ -32,10 +33,10 @@ void MainWindow::MWSetSystemProxy()
 void MainWindow::MWClearSystemProxy()
 {
     ClearSystemProxy();
-    hTray.setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
+    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
     if (!GlobalConfig.uiConfig.quietMode)
     {
-        hTray.showMessage("Qv2ray", tr("System proxy removed."));
+        qvApp->showMessage(tr("System proxy removed."));
     }
 }
 
@@ -52,7 +53,8 @@ bool MainWindow::StartAutoConnectionEntry()
 
 void MainWindow::CheckSubscriptionsUpdate()
 {
-    QStringList updateList;
+    QList<QPair<QString, GroupId>> updateList;
+    QStringList updateNamesList;
 
     for (const auto &entry : ConnectionManager->Subscriptions())
     {
@@ -64,27 +66,38 @@ void MainWindow::CheckSubscriptionsUpdate()
         //
         const auto lastRenewDate = QDateTime::fromTime_t(info.lastUpdatedDate);
         const auto renewTime = lastRenewDate.addSecs(info.subscriptionOption.updateInterval * 86400);
-        LOG(MODULE_SUBSCRIPTION,                                                                    //
-            "Subscription \"" + info.displayName + "\": " +                                         //
-                NEWLINE + " --> Last renewal time: " + lastRenewDate.toString() +                   //
-                NEWLINE + " --> Renew interval: " + QSTRN(info.subscriptionOption.updateInterval) + //
-                NEWLINE + " --> Ideal renew time: " + renewTime.toString())                         //
 
         if (renewTime <= QDateTime::currentDateTime())
         {
-            LOG(MODULE_SUBSCRIPTION, "Subscription: " + info.displayName + " needs to be updated.")
-            updateList.append(info.displayName);
+            updateList << QPair{ info.displayName, entry };
+            updateNamesList << info.displayName;
+            LOG(MODULE_SUBSCRIPTION, QString("Subscription update \"%1\": L=%2 R=%3 I=%4")
+                                         .arg(info.displayName)
+                                         .arg(lastRenewDate.toString())
+                                         .arg(QSTRN(info.subscriptionOption.updateInterval))
+                                         .arg(renewTime.toString()))
         }
     }
 
     if (!updateList.isEmpty())
     {
-        QvMessageBoxWarn(this, tr("Update Subscriptions"),
-                         tr("There are subscriptions to be updated, please go to Group Manager to update them.") + //
-                             NEWLINE + NEWLINE +                                                                   //
-                             tr("These subscriptions are out-of-date: ") +                                         //
-                             NEWLINE +                                                                             //
-                             updateList.join(NEWLINE));
-        on_subsButton_clicked();
+        auto result = QvMessageBoxAsk(this, tr("Update Subscriptions"),                            //
+                                      tr("Do you want to update these subscriptions?") + NEWLINE + //
+                                          updateNamesList.join(NEWLINE),                           //
+                                      QMessageBox::Ignore);
+
+        for (const auto &[name, id] : updateList)
+        {
+            if (result == QMessageBox::Yes)
+            {
+                LOG(MODULE_UI, "Updating subscription: " + name)
+                ConnectionManager->UpdateSubscriptionAsync(id);
+            }
+            else if (result == QMessageBox::Ignore)
+            {
+                LOG(MODULE_UI, "Ignored subscription update: " + name)
+                ConnectionManager->IgnoreSubscriptionUpdate(id);
+            }
+        }
     }
 }
