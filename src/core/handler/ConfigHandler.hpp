@@ -6,6 +6,11 @@
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/KernelInstanceHandler.hpp"
 
+namespace Qv2ray::common::network
+{
+    class NetworkRequestHelper;
+}
+
 #define CheckIdExistance(type, id, val)                                                                                                         \
     if (!type.contains(id))                                                                                                                     \
     {                                                                                                                                           \
@@ -104,6 +109,7 @@ namespace Qv2ray::core::handler
         // const optional<QString> DuplicateGroup(const GroupId &id);
         //
         // Subscriptions
+        void UpdateSubscriptionAsync(const GroupId &id);
         bool UpdateSubscription(const GroupId &id);
         bool SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription = std::nullopt,
                                  const std::optional<QString> &address = std::nullopt, std::optional<float> updateInterval = std::nullopt);
@@ -148,7 +154,7 @@ namespace Qv2ray::core::handler
         void timerEvent(QTimerEvent *event) override;
 
       private:
-        bool CHUpdateSubscription_p(const GroupId &id, const QString &url);
+        bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &data);
 
       private:
         int saveTimerId;
@@ -161,6 +167,7 @@ namespace Qv2ray::core::handler
       private:
         LatencyTestHost *tcpingHelper;
         KernelInstanceHandler *kernelHandler;
+        Qv2ray::common::network::NetworkRequestHelper *asyncRequestHelper;
     };
 
     inline ::Qv2ray::core::handler::QvConfigHandler *ConnectionManager = nullptr;

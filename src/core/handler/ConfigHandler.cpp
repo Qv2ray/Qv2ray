@@ -1,5 +1,6 @@
 #include "ConfigHandler.hpp"
 
+#include "common/HTTPRequestHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/connection/Serialization.hpp"
@@ -10,6 +11,7 @@ namespace Qv2ray::core::handler
 {
     QvConfigHandler::QvConfigHandler(QObject *parent) : QObject(parent)
     {
+        asyncRequestHelper = new NetworkRequestHelper(this);
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
         const auto connectionJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "connections.json"));
         const auto groupJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "groups.json"));
@@ -446,17 +448,12 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords)
     {
         CheckGroupExistanceEx(id, false);
-        if (!groups.contains(id))
-        {
-            return false;
-        }
         groups[id].subscriptionOption.IncludeKeywords.clear();
 
         for (const auto &keyword : Keywords)
         {
-            if (keyword != "" && keyword != "\r")
+            if (!keyword.trimmed().isEmpty())
             {
-                // Not empty, so we save.
                 groups[id].subscriptionOption.IncludeKeywords.push_back(keyword);
             }
         }
@@ -471,24 +468,17 @@ namespace Qv2ray::core::handler
             return false;
         }
         groups[id].subscriptionOption.IncludeRelation = relation;
-
         return true;
     }
 
     bool QvConfigHandler::SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords)
     {
         CheckGroupExistanceEx(id, false);
-        if (!groups.contains(id))
-        {
-            return false;
-        }
         groups[id].subscriptionOption.ExcludeKeywords.clear();
-
         for (const auto &keyword : Keywords)
         {
-            if (keyword != "" && keyword != "\r")
+            if (!keyword.trimmed().isEmpty())
             {
-                // Not empty, so we save.
                 groups[id].subscriptionOption.ExcludeKeywords.push_back(keyword);
             }
         }
@@ -498,26 +488,27 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
         CheckGroupExistanceEx(id, false);
-        if (!groups.contains(id))
-        {
-            return false;
-        }
         groups[id].subscriptionOption.ExcludeRelation = relation;
-
         return true;
+    }
+
+    void QvConfigHandler::UpdateSubscriptionAsync(const GroupId &id)
+    {
+        CheckGroupExistanceEx(id, nothing);
+        if (!groups[id].isSubscription)
+            return;
+        asyncRequestHelper->AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) { CHUpdateSubscription_p(id, d); });
     }
 
     bool QvConfigHandler::UpdateSubscription(const GroupId &id)
     {
-        CheckGroupExistanceEx(id, false);
         if (!groups[id].isSubscription)
-        {
             return false;
-        }
-        return CHUpdateSubscription_p(id, groups[id].subscriptionOption.address);
+        const auto data = NetworkRequestHelper::HttpGet(groups[id].subscriptionOption.address);
+        return CHUpdateSubscription_p(id, data);
     }
 
-    bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QString &url)
+    bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QByteArray &data)
     {
         CheckGroupExistanceEx(id, false);
         if (!groups.contains(id))
@@ -526,7 +517,8 @@ namespace Qv2ray::core::handler
         }
         //
         // ====================================================================================== Begin reading subscription
-        auto _newConnections = GetConnectionConfigFromSubscription(url, GetDisplayName(id));
+
+        auto _newConnections = GetConnectionConfigFromSubscription(data, GetDisplayName(id));
         if (_newConnections.count() < 5)
         {
             LOG(MODULE_SUBSCRIPTION, "Find a subscription with less than 5 connections.")
@@ -547,7 +539,7 @@ namespace Qv2ray::core::handler
             for (const auto &conn : groups[id].connections)
             {
                 nameMap.insert(GetDisplayName(conn), conn);
-                const auto [protocol, host, port] = GetConnectionInfo(conn);
+                const auto &&[protocol, host, port] = GetConnectionInfo(conn);
                 if (port != 0)
                 {
                     typeMap.insert({ protocol, host, port }, conn);
@@ -565,13 +557,7 @@ namespace Qv2ray::core::handler
         //
         for (const auto &config : _newConnections)
         {
-            const auto &_alias = config.first;
-            bool canGetOutboundData = false;
-            // Should not have complex connection we assume.
-            auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
-
             // filter connections
-            //
             const bool isIncludeOperationAND = groups[id].subscriptionOption.IncludeRelation == RELATION_AND;
             const bool isExcludeOperationOR = groups[id].subscriptionOption.ExcludeRelation == RELATION_OR;
             //
@@ -585,7 +571,7 @@ namespace Qv2ray::core::handler
                     {
                         hasIncludeItemMatched = true;
                         // WARN: MAGIC, DO NOT TOUCH
-                        if (!isIncludeOperationAND == _alias.contains(key.trimmed()))
+                        if (!isIncludeOperationAND == config.first.contains(key.trimmed()))
                         {
                             includeconfig = !isIncludeOperationAND;
                             break;
@@ -602,12 +588,11 @@ namespace Qv2ray::core::handler
                 includeconfig = isExcludeOperationOR;
                 for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
                 {
-                    auto str = key.trimmed();
-                    if (!str.isEmpty())
+                    if (!key.trimmed().isEmpty())
                     {
                         hasExcludeItemMatched = true;
                         // WARN: MAGIC, DO NOT TOUCH
-                        if (isExcludeOperationOR == _alias.contains(str))
+                        if (isExcludeOperationOR == config.first.contains(key.trimmed()))
                         {
                             includeconfig = !isExcludeOperationOR;
                             break;

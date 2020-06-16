@@ -2,6 +2,7 @@
 
 #include "3rdparty/libsemver/version.hpp"
 #include "base/Qv2rayBase.hpp"
+#include "common/HTTPRequestHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
@@ -18,6 +19,7 @@ namespace Qv2ray::components
 {
     QvUpdateChecker::QvUpdateChecker(QObject *parent) : QObject(parent)
     {
+        requestHelper = new NetworkRequestHelper(this);
     }
 
     QvUpdateChecker::~QvUpdateChecker()
@@ -29,20 +31,20 @@ namespace Qv2ray::components
 #ifndef DISABLE_AUTO_UPDATE
         if (QFile(QV2RAY_CONFIG_DIR + "QV2RAY_FEATURE_DISABLE_AUTO_UPDATE").exists())
             return;
-        auto updateChannel = GlobalConfig.updateConfig.updateChannel;
+        const auto &updateChannel = GlobalConfig.updateConfig.updateChannel;
         LOG(MODULE_NETWORK, "Start checking update for channel ID: " + QSTRN(updateChannel))
-        requestHelper.AsyncHttpGet(UpdateChannelLink[updateChannel], &QvUpdateChecker::VersionUpdate);
+        requestHelper->AsyncHttpGet(UpdateChannelLink[updateChannel], &QvUpdateChecker::VersionUpdate);
 #endif
     }
 
     void QvUpdateChecker::VersionUpdate(const QByteArray &data)
     {
         // Version update handler.
-        auto doc = QJsonDocument::fromJson(data);
-        auto root = doc.isArray() ? doc.array().first().toObject() : doc.object();
+        const auto doc = QJsonDocument::fromJson(data);
+        const auto root = doc.isArray() ? doc.array().first().toObject() : doc.object();
         if (root.isEmpty())
             return;
-        //
+
         const auto newVersionStr = root["tag_name"].toString("v").mid(1);
         const auto currentVersionStr = QString(QV2RAY_VERSION_STRING);
         const auto ignoredVersionStr = GlobalConfig.updateConfig.ignoredVersion.isEmpty() ? "0.0.0" : GlobalConfig.updateConfig.ignoredVersion;
@@ -51,9 +53,10 @@ namespace Qv2ray::components
         const auto currentVersion = semver::version::from_string(currentVersionStr.toStdString());
         const auto ignoredVersion = semver::version::from_string(ignoredVersionStr.toStdString());
         //
-        LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersionStr + //
-                               " Current: " + currentVersionStr +             //
-                               " Ignored: " + ignoredVersionStr)
+        LOG(MODULE_UPDATE, QString("Received update info:") + NEWLINE +         //
+                               " --> Latest: " + newVersionStr + NEWLINE +      //
+                               " --> Current: " + currentVersionStr + NEWLINE + //
+                               " --> Ignored: " + ignoredVersionStr)
         // If the version is newer than us.
         // And new version is newer than the ignored version.
         if (newVersion > currentVersion && newVersion > ignoredVersion)

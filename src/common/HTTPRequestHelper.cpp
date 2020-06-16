@@ -80,7 +80,7 @@ namespace Qv2ray::common::network
         return data;
     }
 
-    void NetworkRequestHelper::AsyncHttpGet(const QString &url, Qv2rayNetworkRequestCallback funcPtr)
+    void NetworkRequestHelper::AsyncHttpGet(const QString &url, std::function<void(const QByteArray &)> funcPtr)
     {
         QNetworkRequest request;
         request.setUrl(url);

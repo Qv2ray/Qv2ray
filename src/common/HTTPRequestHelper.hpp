@@ -4,15 +4,18 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QObject>
+#include <functional>
 
 namespace Qv2ray::common::network
 {
-    class NetworkRequestHelper
+    class NetworkRequestHelper : QObject
     {
+        Q_OBJECT
       public:
-        typedef void (*Qv2rayNetworkRequestCallback)(const QByteArray &);
-        void AsyncHttpGet(const QString &url, Qv2rayNetworkRequestCallback funcPtr);
-        QByteArray HttpGet(const QUrl &url);
+        explicit NetworkRequestHelper(QObject *parent) : QObject(parent){};
+        ~NetworkRequestHelper(){};
+        void AsyncHttpGet(const QString &url, std::function<void(const QByteArray &)> funcPtr);
+        static QByteArray HttpGet(const QUrl &url);
 
       private:
         static void setAccessManagerAttributes(QNetworkRequest &request, QNetworkAccessManager &accessManager);

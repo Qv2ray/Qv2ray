@@ -1,7 +1,12 @@
 #pragma once
-#include "common/HTTPRequestHelper.hpp"
 
 #include <QObject>
+
+namespace Qv2ray::common::network
+{
+    class NetworkRequestHelper;
+}
+
 namespace Qv2ray::components
 {
     struct QvUpdateInfo
@@ -24,7 +29,7 @@ namespace Qv2ray::components
         void OnCheckUpdateCompleted(bool hasUpdate, const QvUpdateInfo &updateInfo);
 
       private:
-        NetworkRequestHelper requestHelper;
+        Qv2ray::common::network::NetworkRequestHelper *requestHelper;
         void static VersionUpdate(const QByteArray &data);
     };
 } // namespace Qv2ray::components
