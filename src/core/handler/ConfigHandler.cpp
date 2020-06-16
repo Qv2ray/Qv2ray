@@ -561,190 +561,115 @@ namespace Qv2ray::core::handler
         auto originalConnectionIdList = groups[id].connections;
         groups[id].connections.clear();
         //
-        int filteredconnections = 0;
+        decltype(_newConnections) filteredConnections;
+        //
         for (const auto &config : _newConnections)
         {
             const auto &_alias = config.first;
-            QString errMessage;
-
-            if (!errMessage.isEmpty())
-            {
-                LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
-                hasErrorOccured = true;
-                continue;
-            }
             bool canGetOutboundData = false;
             // Should not have complex connection we assume.
             auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
 
             // filter connections
-            int i;
-            bool includeconfig;
-            i = 0;
-            if (groups[id].subscriptionOption.IncludeRelation == RELATION_AND)
+            //
+            const bool isIncludeOperationAND = groups[id].subscriptionOption.IncludeRelation == RELATION_AND;
+            const bool isExcludeOperationOR = groups[id].subscriptionOption.ExcludeRelation == RELATION_OR;
+            //
+            // Initial includeConfig value
+            bool includeconfig = isIncludeOperationAND;
             {
-                includeconfig = true;
+                bool hasIncludeItemMatched = false;
                 for (const auto &key : groups[id].subscriptionOption.IncludeKeywords)
                 {
-                    auto str = key.trimmed();
-                    if (!str.isEmpty())
+                    if (!key.trimmed().isEmpty())
                     {
-                        i++;
-                        if (_alias.indexOf(str, 0) == -1)
+                        hasIncludeItemMatched = true;
+                        // WARN: MAGIC, DO NOT TOUCH
+                        if (!isIncludeOperationAND == _alias.contains(key.trimmed()))
                         {
-                            includeconfig = false;
+                            includeconfig = !isIncludeOperationAND;
                             break;
                         }
                     }
                 }
-            }
-            else
-            { // Or relation
-                includeconfig = false;
-                for (const auto &key : groups[id].subscriptionOption.IncludeKeywords)
-                {
-                    auto str = key.trimmed();
-                    if (!str.isEmpty())
-                    {
-                        i++;
-                        if (_alias.indexOf(str, 0) != -1)
-                        {
-                            includeconfig = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (i == 0)
-                includeconfig = true; // If includekeywords is empty then include all configs.
-
-            if (includeconfig == true)
-            {
-                i = 0;
-                if (groups[id].subscriptionOption.ExcludeRelation == RELATION_OR)
-                {
+                // If includekeywords is empty then include all configs.
+                if (!hasIncludeItemMatched)
                     includeconfig = true;
-                    for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
+            }
+            if (includeconfig)
+            {
+                bool hasExcludeItemMatched = false;
+                includeconfig = isExcludeOperationOR;
+                for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
+                {
+                    auto str = key.trimmed();
+                    if (!str.isEmpty())
                     {
-                        auto str = key.trimmed();
-                        if (!str.isEmpty())
+                        hasExcludeItemMatched = true;
+                        // WARN: MAGIC, DO NOT TOUCH
+                        if (isExcludeOperationOR == _alias.contains(str))
                         {
-                            i++;
-                            if (_alias.indexOf(str, 0) != -1)
-                            {
-                                includeconfig = false;
-                                break;
-                            }
+                            includeconfig = !isExcludeOperationOR;
+                            break;
                         }
                     }
                 }
-                else
-                { // And relation
-                    includeconfig = false;
-                    for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
-                    {
-                        auto str = key.trimmed();
-                        if (!str.isEmpty())
-                        {
-                            i++;
-                            if (_alias.indexOf(str, 0) == -1)
-                            {
-                                includeconfig = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (i == 0)
-                    includeconfig = true; // If excludekeywords is empty then don't exclude any configs.
+                // If excludekeywords is empty then don't exclude any configs.
+                if (!hasExcludeItemMatched)
+                    includeconfig = true;
             }
 
-            if (includeconfig == true)
+            if (includeconfig)
             {
-                filteredconnections++;
-                //
-                // ====================================================================================== Begin guessing new ConnectionId
-                if (nameMap.contains(_alias))
-                {
-                    // Just go and save the connection...
-                    LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
-                    auto _conn = nameMap.take(_alias);
-                    groups[id].connections << _conn;
-                    UpdateConnection(_conn, config.second, true);
-                    // Remove Connection Id from the list.
-                    originalConnectionIdList.removeAll(_conn);
-                    typeMap.remove(typeMap.key(_conn));
-                }
-                else if (canGetOutboundData && typeMap.contains(outboundData))
-                {
-                    LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
-                    auto _conn = typeMap.take(outboundData);
-                    groups[id].connections << _conn;
-                    // Update Connection Properties
-                    UpdateConnection(_conn, config.second, true);
-                    RenameConnection(_conn, _alias);
-                    // Remove Connection Id from the list.
-                    originalConnectionIdList.removeAll(_conn);
-                    nameMap.remove(nameMap.key(_conn));
-                }
-                else
-                {
-                    // New connection id is required since nothing matched found...
-                    LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                    CreateConnection(config.second, _alias, id, true);
-                }
-                // ====================================================================================== End guessing new ConnectionId
+                filteredConnections << config;
             }
         }
-        if (filteredconnections < 5)
+
+        LOG(MODULE_SUBSCRIPTION, "Filtered out less than 5 connections.")
+        const auto useFilteredConnections =
+            filteredConnections.count() > 5 || QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                                                               tr("%1 out of %2 entrie(s) have been filtered out, do you want to continue?")
+                                                                   .arg(filteredConnections.count())
+                                                                   .arg(_newConnections.count())) == QMessageBox::Yes;
+
+        for (const auto &config : useFilteredConnections ? filteredConnections : _newConnections)
         {
-            LOG(MODULE_SUBSCRIPTION, "Filtered out less than 5 connections.")
-            const auto dialogResult = QvMessageBoxAsk(nullptr, tr("Update Subscription"),
-                                                      tr("%1 out of %2 entrie(s) have been filtered out, do you want to continue?")
-                                                          .arg(filteredconnections)
-                                                          .arg(_newConnections.count()));
-            if (dialogResult != QMessageBox::Yes)
+            const auto &_alias = config.first;
+            // Should not have complex connection we assume.
+            bool canGetOutboundData = false;
+            auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
+            //
+            // ====================================================================================== Begin guessing new ConnectionId
+            if (nameMap.contains(_alias))
             {
-                for (const auto &config : _newConnections)
-                {
-                    const auto &_alias = config.first;
-                    bool canGetOutboundData = false;
-                    // Should not have complex connection we assume.
-                    auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
-                    //
-                    // ====================================================================================== Begin guessing new ConnectionId
-                    if (nameMap.contains(_alias))
-                    {
-                        // Just go and save the connection...
-                        LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
-                        auto _conn = nameMap.take(_alias);
-                        groups[id].connections << _conn;
-                        UpdateConnection(_conn, config.second, true);
-                        // Remove Connection Id from the list.
-                        originalConnectionIdList.removeAll(_conn);
-                        typeMap.remove(typeMap.key(_conn));
-                    }
-                    else if (canGetOutboundData && typeMap.contains(outboundData))
-                    {
-                        LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
-                        auto _conn = typeMap.take(outboundData);
-                        groups[id].connections << _conn;
-                        // Update Connection Properties
-                        UpdateConnection(_conn, config.second, true);
-                        RenameConnection(_conn, _alias);
-                        // Remove Connection Id from the list.
-                        originalConnectionIdList.removeAll(_conn);
-                        nameMap.remove(nameMap.key(_conn));
-                    }
-                    else
-                    {
-                        // New connection id is required since nothing matched found...
-                        LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                        CreateConnection(config.second, _alias, id, true);
-                    }
-                    // ====================================================================================== End guessing new ConnectionId
-                }
+                // Just go and save the connection...
+                LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
+                const auto _conn = nameMap.take(_alias);
+                groups[id].connections << _conn;
+                UpdateConnection(_conn, config.second, true);
+                // Remove Connection Id from the list.
+                originalConnectionIdList.removeAll(_conn);
+                typeMap.remove(typeMap.key(_conn));
             }
+            else if (canGetOutboundData && typeMap.contains(outboundData))
+            {
+                LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
+                const auto _conn = typeMap.take(outboundData);
+                groups[id].connections << _conn;
+                // Update Connection Properties
+                UpdateConnection(_conn, config.second, true);
+                RenameConnection(_conn, _alias);
+                // Remove Connection Id from the list.
+                originalConnectionIdList.removeAll(_conn);
+                nameMap.remove(nameMap.key(_conn));
+            }
+            else
+            {
+                // New connection id is required since nothing matched found...
+                LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
+                CreateConnection(config.second, _alias, id, true);
+            }
+            // ====================================================================================== End guessing new ConnectionId
         }
 
         // Check if anything left behind (not being updated or changed significantly)
