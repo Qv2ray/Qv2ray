@@ -30,10 +30,7 @@ namespace Qv2ray::core::handler
       public slots:
         inline const QList<ConnectionId> Connections() const
         {
-            auto k = connections.keys();
-            std::sort(k.begin(), k.end(),
-                      [&](const auto &idA, const auto &idB) { return connections[idA].displayName < connections[idB].displayName; });
-            return k;
+            return connections.keys();
         }
         inline const QList<ConnectionId> Connections(const GroupId &groupId) const
         {

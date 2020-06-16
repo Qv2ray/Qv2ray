@@ -23,10 +23,10 @@ namespace Qv2ray::core::connection::connectionIO
         return root;
     }
 
-    QMultiHash<QString, CONFIGROOT> GetConnectionConfigFromSubscription(const QUrl &subscriptionUrl, const QString &groupName)
+    QList<QPair<QString, CONFIGROOT>> GetConnectionConfigFromSubscription(const QUrl &subscriptionUrl, const QString &groupName)
     {
-        QMultiHash<QString, CONFIGROOT> subscriptionContent;
-        const auto data = HttpGet(subscriptionUrl);
+        QList<QPair<QString, CONFIGROOT>> subscriptionContent;
+        const auto data = NetworkRequestHelper().HttpGet(subscriptionUrl);
         auto subscriptionLines = SplitLines(TryDecodeSubscriptionString(data));
         for (const auto &line : subscriptionLines)
         {
@@ -39,7 +39,7 @@ namespace Qv2ray::core::connection::connectionIO
                 LOG(MODULE_SUBSCRIPTION, "Error: " + __errMessage)
             for (const auto &val : connectionConfigMap)
             {
-                subscriptionContent.insert(connectionConfigMap.key(val), val);
+                subscriptionContent.append({ connectionConfigMap.key(val), val });
             }
         }
         return subscriptionContent;

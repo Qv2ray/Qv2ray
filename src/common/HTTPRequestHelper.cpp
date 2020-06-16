@@ -5,19 +5,15 @@
 #include <QByteArray>
 #include <QNetworkProxy>
 
-inline static QNetworkAccessManager accessManager;
-
 namespace Qv2ray::common::network
 {
-    void setAccessManagerAttributes(QNetworkRequest &request);
-    void setHeader(QNetworkRequest &request, const QByteArray &key, const QByteArray &value);
-    void setHeader(QNetworkRequest &request, const QByteArray &key, const QByteArray &value)
+    void NetworkRequestHelper::setHeader(QNetworkRequest &request, const QByteArray &key, const QByteArray &value)
     {
         DEBUG(MODULE_NETWORK, "Adding HTTP request header: " + key + ":" + value)
         request.setRawHeader(key, value);
     }
 
-    void setAccessManagerAttributes(QNetworkRequest &request)
+    void NetworkRequestHelper::setAccessManagerAttributes(QNetworkRequest &request, QNetworkAccessManager &accessManager)
     {
         switch (GlobalConfig.networkConfig.proxyType)
         {
@@ -52,37 +48,43 @@ namespace Qv2ray::common::network
         }
 
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-        request.setAttribute(QNetworkRequest::Http2AllowedAttribute, true);
+        // request.setAttribute(QNetworkRequest::Http2AllowedAttribute, true);
 #else
-        request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
+        // request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
 #endif
+
         auto ua = GlobalConfig.networkConfig.userAgent;
         ua.replace("$VERSION", QV2RAY_VERSION_STRING);
         request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, ua);
     }
 
-    QByteArray HttpGet(const QUrl &url)
+    QByteArray NetworkRequestHelper::HttpGet(const QUrl &url)
     {
         QNetworkRequest request;
+        QNetworkAccessManager accessManager;
         request.setUrl(url);
-        setAccessManagerAttributes(request);
+        setAccessManagerAttributes(request, accessManager);
         auto _reply = accessManager.get(request);
         //
-        QEventLoop loop;
-        QObject::connect(_reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
+        {
+            QEventLoop loop;
+            QObject::connect(&accessManager, &QNetworkAccessManager::finished, &loop, &QEventLoop::quit);
+            loop.exec();
+        }
         //
         // Data or timeout?
+        LOG(MODULE_NETWORK, _reply->errorString());
         auto data = _reply->readAll();
         return data;
     }
 
-    void AsyncHttpGet(const QString &url, Qv2rayNetworkRequestCallback funcPtr)
+    void NetworkRequestHelper::AsyncHttpGet(const QString &url, Qv2rayNetworkRequestCallback funcPtr)
     {
         QNetworkRequest request;
         request.setUrl(url);
-        setAccessManagerAttributes(request);
+        setAccessManagerAttributes(request, accessManager);
         auto reply = accessManager.get(request);
         QObject::connect(reply, &QNetworkReply::finished, [=]() {
             {

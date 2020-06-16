@@ -31,7 +31,7 @@ namespace Qv2ray::components
             return;
         auto updateChannel = GlobalConfig.updateConfig.updateChannel;
         LOG(MODULE_NETWORK, "Start checking update for channel ID: " + QSTRN(updateChannel))
-        AsyncHttpGet(UpdateChannelLink[updateChannel], &QvUpdateChecker::VersionUpdate);
+        requestHelper.AsyncHttpGet(UpdateChannelLink[updateChannel], &QvUpdateChecker::VersionUpdate);
 #endif
     }
 

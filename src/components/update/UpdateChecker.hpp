@@ -24,6 +24,7 @@ namespace Qv2ray::components
         void OnCheckUpdateCompleted(bool hasUpdate, const QvUpdateInfo &updateInfo);
 
       private:
+        NetworkRequestHelper requestHelper;
         void static VersionUpdate(const QByteArray &data);
     };
 } // namespace Qv2ray::components

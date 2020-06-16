@@ -21,7 +21,11 @@ namespace Qv2ray::core::handler
         //
         for (const auto &groupId : groupJson.keys())
         {
-            const auto groupObject = GroupObject::fromJson(groupJson.value(groupId).toObject());
+            auto groupObject = GroupObject::fromJson(groupJson.value(groupId).toObject());
+            if (groupObject.displayName.isEmpty())
+            {
+                groupObject.displayName = tr("Group: %1").arg(GenerateRandomString(5));
+            }
             groups.insert(GroupId{ groupId }, groupObject);
             for (const auto &connId : groupObject.connections)
             {
@@ -560,7 +564,7 @@ namespace Qv2ray::core::handler
         int filteredconnections = 0;
         for (const auto &config : _newConnections)
         {
-            const auto _alias = _newConnections.key(config);
+            const auto &_alias = config.first;
             QString errMessage;
 
             if (!errMessage.isEmpty())
@@ -571,7 +575,7 @@ namespace Qv2ray::core::handler
             }
             bool canGetOutboundData = false;
             // Should not have complex connection we assume.
-            auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
+            auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
 
             // filter connections
             int i;
@@ -666,7 +670,7 @@ namespace Qv2ray::core::handler
                     LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
                     auto _conn = nameMap.take(_alias);
                     groups[id].connections << _conn;
-                    UpdateConnection(_conn, config, true);
+                    UpdateConnection(_conn, config.second, true);
                     // Remove Connection Id from the list.
                     originalConnectionIdList.removeAll(_conn);
                     typeMap.remove(typeMap.key(_conn));
@@ -677,7 +681,7 @@ namespace Qv2ray::core::handler
                     auto _conn = typeMap.take(outboundData);
                     groups[id].connections << _conn;
                     // Update Connection Properties
-                    UpdateConnection(_conn, config, true);
+                    UpdateConnection(_conn, config.second, true);
                     RenameConnection(_conn, _alias);
                     // Remove Connection Id from the list.
                     originalConnectionIdList.removeAll(_conn);
@@ -687,7 +691,7 @@ namespace Qv2ray::core::handler
                 {
                     // New connection id is required since nothing matched found...
                     LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                    CreateConnection(config, _alias, id, true);
+                    CreateConnection(config.second, _alias, id, true);
                 }
                 // ====================================================================================== End guessing new ConnectionId
             }
@@ -695,26 +699,18 @@ namespace Qv2ray::core::handler
         if (filteredconnections < 5)
         {
             LOG(MODULE_SUBSCRIPTION, "Filtered out less than 5 connections.")
-            if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
-                                tr("%1 out of %2 entrie(s) have been filtered out, do you want to continue?")
-                                    .arg(filteredconnections)
-                                    .arg(_newConnections.count())) != QMessageBox::Yes)
+            const auto dialogResult = QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                                                      tr("%1 out of %2 entrie(s) have been filtered out, do you want to continue?")
+                                                          .arg(filteredconnections)
+                                                          .arg(_newConnections.count()));
+            if (dialogResult != QMessageBox::Yes)
             {
                 for (const auto &config : _newConnections)
                 {
-                    const auto _alias = _newConnections.key(config);
-                    QString errMessage;
-
-                    if (!errMessage.isEmpty())
-                    {
-                        LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
-                        hasErrorOccured = true;
-                        continue;
-                    }
+                    const auto &_alias = config.first;
                     bool canGetOutboundData = false;
                     // Should not have complex connection we assume.
-                    auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
-
+                    auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
                     //
                     // ====================================================================================== Begin guessing new ConnectionId
                     if (nameMap.contains(_alias))
@@ -723,7 +719,7 @@ namespace Qv2ray::core::handler
                         LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
                         auto _conn = nameMap.take(_alias);
                         groups[id].connections << _conn;
-                        UpdateConnection(_conn, config, true);
+                        UpdateConnection(_conn, config.second, true);
                         // Remove Connection Id from the list.
                         originalConnectionIdList.removeAll(_conn);
                         typeMap.remove(typeMap.key(_conn));
@@ -734,7 +730,7 @@ namespace Qv2ray::core::handler
                         auto _conn = typeMap.take(outboundData);
                         groups[id].connections << _conn;
                         // Update Connection Properties
-                        UpdateConnection(_conn, config, true);
+                        UpdateConnection(_conn, config.second, true);
                         RenameConnection(_conn, _alias);
                         // Remove Connection Id from the list.
                         originalConnectionIdList.removeAll(_conn);
@@ -744,7 +740,7 @@ namespace Qv2ray::core::handler
                     {
                         // New connection id is required since nothing matched found...
                         LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                        CreateConnection(config, _alias, id, true);
+                        CreateConnection(config.second, _alias, id, true);
                     }
                     // ====================================================================================== End guessing new ConnectionId
                 }
