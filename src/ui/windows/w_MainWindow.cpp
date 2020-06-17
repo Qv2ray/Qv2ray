@@ -281,6 +281,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_Rename);
     connectionListRCM_Menu->addAction(action_RCM_Duplicate);
     connectionListRCM_Menu->addAction(action_RCM_ClearUsage);
+    connectionListRCM_Menu->addAction(action_RCM_UpdateSubscription);
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_Delete);
     connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
@@ -550,6 +551,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
         action_RCM_EditComplex->setEnabled(isConnection);
         action_RCM_Rename->setEnabled(isConnection);
         action_RCM_Duplicate->setEnabled(isConnection);
+        action_RCM_UpdateSubscription->setEnabled(!isConnection);
         connectionListRCM_Menu->popup(_pos);
     }
 }
@@ -1012,6 +1014,25 @@ void MainWindow::on_action_RCM_ClearUsage_triggered()
                 ConnectionManager->ClearConnectionUsage(widget->Identifier());
             else
                 ConnectionManager->ClearGroupUsage(widget->Identifier().groupId);
+        }
+    }
+}
+
+void MainWindow::on_action_RCM_UpdateSubscription_triggered()
+{
+    auto current = connectionListWidget->currentItem();
+    if (current != nullptr)
+    {
+        auto widget = GetItemWidget(current);
+        if (widget)
+        {
+            if (widget->IsConnection())
+                return;
+            const auto gid = widget->Identifier().groupId;
+            if (ConnectionManager->GetGroupMetaObject(gid).isSubscription)
+                ConnectionManager->UpdateSubscriptionAsync(gid);
+            else
+                QvMessageBoxInfo(this, tr("Update Subscription"), tr("Selected group is not a subscription"));
         }
     }
 }

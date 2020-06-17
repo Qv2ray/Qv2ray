@@ -59,13 +59,14 @@ class MainWindow
 
     void on_pluginsBtn_clicked();
 
-  private:
+  private slots:
     void on_actionExit_triggered();
     void on_action_StartThis_triggered();
     void on_action_RCM_SetAutoConnection_triggered();
     void on_action_RCM_EditThis_triggered();
     void on_action_RCM_EditAsJson_triggered();
     void on_action_RCM_EditAsComplex_triggered();
+    void on_action_RCM_UpdateSubscription_triggered();
     void on_action_RCM_LatencyTest_triggered();
     void on_action_RCM_RenameThis_triggered();
     void on_action_RCM_DeleteThese_triggered();
@@ -77,6 +78,7 @@ class MainWindow
     //
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
     //
+  private:
     void ToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
     void OnEditJsonRequested(const ConnectionId &id);
@@ -131,6 +133,7 @@ class MainWindow
     QMenu *connectionListRCM_Menu = new QMenu(this);
     QAction *action_RCM_Start = new QAction(tr("Connect to this"), this);
     QAction *action_RCM_SetAutoConnection = new QAction(tr("Set as automatically connected"), this);
+    QAction *action_RCM_UpdateSubscription = new QAction(tr("Update Subscription"), this);
     QAction *action_RCM_Edit = new QAction(tr("Edit"), this);
     QAction *action_RCM_EditJson = new QAction(tr("Edit as JSON"), this);
     QAction *action_RCM_EditComplex = new QAction(tr("Edit as Complex Config"), this);

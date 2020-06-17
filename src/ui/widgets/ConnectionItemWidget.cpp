@@ -185,13 +185,9 @@ void ConnectionItemWidget::on_doRenameBtn_clicked()
     if (renameTxt->text().isEmpty())
         return;
     if (connectionId == NullConnectionId)
-    {
         ConnectionManager->RenameGroup(groupId, renameTxt->text());
-    }
     else
-    {
         ConnectionManager->RenameConnection(connectionId, renameTxt->text());
-    }
     stackedWidget->setCurrentIndex(0);
 }
 
@@ -201,7 +197,10 @@ void ConnectionItemWidget::OnConnectionItemRenamed(const ConnectionId &id, const
     {
         connNameLabel->setText((ConnectionManager->IsConnected({ connectionId, groupId }) ? "• " : "") + newName);
         originalItemName = newName;
-        this->setToolTip(newName);
+        const auto conn = ConnectionManager->GetConnectionMetaObject(connectionId);
+        this->setToolTip(newName +                                                             //
+                         NEWLINE + tr("Last Connected: ") + timeToString(conn.lastConnected) + //
+                         NEWLINE + tr("Last Updated: ") + timeToString(conn.lastUpdatedDate));
     }
 }
 
@@ -211,6 +210,9 @@ void ConnectionItemWidget::OnGroupItemRenamed(const GroupId &id, const QString &
     {
         originalItemName = newName;
         connNameLabel->setText(newName);
-        this->setToolTip(newName);
+        const auto grp = ConnectionManager->GetGroupMetaObject(id);
+        this->setToolTip(newName + NEWLINE +                                          //
+                         (grp.isSubscription ? (tr("Subscription") + NEWLINE) : "") + //
+                         tr("Last Updated: ") + timeToString(grp.lastUpdatedDate));
     }
 }
