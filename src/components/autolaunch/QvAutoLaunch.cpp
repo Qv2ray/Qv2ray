@@ -201,11 +201,8 @@ namespace Qv2ray::components::autolaunch
         }
         else
         {
-            if (!QFile::remove(desktopFileLocation))
-            {
-                // qCWarning(lcUtility) << "Could not remove autostart desktop
-                // file";
-            }
+            QFile::remove(desktopFileLocation);
+            QFile::remove(desktopFileLocation.replace("qv2ray", "Qv2ray"));
         }
     }
 #endif
