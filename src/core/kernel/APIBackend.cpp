@@ -93,7 +93,7 @@ namespace Qv2ray::core::kernel
                 qint64 value_up = 0;
                 qint64 value_down = 0;
 
-                for (const auto &tag : inboundTags)
+                for (const auto tag : inboundTags)
                 {
                     value_up += CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
                     value_down += CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
