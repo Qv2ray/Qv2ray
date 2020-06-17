@@ -81,10 +81,11 @@ void MainWindow::CheckSubscriptionsUpdate()
 
     if (!updateList.isEmpty())
     {
-        auto result = QvMessageBoxAsk(this, tr("Update Subscriptions"),                            //
-                                      tr("Do you want to update these subscriptions?") + NEWLINE + //
-                                          updateNamesList.join(NEWLINE),                           //
-                                      QMessageBox::Ignore);
+        const auto result = GlobalConfig.uiConfig.quietMode ? QMessageBox::Yes :
+                                                              QvMessageBoxAsk(this, tr("Update Subscriptions"),                            //
+                                                                              tr("Do you want to update these subscriptions?") + NEWLINE + //
+                                                                                  updateNamesList.join(NEWLINE),                           //
+                                                                              QMessageBox::Ignore);
 
         for (const auto &[name, id] : updateList)
         {
