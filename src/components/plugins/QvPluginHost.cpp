@@ -242,14 +242,14 @@ namespace Qv2ray::components::plugins
         return data;
     }
 
-    const QMultiHash<QString, QPair<QString, QJsonObject>> QvPluginHost::TryDeserializeShareLink(const QString &sharelink, //
-                                                                                                 QString *prefix,          //
+    const QList<std::tuple<QString, QString, QJsonObject>> QvPluginHost::TryDeserializeShareLink(const QString &sharelink, //
+                                                                                                 QString *aliasPrefix,     //
                                                                                                  QString *errMessage,      //
                                                                                                  QString *newGroupName,    //
                                                                                                  bool *status) const
     {
         Q_UNUSED(newGroupName)
-        QMultiHash<QString, QPair<QString, QJsonObject>> data;
+        QList<std::tuple<QString, QString, QJsonObject>> data;
         *status = true;
         for (const auto &plugin : plugins)
         {
@@ -263,9 +263,9 @@ namespace Qv2ray::components::plugins
                 }
                 if (thisPluginCanHandle)
                 {
-                    auto [protocol, outboundSettings] = serializer->DeserializeOutbound(sharelink, prefix, errMessage);
+                    const auto &[protocol, outboundSettings] = serializer->DeserializeOutbound(sharelink, aliasPrefix, errMessage);
                     *status = *status && errMessage->isEmpty();
-                    data.insert(*prefix, { protocol, outboundSettings });
+                    data << std::tuple{ *aliasPrefix, protocol, outboundSettings };
                 }
             }
         }
