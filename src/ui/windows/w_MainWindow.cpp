@@ -409,6 +409,10 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         {
             widget->BeginRename();
         }
+        else if (e->key() == Qt::Key_Delete)
+        {
+            on_action_RCM_DeleteThese_triggered();
+        }
     }
 
     if (e->key() == Qt::Key_Escape)
