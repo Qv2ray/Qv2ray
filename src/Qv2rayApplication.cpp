@@ -35,7 +35,7 @@ namespace Qv2ray
     bool Qv2rayApplication::SetupQv2ray()
     {
 #ifdef Q_OS_WIN
-        SetCurrentDirectory(applicationDirPath().toStdString().c_str());
+        SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
 #endif
         // Install a default translater. From the OS/DE
         Qv2rayTranslator = std::make_unique<QvTranslator>();
