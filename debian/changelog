@@ -1,3 +1,13 @@
+qv2ray (2.6.0~rc4-1) unstable; urgency=medium
+
+  * fix: fixed ssd:// order issue, fixed #635
+  * add: remove connections via delete key
+  * add: added qv2ray://
+  * add: use env QV2RAY_CONFIG_PATH to specify config path, make darkmode theme cross-platform, refactor
+  * add: introducing Qv2rayApplication
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Thu, 18 Jun 2020 16:10:05 +0800
+
 qv2ray (2.6.0~rc3-1) unstable; urgency=medium
 
   * add: added DNS Settings and GroupRouteManager
