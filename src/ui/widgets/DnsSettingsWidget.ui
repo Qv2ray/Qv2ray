@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>DnsSettingsWidget</class>
  <widget class="QWidget" name="DnsSettingsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>533</width>
+    <height>379</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -90,6 +98,20 @@
             </widget>
            </item>
            <item>
+            <widget class="QToolButton" name="moveServerUpBtn">
+             <property name="text">
+              <string>△</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="moveServerDownBtn">
+             <property name="text">
+              <string>▽</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -168,6 +190,9 @@
                 <widget class="QSpinBox" name="serverPortSB">
                  <property name="buttonSymbols">
                   <enum>QAbstractSpinBox::NoButtons</enum>
+                 </property>
+                 <property name="minimum">
+                  <number>1</number>
                  </property>
                  <property name="maximum">
                   <number>65535</number>

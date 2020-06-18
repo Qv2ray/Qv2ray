@@ -78,9 +78,11 @@ using namespace Qv2ray::base::objects::transfer;
 
 // GUI TOOLS
 #define RED(obj)                                                                                                                                \
-    auto _temp = obj->palette();                                                                                                                \
-    _temp.setColor(QPalette::Text, Qt::red);                                                                                                    \
-    obj->setPalette(_temp);
+    {                                                                                                                                           \
+        auto _temp = obj->palette();                                                                                                            \
+        _temp.setColor(QPalette::Text, Qt::red);                                                                                                \
+        obj->setPalette(_temp);                                                                                                                 \
+    }
 
 #define BLACK(obj) obj->setPalette(QWidget::palette());
 

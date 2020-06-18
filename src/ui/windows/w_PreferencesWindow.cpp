@@ -22,6 +22,7 @@
 
 using Qv2ray::common::validation::IsIPv4Address;
 using Qv2ray::common::validation::IsIPv6Address;
+using Qv2ray::common::validation::IsValidDNSServer;
 using Qv2ray::common::validation::IsValidIPAddress;
 
 #define LOADINGCHECK                                                                                                                            \
@@ -40,6 +41,18 @@ using Qv2ray::common::validation::IsValidIPAddress;
 #define SET_AUTOSTART_UI_ENABLED(_enabled)                                                                                                      \
     autoStartConnCombo->setEnabled(_enabled);                                                                                                   \
     autoStartSubsCombo->setEnabled(_enabled);
+
+bool CheckIsValidDNS(const DNSObject &dnsConfig)
+{
+    if (!IsValidIPAddress(dnsConfig.clientIp))
+        return false;
+    for (const auto &server : dnsConfig.servers)
+    {
+        if (!IsValidDNSServer(server.address))
+            return false;
+    }
+    return true;
+}
 
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), CurrentConfig()
 {
@@ -292,6 +305,10 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ipv6 address."));
     }
+    else if (!CheckIsValidDNS(dnsSettingsWidget->GetDNSObject()))
+    {
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid DNS settings."));
+    }
     else
     {
         if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language)
@@ -313,6 +330,10 @@ void PreferencesWindow::on_buttonBox_accepted()
             NEEDRESTART
         }
         CurrentConfig.defaultRouteConfig.dnsConfig = dnsSettingsWidget->GetDNSObject();
+        if (!(CurrentConfig.defaultRouteConfig.dnsConfig == GlobalConfig.defaultRouteConfig.dnsConfig))
+        {
+            NEEDRESTART
+        }
         //
         //
         if (CurrentConfig.uiConfig.theme != GlobalConfig.uiConfig.theme)

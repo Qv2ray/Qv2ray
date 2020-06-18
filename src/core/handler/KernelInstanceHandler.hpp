@@ -24,6 +24,10 @@ namespace Qv2ray::core::handler
         {
             return inboundPorts;
         }
+        const QMap<QString, QString> InboundHosts() const
+        {
+            return inboundHosts;
+        }
 
       signals:
         void OnConnected(const ConnectionGroupPair &id);
@@ -42,6 +46,7 @@ namespace Qv2ray::core::handler
         // Since QMap does not support std::unique_ptr, we use std::map<>
         std::map<QString, std::unique_ptr<QvPluginKernel>> activeKernels;
         QMap<QString, int> inboundPorts;
+        QMap<QString, QString> inboundHosts;
         V2rayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
     };

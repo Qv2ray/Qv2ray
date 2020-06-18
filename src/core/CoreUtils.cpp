@@ -161,14 +161,12 @@ namespace Qv2ray::core
     const QMap<QString, int> GetConfigInboundPorts(const CONFIGROOT &root)
     {
         if (!root.contains("inbounds"))
-        {
             return {};
-        }
         QMap<QString, int> inboundPorts;
         for (const auto &inboundVal : root["inbounds"].toArray())
         {
             const auto &inbound = inboundVal.toObject();
-            inboundPorts.insert(inbound["protocol"].toString(), inbound["port"].toInt());
+            inboundPorts.insert(inbound["tag"].toString(), inbound["port"].toInt());
         }
         return inboundPorts;
     }
@@ -176,5 +174,25 @@ namespace Qv2ray::core
     const QMap<QString, int> GetConfigInboundPorts(const ConnectionId &id)
     {
         return GetConfigInboundPorts(ConnectionManager->GetConnectionRoot(id));
+    }
+
+    const QMap<QString, QString> GetConfigInboundHosts(const CONFIGROOT &root)
+    {
+        if (!root.contains("inbounds"))
+        {
+            return {};
+        }
+        QMap<QString, QString> inboundHosts;
+        for (const auto &inboundVal : root["inbounds"].toArray())
+        {
+            const auto &inbound = inboundVal.toObject();
+            inboundHosts.insert(inbound["tag"].toString(), inbound["listen"].toString());
+        }
+        return inboundHosts;
+    }
+
+    const QMap<QString, QString> GetConfigInboundHosts(const ConnectionId &id)
+    {
+        return GetConfigInboundHosts(ConnectionManager->GetConnectionRoot(id));
     }
 } // namespace Qv2ray::core

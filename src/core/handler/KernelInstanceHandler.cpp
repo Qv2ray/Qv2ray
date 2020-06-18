@@ -40,16 +40,20 @@ namespace Qv2ray::core::handler
     {
         StopConnection();
         inboundPorts = GetConfigInboundPorts(fullConfig);
+        inboundHosts = GetConfigInboundHosts(fullConfig);
         //
         // Check inbound port allocation issue.
         QStringList portDetectionErrorMessage;
         auto portDetectionMsg = tr("Another process is using the port required to start the connection:") + NEWLINE + NEWLINE;
         for (const auto &key : inboundPorts.keys())
         {
-            auto result = components::port::detectPortTCP(inboundPorts[key]);
+            auto result = components::port::CheckTCPPortStatus(inboundHosts[key], inboundPorts[key]);
             if (!result)
             {
-                portDetectionErrorMessage << tr("Port %1 for inbound tag: \"%2\"").arg(inboundPorts[key]).arg(key);
+                portDetectionErrorMessage << tr("Port: %1 for listening IP: %2 for inbound tag: \"%3\"") //
+                                                 .arg(inboundPorts[key])
+                                                 .arg(inboundHosts[key])
+                                                 .arg(key);
             }
         }
         if (!portDetectionErrorMessage.isEmpty())
@@ -180,11 +184,11 @@ namespace Qv2ray::core::handler
                 }
                 QMap<QvPluginKernel::KernelSetting, QVariant> pluginInboundPort;
                 for (const auto &[_protocol, _port, _tag] : inboundInfo)
-                if ((_protocol == "http")||(_protocol == "socks"))
                 {
+                    if (_protocol != "http" && _protocol != "socks")
+                        continue;
                     pluginInboundPort[k::KERNEL_HTTP_ENABLED] = pluginInboundPort[k::KERNEL_HTTP_ENABLED].toBool() || _protocol == "http";
                     pluginInboundPort[k::KERNEL_SOCKS_ENABLED] = pluginInboundPort[k::KERNEL_SOCKS_ENABLED].toBool() || _protocol == "socks";
-                    //
                     pluginInboundPort.insert(_protocol.toLower() == "http" ? k::KERNEL_HTTP_PORT : k::KERNEL_SOCKS_PORT, _port);
                 }
                 connect(activeKernels[protocol].get(), &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataRcvd_p);

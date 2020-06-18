@@ -1781,8 +1781,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>リスニングIPv6アドレス</translation>
     </message>
     <message>
-        <source>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</source>
-        <translation>IPv6アドレスを括弧付きで指定します、例えば、[::1]。空欄のままにしておくとIPv6を無効にします。</translation>
+        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
+        <translation>IPv6アドレス、例えば、::1。空欄のままにしておくとIPv6を無効にします。</translation>
     </message>
     <message>
         <source>Invalid tproxy listening ivp4 address.</source>
@@ -1793,8 +1793,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>無効なtProxyリスニングIPv6アドレス。</translation>
     </message>
     <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
-        <translation>IPv4アドレス、例えば、127.0.0.1；またはIPv6アドレスを括弧付きで指定します、例えば、[::1]</translation>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
+        <translation>IPv4アドレス、例えば、127.0.0.1；またはIPv6アドレス、例えば、::1</translation>
     </message>
     <message>
         <source>DNS Settings</source>
@@ -2168,8 +2168,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>別のプロセスは、接続の必要なポートを使用しています：</translation>
     </message>
     <message>
-        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
-        <translation>タグ %2 のポート %1</translation>
+        <source>Port %1 of IP %2 for inbound tag: &quot;%3&quot;</source>
+        <translation>タグ %3 の IP %2 ポート %1</translation>
     </message>
     <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>

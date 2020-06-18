@@ -72,6 +72,8 @@ class InboundEditor
 
     void on_dokoUserLevelSB_valueChanged(int arg1);
 
+    void on_dokotproxyCombo_currentIndexChanged(const QString &arg1);
+
     void on_mtEMailTxt_textEdited(const QString &arg1);
 
     void on_mtSecretTxt_textEdited(const QString &arg1);
@@ -94,6 +96,7 @@ class InboundEditor
     QJsonObject socksSettings;
     QJsonObject mtSettings;
     QJsonObject dokoSettings;
+    QString dokotproxy;
     //
     QJsonObject sniffing;
     QJsonObject allocate;

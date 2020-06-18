@@ -1,8 +1,5 @@
 #pragma once
 
-#include <nodes/internal/ConnectionStyle.hpp>
-#include <nodes/internal/Node.hpp>
-#include <nodes/internal/NodeData.hpp>
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
@@ -13,6 +10,9 @@
 #include <QJsonObject>
 #include <QListWidgetItem>
 #include <list>
+#include <nodes/internal/ConnectionStyle.hpp>
+#include <nodes/internal/Node.hpp>
+#include <nodes/internal/NodeData.hpp>
 
 using QtNodes::ConnectionStyle;
 using QtNodes::FlowScene;

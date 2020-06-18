@@ -93,8 +93,8 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     }
     else if (outboundType == "shadowsocks")
     {
-        streaming = QJsonObject();
-        LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
+        //streaming = QJsonObject();
+        //LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
         QJsonArray servers;
         shadowsocks.address = address;
         shadowsocks.port = port;
@@ -110,8 +110,8 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         }
         socks.address = address;
         socks.port = port;
-        streaming = QJsonObject();
-        LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
+        //streaming = QJsonObject();
+        //LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(socks.toJson());
         settings["servers"] = servers;

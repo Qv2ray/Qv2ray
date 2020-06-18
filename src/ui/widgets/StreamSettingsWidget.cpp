@@ -35,6 +35,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     serverNameTxt->setText(stream.tlsSettings.serverName);
     allowInsecureCB->setChecked(stream.tlsSettings.allowInsecure);
     allowInsecureCiphersCB->setChecked(stream.tlsSettings.allowInsecureCiphers);
+    disableSessionResumptionCB->setChecked(stream.tlsSettings.disableSessionResumption);
     alpnTxt->setPlainText(stream.tlsSettings.alpn.join(NEWLINE));
     // TCP
     tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
@@ -288,6 +289,11 @@ void StreamSettingsWidget::on_alpnTxt_textChanged()
 void StreamSettingsWidget::on_allowInsecureCiphersCB_stateChanged(int arg1)
 {
     stream.tlsSettings.allowInsecureCiphers = arg1 == Qt::Checked;
+}
+
+void StreamSettingsWidget::on_disableSessionResumptionCB_stateChanged(int arg1)
+{
+    stream.tlsSettings.disableSessionResumption = arg1 == Qt::Checked;
 }
 
 void StreamSettingsWidget::on_kcpSeedTxt_textEdited(const QString &arg1)

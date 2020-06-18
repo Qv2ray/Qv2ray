@@ -31,6 +31,10 @@ class DnsSettingsWidget
 
     void on_serversListbox_currentRowChanged(int currentRow);
 
+    void on_moveServerUpBtn_clicked();
+
+    void on_moveServerDownBtn_clicked();
+
     void on_serverAddressTxt_textEdited(const QString &arg1);
 
     void on_serverPortSB_valueChanged(int arg1);
@@ -40,6 +44,8 @@ class DnsSettingsWidget
     void on_removeStaticHostBtn_clicked();
 
     void on_detailsSettingsGB_toggled(bool arg1);
+
+    void on_staticResolvedDomainsTable_cellChanged(int row, int column);
 
   private:
     void ShowCurrentDnsServerDetails();

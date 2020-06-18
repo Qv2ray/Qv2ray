@@ -5,17 +5,28 @@
 
 void MainWindow::MWSetSystemProxy()
 {
-    auto inboundPorts = KernelInstance->InboundPorts();
-    bool httpEnabled = inboundPorts.contains("http");
-    bool socksEnabled = inboundPorts.contains("socks");
-    auto httpPort = inboundPorts["http"];
-    auto socksPort = inboundPorts["socks"];
+    const auto inboundPorts = KernelInstance->InboundPorts();
+    const auto inboundHosts = KernelInstance->InboundHosts();
+
+    const bool httpEnabled = inboundPorts.contains("http_IN");
+    const auto httpPort = inboundPorts["http_IN"];
+
+    const bool socksEnabled = inboundPorts.contains("socks_IN");
+    const auto socksPort = inboundPorts["socks_IN"];
 
     QString proxyAddress;
 
     if (httpEnabled || socksEnabled)
     {
-        proxyAddress = "localhost";
+        proxyAddress = inboundHosts[httpEnabled ? "http_IN" : "socks_IN"];
+
+        if (proxyAddress == "0.0.0.0")
+            proxyAddress = "127.0.0.1";
+
+        if (proxyAddress == "::")
+            proxyAddress = "::1";
+
+        LOG(MODULE_UI, "ProxyAddress: " + proxyAddress);
         SetSystemProxy(proxyAddress, httpPort, socksPort);
         qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy.png"));
         if (!GlobalConfig.uiConfig.quietMode)

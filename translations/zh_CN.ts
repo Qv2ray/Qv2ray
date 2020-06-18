@@ -1781,8 +1781,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>IPv6 监听地址</translation>
     </message>
     <message>
-        <source>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</source>
-        <translation>带方括号的 IPv6 地址，例如 [::1]。留空会禁用 IPv6 透明代理。</translation>
+        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
+        <translation>IPv6 地址，例如 ::1。留空会禁用 IPv6 透明代理。</translation>
     </message>
     <message>
         <source>Invalid tproxy listening ivp4 address.</source>
@@ -1793,8 +1793,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>无效的透明代理 IPv6 监听地址。</translation>
     </message>
     <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
-        <translation>IPv4 地址，例如 127.0.0.1；或带方括号的 IPv6 地址，例如 [::1]</translation>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
+        <translation>IPv4 地址，例如 127.0.0.1；或 IPv6 地址，例如 ::1</translation>
     </message>
     <message>
         <source>DNS Settings</source>
@@ -2168,8 +2168,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>另一进程正在使用启动此连接所需的端口：</translation>
     </message>
     <message>
-        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
-        <translation>入站标签 %2 需要端口 %1</translation>
+        <source>Port %1 of IP %2 for inbound tag: &quot;%3&quot;</source>
+        <translation>入站标签 %3 需要 IP %2 的端口 %1</translation>
     </message>
     <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>

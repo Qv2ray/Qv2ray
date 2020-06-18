@@ -3,6 +3,7 @@
 #include <QDateTime>
 #include <QDir>
 #include <QFile>
+#include <QHostAddress>
 #include <QJsonDocument>
 #include <QMessageBox>
 #include <QRegularExpression>
@@ -59,7 +60,6 @@ namespace Qv2ray::common
     namespace validation
     {
         const inline QRegularExpression __regex_ipv4_full(REGEX_IPV4_ADDR "$");
-        const inline QRegularExpression __regex_ipv6_full(REGEX_IPV6_ADDR "$");
 
         inline bool IsIPv4Address(const QString &addr)
         {
@@ -68,12 +68,22 @@ namespace Qv2ray::common
 
         inline bool IsIPv6Address(const QString &addr)
         {
-            return __regex_ipv6_full.match(addr).hasMatch();
+            QHostAddress address(addr);
+            return QAbstractSocket::IPv6Protocol == address.protocol();
         }
 
         inline bool IsValidIPAddress(const QString &addr)
         {
-            return IsIPv4Address(addr) || IsIPv6Address(addr);
+            return !addr.isEmpty() && (IsIPv4Address(addr) || IsIPv6Address(addr));
+        }
+
+        inline bool IsValidDNSServer(const QString &addr)
+        {
+            return IsIPv4Address(addr)                  //
+                   || IsIPv6Address(addr)               //
+                   || addr.startsWith("https://")       //
+                   || addr.startsWith("https+local://") //
+                   || addr == "localhost";
         }
     } // namespace validation
 

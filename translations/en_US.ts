@@ -1414,7 +1414,7 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address with brackets, e.g. [::1]</source>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1498,7 +1498,7 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>IPv6 address with brackets, e.g. [::1]. Leave blank will disable ipv6.</source>
+        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2157,7 +2157,7 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Port %1 for inbound tag: &quot;%2&quot;</source>
+        <source>Port %1 of IP %2 for inbound tag: &quot;%3&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

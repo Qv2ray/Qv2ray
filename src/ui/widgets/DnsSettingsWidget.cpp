@@ -4,6 +4,11 @@
 #include "components/geosite/QvGeositeReader.hpp"
 #include "ui/widgets/QvAutoCompleteTextEdit.hpp"
 
+using Qv2ray::common::validation::IsIPv4Address;
+using Qv2ray::common::validation::IsIPv6Address;
+using Qv2ray::common::validation::IsValidDNSServer;
+using Qv2ray::common::validation::IsValidIPAddress;
+
 #define UPDATEUI                                                                                                                                \
     detailsSettingsGB->setEnabled(serversListbox->count() > 0);                                                                                 \
     serverAddressTxt->setEnabled(serversListbox->count() > 0);                                                                                  \
@@ -67,6 +72,7 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns)
         staticResolvedDomainsTable->setItem(rowId, 0, new QTableWidgetItem(host));
         staticResolvedDomainsTable->setItem(rowId, 1, new QTableWidgetItem(ip));
     }
+    staticResolvedDomainsTable->resizeColumnsToContents();
     UPDATEUI
 }
 
@@ -138,13 +144,55 @@ void DnsSettingsWidget::on_serversListbox_currentRowChanged(int currentRow)
 {
     if (currentRow < 0)
         return;
+
+    moveServerUpBtn->setEnabled(true);
+    moveServerDownBtn->setEnabled(true);
+    if (currentRow == 0)
+    {
+        moveServerUpBtn->setEnabled(false);
+    }
+    if (currentRow == serversListbox->count() - 1)
+    {
+        moveServerDownBtn->setEnabled(false);
+    }
+
     ShowCurrentDnsServerDetails();
+}
+
+void DnsSettingsWidget::on_moveServerUpBtn_clicked()
+{
+    auto temp = dns.servers[currentServerIndex - 1];
+    dns.servers[currentServerIndex - 1] = dns.servers[currentServerIndex];
+    dns.servers[currentServerIndex] = temp;
+
+    serversListbox->currentItem()->setText(dns.servers[currentServerIndex].address);
+    serversListbox->setCurrentRow(currentServerIndex - 1);
+    serversListbox->currentItem()->setText(dns.servers[currentServerIndex].address);
+}
+
+void DnsSettingsWidget::on_moveServerDownBtn_clicked()
+{
+    auto temp = dns.servers[currentServerIndex + 1];
+    dns.servers[currentServerIndex + 1] = dns.servers[currentServerIndex];
+    dns.servers[currentServerIndex] = temp;
+
+    serversListbox->currentItem()->setText(dns.servers[currentServerIndex].address);
+    serversListbox->setCurrentRow(currentServerIndex + 1);
+    serversListbox->currentItem()->setText(dns.servers[currentServerIndex].address);
 }
 
 void DnsSettingsWidget::on_serverAddressTxt_textEdited(const QString &arg1)
 {
     dns.servers[currentServerIndex].address = arg1;
     serversListbox->currentItem()->setText(arg1);
+    if (arg1 == "" || IsValidDNSServer(arg1))
+    {
+        BLACK(serverAddressTxt)
+    }
+    else
+    {
+        RED(serverAddressTxt)
+    }
 }
 
 void DnsSettingsWidget::on_serverPortSB_valueChanged(int arg1)
@@ -162,6 +210,12 @@ void DnsSettingsWidget::on_removeStaticHostBtn_clicked()
 {
     if (staticResolvedDomainsTable->rowCount() >= 0)
         staticResolvedDomainsTable->removeRow(staticResolvedDomainsTable->currentRow());
+    staticResolvedDomainsTable->resizeColumnsToContents();
+}
+
+void DnsSettingsWidget::on_staticResolvedDomainsTable_cellChanged(int row, int column)
+{
+    staticResolvedDomainsTable->resizeColumnsToContents();
 }
 
 void DnsSettingsWidget::on_detailsSettingsGB_toggled(bool arg1)

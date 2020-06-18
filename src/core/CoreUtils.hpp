@@ -45,6 +45,8 @@ namespace Qv2ray::core
     //
     const QMap<QString, int> GetConfigInboundPorts(const CONFIGROOT &root);
     const QMap<QString, int> GetConfigInboundPorts(const ConnectionId &id);
+    const QMap<QString, QString> GetConfigInboundHosts(const CONFIGROOT &root);
+    const QMap<QString, QString> GetConfigInboundHosts(const ConnectionId &id);
     //
 } // namespace Qv2ray::core
 

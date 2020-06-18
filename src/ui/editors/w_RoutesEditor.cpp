@@ -1,9 +1,6 @@
 #include "w_RoutesEditor.hpp"
 
-#include <nodes/internal/FlowScene.hpp>
-#include <nodes/internal/FlowView.hpp>
-#include <nodes/internal/FlowViewStyle.hpp>
-#include <nodes/internal/NodeStyle.hpp>
+#include "components/plugins/QvPluginHost.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Generation.hpp"
@@ -15,6 +12,11 @@
 #include "w_InboundEditor.hpp"
 #include "w_JsonEditor.hpp"
 #include "w_OutboundEditor.hpp"
+
+#include <nodes/internal/FlowScene.hpp>
+#include <nodes/internal/FlowView.hpp>
+#include <nodes/internal/FlowViewStyle.hpp>
+#include <nodes/internal/NodeStyle.hpp>
 
 using QtNodes::FlowView;
 using namespace Qv2ray::ui::nodemodels;
@@ -180,7 +182,10 @@ void RouteEditor::onNodeClicked(Node &n)
 
         tagLabel->setText(alias);
         protocolLabel->setText(protocol);
-        portLabel->setNum(port);
+        if (port >= 1 && port <= 65535)
+            portLabel->setNum(port);
+        else
+            portLabel->setText("");
         hostLabel->setText(host);
     }
     else
@@ -493,7 +498,7 @@ void RouteEditor::ShowCurrentRuleDetail()
 
 void RouteEditor::on_insertDirectBtn_clicked()
 {
-    auto freedom = GenerateFreedomOUT("as-is", "", 0);
+    auto freedom = GenerateFreedomOUT("AsIs", "", 0);
     auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto out = GenerateOutboundEntry("freedom", freedom, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
     // ADD NODE
@@ -676,7 +681,8 @@ void RouteEditor::on_addDefaultBtn_clicked()
     QJsonObject sniffingOff{ { "enabled", false } };
     QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
     //
-    if (_Inconfig.useHTTP){
+    if (_Inconfig.useHTTP)
+    {
         INBOUND _in_HTTP;
         _in_HTTP.insert("listen", _Inconfig.listenip);
         _in_HTTP.insert("port", _Inconfig.httpSettings.port);
@@ -699,7 +705,8 @@ void RouteEditor::on_addDefaultBtn_clicked()
 
         AddInbound(_in_HTTP);
     }
-    if (_Inconfig.useSocks){
+    if (_Inconfig.useSocks)
+    {
         auto _in_socksConf = GenerateSocksIN((_Inconfig.socksSettings.useAuth ? "password" : "noauth"), //
                                              QList<AccountObject>() << _Inconfig.socksSettings.account, //
                                              _Inconfig.socksSettings.enableUDP,                         //
@@ -709,35 +716,40 @@ void RouteEditor::on_addDefaultBtn_clicked()
         {
             _in_SOCKS.insert("sniffing", sniffingOff);
         }
-        else{
+        else
+        {
             _in_SOCKS.insert("sniffing", sniffingOn);
         }
         AddInbound(_in_SOCKS);
     }
 
-    if (_Inconfig.useTPROXY){
+    if (_Inconfig.useTPROXY)
+    {
         QList<QString> networks;
-        if (_Inconfig.tProxySettings.hasTCP)
+#define _ts_ _Inconfig.tProxySettings
+        if (_ts_.hasTCP)
             networks << "tcp";
-        if (_Inconfig.tProxySettings.hasUDP)
+        if (_ts_.hasUDP)
             networks << "udp";
         const auto tproxy_network = networks.join(",");
         auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
+        //
         QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-        QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", _Inconfig.tProxySettings.mode } } } };
-        
-        auto _in_TPROXY = GenerateInboundEntry(_Inconfig.tProxySettings.tProxyIP, _Inconfig.tProxySettings.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf");
+        QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", _ts_.mode } } } };
+
+        auto _in_TPROXY = GenerateInboundEntry(_ts_.tProxyIP, _ts_.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf");
         _in_TPROXY.insert("sniffing", tproxy_sniff);
         _in_TPROXY.insert("streamSettings", tproxy_streamSettings);
         AddInbound(_in_TPROXY);
 
-        if (_Inconfig.tProxySettings.tProxyV6IP != ""){
-            auto _in_TPROXY = GenerateInboundEntry(_Inconfig.tProxySettings.tProxyV6IP, _Inconfig.tProxySettings.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf_V6");
+        if (!_ts_.tProxyV6IP.isEmpty())
+        {
+            auto _in_TPROXY = GenerateInboundEntry(_ts_.tProxyV6IP, _ts_.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf_V6");
             _in_TPROXY.insert("sniffing", tproxy_sniff);
             _in_TPROXY.insert("streamSettings", tproxy_streamSettings);
             AddInbound(_in_TPROXY);
         }
-
+#undef _ts_
     }
 
     CHECKEMPTYRULES
@@ -951,7 +963,21 @@ void RouteEditor::on_editBtn_clicked()
         auto protocol = _out["protocol"].toString().toLower();
         int _code;
 
+        bool guisupport = true;
         if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks")
+        {
+            guisupport = false;
+            auto pluginEditorWidgetsInfo = PluginHost->GetOutboundEditorWidgets();
+            for (const auto &plugin : pluginEditorWidgetsInfo)
+            {
+                for (const auto &_d : plugin->OutboundCapabilities())
+                {
+                    guisupport = guisupport || protocol == _d.protocol;
+                }
+            }
+        }
+
+        if (!guisupport)
         {
             QvMessageBoxWarn(this, tr("Unsupported Outbound Type"),
                              tr("This outbound entry is not supported by the GUI editor.") + NEWLINE +
