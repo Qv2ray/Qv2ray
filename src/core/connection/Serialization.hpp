@@ -30,6 +30,12 @@ namespace Qv2ray::core::connection::serialization
         const QString Serialize(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias);
     } // namespace vmess
 
+    namespace vmess_new
+    {
+        CONFIGROOT Deserialize(const QString &vmess, QString *alias, QString *errMessage);
+        const QString Serialize(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias);
+    } // namespace vmess_new
+
     namespace ss
     {
         CONFIGROOT Deserialize(const QString &ss, QString *alias, QString *errMessage);

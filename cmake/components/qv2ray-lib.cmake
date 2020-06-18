@@ -82,6 +82,7 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/ss.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/ssd.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/vmess.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/vmess_new.cpp
     #
     ${CMAKE_SOURCE_DIR}/src/core/CoreUtils.cpp
     ${CMAKE_SOURCE_DIR}/src/core/CoreUtils.hpp

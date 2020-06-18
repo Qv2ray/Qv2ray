@@ -14,10 +14,7 @@ namespace Qv2ray::core::connection
                                                                   QString *newGroupName)
         {
             QList<QPair<QString, CONFIGROOT>> connectionConf;
-            if (link.startsWith("vmess://"))
-            {
-                auto conf = vmess::Deserialize(link, aliasPrefix, errMessage);
-                //
+            const auto mkAllowInsecure = [](QJsonObject &conf) {
                 auto allowI = GlobalConfig.advancedConfig.setAllowInsecure;
                 auto allowIC = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
                 if (allowI || allowIC)
@@ -25,6 +22,17 @@ namespace Qv2ray::core::connection
                     QJsonIO::SetValue(conf, allowI, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecure");
                     QJsonIO::SetValue(conf, allowIC, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecureCiphers");
                 }
+            };
+            if (link.startsWith("vmess://") && link.contains("@"))
+            {
+                auto conf = vmess_new::Deserialize(link, aliasPrefix, errMessage);
+                mkAllowInsecure(conf);
+                connectionConf << QPair{ *aliasPrefix, conf };
+            }
+            else if (link.startsWith("vmess://"))
+            {
+                auto conf = vmess::Deserialize(link, aliasPrefix, errMessage);
+                mkAllowInsecure(conf);
                 connectionConf << QPair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ss://"))
