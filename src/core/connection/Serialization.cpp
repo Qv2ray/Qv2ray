@@ -10,13 +10,11 @@ namespace Qv2ray::core::connection
 {
     namespace serialization
     {
-        QMultiHash<QString, CONFIGROOT> ConvertConfigFromString(const QString &link, QString *prefix, QString *errMessage, QString *newGroupName)
+        QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
+                                                                  QString *newGroupName)
         {
-            QMultiHash<QString, CONFIGROOT> connectionConf;
-            if (link.startsWith("vmess://"))
-            {
-                auto conf = vmess::Deserialize(link, prefix, errMessage);
-                //
+            QList<QPair<QString, CONFIGROOT>> connectionConf;
+            const auto mkAllowInsecure = [](QJsonObject &conf) {
                 auto allowI = GlobalConfig.advancedConfig.setAllowInsecure;
                 auto allowIC = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
                 if (allowI || allowIC)
@@ -24,12 +22,23 @@ namespace Qv2ray::core::connection
                     QJsonIO::SetValue(conf, allowI, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecure");
                     QJsonIO::SetValue(conf, allowIC, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecureCiphers");
                 }
-                connectionConf.insert(*prefix, conf);
+            };
+            if (link.startsWith("vmess://") && link.contains("@"))
+            {
+                auto conf = vmess_new::Deserialize(link, aliasPrefix, errMessage);
+                mkAllowInsecure(conf);
+                connectionConf << QPair{ *aliasPrefix, conf };
+            }
+            else if (link.startsWith("vmess://"))
+            {
+                auto conf = vmess::Deserialize(link, aliasPrefix, errMessage);
+                mkAllowInsecure(conf);
+                connectionConf << QPair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ss://"))
             {
-                auto conf = ss::Deserialize(link, prefix, errMessage);
-                connectionConf.insert(*prefix, conf);
+                auto conf = ss::Deserialize(link, aliasPrefix, errMessage);
+                connectionConf << QPair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ssd://"))
             {
@@ -40,17 +49,13 @@ namespace Qv2ray::core::connection
             else
             {
                 bool ok = false;
-                auto configs = PluginHost->TryDeserializeShareLink(link, prefix, errMessage, newGroupName, &ok);
-                for (const auto &key : configs.keys())
+                const auto configs = PluginHost->TryDeserializeShareLink(link, aliasPrefix, errMessage, newGroupName, &ok);
+                for (const auto &[_alias, _protocol, _outbound] : configs)
                 {
-                    auto vals = configs.values(key);
-                    for (const auto &val : vals)
-                    {
-                        CONFIGROOT root;
-                        auto outbound = GenerateOutboundEntry(val.first, OUTBOUNDSETTING(val.second), {});
-                        QJsonIO::SetValue(root, outbound, "outbounds", 0);
-                        connectionConf.insert(key, root);
-                    }
+                    CONFIGROOT root;
+                    auto outbound = GenerateOutboundEntry(_protocol, OUTBOUNDSETTING(_outbound), {});
+                    QJsonIO::SetValue(root, outbound, "outbounds", 0);
+                    connectionConf << QPair{ _alias, root };
                 }
                 if (!ok)
                 {

@@ -293,6 +293,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(action_RCM_Rename, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
     connect(action_RCM_Duplicate, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
     connect(action_RCM_ClearUsage, &QAction::triggered, this, &MainWindow::on_action_RCM_ClearUsage_triggered);
+    connect(action_RCM_UpdateSubscription, &QAction::triggered, this, &MainWindow::on_action_RCM_UpdateSubscription_triggered);
     connect(action_RCM_Delete, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
     //
     // Sort Menu
@@ -408,6 +409,10 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         else if (e->key() == Qt::Key_F2)
         {
             widget->BeginRename();
+        }
+        else if (e->key() == Qt::Key_Delete)
+        {
+            on_action_RCM_DeleteThese_triggered();
         }
     }
 

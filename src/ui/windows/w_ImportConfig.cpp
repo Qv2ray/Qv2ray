@@ -188,15 +188,14 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                 {
                     for (const auto &conf : config)
                     {
-                        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(config.key(conf), conf);
+                        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(conf.first, conf.second);
                     }
                 }
                 else
                 {
-
                     for (const auto &conf : config)
                     {
-                        connectionsToNewGroup[newGroupName].insert(config.key(conf), conf);
+                        connectionsToNewGroup[newGroupName].insert(conf.first, conf.second);
                     }
                 }
             }
@@ -227,7 +226,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             }
             for (const auto &conf : root)
             {
-                connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(root.key(conf), conf);
+                connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(conf.first, conf.second);
             }
             break;
         }

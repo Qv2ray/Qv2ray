@@ -19,8 +19,8 @@ namespace Qv2ray::core::connection::serialization
         auto result = QString::fromUtf8(arr).trimmed();
         return result.contains("://") ? result : SafeBase64Decode(result);
     }
-    QMultiHash<QString, CONFIGROOT> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
-                                                            QString *newGroupName = nullptr);
+    QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
+                                                              QString *newGroupName = nullptr);
     const QString ConvertConfigToString(const ConnectionGroupPair &id, bool isSip002 = false);
     const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server, bool isSip002);
 
@@ -30,6 +30,12 @@ namespace Qv2ray::core::connection::serialization
         const QString Serialize(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias);
     } // namespace vmess
 
+    namespace vmess_new
+    {
+        CONFIGROOT Deserialize(const QString &vmess, QString *alias, QString *errMessage);
+        const QString Serialize(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias);
+    } // namespace vmess_new
+
     namespace ss
     {
         CONFIGROOT Deserialize(const QString &ss, QString *alias, QString *errMessage);
@@ -38,7 +44,7 @@ namespace Qv2ray::core::connection::serialization
 
     namespace ssd
     {
-        QMultiHash<QString, CONFIGROOT> Deserialize(const QString &uri, QString *groupName, QStringList *logList);
+        QList<QPair<QString, CONFIGROOT>> Deserialize(const QString &uri, QString *groupName, QStringList *logList);
     } // namespace ssd
 
 } // namespace Qv2ray::core::connection::serialization

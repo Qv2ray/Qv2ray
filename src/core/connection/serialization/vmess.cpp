@@ -2,7 +2,6 @@
 #include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/connection/Serialization.hpp"
-#include "core/handler/ConfigHandler.hpp"
 
 namespace Qv2ray::core::connection
 {
@@ -62,6 +61,7 @@ namespace Qv2ray::core::connection
             auto vmessPart = Base64Encode(JsonToString(vmessUriRoot, QJsonDocument::JsonFormat::Compact));
             return "vmess://" + vmessPart;
         }
+
         // This generates global config containing only one outbound....
         CONFIGROOT Deserialize(const QString &vmessStr, QString *alias, QString *errMessage)
         {
@@ -195,7 +195,8 @@ namespace Qv2ray::core::connection
                 path = vmessConf.contains("path") ? vmessConf["path"].toVariant().toString() : (net == "quic" ? "" : "/");
                 host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "");
             }
-            // Repect connection type rather than obfs type //
+
+            // Repect connection type rather than obfs type
             if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))                //
             {                                                                               //
                 if (net != "quic" && net != "kcp")                                          //
@@ -204,6 +205,7 @@ namespace Qv2ray::core::connection
                     type = "none";                                                          //
                 }                                                                           //
             }
+
             port = vmessConf["port"].toVariant().toInt();
             aid = vmessConf["aid"].toVariant().toInt();
             //
@@ -235,11 +237,11 @@ namespace Qv2ray::core::connection
             else if (net == "http" || net == "h2")
             {
                 // Fill hosts for HTTP
-                for (auto _host : host.split(','))
+                for (const auto &_host : host.split(','))
                 {
                     if (!_host.isEmpty())
                     {
-                        streaming.httpSettings.host.push_back(_host.trimmed());
+                        streaming.httpSettings.host << _host.trimmed();
                     }
                 }
 
@@ -291,5 +293,5 @@ namespace Qv2ray::core::connection
             return root;
 #undef default
         }
-    } // namespace Serialization::vmess
+    } // namespace serialization::vmess
 } // namespace Qv2ray::core::connection

@@ -60,8 +60,8 @@ namespace Qv2ray::components::plugins
         const QMap<QString, QList<QString>> GetPluginKernels() const;
         const std::unique_ptr<QvPluginKernel> CreatePluginKernel(const QString &pluginInternalName) const;
         //
-        const QMultiHash<QString, QPair<QString, QJsonObject>> TryDeserializeShareLink(const QString &sharelink, //
-                                                                                       QString *prefix,          //
+        const QList<std::tuple<QString, QString, QJsonObject>> TryDeserializeShareLink(const QString &sharelink, //
+                                                                                       QString *aliasPrefix,     //
                                                                                        QString *errMessage,      //
                                                                                        QString *newGroupName,    //
                                                                                        bool *status) const;

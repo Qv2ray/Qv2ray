@@ -35,10 +35,7 @@ namespace Qv2ray::core::connection::connectionIO
             const auto connectionConfigMap = ConvertConfigFromString(line.trimmed(), &__alias, &__errMessage, &__groupName);
             if (!__errMessage.isEmpty())
                 LOG(MODULE_SUBSCRIPTION, "Error: " + __errMessage)
-            for (const auto &val : connectionConfigMap)
-            {
-                subscriptionContent.append({ connectionConfigMap.key(val), val });
-            }
+            subscriptionContent << connectionConfigMap;
         }
         return subscriptionContent;
     }
