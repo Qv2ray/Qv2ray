@@ -1,14 +1,11 @@
 #include "Qv2rayApplication.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/handler/ConfigHandler.hpp"
-#include "core/settings/SettingsBackend.hpp"
 
-#include <QApplication>
 #include <QFileInfo>
 #include <QLocale>
-#include <QObject>
+#include <QProcess>
 #include <QSslSocket>
-#include <QStandardPaths>
 #include <csignal>
 #include <memory>
 
@@ -19,32 +16,8 @@ void signalHandler(int signum)
     qvApp->exit(-99);
 }
 
-int main(int argc, char *argv[])
+int RunQv2rayApplicationScoped(int argc, char *argv[])
 {
-#ifndef Q_OS_WIN
-    // Register signal handlers.
-    signal(SIGINT, signalHandler);
-    signal(SIGHUP, signalHandler);
-    signal(SIGKILL, signalHandler);
-    signal(SIGTERM, signalHandler);
-#endif
-    //
-    // This line must be called before any other ones, since we are using these
-    // values to identify instances.
-    Qv2rayApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
-    //
-#ifdef QT_DEBUG
-    Qv2rayApplication::setApplicationName("qv2ray_debug");
-    Qv2rayApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
-#else
-    Qv2rayApplication::setApplicationName("qv2ray");
-    Qv2rayApplication::setApplicationDisplayName("Qv2ray");
-#endif
-    //
-    // parse the command line before starting as a Qt application
-    if (!Qv2rayApplication::PreInitilize(argc, argv))
-        return -1;
-
     Qv2rayApplication app(argc, argv);
 
     if (!app.SetupQv2ray())
@@ -108,27 +81,47 @@ int main(int argc, char *argv[])
 
     app.InitilizeGlobalVariables();
 
-#ifdef Q_OS_WIN
-    // Set special font in Windows
-    QFont font;
-    font.setPointSize(9);
-    font.setFamily("Microsoft YaHei");
-    app.setFont(font);
-#endif
-
 #ifndef Q_OS_WIN
     signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
     signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
+    return app.RunQv2ray();
+}
 
-#ifdef Q_OS_LINUX
-    qvApp->setFallbackSessionManagementEnabled(false);
-    QObject::connect(qvApp, &QGuiApplication::commitDataRequest, [] {
-        ConnectionManager->SaveConnectionConfig();
-        LOG(MODULE_INIT, "Quit triggered by session manager.")
-    });
+int main(int argc, char *argv[])
+{
+#ifndef Q_OS_WIN
+    // Register signal handlers.
+    signal(SIGINT, signalHandler);
+    signal(SIGHUP, signalHandler);
+    signal(SIGKILL, signalHandler);
+    signal(SIGTERM, signalHandler);
 #endif
-    auto rcode = app.RunQv2ray();
-    app.DeallocateGlobalVariables();
+    //
+    // This line must be called before any other ones, since we are using these
+    // values to identify instances.
+    QApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
+    //
+#ifdef QT_DEBUG
+    QApplication::setApplicationName("qv2ray_debug");
+    QApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
+#else
+    QApplication::setApplicationName("qv2ray");
+    QApplication::setApplicationDisplayName("Qv2ray");
+#endif
+    //
+    // parse the command line before starting as a Qt application
+    if (!Qv2rayApplication::PreInitilize(argc, argv))
+        return -1;
+    const auto rcode = RunQv2rayApplicationScoped(argc, argv);
+    switch (rcode)
+    {
+        case QV2RAY_EXITCODE_NEWVERSION:
+        {
+            QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
+            break;
+        }
+        default: break;
+    }
     return rcode;
 }

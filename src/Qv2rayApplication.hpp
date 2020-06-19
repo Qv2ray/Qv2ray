@@ -24,7 +24,9 @@ namespace Qv2ray
         QString data;
         QList<QString> links;
         QList<QString> fullArgs;
-
+        //
+        int _exitCode;
+        QString _qvNewVersionPath;
         JSONSTRUCT_REGISTER(Qv2rayProcessArguments, F(arguments, version, data, links, fullArgs))
     };
 
@@ -48,7 +50,6 @@ namespace Qv2ray
         bool LoadConfiguration();
         void InitilizeGlobalVariables();
         int RunQv2ray();
-        void DeallocateGlobalVariables();
 
       public:
         QSystemTrayIcon **GetTrayIcon()
@@ -65,12 +66,13 @@ namespace Qv2ray
         }
 
       private slots:
+        void aboutToQuitSlot();
         void onMessageReceived(quint32 clientID, QByteArray msg);
 
       private:
         QSystemTrayIcon *hTray;
         MainWindow *mainWindow;
-        static commandline_status ParseCommandLine(QString *errorMessage);
+        static commandline_status ParseCommandLine(QString *errorMessage, const QStringList &args);
         bool initilized = false;
     };
 } // namespace Qv2ray

@@ -1,5 +1,6 @@
 #include "Qv2rayApplication.hpp"
 
+#include "3rdparty/libsemver/version.hpp"
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
@@ -23,13 +24,12 @@ namespace Qv2ray
     Qv2rayApplication::Qv2rayApplication(int &argc, char *argv[])
         : SingleApplication(argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion)
     {
-        LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
         LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
+        DEBUG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
         DEBUG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
         DEBUG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
         DEBUG("QV2RAY_BUILD_NUMBER", QSTRN(QV2RAY_VERSION_BUILD))
-        //
-        hTray = new QSystemTrayIcon(this);
+        hTray = new QSystemTrayIcon();
     }
 
     bool Qv2rayApplication::SetupQv2ray()
@@ -37,6 +37,7 @@ namespace Qv2ray
 #ifdef Q_OS_WIN
         SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
 #endif
+
         // Install a default translater. From the OS/DE
         Qv2rayTranslator = std::make_unique<QvTranslator>();
         const auto &systemLang = QLocale::system().name();
@@ -45,12 +46,39 @@ namespace Qv2ray
         //
         setQuitOnLastWindowClosed(false);
         connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
+        connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
         if (isSecondary())
         {
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
             return false;
         }
+
+#ifdef Q_OS_WIN
+        // Set special font in Windows
+        QFont font;
+        font.setPointSize(9);
+        font.setFamily("Microsoft YaHei");
+        app.application->setFont(font);
+#endif
+
+#ifdef Q_OS_LINUX
+        setFallbackSessionManagementEnabled(false);
+        connect(this, &QGuiApplication::commitDataRequest, [] {
+            ConnectionManager->SaveConnectionConfig();
+            LOG(MODULE_INIT, "Quit triggered by session manager.")
+        });
+#endif
         return true;
+    }
+
+    void Qv2rayApplication::aboutToQuitSlot()
+    {
+        delete mainWindow;
+        delete hTray;
+        delete ConnectionManager;
+        delete RouteManager;
+        delete PluginHost;
+        delete StyleManager;
     }
 
     void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray _msg)
@@ -58,6 +86,32 @@ namespace Qv2ray
         const auto msg = Qv2rayProcessArguments::fromJson(JsonFromString(_msg));
         LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + ", message received, version: " + msg.version)
         DEBUG(MODULE_INIT, _msg)
+        //
+        const auto currentVersion = semver::version::from_string(QV2RAY_VERSION_STRING);
+        const auto newVersion = semver::version::from_string(msg.version.toStdString());
+        //
+        if (newVersion > currentVersion)
+        {
+            QTimer::singleShot(0, [=]() {
+                const auto newPath = msg.fullArgs.first();
+                QString message;
+                message += tr("A new version of Qv2ray is attemping to start:") + NEWLINE;
+                message += NEWLINE;
+                message += tr("New version information: ") + NEWLINE;
+                message += tr("Qv2ray version: %1").arg(msg.version) + NEWLINE;
+                message += tr("Qv2ray path: %1").arg(newPath) + NEWLINE;
+                message += NEWLINE;
+                message += tr("Do you want to exit and launch that new version?");
+
+                const auto result = QvMessageBoxAsk(nullptr, tr("New version detected"), message);
+                if (result == QMessageBox::Yes)
+                {
+                    Qv2rayProcessArgument._qvNewVersionPath = newPath;
+                    ExitQv2ray(QV2RAY_EXITCODE_NEWVERSION);
+                }
+            });
+        }
+
         for (const auto &argument : msg.arguments)
         {
             switch (argument)
@@ -112,7 +166,15 @@ namespace Qv2ray
     {
         // Show MainWindow
         mainWindow = new MainWindow();
-        return exec();
+        exec();
+        if (Qv2rayProcessArgument._qvNewVersionPath.isEmpty())
+        {
+            return 0;
+        }
+        else
+        {
+            return QV2RAY_EXITCODE_NEWVERSION;
+        }
     }
 
     bool Qv2rayApplication::FindAndCreateInitialConfiguration()
@@ -318,15 +380,6 @@ namespace Qv2ray
         StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
     }
 
-    void Qv2rayApplication::DeallocateGlobalVariables()
-    {
-        delete mainWindow;
-        delete ConnectionManager;
-        delete RouteManager;
-        delete PluginHost;
-        delete StyleManager;
-    }
-
     bool Qv2rayApplication::PreInitilize(int argc, char *argv[])
     {
         QString errorMessage;
@@ -336,15 +389,15 @@ namespace Qv2ray
             const auto &args = coreApp.arguments();
             Qv2rayProcessArgument.version = QV2RAY_VERSION_STRING;
             Qv2rayProcessArgument.fullArgs = args;
-            switch (ParseCommandLine(&errorMessage))
+            switch (ParseCommandLine(&errorMessage, args))
             {
                 case QV2RAY_QUIT: return false;
                 case QV2RAY_ERROR: LOG(MODULE_INIT, errorMessage) return false;
                 default: break;
             }
 #ifdef Q_OS_WIN
-            const auto urlScheme = applicationName();
-            const auto appPath = QDir::toNativeSeparators(applicationFilePath());
+            const auto urlScheme = coreApp.applicationName();
+            const auto appPath = QDir::toNativeSeparators(coreApp.applicationFilePath());
             const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + urlScheme;
 
             QSettings reg(regPath, QSettings::NativeFormat);
@@ -381,7 +434,7 @@ namespace Qv2ray
         return true;
     }
 
-    Qv2rayApplication::commandline_status Qv2rayApplication::ParseCommandLine(QString *errorMessage)
+    Qv2rayApplication::commandline_status Qv2rayApplication::ParseCommandLine(QString *errorMessage, const QStringList &args)
     {
         QCommandLineParser parser;
         //
@@ -407,7 +460,7 @@ namespace Qv2ray
         auto helpOption = parser.addHelpOption();
         auto versionOption = parser.addVersionOption();
 
-        if (!parser.parse(arguments()))
+        if (!parser.parse(args))
         {
             *errorMessage = parser.errorText();
             return QV2RAY_ERROR;
