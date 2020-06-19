@@ -42,18 +42,6 @@ using Qv2ray::common::validation::IsValidIPAddress;
     autoStartConnCombo->setEnabled(_enabled);                                                                                                   \
     autoStartSubsCombo->setEnabled(_enabled);
 
-bool CheckIsValidDNS(const DNSObject &dnsConfig)
-{
-    if (!dnsConfig.clientIp.isEmpty() && !IsValidIPAddress(dnsConfig.clientIp))
-        return false;
-    for (const auto &server : dnsConfig.servers)
-    {
-        if (!IsValidDNSServer(server.address))
-            return false;
-    }
-    return true;
-}
-
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), CurrentConfig()
 {
     setupUi(this);
@@ -305,7 +293,7 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ipv6 address."));
     }
-    else if (!CheckIsValidDNS(dnsSettingsWidget->GetDNSObject()))
+    else if (!dnsSettingsWidget->CheckIsValidDNS())
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid DNS settings."));
     }

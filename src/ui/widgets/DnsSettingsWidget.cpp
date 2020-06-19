@@ -9,10 +9,19 @@ using Qv2ray::common::validation::IsIPv6Address;
 using Qv2ray::common::validation::IsValidDNSServer;
 using Qv2ray::common::validation::IsValidIPAddress;
 
+#define CHECK_DISABLE_MOVE_BTN                                                                                                                  \
+    if (serversListbox->count() <= 1)                                                                                                           \
+    {                                                                                                                                           \
+        moveServerUpBtn->setEnabled(false);                                                                                                     \
+        moveServerDownBtn->setEnabled(false);                                                                                                   \
+    }
+
 #define UPDATEUI                                                                                                                                \
     detailsSettingsGB->setEnabled(serversListbox->count() > 0);                                                                                 \
     serverAddressTxt->setEnabled(serversListbox->count() > 0);                                                                                  \
-    removeServerBtn->setEnabled(serversListbox->count() > 0);
+    removeServerBtn->setEnabled(serversListbox->count() > 0);                                                                                   \
+    CHECK_DISABLE_MOVE_BTN
+
 #define currentServerIndex serversListbox->currentRow()
 DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)
 {
@@ -76,6 +85,18 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns)
     UPDATEUI
 }
 
+bool DnsSettingsWidget::CheckIsValidDNS() const
+{
+    if (!dns.clientIp.isEmpty() && !IsValidIPAddress(dns.clientIp))
+        return false;
+    for (const auto &server : dns.servers)
+    {
+        if (!IsValidDNSServer(server.address))
+            return false;
+    }
+    return true;
+}
+
 void DnsSettingsWidget::ShowCurrentDnsServerDetails()
 {
     serverAddressTxt->setText(dns.servers[currentServerIndex].address);
@@ -85,6 +106,15 @@ void DnsSettingsWidget::ShowCurrentDnsServerDetails()
     //
     serverPortSB->setValue(dns.servers[currentServerIndex].port);
     detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
+    //
+    if (serverAddressTxt->text().isEmpty() || IsValidDNSServer(serverAddressTxt->text()))
+    {
+        BLACK(serverAddressTxt)
+    }
+    else
+    {
+        RED(serverAddressTxt)
+    }
 }
 
 DNSObject DnsSettingsWidget::GetDNSObject()
@@ -185,7 +215,7 @@ void DnsSettingsWidget::on_serverAddressTxt_textEdited(const QString &arg1)
 {
     dns.servers[currentServerIndex].address = arg1;
     serversListbox->currentItem()->setText(arg1);
-    if (arg1 == "" || IsValidDNSServer(arg1))
+    if (arg1.isEmpty() || IsValidDNSServer(arg1))
     {
         BLACK(serverAddressTxt)
     }
@@ -213,7 +243,7 @@ void DnsSettingsWidget::on_removeStaticHostBtn_clicked()
     staticResolvedDomainsTable->resizeColumnsToContents();
 }
 
-void DnsSettingsWidget::on_staticResolvedDomainsTable_cellChanged(int row, int column)
+void DnsSettingsWidget::on_staticResolvedDomainsTable_cellChanged(int, int)
 {
     staticResolvedDomainsTable->resizeColumnsToContents();
 }
