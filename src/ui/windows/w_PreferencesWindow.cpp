@@ -44,7 +44,7 @@ using Qv2ray::common::validation::IsValidIPAddress;
 
 bool CheckIsValidDNS(const DNSObject &dnsConfig)
 {
-    if (!IsValidIPAddress(dnsConfig.clientIp))
+    if (!dnsConfig.clientIp.isEmpty() && !IsValidIPAddress(dnsConfig.clientIp))
         return false;
     for (const auto &server : dnsConfig.servers)
     {
