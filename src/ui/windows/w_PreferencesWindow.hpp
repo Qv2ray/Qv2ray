@@ -24,8 +24,9 @@ class PreferencesWindow
             { "kernel", 1 },     //
             { "inbound", 2 },    //
             { "connection", 3 }, //
-            { "route", 4 },      //
-            { "about", 5 }       //
+            { "dns", 4 },        //
+            { "route", 5 },      //
+            { "about", 6 }       //
         };
 
         if (commands.isEmpty())

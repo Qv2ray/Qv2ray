@@ -168,9 +168,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     //
     dnsSettingsWidget = new DnsSettingsWidget(this);
     dnsSettingsWidget->SetDNSObject(CurrentConfig.defaultRouteConfig.dnsConfig);
-    dnsSettingsGB->setLayout(new QGridLayout(dnsSettingsGB));
-    dnsSettingsGB->layout()->addWidget(dnsSettingsWidget);
-
+    dnsSettingsLayout->addWidget(dnsSettingsWidget);
+    //
 #ifdef DISABLE_AUTO_UPDATE
     updateSettingsGroupBox->setEnabled(false);
     updateSettingsGroupBox->setToolTip(tr("Update is disabled by your vendor."));
@@ -557,8 +556,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             }
 
             LOG(MODULE_UI, "Calling pkexec and setcap...")
-            int ret = QProcess::execute("pkexec /usr/sbin/setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + kernelPath);
-
+            int ret = QProcess::execute("pkexec", { "/usr/sbin/setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + kernelPath });
             if (ret != 0)
             {
                 LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
@@ -571,7 +569,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     }
     else
     {
-        int ret = QProcess::execute("pkexec /usr/sbin/setcap -r " + kernelPath);
+        int ret = QProcess::execute("pkexec", { "/usr/sbin/setcap -r " + kernelPath });
 
         if (ret != 0)
         {

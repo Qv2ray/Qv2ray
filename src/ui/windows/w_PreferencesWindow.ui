@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>897</width>
+    <width>867</width>
     <height>624</height>
    </rect>
   </property>
@@ -915,7 +915,7 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>851</width>
+            <width>478</width>
             <height>594</height>
            </rect>
           </property>
@@ -1418,8 +1418,8 @@ Custom DNS Settings</string>
       <attribute name="title">
        <string>Connection Settings</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
-       <item row="0" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,1">
+       <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>General Connection Settings</string>
@@ -1513,19 +1513,7 @@ Custom DNS Settings</string>
          </layout>
         </widget>
        </item>
-       <item row="0" column="1" rowspan="2">
-        <widget class="QGroupBox" name="dnsSettingsGB">
-         <property name="title">
-          <string>DNS Settings</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="dnsSettingsLayout"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="0">
+       <item>
         <widget class="QGroupBox" name="fpGroupBox">
          <property name="title">
           <string>Forward Proxy</string>
@@ -1655,6 +1643,23 @@ Custom DNS Settings</string>
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>DNS Settings</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+       <item>
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>You can configure default DNS settings for all simple connection config here.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="dnsSettingsLayout"/>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="advRouteSettingsPage">
       <attribute name="title">
        <string>Advanced Route Settings</string>
@@ -1666,7 +1671,7 @@ Custom DNS Settings</string>
        <item row="0" column="0">
         <widget class="QLabel" name="label_80">
          <property name="text">
-          <string>You can configure route rules for all simple connection config here.</string>
+          <string>You can configure default routing rules for all simple connection config here.</string>
          </property>
          <property name="textFormat">
           <enum>Qt::PlainText</enum>
