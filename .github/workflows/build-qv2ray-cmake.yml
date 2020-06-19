@@ -23,7 +23,7 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_MAIN') }}
     strategy:
       matrix:
-        qt_version: [5.14.2]
+        qt_version: [5.14.2, 5.15.0]
         platform: [ubuntu-16.04, macos-latest, windows-latest]
         arch: [x86, x64]
         include: 

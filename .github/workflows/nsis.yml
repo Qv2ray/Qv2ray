@@ -23,7 +23,7 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_NSIS') }}
     strategy:
       matrix:
-        qt_version: [5.14.2]
+        qt_version: [5.14.2, 5.15.0]
         platform: [windows-latest]
         arch: [x86, x64]
         include: 
@@ -104,7 +104,7 @@ jobs:
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - uploading artifact
         uses: actions/upload-artifact@master
         with:
-          name: ${{ steps.get_package.outputs.NAME }}
+          name: Qv2ray-${{ github.sha }}.Windows-${{ matrix.arch }}.qt${{ matrix.qt_version }}.exe
           path: build/${{ steps.get_package.outputs.NAME }}
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
