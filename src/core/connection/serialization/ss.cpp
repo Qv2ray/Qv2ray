@@ -81,17 +81,18 @@ namespace Qv2ray::core::connection
                 auto x = QUrl::fromUserInput(uri);
                 server.address = x.host();
                 server.port = x.port();
-                QString userInfo = SafeBase64Decode(x.userName());
-                auto userInfoSp = userInfo.indexOf(':');
+                const auto userInfo = SafeBase64Decode(x.userName());
+                const auto userInfoSp = userInfo.indexOf(':');
                 //
                 DEBUG(MODULE_CONNECTION, "Userinfo splitter position: " + QSTRN(userInfoSp))
 
                 if (userInfoSp < 0)
                 {
                     *errMessage = QObject::tr("Can't find the colon separator between method and password");
+                    return CONFIGROOT{};
                 }
 
-                QString method = userInfo.mid(0, userInfoSp);
+                const auto method = userInfo.mid(0, userInfoSp);
                 server.method = method;
                 server.password = userInfo.mid(userInfoSp + 1);
             }
@@ -99,8 +100,7 @@ namespace Qv2ray::core::connection
             d_name = QUrl::fromPercentEncoding(d_name.toUtf8());
             CONFIGROOT root;
             OUTBOUNDS outbounds;
-            outbounds.append(
-                GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT(QList<ShadowSocksServerObject>{ server }), QJsonObject()));
+            outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT({ server }), {}));
             JADD(outbounds)
             *alias = alias->isEmpty() ? d_name : *alias + "_" + d_name;
             LOG(MODULE_CONNECTION, "Deduced alias: " + *alias)
@@ -114,16 +114,16 @@ namespace Qv2ray::core::connection
             if (isSip002)
             {
                 LOG(MODULE_CONNECTION, "Converting an ss-server config to Sip002 ss:// format")
-                QString plainUserInfo = server.method + ":" + server.password;
-                QString userinfo(plainUserInfo.toUtf8().toBase64(QByteArray::Base64Option::Base64UrlEncoding).data());
-                return "ss://" + userinfo + "@" + server.address + ":" + QSTRN(server.port) + "#" + myAlias;
+                const auto plainUserInfo = server.method + ":" + server.password;
+                const auto userinfo = plainUserInfo.toUtf8().toBase64(QByteArray::Base64Option::Base64UrlEncoding);
+                return "ss://" + userinfo + "@" + server.address + ":" + QSTRN(server.port) + "/#" + myAlias;
             }
             else
             {
                 LOG(MODULE_CONNECTION, "Converting an ss-server config to old ss:// string format")
                 QString ssUri = server.method + ":" + server.password + "@" + server.address + ":" + QSTRN(server.port);
-                return "ss://" + ssUri.toUtf8().toBase64(QByteArray::Base64Option::OmitTrailingEquals) + "#" + myAlias;
+                return "ss://" + ssUri.toUtf8().toBase64(QByteArray::Base64Option::OmitTrailingEquals) + "/#" + myAlias;
             }
         }
-    } // namespace Serialization::ss
+    } // namespace serialization::ss
 } // namespace Qv2ray::core::connection
