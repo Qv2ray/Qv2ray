@@ -64,7 +64,7 @@ namespace Qv2ray
         QFont font;
         font.setPointSize(9);
         font.setFamily("Microsoft YaHei");
-        app.application->setFont(font);
+        setFont(font);
 #endif
 
 #ifdef Q_OS_LINUX
