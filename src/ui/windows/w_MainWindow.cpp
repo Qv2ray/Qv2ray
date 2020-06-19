@@ -432,10 +432,8 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     }
     else if (e->modifiers() & Qt::ControlModifier && e->key() == Qt::Key_Q)
     {
-        if (QvMessageBoxAsk(this, tr("Quit Qv2ray"), tr("Are you sure to exit Qv2ray?"), QMessageBox::No) == QMessageBox::Yes)
-        {
-            ExitQv2ray();
-        }
+        if (QvMessageBoxAsk(this, tr("Quit Qv2ray"), tr("Are you sure to exit Qv2ray?")) == QMessageBox::Yes)
+            on_actionExit_triggered();
     }
 }
 
@@ -529,7 +527,7 @@ void MainWindow::ToggleVisibility()
 void MainWindow::on_actionExit_triggered()
 {
     ConnectionManager->StopConnection();
-    ExitQv2ray();
+    qvApp->QuitApplication();
 }
 
 void MainWindow::on_preferencesBtn_clicked()

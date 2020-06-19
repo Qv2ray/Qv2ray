@@ -12,16 +12,20 @@
 void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
-    ExitQv2ray();
-    qvApp->exit(-99);
+    qvApp->QuitApplication(-99);
 }
 
-int RunQv2rayApplicationScoped(int argc, char *argv[])
+Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
 {
     Qv2rayApplication app(argc, argv);
 
-    if (!app.SetupQv2ray())
-        return 0;
+    const auto setupStatus = app.SetupQv2ray();
+    switch (setupStatus)
+    {
+        case Qv2rayApplication::NORMAL: break;
+        case Qv2rayApplication::SINGLEAPPLICATION: return QV2RAY_SECONDARY_INSTANCE;
+        case Qv2rayApplication::FAILED: return QV2RAY_EARLY_SETUP_FAIL;
+    }
 
     LOG("LICENCE", NEWLINE                                                                                               //
         "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE                                                        //
@@ -52,12 +56,12 @@ int RunQv2rayApplicationScoped(int argc, char *argv[])
     if (!app.FindAndCreateInitialConfiguration())
     {
         LOG(MODULE_INIT, "Cannot find or create initial configuration file.")
-        return -1;
+        return QV2RAY_CONFIG_PATH_FAIL;
     }
     if (!app.LoadConfiguration())
     {
         LOG(MODULE_INIT, "Cannot load existing configuration file.")
-        return -2;
+        return QV2RAY_CONFIG_FILE_FAIL;
     }
 
     // Check OpenSSL version for auto-update and subscriptions
@@ -76,7 +80,7 @@ int RunQv2rayApplicationScoped(int argc, char *argv[])
                              NEWLINE + QObject::tr("Technical Details") + NEWLINE +                                           //
                              "OSsl.Rq.V=" + osslReqVersion + NEWLINE +                                                        //
                              "OSsl.Cr.V=" + osslCurVersion);
-        return -3;
+        return QV2RAY_SSL_FAIL;
     }
 
     app.InitilizeGlobalVariables();
@@ -112,16 +116,12 @@ int main(int argc, char *argv[])
     //
     // parse the command line before starting as a Qt application
     if (!Qv2rayApplication::PreInitilize(argc, argv))
-        return -1;
+        return QV2RAY_PREINITIALIZE_FAIL;
     const auto rcode = RunQv2rayApplicationScoped(argc, argv);
-    switch (rcode)
+    if (rcode == QV2RAY_NEW_VERSION)
     {
-        case QV2RAY_EXITCODE_NEWVERSION:
-        {
-            QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
-            break;
-        }
-        default: break;
+        LOG(MODULE_INIT, "Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath)
+        QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
     }
     return rcode;
 }

@@ -32,7 +32,13 @@ namespace Qv2ray
         hTray = new QSystemTrayIcon();
     }
 
-    bool Qv2rayApplication::SetupQv2ray()
+    void Qv2rayApplication::QuitApplication(int retcode)
+    {
+        isExiting = true;
+        QCoreApplication::exit(retcode);
+    }
+
+    Qv2rayApplication::Qv2raySetupStatus Qv2rayApplication::SetupQv2ray()
     {
 #ifdef Q_OS_WIN
         SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
@@ -50,7 +56,7 @@ namespace Qv2ray
         if (isSecondary())
         {
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
-            return false;
+            return SINGLEAPPLICATION;
         }
 
 #ifdef Q_OS_WIN
@@ -68,7 +74,7 @@ namespace Qv2ray
             LOG(MODULE_INIT, "Quit triggered by session manager.")
         });
 #endif
-        return true;
+        return NORMAL;
     }
 
     void Qv2rayApplication::aboutToQuitSlot()
@@ -107,7 +113,7 @@ namespace Qv2ray
                 if (result == QMessageBox::Yes)
                 {
                     Qv2rayProcessArgument._qvNewVersionPath = newPath;
-                    ExitQv2ray(QV2RAY_EXITCODE_NEWVERSION);
+                    QuitApplication(QV2RAY_NEW_VERSION);
                 }
             });
         }
@@ -118,7 +124,7 @@ namespace Qv2ray
             {
                 case Qv2rayProcessArguments::EXIT:
                 {
-                    ExitQv2ray();
+                    QuitApplication();
                     break;
                 }
                 case Qv2rayProcessArguments::NORMAL:
@@ -162,19 +168,11 @@ namespace Qv2ray
         }
     }
 
-    int Qv2rayApplication::RunQv2ray()
+    Qv2rayExitCode Qv2rayApplication::RunQv2ray()
     {
         // Show MainWindow
         mainWindow = new MainWindow();
-        exec();
-        if (Qv2rayProcessArgument._qvNewVersionPath.isEmpty())
-        {
-            return 0;
-        }
-        else
-        {
-            return QV2RAY_EXITCODE_NEWVERSION;
-        }
+        return (Qv2rayExitCode) exec();
     }
 
     bool Qv2rayApplication::FindAndCreateInitialConfiguration()
@@ -341,17 +339,16 @@ namespace Qv2ray
                                  tr("Qv2ray will now exit."));
             return false;
         }
-
-        if (configVersion < QV2RAY_CONFIG_VERSION)
+        else if (configVersion < QV2RAY_CONFIG_VERSION)
         {
-            // That is, config file needs to be upgraded.
+            // That is the config file needs to be upgraded.
             conf = Qv2ray::UpgradeSettingsVersion(configVersion, QV2RAY_CONFIG_VERSION, conf);
         }
 
         // Load config object from upgraded config QJsonObject
         auto confObject = Qv2rayConfigObject::fromJson(conf);
 
-        if (confObject.uiConfig.language.isEmpty())
+        if (!Qv2rayTranslator->GetAvailableLanguages().contains(confObject.uiConfig.language))
         {
             // Prevent empty.
             LOG(MODULE_UI, "Setting default UI language to system locale.")

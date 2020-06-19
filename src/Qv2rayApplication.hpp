@@ -9,6 +9,17 @@ class MainWindow;
 
 namespace Qv2ray
 {
+    enum Qv2rayExitCode
+    {
+        QV2RAY_NORMAL = 0,
+        QV2RAY_SECONDARY_INSTANCE = 0,
+        QV2RAY_PREINITIALIZE_FAIL = -1,
+        QV2RAY_EARLY_SETUP_FAIL = -2,
+        QV2RAY_CONFIG_PATH_FAIL = -3,
+        QV2RAY_CONFIG_FILE_FAIL = -4,
+        QV2RAY_SSL_FAIL = -5,
+        QV2RAY_NEW_VERSION = -6
+    };
     struct Qv2rayProcessArguments
     {
         enum Argument
@@ -35,6 +46,7 @@ namespace Qv2ray
     class Qv2rayApplication : public SingleApplication
     {
         Q_OBJECT
+
         enum commandline_status
         {
             QV2RAY_ERROR,
@@ -43,13 +55,21 @@ namespace Qv2ray
         };
 
       public:
+        enum Qv2raySetupStatus
+        {
+            NORMAL,
+            SINGLEAPPLICATION,
+            FAILED
+        };
+        //
+        inline void QuitApplication(int retcode = 0);
         static bool PreInitilize(int argc, char *argv[]);
         explicit Qv2rayApplication(int &argc, char *argv[]);
-        bool SetupQv2ray();
+        Qv2raySetupStatus SetupQv2ray();
         bool FindAndCreateInitialConfiguration();
         bool LoadConfiguration();
         void InitilizeGlobalVariables();
-        int RunQv2ray();
+        Qv2rayExitCode RunQv2ray();
 
       public:
         QSystemTrayIcon **GetTrayIcon()
@@ -76,6 +96,8 @@ namespace Qv2ray
         bool initilized = false;
     };
 } // namespace Qv2ray
+
+using namespace Qv2ray;
 
 #define qvApp (static_cast<Qv2ray::Qv2rayApplication *>(QCoreApplication::instance()))
 #define qvAppTrayIcon (*qvApp->GetTrayIcon())

@@ -25,14 +25,13 @@ namespace Qv2ray::common
 {
     QvTranslator::QvTranslator()
     {
-        DEBUG(MODULE_UI, "QvTranslator constructor.")
         GetAvailableLanguages();
     }
 
     QStringList QvTranslator::GetAvailableLanguages()
     {
         languages.clear();
-        for (auto path : getLanguageSearchPaths())
+        for (const auto &path : getLanguageSearchPaths())
         {
             languages << QDir(path).entryList(QStringList{ "*.qm" }, QDir::Hidden | QDir::Files);
         }
@@ -44,11 +43,11 @@ namespace Qv2ray::common
 
     bool QvTranslator::InstallTranslation(const QString &code)
     {
-        for (auto path : getLanguageSearchPaths())
+        for (const auto &path : getLanguageSearchPaths())
         {
             if (FileExistsIn(QDir(path), code + ".qm"))
             {
-                LOG(MODULE_UI, "Found " + code + " in folder: " + path)
+                DEBUG(MODULE_UI, "Found " + code + " in folder: " + path)
                 QTranslator *translatorNew = new QTranslator();
                 translatorNew->load(code + ".qm", path);
                 if (pTranslator)
