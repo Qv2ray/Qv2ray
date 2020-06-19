@@ -197,7 +197,7 @@
            <property name="title">
             <string>Behavior</string>
            </property>
-           <layout class="QFormLayout" name="formLayout_14">
+           <layout class="QFormLayout" name="formLayout_9">
             <item row="0" column="0">
              <widget class="QLabel" name="label_5">
               <property name="text">
@@ -219,6 +219,23 @@
              <widget class="QLabel" name="label_7">
               <property name="text">
                <string>Transparent Proxy</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="tProxyCheckBox">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_86">
+              <property name="text">
+               <string>Quiet Mode</string>
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
@@ -303,23 +320,6 @@
                </layout>
               </item>
              </layout>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_86">
-              <property name="text">
-               <string>Quiet Mode</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="tProxyCheckBox">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>
@@ -915,7 +915,7 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>478</width>
+            <width>821</width>
             <height>594</height>
            </rect>
           </property>

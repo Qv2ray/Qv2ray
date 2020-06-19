@@ -62,7 +62,7 @@ namespace Qv2ray
             FAILED
         };
         //
-        inline void QuitApplication(int retcode = 0);
+        void QuitApplication(int retcode = 0);
         static bool PreInitilize(int argc, char *argv[]);
         explicit Qv2rayApplication(int &argc, char *argv[]);
         Qv2raySetupStatus SetupQv2ray();

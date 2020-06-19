@@ -27,29 +27,15 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
         case Qv2rayApplication::FAILED: return QV2RAY_EARLY_SETUP_FAIL;
     }
 
-    LOG("LICENCE", NEWLINE                                                                                               //
-        "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE                                                        //
-        "This is free software, and you are welcome to redistribute it" NEWLINE                                          //
-        "under certain conditions." NEWLINE                                                                              //
-            NEWLINE                                                                                                      //
-        "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE                                                      //
-            NEWLINE                                                                                                      //
-        "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE                       //
-        "Copyright (c) 2020 xyz347 (@xyz347): X2Struct (Apache)" NEWLINE                                                 //
-        "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE                                             //
-        "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE                                                //
-        "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE                                 //
-        "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (Qv2ray group modified version) (BSD-3-Clause)" NEWLINE //
-        "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE           //
-        "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE                                           //
-        "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE                               //
-        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE              //
-        "Copyright (c) 2020 Diffusions Nu-book Inc. (@nu-book): zxing-cpp (Apache)" NEWLINE                              //
-        "Copyright (c) 2020 feiyangqingyun: QWidgetDemo (Mulan PSL v1)" NEWLINE                                          //
-            NEWLINE)                                                                                                     //
-    //
+    LOG("LICENCE", NEWLINE                                                      //
+        "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE               //
+        "This is free software, and you are welcome to redistribute it" NEWLINE //
+        "under certain conditions." NEWLINE NEWLINE                             //
+        "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE             //
+        "Third-party libraries that have been used in Qv2ray can be found in the About page." NEWLINE)
+
 #ifdef QT_DEBUG
-    std::cerr << "WARNING: =================== This is a debug build, many features are not stable enough. ===================" << std::endl;
+    std::cerr << "WARNING: ================ This is a debug build, many features are not stable enough. ================" << std::endl;
 #endif
     //
     // Qv2ray Initialize, find possible config paths and verify them.
