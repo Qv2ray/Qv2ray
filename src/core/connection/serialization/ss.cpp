@@ -115,7 +115,7 @@ namespace Qv2ray::core::connection
             {
                 LOG(MODULE_CONNECTION, "Converting an ss-server config to Sip002 ss:// format")
                 const auto plainUserInfo = server.method + ":" + server.password;
-                const auto userinfo = plainUserInfo.toUtf8().toBase64(QByteArray::Base64Option::Base64UrlEncoding);
+                const auto userinfo = plainUserInfo.toUtf8().toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
                 return "ss://" + userinfo + "@" + server.address + ":" + QSTRN(server.port) + "/#" + myAlias;
             }
             else
