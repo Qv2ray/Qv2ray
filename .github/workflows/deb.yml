@@ -21,8 +21,9 @@ jobs:
 
   linux:
     strategy:
-        matrix:
-          distro: [stable, unstable]
+      fail-fast: true
+      matrix:
+        distro: [stable, unstable]
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
     name: Debian ${{ matrix.distro }}
