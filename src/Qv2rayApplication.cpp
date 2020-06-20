@@ -46,9 +46,7 @@ namespace Qv2ray
 
         // Install a default translater. From the OS/DE
         Qv2rayTranslator = std::make_unique<QvTranslator>();
-        const auto &systemLang = QLocale::system().name();
-        const auto setLangResult = Qv2rayTranslator->InstallTranslation(systemLang) ? "Succeed" : "Failed";
-        LOG(MODULE_UI, "Installing a tranlator from OS: " + systemLang + " -- " + setLangResult)
+        Qv2rayTranslator->InstallTranslation(QLocale::system().name());
         //
         setQuitOnLastWindowClosed(false);
         connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
@@ -417,12 +415,12 @@ namespace Qv2ray
         if (StartupOption.noScaleFactor)
         {
             LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
-            LOG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
+            DEBUG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
             qputenv("QT_SCALE_FACTOR", "1");
         }
         else
         {
-            LOG(MODULE_INIT, "High DPI scaling is enabled.")
+            DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
             QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
             QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);

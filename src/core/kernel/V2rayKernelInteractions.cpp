@@ -105,7 +105,7 @@ namespace Qv2ray::core::kernel
         proc.setNativeArguments("--version");
         proc.start();
 #else
-        proc.start(vCorePath + " --version");
+        proc.start(vCorePath, { "--version" });
 #endif
         proc.waitForStarted();
         proc.waitForFinished();
