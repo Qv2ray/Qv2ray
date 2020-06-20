@@ -21,7 +21,7 @@ jobs:
 
   linux:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         distro: [stable, unstable]
     needs: check_commit_msg
