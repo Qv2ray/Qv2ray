@@ -1,7 +1,7 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
 #ifndef ANDROID
-    #ifndef(BACKEND_LIBQVB)
+    #ifndef BACKEND_LIBQVB
         #include "v2ray_api.grpc.pb.h"
 
         #include <grpc++/grpc++.h>
