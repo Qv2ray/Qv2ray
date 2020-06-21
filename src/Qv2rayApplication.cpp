@@ -22,7 +22,11 @@ namespace Qv2ray
     constexpr auto QV2RAY_CONFIG_PATH_ENV_NAME = "QV2RAY_CONFIG_PATH";
 
     Qv2rayApplication::Qv2rayApplication(int &argc, char *argv[])
+#ifdef Q_OS_ANDROID
+        : QApplication(argc, argv)
+#else
         : SingleApplication(argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion)
+#endif
     {
         LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
         DEBUG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
@@ -49,6 +53,8 @@ namespace Qv2ray
         Qv2rayTranslator->InstallTranslation(QLocale::system().name());
         //
         setQuitOnLastWindowClosed(false);
+
+#ifndef Q_OS_ANDROID
         connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
         connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
         if (isSecondary())
@@ -56,6 +62,7 @@ namespace Qv2ray
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
             return SINGLEAPPLICATION;
         }
+#endif
 
 #ifdef Q_OS_WIN
         // Set special font in Windows

@@ -33,6 +33,10 @@ if(MSVC)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
+if(ANDROID)
+    include(${ANDROID_SDK}/android_openssl/CMakeLists.txt)
+endif()
+
 find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
 find_package(Threads REQUIRED)
 
@@ -82,7 +86,9 @@ endif()
 # ==================================================================================
 set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
 set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
-set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication provider")
+if (!ANDROID)
+    set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication provider")
+endif()
 set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
@@ -122,9 +128,11 @@ endif()
 # ==================================================================================
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
-include(cmake/singleapplication.cmake)
-include(cmake/protobuf.cmake)
-include(cmake/backend.cmake)
+if (!ANDROID)
+    include(cmake/singleapplication.cmake)
+    include(cmake/protobuf.cmake)
+    include(cmake/backend.cmake)
+endif()
 include(cmake/zxing-cpp.cmake)
 include(cmake/libsemver.cmake)
 
@@ -187,8 +195,7 @@ add_library(qv2ray-baselib STATIC
     ${API_PROTO_SRCS}
     )
 
-add_executable(qv2ray
-    ${GUI_TYPE}
+set(QV2RAY_FULL_SOURCES
     src/main.cpp
     assets/qv2ray.rc
     ${QV2RAY_UI_FORMS}
@@ -197,8 +204,15 @@ add_executable(qv2ray
     ${QNODEEDITOR_QRC_RESOURCES}
     ${QV2RAY_EMBED_TRANSLATION_QRC}
     ${QRC_RESOURCES}
-    ${QM_FILES}
-    )
+    ${QM_FILES})
+
+if(ANDROID)
+    add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
+    target_link_libraries(qv2ray -llog -landroid)
+else()
+    add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+endif()
+
 
 target_link_libraries(qv2ray-baselib
     ${QV2RAY_PROTOBUF_LIBRARY}
@@ -242,12 +256,12 @@ endif()
 # Qt language translations
 add_custom_target(lupdate
     COMMAND lupdate ${QV2RAY_BASE_HEADERS}
-                    ${QV2RAY_LIB_SOURCES}
-                    ${QVPLUGIN_INTERFACE_HEADERS}
-                    ${QV2RAY_UI_SOURCES}
-                    ${QV2RAY_UI_FORMS}
-                    ${QNODEEDITOR_QRC_RESOURCES}
-                    ${SINGLEAPPLICATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none -noobsolete
+    ${QV2RAY_LIB_SOURCES}
+    ${QVPLUGIN_INTERFACE_HEADERS}
+    ${QV2RAY_UI_SOURCES}
+    ${QV2RAY_UI_FORMS}
+    ${QNODEEDITOR_QRC_RESOURCES}
+    ${SINGLEAPPLICATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none -noobsolete
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
