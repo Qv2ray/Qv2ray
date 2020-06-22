@@ -28,11 +28,6 @@ namespace Qv2ray::components::latency
         resultData.worst = 0;
         switch (method)
         {
-            case TCPING:
-            {
-                this->resultData = tcping::TestTCPLatency(host, port, count);
-                break;
-            }
             case ICMPING:
             {
                 icmping::ICMPPing ping(30);
@@ -71,6 +66,12 @@ namespace Qv2ray::components::latency
                 }
                 //
                 //
+                break;
+            }
+            case TCPING:
+            default:
+            {
+                this->resultData = tcping::TestTCPLatency(host, port, count);
                 break;
             }
         }
