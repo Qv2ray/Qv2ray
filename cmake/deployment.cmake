@@ -17,6 +17,8 @@ if(MSVC)
         set(CPACK_NSIS_PACKAGE_NAME "Qv2ray")
         set(CPACK_NSIS_EXTRA_PREINSTALL_COMMANDS "
             ExecWait \\\"taskkill /f /im qv2ray.exe\\\"
+            ExecWait \\\"taskkill /f /im v2ray.exe\\\"
+            ExecWait \\\"taskkill /f /im wv2ray.exe\\\"
         ")
         set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
             CreateShortCut \\\"$DESKTOP\\\\Qv2ray.lnk\\\" \\\"$INSTDIR\\\\qv2ray.exe\\\"
