@@ -114,6 +114,18 @@
         <source>connections</source>
         <translation>つ</translation>
     </message>
+    <message>
+        <source>Last Connected: </source>
+        <translation>最後の接続: </translation>
+    </message>
+    <message>
+        <source>Last Updated: </source>
+        <translation>最終更新: </translation>
+    </message>
+    <message>
+        <source>Subscription</source>
+        <translation>サブスクリプション</translation>
+    </message>
 </context>
 <context>
     <name>ConnectionSettingsWidget</name>
@@ -206,6 +218,14 @@
     <message>
         <source>DNS List</source>
         <translation>DNSリスト</translation>
+    </message>
+    <message>
+        <source>△</source>
+        <translation>上がる</translation>
+    </message>
+    <message>
+        <source>▽</source>
+        <translation>下へ</translation>
     </message>
 </context>
 <context>
@@ -384,10 +404,6 @@
     <message>
         <source>QR Code</source>
         <translation>QRコード</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>画像</translation>
     </message>
     <message>
         <source>Detected Link</source>
@@ -585,10 +601,6 @@
         <translation>リダイレクトに従う</translation>
     </message>
     <message>
-        <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-        <translation>tProxyを使用する場合は、設定ウィンドウに移動してこの機能を有効にしてください。</translation>
-    </message>
-    <message>
         <source>MTProto Inbound Settings</source>
         <translation>MTProtoインバウンド設定</translation>
     </message>
@@ -631,6 +643,22 @@
     <message>
         <source>This user exists already.</source>
         <translation>このユーザーは既に存在します.</translation>
+    </message>
+    <message>
+        <source>tproxy mode</source>
+        <translation>透過プロキシのモード</translation>
+    </message>
+    <message>
+        <source>off</source>
+        <translation>オフ</translation>
+    </message>
+    <message>
+        <source>redirect</source>
+        <translation>リダイレクト</translation>
+    </message>
+    <message>
+        <source>tproxy</source>
+        <translation>tproxy</translation>
     </message>
 </context>
 <context>
@@ -906,14 +934,6 @@
         <translation> （コピー）</translation>
     </message>
     <message>
-        <source>Set auto connection</source>
-        <translation>自動接続設定</translation>
-    </message>
-    <message>
-        <source>Set %1 as auto connect.</source>
-        <translation>%1 を自動接続として設定します。</translation>
-    </message>
-    <message>
         <source>Cannot set system proxy</source>
         <translation>Cannot set system proxy</translation>
     </message>
@@ -932,10 +952,6 @@
     <message>
         <source>Update Subscriptions</source>
         <translation>サブスクリプションを更新</translation>
-    </message>
-    <message>
-        <source>These subscriptions are out-of-date: </source>
-        <translation>これらのサブスクリプションは最新ではありません: </translation>
     </message>
     <message>
         <source>Enable System Proxy</source>
@@ -978,12 +994,28 @@
         <translation>最近の項目をクリア</translation>
     </message>
     <message>
-        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
-        <translation>更新が必要なサブスクリプションがあります。サブスクリプションウィンドウに移動して更新してください。</translation>
-    </message>
-    <message>
         <source>Recent connections&apos; jump list cleared.</source>
         <translation>最近の項目がクリアされました。</translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation>サブスクリプションを更新</translation>
+    </message>
+    <message>
+        <source>Subscription &quot;%1&quot; has been updated</source>
+        <translation>サブスクリプション &quot;%1&quot; が更新されました</translation>
+    </message>
+    <message>
+        <source>%1 has been set as auto connect.</source>
+        <translation>%1 が自動接続に設定されています。</translation>
+    </message>
+    <message>
+        <source>Selected group is not a subscription</source>
+        <translation>選択されたグループはサブスクリプションではありません</translation>
+    </message>
+    <message>
+        <source>Do you want to update these subscriptions?</source>
+        <translation>これらのサブスクリプションを更新しますか？</translation>
     </message>
 </context>
 <context>
@@ -1463,10 +1495,6 @@
         <translation>ルート詳細設定</translation>
     </message>
     <message>
-        <source>You can configure route rules for all simple connection config here.</source>
-        <translation>ここで、すべての簡易構成のルーティングルールを設定できます。</translation>
-    </message>
-    <message>
         <source>License</source>
         <translation>ライセンス</translation>
     </message>
@@ -1661,10 +1689,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>スピードチャートや交通統計は無効になります。</translation>
     </message>
     <message>
-        <source>Use built-in darkmode Theme</source>
-        <translation>プリセットダークモードテーマを使用する</translation>
-    </message>
-    <message>
         <source>NTP Checker</source>
         <translation>ネットワークタイムチェッカー</translation>
     </message>
@@ -1804,6 +1828,18 @@ But could dramatically damage your server if improperly used.</source>
         <source>Use V2ray DNS for Direct Connection</source>
         <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
     </message>
+    <message>
+        <source>You can configure default DNS settings for all simple connection config here.</source>
+        <translation>ここでは、すべてのシンプルな接続設定のデフォルトDNS設定を行うことができます。</translation>
+    </message>
+    <message>
+        <source>You can configure default routing rules for all simple connection config here.</source>
+        <translation>ここでは、すべてのシンプルな接続設定のデフォルトのルーティングルールを設定することができます。</translation>
+    </message>
+    <message>
+        <source>Invalid DNS settings.</source>
+        <translation>DNSの設定が無効です。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1840,20 +1876,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>JSONを空にしないでください</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>警告</translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot load the config file from here:</source>
-        <translation>Qv2rayはここから設定ファイルをロードできません：</translation>
-    </message>
-    <message>
         <source>N/A</source>
         <translation>なし</translation>
-    </message>
-    <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - V2ray用のクロスプラットフォームQtフロントエンド。</translation>
     </message>
     <message>
         <source>invalid ssd link: json: field %1 must exist</source>
@@ -2099,28 +2123,128 @@ But could dramatically damage your server if improperly used.</source>
         <source>Unknown error</source>
         <translation>不明なエラー</translation>
     </message>
+    <message>
+        <source>vmess:// url is invalid</source>
+        <translation>vmess:// url が無効です</translation>
+    </message>
+    <message>
+        <source>Invalid streamSettings protocol:  </source>
+        <translation>streamSettings プロトコルが無効です:  </translation>
+    </message>
 </context>
 <context>
-    <name>Qv2ray::common::QvCommandArgParser</name>
+    <name>Qv2ray::Qv2rayApplication</name>
     <message>
-        <source>Disable gRPC API subsystems.</source>
-        <translation>gRPC APIサブシステムを無効にします。</translation>
+        <source>A new version of Qv2ray is attemping to start:</source>
+        <translation>新しいバージョンのQv2rayが起動しようとしています:</translation>
     </message>
     <message>
-        <source>Explicitly run Qv2ray as root.</source>
-        <translation>ルートとしてQv2rayを明示的に実行します。</translation>
+        <source>New version information: </source>
+        <translation>新バージョン情報です: </translation>
     </message>
     <message>
-        <source>Enable Debug Output</source>
+        <source>Qv2ray version: %1</source>
+        <translation>Qv2ray バージョン: %1</translation>
+    </message>
+    <message>
+        <source>Qv2ray path: %1</source>
+        <translation>Qv2ray パス: %1</translation>
+    </message>
+    <message>
+        <source>Do you want to exit and launch that new version?</source>
+        <translation>現在のバージョンを終了して、新しいバージョンを起動しますか？</translation>
+    </message>
+    <message>
+        <source>New version detected</source>
+        <translation>新しいバージョンを検出</translation>
+    </message>
+    <message>
+        <source>Cannot Start Qv2ray</source>
+        <translation>Qv2rayが起動できない</translation>
+    </message>
+    <message>
+        <source>Cannot find a place to store config files.</source>
+        <translation>設定ファイルを保存する場所が見つかりません。</translation>
+    </message>
+    <message>
+        <source>Qv2ray has searched these paths below:</source>
+        <translation>Qv2rayは以下のパスを検索しました:</translation>
+    </message>
+    <message>
+        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+        <translation>普通はそこら辺の場所への書き込み許可がないってことですよね。</translation>
+    </message>
+    <message>
+        <source>Qv2ray will now exit.</source>
+        <translation>これでQv2rayは終了します。</translation>
+    </message>
+    <message>
+        <source>Failed to initialise Qv2ray</source>
+        <translation>Qv2rayの初期化に失敗しました</translation>
+    </message>
+    <message>
+        <source>Failed to determine the location of config file:</source>
+        <translation>設定ファイルの場所の決定に失敗しました:</translation>
+    </message>
+    <message>
+        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+        <translation>Qv2rayは設定ファイルを見つけましたが、いくつかのエラーによりロードに失敗しました。</translation>
+    </message>
+    <message>
+        <source>A workaround is to remove the this file and restart Qv2ray:</source>
+        <translation>回避策は、このファイルを削除してQv2rayを再起動することです:</translation>
+    </message>
+    <message>
+        <source>Please report if you think it&apos;s a bug.</source>
+        <translation>バグだと思ったら報告してください。</translation>
+    </message>
+    <message>
+        <source>Qv2ray Cannot Continue</source>
+        <translation>Qv2rayは続行できません</translation>
+    </message>
+    <message>
+        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+        <translation>現在の設定ファイルと比較して、Qv2rayのバージョンが低くなっています。</translation>
+    </message>
+    <message>
+        <source>Please check if there&apos;s an issue explaining about it.</source>
+        <translation>それについて説明する問題があるかどうかを確認してください。</translation>
+    </message>
+    <message>
+        <source>Or submit a new issue if you think this is an error.</source>
+        <translation>または、これがエラーだと思われる場合は、新しい問題を提出してください。</translation>
+    </message>
+    <message>
+        <source>Disable gRPC API subsystem</source>
+        <translation>gRPC APIサブシステムを無効にする</translation>
+    </message>
+    <message>
+        <source>Disable plugins feature</source>
+        <translation>プラグインの機能を無効にする</translation>
+    </message>
+    <message>
+        <source>Disable Qt UI scale factor</source>
+        <translation>Qt UIのスケールファクタを無効にする</translation>
+    </message>
+    <message>
+        <source>Enable debug output</source>
         <translation>デバッグ出力を有効にする</translation>
     </message>
     <message>
-        <source>Disable manually set QT_SCALE_FACTOR</source>
-        <translation>QT_SCALE_FACTORの手動設定を無効にする</translation>
+        <source>Stop current connection</source>
+        <translation>現在の接続を停止する</translation>
     </message>
     <message>
-        <source>Disable plugin feature</source>
-        <translation>プラグインの機能を無効にする</translation>
+        <source>Reconnect last connection</source>
+        <translation>最後の接続を再接続</translation>
+    </message>
+    <message>
+        <source>Exit Qv2ray</source>
+        <translation>Qv2rayを終了</translation>
+    </message>
+    <message>
+        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
+        <translation>Qv2ray - V2Ray用のクロスプラットフォームQtフロントエンド。</translation>
     </message>
 </context>
 <context>
@@ -2168,12 +2292,12 @@ But could dramatically damage your server if improperly used.</source>
         <translation>別のプロセスは、接続の必要なポートを使用しています：</translation>
     </message>
     <message>
-        <source>Port %1 of IP %2 for inbound tag: &quot;%3&quot;</source>
-        <translation>タグ %3 の IP %2 ポート %1</translation>
-    </message>
-    <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation>プラグインカーネルの起動に失敗しました。アウトバウンドの設定を確認してください。</translation>
+    </message>
+    <message>
+        <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
+        <translation>受信タグ &quot;%1&quot; は、ポート &quot;%3&quot; で &quot;%2&quot; をリッスンする必要があります</translation>
     </message>
 </context>
 <context>
@@ -2201,6 +2325,10 @@ But could dramatically damage your server if improperly used.</source>
     <message>
         <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
         <translation>%2 つのエントリのうち %1 がフィルタリングされましたが、続行しますか?</translation>
+    </message>
+    <message>
+        <source>Group: %1</source>
+        <translation>グループ: %1</translation>
     </message>
 </context>
 <context>
@@ -2916,6 +3044,14 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Allow Insecure Ciphers</source>
         <translation>安全でない暗号を許可する</translation>
+    </message>
+    <message>
+        <source>Seed (Experimental)</source>
+        <translation>種（実験的機能）</translation>
+    </message>
+    <message>
+        <source>Disable Session Resumption</source>
+        <translation>セッション再開を無効にする</translation>
     </message>
 </context>
 <context>

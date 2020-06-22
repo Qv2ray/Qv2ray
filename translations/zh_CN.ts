@@ -114,6 +114,18 @@
         <source>connections</source>
         <translation>个</translation>
     </message>
+    <message>
+        <source>Last Connected: </source>
+        <translation>上次连接: </translation>
+    </message>
+    <message>
+        <source>Last Updated: </source>
+        <translation>最后更新: </translation>
+    </message>
+    <message>
+        <source>Subscription</source>
+        <translation>订阅</translation>
+    </message>
 </context>
 <context>
     <name>ConnectionSettingsWidget</name>
@@ -206,6 +218,14 @@
     <message>
         <source>DNS List</source>
         <translation>DNS 列表</translation>
+    </message>
+    <message>
+        <source>△</source>
+        <translation>上移</translation>
+    </message>
+    <message>
+        <source>▽</source>
+        <translation>下移</translation>
     </message>
 </context>
 <context>
@@ -384,10 +404,6 @@
     <message>
         <source>QR Code</source>
         <translation>二维码</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>图像</translation>
     </message>
     <message>
         <source>Detected Link</source>
@@ -585,10 +601,6 @@
         <translation>跟随重定向</translation>
     </message>
     <message>
-        <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-        <translation>如果您想要使用 tProxy，请前往首选项窗口启用此功能。</translation>
-    </message>
-    <message>
         <source>MTProto Inbound Settings</source>
         <translation>MTProto 入站设置</translation>
     </message>
@@ -631,6 +643,22 @@
     <message>
         <source>This user exists already.</source>
         <translation>此用户已存在。</translation>
+    </message>
+    <message>
+        <source>tproxy mode</source>
+        <translation>透明代理模式</translation>
+    </message>
+    <message>
+        <source>off</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <source>redirect</source>
+        <translation>重定向</translation>
+    </message>
+    <message>
+        <source>tproxy</source>
+        <translation>tproxy</translation>
     </message>
 </context>
 <context>
@@ -810,14 +838,6 @@
         <translation> （副本）</translation>
     </message>
     <message>
-        <source>Set auto connection</source>
-        <translation>设置自动连接</translation>
-    </message>
-    <message>
-        <source>Set %1 as auto connect.</source>
-        <translation>已将 %1 设为自动连接。</translation>
-    </message>
-    <message>
         <source>Cannot set system proxy</source>
         <translation>无法设置系统代理</translation>
     </message>
@@ -836,10 +856,6 @@
     <message>
         <source>Update Subscriptions</source>
         <translation>更新订阅</translation>
-    </message>
-    <message>
-        <source>These subscriptions are out-of-date: </source>
-        <translation>这些订阅已过期： </translation>
     </message>
     <message>
         <source>System Proxy</source>
@@ -978,12 +994,28 @@
         <translation>清除最近连接</translation>
     </message>
     <message>
-        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
-        <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
-    </message>
-    <message>
         <source>Recent connections&apos; jump list cleared.</source>
         <translation>已清空最近连接列表。</translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation>更新订阅</translation>
+    </message>
+    <message>
+        <source>Subscription &quot;%1&quot; has been updated</source>
+        <translation>已更新订阅 &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>%1 has been set as auto connect.</source>
+        <translation>已将 %1 设置为自动连接。</translation>
+    </message>
+    <message>
+        <source>Selected group is not a subscription</source>
+        <translation>所选分组不是订阅</translation>
+    </message>
+    <message>
+        <source>Do you want to update these subscriptions?</source>
+        <translation>要更新这些订阅吗？</translation>
     </message>
 </context>
 <context>
@@ -1463,10 +1495,6 @@
         <translation>高级路由设置</translation>
     </message>
     <message>
-        <source>You can configure route rules for all simple connection config here.</source>
-        <translation>您可在此为所有简单连接配置路由规则。</translation>
-    </message>
-    <message>
         <source>License</source>
         <translation>许可证</translation>
     </message>
@@ -1661,10 +1689,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>速度图表和流量统计功能将不再可用。</translation>
     </message>
     <message>
-        <source>Use built-in darkmode Theme</source>
-        <translation>使用内置暗色模式主题</translation>
-    </message>
-    <message>
         <source>NTP Checker</source>
         <translation>网络时间检查器</translation>
     </message>
@@ -1804,6 +1828,18 @@ But could dramatically damage your server if improperly used.</source>
         <source>Use V2ray DNS for Direct Connection</source>
         <translation>为直连使用 V2Ray DNS</translation>
     </message>
+    <message>
+        <source>You can configure default DNS settings for all simple connection config here.</source>
+        <translation>你可在此为所有简单连接配置 DNS 设定。</translation>
+    </message>
+    <message>
+        <source>You can configure default routing rules for all simple connection config here.</source>
+        <translation>你可在此为所有简单连接配置默认路由规则。</translation>
+    </message>
+    <message>
+        <source>Invalid DNS settings.</source>
+        <translation>无效的 DNS 设置。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1840,20 +1876,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>JSON 不应该为空</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>警告</translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot load the config file from here:</source>
-        <translation>Qv2ray 无法从这里加载配置文件：</translation>
-    </message>
-    <message>
         <source>N/A</source>
         <translation>不适用</translation>
-    </message>
-    <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - V2ray的跨平台Qt前端。</translation>
     </message>
     <message>
         <source>Default Group</source>
@@ -2099,28 +2123,128 @@ But could dramatically damage your server if improperly used.</source>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
+    <message>
+        <source>vmess:// url is invalid</source>
+        <translation>vmess:// 链接无效</translation>
+    </message>
+    <message>
+        <source>Invalid streamSettings protocol:  </source>
+        <translation>无效的 streamSettings 协议:  </translation>
+    </message>
 </context>
 <context>
-    <name>Qv2ray::common::QvCommandArgParser</name>
+    <name>Qv2ray::Qv2rayApplication</name>
     <message>
-        <source>Disable gRPC API subsystems.</source>
-        <translation>禁用 gRPC API 子系统。</translation>
+        <source>A new version of Qv2ray is attemping to start:</source>
+        <translation>一个更新的 Qv2ray 版本正试图启动：</translation>
     </message>
     <message>
-        <source>Explicitly run Qv2ray as root.</source>
-        <translation>以 root 身份运行 Qv2ray。</translation>
+        <source>New version information: </source>
+        <translation>新版本信息: </translation>
     </message>
     <message>
-        <source>Enable Debug Output</source>
+        <source>Qv2ray version: %1</source>
+        <translation>Qv2ray 版本: %1</translation>
+    </message>
+    <message>
+        <source>Qv2ray path: %1</source>
+        <translation>Qv2ray 路径: %1</translation>
+    </message>
+    <message>
+        <source>Do you want to exit and launch that new version?</source>
+        <translation>要退出当前版本并运行新版本吗？</translation>
+    </message>
+    <message>
+        <source>New version detected</source>
+        <translation>检测到新版</translation>
+    </message>
+    <message>
+        <source>Cannot Start Qv2ray</source>
+        <translation>无法启动 Qv2ray</translation>
+    </message>
+    <message>
+        <source>Cannot find a place to store config files.</source>
+        <translation>找不到合适的地方存储配置文件。</translation>
+    </message>
+    <message>
+        <source>Qv2ray has searched these paths below:</source>
+        <translation>Qv2ray 已搜索了下面的路径：</translation>
+    </message>
+    <message>
+        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+        <translation>这通常意味着你对所有这些路径都没有写入权限。</translation>
+    </message>
+    <message>
+        <source>Qv2ray will now exit.</source>
+        <translation>Qv2ray 即将退出。</translation>
+    </message>
+    <message>
+        <source>Failed to initialise Qv2ray</source>
+        <translation>Qv2ray 初始化失败</translation>
+    </message>
+    <message>
+        <source>Failed to determine the location of config file:</source>
+        <translation>无法确定配置文件的位置：</translation>
+    </message>
+    <message>
+        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+        <translation>Qv2ray 找到了一个配置文件，但是由于某些错误加载失败。</translation>
+    </message>
+    <message>
+        <source>A workaround is to remove the this file and restart Qv2ray:</source>
+        <translation>作为权宜之计，你可以移走这个文件然后重启 Qv2ray：</translation>
+    </message>
+    <message>
+        <source>Please report if you think it&apos;s a bug.</source>
+        <translation>若你认为出现了 bug，可以向我们反馈。</translation>
+    </message>
+    <message>
+        <source>Qv2ray Cannot Continue</source>
+        <translation>Qv2ray 无法继续</translation>
+    </message>
+    <message>
+        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+        <translation>与当前配置文件相比，你所运行的 Qv2ray 的版本更低。</translation>
+    </message>
+    <message>
+        <source>Please check if there&apos;s an issue explaining about it.</source>
+        <translation>请检查上游是否有相关的说明。</translation>
+    </message>
+    <message>
+        <source>Or submit a new issue if you think this is an error.</source>
+        <translation>或者，若您认为这是一个错误，可以向我们反馈。</translation>
+    </message>
+    <message>
+        <source>Disable gRPC API subsystem</source>
+        <translation>禁用 gRPC API 子系统</translation>
+    </message>
+    <message>
+        <source>Disable plugins feature</source>
+        <translation>禁用插件功能</translation>
+    </message>
+    <message>
+        <source>Disable Qt UI scale factor</source>
+        <translation>禁用 Qt 界面缩放因子</translation>
+    </message>
+    <message>
+        <source>Enable debug output</source>
         <translation>启用调试输出</translation>
     </message>
     <message>
-        <source>Disable manually set QT_SCALE_FACTOR</source>
-        <translation>禁用 QT_SCALE_FACTOR</translation>
+        <source>Stop current connection</source>
+        <translation>停止当前的连接</translation>
     </message>
     <message>
-        <source>Disable plugin feature</source>
-        <translation>禁用插件功能</translation>
+        <source>Reconnect last connection</source>
+        <translation>重连上次连接</translation>
+    </message>
+    <message>
+        <source>Exit Qv2ray</source>
+        <translation>退出 Qv2ray</translation>
+    </message>
+    <message>
+        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
+        <translation>Qv2ray - 一个 V2Ray 的跨平台 Qt 前端。</translation>
     </message>
 </context>
 <context>
@@ -2168,12 +2292,12 @@ But could dramatically damage your server if improperly used.</source>
         <translation>另一进程正在使用启动此连接所需的端口：</translation>
     </message>
     <message>
-        <source>Port %1 of IP %2 for inbound tag: &quot;%3&quot;</source>
-        <translation>入站标签 %3 需要 IP %2 的端口 %1</translation>
-    </message>
-    <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation>一个插件内核启动失败。请检查出站设置。</translation>
+    </message>
+    <message>
+        <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
+        <translation>入站标签 &quot;%3&quot; 需要在 %2 监听端口 %1</translation>
     </message>
 </context>
 <context>
@@ -2201,6 +2325,10 @@ But could dramatically damage your server if improperly used.</source>
     <message>
         <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
         <translation>%2 条连接中仅有 %1 条可用，确定要继续吗？</translation>
+    </message>
+    <message>
+        <source>Group: %1</source>
+        <translation>分组: %1</translation>
     </message>
 </context>
 <context>
@@ -2916,6 +3044,14 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Allow Insecure Ciphers</source>
         <translation>允许不安全的 TLS 算法</translation>
+    </message>
+    <message>
+        <source>Seed (Experimental)</source>
+        <translation>种子（实验性选项）</translation>
+    </message>
+    <message>
+        <source>Disable Session Resumption</source>
+        <translation>禁用会话返回</translation>
     </message>
 </context>
 <context>
