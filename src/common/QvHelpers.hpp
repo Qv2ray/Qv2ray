@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QHostAddress>
 #include <QJsonDocument>
+#include <QMessageBox>
 #include <QRegularExpression>
 
 #define REGEX_IPV6_ADDR                                                                                                                         \
