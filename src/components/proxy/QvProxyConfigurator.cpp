@@ -11,6 +11,7 @@
 namespace Qv2ray::components::proxy
 {
 
+    using ProcessArgument = QPair<QString, QStringList>;
 #ifdef Q_OS_MACOS
     QStringList macOSgetNetworkServices()
     {
@@ -229,7 +230,6 @@ namespace Qv2ray::components::proxy
 
         __QueryProxyOptions();
 #elif defined(Q_OS_LINUX)
-        using ProcessArgument = QPair<QString, QStringList>;
         QList<ProcessArgument> actions;
         actions << ProcessArgument{ "gsettings", { "set", "org.gnome.system.proxy", "mode", "manual" } };
         //
@@ -402,7 +402,7 @@ namespace Qv2ray::components::proxy
         InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
         InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
 #elif defined(Q_OS_LINUX)
-        QList<QPair<QString, QStringList>> actions;
+        QList<ProcessArgument> actions;
         const bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
         const auto configRoot = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 
@@ -410,15 +410,16 @@ namespace Qv2ray::components::proxy
         {
             // for GNOME:
             {
-                actions << QPair{ "gsettings", QStringList{ "set", "org.gnome.system.proxy", "mode", "none" } };
+                actions << ProcessArgument{ "gsettings", { "set", "org.gnome.system.proxy", "mode", "none" } };
             }
 
             // for KDE:
             if (isKDE)
             {
-                actions << QPair{ "kwriteconfig5", QStringList{ "--file", configRoot + "/kioslaverc", //
-                                                                "--group", "Proxy Settings",          //
-                                                                "--key", "ProxyType", "0" } };
+                actions << ProcessArgument{ "kwriteconfig5",
+                                            { "--file", configRoot + "/kioslaverc", //
+                                              "--group", "Proxy Settings",          //
+                                              "--key", "ProxyType", "0" } };
             }
         }
 
