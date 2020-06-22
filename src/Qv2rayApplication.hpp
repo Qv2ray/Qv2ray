@@ -3,8 +3,11 @@
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <QSystemTrayIcon>
-#include <SingleApplication>
-
+#ifdef Q_OS_ANDROID
+    #include <QApplication>
+#else
+    #include <SingleApplication>
+#endif
 class MainWindow;
 
 namespace Qv2ray
@@ -42,8 +45,11 @@ namespace Qv2ray
     };
 
     inline Qv2rayProcessArguments Qv2rayProcessArgument;
-
+#ifdef Q_OS_ANDROID
+    class Qv2rayApplication : public QApplication
+#else
     class Qv2rayApplication : public SingleApplication
+#endif
     {
         Q_OBJECT
 

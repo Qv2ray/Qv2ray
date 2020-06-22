@@ -4,6 +4,9 @@
 
 #include <iostream>
 
+#ifdef Q_OS_ANDROID
+    #include <android/log.h>
+#endif
 namespace Qv2ray::base
 {
     // Forwarded from QvTinyLog
@@ -40,7 +43,11 @@ namespace Qv2ray::base
             }
         }
 #endif
+#ifdef Q_OS_ANDROID
+        __android_log_write(ANDROID_LOG_INFO, "Qv2ray", logString.toStdString().c_str());
+#else
         std::cout << logString.toStdString() << std::endl;
+#endif
         {
             QMutexLocker _(&__loggerMutex);
             __loggerBuffer->append(logString + NEWLINE);

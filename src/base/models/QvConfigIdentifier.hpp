@@ -23,7 +23,7 @@ namespace Qv2ray::base
         {
             return lhs.m_id != rhs.m_id;
         }
-        const QString &toString() const
+        const QString toString() const
         {
             return m_id;
         }

@@ -27,12 +27,12 @@ if(NOT USE_LIBQVB)
         OUTPUT "${API_GRPC_SRCS}" "${API_GRPC_HDRS}" "${API_PROTO_HDRS}" "${API_PROTO_SRCS}"
         COMMAND ${Protobuf_PROTOC_EXECUTABLE}
         ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
-            --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
-            -I "${API_PROTO_PATH}"
-            --plugin=protoc-gen-grpc="${GRPC_CPP_PLUGIN}"
-            "${API_PROTO}"
+        --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
+        -I "${API_PROTO_PATH}"
+        --plugin=protoc-gen-grpc="${GRPC_CPP_PLUGIN}"
+        "${API_PROTO}"
         DEPENDS "${API_PROTO}"
-    )
+        )
 else()
     add_definitions(-DBACKEND_LIBQVB)
     if(UNIX AND NOT APPLE)
