@@ -37,7 +37,18 @@ if(ANDROID)
     include(${ANDROID_SDK}/android_openssl/CMakeLists.txt)
 endif()
 
-find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
+set(QV2RAY_ONLY_USE_QML OFF CACHE BOOL "Only use QML when building Qv2ray")
+
+if(QV2RAY_ONLY_USE_QML)
+    find_package(Qt5 5.11 COMPONENTS Core Gui Network Qml Quick REQUIRED)
+    set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network Qt5::Quick Qt5::Qml Qt5::Gui)
+    add_definitions(-DQV2RAY_QML)
+else()
+    find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
+    set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network Qt5::Widgets Qt5::Gui)
+    add_definitions(-DQV2RAY_QWIDGETS)
+endif()
+
 find_package(Threads REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
@@ -221,10 +232,7 @@ target_link_libraries(qv2ray-baselib
     ${QV2RAY_BACKEND_LIBRARIES}
     ${ZXING_LIBRARY}
     Threads::Threads
-    Qt5::Core
-    Qt5::Network
-    Qt5::Widgets
-    Qt5::Gui
+    ${QV2RAY_QT_LIBS}
     )
 
 target_link_libraries(qv2ray

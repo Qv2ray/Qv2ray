@@ -3,6 +3,8 @@
 #include "base/Qv2rayBase.hpp"
 #include "libs/puresource/src/PureJson.hpp"
 
+#include <QMessageBox>
+
 namespace Qv2ray::common
 {
     const QString GenerateRandomString(int len)
@@ -222,6 +224,21 @@ namespace Qv2ray::common
 
             i++;
         }
+    }
+
+    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
+    {
+        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+    }
+
+    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
+    {
+        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+    }
+    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
+                                                QMessageBox::StandardButton extraButtons = QMessageBox::StandardButton::NoButton)
+    {
+        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
     }
 
 } // namespace Qv2ray::common

@@ -5,7 +5,6 @@
 #include <QFile>
 #include <QHostAddress>
 #include <QJsonDocument>
-#include <QMessageBox>
 #include <QRegularExpression>
 
 #define REGEX_IPV6_ADDR                                                                                                                         \
@@ -93,22 +92,10 @@ namespace Qv2ray::common
         timestamp.setSecsSinceEpoch(t);
         return timestamp.toString();
     }
-    inline void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
-    {
-        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
-    }
-
-    inline void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
-    {
-        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
-    }
-
-    inline QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
-                                                       QMessageBox::StandardButton extraButtons = QMessageBox::StandardButton::NoButton)
-    {
-        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
-    }
-
+    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text);
+    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text);
+    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
+                                                QMessageBox::StandardButton extraButtons = QMessageBox::StandardButton::NoButton);
 } // namespace Qv2ray::common
 
 using namespace Qv2ray::common;
