@@ -75,7 +75,7 @@ void RouteEditor::SetupNodeWidget()
     l->setSpacing(0);
 }
 
-RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(parent), root(connection), original(connection)
+RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(parent), root(connection), original(connection)
 {
     QvMessageBusConnect(RouteEditor);
     setupUi(this);
@@ -134,7 +134,10 @@ QvMessageBusSlotImpl(RouteEditor)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
+        MBShowDefaultImpl;
+        MBHideDefaultImpl;
+        MBRetranslateDefaultImpl;
+        MBUpdateColorSchemeDefaultImpl;
     }
 }
 
