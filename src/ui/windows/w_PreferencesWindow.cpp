@@ -151,7 +151,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     qvProxyPortCB->setValue(CurrentConfig.networkConfig.port);
     qvProxyAddressTxt->setText(CurrentConfig.networkConfig.address);
     qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
-    qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
+    qvNetworkUATxt->setEditText(CurrentConfig.networkConfig.userAgent);
     //
     qvProxyNoProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_NONE);
     qvProxySystemProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_SYSTEM);
@@ -881,12 +881,6 @@ void PreferencesWindow::on_qvProxyPortCB_valueChanged(int arg1)
     CurrentConfig.networkConfig.port = arg1;
 }
 
-void PreferencesWindow::on_qvNetworkUATxt_textEdited(const QString &arg1)
-{
-    LOADINGCHECK
-    CurrentConfig.networkConfig.userAgent = arg1;
-}
-
 void PreferencesWindow::on_setAllowInsecureCB_stateChanged(int arg1)
 {
     LOADINGCHECK
@@ -1138,4 +1132,10 @@ void PreferencesWindow::on_latencyICMPingRB_clicked()
     latencyICMPingRB->setChecked(true);
     latencyTCPingRB->setChecked(false);
 #endif
+}
+
+void PreferencesWindow::on_qvNetworkUATxt_editTextChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.userAgent = arg1;
 }
