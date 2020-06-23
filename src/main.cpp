@@ -23,7 +23,7 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
     switch (setupStatus)
     {
         case Qv2rayApplication::NORMAL: break;
-        case Qv2rayApplication::SINGLEAPPLICATION: return QV2RAY_SECONDARY_INSTANCE;
+        case Qv2rayApplication::SINGLE_APPLICATION: return QV2RAY_SECONDARY_INSTANCE;
         case Qv2rayApplication::FAILED: return QV2RAY_EARLY_SETUP_FAIL;
     }
 
@@ -69,7 +69,7 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
         return QV2RAY_SSL_FAIL;
     }
 
-    app.InitilizeGlobalVariables();
+    app.InitializeGlobalVariables();
 
 #ifndef Q_OS_WIN
     signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
@@ -101,8 +101,8 @@ int main(int argc, char *argv[])
 #endif
     //
     // parse the command line before starting as a Qt application
-    if (!Qv2rayApplication::PreInitilize(argc, argv))
-        return QV2RAY_PREINITIALIZE_FAIL;
+    if (!Qv2rayApplication::PreInitialize(argc, argv))
+        return QV2RAY_PRE_INITIALIZE_FAIL;
     const auto rcode = RunQv2rayApplicationScoped(argc, argv);
     if (rcode == QV2RAY_NEW_VERSION)
     {
