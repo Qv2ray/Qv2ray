@@ -5,7 +5,7 @@ AlignAfterOpenBracket: Align
 AllowAllArgumentsOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortBlocksOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: Never
@@ -42,7 +42,7 @@ SpaceAfterTemplateKeyword: false
 SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: true
 SpacesInParentheses: false
-Standard: Cpp11
+Standard: c++17
 StatementMacros: [ Q_UNUSED LOG DEBUG ]
 TabWidth: 4
 UseTab: Never
