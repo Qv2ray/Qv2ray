@@ -9,6 +9,16 @@ namespace Qv2ray::core::connection::generation::filters
         }
     }
 
+    void RemoveEmptyMuxFilter(CONFIGROOT &root)
+    {
+        for (auto i = 0; i < root["outbounds"].toArray().count(); i++)
+        {
+            if (!QJsonIO::GetValue(root, "outbounds", 1, "mux", "enabled").toBool(false))
+            {
+                QJsonIO::SetValue(root, QJsonIO::Undefined, "outbounds", i, "mux");
+            }
+        }
+    }
     void DNSInterceptFilter(CONFIGROOT &root, const bool have_ipv6)
     {
         // Static DNS Objects
@@ -46,16 +56,11 @@ namespace Qv2ray::core::connection::generation::filters
 
     void mKCPSeedFilter(CONFIGROOT &root)
     {
-        const auto outboundCount = root["outbounds"].toArray().count();
-        for (auto i = 0; i < outboundCount; i++)
+        for (auto i = 0; i < root["outbounds"].toArray().count(); i++)
         {
-            bool isKCP = QJsonIO::GetValue(root, "outbounds", i, "streamSettings", "network").toString() == "kcp";
-            if (isKCP)
-            {
-                bool isEmptySeed = QJsonIO::GetValue(root, "outbounds", i, "streamSettings", "kcpSettings", "seed").toString().isEmpty();
-                if (isEmptySeed)
-                    QJsonIO::SetValue(root, QJsonIO::Undefined, "outbounds", i, "streamSettings", "kcpSettings", "seed");
-            }
+            bool isEmptySeed = QJsonIO::GetValue(root, "outbounds", i, "streamSettings", "kcpSettings", "seed").toString().isEmpty();
+            if (isEmptySeed)
+                QJsonIO::SetValue(root, QJsonIO::Undefined, "outbounds", i, "streamSettings", "kcpSettings", "seed");
         }
     }
 

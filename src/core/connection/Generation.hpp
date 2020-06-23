@@ -51,6 +51,7 @@ namespace Qv2ray::core::connection::generation
     {
         // mark all outbound
         void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root);
+        void RemoveEmptyMuxFilter(CONFIGROOT &root);
         void DNSInterceptFilter(CONFIGROOT &root, const bool have_ipv6);
         void BypassBTFilter(CONFIGROOT &root);
         void mKCPSeedFilter(CONFIGROOT &root);

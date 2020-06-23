@@ -388,6 +388,9 @@ namespace Qv2ray::core::handler
                 }
                 // Process mKCP seed.
                 mKCPSeedFilter(root);
+
+                // Remove empty Mux object from settings.
+                RemoveEmptyMuxFilter(root);
             }
         }
 
