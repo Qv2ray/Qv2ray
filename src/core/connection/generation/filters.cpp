@@ -13,7 +13,7 @@ namespace Qv2ray::core::connection::generation::filters
     {
         for (auto i = 0; i < root["outbounds"].toArray().count(); i++)
         {
-            if (!QJsonIO::GetValue(root, "outbounds", 1, "mux", "enabled").toBool(false))
+            if (!QJsonIO::GetValue(root, "outbounds", i, "mux", "enabled").toBool(false))
             {
                 QJsonIO::SetValue(root, QJsonIO::Undefined, "outbounds", i, "mux");
             }
