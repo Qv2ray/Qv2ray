@@ -109,25 +109,25 @@ using namespace Qv2ray::base::objects::transfer;
 #define API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
 
 #define QV2RAY_USE_FPROXY_KEY "_QV2RAY_USE_GLOBAL_FORWARD_PROXY_"
-#define GlobalConfig (Qv2ray::GetGlobalConfig())
+//#define GlobalConfig (Qv2ray::GetGlobalConfig())
 
 namespace Qv2ray
 {
-    namespace
-    {
-        inline std::unique_ptr<Qv2rayConfigObject> realGlobalConfig = nullptr;
-    }
+    //namespace
+    //{
+        inline Qv2rayConfigObject GlobalConfig;
+    //}
     // Qv2ray runtime config
     inline bool isExiting = false;
     inline QString Qv2rayConfigPath = "";
-    inline Qv2rayConfigObject &GetGlobalConfig()
-    {
-        if (!realGlobalConfig)
-        {
-            realGlobalConfig = std::make_unique<Qv2rayConfigObject>();
-        }
-        return *realGlobalConfig;
-    };
+    //inline Qv2rayConfigObject &GetGlobalConfig()
+   // {
+  //      if (!realGlobalConfig)
+     //   {
+   //         realGlobalConfig = std::make_unique<Qv2rayConfigObject>();
+    //    }
+    //    return *realGlobalConfig;
+  //  };
     inline QStringList Qv2rayAssetsPaths(const QString &dirName)
     {
         // Configuration Path
