@@ -36,10 +36,10 @@ namespace Qv2ray
         hTray = new QSystemTrayIcon();
     }
 
-    void Qv2rayApplication::QuitApplication(int retcode)
+    void Qv2rayApplication::QuitApplication(int retCode)
     {
         isExiting = true;
-        QCoreApplication::exit(retcode);
+        QCoreApplication::exit(retCode);
     }
 
     Qv2rayApplication::Qv2raySetupStatus Qv2rayApplication::SetupQv2ray()
@@ -60,7 +60,7 @@ namespace Qv2ray
         if (isSecondary())
         {
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
-            return SINGLEAPPLICATION;
+            return SINGLE_APPLICATION;
         }
 #endif
 
@@ -182,9 +182,9 @@ namespace Qv2ray
 
     bool Qv2rayApplication::FindAndCreateInitialConfiguration()
     {
-        if (initilized)
+        if (initialized)
         {
-            LOG(MODULE_INIT, "Qv2ray has already been initilized!")
+            LOG(MODULE_INIT, "Qv2ray has already been initialized!")
             return false;
         }
         LOG(MODULE_INIT, "Application exec path: " + applicationDirPath())
@@ -373,7 +373,7 @@ namespace Qv2ray
         return true;
     }
 
-    void Qv2rayApplication::InitilizeGlobalVariables()
+    void Qv2rayApplication::InitializeGlobalVariables()
     {
         StyleManager = new QvStyleManager();
         PluginHost = new QvPluginHost();
@@ -382,7 +382,7 @@ namespace Qv2ray
         StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
     }
 
-    bool Qv2rayApplication::PreInitilize(int argc, char *argv[])
+    bool Qv2rayApplication::PreInitialize(int argc, char **argv)
     {
         QString errorMessage;
 
