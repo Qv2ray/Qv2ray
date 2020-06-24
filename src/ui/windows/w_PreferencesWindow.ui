@@ -357,10 +357,28 @@ For example, for updating subscriptions.</string>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLineEdit" name="qvNetworkUATxt">
-              <property name="text">
-               <string/>
+             <widget class="QComboBox" name="qvNetworkUATxt">
+              <property name="editable">
+               <bool>true</bool>
               </property>
+              <property name="text">
+               <string notr="true">Qv2ray/$VERSION WebRequestHelper</string>
+              </property>
+              <item>
+               <property name="text">
+                <string notr="true">Qv2ray/$VERSION WebRequestHelper</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">Mozilla/5.0 (X11; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0</string>
+               </property>
+              </item>
+              <item>
+              <property name="text">
+                <string notr="true"></string>
+              </property>
+              </item>
              </widget>
             </item>
             <item row="1" column="0">
