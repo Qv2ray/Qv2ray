@@ -358,10 +358,16 @@ For example, for updating subscriptions.</string>
             </item>
             <item row="2" column="1">
              <widget class="QComboBox" name="qvNetworkUATxt">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="editable">
                <bool>true</bool>
               </property>
-              <property name="text">
+              <property name="text" stdset="0">
                <string notr="true">Qv2ray/$VERSION WebRequestHelper</string>
               </property>
               <item>
@@ -375,9 +381,9 @@ For example, for updating subscriptions.</string>
                </property>
               </item>
               <item>
-              <property name="text">
-                <string notr="true"></string>
-              </property>
+               <property name="text">
+                <string notr="true"/>
+               </property>
               </item>
              </widget>
             </item>
