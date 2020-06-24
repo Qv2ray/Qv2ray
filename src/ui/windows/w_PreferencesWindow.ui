@@ -598,7 +598,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
               </property>
               <property name="text">
                <string>These settings may be useful.
-But could dramatically damage your server if improperly used.</string>
+But could damage your server if improperly used.</string>
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>

@@ -10,39 +10,35 @@
 
 namespace Qv2ray::ui
 {
-    inline QPixmap ApplyEffectToImage(QPixmap src, QGraphicsEffect *effect, int extent)
+    inline QPixmap ApplyEffectToImage(QPixmap src, QGraphicsEffect *effect, int extent = 0)
     {
-        constexpr int extent2 = 0;
-        if (src.isNull())
-            return QPixmap(); // No need to do anything else!
-        if (!effect)
-            return src; // No need to do anything else!
+        if (src.isNull() || !effect)
+            return src;
         QGraphicsScene scene;
-        auto p = scene.addPixmap(src);
-        p->setGraphicsEffect(effect);
-        //
-        QImage res(src.size() + QSize(extent2, extent2), QImage::Format_ARGB32);
+        QGraphicsPixmapItem item;
+        item.setPixmap(src);
+        item.setGraphicsEffect(effect);
+        scene.addItem(&item);
+        QImage res(src.size() + QSize(extent * 2, extent * 2), QImage::Format_ARGB32);
         res.fill(Qt::transparent);
         QPainter ptr(&res);
-        //
-        scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent2, src.height() + extent * 2));
-        //
-        scene.removeItem(p);
+        scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent * 2, src.height() + extent * 2));
         return QPixmap::fromImage(res);
     }
+
     inline QPixmap BlurImage(const QPixmap &pixmap, const double rad)
     {
-        QGraphicsBlurEffect pBlur;
-        pBlur.setBlurRadius(rad);
-        return ApplyEffectToImage(pixmap, &pBlur, 0);
+        auto pBlur = new QGraphicsBlurEffect();
+        pBlur->setBlurRadius(rad);
+        return ApplyEffectToImage(pixmap, pBlur, 0);
     }
 
     inline QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor)
     {
-        QGraphicsColorizeEffect pColor;
-        pColor.setColor(color);
-        pColor.setStrength(factor);
-        return ApplyEffectToImage(pixmap, &pColor, 0);
+        auto pColor = new QGraphicsColorizeEffect();
+        pColor->setColor(color);
+        pColor->setStrength(factor);
+        return ApplyEffectToImage(pixmap, pColor, 0);
     }
     inline void FastAppendTextDocument(const QString &message, QTextDocument *doc)
     {
