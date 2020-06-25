@@ -39,7 +39,6 @@ namespace Qv2ray
         QList<QString> links;
         QList<QString> fullArgs;
         //
-        int _exitCode;
         QString _qvNewVersionPath;
         JSONSTRUCT_REGISTER(Qv2rayProcessArguments, F(arguments, version, data, links, fullArgs))
     };

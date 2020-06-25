@@ -826,7 +826,7 @@ void MainWindow::OnEditRequested(const ConnectionId &id)
 {
     auto outBoundRoot = ConnectionManager->GetConnectionRoot(id);
     CONFIGROOT root;
-    bool isChanged = false;
+    bool isChanged;
 
     if (IsComplexConfig(outBoundRoot))
     {

@@ -177,7 +177,7 @@ namespace Qv2ray
     {
         // Show MainWindow
         mainWindow = new MainWindow();
-        return (Qv2rayExitCode) exec();
+        return Qv2rayExitCode(exec());
     }
 
     bool Qv2rayApplication::FindAndCreateInitialConfiguration()

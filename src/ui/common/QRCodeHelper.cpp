@@ -4,9 +4,7 @@
 #include "ByteMatrix.h"
 #include "MultiFormatWriter.h"
 #include "ReadBarcode.h"
-#include "TextUtfEncoding.h"
 #include "base/Qv2rayBase.hpp"
-
 namespace Qv2ray::ui
 {
     using namespace ZXing;

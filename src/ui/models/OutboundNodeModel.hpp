@@ -37,8 +37,8 @@ class QvOutboundNodeModel : public NodeDataModel
 
     std::shared_ptr<NodeDataType> dataType(PortType portType, PortIndex portIndex) const override
     {
-        Q_UNUSED(portType);
-        Q_UNUSED(portIndex);
+        Q_UNUSED(portType)
+        Q_UNUSED(portIndex)
         return outboundType;
     }
 
