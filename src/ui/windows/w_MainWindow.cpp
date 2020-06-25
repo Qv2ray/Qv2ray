@@ -159,7 +159,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     updateColorScheme();
     //
     //
-    connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [&](const ConnectionGroupPair &, const QString &reason) {
+    connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [this](const ConnectionGroupPair &, const QString &reason) {
         this->show();
         QvMessageBoxWarn(this, tr("Kernel terminated."),
                          tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
@@ -182,7 +182,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         qvApp->showMessage(tr("Subscription \"%1\" has been updated").arg(GetDisplayName(gid))); //
     });
     //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [this](const ConnectionId &id, const QString &, const QString &newName) {
         for (const auto &gid : ConnectionManager->GetGroupId(id))
         {
             ConnectionGroupPair pair{ id, gid };
@@ -190,7 +190,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                 connectionNodes.value(pair)->setText(MW_ITEM_COL_NAME, newName);
         }
     });
-    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const int avg) {
+    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [this](const ConnectionId &id, const int avg) {
         for (const auto &gid : ConnectionManager->GetGroupId(id))
         {
             ConnectionGroupPair pair{ id, gid };
@@ -236,13 +236,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     connect(tray_action_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
     connect(tray_action_ShowPreferencesWindow, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
-    connect(tray_action_Start, &QAction::triggered, [&] { ConnectionManager->StartConnection(lastConnectedIdentifier); });
+    connect(tray_action_Start, &QAction::triggered, [this] { ConnectionManager->StartConnection(lastConnectedIdentifier); });
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
-    connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [&]() {
+    connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [this]() {
         GlobalConfig.uiConfig.recentConnections.clear();
         ReloadRecentConnectionList();
         if (!GlobalConfig.uiConfig.quietMode)
@@ -256,7 +256,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     logRCM_Menu->addAction(action_RCM_tovCoreLog);
     logRCM_Menu->addAction(action_RCM_toQvLog);
-    connect(masterLogBrowser, &QTextBrowser::customContextMenuRequested, [&](const QPoint &) { logRCM_Menu->popup(QCursor::pos()); });
+    connect(masterLogBrowser, &QTextBrowser::customContextMenuRequested, [this](const QPoint &) { logRCM_Menu->popup(QCursor::pos()); });
     connect(action_RCM_tovCoreLog, &QAction::triggered, this, &MainWindow::on_action_RCM_tovCoreLog_triggered);
     connect(action_RCM_toQvLog, &QAction::triggered, this, &MainWindow::on_action_RCM_toQvLog_triggered);
     //
@@ -298,12 +298,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     // Sort Menu
     //
-    connect(sortAction_SortByName_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_NAME, true); });
-    connect(sortAction_SortByName_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_NAME, false); });
-    connect(sortAction_SortByData_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATA, true); });
-    connect(sortAction_SortByData_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATA, false); });
-    connect(sortAction_SortByPing_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_PING, true); });
-    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_PING, false); });
+    connect(sortAction_SortByName_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, true); });
+    connect(sortAction_SortByName_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, false); });
+    connect(sortAction_SortByData_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, true); });
+    connect(sortAction_SortByData_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, false); });
+    connect(sortAction_SortByPing_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, true); });
+    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, false); });
     //
     sortMenu->addAction(sortAction_SortByName_Asc);
     sortMenu->addAction(sortAction_SortByName_Dsc);
