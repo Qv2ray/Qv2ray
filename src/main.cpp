@@ -7,11 +7,38 @@
 #include <QProcess>
 #include <QSslSocket>
 #include <csignal>
-#include <memory>
+#ifdef Q_OS_LINUX
+    #include <execinfo.h>
+#endif
 
 void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
+#ifdef Q_OS_LINUX
+    if (signum == SIGSEGV)
+    {
+        constexpr auto dump_size = 1024;
+        void *bt[dump_size];
+        auto bt_size = backtrace(bt, dump_size);
+        auto bt_syms = backtrace_symbols(bt, bt_size);
+        QString msg;
+        for (auto i = 1; i < bt_size; i++)
+        {
+            msg += bt_syms[i];
+            msg += NEWLINE;
+        }
+        free(bt_syms);
+        auto filePath = QV2RAY_CONFIG_DIR + "QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
+        qApp->clipboard()->setText(filePath);
+        auto message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
+                       QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
+                       filePath + NEWLINE NEWLINE +                                                                   //
+                       QObject::tr("Continuing executing Qv2ray may lead to undefined behavior") + NEWLINE +          //
+                       QObject::tr("Do you STILL want to continue?");
+        if (QvMessageBoxAsk(nullptr, "UNCAUGHT EXCEPTION", msg) == QMessageBox::Yes)
+            return;
+    }
+#endif
     qvApp->QuitApplication(-99);
 }
 
@@ -80,12 +107,14 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-#ifndef Q_OS_WIN
     // Register signal handlers.
     signal(SIGINT, signalHandler);
+    signal(SIGABRT, signalHandler);
+    signal(SIGSEGV, signalHandler);
+    signal(SIGTERM, signalHandler);
+#ifndef Q_OS_WIN
     signal(SIGHUP, signalHandler);
     signal(SIGKILL, signalHandler);
-    signal(SIGTERM, signalHandler);
 #endif
     //
     // This line must be called before any other ones, since we are using these
