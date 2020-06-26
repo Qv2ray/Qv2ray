@@ -94,12 +94,16 @@ namespace Qv2ray
 
     void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray _msg)
     {
+        // Sometimes SingleApplication will send message with clientId == 0, ignore them.
+        if (clientId == instanceId())
+            return;
         const auto msg = Qv2rayProcessArguments::fromJson(JsonFromString(_msg));
         LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + ", message received, version: " + msg.version)
         DEBUG(MODULE_INIT, _msg)
         //
         const auto currentVersion = semver::version::from_string(QV2RAY_VERSION_STRING);
-        const auto newVersion = semver::version::from_string(msg.version.toStdString());
+        const auto newVersionString = msg.version.isEmpty() ? "0.0.0" : msg.version.toStdString();
+        const auto newVersion = semver::version::from_string(newVersionString);
         //
         if (newVersion > currentVersion)
         {
