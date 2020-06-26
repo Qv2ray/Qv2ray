@@ -40,7 +40,7 @@ namespace Qv2ray::components::latency::tcping
                 case ERROR_SHARING_VIOLATION:           return EBUSY;
                 case ERROR_OPERATION_ABORTED:           return ECANCELED;
                 case WSAEINTR:                          return ECANCELED;
-                /*case ERROR_NO_UNICODE_TRANSLATION:      return ECHARSET;*/
+                                                        /*case ERROR_NO_UNICODE_TRANSLATION:      return ECHARSET;*/
                 case ERROR_CONNECTION_ABORTED:          return ECONNABORTED;
                 case WSAECONNABORTED:                   return ECONNABORTED;
                 case ERROR_CONNECTION_REFUSED:          return ECONNREFUSED;
@@ -124,7 +124,8 @@ namespace Qv2ray::components::latency::tcping
                 case ERROR_META_EXPANSION_TOO_LONG:     return E2BIG;
                 default:                                return EIO;/*unknown*/
             }
-        };
+        }
+    };
 #else
     using qv_socket_t = int;
 #endif
