@@ -28,10 +28,6 @@
         <translation type="unfinished">Поделитесь ссылкой</translation>
     </message>
     <message>
-        <source>(Ignored %1 complex config(s))</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not a subscription</source>
         <translation type="unfinished"></translation>
     </message>
@@ -82,6 +78,14 @@
     <message>
         <source>Group Name</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>(Ignored %n complex config(s))</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -648,18 +652,6 @@
         <source>tproxy mode</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>redirect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>tproxy</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>InboundSettingsWidget</name>
@@ -877,13 +869,21 @@
         <source>Are you sure to exit Qv2ray?</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
@@ -925,13 +925,21 @@
         <source>Disconnected from: </source>
         <translation>Отключен от:</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation>Удаление подключения(й)</translation>
+        <translation type="unfinished">
+            <numerusform>Удаление подключения(й)</numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation>Вы уверены, что хотите удалить выбранные подключение(и)?</translation>
+        <translation type="unfinished">
+            <numerusform>Вы уверены, что хотите удалить выбранные подключение(и)?</numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -1779,11 +1787,6 @@ For example, for updating subscriptions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>These settings may be useful.
-But could dramatically damage your server if improperly used.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable SessionResumption By Default</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1833,6 +1836,11 @@ But could dramatically damage your server if improperly used.</source>
     </message>
     <message>
         <source>Invalid DNS settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2294,6 +2302,10 @@ But could dramatically damage your server if improperly used.</source>
         <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Port: %1 for listening IP: 127.0.0.1 for plugin integration.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
@@ -2314,16 +2326,24 @@ But could dramatically damage your server if improperly used.</source>
         <translation type="unfinished">Обновить подписку</translation>
     </message>
     <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Group: %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>

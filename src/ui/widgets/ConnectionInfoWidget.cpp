@@ -107,7 +107,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         complexCount += shareLinks.removeAll("");
         if (complexCount > 0)
         {
-            shareLinks << "# " + tr("(Ignored %1 complex config(s))").arg(complexCount);
+            shareLinks << "# " + tr("(Ignored %n complex config(s))", "", complexCount);
         }
         //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));

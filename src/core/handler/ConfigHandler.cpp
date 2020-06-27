@@ -524,11 +524,10 @@ namespace Qv2ray::core::handler
         auto _newConnections = GetConnectionConfigFromSubscription(data, GetDisplayName(id));
         if (_newConnections.count() < 5)
         {
-            LOG(MODULE_SUBSCRIPTION, "Find a subscription with less than 5 connections.")
-            if (QvMessageBoxAsk(
-                    nullptr, tr("Update Subscription"),
-                    tr("%1 entrie(s) have been found from the subscription source, do you want to continue?").arg(_newConnections.count())) !=
-                QMessageBox::Yes)
+            LOG(MODULE_SUBSCRIPTION, "Found a subscription with less than 5 connections.")
+            if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                                tr("%n entrie(s) have been found from the subscription source, do you want to continue?", "",
+                                   _newConnections.count())) != QMessageBox::Yes)
 
                 return false;
         }
@@ -615,10 +614,10 @@ namespace Qv2ray::core::handler
 
         LOG(MODULE_SUBSCRIPTION, "Filtered out less than 5 connections.")
         const auto useFilteredConnections =
-            filteredConnections.count() > 5 || QvMessageBoxAsk(nullptr, tr("Update Subscription"),
-                                                               tr("%1 out of %2 entrie(s) have been filtered out, do you want to continue?")
-                                                                   .arg(filteredConnections.count())
-                                                                   .arg(_newConnections.count())) == QMessageBox::Yes;
+            filteredConnections.count() > 5 ||
+            QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                            tr("%1 out of %n entrie(s) have been filtered out, do you want to continue?", "", _newConnections.count())
+                                .arg(filteredConnections.count())) == QMessageBox::Yes;
 
         for (const auto &config : useFilteredConnections ? filteredConnections : _newConnections)
         {

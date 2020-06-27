@@ -68,10 +68,6 @@
         <translation>リンクを共有</translation>
     </message>
     <message>
-        <source>(Ignored %1 complex config(s))</source>
-        <translation>（%1の複雑構成は無視されました）</translation>
-    </message>
-    <message>
         <source>Not a subscription</source>
         <translation>サブスクリプションではありません</translation>
     </message>
@@ -82,6 +78,12 @@
     <message>
         <source>Are you sure to delete the current item?</source>
         <translation>現在のアイテムを削除してもよろしいですか？</translation>
+    </message>
+    <message numerus="yes">
+        <source>(Ignored %n complex config(s))</source>
+        <translation>
+            <numerusform>(無視される %n 複雑な構成)</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -648,18 +650,6 @@
         <source>tproxy mode</source>
         <translation>透過プロキシのモード</translation>
     </message>
-    <message>
-        <source>off</source>
-        <translation>オフ</translation>
-    </message>
-    <message>
-        <source>redirect</source>
-        <translation>リダイレクト</translation>
-    </message>
-    <message>
-        <source>tproxy</source>
-        <translation>tproxy</translation>
-    </message>
 </context>
 <context>
     <name>InboundSettingsWidget</name>
@@ -921,13 +911,17 @@
         <source>Are you sure to exit Qv2ray?</source>
         <translation>Qv2rayを終了してよろしいでしょうか？</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation>項目をコピー</translation>
+        <translation>
+            <numerusform>項目をコピー</numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation>選択した項目をコピーしますか？</translation>
+        <translation>
+            <numerusform>選択した項目をコピーしますか？</numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
@@ -969,13 +963,17 @@
         <source>Disconnected from: </source>
         <translation>接続切断されました: </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation>項目を削除</translation>
+        <translation>
+            <numerusform>項目を削除</numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation>選択した項目を削除しますか？</translation>
+        <translation>
+            <numerusform>選択した項目を削除しますか？</numerusform>
+        </translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -1464,7 +1462,7 @@
     </message>
     <message>
         <source>This will make your TLS fingerpring different from common golang programs.</source>
-        <translation type="unfinished"></translation>
+        <translation>これにより、TLS の指紋は一般的な Golang プログラムとは異なるものになります。</translation>
     </message>
     <message>
         <source>This will (probably) make it easy to fingerprint your connection.</source>
@@ -1787,12 +1785,6 @@ For example, for updating subscriptions.</source>
         <translation>デフォルトで AllowInsecure を設定する</translation>
     </message>
     <message>
-        <source>These settings may be useful.
-But could dramatically damage your server if improperly used.</source>
-        <translation>以下の設定は特定の効果があります。
-しかし、不適切な使用の場合、不都合が生じる可能性があります。</translation>
-    </message>
-    <message>
         <source>Enable SessionResumption By Default</source>
         <translation>デフォルトで SessionResumption を有効にする</translation>
     </message>
@@ -1843,6 +1835,12 @@ But could dramatically damage your server if improperly used.</source>
     <message>
         <source>Invalid DNS settings.</source>
         <translation>DNSの設定が無効です。</translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could damage your server if improperly used.</source>
+        <translation>これらの設定は役に立つかもしれません。
+しかし、不適切な使い方をするとサーバーにダメージを与える可能性があります。</translation>
     </message>
 </context>
 <context>
@@ -2303,6 +2301,10 @@ But could dramatically damage your server if improperly used.</source>
         <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
         <translation>受信タグ &quot;%1&quot; は、ポート &quot;%3&quot; で &quot;%2&quot; をリッスンする必要があります</translation>
     </message>
+    <message>
+        <source>Port: %1 for listening IP: 127.0.0.1 for plugin integration.</source>
+        <translation>プラグイン統合は、ポート &quot;%1&quot; で 127.0.0.1 をリッスンする必要があります。</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
@@ -2323,16 +2325,20 @@ But could dramatically damage your server if improperly used.</source>
         <translation>サブスクリプションを更新</translation>
     </message>
     <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation>アップストリームから返されるノードは %1 つだけです。続行してもよろしいですか？</translation>
-    </message>
-    <message>
-        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation>%2 つのエントリのうち %1 がフィルタリングされましたが、続行しますか?</translation>
-    </message>
-    <message>
         <source>Group: %1</source>
         <translation>グループ: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation>
+            <numerusform>サブスクリプションソースから %n 項目が見つかりましたが、続けますか?</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>
+            <numerusform>%n 個のエントリのうち %1 個がフィルタリングされましたが、続けますか？</numerusform>
+        </translation>
     </message>
 </context>
 <context>

@@ -68,10 +68,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(Ignored %1 complex config(s))</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not a subscription</source>
         <translation type="unfinished"></translation>
     </message>
@@ -82,6 +78,13 @@
     <message>
         <source>Are you sure to delete the current item?</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>(Ignored %n complex config(s))</source>
+        <translation>
+            <numerusform>(Ignored %n complex config)</numerusform>
+            <numerusform>(Ignored %n complex configs)</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -648,18 +651,6 @@
         <source>tproxy mode</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>redirect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>tproxy</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>InboundSettingsWidget</name>
@@ -947,13 +938,19 @@
         <source>Are you sure to exit Qv2ray?</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Removing Connection</numerusform>
+            <numerusform>Removing Connections</numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Are you sure to remove selected connection?</numerusform>
+            <numerusform>Are you sure to remove selected connections?</numerusform>
+        </translation>
     </message>
     <message>
         <source>Disconnected from: </source>
@@ -963,13 +960,19 @@
         <source>Connected: </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Duplicating Connection</numerusform>
+            <numerusform>Duplicating Connections</numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>Are you sure to duplicate this connection?</numerusform>
+            <numerusform>Are you sure to duplicate these connections?</numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
@@ -1333,11 +1336,6 @@ This could resolve the certificate issues, but also could let one performing TLS
     <message>
         <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>These settings may be useful.
-But could dramatically damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1833,6 +1831,11 @@ Custom DNS Settings</source>
         <source>Invalid DNS settings.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>These settings may be useful.
+But could damage your server if improperly used.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2292,6 +2295,10 @@ Custom DNS Settings</source>
         <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Port: %1 for listening IP: 127.0.0.1 for plugin integration.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
@@ -2312,16 +2319,22 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Group: %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation>
+            <numerusform>%n entry has been found from the subscription source, do you want to continue?</numerusform>
+            <numerusform>%n entries have been found from the subscription source, do you want to continue?</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>
+            <numerusform>%1 out of %n entry have been filtered out, do you want to continue?</numerusform>
+            <numerusform>%1 out of %n entries have been filtered out, do you want to continue?</numerusform>
+        </translation>
     </message>
 </context>
 <context>
