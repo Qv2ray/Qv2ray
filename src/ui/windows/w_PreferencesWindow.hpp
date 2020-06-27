@@ -97,7 +97,7 @@ class PreferencesWindow
     void on_qvProxyPortCB_valueChanged(int arg1);
     void on_setAllowInsecureCB_stateChanged(int arg1);
     void on_setTestLatenctCB_stateChanged(int arg1);
-    void on_setAllowInsecureCiphersCB_stateChanged(int arg1);
+    void on_setSessionResumptionCB_stateChanged(int arg1);
     void on_quietModeCB_stateChanged(int arg1);
     void on_tproxGroupBox_toggled(bool arg1);
     void on_tProxyPort_valueChanged(int arg1);

@@ -1341,7 +1341,7 @@ But could dramatically damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set AllowInsecureCiphers By Default</source>
+        <source>Enable SessionResumption By Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1763,6 +1763,10 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will make your TLS fingerpring different from common golang programs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

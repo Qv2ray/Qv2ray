@@ -1459,6 +1459,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>This will make your TLS fingerpring different from common golang programs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This will (probably) make it easy to fingerprint your connection.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1780,7 +1784,7 @@ But could dramatically damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set AllowInsecureCiphers By Default</source>
+        <source>Enable SessionResumption By Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -1463,6 +1463,10 @@
         <translation>TLSの保護を失い、MITMの攻撃を受ける可能性が高くなります。</translation>
     </message>
     <message>
+        <source>This will make your TLS fingerpring different from common golang programs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This will (probably) make it easy to fingerprint your connection.</source>
         <translation>そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
     </message>
@@ -1789,8 +1793,8 @@ But could dramatically damage your server if improperly used.</source>
 しかし、不適切な使用の場合、不都合が生じる可能性があります。</translation>
     </message>
     <message>
-        <source>Set AllowInsecureCiphers By Default</source>
-        <translation>デフォルトで AllowInsecureCiphers を設定する</translation>
+        <source>Enable SessionResumption By Default</source>
+        <translation>デフォルトで SessionResumption を有効にする</translation>
     </message>
     <message>
         <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>

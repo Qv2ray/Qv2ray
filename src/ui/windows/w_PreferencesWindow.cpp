@@ -143,6 +143,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     //
     pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
     pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
+    pluginKernelPortAllocateCB->setEnabled(CurrentConfig.pluginConfig.v2rayIntegration);
     //
     //
     latencyTCPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == TCPING);
@@ -163,7 +164,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     //
     // Advanced config.
     setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
-    setAllowInsecureCiphersCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecureCiphers);
+    setSessionResumptionCB->setChecked(CurrentConfig.advancedConfig.setSessionResumption);
     setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
     //
     dnsSettingsWidget = new DnsSettingsWidget(this);
@@ -854,12 +855,17 @@ void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
 void PreferencesWindow::on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1)
 {
     LOADINGCHECK
+    if (KernelInstance->ActivePluginKernelsCount() > 0)
+        NEEDRESTART;
     CurrentConfig.pluginConfig.v2rayIntegration = arg1 == Qt::Checked;
+    pluginKernelPortAllocateCB->setEnabled(arg1 == Qt::Checked);
 }
 
 void PreferencesWindow::on_pluginKernelPortAllocateCB_valueChanged(int arg1)
 {
     LOADINGCHECK
+    if (KernelInstance->ActivePluginKernelsCount() > 0)
+        NEEDRESTART;
     CurrentConfig.pluginConfig.portAllocationStart = arg1;
 }
 
@@ -901,14 +907,14 @@ void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
     CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
 }
 
-void PreferencesWindow::on_setAllowInsecureCiphersCB_stateChanged(int arg1)
+void PreferencesWindow::on_setSessionResumptionCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     if (arg1 == Qt::Checked)
     {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You will lose the advantage of TLS and make your connection under MITM attack."));
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will make your TLS fingerpring different from common golang programs."));
     }
-    CurrentConfig.advancedConfig.setAllowInsecureCiphers = arg1 == Qt::Checked;
+    CurrentConfig.advancedConfig.setSessionResumption = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)

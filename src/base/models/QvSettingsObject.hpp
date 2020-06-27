@@ -94,9 +94,9 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_Advanced
     {
         bool setAllowInsecure;
-        bool setAllowInsecureCiphers;
+        bool setSessionResumption;
         bool testLatencyPeriodcally;
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(setAllowInsecure, setAllowInsecureCiphers, testLatencyPeriodcally))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally))
     };
 
     enum Qv2rayLatencyTestingMethod

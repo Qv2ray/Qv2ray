@@ -20,6 +20,10 @@ namespace Qv2ray::core::handler
         {
             return currentId;
         }
+        int ActivePluginKernelsCount() const
+        {
+            return activeKernels.size();
+        }
         const QMap<QString, int> InboundPorts() const
         {
             return inboundPorts;
@@ -40,6 +44,9 @@ namespace Qv2ray::core::handler
         void OnKernelCrashed_p(const QString &msg);
         void OnKernelLog_p(const QString &log);
         void OnStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed);
+
+      private:
+        static std::optional<QString> CheckPort(QMap<QString, QString> hosts, QMap<QString, int> ports, int plugins);
 
       private:
         QMap<QString, QString> outboundKernelMap;

@@ -1443,6 +1443,10 @@
         <translation>你会失去 TLS 的保护，并可能使您的连接受害于中间人攻击（MitM）。</translation>
     </message>
     <message>
+        <source>这将使你的 TLS 指纹与常见的 golang 程序不同。</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This will (probably) make it easy to fingerprint your connection.</source>
         <translation>这将让 GFW 更容易识别出您的连接。</translation>
     </message>
@@ -1789,8 +1793,8 @@ But could dramatically damage your server if improperly used.</source>
 但若使用不当，可能会造成负面影响。</translation>
     </message>
     <message>
-        <source>Set AllowInsecureCiphers By Default</source>
-        <translation>默认设置 AllowInsecureCiphers</translation>
+        <source>Enable SessionResumption By Default</source>
+        <translation>默认允许 SessionResumption</translation>
     </message>
     <message>
         <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
