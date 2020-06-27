@@ -22,4 +22,7 @@ Package: qv2ray
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: v2ray
-Description: Qv2ray, A Qt frontend for v2ray. Written in c++.
+Description: Qt frontend for v2ray
+ Project Qv2ray is a flexable cross platform Qt GUI client for V2ray.
+ It makes everything easier by using GUI editors. It also supports
+ ShadowsicksR, Trojan and NaiveProxy by making them plugins.
