@@ -54,7 +54,7 @@ jobs:
         run: |
           sleep 120
       - name: Setup Repository
-        if: github.event_name == 'release' && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
+        if: github.event_name == 'release' && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
         run: |
           git clone https://github.com/Qv2ray/debian.git archive
           echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
