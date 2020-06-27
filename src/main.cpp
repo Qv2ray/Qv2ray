@@ -14,7 +14,7 @@
 void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
-#ifdef Q_OS_LINUX
+#ifdef QT_DEBUG
     if (signum == SIGSEGV)
     {
         constexpr auto dump_size = 1024;
