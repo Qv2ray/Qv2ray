@@ -22,6 +22,7 @@ namespace Qv2ray::components::latency::tcping
             errno = translate_sys_error(WSAGetLastError());
         }
         int translate_sys_error(int sys_errno) {
+            LOG(MODULE_NETWORK, "translate_sys_error:WSAGetLastError()==" +  QSTRN(sys_errno))
             switch (sys_errno) {
                 case ERROR_NOACCESS:                    return EACCES;
                 case WSAEACCES:                         return EACCES;
