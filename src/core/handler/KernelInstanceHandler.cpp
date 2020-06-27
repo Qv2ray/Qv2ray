@@ -55,7 +55,7 @@ namespace Qv2ray::core::handler
         }
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
-            for (int i = 0; i <= plugins; i++)
+            for (int i = 0; i < plugins; i++)
             {
                 auto result = components::port::CheckTCPPortStatus("127.0.0.1", GlobalConfig.pluginConfig.portAllocationStart + i);
                 if (!result)

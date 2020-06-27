@@ -106,39 +106,28 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
 void MainWindow::ReloadRecentConnectionList()
 {
     QList<ConnectionGroupPair> newRecentConnections;
-    //
-    for (const auto &_action : recentConnectionsActionList)
-    {
-        tray_RecentConnectionsMenu->removeAction(_action);
-        delete _action;
-    }
-    recentConnectionsActionList.clear();
-    //
     const auto iterateRange = std::min(GlobalConfig.uiConfig.maxJumpListCount, GlobalConfig.uiConfig.recentConnections.count());
     for (auto i = 0; i < iterateRange; i++)
     {
         const auto &item = GlobalConfig.uiConfig.recentConnections.at(i);
         if (newRecentConnections.contains(item) || item.isEmpty())
-        {
             continue;
-        }
-
         newRecentConnections << item;
-        auto action = tray_RecentConnectionsMenu->addAction(                               //
-            GetDisplayName(item.connectionId) + " (" + GetDisplayName(item.groupId) + ")", //
-            [=]() {                                                                        //
-                emit ConnectionManager->StartConnection(item);
-            }); //
-
-        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed,           //
-                [=](const ConnectionId &_t1, const QString &, const QString &_t3) { //
-                    if (_t1 == item.connectionId)                                   //
-                        action->setText(_t3);                                       //
-                });                                                                 //
-
-        recentConnectionsActionList << action;
     }
     GlobalConfig.uiConfig.recentConnections = newRecentConnections;
+}
+
+void MainWindow::OnRecentConnectionsMenuReadyToShow()
+{
+    tray_RecentConnectionsMenu->clear();
+    tray_RecentConnectionsMenu->addAction(tray_ClearRecentConnectionsAction);
+    tray_RecentConnectionsMenu->addSeparator();
+    for (const auto &conn : GlobalConfig.uiConfig.recentConnections)
+    {
+        if (ConnectionManager->IsValidId(conn))
+            tray_RecentConnectionsMenu->addAction(GetDisplayName(conn.connectionId) + " (" + GetDisplayName(conn.groupId) + ")",
+                                                  [=]() { emit ConnectionManager->StartConnection(conn); });
+    }
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -223,8 +212,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     tray_RootMenu->addSeparator();
     tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
-    tray_RecentConnectionsMenu->addAction(tray_ClearRecentConnectionsAction);
-    tray_RecentConnectionsMenu->addSeparator();
+    connect(tray_RecentConnectionsMenu, &QMenu::aboutToShow, this, &MainWindow::OnRecentConnectionsMenuReadyToShow);
     //
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_Start);
@@ -532,7 +520,9 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_preferencesBtn_clicked()
 {
-    ProcessCommand("open", { "preference", "general" }, {});
+    PreferencesWindow w;
+    w.exec();
+    // ProcessCommand("open", { "preference", "general" }, {});
 }
 void MainWindow::on_clearlogButton_clicked()
 {
