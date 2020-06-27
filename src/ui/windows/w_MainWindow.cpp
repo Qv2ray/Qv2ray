@@ -584,7 +584,9 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
         return;
     }
 
-    if (QvMessageBoxAsk(this, tr("Removing Connection(s)"), tr("Are you sure to remove selected connection(s)?")) != QMessageBox::Yes)
+    const auto strRemoveConnTitle = tr("Removing Connection(s)", "", connlist.count());
+    const auto strRemoveConnContent = tr("Are you sure to remove selected connection(s)?", "", connlist.count());
+    if (QvMessageBoxAsk(this, strRemoveConnTitle, strRemoveConnContent) != QMessageBox::Yes)
     {
         return;
     }
@@ -913,8 +915,9 @@ void MainWindow::on_action_RCM_DuplicateThese_triggered()
 
     LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
 
-    if (connlist.count() > 1 && QvMessageBoxAsk(this, tr("Duplicating Connection(s)"), //
-                                                tr("Are you sure to duplicate these connection(s)?")) != QMessageBox::Yes)
+    const auto strDupConnTitle = tr("Duplicating Connection(s)", "", connlist.count());
+    const auto strDupConnContent = tr("Are you sure to duplicate these connection(s)?", "", connlist.count());
+    if (connlist.count() > 1 && QvMessageBoxAsk(this, strDupConnTitle, strDupConnContent) != QMessageBox::Yes)
     {
         return;
     }

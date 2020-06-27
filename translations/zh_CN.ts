@@ -68,10 +68,6 @@
         <translation>分享链接</translation>
     </message>
     <message>
-        <source>(Ignored %1 complex config(s))</source>
-        <translation>(已忽略 %1 个复杂配置)</translation>
-    </message>
-    <message>
         <source>Not a subscription</source>
         <translation>不是订阅</translation>
     </message>
@@ -82,6 +78,12 @@
     <message>
         <source>Are you sure to delete the current item?</source>
         <translation>您确定要删除当前项目吗？</translation>
+    </message>
+    <message numerus="yes">
+        <source>(Ignored %n complex config(s))</source>
+        <translation>
+            <numerusform>（忽略 %n 个复杂配置）</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -648,18 +650,6 @@
         <source>tproxy mode</source>
         <translation>透明代理模式</translation>
     </message>
-    <message>
-        <source>off</source>
-        <translation>关闭</translation>
-    </message>
-    <message>
-        <source>redirect</source>
-        <translation>重定向</translation>
-    </message>
-    <message>
-        <source>tproxy</source>
-        <translation>tproxy</translation>
-    </message>
 </context>
 <context>
     <name>InboundSettingsWidget</name>
@@ -825,13 +815,17 @@
         <source>Connected: </source>
         <translation>已连接: </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation>复制连接</translation>
+        <translation>
+            <numerusform>复制连接</numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation>您确定要复制这（些）连接吗？</translation>
+        <translation>
+            <numerusform>您确定要复制这（些）连接吗？</numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
@@ -865,9 +859,11 @@
         <source>Disconnected from: </source>
         <translation>已断开连接: </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation>删除连接</translation>
+        <translation>
+            <numerusform>删除连接</numerusform>
+        </translation>
     </message>
     <message>
         <source>Kernel terminated.</source>
@@ -889,9 +885,11 @@
         <source>Are you sure to exit Qv2ray?</source>
         <translation>确信要退出 Qv2ray 吗？</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation>您确定要删除这（些）连接吗？</translation>
+        <translation>
+            <numerusform>您确定要删除这些项目吗？</numerusform>
+        </translation>
     </message>
     <message>
         <source>Locate Current Connection</source>
@@ -1443,10 +1441,6 @@
         <translation>你会失去 TLS 的保护，并可能使您的连接受害于中间人攻击（MitM）。</translation>
     </message>
     <message>
-        <source>这将使你的 TLS 指纹与常见的 golang 程序不同。</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This will (probably) make it easy to fingerprint your connection.</source>
         <translation>这将让 GFW 更容易识别出您的连接。</translation>
     </message>
@@ -1787,12 +1781,6 @@ For example, for updating subscriptions.</source>
         <translation>默认设置 AllowInsecure</translation>
     </message>
     <message>
-        <source>These settings may be useful.
-But could dramatically damage your server if improperly used.</source>
-        <translation>以下设定可能很有用。
-但若使用不当，可能会造成负面影响。</translation>
-    </message>
-    <message>
         <source>Enable SessionResumption By Default</source>
         <translation>默认允许 SessionResumption</translation>
     </message>
@@ -1843,6 +1831,16 @@ But could dramatically damage your server if improperly used.</source>
     <message>
         <source>Invalid DNS settings.</source>
         <translation>无效的 DNS 设置。</translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could damage your server if improperly used.</source>
+        <translation>此处的设定可能很有用。
+但若使用不当，将会造成不良后果。</translation>
+    </message>
+    <message>
+        <source>This will make your TLS fingerpring different from common golang programs.</source>
+        <translation>这将让你的 TLS 指纹有异于正常的 Golang 程序。</translation>
     </message>
 </context>
 <context>
@@ -2303,6 +2301,10 @@ But could dramatically damage your server if improperly used.</source>
         <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
         <translation>入站标签 &quot;%3&quot; 需要在 %2 监听端口 %1</translation>
     </message>
+    <message>
+        <source>Port: %1 for listening IP: 127.0.0.1 for plugin integration.</source>
+        <translation>插件集成需要在 127.0.0.1 的 %1 端口监听。</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
@@ -2323,16 +2325,20 @@ But could dramatically damage your server if improperly used.</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation>订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
-    </message>
-    <message>
-        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation>%2 条连接中仅有 %1 条可用，确定要继续吗？</translation>
-    </message>
-    <message>
         <source>Group: %1</source>
         <translation>分组: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation>
+            <numerusform>订阅中仅有 %n 项可用，要继续吗？</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>
+            <numerusform>%n 条中过滤出 %1 条项目，要继续吗？</numerusform>
+        </translation>
     </message>
 </context>
 <context>
