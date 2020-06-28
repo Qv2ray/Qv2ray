@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QString>
-#ifdef Q_OS_LINUX
+#ifdef Q_OS_UNIX
     #include "backward.hpp"
 #endif
 #ifdef Q_OS_WIN
@@ -17,18 +17,16 @@ namespace Qv2ray
       public:
         static QString GetStackTrace()
         {
-#ifdef Q_OS_LINUX
-            return GetStackTraceImpl_Linux();
+#ifdef Q_OS_UNIX
+            return GetStackTraceImpl_Unix();
 #elif defined(Q_OS_WIN)
             return GetStackTraceImpl_Windows();
-#else
-            return "";
 #endif
         }
 
       private:
-#ifdef Q_OS_LINUX
-        static QString GetStackTraceImpl_Linux()
+#ifdef Q_OS_UNIX
+        static QString GetStackTraceImpl_Unix()
         {
             using namespace backward;
             StackTrace st;
@@ -69,21 +67,23 @@ namespace Qv2ray
             DWORD displacement;
             IMAGEHLP_LINE64 *line = (IMAGEHLP_LINE64 *) malloc(sizeof(IMAGEHLP_LINE64));
             line->SizeOfStruct = sizeof(IMAGEHLP_LINE64);
+            //
+            QString msg;
+            //
             for (int i = 0; i < numberOfFrames; i++)
             {
-                DWORD64 address = (DWORD64)(stack[i]);
+                const auto address = (DWORD64) stack[i];
                 SymFromAddr(process, address, NULL, symbol);
                 if (SymGetLineFromAddr64(process, address, &displacement, line))
                 {
-                    printf("\tat %s in %s: line: %lu: address: 0x%0X\n", symbol->Name, line->FileName, line->LineNumber, symbol->Address);
+                    msg += QString("[%1]: %2 (%3:%4)\r\n").arg(symbol->Address).arg(symbol->Name).arg(line->FileName).arg(line->LineNumber);
                 }
                 else
                 {
-                    printf("\tSymGetLineFromAddr64 returned error code %lu.\n", GetLastError());
-                    printf("\tat %s, address 0x%0X.\n", symbol->Name, symbol->Address);
+                    msg += QString("[*]: %1 SymGetLineFromAddr64[%2]\r\n").arg(symbol->Address).arg(symbol->Name).arg(GetLastError());
                 }
             }
-            return 0;
+            return msg;
         }
 #endif
     };

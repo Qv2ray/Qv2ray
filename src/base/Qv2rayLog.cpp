@@ -7,6 +7,11 @@
 #ifdef Q_OS_ANDROID
     #include <android/log.h>
 #endif
+
+Qv2rayConfigObject _qv2ray_global_config_impl_details::_GlobalConfig;
+bool _qv2ray_global_config_impl_details::_isExiting;
+QString _qv2ray_global_config_impl_details::_Qv2rayConfigPath;
+
 namespace Qv2ray::base
 {
     // Forwarded from QvTinyLog

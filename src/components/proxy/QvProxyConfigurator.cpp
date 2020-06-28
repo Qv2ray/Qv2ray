@@ -338,22 +338,22 @@ namespace Qv2ray::components::proxy
         }
 #else
 
-        for (auto service : macOSgetNetworkServices())
+        for (const auto &service : macOSgetNetworkServices())
         {
             LOG(MODULE_PROXY, "Setting proxy for interface: " + service)
 
             if (hasHTTP)
             {
-                QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on");
-                QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on");
-                QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QSTRN(httpPort));
-                QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QSTRN(httpPort));
+                QProcess::execute("/usr/sbin/networksetup", { "-setwebproxystate", service, "on" });
+                QProcess::execute("/usr/sbin/networksetup", { "-setsecurewebproxystate", service, "on" });
+                QProcess::execute("/usr/sbin/networksetup", { "-setwebproxy", service, address, QSTRN(httpPort) });
+                QProcess::execute("/usr/sbin/networksetup", { "-setsecurewebproxy", service, address, QSTRN(httpPort) });
             }
 
             if (hasSOCKS)
             {
-                QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " on");
-                QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxy " + service + " " + address + " " + QSTRN(socksPort));
+                QProcess::execute("/usr/sbin/networksetup", { "-setsocksfirewallproxystate", service, "on" });
+                QProcess::execute("/usr/sbin/networksetup", { "-setsocksfirewallproxy", service, address, QSTRN(socksPort) });
             }
         }
 
@@ -436,10 +436,10 @@ namespace Qv2ray::components::proxy
         for (const auto &service : macOSgetNetworkServices())
         {
             LOG(MODULE_PROXY, "Clearing proxy for interface: " + service)
-            QProcess::execute("/usr/sbin/networksetup", { "-setautoproxystate " + service + " off" });
-            QProcess::execute("/usr/sbin/networksetup", { "-setwebproxystate " + service + " off" });
-            QProcess::execute("/usr/sbin/networksetup", { "-setsecurewebproxystate " + service + " off" });
-            QProcess::execute("/usr/sbin/networksetup", { "-setsocksfirewallproxystate " + service + " off" });
+            QProcess::execute("/usr/sbin/networksetup", { "-setautoproxystate", service, "off" });
+            QProcess::execute("/usr/sbin/networksetup", { "-setwebproxystate", service, "off" });
+            QProcess::execute("/usr/sbin/networksetup", { "-setsecurewebproxystate", service, "off" });
+            QProcess::execute("/usr/sbin/networksetup", { "-setsocksfirewallproxystate", service, "off" });
         }
 
 #endif

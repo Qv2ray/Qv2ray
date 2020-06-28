@@ -107,6 +107,7 @@ set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
 set(BUILD_TESTING OFF CACHE BOOL "Build test")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
+set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
     add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
@@ -326,14 +327,16 @@ if(APPLE)
         )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
+
     install(TARGETS qv2ray
         BUNDLE DESTINATION . COMPONENT Runtime
         RUNTIME DESTINATION bin COMPONENT Runtime
         )
-    
-    add_custom_command(TARGET qv2ray POST_BUILD
-        COMMAND macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
-        )
+    if(QV2RAY_AUTO_DEPLOY)
+        add_custom_command(TARGET qv2ray POST_BUILD
+            COMMAND ${Qt5_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
+            )
+    endif()
     set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.app")
     include(cmake/deployment.cmake)
 endif()
@@ -355,10 +358,11 @@ if(WIN32)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION lang)
     endif()
-
-    add_custom_command(TARGET qv2ray POST_BUILD
-        COMMAND ${Qt5_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
-        )
+    if(QV2RAY_AUTO_DEPLOY)
+        add_custom_command(TARGET qv2ray POST_BUILD
+            COMMAND ${Qt5_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
+            )
+    endif()
     install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
     set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
     include(cmake/deployment.cmake)

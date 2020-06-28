@@ -16,7 +16,8 @@ void signalHandler(int signum)
     if (signum == SIGSEGV)
     {
         const auto msg = StackTraceHelper::GetStackTrace();
-        auto filePath = QV2RAY_CONFIG_DIR + "QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
+        QDir().mkpath(QV2RAY_CONFIG_DIR + "/bugreport/");
+        auto filePath = QV2RAY_CONFIG_DIR + "/bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
         StringToFile(msg, filePath);
         LOG(MODULE_INIT, "Backtrace saved in: " + filePath)
         LOG(MODULE_INIT, msg)
