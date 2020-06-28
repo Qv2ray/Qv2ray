@@ -12,7 +12,6 @@
 void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
-#ifdef QT_DEBUG
     if (signum == SIGSEGV)
     {
         const auto msg = StackTraceHelper::GetStackTrace();
@@ -30,7 +29,6 @@ void signalHandler(int signum)
             QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
         }
     }
-#endif
     // qvApp->QuitApplication(-99);
     exit(-99);
 }
@@ -95,11 +93,6 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
     signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
     signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
-
-    {
-        QObject *p;
-        p->event(nullptr);
-    }
     return app.RunQv2ray();
 }
 
