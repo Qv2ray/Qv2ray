@@ -1,4 +1,5 @@
 #include "Qv2rayApplication.hpp"
+#include "backward.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
@@ -7,9 +8,6 @@
 #include <QProcess>
 #include <QSslSocket>
 #include <csignal>
-#ifdef Q_OS_LINUX
-    #include <execinfo.h>
-#endif
 
 void signalHandler(int signum)
 {
@@ -17,26 +15,41 @@ void signalHandler(int signum)
 #ifdef QT_DEBUG
     if (signum == SIGSEGV)
     {
-        constexpr auto dump_size = 1024;
-        void *bt[dump_size];
-        auto bt_size = backtrace(bt, dump_size);
-        auto bt_syms = backtrace_symbols(bt, bt_size);
+        using namespace backward;
+        StackTrace st;
+        st.load_here();
         QString msg;
-        for (auto i = 1; i < bt_size; i++)
+        TraceResolver tr;
+        tr.load_stacktrace(st);
+        //
+        Printer p;
+        std::stringstream o;
+        p.print(st, o);
+        msg += QString::fromStdString(o.str());
+        msg += NEWLINE;
+        msg += "====================================== END OF FULL STACKTRACE ======================================";
+        msg += NEWLINE;
+        for (size_t i = 0; i < st.size(); ++i)
         {
-            msg += bt_syms[i];
-            msg += NEWLINE;
+            ResolvedTrace trace = tr.resolve(st[i]);
+            msg += QString("# %1 %2 [%3]" NEWLINE)
+                       .arg(trace.object_filename.c_str())
+                       .arg(trace.object_function.c_str())
+                       .arg(reinterpret_cast<size_t>(trace.addr));
         }
-        free(bt_syms);
         auto filePath = QV2RAY_CONFIG_DIR + "QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
-        qApp->clipboard()->setText(filePath);
-        auto message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
-                       QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
-                       filePath + NEWLINE NEWLINE +                                                                   //
-                       QObject::tr("Continuing executing Qv2ray may lead to undefined behavior") + NEWLINE +          //
-                       QObject::tr("Do you STILL want to continue?");
-        if (QvMessageBoxAsk(nullptr, "UNCAUGHT EXCEPTION", msg) == QMessageBox::Yes)
-            return;
+        StringToFile(msg, filePath);
+        if (qApp)
+        {
+            qApp->clipboard()->setText(filePath);
+            auto message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
+                           QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
+                           filePath + NEWLINE NEWLINE +                                                                   //
+                           QObject::tr("Continuing executing Qv2ray may lead to undefined behavior") + NEWLINE +          //
+                           QObject::tr("Do you STILL want to continue?");
+            if (QvMessageBoxAsk(nullptr, "UNCAUGHT EXCEPTION", msg) == QMessageBox::Yes)
+                return;
+        }
     }
 #endif
     qvApp->QuitApplication(-99);

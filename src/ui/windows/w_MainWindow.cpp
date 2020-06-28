@@ -520,8 +520,7 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_preferencesBtn_clicked()
 {
-    PreferencesWindow w;
-    w.exec();
+    PreferencesWindow{ this }.exec();
     // ProcessCommand("open", { "preference", "general" }, {});
 }
 void MainWindow::on_clearlogButton_clicked()
