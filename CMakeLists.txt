@@ -223,11 +223,15 @@ if(ANDROID)
     add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
     target_link_libraries(qv2ray -llog -landroid)
 else()
-    add_subdirectory(3rdparty/backward-cpp)
-    add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES} ${BACKWARD_ENABLE})
-    # This will add libraries, definitions and include directories needed by backward
-    # by setting each property on the target.
-    add_backward(qv2ray)
+    if (WIN32)
+        add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+    else()
+        add_subdirectory(3rdparty/backward-cpp)
+        add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES} ${BACKWARD_ENABLE})
+        # This will add libraries, definitions and include directories needed by backward
+        # by setting each property on the target.
+        add_backward(qv2ray)
+    endif()
 endif()
 
 

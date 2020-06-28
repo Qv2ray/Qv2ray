@@ -4,6 +4,11 @@
 #ifdef Q_OS_LINUX
     #include "backward.hpp"
 #endif
+#ifdef Q_OS_WIN
+    #include <Windows.h>
+    //
+    #include <DbgHelp.h>
+#endif
 
 namespace Qv2ray
 {
@@ -16,6 +21,8 @@ namespace Qv2ray
             return GetStackTraceImpl_Linux();
 #elif defined(Q_OS_WIN)
             return GetStackTraceImpl_Windows();
+#else
+            return "";
 #endif
         }
 
@@ -54,6 +61,7 @@ namespace Qv2ray
             void *stack[1024];
             HANDLE process = GetCurrentProcess();
             SymInitialize(process, NULL, TRUE);
+            SymSetOptions(SYMOPT_LOAD_ANYTHING);
             WORD numberOfFrames = CaptureStackBackTrace(0, 1024, stack, NULL);
             SYMBOL_INFO *symbol = (SYMBOL_INFO *) malloc(sizeof(SYMBOL_INFO) + (512 - 1) * sizeof(TCHAR));
             symbol->MaxNameLen = 512;

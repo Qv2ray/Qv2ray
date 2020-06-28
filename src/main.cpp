@@ -30,7 +30,8 @@ void signalHandler(int signum)
         }
     }
 #endif
-    qvApp->QuitApplication(-99);
+    // qvApp->QuitApplication(-99);
+    exit(-99);
 }
 
 Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
