@@ -227,11 +227,10 @@ else()
     if (WIN32)
         add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
     else()
-        add_subdirectory(3rdparty/backward-cpp)
-        add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES} ${BACKWARD_ENABLE})
-        # This will add libraries, definitions and include directories needed by backward
-        # by setting each property on the target.
-        add_backward(qv2ray)
+        include_directories(${CMAKE_SOURCE_DIR}/3rdparty/backward-cpp)
+        add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES}
+            ${CMAKE_SOURCE_DIR}/3rdparty/backward-cpp/backward.hpp
+            ${CMAKE_SOURCE_DIR}/3rdparty/backward-cpp/backward.cpp)
     endif()
 endif()
 
