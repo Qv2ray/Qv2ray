@@ -1842,6 +1842,18 @@ But could damage your server if improperly used.</source>
         <source>This will make your TLS fingerpring different from common golang programs.</source>
         <translation>这将让你的 TLS 指纹有异于正常的 Golang 程序。</translation>
     </message>
+    <message>
+        <source>Watch Out!</source>
+        <translation>小心！</translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
+        <translation>您或许要将 V2Ray 的可执行文件错误地设置成 Qv2ray 本身了，这是非常不对的。
+然而，这样做并不会触发 Fork 炸弹，因为 Qv2ray 以单例模式工作。
+若你的 V2Ray 核心文件名恰好是 &apos;qv2ray&apos; 什么的，你完全可以忽略这个警告。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>

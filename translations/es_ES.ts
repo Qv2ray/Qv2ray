@@ -68,10 +68,6 @@
         <translation>Compartir enlace</translation>
     </message>
     <message>
-        <source>(Ignored %1 complex config(s))</source>
-        <translation>(Se ignoraron% 1 configuraciones complejas)</translation>
-    </message>
-    <message>
         <source>Not a subscription</source>
         <translation>No es una suscripción</translation>
     </message>
@@ -82,6 +78,13 @@
     <message>
         <source>Are you sure to delete the current item?</source>
         <translation>¿Estás seguro de eliminar el elemento actual?</translation>
+    </message>
+    <message numerus="yes">
+        <source>(Ignored %n complex config(s))</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -935,13 +938,19 @@
         <source>Are you sure to exit Qv2ray?</source>
         <translation>¿Estás seguro de salir de Qv2ray?</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation>Eliminar conexiones</translation>
+        <translation type="unfinished">
+            <numerusform>Eliminar conexiones</numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation>¿Está seguro de eliminar las conexiones seleccionadas?</translation>
+        <translation type="unfinished">
+            <numerusform>¿Está seguro de eliminar las conexiones seleccionadas?</numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Disconnected from: </source>
@@ -951,13 +960,19 @@
         <source>Connected: </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation>Duplicar conexiones</translation>
+        <translation type="unfinished">
+            <numerusform>Duplicar conexiones</numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation>¿Está seguro de duplicar estas conexiones?</translation>
+        <translation type="unfinished">
+            <numerusform>¿Está seguro de duplicar estas conexiones?</numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
@@ -1821,6 +1836,16 @@ Custom DNS Settings</source>
 But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Watch Out!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2304,16 +2329,22 @@ But could damage your server if improperly used.</source>
         <translation>Actualizar suscripción</translation>
     </message>
     <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation>Se han encontrado% 1 entradas de la fuente de suscripción, ¿desea continuar?</translation>
-    </message>
-    <message>
-        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation>% 1 de% 2 entradas se han filtrado, ¿desea continuar?</translation>
-    </message>
-    <message>
         <source>Group: %1</source>
         <translation>Grupo 1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>

@@ -1842,6 +1842,18 @@ But could damage your server if improperly used.</source>
         <translation>これらの設定は役に立つかもしれません。
 しかし、不適切な使い方をするとサーバーにダメージを与える可能性があります。</translation>
     </message>
+    <message>
+        <source>Watch Out!</source>
+        <translation>気を付けて！</translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
+        <translation>V2RayコアをQv2ray自体に誤って設定している可能性がありますが、これは絶対に正しくありません。
+しかし、Qv2rayはシングルトンモードで動作するため、フォークボムは発生しません。
+もしあなたのV2Rayコアのファイル名が&apos;qv2ray&apos;などであれば、この警告を無視して構いません。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>

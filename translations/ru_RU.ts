@@ -1843,6 +1843,16 @@ For example, for updating subscriptions.</source>
 But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Watch Out!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
