@@ -790,6 +790,22 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     auto vAssetsPath = vCoreAssetsPathTxt->text();
     QString result;
 
+    // prevent some bullshit situations.
+    if (const auto vCorePathSmallCased = vcorePath.toLower();
+        vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
+    {
+        const auto strWarnTitle = tr("Watch Out!");
+        const auto strWarnContent = //
+            tr("You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.\r\n"
+               "This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.\r\n"
+               "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
+        const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
+                                                 QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
+                                                 QMessageBox::StandardButton::Abort);
+        if (answer == QMessageBox::StandardButton::Abort)
+            return;
+    }
+
     if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result))
     {
         QvMessageBoxWarn(this, tr("V2ray Core Settings"), result);
