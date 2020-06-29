@@ -4,10 +4,80 @@
 #include "common/QvHelpers.hpp"
 #include "core/connection/ConnectionIO.hpp"
 
+#include <QFileDevice>
+#include <QFileInfo>
 #include <QObject>
 
 namespace Qv2ray::core::kernel
 {
+    std::tuple<bool, std::optional<QString>> V2rayKernelInstance::CheckAndSetCoreExecutableState(const QString &vCorePath)
+    {
+#ifdef Q_OS_UNIX
+        // For Linux/macOS users: if they cannot execute the core,
+        // then we shall grant the permission to execute it.
+
+        QFile coreFile(vCorePath);
+
+        if (const auto permissions = coreFile.permissions(); !permissions.testFlag(QFileDevice::ExeUser))
+        {
+            DEBUG(MODULE_VCORE, "Core file not executable. Trying to enable.")
+            const auto result = coreFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
+            if (!result)
+            {
+                DEBUG(MODULE_VCORE, "Failed to enable executable permission.")
+                const auto message = tr("Core file is lacking executable permission for the current user.") % //
+                                     tr("Qv2ray tried to set, but failed because permission denied.");
+                return { false, message };
+            }
+            else
+            {
+                DEBUG(MODULE_VCORE, "Core executable permission set.")
+            }
+        }
+        else
+        {
+            DEBUG(MODULE_VCORE, "Core file is executable.")
+        }
+
+        // Also do the same thing for v2ctl.
+        // TODO: Simplify This / Extract This Creepy Thing
+        const auto coreControlFilePath = QDir::cleanPath(QFileInfo(coreFile).absoluteDir().path() + QDir::separator() +
+    #ifdef Q_OS_WIN
+                                                         "v2ctl.exe");
+    #else
+                                                         "v2ctl");
+    #endif
+
+        if (QFile coreControlFile(coreControlFilePath); !coreControlFile.permissions().testFlag(QFileDevice::ExeUser))
+        {
+            DEBUG(MODULE_VCORE, "Core control file not executable. Trying to enable.")
+            const auto result = coreControlFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
+
+            if (!result)
+            {
+                DEBUG(MODULE_VCORE, "Failed to enable executable permission for core control.")
+                const auto message = tr("Core control file is lacking executable permission for the current user.") % //
+                                     tr("Qv2ray tried to set, but failed because permission denied.");
+                return { false, message };
+            }
+            else
+            {
+                DEBUG(MODULE_VCORE, "Core control executable permission set.")
+            }
+        }
+        else
+        {
+            DEBUG(MODULE_VCORE, "Core control file is executable.")
+        }
+
+#endif
+        return { true, std::nullopt };
+
+        // For Windows and other users: just skip this check.
+        DEBUG(MODULE_VCORE, "Skipped check and set core executable state.")
+        return { true, tr("Check is skipped") };
+    }
+
     bool V2rayKernelInstance::ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message)
     {
         QFile coreFile(vCorePath);
@@ -29,8 +99,9 @@ namespace Qv2ray::core::kernel
         }
 
         coreFile.close();
+
         // Get Core ABI.
-        auto [abi, err] = kernel::abi::deduceKernelABI(vCorePath);
+        const auto [abi, err] = kernel::abi::deduceKernelABI(vCorePath);
         if (err)
         {
             LOG(MODULE_VCORE, "Core ABI deduction failed: " + ACCESS_OPTIONAL_VALUE(err))
@@ -65,6 +136,14 @@ namespace Qv2ray::core::kernel
                 LOG(MODULE_VCORE, "Host is compatible with core");
                 break;
             }
+        }
+
+        // Check executable permissions.
+        const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(vCorePath);
+        if (!isExecutableOk)
+        {
+            *message = strExecutableErr.value_or("");
+            return false;
         }
 
         //
