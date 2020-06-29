@@ -23,6 +23,7 @@ set(QV2RAY_UI_FORMS
 set(QV2RAY_UI_SOURCES
     # Qv2ray Application
     ${CMAKE_SOURCE_DIR}/src/StackTraceHelper.hpp
+    ${CMAKE_SOURCE_DIR}/src/StackTraceHelper.cpp
     ${CMAKE_SOURCE_DIR}/src/Qv2rayApplication.cpp
     ${CMAKE_SOURCE_DIR}/src/Qv2rayApplication.hpp
     # Common Utils

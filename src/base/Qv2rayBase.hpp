@@ -156,6 +156,6 @@ namespace Qv2ray
         list << QCoreApplication::applicationDirPath() + "/" + dirName;
         list.removeDuplicates();
         return list;
-    };
+    }
 
 } // namespace Qv2ray

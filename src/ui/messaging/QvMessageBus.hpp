@@ -41,7 +41,7 @@ namespace Qv2ray::ui::messaging
         /// Change Color Scheme
         UPDATE_COLORSCHEME
     };
-    Q_ENUM_NS(QvMBMessage);
+    Q_ENUM_NS(QvMBMessage)
     //
     class QvMessageBusObject : public QObject
     {

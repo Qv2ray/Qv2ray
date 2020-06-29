@@ -12,14 +12,15 @@
 void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
-    if (signum == SIGSEGV)
+    if (SIGSEGV == signum)
     {
+        std::cout << "Collecting StackTrace" << std::endl;
         const auto msg = StackTraceHelper::GetStackTrace();
-        QDir().mkpath(QV2RAY_CONFIG_DIR + "/bugreport/");
-        auto filePath = QV2RAY_CONFIG_DIR + "/bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
+        std::cout << msg.toStdString() << std::endl;
+        QDir().mkpath(QV2RAY_CONFIG_DIR + "bugreport/");
+        auto filePath = QV2RAY_CONFIG_DIR + "bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
         StringToFile(msg, filePath);
-        LOG(MODULE_INIT, "Backtrace saved in: " + filePath)
-        LOG(MODULE_INIT, msg)
+        std::cout << "Backtrace saved in: " + filePath.toStdString() << std::endl;
         if (qApp)
         {
             qApp->clipboard()->setText(filePath);
@@ -28,8 +29,8 @@ void signalHandler(int signum)
                            filePath;
             QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
         }
+        kill(getpid(), SIGKILL);
     }
-    // qvApp->QuitApplication(-99);
     exit(-99);
 }
 

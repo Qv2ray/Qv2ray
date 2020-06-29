@@ -19,7 +19,7 @@ QStringList getLanguageSearchPaths()
     list << QString(QV2RAY_TRANSLATION_PATH);
 #endif
     return list;
-};
+}
 
 namespace Qv2ray::common
 {

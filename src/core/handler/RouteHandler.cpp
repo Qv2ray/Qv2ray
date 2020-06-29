@@ -114,7 +114,7 @@ namespace Qv2ray::core::handler
     CONFIGROOT RouteHandler::GenerateFinalConfig(const ConnectionGroupPair &pair) const
     {
         return GenerateFinalConfig(ConnectionManager->GetConnectionRoot(pair.connectionId), ConnectionManager->GetGroupRoutingId(pair.groupId));
-    };
+    }
     CONFIGROOT RouteHandler::GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId) const
     {
         const auto &config = configs.contains(routingId) ? configs[routingId] : GlobalConfig.defaultRouteConfig;
