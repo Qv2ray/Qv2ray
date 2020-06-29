@@ -29,7 +29,9 @@ void signalHandler(int signum)
                            filePath;
             QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
         }
+#ifndef Q_OS_WIN
         kill(getpid(), SIGKILL);
+#endif
     }
     exit(-99);
 }
