@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "base/Qv2rayBase.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
@@ -43,6 +43,8 @@ class OutboundEditor
     void on_socks_UserNameTxt_textEdited(const QString &arg1);
     void on_socks_PasswordTxt_textEdited(const QString &arg1);
     void on_securityCombo_currentIndexChanged(const QString &arg1);
+
+    void on_testsEnabledCombo_currentIndexChanged(const QString &arg1);
 
   private:
     QString tag;

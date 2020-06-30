@@ -265,8 +265,10 @@ namespace Qv2ray::base::objects
             QList<QString> alpn;
             QList<CertificateObject> certificates;
             bool disableSystemRoot;
-            TLSObject() : serverName(), allowInsecure(), allowInsecureCiphers(), disableSessionResumption(true), certificates(), disableSystemRoot(){};
-            JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, allowInsecureCiphers, disableSessionResumption, alpn, certificates, disableSystemRoot))
+            TLSObject()
+                : serverName(), allowInsecure(), allowInsecureCiphers(), disableSessionResumption(true), certificates(), disableSystemRoot(){};
+            JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, allowInsecureCiphers, disableSessionResumption, alpn, certificates,
+                                             disableSystemRoot))
         };
     } // namespace transfer
     //
@@ -363,8 +365,9 @@ namespace Qv2ray::base::objects
                 int alterId;
                 QString security;
                 int level;
-                UserObject() : id(""), alterId(64), security("auto"), level(0){};
-                JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level))
+                QString testsEnabled;
+                UserObject() : id(), alterId(64), security("auto"), level(0), testsEnabled("none"){};
+                JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level, testsEnabled))
             };
 
             QString address;

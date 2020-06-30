@@ -93,8 +93,8 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     }
     else if (outboundType == "shadowsocks")
     {
-        //streaming = QJsonObject();
-        //LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
+        // streaming = QJsonObject();
+        // LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
         QJsonArray servers;
         shadowsocks.address = address;
         shadowsocks.port = port;
@@ -110,8 +110,8 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         }
         socks.address = address;
         socks.port = port;
-        //streaming = QJsonObject();
-        //LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
+        // streaming = QJsonObject();
+        // LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(socks.toJson());
         settings["servers"] = servers;
@@ -170,6 +170,7 @@ void OutboundEditor::ReloadGUI()
         idLineEdit->setText(vmess.users.front().id);
         alterLineEdit->setValue(vmess.users.front().alterId);
         securityCombo->setCurrentText(vmess.users.front().security);
+        testsEnabledCombo->setCurrentText(vmess.users.front().testsEnabled);
     }
     else if (outboundType == "shadowsocks")
     {
@@ -342,4 +343,9 @@ void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
     if (socks.users.isEmpty())
         socks.users.push_back({});
     socks.users.front().pass = arg1;
+}
+
+void OutboundEditor::on_testsEnabledCombo_currentIndexChanged(const QString &arg1)
+{
+    vmess.users.front().testsEnabled = arg1;
 }
