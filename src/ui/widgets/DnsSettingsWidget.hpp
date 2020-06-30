@@ -38,6 +38,7 @@ class DnsSettingsWidget
 
   private:
     void ShowCurrentDnsServerDetails();
+    void ProcessDnsPortEnabledState();
     QvMessageBusSlotDecl;
     DNSObject dns;
     // int currentServerIndex;
