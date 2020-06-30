@@ -20,6 +20,7 @@ using Qv2ray::common::validation::IsValidIPAddress;
     detailsSettingsGB->setEnabled(serversListbox->count() > 0);                                                                                 \
     serverAddressTxt->setEnabled(serversListbox->count() > 0);                                                                                  \
     removeServerBtn->setEnabled(serversListbox->count() > 0);                                                                                   \
+    ProcessDnsPortEnabledState();                                                                                                               \
     CHECK_DISABLE_MOVE_BTN
 
 #define currentServerIndex serversListbox->currentRow()
@@ -97,6 +98,18 @@ bool DnsSettingsWidget::CheckIsValidDNS() const
     return true;
 }
 
+void DnsSettingsWidget::ProcessDnsPortEnabledState()
+{
+    if (const auto addr = serverAddressTxt->text(); addr.startsWith("https:") || addr.startsWith("https+"))
+    {
+        serverPortSB->setEnabled(false);
+    }
+    else
+    {
+        serverPortSB->setEnabled(true);
+    }
+}
+
 void DnsSettingsWidget::ShowCurrentDnsServerDetails()
 {
     serverAddressTxt->setText(dns.servers[currentServerIndex].address);
@@ -115,6 +128,7 @@ void DnsSettingsWidget::ShowCurrentDnsServerDetails()
     {
         RED(serverAddressTxt)
     }
+    ProcessDnsPortEnabledState();
 }
 
 DNSObject DnsSettingsWidget::GetDNSObject()
@@ -223,6 +237,8 @@ void DnsSettingsWidget::on_serverAddressTxt_textEdited(const QString &arg1)
     {
         RED(serverAddressTxt)
     }
+
+    ProcessDnsPortEnabledState();
 }
 
 void DnsSettingsWidget::on_serverPortSB_valueChanged(int arg1)

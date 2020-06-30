@@ -24,7 +24,13 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="dnsClientIPTxt"/>
+      <widget class="QLineEdit" name="dnsClientIPTxt">
+       <property name="toolTip">
+        <string>The current system's IP address is used to notify the server of the client's location when querying DNS. 
+
+It cannot be a private address.</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_2">
@@ -34,7 +40,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="dnsTagTxt"/>
+      <widget class="QLineEdit" name="dnsTagTxt">
+       <property name="toolTip">
+        <string>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -188,6 +198,10 @@
                </item>
                <item>
                 <widget class="QSpinBox" name="serverPortSB">
+                 <property name="toolTip">
+                  <string>Port for DNS server. Normally it's 53.
+This entry is ignored by V2Ray core when using DoH servers.</string>
+                 </property>
                  <property name="buttonSymbols">
                   <enum>QAbstractSpinBox::NoButtons</enum>
                  </property>
