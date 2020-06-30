@@ -23,16 +23,16 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_NSIS') }}
     strategy:
       matrix:
-        qt_version: [5.14.2, 5.15.0]
+        qt_version: [5.15.0]
         platform: [windows-latest]
         arch: [x86, x64]
         include: 
           - platform: windows-latest
             arch: x86
-            qtarch: win32_msvc2017
+            qtarch: win32_msvc2019
           - platform: windows-latest
             arch: x64
-            qtarch: win64_msvc2017_64
+            qtarch: win64_msvc2019_64
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
