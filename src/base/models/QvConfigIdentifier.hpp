@@ -174,7 +174,7 @@ namespace Qv2ray::base
 } // namespace Qv2ray::base
 
 using namespace Qv2ray::base;
-Q_DECLARE_METATYPE(ConnectionGroupPair);
-Q_DECLARE_METATYPE(ConnectionId);
-Q_DECLARE_METATYPE(GroupId);
-Q_DECLARE_METATYPE(GroupRoutingId);
+Q_DECLARE_METATYPE(ConnectionGroupPair)
+Q_DECLARE_METATYPE(ConnectionId)
+Q_DECLARE_METATYPE(GroupId)
+Q_DECLARE_METATYPE(GroupRoutingId)

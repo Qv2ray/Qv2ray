@@ -54,7 +54,7 @@ namespace Qv2ray::components::latency
                         resultData.worst = std::max(resultData.worst, _latency);
                     }
                 }
-                if (resultData.totalCount != resultData.failedCount != 0)
+                if (resultData.totalCount != 0 && resultData.failedCount != 0)
                 {
                     resultData.errorMessage.clear();
                     resultData.avg = resultData.avg / (resultData.totalCount - resultData.failedCount) / 1000;

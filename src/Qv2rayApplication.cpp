@@ -47,7 +47,6 @@ namespace Qv2ray
 #ifdef Q_OS_WIN
         SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
 #endif
-
         // Install a default translater. From the OS/DE
         Qv2rayTranslator = std::make_unique<QvTranslator>();
         Qv2rayTranslator->InstallTranslation(QLocale::system().name());
@@ -59,6 +58,7 @@ namespace Qv2ray
         connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
         if (isSecondary())
         {
+            Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::NORMAL;
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
             return SINGLE_APPLICATION;
         }

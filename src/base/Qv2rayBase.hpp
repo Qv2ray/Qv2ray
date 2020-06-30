@@ -27,6 +27,18 @@ using namespace Qv2ray::base::objects;
 using namespace Qv2ray::base::objects::protocol;
 using namespace Qv2ray::base::objects::transfer;
 
+class _qv2ray_global_config_impl_details
+{
+  public:
+    static Qv2rayConfigObject _GlobalConfig;
+    static bool _isExiting;
+    static QString _Qv2rayConfigPath;
+};
+
+#define GlobalConfig (_qv2ray_global_config_impl_details::_GlobalConfig)
+#define isExiting (_qv2ray_global_config_impl_details::_isExiting)
+#define Qv2rayConfigPath (_qv2ray_global_config_impl_details::_Qv2rayConfigPath)
+
 #define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
 #define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
 
@@ -38,7 +50,7 @@ using namespace Qv2ray::base::objects::transfer;
 #endif
 
 // Get Configured Config Dir Path
-#define QV2RAY_CONFIG_DIR (Qv2ray::Qv2rayConfigPath)
+#define QV2RAY_CONFIG_DIR (Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 //
 #define QV2RAY_ROUTING_DIR (QV2RAY_CONFIG_DIR + "rounting/")
@@ -109,25 +121,9 @@ using namespace Qv2ray::base::objects::transfer;
 #define API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
 
 #define QV2RAY_USE_FPROXY_KEY "_QV2RAY_USE_GLOBAL_FORWARD_PROXY_"
-//#define GlobalConfig (Qv2ray::GetGlobalConfig())
 
 namespace Qv2ray
 {
-    //namespace
-    //{
-        inline Qv2rayConfigObject GlobalConfig;
-    //}
-    // Qv2ray runtime config
-    inline bool isExiting = false;
-    inline QString Qv2rayConfigPath = "";
-    //inline Qv2rayConfigObject &GetGlobalConfig()
-   // {
-  //      if (!realGlobalConfig)
-     //   {
-   //         realGlobalConfig = std::make_unique<Qv2rayConfigObject>();
-    //    }
-    //    return *realGlobalConfig;
-  //  };
     inline QStringList Qv2rayAssetsPaths(const QString &dirName)
     {
         // Configuration Path
@@ -160,6 +156,6 @@ namespace Qv2ray
         list << QCoreApplication::applicationDirPath() + "/" + dirName;
         list.removeDuplicates();
         return list;
-    };
+    }
 
 } // namespace Qv2ray
