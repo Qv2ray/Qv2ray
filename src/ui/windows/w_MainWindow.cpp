@@ -1034,17 +1034,17 @@ void MainWindow::on_action_RCM_UpdateSubscription_triggered()
 
 void MainWindow::on_action_RCM_LatencyTest_triggered()
 {
-    auto current = connectionListWidget->currentItem();
-    if (current != nullptr)
+    for (const auto &current : connectionListWidget->selectedItems())
     {
-        auto widget = GetItemWidget(current);
-        if (widget)
-        {
-            if (widget->IsConnection())
-                ConnectionManager->StartLatencyTest(widget->Identifier().connectionId);
-            else
-                ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
-        }
+        if (!current)
+            continue;
+        const auto widget = GetItemWidget(current);
+        if (!widget)
+            continue;
+        if (widget->IsConnection())
+            ConnectionManager->StartLatencyTest(widget->Identifier().connectionId);
+        else
+            ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
     }
 }
 
