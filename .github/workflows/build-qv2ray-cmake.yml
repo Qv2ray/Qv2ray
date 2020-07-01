@@ -87,7 +87,7 @@ jobs:
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libxcb-image0-dev libxcb-icccm4-dev libssl-dev
+          sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libxcb-image0-dev libxcb-icccm4-dev libssl-dev libxcb-keysyms1
           sudo apt install -y libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc ninja-build
 # --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
@@ -171,6 +171,7 @@ jobs:
           cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
           cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           cd ..
+          ldd ./AppDir/usr/bin/qv2ray
           squashfs-root/AppRun AppDir/usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
           wget https://github.com/Qv2ray/Distribution/releases/download/0.0.0/fakeDeb.tar.gz
