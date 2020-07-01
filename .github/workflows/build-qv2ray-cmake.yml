@@ -171,26 +171,14 @@ jobs:
           cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
           cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           cd ..
-          ldd ./AppDir/usr/bin/qv2ray
           squashfs-root/AppRun AppDir/usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
-          wget https://github.com/Qv2ray/Distribution/releases/download/0.0.0/fakeDeb.tar.gz
-          tar xzf fakeDeb.tar.gz
-          cd fakeDeb
-          cp ../Qv2ray.AppImage opt/qv2ray/Qv2ray.AppImage
-          dpkg-deb -b . ../qv2ray.deb
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray-${{ github.sha }}.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}.AppImage
           path: build/Qv2ray.AppImage
-      - name: Linux - ${{ matrix.qt_version }} - Uploading debian package
-        if: matrix.platform == 'ubuntu-16.04'
-        uses: actions/upload-artifact@master
-        with:
-          name: Qv2ray-${{ github.sha }}.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}.deb
-          path: build/qv2ray.deb
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.14.2'
