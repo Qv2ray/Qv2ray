@@ -57,7 +57,7 @@ QImage ScreenShotWindow::DoScreenShot()
             bg_grey.setPixel(i, j, qRgb(r, g, b));
         }
     }
-
+    setStyleSheet("QDialog { background-color: transparent; }");
     bg_grey = bg_grey.scaled(bg_grey.size() / devicePixelRatio(), Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
     auto p = this->palette();
     p.setBrush(QPalette::Window, bg_grey);
