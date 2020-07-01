@@ -156,6 +156,10 @@ void ScreenShotWindow::mouseReleaseEvent(QMouseEvent *e)
     {
         reject();
     }
+    else if (e->button() == Qt::LeftButton)
+    {
+        rubber.hide();
+    }
 }
 
 ScreenShotWindow::~ScreenShotWindow()
