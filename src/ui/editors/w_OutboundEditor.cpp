@@ -248,6 +248,18 @@ void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 
 void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
 {
+    const static QRegularExpression regExpUUID("^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$",
+                                               QRegularExpression::PatternOption::CaseInsensitiveOption);
+
+    if (!regExpUUID.match(arg1).hasMatch())
+    {
+        RED(idLineEdit);
+    }
+    else
+    {
+        BLACK(idLineEdit);
+    }
+
     if (vmess.users.empty())
         vmess.users.push_back({});
 
