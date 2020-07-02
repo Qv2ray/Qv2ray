@@ -34,6 +34,7 @@ class ScreenShotWindow
     void on_startBtn_clicked();
 
   private:
+    double scale;
     QRubberBand rubber;
     // Desktop Image
     QPixmap desktopImage;
