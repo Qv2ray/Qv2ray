@@ -165,14 +165,16 @@ void RouteEditor::onNodeClicked(Node &n)
         // It's an inbound or an outbound.
         QString alias;
         QString host;
-        int port;
+        QString port;
         QString protocol;
 
         if (isOut)
         {
             alias = GetFirstNodeData(n.id(), QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
             QJsonObject _root = outbounds[alias].raw();
-            GetOutboundInfo(OUTBOUND(_root), &host, &port, &protocol);
+            int _port;
+            GetOutboundInfo(OUTBOUND(_root), &host, &_port, &protocol);
+            port = QString::number(_port);
         }
         else
         {
@@ -180,15 +182,13 @@ void RouteEditor::onNodeClicked(Node &n)
             QJsonObject _root = inbounds[alias].raw();
             host = _root["listen"].toString();
             protocol = _root["protocol"].toString();
-            port = _root["port"].toInt();
+            // Port could be a string, or an integer.
+            port = _root["port"].toVariant().toString();
         }
 
         tagLabel->setText(alias);
         protocolLabel->setText(protocol);
-        if (port >= 1 && port <= 65535)
-            portLabel->setNum(port);
-        else
-            portLabel->setText("");
+        portLabel->setText(port);
         hostLabel->setText(host);
     }
     else
