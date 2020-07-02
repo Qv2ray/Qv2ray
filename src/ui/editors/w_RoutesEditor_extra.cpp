@@ -77,7 +77,7 @@ void RouteEditor::AddRule(RuleObject rule)
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + ruleNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    auto _nodeData = std::make_unique<QvRuleNodeDataModel>(std::make_shared<RuleNodeData>(rule.QV2RAY_RULE_TAG));
+    auto _nodeData = std::make_unique<QvRuleNodeModel>(std::make_shared<RuleNodeData>(rule.QV2RAY_RULE_TAG));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
 
@@ -132,7 +132,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                     *newTag += "_" + GenerateRandomString(5);
                 }
 
-                const auto &nodeDataModel = (QvRuleNodeDataModel *) nodeScene->node(ruleNodes.value(originalTag))->nodeDataModel();
+                const auto &nodeDataModel = (QvRuleNodeModel *) nodeScene->node(ruleNodes.value(originalTag))->nodeDataModel();
 
                 if (nodeDataModel == nullptr)
                 {
