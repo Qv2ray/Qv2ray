@@ -1,11 +1,9 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
 #ifndef ANDROID
-    #ifndef BACKEND_LIBQVB
-        #include "v2ray_api.grpc.pb.h"
+    #include "v2ray_api.grpc.pb.h"
 
-        #include <grpc++/grpc++.h>
-    #endif
+    #include <grpc++/grpc++.h>
 #endif
 
 // Check 10 times before telling user that API has failed.
@@ -57,7 +55,7 @@ namespace Qv2ray::core::kernel
         bool started = false;
         bool running = false;
         uint apiFailedCounter = 0;
-#if !defined(BACKEND_LIBQVB) && !defined(ANDROID)
+#ifndef ANDROID
         std::shared_ptr<::grpc::Channel> Channel;
         std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> Stub;
 #endif
