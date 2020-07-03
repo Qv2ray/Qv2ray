@@ -17,8 +17,8 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
-   sodipodi:docname="Qv2ray_System_Tray_Light.svg"
-   inkscape:export-filename="/home/axionl/Desktop/Qv2ray_Design/qv2ray.png"
+   sodipodi:docname="tray.svg"
+   inkscape:export-filename=""
    inkscape:export-xdpi="558.54999"
    inkscape:export-ydpi="558.54999">
   <defs
@@ -171,17 +171,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="22.627417"
-     inkscape:cx="5.9585184"
+     inkscape:cx="-1.0241611"
      inkscape:cy="11.144438"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
-     inkscape:window-width="1874"
-     inkscape:window-height="1050"
-     inkscape:window-x="46"
-     inkscape:window-y="30"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1316"
+     inkscape:window-height="814"
+     inkscape:window-x="270"
+     inkscape:window-y="90"
+     inkscape:window-maximized="0"
      inkscape:snap-bbox="true"
      inkscape:bbox-paths="true"
      inkscape:bbox-nodes="true"
@@ -271,7 +271,7 @@
     <path
        id="path1962"
        transform="matrix(0.26458333,0,0,0.26458333,1.9173392,290.74464)"
-       style="fill:#f2f2f2;fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 7,11 6.2929688,11.707031 8.5859375,14 H 18 V 13 H 9 Z M 6.2929688,11.707031 5,13 H 4 v 1 H 5.4140625 L 7,12.414062 Z M 3,3 V 18.999988 H 19 V 3 Z M 3.9999999,3.9999875 H 18 V 18 H 3.9999999 Z" />
     <rect
        style="opacity:0.5;fill:none;fill-opacity:1;stroke:none;stroke-width:0.04583338;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -283,7 +283,7 @@
        inkscape:export-xdpi="64"
        inkscape:export-ydpi="64" />
     <path
-       style="fill:#f2f2f2;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 4.5631726,292.06756 -0.2645834,0.26459 v 0.52916 l 0.2645834,-0.26458 v 0.26458 0.52917 l 0.5291666,0.79375 0.5291667,1.32291 v -0.79374 l 0.2645833,-0.26459 -0.2645833,-0.52916 v -0.79375 l -0.2645833,-0.52917 z"
        id="path1934"
        inkscape:connector-curvature="0"

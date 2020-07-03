@@ -1,43 +1,56 @@
 #include "StreamSettingsWidget.hpp"
+
 #include "common/QvHelpers.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 
-StreamSettingsWidget::StreamSettingsWidget(QWidget *parent) :
-    QWidget(parent)
+StreamSettingsWidget::StreamSettingsWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
+    QvMessageBusConnect(StreamSettingsWidget);
 }
 
-StreamSettingsObject StreamSettingsWidget::GetStreamSettings()
+QvMessageBusSlotImpl(StreamSettingsWidget)
+{
+    switch (msg)
+    {
+        case UPDATE_COLORSCHEME:
+        case HIDE_WINDOWS:
+        case SHOW_WINDOWS:
+            break;
+            //
+            MBRetranslateDefaultImpl
+    }
+}
+
+StreamSettingsObject StreamSettingsWidget::GetStreamSettings() const
 {
     return stream;
 }
 
-void StreamSettingsWidget::SetStreamObject(StreamSettingsObject sso)
+void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
 {
     stream = sso;
     //
     transportCombo->setCurrentText(stream.network);
+    // TLS
     tlsCB->setChecked(stream.security == "tls");
+    serverNameTxt->setText(stream.tlsSettings.serverName);
+    allowInsecureCB->setChecked(stream.tlsSettings.allowInsecure);
+    allowInsecureCiphersCB->setChecked(stream.tlsSettings.allowInsecureCiphers);
+    alpnTxt->setPlainText(stream.tlsSettings.alpn.join(NEWLINE));
     // TCP
     tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
     tcpRequestTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.request));
     tcpRespTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.response));
     // HTTP
-    QString allHosts;
-
-    for (auto host : stream.httpSettings.host) {
-        allHosts = allHosts + host + "\r\n";
-    }
-
-    httpHostTxt->setPlainText(allHosts);
+    httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
     httpPathTxt->setText(stream.httpSettings.path);
     // WS
     wsPathTxt->setText(stream.wsSettings.path);
     QString wsHeaders;
-
-    for (auto item = stream.wsSettings.headers.begin(); item != stream.wsSettings.headers.end(); item++) {
-        wsHeaders += item.key() + "|" + item.value() + NEWLINE;
+    for (auto i = 0; i < stream.wsSettings.headers.count(); i++)
+    {
+        wsHeaders = wsHeaders % stream.wsSettings.headers.keys().at(i) % "|" % stream.wsSettings.headers.values().at(i) % NEWLINE;
     }
 
     wsHeadersTxt->setPlainText(wsHeaders);
@@ -62,7 +75,6 @@ void StreamSettingsWidget::SetStreamObject(StreamSettingsObject sso)
     soMarkSpinBox->setValue(stream.sockopt.mark);
 }
 
-
 void StreamSettingsWidget::on_transportCombo_currentIndexChanged(int index)
 {
     v2rayStackView->setCurrentIndex(index);
@@ -75,34 +87,43 @@ void StreamSettingsWidget::on_httpPathTxt_textEdited(const QString &arg1)
 
 void StreamSettingsWidget::on_httpHostTxt_textChanged()
 {
-    try {
+    try
+    {
         QStringList hosts = httpHostTxt->toPlainText().replace("\r", "").split("\n");
         stream.httpSettings.host.clear();
 
-        for (auto host : hosts) {
-            if (!host.trimmed().isEmpty()) {
+        for (auto host : hosts)
+        {
+            if (!host.trimmed().isEmpty())
+            {
                 stream.httpSettings.host.push_back(host.trimmed());
             }
         }
 
         BLACK(httpHostTxt)
-    } catch (...) {
+    }
+    catch (...)
+    {
         RED(httpHostTxt)
     }
 }
 
 void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
 {
-    try {
+    try
+    {
         QStringList headers = SplitLines(wsHeadersTxt->toPlainText());
         stream.wsSettings.headers.clear();
 
-        for (auto header : headers) {
-            if (header.isEmpty()) continue;
+        for (auto header : headers)
+        {
+            if (header.isEmpty())
+                continue;
 
             auto index = header.indexOf("|");
 
-            if (index < 0) throw "fast fail to set RED color";
+            if (index < 0)
+                throw "fast fail to set RED color";
 
             auto key = header.left(index);
             auto value = header.right(header.length() - index - 1);
@@ -110,11 +131,12 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
         }
 
         BLACK(wsHeadersTxt)
-    } catch (...) {
+    }
+    catch (...)
+    {
         RED(wsHeadersTxt)
     }
 }
-
 
 void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
 {
@@ -132,7 +154,8 @@ void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
 void StreamSettingsWidget::on_tcpRespDefBtn_clicked()
 {
     tcpRespTxt->clear();
-    tcpRespTxt->setPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
+    tcpRespTxt->setPlainText(
+        "{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
 void StreamSettingsWidget::on_tlsCB_stateChanged(int arg1)
@@ -187,7 +210,7 @@ void StreamSettingsWidget::on_kcpMTU_valueChanged(int arg1)
 
 void StreamSettingsWidget::on_kcpTTI_valueChanged(int arg1)
 {
-    stream.kcpSettings.tti  = arg1;
+    stream.kcpSettings.tti = arg1;
 }
 
 void StreamSettingsWidget::on_kcpUploadCapacSB_valueChanged(int arg1)
@@ -261,4 +284,9 @@ void StreamSettingsWidget::on_allowInsecureCB_stateChanged(int arg1)
 void StreamSettingsWidget::on_alpnTxt_textChanged()
 {
     stream.tlsSettings.alpn = SplitLines(alpnTxt->toPlainText());
+}
+
+void StreamSettingsWidget::on_allowInsecureCiphersCB_stateChanged(int arg1)
+{
+    stream.tlsSettings.allowInsecureCiphers = arg1 == Qt::Checked;
 }

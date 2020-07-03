@@ -49,45 +49,46 @@
 ****************************************************************************/
 
 #pragma once
+#include <QRegularExpression>
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
-#include <QRegularExpression>
 #include <QTextDocument>
 
 namespace Qv2ray::common
 {
     class SyntaxHighlighter : public QSyntaxHighlighter
     {
-            Q_OBJECT
+        Q_OBJECT
 
-        public:
-            explicit SyntaxHighlighter(bool darkMode, QTextDocument *parent = nullptr);
+      public:
+        explicit SyntaxHighlighter(bool darkMode, QTextDocument *parent = nullptr);
 
-        protected:
-            void highlightBlock(const QString &text) override;
+      protected:
+        void highlightBlock(const QString &text) override;
 
-        private:
-            struct HighlightingRule {
-                QRegularExpression pattern;
-                QTextCharFormat format;
-            };
-            QVector<HighlightingRule> highlightingRules;
+      private:
+        struct HighlightingRule
+        {
+            QRegularExpression pattern;
+            QTextCharFormat format;
+        };
+        QVector<HighlightingRule> highlightingRules;
 
-            QTextCharFormat keywordFormat;
-            QTextCharFormat dateFormat;
-            QTextCharFormat acceptedFormat;
-            QTextCharFormat rejectedFormat;
-            QTextCharFormat failedFormat;
-            QTextCharFormat warningFormat;
-            QTextCharFormat infoFormat;
-            QTextCharFormat debugFormat;
-            QTextCharFormat timeFormat;
-            QTextCharFormat ipHostFormat;
-            QTextCharFormat v2rayComponentFormat;
-            //
-            QTextCharFormat qvAppLogFormat;
-            QTextCharFormat qvAppDebugLogFormat;
+        QTextCharFormat keywordFormat;
+        QTextCharFormat dateFormat;
+        QTextCharFormat acceptedFormat;
+        QTextCharFormat rejectedFormat;
+        QTextCharFormat failedFormat;
+        QTextCharFormat warningFormat;
+        QTextCharFormat infoFormat;
+        QTextCharFormat debugFormat;
+        QTextCharFormat timeFormat;
+        QTextCharFormat ipHostFormat;
+        QTextCharFormat v2rayComponentFormat;
+        //
+        QTextCharFormat qvAppLogFormat;
+        QTextCharFormat qvAppDebugLogFormat;
     };
-}
+} // namespace Qv2ray::common
 
 using namespace Qv2ray::common;

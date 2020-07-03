@@ -1,249 +1,153 @@
 ﻿#include "w_SubscriptionManager.hpp"
+
 #include "common/QvHelpers.hpp"
-#include "core/CoreUtils.hpp"
+#include "core/handler/ConfigHandler.hpp"
+#include "core/settings/SettingsBackend.hpp"
 
-#include "core/connection/ConnectionIO.hpp"
-#include "core/connection/Serialization.hpp"
-
-SubscribeEditor::SubscribeEditor(QWidget *parent) :
-    QDialog(parent)
+SubscriptionEditor::SubscriptionEditor(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
-    QvMessageBusConnect(SubscribeEditor);
+    QvMessageBusConnect(SubscriptionEditor);
+    UpdateColorScheme();
+    for (auto subs : ConnectionManager->Subscriptions())
+    {
+        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ GetDisplayName(subs), subs.toString() }));
+    }
+    if (subscriptionList->topLevelItemCount() > 0)
+    {
+        subscriptionList->setCurrentItem(subscriptionList->topLevelItem(0));
+    }
+}
+
+void SubscriptionEditor::UpdateColorScheme()
+{
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
-
-    for (auto i = GlobalConfig.subscriptions.begin(); i != GlobalConfig.subscriptions.end(); i++) {
-        subscriptions[i.key()] = i.value();
-    }
-
-    LoadSubscriptionList(subscriptions);
 }
 
-QvMessageBusSlotImpl(SubscribeEditor)
+QvMessageBusSlotImpl(SubscriptionEditor)
 {
-    switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+    switch (msg)
+    {
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl MBUpdateColorSchemeDefaultImpl
     }
 }
 
-QPair<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
+tuple<QString, CONFIGROOT> SubscriptionEditor::GetSelectedConfig()
 {
-    return currentSelectedConfig;
+    return { GetDisplayName(currentConnectionId), ConnectionManager->GetConnectionRoot(currentConnectionId) };
 }
 
-void SubscribeEditor::LoadSubscriptionList(QMap<QString, Qv2raySubscriptionConfig> list)
-{
-    subscriptionList->clear();
-
-    for (auto i = 0; i < list.count(); i++) {
-        subscriptionList->addItem(list.keys()[i]);
-    }
-
-    if (subscriptionList->count() > 0) {
-        subscriptionList->setCurrentRow(0);
-    }
-}
-
-SubscribeEditor::~SubscribeEditor()
+SubscriptionEditor::~SubscriptionEditor()
 {
 }
 
-void SubscribeEditor::on_addSubsButton_clicked()
+void SubscriptionEditor::on_addSubsButton_clicked()
 {
     auto const key = QSTRN(QTime::currentTime().msecsSinceStartOfDay());
-    subscriptionList->addItem(key);
-    subscriptions[key].address = "http://example.com/myfile";
-    QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + key);
-    subscriptionList->setCurrentRow(subscriptions.count() - 1);
-    SaveConfig();
-}
-
-void SubscribeEditor::on_updateButton_clicked()
-{
-    auto newName = subNameTxt->text().trimmed();
-    auto newAddress = subAddrTxt->text().trimmed();
-    auto newUpdateInterval = updateIntervalSB->value();
-
-    if (currentSubName != newName) {
-        // Rename needed.
-        LOG(SUBSCRIPTION, "Renaming a subscription, from " + currentSubName + " to: " + newName)
-        bool canGo = true;
-
-        if (newName.isEmpty() || !IsValidFileName(newName)) {
-            QvMessageBoxWarn(this, tr("Renaming a subscription"), tr("The subscription name is invalid, please try another."));
-            canGo = false;
-        }
-
-        if (subscriptionList->findItems(newName, Qt::MatchExactly).count() > 0) {
-            QvMessageBoxWarn(this, tr("Renaming a subscription"), tr("New name of this subscription has been used already, please suggest another one"));
-            canGo = false;
-        }
-
-        if (!canGo) {
-            subNameTxt->setText(currentSubName);
-            return;
-        }
-
-        bool result = RenameSubscription(currentSubName, newName);
-
-        if (!result) {
-            QvMessageBoxWarn(this, tr("Renaming a subscription"), tr("Failed to rename a subscription, this is an unknown error."));
-            return;
-        }
-
-        subscriptions[newName] = subscriptions[currentSubName];
-        subscriptions.remove(currentSubName);
-        subNameTxt->setText(newName);
-        //
-        // Update auto-start config if possible
-        auto ASsetting = GlobalConfig.autoStartConfig.subscriptionName;
-
-        if (ASsetting == currentSubName) {
-            GlobalConfig.autoStartConfig.subscriptionName = newName;
-        }
-
-        SaveGlobalConfig(GlobalConfig);
-        // This will set the name to the new name.
-        LoadSubscriptionList(subscriptions);
-        QvMessageBoxInfo(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
-    }
-
-    subscriptions[currentSubName].updateInterval = newUpdateInterval;
-
-    if (subscriptions[currentSubName].address != newAddress) {
-        LOG(SUBSCRIPTION, "Setting new address, from " + subscriptions[currentSubName].address + " to: " + newAddress)
-        subscriptions[currentSubName].address = newAddress;
-    }
-
-    SaveConfig();
-
-    if (QvMessageBoxAsk(this, tr("Update Subscription"), tr("Would you like to reload this subscription from the Url?")) == QMessageBox::Yes) {
-        StartUpdateSubscription(currentSubName);
-    }
-}
-
-void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
-{
-    this->setEnabled(false);
-    auto data = helper.syncget(subscriptions[subscriptionName].address, withProxyCB->isChecked());
-    auto content = DecodeSubscriptionString(data).trimmed();
-
-    if (!content.isEmpty()) {
-        connectionsList->clear();
-        auto vmessList = SplitLines(content);
-        QDir(QV2RAY_SUBSCRIPTION_DIR + subscriptionName).removeRecursively();
-        QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + subscriptionName);
-
-        for (auto vmess : vmessList) {
-            QString errMessage;
-            QString _alias;
-            auto config = ConvertConfigFromString(vmess.trimmed(), &_alias, &errMessage);
-
-            if (!errMessage.isEmpty()) {
-                LOG(SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
-            } else {
-                SaveSubscriptionConfig(config, subscriptionName, &_alias);
-                connectionsList->addItem(_alias);
-            }
-        }
-
-        subscriptions[subscriptionName].lastUpdated = system_clock::to_time_t(system_clock::now());
-        lastUpdatedLabel->setText(timeToString(subscriptions[subscriptionName].lastUpdated));
-        isUpdateInProgress = false;
-    } else {
-        LOG(NETWORK, "We have received an empty string from the URL.")
-        QvMessageBoxWarn(this, tr("Updating subscriptions"), tr("Failed to process the result from the upstream, please check your Url."));
-    }
-
-    this->setEnabled(true);
-}
-
-void SubscribeEditor::on_removeSubsButton_clicked()
-{
-    if (subscriptionList->currentRow() < 0)
-        return;
-
-    auto name = subscriptionList->currentItem()->text();
-    subscriptionList->takeItem(subscriptionList->currentRow());
-    subscriptions.remove(name);
-
-    if (!name.isEmpty()) {
-        QDir(QV2RAY_SUBSCRIPTION_DIR + name).removeRecursively();
-    }
-
-    // If removed a whole subscription...
-    if (GlobalConfig.autoStartConfig.subscriptionName == name) {
-        GlobalConfig.autoStartConfig = ConnectionIdentifier();
-        SaveGlobalConfig(GlobalConfig);
-    }
-
-    groupBox_2->setEnabled(subscriptionList->count() > 0);
-    SaveConfig();
-}
-
-void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
-{
-    if (subscriptionList->count() == 0) {
-        return;
-    }
-
-    if (currentRow < 0 && subscriptionList->count() > 0) {
-        subscriptionList->setCurrentRow(0);
-    }
-
-    currentSubName = subscriptionList->currentItem()->text();
-    LOG(UI, "Subscription row changed, new name: " + currentSubName)
+    auto id = ConnectionManager->CreateGroup(key, true);
     //
-    subNameTxt->setText(currentSubName);
-    subAddrTxt->setText(subscriptions[currentSubName].address);
-    updateIntervalSB->setValue(subscriptions[currentSubName].updateInterval);
-    lastUpdatedLabel->setText(timeToString(subscriptions[currentSubName].lastUpdated));
-    //
-    connectionsList->clear();
-    auto _list = GetSubscriptionConnection(currentSubName);
+    subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ key, id.toString() }));
+}
 
-    for (auto i = 0; i < _list.count(); i++) {
-        connectionsList->addItem(_list.keys()[i]);
+void SubscriptionEditor::on_updateButton_clicked()
+{
+    if (QvMessageBoxAsk(this, tr("Reload Subscription"), tr("Would you like to reload the subscription?")) == QMessageBox::Yes)
+    {
+        this->setEnabled(false);
+        ConnectionManager->UpdateSubscription(currentSubId); //
+        this->setEnabled(true);
+        on_subscriptionList_itemClicked(subscriptionList->currentItem(), 0);
     }
 }
 
-void SubscribeEditor::SaveConfig()
+void SubscriptionEditor::on_removeSubsButton_clicked()
 {
-    QMap<QString, Qv2raySubscriptionConfig> newConf;
-
-    for (auto _ : subscriptions.toStdMap()) {
-        if (!_.second.address.isEmpty()) {
-            newConf[_.first] = _.second;
+    if (QvMessageBoxAsk(this, tr("Deleting a subscription"), tr("All connections will be moved to default group, do you want to continue?")) ==
+        QMessageBox::Yes)
+    {
+        ConnectionManager->DeleteGroup(currentSubId); //
+        auto item = subscriptionList->currentItem();
+        subscriptionList->removeItemWidget(item, 0);
+        delete item;
+        if (subscriptionList->topLevelItemCount() > 0)
+        {
+            subscriptionList->setCurrentItem(subscriptionList->topLevelItem(0));
+            on_subscriptionList_itemClicked(subscriptionList->topLevelItem(0), 0);
+        }
+        else
+        {
+            groupBox_2->setEnabled(false);
         }
     }
-
-    GlobalConfig.subscriptions = newConf;
-    SaveGlobalConfig(GlobalConfig);
 }
 
-void SubscribeEditor::on_buttonBox_accepted()
+void SubscriptionEditor::on_buttonBox_accepted()
 {
-    SaveConfig();
+    // Nothing?
 }
 
-void SubscribeEditor::on_subscriptionList_itemSelectionChanged()
+void SubscriptionEditor::on_subscriptionList_itemSelectionChanged()
 {
     groupBox_2->setEnabled(subscriptionList->selectedItems().count() > 0);
 }
 
-void SubscribeEditor::on_updateIntervalSB_valueChanged(double arg1)
+void SubscriptionEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int column)
 {
-    subscriptions[currentSubName].updateInterval = arg1;
+    Q_UNUSED(column)
+
+    if (item == nullptr)
+    {
+        return;
+    }
+
+    //
+    groupBox_2->setEnabled(true);
+    currentSubId = GroupId(item->text(1));
+    //
+    subNameTxt->setText(GetDisplayName(currentSubId));
+    auto const [addr, lastUpdated, updateInterval] = ConnectionManager->GetSubscriptionData(currentSubId);
+    subAddrTxt->setText(addr);
+    lastUpdatedLabel->setText(timeToString(lastUpdated));
+    updateIntervalSB->setValue(updateInterval);
+    //
+    connectionsList->clear();
+
+    for (auto conn : ConnectionManager->Connections(currentSubId))
+    {
+        connectionsList->addItem(GetDisplayName(conn)); //
+    }
 }
 
-void SubscribeEditor::on_connectionsList_itemClicked(QListWidgetItem *item)
+void SubscriptionEditor::on_subscriptionList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-    if (item != nullptr) {
-        auto name = item->text();
-        currentSelectedConfig.first = name;
-        currentSelectedConfig.second = GetSubscriptionConnection(currentSubName)[name];
+    Q_UNUSED(previous)
+    on_subscriptionList_itemClicked(current, 0);
+}
+
+void SubscriptionEditor::on_subNameTxt_textEdited(const QString &arg1)
+{
+    subscriptionList->selectedItems().first()->setText(0, arg1);
+    ConnectionManager->RenameGroup(currentSubId, arg1.trimmed());
+}
+
+void SubscriptionEditor::on_subAddrTxt_textEdited(const QString &arg1)
+{
+    auto newUpdateInterval = updateIntervalSB->value();
+    ConnectionManager->SetSubscriptionData(currentSubId, arg1, newUpdateInterval);
+}
+
+void SubscriptionEditor::on_updateIntervalSB_valueChanged(double arg1)
+{
+    auto newAddress = subAddrTxt->text().trimmed();
+    ConnectionManager->SetSubscriptionData(currentSubId, newAddress, arg1);
+}
+
+void SubscriptionEditor::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    Q_UNUSED(previous)
+    if (current != nullptr)
+    {
+        currentConnectionId = ConnectionManager->GetConnectionIdByDisplayName(current->text(), currentSubId);
     }
 }

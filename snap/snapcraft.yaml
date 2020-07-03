@@ -3,8 +3,8 @@ base: core18
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
 
-grade: devel
-confinement: devmode
+grade: stable
+confinement: strict
 
 plugs:
   gsettings:
@@ -26,22 +26,39 @@ apps:
       command: bin/desktop-launch qv2ray
       environment:
         QT_QPA_PLATFORMTHEME: gtk3
+      plugs:
+        - home
+        - x11
+        - wayland
+        - opengl
+        - network
+        - network-bind
+        - unity7
+        - pulseaudio
+        - desktop
+        - desktop-legacy
+        - gsettings
+        - network-control
+        - network-manager
       common-id: com.github.Qv2ray
       desktop: "usr/share/applications/qv2ray.desktop"
 
 parts:
   qv2ray:
-    plugin: qmake
+    plugin: cmake
     source-type: git
     source: .
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
       - qttools5-dev-tools
+      - qttools5-dev
       - qt5-default
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
+      - ninja-build
+      - pkg-config
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -52,22 +69,22 @@ parts:
       - libqt5gui5
       - libqt5network5
       - libqt5widgets5
-      - fonts-noto-cjk
       - libglib2.0-bin
-    options:
-      - PREFIX=/usr
-      - CONFIG+=with_metainfo
-      - CONFIG+=use_grpc
+    configflags:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -GNinja
+      - -DEMBED_TRANSLATIONS=ON
     override-pull: |
       snapcraftctl pull
       build_number=$(cat makespec/BUILDVERSION)
-      tag=$(git describe --abbrev=0 --tags)
+      tag=$(cat makespec/VERSION)
       version=$tag.$build_number
       snapcraftctl set-version "$version"
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/256x256/apps/qv2ray.png|g' assets/qv2ray.desktop
     after:
-      - mytools
       - desktop-qt5
+      - ppa
 
   desktop-qt5:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
@@ -94,27 +111,20 @@ parts:
       - xdg-user-dirs
       - fcitx-frontend-qt5
     after:
-      - mytools
-  
+      - ppa
+
   qt5-gtk-platform:
     plugin: nil
     stage-packages:
       - qt5-gtk-platformtheme
     after:
-      - mytools
-  
-  mytools:
+      - ppa
+
+  ppa:
     plugin: nil
     build-packages:
+      - software-properties-common
       - dirmngr
-    override-pull: |
-      echo 'deb http://archive.neon.kde.org/unstable bionic main' > /etc/apt/sources.list.d/neon.list
-      echo 'deb http://ppa.launchpad.net/ymshenyu/grpc-1/ubuntu bionic main' >> /etc/apt/sources.list.d/tools.list
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E6D4736255751E5D
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
-      sudo apt-get update
-      snapcraftctl pull
     override-build: |
-      snapcraftctl build
-      sudo apt upgrade -y
-      sudo apt dist-upgrade -y
+      sudo add-apt-repository -y ppa:ymshenyu/qv2ray-deps
+      sudo apt-get dist-upgrade -y

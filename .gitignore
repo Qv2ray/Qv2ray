@@ -1,8 +1,12 @@
 # Some files 
 .DS_Store
 *.pro.user
+*.user
+.vs/
 *.qm
 ./.vscode
+CMakeSettings.json
+/makespec/qv2ray.spec
 
 SourceTrail/
 
@@ -11,4 +15,9 @@ libs/x64-windows/
 libs/x86-windows/
 libs/libqvb-*
 
-build/
+build**/
+
+# IntelliJ-based IDE Trash
+/.idea/
+*.iml
+/cmake-build-debug

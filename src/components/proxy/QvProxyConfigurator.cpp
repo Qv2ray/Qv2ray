@@ -1,8 +1,10 @@
 #include "QvProxyConfigurator.hpp"
+
 #include "common/QvHelpers.hpp"
+#include "components/plugins/QvPluginHost.hpp"
 #ifdef Q_OS_WIN
-#include "wininet.h"
-#include <windows.h>
+    #include <WinInet.h>
+    #include <Windows.h>
 #endif
 
 namespace Qv2ray::components::proxy
@@ -13,30 +15,33 @@ namespace Qv2ray::components::proxy
     {
         QProcess p;
         p.setProgram("/usr/sbin/networksetup");
-        p.setArguments(QStringList() << "-listallnetworkservices");
+        p.setArguments(QStringList{ "-listallnetworkservices" });
         p.start();
         p.waitForStarted();
         p.waitForFinished();
-        LOG(PROXY, p.errorString())
+        LOG(MODULE_PROXY, p.errorString())
         auto str = p.readAllStandardOutput();
         auto lines = SplitLines(str);
         QStringList result;
 
         // Start from 1 since first line is unneeded.
-        for (auto i = 1; i < lines.count(); i++) {
+        for (auto i = 1; i < lines.count(); i++)
+        {
             // * means disabled.
-            if (!lines[i].contains("*"))  {
-                result << (lines[i].contains(" ") ? "\"" +  lines[i] + "\"" : lines[i]);
+            if (!lines[i].contains("*"))
+            {
+                result << (lines[i].contains(" ") ? "\"" + lines[i] + "\"" : lines[i]);
             }
         }
 
-        LOG(PROXY, "Found " + QSTRN(result.size()) + " network services: " + result.join(";"))
+        LOG(MODULE_PROXY, "Found " + QSTRN(result.size()) + " network services: " + result.join(";"))
         return result;
     }
 #endif
 #ifdef Q_OS_WIN
-#define NO_CONST(expr) const_cast<wchar_t *>(expr)
-    //static auto DEFAULT_CONNECTION_NAME = NO_CONST(L"DefaultConnectionSettings");
+    #define NO_CONST(expr) const_cast<wchar_t *>(expr)
+    // static auto DEFAULT_CONNECTION_NAME =
+    // NO_CONST(L"DefaultConnectionSettings");
     ///
     /// INTERNAL FUNCTION
     bool __QueryProxyOptions()
@@ -52,58 +57,69 @@ namespace Qv2ray::components::proxy
         Option[4].dwOption = INTERNET_PER_CONN_PROXY_SERVER;
         //
         List.dwSize = sizeof(INTERNET_PER_CONN_OPTION_LIST);
-        List.pszConnection = nullptr;// NO_CONST(DEFAULT_CONNECTION_NAME);
+        List.pszConnection = nullptr; // NO_CONST(DEFAULT_CONNECTION_NAME);
         List.dwOptionCount = 5;
         List.dwOptionError = 0;
         List.pOptions = Option;
 
-        if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize)) {
-            LOG(PROXY, "InternetQueryOption failed, GLE=" + QSTRN(GetLastError()))
+        if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize))
+        {
+            LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + QSTRN(GetLastError()))
         }
 
-        LOG(PROXY, "System default proxy info:")
+        LOG(MODULE_PROXY, "System default proxy info:")
 
-        if (Option[0].Value.pszValue != nullptr) {
-            LOG(PROXY, QString::fromWCharArray(Option[0].Value.pszValue))
+        if (Option[0].Value.pszValue != nullptr)
+        {
+            LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue))
         }
 
-        if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_PROXY_URL) == PROXY_TYPE_AUTO_PROXY_URL) {
-            LOG(PROXY, "PROXY_TYPE_AUTO_PROXY_URL")
+        if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_PROXY_URL) == PROXY_TYPE_AUTO_PROXY_URL)
+        {
+            LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_PROXY_URL")
         }
 
-        if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_DETECT) == PROXY_TYPE_AUTO_DETECT) {
-            LOG(PROXY, "PROXY_TYPE_AUTO_DETECT")
+        if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_DETECT) == PROXY_TYPE_AUTO_DETECT)
+        {
+            LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_DETECT")
         }
 
-        if ((Option[2].Value.dwValue & PROXY_TYPE_DIRECT) == PROXY_TYPE_DIRECT) {
-            LOG(PROXY, "PROXY_TYPE_DIRECT")
+        if ((Option[2].Value.dwValue & PROXY_TYPE_DIRECT) == PROXY_TYPE_DIRECT)
+        {
+            LOG(MODULE_PROXY, "PROXY_TYPE_DIRECT")
         }
 
-        if ((Option[2].Value.dwValue & PROXY_TYPE_PROXY) == PROXY_TYPE_PROXY) {
-            LOG(PROXY, "PROXY_TYPE_PROXY")
+        if ((Option[2].Value.dwValue & PROXY_TYPE_PROXY) == PROXY_TYPE_PROXY)
+        {
+            LOG(MODULE_PROXY, "PROXY_TYPE_PROXY")
         }
 
-        if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize)) {
-            LOG(PROXY, "InternetQueryOption failed,GLE=" + QSTRN(GetLastError()))
+        if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize))
+        {
+            LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + QSTRN(GetLastError()))
         }
 
-        if (Option[4].Value.pszValue != nullptr) {
-            LOG(PROXY, QString::fromStdWString(Option[4].Value.pszValue))
+        if (Option[4].Value.pszValue != nullptr)
+        {
+            LOG(MODULE_PROXY, QString::fromStdWString(Option[4].Value.pszValue))
         }
 
         INTERNET_VERSION_INFO Version;
         nSize = sizeof(INTERNET_VERSION_INFO);
         InternetQueryOption(nullptr, INTERNET_OPTION_VERSION, &Version, &nSize);
 
-        if (Option[0].Value.pszValue != nullptr) {
+        if (Option[0].Value.pszValue != nullptr)
+        {
             GlobalFree(Option[0].Value.pszValue);
         }
 
-        if (Option[3].Value.pszValue != nullptr) {
+        if (Option[3].Value.pszValue != nullptr)
+        {
             GlobalFree(Option[3].Value.pszValue);
         }
 
-        if (Option[4].Value.pszValue != nullptr) {
+        if (Option[4].Value.pszValue != nullptr)
+        {
             GlobalFree(Option[4].Value.pszValue);
         }
 
@@ -112,21 +128,23 @@ namespace Qv2ray::components::proxy
     bool __SetProxyOptions(LPWSTR proxy_full_addr, bool isPAC)
     {
         INTERNET_PER_CONN_OPTION_LIST list;
-        BOOL    bReturn;
-        DWORD   dwBufSize = sizeof(list);
+        BOOL bReturn;
+        DWORD dwBufSize = sizeof(list);
         // Fill the list structure.
         list.dwSize = sizeof(list);
         // NULL == LAN, otherwise connectoid name.
         list.pszConnection = nullptr;
 
-        if (isPAC) {
-            LOG(PROXY, "Setting system proxy for PAC")
+        if (isPAC)
+        {
+            LOG(MODULE_PROXY, "Setting system proxy for PAC")
             //
             list.dwOptionCount = 2;
             list.pOptions = new INTERNET_PER_CONN_OPTION[2];
 
             // Ensure that the memory was allocated.
-            if (nullptr == list.pOptions) {
+            if (nullptr == list.pOptions)
+            {
                 // Return FALSE if the memory wasn't allocated.
                 return FALSE;
             }
@@ -137,13 +155,16 @@ namespace Qv2ray::components::proxy
             // Set proxy name.
             list.pOptions[1].dwOption = INTERNET_PER_CONN_AUTOCONFIG_URL;
             list.pOptions[1].Value.pszValue = proxy_full_addr;
-        } else {
-            LOG(PROXY, "Setting system proxy for Global Proxy")
+        }
+        else
+        {
+            LOG(MODULE_PROXY, "Setting system proxy for Global Proxy")
             //
             list.dwOptionCount = 3;
             list.pOptions = new INTERNET_PER_CONN_OPTION[3];
 
-            if (nullptr == list.pOptions) {
+            if (nullptr == list.pOptions)
+            {
                 return false;
             }
 
@@ -161,120 +182,147 @@ namespace Qv2ray::components::proxy
 
         // Set the options on the connection.
         bReturn = InternetSetOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &list, dwBufSize);
-        delete [] list.pOptions;
+        delete[] list.pOptions;
         InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
         InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
         return bReturn;
     }
 #endif
 
-    void SetSystemProxy(const QString &address, int httpPort, int socksPort, bool usePAC)
+    void SetSystemProxy(const QString &address, int httpPort, int socksPort)
     {
+        LOG(MODULE_PROXY, "Setting up System Proxy")
         bool hasHTTP = (httpPort != 0);
         bool hasSOCKS = (socksPort != 0);
 
-        if (!(hasHTTP || hasSOCKS || usePAC)) {
-            LOG(PROXY, "Nothing?")
+        if (!(hasHTTP || hasSOCKS))
+        {
+            LOG(MODULE_PROXY, "Nothing?")
             return;
         }
 
-        if (usePAC) {
-            LOG(PROXY, "Qv2ray will set system proxy to use PAC file")
-        } else {
-            if (hasHTTP) {
-                LOG(PROXY, "Qv2ray will set system proxy to use HTTP")
-            }
+        if (hasHTTP)
+        {
+            LOG(MODULE_PROXY, "Qv2ray will set system proxy to use HTTP")
+        }
 
-            if (hasSOCKS) {
-                LOG(PROXY, "Qv2ray will set system proxy to use SOCKS")
-            }
+        if (hasSOCKS)
+        {
+            LOG(MODULE_PROXY, "Qv2ray will set system proxy to use SOCKS")
         }
 
 #ifdef Q_OS_WIN
-        QString __a;
+        QString __a = (hasHTTP ? "http://" : "socks5://") + address + ":" + QSTRN(hasHTTP ? httpPort : socksPort);
 
-        if (usePAC) {
-            __a = address;
-        } else {
-            __a = (hasHTTP ? "http://" : "socks5://") + address + ":" + QSTRN(httpPort);
-        }
-
-        LOG(PROXY, "Windows proxy string: " + __a)
+        LOG(MODULE_PROXY, "Windows proxy string: " + __a)
         auto proxyStrW = new WCHAR[__a.length() + 1];
         wcscpy(proxyStrW, __a.toStdWString().c_str());
         //
         __QueryProxyOptions();
 
-        if (!__SetProxyOptions(proxyStrW, usePAC)) {
-            LOG(PROXY, "Failed to set proxy.")
+        if (!__SetProxyOptions(proxyStrW, false))
+        {
+            LOG(MODULE_PROXY, "Failed to set proxy.")
         }
 
         __QueryProxyOptions();
 #elif defined(Q_OS_LINUX)
         QStringList actions;
-        auto proxyMode = usePAC ? "auto" : "manual";
-        actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg(proxyMode);
-
-        if (usePAC) {
-            actions << QString("gsettings set org.gnome.system.proxy autoconfig-url '%1'").arg(address);
-        } else {
-            if (hasHTTP) {
-                actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
-                actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
-                //
-                actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
-                actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);;
+        actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg("manual");
+        bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
+        const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+        if (isKDE)
+        {
+            LOG(MODULE_PROXY, "KDE detected")
+            actions << QString("kwriteconfig5  --file " + configPath + "/kioslaverc --group \"Proxy Settings\" --key ProxyType 1");
+        }
+        if (hasHTTP)
+        {
+            actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
+            actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
+            //
+            actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
+            actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);
+            if (isKDE)
+            {
+                // FTP here should be scheme: ftp://
+                for (auto protocol : { "http", "ftp", "https" })
+                {
+                    auto str =
+                        QString("kwriteconfig5  --file " + configPath + "/kioslaverc --group \"Proxy Settings\" --key %1Proxy \"http://%2 %3\"")
+                            .arg(protocol)
+                            .arg(address)
+                            .arg(QSTRN(httpPort));
+                    actions << str;
+                }
             }
+        }
 
-            if (hasSOCKS) {
-                actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
-                actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
+        if (hasSOCKS)
+        {
+            actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
+            actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
+            if (isKDE)
+            {
+                actions << QString("kwriteconfig5 --file " + configPath +
+                                   "/kioslaverc --group \"Proxy Settings\" --key socksProxy \"socks://%1 %2\"")
+                               .arg(address)
+                               .arg(QSTRN(socksPort));
             }
         }
 
         // note: do not use std::all_of / any_of / none_of,
         // because those are short-circuit and cannot guarantee atomicity.
-        auto result = std::count_if(actions.cbegin(), actions.cend(), [](const QString & action) {
-            DEBUG(PROXY, action)
-            return QProcess::execute(action) == QProcess::NormalExit;
-        }) == actions.size();
+        auto result = std::count_if(actions.cbegin(), actions.cend(), [](const QString &action) {
+                          DEBUG(MODULE_PROXY, action)
+                          return QProcess::execute(action) == QProcess::NormalExit;
+                      }) == actions.size();
 
-        if (!result) {
-            LOG(PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
-            LOG(PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
+        if (!result)
+        {
+            LOG(MODULE_PROXY, "There was something wrong when setting proxies.")
+            LOG(MODULE_PROXY, "It may happen if you are using KDE with no gsettings support.")
         }
 
         Q_UNUSED(result);
 #else
 
-        for (auto service : macOSgetNetworkServices()) {
-            LOG(PROXY, "Setting proxy for interface: " + service)
+        for (auto service : macOSgetNetworkServices())
+        {
+            LOG(MODULE_PROXY, "Setting proxy for interface: " + service)
 
-            if (usePAC) {
-                QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " on");
-                QProcess::execute("/usr/sbin/networksetup -setautoproxyurl " + service + " " + address);
-            } else {
-                if (hasHTTP) {
-                    QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on");
-                    QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on");
-                    QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QSTRN(httpPort));
-                    QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QSTRN(httpPort));
-                }
+            if (hasHTTP)
+            {
+                QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on");
+                QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on");
+                QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QSTRN(httpPort));
+                QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QSTRN(httpPort));
+            }
 
-                if (hasSOCKS) {
-                    QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " on");
-                    QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxy " + service + " " + address + " " + QSTRN(socksPort));
-                }
+            if (hasSOCKS)
+            {
+                QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " on");
+                QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxy " + service + " " + address + " " + QSTRN(socksPort));
             }
         }
 
 #endif
+        //
+        // Trigger plugin events
+        QMap<Events::SystemProxy::SystemProxyType, int> portSettings;
+        if (hasHTTP)
+            portSettings.insert(Events::SystemProxy::SystemProxyType::SystemProxy_HTTP, httpPort);
+        if (hasSOCKS)
+            portSettings.insert(Events::SystemProxy::SystemProxyType::SystemProxy_SOCKS, socksPort);
+        PluginHost->Send_SystemProxyEvent(
+            Events::SystemProxy::EventObject{ portSettings, Events::SystemProxy::SystemProxyStateType::SystemProxyState_SetProxy });
     }
 
     void ClearSystemProxy()
     {
+        LOG(MODULE_PROXY, "Clearing System Proxy")
 #ifdef Q_OS_WIN
-        LOG(PROXY, "Cleaning system proxy settings.")
+        LOG(MODULE_PROXY, "Cleaning system proxy settings.")
         INTERNET_PER_CONN_OPTION_LIST list;
         BOOL bReturn;
         DWORD dwBufSize = sizeof(list);
@@ -287,9 +335,10 @@ namespace Qv2ray::components::proxy
         list.pOptions = new INTERNET_PER_CONN_OPTION[list.dwOptionCount];
 
         // Make sure the memory was allocated.
-        if (nullptr == list.pOptions) {
+        if (nullptr == list.pOptions)
+        {
             // Return FALSE if the memory wasn't allocated.
-            LOG(PROXY, "Failed to allocat memory in DisableConnectionProxy()")
+            LOG(MODULE_PROXY, "Failed to allocat memory in DisableConnectionProxy()")
         }
 
         // Set flags.
@@ -298,15 +347,29 @@ namespace Qv2ray::components::proxy
         //
         // Set the options on the connection.
         bReturn = InternetSetOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &list, dwBufSize);
-        delete [] list.pOptions;
+        delete[] list.pOptions;
         InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
         InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
 #elif defined(Q_OS_LINUX)
+        if (qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE")
+        {
+            QProcess::execute("kwriteconfig5 --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
+                              "/kioslaverc --group \"Proxy Settings\" --key ProxyType 0");
+            for (auto protocol : { "http", "ftp", "https" })
+            {
+                auto str = QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
+                                   "/kioslaverc --group \"Proxy Settings\" --key %1Proxy ''")
+                               .arg(protocol);
+                QProcess::execute(str);
+            }
+            QProcess::execute("kwriteconfig5 --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
+                              "/kioslaverc --group \"Proxy Settings\" --key socksProxy ''");
+        }
         QProcess::execute("gsettings set org.gnome.system.proxy mode 'none'");
 #else
-
-        for (auto service : macOSgetNetworkServices()) {
-            LOG(PROXY, "Clearing proxy for interface: " + service)
+        for (auto service : macOSgetNetworkServices())
+        {
+            LOG(MODULE_PROXY, "Clearing proxy for interface: " + service)
             QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " off");
             QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " off");
             QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " off");
@@ -314,5 +377,9 @@ namespace Qv2ray::components::proxy
         }
 
 #endif
+        //
+        // Trigger plugin events
+        PluginHost->Send_SystemProxyEvent(
+            Events::SystemProxy::EventObject{ {}, Events::SystemProxy::SystemProxyStateType::SystemProxyState_ClearProxy });
     }
-}
+} // namespace Qv2ray::components::proxy

@@ -1,12 +1,6 @@
-language: bash
+language: shell
+os: linux
 dist: bionic
-
-git:
-  depth: false
-
-branches:
-  only:
-    - dev
 
 env:
   global:
@@ -15,14 +9,15 @@ env:
 
 addons:
   snaps:
-   - name: snapcraft
-     channel: stable
-     confinement: classic
-   - name: lxd
-     channel: stable
+    - name: snapcraft
+      channel: stable
+      confinement: classic
+    - name: lxd
+      channel: stable
 
 script:
-  - sudo apt autoremove lxd --purge
+  - sudo apt-get autoremove lxd --purge
+  - sudo /snap/bin/lxd waitready
   - sudo /snap/bin/lxd init --auto
   - sudo snapcraft --use-lxd
 
@@ -30,9 +25,9 @@ after_failure:
   - sudo journalctl -u snapd
 
 deploy:
-  provider: snap
-  snap: qv2ray_*.snap
-  channel: edge
-  skip_cleanup: true
-  on:
-    branch: dev
+  - provider: launchpad
+    slug: "~ymshenyu/qv2ray/+git/trunk"
+    oauth_token: $LAUNCHPAD_OAUTH_TOKEN
+    oauth_token_secret: $LAUNCHPAD_OAUTH_TOKEN_SECRET
+    on:
+      all_branches: true

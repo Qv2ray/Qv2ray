@@ -1,0 +1,46 @@
+# Starter pipeline
+
+trigger:
+  branches:
+    include:
+      - master
+      - dev
+  tags:
+    include:
+      - v*
+
+pool:
+  vmImage: 'macOS-10.14'
+
+steps:
+- checkout: self
+  submodules: recursive
+- script: |
+    brew install protobuf grpc ninja qt5
+  displayName: Prepare dependencies
+- script: |
+    PATH=/usr/local/opt/qt5/bin:$PATH
+    mkdir build
+    cd build
+    cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
+    sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
+  displayName: Build Qv2ray
+  env:
+    Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
+- script: |
+    cp build/qv2ray-*.dmg ./qv2ray-legacy.dmg
+  displayName: Copy binary
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'qv2ray-legacy.dmg'
+    ArtifactName: 'qv2ray-legacy.dmg'
+    publishLocation: 'Container'
+- task: GitHubRelease@0
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
+  inputs:
+    gitHubConnection: 'GitHub - DuckSoft'
+    assets: 'qv2ray-legacy.dmg'
+    action: edit
+    tag: '$(Build.SourceBranchName)'
+    isPreRelease: true
+    addChangeLog: false 

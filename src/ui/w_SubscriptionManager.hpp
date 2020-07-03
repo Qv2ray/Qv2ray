@@ -1,48 +1,52 @@
 ﻿#pragma once
 
-#include <QDialog>
 #include "base/Qv2rayBase.hpp"
-#include "common/HTTPRequestHelper.hpp"
-#include "ui_w_SubscriptionManager.h"
+#include "core/CoreSafeTypes.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
+#include "ui_w_SubscriptionManager.h"
 
-class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
+#include <QDialog>
+
+class SubscriptionEditor
+    : public QDialog
+    , private Ui::w_SubscribeEditor
 {
-        Q_OBJECT
+    Q_OBJECT
 
-    public:
-        explicit SubscribeEditor(QWidget *parent = nullptr);
-        ~SubscribeEditor();
-        QPair<QString, CONFIGROOT> GetSelectedConfig();
+  public:
+    explicit SubscriptionEditor(QWidget *parent = nullptr);
+    ~SubscriptionEditor();
+    tuple<QString, CONFIGROOT> GetSelectedConfig();
 
-    public slots:
-        QvMessageBusSlotHeader
+  private:
+    QvMessageBusSlotDecl;
 
-    private slots:
-        void on_addSubsButton_clicked();
+  private slots:
+    void on_addSubsButton_clicked();
 
-        void on_updateButton_clicked();
+    void on_updateButton_clicked();
 
-        void on_removeSubsButton_clicked();
+    void on_removeSubsButton_clicked();
 
-        void on_subscriptionList_currentRowChanged(int currentRow);
+    void on_buttonBox_accepted();
 
-        void on_buttonBox_accepted();
+    void on_subscriptionList_itemSelectionChanged();
 
-        void on_subscriptionList_itemSelectionChanged();
+    void on_subscriptionList_itemClicked(QTreeWidgetItem *item, int column);
 
-        void on_updateIntervalSB_valueChanged(double arg1);
+    void on_subscriptionList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
-        void on_connectionsList_itemClicked(QListWidgetItem *item);
+    void on_subNameTxt_textEdited(const QString &arg1);
 
-    private:
-        void StartUpdateSubscription(const QString &subscriptionName);
-        void SaveConfig();
-        void LoadSubscriptionList(QMap<QString, Qv2raySubscriptionConfig> list);
+    void on_subAddrTxt_textEdited(const QString &arg1);
 
-        bool isUpdateInProgress = false;
-        QvHttpRequestHelper helper;
-        QPair<QString, CONFIGROOT> currentSelectedConfig;
-        QMap<QString, Qv2raySubscriptionConfig> subscriptions;
-        QString currentSubName;
+    void on_updateIntervalSB_valueChanged(double arg1);
+
+    void on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+  private:
+    void UpdateColorScheme();
+    bool isUpdateInProgress = false;
+    GroupId currentSubId = NullGroupId;
+    ConnectionId currentConnectionId = NullConnectionId;
 };

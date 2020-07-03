@@ -1,0 +1,116 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "路由规则方案",
+    "definitions": {
+        "DomainStrategyEntry": {
+            "enum": ["AsIs", "IPIfNonMatch", "IPOnDemand"],
+            "type": "string"
+        },
+        "DomainRuleEntry": {
+            "examples": [
+                "baidu.com",
+                "geosite:cn",
+                "regexp:\\.goo.*\\.com$",
+                "domain:v2ray.com",
+                "full:v2ray.com",
+                "ext:file:tag"
+            ],
+            "type": "string"
+        },
+        "IPRuleEntry": {
+            "examples": [
+                "127.0.0.1",
+                "::1",
+                "0.0.0.0/8",
+                "fe80::/10",
+                "geoip:cn",
+                "ext:file:tag"
+            ],
+            "type": "string"
+        },
+        "DomainRule": {
+            "description": "域名规则",
+            "properties": {
+                "direct": {
+                    "description": "域名直连列表",
+                    "items": {
+                        "$ref": "#/definitions/DomainRuleEntry"
+                    },
+                    "type": "array"
+                },
+                "proxy": {
+                    "description": "域名代理列表",
+                    "items": {
+                        "$ref": "#/definitions/DomainRuleEntry"
+                    },
+                    "type": "array"
+                },
+                "block": {
+                    "description": "域名阻断列表",
+                    "items": {
+                        "$ref": "#/definitions/DomainRuleEntry"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": ["direct", "proxy", "block"],
+            "type": "object"
+        },
+        "IPRule": {
+            "description": "IP规则",
+            "properties": {
+                "direct": {
+                    "description": "IP直连列表",
+                    "items": {
+                        "$ref": "#/definitions/IPRuleEntry"
+                    },
+                    "type": "array"
+                },
+                "proxy": {
+                    "description": "IP代理列表",
+                    "items": {
+                        "$ref": "#/definitions/IPRuleEntry"
+                    },
+                    "type": "array"
+                },
+                "block": {
+                    "description": "IP阻断列表",
+                    "items": {
+                        "$ref": "#/definitions/IPRuleEntry"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": ["direct", "proxy", "block"],
+            "type": "object"
+        }
+    },
+    "properties": {
+        "name": {
+            "description": "方案名称",
+            "examples": ["无名规则"],
+            "type": "string"
+        },
+        "author": {
+            "description": "方案作者",
+            "examples": ["DuckSoft <realducksoft@gmail.com>"],
+            "type": "string"
+        },
+        "description": {
+            "description": "方案介绍",
+            "examples": ["啥都没有的方案"],
+            "type": "string"
+        },
+        "domains": {
+            "$ref": "#/definitions/DomainRule"
+        },
+        "ips": {
+            "$ref": "#/definitions/IPRule"
+        },
+        "domainStrategy": {
+            "$ref": "#/definitions/DomainStrategyEntry"
+        }
+    },
+    "required": ["name", "author", "description", "domains", "ips", "domainStrategy"],
+    "type": "object"
+}

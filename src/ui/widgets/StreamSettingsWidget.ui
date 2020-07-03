@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>384</width>
-    <height>372</height>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -88,6 +88,9 @@
              <property name="backgroundVisible">
               <bool>false</bool>
              </property>
+             <property name="placeholderText">
+              <string notr="true"/>
+             </property>
             </widget>
            </item>
            <item row="2" column="2" colspan="2">
@@ -106,6 +109,9 @@
              </property>
              <property name="plainText">
               <string/>
+             </property>
+             <property name="placeholderText">
+              <string notr="true"/>
              </property>
             </widget>
            </item>
@@ -202,7 +208,7 @@
                 <string/>
                </property>
                <property name="placeholderText">
-                <string>/wsPath</string>
+                <string notr="true">/wsPath</string>
                </property>
               </widget>
              </item>
@@ -629,37 +635,37 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
           <string>Server</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <widget class="QLineEdit" name="serverNameTxt"/>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
           <string>ALPN</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QPlainTextEdit" name="alpnTxt"/>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_13">
+       <item row="0" column="0" colspan="2">
+        <widget class="QCheckBox" name="tlsCB">
          <property name="text">
-          <string>TLS</string>
+          <string>Enable TLS</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QCheckBox" name="tlsCB">
+       <item row="2" column="0" colspan="2">
+        <widget class="QCheckBox" name="allowInsecureCiphersCB">
          <property name="text">
-          <string>Enabled</string>
+          <string>Allow Insecure Ciphers</string>
          </property>
         </widget>
        </item>
@@ -726,6 +732,40 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>transportCombo</tabstop>
+  <tabstop>tcpHeaderTypeCB</tabstop>
+  <tabstop>tcpRequestTxt</tabstop>
+  <tabstop>tcpRespTxt</tabstop>
+  <tabstop>tcpRequestEditBtn</tabstop>
+  <tabstop>tcpRequestDefBtn</tabstop>
+  <tabstop>tcpResponseEditBtn</tabstop>
+  <tabstop>tcpRespDefBtn</tabstop>
+  <tabstop>httpPathTxt</tabstop>
+  <tabstop>httpHostTxt</tabstop>
+  <tabstop>wsPathTxt</tabstop>
+  <tabstop>wsHeadersTxt</tabstop>
+  <tabstop>kcpMTU</tabstop>
+  <tabstop>kcpTTI</tabstop>
+  <tabstop>kcpUploadCapacSB</tabstop>
+  <tabstop>kcpCongestionCB</tabstop>
+  <tabstop>kcpDownCapacitySB</tabstop>
+  <tabstop>kcpReadBufferSB</tabstop>
+  <tabstop>kcpWriteBufferSB</tabstop>
+  <tabstop>kcpHeaderType</tabstop>
+  <tabstop>dsPathTxt</tabstop>
+  <tabstop>quicSecurityCB</tabstop>
+  <tabstop>quicKeyTxt</tabstop>
+  <tabstop>quicHeaderTypeCB</tabstop>
+  <tabstop>tlsCB</tabstop>
+  <tabstop>allowInsecureCB</tabstop>
+  <tabstop>serverNameTxt</tabstop>
+  <tabstop>alpnTxt</tabstop>
+  <tabstop>soMarkSpinBox</tabstop>
+  <tabstop>tcpFastOpenCB</tabstop>
+  <tabstop>tProxyCB</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

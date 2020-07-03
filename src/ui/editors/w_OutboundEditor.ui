@@ -30,7 +30,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_4" columnstretch="2,4">
    <item row="1" column="1">
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="streamSettingsGroupBox">
      <property name="title">
       <string>Stream Settings</string>
      </property>
@@ -355,7 +355,7 @@
               </item>
               <item>
                <property name="text">
-                <string>chacha20-ietf-poly1305</string>
+                <string notr="true">chacha20-ietf-poly1305</string>
                </property>
               </item>
              </widget>
@@ -466,10 +466,9 @@
  </widget>
  <tabstops>
   <tabstop>tagTxt</tabstop>
+  <tabstop>ipLineEdit</tabstop>
+  <tabstop>portLineEdit</tabstop>
   <tabstop>outBoundTypeCombo</tabstop>
-  <tabstop>muxEnabledCB</tabstop>
-  <tabstop>muxConcurrencyTxt</tabstop>
-  <tabstop>useFPCB</tabstop>
   <tabstop>idLineEdit</tabstop>
   <tabstop>alterLineEdit</tabstop>
   <tabstop>securityCombo</tabstop>
@@ -478,6 +477,11 @@
   <tabstop>ss_encryptionMethod</tabstop>
   <tabstop>ss_levelSpin</tabstop>
   <tabstop>ss_otaCheckBox</tabstop>
+  <tabstop>socks_UserNameTxt</tabstop>
+  <tabstop>socks_PasswordTxt</tabstop>
+  <tabstop>muxEnabledCB</tabstop>
+  <tabstop>muxConcurrencyTxt</tabstop>
+  <tabstop>useFPCB</tabstop>
  </tabstops>
  <resources/>
  <connections>

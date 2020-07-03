@@ -24,5 +24,17 @@
         <file>assets/icons/qv2ray.ico</file>
         <file>assets/icons/qv2ray.png</file>
         <file>assets/credit.html</file>
+        <file>assets/icons/ui_dark/connect.png</file>
+        <file>assets/icons/ui_light/connect.png</file>
+        <file>assets/icons/ui_dark/stop.png</file>
+        <file>assets/icons/ui_light/stop.png</file>
+        <file>assets/icons/ui_dark/locate.png</file>
+        <file>assets/icons/ui_light/locate.png</file>
+        <file>assets/icons/ui_dark/sort.png</file>
+        <file>assets/icons/ui_light/sort.png</file>
+        <file>assets/icons/ui_dark/tray-connected.png</file>
+        <file>assets/icons/ui_dark/tray-systemproxy.png</file>
+        <file>assets/icons/ui_light/tray-connected.png</file>
+        <file>assets/icons/ui_light/tray-systemproxy.png</file>
     </qresource>
 </RCC>

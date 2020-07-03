@@ -1,50 +1,62 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
+
 #include <QMessageBox>
 
-#define REGEX_IPV6_ADDR R"(\[\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*\])"
-#define REGEX_IPV4_ADDR R"((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5]))"
+#define REGEX_IPV6_ADDR                                                                                                                         \
+    R"(\[\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*\])"
+#define REGEX_IPV4_ADDR                                                                                                                         \
+    R"((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5]))"
 #define REGEX_PORT_NUMBER R"(([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])*)"
 
 namespace Qv2ray::common
 {
-    QStringList GetFileList(QDir dir);
-    QString Base64Encode(QString string);
-    QString Base64Decode(QString string);
+    QStringList GetFileList(const QDir &dir);
+    QString Base64Encode(const QString &string);
+    QString Base64Decode(const QString &string);
     QStringList SplitLines(const QString &str);
     list<string> SplitLines_std(const QString &_string);
-    bool FileExistsIn(QDir dir, QString fileName);
+    bool FileExistsIn(const QDir &dir, const QString &fileName);
     const QString GenerateRandomString(int len = 12);
     //
-    void QvMessageBoxWarn(QWidget *parent, QString title, QString text);
-    void QvMessageBoxInfo(QWidget *parent, QString title, QString text);
-    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
+    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text);
+    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text);
+    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
+                                                QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
     //
     QString StringFromFile(const QString &filePath);
-    QString StringFromFile(QFile *source);
-    bool StringToFile(const QString *text, QFile *target);
+    QString StringFromFile(QFile &source);
+    bool StringToFile(const QString &text, QFile &target);
+    bool StringToFile(const QString &text, const QString &targetpath);
     //
-    QJsonObject JsonFromString(QString string);
-    QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
-    QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
+    QJsonObject JsonFromString(const QString &string);
+    QString JsonToString(const QJsonObject &json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
+    QString JsonToString(const QJsonArray &array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
     QString VerifyJsonString(const QString &source);
     //
-    QString FormatBytes(long long bytes);
+    QString FormatBytes(const int64_t bytes);
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
-    QStringList ConvertQStringList(const QList<string> &stdListString);
-    std::list<string> ConvertStdStringList(const QStringList &qStringList);
+    //
+    QPixmap ApplyEffectToImage(QPixmap src, QGraphicsEffect *effect, int extent);
+    QPixmap BlurImage(const QPixmap &pixmap, const double rad = 50);
+    QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor);
     // This function cannot be marked as inline.
     QString RemoveInvalidFileName(const QString &fileName);
     bool IsValidFileName(const QString &fileName);
+    inline QString GenerateUuid()
+    {
+        return GenerateRandomString().toLower();
+        // return QUuid::createUuid().toString(QUuid::WithoutBraces);
+    }
     //
-    template <typename TYPE>
-    QString StructToJsonString(const TYPE t)
+    template<typename TYPE>
+    QString StructToJsonString(const TYPE &t)
     {
         return QString::fromStdString(x2struct::X::tojson(t, "", 4, ' '));
     }
     //
-    template <typename TYPE>
+    template<typename TYPE>
     TYPE StructFromJsonString(const QString &str)
     {
         TYPE v;
@@ -59,68 +71,50 @@ namespace Qv2ray::common
         return JsonFromString(json);
     }
 
-    inline bool IsIPv4Address(const QString &addr)
+    inline QString TruncateString(const QString &str, int limit = -1, const QString &suffix = "...")
     {
-        return QRegularExpression(REGEX_IPV4_ADDR "$").match(addr).hasMatch();
+        QString t = str;
+        t.truncate(limit);
+        return (limit == -1 || str.length() < limit) ? str : (t + suffix);
     }
 
-    inline bool IsIPv6Address(const QString &addr)
+    namespace validation
     {
-        return QRegularExpression(REGEX_IPV6_ADDR "$").match(addr).hasMatch();
-    }
+        const inline QRegularExpression __regex_ipv4_full(REGEX_IPV4_ADDR "$");
+        const inline QRegularExpression __regex_ipv6_full(REGEX_IPV6_ADDR "$");
 
-    inline bool IsValidIPAddress(const QString &addr)
-    {
-        return IsIPv4Address(addr) || IsIPv6Address(addr);
-    }
+        inline bool IsIPv4Address(const QString &addr)
+        {
+            return __regex_ipv4_full.match(addr).hasMatch();
+        }
 
-    /*
-     * Generic function to find if an element of any type exists in list
-     */
-    template<typename T>
-    bool contains(std::list<T> &listOfElements, const T &element)
-    {
-        // Find the iterator if element in list
-        auto it = std::find(listOfElements.begin(), listOfElements.end(), element);
-        //return if iterator points to end or not. It points to end then it means element
-        // does not exists in list
-        return it != listOfElements.end();
-    }
+        inline bool IsIPv6Address(const QString &addr)
+        {
+            return __regex_ipv6_full.match(addr).hasMatch();
+        }
+
+        inline bool IsValidIPAddress(const QString &addr)
+        {
+            return IsIPv4Address(addr) || IsIPv6Address(addr);
+        }
+    } // namespace validation
 
     inline QString timeToString(const time_t &t)
     {
-        auto _tm = std::localtime(&t);
-        char MY_TIME[128];
-        // using strftime to display time
-        strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
-        return QString(MY_TIME);
+        QDateTime timestamp;
+        timestamp.setSecsSinceEpoch(t);
+        return timestamp.toString(Qt::SystemLocaleShortDate);
     }
 
-    template<typename myMap>
-    std::vector<typename myMap::key_type> Keys(const myMap &m)
+    inline void FastAppendTextDocument(const QString &message, QTextDocument *doc)
     {
-        std::vector<typename myMap::key_type> r;
-        r.reserve(m.size());
-
-        for (const auto &kvp : m) {
-            r.push_back(kvp.first);
-        }
-
-        return r;
+        QTextCursor cursor(doc);
+        cursor.movePosition(QTextCursor::End);
+        cursor.beginEditBlock();
+        cursor.insertBlock();
+        cursor.insertText(message);
+        cursor.endEditBlock();
     }
-
-    template<typename myMap>
-    std::vector<typename myMap::mapped_type> Values(const myMap &m)
-    {
-        std::vector<typename myMap::mapped_type> r;
-        r.reserve(m.size());
-
-        for (const auto &kvp : m) {
-            r.push_back(kvp.second);
-        }
-
-        return r;
-    }
-}
+} // namespace Qv2ray::common
 
 using namespace Qv2ray::common;

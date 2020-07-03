@@ -4,7 +4,8 @@ namespace Qv2ray
 {
     namespace base
     {
-        struct QvStartupOptions {
+        struct QvStartupOptions
+        {
             /// No API subsystem
             bool noAPI;
             /// Explicitly run as root user.
@@ -13,6 +14,11 @@ namespace Qv2ray
             bool debugLog;
             /// Enable Network toolbar plugin.
             bool enableToolbarPlguin;
+            /// Disable Qt scale factors support.
+            bool noScaleFactors;
+            /// Disable all plugin features.
+            bool noPlugins;
         };
-    }
-}
+    } // namespace base
+    inline base::QvStartupOptions StartupOption = base::QvStartupOptions();
+} // namespace Qv2ray

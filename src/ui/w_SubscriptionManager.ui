@@ -43,13 +43,27 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QListWidget" name="subscriptionList">
+       <widget class="QTreeWidget" name="subscriptionList">
         <property name="selectionMode">
          <enum>QAbstractItemView::SingleSelection</enum>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
         </property>
+        <property name="rootIsDecorated">
+         <bool>false</bool>
+        </property>
+        <property name="uniformRowHeights">
+         <bool>false</bool>
+        </property>
+        <property name="headerHidden">
+         <bool>true</bool>
+        </property>
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
        </widget>
       </item>
       <item>
@@ -79,7 +93,11 @@
            <string>Add Subscription</string>
           </property>
           <property name="text">
-           <string>A</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/assets/icons/ui_light/add.png</normaloff>:/assets/icons/ui_light/add.png</iconset>
           </property>
          </widget>
         </item>
@@ -95,7 +113,11 @@
            <string>Remove Subscription</string>
           </property>
           <property name="text">
-           <string>D</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
           </property>
          </widget>
         </item>
@@ -159,9 +181,6 @@
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QDoubleSpinBox" name="updateIntervalSB">
-            <property name="minimum">
-             <double>0.500000000000000</double>
-            </property>
             <property name="maximum">
              <double>365.000000000000000</double>
             </property>
@@ -231,13 +250,6 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QCheckBox" name="withProxyCB">
-          <property name="text">
-           <string>Update Subscription With System Proxy</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="updateButton">
           <property name="text">
            <string>Update Subscription Data</string>
@@ -251,7 +263,19 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <tabstops>
+  <tabstop>subscriptionList</tabstop>
+  <tabstop>addSubsButton</tabstop>
+  <tabstop>removeSubsButton</tabstop>
+  <tabstop>subAddrTxt</tabstop>
+  <tabstop>subNameTxt</tabstop>
+  <tabstop>updateIntervalSB</tabstop>
+  <tabstop>connectionsList</tabstop>
+  <tabstop>updateButton</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../../resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

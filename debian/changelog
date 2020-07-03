@@ -1,0 +1,73 @@
+qv2ray (2.5.0-1) unstable; urgency=medium
+
+  * updating translations
+  * add: added Latency Test on the connection list RCM, fixed #539
+  * rejecting trash v2rayN vmess schema v1
+  * add: use UseIP when tProxy and DNSIntercept have been enabled
+  * fix: fixed a missing IPv6 CIDR address
+  * fix: fixed a missing IP rule when proxy is disabled
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sun, 26 Apr 2020 19:03:35 +0800
+
+qv2ray (2.5.0~rc1-1) unstable; urgency=medium
+
+  * add dns intercept and route for tproxy
+  * prevent loopback
+  * fix: allow dns outbound have mark too
+  * fix: refactored Qv2ray Proxy settings
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sat, 25 Apr 2020 10:29:07 +0800
+
+qv2ray (2.5.0~pre2-1) unstable; urgency=medium
+
+  * fix: skip saving config when importing multiple connection configs
+  * add: ignore updating subscription by setting interval to 0
+  * fix: fixed a missing signal emit
+  * update: updated label text, fixed a spelling misATke
+  * add: added kernel plugin support
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sat, 11 Apr 2020 23:12:20 +0800
+
+qv2ray (2.4.1-1) unstable; urgency=medium
+
+  * add: add new semver checker
+  * add: added support of ssd:// fixed #372
+  * fix: apply tabStop sequences by @DuckSoft
+  * fix: increase configuration save frequency
+  * fix: fixed SOCKS user removal issue
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Wed, 01 Apr 2020 14:51:15 +0800
+
+qv2ray (2.4.0~pre1-1) unstable; urgency=medium
+
+  * change: ported to zxing-cpp
+  * fixed: fixed #else condition in DISABLE_AUTO_UPDATE
+  * fix: fixed domainStrategy export and MainWindow button icon color scheme change event
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Fri, 27 Mar 2020 23:15:16 +0800
+
+qv2ray (2.3.2-1) unstable; urgency=medium
+
+  * Fix Strange Button Length
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sun, 22 Mar 2020 20:33:31 +0800
+
+qv2ray (2.3.1-1) unstable; urgency=medium
+
+  * fixed file loading if a source file was not in UTF-8
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sat, 21 Mar 2020 08:50:17 +0800
+
+qv2ray (2.3.0-1) unstable; urgency=medium
+
+  * misc ui tweaks
+  * fully support setting the block,proxy,direct geosite/plain domains
+  * fixed vmess:// 'h2' import issue
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Fri, 20 Mar 2020 22:26:20 +0800
+
+qv2ray (2.2.3-1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Fri, 20 Mar 2020 08:47:53 +0800
