@@ -416,7 +416,9 @@ namespace Qv2ray::core::handler
             // Policy
             //
             QJsonIO::SetValue(root, true, "policy", "system", "statsInboundUplink");
+            QJsonIO::SetValue(root, true, "policy", "system", "statsOutboundUplink");
             QJsonIO::SetValue(root, true, "policy", "system", "statsInboundDownlink");
+            QJsonIO::SetValue(root, true, "policy", "system", "statsOutboundDownlink");
             //
             // Inbounds
             //
