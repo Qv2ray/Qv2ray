@@ -40,7 +40,7 @@ namespace Qv2ray::core::kernel
         DEBUG(MODULE_VCORE, "API Worker started.")
     }
 
-    void APIWorker::StartAPI(const QStringList &tags)
+    void APIWorker::StartAPI(const QList<QvAPIConfig> &tags, bool useOutboundStats)
     {
         // Config API
         apiFailedCounter = 0;
@@ -93,14 +93,17 @@ namespace Qv2ray::core::kernel
                     dialed = true;
                 }
 
-#ifndef QV2RAY_STATS_PER_TAG
                 qint64 value_up = 0;
                 qint64 value_down = 0;
 
                 for (auto tag : inboundTags)
                 {
-                    value_up += CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
-                    value_down += CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
+                    value_up += CallStatsAPIByName("inbound>>>"
+                                                   "SHIT"
+                                                   ">>>traffic>>>uplink");
+                    value_down += CallStatsAPIByName("inbound>>>"
+                                                     "SHIT"
+                                                     ">>>traffic>>>downlink");
                 }
 
                 if (value_up < 0 || value_down < 0)
@@ -111,35 +114,9 @@ namespace Qv2ray::core::kernel
 
                 if (running)
                 {
-                    emit OnDataReady(value_up, value_down);
+                    emit OnDataReady(API_INBOUND, value_up, value_down);
                 }
 
-#else
-
-                for (auto tag : inboundTags)
-                {
-                    auto valup = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
-                    auto valdown = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
-
-                    if (valup < 0 || valdown < 0)
-                    {
-                        dialed = false;
-                        break;
-                    }
-
-                    if (running)
-                    {
-                        apiFailedCounter = 0;
-                        emit OnDataReady(tag, valup, valdown);
-                    }
-                    else
-                    {
-                        // If the connection has stopped, just quit.
-                        break;
-                    }
-                }
-
-#endif
                 QThread::msleep(1000);
             } // end while running
         }     // end while started
@@ -178,7 +155,6 @@ namespace Qv2ray::core::kernel
         {
             apiFailedCounter = 0;
         }
-
         qint64 data = response.stat().value();
     #else
         qint64 data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
