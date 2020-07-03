@@ -1,15 +1,11 @@
 #include "APIBackend.hpp"
 
 #ifndef ANDROID
-    #ifndef BACKEND_LIBQVB
-        #include "v2ray_api.pb.h"
+    #include "v2ray_api.pb.h"
 using namespace v2ray::core::app::stats::command;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-    #else
-        #include "libs/libqvb/build/libqvb.h"
-    #endif
 #endif
 
 namespace Qv2ray::core::kernel
@@ -78,17 +74,10 @@ namespace Qv2ray::core::kernel
                 {
                     auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.kernelConfig.statsPort);
 #ifndef ANDROID
-    #ifdef BACKEND_LIBQVB
-                    auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
-                    LOG(MODULE_VCORE, QString(str))
-                    LOG(MODULE_VCORE, "Currently, libqvb does not support speed reporting, your stats might go wrong.")
-                    free(str);
-    #else
                     LOG(MODULE_VCORE, "gRPC Version: " + QString::fromStdString(grpc::Version()))
                     Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     v2ray::core::app::stats::command::StatsService service;
                     Stub = service.NewStub(Channel);
-    #endif
 #endif
                     dialed = true;
                 }
@@ -138,7 +127,6 @@ namespace Qv2ray::core::kernel
             return 0;
         }
 #ifndef ANDROID
-    #ifndef BACKEND_LIBQVB
         GetStatsRequest request;
         request.set_name(name.toStdString());
         request.set_reset(true);
@@ -156,9 +144,6 @@ namespace Qv2ray::core::kernel
             apiFailedCounter = 0;
         }
         qint64 data = response.stat().value();
-    #else
-        qint64 data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
-    #endif
 
         if (data < 0)
         {
