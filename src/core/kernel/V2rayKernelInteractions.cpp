@@ -326,7 +326,8 @@ namespace Qv2ray::core::kernel
             }
             else
             {
-                apiWorker->StartAPI(inboundTags);
+#warning Need Impl
+                apiWorker->StartAPI({ /*inboundTags*/ }, false);
                 apiEnabled = true;
                 DEBUG(MODULE_VCORE, "Qv2ray API started")
             }

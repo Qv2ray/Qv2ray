@@ -7,11 +7,25 @@
         #include <grpc++/grpc++.h>
     #endif
 #endif
+
 // Check 10 times before telling user that API has failed.
 constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 60;
 
 namespace Qv2ray::core::kernel
 {
+    enum QvAPIType
+    {
+        API_INBOUND,
+        API_OUTBOUND_PROXY,
+        API_OUTBOUND_DIRECT,
+        API_OUTBOUND_BLACKHOLE,
+    };
+    struct QvAPIConfig
+    {
+        QvAPIType type;
+        QStringList tags;
+    };
+
     class APIWorker : public QObject
     {
         Q_OBJECT
@@ -19,19 +33,25 @@ namespace Qv2ray::core::kernel
       public:
         APIWorker();
         ~APIWorker();
-        void StartAPI(const QStringList &tags);
+        void StartAPI(const QList<QvAPIConfig> &tags, bool useOutboundStats);
+        static QList<QvAPIConfig> GetDefaultOutboundAPIConfig()
+        {
+            return { { API_OUTBOUND_PROXY, { "dns", "http", "mtproto", "shadowsocks", "socks", "vmess" } },
+                     { API_OUTBOUND_DIRECT, { "freedom" } },
+                     { API_OUTBOUND_BLACKHOLE, { "blackhole" } } };
+        }
         void StopAPI();
 
       public slots:
         void process();
 
       signals:
-        void OnDataReady(const quint64 speedUp, const quint64 speedDown);
+        void OnDataReady(QvAPIType type, const quint64 speedUp, const quint64 speedDown);
         void error(const QString &err);
 
       private:
         qint64 CallStatsAPIByName(const QString &name);
-        QStringList inboundTags;
+        QList<QvAPIConfig> inboundTags;
         QThread *thread;
         //
         bool started = false;
