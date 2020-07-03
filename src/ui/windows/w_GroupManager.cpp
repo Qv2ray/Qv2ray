@@ -114,9 +114,8 @@ void GroupManager::onRCMExportConnectionTriggered()
                 filePath += ".json";
             }
             //
-            QFile file(filePath);
-            StringToFile(JsonToString(root), file);
-            QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(file).absoluteDir().absolutePath()));
+            StringToFile(JsonToString(root), filePath);
+            QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(filePath).absoluteDir().absolutePath()));
             break;
         }
         default:
@@ -133,8 +132,7 @@ void GroupManager::onRCMExportConnectionTriggered()
                 ExportConnectionFilter(root);
                 //
                 const auto fileName = RemoveInvalidFileName(GetDisplayName(id)) + ".json";
-                QFile file(path + "/" + fileName);
-                StringToFile(JsonToString(root), file);
+                StringToFile(JsonToString(root), path + "/" + fileName);
             }
             QDesktopServices::openUrl(QUrl::fromLocalFile(path));
             break;

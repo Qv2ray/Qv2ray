@@ -48,29 +48,19 @@ namespace Qv2ray::common
 
     bool StringToFile(const QString &text, const QString &targetpath)
     {
-        auto file = QFile(targetpath);
-        return StringToFile(text, file);
-    }
-    bool StringToFile(const QString &text, QFile &targetFile)
-    {
-        QFileInfo info(targetFile);
-        if (!info.dir().exists())
+        bool override = false;
         {
-            info.dir().mkpath(info.dir().path());
+            QFileInfo info(targetpath);
+            override = info.exists();
+            if (!override && !info.dir().exists())
+                info.dir().mkpath(info.dir().path());
         }
-        const auto replaceFilePath = info.absoluteFilePath() + ".qvcache." + GenerateRandomString(5);
-        bool override = targetFile.exists();
-        {
-            QFile replaceFile{ replaceFilePath };
-            replaceFile.open(QFile::WriteOnly);
-            replaceFile.write(text.toUtf8());
-            replaceFile.close();
-            targetFile.remove();
-            replaceFile.rename(info.absoluteFilePath());
-        }
+        QSaveFile f{ targetpath };
+        f.open(QIODevice::WriteOnly);
+        f.write(text.toUtf8());
+        f.commit();
         return override;
     }
-
     QString JsonToString(const QJsonObject &json, QJsonDocument::JsonFormat format)
     {
         QJsonDocument doc;
