@@ -10,6 +10,17 @@ using grpc::Status;
 
 namespace Qv2ray::core::kernel
 {
+    static QvAPIDataTypeConfig GetDefaultOutboundAPIConfig()
+    {
+        return { { API_OUTBOUND_PROXY, { "dns", "http", "mtproto", "shadowsocks", "socks", "vmess" } },
+                 { API_OUTBOUND_DIRECT, { "freedom" } },
+                 { API_OUTBOUND_BLACKHOLE, { "blackhole" } } };
+    }
+
+    static QvAPIDataTypeConfig GetDefaultInboundAPIConfig()
+    {
+        return { { API_INBOUND, { "dokodemo-door", "http", "socks" } } };
+    }
     // To all contributors:
     //
     // You may feel it difficult to understand this part of API backend.
@@ -25,22 +36,22 @@ namespace Qv2ray::core::kernel
     // --- CONSTRUCTOR ---
     APIWorker::APIWorker()
     {
-        thread = new QThread();
-        this->moveToThread(thread);
+        workThread = new QThread();
+        this->moveToThread(workThread);
         DEBUG(MODULE_VCORE, "API Worker initialised.")
         // connect(this, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
-        connect(thread, SIGNAL(started()), this, SLOT(process()));
-        connect(thread, &QThread::finished, [] { LOG(MODULE_VCORE, "API thread stopped") });
+        connect(workThread, SIGNAL(started()), this, SLOT(process()));
+        connect(workThread, &QThread::finished, [] { LOG(MODULE_VCORE, "API thread stopped") });
         started = true;
-        thread->start();
+        workThread->start();
         DEBUG(MODULE_VCORE, "API Worker started.")
     }
 
-    void APIWorker::StartAPI(const QList<QvAPIConfig> &tags, bool useOutboundStats)
+    void APIWorker::StartAPI(QMap<QString, QString> tagProtocolPair, bool useOutboundStats)
     {
         // Config API
         apiFailedCounter = 0;
-        inboundTags = tags;
+        apiConfig = useOutboundStats ? GetDefaultOutboundAPIConfig() : GetDefaultInboundAPIConfig();
         running = true;
     }
 
@@ -55,8 +66,8 @@ namespace Qv2ray::core::kernel
         StopAPI();
         // Set started signal to false and wait for API thread to stop.
         started = false;
-        thread->wait();
-        delete thread;
+        workThread->wait();
+        delete workThread;
     }
 
     // API Core Operations
@@ -85,13 +96,13 @@ namespace Qv2ray::core::kernel
                 qint64 value_up = 0;
                 qint64 value_down = 0;
 
-                for (auto tag : inboundTags)
+                for (auto tag : apiConfig)
                 {
                     value_up += CallStatsAPIByName("inbound>>>"
-                                                   "SHIT"
+                                                   "socks_IN"
                                                    ">>>traffic>>>uplink");
                     value_down += CallStatsAPIByName("inbound>>>"
-                                                     "SHIT"
+                                                     "socks_IN"
                                                      ">>>traffic>>>downlink");
                 }
 
@@ -110,7 +121,7 @@ namespace Qv2ray::core::kernel
             } // end while running
         }     // end while started
 
-        thread->exit();
+        workThread->exit();
     }
 
     qint64 APIWorker::CallStatsAPIByName(const QString &name)

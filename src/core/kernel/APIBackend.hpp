@@ -11,18 +11,14 @@ constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 60;
 
 namespace Qv2ray::core::kernel
 {
-    enum QvAPIType
+    struct APIConfigObject
     {
-        API_INBOUND,
-        API_OUTBOUND_PROXY,
-        API_OUTBOUND_DIRECT,
-        API_OUTBOUND_BLACKHOLE,
+        QString protocol;
+        StatAPIType type;
     };
-    struct QvAPIConfig
-    {
-        QvAPIType type;
-        QStringList tags;
-    };
+
+    typedef QMap<QString, APIConfigObject> QvAPITagProtocolConfig;
+    typedef QMap<StatAPIType, QStringList> QvAPIDataTypeConfig;
 
     class APIWorker : public QObject
     {
@@ -31,26 +27,25 @@ namespace Qv2ray::core::kernel
       public:
         APIWorker();
         ~APIWorker();
-        void StartAPI(const QList<QvAPIConfig> &tags, bool useOutboundStats);
-        static QList<QvAPIConfig> GetDefaultOutboundAPIConfig()
-        {
-            return { { API_OUTBOUND_PROXY, { "dns", "http", "mtproto", "shadowsocks", "socks", "vmess" } },
-                     { API_OUTBOUND_DIRECT, { "freedom" } },
-                     { API_OUTBOUND_BLACKHOLE, { "blackhole" } } };
-        }
+        void StartAPI(const QMap<QString, QString> &tagProtocolPair, bool useOutboundStats);
+
         void StopAPI();
 
       public slots:
         void process();
 
       signals:
-        void OnDataReady(QvAPIType type, const quint64 speedUp, const quint64 speedDown);
+        void OnDataReady(StatAPIType type, const quint64 speedUp, const quint64 speedDown);
         void error(const QString &err);
 
       private:
+        static QvAPITagProtocolConfig GetConfigObject(const QMap<QString, QString> &tagProtocolPair, bool isOutboundStats)
+        {
+            APIConfigObject o;
+        }
         qint64 CallStatsAPIByName(const QString &name);
-        QList<QvAPIConfig> inboundTags;
-        QThread *thread;
+        QvAPITagProtocolConfig tagProtocolConfig;
+        QThread *workThread;
         //
         bool started = false;
         bool running = false;

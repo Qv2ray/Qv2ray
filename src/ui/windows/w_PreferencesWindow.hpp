@@ -122,6 +122,7 @@ class PreferencesWindow
     void on_latencyTCPingRB_clicked();
     void on_latencyICMPingRB_clicked();
     void on_qvNetworkUATxt_editTextChanged(const QString &arg1);
+    void on_v2rayOutboundStatsCB_stateChanged(int arg1);
 
   private:
     //

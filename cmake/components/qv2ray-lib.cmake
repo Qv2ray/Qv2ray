@@ -63,8 +63,6 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/components/darkmode/DarkmodeDetector.cpp
     ${CMAKE_SOURCE_DIR}/src/components/darkmode/DarkmodeDetector.hpp
     #
-    ${CMAKE_SOURCE_DIR}/src/components/speedchart/speedplotview.cpp
-    ${CMAKE_SOURCE_DIR}/src/components/speedchart/speedplotview.hpp
     ${CMAKE_SOURCE_DIR}/src/components/speedchart/speedwidget.cpp
     ${CMAKE_SOURCE_DIR}/src/components/speedchart/speedwidget.hpp
     #
