@@ -49,6 +49,12 @@ class _qv2ray_global_config_impl_details
     #define QV2RAY_CONFIG_DIR_SUFFIX "/"
 #endif
 
+#ifdef Q_OS_WIN
+    #define QV2RAY_EXECUTABLE_FILE_NAME_SUFFIX "exe"
+#else
+    #define QV2RAY_EXECUTABLE_FILE_NAME_SUFFIX ""
+#endif
+
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
@@ -64,25 +70,16 @@ class _qv2ray_global_config_impl_details
 
 #if !defined(QV2RAY_DEFAULT_VCORE_PATH) && !defined(QV2RAY_DEFAULT_VASSETS_PATH)
     #define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
-    #ifdef Q_OS_WIN
-        #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
-    #else
-        #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
-    #endif
+    #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_FILE_NAME_SUFFIX)
+    #define QV2RAY_DEFAULT_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_FILE_NAME_SUFFIX)
 #elif defined(QV2RAY_DEFAULT_VCORE_PATH) && defined(QV2RAY_DEFAULT_VASSETS_PATH)
 // ---- Using user-specified VCore and VAssets path
 #else
     #error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to be presented when using manually specify the paths.
 #endif
 
-#ifdef Q_OS_WIN
-///    There's no tProxy thing on Windows....
-//#    define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
-//#    define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl.exe")
-#else
-    #define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
-    #define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl")
-#endif
+#define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_FILE_NAME_SUFFIX)
+#define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_FILE_NAME_SUFFIX)
 
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"

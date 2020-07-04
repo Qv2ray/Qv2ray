@@ -34,7 +34,7 @@ namespace Qv2ray::core::kernel
         void OnNewStatsDataArrived(const quint64 speedUp, const quint64 speedDown);
 
       private slots:
-        void onAPIDataReady(const quint64 speedUp, const quint64 speedDown);
+        void onAPIDataReady(StatAPIType t, const quint64 speedUp, const quint64 speedDown);
 
       private:
         APIWorker *apiWorker;

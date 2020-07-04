@@ -768,7 +768,7 @@ void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const quint64 u
         return;
     // This may not be, or may not precisely be, speed per second if the backend
     // has "any" latency. (Hope not...)
-    speedChartWidget->AddPointData(upS, downS);
+    speedChartWidget->AddPointData({ { SpeedWidget::INBOUND_UP, upS }, { SpeedWidget::INBOUND_DOWN, downS } });
     //
     auto totalSpeedUp = FormatBytes(upS) + "/s";
     auto totalSpeedDown = FormatBytes(downS) + "/s";

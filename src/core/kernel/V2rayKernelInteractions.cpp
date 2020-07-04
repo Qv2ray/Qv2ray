@@ -327,7 +327,7 @@ namespace Qv2ray::core::kernel
             else
             {
 #warning Need Impl
-                apiWorker->StartAPI({ /*inboundTags*/ }, false);
+                apiWorker->StartAPI({}, false);
                 apiEnabled = true;
                 DEBUG(MODULE_VCORE, "Qv2ray API started")
             }
@@ -369,7 +369,7 @@ namespace Qv2ray::core::kernel
         delete vProcess;
     }
 
-    void V2rayKernelInstance::onAPIDataReady(const quint64 speedUp, const quint64 speedDown)
+    void V2rayKernelInstance::onAPIDataReady(StatAPIType t, const quint64 speedUp, const quint64 speedDown)
     {
         emit OnNewStatsDataArrived(speedUp, speedDown);
     }

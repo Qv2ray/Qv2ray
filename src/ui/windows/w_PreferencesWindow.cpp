@@ -1174,3 +1174,9 @@ void PreferencesWindow::on_qvNetworkUATxt_editTextChanged(const QString &arg1)
     LOADINGCHECK
     CurrentConfig.networkConfig.userAgent = arg1;
 }
+
+void PreferencesWindow::on_v2rayOutboundStatsCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.kernelConfig.useOutboundStats = arg1 == Qt::Checked;
+}
