@@ -299,10 +299,15 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
     if (index < 3)
     {
         outboundType = outBoundTypeCombo->currentText().toLower();
+        useFPCB->setEnabled(true);
+        useFPCB->setToolTip(tr(""));
     }
     else
     {
         outboundType = pluginWidgets.value(index).first.protocol;
+        useFPCB->setChecked(false);
+        useFPCB->setEnabled(false);
+        useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
     }
 }
 
