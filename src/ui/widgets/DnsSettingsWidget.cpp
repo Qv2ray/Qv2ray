@@ -266,7 +266,7 @@ void DnsSettingsWidget::on_staticResolvedDomainsTable_cellChanged(int, int)
 
 void DnsSettingsWidget::on_detailsSettingsGB_toggled(bool arg1)
 {
-    if (currentServerIndex > 0)
+    if (currentServerIndex >= 0)
         dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS = arg1;
     // detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
 }
