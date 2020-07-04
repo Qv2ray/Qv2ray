@@ -4,9 +4,7 @@
 #include "common/QvHelpers.hpp"
 #include "core/connection/ConnectionIO.hpp"
 
-#include <QFileDevice>
-#include <QFileInfo>
-#include <QObject>
+#include <QProcess>
 
 namespace Qv2ray::core::kernel
 {
@@ -18,7 +16,7 @@ namespace Qv2ray::core::kernel
 
         QFile coreFile(vCorePath);
 
-        if (const auto permissions = coreFile.permissions(); !permissions.testFlag(QFileDevice::ExeUser))
+        if (coreFile.permissions().testFlag(QFileDevice::ExeUser))
         {
             DEBUG(MODULE_VCORE, "Core file not executable. Trying to enable.")
             const auto result = coreFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
@@ -41,14 +39,11 @@ namespace Qv2ray::core::kernel
 
         // Also do the same thing for v2ctl.
         // TODO: Simplify This / Extract This Creepy Thing
-        const auto coreControlFilePath = QDir::cleanPath(QFileInfo(coreFile).absoluteDir().path() + QDir::separator() +
-    #ifdef Q_OS_WIN
-                                                         "v2ctl.exe");
-    #else
-                                                         "v2ctl");
-    #endif
+        const auto coreControlFilePath =
+            QDir::cleanPath(QFileInfo(coreFile).absoluteDir().path() + QDir::separator() + "v2ctl" QV2RAY_EXECUTABLE_FILENAME_SUFFIX);
 
-        if (QFile coreControlFile(coreControlFilePath); !coreControlFile.permissions().testFlag(QFileDevice::ExeUser))
+        QFile coreControlFile(coreControlFilePath);
+        if (!coreControlFile.permissions().testFlag(QFileDevice::ExeUser))
         {
             DEBUG(MODULE_VCORE, "Core control file not executable. Trying to enable.")
             const auto result = coreControlFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
@@ -293,25 +288,23 @@ namespace Qv2ray::core::kernel
             vProcess->waitForStarted();
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;
-            QStringList inboundTags;
 
-            for (auto item : root["inbounds"].toArray())
+            QMap<QString, QString> tagProtocolMap;
+            const bool useOutbound = GlobalConfig.kernelConfig.useOutboundStats;
+            for (const auto &item : root[useOutbound ? "outbounds" : "inbounds"].toArray())
             {
-                auto tag = item.toObject()["tag"].toString("");
-
-                if (tag.isEmpty() || tag == API_TAG_INBOUND)
+                const auto tag = item.toObject()["tag"].toString("");
+                if (tag == API_TAG_INBOUND)
+                    continue;
+                if (tag.isEmpty())
                 {
-                    // Ignore API tag and empty tags.
+                    LOG(MODULE_VCORE, "Ignored inbound with empty tag.")
                     continue;
                 }
-
-                inboundTags.append(tag);
+                tagProtocolMap[tag] = item.toObject()["protocol"].toString();
             }
 
-            DEBUG(MODULE_VCORE, "Found inbound tags: " + inboundTags.join(";"))
             apiEnabled = false;
-
-            //
             if (StartupOption.noAPI)
             {
                 LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
@@ -320,16 +313,15 @@ namespace Qv2ray::core::kernel
             {
                 LOG(MODULE_VCORE, "API has been disabled by the global config option")
             }
-            else if (inboundTags.isEmpty())
+            else if (tagProtocolMap.isEmpty())
             {
                 LOG(MODULE_VCORE, "API is disabled since no inbound tags configured. This is probably caused by a bad complex config.")
             }
             else
             {
-#warning Need Impl
-                apiWorker->StartAPI({}, false);
+                DEBUG(MODULE_VCORE, "Starting API")
+                apiWorker->StartAPI(tagProtocolMap, useOutbound);
                 apiEnabled = true;
-                DEBUG(MODULE_VCORE, "Qv2ray API started")
             }
 
             return {};
@@ -369,8 +361,8 @@ namespace Qv2ray::core::kernel
         delete vProcess;
     }
 
-    void V2rayKernelInstance::onAPIDataReady(StatAPIType t, const quint64 speedUp, const quint64 speedDown)
+    void V2rayKernelInstance::onAPIDataReady(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data)
     {
-        emit OnNewStatsDataArrived(speedUp, speedDown);
+        emit OnNewStatsDataArrived(data);
     }
 } // namespace Qv2ray::core::kernel

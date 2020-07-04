@@ -14,11 +14,11 @@ namespace Qv2ray::core::kernel
     struct APIConfigObject
     {
         QString protocol;
-        StatAPIType type;
+        Qv2rayStatisticsType type;
     };
 
-    typedef QMap<QString, APIConfigObject> QvAPITagProtocolConfig;
-    typedef QMap<StatAPIType, QStringList> QvAPIDataTypeConfig;
+    typedef std::map<QString, APIConfigObject> QvAPITagProtocolConfig;
+    typedef std::map<Qv2rayStatisticsType, QStringList> QvAPIDataTypeConfig;
 
     class APIWorker : public QObject
     {
@@ -35,24 +35,20 @@ namespace Qv2ray::core::kernel
         void process();
 
       signals:
-        void OnDataReady(StatAPIType type, const quint64 speedUp, const quint64 speedDown);
+        void OnDataReady(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
         void error(const QString &err);
 
       private:
-        static QvAPITagProtocolConfig GetConfigObject(const QMap<QString, QString> &tagProtocolPair, bool isOutboundStats)
-        {
-            APIConfigObject o;
-        }
         qint64 CallStatsAPIByName(const QString &name);
         QvAPITagProtocolConfig tagProtocolConfig;
         QThread *workThread;
         //
         bool started = false;
         bool running = false;
-        uint apiFailedCounter = 0;
+        int apiFailedCounter = 0;
 #ifndef ANDROID
-        std::shared_ptr<::grpc::Channel> Channel;
-        std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> Stub;
+        std::shared_ptr<::grpc::Channel> grpc_channel;
+        std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> stats_service_stub;
 #endif
     };
 } // namespace Qv2ray::core::kernel

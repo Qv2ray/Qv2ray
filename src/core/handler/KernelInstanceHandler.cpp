@@ -11,7 +11,7 @@ namespace Qv2ray::core::handler
     {
         KernelInstance = this;
         vCoreInstance = new V2rayKernelInstance(this);
-        connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnStatsDataRcvd_p);
+        connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnV2rayStatsDataRcvd_p);
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLog_p);
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
         //
@@ -207,7 +207,7 @@ namespace Qv2ray::core::handler
                     activeKernels[firstOutboundProtocol] = std::move(kernel);
                 }
 #define kernel (activeKernels[firstOutboundProtocol].get())
-                connect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataRcvd_p);
+                connect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p);
                 connect(kernel, &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
                 connect(kernel, &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p);
 #undef kernel
@@ -301,11 +301,16 @@ namespace Qv2ray::core::handler
         activeKernels.clear();
     }
 
-    void KernelInstanceHandler::OnStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed)
+    void KernelInstanceHandler::OnV2rayStatsDataRcvd_p(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data)
     {
         if (isConnected)
         {
-            emit OnStatsDataAvailable(currentId, uploadSpeed, downloadSpeed);
+            emit OnStatsDataAvailable(currentId, data);
         }
+    }
+
+    void KernelInstanceHandler::OnPluginStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed)
+    {
+        OnV2rayStatsDataRcvd_p({ { API_OUTBOUND_PROXY, { uploadSpeed, downloadSpeed } } });
     }
 } // namespace Qv2ray::core::handler

@@ -2,7 +2,7 @@
 #include "base/Qv2rayBase.hpp"
 #include "core/kernel/QvKernelABIChecker.hpp"
 
-#include <QProcess>
+class QProcess;
 
 namespace Qv2ray::core::kernel
 {
@@ -13,12 +13,6 @@ namespace Qv2ray::core::kernel
       public:
         explicit V2rayKernelInstance(QObject *parent = nullptr);
         ~V2rayKernelInstance() override;
-        //
-        // Speed
-        qulonglong getTagSpeedUp(const QString &tag);
-        qulonglong getTagSpeedDown(const QString &tag);
-        qulonglong getAllSpeedUp();
-        qulonglong getAllSpeedDown();
         //
         std::optional<QString> StartConnection(const CONFIGROOT &root);
         void StopConnection();
@@ -31,10 +25,10 @@ namespace Qv2ray::core::kernel
       signals:
         void OnProcessErrored(const QString &errMessage);
         void OnProcessOutputReadyRead(const QString &output);
-        void OnNewStatsDataArrived(const quint64 speedUp, const quint64 speedDown);
+        void OnNewStatsDataArrived(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
 
       private slots:
-        void onAPIDataReady(StatAPIType t, const quint64 speedUp, const quint64 speedDown);
+        void onAPIDataReady(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
 
       private:
         APIWorker *apiWorker;
