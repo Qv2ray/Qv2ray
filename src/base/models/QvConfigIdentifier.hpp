@@ -149,17 +149,70 @@ namespace Qv2ray::base
         JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
+    enum Qv2rayStatisticsType
+    {
+        API_INBOUND = 0,
+        API_OUTBOUND_PROXY = 1,
+        API_OUTBOUND_DIRECT = 2,
+        API_OUTBOUND_BLACKHOLE = 3,
+    };
+
+#define CurrentStatisticsValueType (GlobalConfig.kernelConfig.useOutboundStats ? API_OUTBOUND_PROXY : API_INBOUND)
+
+    struct ConnectionStatsEntryObject
+    {
+        qint64 upLinkData;
+        qint64 downLinkData;
+        JSONSTRUCT_REGISTER(ConnectionStatsEntryObject, F(upLinkData, downLinkData))
+    };
+
+    struct ConnectionStatsObject
+    {
+        ConnectionStatsEntryObject &operator[](Qv2rayStatisticsType i)
+        {
+            while (entries.count() < i)
+            {
+                entries.append(ConnectionStatsEntryObject{});
+            }
+            return entries[i];
+        }
+        QJsonValue toJson() const
+        {
+            return JsonStructHelper::___json_struct_store_data(entries);
+        }
+        const std::map<Qv2rayStatisticsType, std::tuple<qint64, qint64>> toMap() const
+        {
+            std::map<Qv2rayStatisticsType, std::tuple<qint64, qint64>> result;
+            for (auto i = 0; i < entries.count(); i++)
+            {
+                result[(Qv2rayStatisticsType) i] = { entries[i].upLinkData, entries[i].downLinkData };
+            }
+            return result;
+        }
+        void loadJson(const QJsonValue &d)
+        {
+            entries.clear();
+            JsonStructHelper::___json_struct_load_data(entries, d);
+        }
+        void Clear()
+        {
+            entries.clear();
+        }
+
+      private:
+        QList<ConnectionStatsEntryObject> entries;
+    };
+
     struct ConnectionObject : __Qv2rayConfigObjectBase
     {
         qint64 lastConnected;
         qint64 latency;
-        qint64 upLinkData;
-        qint64 downLinkData;
+        ConnectionStatsObject stats;
         //
         int __qvConnectionRefCount;
         //
-        ConnectionObject() : lastConnected(), latency(LATENCY_TEST_VALUE_NODATA), upLinkData(0), downLinkData(0), __qvConnectionRefCount(0){};
-        JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, upLinkData, downLinkData), B(__Qv2rayConfigObjectBase))
+        ConnectionObject() : lastConnected(), latency(LATENCY_TEST_VALUE_NODATA), stats(), __qvConnectionRefCount(0){};
+        JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, stats), B(__Qv2rayConfigObjectBase))
     };
 
     template<typename T>

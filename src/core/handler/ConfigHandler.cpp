@@ -167,9 +167,8 @@ namespace Qv2ray::core::handler
     void QvConfigHandler::ClearConnectionUsage(const ConnectionGroupPair &id)
     {
         CheckValidId(id.connectionId, nothing);
-        connections[id.connectionId].upLinkData = 0;
-        connections[id.connectionId].downLinkData = 0;
-        emit OnStatsAvailable(id, 0, 0, 0, 0);
+        connections[id.connectionId].stats.Clear();
+        emit OnStatsAvailable(id, {});
         PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id.connectionId), 0, 0, 0, 0 });
         return;
     }
@@ -673,20 +672,25 @@ namespace Qv2ray::core::handler
         return hasErrorOccured;
     }
 
-    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
+    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data)
     {
         if (id.isEmpty())
             return;
-        const auto &connectionId = id.connectionId;
-        connections[connectionId].upLinkData += uploadSpeed;
-        connections[connectionId].downLinkData += downloadSpeed;
-        emit OnStatsAvailable(id, uploadSpeed, downloadSpeed,       //
-                              connections[connectionId].upLinkData, //
-                              connections[connectionId].downLinkData);
-        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(connectionId),         //
-                                                uploadSpeed, downloadSpeed,           //
-                                                connections[connectionId].upLinkData, //
-                                                connections[connectionId].downLinkData });
+
+        const auto &cid = id.connectionId;
+        std::map<Qv2rayStatisticsType, std::tuple<quint64, quint64, qint64, qint64>> result;
+        for (const auto &[t, stat] : data)
+        {
+            connections[cid].stats[t].upLinkData += stat.first;
+            connections[cid].stats[t].downLinkData += stat.second;
+            result[t] = { stat.first, stat.second, connections[cid].stats[t].upLinkData, connections[cid].stats[t].downLinkData };
+        }
+        emit OnStatsAvailable(id, result);
+        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(cid),                             //
+                                                std::get<0>(result[CurrentStatisticsValueType]), //
+                                                std::get<1>(result[CurrentStatisticsValueType]), //
+                                                std::get<2>(result[CurrentStatisticsValueType]), //
+                                                std::get<3>(result[CurrentStatisticsValueType]) });
     }
 
     const ConnectionGroupPair QvConfigHandler::CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId,

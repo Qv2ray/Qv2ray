@@ -32,14 +32,6 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfig_Plugin, F(pluginStates, v2rayIntegration, portAllocationStart))
     };
 
-    enum StatAPIType
-    {
-        API_INBOUND,
-        API_OUTBOUND_PROXY,
-        API_OUTBOUND_DIRECT,
-        API_OUTBOUND_BLACKHOLE,
-    };
-
     struct Qv2rayConfig_Kernel
     {
         bool enableAPI;

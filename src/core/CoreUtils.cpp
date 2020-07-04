@@ -108,7 +108,7 @@ namespace Qv2ray::core
     const std::tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id)
     {
         auto connection = ConnectionManager->GetConnectionMetaObject(id);
-        return { connection.upLinkData, connection.downLinkData };
+        return { connection.stats[CurrentStatisticsValueType].upLinkData, connection.stats[CurrentStatisticsValueType].downLinkData };
     }
 
     uint64_t GetConnectionTotalData(const ConnectionId &id)
