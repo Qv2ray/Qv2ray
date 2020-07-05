@@ -18,7 +18,7 @@ assignees: ''
 
 
 
-## How can I trigger this bug：
+## How to trigger this bug：
 
 1. 
 2. 
