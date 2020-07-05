@@ -100,24 +100,16 @@ namespace Qv2ray::core::kernel
                 }
 
                 QMap<StatisticsType, QvStatsSpeed> statsResult;
-                bool hasResult = false;
                 for (const auto &[tag, config] : tagProtocolConfig)
                 {
                     const QString prefix = config.type == API_INBOUND ? "inbound" : "outbound";
                     const auto value_up = CallStatsAPIByName(prefix + ">>>" + tag + ">>>traffic>>>uplink");
                     const auto value_down = CallStatsAPIByName(prefix + ">>>" + tag + ">>>traffic>>>downlink");
-                    hasResult = hasResult || (value_up != QV2RAY_GRPC_ERROR_RETCODE && value_down != QV2RAY_GRPC_ERROR_RETCODE);
-
-                    statsResult[config.type].first += value_up;
-                    statsResult[config.type].second += value_down;
-                    // Changed: Removed isrunning check here.
+                    // hasError = hasError || value_up == QV2RAY_GRPC_ERROR_RETCODE || value_down == QV2RAY_GRPC_ERROR_RETCODE;
+                    statsResult[config.type].first += std::max(value_up, 0LL);
+                    statsResult[config.type].second += std::max(value_down, 0LL);
                 }
-
-                if (!hasResult)
-                {
-                    dialed = false;
-                    break;
-                }
+                // Changed: Removed isrunning check here.
                 emit onAPIDataReady(statsResult);
 
                 QThread::msleep(1000);
