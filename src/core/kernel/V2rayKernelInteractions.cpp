@@ -16,7 +16,7 @@ namespace Qv2ray::core::kernel
 
         QFile coreFile(vCorePath);
 
-        if (coreFile.permissions().testFlag(QFileDevice::ExeUser))
+        if (!coreFile.permissions().testFlag(QFileDevice::ExeUser))
         {
             DEBUG(MODULE_VCORE, "Core file not executable. Trying to enable.")
             const auto result = coreFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
