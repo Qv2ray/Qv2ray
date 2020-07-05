@@ -2,32 +2,51 @@
 name: Bug Report - English Version
 about: Used to report a bug...
 title: ''
-labels: Bugs, help wanted
+labels: Bugs, help wanted, DiscussionNeeded
 assignees: ''
 
 ---
 
-**Briefly describe this bug：**
+- [ ] **I'm sure I've tried to reproduce the problem several times and will provide the system environment, each software and its version that is involved in the problem.**
 
-**How can I trigger this bug：**
+We recommend that you follow the template to fill out a bug report so that we can collect more helpful information.
+
+# Briefly describe this bug：
+
+# How can I trigger this bug：
 
 1. 
 2. 
 3. 
-4. 
+4.
 
-**What is expected to happen**
+### If it's a connection issue, has it happened in other V2Ray clients?
 
-**Screenshots**
-If appropriate, please attach some screenshots.
 
-**System Information**
+### Related screenshots or logs
 
- - OS Type: (Windows, Linux or macOS)
- - Built from the source or download from the release?
- - Version string in the Preferences Window
+<details>
+
+```
+Qv2ray log:
+
+
+```
+
+</details>
+
+
+## System Information (Delete the incompatible items)
+
+### Affected platforms
+
+If you have not tested on other platforms or are unsure, please only keep confirmed platforms, same to below.
+
+- Linux
+- macOS
+- Windows
  
- **Affected Qv2ray installation source**
+### Affected Qv2ray installation source
  
 - ArchLinuxCN - Stable
 - ArchLinuxCN - Dev-git
@@ -40,10 +59,20 @@ If appropriate, please attach some screenshots.
 - Flathub
 - Snap
 - Homebrew Cask
-- Scoop
 - Chocolatey
 - Compile manually
 - Github Release
+
+### Installed plugins & source：
+
+
+### preferences -> about:
+
+```
+Version:
+Build info:
+Extra build info:
+```
 
 **Other Info**
 
