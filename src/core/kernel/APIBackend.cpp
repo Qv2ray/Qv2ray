@@ -39,19 +39,21 @@ namespace Qv2ray::core::kernel
         workThread->start();
     }
 
-    void APIWorker::StartAPI(const QMap<QString, QString> &tagProtocolPair, bool useOutboundStats)
+    void APIWorker::StartAPI(const QMap<bool, QMap<QString, QString>> &tagProtocolPair)
     {
         // Config API
         apiFailedCounter = 0;
         tagProtocolConfig.clear();
-        const auto config = useOutboundStats ? DefaultOutboundAPIConfig : DefaultInboundAPIConfig;
-
-        for (const auto &[tag, protocol] : tagProtocolPair.toStdMap())
+        for (const auto &key : tagProtocolPair.keys())
         {
-            for (const auto &[type, protocols] : config)
+            const auto config = key ? DefaultOutboundAPIConfig : DefaultInboundAPIConfig;
+            for (const auto &[tag, protocol] : tagProtocolPair[key].toStdMap())
             {
-                if (protocols.contains(protocol))
-                    tagProtocolConfig[tag] = { protocol, type };
+                for (const auto &[type, protocols] : config)
+                {
+                    if (protocols.contains(protocol))
+                        tagProtocolConfig[tag] = { protocol, type };
+                }
             }
         }
 

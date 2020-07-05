@@ -138,8 +138,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
         enableAPI->setChecked(CurrentConfig.kernelConfig.enableAPI);
         statsPortBox->setValue(CurrentConfig.kernelConfig.statsPort);
         //
-        v2rayOutboundStatsCB->setChecked(CurrentConfig.kernelConfig.useOutboundStats);
-        hasDirectStatisticsCB->setChecked(CurrentConfig.kernelConfig.hasDirectStats);
+        v2rayOutboundStatsCB->setChecked(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
+        hasDirectStatisticsCB->setChecked(CurrentConfig.uiConfig.graphConfig.hasDirectStats);
         //
         pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
         pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
@@ -1181,11 +1181,11 @@ void PreferencesWindow::on_v2rayOutboundStatsCB_stateChanged(int arg1)
 {
     hasDirectStatisticsCB->setEnabled(arg1 == Qt::Checked);
     LOADINGCHECK
-    CurrentConfig.kernelConfig.useOutboundStats = arg1 == Qt::Checked;
+    CurrentConfig.uiConfig.graphConfig.useOutboundStats = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_hasDirectStatisticsCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    CurrentConfig.kernelConfig.hasDirectStats = arg1 == Qt::Checked;
+    CurrentConfig.uiConfig.graphConfig.hasDirectStats = arg1 == Qt::Checked;
 }

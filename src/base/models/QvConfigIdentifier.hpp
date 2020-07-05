@@ -157,7 +157,7 @@ namespace Qv2ray::base
         API_OUTBOUND_BLACKHOLE = 3,
     };
 
-#define CurrentStatAPIType (GlobalConfig.kernelConfig.useOutboundStats ? API_OUTBOUND_PROXY : API_INBOUND)
+#define CurrentStatAPIType (GlobalConfig.uiConfig.graphConfig.useOutboundStats ? API_OUTBOUND_PROXY : API_INBOUND)
 
     typedef long qvspeed;
     typedef quint64 qvdata;

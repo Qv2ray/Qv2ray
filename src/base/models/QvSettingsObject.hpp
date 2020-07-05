@@ -1,6 +1,7 @@
 #pragma once
 #include "base/models/QvConfigIdentifier.hpp"
 #include "base/models/QvCoreSettings.hpp"
+#include "base/models/QvSafeType.hpp"
 
 #include <chrono>
 
@@ -8,11 +9,28 @@ constexpr int QV2RAY_CONFIG_VERSION = 14;
 
 namespace Qv2ray::base::config
 {
+    struct QvGraphPenConfig
+    {
+        int R, G, B;
+        float width;
+        Qt::PenStyle style;
+        JSONSTRUCT_REGISTER(QvGraphPenConfig, F(R, G, B, width, style))
+    };
+
+    struct Qv2rayConfig_Graph
+    {
+        bool useOutboundStats;
+        bool hasDirectStats;
+        safetype::QvEnumMap<StatisticsType, safetype::QvPair<QvGraphPenConfig>> colorConfig;
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Graph, F(useOutboundStats, hasDirectStats, colorConfig))
+    };
+
     struct Qv2rayConfig_UI
     {
         QString theme;
         QString language;
         QList<ConnectionGroupPair> recentConnections;
+        Qv2rayConfig_Graph graphConfig;
         bool quietMode;
         bool useDarkTheme;
         bool useDarkTrayIcon;
@@ -20,9 +38,10 @@ namespace Qv2ray::base::config
         int maxJumpListCount;
         Qv2rayConfig_UI()
             : theme("Fusion"), language("en_US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500), maxJumpListCount(20){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_UI,
-                            F(theme, language, quietMode, useDarkTheme, useDarkTrayIcon, maximumLogLines, maxJumpListCount, recentConnections))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines,
+                                               maxJumpListCount, recentConnections))
     };
+
     struct Qv2rayConfig_Plugin
     {
         QMap<QString, bool> pluginStates;
@@ -35,8 +54,6 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_Kernel
     {
         bool enableAPI;
-        bool useOutboundStats;
-        bool hasDirectStats;
         int statsPort;
         //
         QString v2CorePath_linux;
@@ -75,10 +92,10 @@ namespace Qv2ray::base::config
 #undef _VARNAME_VCOREPATH_
 #undef _VARNAME_VASSETSPATH_
 
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                                       //
-                            F(enableAPI, useOutboundStats, hasDirectStats, statsPort), //
-                            F(v2CorePath_linux, v2AssetsPath_linux),                   //
-                            F(v2CorePath_macx, v2AssetsPath_macx),                     //
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                     //
+                            F(enableAPI, statsPort),                 //
+                            F(v2CorePath_linux, v2AssetsPath_linux), //
+                            F(v2CorePath_macx, v2AssetsPath_macx),   //
                             F(v2CorePath_win, v2AssetsPath_win))
     };
 
@@ -146,10 +163,6 @@ namespace Qv2ray::base::config
         ConnectionGroupPair autoStartId;
         ConnectionGroupPair lastConnectedId;
         Qv2rayAutoConnectionBehavior autoStartBehavior;
-        //
-        // Key = groupId, connectionId
-        //        QList<GroupId> groups;
-        //        QList<ConnectionId> connections;
         //
         Qv2rayConfig_UI uiConfig;
         Qv2rayConfig_Plugin pluginConfig;

@@ -291,19 +291,21 @@ namespace Qv2ray::core::kernel
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;
 
-            QMap<QString, QString> tagProtocolMap;
-            const bool useOutbound = GlobalConfig.kernelConfig.useOutboundStats;
-            for (const auto &item : root[useOutbound ? "outbounds" : "inbounds"].toArray())
+            QMap<bool, QMap<QString, QString>> tagProtocolMap;
+            for (const auto isOutbound : { true, false })
             {
-                const auto tag = item.toObject()["tag"].toString("");
-                if (tag == API_TAG_INBOUND)
-                    continue;
-                if (tag.isEmpty())
+                for (const auto &item : root[isOutbound ? "outbounds" : "inbounds"].toArray())
                 {
-                    LOG(MODULE_VCORE, "Ignored inbound with empty tag.")
-                    continue;
+                    const auto tag = item.toObject()["tag"].toString("");
+                    if (tag == API_TAG_INBOUND)
+                        continue;
+                    if (tag.isEmpty())
+                    {
+                        LOG(MODULE_VCORE, "Ignored inbound with empty tag.")
+                        continue;
+                    }
+                    tagProtocolMap[isOutbound][tag] = item.toObject()["protocol"].toString();
                 }
-                tagProtocolMap[tag] = item.toObject()["protocol"].toString();
             }
 
             apiEnabled = false;
@@ -322,7 +324,7 @@ namespace Qv2ray::core::kernel
             else
             {
                 DEBUG(MODULE_VCORE, "Starting API")
-                apiWorker->StartAPI(tagProtocolMap, useOutbound);
+                apiWorker->StartAPI(tagProtocolMap);
                 apiEnabled = true;
             }
 

@@ -29,20 +29,13 @@
 
 #include "speedwidget.hpp"
 
-#include <QDateTime>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QLocale>
-#include <QMenu>
+#include "base/Qv2rayBase.hpp"
+
 #include <QPainter>
-#include <QPen>
-#include <QTimer>
-#include <QVBoxLayout>
-#include <list>
 
 #define VIEWABLE 120
 
-SpeedWidget::SpeedWidget(QWidget *parent) : QGraphicsView(parent), m_currentData(&m_datahalfMin)
+SpeedWidget::SpeedWidget(QWidget *parent) : QGraphicsView(parent)
 {
     UpdateSpeedPlotSettings();
 }
@@ -53,7 +46,8 @@ void SpeedWidget::AddPointData(QMap<SpeedWidget::GraphID, long> data)
     point.x = QDateTime::currentMSecsSinceEpoch() / 1000;
     for (const auto &[id, data] : data.toStdMap())
     {
-        point.y[id] = data;
+        if (m_properties.contains(id))
+            point.y[id] = data;
     }
 
     m_datahalfMin.push_back(point);
@@ -169,32 +163,46 @@ namespace
 
 void SpeedWidget::UpdateSpeedPlotSettings()
 {
-    QPen greenPen{ QColor(134, 196, 63) };
-    greenPen.setWidthF(1.5);
-    QPen bluePen{ QColor(50, 153, 255) };
-    bluePen.setWidthF(1.5);
-    //
+#define Graph GlobalConfig.uiConfig.graphConfig
+#define _X_(x, y)                                                                                                                               \
+    if (!Graph.colorConfig.contains(x))                                                                                                         \
+        Graph.colorConfig[x] = y;
+
+    _X_(API_INBOUND, (QvPair<QvGraphPenConfig>{ { 134, 196, 63, 1.5f, Qt::SolidLine }, { 50, 153, 255, 1.5f, Qt::SolidLine } }));
+    _X_(API_OUTBOUND_PROXY, Graph.colorConfig[API_INBOUND]);
+    _X_(API_OUTBOUND_DIRECT, (QvPair<QvGraphPenConfig>{ { 0, 210, 240, 1.5f, Qt::DotLine }, { 235, 220, 42, 1.5f, Qt::DotLine } }));
+
+    const auto getPen = [](const QvGraphPenConfig &conf) {
+        QPen p{ { conf.R, conf.G, conf.B } };
+        p.setStyle(conf.style);
+        p.setWidthF(conf.width);
+        return p;
+    };
+
     m_properties.clear();
-    m_properties[OUTBOUND_PROXY_UP] = GraphProperties(tr("Proxy Upload"), bluePen);
-    m_properties[OUTBOUND_PROXY_DOWN] = GraphProperties(tr("Proxy Download"), greenPen);
-
-    QPen cyanPen{ QColor(0, 210, 240) };
-    cyanPen.setWidthF(1.5);
-    cyanPen.setStyle(Qt::DotLine);
-    QPen orangePen{ QColor(235, 220, 42) };
-    orangePen.setWidthF(1.5);
-    orangePen.setStyle(Qt::DotLine);
-    m_properties[OUTBOUND_DIRECT_UP] = GraphProperties(tr("Direct Upload"), cyanPen);
-    m_properties[OUTBOUND_DIRECT_DOWN] = GraphProperties(tr("Direct Download"), orangePen);
-
-    m_properties[INBOUND_UP] = GraphProperties(tr("Total Inbound Upload"), bluePen);
-    m_properties[INBOUND_DOWN] = GraphProperties(tr("Total Inbound Download"), greenPen);
+    if (Graph.useOutboundStats)
+    {
+        m_properties[OUTBOUND_PROXY_UP] = { tr("Proxy ↑"), getPen(Graph.colorConfig[API_OUTBOUND_PROXY].value1) };
+        m_properties[OUTBOUND_PROXY_DOWN] = { tr("Proxy ↓"), getPen(Graph.colorConfig[API_OUTBOUND_PROXY].value2) };
+        if (Graph.hasDirectStats)
+        {
+            m_properties[OUTBOUND_DIRECT_UP] = { tr("Direct ↑"), getPen(Graph.colorConfig[API_OUTBOUND_DIRECT].value1) };
+            m_properties[OUTBOUND_DIRECT_DOWN] = { tr("Direct ↓"), getPen(Graph.colorConfig[API_OUTBOUND_DIRECT].value2) };
+        }
+    }
+    else
+    {
+        m_properties[INBOUND_UP] = { tr("Total ↑"), getPen(Graph.colorConfig[API_INBOUND].value1) };
+        m_properties[INBOUND_DOWN] = { tr("Total ↓"), getPen(Graph.colorConfig[API_INBOUND].value2) };
+    }
+#undef Graph
 }
 
 void SpeedWidget::Clear()
 {
     m_datahalfMin.clear();
     m_properties.clear();
+    UpdateSpeedPlotSettings();
     replot();
 }
 void SpeedWidget::replot()
@@ -207,14 +215,9 @@ quint64 SpeedWidget::maxYValue()
     quint64 maxYValue = 0;
 
     for (int id = 0; id < NB_GRAPHS; ++id)
-    {
-        // 30 is half min
-        for (int i = m_currentData->size() - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
-        {
-            if (m_currentData->at(i).y[id] > maxYValue)
-                maxYValue = m_currentData->at(i).y[id];
-        }
-    }
+        for (int i = m_datahalfMin.size() - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
+            if (m_datahalfMin[i].y[id] > maxYValue)
+                maxYValue = m_datahalfMin[i].y[id];
 
     return maxYValue;
 }
@@ -278,23 +281,21 @@ void SpeedWidget::paintEvent(QPaintEvent *)
     // Need, else graphs cross left gridline
     rect.adjust(3, 0, 0, 0);
     //
-    // const double yMultiplier = std::max(niceScale.arg, (static_cast<double>(rect.height()) / niceScale.sizeInBytes()));
     const double yMultiplier = (niceScale.arg == 0.0) ? 0.0 : (static_cast<double>(rect.height()) / niceScale.sizeInBytes());
-    //
     const double xTickSize = static_cast<double>(rect.width()) / VIEWABLE;
 
-    for (int id = 0; id < NB_GRAPHS; ++id)
+    for (const auto &id : m_properties.keys())
     {
         QVector<QPoint> points;
 
-        for (int i = static_cast<int>(m_currentData->size()) - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
+        for (int i = static_cast<int>(m_datahalfMin.size()) - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
         {
             const int newX = rect.right() - j * xTickSize;
-            const int newY = rect.bottom() - m_currentData->at(i).y[id] * yMultiplier;
+            const int newY = rect.bottom() - m_datahalfMin[i].y[id] * yMultiplier;
             points.push_back({ newX, newY });
         }
 
-        painter.setPen(m_properties[static_cast<GraphID>(id)].pen);
+        painter.setPen(m_properties[id].pen);
         painter.drawPolyline(points.data(), points.size());
     }
 
