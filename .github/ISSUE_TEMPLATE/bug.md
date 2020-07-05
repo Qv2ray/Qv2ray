@@ -22,7 +22,7 @@ assignees: ''
 3. 
 4. 
 
-### 如果是连接问题，在其他 v2ray 客户端里出现过吗？ 
+### 如果是连接问题，在其他 V2Ray 客户端里出现过吗？ 
 
 
 
@@ -43,6 +43,8 @@ Qv2ray 日志：
 
 ### 受影响的 Qv2ray 安装平台
 
+如果你未在其他平台做过测试或不确定，请只保留已确认的平台，下同
+
 - Linux
 - macOS
 - Windows
@@ -60,7 +62,6 @@ Qv2ray 日志：
 - Flathub 包
 - Snap 包
 - Homebrew Cask
-- Scoop
 - Chocolatey
 - 手动编译
 - Github Release
@@ -80,3 +81,5 @@ Qv2ray 日志：
 **其他信息**
 
 你认为对我们修复bug有帮助的任何信息都可以在这里写出来：
+
+*如果你打算贴出你的配置信息，请在生成 VMess 链接 (直接粘贴) 前隐藏你的服务器地址 / 域名和 UUID。*
