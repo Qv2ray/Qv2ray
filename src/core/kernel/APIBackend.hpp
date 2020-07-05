@@ -14,11 +14,11 @@ namespace Qv2ray::core::kernel
     struct APIConfigObject
     {
         QString protocol;
-        Qv2rayStatisticsType type;
+        StatisticsType type;
     };
 
     typedef std::map<QString, APIConfigObject> QvAPITagProtocolConfig;
-    typedef std::map<Qv2rayStatisticsType, QStringList> QvAPIDataTypeConfig;
+    typedef std::map<StatisticsType, QStringList> QvAPIDataTypeConfig;
 
     class APIWorker : public QObject
     {
@@ -28,15 +28,14 @@ namespace Qv2ray::core::kernel
         APIWorker();
         ~APIWorker();
         void StartAPI(const QMap<QString, QString> &tagProtocolPair, bool useOutboundStats);
-
         void StopAPI();
 
-      public slots:
-        void process();
-
       signals:
-        void OnDataReady(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
-        void error(const QString &err);
+        void onAPIDataReady(const QMap<StatisticsType, QvStatsSpeed> &data);
+        void OnAPIErrored(const QString &err);
+
+      private slots:
+        void process();
 
       private:
         qint64 CallStatsAPIByName(const QString &name);

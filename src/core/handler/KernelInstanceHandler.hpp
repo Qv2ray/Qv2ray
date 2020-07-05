@@ -37,14 +37,14 @@ namespace Qv2ray::core::handler
         void OnConnected(const ConnectionGroupPair &id);
         void OnDisconnected(const ConnectionGroupPair &id);
         void OnCrashed(const ConnectionGroupPair &id, const QString &errMessage);
-        void OnStatsDataAvailable(const ConnectionGroupPair &id, const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
+        void OnStatsDataAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data);
         void OnKernelLogAvailable(const ConnectionGroupPair &id, const QString &log);
 
       private slots:
         void OnKernelCrashed_p(const QString &msg);
         void OnKernelLog_p(const QString &log);
-        void OnV2rayStatsDataRcvd_p(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
-        void OnPluginStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed);
+        void OnV2rayStatsDataRcvd_p(const QMap<StatisticsType, QvStatsSpeed> &data);
+        void OnPluginStatsDataRcvd_p(const long uploadSpeed, const long downloadSpeed);
 
       private:
         static std::optional<QString> CheckPort(QMap<QString, QString> hosts, QMap<QString, int> ports, int plugins);

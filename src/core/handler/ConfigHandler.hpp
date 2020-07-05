@@ -140,8 +140,7 @@ namespace Qv2ray::core::handler
 
       signals:
         void OnKernelLogAvailable(const ConnectionGroupPair &id, const QString &log);
-        void OnStatsAvailable(const ConnectionGroupPair &id,
-                              const std::map<Qv2rayStatisticsType, std::tuple<quint64, quint64, quint64, quint64>> &data);
+        void OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data);
         //
         void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
         void OnConnectionModified(const ConnectionId &id);
@@ -165,7 +164,7 @@ namespace Qv2ray::core::handler
       private slots:
         void OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage);
         void OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &data);
-        void OnStatsDataArrived_p(const ConnectionGroupPair &id, const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
+        void OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data);
 
       protected:
         void timerEvent(QTimerEvent *event) override;

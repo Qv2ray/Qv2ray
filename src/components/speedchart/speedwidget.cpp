@@ -40,18 +40,11 @@
 #include <QVBoxLayout>
 #include <list>
 
+#define VIEWABLE 120
+
 SpeedWidget::SpeedWidget(QWidget *parent) : QGraphicsView(parent), m_currentData(&m_datahalfMin)
 {
-    //    m_layout = new QVBoxLayout(this);
-    //    m_layout->setContentsMargins(0, 0, 0, 0);
-    //    m_layout->setSpacing(3);
-    //    m_hlayout = new QHBoxLayout();
-    //    m_hlayout->setContentsMargins(0, 0, 0, 0);
-    //    m_hlayout->addStretch();
-    //    m_plot = new SpeedWidget(this);
-    //    m_layout->addLayout(m_hlayout);
-    //    m_layout->addWidget(m_plot);
-    //    m_plot->show();
+    UpdateSpeedPlotSettings();
 }
 
 void SpeedWidget::AddPointData(QMap<SpeedWidget::GraphID, long> data)
@@ -62,11 +55,15 @@ void SpeedWidget::AddPointData(QMap<SpeedWidget::GraphID, long> data)
     {
         point.y[id] = data;
     }
-    PushPoint(point);
+
+    m_datahalfMin.push_back(point);
+
+    while (m_datahalfMin.length() > VIEWABLE)
+    {
+        m_datahalfMin.removeFirst();
+    }
     replot();
 }
-
-#define VIEWABLE 120
 
 // use binary prefix standards from IEC 60027-2
 // see http://en.wikipedia.org/wiki/Kilobyte
@@ -83,7 +80,7 @@ enum SizeUnit : int
 
 QString unitString(const SizeUnit unit, const bool isSpeed)
 {
-    const static QStringList units{ "B", "KiB", "MiB", "GiB", "TiB", "EiB" };
+    const static QStringList units{ "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB" };
     auto unitString = units[unit];
     if (isSpeed)
         unitString += "/s";
@@ -170,54 +167,36 @@ namespace
     }
 } // namespace
 
-void SpeedWidget::UpdateSpeedPlotSettings(bool isOutboundGraph, bool hasDirectGraph)
+void SpeedWidget::UpdateSpeedPlotSettings()
 {
-    this->isOutbound = isOutboundGraph;
-    this->hasDirectLine = hasDirectGraph;
-    //
     QPen greenPen{ QColor(134, 196, 63) };
     greenPen.setWidthF(1.5);
     QPen bluePen{ QColor(50, 153, 255) };
     bluePen.setWidthF(1.5);
     //
     m_properties.clear();
-    if (isOutboundGraph)
-    {
-        m_properties[OUTBOUND_PROXY_UP] = GraphProperties(tr("Proxy Upload"), bluePen);
-        m_properties[OUTBOUND_PROXY_DOWN] = GraphProperties(tr("Proxy Download"), greenPen);
-        if (hasDirectLine)
-        {
-            QPen cyanPen{ QColor(0, 210, 240) };
-            cyanPen.setWidthF(1.5);
-            QPen orangePen{ QColor(255, 220, 42) };
-            orangePen.setWidthF(1.5);
-            m_properties[OUTBOUND_DIRECT_UP] = GraphProperties(tr("Direct Upload"), cyanPen);
-            m_properties[OUTBOUND_DIRECT_DOWN] = GraphProperties(tr("Direct Download"), orangePen);
-        }
-    }
-    else
-    {
-        m_properties[INBOUND_UP] = GraphProperties(tr("Total Inbound Upload"), bluePen);
-        m_properties[INBOUND_DOWN] = GraphProperties(tr("Total Inbound Download"), greenPen);
-    }
+    m_properties[OUTBOUND_PROXY_UP] = GraphProperties(tr("Proxy Upload"), bluePen);
+    m_properties[OUTBOUND_PROXY_DOWN] = GraphProperties(tr("Proxy Download"), greenPen);
+
+    QPen cyanPen{ QColor(0, 210, 240) };
+    cyanPen.setWidthF(1.5);
+    cyanPen.setStyle(Qt::DotLine);
+    QPen orangePen{ QColor(235, 220, 42) };
+    orangePen.setWidthF(1.5);
+    orangePen.setStyle(Qt::DotLine);
+    m_properties[OUTBOUND_DIRECT_UP] = GraphProperties(tr("Direct Upload"), cyanPen);
+    m_properties[OUTBOUND_DIRECT_DOWN] = GraphProperties(tr("Direct Download"), orangePen);
+
+    m_properties[INBOUND_UP] = GraphProperties(tr("Total Inbound Upload"), bluePen);
+    m_properties[INBOUND_DOWN] = GraphProperties(tr("Total Inbound Download"), greenPen);
 }
 
 void SpeedWidget::Clear()
 {
     m_datahalfMin.clear();
+    m_properties.clear();
     replot();
 }
-
-void SpeedWidget::PushPoint(const SpeedWidget::PointData &point)
-{
-    m_datahalfMin.push_back(point);
-
-    while (m_datahalfMin.length() > VIEWABLE)
-    {
-        m_datahalfMin.removeFirst();
-    }
-}
-
 void SpeedWidget::replot()
 {
     viewport()->update();
@@ -299,8 +278,8 @@ void SpeedWidget::paintEvent(QPaintEvent *)
     // Need, else graphs cross left gridline
     rect.adjust(3, 0, 0, 0);
     //
-    const double yMultiplier = std::max(niceScale.arg, (static_cast<double>(rect.height()) / niceScale.sizeInBytes()));
-    // const double yMultiplier = (niceScale.arg == 0.0) ? 0.0 : (static_cast<double>(rect.height()) / niceScale.sizeInBytes());
+    // const double yMultiplier = std::max(niceScale.arg, (static_cast<double>(rect.height()) / niceScale.sizeInBytes()));
+    const double yMultiplier = (niceScale.arg == 0.0) ? 0.0 : (static_cast<double>(rect.height()) / niceScale.sizeInBytes());
     //
     const double xTickSize = static_cast<double>(rect.width()) / VIEWABLE;
 

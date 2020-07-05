@@ -32,35 +32,35 @@
 #include <QPen>
 #include <QWidget>
 
-class QHBoxLayout;
-class QLabel;
-class QMenu;
-class QVBoxLayout;
-
 class SpeedWidget : public QGraphicsView
 {
     Q_OBJECT
   public:
     enum GraphID
     {
-        INBOUND_UP /*           */ = 0b0000,
-        INBOUND_DOWN /*         */ = 0b0001,
-        OUTBOUND_PROXY_UP /*    */ = 0b0010,
-        OUTBOUND_PROXY_DOWN /*  */ = 0b0011,
-        OUTBOUND_DIRECT_UP /*   */ = 0b0100,
-        OUTBOUND_DIRECT_DOWN /* */ = 0b0111,
-        NB_GRAPHS
+        INBOUND_UP,
+        INBOUND_DOWN,
+        OUTBOUND_PROXY_UP,
+        OUTBOUND_PROXY_DOWN,
+        OUTBOUND_DIRECT_UP,
+        OUTBOUND_DIRECT_DOWN,
+        OUTBOUND_BLOCK_UP,
+        OUTBOUND_BLOCK_DOWN,
+        NB_GRAPHS,
     };
     struct PointData
     {
         qint64 x;
         quint64 y[NB_GRAPHS];
+        PointData()
+        {
+            for (auto i = 0; i < NB_GRAPHS; i++) y[i] = 0;
+        }
     };
 
     explicit SpeedWidget(QWidget *parent = nullptr);
-    void UpdateSpeedPlotSettings(bool isOutboundGraph, bool hasDirectGraph);
+    void UpdateSpeedPlotSettings();
     void AddPointData(QMap<SpeedWidget::GraphID, long> data);
-    void PushPoint(const PointData &point);
     void Clear();
     void replot();
 
@@ -79,9 +79,6 @@ class SpeedWidget : public QGraphicsView
     quint64 maxYValue();
     QList<PointData> m_datahalfMin;
     QList<PointData> *m_currentData;
-
-    bool isOutbound;
-    bool hasDirectLine;
 
     QMap<GraphID, GraphProperties> m_properties;
 };

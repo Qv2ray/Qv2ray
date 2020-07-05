@@ -36,6 +36,7 @@ namespace Qv2ray::base::config
     {
         bool enableAPI;
         bool useOutboundStats;
+        bool hasDirectStats;
         int statsPort;
         //
         QString v2CorePath_linux;
@@ -74,10 +75,10 @@ namespace Qv2ray::base::config
 #undef _VARNAME_VCOREPATH_
 #undef _VARNAME_VASSETSPATH_
 
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                     //
-                            F(enableAPI, statsPort),                 //
-                            F(v2CorePath_linux, v2AssetsPath_linux), //
-                            F(v2CorePath_macx, v2AssetsPath_macx),   //
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                                       //
+                            F(enableAPI, useOutboundStats, hasDirectStats, statsPort), //
+                            F(v2CorePath_linux, v2AssetsPath_linux),                   //
+                            F(v2CorePath_macx, v2AssetsPath_macx),                     //
                             F(v2CorePath_win, v2AssetsPath_win))
     };
 

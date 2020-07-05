@@ -301,7 +301,7 @@ namespace Qv2ray::core::handler
         activeKernels.clear();
     }
 
-    void KernelInstanceHandler::OnV2rayStatsDataRcvd_p(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data)
+    void KernelInstanceHandler::OnV2rayStatsDataRcvd_p(const QMap<StatisticsType, QvStatsSpeed> &data)
     {
         if (isConnected)
         {
@@ -309,7 +309,7 @@ namespace Qv2ray::core::handler
         }
     }
 
-    void KernelInstanceHandler::OnPluginStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed)
+    void KernelInstanceHandler::OnPluginStatsDataRcvd_p(const long uploadSpeed, const long downloadSpeed)
     {
         OnV2rayStatsDataRcvd_p({ { API_OUTBOUND_PROXY, { uploadSpeed, downloadSpeed } } });
     }

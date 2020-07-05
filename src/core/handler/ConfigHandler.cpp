@@ -672,27 +672,27 @@ namespace Qv2ray::core::handler
         return hasErrorOccured;
     }
 
-    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data)
+    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data)
     {
         if (id.isEmpty())
             return;
 
         const auto &cid = id.connectionId;
-        std::map<Qv2rayStatisticsType, std::tuple<quint64, quint64, qint64, qint64>> result;
-        for (const auto &[t, stat] : data)
+        QMap<StatisticsType, QvStatsSpeedData> result;
+        for (const auto t : data.keys())
         {
-            connections[cid].stats[t].upLinkData += stat.first;
-            connections[cid].stats[t].downLinkData += stat.second;
-            result[t] = { stat.first, stat.second, connections[cid].stats[t].upLinkData, connections[cid].stats[t].downLinkData };
+            const auto &stat = data[t];
+            connections[cid].stats[t].fromData(stat);
+            result[t] = { stat, connections[cid].stats[t].toData() };
         }
-        emit OnStatsAvailable(id, result);
-        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(cid),                             //
-                                                std::get<0>(result[CurrentStatisticsValueType]), //
-                                                std::get<1>(result[CurrentStatisticsValueType]), //
-                                                std::get<2>(result[CurrentStatisticsValueType]), //
-                                                std::get<3>(result[CurrentStatisticsValueType]) });
-    }
 
+        emit OnStatsAvailable(id, result);
+        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(cid),                     //
+                                                result[CurrentStatAPIType].first.first,  //
+                                                result[CurrentStatAPIType].first.second, //
+                                                result[CurrentStatAPIType].second.first, //
+                                                result[CurrentStatAPIType].second.second });
+    }
     const ConnectionGroupPair QvConfigHandler::CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId,
                                                                 bool skipSaveConfig)
     {

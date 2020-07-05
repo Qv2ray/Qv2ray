@@ -149,7 +149,7 @@ namespace Qv2ray::base
         JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
-    enum Qv2rayStatisticsType
+    enum StatisticsType
     {
         API_INBOUND = 0,
         API_OUTBOUND_PROXY = 1,
@@ -157,20 +157,35 @@ namespace Qv2ray::base
         API_OUTBOUND_BLACKHOLE = 3,
     };
 
-#define CurrentStatisticsValueType (GlobalConfig.kernelConfig.useOutboundStats ? API_OUTBOUND_PROXY : API_INBOUND)
+#define CurrentStatAPIType (GlobalConfig.kernelConfig.useOutboundStats ? API_OUTBOUND_PROXY : API_INBOUND)
+
+    typedef long qvspeed;
+    typedef quint64 qvdata;
+    typedef QPair<qvspeed, qvspeed> QvStatsSpeed;
+    typedef QPair<qvdata, qvdata> QvStatsData;
+    typedef QPair<QvStatsSpeed, QvStatsData> QvStatsSpeedData;
 
     struct ConnectionStatsEntryObject
     {
-        qint64 upLinkData;
-        qint64 downLinkData;
+        qvdata upLinkData;
+        qvdata downLinkData;
+        QvStatsData toData()
+        {
+            return { upLinkData, downLinkData };
+        }
+        void fromData(const QvStatsData &d)
+        {
+            upLinkData = d.first;
+            downLinkData = d.second;
+        }
         JSONSTRUCT_REGISTER(ConnectionStatsEntryObject, F(upLinkData, downLinkData))
     };
 
     struct ConnectionStatsObject
     {
-        ConnectionStatsEntryObject &operator[](Qv2rayStatisticsType i)
+        ConnectionStatsEntryObject &operator[](StatisticsType i)
         {
-            while (entries.count() < i)
+            while (entries.count() <= i)
             {
                 entries.append(ConnectionStatsEntryObject{});
             }
@@ -180,12 +195,12 @@ namespace Qv2ray::base
         {
             return JsonStructHelper::___json_struct_store_data(entries);
         }
-        const std::map<Qv2rayStatisticsType, std::tuple<qint64, qint64>> toMap() const
+        auto toMap() const
         {
-            std::map<Qv2rayStatisticsType, std::tuple<qint64, qint64>> result;
+            std::map<StatisticsType, QvStatsData> result;
             for (auto i = 0; i < entries.count(); i++)
             {
-                result[(Qv2rayStatisticsType) i] = { entries[i].upLinkData, entries[i].downLinkData };
+                result[StatisticsType(i)] = { entries[i].upLinkData, entries[i].downLinkData };
             }
             return result;
         }
@@ -231,3 +246,8 @@ Q_DECLARE_METATYPE(ConnectionGroupPair)
 Q_DECLARE_METATYPE(ConnectionId)
 Q_DECLARE_METATYPE(GroupId)
 Q_DECLARE_METATYPE(GroupRoutingId)
+
+Q_DECLARE_METATYPE(QvStatsSpeed)
+Q_DECLARE_METATYPE(QvStatsData)
+Q_DECLARE_METATYPE(QvStatsSpeedData)
+Q_DECLARE_METATYPE(StatisticsType)

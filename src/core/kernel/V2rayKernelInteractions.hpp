@@ -20,15 +20,12 @@ namespace Qv2ray::core::kernel
         //
         static bool ValidateConfig(const QString &path);
         static bool ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message);
-        static std::tuple<bool, std::optional<QString>> CheckAndSetCoreExecutableState(const QString &vCorePath);
+        static std::pair<bool, std::optional<QString>> CheckAndSetCoreExecutableState(const QString &vCorePath);
 
       signals:
         void OnProcessErrored(const QString &errMessage);
         void OnProcessOutputReadyRead(const QString &output);
-        void OnNewStatsDataArrived(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
-
-      private slots:
-        void onAPIDataReady(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data);
+        void OnNewStatsDataArrived(const QMap<StatisticsType, QvStatsSpeed> &data);
 
       private:
         APIWorker *apiWorker;
