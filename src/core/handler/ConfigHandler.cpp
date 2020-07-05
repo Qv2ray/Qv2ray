@@ -682,7 +682,8 @@ namespace Qv2ray::core::handler
         for (const auto t : data.keys())
         {
             const auto &stat = data[t];
-            connections[cid].stats[t].fromData(stat);
+            connections[cid].stats[t].upLinkData += stat.first;
+            connections[cid].stats[t].downLinkData += stat.second;
             result[t] = { stat, connections[cid].stats[t].toData() };
         }
 

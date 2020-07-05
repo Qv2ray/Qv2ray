@@ -679,6 +679,7 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     lastConnectedIdentifier = id;
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
+    speedChartWidget->Clear();
     auto name = GetDisplayName(id.connectionId);
     if (!GlobalConfig.uiConfig.quietMode)
     {
@@ -770,8 +771,8 @@ void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<Stat
     // has "any" latency. (Hope not...)
     //
     QMap<SpeedWidget::GraphID, long> pointData;
-    bool isOutbound = GlobalConfig.kernelConfig.useOutboundStats;
-    bool hasDirect = isOutbound && GlobalConfig.kernelConfig.hasDirectStats;
+    bool isOutbound = GlobalConfig.uiConfig.graphConfig.useOutboundStats;
+    bool hasDirect = isOutbound && GlobalConfig.uiConfig.graphConfig.hasDirectStats;
     for (const auto &type : data.keys())
     {
         const auto upSpeed = data[type].first.first;

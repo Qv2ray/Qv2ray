@@ -27,10 +27,9 @@
  */
 #pragma once
 
-#include <QComboBox>
 #include <QGraphicsView>
+#include <QMap>
 #include <QPen>
-#include <QWidget>
 
 class SpeedWidget : public QGraphicsView
 {
@@ -78,7 +77,6 @@ class SpeedWidget : public QGraphicsView
 
     quint64 maxYValue();
     QList<PointData> m_datahalfMin;
-    QList<PointData> *m_currentData;
 
     QMap<GraphID, GraphProperties> m_properties;
 };

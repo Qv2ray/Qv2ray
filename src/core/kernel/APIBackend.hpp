@@ -27,7 +27,7 @@ namespace Qv2ray::core::kernel
       public:
         APIWorker();
         ~APIWorker();
-        void StartAPI(const QMap<QString, QString> &tagProtocolPair, bool useOutboundStats);
+        void StartAPI(const QMap<bool, QMap<QString, QString>> &tagProtocolPair);
         void StopAPI();
 
       signals:
