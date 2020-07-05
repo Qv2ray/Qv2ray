@@ -1,5 +1,5 @@
 name: qv2ray
-base: core18
+base: core20
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
 
@@ -44,6 +44,15 @@ apps:
       desktop: "usr/share/applications/qv2ray.desktop"
 
 parts:
+  ppa:
+    plugin: nil
+    build-packages:
+      - software-properties-common
+    override-pull: |
+      sudo add-apt-repository ppa:ymshenyu/libuv
+      sudo apt-get update
+      sudo apt-get -y dist-upgrade
+
   qv2ray:
     plugin: cmake
     source-type: git
@@ -51,14 +60,13 @@ parts:
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
-      - qttools5-dev-tools
       - qttools5-dev
       - qt5-default
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
-      - ninja-build
       - pkg-config
+      - libzxingcore-dev
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -70,11 +78,13 @@ parts:
       - libqt5network5
       - libqt5widgets5
       - libglib2.0-bin
-    configflags:
+      - libzxingcore1
+    cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
-      - -GNinja
       - -DEMBED_TRANSLATIONS=ON
+      - -DFALL_BACK_TO_XDG_OPEN=ON
+      - -DQV2RAY_ZXING_PROVIDER=package
     override-pull: |
       snapcraftctl pull
       build_number=$(cat makespec/BUILDVERSION)
@@ -84,7 +94,6 @@ parts:
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/256x256/apps/qv2ray.png|g' assets/qv2ray.desktop
     after:
       - desktop-qt5
-      - ppa
 
   desktop-qt5:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
@@ -110,21 +119,70 @@ parts:
       - locales-all
       - xdg-user-dirs
       - fcitx-frontend-qt5
-    after:
-      - ppa
 
   qt5-gtk-platform:
     plugin: nil
     stage-packages:
       - qt5-gtk-platformtheme
-    after:
-      - ppa
 
-  ppa:
-    plugin: nil
+  qv2ray-ssr-plugin:
+    plugin: cmake
+    source-type: git
+    source: https://github.com/Qv2ray/QvPlugin-SSR.git
+    source-branch: dev
     build-packages:
-      - software-properties-common
-      - dirmngr
-    override-build: |
-      sudo add-apt-repository -y ppa:ymshenyu/qv2ray-deps
-      sudo apt-get dist-upgrade -y
+      - build-essential
+      - libsodium-dev
+      - libuv1-dev
+      - libssl-dev
+      - qttools5-dev
+      - qt5-default
+    stage-packages:
+      - libgcc1
+      - libstdc++6
+      - libssl1.1
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5network5
+      - libqt5widgets5
+      - libuv1
+      - libsodium23
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DSSR_UVW_WITH_QT=ON
+      - -DUSE_SYSTEM_SODIUM=ON
+      - -DUSE_SYSTEM_LIBUV=ON
+      - -DSTATIC_LINK_LIBUV=OFF
+      - -DSTATIC_LINK_SODIUM=OFF
+    after:
+      - desktop-qt5
+
+  qv2ray-trojan-plugin:
+    plugin: cmake
+    source-type: git
+    source: https://github.com/Qv2ray/QvPlugin-Trojan.git
+    source-branch: dev
+    build-packages:
+      - build-essential
+      - libboost-system-dev
+      - libboost-program-options-dev
+      - libssl-dev
+      - qttools5-dev
+      - qt5-default
+    stage-packages:
+      - libgcc1
+      - libstdc++6
+      - libssl1.1
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5network5
+      - libqt5widgets5
+      - libboost-program-options1.71.0
+      - libboost-system1.71.0
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DFORCE_TCP_FASTOPEN=ON
+    after:
+      - desktop-qt5

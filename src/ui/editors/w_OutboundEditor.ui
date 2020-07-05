@@ -241,7 +241,7 @@
             <item row="1" column="1">
              <widget class="QSpinBox" name="alterLineEdit">
               <property name="maximum">
-               <number>1024</number>
+               <number>65535</number>
               </property>
               <property name="value">
                <number>16</number>
@@ -281,6 +281,30 @@
               <item>
                <property name="text">
                 <string notr="true">none</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Tests</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="testsEnabledCombo">
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <item>
+               <property name="text">
+                <string notr="true">none</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">VMessAEAD</string>
                </property>
               </item>
              </widget>

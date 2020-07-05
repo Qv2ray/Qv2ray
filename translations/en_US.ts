@@ -68,10 +68,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(Ignored %1 complex config(s))</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not a subscription</source>
         <translation type="unfinished"></translation>
     </message>
@@ -83,6 +79,13 @@
         <source>Are you sure to delete the current item?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message numerus="yes">
+        <source>(Ignored %n complex config(s))</source>
+        <translation>
+            <numerusform>(Ignored %n complex config)</numerusform>
+            <numerusform>(Ignored %n complex configs)</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>ConnectionItemWidget</name>
@@ -91,19 +94,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ms</source>
+        <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Type: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Testing...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -112,6 +107,33 @@
     </message>
     <message>
         <source>connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Testing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Connected: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Updated: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConnectionSettingsWidget</name>
+    <message>
+        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -143,29 +165,139 @@
     </message>
 </context>
 <context>
-    <name>ImportConfigWindow</name>
+    <name>DnsSettingsWidget</name>
     <message>
-        <source>Import file</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Name/Prefix</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Import Source</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Existing File</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> secs</source>
+        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide Qv2ray</source>
+        <source>Client IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Servers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Server Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detail Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Expectd IPs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Domains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statically Resolved Domains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Domain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolved IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>△</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>▽</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GroupManager</name>
+    <message>
+        <source>Export Connection(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Connection(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy to...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move to...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link to...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Would you like to update the subscription?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImportConfigWindow</name>
+    <message>
+        <source>Import file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name/Prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A prefix to the imported connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import To Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -173,103 +305,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Subscription Link</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>VMess / QRCode</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Go</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Error List</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Subscriptions / Manually Input</source>
-        <translation></translation>
+        <source>Paste share link here, one line for each.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Manually Input Connections</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Route Editor</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Open Route Editor</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Subscription Manager</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Open Subscription Manager</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Connection Editor</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Open Connection Editor</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Select file to import</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Capture QRCode</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Cannot find a valid QRCode from this region.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Import config file</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to check the validity of the config file.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Select an image to import</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>QRCode scanning failed</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Cannot find any QRCode from the image.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+        <source>QR Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -277,11 +321,71 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Screenshot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Hide Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> secs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detected Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input Manually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simple Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Connection Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complex Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Route / Complex Connection Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can manually input connection here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manually Input Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -293,15 +397,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A prefix to the imported connection</source>
+        <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connection Share Link</source>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste share link here, one line for each.</source>
+        <source>Select file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Capture QRCode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot find a valid QRCode from this region.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to import connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import config file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to check the validity of the config file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select an image to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QRCode scanning failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot find any QRCode from the image.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -309,87 +445,87 @@
     <name>InboundEditor</name>
     <message>
         <source>Inbound Editor</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Tag of this inbound entry</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Listening</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Hostname or IP Address</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>:</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Port: 1080|80-85</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Allocation Settings</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Strategy</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>always</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>random</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Concurrency</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Sniffing Settings</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Destination Override</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>HTTP Inbound Settings</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Allow Transparent</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>User Level</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>-</source>
@@ -397,7 +533,7 @@
     </message>
     <message>
         <source>Password</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+</source>
@@ -405,142 +541,157 @@
     </message>
     <message>
         <source>Add</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Username</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Accounts</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>SOCKS Inbound Settings</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Auth</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enable UDP</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Local UDP IP</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Dokodemo-Door Inbound Settings</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>IP Address</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Port</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Network</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>TCP</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MTProto Inbound Settings</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>EMail Address</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Secret</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>SECRET</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Inbound type not supported</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Inbound: </source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Removing a user</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You haven&apos;t selected a user yet.</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add a user</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This user exists already.</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>tproxy mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>InboundSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>JsonEditor</name>
     <message>
-        <source>OK</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Json Structure Preview</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Format JSON</source>
-        <translation></translation>
+        <source>JSON Editor</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Json Editor</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove All Comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Json Structure Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Json Contains Syntax Errors</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You must correct these errors before continuing.</source>
@@ -548,18 +699,10 @@
     </message>
     <message>
         <source>Syntax Errors</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Please fix the JSON errors or remove the comments before continue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>JSON Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove All Comments</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -567,18 +710,26 @@
     <name>MainWindow</name>
     <message>
         <source>Qv2ray</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Subscriptions</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locate Current Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -586,7 +737,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sort</source>
+        <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups / Subscriptions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -610,8 +765,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Not Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Speed</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Upload/Download speed</source>
@@ -620,11 +779,11 @@
     <message>
         <source>0.00 B/s
 0.00 B/s</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Data</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Upload/Download Data</source>
@@ -633,98 +792,6 @@
     <message>
         <source>0.00 B
 0.00 B</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Hide</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Sort connection list.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>By connection name, A-Z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>By connection name, Z-A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>By data, Ascending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>By data, Descending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>By latency, Ascending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Recent Connections</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>By latency, Descending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connected: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Duplicating Connection(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Are you sure to duplicate these connection(s)?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> (Copy)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set auto connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set %1 as auto connect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set system proxy</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Both HTTP and SOCKS inbounds are not enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>System proxy configured.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>System proxy removed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Update Subscriptions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>These subscriptions are out-of-date: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -732,47 +799,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disconnected from: </source>
+        <source>Recent Connections</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Removing Connection(s)</source>
+        <source>Clear Recent Connections</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Kernel terminated.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The kernel terminated unexpectedly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To solve the problem, read the kernel log in the log text browser.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Quit Qv2ray</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Are you sure to exit Qv2ray?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Are you sure to remove selected connection(s)?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locate Current Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not Connected</source>
+        <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -840,6 +875,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Sort connection list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By connection name, A-Z</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By connection name, Z-A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By latency, Ascending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By latency, Descending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By data, Ascending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By data, Descending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Switch to vCore log</source>
         <translation type="unfinished"></translation>
     </message>
@@ -848,48 +911,116 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Plugins</source>
+        <source>Kernel terminated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The kernel terminated unexpectedly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To solve the problem, read the kernel log in the log text browser.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent connections&apos; jump list cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quit Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure to exit Qv2ray?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Removing Connection(s)</source>
+        <translation>
+            <numerusform>Removing Connection</numerusform>
+            <numerusform>Removing Connections</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Are you sure to remove selected connection(s)?</source>
+        <translation>
+            <numerusform>Are you sure to remove selected connection?</numerusform>
+            <numerusform>Are you sure to remove selected connections?</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Disconnected from: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connected: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Duplicating Connection(s)</source>
+        <translation>
+            <numerusform>Duplicating Connection</numerusform>
+            <numerusform>Duplicating Connections</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Are you sure to duplicate these connection(s)?</source>
+        <translation>
+            <numerusform>Are you sure to duplicate this connection?</numerusform>
+            <numerusform>Are you sure to duplicate these connections?</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source> (Copy)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System proxy configured.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set system proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both HTTP and SOCKS inbounds are not enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System proxy removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Subscriptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription &quot;%1&quot; has been updated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 has been set as auto connect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected group is not a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to update these subscriptions?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OutboundEditor</name>
-    <message>
-        <source>Tag</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Tag of this outbound setting</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Host</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Hostname or IP/IPv6 Address</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Socks</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Use Mux</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation></translation>
-    </message>
     <message>
         <source>Edit Connection Settings</source>
         <translation type="unfinished"></translation>
@@ -899,7 +1030,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tag of this outbound setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Socks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hostname or IP/IPv6 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Misc Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Mux</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -912,43 +1079,43 @@
     </message>
     <message>
         <source>Outbound Settings</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>UUID</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Alter ID</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Security</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Email</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Password</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Encryption Method</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Level</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OTA</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Username</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unknown outbound type.</source>
@@ -1017,11 +1184,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UI Theme</source>
+        <source>General Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabled</source>
+        <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1029,11 +1196,158 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Darkmode Tray Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>UI Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum log lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent Jumplist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Launch at Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparent Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quiet Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User-Agent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latency Test Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TCPing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ICMPing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set AllowInsecure By Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
+This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Test Latency Periodcally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Run TCPing or ICMPing periodcally after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable SessionResumption By Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kernel Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1061,143 +1375,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Select</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inbound Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Listening Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HTTP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set System Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SOCKS Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>UDP Support</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Launch at Login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Authentication</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HTTP Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>127.0.0.1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>General Connection Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>API Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use Local DNS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Custom DNS List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Forward Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only simple config is supported.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Build Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Extra Build Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Socks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Host Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Network Toolbar Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply Network Speed Bar UI Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Items</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>General Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Maximum log lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Core Executable Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1205,319 +1387,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>API SubSystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>API Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Check V2ray Core Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UDP Local IP</source>
+        <source>Check Date and Time from Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This feature is not stable and no documentation is provided, please use it at your own risk!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Text Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bold</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Italic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>R:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>G:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>B:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Content</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Content Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Text/Tag</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can config how the network speed toolbar looks like in this panel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use Darkmode Theme</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable tProxy Support</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>to this path: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Update is disabled by your vendor.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Duplicated port numbers detected, please check the port number settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid inbound listening address.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open V2ray assets folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open V2ray core file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will append capabilities to the V2ray executable.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray will copy your V2ray core to this path: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot copy one or both V2ray files from: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>tProxy is not supported on macOS and Windows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply network toolbar settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All other modified settings will be applied as well after this object.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start with boot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to set auto start option.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray Core Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray path configuration check passed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current version of V2ray is: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dangerous Operation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will (probably) make it easy to fingerprint your connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transparent Proxy Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TCP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>UDP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Follow Redirect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Auto Connect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bypass CN Mainland</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Advanced Route Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can configure route rules for all simple connection config here.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>License</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Official Repo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Built Time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Update Channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stable Release</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Testing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Appearance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Behavior</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transparent Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Network Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>User-Agent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Kernel Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>API SubSystem</source>
+        <source>NTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1550,90 +1436,75 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Page Y Axis Offset</source>
+        <source>Inbound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Select Color</source>
+        <source>Listening Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ignored Version</source>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Plugin Interface</source>
+        <source>Set System Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Advanced Behavior</source>
+        <source>SOCKS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>AllowInsecure By Default</source>
+        <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
+        <source>UDP Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Test Latency Periodcally</source>
+        <source>UDP Local IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
+        <source>Authentication</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>These settings may be useful.
-But could damage your server if improperly used.</source>
+        <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>AllowInsecureCiphers By Default</source>
+        <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Config</source>
+        <source>Sniffing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Quiet Mode</source>
+        <source>HTTP Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recent Jumplist</source>
+        <source>Transparent Proxy Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> Connections</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>System Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Custom Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Curtom Proxy</source>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Network Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1645,22 +1516,441 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>redirect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>tproxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Outbound Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening IPv4 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening IPv6 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bypass CN Mainland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bypass Bittorrent Protocol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Direct Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Local DNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forward Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only simple config is supported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Socks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignored Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stable Release</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Testing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extra Build Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Built Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Build Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Repo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update is disabled by your vendor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicated port numbers detected, please check the port number settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid inbound listening address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ivp4 address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ipv6 address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open V2ray assets folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open V2ray core file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable tProxy Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will append capabilities to the V2ray executable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray will copy your V2ray core to this path: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray cannot copy one or both V2ray files from: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to this path: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>tProxy is not supported on macOS and Windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start with boot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to set auto start option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray Core Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray path configuration check passed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current version of V2ray is: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabling API Subsystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speed chart and traffic statistics will be disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dangerous Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will make your TLS fingerpring different from common golang programs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will (probably) make it easy to fingerprint your connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NTP Checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check date and time from server:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which is too high.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please synchronize your system to use V2Ray.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time Inaccurate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which is a little high.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time Somewhat Inaccurate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your time offset is %1 seconds, which looks good.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray may not suffer from time inaccuracy.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time Accurate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to lookup server: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can configure default DNS settings for all simple connection config here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can configure default routing rules for all simple connection config here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid DNS settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could damage your server if improperly used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Watch Out!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
+        <source>Timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS lookup failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Socket creation failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to setup TTL value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting timeout failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unresolvable hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sending echo request failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination unreachable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kernel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Share Link Parser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Capability</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection State Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Statistics Event</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System Proxy Event</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deepin Detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unsupported share link format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Complex config)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 - %2 (rate %3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1677,158 +1967,6 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Can&apos;t find the colon separator between hostname and port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VMess string should start with &apos;vmess://&apos;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>VMess string should be a valid base64 string</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>JSON should not be empty</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>seems like a v1 vmess, we don&apos;t support it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot load the config file from here:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Cannot Start Qv2ray</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Cannot find a place to store config files.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Qv2ray has searched these paths below:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray will now exit.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to initialise Qv2ray</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Please report if you think it&apos;s a bug.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> --&gt; USE IT AT YOUR OWN RISK!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Debug version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray Cannot Continue</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Please check if there&apos;s an issue explaining about it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Or submit a new issue if you think this is an error.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dependency Missing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This could be caused by a missing of `openssl` package in your system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If you are using an AppImage from Github Action, please report a bug.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot find openssl libs</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Failed to determine the location of config file:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A workaround is to remove the this file and restart Qv2ray:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Technical Details</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deprecated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configuration Upgrade Failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unsupported config version number: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1880,71 +2018,19 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Not connected</source>
+        <source>VMess string should start with &apos;vmess://&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connected</source>
+        <source>VMess string should be a valid base64 string</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Custom Text</source>
+        <source>JSON should not be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Current Time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current Date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current Qv2ray Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current Connection Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current Connection Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total Upload Speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total Download Speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total Uploaded Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total Downloaded Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current Connection Latency</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 - %2 (rate %3)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(Complex config)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inbound</source>
+        <source>N/A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1996,74 +2082,174 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>trusted abi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>unknown abi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Normal Plugin</source>
+        <source>Default Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Kernel</source>
+        <source>Deprecated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Share Link Parser</source>
+        <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown type.</source>
+        <source>It will be removed or be provided as a plugin in the future.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No Capability</source>
+        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connection State Change</source>
+        <source>Configuration Upgrade Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connection Change</source>
+        <source>Unsupported config version number: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Statistics Event</source>
+        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>System Proxy Event</source>
+        <source>Outbound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown</source>
+        <source>Inbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>vmess:// url is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid streamSettings protocol:  </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>Qv2ray::common::QvCommandArgParser</name>
+    <name>Qv2ray::Qv2rayApplication</name>
     <message>
-        <source>Disable gRPC API subsystems.</source>
+        <source>A new version of Qv2ray is attemping to start:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Explicitly run Qv2ray as root.</source>
+        <source>New version information: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Debug Output</source>
+        <source>Qv2ray version: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable manually set QT_SCALE_FACTOR</source>
+        <source>Qv2ray path: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable plugin feature</source>
+        <source>Do you want to exit and launch that new version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Qv2ray network toolbar plugin</source>
+        <source>New version detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot Start Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot find a place to store config files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray has searched these paths below:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray will now exit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to initialise Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to determine the location of config file:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A workaround is to remove the this file and restart Qv2ray:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please report if you think it&apos;s a bug.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray Cannot Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please check if there&apos;s an issue explaining about it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Or submit a new issue if you think this is an error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable gRPC API subsystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable plugins feature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Qt UI scale factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable debug output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop current connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect last connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2085,7 +2271,7 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>cannot be loaded.</source>
+        <source>The plugin located here cannot be loaded: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2106,20 +2292,28 @@ But could damage your server if improperly used.</source>
     </message>
 </context>
 <context>
-    <name>Qv2ray::core::handlers::KernelInstanceHandler</name>
+    <name>Qv2ray::core::handler::KernelInstanceHandler</name>
+    <message>
+        <source>Another process is using the port required to start the connection:</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>Qv2ray::core::handlers::QvConfigHandler</name>
     <message>
-        <source>Default Group</source>
+        <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>File does not exist.</source>
+        <source>Port: %1 for listening IP: 127.0.0.1 for plugin integration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::handler::QvConfigHandler</name>
+    <message>
+        <source>Default Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2127,12 +2321,30 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Failed to start connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Update Subscription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <source>Group: %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation>
+            <numerusform>%n entry has been found from the subscription source, do you want to continue?</numerusform>
+            <numerusform>%n entries have been found from the subscription source, do you want to continue?</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>
+            <numerusform>%1 out of %n entry have been filtered out, do you want to continue?</numerusform>
+            <numerusform>%1 out of %n entries have been filtered out, do you want to continue?</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2228,106 +2440,22 @@ Maybe you have downloaded the wrong core?</source>
     <name>RouteEditor</name>
     <message>
         <source>Route Editor</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Route Detail Settings</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Source IP Matches</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Add default inbound from global config</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Tag</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Add outbound</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Delete outbound</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Edit outbound</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Add Freedom outbound</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Add blackhole outbound</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Routes</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Outbound</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Add new route</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Use Balancers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Target IP List</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Target Domain List</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>TCP</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>UDP</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Protocol</source>
-        <translation></translation>
     </message>
     <message>
         <source>Inbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add an Inbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add default inbound from global config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2335,7 +2463,23 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add an Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add blackhole outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Add Black Hole</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Freedom outbound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2347,7 +2491,23 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Protocol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Routes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2355,7 +2515,23 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Edit outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add new route</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete outbound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2364,6 +2540,10 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>General Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Misc Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2391,48 +2571,84 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Rule Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>HTTP</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>TLS</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>BitTorrent</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>e.g. 80, 443, 8000-8080</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Balancers</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Balancers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Route Detail Settings</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Users List</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation></translation>
+        <source>Source IP Matches</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot Edit</source>
-        <translation></translation>
+        <source>Target Domain List</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This outbound entry is not supported by the GUI editor.</source>
-        <translation></translation>
+        <source>Target IP List</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>We will launch Json Editor instead.</source>
-        <translation></translation>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show rule details</source>
@@ -2443,7 +2659,15 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Added DIRECT outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Protocol list changed: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2451,27 +2675,7 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default rule</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>rule</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Inbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No inbound item found: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The new tag has been used, we appended a postfix.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The new tag has been used, we appended a random string to the tag.</source>
+        <source>Removed a balancer entry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2507,16 +2711,36 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cannot Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currently, this type of outbound is not supported by the editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We will launch Json Editor instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Opening JSON editor</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opening default inbound editor</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unsupported Outbound Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>This outbound entry is not supported by the GUI editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Opening default outbound editor.</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Renaming a tag</source>
@@ -2535,43 +2759,31 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Added DIRECT outbound</source>
-        <translation></translation>
+        <source>Default rule</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Currently, this type of outbound is not supported by the editor.</source>
-        <translation></translation>
+        <source>rule</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Opening default inbound editor</source>
-        <translation></translation>
+        <source>No Inbound</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Removed a balancer entry.</source>
-        <translation></translation>
+        <source>No inbound item found: </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Rename tags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add Rule</source>
+        <source>The new tag has been used, we appended a postfix.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add an Inbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add an Outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Misc Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rename</source>
+        <source>The new tag has been used, we appended a random string to the tag.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2582,15 +2794,11 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Domain Strategy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Direct</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2598,7 +2806,15 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Direct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Domain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2610,15 +2826,11 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import route scheme from file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export route scheme to file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Built-in Schemes...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import route scheme from file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2626,11 +2838,11 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export Scheme...</source>
+        <source>Export route scheme to file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Domain Strategy</source>
+        <source>Export Scheme...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2690,19 +2902,19 @@ Maybe you have downloaded the wrong core?</source>
     <name>ScreenShot</name>
     <message>
         <source>ScreenShot</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Size</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>FG</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Screen Shot</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FG</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2723,43 +2935,7 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Transport Protocol</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TLS Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ALPN</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SOCK Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TCP Fast Open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Protocol Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2767,7 +2943,19 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Response</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2799,6 +2987,10 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Downlink Capacity (MB/s)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2823,11 +3015,11 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit</source>
+        <source>Transport Protocol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reset</source>
+        <source>TLS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2835,7 +3027,11 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>tProxy Mode</source>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ALPN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2846,23 +3042,28 @@ Maybe you have downloaded the wrong core?</source>
         <source>Allow Insecure Ciphers</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>SubscriptionEditor</name>
     <message>
-        <source>Reload Subscription</source>
+        <source>SOCK Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Would you like to reload the subscription?</source>
+        <source>Mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deleting a subscription</source>
+        <source>TCP Fast Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All connections will be moved to default group, do you want to continue?</source>
+        <source>tProxy Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seed (Experimental)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Session Resumption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2910,6 +3111,133 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
+    <name>w_GroupManager</name>
+    <message>
+        <source>Group Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Created At</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host / Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This group is a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Updated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Notify Interval</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave blank to exclude nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave blank to include all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only import when containing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only import when NOT containing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Override Global DNS Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Override Global Advanced Route Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>w_PluginManager</name>
     <message>
         <source>Plugin Manager</source>
@@ -2917,6 +3245,22 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Local Plugin Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online help about plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin Metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2948,14 +3292,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Manually Edit Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin Metadata</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Plugin Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2964,67 +3300,8 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Local Plugin Folder</source>
+        <source>Manually Edit Settings</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Online help about plugins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>?</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>w_SubscribeEditor</name>
-    <message>
-        <source>SubscribeEditor</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Subscription List</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Add Subscription</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Remove Subscription</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Subscription Details</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Subscription Name</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Subscription Address</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Update Interval</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Days</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Last Updated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection List</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Update Subscription Data</source>
-        <translation></translation>
     </message>
 </context>
 </TS>

@@ -1,55 +1,27 @@
-﻿/*
-    Copyright (C) 2019 SoneWinstone (jianwenzhen@qq.com)
-    Copyright (C) 2019 Leroy.H.Y
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program. If not, see <https://www.gnu.org/licenses/>.
-*/
-
 #pragma once
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QObject>
+#include <functional>
 
-namespace Qv2ray::common
+namespace Qv2ray::common::network
 {
-    class QvHttpRequestHelper : public QObject
+    class NetworkRequestHelper : QObject
     {
         Q_OBJECT
       public:
-        explicit QvHttpRequestHelper(QObject *parent = nullptr);
-        ~QvHttpRequestHelper();
-        // get
-        void AsyncGet(const QString &url);
-        QByteArray Get(const QString &url);
-      signals:
-        void OnRequestFinished(QByteArray &data);
-
-      private slots:
-        void onRequestFinished_p();
-        void onReadyRead_p();
+        explicit NetworkRequestHelper(QObject *parent) : QObject(parent){};
+        ~NetworkRequestHelper(){};
+        void AsyncHttpGet(const QString &url, std::function<void(const QByteArray &)> funcPtr);
+        static QByteArray HttpGet(const QUrl &url);
 
       private:
-        void setAccessManagerAttributes(QNetworkAccessManager &accessManager);
-        void setHeader(const QByteArray &key, const QByteArray &value);
-        QByteArray data;
-        QUrl url;
-        QNetworkReply *reply;
-        QNetworkRequest request;
+        static void setAccessManagerAttributes(QNetworkRequest &request, QNetworkAccessManager &accessManager);
+        static void setHeader(QNetworkRequest &request, const QByteArray &key, const QByteArray &value);
         QNetworkAccessManager accessManager;
     };
-} // namespace Qv2ray::common
+} // namespace Qv2ray::common::network
 
-using namespace Qv2ray::common;
+using namespace Qv2ray::common::network;

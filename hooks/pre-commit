@@ -1,0 +1,12 @@
+#!/bin/bash
+STAGE_FILES=$(git diff --cached --name-only --diff-filter=ACM -- 'makespec/BUILDVERSION')
+#echo $STAGE_FILES
+if test ${#STAGE_FILES} -gt 0
+then
+    echo 'BUILDVERSION already changed, not touching'
+else
+    echo 'Increasing BUILDVERSION'
+    expr $(cat ./makespec/BUILDVERSION) + 1 > ./makespec/BUILDVERSION
+    cat ./makespec/BUILDVERSION
+    git add ./makespec/BUILDVERSION
+fi

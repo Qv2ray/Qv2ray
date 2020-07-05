@@ -31,7 +31,7 @@ VS_VERSION_INFO VERSIONINFO
                         BLOCK "040904b0"
                         BEGIN
                                 VALUE "CompanyName", "Qv2ray Workgroup\0"
-                                VALUE "FileDescription", "Qv2ray, a cross-platform v2ray GUI client.\0"
+                                VALUE "FileDescription", "Qv2ray\0"
                                 VALUE "FileVersion", VER_FILEVERSION_STR
                                 VALUE "LegalCopyright", "Qv2ray is being distributed under GPLv3\0"
                                 VALUE "OriginalFilename", "qv2ray.exe\0"

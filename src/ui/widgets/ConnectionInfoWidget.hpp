@@ -14,7 +14,7 @@ class ConnectionInfoWidget
 
   public:
     explicit ConnectionInfoWidget(QWidget *parent = nullptr);
-    void ShowDetails(const tuple<GroupId, ConnectionId> &_identifier);
+    void ShowDetails(const ConnectionGroupPair &_identifier);
     ~ConnectionInfoWidget();
 
   signals:
@@ -30,14 +30,15 @@ class ConnectionInfoWidget
     void on_editJsonBtn_clicked();
     void on_deleteBtn_clicked();
 
-    void OnConnectionModified(const ConnectionId &id);
     void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
-    void OnConnected(const ConnectionId &id);
-    void OnDisConnected(const ConnectionId &id);
+    void OnConnected(const ConnectionGroupPair &id);
+    void OnDisConnected(const ConnectionGroupPair &id);
+    void OnConnectionModified(const ConnectionId &id);
+    void OnConnectionModified_Pair(const ConnectionGroupPair &id);
     void on_latencyBtn_clicked();
 
   private:
-    void UpdateColorScheme();
+    void updateColorScheme();
     QvMessageBusSlotDecl;
     ConnectionId connectionId = NullConnectionId;
     GroupId groupId = NullGroupId;

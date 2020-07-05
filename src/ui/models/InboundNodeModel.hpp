@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ui/models/NodeModelsBase.hpp"
+#include "NodeModelsBase.hpp"
 
 #include <QtCore/qglobal.h>
 
@@ -38,8 +38,8 @@ class QvInboundNodeModel : public NodeDataModel
 
     std::shared_ptr<NodeDataType> dataType(PortType portType, PortIndex portIndex) const override
     {
-        Q_UNUSED(portType);
-        Q_UNUSED(portIndex);
+        Q_UNUSED(portType)
+        Q_UNUSED(portIndex)
         return inboundType;
     }
 
@@ -53,7 +53,7 @@ class QvInboundNodeModel : public NodeDataModel
     }
     void setData(const QString &data)
     {
-        _in = make_shared<InboundNodeData>(data);
+        _in = std::make_shared<InboundNodeData>(data);
         _label->setText(data);
         _label->adjustSize();
     }

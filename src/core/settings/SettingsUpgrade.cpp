@@ -1,8 +1,9 @@
-﻿//
+//
 // This file handles some important migration
 // from old to newer versions of Qv2ray.
 //
 
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
 #define UPGRADELOG(msg) LOG(MODULE_SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
@@ -10,88 +11,11 @@
 namespace Qv2ray
 {
     // Private member
-    QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root)
+    QJsonObject UpgradeConfig_Inc(int fromVersion, const QJsonObject &original)
     {
+        auto root = original;
         switch (fromVersion)
         {
-                // Cases 1, 2, and 3 are not supported anymore.
-                // --------------------------------------------------------------------------------------
-                // Below is for Qv2ray version 2
-            case 4:
-            {
-                // We changed the "proxyCN" to "bypassCN" as it's easier to
-                // understand....
-                auto v2_oldProxyCN = root["proxyCN"].toBool();
-                //
-                // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
-                auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
-                root.insert("tProxySupport", v3_oldrunAsRoot);
-                UPGRADELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + QSTRN(v3_oldrunAsRoot))
-                //
-                QString path;
-                path = QV2RAY_DEFAULT_VCORE_PATH;
-                root["v2CorePath"] = path;
-                UPGRADELOG("Added v2CorePath to the config file.")
-                //
-                QJsonObject uiSettings;
-                uiSettings["language"] = root["language"].toString("en-US").replace("-", "_");
-                root["uiConfig"] = uiSettings;
-                //
-                root["inboundConfig"] = root["inBoundSettings"];
-                root.remove("inBoundSettings");
-                UPGRADELOG("Renamed inBoundSettings to inboundConfig.")
-                //
-                // connectionConfig
-                QJsonObject o;
-                o["dnsList"] = root["dnsList"];
-                o["withLocalDNS"] = root["withLocalDNS"];
-                o["enableProxy"] = root["enableProxy"];
-                o["bypassCN"] = !v2_oldProxyCN;
-                o["enableStats"] = true;
-                o["statsPort"] = 13459;
-                UPGRADELOG("Default statistics enabled.")
-                root["connectionConfig"] = o;
-                UPGRADELOG("Renamed some connection configs to connectionConfig.")
-                //
-                // Do we need renaming here?
-                // //auto inbound = root["inboundConfig"].toObject();
-                // //auto pacConfig = inbound["pacConfig"].toObject();
-                // //pacConfig["enablePAC"] = pacConfig["usePAC"].toBool();
-                // //inbound["pacConfig"] = pacConfig;
-                // //root["inboundConfig"] = inbound;
-                // //UPDATELOG("Renamed usePAC to enablePAC.")
-                //
-                QJsonObject i;
-                i["connectionName"] = root["autoStartConfig"].toString();
-                root["autoStartConfig"] = i;
-                UPGRADELOG("Added subscription feature to autoStartConfig.")
-                break;
-            }
-
-            // Qv2ray version 2, RC 2
-            case 5:
-            {
-                // Added subscription auto update
-                auto subs = root["subscribes"].toObject();
-                root.remove("subscribes");
-                QJsonObject newSubscriptions;
-
-                for (auto item = subs.begin(); item != subs.end(); item++)
-                {
-                    auto key = item.key();
-                    SubscriptionObject_Config _conf;
-                    _conf.address = item.value().toString();
-                    _conf.lastUpdated = system_clock::to_time_t(system_clock::now());
-                    _conf.updateInterval = 5;
-                    auto value = GetRootObject(_conf);
-                    newSubscriptions[key] = value;
-                }
-
-                root["subscriptions"] = newSubscriptions;
-                UPGRADELOG("Added subscription renewal options.")
-                break;
-            }
-
             // Qv2ray version 2, RC 4
             case 6:
             {
@@ -176,7 +100,7 @@ namespace Qv2ray
 
                 for (auto i = 0; i < rootSubscriptions.count(); i++)
                 {
-                    auto key = rootSubscriptions.keys()[i];
+                    auto key = rootSubscriptions.keys().at(i);
                     auto value = rootSubscriptions.value(key);
                     //
                     UPGRADELOG("Upgrading subscription: " + key)
@@ -188,8 +112,8 @@ namespace Qv2ray
                     subs["updateInterval"] = value["updateInterval"];
                     subs["displayName"] = key;
                     //
-                    auto baseDirPath = QV2RAY_SUBSCRIPTION_DIR + key;
-                    auto newDirPath = QV2RAY_SUBSCRIPTION_DIR + subsUuid;
+                    auto baseDirPath = QV2RAY_CONFIG_DIR + "/subscriptions/" + key;
+                    auto newDirPath = QV2RAY_CONFIG_DIR + "/subscriptions/" + subsUuid;
                     QDir newDir(newDirPath);
 
                     if (!newDir.exists())
@@ -201,7 +125,7 @@ namespace Qv2ray
                     auto fileList = GetFileList(baseDirPath);
 
                     // Copy every file within a subscription.
-                    for (auto fileName : fileList)
+                    for (const auto &fileName : fileList)
                     {
                         auto subsConnectionId = GenerateUuid();
                         auto baseFilePath = baseDirPath + "/" + fileName;
@@ -285,6 +209,211 @@ namespace Qv2ray
                 }
                 break;
             }
+
+            // Splitted Qv2ray.conf,
+            case 11:
+            {
+                // Process AutoStartSettings
+                ConnectionGroupPair autoStartIdPair{ ConnectionId{ root["autoStartId"].toString() }, NullGroupId };
+
+                // Process connection entries.
+                //
+                {
+                    // Moved root["connections"] into separated file: $QV2RAY_CONFIG_PATH/connections.json
+                    QDir connectionsDir(QV2RAY_CONNECTIONS_DIR);
+                    if (!connectionsDir.exists())
+                    {
+                        connectionsDir.mkpath(QV2RAY_CONNECTIONS_DIR);
+                    }
+                    const auto connectionsArray = root["connections"].toObject().keys();
+                    QJsonObject newConnectionsArray;
+                    ///
+                    /// Connection.json
+                    /// {
+                    ///     "connections" : [
+                    ///         {ID1, connectionObject 1},
+                    ///         {ID2, connectionObject 2},
+                    ///         {ID3, connectionObject 3},
+                    ///         {ID4, connectionObject 4},
+                    ///      ]
+                    /// }
+                    ///
+                    for (const auto &connectionVal : connectionsArray)
+                    {
+                        // Config file migrations:
+                        // Connection Object:
+                        //      importDate --> creationDate
+                        //      lastUpdatedDate --> now
+                        //
+                        auto connection = root["connections"].toObject()[connectionVal].toObject();
+                        connection["creationDate"] = connection.take("importDate");
+                        connection["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        UPGRADELOG("Migrating connection: " + connectionVal + " -- " + connection["displayName"].toString())
+                        newConnectionsArray[connectionVal] = connection;
+                    }
+                    QJsonObject ConnectionJsonObject;
+                    root["connections"] = QJsonArray::fromStringList(connectionsArray);
+                    //
+                    // Store Connection.json
+                    StringToFile(JsonToString(newConnectionsArray), QV2RAY_CONFIG_DIR + "connections.json");
+                }
+                // Merged groups and subscriptions. $QV2RAY_GROUPS_PATH + groupId.json
+                {
+                    // Susbcription Object
+                    //      Doesn't exist anymore, convert into normal group Object.
+                    //
+                    QMap<QString, QJsonObject> ConnectionsCache;
+                    QJsonObject allGroupsObject;
+                    const auto subscriptionKeys = root["subscriptions"].toObject().keys();
+                    for (const auto &key : subscriptionKeys)
+                    {
+                        auto aSubscription = root["subscriptions"].toObject()[key].toObject();
+                        QJsonObject subscriptionSettings;
+                        subscriptionSettings["address"] = aSubscription.take("address");
+                        subscriptionSettings["updateInterval"] = aSubscription.take("updateInterval");
+                        aSubscription["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        aSubscription["creationDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        aSubscription["subscriptionOption"] = subscriptionSettings;
+                        UPGRADELOG("Migrating subscription: " + key + " -- " + aSubscription["displayName"].toString())
+                        //
+                        if (autoStartIdPair.groupId != NullGroupId &&
+                            aSubscription["connections"].toArray().contains(autoStartIdPair.connectionId.toString()))
+                        {
+                            autoStartIdPair.groupId = GroupId{ key };
+                        }
+                        //
+                        for (const auto &cid : aSubscription["connections"].toArray())
+                        {
+                            ConnectionsCache[cid.toString()] = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "subscriptions/" + key + "/" +
+                                                                                             cid.toString() + QV2RAY_CONFIG_FILE_EXTENSION));
+                        }
+                        //
+                        allGroupsObject[key] = aSubscription;
+                    }
+                    //
+                    root.remove("subscriptions");
+                    //
+                    const auto groupKeys = root["groups"].toObject().keys();
+                    for (const auto &key : groupKeys)
+                    {
+                        // Group Object
+                        //      connections ---> ConnectionID
+                        //      idSubscription ---> if the group is a subscription
+                        //      subscriptionSettings ---> Originally SubscriptionObject
+                        //      creationDate ---> Now
+                        //      lastUpdateDate ---> Now
+                        auto aGroup = root["groups"].toObject()[key].toObject();
+                        aGroup["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        aGroup["creationDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        UPGRADELOG("Migrating group: " + key + " -- " + aGroup["displayName"].toString())
+                        //
+                        if (autoStartIdPair.groupId != NullGroupId &&
+                            aGroup["connections"].toArray().contains(autoStartIdPair.connectionId.toString()))
+                        {
+                            autoStartIdPair.groupId = GroupId{ key };
+                        }
+                        for (const auto &cid : aGroup["connections"].toArray())
+                        {
+                            ConnectionsCache[cid.toString()] = JsonFromString(
+                                StringFromFile(QV2RAY_CONFIG_DIR + "connections/" + key + "/" + cid.toString() + QV2RAY_CONFIG_FILE_EXTENSION));
+                        }
+                        //
+                        allGroupsObject[key] = aGroup;
+                    }
+                    //
+                    StringToFile(JsonToString(allGroupsObject), QV2RAY_CONFIG_DIR + "groups.json");
+                    //
+                    root.remove("groups"); //
+                    UPGRADELOG("Removing unused directory")
+                    QDir(QV2RAY_CONFIG_DIR + "subscriptions/").removeRecursively();
+                    QDir(QV2RAY_CONFIG_DIR + "connections/").removeRecursively();
+                    //
+                    QDir().mkpath(QV2RAY_CONFIG_DIR + "connections/");
+                    //
+                    //
+                    // FileSystem Migrations
+                    //      Move all files in GROUPS / SUBSCRIPTION subfolders into CONNECTIONS.
+                    //      Only Store (connections.json in CONFIG_PATH) and ($groupID.json in GROUP_PATH)
+                    for (const auto &cid : ConnectionsCache.keys())
+                    {
+                        StringToFile(JsonToString(ConnectionsCache[cid]),
+                                     QV2RAY_CONFIG_DIR + "connections/" + cid + QV2RAY_CONFIG_FILE_EXTENSION);
+                    }
+                    //
+                }
+
+                //
+                // Main Object
+                //      Drop recentConnections since it's ill-formed and not supported yet.
+                //      convert autoStartId into ConnectionGroupPair / instead of QString
+                //      Remove subscriptions item.
+                root.remove("recentConnections");
+                root["autoStartId"] = autoStartIdPair.toJson();
+                // 1 here means FIXED
+                root["autoStartBehavior"] = 1;
+
+                // Moved apiConfig into kernelConfig
+                auto kernelConfig = root["kernelConfig"].toObject();
+                kernelConfig["enableAPI"] = root["apiConfig"].toObject()["enableAPI"];
+                kernelConfig["statsPort"] = root["apiConfig"].toObject()["statsPort"];
+                root["kernelConfig"] = kernelConfig;
+                UPGRADELOG("Finished upgrading config file for Qv2ray Group Routing update.")
+                break;
+            }
+            case 12:
+            {
+                auto inboundConfig = root["inboundConfig"].toObject();
+                //
+                QJsonObject socksSettings;
+                QJsonObject httpSettings;
+                QJsonObject tProxySettings;
+                QJsonObject systemProxySettings;
+                systemProxySettings["setSystemProxy"] = inboundConfig["setSystemProxy"];
+                //
+                socksSettings["port"] = inboundConfig["socks_port"];
+                socksSettings["useAuth"] = inboundConfig["socks_useAuth"];
+                socksSettings["enableUDP"] = inboundConfig["socksUDP"];
+                socksSettings["localIP"] = inboundConfig["socksLocalIP"];
+                socksSettings["account"] = inboundConfig["socksAccount"];
+                socksSettings["sniffing"] = inboundConfig["socksSniffing"];
+                //
+                httpSettings["port"] = inboundConfig["http_port"];
+                httpSettings["useAuth"] = inboundConfig["http_useAuth"];
+                httpSettings["account"] = inboundConfig["httpAccount"];
+                httpSettings["sniffing"] = inboundConfig["httpSniffing"];
+                //
+                tProxySettings["tProxyIP"] = inboundConfig["tproxy_ip"];
+                tProxySettings["port"] = inboundConfig["tproxy_port"];
+                tProxySettings["hasTCP"] = inboundConfig["tproxy_use_tcp"];
+                tProxySettings["hasUDP"] = inboundConfig["tproxy_use_udp"];
+                tProxySettings["followRedirect"] = inboundConfig["tproxy_followRedirect"];
+                tProxySettings["mode"] = inboundConfig["tproxy_mode"];
+                tProxySettings["dnsIntercept"] = inboundConfig["dnsIntercept"];
+                //
+                inboundConfig["systemProxySettings"] = systemProxySettings;
+                inboundConfig["socksSettings"] = socksSettings;
+                inboundConfig["httpSettings"] = httpSettings;
+                inboundConfig["tProxySettings"] = tProxySettings;
+                //
+                root["inboundConfig"] = inboundConfig;
+                break;
+            }
+            case 13:
+            {
+                const auto dnsList = QJsonIO::GetValue(root, "connectionConfig", "dnsList").toArray();
+                auto connectionConfig = root["connectionConfig"].toObject();
+                QJsonObject defaultRouteConfig;
+                defaultRouteConfig["forwardProxyConfig"] = connectionConfig.take("forwardProxyConfig");
+                defaultRouteConfig["routeConfig"] = connectionConfig.take("routeConfig");
+
+                for (auto i = 0; i < dnsList.count(); i++)
+                {
+                    QJsonIO::SetValue(defaultRouteConfig, dnsList[i], "dnsConfig", "servers", i, "address");
+                    QJsonIO::SetValue(defaultRouteConfig, false, "dnsConfig", "servers", i, "QV2RAY_DNS_IS_COMPLEX_DNS");
+                }
+                root["defaultRouteConfig"] = defaultRouteConfig;
+                break;
+            }
             default:
             {
                 //
@@ -300,14 +429,14 @@ namespace Qv2ray
                 qApp->exit(1);
             }
         }
-
         root["config_version"] = root["config_version"].toInt() + 1;
         return root;
     }
 
     // Exported function
-    QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, QJsonObject root)
+    QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, const QJsonObject &original)
     {
+        auto root = original;
         LOG(MODULE_SETTINGS, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
 
         for (int i = fromVersion; i < toVersion; i++)

@@ -16,6 +16,4 @@ export QT_SELECT := 5
 	dh $@ --buildsystem=cmake+ninja
 
 override_dh_auto_configure:
-	dh_auto_configure -- -DEMBED_TRANSLATIONS=ON -DCMAKE_BUILD_TYPE=Release
-
-override_dh_auto_test:
+	dh_auto_configure -- -DEMBED_TRANSLATIONS=ON -DBUILD_TESTING=ON

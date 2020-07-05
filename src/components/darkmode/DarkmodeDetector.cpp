@@ -1,9 +1,10 @@
 #include "DarkmodeDetector.hpp"
 
-#include <QtGlobal>
+#include "base/Qv2rayBase.hpp"
+
+#include <QApplication>
+#include <QStyle>
 #ifdef Q_OS_LINUX
-    #include <QApplication>
-    #include <QStyle>
 #elif defined(Q_OS_WIN32)
     #include <QSettings>
 #else
@@ -16,7 +17,7 @@ namespace Qv2ray::components::darkmode
     // Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
     bool isDarkMode()
     {
-#if defined(Q_OS_LINUX)
+#if !QvHasFeature(NativeDarkmode)
         if (!qApp || !qApp->style())
         {
             return false;
@@ -25,9 +26,6 @@ namespace Qv2ray::components::darkmode
 #elif defined(Q_OS_WIN32)
         QSettings settings(R"(HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize)", QSettings::NativeFormat);
         return settings.value("AppsUseLightTheme", 1).toInt() == 0;
-#elif defined(Q_OS_DARWIN)
-        // TODO: expand this stub
-        return false;
 #endif
     }
 

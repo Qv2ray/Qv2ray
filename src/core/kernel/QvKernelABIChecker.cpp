@@ -6,6 +6,7 @@ namespace Qv2ray::core::kernel::abi
 {
     QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType)
     {
+#ifndef QV2RAY_TRUSTED_ABI
         switch (hostType)
         {
             case ABI_WIN32:
@@ -15,12 +16,19 @@ namespace Qv2ray::core::kernel::abi
             case ABI_ELF_X86: return targetType == hostType ? ABI_PERFECT : ABI_NOPE;
             case ABI_ELF_X86_64: return targetType == hostType ? ABI_PERFECT : targetType == ABI_ELF_X86 ? ABI_MAYBE : ABI_NOPE;
             case ABI_ELF_OTHER: return targetType == hostType ? ABI_PERFECT : ABI_MAYBE;
+            case ABI_TRUSTED: return ABI_PERFECT;
             default: return ABI_MAYBE;
         }
+#else
+        return ABI_PERFECT;
+#endif
     }
 
     std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable)
     {
+#ifdef QV2RAY_TRUSTED_ABI
+        return { QvKernelABIType::ABI_TRUSTED, std::nullopt };
+#else
         QFile file(pathCoreExecutable);
         if (!file.exists())
             return { std::nullopt, QObject::tr("core executable file %1 does not exist").arg(pathCoreExecutable) };
@@ -55,6 +63,7 @@ namespace Qv2ray::core::kernel::abi
             return { QvKernelABIType::ABI_MACH_O, std::nullopt };
         else
             return { std::nullopt, QObject::tr("cannot deduce the type of core executable file %1").arg(pathCoreExecutable) };
+#endif
     }
 
     QString abiToString(QvKernelABIType abi)
@@ -68,6 +77,7 @@ namespace Qv2ray::core::kernel::abi
             case ABI_ELF_AARCH64: return QObject::tr("ELF arm64 executable");
             case ABI_ELF_ARM: return QObject::tr("ELF arm executable");
             case ABI_ELF_OTHER: return QObject::tr("other ELF executable");
+            case ABI_TRUSTED: return QObject::tr("trusted abi");
             default: return QObject::tr("unknown abi");
         }
     }

@@ -5,9 +5,7 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSIONSUFFIX" QV2RAY_VERSION_SUFFIX)
 
 if(NOT CMAKE_BUILD_TYPE STREQUAL "Release")
-    math(EXPR QV2RAY_BUILD_VERSION "1 + ${QV2RAY_BUILD_VERSION}")
-    message("Increasing BUILDVERSION")
-    file(WRITE "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" ${QV2RAY_BUILD_VERSION})
+    add_definitions(-DNODE_DEBUG_DRAWING)
 endif()
 
 set(QV2RAY_VERSION_STRING "${QV2RAY_VERSION}${QV2RAY_VERSION_SUFFIX}")
@@ -28,12 +26,30 @@ add_definitions(-DQV2RAY_VERSION_BUGFIX=${CPACK_PACKAGE_VERSION_PATCH})
 add_definitions(-DQV2RAY_VERSION_BUILD=${QV2RAY_BUILD_VERSION})
 
 add_definitions(-DQV2RAY_VERSION_STRING="${QV2RAY_VERSION_STRING}")
-add_definitions(-DXTOSTRUCT_QT)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(MSVC)
+    set(CMAKE_CXX_EXTENSIONS OFF)
+endif()
 
-find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
+if(ANDROID)
+    include(${ANDROID_SDK}/android_openssl/CMakeLists.txt)
+endif()
+
+set(QV2RAY_ONLY_USE_QML OFF CACHE BOOL "Only use QML when building Qv2ray")
+
+if(QV2RAY_ONLY_USE_QML)
+    find_package(Qt5 5.11 COMPONENTS Core Gui Network Qml Quick REQUIRED)
+    set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network Qt5::Quick Qt5::Qml Qt5::Gui)
+    add_definitions(-DQV2RAY_QML)
+else()
+    find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
+    set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network Qt5::Widgets Qt5::Gui)
+    add_definitions(-DQV2RAY_QWIDGETS)
+endif()
+
+find_package(Threads REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -65,7 +81,7 @@ message(" ")
 if(WIN32)
     add_compile_options("/std:c++17")
     add_definitions(-DUNICODE -D_UNICODE)
-    add_definitions(-D_HAS_STD_BYTE=0 -D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
+    add_definitions(-D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
     set(GUI_TYPE WIN32)
     if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
         if(CMAKE_CL_64)
@@ -76,19 +92,68 @@ if(WIN32)
     endif()
 endif()
 
-find_package(Threads REQUIRED)
-
+# ==================================================================================
+# Qv2ray Build Arguments
+# ==================================================================================
 set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
 set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
+if (ANDROID)
+else()
+    set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication provider")
+endif()
+set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
+set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
+set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
+set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
+set(BUILD_TESTING OFF CACHE BOOL "Build test")
+set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
+set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
 
+if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
+    add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
+endif()
+
+if(QV2RAY_DEFAULT_VCORE_PATH AND NOT QV2RAY_DEFAULT_VCORE_PATH STREQUAL "unset")
+    add_definitions(-DQV2RAY_DEFAULT_VCORE_PATH="${QV2RAY_DEFAULT_VCORE_PATH}")
+endif()
+
+if(QV2RAY_TRANSLATION_PATH AND NOT QV2RAY_TRANSLATION_PATH STREQUAL "unset")
+    add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
+endif()
+
+if(QV2RAY_DISABLE_AUTO_UPDATE)
+    add_definitions(-DDISABLE_AUTO_UPDATE)
+endif()
+
+if(FALL_BACK_TO_XDG_OPEN)
+    add_definitions(-DFALL_BACK_TO_XDG_OPEN)
+endif()
+
+if(EMBED_TRANSLATIONS)
+    add_definitions(-DEMBED_TRANSLATIONS)
+    configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
+    set(QV2RAY_EMBED_TRANSLATION_QRC ${CMAKE_BINARY_DIR}/translations.qrc)
+endif()
+
+
+# ==================================================================================
+# 3rdparty Sources
+# ==================================================================================
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
-include(cmake/singleapplication.cmake)
-include(cmake/protobuf.cmake)
-include(cmake/cpp-httplib.cmake)
-include(cmake/backend.cmake)
+if (ANDROID)
+else()
+    include(cmake/singleapplication.cmake)
+    include(cmake/protobuf.cmake)
+    include(cmake/backend.cmake)
+endif()
 include(cmake/zxing-cpp.cmake)
+include(cmake/libsemver.cmake)
 
+
+# ==================================================================================
+# Qv2ray Build Info
+# ==================================================================================
 if(QV2RAY_BUILD_INFO)
     set(_QV2RAY_BUILD_INFO_STR_ "${QV2RAY_BUILD_INFO}")
 elseif(DEFINED ENV{_QV2RAY_BUILD_INFO_})
@@ -105,264 +170,130 @@ else()
     set(_QV2RAY_BUILD_EXTRA_INFO_STR_ "Qv2ray ${QV2RAY_VERSION_STRING}:${QV2RAY_BUILD_VERSION}")
 endif()
 
-set(QV2RAY_BUILD_INFO ${_QV2RAY_BUILD_INFO_STR_} CACHE STRING "Qv2ray build info")
-set(QV2RAY_BUILD_EXTRA_INFO ${_QV2RAY_BUILD_EXTRA_INFO_STR_} CACHE STRING "Qv2ray build extra info")
+set(QV2RAY_BUILD_INFO ${_QV2RAY_BUILD_INFO_STR_})
+set(QV2RAY_BUILD_EXTRA_INFO ${_QV2RAY_BUILD_EXTRA_INFO_STR_})
 
 add_definitions(-D_QV2RAY_BUILD_INFO_STR_="${_QV2RAY_BUILD_INFO_STR_}")
 add_definitions(-D_QV2RAY_BUILD_EXTRA_INFO_STR_="${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 message("Qv2ray build info: ${_QV2RAY_BUILD_INFO_STR_}")
 message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 
-set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
-set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
-set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
-set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
-if(UNIX AND NOT APPLE)
-    set(QV2RAY_USE_BUILTIN_DARKTHEME OFF CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
-else()
-    set(QV2RAY_USE_BUILTIN_DARKTHEME ON CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
-endif()
-set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 
-if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
-    add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
-endif()
+# ==================================================================================
+# Plugin Interface Headers
+# ==================================================================================
+set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/plugin-interface")
+include(src/plugin-interface/QvPluginInterface.cmake)
 
-if(QV2RAY_DEFAULT_VCORE_PATH AND NOT QV2RAY_DEFAULT_VCORE_PATH STREQUAL "unset")
-    add_definitions(-DQV2RAY_DEFAULT_VCORE_PATH="${QV2RAY_DEFAULT_VCORE_PATH}")
-endif()
 
-if(QV2RAY_TRANSLATION_PATH AND NOT QV2RAY_TRANSLATION_PATH STREQUAL "unset")
-    add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
-endif()
+# ==================================================================================
+# Qv2ray Sources and Headers
+# ==================================================================================
+include(cmake/components/qv2ray-lib.cmake)
+include(cmake/components/qv2ray-ui.cmake)
+include(3rdparty/uistyles/uistyles.cmake)
 
-if(QV2RAY_USE_BUILTIN_DARKTHEME)
-    add_definitions(-DQV2RAY_USE_BUILTIN_DARKTHEME=true)
-endif()
+set(QRC_RESOURCES
+    ${UISTYLE_QRCS}
+    ${CMAKE_SOURCE_DIR}/resources.qrc)
 
-if(QV2RAY_DISABLE_AUTO_UPDATE)
-    add_definitions(-DDISABLE_AUTO_UPDATE)
-endif()
-
-set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
-include(src/components/plugins/interface/QvPluginInterface.cmake)
-
-set(QV2RAY_SOURCES
+# Qv2ray baselib
+add_library(qv2ray-baselib STATIC
+    ${QV2RAY_BASE_HEADERS}
+    ${QV2RAY_LIB_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
-    3rdparty/libsemver/version.cpp
-    src/base/Qv2rayLog.cpp
-    src/common/CommandArgs.cpp
-    src/common/HTTPRequestHelper.cpp
-    src/common/LogHighlighter.cpp
-    src/common/JsonHighlighter.cpp
-    src/common/QJsonModel.cpp
-    src/common/QvHelpers.cpp
-    src/common/QvTranslator.cpp
-    src/common/QRCodeHelper.cpp
-    src/components/autolaunch/QvAutoLaunch.cpp
-    src/components/geosite/QvGeositeReader.cpp
-    src/components/latency/win/ICMPPinger.cpp
-    src/components/latency/QvTCPing.cpp
-    src/components/plugins/toolbar/QvToolbar.cpp
-    src/components/plugins/toolbar/QvToolbar_linux.cpp
-    src/components/plugins/toolbar/QvToolbar_win.cpp
-    src/components/plugins/QvPluginHost.cpp
-    src/components/proxy/QvProxyConfigurator.cpp
-    src/components/route/RouteSchemeIO.cpp
-    src/components/speedchart/speedplotview.cpp
-    src/components/speedchart/speedwidget.cpp
-    src/components/darkmode/DarkmodeDetector.cpp
-    src/components/update/UpdateChecker.cpp
-    src/core/connection/ConnectionIO.cpp
-    src/core/connection/Generation.cpp
-    src/core/connection/Serialization.cpp
-    src/core/connection/Serialization_ss.cpp
-    src/core/connection/Serialization_ssd.cpp
-    src/core/connection/Serialization_vmess.cpp
-    src/core/CoreUtils.cpp
-    src/core/handler/ConfigHandler.cpp
-    src/core/handler/KernelInstanceHandler.cpp
-    src/core/kernel/APIBackend.cpp
-    src/core/kernel/V2rayKernelInteractions.cpp
-    src/core/kernel/PluginKernelInteractions.cpp
-    src/core/kernel/QvKernelABIChecker.cpp
-    src/core/settings/SettingsBackend.cpp
-    src/core/settings/SettingsUpgrade.cpp
-    src/main.cpp
-    src/ui/editors/w_InboundEditor.cpp
-    src/ui/editors/w_JsonEditor.cpp
-    src/ui/editors/w_OutboundEditor.cpp
-    src/ui/editors/w_RoutesEditor.cpp
-    src/ui/editors/w_RoutesEditor_extra.cpp
-    src/ui/messaging/QvMessageBus.cpp
-    src/ui/models/InboundNodeModel.cpp
-    src/ui/models/OutboundNodeModel.cpp
-    src/ui/models/RuleNodeModel.cpp
-    src/ui/widgets/ConnectionInfoWidget.cpp
-    src/ui/widgets/ConnectionItemWidget.cpp
-    src/ui/widgets/QvAutoCompleteTextEdit.cpp
-    src/ui/widgets/StreamSettingsWidget.cpp
-    src/ui/widgets/RouteSettingsMatrix.cpp
-    src/ui/w_ImportConfig.cpp
-    src/ui/w_MainWindow.cpp
-    src/ui/w_MainWindow_extra.cpp
-    src/ui/w_PreferencesWindow.cpp
-    src/ui/w_PluginManager.cpp
-    src/ui/w_ScreenShot_Core.cpp
-    src/ui/w_SubscriptionManager.cpp
-    # ui files
-    src/ui/w_SubscriptionManager.ui
-    src/ui/editors/w_OutboundEditor.ui
-    src/ui/editors/w_InboundEditor.ui
-    src/ui/editors/w_JsonEditor.ui
-    src/ui/editors/w_RoutesEditor.ui
-    src/ui/w_ImportConfig.ui
-    src/ui/widgets/StreamSettingsWidget.ui
-    src/ui/widgets/ConnectionInfoWidget.ui
-    src/ui/widgets/ConnectionItemWidget.ui
-    src/ui/widgets/RouteSettingsMatrix.ui
-    src/ui/w_MainWindow.ui
-    src/ui/w_PreferencesWindow.ui
-    src/ui/w_PluginManager.ui
-    src/ui/w_ScreenShot_Core.ui
-    # headers
-    3rdparty/libsemver/version.hpp
-    src/base/JsonHelpers.hpp
-    src/base/models/CoreObjectModels.hpp
-    src/base/models/QvConfigIdentifier.hpp
-    src/base/models/QvRuntimeConfig.hpp
-    src/base/models/QvSafeType.hpp
-    src/base/models/QvSettingsObject.hpp
-    src/base/models/QvStartupConfig.hpp
-    src/base/Qv2rayBase.hpp
-    src/base/Qv2rayFeatures.hpp
-    src/base/Qv2rayLog.hpp
-    src/common/CommandArgs.hpp
-    src/common/HTTPRequestHelper.hpp
-    src/common/JsonHighlighter.hpp
-    src/common/LogHighlighter.hpp
-    src/common/QJsonModel.hpp
-    src/common/QvHelpers.hpp
-    src/common/QvTranslator.hpp
-    src/common/QRCodeHelper.hpp
-    src/components/autolaunch/QvAutoLaunch.hpp
-    src/components/darkmode/DarkmodeDetector.hpp
-    src/components/geosite/QvGeositeReader.hpp
-    src/components/latency/win/ICMPPinger.hpp
-    src/components/latency/QvTCPing.hpp
-    src/components/plugins/toolbar/QvToolbar.hpp
-    src/components/plugins/QvPluginHost.hpp
-    src/components/proxy/QvProxyConfigurator.hpp
-    src/components/route/RouteSchemeIO.hpp
-    src/components/route/presets/RouteScheme_V2rayN.hpp
-    src/components/speedchart/speedplotview.hpp
-    src/components/speedchart/speedwidget.hpp
-    src/components/update/UpdateChecker.hpp
-    src/core/connection/ConnectionIO.hpp
-    src/core/connection/Generation.hpp
-    src/core/connection/Serialization.hpp
-    src/core/CoreSafeTypes.hpp
-    src/core/CoreUtils.hpp
-    src/core/handler/ConfigHandler.hpp
-    src/core/handler/KernelInstanceHandler.hpp
-    src/core/kernel/APIBackend.hpp
-    src/core/kernel/V2rayKernelInteractions.hpp
-    src/core/kernel/PluginKernelInteractions.hpp
-    src/core/kernel/QvKernelABIChecker.hpp
-    src/core/settings/SettingsBackend.hpp
-    src/ui/editors/w_InboundEditor.hpp
-    src/ui/editors/w_JsonEditor.hpp
-    src/ui/editors/w_OutboundEditor.hpp
-    src/ui/editors/w_RoutesEditor.hpp
-    src/ui/messaging/QvMessageBus.hpp
-    src/ui/models/InboundNodeModel.hpp
-    src/ui/models/NodeModelsBase.hpp
-    src/ui/models/OutboundNodeModel.hpp
-    src/ui/models/RuleNodeModel.hpp
-    src/ui/widgets/ConnectionInfoWidget.hpp
-    src/ui/widgets/ConnectionItemWidget.hpp
-    src/ui/widgets/QvAutoCompleteTextEdit.hpp
-    src/ui/widgets/StreamSettingsWidget.hpp
-    src/ui/widgets/RouteSettingsMatrix.hpp
-    src/ui/w_ImportConfig.hpp
-    src/ui/w_MainWindow.hpp
-    src/ui/w_PreferencesWindow.hpp
-    src/ui/w_PluginManager.hpp
-    src/ui/w_ScreenShot_Core.hpp
-    src/ui/w_SubscriptionManager.hpp
-    assets/qv2ray.rc
-    )
-
-if(EMBED_TRANSLATIONS)
-    add_definitions(-DEMBED_TRANSLATIONS)
-    configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
-    list(APPEND QV2RAY_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
-endif()
-
-add_custom_target(lupdate
-    COMMAND lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS} -locations none
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-
-set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
-
-set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
-
-set(QT_LIBRARY
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets
-    Qt5::Network
-    )
-
-add_executable(${PROJECT_NAME}
-    ${GUI_TYPE}
-    ${QV2RAY_SOURCES}
-    ${QNODEEDITOR_SOURCES}
-    ${QNODEEDITOR_QRC_RESOURCES}
-    ${SINGLEAPPLICATION_SOURCES}
-    ${ZXING_SOURCES}
+    ${LIBSEMVER_SOURCES}
     ${PROTO_SRCS}
     ${PROTO_HDRS}
     ${API_GRPC_SRCS}
     ${API_PROTO_SRCS}
-    ${QRC_RESOURCES}
-    ${QM_FILES}
     )
 
-target_link_libraries(${PROJECT_NAME}
-    ${QT_LIBRARY}
+set(QV2RAY_FULL_SOURCES
+    src/main.cpp
+    assets/qv2ray.rc
+    ${QV2RAY_UI_FORMS}
+    ${QV2RAY_UI_SOURCES}
+    ${SINGLEAPPLICATION_SOURCES}
+    ${QNODEEDITOR_QRC_RESOURCES}
+    ${QV2RAY_EMBED_TRANSLATION_QRC}
+    ${QRC_RESOURCES}
+    ${QM_FILES})
+
+if(ANDROID)
+    add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
+    target_link_libraries(qv2ray -llog -landroid)
+else()
+    if (WIN32)
+        add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+    else()
+        include(cmake/backward-cpp.cmake)
+        add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+        add_backward(qv2ray)
+    endif()
+endif()
+
+
+target_link_libraries(qv2ray-baselib
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARIES}
-    ${QNODEEDITOR_LIBRARY}
     ${ZXING_LIBRARY}
     Threads::Threads
+    ${QV2RAY_QT_LIBS}
     )
 
+target_link_libraries(qv2ray
+    qv2ray-baselib
+    ${QNODEEDITOR_LIBRARY}
+    ${SINGLEAPPLICATION_LIBRARY}
+    )
 
-target_include_directories(${PROJECT_NAME} PRIVATE
+target_include_directories(qv2ray PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_BINARY_DIR}
-    ${QHTTPSERVER_DIR}
     ${QNODEEDITOR_INCLUDE_PATH}
-    ${ZXING_INCLUDE_PATH}
     ${SINGLEAPPLICATION_DIR}
     ${Protobuf_INCLUDE_DIRS}
-    ${cpp-httplib_INCLUDE_DIRS}
     )
+
+target_include_directories(qv2ray-baselib PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_BINARY_DIR}
+    ${ZXING_INCLUDE_PATH}
+    ${Protobuf_INCLUDE_DIRS}
+    )
+
+if (BUILD_TESTING)
+    include(CTest)
+    add_subdirectory(test)
+endif()
+
+# Qt language translations
+add_custom_target(lupdate
+    COMMAND lupdate ${QV2RAY_BASE_HEADERS}
+    ${QV2RAY_LIB_SOURCES}
+    ${QVPLUGIN_INTERFACE_HEADERS}
+    ${QV2RAY_UI_SOURCES}
+    ${QV2RAY_UI_FORMS}
+    ${QNODEEDITOR_QRC_RESOURCES}
+    ${SINGLEAPPLICATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none -noobsolete
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
 if(APPLE)
     find_package(Iconv REQUIRED)
     find_library(CARBON NAMES Carbon)
     find_library(COCOA NAMES Cocoa)
     find_library(SECURITY NAMES Security)
-    target_link_libraries(${PROJECT_NAME}
+    target_link_libraries(qv2ray
         Iconv::Iconv
         ${CARBON}
         ${COCOA}
         ${SECURITY}
         )
-    target_include_directories(${PROJECT_NAME} PRIVATE
+    target_include_directories(qv2ray PRIVATE
         ${Iconv_INCLUDE_DIR}
         )
 
@@ -373,11 +304,11 @@ if(APPLE)
         MACOSX_PACKAGE_LOCATION Resources/lang
         )
 
-    target_sources(${PROJECT_NAME} PRIVATE
+    target_sources(qv2ray PRIVATE
         ${MACOSX_ICON}
         )
 
-    set_target_properties(${PROJECT_NAME}
+    set_target_properties(qv2ray
         PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_INFO_PLIST ${MACOSX_PLIST}
@@ -394,20 +325,22 @@ if(APPLE)
         )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
-    install(TARGETS ${PROJECT_NAME}
+
+    install(TARGETS qv2ray
         BUNDLE DESTINATION . COMPONENT Runtime
         RUNTIME DESTINATION bin COMPONENT Runtime
         )
-    
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND macdeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app
-        )
-    set(APPS "\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
+    if(QV2RAY_AUTO_DEPLOY)
+        add_custom_command(TARGET qv2ray POST_BUILD
+            COMMAND ${Qt5_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
+            )
+    endif()
+    set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.app")
     include(cmake/deployment.cmake)
 endif()
 
 if(UNIX AND NOT APPLE AND NOT WIN32)
-    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+    install(TARGETS qv2ray RUNTIME DESTINATION bin)
     install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
     install(FILES assets/qv2ray.desktop DESTINATION share/applications)
     install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps)
@@ -417,24 +350,18 @@ if(UNIX AND NOT APPLE AND NOT WIN32)
 endif()
 
 if(WIN32)
-    target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
-    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
+    find_package(OpenSSL REQUIRED)
+    target_link_libraries(qv2ray-baselib wininet wsock32 ws2_32 user32 Iphlpapi OpenSSL::SSL OpenSSL::Crypto Dbghelp)
+    install(TARGETS qv2ray RUNTIME DESTINATION .)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION lang)
     endif()
-
-    if(CMAKE_CL_64)
-        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1-x64.dll DESTINATION .)
-        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1-x64.dll DESTINATION .)
-    else()
-        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1.dll DESTINATION .)
-        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1.dll DESTINATION .)
+    if(QV2RAY_AUTO_DEPLOY)
+        add_custom_command(TARGET qv2ray POST_BUILD
+            COMMAND ${Qt5_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
+            )
     endif()
-
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND windeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
-        )
     install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
-    set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
+    set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
     include(cmake/deployment.cmake)
 endif()

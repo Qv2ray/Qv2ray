@@ -141,9 +141,9 @@ namespace Qv2ray::components::route::presets::v2rayN
           "domain:samsungdm.com" };
 
     const inline QList<QString> DomainsBlock{ "geosite:category-ads-all" };
-    const inline QList<QString> DomainsProxy{ "geosite:google",   "geosite:github",     "geosite:netflix",   "geosite:steam",
-                                              "geosite:telegram", "geosite:tumblr",     "domain:naver.com",  "geosite:bbc",
-                                              "domain:gvt1.com",  "domain:textnow.com", "domain:twitch.tv",  "domain:wikileaks.org" };
+    const inline QList<QString> DomainsProxy{ "geosite:google",   "geosite:github",     "geosite:netflix",  "geosite:steam",
+                                              "geosite:telegram", "geosite:tumblr",     "domain:naver.com", "geosite:bbc",
+                                              "domain:gvt1.com",  "domain:textnow.com", "domain:twitch.tv", "domain:wikileaks.org" };
 
     const inline QList<QString> IPsProxy{
         "91.108.4.0/22",  "91.108.8.0/22",  "91.108.12.0/22",   "91.108.20.0/22",   "91.108.36.0/23",
@@ -153,6 +153,6 @@ namespace Qv2ray::components::route::presets::v2rayN
     };
     const inline QList<QString> IPsBlock{};
     const inline QList<QString> IPsDirect{};
-    const inline Qv2ray::base::config::Qv2rayRouteConfig v2rayNScheme({ DomainsDirect, DomainsBlock, DomainsProxy },
-                                                                      { IPsDirect, IPsBlock, IPsProxy }, "AsIs");
+    const inline Qv2ray::base::config::QvConfig_Route v2rayNScheme({ DomainsDirect, DomainsBlock, DomainsProxy },
+                                                                   { IPsDirect, IPsBlock, IPsProxy }, "AsIs");
 } // namespace Qv2ray::components::route::presets::v2rayN

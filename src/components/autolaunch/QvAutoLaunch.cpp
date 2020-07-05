@@ -1,6 +1,8 @@
 #include "QvAutoLaunch.hpp"
 
-#include <QApplication>
+#include "base/Qv2rayBase.hpp"
+
+#include <QCoreApplication>
 #include <QDir>
 #include <QSettings>
 #include <QStandardPaths>
@@ -29,7 +31,7 @@ namespace Qv2ray::components::autolaunch
     bool GetLaunchAtLoginStatus()
     {
 #ifdef Q_OS_WIN
-        QString appName = QApplication::applicationName();
+        QString appName = QCoreApplication::applicationName();
         QSettings reg("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
         return reg.contains(appName);
     }
@@ -80,7 +82,7 @@ namespace Qv2ray::components::autolaunch
     }
 
 #elif defined Q_OS_LINUX
-        QString appName = QApplication::applicationName();
+        QString appName = QCoreApplication::applicationName();
         QString desktopFileLocation = getUserAutostartDir_private() + appName + QLatin1String(".desktop");
         return QFile::exists(desktopFileLocation);
     }
@@ -89,7 +91,7 @@ namespace Qv2ray::components::autolaunch
     void SetLaunchAtLoginStatus(bool enable)
     {
 #ifdef Q_OS_WIN
-        QString appName = QApplication::applicationName();
+        QString appName = QCoreApplication::applicationName();
         QSettings reg("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
 
         if (enable)
@@ -160,7 +162,7 @@ namespace Qv2ray::components::autolaunch
         auto binPath = qEnvironmentVariableIsSet("APPIMAGE") ? qEnvironmentVariable("APPIMAGE") : QCoreApplication::applicationFilePath();
         //
         // From https://github.com/nextcloud/desktop/blob/master/src/common/utility_unix.cpp
-        QString appName = QApplication::applicationName();
+        QString appName = QCoreApplication::applicationName();
         QString userAutoStartPath = getUserAutostartDir_private();
         QString desktopFileLocation = userAutoStartPath + appName + QLatin1String(".desktop");
 
@@ -184,24 +186,23 @@ namespace Qv2ray::components::autolaunch
 
             QTextStream ts(&iniFile);
             ts.setCodec("UTF-8");
-            ts << QLatin1String("[Desktop Entry]") << endl
-               << QLatin1String("Name=") << QApplication::applicationName() << endl
-               << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << endl
-               << QLatin1String("Exec=") << binPath << endl
-               << QLatin1String("Terminal=") << "false" << endl
-               << QLatin1String("Icon=") << "qv2ray" << endl // always use lowercase for icons
-               << QLatin1String("Categories=") << "Network" << endl
-               << QLatin1String("Type=") << "Application" << endl
-               << QLatin1String("StartupNotify=") << "false" << endl
-               << QLatin1String("X-GNOME-Autostart-enabled=") << "true" << endl;
+            ts << QLatin1String("[Desktop Entry]") << NEWLINE                                                                        //
+               << QLatin1String("Name=") << QCoreApplication::applicationName() + QCoreApplication::arguments().join(" ") << NEWLINE //
+               << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << NEWLINE                                        //
+               << QLatin1String("Exec=") << binPath << NEWLINE                                                                       //
+               << QLatin1String("Terminal=") << "false" << NEWLINE                                                                   //
+               << QLatin1String("Icon=") << "qv2ray" << NEWLINE                                                                      //
+               << QLatin1String("Categories=") << "Network" << NEWLINE                                                               //
+               << QLatin1String("Type=") << "Application" << NEWLINE                                                                 //
+               << QLatin1String("StartupNotify=") << "false" << NEWLINE                                                              //
+               << QLatin1String("X-GNOME-Autostart-enabled=") << "true" << NEWLINE;
+            ts.flush();
+            iniFile.close();
         }
         else
         {
-            if (!QFile::remove(desktopFileLocation))
-            {
-                // qCWarning(lcUtility) << "Could not remove autostart desktop
-                // file";
-            }
+            QFile::remove(desktopFileLocation);
+            QFile::remove(desktopFileLocation.replace("qv2ray", "Qv2ray"));
         }
     }
 #endif

@@ -23,14 +23,16 @@ if(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "module")
         ${QNODEEDITOR_DIR}/src/NodeStyle.cpp
         ${QNODEEDITOR_DIR}/src/Properties.cpp
         ${QNODEEDITOR_DIR}/src/StyleCollection.cpp
-    )
-    set(QNODEEDITOR_INCLUDE_PATH
-        ${QNODEEDITOR_DIR}/include/nodes/internal
-    )
+        )
 
-    set(HEADERS_TO_MOC
+    set(QNODEEDITOR_INCLUDE_PATH
+        ${QNODEEDITOR_DIR}/include
+        ${QNODEEDITOR_DIR}/include/nodes/internal
+        )
+
+    set(QNODEEDITOR_HEADERS
         ${QNODEEDITOR_DIR}/include/nodes/internal/Compiler.hpp
-        ${QNODEEDITOR_DIR}/include/nodes/internal/Connection.hpp        
+        ${QNODEEDITOR_DIR}/include/nodes/internal/Connection.hpp
         ${QNODEEDITOR_DIR}/include/nodes/internal/ConnectionGeometry.hpp
         ${QNODEEDITOR_DIR}/include/nodes/internal/ConnectionGraphicsObject.hpp
         ${QNODEEDITOR_DIR}/include/nodes/internal/ConnectionState.hpp
@@ -56,17 +58,29 @@ if(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "module")
         ${QNODEEDITOR_DIR}/include/nodes/internal/Serializable.hpp
         ${QNODEEDITOR_DIR}/include/nodes/internal/Style.hpp
         ${QNODEEDITOR_DIR}/include/nodes/internal/TypeConverter.hpp
-    )
+        )
 
-    qt5_wrap_cpp(QNODEEDITOR_SOURCES
-        ${HEADERS_TO_MOC}
-        TARGET qv2ray
-        OPTIONS --no-notes # Don't display a note for the headers which don't produce a moc_*.cpp
-    )
-
+    #    qt5_wrap_cpp(QNODEEDITOR_SOURCES
+    #        ${HEADERS_TO_MOC}
+    #        TARGET qv2ray
+    #        OPTIONS --no-notes # Don't display a note for the headers which don't produce a moc_*.cpp
+    #    )
+    set(QNODEEDITOR_LIBRARY qv2ray-nodeeditor)
+    add_library(${QNODEEDITOR_LIBRARY} STATIC
+        ${QNODEEDITOR_SOURCES}
+        ${QNODEEDITOR_HEADERS}
+        )
+    target_include_directories(${QNODEEDITOR_LIBRARY} PUBLIC
+        ${QNODEEDITOR_INCLUDE_PATH}
+        )
+    target_link_libraries(${QNODEEDITOR_LIBRARY}
+        Qt5::Core
+        Qt5::Widgets
+        Qt5::Gui
+        )
     set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR}/resources/resources.qrc)
 elseif(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "package")
     find_package(NodeEditor REQUIRED CONFIG)
+    find_path(QNODEEDITOR_INCLUDE_PATH NAMES Node.hpp PATH_SUFFIXES nodes/internal)
     set(QNODEEDITOR_LIBRARY NodeEditor::nodes)
-    find_path(QNODEEDITOR_INCLUDE_PATH Node.hpp PATH_SUFFIXES nodes/internal)
 endif()

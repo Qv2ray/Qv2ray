@@ -1,9 +1,9 @@
-﻿#include "w_OutboundEditor.hpp"
+#include "w_OutboundEditor.hpp"
 
 #include "core/connection/Generation.hpp"
+#include "ui/common/UIBase.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
-#include "ui/w_MainWindow.hpp"
 
 #include <QFile>
 #include <QIntValidator>
@@ -80,7 +80,7 @@ QString OutboundEditor::GetFriendlyName()
 OUTBOUND OutboundEditor::GenerateConnectionJson()
 {
     OUTBOUNDSETTING settings;
-    auto streaming = GetRootObject(streamSettingsWidget->GetStreamSettings());
+    auto streaming = streamSettingsWidget->GetStreamSettings().toJson();
 
     if (outboundType == "vmess")
     {
@@ -88,17 +88,17 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         QJsonArray vnext;
         vmess.address = address;
         vmess.port = port;
-        vnext.append(GetRootObject(vmess));
+        vnext.append(vmess.toJson());
         settings.insert("vnext", vnext);
     }
     else if (outboundType == "shadowsocks")
     {
-        streaming = QJsonObject();
-        LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
+        // streaming = QJsonObject();
+        // LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
         QJsonArray servers;
         shadowsocks.address = address;
         shadowsocks.port = port;
-        servers.append(GetRootObject(shadowsocks));
+        servers.append(shadowsocks.toJson());
         settings["servers"] = servers;
     }
     else if (outboundType == "socks")
@@ -110,10 +110,10 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         }
         socks.address = address;
         socks.port = port;
-        streaming = QJsonObject();
-        LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
+        // streaming = QJsonObject();
+        // LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
         QJsonArray servers;
-        servers.append(GetRootObject(socks));
+        servers.append(socks.toJson());
         settings["servers"] = servers;
     }
     else
@@ -149,7 +149,7 @@ void OutboundEditor::ReloadGUI()
     outboundType = originalConfig["protocol"].toString("vmess");
     muxConfig = originalConfig["mux"].toObject();
     useForwardProxy = originalConfig[QV2RAY_USE_FPROXY_KEY].toBool(false);
-    streamSettingsWidget->SetStreamObject(StructFromJsonString<StreamSettingsObject>(JsonToString(originalConfig["streamSettings"].toObject())));
+    streamSettingsWidget->SetStreamObject(StreamSettingsObject::fromJson(originalConfig["streamSettings"].toObject()));
     //
     useFPCB->setChecked(useForwardProxy);
     muxEnabledCB->setChecked(muxConfig["enabled"].toBool());
@@ -160,7 +160,7 @@ void OutboundEditor::ReloadGUI()
     if (outboundType == "vmess")
     {
         outBoundTypeCombo->setCurrentIndex(0);
-        vmess = StructFromJsonString<VMessServerObject>(JsonToString(settings["vnext"].toArray().first().toObject()));
+        vmess = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
         if (vmess.users.empty())
         {
             vmess.users.push_back({});
@@ -170,11 +170,12 @@ void OutboundEditor::ReloadGUI()
         idLineEdit->setText(vmess.users.front().id);
         alterLineEdit->setValue(vmess.users.front().alterId);
         securityCombo->setCurrentText(vmess.users.front().security);
+        testsEnabledCombo->setCurrentText(vmess.users.front().testsEnabled);
     }
     else if (outboundType == "shadowsocks")
     {
         outBoundTypeCombo->setCurrentIndex(1);
-        shadowsocks = StructFromJsonString<ShadowSocksServerObject>(JsonToString(settings["servers"].toArray().first().toObject()));
+        shadowsocks = ShadowSocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
         address = shadowsocks.address;
         port = shadowsocks.port;
         // ShadowSocks Configs
@@ -187,7 +188,7 @@ void OutboundEditor::ReloadGUI()
     else if (outboundType == "socks")
     {
         outBoundTypeCombo->setCurrentIndex(2);
-        socks = StructFromJsonString<SocksServerObject>(JsonToString(settings["servers"].toArray().first().toObject()));
+        socks = SocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
         address = socks.address;
         port = socks.port;
         if (socks.users.empty())
@@ -298,10 +299,15 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
     if (index < 3)
     {
         outboundType = outBoundTypeCombo->currentText().toLower();
+        useFPCB->setEnabled(true);
+        useFPCB->setToolTip(tr(""));
     }
     else
     {
         outboundType = pluginWidgets.value(index).first.protocol;
+        useFPCB->setChecked(false);
+        useFPCB->setEnabled(false);
+        useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
     }
 }
 
@@ -342,4 +348,9 @@ void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
     if (socks.users.isEmpty())
         socks.users.push_back({});
     socks.users.front().pass = arg1;
+}
+
+void OutboundEditor::on_testsEnabledCombo_currentIndexChanged(const QString &arg1)
+{
+    vmess.users.front().testsEnabled = arg1;
 }

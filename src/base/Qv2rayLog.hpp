@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include <QString>
-using namespace std;
 
 /*
  * Tiny log module.
@@ -18,7 +17,7 @@ namespace Qv2ray::base
 #define QV2RAY_LOG_NORMAL 0
 #define QV2RAY_LOG_DEBUG 1
 
-#define __LOG_IMPL(LEVEL, MODULE, MSG) __QV2RAY_LOG_FUNC__(LEVEL, Q_FUNC_INFO, __LINE__, MODULE, MSG);
+#define __LOG_IMPL(LEVEL, MODULE, MSG) ::Qv2ray::base::__QV2RAY_LOG_FUNC__(LEVEL, Q_FUNC_INFO, __LINE__, MODULE, MSG);
 
 #define LOG(MODULE, MSG) __LOG_IMPL(QV2RAY_LOG_NORMAL, (MODULE), (MSG));
 #define DEBUG(MODULE, MSG) __LOG_IMPL(QV2RAY_LOG_DEBUG, (MODULE), (MSG));

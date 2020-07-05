@@ -1,15 +1,7 @@
 #include "QvTranslator.hpp"
 
-#include "base/Qv2rayLog.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
-
-#include <QApplication>
-#include <QDir>
-#include <QStandardPaths>
-#include <QString>
-#include <QStringBuilder>
-#include <QTranslator>
-#include <memory>
 
 using namespace Qv2ray::base;
 
@@ -27,20 +19,19 @@ QStringList getLanguageSearchPaths()
     list << QString(QV2RAY_TRANSLATION_PATH);
 #endif
     return list;
-};
+}
 
 namespace Qv2ray::common
 {
     QvTranslator::QvTranslator()
     {
-        DEBUG(MODULE_UI, "QvTranslator constructor.")
         GetAvailableLanguages();
     }
 
     QStringList QvTranslator::GetAvailableLanguages()
     {
         languages.clear();
-        for (auto path : getLanguageSearchPaths())
+        for (const auto &path : getLanguageSearchPaths())
         {
             languages << QDir(path).entryList(QStringList{ "*.qm" }, QDir::Hidden | QDir::Files);
         }
@@ -52,20 +43,21 @@ namespace Qv2ray::common
 
     bool QvTranslator::InstallTranslation(const QString &code)
     {
-        for (auto path : getLanguageSearchPaths())
+        for (const auto &path : getLanguageSearchPaths())
         {
             if (FileExistsIn(QDir(path), code + ".qm"))
             {
-                LOG(MODULE_UI, "Found " + code + " in folder: " + path)
+                DEBUG(MODULE_UI, "Found " + code + " in folder: " + path)
                 QTranslator *translatorNew = new QTranslator();
                 translatorNew->load(code + ".qm", path);
                 if (pTranslator)
                 {
-                    LOG(MODULE_INIT, "Removed translations")
+                    LOG(MODULE_UI, "Removed translations")
                     qApp->removeTranslator(pTranslator.get());
                 }
                 this->pTranslator.reset(translatorNew);
                 qApp->installTranslator(pTranslator.get());
+                LOG(MODULE_UI, "Successfully installed a translator for " + code)
                 return true;
             }
         }

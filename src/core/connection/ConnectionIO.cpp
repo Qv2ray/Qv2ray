@@ -1,33 +1,42 @@
 #include "ConnectionIO.hpp"
 
+#include "Serialization.hpp"
 #include "common/QvHelpers.hpp"
 
-namespace Qv2ray::core::connection
+namespace Qv2ray::core::connection::connectionIO
 {
-    namespace ConnectionIO
+    CONFIGROOT ConvertConfigFromFile(const QString &sourceFilePath, bool importComplex)
     {
-        CONFIGROOT ConvertConfigFromFile(const QString &sourceFilePath, bool importComplex)
+        auto root = CONFIGROOT(JsonFromString(StringFromFile(sourceFilePath)));
+
+        if (!importComplex)
         {
-            QFile source(sourceFilePath);
-
-            if (!source.exists())
-            {
-                LOG(MODULE_FILEIO, "Trying to import from an non-existing file.") return CONFIGROOT();
-            }
-
-            auto root = CONFIGROOT(JsonFromString(StringFromFile(source)));
-
-            if (!importComplex)
-            {
-                JSON_ROOT_TRY_REMOVE("inbounds")
-                JSON_ROOT_TRY_REMOVE("routing")
-            }
-
-            JSON_ROOT_TRY_REMOVE("log")
-            JSON_ROOT_TRY_REMOVE("api")
-            JSON_ROOT_TRY_REMOVE("stats")
-            JSON_ROOT_TRY_REMOVE("dns")
-            return root;
+            root.remove("inbounds");
+            root.remove("routing");
         }
-    } // namespace ConnectionIO
-} // namespace Qv2ray::core::connection
+
+        root.remove("log");
+        root.remove("api");
+        root.remove("stats");
+        root.remove("dns");
+        return root;
+    }
+
+    QList<QPair<QString, CONFIGROOT>> GetConnectionConfigFromSubscription(const QByteArray &arr, const QString &groupName)
+    {
+        QList<QPair<QString, CONFIGROOT>> subscriptionContent;
+        auto subscriptionLines = SplitLines(TryDecodeSubscriptionString(arr));
+        for (const auto &line : subscriptionLines)
+        {
+            QString __alias;
+            QString __errMessage;
+            // Assign a group name, to pass the name check.
+            QString __groupName = groupName;
+            const auto connectionConfigMap = ConvertConfigFromString(line.trimmed(), &__alias, &__errMessage, &__groupName);
+            if (!__errMessage.isEmpty())
+                LOG(MODULE_SUBSCRIPTION, "Error: " + __errMessage)
+            subscriptionContent << connectionConfigMap;
+        }
+        return subscriptionContent;
+    }
+} // namespace Qv2ray::core::connection::connectionIO

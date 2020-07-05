@@ -13,12 +13,10 @@ QvMessageBusSlotImpl(StreamSettingsWidget)
 {
     switch (msg)
     {
+        MBRetranslateDefaultImpl;
         case UPDATE_COLORSCHEME:
         case HIDE_WINDOWS:
-        case SHOW_WINDOWS:
-            break;
-            //
-            MBRetranslateDefaultImpl
+        case SHOW_WINDOWS: break;
     }
 }
 
@@ -37,11 +35,12 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     serverNameTxt->setText(stream.tlsSettings.serverName);
     allowInsecureCB->setChecked(stream.tlsSettings.allowInsecure);
     allowInsecureCiphersCB->setChecked(stream.tlsSettings.allowInsecureCiphers);
+    disableSessionResumptionCB->setChecked(stream.tlsSettings.disableSessionResumption);
     alpnTxt->setPlainText(stream.tlsSettings.alpn.join(NEWLINE));
     // TCP
     tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
-    tcpRequestTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.request));
-    tcpRespTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.response));
+    tcpRequestTxt->setPlainText(JsonToString(stream.tcpSettings.header.request.toJson()));
+    tcpRespTxt->setPlainText(JsonToString(stream.tcpSettings.header.response.toJson()));
     // HTTP
     httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
     httpPathTxt->setText(stream.httpSettings.path);
@@ -63,6 +62,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
     kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
     kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
+    kcpSeedTxt->setText(stream.kcpSettings.seed);
     // DS
     dsPathTxt->setText(stream.dsSettings.path);
     // QUIC
@@ -251,18 +251,18 @@ void StreamSettingsWidget::on_dsPathTxt_textEdited(const QString &arg1)
 void StreamSettingsWidget::on_tcpRequestEditBtn_clicked()
 {
     JsonEditor w(JsonFromString(tcpRequestTxt->toPlainText()), this);
-    auto rString = JsonToString(w.OpenEditor());
-    tcpRequestTxt->setPlainText(rString);
-    auto tcpReqObject = StructFromJsonString<HTTPRequestObject>(rString);
+    auto rJson = w.OpenEditor();
+    tcpRequestTxt->setPlainText(JsonToString(rJson));
+    auto tcpReqObject = HTTPRequestObject::fromJson(rJson);
     stream.tcpSettings.header.request = tcpReqObject;
 }
 
 void StreamSettingsWidget::on_tcpResponseEditBtn_clicked()
 {
     JsonEditor w(JsonFromString(tcpRespTxt->toPlainText()), this);
-    auto rString = JsonToString(w.OpenEditor());
-    tcpRespTxt->setPlainText(rString);
-    auto tcpRspObject = StructFromJsonString<HTTPResponseObject>(rString);
+    auto rJson = w.OpenEditor();
+    tcpRespTxt->setPlainText(JsonToString(rJson));
+    auto tcpRspObject = HTTPResponseObject::fromJson(rJson);
     stream.tcpSettings.header.response = tcpRspObject;
 }
 
@@ -289,4 +289,14 @@ void StreamSettingsWidget::on_alpnTxt_textChanged()
 void StreamSettingsWidget::on_allowInsecureCiphersCB_stateChanged(int arg1)
 {
     stream.tlsSettings.allowInsecureCiphers = arg1 == Qt::Checked;
+}
+
+void StreamSettingsWidget::on_disableSessionResumptionCB_stateChanged(int arg1)
+{
+    stream.tlsSettings.disableSessionResumption = arg1 == Qt::Checked;
+}
+
+void StreamSettingsWidget::on_kcpSeedTxt_textEdited(const QString &arg1)
+{
+    stream.kcpSettings.seed = arg1;
 }

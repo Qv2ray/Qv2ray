@@ -45,7 +45,7 @@ Please paste your Qv2ray log here:
 
 <!-- Please check all the operating systems and installation sources that you confirmed to have problems. -->
 
-### Open Preferences -> Aabout, and enter the following info
+### Open Preferences -> About, and enter the following info
 
 ```
 Version: 
@@ -82,3 +82,5 @@ Extra build info:
 ## Additional Info
 
 <!-- Feel free to write down any info you consider helpful to resolve the bug. -->
+
+*Please hide your server address and UUID if you wish to post the vmess string or your connection setting.*

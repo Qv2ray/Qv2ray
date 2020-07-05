@@ -4,6 +4,7 @@
 #include "components/geosite/QvGeositeReader.hpp"
 #include "components/route/RouteSchemeIO.hpp"
 #include "components/route/presets/RouteScheme_V2rayN.hpp"
+#include "ui/common/UIBase.hpp"
 
 #include <QFileDialog>
 #include <QInputDialog>
@@ -48,7 +49,7 @@ QList<QAction *> RouteSettingsMatrixWidget::getBuiltInSchemes()
     return list;
 }
 
-QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv2ray::base::config::Qv2rayRouteConfig &scheme)
+QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const QvConfig_Route &scheme)
 {
     QAction *action = new QAction(this);
     action->setText(name);
@@ -56,22 +57,22 @@ QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv
     return action;
 }
 
-void RouteSettingsMatrixWidget::SetRouteConfig(const Qv2rayRouteConfig &conf)
+void RouteSettingsMatrixWidget::SetRouteConfig(const QvConfig_Route &conf)
 {
     domainStrategyCombo->setCurrentText(conf.domainStrategy);
     //
-    directDomainTxt->setText(conf.domains.direct.join(NEWLINE));
-    proxyDomainTxt->setText(conf.domains.proxy.join(NEWLINE));
-    blockDomainTxt->setText(conf.domains.block.join(NEWLINE));
+    directDomainTxt->setPlainText(conf.domains.direct.join(NEWLINE));
+    proxyDomainTxt->setPlainText(conf.domains.proxy.join(NEWLINE));
+    blockDomainTxt->setPlainText(conf.domains.block.join(NEWLINE));
     //
-    blockIPTxt->setText(conf.ips.block.join(NEWLINE));
-    directIPTxt->setText(conf.ips.direct.join(NEWLINE));
-    proxyIPTxt->setText(conf.ips.proxy.join(NEWLINE));
+    blockIPTxt->setPlainText(conf.ips.block.join(NEWLINE));
+    directIPTxt->setPlainText(conf.ips.direct.join(NEWLINE));
+    proxyIPTxt->setPlainText(conf.ips.proxy.join(NEWLINE));
 }
 
-Qv2rayRouteConfig RouteSettingsMatrixWidget::GetRouteConfig() const
+QvConfig_Route RouteSettingsMatrixWidget::GetRouteConfig() const
 {
-    config::Qv2rayRouteConfig conf;
+    QvConfig_Route conf;
     conf.domainStrategy = this->domainStrategyCombo->currentText();
     conf.domains.block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
     conf.domains.direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
@@ -104,7 +105,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
         // read the file and parse back to struct.
         // if error occurred on parsing, an exception will be thrown.
         auto content = StringFromFile(ACCESS_OPTIONAL_VALUE(filePath));
-        auto scheme = StructFromJsonString<Qv2rayRouteScheme>(content);
+        auto scheme = Qv2rayRouteScheme::fromJson(JsonFromString(content));
 
         // show the information of this scheme to user,
         // and ask user if he/she wants to import and apply this.
@@ -116,12 +117,12 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
             return;
 
         // write the scheme onto the window
-        this->SetRouteConfig(static_cast<Qv2rayRouteConfig>(scheme));
+        this->SetRouteConfig(static_cast<QvConfig_Route>(scheme));
 
         // done
         LOG(MODULE_SETTINGS, "Imported route config: " + scheme.name + " by: " + scheme.author)
     }
-    catch (exception e)
+    catch (std::exception &e)
     {
         LOG(MODULE_UI, "Exception: " + QString(e.what()))
         // TODO: Give some error as Notification
@@ -174,16 +175,15 @@ void RouteSettingsMatrixWidget::on_exportSchemeBtn_clicked()
         scheme.domains = config.domains;
 
         // serialize and write out
-        auto content = StructToJsonString(scheme);
+        auto content = JsonToString(scheme.toJson());
         StringToFile(content, ACCESS_OPTIONAL_VALUE(savePath));
 
         // done
         // TODO: Give some success as Notification
         QvMessageBoxInfo(this, dialogTitle, tr("Your route scheme has been successfully exported!"));
     }
-    catch (exception)
+    catch (...)
     {
-
         // TODO: Give some error as Notification
     }
 }
@@ -197,7 +197,7 @@ std::optional<QString> RouteSettingsMatrixWidget::saveFileDialog()
 {
     QFileDialog dialog;
     dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setOption(QFileDialog::Option::DontConfirmOverwrite, !true);
+    dialog.setOption(QFileDialog::Option::DontConfirmOverwrite, false);
     dialog.setNameFilter(tr("QvRoute Schemes(*.json)"));
     dialog.setAcceptMode(QFileDialog::AcceptMode::AcceptSave);
     if (!dialog.exec() || dialog.selectedFiles().length() != 1)

@@ -2,27 +2,8 @@ language: shell
 os: linux
 dist: bionic
 
-env:
-  global:
-    - LC_ALL: C.UTF-8
-    - LANG: C.UTF-8
-
-addons:
-  snaps:
-    - name: snapcraft
-      channel: stable
-      confinement: classic
-    - name: lxd
-      channel: stable
-
 script:
-  - sudo apt-get autoremove lxd --purge
-  - sudo /snap/bin/lxd waitready
-  - sudo /snap/bin/lxd init --auto
-  - sudo snapcraft --use-lxd
-
-after_failure:
-  - sudo journalctl -u snapd
+  - echo Refreshing launchpad repository
 
 deploy:
   - provider: launchpad

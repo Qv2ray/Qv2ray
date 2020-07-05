@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>384</width>
-    <height>422</height>
+    <width>455</width>
+    <height>501</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -437,18 +437,15 @@
              </item>
             </widget>
            </item>
-           <item row="8" column="0" colspan="2">
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+           <item row="8" column="0">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Seed (Experimental)</string>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QLineEdit" name="kcpSeedTxt"/>
            </item>
           </layout>
          </widget>
@@ -628,33 +625,6 @@
        <string>TLS Settings</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
-       <item row="1" column="0" colspan="2">
-        <widget class="QCheckBox" name="allowInsecureCB">
-         <property name="text">
-          <string>Allow Insecure Certificates</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Server</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="serverNameTxt"/>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_14">
-         <property name="text">
-          <string>ALPN</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QPlainTextEdit" name="alpnTxt"/>
-       </item>
        <item row="0" column="0" colspan="2">
         <widget class="QCheckBox" name="tlsCB">
          <property name="text">
@@ -662,10 +632,47 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QCheckBox" name="allowInsecureCB">
+         <property name="text">
+          <string>Allow Insecure Certificates</string>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="0" colspan="2">
         <widget class="QCheckBox" name="allowInsecureCiphersCB">
          <property name="text">
           <string>Allow Insecure Ciphers</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Server</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="serverNameTxt"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>ALPN</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QPlainTextEdit" name="alpnTxt"/>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QCheckBox" name="disableSessionResumptionCB">
+         <property name="text">
+          <string>Disable Session Resumption</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
          </property>
         </widget>
        </item>

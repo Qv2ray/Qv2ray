@@ -1,7 +1,9 @@
-﻿#include "w_InboundEditor.hpp"
+#include "w_InboundEditor.hpp"
+
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
+#include "ui/common/UIBase.hpp"
 
 static bool isLoading = false;
 #define CHECKLOADING                                                                                                                            \
@@ -28,6 +30,9 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) : QDialog(parent), o
     else if (inboundType == "dokodemo-door")
     {
         dokoSettings = root["settings"].toObject();
+        dokotproxy = QJsonIO ::GetValue(root, "streamSettings", "sockopt", "tproxy").toString();
+        if (dokotproxy.isEmpty())
+            dokotproxy = "off";
     }
     else if (inboundType == "mtproto")
     {
@@ -56,7 +61,10 @@ QvMessageBusSlotImpl(InboundEditor)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
+        MBShowDefaultImpl;
+        MBHideDefaultImpl;
+        MBRetranslateDefaultImpl;
+        case UPDATE_COLORSCHEME: break;
     }
 }
 
@@ -99,6 +107,7 @@ INBOUND InboundEditor::GenerateNewRoot()
     else if (inboundType == "dokodemo-door")
     {
         _newRoot["settings"] = dokoSettings;
+        QJsonIO::SetValue(_newRoot, dokotproxy, "streamSettings", "sockopt", "tproxy");
     }
     else if (inboundType == "mtproto")
     {
@@ -167,6 +176,7 @@ void InboundEditor::LoadUIData()
     dokoUserLevelSB->setValue(dokoSettings["userLevel"].toInt());
     dokoTCPCB->setChecked(dokoSettings["network"].toString().contains("tcp"));
     dokoUDPCB->setChecked(dokoSettings["network"].toString().contains("udp"));
+    dokotproxyCombo->setCurrentText(dokotproxy);
     // MTProto
     mtEMailTxt->setText(mtSettings["users"].toArray().first().toObject()["email"].toString());
     mtUserLevelSB->setValue(mtSettings["users"].toArray().first().toObject()["level"].toInt());
@@ -449,6 +459,12 @@ void InboundEditor::on_dokoUserLevelSB_valueChanged(int arg1)
 {
     CHECKLOADING
     dokoSettings["userLevel"] = arg1;
+}
+
+void InboundEditor::on_dokotproxyCombo_currentIndexChanged(const QString &arg1)
+{
+    CHECKLOADING
+    dokotproxy = arg1;
 }
 
 void InboundEditor::on_mtEMailTxt_textEdited(const QString &arg1)

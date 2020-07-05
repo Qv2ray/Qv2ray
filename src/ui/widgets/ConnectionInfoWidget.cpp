@@ -1,9 +1,10 @@
 #include "ConnectionInfoWidget.hpp"
 
-#include "common/QRCodeHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Serialization.hpp"
+#include "ui/common/QRCodeHelper.hpp"
+#include "ui/common/UIBase.hpp"
 
 constexpr auto INDEX_CONNECTION = 0;
 constexpr auto INDEX_GROUP = 1;
@@ -19,7 +20,7 @@ QvMessageBusSlotImpl(ConnectionInfoWidget)
     }
 }
 
-void ConnectionInfoWidget::UpdateColorScheme()
+void ConnectionInfoWidget::updateColorScheme()
 {
     latencyBtn->setIcon(QICON_R("ping_gauge.png"));
     deleteBtn->setIcon(QICON_R("delete.png"));
@@ -33,7 +34,7 @@ void ConnectionInfoWidget::UpdateColorScheme()
     auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
     qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
     qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") : (isRealPixmapShown ? qrPixmap : qrPixmapBlured));
-    connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
+    connectBtn->setIcon(KernelInstance->CurrentConnection().connectionId == connectionId ? QICON_R("stop.png") : QICON_R("connect.png"));
 }
 
 ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
@@ -41,7 +42,7 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     setupUi(this);
     //
     QvMessageBusConnect(ConnectionInfoWidget);
-    UpdateColorScheme();
+    updateColorScheme();
     //
     shareLinkTxt->setAutoFillBackground(true);
     shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));
@@ -51,16 +52,16 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
     connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &ConnectionInfoWidget::OnDisConnected);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, this, &ConnectionInfoWidget::OnConnectionModified);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &ConnectionInfoWidget::OnConnectionModified);
     connect(ConnectionManager, &QvConfigHandler::OnGroupRenamed, this, &ConnectionInfoWidget::OnGroupRenamed);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &ConnectionInfoWidget::OnConnectionModified);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, this, &ConnectionInfoWidget::OnConnectionModified);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &ConnectionInfoWidget::OnConnectionModified_Pair);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, this, &ConnectionInfoWidget::OnConnectionModified_Pair);
 }
 
-void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
+void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
 {
-    this->groupId = get<0>(_identifier);
-    this->connectionId = get<1>(_identifier);
+    this->groupId = _identifier.groupId;
+    this->connectionId = _identifier.connectionId;
     bool isConnection = connectionId != NullConnectionId;
     //
     editBtn->setEnabled(isConnection);
@@ -69,7 +70,7 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     stackedWidget->setCurrentIndex(isConnection ? INDEX_CONNECTION : INDEX_GROUP);
     if (isConnection)
     {
-        auto shareLink = ConvertConfigToString(connectionId);
+        auto shareLink = ConvertConfigToString(_identifier);
         //
         shareLinkTxt->setText(shareLink);
         protocolLabel->setText(GetConnectionProtocolString(connectionId));
@@ -90,28 +91,28 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") : qrPixmapBlured);
         qrLabel->setScaledContents(true);
         //
-        connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
+        connectBtn->setIcon(KernelInstance->CurrentConnection().connectionId == connectionId ? QICON_R("stop.png") : QICON_R("connect.png"));
     }
     else
     {
         connectBtn->setIcon(QICON_R("connect.png"));
         groupNameLabel->setText(GetDisplayName(groupId));
         QStringList shareLinks;
-        for (auto connection : ConnectionManager->Connections(groupId))
+        for (const auto &connection : ConnectionManager->Connections(groupId))
         {
-            shareLinks << ConvertConfigToString(connection, false);
+            shareLinks << ConvertConfigToString({ connection, groupId }, false);
         }
         //
         auto complexCount = shareLinks.removeAll(QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER);
         complexCount += shareLinks.removeAll("");
         if (complexCount > 0)
         {
-            shareLinks << "# " + tr("(Ignored %1 complex config(s))").arg(complexCount);
+            shareLinks << "# " + tr("(Ignored %n complex config(s))", "", complexCount);
         }
         //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));
-        groupSubsLinkTxt->setText(ConnectionManager->IsSubscription(groupId) ? get<0>(ConnectionManager->GetSubscriptionData(groupId)) :
-                                                                               tr("Not a subscription"));
+        const auto &groupMetaData = ConnectionManager->GetGroupMetaObject(groupId);
+        groupSubsLinkTxt->setText(groupMetaData.isSubscription ? groupMetaData.subscriptionOption.address : tr("Not a subscription"));
     }
 }
 
@@ -121,10 +122,15 @@ ConnectionInfoWidget::~ConnectionInfoWidget()
 
 void ConnectionInfoWidget::OnConnectionModified(const ConnectionId &id)
 {
-    if (id == connectionId)
-        ShowDetails({ GetConnectionGroupId(id), id });
+    if (id == this->connectionId)
+        ShowDetails({ id, groupId });
 }
 
+void ConnectionInfoWidget::OnConnectionModified_Pair(const ConnectionGroupPair &id)
+{
+    if (id.connectionId == this->connectionId && id.groupId == this->groupId)
+        ShowDetails(id);
+}
 void ConnectionInfoWidget::OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName)
 {
     Q_UNUSED(oldName)
@@ -137,13 +143,13 @@ void ConnectionInfoWidget::OnGroupRenamed(const GroupId &id, const QString &oldN
 
 void ConnectionInfoWidget::on_connectBtn_clicked()
 {
-    if (ConnectionManager->IsConnected(connectionId))
+    if (ConnectionManager->IsConnected({ connectionId, groupId }))
     {
         ConnectionManager->StopConnection();
     }
     else
     {
-        ConnectionManager->StartConnection(connectionId);
+        ConnectionManager->StartConnection({ connectionId, groupId });
     }
 }
 
@@ -163,7 +169,7 @@ void ConnectionInfoWidget::on_deleteBtn_clicked()
     {
         if (connectionId != NullConnectionId)
         {
-            ConnectionManager->DeleteConnection(connectionId);
+            ConnectionManager->RemoveConnectionFromGroup(connectionId, groupId);
         }
         else
         {
@@ -194,17 +200,17 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
     return QWidget::eventFilter(object, event);
 }
 
-void ConnectionInfoWidget::OnConnected(const ConnectionId &id)
+void ConnectionInfoWidget::OnConnected(const ConnectionGroupPair &id)
 {
-    if (connectionId == id)
+    if (id == ConnectionGroupPair{ connectionId, groupId })
     {
         connectBtn->setIcon(QICON_R("stop.png"));
     }
 }
 
-void ConnectionInfoWidget::OnDisConnected(const ConnectionId &id)
+void ConnectionInfoWidget::OnDisConnected(const ConnectionGroupPair &id)
 {
-    if (connectionId == id)
+    if (id == ConnectionGroupPair{ connectionId, groupId })
     {
         connectBtn->setIcon(QICON_R("connect.png"));
     }
