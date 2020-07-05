@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="generalSettingsPage">
       <attribute name="title">
@@ -756,14 +756,14 @@ But could damage your server if improperly used.</string>
             </item>
            </layout>
           </item>
-          <item row="6" column="0" colspan="2">
+          <item row="7" column="0" colspan="2">
            <widget class="QPushButton" name="checkVCoreSettings">
             <property name="text">
              <string>Check V2ray Core Settings</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="0" colspan="2">
+          <item row="8" column="0" colspan="2">
            <widget class="QPushButton" name="pushButton">
             <property name="text">
              <string>Check System Date and Time from the Internet</string>
@@ -831,6 +831,20 @@ But could damage your server if improperly used.</string>
 - freedom will be treated as DIRECT
 - blackhole will be treated as BLOCK</string>
             </property>
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_31">
+            <property name="text">
+             <string>Include Direct Connection</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QCheckBox" name="hasDirectStatisticsCB">
             <property name="text">
              <string>Enabled</string>
             </property>

@@ -762,18 +762,55 @@ void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int 
     infoWidget->ShowDetails(widget->Identifier());
 }
 
-void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD)
+void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data)
 {
     if (!ConnectionManager->IsConnected(id))
         return;
     // This may not be, or may not precisely be, speed per second if the backend
     // has "any" latency. (Hope not...)
-    speedChartWidget->AddPointData({ { SpeedWidget::INBOUND_UP, upS }, { SpeedWidget::INBOUND_DOWN, downS } });
     //
-    auto totalSpeedUp = FormatBytes(upS) + "/s";
-    auto totalSpeedDown = FormatBytes(downS) + "/s";
-    auto totalDataUp = FormatBytes(upD);
-    auto totalDataDown = FormatBytes(downD);
+    QMap<SpeedWidget::GraphID, long> pointData;
+    bool isOutbound = GlobalConfig.kernelConfig.useOutboundStats;
+    bool hasDirect = isOutbound && GlobalConfig.kernelConfig.hasDirectStats;
+    for (const auto &type : data.keys())
+    {
+        const auto upSpeed = data[type].first.first;
+        const auto downSpeed = data[type].first.second;
+        switch (type)
+        {
+            case API_INBOUND:
+                if (!isOutbound)
+                {
+                    pointData[SpeedWidget::INBOUND_UP] = upSpeed;
+                    pointData[SpeedWidget::INBOUND_DOWN] = downSpeed;
+                }
+                break;
+            case API_OUTBOUND_PROXY:
+                if (isOutbound)
+                {
+                    pointData[SpeedWidget::OUTBOUND_PROXY_UP] = upSpeed;
+                    pointData[SpeedWidget::OUTBOUND_PROXY_DOWN] = downSpeed;
+                }
+                break;
+            case API_OUTBOUND_DIRECT:
+                if (hasDirect)
+                {
+                    pointData[SpeedWidget::OUTBOUND_DIRECT_UP] = upSpeed;
+                    pointData[SpeedWidget::OUTBOUND_DIRECT_DOWN] = downSpeed;
+                }
+                break;
+            case API_OUTBOUND_BLACKHOLE: break;
+        }
+    }
+
+    speedChartWidget->AddPointData(pointData);
+    //
+    const auto upSpeed = data[CurrentStatAPIType].first.first;
+    const auto downSpeed = data[CurrentStatAPIType].first.second;
+    auto totalSpeedUp = FormatBytes(upSpeed) + "/s";
+    auto totalSpeedDown = FormatBytes(downSpeed) + "/s";
+    auto totalDataUp = FormatBytes(data[CurrentStatAPIType].second.first);
+    auto totalDataDown = FormatBytes(data[CurrentStatAPIType].second.second);
     //
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);

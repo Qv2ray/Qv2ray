@@ -8,7 +8,7 @@
 
 namespace Qv2ray::core::kernel
 {
-    std::tuple<bool, std::optional<QString>> V2rayKernelInstance::CheckAndSetCoreExecutableState(const QString &vCorePath)
+    std::pair<bool, std::optional<QString>> V2rayKernelInstance::CheckAndSetCoreExecutableState(const QString &vCorePath)
     {
 #ifdef Q_OS_UNIX
         // For Linux/macOS users: if they cannot execute the core,
@@ -65,8 +65,8 @@ namespace Qv2ray::core::kernel
             DEBUG(MODULE_VCORE, "Core control file is executable.")
         }
 
-#endif
         return { true, std::nullopt };
+#endif
 
         // For Windows and other users: just skip this check.
         DEBUG(MODULE_VCORE, "Skipped check and set core executable state.")
@@ -261,7 +261,9 @@ namespace Qv2ray::core::kernel
             }
         });
         apiWorker = new APIWorker();
-        connect(apiWorker, &APIWorker::OnDataReady, this, &V2rayKernelInstance::onAPIDataReady);
+        qRegisterMetaType<StatisticsType>();
+        qRegisterMetaType<QMap<StatisticsType, QvStatsSpeed>>();
+        connect(apiWorker, &APIWorker::onAPIDataReady, this, &V2rayKernelInstance::OnNewStatsDataArrived);
         KernelStarted = false;
     }
 
@@ -284,7 +286,7 @@ namespace Qv2ray::core::kernel
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
             vProcess->setProcessEnvironment(env);
-            vProcess->start(GlobalConfig.kernelConfig.KernelPath(), QStringList{ "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
+            vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;
@@ -307,7 +309,7 @@ namespace Qv2ray::core::kernel
             apiEnabled = false;
             if (StartupOption.noAPI)
             {
-                LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
+                LOG(MODULE_VCORE, "API has been disabled by the command line arguments")
             }
             else if (!GlobalConfig.kernelConfig.enableAPI)
             {
@@ -315,7 +317,7 @@ namespace Qv2ray::core::kernel
             }
             else if (tagProtocolMap.isEmpty())
             {
-                LOG(MODULE_VCORE, "API is disabled since no inbound tags configured. This is probably caused by a bad complex config.")
+                LOG(MODULE_VCORE, "RARE: API is disabled since no inbound tags configured. This is usually caused by a bad complex config.")
             }
             else
             {
@@ -324,7 +326,7 @@ namespace Qv2ray::core::kernel
                 apiEnabled = true;
             }
 
-            return {};
+            return std::nullopt;
         }
         else
         {
@@ -361,8 +363,4 @@ namespace Qv2ray::core::kernel
         delete vProcess;
     }
 
-    void V2rayKernelInstance::onAPIDataReady(const std::map<Qv2rayStatisticsType, std::pair<long, long>> &data)
-    {
-        emit OnNewStatsDataArrived(data);
-    }
 } // namespace Qv2ray::core::kernel

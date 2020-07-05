@@ -124,6 +124,8 @@ class PreferencesWindow
     void on_qvNetworkUATxt_editTextChanged(const QString &arg1);
     void on_v2rayOutboundStatsCB_stateChanged(int arg1);
 
+    void on_hasDirectStatisticsCB_stateChanged(int arg1);
+
   private:
     //
     DnsSettingsWidget *dnsSettingsWidget;

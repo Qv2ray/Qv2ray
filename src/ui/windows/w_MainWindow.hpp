@@ -85,7 +85,7 @@ class MainWindow
     void OnConnected(const ConnectionGroupPair &id);
     void OnDisconnected(const ConnectionGroupPair &id);
     //
-    void OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
+    void OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data);
     void OnVCoreLogAvailable(const ConnectionGroupPair &id, const QString &log);
     //
     void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
