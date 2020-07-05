@@ -63,18 +63,18 @@ void SpeedWidget::AddPointData(QMap<SpeedWidget::GraphID, long> data)
 // see http://en.wikipedia.org/wiki/Kilobyte
 enum SizeUnit : int
 {
-    Byte,     // 1024^0,
-    KibiByte, // 1024^1,
-    MebiByte, // 1024^2,
-    GibiByte, // 1024^3,
-    TebiByte, // 1024^4,
-    PebiByte, // 1024^5,
-    ExbiByte  // 1024^6
+    Byte,  // 1000^0,
+    KByte, // 1000^1,
+    MByte, // 1000^2,
+    GByte, // 1000^3,
+    TByte, // 1000^4,
+    PByte, // 1000^5,
+    EByte  // 1000^6
 };
 
 QString unitString(const SizeUnit unit, const bool isSpeed)
 {
-    const static QStringList units{ "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB" };
+    const static QStringList units{ "B", "KB", "MB", "GB", "TB", "PB", "EB" };
     auto unitString = units[unit];
     if (isSpeed)
         unitString += "/s";
@@ -87,9 +87,9 @@ int friendlyUnitPrecision(const SizeUnit unit)
     switch (unit)
     {
         case SizeUnit::Byte: return 0;
-        case SizeUnit::KibiByte:
-        case SizeUnit::MebiByte: return 1;
-        case SizeUnit::GibiByte: return 2;
+        case SizeUnit::KByte:
+        case SizeUnit::MByte: return 1;
+        case SizeUnit::GByte: return 2;
         default: return 3;
     }
 }
@@ -122,11 +122,11 @@ namespace
         if (value <= 12.0)
             return { 12, SizeUnit::Byte };
 
-        SizeUnit calculatedUnit = SizeUnit::Byte;
+        auto calculatedUnit = SizeUnit::Byte;
 
-        while (value > 1024)
+        while (value > 1000)
         {
-            value /= 1024;
+            value /= 1000;
             calculatedUnit = static_cast<SizeUnit>(static_cast<int>(calculatedUnit) + 1);
         }
 
