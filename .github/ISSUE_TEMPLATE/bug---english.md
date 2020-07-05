@@ -1,26 +1,32 @@
 ---
-name: Bug Report - English Version
-about: Used to report a bug...
+name: Bug Report
+about: Use this template to report a bug
 title: ''
 labels: Bugs, help wanted, DiscussionNeeded
 assignees: ''
 
 ---
 
+<!-- We recommend that you fill out the bug report template so that we can collect enough information to help you.
+     Note: Unqualified issues may be closed.
+     How to check an item: change [ ] to [x]
+     Plese hide sensitive info like your server address / domain / UUID before posting your VMess link/log. -->
+
 - [ ] **I'm sure I've tried to reproduce the problem several times and will provide the system environment, each software and its version that is involved in the problem.**
 
-We recommend that you follow the template to fill out a bug report so that we can collect more helpful information.
+## Briefly describe this bug：
 
-# Briefly describe this bug：
 
-# How can I trigger this bug：
+
+## How can I trigger this bug：
 
 1. 
 2. 
 3. 
-4.
+4. 
 
 ### If it's a connection issue, has it happened in other V2Ray clients?
+
 
 
 ### Related screenshots or logs
@@ -28,54 +34,51 @@ We recommend that you follow the template to fill out a bug report so that we ca
 <details>
 
 ```
-Qv2ray log:
+Please paste your Qv2ray log here:
 
 
 ```
 
 </details>
 
+## System Information
 
-## System Information (Delete the incompatible items)
+<!-- Please check all the operating systems and installation sources that you confirmed to have problems. -->
 
-### Affected platforms
-
-If you have not tested on other platforms or are unsure, please only keep confirmed platforms, same to below.
-
-- Linux
-- macOS
-- Windows
- 
-### Affected Qv2ray installation source
- 
-- ArchLinuxCN - Stable
-- ArchLinuxCN - Dev-git
-- ArchLinux AUR - Stable
-- ArchLinux AUR - Development
-- Fedora - Stable
-- Fedora - Preview
-- openSUSE - Stable
-- openSUSE - Preview
-- Flathub
-- Snap
-- Homebrew Cask
-- Chocolatey
-- Compile manually
-- Github Release
-
-### Installed plugins & source：
-
-
-### preferences -> about:
+### Open Preferences -> Aabout, and enter the following info
 
 ```
-Version:
-Build info:
-Extra build info:
+Version: 
+Build info: 
+Extra build info: 
 ```
 
-**Other Info**
+### Operating systems
 
-You may want to write anything if you think it helps us to fix the bug.
+- [ ] Linux
+- [ ] macOS
+- [ ] Windows
+ 
+### Installation source
+ 
+- [ ] ArchLinuxCN - Stable
+- [ ] ArchLinuxCN - Dev-git
+- [ ] ArchLinux AUR - Stable
+- [ ] ArchLinux AUR - Development
+- [ ] Fedora - Stable
+- [ ] Fedora - Preview
+- [ ] openSUSE - Stable
+- [ ] openSUSE - Preview
+- [ ] Flathub
+- [ ] Snap
+- [ ] Homebrew Cask
+- [ ] Scoop / Chocolatey / Github Release
+- [ ] Compile manually
 
-*Please hide your server address and UUID if you wish to post the vmess string or your connection setting.*
+### Installed plugins, versions and sources
+
+
+
+## Additional Info
+
+<!-- Feel free to write down any info you consider helpful to resolve the bug. -->
