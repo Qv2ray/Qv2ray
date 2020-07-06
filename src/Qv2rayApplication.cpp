@@ -13,6 +13,12 @@
 #include <QUrl>
 #include <QUrlQuery>
 
+#ifdef QT_DEBUG
+const static inline QString QV2RAY_URL_SCHEME = "qv2ray-debug";
+#else
+const static inline QString QV2RAY_URL_SCHEME = "qv2ray";
+#endif
+
 #ifdef Q_OS_WIN
     #include <Winbase.h>
 #endif
@@ -58,7 +64,8 @@ namespace Qv2ray
         connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
         if (isSecondary())
         {
-            Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::NORMAL;
+            if (Qv2rayProcessArgument.arguments.isEmpty())
+                Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::NORMAL;
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
             return SINGLE_APPLICATION;
         }
@@ -402,9 +409,8 @@ namespace Qv2ray
                 default: break;
             }
 #ifdef Q_OS_WIN
-            const auto urlScheme = coreApp.applicationName();
             const auto appPath = QDir::toNativeSeparators(coreApp.applicationFilePath());
-            const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + urlScheme;
+            const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + QV2RAY_URL_SCHEME;
 
             QSettings reg(regPath, QSettings::NativeFormat);
 
@@ -486,7 +492,7 @@ namespace Qv2ray
 
         for (const auto &arg : parser.positionalArguments())
         {
-            if (arg.startsWith("qv2ray://"))
+            if (arg.startsWith(QV2RAY_URL_SCHEME + "://"))
             {
                 Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::QV2RAY_LINK;
                 Qv2rayProcessArgument.links << arg;
