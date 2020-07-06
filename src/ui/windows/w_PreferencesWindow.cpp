@@ -820,6 +820,19 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
         if (answer == QMessageBox::StandardButton::Abort)
             return;
     }
+    else if (vCorePathSmallCased.endsWith("v2ctl") || vCorePathSmallCased.endsWith("v2ctl.exe"))
+    {
+        const auto strWarnTitle = tr("Watch Out!");
+        const auto strWarnContent = //
+            tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
+               "The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.\r\n"
+               "If you insist to proceed, we're not providing with any support.");
+        const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
+                                                 QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
+                                                 QMessageBox::StandardButton::Abort);
+        if (answer == QMessageBox::StandardButton::Abort)
+            return;
+    }
 
     if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result))
     {

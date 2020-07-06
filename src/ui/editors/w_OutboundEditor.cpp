@@ -248,6 +248,18 @@ void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 
 void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
 {
+    const static QRegularExpression regExpUUID("^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$",
+                                               QRegularExpression::PatternOption::CaseInsensitiveOption);
+
+    if (!regExpUUID.match(arg1).hasMatch())
+    {
+        RED(idLineEdit);
+    }
+    else
+    {
+        BLACK(idLineEdit);
+    }
+
     if (vmess.users.empty())
         vmess.users.push_back({});
 
@@ -299,10 +311,15 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
     if (index < 3)
     {
         outboundType = outBoundTypeCombo->currentText().toLower();
+        useFPCB->setEnabled(true);
+        useFPCB->setToolTip(tr(""));
     }
     else
     {
         outboundType = pluginWidgets.value(index).first.protocol;
+        useFPCB->setChecked(false);
+        useFPCB->setEnabled(false);
+        useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
     }
 }
 

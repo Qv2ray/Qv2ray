@@ -100,13 +100,15 @@ bool DnsSettingsWidget::CheckIsValidDNS() const
 
 void DnsSettingsWidget::ProcessDnsPortEnabledState()
 {
-    if (const auto addr = serverAddressTxt->text(); addr.startsWith("https:") || addr.startsWith("https+"))
-    {
-        serverPortSB->setEnabled(false);
-    }
-    else
-    {
-        serverPortSB->setEnabled(true);
+    if (detailsSettingsGB->isChecked()){
+        if (const auto addr = serverAddressTxt->text(); addr.startsWith("https:") || addr.startsWith("https+"))
+        {
+            serverPortSB->setEnabled(false);
+        }
+        else
+        {
+            serverPortSB->setEnabled(true);
+        }
     }
 }
 
@@ -266,7 +268,7 @@ void DnsSettingsWidget::on_staticResolvedDomainsTable_cellChanged(int, int)
 
 void DnsSettingsWidget::on_detailsSettingsGB_toggled(bool arg1)
 {
-    if (currentServerIndex > 0)
+    if (currentServerIndex >= 0)
         dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS = arg1;
     // detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
 }

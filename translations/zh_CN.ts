@@ -229,6 +229,23 @@
         <source>▽</source>
         <translation>下移</translation>
     </message>
+    <message>
+        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+
+It cannot be a private address.</source>
+        <translation>当前系统的 IP 地址。用作在查询 DNS 时提示服务器客户端所在的位置。
+不能是私有 IP 地址。</translation>
+    </message>
+    <message>
+        <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
+        <translation>(V2Ray 4.13+) 除 localhost 和 DoH Local 模式之外，DNS 的查询流量都会被当作从该入站标签进入的流量参与路由。</translation>
+    </message>
+    <message>
+        <source>Port for DNS server. Normally it&apos;s 53.
+This entry is ignored by V2Ray core when using DoH servers.</source>
+        <translation>DNS 服务器端口。通常为 53。
+当使用 DoH 模式时，此项无效。</translation>
+    </message>
 </context>
 <context>
     <name>GroupManager</name>
@@ -1138,6 +1155,10 @@
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation>请使用 JSON 编辑器或重载对应插件。</translation>
     </message>
+    <message>
+        <source>Tests</source>
+        <translation>测试</translation>
+    </message>
 </context>
 <context>
     <name>PluginManageWindow</name>
@@ -1854,6 +1875,14 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
 然而，这样做并不会触发 Fork 炸弹，因为 Qv2ray 以单例模式工作。
 若你的 V2Ray 核心文件名恰好是 &apos;qv2ray&apos; 什么的，你完全可以忽略这个警告。</translation>
     </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation>您或许要将 V2Ray 核心错误地设置为 V2Ray 控制文件了，这是非常不对的。
+V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。确保你作出了明智的选择。
+若您执意继续，请恕吾等无法提供任何保证。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2415,6 +2444,22 @@ Maybe you have downloaded the wrong core?</source>
         <source>V2ray kernel failed to start.</source>
         <translation>V2ray 核心启动失败。</translation>
     </message>
+    <message>
+        <source>Core file is lacking executable permission for the current user.</source>
+        <translation>当前用户没有 V2Ray 核心文件的执行权限。</translation>
+    </message>
+    <message>
+        <source>Qv2ray tried to set, but failed because permission denied.</source>
+        <translation>Qv2ray 尝试设置，但由于权限不足，操作已失败。</translation>
+    </message>
+    <message>
+        <source>Core control file is lacking executable permission for the current user.</source>
+        <translation>当前用户没有 V2Ray 核心控制文件的可执行权限。</translation>
+    </message>
+    <message>
+        <source>Check is skipped</source>
+        <translation>检查已跳过</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
@@ -2438,7 +2483,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>QvRuleNodeDataModel</name>
+    <name>QvRuleNodeModel</name>
     <message>
         <source>Missing or incorrect inputs</source>
         <translation>输入丢失或不正确</translation>
