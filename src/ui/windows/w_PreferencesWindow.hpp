@@ -95,10 +95,9 @@ class PreferencesWindow
     void on_qvProxyAddressTxt_textEdited(const QString &arg1);
     void on_qvProxyTypeCombo_currentTextChanged(const QString &arg1);
     void on_qvProxyPortCB_valueChanged(int arg1);
-    void on_qvNetworkUATxt_textEdited(const QString &arg1);
     void on_setAllowInsecureCB_stateChanged(int arg1);
     void on_setTestLatenctCB_stateChanged(int arg1);
-    void on_setAllowInsecureCiphersCB_stateChanged(int arg1);
+    void on_setSessionResumptionCB_stateChanged(int arg1);
     void on_quietModeCB_stateChanged(int arg1);
     void on_tproxGroupBox_toggled(bool arg1);
     void on_tProxyPort_valueChanged(int arg1);
@@ -122,6 +121,10 @@ class PreferencesWindow
     void on_fixedAutoConnectRB_clicked();
     void on_latencyTCPingRB_clicked();
     void on_latencyICMPingRB_clicked();
+    void on_qvNetworkUATxt_editTextChanged(const QString &arg1);
+    void on_v2rayOutboundStatsCB_stateChanged(int arg1);
+
+    void on_hasDirectStatisticsCB_stateChanged(int arg1);
 
   private:
     //

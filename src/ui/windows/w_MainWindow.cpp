@@ -106,39 +106,28 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
 void MainWindow::ReloadRecentConnectionList()
 {
     QList<ConnectionGroupPair> newRecentConnections;
-    //
-    for (const auto &_action : recentConnectionsActionList)
-    {
-        tray_RecentConnectionsMenu->removeAction(_action);
-        delete _action;
-    }
-    recentConnectionsActionList.clear();
-    //
     const auto iterateRange = std::min(GlobalConfig.uiConfig.maxJumpListCount, GlobalConfig.uiConfig.recentConnections.count());
     for (auto i = 0; i < iterateRange; i++)
     {
         const auto &item = GlobalConfig.uiConfig.recentConnections.at(i);
         if (newRecentConnections.contains(item) || item.isEmpty())
-        {
             continue;
-        }
-
         newRecentConnections << item;
-        auto action = tray_RecentConnectionsMenu->addAction(                               //
-            GetDisplayName(item.connectionId) + " (" + GetDisplayName(item.groupId) + ")", //
-            [=]() {                                                                        //
-                emit ConnectionManager->StartConnection(item);
-            }); //
-
-        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed,           //
-                [=](const ConnectionId &_t1, const QString &, const QString &_t3) { //
-                    if (_t1 == item.connectionId)                                   //
-                        action->setText(_t3);                                       //
-                });                                                                 //
-
-        recentConnectionsActionList << action;
     }
     GlobalConfig.uiConfig.recentConnections = newRecentConnections;
+}
+
+void MainWindow::OnRecentConnectionsMenuReadyToShow()
+{
+    tray_RecentConnectionsMenu->clear();
+    tray_RecentConnectionsMenu->addAction(tray_ClearRecentConnectionsAction);
+    tray_RecentConnectionsMenu->addSeparator();
+    for (const auto &conn : GlobalConfig.uiConfig.recentConnections)
+    {
+        if (ConnectionManager->IsValidId(conn))
+            tray_RecentConnectionsMenu->addAction(GetDisplayName(conn.connectionId) + " (" + GetDisplayName(conn.groupId) + ")",
+                                                  [=]() { emit ConnectionManager->StartConnection(conn); });
+    }
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -159,7 +148,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     updateColorScheme();
     //
     //
-    connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [&](const ConnectionGroupPair &, const QString &reason) {
+    connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [this](const ConnectionGroupPair &, const QString &reason) {
         this->show();
         QvMessageBoxWarn(this, tr("Kernel terminated."),
                          tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
@@ -182,7 +171,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         qvApp->showMessage(tr("Subscription \"%1\" has been updated").arg(GetDisplayName(gid))); //
     });
     //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [this](const ConnectionId &id, const QString &, const QString &newName) {
         for (const auto &gid : ConnectionManager->GetGroupId(id))
         {
             ConnectionGroupPair pair{ id, gid };
@@ -190,7 +179,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                 connectionNodes.value(pair)->setText(MW_ITEM_COL_NAME, newName);
         }
     });
-    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const int avg) {
+    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [this](const ConnectionId &id, const int avg) {
         for (const auto &gid : ConnectionManager->GetGroupId(id))
         {
             ConnectionGroupPair pair{ id, gid };
@@ -223,8 +212,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     tray_RootMenu->addSeparator();
     tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
-    tray_RecentConnectionsMenu->addAction(tray_ClearRecentConnectionsAction);
-    tray_RecentConnectionsMenu->addSeparator();
+    connect(tray_RecentConnectionsMenu, &QMenu::aboutToShow, this, &MainWindow::OnRecentConnectionsMenuReadyToShow);
     //
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_Start);
@@ -236,13 +224,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     connect(tray_action_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
     connect(tray_action_ShowPreferencesWindow, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
-    connect(tray_action_Start, &QAction::triggered, [&] { ConnectionManager->StartConnection(lastConnectedIdentifier); });
+    connect(tray_action_Start, &QAction::triggered, [this] { ConnectionManager->StartConnection(lastConnectedIdentifier); });
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
-    connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [&]() {
+    connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [this]() {
         GlobalConfig.uiConfig.recentConnections.clear();
         ReloadRecentConnectionList();
         if (!GlobalConfig.uiConfig.quietMode)
@@ -256,7 +244,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     logRCM_Menu->addAction(action_RCM_tovCoreLog);
     logRCM_Menu->addAction(action_RCM_toQvLog);
-    connect(masterLogBrowser, &QTextBrowser::customContextMenuRequested, [&](const QPoint &) { logRCM_Menu->popup(QCursor::pos()); });
+    connect(masterLogBrowser, &QTextBrowser::customContextMenuRequested, [this](const QPoint &) { logRCM_Menu->popup(QCursor::pos()); });
     connect(action_RCM_tovCoreLog, &QAction::triggered, this, &MainWindow::on_action_RCM_tovCoreLog_triggered);
     connect(action_RCM_toQvLog, &QAction::triggered, this, &MainWindow::on_action_RCM_toQvLog_triggered);
     //
@@ -298,12 +286,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     // Sort Menu
     //
-    connect(sortAction_SortByName_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_NAME, true); });
-    connect(sortAction_SortByName_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_NAME, false); });
-    connect(sortAction_SortByData_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATA, true); });
-    connect(sortAction_SortByData_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATA, false); });
-    connect(sortAction_SortByPing_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_PING, true); });
-    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_PING, false); });
+    connect(sortAction_SortByName_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, true); });
+    connect(sortAction_SortByName_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, false); });
+    connect(sortAction_SortByData_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, true); });
+    connect(sortAction_SortByData_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, false); });
+    connect(sortAction_SortByPing_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, true); });
+    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, false); });
     //
     sortMenu->addAction(sortAction_SortByName_Asc);
     sortMenu->addAction(sortAction_SortByName_Dsc);
@@ -532,7 +520,8 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_preferencesBtn_clicked()
 {
-    ProcessCommand("open", { "preference", "general" }, {});
+    PreferencesWindow{ this }.exec();
+    // ProcessCommand("open", { "preference", "general" }, {});
 }
 void MainWindow::on_clearlogButton_clicked()
 {
@@ -594,7 +583,9 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
         return;
     }
 
-    if (QvMessageBoxAsk(this, tr("Removing Connection(s)"), tr("Are you sure to remove selected connection(s)?")) != QMessageBox::Yes)
+    const auto strRemoveConnTitle = tr("Removing Connection(s)", "", connlist.count());
+    const auto strRemoveConnContent = tr("Are you sure to remove selected connection(s)?", "", connlist.count());
+    if (QvMessageBoxAsk(this, strRemoveConnTitle, strRemoveConnContent) != QMessageBox::Yes)
     {
         return;
     }
@@ -688,6 +679,7 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     lastConnectedIdentifier = id;
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
+    speedChartWidget->Clear();
     auto name = GetDisplayName(id.connectionId);
     if (!GlobalConfig.uiConfig.quietMode)
     {
@@ -771,18 +763,55 @@ void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int 
     infoWidget->ShowDetails(widget->Identifier());
 }
 
-void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD)
+void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data)
 {
     if (!ConnectionManager->IsConnected(id))
         return;
     // This may not be, or may not precisely be, speed per second if the backend
     // has "any" latency. (Hope not...)
-    speedChartWidget->AddPointData(upS, downS);
     //
-    auto totalSpeedUp = FormatBytes(upS) + "/s";
-    auto totalSpeedDown = FormatBytes(downS) + "/s";
-    auto totalDataUp = FormatBytes(upD);
-    auto totalDataDown = FormatBytes(downD);
+    QMap<SpeedWidget::GraphID, long> pointData;
+    bool isOutbound = GlobalConfig.uiConfig.graphConfig.useOutboundStats;
+    bool hasDirect = isOutbound && GlobalConfig.uiConfig.graphConfig.hasDirectStats;
+    for (const auto &type : data.keys())
+    {
+        const auto upSpeed = data[type].first.first;
+        const auto downSpeed = data[type].first.second;
+        switch (type)
+        {
+            case API_INBOUND:
+                if (!isOutbound)
+                {
+                    pointData[SpeedWidget::INBOUND_UP] = upSpeed;
+                    pointData[SpeedWidget::INBOUND_DOWN] = downSpeed;
+                }
+                break;
+            case API_OUTBOUND_PROXY:
+                if (isOutbound)
+                {
+                    pointData[SpeedWidget::OUTBOUND_PROXY_UP] = upSpeed;
+                    pointData[SpeedWidget::OUTBOUND_PROXY_DOWN] = downSpeed;
+                }
+                break;
+            case API_OUTBOUND_DIRECT:
+                if (hasDirect)
+                {
+                    pointData[SpeedWidget::OUTBOUND_DIRECT_UP] = upSpeed;
+                    pointData[SpeedWidget::OUTBOUND_DIRECT_DOWN] = downSpeed;
+                }
+                break;
+            case API_OUTBOUND_BLACKHOLE: break;
+        }
+    }
+
+    speedChartWidget->AddPointData(pointData);
+    //
+    const auto upSpeed = data[CurrentStatAPIType].first.first;
+    const auto downSpeed = data[CurrentStatAPIType].first.second;
+    auto totalSpeedUp = FormatBytes(upSpeed) + "/s";
+    auto totalSpeedDown = FormatBytes(downSpeed) + "/s";
+    auto totalDataUp = FormatBytes(data[CurrentStatAPIType].second.first);
+    auto totalDataDown = FormatBytes(data[CurrentStatAPIType].second.second);
     //
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
@@ -826,7 +855,7 @@ void MainWindow::OnEditRequested(const ConnectionId &id)
 {
     auto outBoundRoot = ConnectionManager->GetConnectionRoot(id);
     CONFIGROOT root;
-    bool isChanged = false;
+    bool isChanged;
 
     if (IsComplexConfig(outBoundRoot))
     {
@@ -923,8 +952,9 @@ void MainWindow::on_action_RCM_DuplicateThese_triggered()
 
     LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
 
-    if (connlist.count() > 1 && QvMessageBoxAsk(this, tr("Duplicating Connection(s)"), //
-                                                tr("Are you sure to duplicate these connection(s)?")) != QMessageBox::Yes)
+    const auto strDupConnTitle = tr("Duplicating Connection(s)", "", connlist.count());
+    const auto strDupConnContent = tr("Are you sure to duplicate these connection(s)?", "", connlist.count());
+    if (connlist.count() > 1 && QvMessageBoxAsk(this, strDupConnTitle, strDupConnContent) != QMessageBox::Yes)
     {
         return;
     }
@@ -1042,17 +1072,17 @@ void MainWindow::on_action_RCM_UpdateSubscription_triggered()
 
 void MainWindow::on_action_RCM_LatencyTest_triggered()
 {
-    auto current = connectionListWidget->currentItem();
-    if (current != nullptr)
+    for (const auto &current : connectionListWidget->selectedItems())
     {
-        auto widget = GetItemWidget(current);
-        if (widget)
-        {
-            if (widget->IsConnection())
-                ConnectionManager->StartLatencyTest(widget->Identifier().connectionId);
-            else
-                ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
-        }
+        if (!current)
+            continue;
+        const auto widget = GetItemWidget(current);
+        if (!widget)
+            continue;
+        if (widget->IsConnection())
+            ConnectionManager->StartLatencyTest(widget->Identifier().connectionId);
+        else
+            ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
     }
 }
 

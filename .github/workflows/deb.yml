@@ -21,8 +21,9 @@ jobs:
 
   linux:
     strategy:
-        matrix:
-          distro: [stable, unstable]
+      fail-fast: false
+      matrix:
+        distro: [stable, unstable]
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
     name: Debian ${{ matrix.distro }}
@@ -40,20 +41,39 @@ jobs:
           submodules: 'recursive'
       - name: Install build dependencies
         run: |
-          apt-get install -y build-essential debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config
+          apt-get install -y build-essential devscripts reprepro debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev
       - name: Build
         run: |
+          dch -l${{ matrix.distro }} -m 'Build against ${{ matrix.distro }}' -D ${{ matrix.distro }}
           dpkg-buildpackage -us -uc -i -b
       - name: Copy binary
         run: |
           cp ../qv2ray_*.deb ./
+      - name: Sleep
+        if: github.event_name == 'release' && matrix.distro == 'unstable'
+        run: |
+          sleep 120
+      - name: Setup Repository
+        if: github.event_name == 'release' && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
+        run: |
+          git clone https://github.com/Qv2ray/debian.git archive
+          echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
+          gpg --import private.key
+          cd archive
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian.git
+          reprepro includedeb ${{ matrix.distro }} ../*.deb
+          git add -A
+          git commit -am 'update'
+          git push origin master
       - name: Get package name
         id: get_package
         run: echo ::set-output name=NAME::$(basename qv2ray_*.deb)
       - name: Upload artifact
         uses: actions/upload-artifact@v2-preview
         with:
-          name: qv2ray_${{ matrix.distro }}
+          name: ${{ steps.get_package.outputs.NAME }}
           path: ${{ steps.get_package.outputs.NAME }}
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release

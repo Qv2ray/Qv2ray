@@ -2,14 +2,10 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
+#include "ui/common/QvDialog.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_RoutesEditor.h"
 
-#include <QDialog>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QListWidgetItem>
-#include <list>
 #include <nodes/internal/ConnectionStyle.hpp>
 #include <nodes/internal/Node.hpp>
 #include <nodes/internal/NodeData.hpp>
@@ -28,7 +24,7 @@ enum ROUTE_EDIT_MODE
 };
 
 class RouteEditor
-    : public QDialog
+    : public QvDialog
     , private Ui::RouteEditor
 {
     Q_OBJECT
@@ -37,8 +33,10 @@ class RouteEditor
     explicit RouteEditor(QJsonObject connection, QWidget *parent = nullptr);
     ~RouteEditor();
     CONFIGROOT OpenEditor();
+    void processCommands(QString, QStringList, QMap<QString, QString>) override{};
 
   private:
+    void updateColorScheme() override{};
     QvMessageBusSlotDecl;
 
   private slots:

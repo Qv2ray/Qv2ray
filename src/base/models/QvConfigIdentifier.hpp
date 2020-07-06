@@ -23,7 +23,7 @@ namespace Qv2ray::base
         {
             return lhs.m_id != rhs.m_id;
         }
-        const QString &toString() const
+        const QString toString() const
         {
             return m_id;
         }
@@ -149,17 +149,85 @@ namespace Qv2ray::base
         JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
+    enum StatisticsType
+    {
+        API_INBOUND = 0,
+        API_OUTBOUND_PROXY = 1,
+        API_OUTBOUND_DIRECT = 2,
+        API_OUTBOUND_BLACKHOLE = 3,
+    };
+
+#define CurrentStatAPIType (GlobalConfig.uiConfig.graphConfig.useOutboundStats ? API_OUTBOUND_PROXY : API_INBOUND)
+
+    typedef long qvspeed;
+    typedef quint64 qvdata;
+    typedef QPair<qvspeed, qvspeed> QvStatsSpeed;
+    typedef QPair<qvdata, qvdata> QvStatsData;
+    typedef QPair<QvStatsSpeed, QvStatsData> QvStatsSpeedData;
+
+    struct ConnectionStatsEntryObject
+    {
+        qvdata upLinkData;
+        qvdata downLinkData;
+        QvStatsData toData()
+        {
+            return { upLinkData, downLinkData };
+        }
+        void fromData(const QvStatsData &d)
+        {
+            upLinkData = d.first;
+            downLinkData = d.second;
+        }
+        JSONSTRUCT_REGISTER(ConnectionStatsEntryObject, F(upLinkData, downLinkData))
+    };
+
+    struct ConnectionStatsObject
+    {
+        ConnectionStatsEntryObject &operator[](StatisticsType i)
+        {
+            while (entries.count() <= i)
+            {
+                entries.append(ConnectionStatsEntryObject{});
+            }
+            return entries[i];
+        }
+        QJsonValue toJson() const
+        {
+            return JsonStructHelper::___json_struct_store_data(entries);
+        }
+        auto toMap() const
+        {
+            std::map<StatisticsType, QvStatsData> result;
+            for (auto i = 0; i < entries.count(); i++)
+            {
+                result[StatisticsType(i)] = { entries[i].upLinkData, entries[i].downLinkData };
+            }
+            return result;
+        }
+        void loadJson(const QJsonValue &d)
+        {
+            entries.clear();
+            JsonStructHelper::___json_struct_load_data(entries, d);
+        }
+        void Clear()
+        {
+            entries.clear();
+        }
+
+      private:
+        QList<ConnectionStatsEntryObject> entries;
+    };
+
     struct ConnectionObject : __Qv2rayConfigObjectBase
     {
         qint64 lastConnected;
         qint64 latency;
-        qint64 upLinkData;
-        qint64 downLinkData;
+        ConnectionStatsObject stats;
         //
         int __qvConnectionRefCount;
         //
-        ConnectionObject() : lastConnected(), latency(LATENCY_TEST_VALUE_NODATA), upLinkData(0), downLinkData(0), __qvConnectionRefCount(0){};
-        JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, upLinkData, downLinkData), B(__Qv2rayConfigObjectBase))
+        ConnectionObject() : lastConnected(), latency(LATENCY_TEST_VALUE_NODATA), stats(), __qvConnectionRefCount(0){};
+        JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, stats), B(__Qv2rayConfigObjectBase))
     };
 
     template<typename T>
@@ -174,7 +242,12 @@ namespace Qv2ray::base
 } // namespace Qv2ray::base
 
 using namespace Qv2ray::base;
-Q_DECLARE_METATYPE(ConnectionGroupPair);
-Q_DECLARE_METATYPE(ConnectionId);
-Q_DECLARE_METATYPE(GroupId);
-Q_DECLARE_METATYPE(GroupRoutingId);
+Q_DECLARE_METATYPE(ConnectionGroupPair)
+Q_DECLARE_METATYPE(ConnectionId)
+Q_DECLARE_METATYPE(GroupId)
+Q_DECLARE_METATYPE(GroupRoutingId)
+
+Q_DECLARE_METATYPE(QvStatsSpeed)
+Q_DECLARE_METATYPE(QvStatsData)
+Q_DECLARE_METATYPE(QvStatsSpeedData)
+Q_DECLARE_METATYPE(StatisticsType)

@@ -11,6 +11,7 @@ Build-Depends:  debhelper (>= 11),
                 protobuf-compiler (>= 3.6.1.3-1~),
                 protobuf-compiler-grpc (>= 1.16.1-1~),
                 qtbase5-dev (>= 5.11.3-1~),
+                qtdeclarative5-dev (>= 5.11.3-1~),
                 qttools5-dev (>= 5.11.3-1~)
 Standards-Version: 4.5.0
 Homepage: https://github.com/Qv2ray/Qv2ray
@@ -21,4 +22,7 @@ Package: qv2ray
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: v2ray
-Description: Qv2ray, A Qt frontend for v2ray. Written in c++.
+Description: Qt frontend for v2ray
+ Project Qv2ray is a flexable cross platform Qt GUI client for V2ray.
+ It makes everything easier by using GUI editors. It also supports
+ ShadowsicksR, Trojan and NaiveProxy by making them plugins.

@@ -63,6 +63,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     else
     {
         languageComboBox->setDisabled(true);
+        // Since we can't have languages detected. It worths nothing to translate these.
+        languageComboBox->setToolTip("Cannot find any language providers.");
     }
 
     // Set auto start button state
@@ -84,6 +86,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
+    quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     //
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
@@ -128,47 +131,63 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     dnsIntercept->setChecked(CurrentConfig.inboundConfig.tProxySettings.dnsIntercept);
     DnsFreedomCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS);
     //
-    //
-    vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
-    vCoreAssetsPathTxt->setText(CurrentConfig.kernelConfig.AssetsPath());
-    enableAPI->setChecked(CurrentConfig.kernelConfig.enableAPI);
-    statsPortBox->setValue(CurrentConfig.kernelConfig.statsPort);
-    //
-    //
-    bypassCNCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassCN);
-    bypassBTCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT);
-    proxyDefaultCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
-    //
-    localDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS);
-    //
-    pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
-    pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
+    // Kernel Settings
+    {
+        vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
+        vCoreAssetsPathTxt->setText(CurrentConfig.kernelConfig.AssetsPath());
+        enableAPI->setChecked(CurrentConfig.kernelConfig.enableAPI);
+        statsPortBox->setValue(CurrentConfig.kernelConfig.statsPort);
+        //
+        v2rayOutboundStatsCB->setChecked(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
+        hasDirectStatisticsCB->setChecked(CurrentConfig.uiConfig.graphConfig.hasDirectStats);
+        //
+        pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
+        pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
+        pluginKernelPortAllocateCB->setEnabled(CurrentConfig.pluginConfig.v2rayIntegration);
+    }
+    // Connection Settings
+    {
+        bypassCNCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassCN);
+        bypassBTCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT);
+        proxyDefaultCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
+        //
+        localDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS);
+    }
     //
     //
     latencyTCPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == TCPING);
     latencyICMPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == ICMPING);
     //
-    qvProxyPortCB->setValue(CurrentConfig.networkConfig.port);
-    qvProxyAddressTxt->setText(CurrentConfig.networkConfig.address);
-    qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
-    qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
+    {
+        qvProxyPortCB->setValue(CurrentConfig.networkConfig.port);
+        qvProxyAddressTxt->setText(CurrentConfig.networkConfig.address);
+        qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
+        qvNetworkUATxt->setEditText(CurrentConfig.networkConfig.userAgent);
+        //
+        qvProxyNoProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_NONE);
+        qvProxySystemProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_SYSTEM);
+        qvProxyCustomProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_CUSTOM);
+        SET_PROXY_UI_ENABLE(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_CUSTOM)
+    }
     //
-    qvProxyNoProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_NONE);
-    qvProxySystemProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_SYSTEM);
-    qvProxyCustomProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_CUSTOM);
     //
-    SET_PROXY_UI_ENABLE(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_CUSTOM)
-    //
-    quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     //
     // Advanced config.
-    setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
-    setAllowInsecureCiphersCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecureCiphers);
-    setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
+    {
+        setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
+        setSessionResumptionCB->setChecked(CurrentConfig.advancedConfig.setSessionResumption);
+        setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
+    }
     //
-    dnsSettingsWidget = new DnsSettingsWidget(this);
-    dnsSettingsWidget->SetDNSObject(CurrentConfig.defaultRouteConfig.dnsConfig);
-    dnsSettingsLayout->addWidget(dnsSettingsWidget);
+    {
+        dnsSettingsWidget = new DnsSettingsWidget(this);
+        dnsSettingsWidget->SetDNSObject(CurrentConfig.defaultRouteConfig.dnsConfig);
+        dnsSettingsLayout->addWidget(dnsSettingsWidget);
+        //
+        routeSettingsWidget = new RouteSettingsMatrixWidget(CurrentConfig.kernelConfig.AssetsPath(), this);
+        routeSettingsWidget->SetRouteConfig(CurrentConfig.defaultRouteConfig.routeConfig);
+        advRouteSettingsLayout->addWidget(routeSettingsWidget);
+    }
     //
 #ifdef DISABLE_AUTO_UPDATE
     updateSettingsGroupBox->setEnabled(false);
@@ -221,9 +240,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.setSystemProxy);
     //
     finishedLoading = true;
-    routeSettingsWidget = new RouteSettingsMatrixWidget(CurrentConfig.kernelConfig.AssetsPath(), this);
-    routeSettingsWidget->SetRouteConfig(CurrentConfig.defaultRouteConfig.routeConfig);
-    advRouteSettingsLayout->addWidget(routeSettingsWidget);
 }
 
 QvMessageBusSlotImpl(PreferencesWindow)
@@ -789,6 +805,35 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     auto vAssetsPath = vCoreAssetsPathTxt->text();
     QString result;
 
+    // prevent some bullshit situations.
+    if (const auto vCorePathSmallCased = vcorePath.toLower();
+        vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
+    {
+        const auto strWarnTitle = tr("Watch Out!");
+        const auto strWarnContent = //
+            tr("You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.\r\n"
+               "This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.\r\n"
+               "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
+        const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
+                                                 QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
+                                                 QMessageBox::StandardButton::Abort);
+        if (answer == QMessageBox::StandardButton::Abort)
+            return;
+    }
+    else if (vCorePathSmallCased.endsWith("v2ctl") || vCorePathSmallCased.endsWith("v2ctl.exe"))
+    {
+        const auto strWarnTitle = tr("Watch Out!");
+        const auto strWarnContent = //
+            tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
+               "The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.\r\n"
+               "If you insist to proceed, we're not providing with any support.");
+        const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
+                                                 QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
+                                                 QMessageBox::StandardButton::Abort);
+        if (answer == QMessageBox::StandardButton::Abort)
+            return;
+    }
+
     if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result))
     {
         QvMessageBoxWarn(this, tr("V2ray Core Settings"), result);
@@ -854,12 +899,17 @@ void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
 void PreferencesWindow::on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1)
 {
     LOADINGCHECK
+    if (KernelInstance->ActivePluginKernelsCount() > 0)
+        NEEDRESTART;
     CurrentConfig.pluginConfig.v2rayIntegration = arg1 == Qt::Checked;
+    pluginKernelPortAllocateCB->setEnabled(arg1 == Qt::Checked);
 }
 
 void PreferencesWindow::on_pluginKernelPortAllocateCB_valueChanged(int arg1)
 {
     LOADINGCHECK
+    if (KernelInstance->ActivePluginKernelsCount() > 0)
+        NEEDRESTART;
     CurrentConfig.pluginConfig.portAllocationStart = arg1;
 }
 
@@ -879,12 +929,6 @@ void PreferencesWindow::on_qvProxyPortCB_valueChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.networkConfig.port = arg1;
-}
-
-void PreferencesWindow::on_qvNetworkUATxt_textEdited(const QString &arg1)
-{
-    LOADINGCHECK
-    CurrentConfig.networkConfig.userAgent = arg1;
 }
 
 void PreferencesWindow::on_setAllowInsecureCB_stateChanged(int arg1)
@@ -907,14 +951,14 @@ void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
     CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
 }
 
-void PreferencesWindow::on_setAllowInsecureCiphersCB_stateChanged(int arg1)
+void PreferencesWindow::on_setSessionResumptionCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     if (arg1 == Qt::Checked)
     {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You will lose the advantage of TLS and make your connection under MITM attack."));
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will make your TLS fingerpring different from common golang programs."));
     }
-    CurrentConfig.advancedConfig.setAllowInsecureCiphers = arg1 == Qt::Checked;
+    CurrentConfig.advancedConfig.setSessionResumption = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
@@ -1138,4 +1182,23 @@ void PreferencesWindow::on_latencyICMPingRB_clicked()
     latencyICMPingRB->setChecked(true);
     latencyTCPingRB->setChecked(false);
 #endif
+}
+
+void PreferencesWindow::on_qvNetworkUATxt_editTextChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.userAgent = arg1;
+}
+
+void PreferencesWindow::on_v2rayOutboundStatsCB_stateChanged(int arg1)
+{
+    hasDirectStatisticsCB->setEnabled(arg1 == Qt::Checked);
+    LOADINGCHECK
+    CurrentConfig.uiConfig.graphConfig.useOutboundStats = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_hasDirectStatisticsCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.uiConfig.graphConfig.hasDirectStats = arg1 == Qt::Checked;
 }

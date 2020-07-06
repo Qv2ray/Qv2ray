@@ -1,6 +1,6 @@
 #include "ui/models/RuleNodeModel.hpp"
 
-QvRuleNodeDataModel::QvRuleNodeDataModel(std::shared_ptr<RuleNodeData> data) : NodeDataModel()
+QvRuleNodeModel::QvRuleNodeModel(std::shared_ptr<RuleNodeData> data) : NodeDataModel()
 {
     _ruleTag = data;
     _label = new QLabel();

@@ -4,10 +4,75 @@
 #include "common/QvHelpers.hpp"
 #include "core/connection/ConnectionIO.hpp"
 
-#include <QObject>
+#include <QProcess>
 
 namespace Qv2ray::core::kernel
 {
+    std::pair<bool, std::optional<QString>> V2rayKernelInstance::CheckAndSetCoreExecutableState(const QString &vCorePath)
+    {
+#ifdef Q_OS_UNIX
+        // For Linux/macOS users: if they cannot execute the core,
+        // then we shall grant the permission to execute it.
+
+        QFile coreFile(vCorePath);
+
+        if (!coreFile.permissions().testFlag(QFileDevice::ExeUser))
+        {
+            DEBUG(MODULE_VCORE, "Core file not executable. Trying to enable.")
+            const auto result = coreFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
+            if (!result)
+            {
+                DEBUG(MODULE_VCORE, "Failed to enable executable permission.")
+                const auto message = tr("Core file is lacking executable permission for the current user.") % //
+                                     tr("Qv2ray tried to set, but failed because permission denied.");
+                return { false, message };
+            }
+            else
+            {
+                DEBUG(MODULE_VCORE, "Core executable permission set.")
+            }
+        }
+        else
+        {
+            DEBUG(MODULE_VCORE, "Core file is executable.")
+        }
+
+        // Also do the same thing for v2ctl.
+        // TODO: Simplify This / Extract This Creepy Thing
+        const auto coreControlFilePath =
+            QDir::cleanPath(QFileInfo(coreFile).absoluteDir().path() + QDir::separator() + "v2ctl" QV2RAY_EXECUTABLE_FILENAME_SUFFIX);
+
+        QFile coreControlFile(coreControlFilePath);
+        if (!coreControlFile.permissions().testFlag(QFileDevice::ExeUser))
+        {
+            DEBUG(MODULE_VCORE, "Core control file not executable. Trying to enable.")
+            const auto result = coreControlFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
+
+            if (!result)
+            {
+                DEBUG(MODULE_VCORE, "Failed to enable executable permission for core control.")
+                const auto message = tr("Core control file is lacking executable permission for the current user.") % //
+                                     tr("Qv2ray tried to set, but failed because permission denied.");
+                return { false, message };
+            }
+            else
+            {
+                DEBUG(MODULE_VCORE, "Core control executable permission set.")
+            }
+        }
+        else
+        {
+            DEBUG(MODULE_VCORE, "Core control file is executable.")
+        }
+
+        return { true, std::nullopt };
+#endif
+
+        // For Windows and other users: just skip this check.
+        DEBUG(MODULE_VCORE, "Skipped check and set core executable state.")
+        return { true, tr("Check is skipped") };
+    }
+
     bool V2rayKernelInstance::ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message)
     {
         QFile coreFile(vCorePath);
@@ -29,8 +94,9 @@ namespace Qv2ray::core::kernel
         }
 
         coreFile.close();
+
         // Get Core ABI.
-        auto [abi, err] = kernel::abi::deduceKernelABI(vCorePath);
+        const auto [abi, err] = kernel::abi::deduceKernelABI(vCorePath);
         if (err)
         {
             LOG(MODULE_VCORE, "Core ABI deduction failed: " + ACCESS_OPTIONAL_VALUE(err))
@@ -65,6 +131,14 @@ namespace Qv2ray::core::kernel
                 LOG(MODULE_VCORE, "Host is compatible with core");
                 break;
             }
+        }
+
+        // Check executable permissions.
+        const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(vCorePath);
+        if (!isExecutableOk)
+        {
+            *message = strExecutableErr.value_or("");
+            return false;
         }
 
         //
@@ -105,7 +179,7 @@ namespace Qv2ray::core::kernel
         proc.setNativeArguments("--version");
         proc.start();
 #else
-        proc.start(vCorePath + " --version");
+        proc.start(vCorePath, { "--version" });
 #endif
         proc.waitForStarted();
         proc.waitForFinished();
@@ -187,7 +261,9 @@ namespace Qv2ray::core::kernel
             }
         });
         apiWorker = new APIWorker();
-        connect(apiWorker, &APIWorker::OnDataReady, this, &V2rayKernelInstance::onAPIDataReady);
+        qRegisterMetaType<StatisticsType>();
+        qRegisterMetaType<QMap<StatisticsType, QvStatsSpeed>>();
+        connect(apiWorker, &APIWorker::onAPIDataReady, this, &V2rayKernelInstance::OnNewStatsDataArrived);
         KernelStarted = false;
     }
 
@@ -210,49 +286,49 @@ namespace Qv2ray::core::kernel
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
             vProcess->setProcessEnvironment(env);
-            vProcess->start(GlobalConfig.kernelConfig.KernelPath(), QStringList{ "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
+            vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;
-            QStringList inboundTags;
 
-            for (auto item : root["inbounds"].toArray())
+            QMap<bool, QMap<QString, QString>> tagProtocolMap;
+            for (const auto isOutbound : { true, false })
             {
-                auto tag = item.toObject()["tag"].toString("");
-
-                if (tag.isEmpty() || tag == API_TAG_INBOUND)
+                for (const auto &item : root[isOutbound ? "outbounds" : "inbounds"].toArray())
                 {
-                    // Ignore API tag and empty tags.
-                    continue;
+                    const auto tag = item.toObject()["tag"].toString("");
+                    if (tag == API_TAG_INBOUND)
+                        continue;
+                    if (tag.isEmpty())
+                    {
+                        LOG(MODULE_VCORE, "Ignored inbound with empty tag.")
+                        continue;
+                    }
+                    tagProtocolMap[isOutbound][tag] = item.toObject()["protocol"].toString();
                 }
-
-                inboundTags.append(tag);
             }
 
-            DEBUG(MODULE_VCORE, "Found inbound tags: " + inboundTags.join(";"))
             apiEnabled = false;
-
-            //
             if (StartupOption.noAPI)
             {
-                LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
+                LOG(MODULE_VCORE, "API has been disabled by the command line arguments")
             }
             else if (!GlobalConfig.kernelConfig.enableAPI)
             {
                 LOG(MODULE_VCORE, "API has been disabled by the global config option")
             }
-            else if (inboundTags.isEmpty())
+            else if (tagProtocolMap.isEmpty())
             {
-                LOG(MODULE_VCORE, "API is disabled since no inbound tags configured. This is probably caused by a bad complex config.")
+                LOG(MODULE_VCORE, "RARE: API is disabled since no inbound tags configured. This is usually caused by a bad complex config.")
             }
             else
             {
-                apiWorker->StartAPI(inboundTags);
+                DEBUG(MODULE_VCORE, "Starting API")
+                apiWorker->StartAPI(tagProtocolMap);
                 apiEnabled = true;
-                DEBUG(MODULE_VCORE, "Qv2ray API started")
             }
 
-            return {};
+            return std::nullopt;
         }
         else
         {
@@ -289,8 +365,4 @@ namespace Qv2ray::core::kernel
         delete vProcess;
     }
 
-    void V2rayKernelInstance::onAPIDataReady(const quint64 speedUp, const quint64 speedDown)
-    {
-        emit OnNewStatsDataArrived(speedUp, speedDown);
-    }
 } // namespace Qv2ray::core::kernel

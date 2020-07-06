@@ -1,5 +1,6 @@
 #pragma once
 #include "components/plugins/QvPluginHost.hpp"
+#include "core/CoreUtils.hpp"
 #include "core/kernel/V2rayKernelInteractions.hpp"
 
 #include <QObject>
@@ -20,33 +21,55 @@ namespace Qv2ray::core::handler
         {
             return currentId;
         }
-        const QMap<QString, int> InboundPorts() const
+        int ActivePluginKernelsCount() const
         {
-            return inboundPorts;
+            return activeKernels.size();
         }
-        const QMap<QString, QString> InboundHosts() const
+        const QMap<QString, InboundInfoObject> GetInboundInfo() const
         {
-            return inboundHosts;
+            return inboundInfo;
         }
 
       signals:
         void OnConnected(const ConnectionGroupPair &id);
         void OnDisconnected(const ConnectionGroupPair &id);
         void OnCrashed(const ConnectionGroupPair &id, const QString &errMessage);
-        void OnStatsDataAvailable(const ConnectionGroupPair &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
+        void OnStatsDataAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data);
         void OnKernelLogAvailable(const ConnectionGroupPair &id, const QString &log);
 
       private slots:
         void OnKernelCrashed_p(const QString &msg);
         void OnKernelLog_p(const QString &log);
-        void OnStatsDataRcvd_p(const quint64 uploadSpeed, const quint64 downloadSpeed);
+        void OnV2rayStatsDataRcvd_p(const QMap<StatisticsType, QvStatsSpeed> &data);
+        void OnPluginStatsDataRcvd_p(const long uploadSpeed, const long downloadSpeed);
 
       private:
+        static std::optional<QString> CheckPort(const QMap<QString, InboundInfoObject> &info, int plugins);
+
+      private:
+        QMap<QString, int> GetInboundPorts() const
+        {
+            QMap<QString, int> result;
+            for (const auto &[tag, info] : inboundInfo.toStdMap())
+            {
+                result[tag] = info.port;
+            }
+            return result;
+        }
+        QMap<QString, QString> GetInboundHosts() const
+        {
+            QMap<QString, QString> result;
+            for (const auto &[tag, info] : inboundInfo.toStdMap())
+            {
+                result[tag] = info.listenIp;
+            }
+            return result;
+        }
+
         QMap<QString, QString> outboundKernelMap;
         // Since QMap does not support std::unique_ptr, we use std::map<>
-        std::map<QString, std::unique_ptr<QvPluginKernel>> activeKernels;
-        QMap<QString, int> inboundPorts;
-        QMap<QString, QString> inboundHosts;
+        std::list<std::pair<QString, std::unique_ptr<QvPluginKernel>>> activeKernels;
+        QMap<QString, InboundInfoObject> inboundInfo;
         V2rayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
     };

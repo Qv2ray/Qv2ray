@@ -33,7 +33,22 @@ if(MSVC)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
-find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
+if(ANDROID)
+    include(${ANDROID_SDK}/android_openssl/CMakeLists.txt)
+endif()
+
+set(QV2RAY_ONLY_USE_QML OFF CACHE BOOL "Only use QML when building Qv2ray")
+
+if(QV2RAY_ONLY_USE_QML)
+    find_package(Qt5 5.11 COMPONENTS Core Gui Network Qml Quick REQUIRED)
+    set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network Qt5::Quick Qt5::Qml Qt5::Gui)
+    add_definitions(-DQV2RAY_QML)
+else()
+    find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
+    set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network Qt5::Widgets Qt5::Gui)
+    add_definitions(-DQV2RAY_QWIDGETS)
+endif()
+
 find_package(Threads REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
@@ -82,13 +97,17 @@ endif()
 # ==================================================================================
 set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
 set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
-set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication provider")
+if (ANDROID)
+else()
+    set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication provider")
+endif()
 set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
 set(BUILD_TESTING OFF CACHE BOOL "Build test")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
+set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
     add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
@@ -122,9 +141,12 @@ endif()
 # ==================================================================================
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
-include(cmake/singleapplication.cmake)
-include(cmake/protobuf.cmake)
-include(cmake/backend.cmake)
+if (ANDROID)
+else()
+    include(cmake/singleapplication.cmake)
+    include(cmake/protobuf.cmake)
+    include(cmake/backend.cmake)
+endif()
 include(cmake/zxing-cpp.cmake)
 include(cmake/libsemver.cmake)
 
@@ -148,8 +170,8 @@ else()
     set(_QV2RAY_BUILD_EXTRA_INFO_STR_ "Qv2ray ${QV2RAY_VERSION_STRING}:${QV2RAY_BUILD_VERSION}")
 endif()
 
-set(QV2RAY_BUILD_INFO ${_QV2RAY_BUILD_INFO_STR_} CACHE STRING "Qv2ray build info")
-set(QV2RAY_BUILD_EXTRA_INFO ${_QV2RAY_BUILD_EXTRA_INFO_STR_} CACHE STRING "Qv2ray build extra info")
+set(QV2RAY_BUILD_INFO ${_QV2RAY_BUILD_INFO_STR_})
+set(QV2RAY_BUILD_EXTRA_INFO ${_QV2RAY_BUILD_EXTRA_INFO_STR_})
 
 add_definitions(-D_QV2RAY_BUILD_INFO_STR_="${_QV2RAY_BUILD_INFO_STR_}")
 add_definitions(-D_QV2RAY_BUILD_EXTRA_INFO_STR_="${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
@@ -187,8 +209,7 @@ add_library(qv2ray-baselib STATIC
     ${API_PROTO_SRCS}
     )
 
-add_executable(qv2ray
-    ${GUI_TYPE}
+set(QV2RAY_FULL_SOURCES
     src/main.cpp
     assets/qv2ray.rc
     ${QV2RAY_UI_FORMS}
@@ -197,18 +218,28 @@ add_executable(qv2ray
     ${QNODEEDITOR_QRC_RESOURCES}
     ${QV2RAY_EMBED_TRANSLATION_QRC}
     ${QRC_RESOURCES}
-    ${QM_FILES}
-    )
+    ${QM_FILES})
+
+if(ANDROID)
+    add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
+    target_link_libraries(qv2ray -llog -landroid)
+else()
+    if (WIN32)
+        add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+    else()
+        include(cmake/backward-cpp.cmake)
+        add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+        add_backward(qv2ray)
+    endif()
+endif()
+
 
 target_link_libraries(qv2ray-baselib
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARIES}
     ${ZXING_LIBRARY}
     Threads::Threads
-    Qt5::Core
-    Qt5::Network
-    Qt5::Widgets
-    Qt5::Gui
+    ${QV2RAY_QT_LIBS}
     )
 
 target_link_libraries(qv2ray
@@ -242,12 +273,12 @@ endif()
 # Qt language translations
 add_custom_target(lupdate
     COMMAND lupdate ${QV2RAY_BASE_HEADERS}
-                    ${QV2RAY_LIB_SOURCES}
-                    ${QVPLUGIN_INTERFACE_HEADERS}
-                    ${QV2RAY_UI_SOURCES}
-                    ${QV2RAY_UI_FORMS}
-                    ${QNODEEDITOR_QRC_RESOURCES}
-                    ${SINGLEAPPLICATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none -noobsolete
+    ${QV2RAY_LIB_SOURCES}
+    ${QVPLUGIN_INTERFACE_HEADERS}
+    ${QV2RAY_UI_SOURCES}
+    ${QV2RAY_UI_FORMS}
+    ${QNODEEDITOR_QRC_RESOURCES}
+    ${SINGLEAPPLICATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none -noobsolete
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
@@ -294,14 +325,16 @@ if(APPLE)
         )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
+
     install(TARGETS qv2ray
         BUNDLE DESTINATION . COMPONENT Runtime
         RUNTIME DESTINATION bin COMPONENT Runtime
         )
-    
-    add_custom_command(TARGET qv2ray POST_BUILD
-        COMMAND macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
-        )
+    if(QV2RAY_AUTO_DEPLOY)
+        add_custom_command(TARGET qv2ray POST_BUILD
+            COMMAND ${Qt5_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
+            )
+    endif()
     set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.app")
     include(cmake/deployment.cmake)
 endif()
@@ -318,15 +351,16 @@ endif()
 
 if(WIN32)
     find_package(OpenSSL REQUIRED)
-    target_link_libraries(qv2ray-baselib wininet wsock32 ws2_32 user32 Iphlpapi OpenSSL::SSL OpenSSL::Crypto)
+    target_link_libraries(qv2ray-baselib wininet wsock32 ws2_32 user32 Iphlpapi OpenSSL::SSL OpenSSL::Crypto Dbghelp)
     install(TARGETS qv2ray RUNTIME DESTINATION .)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION lang)
     endif()
-
-    add_custom_command(TARGET qv2ray POST_BUILD
-        COMMAND windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
-        )
+    if(QV2RAY_AUTO_DEPLOY)
+        add_custom_command(TARGET qv2ray POST_BUILD
+            COMMAND ${Qt5_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
+            )
+    endif()
     install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
     set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
     include(cmake/deployment.cmake)

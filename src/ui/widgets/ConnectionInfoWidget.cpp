@@ -13,10 +13,10 @@ QvMessageBusSlotImpl(ConnectionInfoWidget)
 {
     switch (msg)
     {
+        MBRetranslateDefaultImpl;
+        MBUpdateColorSchemeDefaultImpl;
         case HIDE_WINDOWS:
-        case SHOW_WINDOWS:
-            break; //
-            MBRetranslateDefaultImpl MBUpdateColorSchemeDefaultImpl
+        case SHOW_WINDOWS: break;
     }
 }
 
@@ -33,7 +33,7 @@ void ConnectionInfoWidget::updateColorScheme()
     //
     auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
     qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
-    qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") : (isRealPixmapShown ? qrPixmap : qrPixmapBlured));
+    qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.png") : (isRealPixmapShown ? qrPixmap : qrPixmapBlured));
     connectBtn->setIcon(KernelInstance->CurrentConnection().connectionId == connectionId ? QICON_R("stop.png") : QICON_R("connect.png"));
 }
 
@@ -88,7 +88,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
         //
         isRealPixmapShown = false;
-        qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") : qrPixmapBlured);
+        qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.png") : qrPixmapBlured);
         qrLabel->setScaledContents(true);
         //
         connectBtn->setIcon(KernelInstance->CurrentConnection().connectionId == connectionId ? QICON_R("stop.png") : QICON_R("connect.png"));
@@ -107,7 +107,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         complexCount += shareLinks.removeAll("");
         if (complexCount > 0)
         {
-            shareLinks << "# " + tr("(Ignored %1 complex config(s))").arg(complexCount);
+            shareLinks << "# " + tr("(Ignored %n complex config(s))", "", complexCount);
         }
         //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));
@@ -192,7 +192,7 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
     }
     else if (qrLabel->underMouse() && event->type() == QEvent::MouseButtonRelease)
     {
-        qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") :
+        qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.png") :
                                                            (isRealPixmapShown ? qrPixmapBlured : qrPixmap));
         isRealPixmapShown = !isRealPixmapShown;
     }

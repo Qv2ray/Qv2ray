@@ -197,7 +197,7 @@ std::optional<QString> RouteSettingsMatrixWidget::saveFileDialog()
 {
     QFileDialog dialog;
     dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setOption(QFileDialog::Option::DontConfirmOverwrite, !true);
+    dialog.setOption(QFileDialog::Option::DontConfirmOverwrite, false);
     dialog.setNameFilter(tr("QvRoute Schemes(*.json)"));
     dialog.setAcceptMode(QFileDialog::AcceptMode::AcceptSave);
     if (!dialog.exec() || dialog.selectedFiles().length() != 1)

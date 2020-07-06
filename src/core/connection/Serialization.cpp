@@ -16,11 +16,11 @@ namespace Qv2ray::core::connection
             QList<QPair<QString, CONFIGROOT>> connectionConf;
             const auto mkAllowInsecure = [](QJsonObject &conf) {
                 auto allowI = GlobalConfig.advancedConfig.setAllowInsecure;
-                auto allowIC = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
-                if (allowI || allowIC)
+                auto allowSR = GlobalConfig.advancedConfig.setSessionResumption;
+                if (allowI || allowSR)
                 {
                     QJsonIO::SetValue(conf, allowI, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecure");
-                    QJsonIO::SetValue(conf, allowIC, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecureCiphers");
+                    QJsonIO::SetValue(conf, !allowSR, "outbounds", 0, "streamSettings", "tlsSettings", "disableSessionResumption");
                 }
             };
             if (link.startsWith("vmess://") && link.contains("@"))

@@ -3,8 +3,11 @@
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <QSystemTrayIcon>
-#include <SingleApplication>
-
+#ifdef Q_OS_ANDROID
+    #include <QApplication>
+#else
+    #include <SingleApplication>
+#endif
 class MainWindow;
 
 namespace Qv2ray
@@ -13,7 +16,7 @@ namespace Qv2ray
     {
         QV2RAY_NORMAL = 0,
         QV2RAY_SECONDARY_INSTANCE = 0,
-        QV2RAY_PREINITIALIZE_FAIL = -1,
+        QV2RAY_PRE_INITIALIZE_FAIL = -1,
         QV2RAY_EARLY_SETUP_FAIL = -2,
         QV2RAY_CONFIG_PATH_FAIL = -3,
         QV2RAY_CONFIG_FILE_FAIL = -4,
@@ -36,14 +39,16 @@ namespace Qv2ray
         QList<QString> links;
         QList<QString> fullArgs;
         //
-        int _exitCode;
         QString _qvNewVersionPath;
         JSONSTRUCT_REGISTER(Qv2rayProcessArguments, F(arguments, version, data, links, fullArgs))
     };
 
     inline Qv2rayProcessArguments Qv2rayProcessArgument;
-
+#ifdef Q_OS_ANDROID
+    class Qv2rayApplication : public QApplication
+#else
     class Qv2rayApplication : public SingleApplication
+#endif
     {
         Q_OBJECT
 
@@ -58,17 +63,17 @@ namespace Qv2ray
         enum Qv2raySetupStatus
         {
             NORMAL,
-            SINGLEAPPLICATION,
+            SINGLE_APPLICATION,
             FAILED
         };
         //
-        void QuitApplication(int retcode = 0);
-        static bool PreInitilize(int argc, char *argv[]);
+        void QuitApplication(int retCode = 0);
+        static bool PreInitialize(int argc, char **argv);
         explicit Qv2rayApplication(int &argc, char *argv[]);
         Qv2raySetupStatus SetupQv2ray();
         bool FindAndCreateInitialConfiguration();
         bool LoadConfiguration();
-        void InitilizeGlobalVariables();
+        void InitializeGlobalVariables();
         Qv2rayExitCode RunQv2ray();
 
       public:
@@ -93,11 +98,11 @@ namespace Qv2ray
         QSystemTrayIcon *hTray;
         MainWindow *mainWindow;
         static commandline_status ParseCommandLine(QString *errorMessage, const QStringList &args);
-        bool initilized = false;
+        bool initialized = false;
     };
 } // namespace Qv2ray
 
 using namespace Qv2ray;
 
-#define qvApp (static_cast<Qv2ray::Qv2rayApplication *>(QCoreApplication::instance()))
+#define qvApp (dynamic_cast<Qv2ray::Qv2rayApplication *>(QCoreApplication::instance()))
 #define qvAppTrayIcon (*qvApp->GetTrayIcon())

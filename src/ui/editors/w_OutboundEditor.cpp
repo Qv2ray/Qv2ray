@@ -93,8 +93,8 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     }
     else if (outboundType == "shadowsocks")
     {
-        //streaming = QJsonObject();
-        //LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
+        // streaming = QJsonObject();
+        // LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
         QJsonArray servers;
         shadowsocks.address = address;
         shadowsocks.port = port;
@@ -110,8 +110,8 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         }
         socks.address = address;
         socks.port = port;
-        //streaming = QJsonObject();
-        //LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
+        // streaming = QJsonObject();
+        // LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(socks.toJson());
         settings["servers"] = servers;
@@ -170,6 +170,7 @@ void OutboundEditor::ReloadGUI()
         idLineEdit->setText(vmess.users.front().id);
         alterLineEdit->setValue(vmess.users.front().alterId);
         securityCombo->setCurrentText(vmess.users.front().security);
+        testsEnabledCombo->setCurrentText(vmess.users.front().testsEnabled);
     }
     else if (outboundType == "shadowsocks")
     {
@@ -247,6 +248,18 @@ void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 
 void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
 {
+    const static QRegularExpression regExpUUID("^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$",
+                                               QRegularExpression::PatternOption::CaseInsensitiveOption);
+
+    if (!regExpUUID.match(arg1).hasMatch())
+    {
+        RED(idLineEdit);
+    }
+    else
+    {
+        BLACK(idLineEdit);
+    }
+
     if (vmess.users.empty())
         vmess.users.push_back({});
 
@@ -298,10 +311,15 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
     if (index < 3)
     {
         outboundType = outBoundTypeCombo->currentText().toLower();
+        useFPCB->setEnabled(true);
+        useFPCB->setToolTip(tr(""));
     }
     else
     {
         outboundType = pluginWidgets.value(index).first.protocol;
+        useFPCB->setChecked(false);
+        useFPCB->setEnabled(false);
+        useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
     }
 }
 
@@ -342,4 +360,9 @@ void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
     if (socks.users.isEmpty())
         socks.users.push_back({});
     socks.users.front().pass = arg1;
+}
+
+void OutboundEditor::on_testsEnabledCombo_currentIndexChanged(const QString &arg1)
+{
+    vmess.users.front().testsEnabled = arg1;
 }

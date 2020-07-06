@@ -27,6 +27,18 @@ using namespace Qv2ray::base::objects;
 using namespace Qv2ray::base::objects::protocol;
 using namespace Qv2ray::base::objects::transfer;
 
+class _qv2ray_global_config_impl_details
+{
+  public:
+    static Qv2rayConfigObject _GlobalConfig;
+    static bool _isExiting;
+    static QString _Qv2rayConfigPath;
+};
+
+#define GlobalConfig (_qv2ray_global_config_impl_details::_GlobalConfig)
+#define isExiting (_qv2ray_global_config_impl_details::_isExiting)
+#define Qv2rayConfigPath (_qv2ray_global_config_impl_details::_Qv2rayConfigPath)
+
 #define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
 #define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
 
@@ -37,8 +49,14 @@ using namespace Qv2ray::base::objects::transfer;
     #define QV2RAY_CONFIG_DIR_SUFFIX "/"
 #endif
 
+#ifdef Q_OS_WIN
+    #define QV2RAY_EXECUTABLE_FILENAME_SUFFIX ".exe"
+#else
+    #define QV2RAY_EXECUTABLE_FILENAME_SUFFIX ""
+#endif
+
 // Get Configured Config Dir Path
-#define QV2RAY_CONFIG_DIR (Qv2ray::Qv2rayConfigPath)
+#define QV2RAY_CONFIG_DIR (Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 //
 #define QV2RAY_ROUTING_DIR (QV2RAY_CONFIG_DIR + "rounting/")
@@ -52,25 +70,16 @@ using namespace Qv2ray::base::objects::transfer;
 
 #if !defined(QV2RAY_DEFAULT_VCORE_PATH) && !defined(QV2RAY_DEFAULT_VASSETS_PATH)
     #define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
-    #ifdef Q_OS_WIN
-        #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
-    #else
-        #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
-    #endif
+    #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_FILENAME_SUFFIX)
+    #define QV2RAY_DEFAULT_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_FILENAME_SUFFIX)
 #elif defined(QV2RAY_DEFAULT_VCORE_PATH) && defined(QV2RAY_DEFAULT_VASSETS_PATH)
 // ---- Using user-specified VCore and VAssets path
 #else
     #error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to be presented when using manually specify the paths.
 #endif
 
-#ifdef Q_OS_WIN
-///    There's no tProxy thing on Windows....
-//#    define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
-//#    define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl.exe")
-#else
-    #define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
-    #define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl")
-#endif
+#define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_FILENAME_SUFFIX)
+#define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_FILENAME_SUFFIX)
 
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
@@ -112,10 +121,6 @@ using namespace Qv2ray::base::objects::transfer;
 
 namespace Qv2ray
 {
-    // Qv2ray runtime config
-    inline bool isExiting = false;
-    inline QString Qv2rayConfigPath = "";
-    inline base::config::Qv2rayConfigObject GlobalConfig = base::config::Qv2rayConfigObject();
     inline QStringList Qv2rayAssetsPaths(const QString &dirName)
     {
         // Configuration Path
@@ -148,6 +153,6 @@ namespace Qv2ray
         list << QCoreApplication::applicationDirPath() + "/" + dirName;
         list.removeDuplicates();
         return list;
-    };
+    }
 
 } // namespace Qv2ray

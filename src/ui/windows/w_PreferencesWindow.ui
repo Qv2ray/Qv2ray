@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>867</width>
-    <height>624</height>
+    <width>888</width>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -128,6 +128,32 @@
               </property>
              </widget>
             </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_55">
+              <property name="text">
+               <string>Recent Jumplist</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QSpinBox" name="jumpListCountSB">
+              <property name="suffix">
+               <string> Connections</string>
+              </property>
+              <property name="minimum">
+               <number>3</number>
+              </property>
+              <property name="maximum">
+               <number>30</number>
+              </property>
+              <property name="value">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
             <item row="5" column="0">
              <widget class="QLabel" name="label_48">
               <property name="text">
@@ -160,32 +186,6 @@
               </property>
               <property name="value">
                <number>200</number>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_55">
-              <property name="text">
-               <string>Recent Jumplist</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QSpinBox" name="jumpListCountSB">
-              <property name="suffix">
-               <string> Connections</string>
-              </property>
-              <property name="minimum">
-               <number>3</number>
-              </property>
-              <property name="maximum">
-               <number>30</number>
-              </property>
-              <property name="value">
-               <number>10</number>
               </property>
              </widget>
             </item>
@@ -357,10 +357,34 @@ For example, for updating subscriptions.</string>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLineEdit" name="qvNetworkUATxt">
-              <property name="text">
-               <string/>
+             <widget class="QComboBox" name="qvNetworkUATxt">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="text" stdset="0">
+               <string notr="true">Qv2ray/$VERSION WebRequestHelper</string>
+              </property>
+              <item>
+               <property name="text">
+                <string notr="true">Qv2ray/$VERSION WebRequestHelper</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">Mozilla/5.0 (X11; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true"/>
+               </property>
+              </item>
              </widget>
             </item>
             <item row="1" column="0">
@@ -574,7 +598,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
               </property>
               <property name="text">
                <string>These settings may be useful.
-But could dramatically damage your server if improperly used.</string>
+But could damage your server if improperly used.</string>
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
@@ -584,7 +608,7 @@ But could dramatically damage your server if improperly used.</string>
             <item row="2" column="0">
              <widget class="QLabel" name="label_85">
               <property name="text">
-               <string>Set AllowInsecureCiphers By Default</string>
+               <string>Enable SessionResumption By Default</string>
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
@@ -592,7 +616,7 @@ But could dramatically damage your server if improperly used.</string>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="setAllowInsecureCiphersCB">
+             <widget class="QCheckBox" name="setSessionResumptionCB">
               <property name="text">
                <string>Enabled</string>
               </property>
@@ -626,7 +650,7 @@ But could dramatically damage your server if improperly used.</string>
        <item>
         <widget class="QGroupBox" name="vcoresettingsGroupBox">
          <property name="title">
-          <string>V2ray Settings</string>
+          <string>V2ray Core Settings</string>
          </property>
          <layout class="QFormLayout" name="formLayout_10">
           <item row="0" column="0">
@@ -683,7 +707,7 @@ But could dramatically damage your server if improperly used.</string>
           <item row="1" column="0">
            <widget class="QLabel" name="label_46">
             <property name="text">
-             <string>Core Executable Path</string>
+             <string>V2ray Core Executable Path</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -732,10 +756,24 @@ But could dramatically damage your server if improperly used.</string>
             </item>
            </layout>
           </item>
+          <item row="7" column="0" colspan="2">
+           <widget class="QPushButton" name="checkVCoreSettings">
+            <property name="text">
+             <string>Check V2ray Core Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0" colspan="2">
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Check System Date and Time from the Internet</string>
+            </property>
+           </widget>
+          </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_68">
             <property name="text">
-             <string>API SubSystem</string>
+             <string>V2ray API Subsystem</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -752,7 +790,7 @@ But could dramatically damage your server if improperly used.</string>
           <item row="4" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>API Port</string>
+             <string>V2ray API Port</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -778,27 +816,37 @@ But could dramatically damage your server if improperly used.</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
-           <widget class="QPushButton" name="checkVCoreSettings">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_37">
             <property name="text">
-             <string>Check V2ray Core Settings</string>
+             <string>Outbound Statistics (V2ray Core v4.26+)</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
-           <widget class="QPushButton" name="pushButton">
+          <item row="5" column="1">
+           <widget class="QCheckBox" name="v2rayOutboundStatsCB">
+            <property name="toolTip">
+             <string>Currently:
+- vmess/shadowsocks/socks/http will be treated as PROXY.
+- freedom will be treated as DIRECT
+- blackhole will be treated as BLOCK</string>
+            </property>
             <property name="text">
-             <string>Check Date and Time from Network</string>
+             <string>Enabled</string>
             </property>
            </widget>
           </item>
           <item row="6" column="0">
            <widget class="QLabel" name="label_31">
             <property name="text">
-             <string>NTP</string>
+             <string>Include Direct Connection</string>
             </property>
-            <property name="textFormat">
-             <enum>Qt::PlainText</enum>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QCheckBox" name="hasDirectStatisticsCB">
+            <property name="text">
+             <string>Enabled</string>
             </property>
            </widget>
           </item>
@@ -821,7 +869,7 @@ But could dramatically damage your server if improperly used.</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_57">
             <property name="text">
              <string>V2ray Integration</string>
@@ -831,7 +879,7 @@ But could dramatically damage your server if improperly used.</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QCheckBox" name="pluginKernelV2rayIntegrationCB">
             <property name="toolTip">
              <string>If not checked, these features will be disabled:
@@ -846,7 +894,7 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0" colspan="2">
+          <item row="3" column="0" colspan="2">
            <widget class="QLabel" name="label_63">
             <property name="text">
              <string>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</string>
@@ -856,7 +904,7 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_58">
             <property name="text">
              <string>Port Allocation Start</string>
@@ -866,7 +914,7 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="4" column="1">
            <widget class="QSpinBox" name="pluginKernelPortAllocateCB">
             <property name="minimum">
              <number>1</number>
@@ -876,6 +924,16 @@ Custom DNS Settings</string>
             </property>
             <property name="value">
              <number>13000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QLabel" name="label_64">
+            <property name="text">
+             <string>Only V2ray Core v4.21+ is supported.</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
             </property>
            </widget>
           </item>
@@ -915,7 +973,7 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>821</width>
+            <width>970</width>
             <height>594</height>
            </rect>
           </property>
@@ -1702,7 +1760,7 @@ Custom DNS Settings</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">image: url(:/assets/icons/qv2ray.ico);</string>
+            <string notr="true">image: url(:/assets/icons/qv2ray.png);</string>
            </property>
           </widget>
          </item>

@@ -1,17 +1,21 @@
 #include "APIBackend.hpp"
 
-#ifndef BACKEND_LIBQVB
+#ifndef ANDROID
     #include "v2ray_api.pb.h"
 using namespace v2ray::core::app::stats::command;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-#else
-    #include "libs/libqvb/build/libqvb.h"
 #endif
 
 namespace Qv2ray::core::kernel
 {
+    constexpr auto QV2RAY_GRPC_ERROR_RETCODE = -1;
+    static QvAPIDataTypeConfig DefaultInboundAPIConfig{ { API_INBOUND, { "dokodemo-door", "http", "socks" } } };
+    static QvAPIDataTypeConfig DefaultOutboundAPIConfig{ { API_OUTBOUND_PROXY, { "dns", "http", "mtproto", "shadowsocks", "socks", "vmess" } },
+                                                         { API_OUTBOUND_DIRECT, { "freedom" } },
+                                                         { API_OUTBOUND_BLACKHOLE, { "blackhole" } } };
+
     // To all contributors:
     //
     // You may feel it difficult to understand this part of API backend.
@@ -24,25 +28,35 @@ namespace Qv2ray::core::kernel
     // and will be set to false right before we stopping V2ray Core.
     //
 
-    // --- CONSTRUCTOR ---
     APIWorker::APIWorker()
     {
-        thread = new QThread();
-        this->moveToThread(thread);
+        workThread = new QThread();
+        this->moveToThread(workThread);
         DEBUG(MODULE_VCORE, "API Worker initialised.")
-        // connect(this, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
-        connect(thread, SIGNAL(started()), this, SLOT(process()));
-        connect(thread, &QThread::finished, [] { LOG(MODULE_VCORE, "API thread stopped") });
+        connect(workThread, &QThread::started, this, &APIWorker::process);
+        connect(workThread, &QThread::finished, [] { LOG(MODULE_VCORE, "API thread stopped") });
         started = true;
-        thread->start();
-        DEBUG(MODULE_VCORE, "API Worker started.")
+        workThread->start();
     }
 
-    void APIWorker::StartAPI(const QStringList &tags)
+    void APIWorker::StartAPI(const QMap<bool, QMap<QString, QString>> &tagProtocolPair)
     {
         // Config API
         apiFailedCounter = 0;
-        inboundTags = tags;
+        tagProtocolConfig.clear();
+        for (const auto &key : tagProtocolPair.keys())
+        {
+            const auto config = key ? DefaultOutboundAPIConfig : DefaultInboundAPIConfig;
+            for (const auto &[tag, protocol] : tagProtocolPair[key].toStdMap())
+            {
+                for (const auto &[type, protocols] : config)
+                {
+                    if (protocols.contains(protocol))
+                        tagProtocolConfig[tag] = { protocol, type };
+                }
+            }
+        }
+
         running = true;
     }
 
@@ -57,14 +71,15 @@ namespace Qv2ray::core::kernel
         StopAPI();
         // Set started signal to false and wait for API thread to stop.
         started = false;
-        thread->wait();
-        delete thread;
+        workThread->wait();
+        delete workThread;
     }
 
     // API Core Operations
     // Start processing data.
     void APIWorker::process()
     {
+        DEBUG(MODULE_VCORE, "API Worker started.")
         while (started)
         {
             QThread::msleep(1000);
@@ -74,73 +89,34 @@ namespace Qv2ray::core::kernel
             {
                 if (!dialed)
                 {
-                    auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.kernelConfig.statsPort);
-#ifdef BACKEND_LIBQVB
-                    auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
-                    LOG(MODULE_VCORE, QString(str))
-                    LOG(MODULE_VCORE, "Currently, libqvb does not support speed reporting, your stats might go wrong.")
-                    free(str);
-#else
+                    const auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.kernelConfig.statsPort);
+#ifndef ANDROID
                     LOG(MODULE_VCORE, "gRPC Version: " + QString::fromStdString(grpc::Version()))
-                    Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
+                    grpc_channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     v2ray::core::app::stats::command::StatsService service;
-                    Stub = service.NewStub(Channel);
+                    stats_service_stub = service.NewStub(grpc_channel);
 #endif
                     dialed = true;
                 }
 
-#ifndef QV2RAY_STATS_PER_TAG
-                qint64 value_up = 0;
-                qint64 value_down = 0;
-
-                for (const auto tag : inboundTags)
+                QMap<StatisticsType, QvStatsSpeed> statsResult;
+                for (const auto &[tag, config] : tagProtocolConfig)
                 {
-                    value_up += CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
-                    value_down += CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
+                    const QString prefix = config.type == API_INBOUND ? "inbound" : "outbound";
+                    const auto value_up = CallStatsAPIByName(prefix + ">>>" + tag + ">>>traffic>>>uplink");
+                    const auto value_down = CallStatsAPIByName(prefix + ">>>" + tag + ">>>traffic>>>downlink");
+                    // hasError = hasError || value_up == QV2RAY_GRPC_ERROR_RETCODE || value_down == QV2RAY_GRPC_ERROR_RETCODE;
+                    statsResult[config.type].first += std::max(value_up, 0LL);
+                    statsResult[config.type].second += std::max(value_down, 0LL);
                 }
+                // Changed: Removed isrunning check here.
+                emit onAPIDataReady(statsResult);
 
-                if (value_up < 0 || value_down < 0)
-                {
-                    dialed = false;
-                    break;
-                }
-
-                if (running)
-                {
-                    emit OnDataReady(value_up, value_down);
-                }
-
-#else
-
-                for (auto tag : inboundTags)
-                {
-                    auto valup = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
-                    auto valdown = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
-
-                    if (valup < 0 || valdown < 0)
-                    {
-                        dialed = false;
-                        break;
-                    }
-
-                    if (running)
-                    {
-                        apiFailedCounter = 0;
-                        emit OnDataReady(tag, valup, valdown);
-                    }
-                    else
-                    {
-                        // If the connection has stopped, just quit.
-                        break;
-                    }
-                }
-
-#endif
                 QThread::msleep(1000);
             } // end while running
         }     // end while started
 
-        thread->exit();
+        workThread->exit();
     }
 
     qint64 APIWorker::CallStatsAPIByName(const QString &name)
@@ -148,7 +124,7 @@ namespace Qv2ray::core::kernel
         if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
         {
             LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
-            emit error("Failed to get statistics data, please check if V2ray is running properly");
+            emit OnAPIErrored(tr("Failed to get statistics data, please check if V2ray is running properly"));
             apiFailedCounter++;
             return 0;
         }
@@ -156,37 +132,28 @@ namespace Qv2ray::core::kernel
         {
             return 0;
         }
-
-#ifndef BACKEND_LIBQVB
+#ifndef ANDROID
+        ClientContext context;
         GetStatsRequest request;
+        GetStatsResponse response;
         request.set_name(name.toStdString());
         request.set_reset(true);
-        GetStatsResponse response;
-        ClientContext context;
-        Status status = Stub->GetStats(&context, request, &response);
 
+        const auto status = stats_service_stub->GetStats(&context, request, &response);
         if (!status.ok())
         {
             LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
             apiFailedCounter++;
+            return QV2RAY_GRPC_ERROR_RETCODE;
         }
         else
         {
             apiFailedCounter = 0;
+            return response.stat().value();
         }
-
-        qint64 data = response.stat().value();
 #else
-        qint64 data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
+        Q_UNUSED(name)
+        return 0;
 #endif
-
-        if (data < 0)
-        {
-            LOG(MODULE_VCORE, "API call returns: " + QSTRN(data))
-            apiFailedCounter++;
-            return 0;
-        }
-
-        return data;
     }
 } // namespace Qv2ray::core::kernel

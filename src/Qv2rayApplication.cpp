@@ -13,6 +13,12 @@
 #include <QUrl>
 #include <QUrlQuery>
 
+#ifdef QT_DEBUG
+const static inline QString QV2RAY_URL_SCHEME = "qv2ray-debug";
+#else
+const static inline QString QV2RAY_URL_SCHEME = "qv2ray";
+#endif
+
 #ifdef Q_OS_WIN
     #include <Winbase.h>
 #endif
@@ -22,7 +28,11 @@ namespace Qv2ray
     constexpr auto QV2RAY_CONFIG_PATH_ENV_NAME = "QV2RAY_CONFIG_PATH";
 
     Qv2rayApplication::Qv2rayApplication(int &argc, char *argv[])
+#ifdef Q_OS_ANDROID
+        : QApplication(argc, argv)
+#else
         : SingleApplication(argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion)
+#endif
     {
         LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
         DEBUG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
@@ -32,10 +42,10 @@ namespace Qv2ray
         hTray = new QSystemTrayIcon();
     }
 
-    void Qv2rayApplication::QuitApplication(int retcode)
+    void Qv2rayApplication::QuitApplication(int retCode)
     {
         isExiting = true;
-        QCoreApplication::exit(retcode);
+        QCoreApplication::exit(retCode);
     }
 
     Qv2rayApplication::Qv2raySetupStatus Qv2rayApplication::SetupQv2ray()
@@ -43,21 +53,23 @@ namespace Qv2ray
 #ifdef Q_OS_WIN
         SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
 #endif
-
         // Install a default translater. From the OS/DE
         Qv2rayTranslator = std::make_unique<QvTranslator>();
-        const auto &systemLang = QLocale::system().name();
-        const auto setLangResult = Qv2rayTranslator->InstallTranslation(systemLang) ? "Succeed" : "Failed";
-        LOG(MODULE_UI, "Installing a tranlator from OS: " + systemLang + " -- " + setLangResult)
+        Qv2rayTranslator->InstallTranslation(QLocale::system().name());
         //
         setQuitOnLastWindowClosed(false);
+
+#ifndef Q_OS_ANDROID
         connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
         connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
         if (isSecondary())
         {
+            if (Qv2rayProcessArgument.arguments.isEmpty())
+                Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::NORMAL;
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
-            return SINGLEAPPLICATION;
+            return SINGLE_APPLICATION;
         }
+#endif
 
 #ifdef Q_OS_WIN
         // Set special font in Windows
@@ -89,12 +101,16 @@ namespace Qv2ray
 
     void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray _msg)
     {
+        // Sometimes SingleApplication will send message with clientId == 0, ignore them.
+        if (clientId == instanceId())
+            return;
         const auto msg = Qv2rayProcessArguments::fromJson(JsonFromString(_msg));
         LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + ", message received, version: " + msg.version)
         DEBUG(MODULE_INIT, _msg)
         //
         const auto currentVersion = semver::version::from_string(QV2RAY_VERSION_STRING);
-        const auto newVersion = semver::version::from_string(msg.version.toStdString());
+        const auto newVersionString = msg.version.isEmpty() ? "0.0.0" : msg.version.toStdString();
+        const auto newVersion = semver::version::from_string(newVersionString);
         //
         if (newVersion > currentVersion)
         {
@@ -172,14 +188,14 @@ namespace Qv2ray
     {
         // Show MainWindow
         mainWindow = new MainWindow();
-        return (Qv2rayExitCode) exec();
+        return Qv2rayExitCode(exec());
     }
 
     bool Qv2rayApplication::FindAndCreateInitialConfiguration()
     {
-        if (initilized)
+        if (initialized)
         {
-            LOG(MODULE_INIT, "Qv2ray has already been initilized!")
+            LOG(MODULE_INIT, "Qv2ray has already been initialized!")
             return false;
         }
         LOG(MODULE_INIT, "Application exec path: " + applicationDirPath())
@@ -368,7 +384,7 @@ namespace Qv2ray
         return true;
     }
 
-    void Qv2rayApplication::InitilizeGlobalVariables()
+    void Qv2rayApplication::InitializeGlobalVariables()
     {
         StyleManager = new QvStyleManager();
         PluginHost = new QvPluginHost();
@@ -377,7 +393,7 @@ namespace Qv2ray
         StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
     }
 
-    bool Qv2rayApplication::PreInitilize(int argc, char *argv[])
+    bool Qv2rayApplication::PreInitialize(int argc, char **argv)
     {
         QString errorMessage;
 
@@ -393,9 +409,8 @@ namespace Qv2ray
                 default: break;
             }
 #ifdef Q_OS_WIN
-            const auto urlScheme = coreApp.applicationName();
             const auto appPath = QDir::toNativeSeparators(coreApp.applicationFilePath());
-            const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + urlScheme;
+            const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + QV2RAY_URL_SCHEME;
 
             QSettings reg(regPath, QSettings::NativeFormat);
 
@@ -417,12 +432,12 @@ namespace Qv2ray
         if (StartupOption.noScaleFactor)
         {
             LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
-            LOG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
+            DEBUG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
             qputenv("QT_SCALE_FACTOR", "1");
         }
         else
         {
-            LOG(MODULE_INIT, "High DPI scaling is enabled.")
+            DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
             QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
             QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
@@ -477,7 +492,7 @@ namespace Qv2ray
 
         for (const auto &arg : parser.positionalArguments())
         {
-            if (arg.startsWith("qv2ray://"))
+            if (arg.startsWith(QV2RAY_URL_SCHEME + "://"))
             {
                 Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::QV2RAY_LINK;
                 Qv2rayProcessArgument.links << arg;

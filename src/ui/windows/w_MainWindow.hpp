@@ -85,7 +85,7 @@ class MainWindow
     void OnConnected(const ConnectionGroupPair &id);
     void OnDisconnected(const ConnectionGroupPair &id);
     //
-    void OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
+    void OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data);
     void OnVCoreLogAvailable(const ConnectionGroupPair &id, const QString &log);
     //
     void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
@@ -98,6 +98,7 @@ class MainWindow
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
     //
     void ReloadRecentConnectionList();
+    void OnRecentConnectionsMenuReadyToShow();
 
   protected:
     void timerEvent(QTimerEvent *event) override;
@@ -118,8 +119,6 @@ class MainWindow
     QMenu *tray_SystemProxyMenu = new QMenu(tr("System Proxy"), this);
     QMenu *tray_RecentConnectionsMenu = new QMenu(tr("Recent Connections"), this);
     QAction *tray_ClearRecentConnectionsAction = new QAction(tr("Clear Recent Connections"), this);
-    //
-    QList<QAction *> recentConnectionsActionList;
     //
     QAction *tray_action_ShowHide = new QAction(tr("Hide"), this);
     QAction *tray_action_ShowPreferencesWindow = new QAction(tr("Preferences"), this);

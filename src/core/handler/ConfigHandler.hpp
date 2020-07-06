@@ -11,17 +11,11 @@ namespace Qv2ray::common::network
     class NetworkRequestHelper;
 }
 
-#define CheckIdExistance(type, id, val)                                                                                                         \
-    if (!type.contains(id))                                                                                                                     \
+#define CheckValidId(id, returnValue)                                                                                                           \
     {                                                                                                                                           \
-        return val;                                                                                                                             \
+        if (!IsValidId(id))                                                                                                                     \
+            return returnValue;                                                                                                                 \
     }
-
-#define CheckGroupExistanceEx(id, val) CheckIdExistance(groups, id, val)
-#define CheckGroupExistance(id) CheckGroupExistanceEx(id, tr("Group does not exist"))
-
-#define CheckConnectionExistanceEx(id, val) CheckIdExistance(connections, id, val)
-#define CheckConnectionExistance(id) CheckConnectionExistanceEx(id, tr("Connection does not exist"))
 
 namespace Qv2ray::core::handler
 {
@@ -39,7 +33,7 @@ namespace Qv2ray::core::handler
         }
         inline const QList<ConnectionId> Connections(const GroupId &groupId) const
         {
-            CheckGroupExistanceEx(groupId, {});
+            CheckValidId(groupId, {});
             return groups[groupId].connections;
         }
         inline QList<GroupId> AllGroups() const
@@ -48,14 +42,26 @@ namespace Qv2ray::core::handler
             std::sort(k.begin(), k.end(), [&](const auto &idA, const auto &idB) { return groups[idA].displayName < groups[idB].displayName; });
             return k;
         }
+        inline bool IsValidId(const ConnectionId &id) const
+        {
+            return connections.contains(id);
+        }
+        inline bool IsValidId(const GroupId &id) const
+        {
+            return groups.contains(id);
+        }
+        inline bool IsValidId(const ConnectionGroupPair &id) const
+        {
+            return IsValidId(id.connectionId) && IsValidId(id.groupId);
+        }
         inline const ConnectionObject GetConnectionMetaObject(const ConnectionId &id) const
         {
-            CheckConnectionExistanceEx(id, {});
+            CheckValidId(id, {});
             return connections[id];
         }
         inline GroupObject GetGroupMetaObject(const GroupId &id) const
         {
-            CheckGroupExistanceEx(id, {});
+            CheckValidId(id, {});
             return groups[id];
         }
 
@@ -64,6 +70,7 @@ namespace Qv2ray::core::handler
             return kernelHandler->CurrentConnection() == id;
         }
 
+        Q_DECL_DEPRECATED_X("ConnectionId-Only has been deprecated since GroudId is also required.")
         bool IsConnected(const ConnectionId &id) const
         {
             return kernelHandler->CurrentConnection().connectionId == id;
@@ -71,6 +78,7 @@ namespace Qv2ray::core::handler
 
         inline void IgnoreSubscriptionUpdate(const GroupId &group)
         {
+            CheckValidId(group, nothing);
             if (groups[group].isSubscription)
             {
                 groups[group].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
@@ -132,7 +140,7 @@ namespace Qv2ray::core::handler
 
       signals:
         void OnKernelLogAvailable(const ConnectionGroupPair &id, const QString &log);
-        void OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
+        void OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data);
         //
         void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
         void OnConnectionModified(const ConnectionId &id);
@@ -156,7 +164,7 @@ namespace Qv2ray::core::handler
       private slots:
         void OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage);
         void OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &data);
-        void OnStatsDataArrived_p(const ConnectionGroupPair &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
+        void OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data);
 
       protected:
         void timerEvent(QTimerEvent *event) override;

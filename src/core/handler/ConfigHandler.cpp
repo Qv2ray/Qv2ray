@@ -166,17 +166,16 @@ namespace Qv2ray::core::handler
     }
     void QvConfigHandler::ClearConnectionUsage(const ConnectionGroupPair &id)
     {
-        CheckConnectionExistanceEx(id.connectionId, nothing);
-        connections[id.connectionId].upLinkData = 0;
-        connections[id.connectionId].downLinkData = 0;
-        emit OnStatsAvailable(id, 0, 0, 0, 0);
+        CheckValidId(id.connectionId, nothing);
+        connections[id.connectionId].stats.Clear();
+        emit OnStatsAvailable(id, {});
         PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id.connectionId), 0, 0, 0, 0 });
         return;
     }
 
     const QList<GroupId> QvConfigHandler::GetGroupId(const ConnectionId &connId) const
     {
-        CheckConnectionExistanceEx(connId, {});
+        CheckValidId(connId, {});
         QList<GroupId> grps;
         for (const auto &groupId : groups.keys())
         {
@@ -191,7 +190,7 @@ namespace Qv2ray::core::handler
 
     const std::optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
     {
-        CheckConnectionExistance(id);
+        CheckValidId(id, {});
         OnConnectionRenamed(id, connections[id].displayName, newName);
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Renamed, newName, connections[id].displayName });
         connections[id].displayName = newName;
@@ -201,7 +200,7 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
     {
-        CheckConnectionExistanceEx(id, false);
+        CheckValidId(id, false);
         LOG(MODULE_CONNECTION, "Removing connection : " + id.toString())
         if (groups[gid].connections.contains(id))
         {
@@ -243,7 +242,7 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId)
     {
-        CheckConnectionExistanceEx(id, false);
+        CheckValidId(id, false);
         if (groups[newGroupId].connections.contains(id))
         {
             LOG(MODULE_CONNECTION, "Connection not linked since " + id.toString() + " is already in the group " + newGroupId.toString())
@@ -258,9 +257,9 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid)
     {
-        CheckConnectionExistanceEx(id, false);
-        CheckGroupExistanceEx(targetGid, false);
-        CheckGroupExistanceEx(sourceGid, false);
+        CheckValidId(id, false);
+        CheckValidId(targetGid, false);
+        CheckValidId(sourceGid, false);
         //
         if (!groups[sourceGid].connections.contains(id))
         {
@@ -291,7 +290,7 @@ namespace Qv2ray::core::handler
 
     const std::optional<QString> QvConfigHandler::DeleteGroup(const GroupId &id)
     {
-        CheckGroupExistance(id);
+        CheckValidId(id, {});
         if (!groups.contains(id) || id == NullGroupId)
         {
             return tr("Group does not exist");
@@ -318,7 +317,7 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::StartConnection(const ConnectionGroupPair &identifier)
     {
-        CheckConnectionExistanceEx(identifier.connectionId, false);
+        CheckValidId(identifier, false);
         connections[identifier.connectionId].lastConnected = system_clock::to_time_t(system_clock::now());
         //
         CONFIGROOT root = GetConnectionRoot(identifier.connectionId);
@@ -364,20 +363,20 @@ namespace Qv2ray::core::handler
 
     const CONFIGROOT QvConfigHandler::GetConnectionRoot(const ConnectionId &id) const
     {
-        CheckConnectionExistanceEx(id, CONFIGROOT());
+        CheckValidId(id, CONFIGROOT());
         return connectionRootCache.value(id);
     }
 
     void QvConfigHandler::OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &result)
     {
-        CheckConnectionExistanceEx(id, nothing);
+        CheckValidId(id, nothing);
         connections[id].latency = result.avg;
         emit OnLatencyTestFinished(id, result.avg);
     }
 
     bool QvConfigHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart)
     {
-        CheckConnectionExistanceEx(id, false);
+        CheckValidId(id, false);
         //
         auto path = QV2RAY_CONNECTIONS_DIR + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         auto content = JsonToString(root);
@@ -417,7 +416,7 @@ namespace Qv2ray::core::handler
 
     const std::optional<QString> QvConfigHandler::RenameGroup(const GroupId &id, const QString &newName)
     {
-        CheckGroupExistance(id);
+        CheckValidId(id, {});
         if (!groups.contains(id))
         {
             return tr("Group does not exist");
@@ -431,7 +430,7 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription, const std::optional<QString> &address,
                                               std::optional<float> updateInterval)
     {
-        CheckGroupExistanceEx(id, false);
+        CheckValidId(id, false);
 
         if (isSubscription.has_value())
             groups[id].isSubscription = ACCESS_OPTIONAL_VALUE(isSubscription);
@@ -447,7 +446,7 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords)
     {
-        CheckGroupExistanceEx(id, false);
+        CheckValidId(id, false);
         groups[id].subscriptionOption.IncludeKeywords.clear();
 
         for (const auto &keyword : Keywords)
@@ -462,7 +461,7 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
-        CheckGroupExistanceEx(id, false);
+        CheckValidId(id, false);
         if (!groups.contains(id))
         {
             return false;
@@ -473,7 +472,7 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords)
     {
-        CheckGroupExistanceEx(id, false);
+        CheckValidId(id, false);
         groups[id].subscriptionOption.ExcludeKeywords.clear();
         for (const auto &keyword : Keywords)
         {
@@ -487,14 +486,14 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
-        CheckGroupExistanceEx(id, false);
+        CheckValidId(id, false);
         groups[id].subscriptionOption.ExcludeRelation = relation;
         return true;
     }
 
     void QvConfigHandler::UpdateSubscriptionAsync(const GroupId &id)
     {
-        CheckGroupExistanceEx(id, nothing);
+        CheckValidId(id, nothing);
         if (!groups[id].isSubscription)
             return;
         asyncRequestHelper->AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) {
@@ -513,7 +512,7 @@ namespace Qv2ray::core::handler
 
     bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QByteArray &data)
     {
-        CheckGroupExistanceEx(id, false);
+        CheckValidId(id, false);
         if (!groups.contains(id))
         {
             return false;
@@ -524,11 +523,10 @@ namespace Qv2ray::core::handler
         auto _newConnections = GetConnectionConfigFromSubscription(data, GetDisplayName(id));
         if (_newConnections.count() < 5)
         {
-            LOG(MODULE_SUBSCRIPTION, "Find a subscription with less than 5 connections.")
-            if (QvMessageBoxAsk(
-                    nullptr, tr("Update Subscription"),
-                    tr("%1 entrie(s) have been found from the subscription source, do you want to continue?").arg(_newConnections.count())) !=
-                QMessageBox::Yes)
+            LOG(MODULE_SUBSCRIPTION, "Found a subscription with less than 5 connections.")
+            if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                                tr("%n entrie(s) have been found from the subscription source, do you want to continue?", "",
+                                   _newConnections.count())) != QMessageBox::Yes)
 
                 return false;
         }
@@ -615,10 +613,10 @@ namespace Qv2ray::core::handler
 
         LOG(MODULE_SUBSCRIPTION, "Filtered out less than 5 connections.")
         const auto useFilteredConnections =
-            filteredConnections.count() > 5 || QvMessageBoxAsk(nullptr, tr("Update Subscription"),
-                                                               tr("%1 out of %2 entrie(s) have been filtered out, do you want to continue?")
-                                                                   .arg(filteredConnections.count())
-                                                                   .arg(_newConnections.count())) == QMessageBox::Yes;
+            filteredConnections.count() > 5 ||
+            QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                            tr("%1 out of %n entrie(s) have been filtered out, do you want to continue?", "", _newConnections.count())
+                                .arg(filteredConnections.count())) == QMessageBox::Yes;
 
         for (const auto &config : useFilteredConnections ? filteredConnections : _newConnections)
         {
@@ -674,22 +672,28 @@ namespace Qv2ray::core::handler
         return hasErrorOccured;
     }
 
-    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
+    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data)
     {
         if (id.isEmpty())
             return;
-        const auto &connectionId = id.connectionId;
-        connections[connectionId].upLinkData += uploadSpeed;
-        connections[connectionId].downLinkData += downloadSpeed;
-        emit OnStatsAvailable(id, uploadSpeed, downloadSpeed,       //
-                              connections[connectionId].upLinkData, //
-                              connections[connectionId].downLinkData);
-        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(connectionId),         //
-                                                uploadSpeed, downloadSpeed,           //
-                                                connections[connectionId].upLinkData, //
-                                                connections[connectionId].downLinkData });
-    }
 
+        const auto &cid = id.connectionId;
+        QMap<StatisticsType, QvStatsSpeedData> result;
+        for (const auto t : data.keys())
+        {
+            const auto &stat = data[t];
+            connections[cid].stats[t].upLinkData += stat.first;
+            connections[cid].stats[t].downLinkData += stat.second;
+            result[t] = { stat, connections[cid].stats[t].toData() };
+        }
+
+        emit OnStatsAvailable(id, result);
+        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(cid),                     //
+                                                result[CurrentStatAPIType].first.first,  //
+                                                result[CurrentStatAPIType].first.second, //
+                                                result[CurrentStatAPIType].second.first, //
+                                                result[CurrentStatAPIType].second.second });
+    }
     const ConnectionGroupPair QvConfigHandler::CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId,
                                                                 bool skipSaveConfig)
     {

@@ -630,17 +630,17 @@
             </property>
             <item>
              <property name="text">
-              <string>off</string>
+              <string notr="true">off</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>redirect</string>
+              <string notr="true">redirect</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>tproxy</string>
+              <string notr="true">tproxy</string>
              </property>
             </item>
            </widget>

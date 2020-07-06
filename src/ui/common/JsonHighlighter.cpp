@@ -9,7 +9,7 @@ namespace Qv2ray::ui
         QTextCharFormat keywordFormat;
         keywordFormat.setForeground(GlobalConfig.uiConfig.useDarkTheme ? Qt::GlobalColor::magenta : Qt::darkMagenta);
         keywordFormat.setFontWeight(QFont::Bold);
-        // It's holy a dirty hack here, we'll fully ultilize the vCoreConfig models.
+        // It's holy a dirty hack here, we'll fully utilize the vCoreConfig models.
         auto keywordPatterns = { "inbounds",
                                  "outbounds",
                                  "routing",

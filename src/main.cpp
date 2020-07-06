@@ -1,4 +1,5 @@
 #include "Qv2rayApplication.hpp"
+#include "StackTraceHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
@@ -7,12 +8,32 @@
 #include <QProcess>
 #include <QSslSocket>
 #include <csignal>
-#include <memory>
 
 void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
-    qvApp->QuitApplication(-99);
+    if (SIGSEGV == signum)
+    {
+        std::cout << "Collecting StackTrace" << std::endl;
+        const auto msg = StackTraceHelper::GetStackTrace();
+        std::cout << msg.toStdString() << std::endl;
+        QDir().mkpath(QV2RAY_CONFIG_DIR + "bugreport/");
+        auto filePath = QV2RAY_CONFIG_DIR + "bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
+        StringToFile(msg, filePath);
+        std::cout << "Backtrace saved in: " + filePath.toStdString() << std::endl;
+        if (qApp)
+        {
+            qApp->clipboard()->setText(filePath);
+            auto message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
+                           QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
+                           filePath;
+            QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
+        }
+#ifndef Q_OS_WIN
+        kill(getpid(), SIGKILL);
+#endif
+    }
+    exit(-99);
 }
 
 Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
@@ -23,7 +44,7 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
     switch (setupStatus)
     {
         case Qv2rayApplication::NORMAL: break;
-        case Qv2rayApplication::SINGLEAPPLICATION: return QV2RAY_SECONDARY_INSTANCE;
+        case Qv2rayApplication::SINGLE_APPLICATION: return QV2RAY_SECONDARY_INSTANCE;
         case Qv2rayApplication::FAILED: return QV2RAY_EARLY_SETUP_FAIL;
     }
 
@@ -69,7 +90,7 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
         return QV2RAY_SSL_FAIL;
     }
 
-    app.InitilizeGlobalVariables();
+    app.InitializeGlobalVariables();
 
 #ifndef Q_OS_WIN
     signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
@@ -80,12 +101,14 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-#ifndef Q_OS_WIN
     // Register signal handlers.
     signal(SIGINT, signalHandler);
+    signal(SIGABRT, signalHandler);
+    signal(SIGSEGV, signalHandler);
+    signal(SIGTERM, signalHandler);
+#ifndef Q_OS_WIN
     signal(SIGHUP, signalHandler);
     signal(SIGKILL, signalHandler);
-    signal(SIGTERM, signalHandler);
 #endif
     //
     // This line must be called before any other ones, since we are using these
@@ -101,8 +124,8 @@ int main(int argc, char *argv[])
 #endif
     //
     // parse the command line before starting as a Qt application
-    if (!Qv2rayApplication::PreInitilize(argc, argv))
-        return QV2RAY_PREINITIALIZE_FAIL;
+    if (!Qv2rayApplication::PreInitialize(argc, argv))
+        return QV2RAY_PRE_INITIALIZE_FAIL;
     const auto rcode = RunQv2rayApplicationScoped(argc, argv);
     if (rcode == QV2RAY_NEW_VERSION)
     {

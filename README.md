@@ -1,4 +1,4 @@
-# Qv2ray - Make v2ray real cross-platform
+# Qv2ray - Make V2ray real cross-platform
 
 [![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray)
 [![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Qv2ray/Qv2ray/releases)
@@ -12,7 +12,6 @@
 [![Qv2ray AUR Build](https://github.com/Qv2ray/Qv2ray/workflows/Build%20Qv2ray%20AUR/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Build+Qv2ray+AUR%22)
 [![Qv2ray Debian Package](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20debian%20package/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Qv2ray+build+debian+package%22)
 [![Qv2ray Build Matrix](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20matrix%20-%20cmake/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Qv2ray+build+matrix+-+cmake%22)
-
 
 <table>
  <tr>
@@ -32,11 +31,11 @@
  <td>AUR</td>
  <td>
    <a href="https://aur.archlinux.org/packages/qv2ray">
-    <img alt="AUR Stable" src="https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square" />
+    <img alt="AUR Stable" src="https://img.shields.io/aur/version/qv2ray?label=aur-stable" />
    </a><br/>
 
    <a href="https://aur.archlinux.org/packages/qv2ray-dev-git">
-    <img alt="AUR Development" src="https://img.shields.io/aur/version/qv2ray-dev-git?label=aur-development&style=flat-square" /></a>
+    <img alt="AUR Development" src="https://img.shields.io/aur/version/qv2ray-dev-git?label=aur-development" /></a>
  </td>
  </tr>
 
@@ -44,10 +43,10 @@
   <td>Fedora</td>
   <td>
    <a href="https://build.opensuse.org/package/show/home:zzndb:Qv2ray/Qv2ray">
-    <img alt="OBS Stable" src="https://img.shields.io/badge/Fedora--OBS-stable-blue" />
+    <img alt="Copr Stable" src="https://img.shields.io/badge/Fedora%20Copr-stable-blue" />
    </a><br/>
    <a href="https://build.opensuse.org/package/show/home:zzndb:Qv2ray/Qv2ray-preview">
-    <img alt="OBS Stable" src="https://img.shields.io/badge/Fedora--OBS-preview-blue" />
+    <img alt="Copr Preview" src="https://img.shields.io/badge/Fedora%20Copr-preview-blue" />
    </a>
   </td>
  </tr>
@@ -55,12 +54,17 @@
 
  <tr>
   <td>Flathub</td>
-  <td><a href="https://flathub.org/apps/details/com.github.Qv2ray"><img alt="flathub" src="https://img.shields.io/badge/flathub-available-success?style=flat-square" /></a></td>
+  <td><a href="https://flathub.org/apps/details/com.github.Qv2ray"><img alt="flathub" src="https://img.shields.io/badge/flathub-available-success" /></a></td>
  </tr>
 
  <tr>
   <td>Scoop</td>
   <td><a href="https://github.com/lukesampson/scoop-extras/blob/master/bucket/qv2ray.json"><img alt="scoop" src="https://img.shields.io/badge/scoop--extras-available-blue" /></a></td>
+ </tr>
+
+ <tr>
+ <td>Chocolatey</td>
+ <td><a href="https://chocolatey.org/packages/qv2ray"><img alt="Chocolatey Version" src="https://img.shields.io/chocolatey/v/qv2ray"></a></td>
  </tr>
 
  <tr>
@@ -74,10 +78,10 @@
   <td>openSUSE</td>
   <td>
    <a href="https://build.opensuse.org/package/show/home:zzndb/Qv2ray">
-    <img alt="OBS Stable" src="https://img.shields.io/badge/openSUSE--OBS-stable-blue" />
+    <img alt="OBS Stable" src="https://img.shields.io/badge/openSUSE%20OBS-stable-blue" />
    </a><br/>
    <a href="https://build.opensuse.org/package/show/home:zzndb/Qv2ray-preview">
-    <img alt="OBS Stable" src="https://img.shields.io/badge/openSUSE--OBS-preview-blue" />
+    <img alt="OBS Stable" src="https://img.shields.io/badge/openSUSE%20OBS-preview-blue" />
    </a>
   </td>
  </tr>
@@ -91,7 +95,7 @@
 ## Special Thanks
 - **Quality Assurance & User Experience:** [@DuckSoft](https://github.com/DuckSoft/)
 - **Debian-based distro Packager:** [@ymshenyu](https://github.com/ymshenyu)
-
+- [**JetBrains Developer Toolbox**](https://www.jetbrains.com/?from=Qv2ray)
 -------------------------------
 
 ## Copyright
@@ -103,10 +107,10 @@
 
 ## Licences
 
-Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) 
+Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ```
-    Qv2ray, A Qt frontend for v2ray. Written in c++
+    Qv2ray, A Qt frontend for v2ray. Written in C++
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

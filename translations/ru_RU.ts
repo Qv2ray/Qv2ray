@@ -28,10 +28,6 @@
         <translation type="unfinished">Поделитесь ссылкой</translation>
     </message>
     <message>
-        <source>(Ignored %1 complex config(s))</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not a subscription</source>
         <translation type="unfinished"></translation>
     </message>
@@ -83,6 +79,14 @@
         <source>Group Name</source>
         <translation type="unfinished"></translation>
     </message>
+    <message numerus="yes">
+        <source>(Ignored %n complex config(s))</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>ConnectionItemWidget</name>
@@ -112,6 +116,18 @@
     </message>
     <message>
         <source>connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Connected: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Updated: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -205,6 +221,29 @@
     </message>
     <message>
         <source>DNS List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>△</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>▽</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+
+It cannot be a private address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port for DNS server. Normally it&apos;s 53.
+This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -383,10 +422,6 @@
     </message>
     <message>
         <source>QR Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -585,10 +620,6 @@
         <translation>Использовать переадресацию</translation>
     </message>
     <message>
-        <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-        <translation>Если вы хотите использовать tProxy, перейдите в Preference Window для включения этой функции.</translation>
-    </message>
-    <message>
         <source>MTProto Inbound Settings</source>
         <translation>Параметры HTTP InBound</translation>
     </message>
@@ -631,6 +662,10 @@
     <message>
         <source>This user exists already.</source>
         <translation>Этот пользователь уже существует.</translation>
+    </message>
+    <message>
+        <source>tproxy mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -849,24 +884,24 @@
         <source>Are you sure to exit Qv2ray?</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set auto connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set %1 as auto connect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -890,10 +925,6 @@
         <translation>Обновить подписку</translation>
     </message>
     <message>
-        <source>These subscriptions are out-of-date: </source>
-        <translation>Эти подписки устарели: </translation>
-    </message>
-    <message>
         <source>Enable System Proxy</source>
         <translation>Включить системный прокси</translation>
     </message>
@@ -909,13 +940,21 @@
         <source>Disconnected from: </source>
         <translation>Отключен от:</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation>Удаление подключения(й)</translation>
+        <translation type="unfinished">
+            <numerusform>Удаление подключения(й)</numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation>Вы уверены, что хотите удалить выбранные подключение(и)?</translation>
+        <translation type="unfinished">
+            <numerusform>Вы уверены, что хотите удалить выбранные подключение(и)?</numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -978,11 +1017,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
+        <source>Recent connections&apos; jump list cleared.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recent connections&apos; jump list cleared.</source>
+        <source>Update Subscription</source>
+        <translation type="unfinished">Обновить подписку</translation>
+    </message>
+    <message>
+        <source>Subscription &quot;%1&quot; has been updated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 has been set as auto connect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected group is not a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to update these subscriptions?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1106,6 +1161,10 @@
     </message>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tests</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1427,6 +1486,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>This will make your TLS fingerpring different from common golang programs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This will (probably) make it easy to fingerprint your connection.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1480,10 +1543,6 @@
     </message>
     <message>
         <source>Speed chart and traffic statistics will be disabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use built-in darkmode Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1678,10 +1737,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can configure route rules for all simple connection config here.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ignored Version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1751,12 +1806,7 @@ For example, for updating subscriptions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>These settings may be useful.
-But could dramatically damage your server if improperly used.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set AllowInsecureCiphers By Default</source>
+        <source>Enable SessionResumption By Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1795,6 +1845,39 @@ But could dramatically damage your server if improperly used.</source>
         <source>Use V2ray DNS for Direct Connection</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You can configure default DNS settings for all simple connection config here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can configure default routing rules for all simple connection config here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid DNS settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could damage your server if improperly used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Watch Out!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1831,20 +1914,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>JSON не должен быть пустым</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Внимание</translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot load the config file from here:</source>
-        <translation>Qv2ray не может загрузить файл конфигурации отсюда:</translation>
-    </message>
-    <message>
         <source>N/A</source>
         <translation>N/A</translation>
-    </message>
-    <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - кросс-платформенный Qt фронтенд для V2ray.</translation>
     </message>
     <message>
         <source>Outbound</source>
@@ -2090,28 +2161,128 @@ But could dramatically damage your server if improperly used.</source>
         <source>Unknown error</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>vmess:// url is invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid streamSettings protocol:  </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
-    <name>Qv2ray::common::QvCommandArgParser</name>
+    <name>Qv2ray::Qv2rayApplication</name>
     <message>
-        <source>Disable gRPC API subsystems.</source>
-        <translation type="unfinished">Отключить подсистемы gRPC API.</translation>
-    </message>
-    <message>
-        <source>Explicitly run Qv2ray as root.</source>
-        <translation type="unfinished">Явно запускайте Qv2ray как root.</translation>
-    </message>
-    <message>
-        <source>Enable Debug Output</source>
-        <translation type="unfinished">Включить отладочный вывод</translation>
-    </message>
-    <message>
-        <source>Disable manually set QT_SCALE_FACTOR</source>
+        <source>A new version of Qv2ray is attemping to start:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable plugin feature</source>
+        <source>New version information: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray version: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray path: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to exit and launch that new version?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New version detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot Start Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot find a place to store config files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray has searched these paths below:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray will now exit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to initialise Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to determine the location of config file:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A workaround is to remove the this file and restart Qv2ray:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please report if you think it&apos;s a bug.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray Cannot Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please check if there&apos;s an issue explaining about it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Or submit a new issue if you think this is an error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable gRPC API subsystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable plugins feature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Qt UI scale factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable debug output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop current connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect last connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
+        <translation type="unfinished">Qv2ray - кросс-платформенный Qt фронтенд для V2ray.</translation>
     </message>
 </context>
 <context>
@@ -2159,11 +2330,15 @@ But could dramatically damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Port %1 of IP %2 for inbound tag: &quot;%3&quot;</source>
+        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+        <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port: %1 for listening IP: 127.0.0.1 for plugin integration.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2186,12 +2361,24 @@ But could dramatically damage your server if improperly used.</source>
         <translation type="unfinished">Обновить подписку</translation>
     </message>
     <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <source>Group: %1</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation type="unfinished"></translation>
+    <message numerus="yes">
+        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2254,6 +2441,22 @@ Maybe you have downloaded the wrong core?</source>
         <source>V2ray kernel failed to start.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Core file is lacking executable permission for the current user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray tried to set, but failed because permission denied.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Core control file is lacking executable permission for the current user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check is skipped</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
@@ -2277,10 +2480,10 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>QvRuleNodeDataModel</name>
+    <name>QvRuleNodeModel</name>
     <message>
         <source>Missing or incorrect inputs</source>
-        <translation>Отсутствующие или неправильные входы</translation>
+        <translation type="unfinished">Отсутствующие или неправильные входы</translation>
     </message>
 </context>
 <context>
@@ -2903,6 +3106,14 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Allow Insecure Ciphers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seed (Experimental)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Session Resumption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

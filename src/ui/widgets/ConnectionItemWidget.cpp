@@ -127,17 +127,14 @@ void ConnectionItemWidget::OnDisConnected(const ConnectionGroupPair &id)
     }
 }
 
-void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionGroupPair &id, const quint64 upSpeed, const quint64 downSpeed,
-                                                    const quint64 totalUp, const quint64 totalDown)
+void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data)
 {
-    Q_UNUSED(upSpeed)
-    Q_UNUSED(downSpeed)
-
     if (id.connectionId == connectionId)
     {
-        dataLabel->setText(FormatBytes(totalUp) + " / " + FormatBytes(totalDown));
+        dataLabel->setText(FormatBytes(data[CurrentStatAPIType].second.first) + " / " + FormatBytes(data[CurrentStatAPIType].second.second));
     }
 }
+
 void ConnectionItemWidget::OnConnectionModified(const ConnectionId &id)
 {
     if (connectionId == id)

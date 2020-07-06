@@ -28,11 +28,6 @@ namespace Qv2ray::components::latency
         resultData.worst = 0;
         switch (method)
         {
-            case TCPING:
-            {
-                this->resultData = tcping::TestTCPLatency(host, port, count);
-                break;
-            }
             case ICMPING:
             {
                 icmping::ICMPPing ping(30);
@@ -59,7 +54,7 @@ namespace Qv2ray::components::latency
                         resultData.worst = std::max(resultData.worst, _latency);
                     }
                 }
-                if (resultData.totalCount != resultData.failedCount != 0)
+                if (resultData.totalCount != 0 && resultData.failedCount != 0)
                 {
                     resultData.errorMessage.clear();
                     resultData.avg = resultData.avg / (resultData.totalCount - resultData.failedCount) / 1000;
@@ -71,6 +66,12 @@ namespace Qv2ray::components::latency
                 }
                 //
                 //
+                break;
+            }
+            case TCPING:
+            default:
+            {
+                this->resultData = tcping::TestTCPLatency(host, port, count);
                 break;
             }
         }

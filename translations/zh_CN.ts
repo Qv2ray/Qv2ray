@@ -68,10 +68,6 @@
         <translation>分享链接</translation>
     </message>
     <message>
-        <source>(Ignored %1 complex config(s))</source>
-        <translation>(已忽略 %1 个复杂配置)</translation>
-    </message>
-    <message>
         <source>Not a subscription</source>
         <translation>不是订阅</translation>
     </message>
@@ -82,6 +78,12 @@
     <message>
         <source>Are you sure to delete the current item?</source>
         <translation>您确定要删除当前项目吗？</translation>
+    </message>
+    <message numerus="yes">
+        <source>(Ignored %n complex config(s))</source>
+        <translation>
+            <numerusform>（忽略 %n 个复杂配置）</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -113,6 +115,18 @@
     <message>
         <source>connections</source>
         <translation>个</translation>
+    </message>
+    <message>
+        <source>Last Connected: </source>
+        <translation>上次连接: </translation>
+    </message>
+    <message>
+        <source>Last Updated: </source>
+        <translation>最后更新: </translation>
+    </message>
+    <message>
+        <source>Subscription</source>
+        <translation>订阅</translation>
     </message>
 </context>
 <context>
@@ -206,6 +220,31 @@
     <message>
         <source>DNS List</source>
         <translation>DNS 列表</translation>
+    </message>
+    <message>
+        <source>△</source>
+        <translation>上移</translation>
+    </message>
+    <message>
+        <source>▽</source>
+        <translation>下移</translation>
+    </message>
+    <message>
+        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+
+It cannot be a private address.</source>
+        <translation>当前系统的 IP 地址。用作在查询 DNS 时提示服务器客户端所在的位置。
+不能是私有 IP 地址。</translation>
+    </message>
+    <message>
+        <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
+        <translation>(V2Ray 4.13+) 除 localhost 和 DoH Local 模式之外，DNS 的查询流量都会被当作从该入站标签进入的流量参与路由。</translation>
+    </message>
+    <message>
+        <source>Port for DNS server. Normally it&apos;s 53.
+This entry is ignored by V2Ray core when using DoH servers.</source>
+        <translation>DNS 服务器端口。通常为 53。
+当使用 DoH 模式时，此项无效。</translation>
     </message>
 </context>
 <context>
@@ -384,10 +423,6 @@
     <message>
         <source>QR Code</source>
         <translation>二维码</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation>图像</translation>
     </message>
     <message>
         <source>Detected Link</source>
@@ -585,10 +620,6 @@
         <translation>跟随重定向</translation>
     </message>
     <message>
-        <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-        <translation>如果您想要使用 tProxy，请前往首选项窗口启用此功能。</translation>
-    </message>
-    <message>
         <source>MTProto Inbound Settings</source>
         <translation>MTProto 入站设置</translation>
     </message>
@@ -631,6 +662,10 @@
     <message>
         <source>This user exists already.</source>
         <translation>此用户已存在。</translation>
+    </message>
+    <message>
+        <source>tproxy mode</source>
+        <translation>透明代理模式</translation>
     </message>
 </context>
 <context>
@@ -797,25 +832,21 @@
         <source>Connected: </source>
         <translation>已连接: </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation>复制连接</translation>
+        <translation>
+            <numerusform>复制连接</numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation>您确定要复制这（些）连接吗？</translation>
+        <translation>
+            <numerusform>您确定要复制这（些）连接吗？</numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
         <translation> （副本）</translation>
-    </message>
-    <message>
-        <source>Set auto connection</source>
-        <translation>设置自动连接</translation>
-    </message>
-    <message>
-        <source>Set %1 as auto connect.</source>
-        <translation>已将 %1 设为自动连接。</translation>
     </message>
     <message>
         <source>Cannot set system proxy</source>
@@ -838,10 +869,6 @@
         <translation>更新订阅</translation>
     </message>
     <message>
-        <source>These subscriptions are out-of-date: </source>
-        <translation>这些订阅已过期： </translation>
-    </message>
-    <message>
         <source>System Proxy</source>
         <translation>系统代理</translation>
     </message>
@@ -849,9 +876,11 @@
         <source>Disconnected from: </source>
         <translation>已断开连接: </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation>删除连接</translation>
+        <translation>
+            <numerusform>删除连接</numerusform>
+        </translation>
     </message>
     <message>
         <source>Kernel terminated.</source>
@@ -873,9 +902,11 @@
         <source>Are you sure to exit Qv2ray?</source>
         <translation>确信要退出 Qv2ray 吗？</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation>您确定要删除这（些）连接吗？</translation>
+        <translation>
+            <numerusform>您确定要删除这些项目吗？</numerusform>
+        </translation>
     </message>
     <message>
         <source>Locate Current Connection</source>
@@ -978,12 +1009,28 @@
         <translation>清除最近连接</translation>
     </message>
     <message>
-        <source>There are subscriptions to be updated, please go to Group Manager to update them.</source>
-        <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
-    </message>
-    <message>
         <source>Recent connections&apos; jump list cleared.</source>
         <translation>已清空最近连接列表。</translation>
+    </message>
+    <message>
+        <source>Update Subscription</source>
+        <translation>更新订阅</translation>
+    </message>
+    <message>
+        <source>Subscription &quot;%1&quot; has been updated</source>
+        <translation>已更新订阅 &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>%1 has been set as auto connect.</source>
+        <translation>已将 %1 设置为自动连接。</translation>
+    </message>
+    <message>
+        <source>Selected group is not a subscription</source>
+        <translation>所选分组不是订阅</translation>
+    </message>
+    <message>
+        <source>Do you want to update these subscriptions?</source>
+        <translation>要更新这些订阅吗？</translation>
     </message>
 </context>
 <context>
@@ -1107,6 +1154,10 @@
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation>请使用 JSON 编辑器或重载对应插件。</translation>
+    </message>
+    <message>
+        <source>Tests</source>
+        <translation>测试</translation>
     </message>
 </context>
 <context>
@@ -1463,10 +1514,6 @@
         <translation>高级路由设置</translation>
     </message>
     <message>
-        <source>You can configure route rules for all simple connection config here.</source>
-        <translation>您可在此为所有简单连接配置路由规则。</translation>
-    </message>
-    <message>
         <source>License</source>
         <translation>许可证</translation>
     </message>
@@ -1661,10 +1708,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>速度图表和流量统计功能将不再可用。</translation>
     </message>
     <message>
-        <source>Use built-in darkmode Theme</source>
-        <translation>使用内置暗色模式主题</translation>
-    </message>
-    <message>
         <source>NTP Checker</source>
         <translation>网络时间检查器</translation>
     </message>
@@ -1759,14 +1802,8 @@ For example, for updating subscriptions.</source>
         <translation>默认设置 AllowInsecure</translation>
     </message>
     <message>
-        <source>These settings may be useful.
-But could dramatically damage your server if improperly used.</source>
-        <translation>以下设定可能很有用。
-但若使用不当，可能会造成负面影响。</translation>
-    </message>
-    <message>
-        <source>Set AllowInsecureCiphers By Default</source>
-        <translation>默认设置 AllowInsecureCiphers</translation>
+        <source>Enable SessionResumption By Default</source>
+        <translation>默认允许 SessionResumption</translation>
     </message>
     <message>
         <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
@@ -1804,6 +1841,48 @@ But could dramatically damage your server if improperly used.</source>
         <source>Use V2ray DNS for Direct Connection</source>
         <translation>为直连使用 V2Ray DNS</translation>
     </message>
+    <message>
+        <source>You can configure default DNS settings for all simple connection config here.</source>
+        <translation>你可在此为所有简单连接配置 DNS 设定。</translation>
+    </message>
+    <message>
+        <source>You can configure default routing rules for all simple connection config here.</source>
+        <translation>你可在此为所有简单连接配置默认路由规则。</translation>
+    </message>
+    <message>
+        <source>Invalid DNS settings.</source>
+        <translation>无效的 DNS 设置。</translation>
+    </message>
+    <message>
+        <source>These settings may be useful.
+But could damage your server if improperly used.</source>
+        <translation>此处的设定可能很有用。
+但若使用不当，将会造成不良后果。</translation>
+    </message>
+    <message>
+        <source>This will make your TLS fingerpring different from common golang programs.</source>
+        <translation>这将让你的 TLS 指纹有异于正常的 Golang 程序。</translation>
+    </message>
+    <message>
+        <source>Watch Out!</source>
+        <translation>小心！</translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
+        <translation>您或许要将 V2Ray 的可执行文件错误地设置成 Qv2ray 本身了，这是非常不对的。
+然而，这样做并不会触发 Fork 炸弹，因为 Qv2ray 以单例模式工作。
+若你的 V2Ray 核心文件名恰好是 &apos;qv2ray&apos; 什么的，你完全可以忽略这个警告。</translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation>您或许要将 V2Ray 核心错误地设置为 V2Ray 控制文件了，这是非常不对的。
+V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。确保你作出了明智的选择。
+若您执意继续，请恕吾等无法提供任何保证。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1840,20 +1919,8 @@ But could dramatically damage your server if improperly used.</source>
         <translation>JSON 不应该为空</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>警告</translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot load the config file from here:</source>
-        <translation>Qv2ray 无法从这里加载配置文件：</translation>
-    </message>
-    <message>
         <source>N/A</source>
         <translation>不适用</translation>
-    </message>
-    <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - V2ray的跨平台Qt前端。</translation>
     </message>
     <message>
         <source>Default Group</source>
@@ -2099,28 +2166,128 @@ But could dramatically damage your server if improperly used.</source>
         <source>Unknown error</source>
         <translation>未知错误</translation>
     </message>
+    <message>
+        <source>vmess:// url is invalid</source>
+        <translation>vmess:// 链接无效</translation>
+    </message>
+    <message>
+        <source>Invalid streamSettings protocol:  </source>
+        <translation>无效的 streamSettings 协议:  </translation>
+    </message>
 </context>
 <context>
-    <name>Qv2ray::common::QvCommandArgParser</name>
+    <name>Qv2ray::Qv2rayApplication</name>
     <message>
-        <source>Disable gRPC API subsystems.</source>
-        <translation>禁用 gRPC API 子系统。</translation>
+        <source>A new version of Qv2ray is attemping to start:</source>
+        <translation>一个更新的 Qv2ray 版本正试图启动：</translation>
     </message>
     <message>
-        <source>Explicitly run Qv2ray as root.</source>
-        <translation>以 root 身份运行 Qv2ray。</translation>
+        <source>New version information: </source>
+        <translation>新版本信息: </translation>
     </message>
     <message>
-        <source>Enable Debug Output</source>
+        <source>Qv2ray version: %1</source>
+        <translation>Qv2ray 版本: %1</translation>
+    </message>
+    <message>
+        <source>Qv2ray path: %1</source>
+        <translation>Qv2ray 路径: %1</translation>
+    </message>
+    <message>
+        <source>Do you want to exit and launch that new version?</source>
+        <translation>要退出当前版本并运行新版本吗？</translation>
+    </message>
+    <message>
+        <source>New version detected</source>
+        <translation>检测到新版</translation>
+    </message>
+    <message>
+        <source>Cannot Start Qv2ray</source>
+        <translation>无法启动 Qv2ray</translation>
+    </message>
+    <message>
+        <source>Cannot find a place to store config files.</source>
+        <translation>找不到合适的地方存储配置文件。</translation>
+    </message>
+    <message>
+        <source>Qv2ray has searched these paths below:</source>
+        <translation>Qv2ray 已搜索了下面的路径：</translation>
+    </message>
+    <message>
+        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+        <translation>这通常意味着你对所有这些路径都没有写入权限。</translation>
+    </message>
+    <message>
+        <source>Qv2ray will now exit.</source>
+        <translation>Qv2ray 即将退出。</translation>
+    </message>
+    <message>
+        <source>Failed to initialise Qv2ray</source>
+        <translation>Qv2ray 初始化失败</translation>
+    </message>
+    <message>
+        <source>Failed to determine the location of config file:</source>
+        <translation>无法确定配置文件的位置：</translation>
+    </message>
+    <message>
+        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+        <translation>Qv2ray 找到了一个配置文件，但是由于某些错误加载失败。</translation>
+    </message>
+    <message>
+        <source>A workaround is to remove the this file and restart Qv2ray:</source>
+        <translation>作为权宜之计，你可以移走这个文件然后重启 Qv2ray：</translation>
+    </message>
+    <message>
+        <source>Please report if you think it&apos;s a bug.</source>
+        <translation>若你认为出现了 bug，可以向我们反馈。</translation>
+    </message>
+    <message>
+        <source>Qv2ray Cannot Continue</source>
+        <translation>Qv2ray 无法继续</translation>
+    </message>
+    <message>
+        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+        <translation>与当前配置文件相比，你所运行的 Qv2ray 的版本更低。</translation>
+    </message>
+    <message>
+        <source>Please check if there&apos;s an issue explaining about it.</source>
+        <translation>请检查上游是否有相关的说明。</translation>
+    </message>
+    <message>
+        <source>Or submit a new issue if you think this is an error.</source>
+        <translation>或者，若您认为这是一个错误，可以向我们反馈。</translation>
+    </message>
+    <message>
+        <source>Disable gRPC API subsystem</source>
+        <translation>禁用 gRPC API 子系统</translation>
+    </message>
+    <message>
+        <source>Disable plugins feature</source>
+        <translation>禁用插件功能</translation>
+    </message>
+    <message>
+        <source>Disable Qt UI scale factor</source>
+        <translation>禁用 Qt 界面缩放因子</translation>
+    </message>
+    <message>
+        <source>Enable debug output</source>
         <translation>启用调试输出</translation>
     </message>
     <message>
-        <source>Disable manually set QT_SCALE_FACTOR</source>
-        <translation>禁用 QT_SCALE_FACTOR</translation>
+        <source>Stop current connection</source>
+        <translation>停止当前的连接</translation>
     </message>
     <message>
-        <source>Disable plugin feature</source>
-        <translation>禁用插件功能</translation>
+        <source>Reconnect last connection</source>
+        <translation>重连上次连接</translation>
+    </message>
+    <message>
+        <source>Exit Qv2ray</source>
+        <translation>退出 Qv2ray</translation>
+    </message>
+    <message>
+        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
+        <translation>Qv2ray - 一个 V2Ray 的跨平台 Qt 前端。</translation>
     </message>
 </context>
 <context>
@@ -2168,12 +2335,16 @@ But could dramatically damage your server if improperly used.</source>
         <translation>另一进程正在使用启动此连接所需的端口：</translation>
     </message>
     <message>
-        <source>Port %1 of IP %2 for inbound tag: &quot;%3&quot;</source>
-        <translation>入站标签 %3 需要 IP %2 的端口 %1</translation>
-    </message>
-    <message>
         <source>A plugin kernel failed to start. Please check the outbound settings.</source>
         <translation>一个插件内核启动失败。请检查出站设置。</translation>
+    </message>
+    <message>
+        <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
+        <translation>入站标签 &quot;%3&quot; 需要在 %2 监听端口 %1</translation>
+    </message>
+    <message>
+        <source>Port: %1 for listening IP: 127.0.0.1 for plugin integration.</source>
+        <translation>插件集成需要在 127.0.0.1 的 %1 端口监听。</translation>
     </message>
 </context>
 <context>
@@ -2195,12 +2366,20 @@ But could dramatically damage your server if improperly used.</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation>订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
+        <source>Group: %1</source>
+        <translation>分组: %1</translation>
     </message>
-    <message>
-        <source>%1 out of %2 entrie(s) have been filtered out, do you want to continue?</source>
-        <translation>%2 条连接中仅有 %1 条可用，确定要继续吗？</translation>
+    <message numerus="yes">
+        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation>
+            <numerusform>订阅中仅有 %n 项可用，要继续吗？</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+        <translation>
+            <numerusform>%n 条中过滤出 %1 条项目，要继续吗？</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2265,6 +2444,22 @@ Maybe you have downloaded the wrong core?</source>
         <source>V2ray kernel failed to start.</source>
         <translation>V2ray 核心启动失败。</translation>
     </message>
+    <message>
+        <source>Core file is lacking executable permission for the current user.</source>
+        <translation>当前用户没有 V2Ray 核心文件的执行权限。</translation>
+    </message>
+    <message>
+        <source>Qv2ray tried to set, but failed because permission denied.</source>
+        <translation>Qv2ray 尝试设置，但由于权限不足，操作已失败。</translation>
+    </message>
+    <message>
+        <source>Core control file is lacking executable permission for the current user.</source>
+        <translation>当前用户没有 V2Ray 核心控制文件的可执行权限。</translation>
+    </message>
+    <message>
+        <source>Check is skipped</source>
+        <translation>检查已跳过</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
@@ -2288,7 +2483,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>QvRuleNodeDataModel</name>
+    <name>QvRuleNodeModel</name>
     <message>
         <source>Missing or incorrect inputs</source>
         <translation>输入丢失或不正确</translation>
@@ -2916,6 +3111,14 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Allow Insecure Ciphers</source>
         <translation>允许不安全的 TLS 算法</translation>
+    </message>
+    <message>
+        <source>Seed (Experimental)</source>
+        <translation>种子（实验性选项）</translation>
+    </message>
+    <message>
+        <source>Disable Session Resumption</source>
+        <translation>禁用会话返回</translation>
     </message>
 </context>
 <context>

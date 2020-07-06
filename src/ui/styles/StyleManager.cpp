@@ -104,9 +104,9 @@ namespace Qv2ray::ui::styles
             case QvStyle::QVSTYLE_FACTORY:
             {
                 LOG(MODULE_UI, "Applying UI style: " + s.Name)
-                const auto &style = QStyleFactory::create(s.Name);
-                qApp->setPalette(style->standardPalette());
-                qApp->setStyle(style);
+                const auto &_style = QStyleFactory::create(s.Name);
+                qApp->setPalette(_style->standardPalette());
+                qApp->setStyle(_style);
                 qApp->setStyleSheet("");
                 break;
             }

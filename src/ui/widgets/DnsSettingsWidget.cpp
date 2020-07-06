@@ -20,6 +20,7 @@ using Qv2ray::common::validation::IsValidIPAddress;
     detailsSettingsGB->setEnabled(serversListbox->count() > 0);                                                                                 \
     serverAddressTxt->setEnabled(serversListbox->count() > 0);                                                                                  \
     removeServerBtn->setEnabled(serversListbox->count() > 0);                                                                                   \
+    ProcessDnsPortEnabledState();                                                                                                               \
     CHECK_DISABLE_MOVE_BTN
 
 #define currentServerIndex serversListbox->currentRow()
@@ -97,6 +98,20 @@ bool DnsSettingsWidget::CheckIsValidDNS() const
     return true;
 }
 
+void DnsSettingsWidget::ProcessDnsPortEnabledState()
+{
+    if (detailsSettingsGB->isChecked()){
+        if (const auto addr = serverAddressTxt->text(); addr.startsWith("https:") || addr.startsWith("https+"))
+        {
+            serverPortSB->setEnabled(false);
+        }
+        else
+        {
+            serverPortSB->setEnabled(true);
+        }
+    }
+}
+
 void DnsSettingsWidget::ShowCurrentDnsServerDetails()
 {
     serverAddressTxt->setText(dns.servers[currentServerIndex].address);
@@ -115,6 +130,7 @@ void DnsSettingsWidget::ShowCurrentDnsServerDetails()
     {
         RED(serverAddressTxt)
     }
+    ProcessDnsPortEnabledState();
 }
 
 DNSObject DnsSettingsWidget::GetDNSObject()
@@ -223,6 +239,8 @@ void DnsSettingsWidget::on_serverAddressTxt_textEdited(const QString &arg1)
     {
         RED(serverAddressTxt)
     }
+
+    ProcessDnsPortEnabledState();
 }
 
 void DnsSettingsWidget::on_serverPortSB_valueChanged(int arg1)
@@ -250,7 +268,7 @@ void DnsSettingsWidget::on_staticResolvedDomainsTable_cellChanged(int, int)
 
 void DnsSettingsWidget::on_detailsSettingsGB_toggled(bool arg1)
 {
-    if (currentServerIndex > 0)
+    if (currentServerIndex >= 0)
         dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS = arg1;
     // detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
 }
