@@ -1,3 +1,9 @@
+qv2ray (2.6.0-1) unstable; urgency=medium
+
+  * New Release 2.6.0
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Mon, 06 Jul 2020 17:37:41 +0800
+
 qv2ray (2.6.0~rc4-1) unstable; urgency=medium
 
   * fix: fixed ssd:// order issue, fixed #635
