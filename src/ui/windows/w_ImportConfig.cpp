@@ -9,10 +9,13 @@
 #include "ui/windows/w_GroupManager.hpp"
 #include "w_ScreenShot_Core.hpp"
 
-constexpr auto LINK_PAGE = 0;
-constexpr auto QRCODE_PAGE = 1;
-constexpr auto MANUAL_PAGE = 2;
-constexpr auto ADVANCED_PAGE = 3;
+namespace
+{
+    constexpr auto LINK_PAGE = 0;
+    constexpr auto QRCODE_PAGE = 1;
+    constexpr auto MANUAL_PAGE = 2;
+    constexpr auto ADVANCED_PAGE = 3;
+} // namespace
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog(parent)
 {
@@ -45,7 +48,6 @@ QvMessageBusSlotImpl(ImportConfigWindow)
 
 ImportConfigWindow::~ImportConfigWindow()
 {
-    DEBUG(MODULE_UI, "Import window destructor.");
 }
 
 QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
@@ -123,17 +125,15 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     }
 
     QApplication::processEvents();
-    QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
+    QThread::msleep(doubleSpinBox->value() * 1000UL);
     ScreenShotWindow w;
     auto pix = w.DoScreenShot();
-    auto _r = w.result();
-
     if (hideQv2ray)
     {
         UIMessageBus.EmitGlobalSignal(QvMBMessage::SHOW_WINDOWS);
     }
 
-    if (_r == QDialog::Accepted)
+    if (w.result() == QDialog::Accepted)
     {
         auto str = DecodeQRCode(pix);
         if (str.trimmed().isEmpty())
@@ -163,7 +163,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, QSTRN(linkList.count()) + " string found in vmess box.")
+            LOG(MODULE_IMPORT, QSTRN(linkList.count()) + " string(s) found in vmess box.")
 
             while (!linkList.isEmpty())
             {
