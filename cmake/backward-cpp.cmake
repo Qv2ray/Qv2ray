@@ -41,6 +41,6 @@ set(BACKWARD_ENABLE $<TARGET_OBJECTS:backward_object> CACHE STRING
 ###############################################################################
 # BACKWARD LIBRARY (Includes backward.cpp)
 ###############################################################################
-add_library(backward ${libtype} ${CMAKE_SOURCE_DIR}/3rdparty/backward-cpp/backward.cpp)
+add_library(backward ${CMAKE_SOURCE_DIR}/3rdparty/backward-cpp/backward.cpp)
 target_compile_definitions(backward PUBLIC ${BACKWARD_DEFINITIONS})
 target_include_directories(backward PUBLIC ${BACKWARD_INCLUDE_DIRS})

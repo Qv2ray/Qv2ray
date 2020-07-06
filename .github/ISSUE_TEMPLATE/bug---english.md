@@ -1,52 +1,86 @@
 ---
-name: Bug Report - English Version
-about: Used to report a bug...
+name: Bug Report
+about: Use this template to report a bug
 title: ''
-labels: Bugs, help wanted
+labels: Bugs, help wanted, DiscussionNeeded
 assignees: ''
 
 ---
 
-**Briefly describe this bug：**
+<!-- We recommend that you fill out the bug report template so that we can collect enough information to help you.
+     Note: Unqualified issues may be closed.
+     How to check an item: change [ ] to [x]
+     Plese hide sensitive info like your server address / domain / UUID before posting your VMess link/log. -->
 
-**How can I trigger this bug：**
+- [ ] **I'm sure I've tried to reproduce the problem several times and will provide the system environment, each software and its version that is involved in the problem.**
+
+## Briefly describe this bug：
+
+
+
+## How to trigger this bug：
 
 1. 
 2. 
 3. 
 4. 
 
-**What is expected to happen**
+### If it's a connection issue, has it happened in other V2Ray clients?
 
-**Screenshots**
-If appropriate, please attach some screenshots.
 
-**System Information**
 
- - OS Type: (Windows, Linux or macOS)
- - Built from the source or download from the release?
- - Version string in the Preferences Window
+### Related screenshots or logs
+
+<details>
+
+```
+Please paste your Qv2ray log here:
+
+
+```
+
+</details>
+
+## System Information
+
+<!-- Please check all the operating systems and installation sources that you confirmed to have problems. -->
+
+### Open Preferences -> About, and enter the following info
+
+```
+Version: 
+Build info: 
+Extra build info: 
+```
+
+### Operating systems
+
+- [ ] Linux
+- [ ] macOS
+- [ ] Windows
  
- **Affected Qv2ray installation source**
+### Installation source
  
-- ArchLinuxCN - Stable
-- ArchLinuxCN - Dev-git
-- ArchLinux AUR - Stable
-- ArchLinux AUR - Development
-- Fedora - Stable
-- Fedora - Preview
-- openSUSE - Stable
-- openSUSE - Preview
-- Flathub
-- Snap
-- Homebrew Cask
-- Scoop
-- Chocolatey
-- Compile manually
-- Github Release
+- [ ] ArchLinuxCN - Stable
+- [ ] ArchLinuxCN - Dev-git
+- [ ] ArchLinux AUR - Stable
+- [ ] ArchLinux AUR - Development
+- [ ] Fedora - Stable
+- [ ] Fedora - Preview
+- [ ] openSUSE - Stable
+- [ ] openSUSE - Preview
+- [ ] Flathub
+- [ ] Snap
+- [ ] Homebrew Cask
+- [ ] Scoop / Chocolatey / Github Release
+- [ ] Compile manually
 
-**Other Info**
+### Installed plugins, versions and sources
 
-You may want to write anything if you think it helps us to fix the bug.
+
+
+## Additional Info
+
+<!-- Feel free to write down any info you consider helpful to resolve the bug. -->
 
 *Please hide your server address and UUID if you wish to post the vmess string or your connection setting.*

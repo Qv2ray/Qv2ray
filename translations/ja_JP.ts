@@ -229,6 +229,23 @@
         <source>▽</source>
         <translation>下へ</translation>
     </message>
+    <message>
+        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+
+It cannot be a private address.</source>
+        <translation>DNS照会時にクライアントの位置をサーバに通知するために使用される現在のシステムのIPアドレス。
+プライベートアドレスにすることはできません。</translation>
+    </message>
+    <message>
+        <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
+        <translation>(V2Ray 4.13+) このDNSによって送信される問い合わせトラフィックは、localhostとDOHLモードを除いて、この識別子を持ち、ルート内のinboundTagと照合することができます。</translation>
+    </message>
+    <message>
+        <source>Port for DNS server. Normally it&apos;s 53.
+This entry is ignored by V2Ray core when using DoH servers.</source>
+        <translation>DNSサーバーのポート。通常は53です。
+このエントリはDoHサーバを使用する場合、V2Rayコアでは無視されます。</translation>
+    </message>
 </context>
 <context>
     <name>GroupManager</name>
@@ -1138,6 +1155,10 @@
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation>JsonEditorを使用するか、プラグインをリロードしてください。</translation>
     </message>
+    <message>
+        <source>Tests</source>
+        <translation>テスト</translation>
+    </message>
 </context>
 <context>
     <name>PluginManageWindow</name>
@@ -1854,6 +1875,14 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
 しかし、Qv2rayはシングルトンモードで動作するため、フォークボムは発生しません。
 もしあなたのV2Rayコアのファイル名が&apos;qv2ray&apos;などであれば、この警告を無視して構いません。</translation>
     </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation>V2Ray coreをV2Ray Control実行ファイルに間違って設定している可能性がありますが、これは絶対に正しくありません。
+V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&apos;です。賢明に選択してください。
+先に進むことをお勧めする場合、サポートを提供しておりません。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2415,6 +2444,22 @@ Maybe you have downloaded the wrong core?</source>
         <source>V2ray kernel failed to start.</source>
         <translation>V2rayカーネルの起動に失敗しました。</translation>
     </message>
+    <message>
+        <source>Core file is lacking executable permission for the current user.</source>
+        <translation>コアファイルには、現在のユーザーの実行可能なパーミッションがありません。</translation>
+    </message>
+    <message>
+        <source>Qv2ray tried to set, but failed because permission denied.</source>
+        <translation>Qv2rayが設定しようとしましたが、権限が拒否されたため失敗しました。</translation>
+    </message>
+    <message>
+        <source>Core control file is lacking executable permission for the current user.</source>
+        <translation>コアコントロールファイルには、現在のユーザーの実行可能なパーミッションがありません。</translation>
+    </message>
+    <message>
+        <source>Check is skipped</source>
+        <translation>チェックはスキップされます</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
@@ -2438,10 +2483,10 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>QvRuleNodeDataModel</name>
+    <name>QvRuleNodeModel</name>
     <message>
         <source>Missing or incorrect inputs</source>
-        <translation>Missing or incorrect inputs</translation>
+        <translation>入力の欠落または誤入力</translation>
     </message>
 </context>
 <context>

@@ -25,8 +25,8 @@ using namespace Qv2ray::ui::nodemodels;
 #define LOADINGCHECK                                                                                                                            \
     if (isLoading)                                                                                                                              \
         return;
-#define GetFirstNodeData(_node, nodeModel, dataModel)                                                                                           \
-    (static_cast<dataModel *>(static_cast<nodeModel *>((nodeScene->node(_node))->nodeDataModel())->outData(0).get()))
+#define GetFirstNodeData(_node, name)                                                                                                           \
+    (static_cast<name##Data *>(static_cast<Qv##name##Model *>((nodeScene->node(_node))->nodeDataModel())->outData(0).get()))
 
 #define CHECKEMPTYRULES                                                                                                                         \
     if (this->rules.isEmpty())                                                                                                                  \
@@ -155,7 +155,7 @@ void RouteEditor::onNodeClicked(Node &n)
     if (isRule)
     {
         // It's a rule object
-        currentRuleTag = GetFirstNodeData(n.id(), QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
+        currentRuleTag = GetFirstNodeData(n.id(), RuleNode)->GetRuleTag();
         DEBUG(MODULE_GRAPH, "Selecting rule: " + currentRuleTag)
         ShowCurrentRuleDetail();
         toolBox->setCurrentIndex(1);
@@ -165,30 +165,30 @@ void RouteEditor::onNodeClicked(Node &n)
         // It's an inbound or an outbound.
         QString alias;
         QString host;
-        int port;
+        QString port;
         QString protocol;
 
         if (isOut)
         {
-            alias = GetFirstNodeData(n.id(), QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
+            alias = GetFirstNodeData(n.id(), OutboundNode)->GetOutbound();
             QJsonObject _root = outbounds[alias].raw();
-            GetOutboundInfo(OUTBOUND(_root), &host, &port, &protocol);
+            int _port;
+            GetOutboundInfo(OUTBOUND(_root), &host, &_port, &protocol);
+            port = QString::number(_port);
         }
         else
         {
-            alias = GetFirstNodeData(n.id(), QvInboundNodeModel, InboundNodeData)->GetInbound();
+            alias = GetFirstNodeData(n.id(), InboundNode)->GetInbound();
             QJsonObject _root = inbounds[alias].raw();
             host = _root["listen"].toString();
             protocol = _root["protocol"].toString();
-            port = _root["port"].toInt();
+            // Port could be a string, or an integer.
+            port = _root["port"].toVariant().toString();
         }
 
         tagLabel->setText(alias);
         protocolLabel->setText(protocol);
-        if (port >= 1 && port <= 65535)
-            portLabel->setNum(port);
-        else
-            portLabel->setText("");
+        portLabel->setText(port);
         hostLabel->setText(host);
     }
     else
@@ -233,7 +233,7 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
             // Append all inbounds
             if (inNode->id() == targetNode->id())
             {
-                _inbounds.insert(GetFirstNodeData(outNode->id(), QvInboundNodeModel, InboundNodeData)->GetInbound());
+                _inbounds.insert(GetFirstNodeData(outNode->id(), InboundNode)->GetInbound());
             }
         }
         for (const auto &connRemoved : connectionsTobeRemoved)
@@ -248,7 +248,7 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
         // It's a rule-outbound connection
         onNodeClicked(*sourceNode);
         onNodeClicked(*targetNode);
-        CurrentRule.outboundTag = GetFirstNodeData(targetNode->id(), QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
+        CurrentRule.outboundTag = GetFirstNodeData(targetNode->id(), OutboundNode)->GetOutbound();
         // Connecting to an outbound will disable the balancer feature.
         CurrentRule.QV2RAY_RULE_USE_BALANCER = false;
         // Update balancer settings.
@@ -278,8 +278,8 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
         // It's a inbound-rule connection
         onNodeClicked(*source);
         onNodeClicked(*target);
-        currentRuleTag = GetFirstNodeData(target->id(), QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
-        auto _inboundTag = GetFirstNodeData(source->id(), QvInboundNodeModel, InboundNodeData)->GetInbound();
+        currentRuleTag = GetFirstNodeData(target->id(), RuleNode)->GetRuleTag();
+        auto _inboundTag = GetFirstNodeData(source->id(), InboundNode)->GetInbound();
         LOG(MODULE_UI, "Removing inbound: " + _inboundTag + " from rule: " + currentRuleTag)
         CurrentRule.inboundTag.removeAll(_inboundTag);
     }
@@ -288,8 +288,8 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
         // It's a rule-outbound connection
         onNodeClicked(*source);
         onNodeClicked(*target);
-        currentRuleTag = GetFirstNodeData(source->id(), QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
-        auto _outboundTag = GetFirstNodeData(target->id(), QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
+        currentRuleTag = GetFirstNodeData(source->id(), RuleNode)->GetRuleTag();
+        auto _outboundTag = GetFirstNodeData(target->id(), OutboundNode)->GetOutbound();
 
         if (!CurrentRule.QV2RAY_RULE_USE_BALANCER && CurrentRule.outboundTag == _outboundTag)
         {
@@ -829,7 +829,7 @@ void RouteEditor::on_delBtn_clicked()
     // the node container.
     if (isInbound)
     {
-        currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), QvInboundNodeModel, InboundNodeData)->GetInbound();
+        currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), InboundNode)->GetInbound();
         nodeScene->removeNode(*nodeScene->node(inboundNodes[currentInboundOutboundTag]));
         inboundNodes.remove(currentInboundOutboundTag);
 
@@ -845,7 +845,7 @@ void RouteEditor::on_delBtn_clicked()
     }
     else if (isOutbound)
     {
-        currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
+        currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), OutboundNode)->GetOutbound();
         outbounds.remove(currentInboundOutboundTag);
         ResolveDefaultOutboundTag(currentInboundOutboundTag, "");
 
@@ -868,7 +868,7 @@ void RouteEditor::on_delBtn_clicked()
         ruleEnableCB->setEnabled(false);
         ruleTagLineEdit->setEnabled(false);
         ruleRenameBtn->setEnabled(false);
-        auto RuleTag = GetFirstNodeData(firstNode->id(), QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
+        auto RuleTag = GetFirstNodeData(firstNode->id(), RuleNode)->GetRuleTag();
         currentRuleTag.clear();
         routeRuleGroupBox->setEnabled(false);
         routeEditGroupBox->setEnabled(false);
@@ -902,7 +902,7 @@ void RouteEditor::on_editBtn_clicked()
 
     if (isInbound)
     {
-        currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), QvInboundNodeModel, InboundNodeData)->GetInbound();
+        currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), InboundNode)->GetInbound();
 
         if (!inbounds.contains(currentInboundOutboundTag))
         {
@@ -953,7 +953,7 @@ void RouteEditor::on_editBtn_clicked()
     }
     else if (isOutbound)
     {
-        currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
+        currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), OutboundNode)->GetOutbound();
 
         if (!outbounds.contains(currentInboundOutboundTag))
         {

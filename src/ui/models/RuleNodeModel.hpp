@@ -4,12 +4,12 @@
 
 #include <QtCore/qglobal.h>
 
-class QvRuleNodeDataModel : public NodeDataModel
+class QvRuleNodeModel : public NodeDataModel
 {
     Q_OBJECT
   public:
-    QvRuleNodeDataModel(std::shared_ptr<RuleNodeData> data);
-    ~QvRuleNodeDataModel()
+    QvRuleNodeModel(std::shared_ptr<RuleNodeData> data);
+    ~QvRuleNodeModel()
     {
         // if (_label) {
         //    delete _label;
@@ -96,7 +96,7 @@ class QvRuleNodeDataModel : public NodeDataModel
     }
     std::unique_ptr<NodeDataModel> clone() const override
     {
-        return std::make_unique<QvRuleNodeDataModel>(_ruleTag);
+        return std::make_unique<QvRuleNodeModel>(_ruleTag);
     }
 
   private:

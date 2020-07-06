@@ -39,6 +39,7 @@ QImage ScreenShotWindow::DoScreenShot()
     QApplication::processEvents();
     //
     desktopImage = qApp->screenAt(QCursor::pos())->grabWindow(0);
+    scale = qApp->screenAt(QCursor::pos())->devicePixelRatio();
     //
     int w = desktopImage.width();
     int h = desktopImage.height();
@@ -57,8 +58,8 @@ QImage ScreenShotWindow::DoScreenShot()
             bg_grey.setPixel(i, j, qRgb(r, g, b));
         }
     }
-
-    bg_grey = bg_grey.scaled(bg_grey.size() / devicePixelRatio(), Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
+    setStyleSheet("QDialog { background-color: transparent; }");
+    bg_grey = bg_grey.scaled(bg_grey.size() / scale, Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
     auto p = this->palette();
     p.setBrush(QPalette::Window, bg_grey);
     setPalette(p);
@@ -78,8 +79,7 @@ void ScreenShotWindow::pSize()
     imgY = origin.y() < end.y() ? origin.y() : end.y();
     rubber.setGeometry(imgX, imgY, imgW, imgH);
     fg->setGeometry(rubber.geometry());
-    fg->setPixmap(desktopImage.copy(fg->x() * devicePixelRatio(), fg->y() * devicePixelRatio(), fg->width() * devicePixelRatio(),
-                                    fg->height() * devicePixelRatio()));
+    fg->setPixmap(desktopImage.copy(imgX * scale, imgY * scale, imgW * scale, imgH * scale));
 }
 
 bool ScreenShotWindow::event(QEvent *e)
@@ -155,6 +155,10 @@ void ScreenShotWindow::mouseReleaseEvent(QMouseEvent *e)
     if (e->button() == Qt::RightButton)
     {
         reject();
+    }
+    else if (e->button() == Qt::LeftButton)
+    {
+        rubber.hide();
     }
 }
 

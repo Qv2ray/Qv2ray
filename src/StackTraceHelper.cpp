@@ -82,7 +82,7 @@ namespace Qv2ray
             }
             else
             {
-                msg += QString("[*]: %1 SymGetLineFromAddr64[%2]\r\n").arg(symbol->Address).arg(symbol->Name).arg(GetLastError());
+                msg += QString("[%1]: %2 SymGetLineFromAddr64[%3]\r\n").arg(symbol->Address).arg(symbol->Name).arg(GetLastError());
             }
         }
         return msg;

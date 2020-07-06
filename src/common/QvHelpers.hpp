@@ -30,7 +30,7 @@ namespace Qv2ray::common
     //
     QString StringFromFile(const QString &filePath);
     QString StringFromFile(QFile &source);
-    bool StringToFile(const QString &text, QFile &target);
+    // bool StringToFile(const QString &text, QFile &target);
     bool StringToFile(const QString &text, const QString &targetpath);
     //
     QJsonObject JsonFromString(const QString &string);

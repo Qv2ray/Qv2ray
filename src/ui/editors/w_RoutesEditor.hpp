@@ -6,11 +6,6 @@
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_RoutesEditor.h"
 
-#include <QDialog>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QListWidgetItem>
-#include <list>
 #include <nodes/internal/ConnectionStyle.hpp>
 #include <nodes/internal/Node.hpp>
 #include <nodes/internal/NodeData.hpp>

@@ -231,6 +231,21 @@
         <source>▽</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+
+It cannot be a private address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port for DNS server. Normally it&apos;s 53.
+This entry is ignored by V2Ray core when using DoH servers.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GroupManager</name>
@@ -1148,6 +1163,10 @@
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Tests</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginManageWindow</name>
@@ -1853,6 +1872,12 @@ This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mo
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2416,6 +2441,22 @@ Maybe you have downloaded the wrong core?</source>
         <source>V2ray kernel failed to start.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Core file is lacking executable permission for the current user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray tried to set, but failed because permission denied.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Core control file is lacking executable permission for the current user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check is skipped</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
@@ -2439,10 +2480,10 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>QvRuleNodeDataModel</name>
+    <name>QvRuleNodeModel</name>
     <message>
         <source>Missing or incorrect inputs</source>
-        <translation>Отсутствующие или неправильные входы</translation>
+        <translation type="unfinished">Отсутствующие или неправильные входы</translation>
     </message>
 </context>
 <context>
