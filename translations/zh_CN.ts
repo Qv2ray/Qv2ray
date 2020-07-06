@@ -1895,7 +1895,7 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
     </message>
     <message>
         <source>Only V2ray Core v4.21+ is supported.</source>
-        <translation>仅支持 V2Ray v4.12+。</translation>
+        <translation>仅支持 V2Ray v4.21+。</translation>
     </message>
 </context>
 <context>
