@@ -140,6 +140,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
         //
         v2rayOutboundStatsCB->setChecked(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
         hasDirectStatisticsCB->setChecked(CurrentConfig.uiConfig.graphConfig.hasDirectStats);
+        hasDirectStatisticsCB->setEnabled(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
         //
         pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
         pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
@@ -1193,12 +1194,12 @@ void PreferencesWindow::on_qvNetworkUATxt_editTextChanged(const QString &arg1)
 void PreferencesWindow::on_v2rayOutboundStatsCB_stateChanged(int arg1)
 {
     hasDirectStatisticsCB->setEnabled(arg1 == Qt::Checked);
-    LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.uiConfig.graphConfig.useOutboundStats = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_hasDirectStatisticsCB_stateChanged(int arg1)
 {
-    LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.uiConfig.graphConfig.hasDirectStats = arg1 == Qt::Checked;
 }

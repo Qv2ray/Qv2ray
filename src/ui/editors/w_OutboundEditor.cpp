@@ -307,7 +307,6 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
     // 0, 1, 2 as built-in vmess, ss, socks
     outboundTypeStackView->setCurrentIndex(index);
-    streamSettingsWidget->setEnabled(index < 3);
     if (index < 3)
     {
         outboundType = outBoundTypeCombo->currentText().toLower();
@@ -321,6 +320,7 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
         useFPCB->setEnabled(false);
         useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
     }
+    streamSettingsWidget->setEnabled(index < 3);
 }
 
 void OutboundEditor::on_ss_emailTxt_textEdited(const QString &arg1)
