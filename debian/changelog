@@ -1,6 +1,6 @@
-qv2ray (2.6.0-1) unstable; urgency=medium
+qv2ray (2.6.0~rc5-1) unstable; urgency=medium
 
-  * New Release 2.6.0
+  * New Release 2.6.0-rc5
 
  -- Guobang Bi <ymshenyu@gmail.com>  Mon, 06 Jul 2020 17:37:41 +0800
 
