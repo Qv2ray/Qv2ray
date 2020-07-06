@@ -221,11 +221,6 @@ namespace Qv2ray::core::connection
             serv.address = add;
             serv.users.push_back(user);
             //
-            // VMess root config
-            OUTBOUNDSETTING vConf;
-            QJsonArray vnextArray;
-            vnextArray.append(serv.toJson());
-            vConf["vnext"] = vnextArray;
             //
             // Stream Settings
             StreamSettingsObject streaming;
@@ -284,10 +279,14 @@ namespace Qv2ray::core::connection
                 net = "http";
             streaming.network = net;
             //
-            // WARN Mux is missing here.
+            // VMess root config
+            OUTBOUNDSETTING vConf;
+            QJsonArray vnextArray;
+            vnextArray.append(serv.toJson());
+            vConf["vnext"] = vnextArray;
             auto outbound = GenerateOutboundEntry("vmess", vConf, streaming.toJson(), {}, "0.0.0.0", OUTBOUND_TAG_PROXY);
             //
-            root["outbounds"] = QJsonArray() << outbound;
+            root["outbounds"] = QJsonArray{ outbound };
             // If previous alias is empty, just the PS is needed, else, append a "_"
             *alias = alias->trimmed().isEmpty() ? ps : *alias + "_" + ps;
             return root;

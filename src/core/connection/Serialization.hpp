@@ -21,8 +21,8 @@ namespace Qv2ray::core::connection::serialization
     }
     QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
                                                               QString *newGroupName = nullptr);
-    const QString ConvertConfigToString(const ConnectionGroupPair &id, bool isSip002 = false);
-    const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server, bool isSip002);
+    const QString ConvertConfigToString(const ConnectionGroupPair &id, bool isSip002 = true);
+    const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server, bool isSip002 = true);
 
     namespace vmess
     {
