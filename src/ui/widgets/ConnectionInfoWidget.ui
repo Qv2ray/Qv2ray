@@ -320,7 +320,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="../../../resources.qrc">:/assets/icons/qv2ray.ico</pixmap>
+             <pixmap resource="../../../resources.qrc">:/assets/icons/qv2ray.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
