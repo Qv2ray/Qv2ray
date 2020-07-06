@@ -238,22 +238,10 @@ namespace Qv2ray::core::handler
             DEBUG(MODULE_CONNECTION, "Added global config inbounds to the config")
         }
 #undef INCONF
+
         // Process every inbounds to make sure a tag is configured, fixed
         // API 0 speed issue when no tag is configured.
-        INBOUNDS newTaggedInbounds(root["inbounds"].toArray());
-
-        for (auto i = 0; i < newTaggedInbounds.count(); i++)
-        {
-            auto _inboundItem = newTaggedInbounds[i].toObject();
-            if (!_inboundItem.contains("tag") || _inboundItem["tag"].toString().isEmpty())
-            {
-                LOG(MODULE_SETTINGS, "Adding a tag to an inbound.")
-                _inboundItem["tag"] = GenerateRandomString(8);
-                newTaggedInbounds[i] = _inboundItem;
-            }
-        }
-
-        root["inbounds"] = newTaggedInbounds;
+        FillupTagsFilter(root, "inbounds");
         //
         //
         // Note: The part below always makes the whole functionality in
@@ -324,7 +312,6 @@ namespace Qv2ray::core::handler
             {
                 auto outboundArray = root["outbounds"].toArray();
                 auto firstOutbound = outboundArray.first().toObject();
-
                 if (firstOutbound[QV2RAY_USE_FPROXY_KEY].toBool(false))
                 {
                     LOG(MODULE_CONNECTION, "Applying forward proxy to current connection.")
@@ -370,28 +357,25 @@ namespace Qv2ray::core::handler
             }
             //
             // Connection Filters
-            //
+            if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.tProxySettings.dnsIntercept)
             {
-                if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.tProxySettings.dnsIntercept)
-                {
-                    DNSInterceptFilter(root, !GlobalConfig.inboundConfig.tProxySettings.tProxyV6IP.isEmpty());
-                }
-
-                if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
-                {
-                    OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
-                }
-
-                if (connConf.bypassBT)
-                {
-                    BypassBTFilter(root);
-                }
-                // Process mKCP seed.
-                mKCPSeedFilter(root);
-
-                // Remove empty Mux object from settings.
-                RemoveEmptyMuxFilter(root);
+                DNSInterceptFilter(root, !GlobalConfig.inboundConfig.tProxySettings.tProxyV6IP.isEmpty());
             }
+
+            if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
+            {
+                OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
+            }
+
+            if (connConf.bypassBT)
+            {
+                BypassBTFilter(root);
+            }
+            // Process mKCP seed.
+            mKCPSeedFilter(root);
+
+            // Remove empty Mux object from settings.
+            RemoveEmptyMuxFilter(root);
         }
 
         // Let's process some api features.
@@ -399,11 +383,9 @@ namespace Qv2ray::core::handler
         {
             //
             // Stats
-            //
             root.insert("stats", QJsonObject());
             //
             // Routes
-            //
             QJsonObject routing = root["routing"].toObject();
             QJsonArray routingRules = routing["rules"].toArray();
             QJsonObject APIRouteRoot{ { "type", "field" },                //
@@ -414,14 +396,12 @@ namespace Qv2ray::core::handler
             root["routing"] = routing;
             //
             // Policy
-            //
             QJsonIO::SetValue(root, true, "policy", "system", "statsInboundUplink");
-            QJsonIO::SetValue(root, true, "policy", "system", "statsOutboundUplink");
             QJsonIO::SetValue(root, true, "policy", "system", "statsInboundDownlink");
+            QJsonIO::SetValue(root, true, "policy", "system", "statsOutboundUplink");
             QJsonIO::SetValue(root, true, "policy", "system", "statsOutboundDownlink");
             //
             // Inbounds
-            //
             INBOUNDS inbounds(root["inbounds"].toArray());
             QJsonObject fakeDocodemoDoor{ { "address", "127.0.0.1" } };
             const auto apiInboundsRoot = GenerateInboundEntry("127.0.0.1", GlobalConfig.kernelConfig.statsPort, "dokodemo-door",
@@ -430,7 +410,6 @@ namespace Qv2ray::core::handler
             root["inbounds"] = inbounds;
             //
             // API
-            //
             root["api"] = GenerateAPIEntry(API_TAG_DEFAULT);
         }
 

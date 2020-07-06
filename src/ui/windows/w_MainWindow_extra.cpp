@@ -5,21 +5,26 @@
 
 void MainWindow::MWSetSystemProxy()
 {
-    const auto inboundPorts = KernelInstance->InboundPorts();
-    const auto inboundHosts = KernelInstance->InboundHosts();
+    const auto inboundInfo = KernelInstance->GetInboundInfo();
 
-    const bool httpEnabled = inboundPorts.contains("http_IN");
-    const auto httpPort = inboundPorts["http_IN"];
+    InboundInfoObject httpInboundInfo;
+    InboundInfoObject socksInboundInfo;
 
-    const bool socksEnabled = inboundPorts.contains("socks_IN");
-    const auto socksPort = inboundPorts["socks_IN"];
+    for (const auto &info : inboundInfo)
+    {
+        if (info.protocol == "http")
+            httpInboundInfo = info;
+        if (info.protocol == "socks")
+            socksInboundInfo = info;
+    }
 
+    const bool httpEnabled = httpInboundInfo.port > 0;
+    const bool socksEnabled = socksInboundInfo.port > 0;
     QString proxyAddress;
 
     if (httpEnabled || socksEnabled)
     {
-        proxyAddress = inboundHosts[httpEnabled ? "http_IN" : "socks_IN"];
-
+        proxyAddress = httpEnabled ? httpInboundInfo.listenIp : socksInboundInfo.listenIp;
         if (proxyAddress == "0.0.0.0")
             proxyAddress = "127.0.0.1";
 
@@ -27,7 +32,7 @@ void MainWindow::MWSetSystemProxy()
             proxyAddress = "::1";
 
         LOG(MODULE_UI, "ProxyAddress: " + proxyAddress);
-        SetSystemProxy(proxyAddress, httpPort, socksPort);
+        SetSystemProxy(proxyAddress, httpInboundInfo.port, socksInboundInfo.port);
         qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy.png"));
         if (!GlobalConfig.uiConfig.quietMode)
         {
