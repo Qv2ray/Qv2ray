@@ -1310,10 +1310,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>启用代理</translation>
     </message>
     <message>
-        <source>API Port</source>
-        <translation>API 端口</translation>
-    </message>
-    <message>
         <source>Use Local DNS</source>
         <translation>使用本地 DNS</translation>
     </message>
@@ -1356,14 +1352,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source> lines</source>
         <translation> 行</translation>
-    </message>
-    <message>
-        <source>V2ray Settings</source>
-        <translation>V2ray 设置</translation>
-    </message>
-    <message>
-        <source>Core Executable Path</source>
-        <translation>核心可执行文件路径</translation>
     </message>
     <message>
         <source>V2ray Assets Directory</source>
@@ -1570,10 +1558,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>内核设置</translation>
     </message>
     <message>
-        <source>API SubSystem</source>
-        <translation>API 子系统</translation>
-    </message>
-    <message>
         <source>Plugin Kernel Settings</source>
         <translation>插件内核设置</translation>
     </message>
@@ -1756,14 +1740,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>无法查找服务器：%1</translation>
     </message>
     <message>
-        <source>Check Date and Time from Network</source>
-        <translation>从网络检查日期与时间</translation>
-    </message>
-    <message>
-        <source>NTP</source>
-        <translation>NTP</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>不使用</translation>
     </message>
@@ -1882,6 +1858,44 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation>您或许要将 V2Ray 核心错误地设置为 V2Ray 控制文件了，这是非常不对的。
 V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。确保你作出了明智的选择。
 若您执意继续，请恕吾等无法提供任何保证。</translation>
+    </message>
+    <message>
+        <source>V2ray Core Executable Path</source>
+        <translation>V2ray 核心可执行文件路径</translation>
+    </message>
+    <message>
+        <source>Check System Date and Time from the Internet</source>
+        <translation>联网对时</translation>
+    </message>
+    <message>
+        <source>V2ray API Subsystem</source>
+        <translation>V2Ray API 子系统</translation>
+    </message>
+    <message>
+        <source>V2ray API Port</source>
+        <translation>V2Ray API 端口</translation>
+    </message>
+    <message>
+        <source>Outbound Statistics (V2ray Core v4.26+)</source>
+        <translation>分出站统计 (V2Ray v2.46+)</translation>
+    </message>
+    <message>
+        <source>Currently:
+- vmess/shadowsocks/socks/http will be treated as PROXY.
+- freedom will be treated as DIRECT
+- blackhole will be treated as BLOCK</source>
+        <translation>当前：
+- VMess/Shadowsocks/SOCKS/HTTP 将被认作代理流量；
+- 直连出站（Freedom）将被认作直连流量；
+- 黑洞出站（Blackhole）将被认作阻断流量</translation>
+    </message>
+    <message>
+        <source>Include Direct Connection</source>
+        <translation>包括直连流量</translation>
+    </message>
+    <message>
+        <source>Only V2ray Core v4.21+ is supported.</source>
+        <translation>仅支持 V2Ray v4.12+。</translation>
     </message>
 </context>
 <context>
@@ -2380,6 +2394,13 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
         <translation>
             <numerusform>%n 条中过滤出 %1 条项目，要继续吗？</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::kernel::APIWorker</name>
+    <message>
+        <source>Failed to get statistics data, please check if V2ray is running properly</source>
+        <translation>无法获取统计数据，请检查 V2Ray 核心是否在正常运行</translation>
     </message>
 </context>
 <context>
@@ -2972,14 +2993,30 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>SpeedPlotView</name>
+    <name>SpeedWidget</name>
     <message>
-        <source>Total Upload</source>
-        <translation>总上传量</translation>
+        <source>Proxy ↑</source>
+        <translation>代理↑</translation>
     </message>
     <message>
-        <source>Total Download</source>
-        <translation>总下载量</translation>
+        <source>Proxy ↓</source>
+        <translation>代理↓</translation>
+    </message>
+    <message>
+        <source>Direct ↑</source>
+        <translation>直连↑</translation>
+    </message>
+    <message>
+        <source>Direct ↓</source>
+        <translation>直连↓</translation>
+    </message>
+    <message>
+        <source>Total ↑</source>
+        <translation>总计↑</translation>
+    </message>
+    <message>
+        <source>Total ↓</source>
+        <translation>总计↓</translation>
     </message>
 </context>
 <context>
@@ -3119,49 +3156,6 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Disable Session Resumption</source>
         <translation>禁用会话返回</translation>
-    </message>
-</context>
-<context>
-    <name>misc</name>
-    <message>
-        <source>B</source>
-        <comment>bytes</comment>
-        <translation>B</translation>
-    </message>
-    <message>
-        <source>KiB</source>
-        <comment>kibibytes (1024 bytes)</comment>
-        <translation>KiB</translation>
-    </message>
-    <message>
-        <source>MiB</source>
-        <comment>mebibytes (1024 kibibytes)</comment>
-        <translation>MiB</translation>
-    </message>
-    <message>
-        <source>GiB</source>
-        <comment>gibibytes (1024 mibibytes)</comment>
-        <translation>GiB</translation>
-    </message>
-    <message>
-        <source>TiB</source>
-        <comment>tebibytes (1024 gibibytes)</comment>
-        <translation>TiB</translation>
-    </message>
-    <message>
-        <source>PiB</source>
-        <comment>pebibytes (1024 tebibytes)</comment>
-        <translation>PiB</translation>
-    </message>
-    <message>
-        <source>EiB</source>
-        <comment>exbibytes (1024 pebibytes)</comment>
-        <translation>EiB</translation>
-    </message>
-    <message>
-        <source>/s</source>
-        <comment>per second</comment>
-        <translation>/s</translation>
     </message>
 </context>
 <context>
