@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1016</width>
-    <height>704</height>
+    <width>888</width>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -973,7 +973,7 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>478</width>
+            <width>970</width>
             <height>594</height>
            </rect>
           </property>
@@ -1760,7 +1760,7 @@ Custom DNS Settings</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">image: url(:/assets/icons/qv2ray.ico);</string>
+            <string notr="true">image: url(:/assets/icons/qv2ray.png);</string>
            </property>
           </widget>
          </item>
