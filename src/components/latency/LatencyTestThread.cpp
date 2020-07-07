@@ -34,7 +34,9 @@ namespace Qv2ray::components::latency
                 for (auto i = 0; i < count; i++)
                 {
                     resultData.totalCount++;
-                    const auto [_latency, errMessage] = pingHelper.ping(host);
+                    const auto value = pingHelper.ping(host);
+                    const auto _latency = value.first;
+                    const auto errMessage = value.second;
                     if (!errMessage.isEmpty())
                     {
                         resultData.errorMessage.append(NEWLINE + errMessage);
