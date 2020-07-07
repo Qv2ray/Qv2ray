@@ -139,6 +139,7 @@ endif()
 # ==================================================================================
 # 3rdparty Sources
 # ==================================================================================
+include(cmake/libuv.cmake)
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 if (ANDROID)
@@ -240,6 +241,7 @@ target_link_libraries(qv2ray-baselib
     ${ZXING_LIBRARY}
     Threads::Threads
     ${QV2RAY_QT_LIBS}
+    ${LibUV_LIBRARIES}
     )
 
 target_link_libraries(qv2ray
@@ -263,6 +265,7 @@ target_include_directories(qv2ray-baselib PUBLIC
     ${CMAKE_BINARY_DIR}
     ${ZXING_INCLUDE_PATH}
     ${Protobuf_INCLUDE_DIRS}
+    ${LibUV_INCLUDE_DIR}
     )
 
 if (BUILD_TESTING)
