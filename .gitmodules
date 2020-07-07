@@ -19,6 +19,3 @@
 [submodule "3rdparty/uistyles"]
 	path = 3rdparty/uistyles
 	url = https://github.com/Qv2ray/QvUIStyles
-[submodule "3rdparty/backward-cpp"]
-	path = 3rdparty/backward-cpp
-	url = https://github.com/bombela/backward-cpp

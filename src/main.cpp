@@ -1,5 +1,4 @@
 #include "Qv2rayApplication.hpp"
-#include "StackTraceHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
@@ -12,27 +11,6 @@
 void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
-    if (SIGSEGV == signum)
-    {
-        std::cout << "Collecting StackTrace" << std::endl;
-        const auto msg = StackTraceHelper::GetStackTrace();
-        std::cout << msg.toStdString() << std::endl;
-        QDir().mkpath(QV2RAY_CONFIG_DIR + "bugreport/");
-        auto filePath = QV2RAY_CONFIG_DIR + "bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
-        StringToFile(msg, filePath);
-        std::cout << "Backtrace saved in: " + filePath.toStdString() << std::endl;
-        if (qApp)
-        {
-            qApp->clipboard()->setText(filePath);
-            auto message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
-                           QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
-                           filePath;
-            QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
-        }
-#ifndef Q_OS_WIN
-        kill(getpid(), SIGKILL);
-#endif
-    }
     exit(-99);
 }
 
