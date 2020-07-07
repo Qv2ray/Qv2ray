@@ -163,7 +163,7 @@ namespace Qv2ray::core::handler
         //
       private slots:
         void OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage);
-        void OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &data);
+        void OnLatencyDataArrived_p(ConnectionId id, LatencyTestResult data);
         void OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data);
 
       protected:

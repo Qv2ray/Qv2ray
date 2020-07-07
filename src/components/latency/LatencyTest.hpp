@@ -24,8 +24,7 @@ namespace Qv2ray::components::latency
         Qv2rayLatencyTestingMethod method;
     };
 
-    int getSockAddress(std::shared_ptr<uvw::Loop>& loop, const char* host, int port, struct sockaddr_storage* storage, int ipv6first);
-
+    int getSockAddress(std::shared_ptr<uvw::Loop> &loop, const char *host, int port, struct sockaddr_storage *storage, int ipv6first);
 
     class LatencyTestHost : public QObject
     {
@@ -33,16 +32,20 @@ namespace Qv2ray::components::latency
       public:
         explicit LatencyTestHost(const int defaultCount = 3, QObject *parent = nullptr);
         void TestLatency(const ConnectionId &connectionId, Qv2rayLatencyTestingMethod);
+        void TestLatency(const QList<ConnectionId> &connectionIds, Qv2rayLatencyTestingMethod);
         void StopAllLatencyTest();
-        ~LatencyTestHost();
+        ~LatencyTestHost() override;
       signals:
-        void OnLatencyTestCompleted(const ConnectionId &id, const LatencyTestResult &data);
+        void OnLatencyTestCompleted(ConnectionId id, LatencyTestResult data);
 
       private:
         int totalTestCount;
-        QVector<LatencyTestThread *> latencyThreads;
-        int nextLatencyTestThread=0;
+        // we're not introduce multi latency test thread for now,
+        // cause it's easy to use a scheduler like round-robin scheme
+        // and libuv event loop is fast.
+        LatencyTestThread *latencyThread;
     };
 } // namespace Qv2ray::components::latency
 
 using namespace Qv2ray::components::latency;
+Q_DECLARE_METATYPE(LatencyTestResult)
