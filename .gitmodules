@@ -22,3 +22,6 @@
 [submodule "3rdparty/backward-cpp"]
 	path = 3rdparty/backward-cpp
 	url = https://github.com/bombela/backward-cpp
+[submodule "libuv"]
+    path = 3rdparty/libuv
+    url = https://github.com/libuv/libuv.git
