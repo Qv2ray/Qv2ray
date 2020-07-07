@@ -50,8 +50,12 @@ namespace Qv2ray::components::latency
     #undef max
 #endif
                         resultData.avg += _latency;
-                        resultData.best = std::min(resultData.best, _latency);
-                        resultData.worst = std::max(resultData.worst, _latency);
+#define _qvmin_(x, y) ((x) < (y) ? (x) : (y))
+#define _qvmax_(x, y) ((x) > (y) ? (x) : (y))
+                        resultData.best = _qvmin_(resultData.best, _latency);
+                        resultData.worst = _qvmax_(resultData.worst, _latency);
+#undef _qvmax_
+#undef _qvmin_
                     }
                 }
                 if (resultData.totalCount > 0 && resultData.failedCount != resultData.totalCount)
