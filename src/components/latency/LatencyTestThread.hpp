@@ -1,5 +1,7 @@
 #pragma once
 #include "LatencyTest.hpp"
+#include "uvw.hpp"
+#include <mutex>
 
 #include <QThread>
 namespace Qv2ray::components::latency
@@ -8,21 +10,18 @@ namespace Qv2ray::components::latency
     {
         Q_OBJECT
       public:
-        explicit LatencyTestThread(const QString &host, int port, Qv2rayLatencyTestingMethod, int count, QObject *parent = nullptr);
-        LatencyTestResult GetResult() const
-        {
-            return resultData;
-        }
-
+        explicit LatencyTestThread(QObject *parent = nullptr);
+        void stopLatencyTest(){isStop=false;}
+        void pushRequests(const ConnectionId&id,const QString& host,int port,int totalTestCount,Qv2rayLatencyTestingMethod method);
       protected:
         void run() override;
 
       private:
-        LatencyTestResult resultData;
-        QString host;
-        int port;
-        int count;
-        Qv2rayLatencyTestingMethod method;
+        std::shared_ptr<uvw::Loop> loop;
+        bool isStop=false;
+        std::shared_ptr<uvw::TimerHandle> stopTimer;
+        std::vector<LatencyTestRequest> requests;
+        std::mutex m;
 
         // static LatencyTestResult TestLatency_p(const ConnectionId &id, const int count);
     };
