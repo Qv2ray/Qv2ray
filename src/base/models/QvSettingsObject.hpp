@@ -14,6 +14,15 @@ namespace Qv2ray::base::config
         int R, G, B;
         float width;
         Qt::PenStyle style;
+        QvGraphPenConfig() : R(150), G(150), B(150), width(1.5f), style(Qt::SolidLine){};
+        QvGraphPenConfig(int R, int G, int B, float w, Qt::PenStyle s)
+        {
+            this->R = R;
+            this->G = G;
+            this->B = B;
+            this->width = w;
+            this->style = s;
+        };
         JSONSTRUCT_REGISTER(QvGraphPenConfig, F(R, G, B, width, style))
     };
 
@@ -21,6 +30,7 @@ namespace Qv2ray::base::config
     {
         bool useOutboundStats;
         bool hasDirectStats;
+        Qv2rayConfig_Graph() : useOutboundStats(false), hasDirectStats(false){};
         safetype::QvEnumMap<StatisticsType, safetype::QvPair<QvGraphPenConfig>> colorConfig;
         JSONSTRUCT_REGISTER(Qv2rayConfig_Graph, F(useOutboundStats, hasDirectStats, colorConfig))
     };
@@ -36,10 +46,18 @@ namespace Qv2ray::base::config
         bool useDarkTrayIcon;
         int maximumLogLines;
         int maxJumpListCount;
+        bool useOldShareLinkFormat;
         Qv2rayConfig_UI()
-            : theme("Fusion"), language("en_US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500), maxJumpListCount(20){};
+            : theme("Fusion"),            //
+              language("en_US"),          //
+              useDarkTheme(false),        //
+              useDarkTrayIcon(true),      //
+              maximumLogLines(500),       //
+              maxJumpListCount(20),       //
+              useOldShareLinkFormat(true) //
+              {};
         JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines,
-                                               maxJumpListCount, recentConnections))
+                                               maxJumpListCount, recentConnections, useOldShareLinkFormat))
     };
 
     struct Qv2rayConfig_Plugin
