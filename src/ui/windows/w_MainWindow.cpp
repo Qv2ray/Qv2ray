@@ -525,7 +525,7 @@ void MainWindow::on_preferencesBtn_clicked()
 }
 void MainWindow::on_clearlogButton_clicked()
 {
-    vCoreLogDocument->clear();
+    masterLogBrowser->document()->clear();
 }
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
 {
