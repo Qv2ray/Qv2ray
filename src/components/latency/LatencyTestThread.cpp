@@ -49,7 +49,12 @@ namespace Qv2ray::components::latency
                 {
                     switch (req.method)
                     {
-                        case ICMPING: break;
+                        case ICMPING:
+                        {
+                            auto ptr = std::make_shared<icmping::ICMPPing>(30);
+                            ptr->start(loop, req, parent);
+                        }
+                        break;
                         case TCPING:
                         default:
                         {
@@ -64,58 +69,6 @@ namespace Qv2ray::components::latency
         });
         stopTimer->start(uvw::TimerHandle::Time{ 500 }, uvw::TimerHandle::Time{ 500 });
         loop->run();
-        //        resultData.avg = 0;
-        //        resultData.best = 0;
-        //        resultData.worst = 0;
-        //        switch (method)
-        //        {
-        //            case ICMPING:
-        //            {
-        //                icmping::ICMPPing ping(30);
-        //                for (auto i = 0; i < count; i++)
-        //                {
-        //                    resultData.totalCount++;
-        //                    const auto pair = ping.ping(host);
-        //                    const auto &errMessage = pair.second;
-        //                    const long _latency = pair.first;
-        //                    if (!errMessage.isEmpty())
-        //                    {
-        //                        resultData.errorMessage.append(NEWLINE + errMessage);
-        //                        resultData.failedCount++;
-        //                    }
-        //                    else
-        //                    {
-        //#ifdef Q_OS_WIN
-        //                        // Is it Windows?
-        //    #undef min
-        //    #undef max
-        //#endif
-        //                        resultData.avg += _latency;
-        //                        resultData.best = std::min(resultData.best, _latency);
-        //                        resultData.worst = std::max(resultData.worst, _latency);
-        //                    }
-        //                }
-        //                if (resultData.totalCount != 0 && resultData.failedCount != 0)
-        //                {
-        //                    resultData.errorMessage.clear();
-        //                    resultData.avg = resultData.avg / (resultData.totalCount - resultData.failedCount) / 1000;
-        //                }
-        //                else
-        //                {
-        //                    resultData.avg = LATENCY_TEST_VALUE_ERROR;
-        //                    LOG(MODULE_NETWORK, resultData.errorMessage)
-        //                }
-        //                //
-        //                //
-        //                break;
-        //            }
-        //            case TCPING:
-        //            default:
-        //            {
-        //                this->resultData = tcping::TestTCPLatency(host, port, count);
-        //                break;
-        //            }
-        //        }
     }
     void LatencyTestThread::pushRequest(const QList<ConnectionId> &ids, int totalTestCount, Qv2rayLatencyTestingMethod method)
     {
