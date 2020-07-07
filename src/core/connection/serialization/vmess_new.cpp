@@ -17,10 +17,10 @@ namespace Qv2ray::core::connection
 
         CONFIGROOT Deserialize(const QString &vmessStr, QString *alias, QString *errMessage)
         {
-#define default CONFIGROOT()
             QUrl url{ vmessStr };
             QUrlQuery query{ url };
             //
+#define default CONFIGROOT()
             if (!url.isValid())
             {
                 *errMessage = QObject::tr("vmess:// url is invalid");
@@ -111,6 +111,7 @@ namespace Qv2ray::core::connection
                     return default;
                 }
             }
+#undef default
             if (tls)
             {
                 stream.tlsSettings.allowInsecure = !FalseTypes.contains(getQueryValue("allowInsecure"));
@@ -125,16 +126,59 @@ namespace Qv2ray::core::connection
             //
             root["outbounds"] = QJsonArray{ outbound };
             return root;
-#undef default
         }
 
-        const QString Serialize(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias)
+        const QString Serialize(const StreamSettingsObject &stream, const VMessServerObject &server, const QString &alias)
         {
-            Q_UNUSED(transfer)
-            Q_UNUSED(server)
-            Q_UNUSED(alias)
-            LOG(MODULE_CONNECTION, "咕咕")
-            return "";
+            QUrl url;
+            QUrlQuery query;
+            url.setFragment(alias, QUrl::StrictMode);
+
+            if (stream.network == "tcp")
+            {
+                query.addQueryItem("type", stream.tcpSettings.header.type);
+            }
+            else if (stream.network == "http")
+            {
+                if (!stream.httpSettings.host.isEmpty())
+                    query.addQueryItem("host", stream.httpSettings.host.first());
+                query.addQueryItem("path", stream.httpSettings.path);
+            }
+            else if (stream.network == "ws")
+            {
+                query.addQueryItem("host", stream.wsSettings.headers["Host"]);
+                query.addQueryItem("path", stream.wsSettings.path);
+            }
+            else if (stream.network == "kcp")
+            {
+                query.addQueryItem("seed", stream.kcpSettings.seed);
+                query.addQueryItem("type", stream.kcpSettings.header.type);
+            }
+            else if (stream.network == "quic")
+            {
+                query.addQueryItem("security", stream.quicSettings.security);
+                query.addQueryItem("key", stream.quicSettings.key);
+                query.addQueryItem("headers", stream.quicSettings.header.type);
+            }
+            else
+            {
+                return {};
+            }
+            bool hasTLS = stream.security == "tls";
+            auto protocol = stream.network;
+            if (hasTLS)
+            {
+                query.addQueryItem("allowInsecure", stream.tlsSettings.allowInsecure ? "true" : "false");
+                query.addQueryItem("tlsServerName", stream.tlsSettings.serverName);
+                protocol += "+tls";
+            }
+            url.setScheme("vmess");
+            url.setPassword(server.users.first().id + "-" + QSTRN(server.users.first().alterId));
+            url.setHost(server.address);
+            url.setPort(server.port);
+            url.setUserInfo(protocol);
+            url.setQuery(query);
+            return url.toString();
         }
     } // namespace serialization::vmess_new
 } // namespace Qv2ray::core::connection

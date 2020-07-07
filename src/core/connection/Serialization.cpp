@@ -89,15 +89,14 @@ namespace Qv2ray::core::connection
             {
                 auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
                 auto transport = StreamSettingsObject::fromJson(outbound["streamSettings"].toObject());
-                // if (GlobalConfig.uiConfig.useOldShareLinkFormat)
-                // {
-                //
-                // }
-                // else
-                // {
-                //
-                // }
-                sharelink = vmess::Serialize(transport, vmessServer, alias);
+                if (GlobalConfig.uiConfig.useOldShareLinkFormat)
+                {
+                    sharelink = vmess::Serialize(transport, vmessServer, alias);
+                }
+                else
+                {
+                    sharelink = vmess_new::Serialize(transport, vmessServer, alias);
+                }
             }
             else if (type == "shadowsocks")
             {
