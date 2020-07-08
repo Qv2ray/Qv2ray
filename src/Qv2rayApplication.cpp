@@ -186,8 +186,24 @@ namespace Qv2ray
     {
         // Show MainWindow
         mainWindow = new MainWindow();
-        if (Qv2rayProcessArgument.arguments.isEmpty())
+        if (Qv2rayProcessArgument.arguments.contains(Qv2rayProcessArguments::QV2RAY_LINK))
         {
+            for (const auto &link : Qv2rayProcessArgument.links)
+            {
+                const auto url = QUrl::fromUserInput(link);
+                const auto command = url.host();
+                auto subcommands = url.path().split("/");
+                subcommands.removeAll("");
+                QMap<QString, QString> args;
+                for (const auto &kvp : QUrlQuery(url).queryItems())
+                {
+                    args.insert(kvp.first, kvp.second);
+                }
+                if (command == "open")
+                {
+                    emit mainWindow->ProcessCommand(command, subcommands, args);
+                }
+            }
         }
         return Qv2rayExitCode(exec());
     }
