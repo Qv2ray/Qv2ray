@@ -359,8 +359,8 @@ void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QStr
         else
             return;
         w->processCommands(command, commands, args);
-        w->open();
-        QvAutoDelete(w);
+        w->exec();
+        delete w;
     }
 }
 

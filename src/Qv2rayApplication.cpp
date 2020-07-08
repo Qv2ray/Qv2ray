@@ -60,7 +60,7 @@ namespace Qv2ray
         setQuitOnLastWindowClosed(false);
 
 #ifndef Q_OS_ANDROID
-        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
+        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived, Qt::QueuedConnection);
         connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
         if (isSecondary())
         {
@@ -114,24 +114,22 @@ namespace Qv2ray
         //
         if (newVersion > currentVersion)
         {
-            QTimer::singleShot(0, [=]() {
-                const auto newPath = msg.fullArgs.first();
-                QString message;
-                message += tr("A new version of Qv2ray is attemping to start:") + NEWLINE;
-                message += NEWLINE;
-                message += tr("New version information: ") + NEWLINE;
-                message += tr("Qv2ray version: %1").arg(msg.version) + NEWLINE;
-                message += tr("Qv2ray path: %1").arg(newPath) + NEWLINE;
-                message += NEWLINE;
-                message += tr("Do you want to exit and launch that new version?");
+            const auto newPath = msg.fullArgs.first();
+            QString message;
+            message += tr("A new version of Qv2ray is attemping to start:") + NEWLINE;
+            message += NEWLINE;
+            message += tr("New version information: ") + NEWLINE;
+            message += tr("Qv2ray version: %1").arg(msg.version) + NEWLINE;
+            message += tr("Qv2ray path: %1").arg(newPath) + NEWLINE;
+            message += NEWLINE;
+            message += tr("Do you want to exit and launch that new version?");
 
-                const auto result = QvMessageBoxAsk(nullptr, tr("New version detected"), message);
-                if (result == QMessageBox::Yes)
-                {
-                    Qv2rayProcessArgument._qvNewVersionPath = newPath;
-                    QuitApplication(QV2RAY_NEW_VERSION);
-                }
-            });
+            const auto result = QvMessageBoxAsk(nullptr, tr("New version detected"), message);
+            if (result == QMessageBox::Yes)
+            {
+                Qv2rayProcessArgument._qvNewVersionPath = newPath;
+                QuitApplication(QV2RAY_NEW_VERSION);
+            }
         }
 
         for (const auto &argument : msg.arguments)
