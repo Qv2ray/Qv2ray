@@ -1,7 +1,10 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-#include "uvw.hpp"
-
+namespace uvw
+{
+    class Loop;
+}
+struct sockaddr_storage;
 namespace Qv2ray::components::latency
 {
     class LatencyTestThread;

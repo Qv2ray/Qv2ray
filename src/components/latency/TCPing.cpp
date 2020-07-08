@@ -1,4 +1,5 @@
 #include "TCPing.hpp"
+#include "uvw.hpp"
 
 
 namespace Qv2ray::components::latency::tcping

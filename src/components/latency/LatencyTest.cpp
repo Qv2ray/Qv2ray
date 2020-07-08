@@ -2,6 +2,8 @@
 
 #include "LatencyTestThread.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "uvw.hpp"
+
 
 namespace Qv2ray::components::latency
 {

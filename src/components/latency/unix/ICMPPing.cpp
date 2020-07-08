@@ -13,6 +13,8 @@
     #include <sys/socket.h>
     #include <sys/time.h>
     #include <unistd.h>
+    #include "uvw.hpp"
+
     #ifdef Q_OS_MAC
         #define SOL_IP 0
     #endif

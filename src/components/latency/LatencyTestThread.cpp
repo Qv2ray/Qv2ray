@@ -8,6 +8,7 @@
 #else
     #include "win/ICMPPing.hpp"
 #endif
+#include "uvw.hpp"
 
 namespace Qv2ray::components::latency
 {

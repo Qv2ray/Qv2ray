@@ -9,14 +9,16 @@
 #ifdef Q_OS_WIN
 
     #include "components/latency/LatencyTest.hpp"
-    #include "uvw.hpp"
 
     #include <QPair>
     #include <QString>
     #include <memory>
     #include <optional>
     #include <utility>
-
+namespace uvw
+{
+    class Loop;
+}
 namespace Qv2ray::components::latency::icmping
 {
     class ICMPPing : public std::enable_shared_from_this<ICMPPing>

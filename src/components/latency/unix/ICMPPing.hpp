@@ -2,11 +2,13 @@
 #include <QtGlobal>
 #ifdef Q_OS_UNIX
     #include "components/latency/LatencyTest.hpp"
-    #include "uvw.hpp"
 
     #include <QPair>
     #include <QString>
-
+namespace uvw
+{
+    class Loop;
+}
 namespace Qv2ray::components::latency::icmping
 {
     class ICMPPing : public std::enable_shared_from_this<ICMPPing>

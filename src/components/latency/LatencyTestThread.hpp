@@ -1,11 +1,15 @@
 #pragma once
 #include "LatencyTest.hpp"
 #include "TCPing.hpp"
-#include "uvw.hpp"
 
 #include <QThread>
 #include <mutex>
 #include <unordered_set>
+namespace uvw
+{
+    class Loop;
+    class TimerHandle;
+}
 namespace Qv2ray::components::latency
 {
     class LatencyTestThread : public QThread

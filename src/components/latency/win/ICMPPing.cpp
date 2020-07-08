@@ -1,5 +1,6 @@
 #include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
+
 //
     #include <WS2tcpip.h>
 //
@@ -11,6 +12,8 @@
 //
     #include <QEventLoop>
     #include <QHostInfo>
+    #include "uvw.hpp"
+
 namespace Qv2ray::components::latency::icmping
 {
     ICMPPing::ICMPPing(uint64_t timeout)
