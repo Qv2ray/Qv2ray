@@ -22,6 +22,10 @@ namespace Qv2ray::components::latency
         explicit LatencyTestHost(const int defaultCount = 3, QObject *parent = nullptr);
         void TestLatency(const ConnectionId &connectionId, Qv2rayLatencyTestingMethod);
         void StopAllLatencyTest();
+        ~LatencyTestHost()
+        {
+            StopAllLatencyTest();
+        }
       signals:
         void OnLatencyTestCompleted(const ConnectionId &id, const LatencyTestResult &data);
 

@@ -17,8 +17,8 @@ namespace Qv2ray::components::latency
         for (const auto &thread : latencyThreads)
         {
             thread->terminate();
-            thread->deleteLater();
         }
+        latencyThreads.clear();
     }
     void LatencyTestHost::TestLatency(const ConnectionId &id, Qv2rayLatencyTestingMethod method)
     {
