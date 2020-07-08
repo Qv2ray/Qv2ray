@@ -1,6 +1,5 @@
 #pragma once
 #include "LatencyTest.hpp"
-#include "TCPing.hpp"
 
 #include <QThread>
 #include <mutex>
