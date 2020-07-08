@@ -1,15 +1,7 @@
 #include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
-
-//
-    #include <WS2tcpip.h>
-//
-    #include <Windows.h>
-//
     #include <iphlpapi.h>
-//
     #include <IcmpAPI.h>
-//
     #include <QEventLoop>
     #include <QHostInfo>
     #include "uvw.hpp"
