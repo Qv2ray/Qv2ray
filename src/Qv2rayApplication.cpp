@@ -187,7 +187,9 @@ namespace Qv2ray
         // Show MainWindow
         mainWindow = new MainWindow();
         if (Qv2rayProcessArgument.arguments.isEmpty())
-            return Qv2rayExitCode(exec());
+        {
+        }
+        return Qv2rayExitCode(exec());
     }
 
     bool Qv2rayApplication::FindAndCreateInitialConfiguration()
