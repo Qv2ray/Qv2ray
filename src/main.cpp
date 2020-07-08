@@ -13,7 +13,7 @@
     //
     #include <DbgHelp.h>
 
-QString StackTraceHelper::GetStackTraceImpl_Windows()
+QString GetStackTraceImpl_Windows()
 {
     void *stack[1024];
     HANDLE process = GetCurrentProcess();
