@@ -1,10 +1,5 @@
 #include "TCPing.hpp"
 
-#ifdef _WIN32
-    #include <WinSock2.h>
-#else
-    #include <sys/socket.h>
-#endif
 
 namespace Qv2ray::components::latency::tcping
 {

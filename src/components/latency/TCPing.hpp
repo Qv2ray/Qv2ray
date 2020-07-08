@@ -1,4 +1,9 @@
 #pragma once
+#ifdef _WIN32
+    #include <WinSock2.h>
+#else
+    #include <sys/socket.h>
+#endif
 #include "LatencyTest.hpp"
 #include "base/Qv2rayBase.hpp"
 #include "uvw.hpp"
