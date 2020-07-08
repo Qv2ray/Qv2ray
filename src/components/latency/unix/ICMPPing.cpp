@@ -7,6 +7,7 @@
 
 #include <QObject>
 #ifdef Q_OS_UNIX
+    #include <netinet/ip.h> //macos need that
     #include <netinet/in.h>
     #include <netinet/ip_icmp.h>
     #include <sys/socket.h>
@@ -105,7 +106,7 @@ namespace Qv2ray::components::latency::icmping
         auto pollHandle = loop->resource<uvw::PollHandle>(osSocketHandle);
         pollHandle->init();
         auto pollEvent = uvw::Flags<uvw::PollHandle::Event>::from<uvw::PollHandle::Event::READABLE>();
-        pollHandle->on<uvw::PollEvent>([this, testHost, id = req.id, ptr = shared_from_this()](uvw::PollEvent &e, uvw::PollHandle &h) {
+        pollHandle->on<uvw::PollEvent>([this, testHost, id = req.id, ptr = shared_from_this()](uvw::PollEvent &, uvw::PollHandle &h) {
             timeval end;
             sockaddr_in remove_addr;
             socklen_t slen = sizeof(remove_addr);

@@ -1,7 +1,6 @@
 #include "TCPing.hpp"
 
 #ifdef _WIN32
-#define NOMINMAX
     #include <WinSock2.h>
 #else
     #include <sys/socket.h>

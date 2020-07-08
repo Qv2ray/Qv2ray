@@ -1,6 +1,5 @@
 #include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
-#define NOMINMAX
 //
     #include <WS2tcpip.h>
 //
