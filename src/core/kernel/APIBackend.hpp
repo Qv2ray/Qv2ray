@@ -7,7 +7,7 @@
 #endif
 
 // Check 10 times before telling user that API has failed.
-constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 60;
+constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 600;
 
 namespace Qv2ray::core::kernel
 {
