@@ -10,6 +10,7 @@
 
     #include "components/latency/LatencyTest.hpp"
     #include "uvw.hpp"
+
     #include <QPair>
     #include <QString>
     #include <memory>

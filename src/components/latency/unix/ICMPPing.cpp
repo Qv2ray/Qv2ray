@@ -7,8 +7,8 @@
 
 #include <QObject>
 #ifdef Q_OS_UNIX
-    #include <netinet/ip.h> //macos need that
     #include <netinet/in.h>
+    #include <netinet/ip.h> //macos need that
     #include <netinet/ip_icmp.h>
     #include <sys/socket.h>
     #include <sys/time.h>

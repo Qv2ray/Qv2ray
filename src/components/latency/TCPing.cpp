@@ -57,7 +57,7 @@ namespace Qv2ray::components::latency::tcping
             if (data.failedCount == data.totalCount)
                 data.avg = LATENCY_TEST_VALUE_ERROR;
             else
-                data.errorMessage.clear(),data.avg = data.avg / successCount;
+                data.errorMessage.clear(), data.avg = data.avg / successCount;
             testHost->OnLatencyTestCompleted(id, data);
         }
     }

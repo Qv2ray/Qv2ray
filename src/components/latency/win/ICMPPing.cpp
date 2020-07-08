@@ -89,28 +89,27 @@ namespace Qv2ray::components::latency::icmping
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
-        for(int i=0;i<req.totalCount;++i)
+        for (int i = 0; i < req.totalCount; ++i)
         {
-            auto work = loop->resource<uvw::WorkReq>([ptr=shared_from_this(),this,addr=req.host,id=req.id,testHost](){
-                    auto pingres=ping(addr);
-                    if(!pingres.second.isEmpty())
-                    {
-                    data.errorMessage=pingres.second;
+            auto work = loop->resource<uvw::WorkReq>([ptr = shared_from_this(), this, addr = req.host, id = req.id, testHost]() mutable {
+                auto pingres = ping(addr);
+                if (!pingres.second.isEmpty())
+                {
+                    data.errorMessage = pingres.second;
                     data.failedCount++;
-                    }
-                    else
-                    {
-                    data.avg+=pingres.first;
-                    data.best=std::min(pingres.first,data.best);
-                    data.worst=std::max(pingres.first,data.worst);
+                }
+                else
+                {
+                    data.avg += pingres.first;
+                    data.best = std::min(pingres.first, data.best);
+                    data.worst = std::max(pingres.first, data.worst);
                     successCount++;
-                    }
-                    notifyTestHost(testHost, id);
-                    ptr.reset();
-                    });
+                }
+                notifyTestHost(testHost, id);
+                ptr.reset();
+            });
             work->queue();
         }
-
     }
     bool ICMPPing::notifyTestHost(LatencyTestHost *testHost, const ConnectionId &id)
     {
