@@ -1,10 +1,10 @@
-#include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
+    #include "uvw.hpp"
+    #include "ICMPPing.hpp"
     #include <iphlpapi.h>
     #include <IcmpAPI.h>
     #include <QEventLoop>
     #include <QHostInfo>
-    #include "uvw.hpp"
 
 namespace Qv2ray::components::latency::icmping
 {
