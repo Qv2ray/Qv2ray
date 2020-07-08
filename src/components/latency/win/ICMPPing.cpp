@@ -1,5 +1,6 @@
 #include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
+#define NOMINMAX
 //
     #include <WS2tcpip.h>
 //
@@ -82,6 +83,48 @@ namespace Qv2ray::components::latency::icmping
         IcmpCloseHandle(hIcmpFile);
         const ICMP_ECHO_REPLY *r = (const ICMP_ECHO_REPLY *) reply_buf;
         return QPair<long, QString>(r->RoundTripTime * 1000, QString{});
+    }
+    void ICMPPing::start(std::shared_ptr<uvw::Loop> loop, LatencyTestRequest &req, LatencyTestHost *testHost)
+    {
+        data.totalCount = req.totalCount;
+        data.failedCount = 0;
+        data.worst = 0;
+        data.avg = 0;
+        for(int i=0;i<req.totalCount;++i)
+        {
+            auto work = loop->resource<uvw::WorkReq>([ptr=shared_from_this(),this,addr=req.host,id=req.id,testHost](){
+                    auto pingres=ping(addr);
+                    if(!pingres.second.isEmpty())
+                    {
+                    data.errorMessage=pingres.second;
+                    data.failedCount++;
+                    }
+                    else
+                    {
+                    data.avg+=pingres.first;
+                    data.best=std::min(pingres.first,data.best);
+                    data.worst=std::max(pingres.first,data.worst);
+                    successCount++;
+                    }
+                    notifyTestHost(testHost, id)
+                    ptr.reset();
+                    });
+            work->queue();
+        }
+
+    }
+    bool ICMPPing::notifyTestHost(LatencyTestHost *testHost, const ConnectionId &id)
+    {
+        if (data.failedCount + successCount == data.totalCount)
+        {
+            if (data.failedCount == data.totalCount)
+                data.avg = LATENCY_TEST_VALUE_ERROR;
+            else
+                data.errorMessage.clear(), data.avg = data.avg / successCount / 1000;
+            testHost->OnLatencyTestCompleted(id, data);
+            return true;
+        }
+        return false;
     }
 } // namespace Qv2ray::components::latency::icmping
 #endif

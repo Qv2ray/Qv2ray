@@ -8,6 +8,8 @@
 #include <QtGlobal>
 #ifdef Q_OS_WIN
 
+    #include "components/latency/LatencyTest.hpp"
+    #include "uvw.hpp"
     #include <QPair>
     #include <QString>
     #include <memory>
@@ -16,7 +18,7 @@
 
 namespace Qv2ray::components::latency::icmping
 {
-    class ICMPPing
+    class ICMPPing : public std::enable_shared_from_this<ICMPPing>
     {
       public:
         ICMPPing(uint64_t timeout = DEFAULT_TIMEOUT);
@@ -24,12 +26,16 @@ namespace Qv2ray::components::latency::icmping
 
       public:
         static const uint64_t DEFAULT_TIMEOUT = 10000U;
+        void start(std::shared_ptr<uvw::Loop> loop, LatencyTestRequest &req, LatencyTestHost *testHost);
+        bool notifyTestHost(LatencyTestHost *testHost, const ConnectionId &id);
 
       public:
         QPair<long, QString> ping(const QString &ipAddr);
 
       private:
         uint64_t timeout = DEFAULT_TIMEOUT;
+        int successCount = 0;
+        LatencyTestResult data;
     };
 } // namespace Qv2ray::components::latency::icmping
 #endif
