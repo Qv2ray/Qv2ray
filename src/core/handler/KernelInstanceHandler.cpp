@@ -119,7 +119,7 @@ namespace Qv2ray::core::handler
                 //
                 QMap<QvPluginKernel::KernelSetting, QVariant> _inboundSettings;
 
-                LOG(MODULE_VCORE, "V2rayIntegration: " + QSTRN(pluginPort) + "=" + outProtocol)
+                LOG(MODULE_VCORE, "V2rayIntegration: " + QSTRN(pluginPort) + " = " + outProtocol)
                 _inboundSettings[_k::KERNEL_HTTP_ENABLED] = false;
                 _inboundSettings[_k::KERNEL_SOCKS_ENABLED] = true;
                 _inboundSettings[_k::KERNEL_SOCKS_PORT] = pluginPort;
@@ -163,8 +163,10 @@ namespace Qv2ray::core::handler
                 {
                     LOG(MODULE_CONNECTION, "Starting kernel for protocol: " + outboundProtocol)
                     bool status = kernelObject->StartKernel();
-                    connect(kernelObject.get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
-                    connect(kernelObject.get(), &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p);
+                    connect(kernelObject.get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p,
+                            Qt::QueuedConnection);
+                    connect(kernelObject.get(), &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p,
+                            Qt::QueuedConnection);
                     hasAllKernelStarted = hasAllKernelStarted && status;
                     if (!status)
                     {
@@ -204,9 +206,10 @@ namespace Qv2ray::core::handler
                 }
                 Q_ASSERT(activeKernels.size() == 1);
 #define theKernel (activeKernels.front().second.get())
-                connect(theKernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p);
-                connect(theKernel, &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
-                connect(theKernel, &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p);
+                connect(theKernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p,
+                        Qt::QueuedConnection);
+                connect(theKernel, &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
+                connect(theKernel, &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p, Qt::QueuedConnection);
                 currentId = id;
                 //
                 QMap<QvPluginKernel::KernelSetting, QVariant> pluginSettings;
