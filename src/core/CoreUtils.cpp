@@ -52,6 +52,13 @@ namespace Qv2ray::core
             *port = Server.port;
             return true;
         }
+        else if (*protocol == "http")
+        {
+            auto Server = HttpServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
+            *host = Server.address;
+            *port = Server.port;
+            return true;
+        }
         else
         {
             bool status;

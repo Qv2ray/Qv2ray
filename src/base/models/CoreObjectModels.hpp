@@ -356,6 +356,24 @@ namespace Qv2ray::base::objects
             JSONSTRUCT_REGISTER(SocksServerObject, F(address, port, users))
         };
         //
+        // Http, OutBound
+        struct HttpServerObject
+        {
+            struct UserObject
+            {
+                QString user;
+                QString pass;
+                int level;
+                UserObject() : user(), pass(), level(0){};
+                JSONSTRUCT_REGISTER(UserObject, F(user, pass, level))
+            };
+            QString address;
+            int port;
+            QList<UserObject> users;
+            HttpServerObject() : address("0.0.0.0"), port(0), users(){};
+            JSONSTRUCT_REGISTER(HttpServerObject, F(address, port, users))
+        };
+        //
         // VMess Server
         struct VMessServerObject
         {
@@ -388,7 +406,7 @@ namespace Qv2ray::base::objects
             int level;
             int port;
             ShadowSocksServerObject()
-                : email("user@domain.com"), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0){};
+                : email(""), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0){};
             JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(email, address, port, method, password, ota, level))
         };
     } // namespace protocol

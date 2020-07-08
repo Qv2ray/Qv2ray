@@ -42,7 +42,6 @@ namespace Qv2ray::core::kernel
     void APIWorker::StartAPI(const QMap<bool, QMap<QString, QString>> &tagProtocolPair)
     {
         // Config API
-        apiFailedCounter = 0;
         tagProtocolConfig.clear();
         for (const auto &key : tagProtocolPair.keys())
         {
@@ -84,13 +83,14 @@ namespace Qv2ray::core::kernel
         {
             QThread::msleep(1000);
             bool dialed = false;
+            int apiFailCounter = 0;
 
             while (running)
             {
                 if (!dialed)
                 {
-                    const auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.kernelConfig.statsPort);
 #ifndef ANDROID
+                    const auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.kernelConfig.statsPort);
                     LOG(MODULE_VCORE, "gRPC Version: " + QString::fromStdString(grpc::Version()))
                     grpc_channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     v2ray::core::app::stats::command::StatsService service;
@@ -98,20 +98,33 @@ namespace Qv2ray::core::kernel
 #endif
                     dialed = true;
                 }
+                if (apiFailCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
+                {
+                    LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
+                    emit OnAPIErrored(tr("Failed to get statistics data, please check if V2ray is running properly"));
+                    apiFailCounter++;
+                    continue;
+                }
+                else if (apiFailCounter > QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
+                {
+                    // Ignored future requests.
+                    continue;
+                }
 
                 QMap<StatisticsType, QvStatsSpeed> statsResult;
+                bool hasError = false;
                 for (const auto &[tag, config] : tagProtocolConfig)
                 {
                     const QString prefix = config.type == API_INBOUND ? "inbound" : "outbound";
-                    const auto value_up = CallStatsAPIByName(prefix + ">>>" + tag + ">>>traffic>>>uplink");
-                    const auto value_down = CallStatsAPIByName(prefix + ">>>" + tag + ">>>traffic>>>downlink");
-                    // hasError = hasError || value_up == QV2RAY_GRPC_ERROR_RETCODE || value_down == QV2RAY_GRPC_ERROR_RETCODE;
+                    const auto value_up = CallStatsAPIByName(prefix % ">>>" % tag % ">>>traffic>>>uplink");
+                    const auto value_down = CallStatsAPIByName(prefix % ">>>" % tag % ">>>traffic>>>downlink");
+                    hasError = hasError || value_up == QV2RAY_GRPC_ERROR_RETCODE || value_down == QV2RAY_GRPC_ERROR_RETCODE;
                     statsResult[config.type].first += std::max(value_up, 0LL);
                     statsResult[config.type].second += std::max(value_down, 0LL);
                 }
-                // Changed: Removed isrunning check here.
+                apiFailCounter = hasError ? apiFailCounter + 1 : 0;
+                // Changed: Removed isrunning check here
                 emit onAPIDataReady(statsResult);
-
                 QThread::msleep(1000);
             } // end while running
         }     // end while started
@@ -121,17 +134,6 @@ namespace Qv2ray::core::kernel
 
     qint64 APIWorker::CallStatsAPIByName(const QString &name)
     {
-        if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
-        {
-            LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
-            emit OnAPIErrored(tr("Failed to get statistics data, please check if V2ray is running properly"));
-            apiFailedCounter++;
-            return 0;
-        }
-        else if (apiFailedCounter > QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
-        {
-            return 0;
-        }
 #ifndef ANDROID
         ClientContext context;
         GetStatsRequest request;
@@ -143,12 +145,10 @@ namespace Qv2ray::core::kernel
         if (!status.ok())
         {
             LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
-            apiFailedCounter++;
             return QV2RAY_GRPC_ERROR_RETCODE;
         }
         else
         {
-            apiFailedCounter = 0;
             return response.stat().value();
         }
 #else

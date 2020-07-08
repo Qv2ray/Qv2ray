@@ -27,9 +27,6 @@ class ScreenShotWindow
     void mouseReleaseEvent(QMouseEvent *e) override;
     void keyPressEvent(QKeyEvent *e) override;
 
-  protected:
-    bool event(QEvent *e) override;
-
   private slots:
     void on_startBtn_clicked();
 

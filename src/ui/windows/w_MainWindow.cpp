@@ -359,8 +359,8 @@ void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QStr
         else
             return;
         w->processCommands(command, commands, args);
-        w->open();
-        QvAutoDelete(w);
+        w->exec();
+        delete w;
     }
 }
 
@@ -525,7 +525,7 @@ void MainWindow::on_preferencesBtn_clicked()
 }
 void MainWindow::on_clearlogButton_clicked()
 {
-    vCoreLogDocument->clear();
+    masterLogBrowser->document()->clear();
 }
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
 {

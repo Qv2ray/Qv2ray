@@ -87,6 +87,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
+    useOldShareLinkFormatCB->setChecked(CurrentConfig.uiConfig.useOldShareLinkFormat);
     //
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
@@ -139,8 +140,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
         statsPortBox->setValue(CurrentConfig.kernelConfig.statsPort);
         //
         v2rayOutboundStatsCB->setChecked(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
-        hasDirectStatisticsCB->setChecked(CurrentConfig.uiConfig.graphConfig.hasDirectStats);
         hasDirectStatisticsCB->setEnabled(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
+        hasDirectStatisticsCB->setChecked(CurrentConfig.uiConfig.graphConfig.hasDirectStats);
         //
         pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
         pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
@@ -1194,6 +1195,7 @@ void PreferencesWindow::on_qvNetworkUATxt_editTextChanged(const QString &arg1)
 void PreferencesWindow::on_v2rayOutboundStatsCB_stateChanged(int arg1)
 {
     hasDirectStatisticsCB->setEnabled(arg1 == Qt::Checked);
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.uiConfig.graphConfig.useOutboundStats = arg1 == Qt::Checked;
 }
@@ -1201,5 +1203,12 @@ void PreferencesWindow::on_v2rayOutboundStatsCB_stateChanged(int arg1)
 void PreferencesWindow::on_hasDirectStatisticsCB_stateChanged(int arg1)
 {
     NEEDRESTART
+    LOADINGCHECK
     CurrentConfig.uiConfig.graphConfig.hasDirectStats = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_useOldShareLinkFormatCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.uiConfig.useOldShareLinkFormat = arg1 == Qt::Checked;
 }

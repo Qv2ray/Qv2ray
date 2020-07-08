@@ -18,10 +18,12 @@ class ImportConfigWindow
     QMultiHash<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
     void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
     {
-        const static QMap<QString, int> indexMap{ { "link", 0 },   //
-                                                  { "qr", 1 },     //
-                                                  { "manual", 2 }, //
-                                                  { "advanced", 3 } };
+        const static QMap<QString, int> indexMap{
+            { "link", 0 },    //
+            { "qr", 1 },      //
+            { "manual", 2 },  //
+            { "advanced", 3 } //
+        };
         nameTxt->setText(args["name"]);
         if (commands.isEmpty())
             return;

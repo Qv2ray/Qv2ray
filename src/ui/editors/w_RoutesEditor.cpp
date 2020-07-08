@@ -967,7 +967,7 @@ void RouteEditor::on_editBtn_clicked()
         int _code;
 
         bool guisupport = true;
-        if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks")
+        if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks" && protocol != "http")
         {
             guisupport = false;
             auto pluginEditorWidgetsInfo = PluginHost->GetOutboundEditorWidgets();

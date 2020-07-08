@@ -30,13 +30,13 @@ namespace Qv2ray::components::latency
         {
             case ICMPING:
             {
-                icmping::ICMPPing ping(30);
+                icmping::ICMPPing pingHelper(30);
                 for (auto i = 0; i < count; i++)
                 {
                     resultData.totalCount++;
-                    const auto pair = ping.ping(host);
-                    const auto &errMessage = pair.second;
-                    const long _latency = pair.first;
+                    const auto value = pingHelper.ping(host);
+                    const auto _latency = value.first;
+                    const auto errMessage = value.second;
                     if (!errMessage.isEmpty())
                     {
                         resultData.errorMessage.append(NEWLINE + errMessage);
@@ -50,13 +50,18 @@ namespace Qv2ray::components::latency
     #undef max
 #endif
                         resultData.avg += _latency;
-                        resultData.best = std::min(resultData.best, _latency);
-                        resultData.worst = std::max(resultData.worst, _latency);
+#define _qvmin_(x, y) ((x) < (y) ? (x) : (y))
+#define _qvmax_(x, y) ((x) > (y) ? (x) : (y))
+                        resultData.best = _qvmin_(resultData.best, _latency);
+                        resultData.worst = _qvmax_(resultData.worst, _latency);
+#undef _qvmax_
+#undef _qvmin_
                     }
                 }
-                if (resultData.totalCount != 0 && resultData.failedCount != 0)
+                if (resultData.totalCount > 0 && resultData.failedCount != resultData.totalCount)
                 {
                     resultData.errorMessage.clear();
+                    // ms to s
                     resultData.avg = resultData.avg / (resultData.totalCount - resultData.failedCount) / 1000;
                 }
                 else
