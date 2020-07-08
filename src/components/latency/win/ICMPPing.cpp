@@ -105,7 +105,7 @@ namespace Qv2ray::components::latency::icmping
                     data.worst=std::max(pingres.first,data.worst);
                     successCount++;
                     }
-                    notifyTestHost(testHost, id)
+                    notifyTestHost(testHost, id);
                     ptr.reset();
                     });
             work->queue();
