@@ -8,9 +8,67 @@
 #include <QSslSocket>
 #include <csignal>
 
+#ifdef Q_OS_WIN
+    #include <Windows.h>
+    //
+    #include <DbgHelp.h>
+
+QString StackTraceHelper::GetStackTraceImpl_Windows()
+{
+    void *stack[1024];
+    HANDLE process = GetCurrentProcess();
+    SymInitialize(process, NULL, TRUE);
+    SymSetOptions(SYMOPT_LOAD_ANYTHING);
+    WORD numberOfFrames = CaptureStackBackTrace(0, 1024, stack, NULL);
+    SYMBOL_INFO *symbol = (SYMBOL_INFO *) malloc(sizeof(SYMBOL_INFO) + (512 - 1) * sizeof(TCHAR));
+    symbol->MaxNameLen = 512;
+    symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+    DWORD displacement;
+    IMAGEHLP_LINE64 *line = (IMAGEHLP_LINE64 *) malloc(sizeof(IMAGEHLP_LINE64));
+    line->SizeOfStruct = sizeof(IMAGEHLP_LINE64);
+    //
+    QString msg;
+    //
+    for (int i = 0; i < numberOfFrames; i++)
+    {
+        const auto address = (DWORD64) stack[i];
+        SymFromAddr(process, address, NULL, symbol);
+        if (SymGetLineFromAddr64(process, address, &displacement, line))
+        {
+            msg += QString("[%1]: %2 (%3:%4)\r\n").arg(symbol->Address).arg(symbol->Name).arg(line->FileName).arg(line->LineNumber);
+        }
+        else
+        {
+            msg += QString("[%1]: %2 SymGetLineFromAddr64[%3]\r\n").arg(symbol->Address).arg(symbol->Name).arg(GetLastError());
+        }
+    }
+    return msg;
+}
+#endif
+
 void signalHandler(int signum)
 {
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
+#ifdef Q_OS_WIN
+    if (SIGSEGV == signum || SIGFPE == signum)
+    {
+        std::cout << "Collecting StackTrace" << std::endl;
+        const auto msg = GetStackTraceImpl_Windows();
+        std::cout << msg.toStdString() << std::endl;
+        QDir().mkpath(QV2RAY_CONFIG_DIR + "bugreport/");
+        auto filePath = QV2RAY_CONFIG_DIR + "bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
+        StringToFile(msg, filePath);
+        std::cout << "Backtrace saved in: " + filePath.toStdString() << std::endl;
+        if (qApp)
+        {
+            qApp->clipboard()->setText(filePath);
+            auto message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
+                           QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
+                           filePath;
+            QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
+        }
+    }
+#endif
     exit(-99);
 }
 
