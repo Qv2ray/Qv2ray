@@ -58,6 +58,8 @@ void MainWindow::MWClearSystemProxy()
 
 bool MainWindow::StartAutoConnectionEntry()
 {
+    if (StartupOption.noAutoConnection)
+        return false;
     switch (GlobalConfig.autoStartBehavior)
     {
         case AUTO_CONNECTION_NONE: return false;

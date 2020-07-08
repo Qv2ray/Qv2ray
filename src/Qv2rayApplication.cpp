@@ -454,6 +454,7 @@ namespace Qv2ray
         QCommandLineOption noPluginsOption("noPlugin", tr("Disable plugins feature"));
         QCommandLineOption noScaleFactorOption("noScaleFactor", tr("Disable Qt UI scale factor"));
         QCommandLineOption debugOption("debug", tr("Enable debug output"));
+        QCommandLineOption noAutoConnectionOption("noAutoConnection", tr("Do not automcatically connect"));
         QCommandLineOption disconnectOption("disconnect", tr("Stop current connection"));
         QCommandLineOption reconnectOption("reconnect", tr("Reconnect last connection"));
         QCommandLineOption exitOption("exit", tr("Exit Qv2ray"));
@@ -465,6 +466,7 @@ namespace Qv2ray
         parser.addOption(noPluginsOption);
         parser.addOption(noScaleFactorOption);
         parser.addOption(debugOption);
+        parser.addOption(noAutoConnectionOption);
         parser.addOption(disconnectOption);
         parser.addOption(reconnectOption);
         parser.addOption(exitOption);
@@ -533,6 +535,12 @@ namespace Qv2ray
         {
             DEBUG(MODULE_INIT, "noScaleFactorOption is set.")
             StartupOption.noScaleFactor = true;
+        }
+
+        if (parser.isSet(noAutoConnectionOption))
+        {
+            DEBUG(MODULE_INIT, "noAutoConnectOption is set.")
+            StartupOption.noAutoConnection = true;
         }
 
         if (parser.isSet(noPluginsOption))
