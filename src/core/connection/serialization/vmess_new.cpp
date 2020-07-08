@@ -176,7 +176,7 @@ namespace Qv2ray::core::connection
             url.setPassword(server.users.first().id + "-" + QSTRN(server.users.first().alterId));
             url.setHost(server.address);
             url.setPort(server.port);
-            url.setUserInfo(protocol);
+            url.setUserName(protocol);
             url.setQuery(query);
             return url.toString();
         }
