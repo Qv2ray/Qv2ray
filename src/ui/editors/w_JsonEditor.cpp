@@ -1,12 +1,13 @@
-﻿#include "w_JsonEditor.hpp"
+#include "w_JsonEditor.hpp"
 
 #include "common/QvHelpers.hpp"
+#include "ui/common/UIBase.hpp"
 
 JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     QvMessageBusConnect(JsonEditor);
-    highlighter = make_unique<vCoreConfigJsonHighlighter>(jsonEditor->document());
+    highlighter = std::make_unique<vCoreConfigJsonHighlighter>(jsonEditor->document());
     //
     original = rootObject;
     final = rootObject;

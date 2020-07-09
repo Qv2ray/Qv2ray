@@ -1,18 +1,13 @@
 #include "common/QvHelpers.hpp"
 
+#include "base/Qv2rayBase.hpp"
 #include "libs/puresource/src/PureJson.hpp"
-
-#include <QGraphicsEffect>
-#include <QGraphicsProxyWidget>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QQueue>
 
 namespace Qv2ray::common
 {
     const QString GenerateRandomString(int len)
     {
-        const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+        const QString possibleCharacters("abcdefghijklmnopqrstuvwxyz");
         QString randomString;
 
         for (int i = 0; i < len; ++i)
@@ -41,39 +36,31 @@ namespace Qv2ray::common
         if (!wasOpened)
             source.close();
         //
-        QTextCodec::ConverterState state;
         QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+        QTextCodec::ConverterState state;
         const QString text = codec->toUnicode(byteArray.constData(), byteArray.size(), &state);
         if (state.invalidChars > 0)
         {
             LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source.fileName())
-            return byteArray;
         }
-        else
-        {
-            return text;
-        }
+        return state.invalidChars > 0 ? byteArray : text;
     }
 
     bool StringToFile(const QString &text, const QString &targetpath)
     {
-        auto file = QFile(targetpath);
-        return StringToFile(text, file);
-    }
-    bool StringToFile(const QString &text, QFile &targetFile)
-    {
-        QFileInfo info(targetFile);
-        if (!info.dir().exists())
+        bool override = false;
         {
-            info.dir().mkpath(info.dir().path());
+            QFileInfo info(targetpath);
+            override = info.exists();
+            if (!override && !info.dir().exists())
+                info.dir().mkpath(info.dir().path());
         }
-        bool override = targetFile.exists();
-        targetFile.open(QFile::WriteOnly);
-        targetFile.write(text.toUtf8());
-        targetFile.close();
+        QSaveFile f{ targetpath };
+        f.open(QIODevice::WriteOnly);
+        f.write(text.toUtf8());
+        f.commit();
         return override;
     }
-
     QString JsonToString(const QJsonObject &json, QJsonDocument::JsonFormat format)
     {
         QJsonDocument doc;
@@ -116,6 +103,31 @@ namespace Qv2ray::common
         return doc.object();
     }
 
+    // backported from QvPlugin-SSR.
+    QString SafeBase64Decode(QString string)
+    {
+        QByteArray ba = string.replace(QChar('-'), QChar('+')).replace(QChar('_'), QChar('/')).toUtf8();
+        return QByteArray::fromBase64(ba, QByteArray::Base64Option::OmitTrailingEquals);
+    }
+
+    // backported from QvPlugin-SSR.
+    QString SafeBase64Encode(const QString &string, bool trim)
+    {
+        QString base64 = string.toUtf8().toBase64();
+        if (trim)
+        {
+            auto tmp = base64.replace(QChar('+'), QChar('-')).replace(QChar('/'), QChar('_'));
+            auto crbedin = tmp.crbegin();
+            auto idx = tmp.length();
+            while (crbedin != tmp.crend() && (*crbedin) == '=') idx -= 1, crbedin++;
+            return idx != tmp.length() ? tmp.remove(idx, tmp.length() - idx) : tmp;
+        }
+        else
+        {
+            return base64.replace(QChar('+'), QChar('-')).replace(QChar('/'), QChar('_'));
+        }
+    }
+
     QString Base64Encode(const QString &string)
     {
         QByteArray ba = string.toUtf8();
@@ -130,19 +142,11 @@ namespace Qv2ray::common
 
     QStringList SplitLines(const QString &_string)
     {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        return _string.split(QRegExp("[\r\n]"), Qt::SkipEmptyParts);
+#else
         return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
-    }
-
-    list<string> SplitLines_std(const QString &_string)
-    {
-        list<string> list;
-
-        for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
-        {
-            list.push_back(line.toStdString());
-        }
-
-        return list;
+#endif
     }
 
     QStringList GetFileList(const QDir &dir)
@@ -153,22 +157,6 @@ namespace Qv2ray::common
     bool FileExistsIn(const QDir &dir, const QString &fileName)
     {
         return GetFileList(dir).contains(fileName);
-    }
-
-    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
-    {
-        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
-    }
-
-    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
-    {
-        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
-    }
-
-    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
-                                                QMessageBox::StandardButton extraButtons)
-    {
-        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
     }
 
     QString FormatBytes(const int64_t b)
@@ -195,7 +183,7 @@ namespace Qv2ray::common
     {
         std::string _name = fileName.toStdString();
         std::replace_if(
-            _name.begin(), _name.end(), [](char c) { return std::string::npos != string(R"("/\?%&^*;:|><)").find(c); }, '_');
+            _name.begin(), _name.end(), [](char c) { return std::string::npos != std::string(R"("/\?%&^*;:|><)").find(c); }, '_');
         return QString::fromStdString(_name);
     }
 
@@ -225,38 +213,20 @@ namespace Qv2ray::common
             i++;
         }
     }
-    QPixmap ApplyEffectToImage(QPixmap src, QGraphicsEffect *effect, int extent)
+
+    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
     {
-        constexpr int extent2 = 0;
-        if (src.isNull())
-            return QPixmap(); // No need to do anything else!
-        if (!effect)
-            return src; // No need to do anything else!
-        QGraphicsScene scene;
-        auto p = scene.addPixmap(src);
-        p->setGraphicsEffect(effect);
-        //
-        QImage res(src.size() + QSize(extent2, extent2), QImage::Format_ARGB32);
-        res.fill(Qt::transparent);
-        QPainter ptr(&res);
-        //
-        scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent2, src.height() + extent * 2));
-        //
-        scene.removeItem(p);
-        return QPixmap::fromImage(res);
-    }
-    QPixmap BlurImage(const QPixmap &pixmap, const double rad)
-    {
-        QGraphicsBlurEffect pBlur;
-        pBlur.setBlurRadius(rad);
-        return ApplyEffectToImage(pixmap, &pBlur, 0);
+        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
     }
 
-    QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor)
+    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
     {
-        QGraphicsColorizeEffect pColor;
-        pColor.setColor(color);
-        pColor.setStrength(factor);
-        return ApplyEffectToImage(pixmap, &pColor, 0);
+        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
     }
+    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
+                                                QMessageBox::StandardButton extraButtons)
+    {
+        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
+    }
+
 } // namespace Qv2ray::common

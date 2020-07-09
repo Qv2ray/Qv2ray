@@ -1,18 +1,25 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-#ifndef BACKEND_LIBQVB
+#ifndef ANDROID
     #include "v2ray_api.grpc.pb.h"
-    #include "v2ray_api.pb.h"
-    #include "v2ray_geosite.pb.h"
 
     #include <grpc++/grpc++.h>
 #endif
 
 // Check 10 times before telling user that API has failed.
-constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 10;
+constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 30;
 
 namespace Qv2ray::core::kernel
 {
+    struct APIConfigObject
+    {
+        QString protocol;
+        StatisticsType type;
+    };
+
+    typedef std::map<QString, APIConfigObject> QvAPITagProtocolConfig;
+    typedef std::map<StatisticsType, QStringList> QvAPIDataTypeConfig;
+
     class APIWorker : public QObject
     {
         Q_OBJECT
@@ -20,27 +27,26 @@ namespace Qv2ray::core::kernel
       public:
         APIWorker();
         ~APIWorker();
-        void StartAPI(const QStringList &tags);
+        void StartAPI(const QMap<bool, QMap<QString, QString>> &tagProtocolPair);
         void StopAPI();
 
-      public slots:
-        void process();
-
       signals:
-        void OnDataReady(const quint64 speedUp, const quint64 speedDown);
-        void error(const QString &err);
+        void onAPIDataReady(const QMap<StatisticsType, QvStatsSpeed> &data);
+        void OnAPIErrored(const QString &err);
+
+      private slots:
+        void process();
 
       private:
         qint64 CallStatsAPIByName(const QString &name);
-        QStringList inboundTags;
-        QThread *thread;
+        QvAPITagProtocolConfig tagProtocolConfig;
+        QThread *workThread;
         //
         bool started = false;
         bool running = false;
-        uint apiFailedCounter = 0;
-#ifndef BACKEND_LIBQVB
-        std::shared_ptr<::grpc::Channel> Channel;
-        std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> Stub;
+#ifndef ANDROID
+        std::shared_ptr<::grpc::Channel> grpc_channel;
+        std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> stats_service_stub;
 #endif
     };
 } // namespace Qv2ray::core::kernel

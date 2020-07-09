@@ -4,6 +4,14 @@
 
 #include <iostream>
 
+#ifdef Q_OS_ANDROID
+    #include <android/log.h>
+#endif
+
+Qv2rayConfigObject _qv2ray_global_config_impl_details::_GlobalConfig;
+bool _qv2ray_global_config_impl_details::_isExiting;
+QString _qv2ray_global_config_impl_details::_Qv2rayConfigPath;
+
 namespace Qv2ray::base
 {
     // Forwarded from QvTinyLog
@@ -15,7 +23,7 @@ namespace Qv2ray::base
     void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log)
     {
         auto logString = QString("[" % module % "]: " % log);
-        auto funcPrepend = QString::fromStdString(func + ":" + to_string(line) + " ");
+        auto funcPrepend = QString::fromStdString(func + ":" + std::to_string(line) + " ");
 
 #ifdef QT_DEBUG
         // Debug build version, we only print info for DEBUG logs and print
@@ -40,7 +48,11 @@ namespace Qv2ray::base
             }
         }
 #endif
-        cout << logString.toStdString() << endl;
+#ifdef Q_OS_ANDROID
+        __android_log_write(ANDROID_LOG_INFO, "Qv2ray", logString.toStdString().c_str());
+#else
+        std::cout << logString.toStdString() << std::endl;
+#endif
         {
             QMutexLocker _(&__loggerMutex);
             __loggerBuffer->append(logString + NEWLINE);

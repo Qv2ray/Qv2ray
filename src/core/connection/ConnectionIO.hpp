@@ -1,14 +1,10 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-#include "core/CoreSafeTypes.hpp"
-namespace Qv2ray::core::connection
+namespace Qv2ray::core::connection::connectionIO
 {
-    namespace ConnectionIO
-    {
-        // File Protocol
-        CONFIGROOT ConvertConfigFromFile(const QString &sourceFilePath, bool importComplex);
-    } // namespace ConnectionIO
-} // namespace Qv2ray::core::connection
+    CONFIGROOT ConvertConfigFromFile(const QString &sourceFilePath, bool importComplex);
+    QList<QPair<QString, CONFIGROOT>> GetConnectionConfigFromSubscription(const QByteArray &arr, const QString &groupName);
+} // namespace Qv2ray::core::connection::connectionIO
 
 using namespace Qv2ray::core::connection;
-using namespace Qv2ray::core::connection::ConnectionIO;
+using namespace Qv2ray::core::connection::connectionIO;

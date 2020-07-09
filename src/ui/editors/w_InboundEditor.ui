@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>815</width>
-    <height>489</height>
+    <width>867</width>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="7,3">
-   <item row="2" column="0">
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <layout class="QFormLayout" name="formLayout_4">
      <item row="0" column="0">
       <widget class="QLabel" name="label_4">
@@ -113,7 +113,7 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="1">
+   <item row="0" column="1">
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
       <string>Allocation Settings</string>
@@ -204,94 +204,7 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>Sniffing Settings</string>
-     </property>
-     <layout class="QFormLayout" name="formLayout_2">
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>32</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Destination Override</string>
-        </property>
-        <property name="textFormat">
-         <enum>Qt::RichText</enum>
-        </property>
-        <property name="scaledContents">
-         <bool>false</bool>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="buddy">
-         <cstring>destOverrideList</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QListWidget" name="destOverrideList">
-        <item>
-         <property name="text">
-          <string notr="true">HTTP</string>
-         </property>
-         <property name="checkState">
-          <enum>Unchecked</enum>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string notr="true">TLS</string>
-         </property>
-         <property name="checkState">
-          <enum>Unchecked</enum>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="enableSniffingCB">
-        <property name="text">
-         <string>Enabled</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_29">
-        <property name="text">
-         <string>Enabled</string>
-        </property>
-        <property name="buddy">
-         <cstring>enableSniffingCB</cstring>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
+   <item row="1" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -303,7 +216,7 @@
          <property name="title">
           <string>HTTP Inbound Settings</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,6">
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <layout class="QFormLayout" name="formLayout">
             <item row="0" column="0">
@@ -352,32 +265,42 @@
            </layout>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1,1,0">
-            <item row="1" column="3">
-             <widget class="QToolButton" name="httpRemoveUserBtn">
-              <property name="text">
-               <string>-</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" rowspan="2" colspan="3">
+           <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1,0" columnstretch="0,1,1,0">
+            <item row="1" column="0" colspan="3">
              <widget class="QListWidget" name="httpAccountListBox"/>
             </item>
-            <item row="3" column="2">
-             <widget class="QLineEdit" name="httpAddPasswordTxt">
-              <property name="placeholderText">
-               <string>Password</string>
-              </property>
-             </widget>
+            <item row="1" column="3">
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QToolButton" name="httpAddUserBtn">
+                <property name="text">
+                 <string>+</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="httpRemoveUserBtn">
+                <property name="text">
+                 <string>-</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
-            <item row="3" column="3">
-             <widget class="QToolButton" name="httpAddUserBtn">
-              <property name="text">
-               <string>+</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
+            <item row="2" column="0">
              <widget class="QLabel" name="label_16">
               <property name="text">
                <string>Add</string>
@@ -387,14 +310,21 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="2" column="1">
              <widget class="QLineEdit" name="httpAddUserTxt">
               <property name="placeholderText">
                <string>Username</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="0" colspan="5">
+            <item row="2" column="2" colspan="2">
+             <widget class="QLineEdit" name="httpAddPasswordTxt">
+              <property name="placeholderText">
+               <string>Password</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="4">
              <widget class="QLabel" name="label_14">
               <property name="text">
                <string>Accounts</string>
@@ -556,7 +486,7 @@
           <string>Dokodemo-Door Inbound Settings</string>
          </property>
          <layout class="QFormLayout" name="formLayout_6">
-          <item row="1" column="0">
+          <item row="0" column="0">
            <widget class="QLabel" name="label_11">
             <property name="text">
              <string>IP Address</string>
@@ -566,14 +496,14 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="0" column="1">
            <widget class="QLineEdit" name="dokoIPAddrTxt">
             <property name="placeholderText">
              <string>Not necessary when setting &quot;Follow Redirect&quot;</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="1" column="0">
            <widget class="QLabel" name="label_22">
             <property name="text">
              <string>Port</string>
@@ -583,7 +513,7 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="1" column="1">
            <widget class="QSpinBox" name="dokoPortSB">
             <property name="minimum">
              <number>1</number>
@@ -596,7 +526,7 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_23">
             <property name="text">
              <string>Network</string>
@@ -606,7 +536,17 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_24">
+            <property name="text">
+             <string>Timeout</string>
+            </property>
+            <property name="buddy">
+             <cstring>dokoTimeoutSB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QCheckBox" name="dokoTCPCB">
@@ -630,37 +570,7 @@
             </item>
            </layout>
           </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_24">
-            <property name="text">
-             <string>Timeout</string>
-            </property>
-            <property name="buddy">
-             <cstring>dokoTimeoutSB</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_25">
-            <property name="text">
-             <string>Follow Redirect</string>
-            </property>
-            <property name="buddy">
-             <cstring>dokoFollowRedirectCB</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_26">
-            <property name="text">
-             <string>User Level</string>
-            </property>
-            <property name="buddy">
-             <cstring>dokoUserLevelSB</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
+          <item row="3" column="1">
            <widget class="QSpinBox" name="dokoTimeoutSB">
             <property name="minimum">
              <number>-1</number>
@@ -673,21 +583,66 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
+          <item row="4" column="1">
            <widget class="QCheckBox" name="dokoFollowRedirectCB">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="1">
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_25">
+            <property name="text">
+             <string>Follow Redirect</string>
+            </property>
+            <property name="buddy">
+             <cstring>dokoFollowRedirectCB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_26">
+            <property name="text">
+             <string>User Level</string>
+            </property>
+            <property name="buddy">
+             <cstring>dokoUserLevelSB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
            <widget class="QSpinBox" name="dokoUserLevelSB"/>
           </item>
-          <item row="0" column="0" colspan="2">
+          <item row="6" column="0">
            <widget class="QLabel" name="label_30">
             <property name="text">
-             <string>If you want to use tProxy, please go to Preference Window to enable this feature.</string>
+             <string>tproxy mode</string>
             </property>
+            <property name="buddy">
+             <cstring>dokoUserLevelSB</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QComboBox" name="dokotproxyCombo">
+            <property name="currentText">
+             <string notr="true">off</string>
+            </property>
+            <item>
+             <property name="text">
+              <string notr="true">off</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">redirect</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">tproxy</string>
+             </property>
+            </item>
            </widget>
           </item>
          </layout>
@@ -757,6 +712,81 @@
      </widget>
     </widget>
    </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Sniffing Settings</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_29">
+        <property name="text">
+         <string>Enabled</string>
+        </property>
+        <property name="buddy">
+         <cstring>enableSniffingCB</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="enableSniffingCB">
+        <property name="text">
+         <string>Enabled</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QListWidget" name="destOverrideList">
+        <item>
+         <property name="text">
+          <string notr="true">HTTP</string>
+         </property>
+         <property name="checkState">
+          <enum>Unchecked</enum>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">TLS</string>
+         </property>
+         <property name="checkState">
+          <enum>Unchecked</enum>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Destination Override</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::RichText</enum>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="buddy">
+         <cstring>destOverrideList</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -767,11 +797,8 @@
   <tabstop>httpTimeoutSpinBox</tabstop>
   <tabstop>httpTransparentCB</tabstop>
   <tabstop>httpUserLevelSB</tabstop>
-  <tabstop>httpAccountListBox</tabstop>
-  <tabstop>httpRemoveUserBtn</tabstop>
   <tabstop>httpAddUserTxt</tabstop>
   <tabstop>httpAddPasswordTxt</tabstop>
-  <tabstop>httpAddUserBtn</tabstop>
   <tabstop>socksAuthCombo</tabstop>
   <tabstop>socksUDPCB</tabstop>
   <tabstop>socksUDPIPAddrTxt</tabstop>
@@ -785,9 +812,6 @@
   <tabstop>dokoPortSB</tabstop>
   <tabstop>dokoTCPCB</tabstop>
   <tabstop>dokoUDPCB</tabstop>
-  <tabstop>dokoTimeoutSB</tabstop>
-  <tabstop>dokoFollowRedirectCB</tabstop>
-  <tabstop>dokoUserLevelSB</tabstop>
   <tabstop>mtEMailTxt</tabstop>
   <tabstop>mtSecretTxt</tabstop>
   <tabstop>mtUserLevelSB</tabstop>
@@ -795,7 +819,6 @@
   <tabstop>refreshNumberBox</tabstop>
   <tabstop>concurrencyNumberBox</tabstop>
   <tabstop>enableSniffingCB</tabstop>
-  <tabstop>destOverrideList</tabstop>
  </tabstops>
  <resources/>
  <connections>

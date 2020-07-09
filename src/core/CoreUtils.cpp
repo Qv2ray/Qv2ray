@@ -1,6 +1,7 @@
-﻿#include "CoreUtils.hpp"
+#include "CoreUtils.hpp"
 
 #include "common/QvHelpers.hpp"
+#include "core/connection/Serialization.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
 namespace Qv2ray::core
@@ -32,24 +33,28 @@ namespace Qv2ray::core
 
         if (*protocol == "vmess")
         {
-            auto Server =
-                StructFromJsonString<VMessServerObject>(JsonToString(out["settings"].toObject()["vnext"].toArray().first().toObject()));
+            auto Server = VMessServerObject::fromJson(out["settings"].toObject()["vnext"].toArray().first().toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
         }
         else if (*protocol == "shadowsocks")
         {
-            auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
+            auto Server = ShadowSocksServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
         }
         else if (*protocol == "socks")
         {
-            auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<SocksServerObject>(x);
+            auto Server = SocksServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
+            *host = Server.address;
+            *port = Server.port;
+            return true;
+        }
+        else if (*protocol == "http")
+        {
+            auto Server = HttpServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
@@ -64,7 +69,9 @@ namespace Qv2ray::core
         }
     }
 
-    const tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
+    ///
+    /// [Protocol, Host, Port]
+    const std::tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
     {
         if (status != nullptr)
             *status = false;
@@ -72,7 +79,7 @@ namespace Qv2ray::core
         return GetConnectionInfo(root, status);
     }
 
-    const tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status)
+    const std::tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status)
     {
         if (status != nullptr)
             *status = false;
@@ -105,22 +112,22 @@ namespace Qv2ray::core
         return { QObject::tr("N/A"), QObject::tr("N/A"), 0 };
     }
 
-    const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id)
+    const std::tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id)
     {
         auto connection = ConnectionManager->GetConnectionMetaObject(id);
-        return { connection.upLinkData, connection.downLinkData };
+        return { connection.stats[CurrentStatAPIType].upLinkData, connection.stats[CurrentStatAPIType].downLinkData };
     }
 
     uint64_t GetConnectionTotalData(const ConnectionId &id)
     {
         auto result = GetConnectionUsageAmount(id);
-        return get<0>(result) + get<1>(result);
+        return std::get<0>(result) + std::get<1>(result);
     }
 
     int64_t GetConnectionLatency(const ConnectionId &id)
     {
         auto connection = ConnectionManager->GetConnectionMetaObject(id);
-        return max(connection.latency, (int64_t) 0);
+        return std::max(connection.latency, {});
     }
 
     const QString GetConnectionProtocolString(const ConnectionId &id)
@@ -158,28 +165,23 @@ namespace Qv2ray::core
         return TruncateString(ConnectionManager->GetGroupMetaObject(id).displayName, limit);
     }
 
-    const GroupId GetConnectionGroupId(const ConnectionId &id)
+    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const CONFIGROOT &root)
     {
-        return ConnectionManager->GetConnectionMetaObject(id).groupId;
-    }
-
-    const QMap<QString, int> GetConfigInboundPorts(const CONFIGROOT &root)
-    {
-        if (!root.contains("inbounds"))
-        {
-            return {};
-        }
-        QMap<QString, int> inboundPorts;
+        QMap<QString, InboundInfoObject> inboundPorts;
         for (const auto &inboundVal : root["inbounds"].toArray())
         {
             const auto &inbound = inboundVal.toObject();
-            inboundPorts.insert(inbound["protocol"].toString(), inbound["port"].toInt());
+            inboundPorts[inbound["tag"].toString()] = {
+                inbound["protocol"].toString(), //
+                inbound["listen"].toString(),   //
+                inbound["port"].toInt()         //
+            };
         }
         return inboundPorts;
     }
 
-    const QMap<QString, int> GetConfigInboundPorts(const ConnectionId &id)
+    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const ConnectionId &id)
     {
-        return GetConfigInboundPorts(ConnectionManager->GetConnectionRoot(id));
+        return GetConfigInboundInfo(ConnectionManager->GetConnectionRoot(id));
     }
 } // namespace Qv2ray::core

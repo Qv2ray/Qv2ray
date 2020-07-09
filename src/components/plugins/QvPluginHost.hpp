@@ -1,5 +1,5 @@
 #pragma once
-#include "components/plugins/interface/QvPluginInterface.hpp"
+#include "src/plugin-interface/QvPluginInterface.hpp"
 
 #include <QMap>
 #include <QObject>
@@ -57,10 +57,11 @@ namespace Qv2ray::components::plugins
         {
             return plugins.value(internalName).metadata;
         }
-        const QMap<QString, std::shared_ptr<QvPluginKernel>> GetPluginKernels() const;
+        const QMap<QString, QList<QString>> GetPluginKernels() const;
+        const std::unique_ptr<QvPluginKernel> CreatePluginKernel(const QString &pluginInternalName) const;
         //
-        const QMultiHash<QString, QPair<QString, QJsonObject>> TryDeserializeShareLink(const QString &sharelink, //
-                                                                                       QString *prefix,          //
+        const QList<std::tuple<QString, QString, QJsonObject>> TryDeserializeShareLink(const QString &sharelink, //
+                                                                                       QString *aliasPrefix,     //
                                                                                        QString *errMessage,      //
                                                                                        QString *newGroupName,    //
                                                                                        bool *status) const;

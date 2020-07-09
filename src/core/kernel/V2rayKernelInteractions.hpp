@@ -1,9 +1,8 @@
-﻿#pragma once
+#pragma once
 #include "base/Qv2rayBase.hpp"
-#include "core/CoreSafeTypes.hpp"
 #include "core/kernel/QvKernelABIChecker.hpp"
 
-#include <QProcess>
+class QProcess;
 
 namespace Qv2ray::core::kernel
 {
@@ -15,26 +14,18 @@ namespace Qv2ray::core::kernel
         explicit V2rayKernelInstance(QObject *parent = nullptr);
         ~V2rayKernelInstance() override;
         //
-        // Speed
-        qulonglong getTagSpeedUp(const QString &tag);
-        qulonglong getTagSpeedDown(const QString &tag);
-        qulonglong getAllSpeedUp();
-        qulonglong getAllSpeedDown();
-        //
-        optional<QString> StartConnection(const CONFIGROOT &root);
+        std::optional<QString> StartConnection(const CONFIGROOT &root);
         void StopConnection();
         bool KernelStarted = false;
         //
         static bool ValidateConfig(const QString &path);
         static bool ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message);
+        static std::pair<bool, std::optional<QString>> CheckAndSetCoreExecutableState(const QString &vCorePath);
 
       signals:
         void OnProcessErrored(const QString &errMessage);
         void OnProcessOutputReadyRead(const QString &output);
-        void OnNewStatsDataArrived(const quint64 speedUp, const quint64 speedDown);
-
-      private slots:
-        void onAPIDataReady(const quint64 speedUp, const quint64 speedDown);
+        void OnNewStatsDataArrived(const QMap<StatisticsType, QvStatsSpeed> &data);
 
       private:
         APIWorker *apiWorker;

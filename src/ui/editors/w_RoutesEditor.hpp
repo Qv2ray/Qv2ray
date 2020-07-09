@@ -1,17 +1,14 @@
 #pragma once
 
-#include "ConnectionStyle.hpp"
-#include "Node.hpp"
-#include "NodeData.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
+#include "ui/common/QvDialog.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_RoutesEditor.h"
 
-#include <QDialog>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QListWidgetItem>
-#include <list>
+#include <nodes/internal/ConnectionStyle.hpp>
+#include <nodes/internal/Node.hpp>
+#include <nodes/internal/NodeData.hpp>
 
 using QtNodes::ConnectionStyle;
 using QtNodes::FlowScene;
@@ -27,7 +24,7 @@ enum ROUTE_EDIT_MODE
 };
 
 class RouteEditor
-    : public QDialog
+    : public QvDialog
     , private Ui::RouteEditor
 {
     Q_OBJECT
@@ -36,8 +33,10 @@ class RouteEditor
     explicit RouteEditor(QJsonObject connection, QWidget *parent = nullptr);
     ~RouteEditor();
     CONFIGROOT OpenEditor();
+    void processCommands(QString, QStringList, QMap<QString, QString>) override{};
 
   private:
+    void updateColorScheme() override{};
     QvMessageBusSlotDecl;
 
   private slots:
@@ -98,7 +97,7 @@ class RouteEditor
     void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
 
   public slots:
-    void onNodeClicked(QtNodes::Node &n);
+    void onNodeClicked(Node &n);
     void onConnectionCreated(QtNodes::Connection const &c);
     void onConnectionDeleted(QtNodes::Connection const &c);
 
@@ -122,9 +121,9 @@ class RouteEditor
     //
     // ---------------------------- Node Graph Impl --------------------------
     void SetupNodeWidget();
-    QHash<QString, Node *> inboundNodes;
-    QHash<QString, Node *> outboundNodes;
-    QHash<QString, Node *> ruleNodes;
+    QHash<QString, QUuid> inboundNodes;
+    QHash<QString, QUuid> outboundNodes;
+    QHash<QString, QUuid> ruleNodes;
     //
     FlowScene *nodeScene;
     // ---------------------------- Extra Source File Headers ----------------

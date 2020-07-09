@@ -1,80 +1,69 @@
 #include "ConfigHandler.hpp"
 
+#include "common/HTTPRequestHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/connection/Serialization.hpp"
+#include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
-namespace Qv2ray::core::handlers
+namespace Qv2ray::core::handler
 {
-
-    QvConfigHandler::QvConfigHandler()
+    QvConfigHandler::QvConfigHandler(QObject *parent) : QObject(parent)
     {
+        asyncRequestHelper = new NetworkRequestHelper(this);
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
-
-        // Do we need to check how many of them are loaded?
-        // Do not use: for (const auto &key : connections), why?
-        for (auto i = 0; i < GlobalConfig.connections.count(); i++)
+        const auto connectionJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "connections.json"));
+        const auto groupJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "groups.json"));
+        //
+        for (const auto &connectionId : connectionJson.keys())
         {
-            auto const &id = ConnectionId(GlobalConfig.connections.keys().at(i));
-            connections[id] = GlobalConfig.connections.values().at(i);
+            connections.insert(ConnectionId{ connectionId }, ConnectionObject::fromJson(connectionJson.value(connectionId).toObject()));
         }
-
-        for (const auto &key : GlobalConfig.subscriptions.keys())
+        //
+        for (const auto &groupId : groupJson.keys())
         {
-            GroupId gkey(key);
-            if (gkey == NullGroupId)
+            auto groupObject = GroupObject::fromJson(groupJson.value(groupId).toObject());
+            if (groupObject.displayName.isEmpty())
             {
-                LOG(MODULE_CORE_HANDLER, "Removed a null subscription id")
-                continue;
+                groupObject.displayName = tr("Group: %1").arg(GenerateRandomString(5));
             }
-            auto const &val = GlobalConfig.subscriptions[key];
-            groups[gkey] = val;
-
-            for (auto conn : val.connections)
+            groups.insert(GroupId{ groupId }, groupObject);
+            for (const auto &connId : groupObject.connections)
             {
-                connections[ConnectionId(conn)].groupId = GroupId(key);
-            }
-        }
-
-        for (const auto &key : GlobalConfig.groups.keys())
-        {
-            GroupId gkey(key);
-            if (gkey == NullGroupId)
-            {
-                LOG(MODULE_CORE_HANDLER, "Removed a null group id")
-                continue;
-            }
-            auto const &val = GlobalConfig.groups.value(key);
-            groups[gkey] = val;
-
-            for (auto conn : val.connections)
-            {
-                connections[ConnectionId(conn)].groupId = GroupId(key);
-            }
-        }
-
-        for (const auto &id : connections.keys())
-        {
-            DEBUG(MODULE_CORE_HANDLER, "Loading connection: " + connections.value(id).displayName + " to cache.")
-            auto const &group = connections.value(id).groupId;
-            if (group != NullGroupId)
-            {
-                auto path = group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
-                path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
-                //
-                connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(path)));
-            }
-            else
-            {
-                connections.remove(id);
-                LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
+                connections[connId].__qvConnectionRefCount++;
             }
         }
         //
+        for (const auto &id : connections.keys())
+        {
+            auto const &connectionObject = connections.value(id);
+            if (connectionObject.__qvConnectionRefCount == 0)
+            {
+                QFile connectionFile(QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
+                if (connectionFile.exists())
+                {
+                    if (!connectionFile.remove())
+                        LOG(MODULE_CONNECTION, "Failed to remove connection config file")
+                }
+                connections.remove(id);
+                LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
+            }
+            else
+            {
+                const auto connectionFilePath = QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+                connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(connectionFilePath)));
+                DEBUG(MODULE_CORE_HANDLER, "Loaded connection id: " + id.toString() + " into cache.")
+            }
+        }
+
         // Force default group name.
-        groups[DefaultGroupId].displayName = tr("Default Group");
-        groups[DefaultGroupId].isSubscription = false;
+        if (!groups.contains(DefaultGroupId))
+        {
+            groups.insert(DefaultGroupId, {});
+            groups[DefaultGroupId].displayName = tr("Default Group");
+            groups[DefaultGroupId].isSubscription = false;
+        }
         //
         kernelHandler = new KernelInstanceHandler(this);
         connect(kernelHandler, &KernelInstanceHandler::OnCrashed, this, &QvConfigHandler::OnKernelCrashed_p);
@@ -83,9 +72,8 @@ namespace Qv2ray::core::handlers
         connect(kernelHandler, &KernelInstanceHandler::OnConnected, this, &QvConfigHandler::OnConnected);
         connect(kernelHandler, &KernelInstanceHandler::OnDisconnected, this, &QvConfigHandler::OnDisconnected);
         //
-        tcpingHelper = new QvTCPingHelper(5, this);
-        httpHelper = new QvHttpRequestHelper(this);
-        connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
+        tcpingHelper = new LatencyTestHost(5, this);
+        connect(tcpingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
         // Save per 1 minutes.
         saveTimerId = startTimer(1 * 60 * 1000);
@@ -93,45 +81,30 @@ namespace Qv2ray::core::handlers
         pingConnectionTimerId = startTimer(60 * 1000);
     }
 
-    void QvConfigHandler::CHSaveConfigData()
+    void QvConfigHandler::SaveConnectionConfig()
     {
-        // Do not copy construct.
-        auto &newGlobalConfig = GlobalConfig;
-        newGlobalConfig.connections.clear();
-        newGlobalConfig.groups.clear();
-        newGlobalConfig.subscriptions.clear();
-
-        for (auto i = 0; i < connections.count(); i++)
+        QJsonObject connectionsObject;
+        for (const auto &key : connections.keys())
         {
-            newGlobalConfig.connections[connections.keys()[i].toString()] = connections.values()[i];
+            connectionsObject[key.toString()] = connections[key].toJson();
         }
-
-        for (auto i = 0; i < groups.count(); i++)
+        StringToFile(JsonToString(connectionsObject), QV2RAY_CONFIG_DIR + "connections.json");
+        //
+        QJsonObject groupObject;
+        for (const auto &key : groups.keys())
         {
-            QStringList connections = IdListToStrings(groups.values()[i].connections);
-
-            if (groups.values()[i].isSubscription)
-            {
-                SubscriptionObject_Config o = groups.values()[i];
-                o.connections = connections;
-                newGlobalConfig.subscriptions[groups.keys()[i].toString()] = o;
-            }
-            else
-            {
-                GroupObject_Config o = groups.values()[i];
-                o.connections = connections;
-                newGlobalConfig.groups[groups.keys()[i].toString()] = o;
-            }
+            groupObject[key.toString()] = groups[key].toJson();
         }
-
-        SaveGlobalSettings(newGlobalConfig);
+        StringToFile(JsonToString(groupObject), QV2RAY_CONFIG_DIR + "groups.json");
+        RouteManager->SaveRoutes();
+        SaveGlobalSettings();
     }
 
     void QvConfigHandler::timerEvent(QTimerEvent *event)
     {
         if (event->timerId() == saveTimerId)
         {
-            CHSaveConfigData();
+            SaveConnectionConfig();
         }
         else if (event->timerId() == pingAllTimerId)
         {
@@ -140,16 +113,16 @@ namespace Qv2ray::core::handlers
         else if (event->timerId() == pingConnectionTimerId)
         {
             auto id = kernelHandler->CurrentConnection();
-            if (id != NullConnectionId && GlobalConfig.advancedConfig.testLatencyPeriodcally)
+            if (!id.isEmpty() && GlobalConfig.advancedConfig.testLatencyPeriodcally)
             {
-                StartLatencyTest(id);
+                StartLatencyTest(id.connectionId);
             }
         }
     }
 
     void QvConfigHandler::StartLatencyTest()
     {
-        for (auto connection : connections.keys())
+        for (const auto &connection : connections.keys())
         {
             StartLatencyTest(connection);
         }
@@ -157,7 +130,7 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::StartLatencyTest(const GroupId &id)
     {
-        for (auto connection : groups[id].connections)
+        for (const auto &connection : groups[id].connections)
         {
             StartLatencyTest(connection);
         }
@@ -166,14 +139,14 @@ namespace Qv2ray::core::handlers
     void QvConfigHandler::StartLatencyTest(const ConnectionId &id)
     {
         emit OnLatencyTestStarted(id);
-        tcpingHelper->TestLatency(id);
+        tcpingHelper->TestLatency(id, GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     const QList<GroupId> QvConfigHandler::Subscriptions() const
     {
         QList<GroupId> subsList;
 
-        for (auto group : groups.keys())
+        for (const auto &group : groups.keys())
         {
             if (groups[group].isSubscription)
             {
@@ -184,122 +157,140 @@ namespace Qv2ray::core::handlers
         return subsList;
     }
 
-    const ConnectionId QvConfigHandler::GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const
-    {
-        CheckGroupExistanceEx(group, NullConnectionId);
-        for (auto conn : groups[group].connections)
-        {
-            if (connections[conn].displayName == displayName)
-            {
-                return conn;
-            }
-        }
-
-        return NullConnectionId;
-    }
-    const GroupId QvConfigHandler::GetGroupIdByDisplayName(const QString &displayName) const
-    {
-        for (auto group : groups.keys())
-        {
-            if (groups[group].displayName == displayName)
-            {
-                return group;
-            }
-        }
-
-        return NullGroupId;
-    }
     void QvConfigHandler::ClearGroupUsage(const GroupId &id)
     {
         for (const auto &conn : groups[id].connections)
         {
-            ClearConnectionUsage(conn);
+            ClearConnectionUsage({ conn, id });
         }
     }
-    void QvConfigHandler::ClearConnectionUsage(const ConnectionId &id)
+    void QvConfigHandler::ClearConnectionUsage(const ConnectionGroupPair &id)
     {
-        CheckConnectionExistanceEx(id, nothing);
-        connections[id].upLinkData = 0;
-        connections[id].downLinkData = 0;
-        emit OnStatsAvailable(id, 0, 0, 0, 0);
-        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id), 0, 0, 0, 0 });
+        CheckValidId(id.connectionId, nothing);
+        connections[id.connectionId].stats.Clear();
+        emit OnStatsAvailable(id, {});
+        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id.connectionId), 0, 0, 0, 0 });
         return;
     }
 
-    const optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
+    const QList<GroupId> QvConfigHandler::GetGroupId(const ConnectionId &connId) const
     {
-        CheckConnectionExistance(id);
+        CheckValidId(connId, {});
+        QList<GroupId> grps;
+        for (const auto &groupId : groups.keys())
+        {
+            const auto &group = groups[groupId];
+            if (group.connections.contains(connId))
+            {
+                grps.push_back(groupId);
+            }
+        }
+        return grps;
+    }
+
+    const std::optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
+    {
+        CheckValidId(id, {});
         OnConnectionRenamed(id, connections[id].displayName, newName);
-        PluginHost->Send_ConnectionEvent({ newName, connections[id].displayName, Events::ConnectionEntry::ConnectionEvent_Renamed });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Renamed, newName, connections[id].displayName });
         connections[id].displayName = newName;
-        CHSaveConfigData();
+        SaveConnectionConfig();
         return {};
     }
-    const optional<QString> QvConfigHandler::DeleteConnection(const ConnectionId &id)
+
+    bool QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
     {
-        CheckConnectionExistance(id);
-        auto groupId = connections[id].groupId;
-        QFile connectionFile((groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + groupId.toString() + "/" +
-                             id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
-        //
-        PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Deleted });
-        connections.remove(id);
-        groups[groupId].connections.removeAll(id);
-        //
-        if (GlobalConfig.autoStartId == id.toString())
+        CheckValidId(id, false);
+        LOG(MODULE_CONNECTION, "Removing connection : " + id.toString())
+        if (groups[gid].connections.contains(id))
+        {
+            auto removedEntries = groups[gid].connections.removeAll(id);
+            if (removedEntries > 1)
+            {
+                LOG(MODULE_CONNECTION, "Found same connection occured multiple times in a group.")
+            }
+            // Decrease reference count.
+            connections[id].__qvConnectionRefCount -= removedEntries;
+        }
+
+        if (GlobalConfig.autoStartId == ConnectionGroupPair{ id, gid })
         {
             GlobalConfig.autoStartId.clear();
         }
         //
-        emit OnConnectionDeleted(id, groupId);
+        // Emit everything first then clear the connection map.
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::RemovedFromGroup, GetDisplayName(id), "" });
+
+        emit OnConnectionRemovedFromGroup({ id, gid });
+
         //
-        bool exists = connectionFile.exists();
-        if (exists)
+        if (connections[id].__qvConnectionRefCount <= 0)
         {
-            bool removed = connectionFile.remove();
-            if (removed)
+            LOG(MODULE_CONNECTION, "Fully removing a connection from cache.")
+            connectionRootCache.remove(id);
+            //
+            QFile connectionFile(QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
+            if (connectionFile.exists())
             {
-                return {};
+                if (!connectionFile.remove())
+                    LOG(MODULE_CONNECTION, "Failed to remove connection config file")
             }
-            return "Failed to remove file";
+            connections.remove(id);
         }
-        return tr("File does not exist.");
+        return true;
     }
 
-    const optional<QString> QvConfigHandler::MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId)
+    bool QvConfigHandler::LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId)
     {
-        CheckConnectionExistance(id);
-        auto const oldgid = connections[id].groupId;
-        //
-        QString oldPath = (groups[oldgid].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + oldgid.toString() + "/" +
-                          id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
-        //
-        auto newDir = (groups[newGroupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + newGroupId.toString() + "/";
-        QString newPath = newDir + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
-        //
-        if (!QDir(newDir).exists())
+        CheckValidId(id, false);
+        if (groups[newGroupId].connections.contains(id))
         {
-            QDir().mkpath(newDir);
+            LOG(MODULE_CONNECTION, "Connection not linked since " + id.toString() + " is already in the group " + newGroupId.toString())
+            return false;
         }
-        //
-        if (!QFile(oldPath).rename(newPath))
-        {
-            LOG(MODULE_FILEIO, "Cannot rename")
-        }
-        groups[oldgid].connections.removeAll(id);
         groups[newGroupId].connections.append(id);
-        connections[id].groupId = newGroupId;
-        //
-        PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Updated });
-        //
-        emit OnConnectionGroupChanged(id, oldgid, newGroupId);
-        //
-        return {};
+        connections[id].__qvConnectionRefCount++;
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::LinkedWithGroup, connections[id].displayName, "" });
+        emit OnConnectionLinkedWithGroup({ id, newGroupId });
+        return true;
     }
 
-    const optional<QString> QvConfigHandler::DeleteGroup(const GroupId &id)
+    bool QvConfigHandler::MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid)
     {
-        CheckGroupExistance(id);
+        CheckValidId(id, false);
+        CheckValidId(targetGid, false);
+        CheckValidId(sourceGid, false);
+        //
+        if (!groups[sourceGid].connections.contains(id))
+        {
+            LOG(MODULE_CONNECTION, "Trying to move a connection away from a group it does not belong to.")
+            return false;
+        }
+        if (groups[targetGid].connections.contains(id))
+        {
+            LOG(MODULE_CONNECTION, "The connection: " + id.toString() + " has already been in the target group: " + targetGid.toString())
+            auto removedCount = groups[sourceGid].connections.removeAll(id);
+            connections[id].__qvConnectionRefCount -= removedCount;
+        }
+        else
+        {
+            // If the target group does not contain this connection.
+            auto removedCount = groups[sourceGid].connections.removeAll(id);
+            connections[id].__qvConnectionRefCount -= removedCount;
+            //
+            groups[targetGid].connections.append(id);
+            connections[id].__qvConnectionRefCount++;
+        }
+
+        emit OnConnectionRemovedFromGroup({ id, sourceGid });
+        emit OnConnectionLinkedWithGroup({ id, targetGid });
+
+        return true;
+    }
+
+    const std::optional<QString> QvConfigHandler::DeleteGroup(const GroupId &id)
+    {
+        CheckValidId(id, {});
         if (!groups.contains(id) || id == NullGroupId)
         {
             return tr("Group does not exist");
@@ -307,24 +298,15 @@ namespace Qv2ray::core::handlers
 
         // Copy construct
         auto list = groups[id].connections;
-        for (auto conn : list)
+        for (const auto &conn : list)
         {
-            MoveConnectionGroup(conn, DefaultGroupId);
+            MoveConnectionFromToGroup(conn, id, DefaultGroupId);
         }
         //
-        if (groups[id].isSubscription)
-        {
-            QDir(QV2RAY_SUBSCRIPTION_DIR + id.toString()).removeRecursively();
-        }
-        else
-        {
-            QDir(QV2RAY_CONNECTIONS_DIR + id.toString()).removeRecursively();
-        }
-        //
-        PluginHost->Send_ConnectionEvent({ groups[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Deleted });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::FullyRemoved, groups[id].displayName, "" });
         //
         groups.remove(id);
-        CHSaveConfigData();
+        SaveConnectionConfig();
         emit OnGroupDeleted(id, list);
         if (id == DefaultGroupId)
         {
@@ -333,288 +315,408 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    const optional<QString> QvConfigHandler::StartConnection(const ConnectionId &id)
+    bool QvConfigHandler::StartConnection(const ConnectionGroupPair &identifier)
     {
-        CheckConnectionExistance(id);
-        connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
-        CONFIGROOT root = GetConnectionRoot(id);
-        return kernelHandler->StartConnection(id, root);
+        CheckValidId(identifier, false);
+        connections[identifier.connectionId].lastConnected = system_clock::to_time_t(system_clock::now());
+        //
+        CONFIGROOT root = GetConnectionRoot(identifier.connectionId);
+        const auto fullConfig = RouteManager->GenerateFinalConfig(root, groups[identifier.groupId].routeConfigId);
+        //
+        auto errMsg = kernelHandler->StartConnection(identifier, fullConfig);
+        if (errMsg)
+        {
+            QvMessageBoxWarn(nullptr, tr("Failed to start connection"), *errMsg);
+            return false;
+        }
+        GlobalConfig.lastConnectedId = identifier;
+        return true;
     }
 
     void QvConfigHandler::RestartConnection() // const ConnectionId &id
     {
-        kernelHandler->RestartConnection();
+        StopConnection();
+        StartConnection(GlobalConfig.lastConnectedId);
     }
 
     void QvConfigHandler::StopConnection() // const ConnectionId &id
     {
         kernelHandler->StopConnection();
-        CHSaveConfigData();
+        SaveConnectionConfig();
     }
 
-    bool QvConfigHandler::IsConnected(const ConnectionId &id) const
-    {
-        return kernelHandler->isConnected(id);
-    }
-
-    void QvConfigHandler::OnKernelCrashed_p(const ConnectionId &id, const QString &errMessage)
+    void QvConfigHandler::OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage)
     {
         LOG(MODULE_CORE_HANDLER, "Kernel crashed: " + errMessage)
         emit OnDisconnected(id);
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, Events::Connectivity::QvConnecticity_Disconnected });
+        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), {}, Events::Connectivity::Disconnected });
         emit OnKernelCrashed(id, errMessage);
     }
 
     QvConfigHandler::~QvConfigHandler()
     {
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
+        tcpingHelper->StopAllLatencyTest();
         delete kernelHandler;
-        delete httpHelper;
-        CHSaveConfigData();
+        SaveConnectionConfig();
     }
 
     const CONFIGROOT QvConfigHandler::GetConnectionRoot(const ConnectionId &id) const
     {
-        CheckConnectionExistanceEx(id, CONFIGROOT());
+        CheckValidId(id, CONFIGROOT());
         return connectionRootCache.value(id);
     }
 
-    void QvConfigHandler::OnLatencyDataArrived_p(const QvTCPingResultObject &result)
+    void QvConfigHandler::OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &result)
     {
-        CheckConnectionExistanceEx(result.connectionId, nothing);
-        connections[result.connectionId].latency = result.avg;
-        emit OnLatencyTestFinished(result.connectionId, result.avg);
+        CheckValidId(id, nothing);
+        connections[id].latency = result.avg;
+        emit OnLatencyTestFinished(id, result.avg);
     }
 
     bool QvConfigHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart)
     {
-        CheckConnectionExistanceEx(id, false);
-        auto const &groupId = connections[id].groupId;
-        CheckGroupExistanceEx(groupId, false);
+        CheckValidId(id, false);
         //
-        auto path = (groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + groupId.toString() + "/" +
-                    id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        auto path = QV2RAY_CONNECTIONS_DIR + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         auto content = JsonToString(root);
         bool result = StringToFile(content, path);
         //
         connectionRootCache[id] = root;
         //
         emit OnConnectionModified(id);
-        PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Updated });
-        if (!skipRestart && kernelHandler->isConnected(id))
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Edited, connections[id].displayName, "" });
+        if (!skipRestart && kernelHandler->CurrentConnection().connectionId == id)
         {
             emit RestartConnection();
         }
         return result;
     }
 
-    const GroupId QvConfigHandler::CreateGroup(const QString displayName, bool isSubscription)
+    const GroupId QvConfigHandler::CreateGroup(const QString &displayName, bool isSubscription)
     {
         GroupId id(GenerateRandomString());
         groups[id].displayName = displayName;
         groups[id].isSubscription = isSubscription;
-        groups[id].importDate = system_clock::to_time_t(system_clock::now());
-        PluginHost->Send_ConnectionEvent({ displayName, "", Events::ConnectionEntry::ConnectionEvent_Created });
+        groups[id].creationDate = system_clock::to_time_t(system_clock::now());
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Created, displayName, "" });
         emit OnGroupCreated(id, displayName);
-        CHSaveConfigData();
+        SaveConnectionConfig();
         return id;
     }
 
-    const optional<QString> QvConfigHandler::RenameGroup(const GroupId &id, const QString &newName)
+    const GroupRoutingId QvConfigHandler::GetGroupRoutingId(const GroupId &id)
     {
-        CheckGroupExistance(id);
+        if (groups[id].routeConfigId == NullRoutingId)
+        {
+            groups[id].routeConfigId = GroupRoutingId{ GenerateRandomString() };
+        }
+        return groups[id].routeConfigId;
+    }
+
+    const std::optional<QString> QvConfigHandler::RenameGroup(const GroupId &id, const QString &newName)
+    {
+        CheckValidId(id, {});
         if (!groups.contains(id))
         {
             return tr("Group does not exist");
         }
         OnGroupRenamed(id, groups[id].displayName, newName);
-        PluginHost->Send_ConnectionEvent({ newName, groups[id].displayName, Events::ConnectionEntry::ConnectionEvent_Renamed });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Renamed, newName, groups[id].displayName });
         groups[id].displayName = newName;
         return {};
     }
 
-    const tuple<QString, int64_t, float> QvConfigHandler::GetSubscriptionData(const GroupId &id) const
+    bool QvConfigHandler::SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription, const std::optional<QString> &address,
+                                              std::optional<float> updateInterval)
     {
-        CheckGroupExistanceEx(id, {});
-        tuple<QString, int64_t, float> result;
+        CheckValidId(id, false);
 
-        if (!groups[id].isSubscription)
-        {
-            return result;
-        }
+        if (isSubscription.has_value())
+            groups[id].isSubscription = ACCESS_OPTIONAL_VALUE(isSubscription);
 
-        return { groups[id].address, groups[id].lastUpdated, groups[id].updateInterval };
+        if (address.has_value())
+            groups[id].subscriptionOption.address = ACCESS_OPTIONAL_VALUE(address);
+
+        if (updateInterval.has_value())
+            groups[id].subscriptionOption.updateInterval = ACCESS_OPTIONAL_VALUE(updateInterval);
+
+        return true;
     }
 
-    bool QvConfigHandler::SetSubscriptionData(const GroupId &id, const QString &address, float updateInterval)
+    bool QvConfigHandler::SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords)
     {
-        CheckGroupExistanceEx(id, false);
-        if (!groups.contains(id))
+        CheckValidId(id, false);
+        groups[id].subscriptionOption.IncludeKeywords.clear();
+
+        for (const auto &keyword : Keywords)
         {
-            return false;
-        }
-        if (!address.isEmpty())
-        {
-            groups[id].address = address;
-        }
-        if (updateInterval != -1)
-        {
-            groups[id].updateInterval = updateInterval;
+            if (!keyword.trimmed().isEmpty())
+            {
+                groups[id].subscriptionOption.IncludeKeywords.push_back(keyword);
+            }
         }
         return true;
     }
 
-    bool QvConfigHandler::UpdateSubscription(const GroupId &id)
+    bool QvConfigHandler::SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
-        CheckGroupExistanceEx(id, false);
-        if (isHttpRequestInProgress)
-        {
-            return false;
-        }
-        isHttpRequestInProgress = true;
-        auto data = httpHelper->Get(groups[id].address);
-        isHttpRequestInProgress = false;
-        return CHUpdateSubscription_p(id, data);
-    }
-
-    bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData)
-    {
-        CheckGroupExistanceEx(id, false);
+        CheckValidId(id, false);
         if (!groups.contains(id))
         {
             return false;
         }
-        // List that is holding connection IDs to be updated.
-        auto subsList = SplitLines(DecodeSubscriptionString(subscriptionData));
-        //
-        if (subsList.count() < 5)
+        groups[id].subscriptionOption.IncludeRelation = relation;
+        return true;
+    }
+
+    bool QvConfigHandler::SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords)
+    {
+        CheckValidId(id, false);
+        groups[id].subscriptionOption.ExcludeKeywords.clear();
+        for (const auto &keyword : Keywords)
         {
-            auto yes = QvMessageBoxAsk(
-                           nullptr, tr("Update Subscription"),
-                           tr("%1 entrie(s) have been found from the subscription source, do you want to continue?").arg(subsList.count())) ==
-                       QMessageBox::Yes;
-            if (!yes)
+            if (!keyword.trimmed().isEmpty())
             {
-                return false;
+                groups[id].subscriptionOption.ExcludeKeywords.push_back(keyword);
             }
         }
+        return true;
+    }
+
+    bool QvConfigHandler::SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
+    {
+        CheckValidId(id, false);
+        groups[id].subscriptionOption.ExcludeRelation = relation;
+        return true;
+    }
+
+    void QvConfigHandler::UpdateSubscriptionAsync(const GroupId &id)
+    {
+        CheckValidId(id, nothing);
+        if (!groups[id].isSubscription)
+            return;
+        asyncRequestHelper->AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) {
+            CHUpdateSubscription_p(id, d);
+            emit OnSubscriptionAsyncUpdateFinished(id);
+        });
+    }
+
+    bool QvConfigHandler::UpdateSubscription(const GroupId &id)
+    {
+        if (!groups[id].isSubscription)
+            return false;
+        const auto data = NetworkRequestHelper::HttpGet(groups[id].subscriptionOption.address);
+        return CHUpdateSubscription_p(id, data);
+    }
+
+    bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QByteArray &data)
+    {
+        CheckValidId(id, false);
+        if (!groups.contains(id))
+        {
+            return false;
+        }
+        //
+        // ====================================================================================== Begin reading subscription
+
+        auto _newConnections = GetConnectionConfigFromSubscription(data, GetDisplayName(id));
+        if (_newConnections.count() < 5)
+        {
+            LOG(MODULE_SUBSCRIPTION, "Found a subscription with less than 5 connections.")
+            if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                                tr("%n entrie(s) have been found from the subscription source, do you want to continue?", "",
+                                   _newConnections.count())) != QMessageBox::Yes)
+
+                return false;
+        }
+        //
+        // ====================================================================================== Begin Connection Data Storage
         // Anyway, we try our best to preserve the connection id.
         QMultiMap<QString, ConnectionId> nameMap;
-        QMultiMap<tuple<QString, QString, int>, ConnectionId> typeMap;
-        for (const auto &conn : groups[id].connections)
+        QMultiMap<std::tuple<QString, QString, int>, ConnectionId> typeMap;
         {
-            nameMap.insertMulti(GetDisplayName(conn), conn);
-            auto [protocol, host, port] = GetConnectionInfo(conn);
-            if (port != 0)
+            // Store connection type metadata into map.
+            for (const auto &conn : groups[id].connections)
             {
-                typeMap.insertMulti({ protocol, host, port }, conn);
-            }
-        }
-        QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + id.toString());
-        bool hasErrorOccured = false;
-        // Copy construct here.
-        auto connectionsOrig = groups[id].connections;
-        groups[id].connections.clear();
-        //
-        for (auto vmess : subsList)
-        {
-            QString errMessage;
-            auto ssdGroupName = GetDisplayName(id);
-            QString __alias;
-            auto conf = ConvertConfigFromString(vmess.trimmed(), &__alias, &errMessage, &ssdGroupName);
-            Q_UNUSED(ssdGroupName)
-            // Things may go wrong when updating a subscription with ssd:// link
-            for (auto _alias : conf.keys())
-            {
-                for (const auto &config : conf.values(_alias))
+                nameMap.insert(GetDisplayName(conn), conn);
+                const auto &&[protocol, host, port] = GetConnectionInfo(conn);
+                if (port != 0)
                 {
-                    if (!errMessage.isEmpty())
-                    {
-                        LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
-                        hasErrorOccured = true;
-                        continue;
-                    }
-                    bool canGetOutboundData = false;
-                    // Should not have complex connection we assume.
-                    auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
-                    //
-                    // Begin guessing new ConnectionId
-                    if (nameMap.contains(_alias))
-                    {
-                        // Just go and save the connection...
-                        LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
-                        auto _conn = nameMap.take(_alias);
-                        groups[id].connections << _conn;
-                        UpdateConnection(_conn, config);
-                        // Remove Connection Id from the list.
-                        connectionsOrig.removeAll(_conn);
-                        typeMap.remove(typeMap.key(_conn));
-                    }
-                    else if (canGetOutboundData && typeMap.contains(outboundData))
-                    {
-                        LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
-                        auto _conn = typeMap.take(outboundData);
-                        groups[id].connections << _conn;
-                        // Update Connection Properties
-                        UpdateConnection(_conn, config);
-                        RenameConnection(_conn, _alias);
-                        // Remove Connection Id from the list.
-                        connectionsOrig.removeAll(_conn);
-                        nameMap.remove(nameMap.key(_conn));
-                    }
-                    else
-                    {
-                        // New connection id is required since nothing matched found...
-                        LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                        CreateConnection(_alias, id, config);
-                    }
-                    // End guessing connectionId
+                    typeMap.insert({ protocol, host, port }, conn);
                 }
             }
+        }
+        // ====================================================================================== End Connection Data Storage
+        //
+        bool hasErrorOccured = false;
+        // Copy construct here.
+        auto originalConnectionIdList = groups[id].connections;
+        groups[id].connections.clear();
+        //
+        decltype(_newConnections) filteredConnections;
+        //
+        for (const auto &config : _newConnections)
+        {
+            // filter connections
+            const bool isIncludeOperationAND = groups[id].subscriptionOption.IncludeRelation == RELATION_AND;
+            const bool isExcludeOperationOR = groups[id].subscriptionOption.ExcludeRelation == RELATION_OR;
+            //
+            // Initial includeConfig value
+            bool includeconfig = isIncludeOperationAND;
+            {
+                bool hasIncludeItemMatched = false;
+                for (const auto &key : groups[id].subscriptionOption.IncludeKeywords)
+                {
+                    if (!key.trimmed().isEmpty())
+                    {
+                        hasIncludeItemMatched = true;
+                        // WARN: MAGIC, DO NOT TOUCH
+                        if (!isIncludeOperationAND == config.first.contains(key.trimmed()))
+                        {
+                            includeconfig = !isIncludeOperationAND;
+                            break;
+                        }
+                    }
+                }
+                // If includekeywords is empty then include all configs.
+                if (!hasIncludeItemMatched)
+                    includeconfig = true;
+            }
+            if (includeconfig)
+            {
+                bool hasExcludeItemMatched = false;
+                includeconfig = isExcludeOperationOR;
+                for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
+                {
+                    if (!key.trimmed().isEmpty())
+                    {
+                        hasExcludeItemMatched = true;
+                        // WARN: MAGIC, DO NOT TOUCH
+                        if (isExcludeOperationOR == config.first.contains(key.trimmed()))
+                        {
+                            includeconfig = !isExcludeOperationOR;
+                            break;
+                        }
+                    }
+                }
+                // If excludekeywords is empty then don't exclude any configs.
+                if (!hasExcludeItemMatched)
+                    includeconfig = true;
+            }
+
+            if (includeconfig)
+            {
+                filteredConnections << config;
+            }
+        }
+
+        LOG(MODULE_SUBSCRIPTION, "Filtered out less than 5 connections.")
+        const auto useFilteredConnections =
+            filteredConnections.count() > 5 ||
+            QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                            tr("%1 out of %n entrie(s) have been filtered out, do you want to continue?", "", _newConnections.count())
+                                .arg(filteredConnections.count())) == QMessageBox::Yes;
+
+        for (const auto &config : useFilteredConnections ? filteredConnections : _newConnections)
+        {
+            const auto &_alias = config.first;
+            // Should not have complex connection we assume.
+            bool canGetOutboundData = false;
+            auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
+            //
+            // ====================================================================================== Begin guessing new ConnectionId
+            if (nameMap.contains(_alias))
+            {
+                // Just go and save the connection...
+                LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
+                const auto _conn = nameMap.take(_alias);
+                groups[id].connections << _conn;
+                UpdateConnection(_conn, config.second, true);
+                // Remove Connection Id from the list.
+                originalConnectionIdList.removeAll(_conn);
+                typeMap.remove(typeMap.key(_conn));
+            }
+            else if (canGetOutboundData && typeMap.contains(outboundData))
+            {
+                LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
+                const auto _conn = typeMap.take(outboundData);
+                groups[id].connections << _conn;
+                // Update Connection Properties
+                UpdateConnection(_conn, config.second, true);
+                RenameConnection(_conn, _alias);
+                // Remove Connection Id from the list.
+                originalConnectionIdList.removeAll(_conn);
+                nameMap.remove(nameMap.key(_conn));
+            }
+            else
+            {
+                // New connection id is required since nothing matched found...
+                LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
+                CreateConnection(config.second, _alias, id, true);
+            }
+            // ====================================================================================== End guessing new ConnectionId
         }
 
         // Check if anything left behind (not being updated or changed significantly)
         LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")
-        for (auto conn : connectionsOrig)
+        for (const auto &conn : originalConnectionIdList)
         {
-            LOG(MODULE_CORE_HANDLER, "Removing: " + conn.toString())
-            DeleteConnection(conn);
+            LOG(MODULE_CORE_HANDLER, "Removing connections not in the new subscription: " + conn.toString())
+            RemoveConnectionFromGroup(conn, id);
         }
 
         // Update the time
-        groups[id].lastUpdated = system_clock::to_time_t(system_clock::now());
+        groups[id].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
 
         return hasErrorOccured;
     }
 
-    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
+    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data)
     {
-        if (id == NullConnectionId)
+        if (id.isEmpty())
             return;
-        connections[id].upLinkData += uploadSpeed;
-        connections[id].downLinkData += downloadSpeed;
-        emit OnStatsAvailable(id, uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData);
-        PluginHost->Send_ConnectionStatsEvent(
-            { GetDisplayName(id), uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData });
-    }
 
-    const ConnectionId QvConfigHandler::CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
-                                                         bool skipSaveConfig)
+        const auto &cid = id.connectionId;
+        QMap<StatisticsType, QvStatsSpeedData> result;
+        for (const auto t : data.keys())
+        {
+            const auto &stat = data[t];
+            connections[cid].stats[t].upLinkData += stat.first;
+            connections[cid].stats[t].downLinkData += stat.second;
+            result[t] = { stat, connections[cid].stats[t].toData() };
+        }
+
+        emit OnStatsAvailable(id, result);
+        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(cid),                     //
+                                                result[CurrentStatAPIType].first.first,  //
+                                                result[CurrentStatAPIType].first.second, //
+                                                result[CurrentStatAPIType].second.first, //
+                                                result[CurrentStatAPIType].second.second });
+    }
+    const ConnectionGroupPair QvConfigHandler::CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId,
+                                                                bool skipSaveConfig)
     {
         LOG(MODULE_CORE_HANDLER, "Creating new connection: " + displayName)
         ConnectionId newId(GenerateUuid());
         groups[groupId].connections << newId;
-        connections[newId].groupId = groupId;
-        connections[newId].importDate = system_clock::to_time_t(system_clock::now());
+        connections[newId].creationDate = system_clock::to_time_t(system_clock::now());
         connections[newId].displayName = displayName;
-        emit OnConnectionCreated(newId, displayName);
-        PluginHost->Send_ConnectionEvent({ displayName, "", Events::ConnectionEntry::ConnectionEvent_Created });
+        connections[newId].__qvConnectionRefCount = 1;
+        emit OnConnectionCreated({ newId, groupId }, displayName);
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Created, displayName, "" });
         UpdateConnection(newId, root);
         if (!skipSaveConfig)
         {
-            CHSaveConfigData();
+            SaveConnectionConfig();
         }
-        return newId;
+        return { newId, groupId };
     }
 
-} // namespace Qv2ray::core::handlers
+} // namespace Qv2ray::core::handler
+
+#undef CheckIdExistance
+#undef CheckGroupExistanceEx
+#undef CheckGroupExistance
+#undef CheckConnectionExistanceEx
+#undef CheckConnectionExistance

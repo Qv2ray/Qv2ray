@@ -1,31 +1,29 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
-#include "common/HTTPRequestHelper.hpp"
-#include "components/latency/QvTCPing.hpp"
-#include "core/CoreSafeTypes.hpp"
+#include "components/latency/LatencyTest.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/KernelInstanceHandler.hpp"
 
-#define CheckIdExistance(type, id, val)                                                                                                         \
-    if (!type.contains(id))                                                                                                                     \
+namespace Qv2ray::common::network
+{
+    class NetworkRequestHelper;
+}
+
+#define CheckValidId(id, returnValue)                                                                                                           \
     {                                                                                                                                           \
-        return val;                                                                                                                             \
+        if (!IsValidId(id))                                                                                                                     \
+            return returnValue;                                                                                                                 \
     }
 
-#define CheckGroupExistanceEx(id, val) CheckIdExistance(groups, id, val)
-#define CheckGroupExistance(id) CheckGroupExistanceEx(id, tr("Group does not exist"))
-
-#define CheckConnectionExistanceEx(id, val) CheckIdExistance(connections, id, val)
-#define CheckConnectionExistance(id) CheckConnectionExistanceEx(id, tr("Connection does not exist"))
-namespace Qv2ray::core::handlers
+namespace Qv2ray::core::handler
 {
     class QvConfigHandler : public QObject
     {
         Q_OBJECT
       public:
-        explicit QvConfigHandler();
+        explicit QvConfigHandler(QObject *parent = nullptr);
         ~QvConfigHandler();
 
       public slots:
@@ -35,53 +33,81 @@ namespace Qv2ray::core::handlers
         }
         inline const QList<ConnectionId> Connections(const GroupId &groupId) const
         {
-            CheckGroupExistanceEx(groupId, {});
+            CheckValidId(groupId, {});
             return groups[groupId].connections;
         }
-        inline const QList<GroupId> AllGroups() const
+        inline QList<GroupId> AllGroups() const
         {
-            return groups.keys();
+            auto k = groups.keys();
+            std::sort(k.begin(), k.end(), [&](const auto &idA, const auto &idB) { return groups[idA].displayName < groups[idB].displayName; });
+            return k;
         }
-        inline const ConnectionMetaObject GetConnectionMetaObject(const ConnectionId &id) const
+        inline bool IsValidId(const ConnectionId &id) const
         {
-            CheckConnectionExistanceEx(id, {});
+            return connections.contains(id);
+        }
+        inline bool IsValidId(const GroupId &id) const
+        {
+            return groups.contains(id);
+        }
+        inline bool IsValidId(const ConnectionGroupPair &id) const
+        {
+            return IsValidId(id.connectionId) && IsValidId(id.groupId);
+        }
+        inline const ConnectionObject GetConnectionMetaObject(const ConnectionId &id) const
+        {
+            CheckValidId(id, {});
             return connections[id];
         }
-        inline const GroupMetaObject GetGroupMetaObject(const GroupId &id) const
+        inline GroupObject GetGroupMetaObject(const GroupId &id) const
         {
-            CheckGroupExistanceEx(id, {});
+            CheckValidId(id, {});
             return groups[id];
         }
-        inline bool IsSubscription(const GroupId &id) const
+
+        bool IsConnected(const ConnectionGroupPair &id) const
         {
-            CheckGroupExistanceEx(id, {});
-            return groups[id].isSubscription;
+            return kernelHandler->CurrentConnection() == id;
+        }
+
+        Q_DECL_DEPRECATED_X("ConnectionId-Only has been deprecated since GroudId is also required.")
+        bool IsConnected(const ConnectionId &id) const
+        {
+            return kernelHandler->CurrentConnection().connectionId == id;
+        }
+
+        inline void IgnoreSubscriptionUpdate(const GroupId &group)
+        {
+            CheckValidId(group, nothing);
+            if (groups[group].isSubscription)
+            {
+                groups[group].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
+            }
         }
         //
         //
-        void CHSaveConfigData();
+        void SaveConnectionConfig();
         const QList<GroupId> Subscriptions() const;
-        //
-        // Get Options
-        const GroupId GetGroupIdByDisplayName(const QString &displayName) const;
-        /// TRY NOT TO USE THIS FUNCTION
-        const ConnectionId GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const;
+        const QList<GroupId> GetGroupId(const ConnectionId &connId) const;
         //
         // Connectivity Operationss
-        const optional<QString> StartConnection(const ConnectionId &identifier);
-        void StopConnection(); // const ConnectionId &id
+        bool StartConnection(const ConnectionGroupPair &identifier);
+        void StopConnection();
         void RestartConnection();
-        bool IsConnected(const ConnectionId &id) const;
         //
         // Connection Operations.
-        bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
         void ClearGroupUsage(const GroupId &id);
-        void ClearConnectionUsage(const ConnectionId &id);
-        const optional<QString> DeleteConnection(const ConnectionId &id);
-        const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
-        const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
-        const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
-                                            bool skipSaveConfig = false);
+        void ClearConnectionUsage(const ConnectionGroupPair &id);
+        //
+        const ConnectionGroupPair CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId = DefaultGroupId,
+                                                   bool skipSaveConfig = false);
+        bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
+        const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
+        //
+        // Connection - Group binding
+        bool RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
+        bool MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid);
+        bool LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId);
         //
         // Get Conncetion Property
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
@@ -92,66 +118,75 @@ namespace Qv2ray::core::handlers
         void StartLatencyTest(const ConnectionId &id);
         //
         // Group Operations
-        const GroupId CreateGroup(const QString displayName, bool isSubscription);
-        const optional<QString> DeleteGroup(const GroupId &id);
-        const optional<QString> RenameGroup(const GroupId &id, const QString &newName);
+        const GroupId CreateGroup(const QString &displayName, bool isSubscription);
+        const std::optional<QString> DeleteGroup(const GroupId &id);
+        const std::optional<QString> RenameGroup(const GroupId &id, const QString &newName);
+        const GroupRoutingId GetGroupRoutingId(const GroupId &id);
         // const optional<QString> DuplicateGroup(const GroupId &id);
         //
         // Subscriptions
-        bool SetSubscriptionData(const GroupId &id, const QString &address = "", float updateInterval = -1);
+        void UpdateSubscriptionAsync(const GroupId &id);
         bool UpdateSubscription(const GroupId &id);
+        bool SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription = std::nullopt,
+                                 const std::optional<QString> &address = std::nullopt, std::optional<float> updateInterval = std::nullopt);
+
+        bool SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords);
+        bool SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords);
+        bool SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation);
+        bool SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation);
+
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
-        const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
+        // const std::tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
       signals:
-        void OnKernelLogAvailable(const ConnectionId &id, const QString &log);
-        void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
+        void OnKernelLogAvailable(const ConnectionGroupPair &id, const QString &log);
+        void OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data);
         //
-        void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
-        void OnConnectionRenamed(const ConnectionId &id, const QString &originalName, const QString &newName);
-        void OnConnectionDeleted(const ConnectionId &id, const GroupId &originalGroupId);
+        void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
         void OnConnectionModified(const ConnectionId &id);
-        void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
+        void OnConnectionRenamed(const ConnectionId &Id, const QString &originalName, const QString &newName);
+        //
+        void OnConnectionLinkedWithGroup(const ConnectionGroupPair &newPair);
+        void OnConnectionRemovedFromGroup(const ConnectionGroupPair &pairId);
         //
         void OnLatencyTestStarted(const ConnectionId &id);
-        void OnLatencyTestFinished(const ConnectionId &id, const uint average);
+        void OnLatencyTestFinished(const ConnectionId &id, const int average);
         //
         void OnGroupCreated(const GroupId &id, const QString &displayName);
         void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
         void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
         //
-        void OnSubscriptionUpdateFinished(const GroupId &id);
-        void OnConnected(const ConnectionId &id);
-        void OnDisconnected(const ConnectionId &id);
-        void OnKernelCrashed(const ConnectionId &id, const QString &errMessage);
+        void OnSubscriptionAsyncUpdateFinished(const GroupId &id);
+        void OnConnected(const ConnectionGroupPair &id);
+        void OnDisconnected(const ConnectionGroupPair &id);
+        void OnKernelCrashed(const ConnectionGroupPair &id, const QString &errMessage);
         //
       private slots:
-        void OnKernelCrashed_p(const ConnectionId &id, const QString &errMessage);
-        void OnLatencyDataArrived_p(const QvTCPingResultObject &data);
-        void OnStatsDataArrived_p(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
+        void OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage);
+        void OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &data);
+        void OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data);
 
       protected:
         void timerEvent(QTimerEvent *event) override;
 
       private:
-        bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData);
+        bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &data);
 
       private:
         int saveTimerId;
         int pingAllTimerId;
         int pingConnectionTimerId;
-        QHash<GroupId, GroupMetaObject> groups;
-        QHash<ConnectionId, ConnectionMetaObject> connections;
+        QHash<GroupId, GroupObject> groups;
+        QHash<ConnectionId, ConnectionObject> connections;
         QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
       private:
-        QvHttpRequestHelper *httpHelper;
-        bool isHttpRequestInProgress = false;
-        QvTCPingHelper *tcpingHelper;
+        LatencyTestHost *tcpingHelper;
         KernelInstanceHandler *kernelHandler;
+        Qv2ray::common::network::NetworkRequestHelper *asyncRequestHelper;
     };
 
-    inline ::Qv2ray::core::handlers::QvConfigHandler *ConnectionManager = nullptr;
-} // namespace Qv2ray::core::handlers
+    inline ::Qv2ray::core::handler::QvConfigHandler *ConnectionManager = nullptr;
+} // namespace Qv2ray::core::handler
 
-using namespace Qv2ray::core::handlers;
+using namespace Qv2ray::core::handler;

@@ -23,16 +23,16 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_MAIN') }}
     strategy:
       matrix:
-        qt_version: [5.14.2]
+        qt_version: [5.15.0]
         platform: [ubuntu-16.04, macos-latest, windows-latest]
         arch: [x86, x64]
         include: 
           - platform: windows-latest
             arch: x86
-            qtarch: win32_msvc2017
+            qtarch: win32_msvc2019
           - platform: windows-latest
             arch: x64
-            qtarch: win64_msvc2017_64
+            qtarch: win64_msvc2019_64
         exclude:
           - platform: ubuntu-16.04
             arch: x86
@@ -74,7 +74,7 @@ jobs:
           path: ../Qt
           key: QtCache-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.qt_version }}
       - name: Installing Qt - ${{ matrix.arch }}
-        uses: jurplel/install-qt-action@v2.5.0
+        uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
@@ -87,7 +87,8 @@ jobs:
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc tree ninja-build
+          sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libxcb-image0-dev libxcb-icccm4-dev libssl-dev libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0
+          sudo apt install -y libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc ninja-build
 # --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
@@ -118,6 +119,7 @@ jobs:
         shell: bash
         if: matrix.platform == 'macos-latest'
         run: |
+          sudo xcode-select -s "/Applications/Xcode_10.3.app"
           mkdir build
           cd build
           cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 -DDS_STORE_SCRIPT=ON
@@ -142,8 +144,8 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         shell: bash
         env:
-          CC: /usr/bin/gcc-9
-          CXX: /usr/bin/g++-9
+          CC: /usr/bin/gcc-7
+          CXX: /usr/bin/g++-7
         run: |
           mkdir build
           cd build
@@ -179,7 +181,7 @@ jobs:
           path: build/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.14.2'
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.15.0'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.AppImage
@@ -195,7 +197,7 @@ jobs:
           path: Qv2ray.dmg
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.14.2'
+        if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.15.0'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: Qv2ray.dmg
@@ -217,7 +219,7 @@ jobs:
           path: release.7z
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.qt_version == '5.14.2'
+        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.qt_version == '5.15.0'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z

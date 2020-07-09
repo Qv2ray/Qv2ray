@@ -1,11 +1,10 @@
-﻿#pragma once
+#pragma once
 
 #include "base/Qv2rayBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_InboundEditor.h"
 
 #include <QDialog>
-#include <QJsonObject>
 #include <QListWidgetItem>
 
 class InboundEditor
@@ -73,6 +72,8 @@ class InboundEditor
 
     void on_dokoUserLevelSB_valueChanged(int arg1);
 
+    void on_dokotproxyCombo_currentIndexChanged(const QString &arg1);
+
     void on_mtEMailTxt_textEdited(const QString &arg1);
 
     void on_mtSecretTxt_textEdited(const QString &arg1);
@@ -95,6 +96,7 @@ class InboundEditor
     QJsonObject socksSettings;
     QJsonObject mtSettings;
     QJsonObject dokoSettings;
+    QString dokotproxy;
     //
     QJsonObject sniffing;
     QJsonObject allocate;

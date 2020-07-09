@@ -25,34 +25,58 @@
  * but you are not obligated to do so. If you do not wish to do so, delete this
  * exception statement from your version.
  */
+#pragma once
 
-#ifndef SPEEDWIDGET_H
-#define SPEEDWIDGET_H
+#include <QGraphicsView>
+#include <QMap>
+#include <QPen>
 
-#include <QComboBox>
-#include <QWidget>
-
-class QHBoxLayout;
-class QLabel;
-class QMenu;
-class QVBoxLayout;
-
-class SpeedPlotView;
-
-class SpeedWidget : public QWidget
+class SpeedWidget : public QGraphicsView
 {
     Q_OBJECT
-
   public:
-    explicit SpeedWidget(QWidget *parent);
-    ~SpeedWidget();
-    void AddPointData(long up, long down);
+    enum GraphID
+    {
+        INBOUND_UP,
+        INBOUND_DOWN,
+        OUTBOUND_PROXY_UP,
+        OUTBOUND_PROXY_DOWN,
+        OUTBOUND_DIRECT_UP,
+        OUTBOUND_DIRECT_DOWN,
+        OUTBOUND_BLOCK_UP,
+        OUTBOUND_BLOCK_DOWN,
+        NB_GRAPHS,
+    };
+    struct PointData
+    {
+        qint64 x;
+        quint64 y[NB_GRAPHS];
+        PointData()
+        {
+            for (auto i = 0; i < NB_GRAPHS; i++) y[i] = 0;
+        }
+    };
+
+    explicit SpeedWidget(QWidget *parent = nullptr);
+    void UpdateSpeedPlotSettings();
+    void AddPointData(QMap<SpeedWidget::GraphID, long> data);
     void Clear();
+    void replot();
+
+  protected:
+    void paintEvent(QPaintEvent *event) override;
 
   private:
-    QVBoxLayout *m_layout;
-    QHBoxLayout *m_hlayout;
-    SpeedPlotView *m_plot;
-};
+    struct GraphProperties
+    {
+        GraphProperties(){};
+        GraphProperties(const QString &name, const QPen &pen) : name(name), pen(pen){};
+        QString name;
+        QPen pen;
+    };
 
-#endif // SPEEDWIDGET_H
+    quint64 maxYValue();
+    QList<PointData> m_datahalfMin;
+
+    QMap<GraphID, GraphProperties> m_properties;
+};

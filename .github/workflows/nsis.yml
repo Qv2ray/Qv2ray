@@ -23,16 +23,16 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_NSIS') }}
     strategy:
       matrix:
-        qt_version: [5.14.2]
+        qt_version: [5.15.0]
         platform: [windows-latest]
         arch: [x86, x64]
         include: 
           - platform: windows-latest
             arch: x86
-            qtarch: win32_msvc2017
+            qtarch: win32_msvc2019
           - platform: windows-latest
             arch: x64
-            qtarch: win64_msvc2017_64
+            qtarch: win64_msvc2019_64
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
@@ -68,7 +68,7 @@ jobs:
           path: ../Qt
           key: QtCache-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.qt_version }}
       - name: Installing Qt - ${{ matrix.arch }}
-        uses: jurplel/install-qt-action@v2.5.0
+        uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
@@ -104,7 +104,7 @@ jobs:
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - uploading artifact
         uses: actions/upload-artifact@master
         with:
-          name: ${{ steps.get_package.outputs.NAME }}
+          name: Qv2ray-${{ github.sha }}.Windows-${{ matrix.arch }}.qt${{ matrix.qt_version }}.exe
           path: build/${{ steps.get_package.outputs.NAME }}
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release

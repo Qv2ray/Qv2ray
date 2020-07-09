@@ -1,3 +1,65 @@
+qv2ray (2.6.0-1) unstable; urgency=medium
+
+  * New Release 2.6.0
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Thu, 09 Jul 2020 22:04:57 +0800
+
+qv2ray (2.6.0~rc6-1) unstable; urgency=medium
+
+  * New Release 2.6.0-rc6
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Wed, 08 Jul 2020 21:43:01 +0800
+
+qv2ray (2.6.0~rc5-1) unstable; urgency=medium
+
+  * New Release 2.6.0-rc5
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Mon, 06 Jul 2020 17:37:41 +0800
+
+qv2ray (2.6.0~rc4-1) unstable; urgency=medium
+
+  * fix: fixed ssd:// order issue, fixed #635
+  * add: remove connections via delete key
+  * add: added qv2ray://
+  * add: use env QV2RAY_CONFIG_PATH to specify config path, make darkmode theme cross-platform, refactor
+  * add: introducing Qv2rayApplication
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Thu, 18 Jun 2020 16:10:05 +0800
+
+qv2ray (2.6.0~rc3-1) unstable; urgency=medium
+
+  * add: added DNS Settings and GroupRouteManager
+  * fix: bgcolor can't switch to default when swiching to flatwhite/psblack and then back to breeze or other
+  * refactor: change include structure
+  * fix: sort groups by displayName
+  * fix: improve GroupManager performance by 5000%
+  * fix: fixed Recent Connections jumplist
+  * fix: fixed EMBED_TRANSLATIONS option
+  * fix: prevent reading geosite/geoip every time
+  * add: added ICMP as latency tester
+  
+ -- Guobang Bi <ymshenyu@gmail.com>  Wed, 27 May 2020 18:17:03 +0800
+
+qv2ray (2.6.0~rc2-1) unstable; urgency=medium
+
+  * fix: fixed tcping message
+  * refactor: refactored auto update algorithm
+  * fix: fixed Windows non-block TCPing
+  * fix: UI tweak, prevent connection list taking too much space
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Mon, 18 May 2020 12:01:50 +0800
+
+qv2ray (2.6.0~rc1-1) unstable; urgency=medium
+
+  * NTP Check
+  * Port Detection
+  * Introduce unit test
+  * Introduce group editor/manager
+  * added vmess v1 upgrader (close #609)
+  * Refactor system proxy  
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sun, 17 May 2020 20:23:35 +0800
+
 qv2ray (2.5.0-1) unstable; urgency=medium
 
   * updating translations

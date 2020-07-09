@@ -1,64 +1,62 @@
 #include "Serialization.hpp"
 
 #include "Generation.hpp"
-#include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "libs/QJsonStruct/QJsonIO.hpp"
 
 namespace Qv2ray::core::connection
 {
-    namespace Serialization
+    namespace serialization
     {
-        QMultiHash<QString, CONFIGROOT> ConvertConfigFromString(const QString &link, QString *prefix, QString *errMessage, QString *newGroupName)
+        QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
+                                                                  QString *newGroupName)
         {
-            QMultiHash<QString, CONFIGROOT> connectionConf;
-            if (link.startsWith("vmess://"))
-            {
-                auto conf = ConvertConfigFromVMessString(link, prefix, errMessage);
-                //
-                if (GlobalConfig.advancedConfig.setAllowInsecureCiphers || GlobalConfig.advancedConfig.setAllowInsecure)
+            const auto mkAllowInsecure = [](QJsonObject &conf) {
+                auto allowI = GlobalConfig.advancedConfig.setAllowInsecure;
+                auto allowSR = GlobalConfig.advancedConfig.setSessionResumption;
+                if (allowI || allowSR)
                 {
-                    auto outbound = conf["outbounds"].toArray().first().toObject();
-                    auto streamSettings = outbound["streamSettings"].toObject();
-                    auto tlsSettings = streamSettings["tlsSettings"].toObject();
-                    tlsSettings["allowInsecure"] = GlobalConfig.advancedConfig.setAllowInsecure;
-                    tlsSettings["allowInsecureCiphers"] = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
-                    streamSettings["tlsSettings"] = tlsSettings;
-                    outbound["streamSettings"] = streamSettings;
-                    //
-                    auto outbounds = conf["outbounds"].toArray();
-                    outbounds[0] = outbound;
-                    conf["outbounds"] = outbounds;
+                    QJsonIO::SetValue(conf, allowI, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecure");
+                    QJsonIO::SetValue(conf, !allowSR, "outbounds", 0, "streamSettings", "tlsSettings", "disableSessionResumption");
                 }
-                //
-                connectionConf.insert(*prefix, conf);
+            };
+
+            QList<QPair<QString, CONFIGROOT>> connectionConf;
+            if (link.startsWith("vmess://") && link.contains("@"))
+            {
+                auto conf = vmess_new::Deserialize(link, aliasPrefix, errMessage);
+                mkAllowInsecure(conf);
+                connectionConf << QPair{ *aliasPrefix, conf };
+            }
+            else if (link.startsWith("vmess://"))
+            {
+                auto conf = vmess::Deserialize(link, aliasPrefix, errMessage);
+                mkAllowInsecure(conf);
+                connectionConf << QPair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ss://"))
             {
-                auto conf = ConvertConfigFromSSString(link, prefix, errMessage);
-                connectionConf.insert(*prefix, conf);
+                auto conf = ss::Deserialize(link, aliasPrefix, errMessage);
+                connectionConf << QPair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ssd://"))
             {
                 QStringList errMessageList;
-                connectionConf = ConvertConfigFromSSDString(link, newGroupName, &errMessageList);
+                connectionConf << ssd::Deserialize(link, newGroupName, &errMessageList);
                 *errMessage = errMessageList.join(NEWLINE);
             }
             else
             {
                 bool ok = false;
-                auto configs = PluginHost->TryDeserializeShareLink(link, prefix, errMessage, newGroupName, &ok);
-                for (const auto &key : configs.keys())
+                const auto configs = PluginHost->TryDeserializeShareLink(link, aliasPrefix, errMessage, newGroupName, &ok);
+                for (const auto &[_alias, _protocol, _outbound] : configs)
                 {
-                    auto vals = configs.values(key);
-                    for (const auto &val : vals)
-                    {
-                        CONFIGROOT root;
-                        auto outbound = GenerateOutboundEntry(val.first, OUTBOUNDSETTING(val.second), {});
-                        root.insert("outbounds", QJsonArray{ outbound });
-                        connectionConf.insert(key, root);
-                    }
+                    CONFIGROOT root;
+                    auto outbound = GenerateOutboundEntry(_protocol, OUTBOUNDSETTING(_outbound), {});
+                    QJsonIO::SetValue(root, outbound, "outbounds", 0);
+                    connectionConf << QPair{ _alias, root };
                 }
                 if (!ok)
                 {
@@ -69,16 +67,16 @@ namespace Qv2ray::core::connection
             return connectionConf;
         }
 
-        const QString ConvertConfigToString(const ConnectionId &id, bool isSip002)
+        const QString ConvertConfigToString(const ConnectionGroupPair &identifier, bool isSip002)
         {
-            auto alias = GetDisplayName(id);
-            if (IsComplexConfig(id))
+            auto alias = GetDisplayName(identifier.connectionId);
+            if (IsComplexConfig(identifier.connectionId))
             {
                 DEBUG(MODULE_CONNECTION, "Ignored an complex config: " + alias)
                 return QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER;
             }
-            auto server = ConnectionManager->GetConnectionRoot(id);
-            return ConvertConfigToString(alias, GetDisplayName(GetConnectionGroupId(id)), server, isSip002);
+            auto server = ConnectionManager->GetConnectionRoot(identifier.connectionId);
+            return ConvertConfigToString(alias, GetDisplayName(identifier.groupId), server, isSip002);
         }
 
         const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server, bool isSip002)
@@ -89,14 +87,21 @@ namespace Qv2ray::core::connection
             QString sharelink = "";
             if (type == "vmess")
             {
-                auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(settings["vnext"].toArray().first().toObject()));
-                auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outbound["streamSettings"].toObject()));
-                sharelink = vmess::ConvertConfigToVMessString(transport, vmessServer, alias);
+                auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
+                auto transport = StreamSettingsObject::fromJson(outbound["streamSettings"].toObject());
+                if (GlobalConfig.uiConfig.useOldShareLinkFormat)
+                {
+                    sharelink = vmess::Serialize(transport, vmessServer, alias);
+                }
+                else
+                {
+                    sharelink = vmess_new::Serialize(transport, vmessServer, alias);
+                }
             }
             else if (type == "shadowsocks")
             {
-                auto ssServer = StructFromJsonString<ShadowSocksServerObject>(JsonToString(settings["servers"].toArray().first().toObject()));
-                sharelink = ss::ConvertConfigToSSString(ssServer, alias, isSip002);
+                auto ssServer = ShadowSocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
+                sharelink = ss::Serialize(ssServer, alias, isSip002);
             }
             else
             {
@@ -115,14 +120,5 @@ namespace Qv2ray::core::connection
             return sharelink;
         }
 
-        QString DecodeSubscriptionString(const QByteArray &arr)
-        {
-            // String may start with: vmess:// and ss://
-            // We only process vmess:// here
-            // Some subscription providers may use plain vmess:// saperated by
-            // lines But others may use base64 of above.
-            auto result = QString::fromUtf8(arr).trimmed();
-            return result.contains("://") ? result : Base64Decode(result);
-        }
-    } // namespace Serialization
+    } // namespace serialization
 } // namespace Qv2ray::core::connection

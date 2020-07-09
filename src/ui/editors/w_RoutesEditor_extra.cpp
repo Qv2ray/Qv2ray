@@ -1,5 +1,6 @@
-#include "FlowScene.hpp"
+#include <nodes/internal/FlowScene.hpp>
 #include "core/CoreUtils.hpp"
+#include "ui/common/UIBase.hpp"
 #include "ui/models/InboundNodeModel.hpp"
 #include "ui/models/OutboundNodeModel.hpp"
 #include "ui/models/RuleNodeModel.hpp"
@@ -17,13 +18,13 @@ void RouteEditor::AddInbound(INBOUND in)
     }
 
     in["tag"] = tag;
-    auto _nodeData = make_unique<QvInboundNodeModel>(make_shared<InboundNodeData>(tag));
+    auto _nodeData = std::make_unique<QvInboundNodeModel>(std::make_shared<InboundNodeData>(tag));
     auto &node = nodeScene->createNode(std::move(_nodeData));
-    auto pos = QPointF();
+    QPointF pos;
     pos.setX(0 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(inboundNodes.count() * 130 + GRAPH_GLOBAL_OFFSET_Y);
     nodeScene->setNodePosition(node, pos);
-    inboundNodes.insert(tag, &node);
+    inboundNodes.insert(tag, node.id());
     inbounds.insert(getTag(in), in);
 }
 
@@ -37,13 +38,13 @@ void RouteEditor::AddOutbound(OUTBOUND out)
     }
 
     out["tag"] = tag;
-    auto _nodeData = make_unique<QvOutboundNodeModel>(make_shared<OutboundNodeData>(tag));
+    auto _nodeData = std::make_unique<QvOutboundNodeModel>(std::make_shared<OutboundNodeData>(tag));
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + outboundNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
-    outboundNodes.insert(tag, &node);
+    outboundNodes.insert(tag, node.id());
     outbounds.insert(tag, out);
     defaultOutboundCombo->addItem(tag);
 }
@@ -76,7 +77,7 @@ void RouteEditor::AddRule(RuleObject rule)
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + ruleNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    auto _nodeData = make_unique<QvRuleNodeDataModel>(make_shared<RuleNodeData>(rule.QV2RAY_RULE_TAG));
+    auto _nodeData = std::make_unique<QvRuleNodeModel>(std::make_shared<RuleNodeData>(rule.QV2RAY_RULE_TAG));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
 
@@ -91,7 +92,7 @@ void RouteEditor::AddRule(RuleObject rule)
         else
         {
             auto inboundNode = inboundNodes.value(inTag);
-            auto conn = nodeScene->createConnection(node, 0, *inboundNode, 0);
+            auto conn = nodeScene->createConnection(node, 0, *nodeScene->node(inboundNode), 0);
             connect(conn.get(), &QtNodes::Connection::connectionCompleted, this, &RouteEditor::onConnectionCreated);
         }
     }
@@ -102,7 +103,7 @@ void RouteEditor::AddRule(RuleObject rule)
         if (outboundNodes.contains(rule.outboundTag))
         {
             DEBUG(MODULE_GRAPH, "Found outbound tag: " + rule.outboundTag + ", for rule: " + rule.QV2RAY_RULE_TAG)
-            auto conn = nodeScene->createConnection(*outboundNodes.value(rule.outboundTag), 0, node, 0);
+            auto conn = nodeScene->createConnection(*nodeScene->node(outboundNodes.value(rule.outboundTag)), 0, node, 0);
             connect(conn.get(), &QtNodes::Connection::connectionCompleted, this, &RouteEditor::onConnectionCreated);
         }
         else
@@ -113,7 +114,7 @@ void RouteEditor::AddRule(RuleObject rule)
         }
     }
 
-    this->ruleNodes.insert(rule.QV2RAY_RULE_TAG, &node);
+    this->ruleNodes.insert(rule.QV2RAY_RULE_TAG, node.id());
     ruleListWidget->addItem(rule.QV2RAY_RULE_TAG);
 }
 
@@ -131,14 +132,14 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                     *newTag += "_" + GenerateRandomString(5);
                 }
 
-                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes.value(originalTag)->nodeDataModel());
+                const auto &nodeDataModel = (QvRuleNodeModel *) nodeScene->node(ruleNodes.value(originalTag))->nodeDataModel();
 
-                if (node == nullptr)
+                if (nodeDataModel == nullptr)
                 {
                     LOG(MODULE_GRAPH, "EMPTY NODE WARN")
                 }
 
-                node->setData(*newTag);
+                nodeDataModel->setData(*newTag);
                 //
                 auto rule = rules.take(originalTag);
                 rule.QV2RAY_RULE_TAG = *newTag;
@@ -183,7 +184,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 out["tag"] = *newTag;
                 outbounds.insert(*newTag, out);
                 outboundNodes.insert(*newTag, outboundNodes.take(originalTag));
-                auto node = static_cast<QvOutboundNodeModel *>(outboundNodes.value(*newTag)->nodeDataModel());
+                const auto &node = (QvOutboundNodeModel *) nodeScene->node(outboundNodes.value(*newTag))->nodeDataModel();
 
                 if (node == nullptr)
                 {
@@ -193,7 +194,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 node->setData(*newTag);
 
                 // Change outbound tag in rules accordingly.
-                for (auto k : rules.keys())
+                for (const auto &k : rules.keys())
                 {
                     auto v = rules.value(k);
 
@@ -228,7 +229,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 in["tag"] = *newTag;
                 inbounds.insert(*newTag, in);
                 inboundNodes.insert(*newTag, inboundNodes.take(originalTag));
-                auto node = static_cast<QvInboundNodeModel *>(inboundNodes.value(*newTag)->nodeDataModel());
+                const auto &node = (QvInboundNodeModel *) nodeScene->node(inboundNodes.value(*newTag))->nodeDataModel();
 
                 if (node == nullptr)
                 {
@@ -240,7 +241,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 // Change inbound tag in rules accordingly.
                 // k -> rule tag
                 // v -> rule object
-                for (auto k : rules.keys())
+                for (const auto &k : rules.keys())
                 {
                     auto v = rules.value(k);
 

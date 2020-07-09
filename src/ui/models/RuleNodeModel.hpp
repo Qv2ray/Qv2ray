@@ -4,12 +4,12 @@
 
 #include <QtCore/qglobal.h>
 
-class QvRuleNodeDataModel : public NodeDataModel
+class QvRuleNodeModel : public NodeDataModel
 {
     Q_OBJECT
   public:
-    QvRuleNodeDataModel(std::shared_ptr<RuleNodeData> data);
-    ~QvRuleNodeDataModel()
+    QvRuleNodeModel(std::shared_ptr<RuleNodeData> data);
+    ~QvRuleNodeModel()
     {
         // if (_label) {
         //    delete _label;
@@ -70,12 +70,12 @@ class QvRuleNodeDataModel : public NodeDataModel
     void setInData(std::shared_ptr<NodeData>, int) override
     {
     }
-    void setInData(vector<shared_ptr<NodeData>>, int) override
+    void setInData(std::vector<std::shared_ptr<NodeData>>, int) override
     {
     }
     void setData(const QString &data)
     {
-        _ruleTag = make_shared<RuleNodeData>(data);
+        _ruleTag = std::make_shared<RuleNodeData>(data);
         _label->setText(_ruleTag->GetRuleTag());
         _label->adjustSize();
     }
@@ -96,13 +96,13 @@ class QvRuleNodeDataModel : public NodeDataModel
     }
     std::unique_ptr<NodeDataModel> clone() const override
     {
-        return std::make_unique<QvRuleNodeDataModel>(_ruleTag);
+        return std::make_unique<QvRuleNodeModel>(_ruleTag);
     }
 
   private:
     NodeValidationState modelValidationState = NodeValidationState::Warning;
     QString modelValidationError = tr("Missing or incorrect inputs");
     //
-    shared_ptr<RuleNodeData> _ruleTag;
+    std::shared_ptr<RuleNodeData> _ruleTag;
     QLabel *_label;
 };

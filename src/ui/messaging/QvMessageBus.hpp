@@ -25,7 +25,7 @@
         break;
 
 #define MBUpdateColorSchemeDefaultImpl                                                                                                          \
-    case UPDATE_COLORSCHEME: this->UpdateColorScheme(); break;
+    case UPDATE_COLORSCHEME: this->updateColorScheme(); break;
 
 namespace Qv2ray::ui::messaging
 {
@@ -41,15 +41,13 @@ namespace Qv2ray::ui::messaging
         /// Change Color Scheme
         UPDATE_COLORSCHEME
     };
-    Q_ENUM_NS(QvMBMessage);
+    Q_ENUM_NS(QvMBMessage)
     //
     class QvMessageBusObject : public QObject
     {
         Q_OBJECT
       public:
         explicit QvMessageBusObject();
-
-        //
         void EmitGlobalSignal(const QvMBMessage &msg);
       signals:
         void QvSendMessage(const QvMBMessage &msg);

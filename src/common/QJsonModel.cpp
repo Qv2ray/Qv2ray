@@ -26,7 +26,6 @@
 
 #include <QDebug>
 #include <QFile>
-#include <QFont>
 
 QJsonTreeItem::QJsonTreeItem(QJsonTreeItem *parent)
 {

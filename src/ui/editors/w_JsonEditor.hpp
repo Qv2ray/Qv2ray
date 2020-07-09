@@ -1,13 +1,12 @@
-﻿#pragma once
+#pragma once
 
 #include "base/Qv2rayBase.hpp"
-#include "common/JsonHighlighter.hpp"
 #include "common/QJsonModel.hpp"
+#include "ui/common/JsonHighlighter.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_JsonEditor.h"
 
 #include <QDialog>
-#include <QtCore>
 
 class JsonEditor
     : public QDialog
@@ -35,5 +34,5 @@ class JsonEditor
     QJsonObject original;
     QJsonObject final;
     //
-    unique_ptr<vCoreConfigJsonHighlighter> highlighter;
+    std::unique_ptr<vCoreConfigJsonHighlighter> highlighter;
 };

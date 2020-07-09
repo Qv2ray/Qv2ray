@@ -1,9 +1,10 @@
 #pragma once
 
-#include "QWidget"
 #include "base/Qv2rayBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_StreamSettingsWidget.h"
+
+#include <QWidget>
 
 class StreamSettingsWidget
     : public QWidget
@@ -78,6 +79,10 @@ class StreamSettingsWidget
     void on_alpnTxt_textChanged();
 
     void on_allowInsecureCiphersCB_stateChanged(int arg1);
+
+    void on_disableSessionResumptionCB_stateChanged(int arg1);
+
+    void on_kcpSeedTxt_textEdited(const QString &arg1);
 
   private:
     QvMessageBusSlotDecl;
