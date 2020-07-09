@@ -45,6 +45,6 @@ Exec=qv2ray --noAPI
 [Desktop Action noAutoConnection]
 Name=Start without automatic connection
 Name[zh_CN]=不自动连接节点启动
-Name=[ja]=自動接続使用せずに起動
+Name[ja]=自動接続使用せずに起動
 Exec=qv2ray --noAutoConnection
 
