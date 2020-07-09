@@ -471,7 +471,7 @@ namespace Qv2ray
         QCommandLineOption noPluginsOption("noPlugin", tr("Disable plugins feature"));
         QCommandLineOption noScaleFactorOption("noScaleFactor", tr("Disable Qt UI scale factor"));
         QCommandLineOption debugOption("debug", tr("Enable debug output"));
-        QCommandLineOption noAutoConnectionOption("noAutoConnection", tr("Do not automcatically connect"));
+        QCommandLineOption noAutoConnectionOption("noAutoConnection", tr("Do not automatically connect"));
         QCommandLineOption disconnectOption("disconnect", tr("Stop current connection"));
         QCommandLineOption reconnectOption("reconnect", tr("Reconnect last connection"));
         QCommandLineOption exitOption("exit", tr("Exit Qv2ray"));
