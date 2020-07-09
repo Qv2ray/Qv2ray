@@ -34,10 +34,10 @@ namespace Qv2ray::core::connection::generation::filters
         {
             dnsRouteInTag = QJsonArray{ "tproxy_IN" };
         }
-        static const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" },
-                                                    { "port", "53" },
-                                                    { "type", "field" },
-                                                    { "inboundTag", dnsRouteInTag } };
+        const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" },
+                                             { "port", "53" },
+                                             { "type", "field" },
+                                             { "inboundTag", dnsRouteInTag } };
         // DNS Outbound
         QJsonIO::SetValue(root, dnsOutboundObj, "outbounds", root["outbounds"].toArray().count());
         // DNS Route
