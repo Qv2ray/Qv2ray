@@ -3,7 +3,7 @@
 
 namespace Qv2ray::core::connection::generation::filters
 {
-    void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root)
+    void OutboundMarkSettingFilter(CONFIGROOT &root, const int mark)
     {
         for (auto i = 0; i < root["outbounds"].toArray().count(); i++)
         {
@@ -21,28 +21,35 @@ namespace Qv2ray::core::connection::generation::filters
             }
         }
     }
-    void DNSInterceptFilter(CONFIGROOT &root, const bool have_ipv6)
+
+    void DNSInterceptFilter(CONFIGROOT &root, const bool have_tproxy, const bool have_tproxy_v6, const bool have_socks)
     {
         // Static DNS Objects
         static const QJsonObject dnsOutboundObj{ { "protocol", "dns" }, { "tag", "dns-out" } };
+
         QJsonArray dnsRouteInTag;
-        if (have_ipv6)
-        {
-            dnsRouteInTag = QJsonArray{ "tproxy_IN", "tproxy_IN_V6" };
-        }
-        else
-        {
-            dnsRouteInTag = QJsonArray{ "tproxy_IN" };
-        }
+
+        if (have_tproxy)
+            dnsRouteInTag.append("tproxy_IN");
+        if (have_tproxy_v6)
+            dnsRouteInTag.append("tproxy_IN_V6");
+        if (have_socks)
+            dnsRouteInTag.append("socks_IN");
+
+        // If no UDP inbound, then DNS outbound is useless.
+        if (dnsRouteInTag.isEmpty())
+            return;
+
         const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" },
                                              { "port", "53" },
                                              { "type", "field" },
                                              { "inboundTag", dnsRouteInTag } };
+
         // DNS Outbound
         QJsonIO::SetValue(root, dnsOutboundObj, "outbounds", root["outbounds"].toArray().count());
         // DNS Route
         auto _rules = QJsonIO::GetValue(root, "routing", "rules").toArray();
-        _rules.insert(0, dnsRoutingRuleObj);
+        _rules.prepend(dnsRoutingRuleObj);
         QJsonIO::SetValue(root, _rules, "routing", "rules");
     }
 
@@ -52,7 +59,7 @@ namespace Qv2ray::core::connection::generation::filters
                                                   { "outboundTag", OUTBOUND_TAG_DIRECT },
                                                   { "type", "field" } };
         auto _rules = QJsonIO::GetValue(root, "routing", "rules").toArray();
-        _rules.insert(0, bypassBTRuleObj);
+        _rules.prepend(bypassBTRuleObj);
         QJsonIO::SetValue(root, _rules, "routing", "rules");
     }
 

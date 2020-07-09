@@ -45,9 +45,9 @@ namespace Qv2ray::core::connection::generation
     namespace filters
     {
         // mark all outbound
-        void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root);
+        void OutboundMarkSettingFilter(CONFIGROOT &root, const int mark);
         void RemoveEmptyMuxFilter(CONFIGROOT &root);
-        void DNSInterceptFilter(CONFIGROOT &root, const bool have_ipv6);
+        void DNSInterceptFilter(CONFIGROOT &root, const bool have_tproxy, const bool have_tproxy_v6, const bool have_socks);
         void BypassBTFilter(CONFIGROOT &root);
         void mKCPSeedFilter(CONFIGROOT &root);
         void FillupTagsFilter(CONFIGROOT &root, const QString &subKey);
