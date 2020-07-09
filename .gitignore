@@ -1,4 +1,5 @@
 # Some files 
+compile_commands.json
 .DS_Store
 *.pro.user
 *.user
