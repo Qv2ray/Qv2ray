@@ -66,8 +66,9 @@ namespace Qv2ray::base::config
         bool bypassBT;
         bool v2rayFreedomDNS;
         bool withLocalDNS;
-        QvConfig_Connection() : enableProxy(true), bypassCN(true), bypassBT(false), v2rayFreedomDNS(false), withLocalDNS(false){};
-        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS))
+        bool dnsIntercept;
+        QvConfig_Connection() : enableProxy(true), bypassCN(true), bypassBT(false), v2rayFreedomDNS(false), withLocalDNS(false), dnsIntercept(false){};
+        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept))
     };
 
     struct QvConfig_SystemProxy
@@ -109,17 +110,15 @@ namespace Qv2ray::base::config
         bool hasTCP;
         bool hasUDP;
         QString mode;
-        bool dnsIntercept;
         QvConfig_TProxy()
             : tProxyIP("127.0.0.1"), //
               tProxyV6IP(""),        //
               port(12345),           //
               hasTCP(true),          //
               hasUDP(false),         //
-              mode("tproxy"),        //
-              dnsIntercept(true)     //
+              mode("tproxy")         //
               {};
-        JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, mode, dnsIntercept))
+        JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, mode))
     };
 
     struct QvConfig_Inbounds

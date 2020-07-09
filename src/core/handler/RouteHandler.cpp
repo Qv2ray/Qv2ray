@@ -357,14 +357,17 @@ namespace Qv2ray::core::handler
             }
             //
             // Connection Filters
-            if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.tProxySettings.dnsIntercept)
+            if (GlobalConfig.defaultRouteConfig.connectionConfig.dnsIntercept)
             {
-                DNSInterceptFilter(root, !GlobalConfig.inboundConfig.tProxySettings.tProxyV6IP.isEmpty());
+                const auto hasTProxy = GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.tProxySettings.hasUDP;
+                const auto hasIPv6 = hasTProxy && (!GlobalConfig.inboundConfig.tProxySettings.tProxyV6IP.isEmpty());
+                const bool hasSocksUDP = GlobalConfig.inboundConfig.useSocks && GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                DNSInterceptFilter(root, hasTProxy, hasIPv6, hasSocksUDP);
             }
 
             if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
             {
-                OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
+                OutboundMarkSettingFilter(root, GlobalConfig.outboundConfig.mark);
             }
 
             if (connConf.bypassBT)

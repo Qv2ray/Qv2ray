@@ -129,7 +129,12 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasUDP);
     tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tProxySettings.mode);
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
-    dnsIntercept->setChecked(CurrentConfig.inboundConfig.tProxySettings.dnsIntercept);
+#ifndef Q_OS_LINUX
+    tproxGroupBox->setChecked(false);
+    tproxGroupBox->setEnabled(false);
+    tproxGroupBox->setToolTip(tr("tProxy is not supported on macOS and Windows"));
+#endif
+    dnsIntercept->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
     DnsFreedomCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS);
     //
     // Kernel Settings
@@ -971,16 +976,8 @@ void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_tproxGroupBox_toggled(bool arg1)
 {
-#ifndef Q_OS_LINUX
-    Q_UNUSED(arg1)
-    // No such tProxy thing on Windows and macOS
-    QvMessageBoxWarn(this, tr("Preferences"), tr("tProxy is not supported on macOS and Windows"));
-    CurrentConfig.inboundConfig.useTPROXY = false;
-    tproxGroupBox->setChecked(false);
-#else
     NEEDRESTART
     CurrentConfig.inboundConfig.useTPROXY = arg1;
-#endif
 }
 
 void PreferencesWindow::on_tProxyPort_valueChanged(int arg1)
@@ -1051,7 +1048,7 @@ void PreferencesWindow::on_outboundMark_valueChanged(int arg1)
 void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tProxySettings.dnsIntercept = checked;
+    CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept = checked;
 }
 
 void PreferencesWindow::on_qvProxyCustomProxy_clicked()
