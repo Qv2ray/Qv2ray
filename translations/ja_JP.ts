@@ -1120,10 +1120,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>暗号化方法</translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation>レベル</translation>
-    </message>
-    <message>
         <source>OTA</source>
         <translation>OTA</translation>
     </message>
@@ -1158,6 +1154,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Tests</source>
         <translation>テスト</translation>
+    </message>
+    <message>
+        <source>Http</source>
+        <translation>HTTP</translation>
     </message>
 </context>
 <context>
@@ -1897,6 +1897,10 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
         <source>Only V2ray Core v4.21+ is supported.</source>
         <translation>V2ray Core v4.21以降のみ対応しています。</translation>
     </message>
+    <message>
+        <source>Old Share Link Format</source>
+        <translation>旧リンク形式</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2185,8 +2189,12 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
         <translation>vmess:// url が無効です</translation>
     </message>
     <message>
-        <source>Invalid streamSettings protocol:  </source>
-        <translation>streamSettings プロトコルが無効です:  </translation>
+        <source>Invalid streamSettings protocol: </source>
+        <translation>無効な streamSettings プロトコル: </translation>
+    </message>
+    <message>
+        <source>Unknown state.</source>
+        <translation>不明な状態。</translation>
     </message>
 </context>
 <context>
@@ -2302,6 +2310,10 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
     <message>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
         <translation>Qv2ray - V2Ray用のクロスプラットフォームQtフロントエンド。</translation>
+    </message>
+    <message>
+        <source>Do not automatically connect</source>
+        <translation>自動的に接続しない</translation>
     </message>
 </context>
 <context>
