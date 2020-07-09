@@ -1,5 +1,6 @@
 #pragma once
 #include "components/plugins/QvPluginHost.hpp"
+#include "core/CoreUtils.hpp"
 #include "core/kernel/V2rayKernelInteractions.hpp"
 
 #include <QObject>
@@ -24,13 +25,9 @@ namespace Qv2ray::core::handler
         {
             return activeKernels.size();
         }
-        const QMap<QString, int> InboundPorts() const
+        const QMap<QString, InboundInfoObject> GetInboundInfo() const
         {
-            return inboundPorts;
-        }
-        const QMap<QString, QString> InboundHosts() const
-        {
-            return inboundHosts;
+            return inboundInfo;
         }
 
       signals:
@@ -47,14 +44,32 @@ namespace Qv2ray::core::handler
         void OnPluginStatsDataRcvd_p(const long uploadSpeed, const long downloadSpeed);
 
       private:
-        static std::optional<QString> CheckPort(QMap<QString, QString> hosts, QMap<QString, int> ports, int plugins);
+        static std::optional<QString> CheckPort(const QMap<QString, InboundInfoObject> &info, int plugins);
 
       private:
+        QMap<QString, int> GetInboundPorts() const
+        {
+            QMap<QString, int> result;
+            for (const auto &[tag, info] : inboundInfo.toStdMap())
+            {
+                result[tag] = info.port;
+            }
+            return result;
+        }
+        QMap<QString, QString> GetInboundHosts() const
+        {
+            QMap<QString, QString> result;
+            for (const auto &[tag, info] : inboundInfo.toStdMap())
+            {
+                result[tag] = info.listenIp;
+            }
+            return result;
+        }
+
         QMap<QString, QString> outboundKernelMap;
         // Since QMap does not support std::unique_ptr, we use std::map<>
-        std::map<QString, std::unique_ptr<QvPluginKernel>> activeKernels;
-        QMap<QString, int> inboundPorts;
-        QMap<QString, QString> inboundHosts;
+        std::list<std::pair<QString, std::unique_ptr<QvPluginKernel>>> activeKernels;
+        QMap<QString, InboundInfoObject> inboundInfo;
         V2rayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
     };

@@ -1318,10 +1318,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>プロキシを有効にする</translation>
     </message>
     <message>
-        <source>API Port</source>
-        <translation>APIポート</translation>
-    </message>
-    <message>
         <source>Use Local DNS</source>
         <translation>ローカルDNSを使用する</translation>
     </message>
@@ -1364,14 +1360,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source> lines</source>
         <translation> 行</translation>
-    </message>
-    <message>
-        <source>V2ray Settings</source>
-        <translation>V2ray設定</translation>
-    </message>
-    <message>
-        <source>Core Executable Path</source>
-        <translation>コア実行可能ファイルパス</translation>
     </message>
     <message>
         <source>V2ray Assets Directory</source>
@@ -1574,10 +1562,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>カーネル設定</translation>
     </message>
     <message>
-        <source>API SubSystem</source>
-        <translation>サブシステムAPI</translation>
-    </message>
-    <message>
         <source>Plugin Kernel Settings</source>
         <translation>プラグインのカーネル設定</translation>
     </message>
@@ -1760,14 +1744,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>サーバの検索に失敗しました：%1</translation>
     </message>
     <message>
-        <source>Check Date and Time from Network</source>
-        <translation>ネットワークから日時を確認する</translation>
-    </message>
-    <message>
-        <source>NTP</source>
-        <translation>NTP</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>なし</translation>
     </message>
@@ -1882,6 +1858,44 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation>V2Ray coreをV2Ray Control実行ファイルに間違って設定している可能性がありますが、これは絶対に正しくありません。
 V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&apos;です。賢明に選択してください。
 先に進むことをお勧めする場合、サポートを提供しておりません。</translation>
+    </message>
+    <message>
+        <source>V2ray Core Executable Path</source>
+        <translation>V2rayコアのパス</translation>
+    </message>
+    <message>
+        <source>Check System Date and Time from the Internet</source>
+        <translation>インターネットからシステムの日時を確認する</translation>
+    </message>
+    <message>
+        <source>V2ray API Subsystem</source>
+        <translation>V2ray APIサブシステム</translation>
+    </message>
+    <message>
+        <source>V2ray API Port</source>
+        <translation>V2ray APIポート</translation>
+    </message>
+    <message>
+        <source>Outbound Statistics (V2ray Core v4.26+)</source>
+        <translation>アウトバウンド統計（V2ray Core v4.26以降）</translation>
+    </message>
+    <message>
+        <source>Currently:
+- vmess/shadowsocks/socks/http will be treated as PROXY.
+- freedom will be treated as DIRECT
+- blackhole will be treated as BLOCK</source>
+        <translation>現在のところ
+- vmess/shadowsocks/socks/http は PROXY として扱われます。
+- freedom は DIRECT として扱われます。
+- ブラックホールはBLOCKとして扱われます</translation>
+    </message>
+    <message>
+        <source>Include Direct Connection</source>
+        <translation>直接接続を含む</translation>
+    </message>
+    <message>
+        <source>Only V2ray Core v4.21+ is supported.</source>
+        <translation>V2ray Core v4.21以降のみ対応しています。</translation>
     </message>
 </context>
 <context>
@@ -2380,6 +2394,13 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
         <translation>
             <numerusform>%n 個のエントリのうち %1 個がフィルタリングされましたが、続けますか？</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::kernel::APIWorker</name>
+    <message>
+        <source>Failed to get statistics data, please check if V2ray is running properly</source>
+        <translation>統計データの取得に失敗しました。V2rayが正常に動作しているか確認してください</translation>
     </message>
 </context>
 <context>
@@ -2972,14 +2993,30 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>SpeedPlotView</name>
+    <name>SpeedWidget</name>
     <message>
-        <source>Total Upload</source>
-        <translation>合計アップロード</translation>
+        <source>Proxy ↑</source>
+        <translation>プロキシ↑</translation>
     </message>
     <message>
-        <source>Total Download</source>
-        <translation>合計ダウンロード</translation>
+        <source>Proxy ↓</source>
+        <translation>プロキシ↓</translation>
+    </message>
+    <message>
+        <source>Direct ↑</source>
+        <translation>直接↑</translation>
+    </message>
+    <message>
+        <source>Direct ↓</source>
+        <translation>直接↓</translation>
+    </message>
+    <message>
+        <source>Total ↑</source>
+        <translation>合計↑</translation>
+    </message>
+    <message>
+        <source>Total ↓</source>
+        <translation>合計↓</translation>
     </message>
 </context>
 <context>
@@ -3119,49 +3156,6 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Disable Session Resumption</source>
         <translation>セッション再開を無効にする</translation>
-    </message>
-</context>
-<context>
-    <name>misc</name>
-    <message>
-        <source>B</source>
-        <comment>bytes</comment>
-        <translation>B</translation>
-    </message>
-    <message>
-        <source>KiB</source>
-        <comment>kibibytes (1024 bytes)</comment>
-        <translation>KiB</translation>
-    </message>
-    <message>
-        <source>MiB</source>
-        <comment>mebibytes (1024 kibibytes)</comment>
-        <translation>MiB</translation>
-    </message>
-    <message>
-        <source>GiB</source>
-        <comment>gibibytes (1024 mibibytes)</comment>
-        <translation>GiB</translation>
-    </message>
-    <message>
-        <source>TiB</source>
-        <comment>tebibytes (1024 gibibytes)</comment>
-        <translation>TiB</translation>
-    </message>
-    <message>
-        <source>PiB</source>
-        <comment>pebibytes (1024 tebibytes)</comment>
-        <translation>PiB</translation>
-    </message>
-    <message>
-        <source>EiB</source>
-        <comment>exbibytes (1024 pebibytes)</comment>
-        <translation>EiB</translation>
-    </message>
-    <message>
-        <source>/s</source>
-        <comment>per second</comment>
-        <translation>/s</translation>
     </message>
 </context>
 <context>

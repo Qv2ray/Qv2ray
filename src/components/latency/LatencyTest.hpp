@@ -37,7 +37,9 @@ namespace Qv2ray::components::latency
         void TestLatency(const ConnectionId &connectionId, Qv2rayLatencyTestingMethod);
         void TestLatency(const QList<ConnectionId> &connectionIds, Qv2rayLatencyTestingMethod);
         void StopAllLatencyTest();
+
         ~LatencyTestHost() override;
+
       signals:
         void OnLatencyTestCompleted(ConnectionId id, LatencyTestResult data);
 

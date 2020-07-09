@@ -181,7 +181,7 @@ jobs:
           path: build/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.14.2'
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.15.0'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.AppImage
@@ -197,7 +197,7 @@ jobs:
           path: Qv2ray.dmg
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.14.2'
+        if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.15.0'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: Qv2ray.dmg
@@ -219,7 +219,7 @@ jobs:
           path: release.7z
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.qt_version == '5.14.2'
+        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.qt_version == '5.15.0'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z

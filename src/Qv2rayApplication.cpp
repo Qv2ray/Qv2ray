@@ -13,6 +13,12 @@
 #include <QUrl>
 #include <QUrlQuery>
 
+#ifdef QT_DEBUG
+const static inline QString QV2RAY_URL_SCHEME = "qv2ray-debug";
+#else
+const static inline QString QV2RAY_URL_SCHEME = "qv2ray";
+#endif
+
 #ifdef Q_OS_WIN
     #include <Winbase.h>
 #endif
@@ -54,11 +60,12 @@ namespace Qv2ray
         setQuitOnLastWindowClosed(false);
 
 #ifndef Q_OS_ANDROID
-        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived);
+        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived, Qt::QueuedConnection);
         connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
         if (isSecondary())
         {
-            Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::NORMAL;
+            if (Qv2rayProcessArgument.arguments.isEmpty())
+                Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::NORMAL;
             sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
             return SINGLE_APPLICATION;
         }
@@ -107,24 +114,22 @@ namespace Qv2ray
         //
         if (newVersion > currentVersion)
         {
-            QTimer::singleShot(0, [=]() {
-                const auto newPath = msg.fullArgs.first();
-                QString message;
-                message += tr("A new version of Qv2ray is attemping to start:") + NEWLINE;
-                message += NEWLINE;
-                message += tr("New version information: ") + NEWLINE;
-                message += tr("Qv2ray version: %1").arg(msg.version) + NEWLINE;
-                message += tr("Qv2ray path: %1").arg(newPath) + NEWLINE;
-                message += NEWLINE;
-                message += tr("Do you want to exit and launch that new version?");
+            const auto newPath = msg.fullArgs.first();
+            QString message;
+            message += tr("A new version of Qv2ray is attemping to start:") + NEWLINE;
+            message += NEWLINE;
+            message += tr("New version information: ") + NEWLINE;
+            message += tr("Qv2ray version: %1").arg(msg.version) + NEWLINE;
+            message += tr("Qv2ray path: %1").arg(newPath) + NEWLINE;
+            message += NEWLINE;
+            message += tr("Do you want to exit and launch that new version?");
 
-                const auto result = QvMessageBoxAsk(nullptr, tr("New version detected"), message);
-                if (result == QMessageBox::Yes)
-                {
-                    Qv2rayProcessArgument._qvNewVersionPath = newPath;
-                    QuitApplication(QV2RAY_NEW_VERSION);
-                }
-            });
+            const auto result = QvMessageBoxAsk(nullptr, tr("New version detected"), message);
+            if (result == QMessageBox::Yes)
+            {
+                Qv2rayProcessArgument._qvNewVersionPath = newPath;
+                QuitApplication(QV2RAY_NEW_VERSION);
+            }
         }
 
         for (const auto &argument : msg.arguments)
@@ -181,6 +186,25 @@ namespace Qv2ray
     {
         // Show MainWindow
         mainWindow = new MainWindow();
+        if (Qv2rayProcessArgument.arguments.contains(Qv2rayProcessArguments::QV2RAY_LINK))
+        {
+            for (const auto &link : Qv2rayProcessArgument.links)
+            {
+                const auto url = QUrl::fromUserInput(link);
+                const auto command = url.host();
+                auto subcommands = url.path().split("/");
+                subcommands.removeAll("");
+                QMap<QString, QString> args;
+                for (const auto &kvp : QUrlQuery(url).queryItems())
+                {
+                    args.insert(kvp.first, kvp.second);
+                }
+                if (command == "open")
+                {
+                    emit mainWindow->ProcessCommand(command, subcommands, args);
+                }
+            }
+        }
         return Qv2rayExitCode(exec());
     }
 
@@ -402,9 +426,8 @@ namespace Qv2ray
                 default: break;
             }
 #ifdef Q_OS_WIN
-            const auto urlScheme = coreApp.applicationName();
             const auto appPath = QDir::toNativeSeparators(coreApp.applicationFilePath());
-            const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + urlScheme;
+            const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + QV2RAY_URL_SCHEME;
 
             QSettings reg(regPath, QSettings::NativeFormat);
 
@@ -448,6 +471,7 @@ namespace Qv2ray
         QCommandLineOption noPluginsOption("noPlugin", tr("Disable plugins feature"));
         QCommandLineOption noScaleFactorOption("noScaleFactor", tr("Disable Qt UI scale factor"));
         QCommandLineOption debugOption("debug", tr("Enable debug output"));
+        QCommandLineOption noAutoConnectionOption("noAutoConnection", tr("Do not automcatically connect"));
         QCommandLineOption disconnectOption("disconnect", tr("Stop current connection"));
         QCommandLineOption reconnectOption("reconnect", tr("Reconnect last connection"));
         QCommandLineOption exitOption("exit", tr("Exit Qv2ray"));
@@ -459,6 +483,7 @@ namespace Qv2ray
         parser.addOption(noPluginsOption);
         parser.addOption(noScaleFactorOption);
         parser.addOption(debugOption);
+        parser.addOption(noAutoConnectionOption);
         parser.addOption(disconnectOption);
         parser.addOption(reconnectOption);
         parser.addOption(exitOption);
@@ -486,7 +511,7 @@ namespace Qv2ray
 
         for (const auto &arg : parser.positionalArguments())
         {
-            if (arg.startsWith("qv2ray://"))
+            if (arg.startsWith(QV2RAY_URL_SCHEME + "://"))
             {
                 Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::QV2RAY_LINK;
                 Qv2rayProcessArgument.links << arg;
@@ -527,6 +552,12 @@ namespace Qv2ray
         {
             DEBUG(MODULE_INIT, "noScaleFactorOption is set.")
             StartupOption.noScaleFactor = true;
+        }
+
+        if (parser.isSet(noAutoConnectionOption))
+        {
+            DEBUG(MODULE_INIT, "noAutoConnectOption is set.")
+            StartupOption.noAutoConnection = true;
         }
 
         if (parser.isSet(noPluginsOption))

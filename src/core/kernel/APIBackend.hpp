@@ -7,7 +7,7 @@
 #endif
 
 // Check 10 times before telling user that API has failed.
-constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 60;
+constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 30;
 
 namespace Qv2ray::core::kernel
 {
@@ -44,7 +44,6 @@ namespace Qv2ray::core::kernel
         //
         bool started = false;
         bool running = false;
-        int apiFailedCounter = 0;
 #ifndef ANDROID
         std::shared_ptr<::grpc::Channel> grpc_channel;
         std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> stats_service_stub;

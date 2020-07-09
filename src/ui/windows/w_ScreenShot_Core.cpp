@@ -82,16 +82,6 @@ void ScreenShotWindow::pSize()
     fg->setPixmap(desktopImage.copy(imgX * scale, imgY * scale, imgW * scale, imgH * scale));
 }
 
-bool ScreenShotWindow::event(QEvent *e)
-{
-    if (e->type() == QEvent::Move)
-    {
-        //
-    }
-
-    return QWidget::event(e);
-}
-
 void ScreenShotWindow::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Escape)

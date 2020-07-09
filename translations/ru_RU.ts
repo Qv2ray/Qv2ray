@@ -1326,10 +1326,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>Включить прокси</translation>
     </message>
     <message>
-        <source>API Port</source>
-        <translation>Порт API</translation>
-    </message>
-    <message>
         <source>Use Local DNS</source>
         <translation>Использовать локальный DNS</translation>
     </message>
@@ -1372,14 +1368,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source> lines</source>
         <translation>строки</translation>
-    </message>
-    <message>
-        <source>V2ray Settings</source>
-        <translation>Настройки V2ray</translation>
-    </message>
-    <message>
-        <source>Core Executable Path</source>
-        <translation>Путь к ядру v2ray</translation>
     </message>
     <message>
         <source>V2ray Assets Directory</source>
@@ -1660,18 +1648,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>API SubSystem</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Check Date and Time from Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NTP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Plugin Kernel Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1876,6 +1852,41 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
         <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
 The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray Core Executable Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check System Date and Time from the Internet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray API Subsystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray API Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound Statistics (V2ray Core v4.26+)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currently:
+- vmess/shadowsocks/socks/http will be treated as PROXY.
+- freedom will be treated as DIRECT
+- blackhole will be treated as BLOCK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include Direct Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only V2ray Core v4.21+ is supported.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2379,6 +2390,13 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::kernel::APIWorker</name>
+    <message>
+        <source>Failed to get statistics data, please check if V2ray is running properly</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2968,14 +2986,30 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>SpeedPlotView</name>
+    <name>SpeedWidget</name>
     <message>
-        <source>Total Upload</source>
-        <translation>Всего загружено</translation>
+        <source>Proxy ↑</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Total Download</source>
-        <translation>Всего скачать</translation>
+        <source>Proxy ↓</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direct ↑</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direct ↓</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total ↑</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total ↓</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3115,49 +3149,6 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Disable Session Resumption</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>misc</name>
-    <message>
-        <source>B</source>
-        <comment>bytes</comment>
-        <translation>B</translation>
-    </message>
-    <message>
-        <source>KiB</source>
-        <comment>kibibytes (1024 bytes)</comment>
-        <translation>KiB</translation>
-    </message>
-    <message>
-        <source>MiB</source>
-        <comment>mebibytes (1024 kibibytes)</comment>
-        <translation>MiB</translation>
-    </message>
-    <message>
-        <source>GiB</source>
-        <comment>gibibytes (1024 mibibytes)</comment>
-        <translation>GiB</translation>
-    </message>
-    <message>
-        <source>TiB</source>
-        <comment>tebibytes (1024 gibibytes)</comment>
-        <translation>TiB</translation>
-    </message>
-    <message>
-        <source>PiB</source>
-        <comment>pebibytes (1024 tebibytes)</comment>
-        <translation>PiB</translation>
-    </message>
-    <message>
-        <source>EiB</source>
-        <comment>exbibytes (1024 pebibytes)</comment>
-        <translation>EiB</translation>
-    </message>
-    <message>
-        <source>/s</source>
-        <comment>per second</comment>
-        <translation>/s</translation>
     </message>
 </context>
 <context>

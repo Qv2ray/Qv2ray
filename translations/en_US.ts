@@ -1366,10 +1366,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>V2ray Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Log Level</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1394,10 +1390,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Core Executable Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1406,23 +1398,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>API SubSystem</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>API Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Check V2ray Core Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Check Date and Time from Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1869,6 +1845,41 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
         <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
 The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray Core Executable Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check System Date and Time from the Internet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray API Subsystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2ray API Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound Statistics (V2ray Core v4.26+)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currently:
+- vmess/shadowsocks/socks/http will be treated as PROXY.
+- freedom will be treated as DIRECT
+- blackhole will be treated as BLOCK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include Direct Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only V2ray Core v4.21+ is supported.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2370,6 +2381,13 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
             <numerusform>%1 out of %n entry have been filtered out, do you want to continue?</numerusform>
             <numerusform>%1 out of %n entries have been filtered out, do you want to continue?</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::core::kernel::APIWorker</name>
+    <message>
+        <source>Failed to get statistics data, please check if V2ray is running properly</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2959,13 +2977,29 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>SpeedPlotView</name>
+    <name>SpeedWidget</name>
     <message>
-        <source>Total Upload</source>
+        <source>Proxy ↑</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Total Download</source>
+        <source>Proxy ↓</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direct ↑</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direct ↓</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total ↑</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total ↓</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3105,49 +3139,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Disable Session Resumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>misc</name>
-    <message>
-        <source>B</source>
-        <comment>bytes</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>KiB</source>
-        <comment>kibibytes (1024 bytes)</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MiB</source>
-        <comment>mebibytes (1024 kibibytes)</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GiB</source>
-        <comment>gibibytes (1024 mibibytes)</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TiB</source>
-        <comment>tebibytes (1024 gibibytes)</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PiB</source>
-        <comment>pebibytes (1024 tebibytes)</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EiB</source>
-        <comment>exbibytes (1024 pebibytes)</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>/s</source>
-        <comment>per second</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

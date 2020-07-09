@@ -42,11 +42,6 @@ namespace Qv2ray::core::connection::generation
                                        const QString &tag = OUTBOUND_TAG_PROXY);
     } // namespace outbounds
 
-    // namespace final
-    // {
-    //     CONFIGROOT GenerateFinalConfig(CONFIGROOT root);
-    // }
-
     namespace filters
     {
         // mark all outbound
@@ -55,6 +50,7 @@ namespace Qv2ray::core::connection::generation
         void DNSInterceptFilter(CONFIGROOT &root, const bool have_ipv6);
         void BypassBTFilter(CONFIGROOT &root);
         void mKCPSeedFilter(CONFIGROOT &root);
+        void FillupTagsFilter(CONFIGROOT &root, const QString &subKey);
     } // namespace filters
 
 } // namespace Qv2ray::core::connection::generation

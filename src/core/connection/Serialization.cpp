@@ -13,7 +13,6 @@ namespace Qv2ray::core::connection
         QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
                                                                   QString *newGroupName)
         {
-            QList<QPair<QString, CONFIGROOT>> connectionConf;
             const auto mkAllowInsecure = [](QJsonObject &conf) {
                 auto allowI = GlobalConfig.advancedConfig.setAllowInsecure;
                 auto allowSR = GlobalConfig.advancedConfig.setSessionResumption;
@@ -23,6 +22,8 @@ namespace Qv2ray::core::connection
                     QJsonIO::SetValue(conf, !allowSR, "outbounds", 0, "streamSettings", "tlsSettings", "disableSessionResumption");
                 }
             };
+
+            QList<QPair<QString, CONFIGROOT>> connectionConf;
             if (link.startsWith("vmess://") && link.contains("@"))
             {
                 auto conf = vmess_new::Deserialize(link, aliasPrefix, errMessage);
@@ -43,7 +44,7 @@ namespace Qv2ray::core::connection
             else if (link.startsWith("ssd://"))
             {
                 QStringList errMessageList;
-                connectionConf = ssd::Deserialize(link, newGroupName, &errMessageList);
+                connectionConf << ssd::Deserialize(link, newGroupName, &errMessageList);
                 *errMessage = errMessageList.join(NEWLINE);
             }
             else
@@ -88,7 +89,14 @@ namespace Qv2ray::core::connection
             {
                 auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
                 auto transport = StreamSettingsObject::fromJson(outbound["streamSettings"].toObject());
-                sharelink = vmess::Serialize(transport, vmessServer, alias);
+                if (GlobalConfig.uiConfig.useOldShareLinkFormat)
+                {
+                    sharelink = vmess::Serialize(transport, vmessServer, alias);
+                }
+                else
+                {
+                    sharelink = vmess_new::Serialize(transport, vmessServer, alias);
+                }
             }
             else if (type == "shadowsocks")
             {

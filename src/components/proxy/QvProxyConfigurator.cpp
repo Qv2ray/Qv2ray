@@ -194,8 +194,8 @@ namespace Qv2ray::components::proxy
     void SetSystemProxy(const QString &address, int httpPort, int socksPort)
     {
         LOG(MODULE_PROXY, "Setting up System Proxy")
-        bool hasHTTP = (httpPort != 0);
-        bool hasSOCKS = (socksPort != 0);
+        bool hasHTTP = (httpPort > 0);
+        bool hasSOCKS = (socksPort > 0);
 
         if (!hasHTTP && !hasSOCKS)
         {

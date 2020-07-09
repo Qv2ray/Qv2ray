@@ -292,7 +292,7 @@ namespace Qv2ray::core::kernel
             KernelStarted = true;
 
             QMap<bool, QMap<QString, QString>> tagProtocolMap;
-            for (const auto isOutbound : { true, false })
+            for (const auto isOutbound : { GlobalConfig.uiConfig.graphConfig.useOutboundStats, false })
             {
                 for (const auto &item : root[isOutbound ? "outbounds" : "inbounds"].toArray())
                 {

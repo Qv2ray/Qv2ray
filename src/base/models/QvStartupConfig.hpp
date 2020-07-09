@@ -7,6 +7,9 @@ namespace Qv2ray::base
         /// No API subsystem
         bool noAPI;
 
+        /// Do not automatically connect to a server
+        bool noAutoConnection;
+
         /// Enable Debug Log.
         bool debugLog;
 

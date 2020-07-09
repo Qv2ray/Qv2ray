@@ -126,6 +126,8 @@ class PreferencesWindow
 
     void on_hasDirectStatisticsCB_stateChanged(int arg1);
 
+    void on_useOldShareLinkFormatCB_stateChanged(int arg1);
+
   private:
     //
     DnsSettingsWidget *dnsSettingsWidget;

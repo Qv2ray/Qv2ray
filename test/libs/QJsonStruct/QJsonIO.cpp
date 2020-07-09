@@ -50,6 +50,51 @@ TEST_CASE("QJsonIO Get Simple Value")
     }
 }
 
+TEST_CASE("QJsonIO Get Simple Value Using std::tuple")
+{
+    const auto obj = QJsonObject{
+        { "string", "a quick brown fox jumps over the lazy dog" }, //
+        { "integer", -32767 },                                     //
+        { "boolean", true },                                       //
+        { "decimal", 0.618 },                                      //
+    };
+    const auto arr = QJsonArray{ obj };
+
+    SECTION("Get Array Object")
+    {
+        const auto val = QJsonIO::GetValue(arr, std::tuple{ 0 });
+        REQUIRE(val.isObject());
+        REQUIRE(val.toObject() == obj);
+    }
+
+    SECTION("Get Object String")
+    {
+        const auto val = QJsonIO::GetValue(obj, std::tuple{ "string" });
+        REQUIRE(val.isString());
+        REQUIRE(val.toString() == obj["string"].toString());
+    }
+
+    SECTION("Get Object Integer")
+    {
+        const auto val = QJsonIO::GetValue(obj, std::tuple{ "integer" });
+        REQUIRE(val.toInt() == obj["integer"].toInt());
+    }
+
+    SECTION("Get Object Boolean")
+    {
+        const auto val = QJsonIO::GetValue(obj, std::tuple{ "boolean" });
+        REQUIRE(val.isBool());
+        REQUIRE(val.toBool() == obj["boolean"].toBool());
+    }
+
+    SECTION("Get Object Decimal")
+    {
+        const auto val = QJsonIO::GetValue(obj, std::tuple{ "decimal" });
+        REQUIRE(val.isDouble());
+        REQUIRE(val.toDouble() == obj["decimal"].toDouble());
+    }
+}
+
 TEST_CASE("QJsonIO Set Simple Value")
 {
     auto obj = QJsonObject{};

@@ -1,4 +1,6 @@
+#include "common/QvHelpers.hpp"
 #include "core/connection/Generation.hpp"
+
 namespace Qv2ray::core::connection::generation::filters
 {
     void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root)
@@ -32,10 +34,10 @@ namespace Qv2ray::core::connection::generation::filters
         {
             dnsRouteInTag = QJsonArray{ "tproxy_IN" };
         }
-        static const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" },
-                                                    { "port", "53" },
-                                                    { "type", "field" },
-                                                    { "inboundTag", dnsRouteInTag } };
+        const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" },
+                                             { "port", "53" },
+                                             { "type", "field" },
+                                             { "inboundTag", dnsRouteInTag } };
         // DNS Outbound
         QJsonIO::SetValue(root, dnsOutboundObj, "outbounds", root["outbounds"].toArray().count());
         // DNS Route
@@ -61,6 +63,19 @@ namespace Qv2ray::core::connection::generation::filters
             bool isEmptySeed = QJsonIO::GetValue(root, "outbounds", i, "streamSettings", "kcpSettings", "seed").toString().isEmpty();
             if (isEmptySeed)
                 QJsonIO::SetValue(root, QJsonIO::Undefined, "outbounds", i, "streamSettings", "kcpSettings", "seed");
+        }
+    }
+
+    void FillupTagsFilter(CONFIGROOT &root, const QString &subKey)
+    {
+        for (auto i = 0; i < root[subKey].toArray().count(); i++)
+        {
+            if (QJsonIO::GetValue(root, subKey, i, "tag").toString().isEmpty())
+            {
+                LOG(MODULE_SETTINGS, "Adding a tag to an inbound.")
+                const auto tag = GenerateRandomString(8);
+                QJsonIO::SetValue(root, tag, subKey, i, "tag");
+            }
         }
     }
 

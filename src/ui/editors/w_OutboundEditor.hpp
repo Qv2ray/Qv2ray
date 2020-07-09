@@ -38,10 +38,11 @@ class OutboundEditor
     void on_ss_emailTxt_textEdited(const QString &arg1);
     void on_ss_passwordTxt_textEdited(const QString &arg1);
     void on_ss_encryptionMethod_currentIndexChanged(const QString &arg1);
-    void on_ss_levelSpin_valueChanged(int arg1);
     void on_ss_otaCheckBox_stateChanged(int arg1);
     void on_socks_UserNameTxt_textEdited(const QString &arg1);
     void on_socks_PasswordTxt_textEdited(const QString &arg1);
+    void on_http_UserNameTxt_textEdited(const QString &arg1);
+    void on_http_PasswordTxt_textEdited(const QString &arg1);
     void on_securityCombo_currentIndexChanged(const QString &arg1);
 
     void on_testsEnabledCombo_currentIndexChanged(const QString &arg1);
@@ -63,6 +64,7 @@ class OutboundEditor
     VMessServerObject vmess;
     ShadowSocksServerObject shadowsocks;
     SocksServerObject socks;
+    HttpServerObject http;
     //
     StreamSettingsWidget *streamSettingsWidget;
     //

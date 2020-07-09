@@ -52,6 +52,13 @@ namespace Qv2ray::core
             *port = Server.port;
             return true;
         }
+        else if (*protocol == "http")
+        {
+            auto Server = HttpServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
+            *host = Server.address;
+            *port = Server.port;
+            return true;
+        }
         else
         {
             bool status;
@@ -158,41 +165,23 @@ namespace Qv2ray::core
         return TruncateString(ConnectionManager->GetGroupMetaObject(id).displayName, limit);
     }
 
-    const QMap<QString, int> GetConfigInboundPorts(const CONFIGROOT &root)
+    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const CONFIGROOT &root)
     {
-        if (!root.contains("inbounds"))
-            return {};
-        QMap<QString, int> inboundPorts;
+        QMap<QString, InboundInfoObject> inboundPorts;
         for (const auto &inboundVal : root["inbounds"].toArray())
         {
             const auto &inbound = inboundVal.toObject();
-            inboundPorts.insert(inbound["tag"].toString(), inbound["port"].toInt());
+            inboundPorts[inbound["tag"].toString()] = {
+                inbound["protocol"].toString(), //
+                inbound["listen"].toString(),   //
+                inbound["port"].toInt()         //
+            };
         }
         return inboundPorts;
     }
 
-    const QMap<QString, int> GetConfigInboundPorts(const ConnectionId &id)
+    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const ConnectionId &id)
     {
-        return GetConfigInboundPorts(ConnectionManager->GetConnectionRoot(id));
-    }
-
-    const QMap<QString, QString> GetConfigInboundHosts(const CONFIGROOT &root)
-    {
-        if (!root.contains("inbounds"))
-        {
-            return {};
-        }
-        QMap<QString, QString> inboundHosts;
-        for (const auto &inboundVal : root["inbounds"].toArray())
-        {
-            const auto &inbound = inboundVal.toObject();
-            inboundHosts.insert(inbound["tag"].toString(), inbound["listen"].toString());
-        }
-        return inboundHosts;
-    }
-
-    const QMap<QString, QString> GetConfigInboundHosts(const ConnectionId &id)
-    {
-        return GetConfigInboundHosts(ConnectionManager->GetConnectionRoot(id));
+        return GetConfigInboundInfo(ConnectionManager->GetConnectionRoot(id));
     }
 } // namespace Qv2ray::core
