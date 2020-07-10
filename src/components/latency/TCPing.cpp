@@ -7,7 +7,7 @@ namespace Qv2ray::components::latency::tcping
     TCPing::TCPing(std::shared_ptr<uvw::Loop> loopin, LatencyTestRequest &reqin, LatencyTestHost *testHost)
         : loop(std::move(loopin)), req(std::move(reqin)), testHost(testHost)
     {
-        data.totalCount = 0;
+        data.totalCount = 1;
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;

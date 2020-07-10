@@ -50,7 +50,7 @@ namespace Qv2ray::components::latency::tcping
                     }
                 }
             }
-            for (; data.totalCount < req.totalCount; ++data.totalCount)
+            for (; data.totalCount <= req.totalCount; ++data.totalCount)
             {
                 auto tcpClient = loop->resource<uvw::TCPHandle>();
                 tcpClient->once<uvw::ErrorEvent>([ptr = shared_from_this(), this](const uvw::ErrorEvent &e, uvw::TCPHandle &h) {

@@ -40,11 +40,9 @@ namespace Qv2ray::components::latency
             }
             else
             {
-                std::unique_lock<std::mutex> lockGuard{ m, std::defer_lock };
-                if (!lockGuard.try_lock())
-                    return;
                 if (requests.empty())
                     return;
+                std::unique_lock<std::mutex> lockGuard{ m };
                 auto parent = qobject_cast<LatencyTestHost *>(this->parent());
                 for (auto &req : requests)
                 {
