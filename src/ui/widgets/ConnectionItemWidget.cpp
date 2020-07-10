@@ -107,6 +107,7 @@ void ConnectionItemWidget::RecalculateConnectionsCount()
 {
     auto connectionCount = ConnectionManager->Connections(groupId).count();
     latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
+    OnGroupItemRenamed(groupId, "", originalItemName);
 }
 
 void ConnectionItemWidget::OnConnected(const ConnectionGroupPair &id)
@@ -114,7 +115,7 @@ void ConnectionItemWidget::OnConnected(const ConnectionGroupPair &id)
     if (id == ConnectionGroupPair{ connectionId, groupId })
     {
         connNameLabel->setText("• " + originalItemName);
-        LOG(MODULE_UI, "OnConnected signal received for: " + id.connectionId.toString())
+        DEBUG(MODULE_UI, "ConnectionItemWidgetOnConnected signal received for: " + id.connectionId.toString())
         emit RequestWidgetFocus(this);
     }
 }
