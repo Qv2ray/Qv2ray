@@ -7,6 +7,18 @@
 
 namespace Qv2ray::components::latency
 {
+    int isAddr(const char *host, int port, struct sockaddr_storage *storage, int ipv6first)
+    {
+        if (uv_ip4_addr(host, port, reinterpret_cast<sockaddr_in *>(storage)) == 0)
+        {
+            return 0;
+        }
+        if (uv_ip6_addr(host, port, reinterpret_cast<sockaddr_in6 *>(storage)) == 0)
+        {
+            return 0;
+        }
+        return -1;
+    }
     int getSockAddress(std::shared_ptr<uvw::Loop> &loop, const char *host, int port, struct sockaddr_storage *storage, int ipv6first)
     {
         if (uv_ip4_addr(host, port, reinterpret_cast<sockaddr_in *>(storage)) == 0)
