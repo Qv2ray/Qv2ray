@@ -195,15 +195,6 @@ namespace Qv2ray::base
         {
             return JsonStructHelper::___json_struct_store_data(entries);
         }
-        auto toMap() const
-        {
-            std::map<StatisticsType, QvStatsData> result;
-            for (auto i = 0; i < entries.count(); i++)
-            {
-                result[StatisticsType(i)] = { entries[i].upLinkData, entries[i].downLinkData };
-            }
-            return result;
-        }
         void loadJson(const QJsonValue &d)
         {
             entries.clear();
