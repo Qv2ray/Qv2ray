@@ -1877,7 +1877,7 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
     </message>
     <message>
         <source>Outbound Statistics (V2ray Core v4.26+)</source>
-        <translation>分出站统计 (V2Ray v2.46+)</translation>
+        <translation>分出站统计 (V2Ray v4.26+)</translation>
     </message>
     <message>
         <source>Currently:
