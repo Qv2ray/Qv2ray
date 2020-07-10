@@ -16,7 +16,7 @@ Terminal=false
 Icon=qv2ray
 Exec=qv2ray %u
 MimeType=x-scheme-handler/qv2ray;
-Actions=debug;noPlugin;noScaleFactor;noAPI;
+Actions=debug;noPlugin;noScaleFactor;noAPI;noAutoConnection;
 
 [Desktop Action debug]
 Name=Start with Debug Mode
@@ -41,3 +41,10 @@ Name=Start without gRPC API
 Name[zh_CN]=不使用 gRPC API 启动
 Name[ja]=gRPC使用せずに起動
 Exec=qv2ray --noAPI
+
+[Desktop Action noAutoConnection]
+Name=Start without automatic connection
+Name[zh_CN]=不自动连接节点启动
+Name[ja]=自動接続使用せずに起動
+Exec=qv2ray --noAutoConnection
+

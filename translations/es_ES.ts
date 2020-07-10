@@ -1121,10 +1121,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>Método de encriptación</translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation>Nivel</translation>
-    </message>
-    <message>
         <source>OTA</source>
         <translation>OTA</translation>
     </message>
@@ -1158,6 +1154,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Tests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Http</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1882,6 +1882,10 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <source>Only V2ray Core v4.21+ is supported.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Old Share Link Format</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2170,7 +2174,11 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation>vmess: // url no es válida</translation>
     </message>
     <message>
-        <source>Invalid streamSettings protocol:  </source>
+        <source>Invalid streamSettings protocol: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown state.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2287,6 +2295,10 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     <message>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
         <translation>Qv2ray: una interfaz Qt multiplataforma para V2ray.</translation>
+    </message>
+    <message>
+        <source>Do not automatically connect</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

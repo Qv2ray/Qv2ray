@@ -1120,10 +1120,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>加密方法</translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation>级别</translation>
-    </message>
-    <message>
         <source>OTA</source>
         <translation>OTA</translation>
     </message>
@@ -1158,6 +1154,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Tests</source>
         <translation>测试</translation>
+    </message>
+    <message>
+        <source>Http</source>
+        <translation>HTTP</translation>
     </message>
 </context>
 <context>
@@ -1877,7 +1877,7 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
     </message>
     <message>
         <source>Outbound Statistics (V2ray Core v4.26+)</source>
-        <translation>分出站统计 (V2Ray v2.46+)</translation>
+        <translation>分出站统计 (V2Ray v4.26+)</translation>
     </message>
     <message>
         <source>Currently:
@@ -1896,6 +1896,10 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
     <message>
         <source>Only V2ray Core v4.21+ is supported.</source>
         <translation>仅支持 V2Ray v4.21+。</translation>
+    </message>
+    <message>
+        <source>Old Share Link Format</source>
+        <translation>旧 VMess 链接格式</translation>
     </message>
 </context>
 <context>
@@ -2185,8 +2189,12 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
         <translation>vmess:// 链接无效</translation>
     </message>
     <message>
-        <source>Invalid streamSettings protocol:  </source>
-        <translation>无效的 streamSettings 协议:  </translation>
+        <source>Invalid streamSettings protocol: </source>
+        <translation>无效的 streamSettings 协议: </translation>
+    </message>
+    <message>
+        <source>Unknown state.</source>
+        <translation>未知状态。</translation>
     </message>
 </context>
 <context>
@@ -2302,6 +2310,10 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
     <message>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
         <translation>Qv2ray - 一个 V2Ray 的跨平台 Qt 前端。</translation>
+    </message>
+    <message>
+        <source>Do not automatically connect</source>
+        <translation>不要自动连接节点</translation>
     </message>
 </context>
 <context>
