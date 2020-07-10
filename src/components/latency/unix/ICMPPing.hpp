@@ -1,17 +1,11 @@
 #pragma once
 #include <QtGlobal>
 #ifdef Q_OS_UNIX
-    #include "components/latency/LatencyTest.hpp"
-
     #include <QPair>
     #include <QString>
-namespace uvw
-{
-    class Loop;
-}
 namespace Qv2ray::components::latency::icmping
 {
-    class ICMPPing : public std::enable_shared_from_this<ICMPPing>
+    class ICMPPing
     {
       public:
         explicit ICMPPing(int ttl);
@@ -19,8 +13,7 @@ namespace Qv2ray::components::latency::icmping
         {
             deinit();
         }
-        void start(std::shared_ptr<uvw::Loop> loop, LatencyTestRequest &req, LatencyTestHost *testHost);
-        bool notifyTestHost(LatencyTestHost *testHost, const ConnectionId &id);
+        QPair<int64_t, QString> ping(const QString &address);
 
       private:
         void deinit();
@@ -29,9 +22,6 @@ namespace Qv2ray::components::latency::icmping
         // socket
         int socketId = -1;
         bool initialized = false;
-        int successCount = 0;
-        LatencyTestResult data;
-        std::vector<timeval> startTimevals;
         QString initErrorMessage;
     };
 } // namespace Qv2ray::components::latency::icmping

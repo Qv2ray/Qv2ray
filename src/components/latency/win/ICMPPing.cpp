@@ -1,12 +1,16 @@
 #include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
+//
     #include <WS2tcpip.h>
+//
     #include <Windows.h>
+//
     #include <iphlpapi.h>
+//
     #include <IcmpAPI.h>
+//
     #include <QEventLoop>
     #include <QHostInfo>
-
 namespace Qv2ray::components::latency::icmping
 {
     ICMPPing::ICMPPing(uint64_t timeout)
@@ -78,19 +82,6 @@ namespace Qv2ray::components::latency::icmping
         IcmpCloseHandle(hIcmpFile);
         const ICMP_ECHO_REPLY *r = (const ICMP_ECHO_REPLY *) reply_buf;
         return QPair<long, QString>(r->RoundTripTime * 1000, QString{});
-    }
-    bool ICMPPing::notifyTestHost(LatencyTestHost *testHost, const ConnectionId &id)
-    {
-        if (data.failedCount + successCount == data.totalCount)
-        {
-            if (data.failedCount == data.totalCount)
-                data.avg = LATENCY_TEST_VALUE_ERROR;
-            else
-                data.errorMessage.clear(), data.avg = data.avg / successCount / 1000;
-            testHost->OnLatencyTestCompleted(id, data);
-            return true;
-        }
-        return false;
     }
 } // namespace Qv2ray::components::latency::icmping
 #endif
