@@ -19,7 +19,6 @@ steps:
   inputs:
     versionSpec: '12.x'
 - script: |
-    sudo xcode-select -s /Applications/Xcode_10.3.app
     brew install protobuf grpc ninja qt5 pkg-config
     npm install -g appdmg
   displayName: Prepare dependencies
