@@ -213,6 +213,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
         //
         SET_AUTOSTART_UI_ENABLED(CurrentConfig.autoStartBehavior == AUTO_CONNECTION_FIXED);
         //
+        if (CurrentConfig.autoStartId.isEmpty())
+        {
+            CurrentConfig.autoStartId.groupId = DefaultGroupId;
+        }
+        //
         auto autoStartConnId = CurrentConfig.autoStartId.connectionId;
         auto autoStartGroupId = CurrentConfig.autoStartId.groupId;
         //
@@ -698,7 +703,8 @@ void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
 {
-    LOADINGCHECK if (arg1.isEmpty())
+    LOADINGCHECK
+    if (arg1.isEmpty())
     {
         CurrentConfig.autoStartId.clear();
         autoStartConnCombo->clear();
