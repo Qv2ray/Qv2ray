@@ -53,7 +53,7 @@ namespace Qv2ray::components::latency::tcping
 
     void TCPing::start()
     {
-        start(0, 0);
+        async_DNS_lookup(0, 0);
     }
     void TCPing::notifyTestHost()
     {
@@ -64,6 +64,33 @@ namespace Qv2ray::components::latency::tcping
             else
                 data.errorMessage.clear(), data.avg = data.avg / successCount;
             testHost->OnLatencyTestCompleted(req.id, data);
+        }
+    }
+    void TCPing::tcp_ping()
+    {
+        for (; data.totalCount <= req.totalCount; ++data.totalCount)
+        {
+            auto tcpClient = loop->resource<uvw::TCPHandle>();
+            tcpClient->once<uvw::ErrorEvent>([ptr = shared_from_this(), this](const uvw::ErrorEvent &e, uvw::TCPHandle &h) {
+              LOG(MODULE_NETWORK, "error connecting to host: " + req.host + ":" + QSTRN(req.port) + " " + e.what())
+              data.failedCount += 1;
+              data.errorMessage = e.what();
+              notifyTestHost();
+              h.clear();
+            });
+            tcpClient->once<uvw::ConnectEvent>([ptr = shared_from_this(), start = system_clock::now(), this](auto &, auto &h) {
+              ++successCount;
+              system_clock::time_point end = system_clock::now();
+              auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+              long ms = milliseconds.count();
+              data.avg += ms;
+              data.worst = std::max(data.worst, ms);
+              data.best = std::min(data.best, ms);
+              notifyTestHost();
+              h.clear();
+              h.close();
+            });
+            tcpClient->connect(reinterpret_cast<const sockaddr &>(storage));
         }
     }
 } // namespace Qv2ray::components::latency::tcping
