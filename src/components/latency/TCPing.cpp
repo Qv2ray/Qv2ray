@@ -1,27 +1,28 @@
 #include "TCPing.hpp"
-#include "uvw.hpp"
 
+#include "uvw.hpp"
 
 namespace Qv2ray::components::latency::tcping
 {
-    TCPing::TCPing(std::shared_ptr<uvw::Loop> loopin, LatencyTestRequest &reqin, LatencyTestHost *testHost):loop(std::move(loopin)),req(std::move(reqin)),testHost(testHost)
+    TCPing::TCPing(std::shared_ptr<uvw::Loop> loopin, LatencyTestRequest &reqin, LatencyTestHost *testHost)
+        : loop(std::move(loopin)), req(std::move(reqin)), testHost(testHost)
     {
         data.totalCount = 0;
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
-        if(isAddr(req.host.toStdString().data(), req.port, &storage, 0)!=0)
+        if (isAddr(req.host.toStdString().data(), req.port, &storage, 0) != 0)
         {
-        getAddrHandle=loop->resource<uvw::GetAddrInfoReq>();
-        sprintf(digitBuffer, "%d", req.port);
+            getAddrHandle = loop->resource<uvw::GetAddrInfoReq>();
+            sprintf(digitBuffer, "%d", req.port);
         }
     }
     TCPing::~TCPing()
     {
-            if(getAddrHandle)
-                getAddrHandle->clear();
+        if (getAddrHandle)
+            getAddrHandle->clear();
     }
-    int TCPing::getAddrInfoRes(uvw::AddrInfoEvent& e)
+    int TCPing::getAddrInfoRes(uvw::AddrInfoEvent &e)
     {
         struct addrinfo *rp = nullptr;
         for (rp = e.data.get(); rp != nullptr; rp = rp->ai_next)
@@ -45,14 +46,14 @@ namespace Qv2ray::components::latency::tcping
                 break;
             }
         }
-        if(rp)
+        if (rp)
             return 0;
         return -1;
     }
 
     void TCPing::start()
     {
-        start(0,0);
+        start(0, 0);
     }
     void TCPing::notifyTestHost()
     {

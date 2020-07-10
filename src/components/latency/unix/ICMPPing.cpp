@@ -7,13 +7,14 @@
 
 #include <QObject>
 #ifdef Q_OS_UNIX
+    #include "uvw.hpp"
+
     #include <netinet/in.h>
     #include <netinet/ip.h> //macos need that
     #include <netinet/ip_icmp.h>
     #include <sys/socket.h>
     #include <sys/time.h>
     #include <unistd.h>
-    #include "uvw.hpp"
 
     #ifdef Q_OS_MAC
         #define SOL_IP 0

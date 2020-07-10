@@ -59,7 +59,7 @@ namespace Qv2ray::components::latency
                         case TCPING:
                         default:
                         {
-                            auto ptr = std::make_shared<tcping::TCPing>(loop,req,parent);
+                            auto ptr = std::make_shared<tcping::TCPing>(loop, req, parent);
                             ptr->start();
                             break;
                         }
