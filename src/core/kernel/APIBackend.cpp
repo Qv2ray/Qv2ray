@@ -87,6 +87,7 @@ namespace Qv2ray::core::kernel
 
             while (running)
             {
+                QThread::msleep(1000);
                 if (!dialed)
                 {
 #ifndef ANDROID
@@ -125,7 +126,6 @@ namespace Qv2ray::core::kernel
                 apiFailCounter = hasError ? apiFailCounter + 1 : 0;
                 // Changed: Removed isrunning check here
                 emit onAPIDataReady(statsResult);
-                QThread::msleep(1000);
             } // end while running
         }     // end while started
 
