@@ -50,8 +50,13 @@ namespace Qv2ray::components::latency
                     {
                         case ICMPING:
                         {
+#ifdef Q_OS_UNIX
                             auto ptr = std::make_shared<icmping::ICMPPing>(30,loop,req,parent);
                             ptr->start();
+#else
+                            auto ptr = std::make_shared<icmping::ICMPPing>(30);
+                            ptr->start(loop,req,parent);
+#endif
                         }
                         break;
                         case TCPING:
