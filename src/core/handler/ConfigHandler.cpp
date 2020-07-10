@@ -659,16 +659,27 @@ namespace Qv2ray::core::handler
         }
 
         // Check if anything left behind (not being updated or changed significantly)
-        LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")
-        for (const auto &conn : originalConnectionIdList)
+        if (!originalConnectionIdList.isEmpty())
         {
-            LOG(MODULE_CORE_HANDLER, "Removing connections not in the new subscription: " + conn.toString())
-            RemoveConnectionFromGroup(conn, id);
+            bool needContinue =
+                QvMessageBoxAsk(nullptr, //
+                                tr("Update Subscription"),
+                                tr("There're %1 connection(s) in the group that do not belong the current subscription (any more).")
+                                        .arg(originalConnectionIdList.count()) +
+                                    NEWLINE + tr("Would you like to remove them?")) == QMessageBox::Yes;
+            if (needContinue)
+            {
+                LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")
+                for (const auto &conn : originalConnectionIdList)
+                {
+                    LOG(MODULE_CORE_HANDLER, "Removing connections not in the new subscription: " + conn.toString())
+                    RemoveConnectionFromGroup(conn, id);
+                }
+            }
         }
 
         // Update the time
         groups[id].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
-
         return hasErrorOccured;
     }
 
