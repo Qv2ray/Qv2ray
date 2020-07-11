@@ -240,7 +240,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
 
-            if (!V2rayKernelInstance::ValidateConfig(path))
+            if (!V2RayKernelInstance::ValidateConfig(path))
             {
                 QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;

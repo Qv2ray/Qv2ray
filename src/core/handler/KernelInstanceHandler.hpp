@@ -1,7 +1,7 @@
 #pragma once
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/CoreUtils.hpp"
-#include "core/kernel/V2rayKernelInteractions.hpp"
+#include "core/kernel/V2RayKernelInteractions.hpp"
 
 #include <QObject>
 #include <optional>
@@ -40,7 +40,7 @@ namespace Qv2ray::core::handler
       private slots:
         void OnKernelCrashed_p(const QString &msg);
         void OnKernelLog_p(const QString &log);
-        void OnV2rayStatsDataRcvd_p(const QMap<StatisticsType, QvStatsSpeed> &data);
+        void OnV2RayStatsDataRcvd_p(const QMap<StatisticsType, QvStatsSpeed> &data);
         void OnPluginStatsDataRcvd_p(const long uploadSpeed, const long downloadSpeed);
 
       private:
@@ -70,7 +70,7 @@ namespace Qv2ray::core::handler
         // Since QMap does not support std::unique_ptr, we use std::map<>
         std::list<std::pair<QString, std::unique_ptr<QvPluginKernel>>> activeKernels;
         QMap<QString, InboundInfoObject> inboundInfo;
-        V2rayKernelInstance *vCoreInstance = nullptr;
+        V2RayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
     };
     inline const KernelInstanceHandler *KernelInstance;

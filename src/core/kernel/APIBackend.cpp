@@ -10,7 +10,7 @@ using grpc::Status;
 
 namespace Qv2ray::core::kernel
 {
-    constexpr auto QV2RAY_GRPC_ERROR_RETCODE = -1;
+    constexpr auto Qv2ray_GRPC_ERROR_RETCODE = -1;
     static QvAPIDataTypeConfig DefaultInboundAPIConfig{ { API_INBOUND, { "dokodemo-door", "http", "socks" } } };
     static QvAPIDataTypeConfig DefaultOutboundAPIConfig{ { API_OUTBOUND_PROXY, { "dns", "http", "mtproto", "shadowsocks", "socks", "vmess" } },
                                                          { API_OUTBOUND_DIRECT, { "freedom" } },
@@ -22,10 +22,10 @@ namespace Qv2ray::core::kernel
     // It's been expected that you will take hours to fully understand the tricks and hacks lying deeply in this class.
     //
     // The API Worker runs as a daemon together with Qv2ray, on a single thread.
-    // They use a flag, running, to indicate if the API worker should go and fetch the statistics from V2ray Core.
+    // They use a flag, running, to indicate if the API worker should go and fetch the statistics from V2Ray Core.
     //
-    // The flag, running, will be set to true, immediately after the V2ray core reported that it's been started.
-    // and will be set to false right before we stopping V2ray Core.
+    // The flag, running, will be set to true, immediately after the V2Ray core reported that it's been started.
+    // and will be set to false right before we stopping V2Ray Core.
     //
 
     APIWorker::APIWorker()
@@ -87,7 +87,6 @@ namespace Qv2ray::core::kernel
 
             while (running)
             {
-                QThread::msleep(1000);
                 if (!dialed)
                 {
 #ifndef ANDROID
@@ -102,13 +101,15 @@ namespace Qv2ray::core::kernel
                 if (apiFailCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
                 {
                     LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
-                    emit OnAPIErrored(tr("Failed to get statistics data, please check if V2ray is running properly"));
+                    emit OnAPIErrored(tr("Failed to get statistics data, please check if V2Ray is running properly"));
                     apiFailCounter++;
+                    QThread::msleep(1000);
                     continue;
                 }
                 else if (apiFailCounter > QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
                 {
                     // Ignored future requests.
+                    QThread::msleep(1000);
                     continue;
                 }
 
@@ -119,13 +120,14 @@ namespace Qv2ray::core::kernel
                     const QString prefix = config.type == API_INBOUND ? "inbound" : "outbound";
                     const auto value_up = CallStatsAPIByName(prefix % ">>>" % tag % ">>>traffic>>>uplink");
                     const auto value_down = CallStatsAPIByName(prefix % ">>>" % tag % ">>>traffic>>>downlink");
-                    hasError = hasError || value_up == QV2RAY_GRPC_ERROR_RETCODE || value_down == QV2RAY_GRPC_ERROR_RETCODE;
+                    hasError = hasError || value_up == Qv2ray_GRPC_ERROR_RETCODE || value_down == Qv2ray_GRPC_ERROR_RETCODE;
                     statsResult[config.type].first += std::max(value_up, 0LL);
                     statsResult[config.type].second += std::max(value_down, 0LL);
                 }
                 apiFailCounter = hasError ? apiFailCounter + 1 : 0;
                 // Changed: Removed isrunning check here
                 emit onAPIDataReady(statsResult);
+                QThread::msleep(1000);
             } // end while running
         }     // end while started
 
@@ -145,7 +147,7 @@ namespace Qv2ray::core::kernel
         if (!status.ok())
         {
             LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
-            return QV2RAY_GRPC_ERROR_RETCODE;
+            return Qv2ray_GRPC_ERROR_RETCODE;
         }
         else
         {

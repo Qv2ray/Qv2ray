@@ -348,7 +348,7 @@ namespace Qv2ray
 
         if (!QDir(QV2RAY_GENERATED_DIR).exists())
         {
-            // The dir used to generate final config file, for V2ray interaction.
+            // The dir used to generate final config file, for V2Ray interaction.
             QDir().mkdir(QV2RAY_GENERATED_DIR);
             LOG(MODULE_INIT, "Created config generation dir at: " + QV2RAY_GENERATED_DIR)
         }
@@ -476,7 +476,7 @@ namespace Qv2ray
         QCommandLineOption reconnectOption("reconnect", tr("Reconnect last connection"));
         QCommandLineOption exitOption("exit", tr("Exit Qv2ray"));
         //
-        parser.setApplicationDescription(tr("Qv2ray - A cross-platform Qt frontend for V2ray."));
+        parser.setApplicationDescription(tr("Qv2ray - A cross-platform Qt frontend for V2Ray."));
         parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
         //
         parser.addOption(noAPIOption);

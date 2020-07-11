@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="generalSettingsPage">
       <attribute name="title">
@@ -664,7 +664,7 @@ But could damage your server if improperly used.</string>
        <item>
         <widget class="QGroupBox" name="vcoresettingsGroupBox">
          <property name="title">
-          <string>V2ray Core Settings</string>
+          <string>V2Ray Core Settings</string>
          </property>
          <layout class="QFormLayout" name="formLayout_10">
           <item row="0" column="0">
@@ -721,7 +721,7 @@ But could damage your server if improperly used.</string>
           <item row="1" column="0">
            <widget class="QLabel" name="label_46">
             <property name="text">
-             <string>V2ray Core Executable Path</string>
+             <string>V2Ray Core Executable Path</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -749,7 +749,7 @@ But could damage your server if improperly used.</string>
           <item row="2" column="0">
            <widget class="QLabel" name="label_15">
             <property name="text">
-             <string>V2ray Assets Directory</string>
+             <string>V2Ray Assets Directory</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -773,7 +773,7 @@ But could damage your server if improperly used.</string>
           <item row="7" column="0" colspan="2">
            <widget class="QPushButton" name="checkVCoreSettings">
             <property name="text">
-             <string>Check V2ray Core Settings</string>
+             <string>Check V2Ray Core Settings</string>
             </property>
            </widget>
           </item>
@@ -787,7 +787,7 @@ But could damage your server if improperly used.</string>
           <item row="3" column="0">
            <widget class="QLabel" name="label_68">
             <property name="text">
-             <string>V2ray API Subsystem</string>
+             <string>V2Ray API Subsystem</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -804,7 +804,7 @@ But could damage your server if improperly used.</string>
           <item row="4" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>V2ray API Port</string>
+             <string>V2Ray API Port</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -833,12 +833,12 @@ But could damage your server if improperly used.</string>
           <item row="5" column="0">
            <widget class="QLabel" name="label_37">
             <property name="text">
-             <string>Outbound Statistics (V2ray Core v4.26+)</string>
+             <string>Outbound Statistics (V2Ray Core v4.26+)</string>
             </property>
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QCheckBox" name="v2rayOutboundStatsCB">
+           <widget class="QCheckBox" name="V2RayOutboundStatsCB">
             <property name="toolTip">
              <string>Currently:
 - vmess/shadowsocks/socks/http will be treated as PROXY.
@@ -876,7 +876,7 @@ But could damage your server if improperly used.</string>
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label_62">
             <property name="text">
-             <string>Enabling V2ray Integration will allow the kernel benefit from the V2ray routing engine.</string>
+             <string>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -886,7 +886,7 @@ But could damage your server if improperly used.</string>
           <item row="2" column="0">
            <widget class="QLabel" name="label_57">
             <property name="text">
-             <string>V2ray Integration</string>
+             <string>V2Ray Integration</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -894,7 +894,7 @@ But could damage your server if improperly used.</string>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QCheckBox" name="pluginKernelV2rayIntegrationCB">
+           <widget class="QCheckBox" name="pluginKernelV2RayIntegrationCB">
             <property name="toolTip">
              <string>If not checked, these features will be disabled:
 
@@ -944,7 +944,7 @@ Custom DNS Settings</string>
           <item row="1" column="0" colspan="2">
            <widget class="QLabel" name="label_64">
             <property name="text">
-             <string>Only V2ray Core v4.21+ is supported.</string>
+             <string>Only V2Ray Core v4.21+ is supported.</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -1537,7 +1537,7 @@ Custom DNS Settings</string>
           <item row="3" column="0">
            <widget class="QLabel" name="label_75">
             <property name="text">
-             <string>Use V2ray DNS for Direct Connection</string>
+             <string>Use V2Ray DNS for Direct Connection</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
