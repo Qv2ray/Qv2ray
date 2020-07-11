@@ -109,8 +109,15 @@ namespace Qv2ray::components::latency::icmping
         memset(&targetAddress, 0, sizeof(targetAddress));
         targetAddress.sin_family = resolvedAddress->h_addrtype;
         targetAddress.sin_port = 0;
-        memcpy(&targetAddress.sin_addr, resolvedAddress->h_addr, resolvedAddress->h_length);
 
+        auto src = resolvedAddress->h_addr;
+        if (src == nullptr)
+        {
+            // Buggy GCC detected
+            return { 0, "GCC: COMPILER BUG. Cannot even dereference a char**" };
+        }
+
+        memcpy(&targetAddress.sin_addr, src, resolvedAddress->h_length);
         // prepare echo request packet
         icmp _icmp_request;
         memset(&_icmp_request, 0, sizeof(_icmp_request));
