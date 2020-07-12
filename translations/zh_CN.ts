@@ -950,7 +950,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Set as automatically connected</source>
-        <translation>设置为自动链接</translation>
+        <translation>设置为自动连接</translation>
     </message>
     <message>
         <source>Edit</source>
