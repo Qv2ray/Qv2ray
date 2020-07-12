@@ -664,8 +664,8 @@ namespace Qv2ray::core::handler
             bool needContinue =
                 QvMessageBoxAsk(nullptr, //
                                 tr("Update Subscription"),
-                                tr("There're %1 connection(s) in the group that do not belong the current subscription (any more).")
-                                        .arg(originalConnectionIdList.count()) +
+                                tr("There're %n connection(s) in the group that do not belong the current subscription (any more).", "",
+                                   originalConnectionIdList.count()) +
                                     NEWLINE + tr("Would you like to remove them?")) == QMessageBox::Yes;
             if (needContinue)
             {

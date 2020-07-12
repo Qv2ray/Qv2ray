@@ -838,7 +838,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
         const auto strWarnTitle = tr("Watch Out!");
         const auto strWarnContent = //
             tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
-               "The filename of V2Ray core is usually 'V2Ray' or 'V2Ray.exe'. Make sure to choose it wisely.\r\n"
+               "The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.\r\n"
                "If you insist to proceed, we're not providing with any support.");
         const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
                                                  QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
@@ -969,7 +969,7 @@ void PreferencesWindow::on_setSessionResumptionCB_stateChanged(int arg1)
     LOADINGCHECK
     if (arg1 == Qt::Checked)
     {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will make your TLS fingerpring different from common golang programs."));
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will make your TLS fingerpring different from common Golang programs."));
     }
     CurrentConfig.advancedConfig.setSessionResumption = arg1 == Qt::Checked;
 }

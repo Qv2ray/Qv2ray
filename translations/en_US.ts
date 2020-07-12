@@ -292,6 +292,14 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>All connections will be moved to default group, do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The subscription link is empty.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The subscription link is invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
@@ -1211,15 +1219,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Darkmode UI Icons</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Darkmode Tray Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1394,23 +1394,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>V2ray Assets Directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Check V2ray Core Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Plugin Kernel Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabling V2ray Integration will allow the kernel benefit from the V2ray routing engine.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray Integration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1547,10 +1531,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use V2ray DNS for Direct Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use Local DNS</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1667,23 +1647,7 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open V2ray assets folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open V2ray core file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable tProxy Support</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will append capabilities to the V2ray executable.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1691,15 +1655,7 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Qv2ray cannot copy one or both V2ray files from: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>to this path: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1727,18 +1683,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>V2ray Core Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray path configuration check passed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current version of V2ray is: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disabling API Subsystem</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1756,10 +1700,6 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will make your TLS fingerpring different from common golang programs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1842,29 +1782,7 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
-The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
-If you insist to proceed, we&apos;re not providing with any support.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray Core Executable Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Check System Date and Time from the Internet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray API Subsystem</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray API Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outbound Statistics (V2ray Core v4.26+)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1879,11 +1797,101 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Only V2ray Core v4.21+ is supported.</source>
+        <source>Old Share Link Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Old Share Link Format</source>
+        <source>Adapt Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adapt Dark Tray Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray Core Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray Core Executable Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray Assets Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check V2Ray Core Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray API Subsystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray API Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound Statistics (V2Ray Core v4.26+)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray Integration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only V2Ray Core v4.21+ is supported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use V2Ray DNS for Direct Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open V2Ray assets folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open V2Ray core file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will append capabilities to the V2Ray executable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray will copy your V2Ray core to this path: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray cannot copy one or both V2Ray files from: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to setcap onto V2Ray executable. You may need to run `setcap` manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray path configuration check passed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current version of V2Ray is: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will make your TLS fingerpring different from common Golang programs.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2146,10 +2154,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Configuration Upgrade Failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2179,6 +2183,10 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>Unknown state.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2293,11 +2301,11 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
+        <source>Do not automatically connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Do not automatically connect</source>
+        <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2394,74 +2402,27 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
             <numerusform>%1 out of %n entries have been filtered out, do you want to continue?</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Would you like to remove them?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
+        <translation>
+            <numerusform>There is %n connection in the group that do not belong to the current subscription any more.</numerusform>
+            <numerusform>There are %n connections in the group that do not belong to the current subscription any more.</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::kernel::APIWorker</name>
     <message>
-        <source>Failed to get statistics data, please check if V2ray is running properly</source>
+        <source>Failed to get statistics data, please check if V2Ray is running properly</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>Qv2ray::core::kernel::V2rayKernelInstance</name>
-    <message>
-        <source>V2ray core executable not found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
-Expected core ABI is %1, but got actual %2.<byte value="xd"/>
-Maybe you have downloaded the wrong core?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray assets path is not valid.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No geoip.dat in assets path.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No geosite.dat in assets path.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray core failed with an exit code: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray core returns empty string.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configuration Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot start V2ray</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray core settings is incorrect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The error is: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid V2ray Instance Status.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V2ray kernel failed to start.</source>
-        <translation type="unfinished"></translation>
-    </message>
+    <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
     <message>
         <source>Core file is lacking executable permission for the current user.</source>
         <translation type="unfinished"></translation>
@@ -2476,6 +2437,64 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Check is skipped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray core executable not found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
+Expected core ABI is %1, but got actual %2.<byte value="xd"/>
+Maybe you have downloaded the wrong core?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray assets path is not valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No geoip.dat in assets path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No geosite.dat in assets path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray core failed with an exit code: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray core returns empty string.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configuration Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot start V2Ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray core settings is incorrect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The error is: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid V2Ray Instance Status.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V2Ray kernel failed to start.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2522,15 +2541,7 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add an Inbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add default inbound from global config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add From Global Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2538,23 +2549,11 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add an Outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add blackhole outbound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add Black Hole</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add Freedom outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add Direct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2855,6 +2854,34 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>The new tag has been used, we appended a random string to the tag.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Inbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Global Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blackhole</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direct / Freedom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing Outbound</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

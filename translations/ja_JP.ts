@@ -293,6 +293,14 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Would you like to update the subscription?</source>
         <translation>サブスクリプションを更新しますか？</translation>
     </message>
+    <message>
+        <source>The subscription link is empty.</source>
+        <translation>このサブスクリプションリンクが空です。</translation>
+    </message>
+    <message>
+        <source>The subscription link is invalid.</source>
+        <translation>このサブスクリプションリンクが無効です。</translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
@@ -1210,14 +1218,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>有効</translation>
     </message>
     <message>
-        <source>Darkmode UI Icons</source>
-        <translation>ダークモードUIアイコン</translation>
-    </message>
-    <message>
-        <source>Darkmode Tray Icon</source>
-        <translation>ダークモードトレイアイコン</translation>
-    </message>
-    <message>
         <source>Language</source>
         <translation>言語</translation>
     </message>
@@ -1362,14 +1362,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation> 行</translation>
     </message>
     <message>
-        <source>V2ray Assets Directory</source>
-        <translation>V2rayアセットフォルダー</translation>
-    </message>
-    <message>
-        <source>Check V2ray Core Settings</source>
-        <translation>V2ray Core設定を確認する</translation>
-    </message>
-    <message>
         <source>UDP Local IP</source>
         <translation>UDP ローカル IP</translation>
     </message>
@@ -1430,32 +1422,8 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>無効なインバウンドリスニングアドレス。</translation>
     </message>
     <message>
-        <source>Open V2ray assets folder</source>
-        <translation>V2rayアセットフォルダーを開く</translation>
-    </message>
-    <message>
-        <source>Open V2ray core file</source>
-        <translation>V2rayコアファイルを開く</translation>
-    </message>
-    <message>
-        <source>This will append capabilities to the V2ray executable.</source>
-        <translation>これにより、V2ray実行可能ファイルに機能が追加されます。</translation>
-    </message>
-    <message>
-        <source>Qv2ray will copy your V2ray core to this path: </source>
-        <translation>Qv2rayは、V2rayコアを次のパスにコピーします: </translation>
-    </message>
-    <message>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>これを有効にした後に何か問題が発生した場合は、問題#57または以下のリンクを確認してください:</translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot copy one or both V2ray files from: </source>
-        <translation>Qv2rayは、V2rayファイルの一つまたは二つを以下からコピーできません: </translation>
-    </message>
-    <message>
-        <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
-        <translation>V2ray実行可能ファイルへのsetcapに失敗しました。`setcap`を手動で実行する必要がある可能性があります。</translation>
     </message>
     <message>
         <source>tProxy is not supported on macOS and Windows</source>
@@ -1470,10 +1438,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>TLSの保護を失い、MITMの攻撃を受ける可能性が高くなります。</translation>
     </message>
     <message>
-        <source>This will make your TLS fingerpring different from common golang programs.</source>
-        <translation>これにより、TLS の指紋は一般的な Golang プログラムとは異なるものになります。</translation>
-    </message>
-    <message>
         <source>This will (probably) make it easy to fingerprint your connection.</source>
         <translation>そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
     </message>
@@ -1484,18 +1448,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Failed to set auto start option.</source>
         <translation>自動起動オプションの設定に失敗しました。</translation>
-    </message>
-    <message>
-        <source>V2ray Core Settings</source>
-        <translation>V2ray Core設定</translation>
-    </message>
-    <message>
-        <source>V2ray path configuration check passed.</source>
-        <translation>V2rayパス構成チェックに通過しました。</translation>
-    </message>
-    <message>
-        <source>Current version of V2ray is: </source>
-        <translation>V2rayの現在のバージョンは次のとおりです: </translation>
     </message>
     <message>
         <source>Bypass CN Mainland</source>
@@ -1564,14 +1516,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Plugin Kernel Settings</source>
         <translation>プラグインのカーネル設定</translation>
-    </message>
-    <message>
-        <source>Enabling V2ray Integration will allow the kernel benefit from the V2ray routing engine.</source>
-        <translation>V2Ray統合を有効にすると、カーネルはV2Rayルーティングエンジンの恩恵を受けることができます。</translation>
-    </message>
-    <message>
-        <source>V2ray Integration</source>
-        <translation>V2Rayの統合</translation>
     </message>
     <message>
         <source>If not checked, these features will be disabled:
@@ -1818,10 +1762,6 @@ For example, for updating subscriptions.</source>
         <translation>DNS設定</translation>
     </message>
     <message>
-        <source>Use V2ray DNS for Direct Connection</source>
-        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
-    </message>
-    <message>
         <source>You can configure default DNS settings for all simple connection config here.</source>
         <translation>ここでは、すべてのシンプルな接続設定のデフォルトDNS設定を行うことができます。</translation>
     </message>
@@ -1852,32 +1792,8 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
 もしあなたのV2Rayコアのファイル名が&apos;qv2ray&apos;などであれば、この警告を無視して構いません。</translation>
     </message>
     <message>
-        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
-The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
-If you insist to proceed, we&apos;re not providing with any support.</source>
-        <translation>V2Ray coreをV2Ray Control実行ファイルに間違って設定している可能性がありますが、これは絶対に正しくありません。
-V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&apos;です。賢明に選択してください。
-先に進むことをお勧めする場合、サポートを提供しておりません。</translation>
-    </message>
-    <message>
-        <source>V2ray Core Executable Path</source>
-        <translation>V2rayコアのパス</translation>
-    </message>
-    <message>
         <source>Check System Date and Time from the Internet</source>
         <translation>インターネットからシステムの日時を確認する</translation>
-    </message>
-    <message>
-        <source>V2ray API Subsystem</source>
-        <translation>V2ray APIサブシステム</translation>
-    </message>
-    <message>
-        <source>V2ray API Port</source>
-        <translation>V2ray APIポート</translation>
-    </message>
-    <message>
-        <source>Outbound Statistics (V2ray Core v4.26+)</source>
-        <translation>アウトバウンド統計（V2ray Core v4.26以降）</translation>
     </message>
     <message>
         <source>Currently:
@@ -1894,12 +1810,104 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
         <translation>直接接続を含む</translation>
     </message>
     <message>
-        <source>Only V2ray Core v4.21+ is supported.</source>
-        <translation>V2ray Core v4.21以降のみ対応しています。</translation>
-    </message>
-    <message>
         <source>Old Share Link Format</source>
         <translation>旧リンク形式</translation>
+    </message>
+    <message>
+        <source>Adapt Dark Theme</source>
+        <translation>適応ダークテーマ</translation>
+    </message>
+    <message>
+        <source>Adapt Dark Tray Theme</source>
+        <translation>適応ダークトレイのテーマ</translation>
+    </message>
+    <message>
+        <source>V2Ray Core Settings</source>
+        <translation>V2Rayコア設定</translation>
+    </message>
+    <message>
+        <source>V2Ray Core Executable Path</source>
+        <translation>V2Ray コアのパス</translation>
+    </message>
+    <message>
+        <source>V2Ray Assets Directory</source>
+        <translation>V2Ray アセットフォルダー</translation>
+    </message>
+    <message>
+        <source>Check V2Ray Core Settings</source>
+        <translation>V2Rayコア設定を確認する</translation>
+    </message>
+    <message>
+        <source>V2Ray API Subsystem</source>
+        <translation>V2Ray APIサブシステム</translation>
+    </message>
+    <message>
+        <source>V2Ray API Port</source>
+        <translation>V2Ray APIポート</translation>
+    </message>
+    <message>
+        <source>Outbound Statistics (V2Ray Core v4.26+)</source>
+        <translation>アウトバウンド統計（V2Rayコアv4.26以降）</translation>
+    </message>
+    <message>
+        <source>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</source>
+        <translation>V2Ray統合を有効にすると、カーネルはV2Rayルーティングエンジンの恩恵を受けることができます。</translation>
+    </message>
+    <message>
+        <source>V2Ray Integration</source>
+        <translation>V2Rayの統合</translation>
+    </message>
+    <message>
+        <source>Only V2Ray Core v4.21+ is supported.</source>
+        <translation>V2Rayコアv4.21以降のみ対応しています。</translation>
+    </message>
+    <message>
+        <source>Use V2Ray DNS for Direct Connection</source>
+        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
+    </message>
+    <message>
+        <source>Open V2Ray assets folder</source>
+        <translation>V2Rayアセットフォルダーを開く</translation>
+    </message>
+    <message>
+        <source>Open V2Ray core file</source>
+        <translation>V2Rayコアファイルを開く</translation>
+    </message>
+    <message>
+        <source>This will append capabilities to the V2Ray executable.</source>
+        <translation>これにより、V2Ray実行可能ファイルに機能が追加されます。</translation>
+    </message>
+    <message>
+        <source>Qv2ray will copy your V2Ray core to this path: </source>
+        <translation>Qv2rayは、V2Rayコアを次のパスにコピーします: </translation>
+    </message>
+    <message>
+        <source>Qv2ray cannot copy one or both V2Ray files from: </source>
+        <translation>Qv2rayは、V2Rayファイルの一つまたは二つを以下からコピーできません: </translation>
+    </message>
+    <message>
+        <source>Failed to setcap onto V2Ray executable. You may need to run `setcap` manually.</source>
+        <translation>V2Ray実行可能ファイルへのsetcapに失敗しました。`setcap`を手動で実行する必要がある可能性があります。</translation>
+    </message>
+    <message>
+        <source>V2Ray path configuration check passed.</source>
+        <translation>V2Rayパス構成チェックに通過しました。</translation>
+    </message>
+    <message>
+        <source>Current version of V2Ray is: </source>
+        <translation>V2Rayの現在のバージョンは次のとおりです: </translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation>V2RayコアをV2Ray制御実行ファイルに間違って設定している可能性がありますが、これは絶対に正しくありません。
+V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&apos;です。賢明に選択してください。
+先に進むことをお勧めする場合、サポートを提供しておりません。</translation>
+    </message>
+    <message>
+        <source>This will make your TLS fingerpring different from common Golang programs.</source>
+        <translation>これにより、TLSのフィンガースプリングが一般的なGolangプログラムとは異なるものになります。</translation>
     </message>
 </context>
 <context>
@@ -2003,10 +2011,6 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
     <message>
         <source>It will be removed or be provided as a plugin in the future.</source>
         <translation>今後削除されるか、プラグインとして提供されます。</translation>
-    </message>
-    <message>
-        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation>PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
     </message>
     <message>
         <source>Configuration Upgrade Failed</source>
@@ -2196,6 +2200,10 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
         <source>Unknown state.</source>
         <translation>不明な状態。</translation>
     </message>
+    <message>
+        <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
+        <translation>PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::Qv2rayApplication</name>
@@ -2308,12 +2316,12 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
         <translation>Qv2rayを終了</translation>
     </message>
     <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - V2Ray用のクロスプラットフォームQtフロントエンド。</translation>
-    </message>
-    <message>
         <source>Do not automatically connect</source>
         <translation>自動的に接続しない</translation>
+    </message>
+    <message>
+        <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
+        <translation>Qv2ray - V2Ray用のクロスプラットフォームQtフロントエンド。</translation>
     </message>
 </context>
 <context>
@@ -2407,76 +2415,26 @@ V2Ray coreのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&a
             <numerusform>%n 個のエントリのうち %1 個がフィルタリングされましたが、続けますか？</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Would you like to remove them?</source>
+        <translation>撤去しますか？</translation>
+    </message>
+    <message numerus="yes">
+        <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
+        <translation>
+            <numerusform>現在のサブスクリプションに属していない接続がグループ内に %n あります。</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::kernel::APIWorker</name>
     <message>
-        <source>Failed to get statistics data, please check if V2ray is running properly</source>
-        <translation>統計データの取得に失敗しました。V2rayが正常に動作しているか確認してください</translation>
+        <source>Failed to get statistics data, please check if V2Ray is running properly</source>
+        <translation>統計データの取得に失敗しました。V2Rayが正常に動作しているか確認してください</translation>
     </message>
 </context>
 <context>
-    <name>Qv2ray::core::kernel::V2rayKernelInstance</name>
-    <message>
-        <source>V2ray core executable not found.</source>
-        <translation>V2rayコア実行可能ファイルが見つかりません。</translation>
-    </message>
-    <message>
-        <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation>V2rayコアファイルを開けません。フォルダーの代わりにファイルがあることを確認してください。</translation>
-    </message>
-    <message>
-        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
-Expected core ABI is %1, but got actual %2.<byte value="xd"/>
-Maybe you have downloaded the wrong core?</source>
-        <translation>V2Rayコアはプラットフォームと互換性がありません。
-予想されるコアABIは%1ですが、実際は%2でした。
-間違ったコアをダウンロードした可能性がありませんか？</translation>
-    </message>
-    <message>
-        <source>V2ray assets path is not valid.</source>
-        <translation>V2rayアセットのパスが無効です。</translation>
-    </message>
-    <message>
-        <source>No geoip.dat in assets path.</source>
-        <translation>アセットパスにgeoip.datはありません。</translation>
-    </message>
-    <message>
-        <source>No geosite.dat in assets path.</source>
-        <translation>アセットパスにgeosite.datはありません。</translation>
-    </message>
-    <message>
-        <source>V2ray core failed with an exit code: </source>
-        <translation>V2rayコアがエラー終了しました、終了コード: </translation>
-    </message>
-    <message>
-        <source>V2ray core returns empty string.</source>
-        <translation>V2rayコアは空の文字列を返します。</translation>
-    </message>
-    <message>
-        <source>Configuration Error</source>
-        <translation>構成エラー</translation>
-    </message>
-    <message>
-        <source>Cannot start V2ray</source>
-        <translation>V2rayを起動できません</translation>
-    </message>
-    <message>
-        <source>V2ray core settings is incorrect.</source>
-        <translation>V2rayコアの設定が正しくありません。</translation>
-    </message>
-    <message>
-        <source>The error is: </source>
-        <translation>エラーは次のとおりです: </translation>
-    </message>
-    <message>
-        <source>Invalid V2ray Instance Status.</source>
-        <translation>無効なV2rayインスタンスステータス。</translation>
-    </message>
-    <message>
-        <source>V2ray kernel failed to start.</source>
-        <translation>V2rayカーネルの起動に失敗しました。</translation>
-    </message>
+    <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
     <message>
         <source>Core file is lacking executable permission for the current user.</source>
         <translation>コアファイルには、現在のユーザーの実行可能なパーミッションがありません。</translation>
@@ -2492,6 +2450,66 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Check is skipped</source>
         <translation>チェックはスキップされます</translation>
+    </message>
+    <message>
+        <source>V2Ray core executable not found.</source>
+        <translation>V2Rayコア実行可能ファイルが見つかりません。</translation>
+    </message>
+    <message>
+        <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
+        <translation>V2Rayコアファイルを開けません。フォルダーの代わりにファイルがあることを確認してください。</translation>
+    </message>
+    <message>
+        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
+Expected core ABI is %1, but got actual %2.<byte value="xd"/>
+Maybe you have downloaded the wrong core?</source>
+        <translation>V2Rayコアはプラットフォームと互換性がありません。
+予想されるコアABIは%1ですが、実際は%2でした。
+間違ったコアをダウンロードした可能性がありませんか？</translation>
+    </message>
+    <message>
+        <source>V2Ray assets path is not valid.</source>
+        <translation>V2Rayアセットのパスが無効です。</translation>
+    </message>
+    <message>
+        <source>No geoip.dat in assets path.</source>
+        <translation>アセットパスにgeoip.datはありません。</translation>
+    </message>
+    <message>
+        <source>No geosite.dat in assets path.</source>
+        <translation>アセットパスにgeosite.datはありません。</translation>
+    </message>
+    <message>
+        <source>V2Ray core failed with an exit code: </source>
+        <translation>V2Rayコアがエラー終了しました、終了コード: </translation>
+    </message>
+    <message>
+        <source>V2Ray core returns empty string.</source>
+        <translation>V2Rayコアは空の文字列を返します。</translation>
+    </message>
+    <message>
+        <source>Configuration Error</source>
+        <translation>構成エラー</translation>
+    </message>
+    <message>
+        <source>Cannot start V2Ray</source>
+        <translation>V2Rayを起動できません</translation>
+    </message>
+    <message>
+        <source>V2Ray core settings is incorrect.</source>
+        <translation>V2Rayコアの設定が正しくありません。</translation>
+    </message>
+    <message>
+        <source>The error is: </source>
+        <translation>エラーは次のとおりです: </translation>
+    </message>
+    <message>
+        <source>Invalid V2Ray Instance Status.</source>
+        <translation>無効なV2Rayインスタンスステータス。</translation>
+    </message>
+    <message>
+        <source>V2Ray kernel failed to start.</source>
+        <translation>V2Rayカーネルの起動に失敗しました。</translation>
     </message>
 </context>
 <context>
@@ -2627,18 +2645,6 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Inbound</source>
         <translation>インバウンド</translation>
-    </message>
-    <message>
-        <source>Add From Global Settings</source>
-        <translation>グローバル設定から追加</translation>
-    </message>
-    <message>
-        <source>Add Black Hole</source>
-        <translation>ブラックホールを追加</translation>
-    </message>
-    <message>
-        <source>Add Direct</source>
-        <translation>直接接続を追加</translation>
     </message>
     <message>
         <source>Selected Inbound/Outbound Info</source>
@@ -2857,20 +2863,40 @@ Maybe you have downloaded the wrong core?</source>
         <translation>ルールを追加</translation>
     </message>
     <message>
-        <source>Add an Inbound</source>
-        <translation>インバウンドを追加する</translation>
-    </message>
-    <message>
-        <source>Add an Outbound</source>
-        <translation>アウトバウンドを追加する</translation>
-    </message>
-    <message>
         <source>Misc Settings</source>
         <translation>その他の設定</translation>
     </message>
     <message>
         <source>Rename</source>
         <translation>リネーム</translation>
+    </message>
+    <message>
+        <source>Add Inbound</source>
+        <translation>インバウンドを追加</translation>
+    </message>
+    <message>
+        <source>Add Global Settings</source>
+        <translation>グローバル設定を追加</translation>
+    </message>
+    <message>
+        <source>New Outbound</source>
+        <translation>アウトバウンドを追加</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>インポート</translation>
+    </message>
+    <message>
+        <source>Blackhole</source>
+        <translation>ブラックホール</translation>
+    </message>
+    <message>
+        <source>Direct / Freedom</source>
+        <translation>直接・自由</translation>
+    </message>
+    <message>
+        <source>Existing Outbound</source>
+        <translation>既存のアウトバウンド</translation>
     </message>
 </context>
 <context>

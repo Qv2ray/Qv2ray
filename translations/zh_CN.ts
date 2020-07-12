@@ -293,6 +293,14 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Would you like to update the subscription?</source>
         <translation>您要更新订阅吗？</translation>
     </message>
+    <message>
+        <source>The subscription link is empty.</source>
+        <translation>订阅链接为空。</translation>
+    </message>
+    <message>
+        <source>The subscription link is invalid.</source>
+        <translation>订阅链接无效。</translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
@@ -1210,14 +1218,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>已启用</translation>
     </message>
     <message>
-        <source>Darkmode UI Icons</source>
-        <translation>深色模式 UI 图标</translation>
-    </message>
-    <message>
-        <source>Darkmode Tray Icon</source>
-        <translation>深色模式托盘图标</translation>
-    </message>
-    <message>
         <source>Language</source>
         <translation>语言</translation>
     </message>
@@ -1354,14 +1354,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation> 行</translation>
     </message>
     <message>
-        <source>V2ray Assets Directory</source>
-        <translation>V2ray 资源目录</translation>
-    </message>
-    <message>
-        <source>Check V2ray Core Settings</source>
-        <translation>检查 V2ray 核心设置</translation>
-    </message>
-    <message>
         <source>UDP Local IP</source>
         <translation>UDP 本地IP</translation>
     </message>
@@ -1410,32 +1402,8 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>入站监听地址不可用。</translation>
     </message>
     <message>
-        <source>Open V2ray assets folder</source>
-        <translation>打开 V2ray 资源文件夹</translation>
-    </message>
-    <message>
-        <source>Open V2ray core file</source>
-        <translation>打开 V2ray 核心文件</translation>
-    </message>
-    <message>
-        <source>This will append capabilities to the V2ray executable.</source>
-        <translation>这会将功能附加到 V2ray 可执行文件。</translation>
-    </message>
-    <message>
-        <source>Qv2ray will copy your V2ray core to this path: </source>
-        <translation>Qv2ray 会将您的 V2ray 核心复制到以下路径： </translation>
-    </message>
-    <message>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>如果有出现任何问题，请参阅 Issue #57 或以下链接：</translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot copy one or both V2ray files from: </source>
-        <translation>Qv2ray 无法从以下位置复制一个或两个 V2ray 文件： </translation>
-    </message>
-    <message>
-        <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
-        <translation>无法将 Capcap 设置到 V2ray 可执行文件上。 您可能需要手动运行“ setcap”。</translation>
     </message>
     <message>
         <source>tProxy is not supported on macOS and Windows</source>
@@ -1460,18 +1428,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Failed to set auto start option.</source>
         <translation>无法设置自动启动选项。</translation>
-    </message>
-    <message>
-        <source>V2ray Core Settings</source>
-        <translation>V2ray 核心设置</translation>
-    </message>
-    <message>
-        <source>V2ray path configuration check passed.</source>
-        <translation>V2ray 路径配置检查通过。</translation>
-    </message>
-    <message>
-        <source>Current version of V2ray is: </source>
-        <translation>V2ray 当前版本是： </translation>
     </message>
     <message>
         <source>Transparent Proxy Settings</source>
@@ -1560,14 +1516,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Plugin Kernel Settings</source>
         <translation>插件内核设置</translation>
-    </message>
-    <message>
-        <source>Enabling V2ray Integration will allow the kernel benefit from the V2ray routing engine.</source>
-        <translation>启用 V2Ray 插件集成将允许核心受益于 V2Ray 的路由引擎。</translation>
-    </message>
-    <message>
-        <source>V2ray Integration</source>
-        <translation>V2Ray 集成</translation>
     </message>
     <message>
         <source>If not checked, these features will be disabled:
@@ -1814,10 +1762,6 @@ For example, for updating subscriptions.</source>
         <translation>DNS 设置</translation>
     </message>
     <message>
-        <source>Use V2ray DNS for Direct Connection</source>
-        <translation>为直连使用 V2Ray DNS</translation>
-    </message>
-    <message>
         <source>You can configure default DNS settings for all simple connection config here.</source>
         <translation>你可在此为所有简单连接配置 DNS 设定。</translation>
     </message>
@@ -1836,10 +1780,6 @@ But could damage your server if improperly used.</source>
 但若使用不当，将会造成不良后果。</translation>
     </message>
     <message>
-        <source>This will make your TLS fingerpring different from common golang programs.</source>
-        <translation>这将让你的 TLS 指纹有异于正常的 Golang 程序。</translation>
-    </message>
-    <message>
         <source>Watch Out!</source>
         <translation>小心！</translation>
     </message>
@@ -1852,32 +1792,8 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
 若你的 V2Ray 核心文件名恰好是 &apos;qv2ray&apos; 什么的，你完全可以忽略这个警告。</translation>
     </message>
     <message>
-        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
-The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
-If you insist to proceed, we&apos;re not providing with any support.</source>
-        <translation>您或许要将 V2Ray 核心错误地设置为 V2Ray 控制文件了，这是非常不对的。
-V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。确保你作出了明智的选择。
-若您执意继续，请恕吾等无法提供任何保证。</translation>
-    </message>
-    <message>
-        <source>V2ray Core Executable Path</source>
-        <translation>V2ray 核心可执行文件路径</translation>
-    </message>
-    <message>
         <source>Check System Date and Time from the Internet</source>
         <translation>联网对时</translation>
-    </message>
-    <message>
-        <source>V2ray API Subsystem</source>
-        <translation>V2Ray API 子系统</translation>
-    </message>
-    <message>
-        <source>V2ray API Port</source>
-        <translation>V2Ray API 端口</translation>
-    </message>
-    <message>
-        <source>Outbound Statistics (V2ray Core v4.26+)</source>
-        <translation>分出站统计 (V2Ray v4.26+)</translation>
     </message>
     <message>
         <source>Currently:
@@ -1894,12 +1810,104 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
         <translation>包括直连流量</translation>
     </message>
     <message>
-        <source>Only V2ray Core v4.21+ is supported.</source>
+        <source>Old Share Link Format</source>
+        <translation>旧 VMess 链接格式</translation>
+    </message>
+    <message>
+        <source>Adapt Dark Theme</source>
+        <translation>适应暗色主题</translation>
+    </message>
+    <message>
+        <source>Adapt Dark Tray Theme</source>
+        <translation>适应暗色托盘主题</translation>
+    </message>
+    <message>
+        <source>V2Ray Core Settings</source>
+        <translation>V2Ray 核心设置</translation>
+    </message>
+    <message>
+        <source>V2Ray Core Executable Path</source>
+        <translation>V2Ray 核心可执行文件路径</translation>
+    </message>
+    <message>
+        <source>V2Ray Assets Directory</source>
+        <translation>V2Ray 资源目录</translation>
+    </message>
+    <message>
+        <source>Check V2Ray Core Settings</source>
+        <translation>检查 V2Ray 核心设置</translation>
+    </message>
+    <message>
+        <source>V2Ray API Subsystem</source>
+        <translation>V2Ray API 子系统</translation>
+    </message>
+    <message>
+        <source>V2Ray API Port</source>
+        <translation>V2Ray API 端口</translation>
+    </message>
+    <message>
+        <source>Outbound Statistics (V2Ray Core v4.26+)</source>
+        <translation>分出站统计 (V2Ray v4.26+)</translation>
+    </message>
+    <message>
+        <source>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</source>
+        <translation>启用 V2Ray 插件集成将允许核心受益于 V2Ray 的路由引擎。</translation>
+    </message>
+    <message>
+        <source>V2Ray Integration</source>
+        <translation>V2Ray 集成</translation>
+    </message>
+    <message>
+        <source>Only V2Ray Core v4.21+ is supported.</source>
         <translation>仅支持 V2Ray v4.21+。</translation>
     </message>
     <message>
-        <source>Old Share Link Format</source>
-        <translation>旧 VMess 链接格式</translation>
+        <source>Use V2Ray DNS for Direct Connection</source>
+        <translation>为直连使用 V2Ray DNS</translation>
+    </message>
+    <message>
+        <source>Open V2Ray assets folder</source>
+        <translation>打开 V2Ray 资源文件夹</translation>
+    </message>
+    <message>
+        <source>Open V2Ray core file</source>
+        <translation>打开 V2Ray 核心文件</translation>
+    </message>
+    <message>
+        <source>This will append capabilities to the V2Ray executable.</source>
+        <translation>这会将功能附加到 V2Ray 可执行文件。</translation>
+    </message>
+    <message>
+        <source>Qv2ray will copy your V2Ray core to this path: </source>
+        <translation>Qv2ray 会将您的 V2Ray 核心复制到以下路径: </translation>
+    </message>
+    <message>
+        <source>Qv2ray cannot copy one or both V2Ray files from: </source>
+        <translation>Qv2ray 无法从以下位置复制一个或两个 V2Ray 文件: </translation>
+    </message>
+    <message>
+        <source>Failed to setcap onto V2Ray executable. You may need to run `setcap` manually.</source>
+        <translation>无法为 V2Ray 可执行文件应用 setcap。您可能需要手动运行 setcap。</translation>
+    </message>
+    <message>
+        <source>V2Ray path configuration check passed.</source>
+        <translation>V2Ray 路径配置检查通过。</translation>
+    </message>
+    <message>
+        <source>Current version of V2Ray is: </source>
+        <translation>V2Ray 当前版本是: </translation>
+    </message>
+    <message>
+        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+If you insist to proceed, we&apos;re not providing with any support.</source>
+        <translation>您或许要将 V2Ray 的核心可执行文件错误地设置成 V2Ray 控制文件了，这是非常不对的。
+V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。确保你作出了正确的选择。
+若您执意继续，我们将不提供任何支持。</translation>
+    </message>
+    <message>
+        <source>This will make your TLS fingerpring different from common Golang programs.</source>
+        <translation>这将使你的 TLS 指纹有异于正常的 Golang 程序。</translation>
     </message>
 </context>
 <context>
@@ -1955,10 +1963,6 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
     <message>
         <source>It will be removed or be provided as a plugin in the future.</source>
         <translation>它可能会在将来某个版本被移除，或者作为单独的插件提供。</translation>
-    </message>
-    <message>
-        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation>PAC 目前将会继续工作，但是我们强烈建议您切换使用 V2ray 自带的路由功能。</translation>
     </message>
     <message>
         <source>Configuration Upgrade Failed</source>
@@ -2196,6 +2200,10 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
         <source>Unknown state.</source>
         <translation>未知状态。</translation>
     </message>
+    <message>
+        <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
+        <translation>PAC 目前将会继续工作，但是我们强烈建议您切换使用 V2Ray 自带的路由功能。</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::Qv2rayApplication</name>
@@ -2308,12 +2316,12 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
         <translation>退出 Qv2ray</translation>
     </message>
     <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-        <translation>Qv2ray - 一个 V2Ray 的跨平台 Qt 前端。</translation>
-    </message>
-    <message>
         <source>Do not automatically connect</source>
         <translation>不要自动连接节点</translation>
+    </message>
+    <message>
+        <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
+        <translation>Qv2ray - 一个 V2Ray 的跨平台 Qt 前端。</translation>
     </message>
 </context>
 <context>
@@ -2407,76 +2415,26 @@ V2Ray 核心的文件名通常为 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;
             <numerusform>%n 条中过滤出 %1 条项目，要继续吗？</numerusform>
         </translation>
     </message>
+    <message>
+        <source>Would you like to remove them?</source>
+        <translation>要移除这些节点吗？</translation>
+    </message>
+    <message numerus="yes">
+        <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
+        <translation>
+            <numerusform>分组中有 %n 条连接不包含在订阅中。</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::core::kernel::APIWorker</name>
     <message>
-        <source>Failed to get statistics data, please check if V2ray is running properly</source>
+        <source>Failed to get statistics data, please check if V2Ray is running properly</source>
         <translation>无法获取统计数据，请检查 V2Ray 核心是否在正常运行</translation>
     </message>
 </context>
 <context>
-    <name>Qv2ray::core::kernel::V2rayKernelInstance</name>
-    <message>
-        <source>V2ray core executable not found.</source>
-        <translation>V2ray 核心可执行文件未找到。</translation>
-    </message>
-    <message>
-        <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation>无法打开 V2ray 核心文件，请检查对应的文件存在而不是文件夹。</translation>
-    </message>
-    <message>
-        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
-Expected core ABI is %1, but got actual %2.<byte value="xd"/>
-Maybe you have downloaded the wrong core?</source>
-        <translation>V2Ray 核心与您的平台不兼容。
-期待的核心 ABI 为 %1，但实际为 %2。
-您也许下载了错误的核心？</translation>
-    </message>
-    <message>
-        <source>V2ray assets path is not valid.</source>
-        <translation>V2ray Assets 路径不可用。</translation>
-    </message>
-    <message>
-        <source>No geoip.dat in assets path.</source>
-        <translation>没有在 Assets 路径找到 geoip.dat。</translation>
-    </message>
-    <message>
-        <source>No geosite.dat in assets path.</source>
-        <translation>没有在 Assets 路径找到 geosite.dat。</translation>
-    </message>
-    <message>
-        <source>V2ray core failed with an exit code: </source>
-        <translation>V2ray 核心退出代码： </translation>
-    </message>
-    <message>
-        <source>V2ray core returns empty string.</source>
-        <translation>V2ray 核心返回空字符串。</translation>
-    </message>
-    <message>
-        <source>Configuration Error</source>
-        <translation>配置错误</translation>
-    </message>
-    <message>
-        <source>Cannot start V2ray</source>
-        <translation>无法启动 V2ray</translation>
-    </message>
-    <message>
-        <source>V2ray core settings is incorrect.</source>
-        <translation>V2ray 核心设置不正确。</translation>
-    </message>
-    <message>
-        <source>The error is: </source>
-        <translation>错误是： </translation>
-    </message>
-    <message>
-        <source>Invalid V2ray Instance Status.</source>
-        <translation>V2ray 实例状态无效。</translation>
-    </message>
-    <message>
-        <source>V2ray kernel failed to start.</source>
-        <translation>V2ray 核心启动失败。</translation>
-    </message>
+    <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
     <message>
         <source>Core file is lacking executable permission for the current user.</source>
         <translation>当前用户没有 V2Ray 核心文件的执行权限。</translation>
@@ -2492,6 +2450,66 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Check is skipped</source>
         <translation>检查已跳过</translation>
+    </message>
+    <message>
+        <source>V2Ray core executable not found.</source>
+        <translation>V2Ray 核心可执行文件未找到。</translation>
+    </message>
+    <message>
+        <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
+        <translation>无法打开 V2Ray 核心文件，请检查对应的文件存在而不是文件夹。</translation>
+    </message>
+    <message>
+        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
+Expected core ABI is %1, but got actual %2.<byte value="xd"/>
+Maybe you have downloaded the wrong core?</source>
+        <translation>V2Ray 核心与您的平台不兼容。
+期待的核心 ABI 为 %1，但实际为 %2。
+您也许下载了错误的核心？</translation>
+    </message>
+    <message>
+        <source>V2Ray assets path is not valid.</source>
+        <translation>V2Ray 资源文件路径不可用。</translation>
+    </message>
+    <message>
+        <source>No geoip.dat in assets path.</source>
+        <translation>没有在 V2Ray 资源文件路径找到 geoip.dat。</translation>
+    </message>
+    <message>
+        <source>No geosite.dat in assets path.</source>
+        <translation>没有在 V2Ray 资源文件路径找到 geosite.dat。</translation>
+    </message>
+    <message>
+        <source>V2Ray core failed with an exit code: </source>
+        <translation>V2Ray 核心退出代码: </translation>
+    </message>
+    <message>
+        <source>V2Ray core returns empty string.</source>
+        <translation>V2Ray 核心返回空字符串。</translation>
+    </message>
+    <message>
+        <source>Configuration Error</source>
+        <translation>配置错误</translation>
+    </message>
+    <message>
+        <source>Cannot start V2Ray</source>
+        <translation>无法启动 V2Ray</translation>
+    </message>
+    <message>
+        <source>V2Ray core settings is incorrect.</source>
+        <translation>V2Ray 核心设置不正确。</translation>
+    </message>
+    <message>
+        <source>The error is: </source>
+        <translation>错误如下: </translation>
+    </message>
+    <message>
+        <source>Invalid V2Ray Instance Status.</source>
+        <translation>V2Ray 实例状态无效。</translation>
+    </message>
+    <message>
+        <source>V2Ray kernel failed to start.</source>
+        <translation>V2Ray 核心启动失败。</translation>
     </message>
 </context>
 <context>
@@ -2627,18 +2645,6 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Inbound</source>
         <translation>入站</translation>
-    </message>
-    <message>
-        <source>Add From Global Settings</source>
-        <translation>从全局设置添加</translation>
-    </message>
-    <message>
-        <source>Add Black Hole</source>
-        <translation>添加黑洞</translation>
-    </message>
-    <message>
-        <source>Add Direct</source>
-        <translation>添加直连</translation>
     </message>
     <message>
         <source>Selected Inbound/Outbound Info</source>
@@ -2857,20 +2863,40 @@ Maybe you have downloaded the wrong core?</source>
         <translation>添加路由规则</translation>
     </message>
     <message>
-        <source>Add an Inbound</source>
-        <translation>添加一个入站</translation>
-    </message>
-    <message>
-        <source>Add an Outbound</source>
-        <translation>添加一个出站</translation>
-    </message>
-    <message>
         <source>Misc Settings</source>
         <translation>杂项设置</translation>
     </message>
     <message>
         <source>Rename</source>
         <translation>重命名</translation>
+    </message>
+    <message>
+        <source>Add Inbound</source>
+        <translation>添加入站</translation>
+    </message>
+    <message>
+        <source>Add Global Settings</source>
+        <translation>添加全局设置</translation>
+    </message>
+    <message>
+        <source>New Outbound</source>
+        <translation>新建出站</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>导入</translation>
+    </message>
+    <message>
+        <source>Blackhole</source>
+        <translation>黑洞</translation>
+    </message>
+    <message>
+        <source>Direct / Freedom</source>
+        <translation>直连 / 自由</translation>
+    </message>
+    <message>
+        <source>Existing Outbound</source>
+        <translation>现有节点</translation>
     </message>
 </context>
 <context>
