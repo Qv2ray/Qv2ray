@@ -111,11 +111,11 @@ namespace Qv2ray::core::handler
     //
     // BEGIN RUNTIME CONFIG GENERATION
     // We need copy construct here
-    CONFIGROOT RouteHandler::GenerateFinalConfig(const ConnectionGroupPair &pair) const
+    CONFIGROOT RouteHandler::GenerateFinalConfig(const ConnectionGroupPair &p, bool api) const
     {
-        return GenerateFinalConfig(ConnectionManager->GetConnectionRoot(pair.connectionId), ConnectionManager->GetGroupRoutingId(pair.groupId));
+        return GenerateFinalConfig(ConnectionManager->GetConnectionRoot(p.connectionId), ConnectionManager->GetGroupRoutingId(p.groupId), api);
     }
-    CONFIGROOT RouteHandler::GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId) const
+    CONFIGROOT RouteHandler::GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId, bool hasAPI) const
     {
         const auto &config = configs.contains(routingId) ? configs[routingId] : GlobalConfig.defaultRouteConfig;
         //
@@ -382,7 +382,7 @@ namespace Qv2ray::core::handler
         }
 
         // Let's process some api features.
-        if (GlobalConfig.kernelConfig.enableAPI)
+        if (hasAPI && GlobalConfig.kernelConfig.enableAPI)
         {
             //
             // Stats

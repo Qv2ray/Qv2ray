@@ -104,7 +104,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             auto filePath = d.getSaveFileName(this, GetDisplayName(id));
             if (filePath.isEmpty())
                 return;
-            auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId });
+            auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId }, false);
             //
             // Apply export filter
             ExportConnectionFilter(root);
