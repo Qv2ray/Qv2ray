@@ -902,7 +902,7 @@
     </message>
     <message>
         <source>Set as automatically connected</source>
-        <translation>设置为自动链接</translation>
+        <translation>设置为自动连接</translation>
     </message>
     <message>
         <source>Edit</source>
