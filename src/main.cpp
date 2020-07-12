@@ -72,7 +72,7 @@ void signalHandler(int signum)
     exit(-99);
 }
 
-Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
+QPair<Qv2rayExitCode, std::optional<QString>> RunQv2rayApplicationScoped(int argc, char *argv[])
 {
     Qv2rayApplication app(argc, argv);
 
@@ -80,8 +80,8 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
     switch (setupStatus)
     {
         case Qv2rayApplication::NORMAL: break;
-        case Qv2rayApplication::SINGLE_APPLICATION: return QV2RAY_SECONDARY_INSTANCE;
-        case Qv2rayApplication::FAILED: return QV2RAY_EARLY_SETUP_FAIL;
+        case Qv2rayApplication::SINGLE_APPLICATION: return { QV2RAY_SECONDARY_INSTANCE, std::nullopt };
+        case Qv2rayApplication::FAILED: return { QV2RAY_EARLY_SETUP_FAIL, app.tr("Qv2ray early initialization failed.") };
     }
 
     LOG("LICENCE", NEWLINE                                                      //
@@ -99,12 +99,12 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
     if (!app.FindAndCreateInitialConfiguration())
     {
         LOG(MODULE_INIT, "Cannot find or create initial configuration file.")
-        return QV2RAY_CONFIG_PATH_FAIL;
+        return { QV2RAY_CONFIG_PATH_FAIL, app.tr("Cannot create initial config file.") };
     }
     if (!app.LoadConfiguration())
     {
         LOG(MODULE_INIT, "Cannot load existing configuration file.")
-        return QV2RAY_CONFIG_FILE_FAIL;
+        return { QV2RAY_CONFIG_FILE_FAIL, "Configuration file currupted" };
     }
 
     // Check OpenSSL version for auto-update and subscriptions
@@ -123,7 +123,7 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
                              NEWLINE + QObject::tr("Technical Details") + NEWLINE +                                           //
                              "OSsl.Rq.V=" + osslReqVersion + NEWLINE +                                                        //
                              "OSsl.Cr.V=" + osslCurVersion);
-        return QV2RAY_SSL_FAIL;
+        return { QV2RAY_SSL_FAIL, app.tr("Cannot start Qv2ray without OpenSSL") };
     }
 
     app.InitializeGlobalVariables();
@@ -132,7 +132,7 @@ Qv2rayExitCode RunQv2rayApplicationScoped(int argc, char *argv[])
     signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
     signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
-    return app.RunQv2ray();
+    return { app.RunQv2ray(), std::nullopt };
 }
 
 int main(int argc, char *argv[])
@@ -161,12 +161,26 @@ int main(int argc, char *argv[])
     //
     // parse the command line before starting as a Qt application
     if (!Qv2rayApplication::PreInitialize(argc, argv))
+    {
+        QApplication errorApplication{ argc, argv };
+        QvMessageBoxWarn(nullptr, "Cannot Start Qv2ray!", "Early initialization failed!");
         return QV2RAY_PRE_INITIALIZE_FAIL;
-    const auto rcode = RunQv2rayApplicationScoped(argc, argv);
+    }
+    const auto &[rcode, str] = RunQv2rayApplicationScoped(argc, argv);
     if (rcode == QV2RAY_NEW_VERSION)
     {
         LOG(MODULE_INIT, "Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath)
         QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
     }
+    else if (str)
+    {
+        QApplication errorApplication{ argc, argv };
+        QvMessageBoxWarn(nullptr, errorApplication.tr("Cannot start Qv2ray"),
+                         ACCESS_OPTIONAL_VALUE(str) + //
+                             NEWLINE +                //
+                             NEWLINE +                //
+                             errorApplication.tr("Qv2ray will now exit!"));
+    }
+
     return rcode;
 }

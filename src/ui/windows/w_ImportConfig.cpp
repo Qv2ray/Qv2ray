@@ -276,7 +276,7 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     }
     else
     {
-        vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
+        qrCodeLinkTxt->setText(str.trimmed());
     }
 }
 void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)

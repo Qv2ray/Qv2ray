@@ -24,7 +24,7 @@ namespace Qv2ray::core::kernel
             {
                 DEBUG(MODULE_VCORE, "Failed to enable executable permission.")
                 const auto message = tr("Core file is lacking executable permission for the current user.") % //
-                                     tr("QV2Ray tried to set, but failed because permission denied.");
+                                     tr("Qv2ray tried to set, but failed because permission denied.");
                 return { false, message };
             }
             else
@@ -52,7 +52,7 @@ namespace Qv2ray::core::kernel
             {
                 DEBUG(MODULE_VCORE, "Failed to enable executable permission for core control.")
                 const auto message = tr("Core control file is lacking executable permission for the current user.") % //
-                                     tr("QV2Ray tried to set, but failed because permission denied.");
+                                     tr("Qv2ray tried to set, but failed because permission denied.");
                 return { false, message };
             }
             else
@@ -215,7 +215,7 @@ namespace Qv2ray::core::kernel
             DEBUG(MODULE_VCORE, "V2Ray version: " + V2RayCheckResult)
             // Append assets location env.
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2Ray_LOCATION_ASSET", assetsPath);
+            env.insert("V2RAY_LOCATION_ASSET", assetsPath);
             //
             QProcess process;
             process.setProcessEnvironment(env);
@@ -284,7 +284,7 @@ namespace Qv2ray::core::kernel
         if (ValidateConfig(filePath))
         {
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2Ray_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
+            env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
             vProcess->setProcessEnvironment(env);
             vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
