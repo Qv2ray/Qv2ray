@@ -463,8 +463,17 @@ namespace Qv2ray
         return true;
     }
 
-    Qv2rayApplication::commandline_status Qv2rayApplication::ParseCommandLine(QString *errorMessage, const QStringList &args)
+    Qv2rayApplication::commandline_status Qv2rayApplication::ParseCommandLine(QString *errorMessage, const QStringList &_argx_)
     {
+        QStringList filteredArgs;
+        for (const auto &arg : _argx_)
+        {
+#ifdef Q_OS_MACOS
+            if (arg.contains("-psn"))
+                continue;
+#endif
+            filteredArgs << arg;
+        }
         QCommandLineParser parser;
         //
         QCommandLineOption noAPIOption("noAPI", tr("Disable gRPC API subsystem"));
@@ -491,7 +500,7 @@ namespace Qv2ray
         auto helpOption = parser.addHelpOption();
         auto versionOption = parser.addVersionOption();
 
-        if (!parser.parse(args))
+        if (!parser.parse(filteredArgs))
         {
             *errorMessage = parser.errorText();
             return QV2RAY_ERROR;
