@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="generalSettingsPage">
       <attribute name="title">
@@ -51,7 +51,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="darkThemeLabel">
               <property name="text">
-               <string>Darkmode UI Icons</string>
+               <string>Adapt Dark Theme</string>
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
@@ -68,7 +68,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_36">
               <property name="text">
-               <string>Darkmode Tray Icon</string>
+               <string>Adapt Dark Tray Theme</string>
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
