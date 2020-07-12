@@ -24,7 +24,7 @@ namespace Qv2ray::core::kernel
             {
                 DEBUG(MODULE_VCORE, "Failed to enable executable permission.")
                 const auto message = tr("Core file is lacking executable permission for the current user.") % //
-                                     tr("QV2Ray tried to set, but failed because permission denied.");
+                                     tr("Qv2ray tried to set, but failed because permission denied.");
                 return { false, message };
             }
             else
@@ -52,7 +52,7 @@ namespace Qv2ray::core::kernel
             {
                 DEBUG(MODULE_VCORE, "Failed to enable executable permission for core control.")
                 const auto message = tr("Core control file is lacking executable permission for the current user.") % //
-                                     tr("QV2Ray tried to set, but failed because permission denied.");
+                                     tr("Qv2ray tried to set, but failed because permission denied.");
                 return { false, message };
             }
             else

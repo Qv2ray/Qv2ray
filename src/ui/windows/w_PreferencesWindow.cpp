@@ -513,9 +513,9 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
         // We enable it!
         if (QvMessageBoxAsk(this, tr("Enable tProxy Support"),
                             tr("This will append capabilities to the V2Ray executable.") + NEWLINE + NEWLINE +
-                                tr("QV2Ray will copy your V2Ray core to this path: ") + NEWLINE + QV2RAY_TPROXY_VCORE_PATH + NEWLINE + NEWLINE +
+                                tr("Qv2ray will copy your V2Ray core to this path: ") + NEWLINE + QV2RAY_TPROXY_VCORE_PATH + NEWLINE + NEWLINE +
                                 tr("If anything goes wrong after enabling this, please check issue #57 or the link below:") + NEWLINE +
-                                " https://github.com/QV2Ray/QV2Ray/wiki/FAQ ") != QMessageBox::Yes)
+                                " https://github.com/Qv2ray/Qv2ray/wiki/FAQ ") != QMessageBox::Yes)
         {
             tProxyCheckBox->setChecked(false);
             LOG(MODULE_UI, "Canceled enabling tProxy feature.")
@@ -572,7 +572,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 {
                     LOG(MODULE_VCORE, "FAILED to copy V2Ray files. Aborting.")
                     QvMessageBoxWarn(this, tr("Enable tProxy Support"),
-                                     tr("QV2Ray cannot copy one or both V2Ray files from: ") + NEWLINE + NEWLINE + kernelPath + NEWLINE +
+                                     tr("Qv2ray cannot copy one or both V2Ray files from: ") + NEWLINE + NEWLINE + kernelPath + NEWLINE +
                                          v2ctlPath + NEWLINE + NEWLINE + tr("to this path: ") + NEWLINE + newPath);
                     return;
                 }
@@ -820,13 +820,13 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
 
     // prevent some bullshit situations.
     if (const auto vCorePathSmallCased = vcorePath.toLower();
-        vCorePathSmallCased.endsWith("qV2Ray") || vCorePathSmallCased.endsWith("qV2Ray.exe"))
+        vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
     {
         const auto strWarnTitle = tr("Watch Out!");
         const auto strWarnContent = //
-            tr("You may be about to set V2Ray core incorrectly to QV2Ray itself, which is absolutely not correct.\r\n"
-               "This won't trigger a fork bomb, however, since QV2Ray works in singleton mode.\r\n"
-               "If your V2Ray core filename happened to be 'qV2Ray'-something, you are totally free to ignore this warning.");
+            tr("You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.\r\n"
+               "This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.\r\n"
+               "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
         const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
                                                  QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
                                                  QMessageBox::StandardButton::Abort);
@@ -896,7 +896,7 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
     if (arg1 == Qt::Unchecked)
     {
         const auto msgAPIDisableTitle = tr("Disabling API Subsystem");
-        const auto msgAPIDisableMsg = tr("Disabling API subsystem will also disable the statistics function of QV2Ray.") + NEWLINE + //
+        const auto msgAPIDisableMsg = tr("Disabling API subsystem will also disable the statistics function of Qv2ray.") + NEWLINE + //
                                       tr("Speed chart and traffic statistics will be disabled.");
         QvMessageBoxWarn(this, msgAPIDisableTitle, msgAPIDisableMsg);
     }
