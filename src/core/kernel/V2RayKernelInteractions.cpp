@@ -215,7 +215,7 @@ namespace Qv2ray::core::kernel
             DEBUG(MODULE_VCORE, "V2Ray version: " + V2RayCheckResult)
             // Append assets location env.
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2Ray_LOCATION_ASSET", assetsPath);
+            env.insert("V2RAY_LOCATION_ASSET", assetsPath);
             //
             QProcess process;
             process.setProcessEnvironment(env);
