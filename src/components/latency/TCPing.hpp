@@ -63,6 +63,7 @@ namespace Qv2ray::components::latency::tcping
         LatencyTestHost *testHost;
         struct sockaddr_storage storage;
         char digitBuffer[20] = { 0 };
+        int af=AF_INET;
         std::shared_ptr<uvw::Loop> loop;
         std::shared_ptr<uvw::GetAddrInfoReq> getAddrHandle;
     };

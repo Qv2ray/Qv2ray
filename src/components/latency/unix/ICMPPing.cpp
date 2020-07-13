@@ -88,7 +88,7 @@ namespace Qv2ray::components::latency::icmping
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
-        if (isAddr(req.host.toStdString().data(), req.port, &storage, 0) != 0)
+        if (isAddr(req.host.toStdString().data(), req.port, &storage, 0) == -1)
         {
             getAddrHandle = loop->resource<uvw::GetAddrInfoReq>();
             sprintf(digitBuffer, "%d", req.port);
@@ -149,7 +149,7 @@ namespace Qv2ray::components::latency::icmping
             if (data.failedCount == data.totalCount)
                 data.avg = LATENCY_TEST_VALUE_ERROR;
             else
-                data.errorMessage.clear(), data.avg = data.avg / successCount / 1000;
+                data.errorMessage.clear(), data.avg = data.avg / successCount;
             testHost->OnLatencyTestCompleted(req.id, data);
             return true;
         }
@@ -189,7 +189,7 @@ namespace Qv2ray::components::latency::icmping
               {
                   case ICMP_ECHOREPLY:
                       data.avg =
-                          1000000 * (end.tv_sec - startTimevals[cur_seq - 1].tv_sec) + (end.tv_usec - startTimevals[cur_seq - 1].tv_usec);
+                          1000 * (end.tv_sec - startTimevals[cur_seq - 1].tv_sec) + (end.tv_usec - startTimevals[cur_seq - 1].tv_usec)/1000;
                       successCount++;
                       notifyTestHost();
                       continue;
