@@ -1,4 +1,5 @@
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libuv)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libuv EXCLUDE_FROM_ALL)
+set_target_properties(uv PROPERTIES EXCLUDE_FROM_ALL TRUE)
 add_library(uv::uv-static ALIAS uv_a)
 set_target_properties(uv_a PROPERTIES POSITION_INDEPENDENT_CODE 1)
 set(UVW_SOURCES
