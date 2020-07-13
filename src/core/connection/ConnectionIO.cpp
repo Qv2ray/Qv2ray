@@ -13,12 +13,12 @@ namespace Qv2ray::core::connection::connectionIO
         {
             root.remove("inbounds");
             root.remove("routing");
+            root.remove("dns");
         }
 
         root.remove("log");
         root.remove("api");
         root.remove("stats");
-        root.remove("dns");
         return root;
     }
 

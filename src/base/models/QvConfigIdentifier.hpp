@@ -181,6 +181,12 @@ namespace Qv2ray::base
         JSONSTRUCT_REGISTER(ConnectionStatsEntryObject, F(upLinkData, downLinkData))
     };
 
+    enum ConnectionImportSource
+    {
+        IMPORT_SOURCE_SUBSCRIPTION,
+        IMPORT_SOURCE_MANUAL
+    };
+
     struct ConnectionStatsObject
     {
         ConnectionStatsEntryObject &operator[](StatisticsType i)
@@ -194,15 +200,6 @@ namespace Qv2ray::base
         QJsonValue toJson() const
         {
             return JsonStructHelper::___json_struct_store_data(entries);
-        }
-        auto toMap() const
-        {
-            std::map<StatisticsType, QvStatsData> result;
-            for (auto i = 0; i < entries.count(); i++)
-            {
-                result[StatisticsType(i)] = { entries[i].upLinkData, entries[i].downLinkData };
-            }
-            return result;
         }
         void loadJson(const QJsonValue &d)
         {
@@ -222,12 +219,19 @@ namespace Qv2ray::base
     {
         qint64 lastConnected;
         qint64 latency;
+        ConnectionImportSource importSource;
         ConnectionStatsObject stats;
         //
         int __qvConnectionRefCount;
         //
-        ConnectionObject() : lastConnected(), latency(LATENCY_TEST_VALUE_NODATA), stats(), __qvConnectionRefCount(0){};
-        JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, stats), B(__Qv2rayConfigObjectBase))
+        ConnectionObject()
+            : lastConnected(),                    //
+              latency(LATENCY_TEST_VALUE_NODATA), //
+              importSource(IMPORT_SOURCE_MANUAL), //
+              stats(),                            //
+              __qvConnectionRefCount(0)           //
+              {};
+        JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
     };
 
     template<typename T>

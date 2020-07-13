@@ -188,7 +188,7 @@ namespace Qv2ray::components::autolaunch
             ts.setCodec("UTF-8");
             ts << QLatin1String("[Desktop Entry]") << NEWLINE                                                                        //
                << QLatin1String("Name=") << QCoreApplication::applicationName() + QCoreApplication::arguments().join(" ") << NEWLINE //
-               << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << NEWLINE                                        //
+               << QLatin1String("GenericName=") << QLatin1String("V2Ray Frontend") << NEWLINE                                        //
                << QLatin1String("Exec=") << binPath << NEWLINE                                                                       //
                << QLatin1String("Terminal=") << "false" << NEWLINE                                                                   //
                << QLatin1String("Icon=") << "qv2ray" << NEWLINE                                                                      //

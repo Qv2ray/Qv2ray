@@ -7,12 +7,12 @@ class QProcess;
 namespace Qv2ray::core::kernel
 {
     class APIWorker;
-    class V2rayKernelInstance : public QObject
+    class V2RayKernelInstance : public QObject
     {
         Q_OBJECT
       public:
-        explicit V2rayKernelInstance(QObject *parent = nullptr);
-        ~V2rayKernelInstance() override;
+        explicit V2RayKernelInstance(QObject *parent = nullptr);
+        ~V2RayKernelInstance() override;
         //
         std::optional<QString> StartConnection(const CONFIGROOT &root);
         void StopConnection();

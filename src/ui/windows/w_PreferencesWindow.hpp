@@ -90,7 +90,7 @@ class PreferencesWindow
     void on_enableAPI_stateChanged(int arg1);
     void on_startWithLoginCB_stateChanged(int arg1);
     void on_updateChannelCombo_currentIndexChanged(int index);
-    void on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1);
+    void on_pluginKernelV2RayIntegrationCB_stateChanged(int arg1);
     void on_pluginKernelPortAllocateCB_valueChanged(int arg1);
     void on_qvProxyAddressTxt_textEdited(const QString &arg1);
     void on_qvProxyTypeCombo_currentTextChanged(const QString &arg1);
@@ -122,10 +122,8 @@ class PreferencesWindow
     void on_latencyTCPingRB_clicked();
     void on_latencyICMPingRB_clicked();
     void on_qvNetworkUATxt_editTextChanged(const QString &arg1);
-    void on_v2rayOutboundStatsCB_stateChanged(int arg1);
-
+    void on_V2RayOutboundStatsCB_stateChanged(int arg1);
     void on_hasDirectStatisticsCB_stateChanged(int arg1);
-
     void on_useOldShareLinkFormatCB_stateChanged(int arg1);
 
   private:

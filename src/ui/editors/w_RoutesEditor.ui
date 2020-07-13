@@ -30,14 +30,14 @@
        <property name="title">
         <string>Inbound</string>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <widget class="QPushButton" name="addInboundBtn">
           <property name="toolTip">
            <string>Add outbound</string>
           </property>
           <property name="text">
-           <string>Add an Inbound</string>
+           <string>Add Inbound</string>
           </property>
          </widget>
         </item>
@@ -47,7 +47,7 @@
            <string>Add default inbound from global config</string>
           </property>
           <property name="text">
-           <string>Add From Global Settings</string>
+           <string>Add Global Settings</string>
           </property>
          </widget>
         </item>
@@ -59,36 +59,71 @@
        <property name="title">
         <string>Outbound</string>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <widget class="QPushButton" name="addOutboundBtn">
-          <property name="toolTip">
-           <string>Add outbound</string>
-          </property>
-          <property name="text">
-           <string>Add an Outbound</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>New Outbound</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="addOutboundBtn">
+            <property name="toolTip">
+             <string>Add outbound</string>
+            </property>
+            <property name="text">
+             <string>Import</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="insertBlackBtn">
+            <property name="toolTip">
+             <string>Add blackhole outbound</string>
+            </property>
+            <property name="text">
+             <string>Blackhole</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="insertDirectBtn">
+            <property name="toolTip">
+             <string>Add Freedom outbound</string>
+            </property>
+            <property name="text">
+             <string>Direct / Freedom</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="insertBlackBtn">
-          <property name="toolTip">
-           <string>Add blackhole outbound</string>
-          </property>
-          <property name="text">
-           <string>Add Black Hole</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="insertDirectBtn">
-          <property name="toolTip">
-           <string>Add Freedom outbound</string>
-          </property>
-          <property name="text">
-           <string>Add Direct</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Existing Outbound</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="importGroupBtn"/>
+          </item>
+          <item>
+           <widget class="QComboBox" name="importConnBtn"/>
+          </item>
+          <item>
+           <widget class="QToolButton" name="importExistingBtn">
+            <property name="text">
+             <string>OK</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -262,7 +297,7 @@
    <item row="1" column="1">
     <widget class="QToolBox" name="toolBox">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_2">
       <property name="geometry">
@@ -270,7 +305,7 @@
         <x>0</x>
         <y>0</y>
         <width>359</width>
-        <height>535</height>
+        <height>505</height>
        </rect>
       </property>
       <attribute name="label">
@@ -371,8 +406,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>345</width>
-        <height>615</height>
+        <width>347</width>
+        <height>704</height>
        </rect>
       </property>
       <attribute name="label">
@@ -673,11 +708,7 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>addInboundBtn</tabstop>
   <tabstop>addDefaultBtn</tabstop>
-  <tabstop>addOutboundBtn</tabstop>
-  <tabstop>insertBlackBtn</tabstop>
-  <tabstop>insertDirectBtn</tabstop>
   <tabstop>editBtn</tabstop>
   <tabstop>addRouteBtn</tabstop>
   <tabstop>delBtn</tabstop>

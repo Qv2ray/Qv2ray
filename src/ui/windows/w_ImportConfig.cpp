@@ -240,7 +240,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
 
-            if (!V2rayKernelInstance::ValidateConfig(path))
+            if (!V2RayKernelInstance::ValidateConfig(path))
             {
                 QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
@@ -276,7 +276,7 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     }
     else
     {
-        vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
+        qrCodeLinkTxt->setText(str.trimmed());
     }
 }
 void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)

@@ -1,7 +1,7 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
 
-static const inline QStringList V2rayLogLevel = { "none", "debug", "info", "warning", "error" };
+static const inline QStringList V2RayLogLevel = { "none", "debug", "info", "warning", "error" };
 
 namespace Qv2ray::core::connection::generation
 {

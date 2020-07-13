@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/uistyles">
+        <file>psblack.css</file>
+        <file>psblack/add_bottom.png</file>
+        <file>psblack/add_left.png</file>
+        <file>psblack/add_right.png</file>
+        <file>psblack/add_top.png</file>
+        <file>psblack/branch_close.png</file>
+        <file>psblack/branch_open.png</file>
+        <file>psblack/calendar_nextmonth.png</file>
+        <file>psblack/calendar_prevmonth.png</file>
+        <file>psblack/checkbox_checked.png</file>
+        <file>psblack/checkbox_checked_disable.png</file>
+        <file>psblack/checkbox_parcial.png</file>
+        <file>psblack/checkbox_parcial_disable.png</file>
+        <file>psblack/checkbox_unchecked.png</file>
+        <file>psblack/checkbox_unchecked_disable.png</file>
+        <file>psblack/radiobutton_checked.png</file>
+        <file>psblack/radiobutton_checked_disable.png</file>
+        <file>psblack/radiobutton_unchecked.png</file>
+        <file>psblack/radiobutton_unchecked_disable.png</file>
+    </qresource>
+</RCC>

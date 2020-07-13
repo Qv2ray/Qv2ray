@@ -108,6 +108,7 @@ set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
 set(BUILD_TESTING OFF CACHE BOOL "Build test")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
+set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
     add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
@@ -191,7 +192,10 @@ include(src/plugin-interface/QvPluginInterface.cmake)
 # ==================================================================================
 include(cmake/components/qv2ray-lib.cmake)
 include(cmake/components/qv2ray-ui.cmake)
-include(3rdparty/uistyles/uistyles.cmake)
+
+if (QV2RAY_HAS_BUILT_IN_THEMES)
+    include(libs/uistyles/uistyles.cmake)
+endif()
 
 set(QRC_RESOURCES
     ${UISTYLE_QRCS}

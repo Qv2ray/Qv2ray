@@ -172,9 +172,9 @@ namespace Qv2ray::core
         {
             const auto &inbound = inboundVal.toObject();
             inboundPorts[inbound["tag"].toString()] = {
-                inbound["protocol"].toString(), //
-                inbound["listen"].toString(),   //
-                inbound["port"].toInt()         //
+                inbound["protocol"].toString(),     //
+                inbound["listen"].toString(),       //
+                inbound["port"].toVariant().toInt() //
             };
         }
         return inboundPorts;
