@@ -1,3 +1,12 @@
+qv2ray (2.6.1-1) unstable; urgency=medium
+
+  * fix: should not edit GroupManager tablewidget
+  * fix: fixed connection import/export with unwanted content (Closes #771)
+  * fix: fixed V2RAY_LOCATION_ASSET env name (Closes #768)
+  * fix: QR code file cannot be imported
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Mon, 13 Jul 2020 09:37:27 +0800
+
 qv2ray (2.6.0-1) unstable; urgency=medium
 
   * New Release 2.6.0
