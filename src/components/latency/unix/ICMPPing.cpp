@@ -132,6 +132,13 @@ namespace Qv2ray::components::latency::icmping
             testHost->OnLatencyTestCompleted(req.id, data);
             return;
         }
+        if (socketId < 0)
+        {
+            data.errorMessage="EPING_SOCK:" + QObject::tr("Socket creation failed");
+            data.avg = LATENCY_TEST_VALUE_ERROR;
+            testHost->OnLatencyTestCompleted(req.id, data);
+            return;
+        }
         async_DNS_lookup(0,0);
     }
 

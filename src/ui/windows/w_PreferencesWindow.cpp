@@ -7,7 +7,7 @@
 #include "components/ntp/QvNTPClient.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
-#include "core/kernel/V2rayKernelInteractions.hpp"
+#include "core/kernel/V2RayKernelInteractions.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "src/plugin-interface/QvPluginInterface.hpp"
 #include "ui/styles/StyleManager.hpp"
@@ -144,11 +144,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
         enableAPI->setChecked(CurrentConfig.kernelConfig.enableAPI);
         statsPortBox->setValue(CurrentConfig.kernelConfig.statsPort);
         //
-        v2rayOutboundStatsCB->setChecked(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
+        V2RayOutboundStatsCB->setChecked(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
         hasDirectStatisticsCB->setEnabled(CurrentConfig.uiConfig.graphConfig.useOutboundStats);
         hasDirectStatisticsCB->setChecked(CurrentConfig.uiConfig.graphConfig.hasDirectStats);
         //
-        pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
+        pluginKernelV2RayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
         pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
         pluginKernelPortAllocateCB->setEnabled(CurrentConfig.pluginConfig.v2rayIntegration);
     }
@@ -460,7 +460,7 @@ void PreferencesWindow::on_localDNSCb_stateChanged(int arg1)
 void PreferencesWindow::on_selectVAssetBtn_clicked()
 {
     NEEDRESTART
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Open V2ray assets folder"), QDir::currentPath());
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open V2Ray assets folder"), QDir::currentPath());
 
     if (!dir.isEmpty())
     {
@@ -471,7 +471,7 @@ void PreferencesWindow::on_selectVAssetBtn_clicked()
 
 void PreferencesWindow::on_selectVCoreBtn_clicked()
 {
-    QString core = QFileDialog::getOpenFileName(this, tr("Open V2ray core file"), QDir::currentPath());
+    QString core = QFileDialog::getOpenFileName(this, tr("Open V2Ray core file"), QDir::currentPath());
 
     if (!core.isEmpty())
     {
@@ -503,17 +503,17 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 #ifdef Q_OS_LINUX
     // Setting up tProxy for linux
     // Steps:
-    // --> 1. Copy V2ray core files to the QV2RAY_TPROXY_VCORE_PATH and QV2RAY_TPROXY_VCTL_PATH dir.
+    // --> 1. Copy V2Ray core files to the QV2RAY_TPROXY_VCORE_PATH and QV2RAY_TPROXY_VCTL_PATH dir.
     // --> 2. Change GlobalConfig.v2CorePath.
     // --> 3. Call `pkexec setcap
-    // CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2ray core.
+    // CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2Ray core.
     auto const kernelPath = CurrentConfig.kernelConfig.KernelPath();
     if (arg1 == Qt::Checked)
     {
         // We enable it!
         if (QvMessageBoxAsk(this, tr("Enable tProxy Support"),
-                            tr("This will append capabilities to the V2ray executable.") + NEWLINE + NEWLINE +
-                                tr("Qv2ray will copy your V2ray core to this path: ") + NEWLINE + QV2RAY_TPROXY_VCORE_PATH + NEWLINE + NEWLINE +
+                            tr("This will append capabilities to the V2Ray executable.") + NEWLINE + NEWLINE +
+                                tr("Qv2ray will copy your V2Ray core to this path: ") + NEWLINE + QV2RAY_TPROXY_VCORE_PATH + NEWLINE + NEWLINE +
                                 tr("If anything goes wrong after enabling this, please check issue #57 or the link below:") + NEWLINE +
                                 " https://github.com/Qv2ray/Qv2ray/wiki/FAQ ") != QMessageBox::Yes)
         {
@@ -524,14 +524,14 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
         {
 
             LOG(MODULE_VCORE, "ENABLING tProxy Support")
-            LOG(MODULE_FILEIO, " --> Origin V2ray core file is at: " + kernelPath)
+            LOG(MODULE_FILEIO, " --> Origin V2Ray core file is at: " + kernelPath)
             auto v2ctlPath = QFileInfo(kernelPath).absolutePath() + "/v2ctl";
             auto newPath = QFileInfo(QV2RAY_TPROXY_VCORE_PATH).absolutePath();
             QString mkPathResult = QDir().mkpath(newPath) ? "OK" : "FAILED";
             LOG(MODULE_FILEIO, " --> mkPath result: " + mkPathResult)
             //
             LOG(MODULE_FILEIO, " --> Origin v2ctl file is at: " + v2ctlPath)
-            LOG(MODULE_FILEIO, " --> New V2ray files will be placed in: " + newPath)
+            LOG(MODULE_FILEIO, " --> New V2Ray files will be placed in: " + newPath)
             //
             LOG(MODULE_FILEIO, " --> Copying files....")
 
@@ -557,10 +557,10 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 }
 
                 QString vCoreresult = QFile(kernelPath).copy(QV2RAY_TPROXY_VCORE_PATH) ? "OK" : "FAILED";
-                LOG(MODULE_FILEIO, " --> V2ray Core: " + vCoreresult)
+                LOG(MODULE_FILEIO, " --> V2Ray Core: " + vCoreresult)
                 //
                 QString vCtlresult = QFile(v2ctlPath).copy(QV2RAY_TPROXY_VCTL_PATH) ? "OK" : "FAILED";
-                LOG(MODULE_FILEIO, " --> V2ray Ctl: " + vCtlresult)
+                LOG(MODULE_FILEIO, " --> V2Ray Ctl: " + vCtlresult)
                 //
 
                 if (vCoreresult == "OK" && vCtlresult == "OK")
@@ -570,16 +570,16 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 }
                 else
                 {
-                    LOG(MODULE_VCORE, "FAILED to copy V2ray files. Aborting.")
+                    LOG(MODULE_VCORE, "FAILED to copy V2Ray files. Aborting.")
                     QvMessageBoxWarn(this, tr("Enable tProxy Support"),
-                                     tr("Qv2ray cannot copy one or both V2ray files from: ") + NEWLINE + NEWLINE + kernelPath + NEWLINE +
+                                     tr("Qv2ray cannot copy one or both V2Ray files from: ") + NEWLINE + NEWLINE + kernelPath + NEWLINE +
                                          v2ctlPath + NEWLINE + NEWLINE + tr("to this path: ") + NEWLINE + newPath);
                     return;
                 }
             }
             else
             {
-                LOG(MODULE_VCORE, "Skipped removing files since the current V2ray core is in the default path.")
+                LOG(MODULE_VCORE, "Skipped removing files since the current V2Ray core is in the default path.")
                 LOG(MODULE_VCORE, " --> Actually because we don't know where else to obtain the files.")
             }
 
@@ -588,7 +588,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             if (ret != 0)
             {
                 LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-                QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2ray executable. You may need to run `setcap` manually."));
+                QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2Ray executable. You may need to run `setcap` manually."));
             }
 
             CurrentConfig.tProxySupport = true;
@@ -602,7 +602,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
         if (ret != 0)
         {
             LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-            QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2ray executable. You may need to run `setcap` manually."));
+            QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2Ray executable. You may need to run `setcap` manually."));
         }
 
         CurrentConfig.tProxySupport = false;
@@ -847,14 +847,14 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
             return;
     }
 
-    if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result))
+    if (!V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result))
     {
-        QvMessageBoxWarn(this, tr("V2ray Core Settings"), result);
+        QvMessageBoxWarn(this, tr("V2Ray Core Settings"), result);
     }
     else
     {
-        QvMessageBoxInfo(this, tr("V2ray Core Settings"),
-                         tr("V2ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2ray is: ") + NEWLINE +
+        QvMessageBoxInfo(this, tr("V2Ray Core Settings"),
+                         tr("V2Ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2Ray is: ") + NEWLINE +
                              result);
     }
 }
@@ -909,7 +909,7 @@ void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
     CurrentConfig.updateConfig.ignoredVersion.clear();
 }
 
-void PreferencesWindow::on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1)
+void PreferencesWindow::on_pluginKernelV2RayIntegrationCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     if (KernelInstance->ActivePluginKernelsCount() > 0)
@@ -969,7 +969,7 @@ void PreferencesWindow::on_setSessionResumptionCB_stateChanged(int arg1)
     LOADINGCHECK
     if (arg1 == Qt::Checked)
     {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will make your TLS fingerpring different from common golang programs."));
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will make your TLS fingerpring different from common Golang programs."));
     }
     CurrentConfig.advancedConfig.setSessionResumption = arg1 == Qt::Checked;
 }
@@ -1195,7 +1195,7 @@ void PreferencesWindow::on_qvNetworkUATxt_editTextChanged(const QString &arg1)
     CurrentConfig.networkConfig.userAgent = arg1;
 }
 
-void PreferencesWindow::on_v2rayOutboundStatsCB_stateChanged(int arg1)
+void PreferencesWindow::on_V2RayOutboundStatsCB_stateChanged(int arg1)
 {
     hasDirectStatisticsCB->setEnabled(arg1 == Qt::Checked);
     LOADINGCHECK

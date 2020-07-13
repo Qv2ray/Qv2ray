@@ -192,7 +192,7 @@ include(src/plugin-interface/QvPluginInterface.cmake)
 # ==================================================================================
 include(cmake/components/qv2ray-lib.cmake)
 include(cmake/components/qv2ray-ui.cmake)
-include(3rdparty/uistyles/uistyles.cmake)
+include(libs/uistyles/uistyles.cmake)
 
 set(QRC_RESOURCES
     ${UISTYLE_QRCS}

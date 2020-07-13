@@ -104,7 +104,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             auto filePath = d.getSaveFileName(this, GetDisplayName(id));
             if (filePath.isEmpty())
                 return;
-            auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId });
+            auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId }, false);
             //
             // Apply export filter
             ExportConnectionFilter(root);
@@ -275,6 +275,16 @@ void GroupManager::on_addGroupButton_clicked()
 
 void GroupManager::on_updateButton_clicked()
 {
+    if (subAddrTxt->text().trimmed().isEmpty())
+    {
+        QvMessageBoxWarn(this, tr("Update Subscription"), tr("The subscription link is empty."));
+        return;
+    }
+    if (!QUrl{ subAddrTxt->text() }.isValid())
+    {
+        QvMessageBoxWarn(this, tr("Update Subscription"), tr("The subscription link is invalid."));
+        return;
+    }
     if (QvMessageBoxAsk(this, tr("Update Subscription"), tr("Would you like to update the subscription?")) == QMessageBox::Yes)
     {
         this->setEnabled(false);

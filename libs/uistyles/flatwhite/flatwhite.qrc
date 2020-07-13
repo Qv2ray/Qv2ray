@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/uistyles">
+        <file>flatwhite.css</file>
+        <file>flatwhite/add_bottom.png</file>
+        <file>flatwhite/add_left.png</file>
+        <file>flatwhite/add_right.png</file>
+        <file>flatwhite/add_top.png</file>
+        <file>flatwhite/branch_close.png</file>
+        <file>flatwhite/branch_open.png</file>
+        <file>flatwhite/calendar_nextmonth.png</file>
+        <file>flatwhite/calendar_prevmonth.png</file>
+        <file>flatwhite/checkbox_checked.png</file>
+        <file>flatwhite/checkbox_checked_disable.png</file>
+        <file>flatwhite/checkbox_parcial.png</file>
+        <file>flatwhite/checkbox_parcial_disable.png</file>
+        <file>flatwhite/checkbox_unchecked.png</file>
+        <file>flatwhite/checkbox_unchecked_disable.png</file>
+        <file>flatwhite/radiobutton_checked.png</file>
+        <file>flatwhite/radiobutton_checked_disable.png</file>
+        <file>flatwhite/radiobutton_unchecked.png</file>
+        <file>flatwhite/radiobutton_unchecked_disable.png</file>
+    </qresource>
+</RCC>

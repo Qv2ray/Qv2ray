@@ -4,6 +4,7 @@
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Generation.hpp"
+#include "core/handler/ConfigHandler.hpp"
 #include "ui/common/UIBase.hpp"
 #include "ui/models/InboundNodeModel.hpp"
 #include "ui/models/OutboundNodeModel.hpp"
@@ -97,17 +98,17 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     domainStrategyCombo->setCurrentText(domainStrategy);
 
     // Show connections in the node graph
-    for (auto in : root["inbounds"].toArray())
+    for (const auto &in : root["inbounds"].toArray())
     {
         AddInbound(INBOUND(in.toObject()));
     }
 
-    for (auto out : root["outbounds"].toArray())
+    for (const auto &out : root["outbounds"].toArray())
     {
         AddOutbound(OUTBOUND(out.toObject()));
     }
 
-    for (auto item : root["routing"].toObject()["rules"].toArray())
+    for (const auto &item : root["routing"].toObject()["rules"].toArray())
     {
         AddRule(RuleObject::fromJson(item.toObject()));
     }
@@ -120,11 +121,15 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     for (auto _balancer : root["routing"].toObject()["balancers"].toArray())
     {
         auto _balancerObject = _balancer.toObject();
-
         if (!_balancerObject["tag"].toString().isEmpty())
         {
             balancers.insert(_balancerObject["tag"].toString(), _balancerObject["selector"].toVariant().toStringList());
         }
+    }
+
+    for (const auto &group : ConnectionManager->AllGroups())
+    {
+        importGroupBtn->addItem(GetDisplayName(group), group.toString());
     }
 
     isLoading = false;
@@ -1055,4 +1060,23 @@ void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1
 {
     LOADINGCHECK
     defaultOutbound = arg1;
+}
+
+void RouteEditor::on_importExistingBtn_clicked()
+{
+    const auto connId = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
+    const auto root = ConnectionManager->GetConnectionRoot(connId);
+    auto outbound = root["outbounds"].toArray()[0].toObject();
+    outbound["tag"] = GetDisplayName(connId);
+    AddOutbound(OUTBOUND{ outbound });
+}
+
+void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
+{
+    const auto group = GroupId{ importGroupBtn->currentData(Qt::UserRole).toString() };
+    importConnBtn->clear();
+    for (const auto &connId : ConnectionManager->Connections(group))
+    {
+        importConnBtn->addItem(GetDisplayName(connId), connId.toString());
+    }
 }

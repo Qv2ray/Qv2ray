@@ -111,11 +111,11 @@ namespace Qv2ray::core::handler
     //
     // BEGIN RUNTIME CONFIG GENERATION
     // We need copy construct here
-    CONFIGROOT RouteHandler::GenerateFinalConfig(const ConnectionGroupPair &pair) const
+    CONFIGROOT RouteHandler::GenerateFinalConfig(const ConnectionGroupPair &p, bool api) const
     {
-        return GenerateFinalConfig(ConnectionManager->GetConnectionRoot(pair.connectionId), ConnectionManager->GetGroupRoutingId(pair.groupId));
+        return GenerateFinalConfig(ConnectionManager->GetConnectionRoot(p.connectionId), ConnectionManager->GetGroupRoutingId(p.groupId), api);
     }
-    CONFIGROOT RouteHandler::GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId) const
+    CONFIGROOT RouteHandler::GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId, bool hasAPI) const
     {
         const auto &config = configs.contains(routingId) ? configs[routingId] : GlobalConfig.defaultRouteConfig;
         //
@@ -134,7 +134,7 @@ namespace Qv2ray::core::handler
         //
         // logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
         // logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
-        QJsonIO::SetValue(root, V2rayLogLevel[GlobalConfig.logLevel], "log", "loglevel");
+        QJsonIO::SetValue(root, V2RayLogLevel[GlobalConfig.logLevel], "log", "loglevel");
         //
         // Since Qv2ray does not support settings DNS manually for now.
         // These settings are being added for both complex config AND simple config.
@@ -382,7 +382,7 @@ namespace Qv2ray::core::handler
         }
 
         // Let's process some api features.
-        if (GlobalConfig.kernelConfig.enableAPI)
+        if (hasAPI && GlobalConfig.kernelConfig.enableAPI)
         {
             //
             // Stats

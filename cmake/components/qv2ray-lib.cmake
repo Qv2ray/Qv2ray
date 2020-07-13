@@ -99,8 +99,8 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/core/kernel/PluginKernelInteractions.hpp
     ${CMAKE_SOURCE_DIR}/src/core/kernel/QvKernelABIChecker.cpp
     ${CMAKE_SOURCE_DIR}/src/core/kernel/QvKernelABIChecker.hpp
-    ${CMAKE_SOURCE_DIR}/src/core/kernel/V2rayKernelInteractions.cpp
-    ${CMAKE_SOURCE_DIR}/src/core/kernel/V2rayKernelInteractions.hpp
+    ${CMAKE_SOURCE_DIR}/src/core/kernel/V2RayKernelInteractions.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/kernel/V2RayKernelInteractions.hpp
     #
     ${CMAKE_SOURCE_DIR}/src/core/settings/SettingsBackend.cpp
     ${CMAKE_SOURCE_DIR}/src/core/settings/SettingsBackend.hpp

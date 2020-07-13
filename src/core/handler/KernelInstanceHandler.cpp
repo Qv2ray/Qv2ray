@@ -10,10 +10,10 @@ namespace Qv2ray::core::handler
     KernelInstanceHandler::KernelInstanceHandler(QObject *parent) : QObject(parent)
     {
         KernelInstance = this;
-        vCoreInstance = new V2rayKernelInstance(this);
-        connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnV2rayStatsDataRcvd_p);
-        connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLog_p);
-        connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
+        vCoreInstance = new V2RayKernelInstance(this);
+        connect(vCoreInstance, &V2RayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnV2RayStatsDataRcvd_p);
+        connect(vCoreInstance, &V2RayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLog_p);
+        connect(vCoreInstance, &V2RayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
         //
         auto kernelList = PluginHost->GetPluginKernels();
         for (const auto &internalName : kernelList.keys())
@@ -119,7 +119,7 @@ namespace Qv2ray::core::handler
                 //
                 QMap<QvPluginKernel::KernelSetting, QVariant> _inboundSettings;
 
-                LOG(MODULE_VCORE, "V2rayIntegration: " + QSTRN(pluginPort) + " = " + outProtocol)
+                LOG(MODULE_VCORE, "V2RayIntegration: " + QSTRN(pluginPort) + " = " + outProtocol)
                 _inboundSettings[_k::KERNEL_HTTP_ENABLED] = false;
                 _inboundSettings[_k::KERNEL_SOCKS_ENABLED] = true;
                 _inboundSettings[_k::KERNEL_SOCKS_PORT] = pluginPort;
@@ -157,7 +157,7 @@ namespace Qv2ray::core::handler
             const auto firstOutboundProtocol = firstOutbound["protocol"].toString();
             if (GlobalConfig.pluginConfig.v2rayIntegration)
             {
-                LOG(MODULE_VCORE, "Starting kernels with V2rayIntegration.")
+                LOG(MODULE_VCORE, "Starting kernels with V2RayIntegration.")
                 bool hasAllKernelStarted = true;
                 for (auto &[outboundProtocol, kernelObject] : activeKernels)
                 {
@@ -181,7 +181,7 @@ namespace Qv2ray::core::handler
                 }
                 currentId = id;
                 //
-                // Also start V2ray-core.
+                // Also start V2Ray-core.
                 auto result = vCoreInstance->StartConnection(fullConfig);
                 //
                 if (result.has_value())
@@ -198,8 +198,8 @@ namespace Qv2ray::core::handler
             }
             else if (outboundKernelMap.contains(firstOutboundProtocol))
             {
-                // Connections without V2ray Integration will have and ONLY have ONE kernel.
-                LOG(MODULE_CONNECTION, "Starting kernel " + firstOutboundProtocol + " without V2ray Integration")
+                // Connections without V2Ray Integration will have and ONLY have ONE kernel.
+                LOG(MODULE_CONNECTION, "Starting kernel " + firstOutboundProtocol + " without V2Ray Integration")
                 {
                     auto kernel = PluginHost->CreatePluginKernel(outboundKernelMap[firstOutbound["protocol"].toString()]);
                     activeKernels.push_back({ firstOutboundProtocol, std::move(kernel) });
@@ -243,7 +243,7 @@ namespace Qv2ray::core::handler
             }
             else
             {
-                LOG(MODULE_CONNECTION, "Starting V2ray without plugin.")
+                LOG(MODULE_CONNECTION, "Starting V2Ray without plugin.")
                 currentId = id;
                 auto result = vCoreInstance->StartConnection(fullConfig);
                 if (result.has_value())
@@ -300,7 +300,7 @@ namespace Qv2ray::core::handler
         activeKernels.clear();
     }
 
-    void KernelInstanceHandler::OnV2rayStatsDataRcvd_p(const QMap<StatisticsType, QvStatsSpeed> &data)
+    void KernelInstanceHandler::OnV2RayStatsDataRcvd_p(const QMap<StatisticsType, QvStatsSpeed> &data)
     {
         if (isConnected)
         {
@@ -310,6 +310,6 @@ namespace Qv2ray::core::handler
 
     void KernelInstanceHandler::OnPluginStatsDataRcvd_p(const long uploadSpeed, const long downloadSpeed)
     {
-        OnV2rayStatsDataRcvd_p({ { API_OUTBOUND_PROXY, { uploadSpeed, downloadSpeed } } });
+        OnV2RayStatsDataRcvd_p({ { API_OUTBOUND_PROXY, { uploadSpeed, downloadSpeed } } });
     }
 } // namespace Qv2ray::core::handler
