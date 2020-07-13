@@ -75,8 +75,8 @@ namespace Qv2ray::core::handler
         tcpingHelper = new LatencyTestHost(5, this);
         connect(tcpingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
-        // Save per 1 minutes.
-        saveTimerId = startTimer(1 * 60 * 1000);
+        // Save per 1 hour.
+        saveTimerId = startTimer(1 * 60 * 60 * 1000);
         // Do not ping all...
         pingConnectionTimerId = startTimer(60 * 1000);
     }
