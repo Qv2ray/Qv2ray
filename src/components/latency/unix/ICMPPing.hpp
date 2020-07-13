@@ -75,6 +75,7 @@ namespace Qv2ray::components::latency::icmping
         char digitBuffer[20] = { 0 };
         std::shared_ptr<uvw::Loop> loop;
         std::shared_ptr<uvw::GetAddrInfoReq> getAddrHandle;
+        std::shared_ptr<uvw::TimerHandle> timoutTimer;
         std::vector<timeval> startTimevals;
         QString initErrorMessage;
     };

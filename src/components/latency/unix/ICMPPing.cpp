@@ -7,7 +7,7 @@
 
 #include <QObject>
 #ifdef Q_OS_UNIX
-
+#include <iostream>
     #include <netinet/in.h>
     #include <netinet/ip.h> //macos need that
     #include <netinet/ip_icmp.h>
@@ -151,6 +151,11 @@ namespace Qv2ray::components::latency::icmping
             else
                 data.errorMessage.clear(), data.avg = data.avg / successCount;
             testHost->OnLatencyTestCompleted(req.id, data);
+            if(timoutTimer)
+            {
+                timoutTimer->stop();
+                timoutTimer->close();
+            }
             return true;
         }
         return false;
@@ -158,21 +163,33 @@ namespace Qv2ray::components::latency::icmping
 
     void ICMPPing::ping()
     {
+        timoutTimer = loop->resource<uvw::TimerHandle>();
         uvw::OSSocketHandle osSocketHandle{ socketId };
         auto pollHandle = loop->resource<uvw::PollHandle>(osSocketHandle);
+        timoutTimer->once<uvw::TimerEvent>([pollHandle,this,ptr=shared_from_this()](auto&,uvw::TimerHandle&h)
+                                           {
+                                                pollHandle->clear();
+                                                pollHandle->stop();
+                                                pollHandle->close();
+                                                successCount=0;
+                                                data.failedCount=data.totalCount=req.totalCount;
+                                                notifyTestHost();
+                                           });
+        timoutTimer->start(uvw::TimerHandle::Time{ 5000 }, uvw::TimerHandle::Time{ 0 });
         pollHandle->init();
         auto pollEvent = uvw::Flags<uvw::PollHandle::Event>::from<uvw::PollHandle::Event::READABLE>();
         pollHandle->on<uvw::PollEvent>([this, ptr = shared_from_this()](uvw::PollEvent &, uvw::PollHandle &h) {
           timeval end;
-          sockaddr_in remove_addr;
-          socklen_t slen = sizeof(remove_addr);
+          socklen_t slen = sizeof(sockaddr_in);
           int rlen = 0;
           icmp resp;
+//          std::cout<<"pollevent"<<"\n";
           do
           {
               do
               {
-                  rlen = recvfrom(socketId, &resp, sizeof(icmp), 0, (struct sockaddr *) &remove_addr, &slen);
+                  rlen = recvfrom(socketId, &resp, sizeof(icmp), 0, (struct sockaddr *) &storage, &slen);
+//                  std::cout<<"rlen:"<<rlen<<"\n";
               } while (rlen == -1 && errno == EINTR);
               gettimeofday(&end, NULL);
 
@@ -243,6 +260,7 @@ namespace Qv2ray::components::latency::icmping
             do
             {
                 n = ::sendto(socketId, &_icmp_request, sizeof(icmp), 0, (struct sockaddr *) &storage, sizeof(struct sockaddr));
+//                std::cout<<"n:"<<n<<"\n";
             } while (n < 0 && errno == EINTR);
         }
     }
