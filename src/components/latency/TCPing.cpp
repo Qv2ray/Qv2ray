@@ -18,7 +18,7 @@ namespace Qv2ray::components::latency::tcping
         // See [https://github.com/libuv/help/issues/54] for details.
 #if defined( _WIN32 ) && !defined( __SYMBIAN32__ )
         setsockopt(fd, IPPROTO_TCP, TCP_MAXRT, (char*)&conn_timeout_sec, sizeof(conn_timeout_sec));
-#elif defined(APPLE)
+#elif defined(__APPLE__)
         // (billhoo) MacOS uses TCP_CONNECTIONTIMEOUT to do so.
     setsockopt(fd, IPPROTO_TCP, TCP_CONNECTIONTIMEOUT, (char*)&conn_timeout_sec, sizeof(conn_timeout_sec));
 #else // Linux like systems
