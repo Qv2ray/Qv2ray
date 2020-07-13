@@ -3256,7 +3256,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>This group is a subscription</source>
-        <translation>此分组是是一个订阅</translation>
+        <translation>此分组是一个订阅</translation>
     </message>
     <message>
         <source>Name</source>
