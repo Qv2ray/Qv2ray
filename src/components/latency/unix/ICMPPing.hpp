@@ -76,6 +76,7 @@ namespace Qv2ray::components::latency::icmping
         std::shared_ptr<uvw::Loop> loop;
         std::shared_ptr<uvw::GetAddrInfoReq> getAddrHandle;
         std::shared_ptr<uvw::TimerHandle> timoutTimer;
+        std::shared_ptr<uvw::PollHandle> pollHandle;
         std::vector<timeval> startTimevals;
         QString initErrorMessage;
     };

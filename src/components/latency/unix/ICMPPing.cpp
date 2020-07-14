@@ -144,6 +144,13 @@ namespace Qv2ray::components::latency::icmping
                 timoutTimer->clear();
                 timoutTimer->close();
             }
+            if(pollHandle)
+            {
+                if(!pollHandle->closing())
+                    pollHandle->stop();
+                pollHandle->clear();
+                pollHandle->close();
+            }
             return true;
         }
         return false;
@@ -153,17 +160,24 @@ namespace Qv2ray::components::latency::icmping
     {
         timoutTimer = loop->resource<uvw::TimerHandle>();
         uvw::OSSocketHandle osSocketHandle{ socketId };
-        auto pollHandle = loop->resource<uvw::PollHandle>(osSocketHandle);
-        timoutTimer->once<uvw::TimerEvent>([pollHandle,this,ptr=shared_from_this()](auto&,uvw::TimerHandle&h)
+        pollHandle = loop->resource<uvw::PollHandle>(osSocketHandle);
+        timoutTimer->once<uvw::TimerEvent>([this,ptr=std::weak_ptr<ICMPPing>{shared_from_this()}](auto&,uvw::TimerHandle&h)
                                            {
-                                                pollHandle->clear();
-                                                pollHandle->stop();
-                                                pollHandle->close();
-                                                successCount=0;
-                                                data.failedCount=data.totalCount=req.totalCount;
-                                                notifyTestHost();
+                                                if(ptr.expired())
+                                                    return;
+                                                else
+                                                {
+                                                    auto p=ptr.lock();
+                                                    pollHandle->clear();
+                                                    if(!pollHandle->closing())
+                                                    pollHandle->stop();
+                                                    pollHandle->close();
+                                                    successCount = 0;
+                                                    data.failedCount = data.totalCount = req.totalCount;
+                                                    notifyTestHost();
+                                                }
                                            });
-        timoutTimer->start(uvw::TimerHandle::Time{ 15000 }, uvw::TimerHandle::Time{ 0 });
+        timoutTimer->start(uvw::TimerHandle::Time{ 10000 }, uvw::TimerHandle::Time{ 0 });
         auto pollEvent = uvw::Flags<uvw::PollHandle::Event>::from<uvw::PollHandle::Event::READABLE>();
         pollHandle->on<uvw::PollEvent>([this, ptr = shared_from_this()](uvw::PollEvent &, uvw::PollHandle &h) {
           timeval end;

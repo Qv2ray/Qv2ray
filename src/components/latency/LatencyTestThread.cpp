@@ -19,6 +19,8 @@ namespace Qv2ray::components::latency
 
     void LatencyTestThread::pushRequest(const ConnectionId &id, int totalTestCount, Qv2rayLatencyTestingMethod method)
     {
+        if(isStop)
+            return;
         std::unique_lock<std::mutex> lockGuard{ m };
         const auto &[protocol, host, port] = GetConnectionInfo(id);
         requests.emplace_back(LatencyTestRequest{ id, host, port, totalTestCount, method });
@@ -31,12 +33,23 @@ namespace Qv2ray::components::latency
         stopTimer->on<uvw::TimerEvent>([this](auto &, auto &handle) {
             if (isStop)
             {
-                handle.stop();
-                handle.close();
-                requests.clear();
-                loop->clear();
-                loop->close();
-                loop->stop();
+                if(!requests.empty())
+                    requests.clear();
+                int timer_count=0;
+                //LOG(MODULE_NETWORK,"fuck")
+                loop->walk([&timer_count,this](uvw::BaseHandle&h)
+                           {
+                                if(!h.closing())
+                                    timer_count++;
+                           });
+                if(timer_count==1)//only current timer
+                {
+                    handle.stop();
+                    handle.close();
+                    loop->clear();
+                    loop->close();
+                    loop->stop();
+                }
             }
             else
             {
@@ -76,6 +89,8 @@ namespace Qv2ray::components::latency
     }
     void LatencyTestThread::pushRequest(const QList<ConnectionId> &ids, int totalTestCount, Qv2rayLatencyTestingMethod method)
     {
+        if(isStop)
+            return;
         std::unique_lock<std::mutex> lockGuard{ m };
         for (const auto &id : ids)
         {

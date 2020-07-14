@@ -115,6 +115,7 @@ namespace Qv2ray::components::latency::tcping
               data.errorMessage = e.what();
               notifyTestHost();
               h.clear();
+              h.close();
             });
             tcpClient->once<uvw::ConnectEvent>([ptr = shared_from_this(), start = system_clock::now(), this](auto &, auto &h) {
               ++successCount;
