@@ -7,7 +7,6 @@
 
 #include <QObject>
 #ifdef Q_OS_UNIX
-#include <iostream>
     #include <netinet/in.h>
     #include <netinet/ip.h> //macos need that
     #include <netinet/ip_icmp.h>
@@ -58,9 +57,7 @@ namespace Qv2ray::components::latency::icmping
           req(std::move(req_in)),
           testHost(testHost)
     {
-        auto timeout_s = 5;
-        // create socket
-        if (((socketId = socket(PF_INET, SOCK_DGRAM, IPPROTO_ICMP)) < 0))
+        if (((socketId = socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_ICMP)) < 0))
         {
             initErrorMessage = "EPING_SOCK: " + QObject::tr("Socket creation failed");
             return;
@@ -73,16 +70,6 @@ namespace Qv2ray::components::latency::icmping
             return;
         }
 
-        // set timeout in secs (do not use secs - BUGGY)
-        timeval timeout;
-        timeout.tv_sec = timeout_s;
-        timeout.tv_usec = 0;
-        if (setsockopt(socketId, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout)) != 0)
-        {
-            deinit();
-            initErrorMessage = "EPING_SETTO: " + QObject::tr("Setting timeout failed");
-            return;
-        }
         initialized = true;
         data.totalCount = req.totalCount;
         data.failedCount = 0;
@@ -154,6 +141,7 @@ namespace Qv2ray::components::latency::icmping
             if(timoutTimer)
             {
                 timoutTimer->stop();
+                timoutTimer->clear();
                 timoutTimer->close();
             }
             return true;
@@ -175,23 +163,20 @@ namespace Qv2ray::components::latency::icmping
                                                 data.failedCount=data.totalCount=req.totalCount;
                                                 notifyTestHost();
                                            });
-        timoutTimer->start(uvw::TimerHandle::Time{ 5000 }, uvw::TimerHandle::Time{ 0 });
-        pollHandle->init();
+        timoutTimer->start(uvw::TimerHandle::Time{ 15000 }, uvw::TimerHandle::Time{ 0 });
         auto pollEvent = uvw::Flags<uvw::PollHandle::Event>::from<uvw::PollHandle::Event::READABLE>();
         pollHandle->on<uvw::PollEvent>([this, ptr = shared_from_this()](uvw::PollEvent &, uvw::PollHandle &h) {
           timeval end;
+          sockaddr_in addr;
           socklen_t slen = sizeof(sockaddr_in);
           int rlen = 0;
           icmp resp;
-//          std::cout<<"pollevent"<<"\n";
           do
           {
               do
               {
-                  rlen = recvfrom(socketId, &resp, sizeof(icmp), 0, (struct sockaddr *) &storage, &slen);
-//                  std::cout<<"rlen:"<<rlen<<"\n";
+                  rlen = recvfrom(socketId, &resp, sizeof(icmp), 0, (struct sockaddr *) &addr, &slen);
               } while (rlen == -1 && errno == EINTR);
-              gettimeofday(&end, NULL);
 
               // skip malformed
               if (rlen != sizeof(icmp))
@@ -205,7 +190,8 @@ namespace Qv2ray::components::latency::icmping
               switch (resp.icmp_type)
               {
                   case ICMP_ECHOREPLY:
-                      data.avg =
+                      gettimeofday(&end, nullptr);
+                      data.avg +=
                           1000 * (end.tv_sec - startTimevals[cur_seq - 1].tv_sec) + (end.tv_usec - startTimevals[cur_seq - 1].tv_usec)/1000;
                       successCount++;
                       notifyTestHost();
@@ -260,7 +246,6 @@ namespace Qv2ray::components::latency::icmping
             do
             {
                 n = ::sendto(socketId, &_icmp_request, sizeof(icmp), 0, (struct sockaddr *) &storage, sizeof(struct sockaddr));
-//                std::cout<<"n:"<<n<<"\n";
             } while (n < 0 && errno == EINTR);
         }
     }
