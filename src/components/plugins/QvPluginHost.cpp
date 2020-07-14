@@ -246,11 +246,11 @@ namespace Qv2ray::components::plugins
                                                                                                  QString *aliasPrefix,     //
                                                                                                  QString *errMessage,      //
                                                                                                  QString *newGroupName,    //
-                                                                                                 bool *status) const
+                                                                                                 bool *ok) const
     {
         Q_UNUSED(newGroupName)
         QList<std::tuple<QString, QString, QJsonObject>> data;
-        *status = true;
+        *ok = true;
         for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
@@ -264,7 +264,7 @@ namespace Qv2ray::components::plugins
                 if (thisPluginCanHandle)
                 {
                     const auto &[protocol, outboundSettings] = serializer->DeserializeOutbound(sharelink, aliasPrefix, errMessage);
-                    *status = *status && errMessage->isEmpty();
+                    *ok = *ok && errMessage->isEmpty();
                     data << std::tuple{ *aliasPrefix, protocol, outboundSettings };
                 }
             }

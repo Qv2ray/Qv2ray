@@ -51,14 +51,18 @@ namespace Qv2ray::core::connection
             {
                 bool ok = false;
                 const auto configs = PluginHost->TryDeserializeShareLink(link, aliasPrefix, errMessage, newGroupName, &ok);
-                for (const auto &[_alias, _protocol, _outbound] : configs)
+                if (ok)
                 {
-                    CONFIGROOT root;
-                    auto outbound = GenerateOutboundEntry(_protocol, OUTBOUNDSETTING(_outbound), {});
-                    QJsonIO::SetValue(root, outbound, "outbounds", 0);
-                    connectionConf << QPair{ _alias, root };
+                    errMessage->clear();
+                    for (const auto &[_alias, _protocol, _outbound] : configs)
+                    {
+                        CONFIGROOT root;
+                        auto outbound = GenerateOutboundEntry(_protocol, OUTBOUNDSETTING(_outbound), {});
+                        QJsonIO::SetValue(root, outbound, "outbounds", 0);
+                        connectionConf << QPair{ _alias, root };
+                    }
                 }
-                if (!ok)
+                else
                 {
                     *errMessage = QObject::tr("Unsupported share link format.");
                 }
