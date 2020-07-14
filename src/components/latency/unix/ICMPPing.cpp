@@ -57,7 +57,7 @@ namespace Qv2ray::components::latency::icmping
           req(std::move(req_in)),
           testHost(testHost)
     {
-        if (((socketId = socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_ICMP)) < 0))
+        if (((socketId = socket(PF_INET, SOCK_DGRAM, IPPROTO_ICMP)) < 0))
         {
             initErrorMessage = "EPING_SOCK: " + QObject::tr("Socket creation failed");
             return;
