@@ -1106,8 +1106,14 @@ void PreferencesWindow::on_pushButton_clicked()
 {
     const auto ntpTitle = tr("NTP Checker");
     const auto ntpHint = tr("Check date and time from server:");
+    const static QStringList ntpServerList = { "cn.pool.ntp.org",         //
+                                               "cn.ntp.org.cn",           //
+                                               "edu.ntp.org.cn",          //
+                                               "time.pool.aliyun.com",    //
+                                               "time1.cloud.tencent.com", //
+                                               "ntp.neu.edu.cn" };
     bool ok = false;
-    QString ntpServer = QInputDialog::getText(this, ntpTitle, ntpHint, QLineEdit::Normal, "202.118.1.46", &ok).trimmed();
+    QString ntpServer = QInputDialog::getItem(this, ntpTitle, ntpHint, ntpServerList, 0, true, &ok).trimmed();
     if (!ok)
         return;
 

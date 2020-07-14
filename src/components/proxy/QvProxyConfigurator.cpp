@@ -32,7 +32,7 @@ namespace Qv2ray::components::proxy
             // * means disabled.
             if (!lines[i].contains("*"))
             {
-                result << (lines[i].contains(" ") ? "\"" + lines[i] + "\"" : lines[i]);
+                result << lines[i];
             }
         }
 

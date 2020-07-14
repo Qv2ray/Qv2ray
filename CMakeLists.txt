@@ -113,6 +113,7 @@ set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
 set(BUILD_TESTING OFF CACHE BOOL "Build test")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
+set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
     add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
@@ -197,7 +198,10 @@ include(src/plugin-interface/QvPluginInterface.cmake)
 # ==================================================================================
 include(cmake/components/qv2ray-lib.cmake)
 include(cmake/components/qv2ray-ui.cmake)
-include(libs/uistyles/uistyles.cmake)
+
+if (QV2RAY_HAS_BUILT_IN_THEMES)
+    include(libs/uistyles/uistyles.cmake)
+endif()
 
 set(QRC_RESOURCES
     ${UISTYLE_QRCS}
@@ -345,7 +349,7 @@ if(UNIX AND NOT APPLE AND NOT WIN32)
     install(TARGETS qv2ray RUNTIME DESTINATION bin)
     install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
     install(FILES assets/qv2ray.desktop DESTINATION share/applications)
-    install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps)
+    install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/1024x1024/apps)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION share/qv2ray/lang)
     endif()
