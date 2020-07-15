@@ -25,7 +25,7 @@ namespace Qv2ray::core::handler
         {
             return activeKernels.size();
         }
-        const QMap<QString, InboundInfoObject> GetInboundInfo() const
+        const QMap<QString, InboundInfoObject> GetCurrentConnectionInboundInfo() const
         {
             return inboundInfo;
         }

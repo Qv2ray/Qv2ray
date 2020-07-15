@@ -165,23 +165,30 @@ namespace Qv2ray::core
         return TruncateString(ConnectionManager->GetGroupMetaObject(id).displayName, limit);
     }
 
-    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const CONFIGROOT &root)
+    bool GetInboundInfo(const INBOUND &in, QString *listen, int *port, QString *protocol)
+    {
+        *protocol = in["protocol"].toString();
+        *listen = in["listen"].toString();
+        *port = in["port"].toVariant().toInt();
+        return true;
+    }
+
+    const QMap<QString, InboundInfoObject> GetInboundInfo(const CONFIGROOT &root)
     {
         QMap<QString, InboundInfoObject> inboundPorts;
         for (const auto &inboundVal : root["inbounds"].toArray())
         {
-            const auto &inbound = inboundVal.toObject();
-            inboundPorts[inbound["tag"].toString()] = {
-                inbound["protocol"].toString(),     //
-                inbound["listen"].toString(),       //
-                inbound["port"].toVariant().toInt() //
-            };
+            INBOUND in{ inboundVal.toObject() };
+            QString host, protocol;
+            int port;
+            if (GetInboundInfo(in, &host, &port, &protocol))
+                inboundPorts[getTag(in)] = { protocol, host, port };
         }
         return inboundPorts;
     }
 
-    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const ConnectionId &id)
+    const QMap<QString, InboundInfoObject> GetInboundInfo(const ConnectionId &id)
     {
-        return GetConfigInboundInfo(ConnectionManager->GetConnectionRoot(id));
+        return GetInboundInfo(ConnectionManager->GetConnectionRoot(id));
     }
 } // namespace Qv2ray::core

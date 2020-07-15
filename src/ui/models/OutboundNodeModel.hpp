@@ -1,5 +1,6 @@
 #pragma once
 #include "ui/models/NodeModelsBase.hpp"
+#include "ui/widgets/node/InboundOutboundWidget.hpp"
 
 #include <QtCore/qglobal.h>
 
@@ -8,12 +9,9 @@ class QvOutboundNodeModel : public NodeDataModel
     Q_OBJECT
   public:
     explicit QvOutboundNodeModel(std::shared_ptr<OutboundNodeData> data);
-    ~QvOutboundNodeModel()
-    {
-        // if (_label) {
-        //    delete _label;
-        //}
-    }
+    ~QvOutboundNodeModel(){};
+    void setInData(std::shared_ptr<NodeData>, int) override{};
+    void setInData(std::vector<std::shared_ptr<NodeData>>, int) override{};
 
     QString caption() const override
     {
@@ -39,7 +37,7 @@ class QvOutboundNodeModel : public NodeDataModel
     {
         Q_UNUSED(portType)
         Q_UNUSED(portIndex)
-        return outboundType;
+        return NODE_TYPE_OUTBOUND;
     }
 
     std::shared_ptr<NodeData> outData(PortIndex) override
@@ -47,23 +45,15 @@ class QvOutboundNodeModel : public NodeDataModel
         return _out;
     }
 
-    void setInData(std::shared_ptr<NodeData>, int) override
-    {
-    }
-
-    void setInData(std::vector<std::shared_ptr<NodeData>>, int) override
-    {
-    }
-    void setData(const QString &data)
+    void setData(std::shared_ptr<OUTBOUND> data)
     {
         _out = std::make_shared<OutboundNodeData>(data);
-        _label->setText(_out->GetOutbound());
-        _label->adjustSize();
+        widget->adjustSize();
     }
 
     QWidget *embeddedWidget() override
     {
-        return _label;
+        return nullptr;
     }
 
     ConnectionPolicy portInConnectionPolicy(PortIndex) const override
@@ -80,5 +70,5 @@ class QvOutboundNodeModel : public NodeDataModel
     QString modelValidationError = tr("Missing or incorrect inputs");
     //
     std::shared_ptr<OutboundNodeData> _out;
-    QLabel *_label;
+    InboundOutboundWidget *widget;
 };

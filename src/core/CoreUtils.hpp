@@ -49,8 +49,9 @@ namespace Qv2ray::core
     //
     // const GroupId GetConnectionGroupId(const ConnectionId &id);
     //
-    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const CONFIGROOT &root);
-    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const ConnectionId &id);
+    bool GetInboundInfo(const INBOUND &in, QString *listen, int *port, QString *protocol);
+    const QMap<QString, InboundInfoObject> GetInboundInfo(const CONFIGROOT &root);
+    const QMap<QString, InboundInfoObject> GetInboundInfo(const ConnectionId &id);
 } // namespace Qv2ray::core
 
 using namespace Qv2ray::core;

@@ -6,23 +6,23 @@
 #include <QJsonObject>
 #include <QMap>
 
-#define SAFE_TYPEDEF_EXTRA(Base, name, extra)                                                                                                   \
-    class name : public Base                                                                                                                    \
-    {                                                                                                                                           \
-      public:                                                                                                                                   \
-        template<class... Args>                                                                                                                 \
-        explicit name(Args... args) : Base(args...)                                                                                             \
-        {                                                                                                                                       \
-        }                                                                                                                                       \
-        const Base &raw() const                                                                                                                 \
-        {                                                                                                                                       \
-            return *this;                                                                                                                       \
-        }                                                                                                                                       \
-        extra                                                                                                                                   \
+template<typename placeholder, typename BASETYPE_T>
+class SAFETYPE_IMPL : public BASETYPE_T
+{
+  public:
+    template<class... Args>
+    explicit SAFETYPE_IMPL(Args... args) : BASETYPE_T(args...){};
+    const BASETYPE_T &raw() const
+    {
+        return *this;
     }
+};
+
+#define SAFE_TYPEDEF(BASE, CLASS)                                                                                                               \
+    class __##CLASS##__;                                                                                                                        \
+    typedef SAFETYPE_IMPL<__##CLASS##__, BASE> CLASS;
 
 #define nothing
-#define SAFE_TYPEDEF(Base, name) SAFE_TYPEDEF_EXTRA(Base, name, nothing)
 namespace Qv2ray::base::safetype
 {
     // To prevent anonying QJsonObject misuse
@@ -31,14 +31,11 @@ namespace Qv2ray::base::safetype
     SAFE_TYPEDEF(QJsonObject, INBOUND);
     SAFE_TYPEDEF(QJsonObject, OUTBOUND);
     SAFE_TYPEDEF(QJsonObject, CONFIGROOT);
-    SAFE_TYPEDEF(QJsonObject, PROXYSETTING);
-    //
-    SAFE_TYPEDEF(QJsonArray, ROUTERULELIST);
-    SAFE_TYPEDEF(QJsonArray, INOUTLIST);
     SAFE_TYPEDEF(QJsonObject, ROUTING);
     SAFE_TYPEDEF(QJsonObject, ROUTERULE);
-    SAFE_TYPEDEF(INOUTLIST, OUTBOUNDS);
-    SAFE_TYPEDEF(INOUTLIST, INBOUNDS);
+    //
+    SAFE_TYPEDEF(QJsonArray, OUTBOUNDS);
+    SAFE_TYPEDEF(QJsonArray, INBOUNDS);
 
     template<typename T>
     struct QvPair

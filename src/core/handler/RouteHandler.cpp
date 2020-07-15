@@ -50,7 +50,7 @@ namespace Qv2ray::core::handler
         root.insert("domainStrategy", routeConfig.domainStrategy);
         //
         // For Rules list
-        ROUTERULELIST rulesList;
+        QJsonArray rulesList;
 
         // Private IPs should always NOT TO PROXY!
         rulesList.append(GenerateSingleRouteRule("geoip:private", false, OUTBOUND_TAG_DIRECT));
@@ -256,7 +256,7 @@ namespace Qv2ray::core::handler
             // And what's more, process (by removing unused items) from a
             // rule object.
             ROUTING routing(root["routing"].toObject());
-            ROUTERULELIST rules;
+            QJsonArray rules;
             LOG(MODULE_CONNECTION, "Processing an existing routing table.")
 
             for (const auto &_rule : routing["rules"].toArray())
@@ -315,7 +315,7 @@ namespace Qv2ray::core::handler
                 if (firstOutbound[QV2RAY_USE_FPROXY_KEY].toBool(false))
                 {
                     LOG(MODULE_CONNECTION, "Applying forward proxy to current connection.")
-                    PROXYSETTING proxy;
+                    QJsonObject proxy;
                     proxy["tag"] = OUTBOUND_TAG_FORWARD_PROXY;
                     firstOutbound["proxySettings"] = proxy;
 

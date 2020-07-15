@@ -1,10 +1,11 @@
-#include <nodes/internal/FlowScene.hpp>
 #include "core/CoreUtils.hpp"
 #include "ui/common/UIBase.hpp"
 #include "ui/models/InboundNodeModel.hpp"
 #include "ui/models/OutboundNodeModel.hpp"
 #include "ui/models/RuleNodeModel.hpp"
 #include "w_RoutesEditor.hpp"
+
+#include <nodes/internal/FlowScene.hpp>
 // Supplementary source file for Routes editor, basically providing
 // routes-related operations.
 
@@ -12,40 +13,36 @@ void RouteEditor::AddInbound(INBOUND in)
 {
     QString tag = getTag(in);
 
-    if (inbounds.contains(tag))
-    {
-        tag = tag + "_" + GenerateRandomString(5);
-    }
+    if (inboundNodes.contains(tag))
+        tag.append("_" + GenerateRandomString(5));
 
     in["tag"] = tag;
-    auto _nodeData = std::make_unique<QvInboundNodeModel>(std::make_shared<InboundNodeData>(tag));
+    inbounds << in;
+    auto _nodeData = std::make_unique<QvInboundNodeModel>(std::make_shared<InboundNodeData>(std::make_shared<INBOUND>(inbounds.last())));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     QPointF pos;
     pos.setX(0 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(inboundNodes.count() * 130 + GRAPH_GLOBAL_OFFSET_Y);
     nodeScene->setNodePosition(node, pos);
     inboundNodes.insert(tag, node.id());
-    inbounds.insert(getTag(in), in);
 }
 
 void RouteEditor::AddOutbound(OUTBOUND out)
 {
     QString tag = getTag(out);
 
-    if (outbounds.contains(tag))
-    {
-        tag = tag + "_" + GenerateRandomString(5);
-    }
+    if (outboundNodes.contains(tag))
+        tag.append("_" + GenerateRandomString(5));
 
     out["tag"] = tag;
-    auto _nodeData = std::make_unique<QvOutboundNodeModel>(std::make_shared<OutboundNodeData>(tag));
+    outbounds << out;
+    auto _nodeData = std::make_unique<QvOutboundNodeModel>(std::make_shared<OutboundNodeData>(std::make_shared<OUTBOUND>(outbounds.last())));
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + outboundNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
     outboundNodes.insert(tag, node.id());
-    outbounds.insert(tag, out);
     defaultOutboundCombo->addItem(tag);
 }
 
@@ -60,7 +57,7 @@ QString RouteEditor::AddNewRule()
     auto bTag = GenerateRandomString();
     rule.QV2RAY_RULE_TAG = rules.isEmpty() ? tr("Default rule") : (tr("rule") + "-" + GenerateRandomString(6));
     rule.balancerTag = bTag;
-    balancers[bTag] = QStringList();
+    // balancers[bTag] = QStringList();
     AddRule(rule);
     return rule.QV2RAY_RULE_TAG;
 }
@@ -73,11 +70,11 @@ void RouteEditor::AddRule(RuleObject rule)
         rule.QV2RAY_RULE_TAG += "-" + GenerateRandomString(5);
     }
 
-    rules.insert(rule.QV2RAY_RULE_TAG, rule);
+    rules << rule;
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + ruleNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    auto _nodeData = std::make_unique<QvRuleNodeModel>(std::make_shared<RuleNodeData>(rule.QV2RAY_RULE_TAG));
+    auto _nodeData = std::make_unique<QvRuleNodeModel>(std::make_shared<RuleNodeData>(std::make_shared<RuleObject>(rules.last())));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
 
@@ -121,6 +118,7 @@ void RouteEditor::AddRule(RuleObject rule)
 // Do not use reference here, we need deep copy of EVERY QString.
 void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag)
 {
+    /*
     switch (mode)
     {
         case RENAME_RULE:
@@ -158,11 +156,11 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 {
                     items.first()->setText(*newTag);
                 }
-
-                if (currentRuleTag == originalTag)
-                {
-                    currentRuleTag = *newTag;
-                }
+                abort();
+                //                if (currentRuleTag == originalTag)
+                //                {
+                //                    currentRuleTag = *newTag;
+                //                }
             }
             else
             {
@@ -261,7 +259,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
             }
 
             break;
-    }
+    }*/
 }
 
 // Do not use const reference here.
@@ -272,7 +270,9 @@ void RouteEditor::ResolveDefaultOutboundTag(const QString original, const QStrin
     //
     isLoading = true;
     defaultOutboundCombo->clear();
-    defaultOutboundCombo->addItems(outbounds.keys());
+    //
+    for (const auto &out : outbounds) defaultOutboundCombo->addItem(getTag(out));
+    //
     isLoading = false;
     //
     if (!isDefaultChanged)
@@ -293,7 +293,7 @@ void RouteEditor::ResolveDefaultOutboundTag(const QString original, const QStrin
         else
         {
             defaultOutbound = getTag(outbounds.first());
-            defaultOutboundCombo->addItem(outbounds.firstKey());
+            defaultOutboundCombo->addItem(getTag(outbounds.first()));
         }
     }
     else

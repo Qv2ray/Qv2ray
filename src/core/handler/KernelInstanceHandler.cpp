@@ -79,7 +79,7 @@ namespace Qv2ray::core::handler
     std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionGroupPair &id, CONFIGROOT fullConfig)
     {
         StopConnection();
-        inboundInfo = GetConfigInboundInfo(fullConfig);
+        inboundInfo = GetInboundInfo(fullConfig);
         //
         const auto inboundPorts = GetInboundPorts();
         const auto inboundHosts = GetInboundHosts();

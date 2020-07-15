@@ -5,7 +5,7 @@
 
 void MainWindow::MWSetSystemProxy()
 {
-    const auto inboundInfo = KernelInstance->GetInboundInfo();
+    const auto inboundInfo = KernelInstance->GetCurrentConnectionInboundInfo();
 
     InboundInfoObject httpInboundInfo;
     InboundInfoObject socksInboundInfo;

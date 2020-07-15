@@ -1,11 +1,12 @@
 #pragma once
 
-#include <nodes/internal/NodeDataModel.hpp>
-#include <nodes/internal/PortType.hpp>
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
 #include <QLabel>
 #include <memory>
+#include <nodes/internal/NodeDataModel.hpp>
+#include <nodes/internal/PortType.hpp>
 
 using QtNodes::NodeData;
 using QtNodes::NodeDataModel;
@@ -17,79 +18,69 @@ using QtNodes::PortType;
 using QtNodes::NodeData;
 using QtNodes::NodeDataType;
 
-const int GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
+constexpr auto GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
 
 namespace Qv2ray::ui::nodemodels
 {
-    const std::shared_ptr<NodeDataType> outboundType = std::make_shared<NodeDataType>("outbound", QObject::tr("Outbound"));
-    const std::shared_ptr<NodeDataType> inboundType = std::make_shared<NodeDataType>("inbound", QObject::tr("Inbound"));
-    /// The class can potentially incapsulate any user data
-    /// need to be transferred within the Node Editor graph
+    const std::shared_ptr<NodeDataType> NODE_TYPE_OUTBOUND = std::make_shared<NodeDataType>("outbound", QObject::tr("Outbound"));
+    const std::shared_ptr<NodeDataType> NODE_TYPE_INBOUND = std::make_shared<NodeDataType>("inbound", QObject::tr("Inbound"));
+
     class InboundNodeData : public NodeData
     {
       public:
-        explicit InboundNodeData(QString in) : _inboundTag(in)
-        {
-        }
+        explicit InboundNodeData(std::shared_ptr<INBOUND> data) : inboundData(data){};
 
         std::shared_ptr<NodeDataType> type() const override
         {
-            return inboundType;
+            return NODE_TYPE_INBOUND;
         }
 
-        QString GetInbound()
+        std::shared_ptr<INBOUND> GetInbound()
         {
-            return _inboundTag;
+            return inboundData;
         }
 
       private:
-        QString _inboundTag;
+        std::shared_ptr<INBOUND> inboundData;
     };
 
-    /// The class can potentially incapsulate any user data
-    /// need to be transferred within the Node Editor graph
     class OutboundNodeData : public NodeData
     {
       public:
-        explicit OutboundNodeData(QString out) : _outboundTag(out)
-        {
-        }
+        explicit OutboundNodeData(std::shared_ptr<OUTBOUND> data) : outboundData(data){};
 
         std::shared_ptr<NodeDataType> type() const override
         {
-            return outboundType;
+            return NODE_TYPE_INBOUND;
         }
 
-        QString GetOutbound()
+        std::shared_ptr<OUTBOUND> GetOutbound()
         {
-            return _outboundTag;
+            return outboundData;
         }
 
       private:
-        QString _outboundTag;
+        std::shared_ptr<OUTBOUND> outboundData;
     };
 
-    /// The class can potentially incapsulate any user data
-    /// need to be transferred within the Node Editor graph
     class RuleNodeData : public NodeData
     {
+
       public:
-        explicit RuleNodeData(QString out) : _ruleTag(out)
-        {
-        }
+        explicit RuleNodeData(std::shared_ptr<RuleObject> rule) : _rule(rule){};
 
         std::shared_ptr<NodeDataType> type() const override
         {
-            return outboundType;
+            return NODE_TYPE_INBOUND;
         }
 
-        QString GetRuleTag()
+        std::shared_ptr<RuleObject> GetRule()
         {
-            return _ruleTag;
+            return _rule;
         }
 
       private:
-        QString _ruleTag;
+        std::shared_ptr<RuleObject> _rule;
     };
 } // namespace Qv2ray::ui::nodemodels
 
