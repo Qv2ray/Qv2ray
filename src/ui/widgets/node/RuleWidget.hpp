@@ -12,6 +12,10 @@ class QvNodeRuleWidget
   public:
     explicit QvNodeRuleWidget(QWidget *parent = nullptr);
     void ShowCurrentRuleDetail(std::shared_ptr<RuleObject> rule);
+
+  signals:
+    void OnSizeUpdated();
+
   private slots:
     void on_toolButton_clicked();
     void on_routeProtocolHTTPCB_stateChanged(int arg1);

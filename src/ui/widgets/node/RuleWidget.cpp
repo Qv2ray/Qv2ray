@@ -248,11 +248,12 @@ void QvNodeRuleWidget::on_ruleEnableCB_stateChanged(int arg1)
 {
     bool _isEnabled = arg1 == Qt::Checked;
     rule.QV2RAY_RULE_ENABLED = _isEnabled;
-    settingsFrame->setEnabled(isEnabled());
+    settingsFrame->setEnabled(_isEnabled);
 }
 
 void QvNodeRuleWidget::on_toolButton_clicked()
 {
     settingsFrame->setVisible(!settingsFrame->isVisible());
     adjustSize();
+    emit OnSizeUpdated();
 }

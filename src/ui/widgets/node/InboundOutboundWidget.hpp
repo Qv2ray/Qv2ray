@@ -2,14 +2,18 @@
 
 #include "ui_InboundOutboundWidget.h"
 
-class InboundOutboundWidget : public QWidget, private Ui::InboundOutboundWidget
+class InboundOutboundWidget
+    : public QWidget
+    , private Ui::InboundOutboundWidget
 {
     Q_OBJECT
 
-public:
+  public:
     explicit InboundOutboundWidget(QWidget *parent = nullptr);
 
-protected:
+  signals:
+    void OnSizeUpdated();
+
+  protected:
     void changeEvent(QEvent *e);
 };
-

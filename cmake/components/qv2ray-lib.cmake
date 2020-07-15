@@ -2,6 +2,7 @@ set(QV2RAY_BASE_HEADERS
     ${CMAKE_SOURCE_DIR}/src/base/JsonHelpers.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/CoreObjectModels.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvConfigIdentifier.hpp
+    ${CMAKE_SOURCE_DIR}/src/base/models/QvComplexConfigModels.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvRuntimeConfig.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvSafeType.hpp
     ${CMAKE_SOURCE_DIR}/src/base/models/QvCoreSettings.hpp

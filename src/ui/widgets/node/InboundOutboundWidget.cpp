@@ -1,7 +1,6 @@
 #include "InboundOutboundWidget.hpp"
 
-InboundOutboundWidget::InboundOutboundWidget(QWidget *parent) :
-    QWidget(parent)
+InboundOutboundWidget::InboundOutboundWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
 }
@@ -9,11 +8,9 @@ InboundOutboundWidget::InboundOutboundWidget(QWidget *parent) :
 void InboundOutboundWidget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        retranslateUi(this);
-        break;
-    default:
-        break;
+    switch (e->type())
+    {
+        case QEvent::LanguageChange: retranslateUi(this); break;
+        default: break;
     }
 }

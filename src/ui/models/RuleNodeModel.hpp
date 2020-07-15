@@ -17,6 +17,11 @@ class QvRuleNodeModel : public NodeDataModel
         return "Nothing";
     }
 
+    bool resizable() const override
+    {
+        return true;
+    }
+
     bool captionVisible() const override
     {
         return false;
