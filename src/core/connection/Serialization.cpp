@@ -62,7 +62,7 @@ namespace Qv2ray::core::connection
                         connectionConf << QPair{ _alias, root };
                     }
                 }
-                else
+                else if (errMessage->isEmpty())
                 {
                     *errMessage = QObject::tr("Unsupported share link format.");
                 }
