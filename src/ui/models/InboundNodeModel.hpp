@@ -1,7 +1,7 @@
 #pragma once
 
 #include "NodeModelsBase.hpp"
-#include "ui/widgets/node/InboundOutboundWidget.hpp"
+#include "ui/widgets/node/InboundWidget.hpp"
 
 #include <QtCore/qglobal.h>
 
@@ -40,5 +40,5 @@ class QvInboundNodeModel : public NodeDataModel
     QString modelValidationError = tr("Missing or incorrect inputs");
     //
     std::shared_ptr<InboundNodeData> _in;
-    InboundOutboundWidget *widget;
+    InboundWidget *widget;
 };

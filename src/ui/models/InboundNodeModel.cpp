@@ -3,10 +3,10 @@
 QvInboundNodeModel::QvInboundNodeModel(std::shared_ptr<InboundNodeData> data) : NodeDataModel()
 {
     _in = data;
-    widget = new InboundOutboundWidget();
+    widget = new InboundWidget();
     widget->setWindowFlags(Qt::FramelessWindowHint);
     widget->setAttribute(Qt::WA_TranslucentBackground);
-    connect(widget, &InboundOutboundWidget::OnSizeUpdated, this, &QvInboundNodeModel::embeddedWidgetSizeUpdated);
+    connect(widget, &InboundWidget::OnSizeUpdated, this, &QvInboundNodeModel::embeddedWidgetSizeUpdated);
 }
 
 std::unique_ptr<NodeDataModel> QvInboundNodeModel::clone() const

@@ -17,6 +17,21 @@ namespace Qv2ray::base::objects::complex
         OutboundObjectMode mode;
         ConnectionId connectionId;
         QJsonObject json;
+        JSONSTRUCT_REGISTER(OutboundObject, F(tag, mode, connectionId, json))
+    };
+
+    enum MetaOutboundObjectType
+    {
+        METAOUTBOUND_ORIGINAL,
+        METAOUTBOUND_BALANCER,
+        METAOUTBOUND_CHAINED
+    };
+
+    struct OutboundObjectMeta
+    {
+        MetaOutboundObjectType metaType;
+        OutboundObject object;
+        JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, object))
     };
 
     class __ChainID;
@@ -25,5 +40,4 @@ namespace Qv2ray::base::objects::complex
     typedef IDType<__BalancerID> BalancerID;
     typedef QList<OutboundObject> ChainObject;
     typedef BalancerObject BalancerObject;
-
 } // namespace Qv2ray::base::objects::complex

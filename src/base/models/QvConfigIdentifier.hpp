@@ -199,12 +199,12 @@ namespace Qv2ray::base
         }
         QJsonValue toJson() const
         {
-            return JsonStructHelper::___json_struct_store_data(entries);
+            return JsonStructHelper::Serialize(entries);
         }
         void loadJson(const QJsonValue &d)
         {
             entries.clear();
-            JsonStructHelper::___json_struct_load_data(entries, d);
+            JsonStructHelper::Deserialize(entries, d);
         }
         void Clear()
         {

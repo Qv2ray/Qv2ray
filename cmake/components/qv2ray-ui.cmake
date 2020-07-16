@@ -48,12 +48,12 @@ set(QV2RAY_UI_SOURCES
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/RuleWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/RuleWidget.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/RuleWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundOutboundWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundOutboundWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundOutboundWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.ui
     # Style Manager
     ${CMAKE_SOURCE_DIR}/src/ui/styles/StyleManager.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/styles/StyleManager.hpp

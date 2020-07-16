@@ -24,6 +24,7 @@ namespace Qv2ray::ui::nodemodels
 {
     const std::shared_ptr<NodeDataType> NODE_TYPE_OUTBOUND = std::make_shared<NodeDataType>("outbound", QObject::tr("Outbound"));
     const std::shared_ptr<NodeDataType> NODE_TYPE_INBOUND = std::make_shared<NodeDataType>("inbound", QObject::tr("Inbound"));
+    const std::shared_ptr<NodeDataType> NODE_TYPE_RULE = std::make_shared<NodeDataType>("rule", QObject::tr("Rule"));
 
     class InboundNodeData : public NodeData
     {
@@ -32,7 +33,7 @@ namespace Qv2ray::ui::nodemodels
 
         std::shared_ptr<NodeDataType> type() const override
         {
-            return NODE_TYPE_INBOUND;
+            return NODE_TYPE_RULE;
         }
 
         std::shared_ptr<INBOUND> GetInbound()
@@ -47,20 +48,20 @@ namespace Qv2ray::ui::nodemodels
     class OutboundNodeData : public NodeData
     {
       public:
-        explicit OutboundNodeData(std::shared_ptr<OUTBOUND> data) : outboundData(data){};
+        explicit OutboundNodeData(std::shared_ptr<complex::OutboundObjectMeta> data) : outboundData(data){};
 
         std::shared_ptr<NodeDataType> type() const override
         {
-            return NODE_TYPE_INBOUND;
+            return NODE_TYPE_OUTBOUND;
         }
 
-        std::shared_ptr<OUTBOUND> GetOutbound()
+        std::shared_ptr<complex::OutboundObjectMeta> GetOutbound()
         {
             return outboundData;
         }
 
       private:
-        std::shared_ptr<OUTBOUND> outboundData;
+        std::shared_ptr<complex::OutboundObjectMeta> outboundData;
     };
 
     class RuleNodeData : public NodeData

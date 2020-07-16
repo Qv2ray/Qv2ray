@@ -405,8 +405,7 @@ namespace Qv2ray::base::objects
             bool ota;
             int level;
             int port;
-            ShadowSocksServerObject()
-                : email(""), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0){};
+            ShadowSocksServerObject() : email(""), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0){};
             JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(email, address, port, method, password, ota, level))
         };
     } // namespace protocol

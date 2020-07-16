@@ -1,11 +1,11 @@
-#include "InboundOutboundWidget.hpp"
+#include "InboundWidget.hpp"
 
-InboundOutboundWidget::InboundOutboundWidget(QWidget *parent) : QWidget(parent)
+InboundWidget::InboundWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
 }
 
-void InboundOutboundWidget::changeEvent(QEvent *e)
+void InboundWidget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
     switch (e->type())

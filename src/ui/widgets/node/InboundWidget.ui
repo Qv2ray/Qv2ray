@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>InboundOutboundWidget</class>
- <widget class="QWidget" name="InboundOutboundWidget">
+ <class>InboundWidget</class>
+ <widget class="QWidget" name="InboundWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

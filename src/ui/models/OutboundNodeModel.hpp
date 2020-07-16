@@ -1,6 +1,6 @@
 #pragma once
 #include "ui/models/NodeModelsBase.hpp"
-#include "ui/widgets/node/InboundOutboundWidget.hpp"
+#include "ui/widgets/node/InboundWidget.hpp"
 
 #include <QtCore/qglobal.h>
 
@@ -45,7 +45,7 @@ class QvOutboundNodeModel : public NodeDataModel
         return _out;
     }
 
-    void setData(std::shared_ptr<OUTBOUND> data)
+    void setData(std::shared_ptr<complex::OutboundObjectMeta> data)
     {
         _out = std::make_shared<OutboundNodeData>(data);
         widget->adjustSize();
@@ -70,5 +70,5 @@ class QvOutboundNodeModel : public NodeDataModel
     QString modelValidationError = tr("Missing or incorrect inputs");
     //
     std::shared_ptr<OutboundNodeData> _out;
-    InboundOutboundWidget *widget;
+    InboundWidget *widget;
 };

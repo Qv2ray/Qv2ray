@@ -1,15 +1,15 @@
-#include "OutboundBalancerWidget.hpp"
+#include "OutboundWidget.hpp"
 
 #include "base/Qv2rayBase.hpp"
 
-OutboundBalancerWidget::OutboundBalancerWidget(QWidget *parent) : QWidget(parent)
+OutboundWidget::OutboundWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
     balancerAddBtn->setIcon(QICON_R("add.png"));
     balancerDelBtn->setIcon(QICON_R("delete.png"));
 }
 
-void OutboundBalancerWidget::changeEvent(QEvent *e)
+void OutboundWidget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
     switch (e->type())
@@ -19,7 +19,7 @@ void OutboundBalancerWidget::changeEvent(QEvent *e)
     }
 }
 
-void OutboundBalancerWidget::on_balancerAddBtn_clicked()
+void OutboundWidget::on_balancerAddBtn_clicked()
 {
     auto balancerTx = balancerSelectionCombo->currentText();
 
@@ -35,7 +35,7 @@ void OutboundBalancerWidget::on_balancerAddBtn_clicked()
         // statusLabel->setText(tr("Balancer is empty, not processing."));
     }
 }
-void OutboundBalancerWidget::on_balancerDelBtn_clicked()
+void OutboundWidget::on_balancerDelBtn_clicked()
 {
     if (balancerList->currentRow() < 0)
     {

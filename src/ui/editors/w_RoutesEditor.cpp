@@ -87,45 +87,45 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     //
     updateColorScheme();
     //
-    domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
-    domainStrategyCombo->setCurrentText(domainStrategy);
-
-    // Show connections in the node graph
-    for (const auto &in : root["inbounds"].toArray())
-    {
-        AddInbound(INBOUND(in.toObject()));
-    }
-
-    for (const auto &out : root["outbounds"].toArray())
-    {
-        AddOutbound(OUTBOUND(out.toObject()));
-    }
-
-    for (const auto &item : root["routing"].toObject()["rules"].toArray())
-    {
-        AddRule(RuleObject::fromJson(item.toObject()));
-    }
-
-    // Set default outboung combo text AFTER adding all outbounds.
-    defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
-    defaultOutboundCombo->setCurrentText(defaultOutbound);
-
-    //    // Find and add balancers.
-    //    for (auto _balancer : root["routing"].toObject()["balancers"].toArray())
-    //    {
-    //        auto _balancerObject = _balancer.toObject();
-    //        if (!_balancerObject["tag"].toString().isEmpty())
-    //        {
-    //            balancers.insert(_balancerObject["tag"].toString(), _balancerObject["selector"].toVariant().toStringList());
-    //        }
-    //    }
-
+    // domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
+    // domainStrategyCombo->setCurrentText(domainStrategy);
+    //
+    //// Show connections in the node graph
+    // for (const auto &in : root["inbounds"].toArray())
+    //{
+    //    AddInbound(INBOUND(in.toObject()));
+    //}
+    //
+    // for (const auto &out : root["outbounds"].toArray())
+    //{
+    //    AddOutbound(OUTBOUND(out.toObject()));
+    //}
+    //
+    // for (const auto &item : root["routing"].toObject()["rules"].toArray())
+    //{
+    //    AddRule(RuleObject::fromJson(item.toObject()));
+    //}
+    //
+    //// Set default outboung combo text AFTER adding all outbounds.
+    // defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
+    // defaultOutboundCombo->setCurrentText(defaultOutbound);
+    //
+    ////    // Find and add balancers.
+    ////    for (auto _balancer : root["routing"].toObject()["balancers"].toArray())
+    ////    {
+    ////        auto _balancerObject = _balancer.toObject();
+    ////        if (!_balancerObject["tag"].toString().isEmpty())
+    ////        {
+    ////            balancers.insert(_balancerObject["tag"].toString(), _balancerObject["selector"].toVariant().toStringList());
+    ////        }
+    ////    }
+    //
     for (const auto &group : ConnectionManager->AllGroups())
     {
         importGroupBtn->addItem(GetDisplayName(group), group.toString());
     }
-
-    isLoading = false;
+    //
+    // isLoading = false;
 }
 
 QvMessageBusSlotImpl(RouteEditor)
@@ -141,52 +141,52 @@ QvMessageBusSlotImpl(RouteEditor)
 
 void RouteEditor::onNodeClicked(Node &n)
 {
-    LOADINGCHECK
-
-    if (isExiting)
-        return;
-
-    auto isOut = outboundNodes.values().contains(n.id());
-    auto isIn = inboundNodes.values().contains(n.id());
-    auto isRule = ruleNodes.values().contains(n.id());
-
-    /* if (isRule)
-     {
-         // It's a rule object
-         currentRuleTag = GetFirstNodeData(n.id(), RuleNode)->GetRuleTag();
-         DEBUG(MODULE_GRAPH, "Selecting rule: " + currentRuleTag)
-         // ShowCurrentRuleDetail();
-         toolBox->setCurrentIndex(1);
-     }
-     else*/
-    if (isOut || isIn)
-    {
-        // It's an inbound or an outbound.
-        QString tag;
-        QString host;
-        int port;
-        QString protocol;
-
-        if (isOut)
-        {
-            const auto root = GetFirstNodeData(n.id(), OutboundNode)->GetOutbound();
-            GetOutboundInfo(*root, &host, &port, &protocol);
-        }
-        else
-        {
-            const auto root = GetFirstNodeData(n.id(), InboundNode)->GetInbound();
-            GetInboundInfo(*root, &host, &port, &protocol);
-        }
-
-        tagLabel->setText(tag);
-        protocolLabel->setText(protocol);
-        portLabel->setText(QSTRN(port));
-        hostLabel->setText(host);
-    }
-    else
-    {
-        LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
-    }
+    // LOADINGCHECK
+    //
+    // if (isExiting)
+    //     return;
+    //
+    // auto isOut = outboundNodes.values().contains(n.id());
+    // auto isIn = inboundNodes.values().contains(n.id());
+    // auto isRule = ruleNodes.values().contains(n.id());
+    //
+    // /* if (isRule)
+    //  {
+    //      // It's a rule object
+    //      currentRuleTag = GetFirstNodeData(n.id(), RuleNode)->GetRuleTag();
+    //      DEBUG(MODULE_GRAPH, "Selecting rule: " + currentRuleTag)
+    //      // ShowCurrentRuleDetail();
+    //      toolBox->setCurrentIndex(1);
+    //  }
+    //  else*/
+    // if (isOut || isIn)
+    // {
+    //     // It's an inbound or an outbound.
+    //     QString tag;
+    //     QString host;
+    //     int port;
+    //     QString protocol;
+    //
+    //     if (isOut)
+    //     {
+    //         const auto root = GetFirstNodeData(n.id(), OutboundNode)->GetOutbound();
+    //         GetOutboundInfo(*root, &host, &port, &protocol);
+    //     }
+    //     else
+    //     {
+    //         const auto root = GetFirstNodeData(n.id(), InboundNode)->GetInbound();
+    //         GetInboundInfo(*root, &host, &port, &protocol);
+    //     }
+    //
+    //     tagLabel->setText(tag);
+    //     protocolLabel->setText(protocol);
+    //     portLabel->setText(QSTRN(port));
+    //     hostLabel->setText(host);
+    // }
+    // else
+    // {
+    //     LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
+    // }
 }
 
 void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
@@ -308,96 +308,96 @@ CONFIGROOT RouteEditor::OpenEditor()
         on_addRouteBtn_clicked();
     }
 
-    // If clicking OK
-    if (result == QDialog::Accepted)
-    {
-        QJsonArray rulesArray;
-        QJsonArray _balancers;
+    // // If clicking OK
+    // if (result == QDialog::Accepted)
+    // {
+    // QJsonArray rulesArray;
+    // QJsonArray _balancers;
+    //
+    //// Append rules by order
+    // for (auto i = 0; i < ruleListWidget->count(); i++)
+    //{
+    //    auto _rule = rules[i];
+    //    auto ruleJsonObject = _rule.toJson();
+    //
+    //    // Process balancer for a rule
+    //    if (_rule.QV2RAY_RULE_USE_BALANCER)
+    //    {
+    //        // Do not use outbound tag.
+    //        ruleJsonObject.remove("outboundTag");
+    //
+    //        //                // Find balancer list
+    //        //                if (!balancers.contains(_rule.balancerTag))
+    //        //                {
+    //        //                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
+    //        //                }
+    //        //                else
+    //        //                {
+    //        //                    auto _balancerList = balancers[_rule.balancerTag];
+    //        //                    QJsonObject balancerEntry;
+    //        //                    balancerEntry["tag"] = _rule.balancerTag;
+    //        //                    balancerEntry["selector"] = QJsonArray::fromStringList(_balancerList);
+    //        //                    _balancers.append(balancerEntry);
+    //        //                }
+    //    }
+    //
+    //    // Remove some empty fields.
+    //    if (_rule.port.isEmpty())
+    //    {
+    //        ruleJsonObject.remove("port");
+    //    }
+    //
+    //    if (_rule.network.isEmpty())
+    //    {
+    //        ruleJsonObject.remove("network");
+    //    }
+    //
+    //  rulesArray.append(ruleJsonObject);
+    //}
 
-        // Append rules by order
-        for (auto i = 0; i < ruleListWidget->count(); i++)
-        {
-            auto _rule = rules[i];
-            auto ruleJsonObject = _rule.toJson();
-
-            // Process balancer for a rule
-            if (_rule.QV2RAY_RULE_USE_BALANCER)
-            {
-                // Do not use outbound tag.
-                ruleJsonObject.remove("outboundTag");
-
-                //                // Find balancer list
-                //                if (!balancers.contains(_rule.balancerTag))
-                //                {
-                //                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
-                //                }
-                //                else
-                //                {
-                //                    auto _balancerList = balancers[_rule.balancerTag];
-                //                    QJsonObject balancerEntry;
-                //                    balancerEntry["tag"] = _rule.balancerTag;
-                //                    balancerEntry["selector"] = QJsonArray::fromStringList(_balancerList);
-                //                    _balancers.append(balancerEntry);
-                //                }
-            }
-
-            // Remove some empty fields.
-            if (_rule.port.isEmpty())
-            {
-                ruleJsonObject.remove("port");
-            }
-
-            if (_rule.network.isEmpty())
-            {
-                ruleJsonObject.remove("network");
-            }
-
-            rulesArray.append(ruleJsonObject);
-        }
-
-        QJsonObject routing;
-        routing["domainStrategy"] = domainStrategy;
-        routing["rules"] = rulesArray;
-        routing["balancers"] = _balancers;
-        //
-        QJsonArray _inbounds;
-        QJsonArray _outbounds;
-
-        // Convert our internal data format to QJsonArray
-        for (auto x : inbounds)
-        {
-            if (x.isEmpty())
-                continue;
-
-            _inbounds.append(x.raw());
-        }
-
-        for (auto x : outbounds)
-        {
-            if (x.isEmpty())
-                continue;
-
-            if (getTag(x) == defaultOutbound)
-            {
-                LOG(MODULE_CONNECTION, "Pushing default outbound to the front.")
-                // Put the default outbound to the first.
-                _outbounds.push_front(x.raw());
-            }
-            else
-            {
-                _outbounds.push_back(x.raw());
-            }
-        }
-
-        root["inbounds"] = _inbounds;
-        root["outbounds"] = _outbounds;
-        root["routing"] = routing;
-        return root;
-    }
-    else
-    {
-        return original;
-    }
+    // QJsonObject routing;
+    // routing["domainStrategy"] = domainStrategy;
+    // routing["rules"] = rulesArray;
+    // routing["balancers"] = _balancers;
+    // //
+    // QJsonArray _inbounds;
+    // QJsonArray _outbounds;
+    //
+    // // Convert our internal data format to QJsonArray
+    // for (auto x : inbounds)
+    // {
+    //     if (x.isEmpty())
+    //         continue;
+    //
+    //     _inbounds.append(x.raw());
+    // }
+    //
+    // for (auto x : outbounds)
+    // {
+    //     if (x.isEmpty())
+    //         continue;
+    //
+    //     if (getTag(x) == defaultOutbound)
+    //     {
+    //         LOG(MODULE_CONNECTION, "Pushing default outbound to the front.")
+    //         // Put the default outbound to the first.
+    //         _outbounds.push_front(x.raw());
+    //     }
+    //     else
+    //     {
+    //         _outbounds.push_back(x.raw());
+    //     }
+    // }
+    //
+    // root["inbounds"] = _inbounds;
+    // root["outbounds"] = _outbounds;
+    // root["routing"] = routing;
+    //    return root;
+    //}
+    // else
+    //{
+    return original;
+    //}
 }
 
 RouteEditor::~RouteEditor()
@@ -414,12 +414,12 @@ void RouteEditor::on_buttonBox_accepted()
 
 void RouteEditor::on_insertDirectBtn_clicked()
 {
-    auto freedom = GenerateFreedomOUT("AsIs", "", 0);
-    auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
-    auto out = GenerateOutboundEntry("freedom", freedom, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
-    // ADD NODE
-    AddOutbound(out);
-    statusLabel->setText(tr("Added DIRECT outbound"));
+    // auto freedom = GenerateFreedomOUT("AsIs", "", 0);
+    // auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
+    // auto out = GenerateOutboundEntry("freedom", freedom, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
+    //// ADD NODE
+    // AddOutbound(out);
+    // statusLabel->setText(tr("Added DIRECT outbound"));
 }
 
 void RouteEditor::on_addDefaultBtn_clicked()

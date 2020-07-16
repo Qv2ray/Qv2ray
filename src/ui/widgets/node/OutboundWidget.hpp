@@ -1,15 +1,15 @@
 #pragma once
 
-#include "ui_OutboundBalancerWidget.h"
+#include "ui_OutboundWidget.h"
 
-class OutboundBalancerWidget
+class OutboundWidget
     : public QWidget
-    , private Ui::OutboundBalancerWidget
+    , private Ui::OutboundWidget
 {
     Q_OBJECT
 
   public:
-    explicit OutboundBalancerWidget(QWidget *parent = nullptr);
+    explicit OutboundWidget(QWidget *parent = nullptr);
     void on_balancerAddBtn_clicked();
 
     void on_balancerDelBtn_clicked();

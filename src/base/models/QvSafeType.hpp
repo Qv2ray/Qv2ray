@@ -47,11 +47,12 @@ namespace Qv2ray::base::safetype
     template<typename enumKey, typename TValue, typename = typename std::enable_if<std::is_enum<enumKey>::value>::type>
     struct QvEnumMap : QMap<enumKey, TValue>
     {
+        // WARN: Changing this will bread all existing JSON.
         static constexpr auto ENUM_JSON_KEY_PREFIX = "$";
         void loadJson(const QJsonValue &json_object)
         {
             QMap<QString, TValue> data;
-            JsonStructHelper::___json_struct_load_data(data, json_object);
+            JsonStructHelper::Deserialize(data, json_object);
             this->clear();
             for (QString k_str : data.keys())
             {
@@ -72,7 +73,7 @@ namespace Qv2ray::base::safetype
             {
                 data[ENUM_JSON_KEY_PREFIX + QString::number(k)] = this->value(k);
             }
-            return JsonStructHelper::___json_struct_store_data(data).toObject();
+            return JsonStructHelper::Serialize(data).toObject();
         }
     };
 
