@@ -1,50 +1,52 @@
+#include "uvw.hpp"
 #include "LatencyTest.hpp"
 
 #include "LatencyTestThread.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
-constexpr auto LATENCY_PROPERTY_KEY = "__QvLatencyTest__";
-
 namespace Qv2ray::components::latency
 {
+    int isAddr(const char *host, int port, struct sockaddr_storage *storage, int ipv6first)
+    {
+        if (uv_ip4_addr(host, port, reinterpret_cast<sockaddr_in *>(storage)) == 0)
+        {
+            return AF_INET;
+        }
+        if (uv_ip6_addr(host, port, reinterpret_cast<sockaddr_in6 *>(storage)) == 0)
+        {
+            return AF_INET6;
+        }
+        return -1;
+    }
     LatencyTestHost::LatencyTestHost(const int defaultCount, QObject *parent) : QObject(parent)
     {
+        qRegisterMetaType<ConnectionId>();
+        qRegisterMetaType<LatencyTestResult>();
         totalTestCount = defaultCount;
+        latencyThread = new LatencyTestThread(this);
+        latencyThread->start();
+    }
+
+    LatencyTestHost::~LatencyTestHost()
+    {
+        latencyThread->stopLatencyTest();
+        latencyThread->wait();
     }
 
     void LatencyTestHost::StopAllLatencyTest()
     {
-        for (const auto &thread : latencyThreads)
-        {
-            thread->terminate();
-        }
-        latencyThreads.clear();
+        latencyThread->stopLatencyTest();
+        latencyThread->wait();
+        latencyThread->start();
     }
+
     void LatencyTestHost::TestLatency(const ConnectionId &id, Qv2rayLatencyTestingMethod method)
     {
-        const auto &[protocol, host, port] = GetConnectionInfo(id);
-        auto thread = new LatencyTestThread(host, port, method, totalTestCount, this);
-        connect(thread, &QThread::finished, this, &LatencyTestHost::OnLatencyThreadProcessCompleted);
-        thread->setProperty(LATENCY_PROPERTY_KEY, QVariant::fromValue(id));
-        latencyThreads.push_back(thread);
-        thread->start();
+        latencyThread->pushRequest(id, totalTestCount, method);
     }
-
-    void LatencyTestHost::OnLatencyThreadProcessCompleted()
+    void LatencyTestHost::TestLatency(const QList<ConnectionId> &ids, Qv2rayLatencyTestingMethod method)
     {
-        const auto senderThread = qobject_cast<LatencyTestThread *>(sender());
-        latencyThreads.removeOne(senderThread);
-        auto result = senderThread->GetResult();
-
-        if (!result.errorMessage.isEmpty())
-        {
-            LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
-            result.avg = LATENCY_TEST_VALUE_ERROR;
-            result.best = LATENCY_TEST_VALUE_ERROR;
-            result.worst = LATENCY_TEST_VALUE_ERROR;
-        }
-
-        emit OnLatencyTestCompleted(senderThread->property(LATENCY_PROPERTY_KEY).value<ConnectionId>(), result);
+        latencyThread->pushRequest(ids, totalTestCount, method);
     }
 
 } // namespace Qv2ray::components::latency

@@ -19,6 +19,11 @@ list(GET VERSION_LIST 0 CMAKE_PROJECT_VERSION_MAJOR)
 list(GET VERSION_LIST 1 CMAKE_PROJECT_VERSION_MINOR)
 list(GET VERSION_LIST 2 CPACK_PACKAGE_VERSION_PATCH)
 
+# Tweaks and other defaults
+# Setting CMAKE to use loose block and search for find modules in source directory
+set ( CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true )
+set ( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH} )
+
 # For Windows RC file.
 add_definitions(-DQV2RAY_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR})
 add_definitions(-DQV2RAY_VERSION_MINOR=${CMAKE_PROJECT_VERSION_MINOR})
@@ -80,7 +85,7 @@ message(" ")
 
 if(WIN32)
     add_compile_options("/std:c++17")
-    add_definitions(-DUNICODE -D_UNICODE)
+    add_definitions(-DUNICODE -D_UNICODE -DNOMINMAX)
     add_definitions(-D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
     set(GUI_TYPE WIN32)
     if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
@@ -140,6 +145,7 @@ endif()
 # ==================================================================================
 # 3rdparty Sources
 # ==================================================================================
+include(cmake/libuv.cmake)
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 if (ANDROID)
@@ -238,6 +244,7 @@ target_link_libraries(qv2ray-baselib
     ${ZXING_LIBRARY}
     Threads::Threads
     ${QV2RAY_QT_LIBS}
+    ${LibUV_LIBRARIES}
     )
 
 target_link_libraries(qv2ray
@@ -261,6 +268,7 @@ target_include_directories(qv2ray-baselib PUBLIC
     ${CMAKE_BINARY_DIR}
     ${ZXING_INCLUDE_PATH}
     ${Protobuf_INCLUDE_DIRS}
+    ${LibUV_INCLUDE_DIR}
     )
 
 if (BUILD_TESTING)
