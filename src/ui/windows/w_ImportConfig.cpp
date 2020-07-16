@@ -168,11 +168,16 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             while (!linkList.isEmpty())
             {
                 aliasPrefix = nameTxt->text();
-                auto link = linkList.takeFirst();
-                if (link.trimmed().isEmpty() || link.startsWith("#") || link.startsWith("//"))
-                {
+                auto link = linkList.takeFirst().trimmed();
+                if (link.isEmpty() || link.startsWith("#") || link.startsWith("//"))
                     continue;
+
+                // warn if someone tries to import a https:// link
+                if (link.startsWith("https://"))
+                {
+                    errorsList->addItem(tr("WARNING: You may have mistaken 'subscription link' with 'share link': %1").arg(link));
                 }
+
                 QString errMessage;
                 QString newGroupName = "";
                 const auto config = ConvertConfigFromString(link, &aliasPrefix, &errMessage, &newGroupName);
