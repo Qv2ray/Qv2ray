@@ -191,6 +191,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
     connect(infoWidget, &ConnectionInfoWidget::OnJsonEditRequested, this, &MainWindow::OnEditJsonRequested);
     //
+    connect(masterLogBrowser->verticalScrollBar(), &QSlider::valueChanged, this, &MainWindow::OnLogScrollbarValueChanged);
     //
     // Setup System tray icons and menus
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX);
@@ -920,6 +921,14 @@ void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &co
     groupNodes.remove(id);
 }
 
+void MainWindow::OnLogScrollbarValueChanged(int value)
+{
+    if (masterLogBrowser->verticalScrollBar()->maximum() == value)
+        qvLogAutoScoll = true;
+    else
+        qvLogAutoScoll = false;
+}
+
 void MainWindow::on_locateBtn_clicked()
 {
     auto id = KernelInstance->CurrentConnection();
@@ -1014,6 +1023,8 @@ void MainWindow::on_action_RCM_toQvLog_triggered()
 
 void MainWindow::on_masterLogBrowser_textChanged()
 {
+    if (!qvLogAutoScoll)
+        return;
     auto bar = masterLogBrowser->verticalScrollBar();
     bar->setValue(bar->maximum());
 }
