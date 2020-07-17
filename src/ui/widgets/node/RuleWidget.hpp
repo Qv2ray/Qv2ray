@@ -25,10 +25,8 @@ class QvNodeRuleWidget
     void on_ipList_textChanged();
     void on_routePortTxt_textEdited(const QString &arg1);
     void on_routeUserTxt_textEdited(const QString &arg1);
-    void on_netBothRB_clicked();
     void on_netUDPRB_clicked();
     void on_netTCPRB_clicked();
-    void on_routeUserTxt_textChanged();
     void on_sourceIPList_textChanged();
     void on_enableBalancerCB_stateChanged(int arg1);
     void on_ruleRenameBtn_clicked();
@@ -38,4 +36,26 @@ class QvNodeRuleWidget
     void changeEvent(QEvent *e);
     std::shared_ptr<RuleObject> ruleptr;
     bool isLoading;
+
+    inline void SetNetworkProperty()
+    {
+        QStringList list;
+        if (netUDPRB->isChecked())
+            list << "udp";
+        if (netTCPRB->isChecked())
+            list << "tcp";
+        ruleptr->network = list.join(",");
+    }
+
+    inline void SetProtocolProperty()
+    {
+        QStringList protocols;
+        if (routeProtocolTLSCB->isChecked())
+            protocols.push_back("tls");
+        if (routeProtocolHTTPCB->isChecked())
+            protocols.push_back("http");
+        if (routeProtocolBTCB->isChecked())
+            protocols.push_back("bittorrent");
+        ruleptr->protocol = protocols;
+    }
 };

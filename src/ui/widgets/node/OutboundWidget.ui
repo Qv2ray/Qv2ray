@@ -16,8 +16,8 @@
   <widget class="QWidget" name="balancersWidget" native="true">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>100</y>
+     <x>40</x>
+     <y>30</y>
      <width>197</width>
      <height>150</height>
     </rect>

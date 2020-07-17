@@ -8,7 +8,7 @@
 #define LOADINGCHECK                                                                                                                            \
     if (isLoading)                                                                                                                              \
         return;
-#define rule (*ruleptr)
+#define rule (*(this->ruleptr))
 
 QvNodeRuleWidget::QvNodeRuleWidget(QWidget *parent) : QWidget(parent)
 {
@@ -35,7 +35,6 @@ void QvNodeRuleWidget::ShowCurrentRuleDetail(std::shared_ptr<RuleObject> _rulept
     ruleEnableCB->setEnabled(true);
     ruleEnableCB->setChecked(rule.QV2RAY_RULE_ENABLED);
     ruleTagLineEdit->setEnabled(true);
-    ruleRenameBtn->setEnabled(true);
     LOAD_FLAG_BEGIN
     ruleTagLineEdit->setText(rule.QV2RAY_RULE_TAG);
     //    balancerSelectionCombo->clear();
@@ -62,7 +61,6 @@ void QvNodeRuleWidget::ShowCurrentRuleDetail(std::shared_ptr<RuleObject> _rulept
     bool isBoth = (network.contains("tcp") && network.contains("udp")) || network.isEmpty();
     netUDPRB->setChecked(network.contains("udp"));
     netTCPRB->setChecked(network.contains("tcp"));
-    netBothRB->setChecked(isBoth);
     //
     // Set protocol checkboxes.
     auto protocol = rule.protocol;
@@ -75,7 +73,6 @@ void QvNodeRuleWidget::ShowCurrentRuleDetail(std::shared_ptr<RuleObject> _rulept
     //
     // Users
     QString users = rule.user.join(NEWLINE);
-    routeUserTxt->setPlainText(users);
     //
     // Incoming Sources
     QString sources = rule.source.join(NEWLINE);
@@ -91,53 +88,20 @@ void QvNodeRuleWidget::ShowCurrentRuleDetail(std::shared_ptr<RuleObject> _rulept
     LOAD_FLAG_END
 }
 
-void QvNodeRuleWidget::on_routeProtocolHTTPCB_stateChanged(int arg1)
+void QvNodeRuleWidget::on_routeProtocolHTTPCB_stateChanged(int)
 {
     LOADINGCHECK
-    QStringList protocols;
-
-    if (arg1 == Qt::Checked)
-        protocols.push_back("http");
-
-    if (routeProtocolTLSCB->isChecked())
-        protocols.push_back("tls");
-
-    if (routeProtocolBTCB->isChecked())
-        protocols.push_back("bittorrent");
-
-    rule.protocol = protocols;
+    SetProtocolProperty();
 }
-void QvNodeRuleWidget::on_routeProtocolTLSCB_stateChanged(int arg1)
+void QvNodeRuleWidget::on_routeProtocolTLSCB_stateChanged(int)
 {
     LOADINGCHECK
-    QStringList protocols;
-
-    if (arg1 == Qt::Checked)
-        protocols.push_back("tls");
-
-    if (routeProtocolHTTPCB->isChecked())
-        protocols.push_back("http");
-
-    if (routeProtocolBTCB->isChecked())
-        protocols.push_back("bittorrent");
-
-    rule.protocol = protocols;
+    SetProtocolProperty();
 }
-void QvNodeRuleWidget::on_routeProtocolBTCB_stateChanged(int arg1)
+void QvNodeRuleWidget::on_routeProtocolBTCB_stateChanged(int)
 {
     LOADINGCHECK
-    QStringList protocols;
-
-    if (arg1 == Qt::Checked)
-        protocols.push_back("bittorrent");
-
-    if (routeProtocolHTTPCB->isChecked())
-        protocols.push_back("http");
-
-    if (routeProtocolTLSCB->isChecked())
-        protocols.push_back("tls");
-
-    rule.protocol = protocols;
+    SetProtocolProperty();
 }
 void QvNodeRuleWidget::on_hostList_textChanged()
 {
@@ -159,25 +123,15 @@ void QvNodeRuleWidget::on_routeUserTxt_textEdited(const QString &arg1)
     LOADINGCHECK
     rule.user = SplitLines(arg1);
 }
-void QvNodeRuleWidget::on_netBothRB_clicked()
-{
-    LOADINGCHECK
-    rule.network = "tcp,udp";
-}
 void QvNodeRuleWidget::on_netUDPRB_clicked()
 {
     LOADINGCHECK
-    rule.network = "udp";
+    SetNetworkProperty();
 }
 void QvNodeRuleWidget::on_netTCPRB_clicked()
 {
     LOADINGCHECK
-    rule.network = "tcp";
-}
-void QvNodeRuleWidget::on_routeUserTxt_textChanged()
-{
-    LOADINGCHECK
-    rule.user = SplitLines(routeUserTxt->toPlainText());
+    SetNetworkProperty();
 }
 void QvNodeRuleWidget::on_sourceIPList_textChanged()
 {
