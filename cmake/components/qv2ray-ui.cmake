@@ -54,6 +54,12 @@ set(QV2RAY_UI_SOURCES
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundChainWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundChainWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundChainWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.ui
     # Style Manager
     ${CMAKE_SOURCE_DIR}/src/ui/styles/StyleManager.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/styles/StyleManager.hpp
