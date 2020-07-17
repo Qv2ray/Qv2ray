@@ -1,19 +1,21 @@
 #pragma once
 
+#include "ui/node/NodeBase.hpp"
 #include "ui_InboundWidget.h"
 
 class InboundWidget
-    : public QWidget
+    : public QvNodeWidget
     , private Ui::InboundWidget
 {
     Q_OBJECT
 
   public:
     explicit InboundWidget(QWidget *parent = nullptr);
+    void setValue(std::shared_ptr<INBOUND> data);
 
   signals:
-    void OnSizeUpdated();
+    void OnSizeUpdated() override;
 
   protected:
-    void changeEvent(QEvent *e);
+    void changeEvent(QEvent *e) override;
 };

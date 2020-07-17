@@ -1,20 +1,21 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
+#include "ui/node/NodeBase.hpp"
 #include "ui_RuleWidget.h"
 
 class QvNodeRuleWidget
-    : public QWidget
+    : public QvNodeWidget
     , private Ui::RuleWidget
 {
     Q_OBJECT
 
   public:
     explicit QvNodeRuleWidget(QWidget *parent = nullptr);
-    void ShowCurrentRuleDetail(std::shared_ptr<RuleObject> rule);
+    void setValue(std::shared_ptr<RuleObject>);
 
   signals:
-    void OnSizeUpdated();
+    void OnSizeUpdated() override;
 
   private slots:
     void on_toolButton_clicked();

@@ -10,7 +10,7 @@
         return;
 #define rule (*(this->ruleptr))
 
-QvNodeRuleWidget::QvNodeRuleWidget(QWidget *parent) : QWidget(parent)
+QvNodeRuleWidget::QvNodeRuleWidget(QWidget *parent) : QvNodeWidget(parent)
 {
     setupUi(this);
 }
@@ -25,7 +25,7 @@ void QvNodeRuleWidget::changeEvent(QEvent *e)
     }
 }
 
-void QvNodeRuleWidget::ShowCurrentRuleDetail(std::shared_ptr<RuleObject> _ruleptr)
+void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
 {
     LOADINGCHECK
 

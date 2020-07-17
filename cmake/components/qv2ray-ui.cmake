@@ -20,6 +20,33 @@ set(QV2RAY_UI_FORMS
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_ScreenShot_Core.ui
     )
 
+set(QV2RAY_UI_NODEEDITOR_SOURCES
+    # NodeEditor Models
+    ${CMAKE_SOURCE_DIR}/src/ui/node/NodeBase.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/models/InboundNodeModel.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/models/InboundNodeModel.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/models/OutboundNodeModel.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/models/OutboundNodeModel.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/models/RuleNodeModel.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/models/RuleNodeModel.cpp
+    # NodeEditor Widgets
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/RuleWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/RuleWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/RuleWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundChainWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundChainWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundChainWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundBalancerWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundBalancerWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundBalancerWidget.ui
+    )
+
 set(QV2RAY_UI_SOURCES
     # Qv2ray Application
     ${CMAKE_SOURCE_DIR}/src/Qv2rayApplication.cpp
@@ -36,30 +63,6 @@ set(QV2RAY_UI_SOURCES
     # Message bus
     ${CMAKE_SOURCE_DIR}/src/ui/messaging/QvMessageBus.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/messaging/QvMessageBus.cpp
-    # NodeEditor Models
-    ${CMAKE_SOURCE_DIR}/src/ui/models/NodeModelsBase.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/models/InboundNodeModel.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/models/InboundNodeModel.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/models/OutboundNodeModel.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/models/OutboundNodeModel.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/models/RuleNodeModel.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/models/RuleNodeModel.cpp
-    # NodeEditor Widgets
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/RuleWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/RuleWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/RuleWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/InboundWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundChainWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundChainWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundChainWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/widgets/node/OutboundBalancerWidget.ui
     # Style Manager
     ${CMAKE_SOURCE_DIR}/src/ui/styles/StyleManager.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/styles/StyleManager.hpp
@@ -104,4 +107,5 @@ set(QV2RAY_UI_SOURCES
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_ScreenShot_Core.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_GroupManager.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_GroupManager.cpp
+    ${QV2RAY_UI_NODEEDITOR_SOURCES}
     )

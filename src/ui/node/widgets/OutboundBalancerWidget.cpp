@@ -21,7 +21,7 @@ void OutboundBalancerWidget::changeEvent(QEvent *e)
 
 void OutboundBalancerWidget::on_balancerAddBtn_clicked()
 {
-    auto balancerTx = balancerSelectionCombo->currentText();
+    const auto balancerTx = balancerSelectionCombo->currentText().trimmed();
 
     if (!balancerTx.isEmpty())
     {

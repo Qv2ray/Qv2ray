@@ -1,6 +1,6 @@
 #include "InboundWidget.hpp"
 
-InboundWidget::InboundWidget(QWidget *parent) : QWidget(parent)
+InboundWidget::InboundWidget(QWidget *parent) : QvNodeWidget(parent)
 {
     setupUi(this);
 }

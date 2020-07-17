@@ -1,8 +1,8 @@
 #include "core/CoreUtils.hpp"
 #include "ui/common/UIBase.hpp"
-#include "ui/models/InboundNodeModel.hpp"
-#include "ui/models/OutboundNodeModel.hpp"
-#include "ui/models/RuleNodeModel.hpp"
+#include "ui/node/models/InboundNodeModel.hpp"
+#include "ui/node/models/OutboundNodeModel.hpp"
+#include "ui/node/models/RuleNodeModel.hpp"
 #include "w_RoutesEditor.hpp"
 
 #include <nodes/internal/FlowScene.hpp>

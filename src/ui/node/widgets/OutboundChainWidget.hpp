@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ui/node/models/RuleNodeModel.hpp"
 #include "ui_OutboundChainWidget.h"
 
 class OutboundChainWidget
