@@ -10,9 +10,6 @@ class OutboundWidget
 
   public:
     explicit OutboundWidget(QWidget *parent = nullptr);
-    void on_balancerAddBtn_clicked();
-
-    void on_balancerDelBtn_clicked();
 
   protected:
     void changeEvent(QEvent *e);

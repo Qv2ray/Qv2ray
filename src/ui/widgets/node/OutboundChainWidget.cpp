@@ -1,13 +1,13 @@
-#include "OutboundWidget.hpp"
+#include "OutboundChainWidget.hpp"
 
 #include "base/Qv2rayBase.hpp"
 
-OutboundWidget::OutboundWidget(QWidget *parent) : QWidget(parent)
+OutboundChainWidget::OutboundChainWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
 }
 
-void OutboundWidget::changeEvent(QEvent *e)
+void OutboundChainWidget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
     switch (e->type())
