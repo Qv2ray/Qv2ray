@@ -86,8 +86,8 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     //
     updateColorScheme();
     //
-    // domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
-    // domainStrategyCombo->setCurrentText(domainStrategy);
+    domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
+    domainStrategyCombo->setCurrentText(domainStrategy);
     //
     //// Show connections in the node graph
     for (const auto &in : root["inbounds"].toArray())
@@ -800,4 +800,19 @@ void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
     {
         importConnBtn->addItem(GetDisplayName(connId), connId.toString());
     }
+}
+
+void RouteEditor::on_addBalancerBtn_clicked()
+{
+
+    OutboundObjectMeta meta;
+    meta.metaType = complex::METAOUTBOUND_BALANCER;
+    AddOutbound(meta);
+}
+
+void RouteEditor::on_addChainBtn_clicked()
+{
+    OutboundObjectMeta meta;
+    meta.metaType = complex::METAOUTBOUND_CHAINED;
+    AddOutbound(meta);
 }

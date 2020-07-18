@@ -34,7 +34,6 @@ void QvNodeRuleWidget::changeEvent(QEvent *e)
 void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
 {
     this->ruleptr = _ruleptr;
-
     // Switch to the detailed page.
     ruleEnableCB->setEnabled(true);
     ruleEnableCB->setChecked(rule.QV2RAY_RULE_ENABLED);

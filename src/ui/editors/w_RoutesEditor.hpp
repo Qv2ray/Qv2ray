@@ -63,6 +63,10 @@ class RouteEditor
     void on_importExistingBtn_clicked();
     void on_importGroupBtn_currentIndexChanged(int index);
 
+    void on_addBalancerBtn_clicked();
+
+    void on_addChainBtn_clicked();
+
   public slots:
     void onNodeClicked(Node &n);
     void onConnectionCreated(QtNodes::Connection const &c);
