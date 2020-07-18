@@ -29,6 +29,15 @@ namespace Qv2ray::core::handler
         {
             return inboundInfo;
         }
+        const QStringList GetActiveKernelProtocols() const
+        {
+            QStringList list;
+            for (const auto &[protocol, kernel] : activeKernels)
+            {
+                list << protocol;
+            }
+            return list;
+        }
 
       signals:
         void OnConnected(const ConnectionGroupPair &id);

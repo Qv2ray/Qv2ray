@@ -4,8 +4,6 @@
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
-#include "core/handler/ConfigHandler.hpp"
-#include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "ui/styles/StyleManager.hpp"
 #include "ui/windows/w_MainWindow.hpp"
