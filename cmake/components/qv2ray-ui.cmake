@@ -24,6 +24,8 @@ set(QV2RAY_UI_NODEEDITOR_SOURCES
     # NodeEditor Models
     ${CMAKE_SOURCE_DIR}/src/ui/node/NodeBase.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/NodeBase.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/NodeDispatcher.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/NodeDispatcher.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/InboundNodeModel.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/InboundNodeModel.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/OutboundNodeModel.hpp
@@ -34,18 +36,15 @@ set(QV2RAY_UI_NODEEDITOR_SOURCES
     ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/RuleWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/RuleWidget.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/RuleWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundChainWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundChainWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundChainWidget.ui
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundBalancerWidget.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundBalancerWidget.hpp
-    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/OutboundBalancerWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundOutboundWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundOutboundWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/InboundOutboundWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/ChainWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/ChainWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/ChainWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/BalancerWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/BalancerWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/BalancerWidget.ui
     )
 
 set(QV2RAY_UI_SOURCES

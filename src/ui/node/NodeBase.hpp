@@ -1,5 +1,6 @@
 #pragma once
 
+#include "NodeDispatcher.hpp"
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
@@ -38,11 +39,14 @@ namespace Qv2ray::ui::nodemodels
     {
         Q_OBJECT
       public:
-        explicit QvNodeWidget(QWidget *parent) : QWidget(parent){};
+        explicit QvNodeWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QWidget(parent), dispatcher(_dispatcher){};
         template<typename T>
         void setValue(std::shared_ptr<T>);
       signals:
         void OnSizeUpdated();
+
+      protected:
+        std::shared_ptr<NodeDispatcher> dispatcher;
     };
 
 #define DECL_NODE_DATA_TYPE(name, TYPE, INNER_TYPE)                                                                                             \
@@ -75,7 +79,7 @@ namespace Qv2ray::ui::nodemodels
     {                                                                                                                                           \
         Q_OBJECT                                                                                                                                \
       public:                                                                                                                                   \
-        explicit NAME(std::shared_ptr<CONTENT_TYPE> data);                                                                                      \
+        explicit NAME(std::shared_ptr<NodeDispatcher>, std::shared_ptr<CONTENT_TYPE>);                                                          \
         ~NAME(){};                                                                                                                              \
                                                                                                                                                 \
         inline QString caption() const override                                                                                                 \
@@ -116,6 +120,7 @@ namespace Qv2ray::ui::nodemodels
       private:                                                                                                                                  \
         std::shared_ptr<CONTENT_TYPE> dataptr;                                                                                                  \
         QvNodeWidget *widget;                                                                                                                   \
+        std::shared_ptr<NodeDispatcher> dispatcher;                                                                                             \
     }
 
     DECL_NODE_DATA_MODEL(InboundNodeModel, INBOUND);

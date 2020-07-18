@@ -69,6 +69,7 @@ class RouteEditor
     void onConnectionDeleted(QtNodes::Connection const &c);
 
   private:
+    std::shared_ptr<NodeDispatcher> nodeDispatcher;
     bool isLoading = false;
     void RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag);
     //

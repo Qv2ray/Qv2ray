@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OutboundChainWidget</class>
- <widget class="QWidget" name="OutboundChainWidget">
+ <class>ChainWidget</class>
+ <widget class="QWidget" name="ChainWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

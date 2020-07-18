@@ -1,20 +1,20 @@
-#include "OutboundBalancerWidget.hpp"
+#include "BalancerWidget.hpp"
 
 #include "base/Qv2rayBase.hpp"
 
-OutboundBalancerWidget::OutboundBalancerWidget(QWidget *parent) : QvNodeWidget(parent)
+BalancerWidget::BalancerWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QvNodeWidget(_dispatcher, parent)
 {
     setupUi(this);
     balancerAddBtn->setIcon(QICON_R("add.png"));
     balancerDelBtn->setIcon(QICON_R("delete.png"));
 }
 
-void OutboundBalancerWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
+void BalancerWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
 {
     outboundData = data;
 }
 
-void OutboundBalancerWidget::changeEvent(QEvent *e)
+void BalancerWidget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
     switch (e->type())
@@ -24,7 +24,7 @@ void OutboundBalancerWidget::changeEvent(QEvent *e)
     }
 }
 
-void OutboundBalancerWidget::on_balancerAddBtn_clicked()
+void BalancerWidget::on_balancerAddBtn_clicked()
 {
     const auto balancerTx = balancerSelectionCombo->currentText().trimmed();
 
@@ -40,7 +40,7 @@ void OutboundBalancerWidget::on_balancerAddBtn_clicked()
     }
 }
 
-void OutboundBalancerWidget::on_balancerDelBtn_clicked()
+void BalancerWidget::on_balancerDelBtn_clicked()
 {
     if (balancerList->currentRow() < 0)
     {

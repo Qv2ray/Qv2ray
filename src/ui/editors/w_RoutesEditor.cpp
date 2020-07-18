@@ -76,8 +76,9 @@ void RouteEditor::SetupNodeWidget()
 
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(parent), root(connection), original(connection)
 {
-    QvMessageBusConnect(RouteEditor);
     setupUi(this);
+    QvMessageBusConnect(RouteEditor);
+    nodeDispatcher = std::make_shared<NodeDispatcher>(this);
     isLoading = true;
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
     //

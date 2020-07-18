@@ -1,16 +1,16 @@
 #pragma once
 
 #include "ui/node/NodeBase.hpp"
-#include "ui_OutboundChainWidget.h"
+#include "ui_ChainWidget.h"
 
-class OutboundChainWidget
+class ChainWidget
     : public QvNodeWidget
-    , private Ui::OutboundChainWidget
+    , private Ui::ChainWidget
 {
     Q_OBJECT
 
   public:
-    explicit OutboundChainWidget(QWidget *parent = nullptr);
+    explicit ChainWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent = nullptr);
     void setValue(std::shared_ptr<OutboundObjectMeta> data);
 
   signals:

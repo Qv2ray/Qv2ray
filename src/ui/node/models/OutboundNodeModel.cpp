@@ -1,29 +1,30 @@
 #include "ui/node/models/OutboundNodeModel.hpp"
 
-#include "ui/node/widgets/OutboundBalancerWidget.hpp"
-#include "ui/node/widgets/OutboundChainWidget.hpp"
-#include "ui/node/widgets/OutboundWidget.hpp"
+#include "ui/node/widgets/BalancerWidget.hpp"
+#include "ui/node/widgets/ChainWidget.hpp"
+#include "ui/node/widgets/InboundOutboundWidget.hpp"
 
-OutboundNodeModel::OutboundNodeModel(std::shared_ptr<OutboundObjectMeta> data) : NodeDataModel()
+OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<OutboundObjectMeta> data) : NodeDataModel()
 {
+    dispatcher = _dispatcher;
     switch (data->metaType)
     {
         case complex::METAOUTBOUND_ORIGINAL:
         {
-            widget = new OutboundWidget();
-            ((OutboundWidget *) widget)->setValue(data);
+            widget = new InboundOutboundWidget(InboundOutboundWidget::MODE_OUTBOUND, dispatcher);
+            ((InboundOutboundWidget *) widget)->setValue(data);
             break;
         }
         case complex::METAOUTBOUND_BALANCER:
         {
-            widget = new OutboundBalancerWidget();
-            ((OutboundBalancerWidget *) widget)->setValue(data);
+            widget = new BalancerWidget(dispatcher);
+            ((BalancerWidget *) widget)->setValue(data);
             break;
         }
         case complex::METAOUTBOUND_CHAINED:
         {
-            widget = new OutboundChainWidget();
-            ((OutboundChainWidget *) widget)->setValue(data);
+            widget = new ChainWidget(dispatcher);
+            ((ChainWidget *) widget)->setValue(data);
             break;
         }
     }

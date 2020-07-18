@@ -2,9 +2,10 @@
 
 #include "ui/node/widgets/RuleWidget.hpp"
 
-RuleNodeModel::RuleNodeModel(std::shared_ptr<RuleObject> data) : NodeDataModel()
+RuleNodeModel::RuleNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<RuleObject> data) : NodeDataModel()
 {
-    widget = new QvNodeRuleWidget();
+    dispatcher = _dispatcher;
+    widget = new QvNodeRuleWidget(dispatcher);
     connect(widget, &QvNodeWidget::OnSizeUpdated, this, &NodeDataModel::embeddedWidgetSizeUpdated);
     ((QvNodeRuleWidget *) widget)->setValue(data);
     widget->setWindowFlags(Qt::FramelessWindowHint);

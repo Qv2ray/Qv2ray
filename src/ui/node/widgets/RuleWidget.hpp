@@ -11,7 +11,7 @@ class QvNodeRuleWidget
     Q_OBJECT
 
   public:
-    explicit QvNodeRuleWidget(QWidget *parent = nullptr);
+    explicit QvNodeRuleWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent = nullptr);
     void setValue(std::shared_ptr<RuleObject>);
     inline void SetDetailsVisibilityState(bool state)
     {

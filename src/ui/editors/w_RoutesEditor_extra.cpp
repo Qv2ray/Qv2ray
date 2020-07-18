@@ -11,20 +11,14 @@
 
 void RouteEditor::AddInbound(const INBOUND &in)
 {
-    // QString tag = getTag(in);
-    //
-    // if (inboundNodes.contains(tag))
-    //    tag.append("_" + GenerateRandomString(5));
-    //
-    // in["tag"] = tag;
-    // inbounds << in;
-    // auto _nodeData = std::make_unique<QvInboundNodeModel>(std::make_shared<InboundNodeData>(std::make_shared<INBOUND>(inbounds.last())));
-    // auto &node = nodeScene->createNode(std::move(_nodeData));
-    // QPointF pos;
-    // pos.setX(0 + GRAPH_GLOBAL_OFFSET_X);
-    // pos.setY(inboundNodes.count() * 130 + GRAPH_GLOBAL_OFFSET_Y);
-    // nodeScene->setNodePosition(node, pos);
-    // inboundNodes.insert(tag, node.id());
+    const auto tag = getTag(in);
+    inbounds << in;
+    auto _nodeData = std::make_unique<InboundNodeModel>(nodeDispatcher, std::make_shared<INBOUND>(inbounds.last()));
+    auto &node = nodeScene->createNode(std::move(_nodeData));
+    QPointF pos;
+    pos.setX(0 + GRAPH_GLOBAL_OFFSET_X);
+    pos.setY(inbounds.count() * 130 + GRAPH_GLOBAL_OFFSET_Y);
+    nodeScene->setNodePosition(node, pos);
 }
 
 void RouteEditor::AddOutbound(OutboundObjectMeta &metaOutboud)
@@ -45,7 +39,7 @@ void RouteEditor::AddOutbound(OutboundObjectMeta &metaOutboud)
         }
     }
     outbounds << metaOutboud;
-    auto _nodeData = std::make_unique<OutboundNodeModel>(std::make_shared<OutboundObjectMeta>(outbounds.last()));
+    auto _nodeData = std::make_unique<OutboundNodeModel>(nodeDispatcher, std::make_shared<OutboundObjectMeta>(outbounds.last()));
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + outbounds.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
@@ -76,7 +70,7 @@ void RouteEditor::AddRule(const RuleObject &rule)
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + rules.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    auto _nodeData = std::make_unique<RuleNodeModel>(std::make_shared<RuleObject>(rules.last()));
+    auto _nodeData = std::make_unique<RuleNodeModel>(nodeDispatcher, std::make_shared<RuleObject>(rules.last()));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
 

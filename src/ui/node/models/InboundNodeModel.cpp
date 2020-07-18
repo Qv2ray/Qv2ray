@@ -1,10 +1,12 @@
 #include "InboundNodeModel.hpp"
 
-#include "ui/node/widgets/InboundWidget.hpp"
-InboundNodeModel::InboundNodeModel(std::shared_ptr<INBOUND> data) : NodeDataModel()
+#include "ui/node/widgets/InboundOutboundWidget.hpp"
+InboundNodeModel::InboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<INBOUND> data) : NodeDataModel()
 {
-    widget = new InboundWidget();
+    dispatcher = _dispatcher;
+    widget = new InboundOutboundWidget(InboundOutboundWidget::MODE_INBOUND, dispatcher);
     connect(widget, &QvNodeWidget::OnSizeUpdated, this, &InboundNodeModel::embeddedWidgetSizeUpdated);
+    ((InboundOutboundWidget *) widget)->setValue(data);
     widget->setWindowFlags(Qt::FramelessWindowHint);
     widget->setAttribute(Qt::WA_TranslucentBackground);
 }

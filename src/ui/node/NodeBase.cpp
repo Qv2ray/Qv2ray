@@ -31,7 +31,7 @@ unsigned int OutboundNodeModel::nPorts(PortType portType) const
 {
     return portType == PortType::Out ? 0 : 1;
 }
-unsigned int RuleNodeModel::nPorts(PortType portType) const
+unsigned int RuleNodeModel::nPorts(PortType) const
 {
     return 1;
 }
@@ -58,7 +58,7 @@ std::shared_ptr<NodeData> RuleNodeModel::outData(PortIndex)
 //
 // *******************************************************************************************
 //
-
+// Forwards all data to std::vector-based override function.
 void InboundNodeModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex port)
 {
     setInData(std::vector{ nodeData }, port);
@@ -83,9 +83,8 @@ QtNodes::NodeDataModel::ConnectionPolicy InboundNodeModel::portInConnectionPolic
 }
 QtNodes::NodeDataModel::ConnectionPolicy OutboundNodeModel::portInConnectionPolicy(PortIndex) const
 {
-    return NodeDataModel::ConnectionPolicy::One;
+    return NodeDataModel::ConnectionPolicy::Many;
 }
-
 QtNodes::NodeDataModel::ConnectionPolicy RuleNodeModel::portInConnectionPolicy(PortIndex) const
 {
     return NodeDataModel::ConnectionPolicy::Many;
@@ -99,7 +98,6 @@ QtNodes::NodeDataModel::ConnectionPolicy InboundNodeModel::portOutConnectionPoli
 {
     return NodeDataModel::ConnectionPolicy::Many;
 }
-
 QtNodes::NodeDataModel::ConnectionPolicy OutboundNodeModel::portOutConnectionPolicy(PortIndex) const
 {
     // No port

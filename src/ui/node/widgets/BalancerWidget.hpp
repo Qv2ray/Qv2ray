@@ -1,16 +1,16 @@
 #pragma once
 
 #include "ui/node/NodeBase.hpp"
-#include "ui_OutboundBalancerWidget.h"
+#include "ui_BalancerWidget.h"
 
-class OutboundBalancerWidget
+class BalancerWidget
     : public QvNodeWidget
-    , private Ui::OutboundBalancerWidget
+    , private Ui::BalancerWidget
 {
     Q_OBJECT
 
   public:
-    explicit OutboundBalancerWidget(QWidget *parent = nullptr);
+    explicit BalancerWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent = nullptr);
     void setValue(std::shared_ptr<OutboundObjectMeta> data);
   private slots:
     void on_balancerAddBtn_clicked();

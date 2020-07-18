@@ -10,7 +10,7 @@
         return;
 #define rule (*(this->ruleptr))
 
-QvNodeRuleWidget::QvNodeRuleWidget(QWidget *parent) : QvNodeWidget(parent)
+QvNodeRuleWidget::QvNodeRuleWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QvNodeWidget(_dispatcher, parent)
 {
     setupUi(this);
     settingsFrame->setVisible(false);
