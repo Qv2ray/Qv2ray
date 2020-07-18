@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>400</height>
+    <width>268</width>
+    <height>350</height>
    </rect>
   </property>
-  <property name="minimumSize">
+  <property name="maximumSize">
    <size>
-    <width>330</width>
+    <width>350</width>
     <height>400</height>
    </size>
   </property>
@@ -47,9 +47,9 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="toolButton">
      <property name="text">
-      <string>Show / Hide</string>
+      <string>Details</string>
      </property>
     </widget>
    </item>
@@ -75,7 +75,7 @@
        <number>0</number>
       </property>
       <item row="0" column="0">
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QGridLayout" name="gridLayout" rowstretch="0,1,0,0">
         <item row="2" column="1">
          <widget class="QLabel" name="label_4">
           <property name="text">

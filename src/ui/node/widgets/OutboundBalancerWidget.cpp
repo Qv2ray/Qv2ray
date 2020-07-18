@@ -2,11 +2,16 @@
 
 #include "base/Qv2rayBase.hpp"
 
-OutboundBalancerWidget::OutboundBalancerWidget(QWidget *parent) : QWidget(parent)
+OutboundBalancerWidget::OutboundBalancerWidget(QWidget *parent) : QvNodeWidget(parent)
 {
     setupUi(this);
     balancerAddBtn->setIcon(QICON_R("add.png"));
     balancerDelBtn->setIcon(QICON_R("delete.png"));
+}
+
+void OutboundBalancerWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
+{
+    outboundData = data;
 }
 
 void OutboundBalancerWidget::changeEvent(QEvent *e)
@@ -28,13 +33,13 @@ void OutboundBalancerWidget::on_balancerAddBtn_clicked()
         targetList.append(balancerSelectionCombo->currentText());
         balancerList->addItem(balancerTx);
         balancerSelectionCombo->setEditText("");
-        // statusLabel->setText(tr("OK"));
     }
     else
     {
         // statusLabel->setText(tr("Balancer is empty, not processing."));
     }
 }
+
 void OutboundBalancerWidget::on_balancerDelBtn_clicked()
 {
     if (balancerList->currentRow() < 0)

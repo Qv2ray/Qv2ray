@@ -13,6 +13,8 @@
 QvNodeRuleWidget::QvNodeRuleWidget(QWidget *parent) : QvNodeWidget(parent)
 {
     setupUi(this);
+    settingsFrame->setVisible(false);
+    adjustSize();
 }
 
 void QvNodeRuleWidget::changeEvent(QEvent *e)
@@ -20,15 +22,17 @@ void QvNodeRuleWidget::changeEvent(QEvent *e)
     QWidget::changeEvent(e);
     switch (e->type())
     {
-        case QEvent::LanguageChange: retranslateUi(this); break;
+        case QEvent::LanguageChange:
+        {
+            retranslateUi(this);
+            break;
+        }
         default: break;
     }
 }
 
 void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
 {
-    LOADINGCHECK
-
     this->ruleptr = _ruleptr;
 
     // Switch to the detailed page.
@@ -58,7 +62,6 @@ void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
     isLoading = false;
     // Networks
     auto network = rule.network.toLower();
-    bool isBoth = (network.contains("tcp") && network.contains("udp")) || network.isEmpty();
     netUDPRB->setChecked(network.contains("udp"));
     netTCPRB->setChecked(network.contains("tcp"));
     //
@@ -72,10 +75,10 @@ void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
     routePortTxt->setText(rule.port);
     //
     // Users
-    QString users = rule.user.join(NEWLINE);
+    const auto users = rule.user.join(NEWLINE);
     //
     // Incoming Sources
-    QString sources = rule.source.join(NEWLINE);
+    const auto sources = rule.source.join(NEWLINE);
     sourceIPList->setPlainText(sources);
     //
     // Domains

@@ -4,6 +4,7 @@
 #include "common/QvHelpers.hpp"
 #include "ui/common/QvDialog.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
+#include "ui/node/NodeBase.hpp"
 #include "ui_w_RoutesEditor.h"
 
 #include <nodes/internal/ConnectionStyle.hpp>
@@ -71,14 +72,11 @@ class RouteEditor
     bool isLoading = false;
     void RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag);
     //
-    // QString currentRuleTag;
-    QString currentInboundOutboundTag;
-    // QMap<QString, QStringList> balancers;
     QString domainStrategy;
     QString defaultOutbound;
     //
     QList<INBOUND> inbounds;
-    QList<OUTBOUND> outbounds;
+    QList<OutboundObjectMeta> outbounds;
     QList<RuleObject> rules;
     //
     CONFIGROOT root;
@@ -86,15 +84,13 @@ class RouteEditor
     //
     // ---------------------------- Node Graph Impl --------------------------
     void SetupNodeWidget();
-    QHash<QString, QUuid> inboundNodes;
-    QHash<QString, QUuid> outboundNodes;
-    QHash<QString, QUuid> ruleNodes;
     //
     FlowScene *nodeScene;
     // ---------------------------- Extra Source File Headers ----------------
-    void AddInbound(INBOUND in);
-    void AddOutbound(OUTBOUND out);
-    void AddRule(RuleObject rule);
+    void AddInbound(const INBOUND &in);
+    void AddOutbound(OutboundObjectMeta &meta);
+    void AddRule(const RuleObject &rule);
     QString AddNewRule();
+    //
     void ResolveDefaultOutboundTag(QString original, QString newTag);
 };

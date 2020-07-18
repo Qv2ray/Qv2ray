@@ -13,11 +13,10 @@ namespace Qv2ray::base::objects::complex
 
     struct OutboundObject
     {
-        QString tag;
+        QString externalTag;
         OutboundObjectMode mode;
         ConnectionId connectionId;
-        QJsonObject json;
-        JSONSTRUCT_REGISTER(OutboundObject, F(tag, mode, connectionId, json))
+        JSONSTRUCT_REGISTER(OutboundObject, F(externalTag, mode, connectionId))
     };
 
     enum MetaOutboundObjectType
@@ -25,13 +24,6 @@ namespace Qv2ray::base::objects::complex
         METAOUTBOUND_ORIGINAL,
         METAOUTBOUND_BALANCER,
         METAOUTBOUND_CHAINED
-    };
-
-    struct OutboundObjectMeta
-    {
-        MetaOutboundObjectType metaType;
-        OutboundObject object;
-        JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, object))
     };
 
     class __ChainID;

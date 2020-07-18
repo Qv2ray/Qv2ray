@@ -13,9 +13,11 @@ class QvNodeRuleWidget
   public:
     explicit QvNodeRuleWidget(QWidget *parent = nullptr);
     void setValue(std::shared_ptr<RuleObject>);
-
-  signals:
-    void OnSizeUpdated() override;
+    inline void SetDetailsVisibilityState(bool state)
+    {
+        settingsFrame->setVisible(state);
+        adjustSize();
+    }
 
   private slots:
     void on_toolButton_clicked();
@@ -34,7 +36,7 @@ class QvNodeRuleWidget
     void on_ruleEnableCB_stateChanged(int arg1);
 
   protected:
-    void changeEvent(QEvent *e);
+    void changeEvent(QEvent *e) override;
     std::shared_ptr<RuleObject> ruleptr;
     bool isLoading;
 

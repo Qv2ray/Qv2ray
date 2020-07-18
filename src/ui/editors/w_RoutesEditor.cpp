@@ -1,8 +1,6 @@
 #include "w_RoutesEditor.hpp"
 
 #include "components/plugins/QvPluginHost.hpp"
-#include "core/CoreUtils.hpp"
-#include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "ui/common/UIBase.hpp"
@@ -70,7 +68,7 @@ void RouteEditor::SetupNodeWidget()
     connect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
     connect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
     auto view = new FlowView(nodeScene);
-    view->scaleDown();
+    // view->scaleDown();
     l->addWidget(view);
     l->setContentsMargins(0, 0, 0, 0);
     l->setSpacing(0);
@@ -91,21 +89,24 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     // domainStrategyCombo->setCurrentText(domainStrategy);
     //
     //// Show connections in the node graph
-    // for (const auto &in : root["inbounds"].toArray())
-    //{
-    //    AddInbound(INBOUND(in.toObject()));
-    //}
-    //
-    // for (const auto &out : root["outbounds"].toArray())
-    //{
-    //    AddOutbound(OUTBOUND(out.toObject()));
-    //}
-    //
-    // for (const auto &item : root["routing"].toObject()["rules"].toArray())
-    //{
-    //    AddRule(RuleObject::fromJson(item.toObject()));
-    //}
-    //
+    for (const auto &in : root["inbounds"].toArray())
+    {
+        AddInbound(INBOUND(in.toObject()));
+    }
+
+    for (const auto &out : root["outbounds"].toArray())
+    {
+        OutboundObjectMeta meta;
+        meta.loadJson(out.toObject()[META_OUTBOUND_KEY_NAME].toObject());
+        meta.realOutbound = OUTBOUND(out.toObject());
+        AddOutbound(meta);
+    }
+
+    for (const auto &item : root["routing"].toObject()["rules"].toArray())
+    {
+        AddRule(RuleObject::fromJson(item.toObject()));
+    }
+
     //// Set default outboung combo text AFTER adding all outbounds.
     // defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
     // defaultOutboundCombo->setCurrentText(defaultOutbound);
@@ -510,7 +511,8 @@ void RouteEditor::on_insertBlackBtn_clicked()
     auto blackHole = GenerateBlackHoleOUT(false);
     auto tag = "blackhole_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto _blackHoleOutbound = GenerateOutboundEntry("blackhole", blackHole, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
-    AddOutbound(_blackHoleOutbound);
+    abort();
+    // AddOutbound(_blackHoleOutbound);
 }
 void RouteEditor::on_addInboundBtn_clicked()
 {
@@ -545,7 +547,8 @@ void RouteEditor::on_addOutboundBtn_clicked()
 
         for (int i = 0; i < confList.count(); i++)
         {
-            AddOutbound(OUTBOUND(confList[i].toObject()));
+            abort();
+            // AddOutbound(OUTBOUND(confList[i].toObject()));
         }
     }
 
@@ -561,9 +564,9 @@ void RouteEditor::on_delBtn_clicked()
     }
 
     auto firstNode = nodeScene->selectedNodes()[0];
-    auto isInbound = inboundNodes.values().contains(firstNode->id());
-    auto isOutbound = outboundNodes.values().contains(firstNode->id());
-    auto isRule = ruleNodes.values().contains(firstNode->id());
+    auto isInbound = false;  // inboundNodes.values().contains(firstNode->id());
+    auto isOutbound = false; // outboundNodes.values().contains(firstNode->id());
+    auto isRule = false;     // ruleNodes.values().contains(firstNode->id());
 
     // Get the tag first, and call inbounds/outbounds/rules container variable
     // remove() Remove the node last since some events may trigger. Then remove
@@ -643,8 +646,8 @@ void RouteEditor::on_editBtn_clicked()
     }
 
     const auto firstNode = nodeScene->selectedNodes().at(0);
-    const auto &isInbound = inboundNodes.values().contains(firstNode->id());
-    const auto &isOutbound = outboundNodes.values().contains(firstNode->id());
+    const auto isInbound = false;  // inboundNodes.values().contains(firstNode->id());
+    const auto isOutbound = false; // outboundNodes.values().contains(firstNode->id());
 
     if (isInbound)
     {
@@ -784,7 +787,8 @@ void RouteEditor::on_importExistingBtn_clicked()
     const auto root = ConnectionManager->GetConnectionRoot(connId);
     auto outbound = root["outbounds"].toArray()[0].toObject();
     outbound["tag"] = GetDisplayName(connId);
-    AddOutbound(OUTBOUND{ outbound });
+    abort();
+    // AddOutbound(OUTBOUND{ outbound });
 }
 
 void RouteEditor::on_importGroupBtn_currentIndexChanged(int)

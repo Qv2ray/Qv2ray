@@ -9,7 +9,7 @@
 // Supplementary source file for Routes editor, basically providing
 // routes-related operations.
 
-void RouteEditor::AddInbound(INBOUND in)
+void RouteEditor::AddInbound(const INBOUND &in)
 {
     // QString tag = getTag(in);
     //
@@ -27,93 +27,60 @@ void RouteEditor::AddInbound(INBOUND in)
     // inboundNodes.insert(tag, node.id());
 }
 
-void RouteEditor::AddOutbound(OUTBOUND out)
+void RouteEditor::AddOutbound(OutboundObjectMeta &metaOutboud)
 {
-    // QString tag = getTag(out);
-    //
-    // if (outboundNodes.contains(tag))
-    //    tag.append("_" + GenerateRandomString(5));
-    //
-    // out["tag"] = tag;
-    // outbounds << out;
-    // auto _nodeData = std::make_unique<QvOutboundNodeModel>(std::make_shared<OutboundNodeData>(std::make_shared<OUTBOUND>(outbounds.last())));
-    // auto pos = nodeGraphWidget->pos();
-    // pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
-    // pos.setY(pos.y() + outboundNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    // auto &node = nodeScene->createNode(std::move(_nodeData));
-    // nodeScene->setNodePosition(node, pos);
-    // outboundNodes.insert(tag, node.id());
-    // defaultOutboundCombo->addItem(tag);
+    QString tag;
+    switch (metaOutboud.metaType)
+    {
+        case complex::METAOUTBOUND_ORIGINAL:
+        {
+            tag = getTag(metaOutboud.realOutbound);
+            break;
+        }
+        case complex::METAOUTBOUND_CHAINED:
+        case complex::METAOUTBOUND_BALANCER:
+        {
+            tag = metaOutboud.object.externalTag;
+            break;
+        }
+    }
+    outbounds << metaOutboud;
+    auto _nodeData = std::make_unique<OutboundNodeModel>(std::make_shared<OutboundObjectMeta>(outbounds.last()));
+    auto pos = nodeGraphWidget->pos();
+    pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
+    pos.setY(pos.y() + outbounds.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
+    auto &node = nodeScene->createNode(std::move(_nodeData));
+    nodeScene->setNodePosition(node, pos);
+    defaultOutboundCombo->addItem(tag);
 }
 
 QString RouteEditor::AddNewRule()
 {
-    //// Add Route
-    // RuleObject rule;
-    ////
-    // rule.QV2RAY_RULE_ENABLED = true;
-    // rule.QV2RAY_RULE_USE_BALANCER = false;
-    //// Default balancer tag, it's a random string.
-    // auto bTag = GenerateRandomString();
-    // rule.QV2RAY_RULE_TAG = rules.isEmpty() ? tr("Default rule") : (tr("rule") + "-" + GenerateRandomString(6));
-    // rule.balancerTag = bTag;
-    //// balancers[bTag] = QStringList();
-    // AddRule(rule);
-    // return rule.QV2RAY_RULE_TAG;
-    return "";
+    // Add Route
+    RuleObject rule;
+    //
+    rule.QV2RAY_RULE_ENABLED = true;
+    rule.QV2RAY_RULE_USE_BALANCER = false;
+    // Default balancer tag, it's a random string.
+    auto bTag = GenerateRandomString();
+    rule.QV2RAY_RULE_TAG = rules.isEmpty() ? tr("Default rule") : (tr("rule") + "-" + GenerateRandomString(6));
+    rule.balancerTag = bTag;
+    // balancers[bTag] = QStringList();
+    AddRule(rule);
+    return rule.QV2RAY_RULE_TAG;
 }
 
-void RouteEditor::AddRule(RuleObject rule)
+void RouteEditor::AddRule(const RuleObject &rule)
 {
-    //// Prevent duplicate
-    // if (ruleNodes.contains(rule.QV2RAY_RULE_TAG))
-    //{
-    //    rule.QV2RAY_RULE_TAG += "-" + GenerateRandomString(5);
-    //}
-    //
-    // rules << rule;
-    // auto pos = nodeGraphWidget->pos();
-    // pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
-    // pos.setY(pos.y() + ruleNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    // auto _nodeData = std::make_unique<QvRuleNodeModel>(std::make_shared<RuleNodeData>(std::make_shared<RuleObject>(rules.last())));
-    // auto &node = nodeScene->createNode(std::move(_nodeData));
-    // nodeScene->setNodePosition(node, pos);
-    //
-    // for (auto inTag : rule.inboundTag)
-    //{
-    //    if (!inboundNodes.contains(inTag))
-    //    {
-    //        LOG(MODULE_UI, "No inbound tag found for rule: " + rule.QV2RAY_RULE_TAG + ", inbound tag: " + inTag)
-    //        QvMessageBoxWarn(this, tr("No Inbound"), tr("No inbound item found: ") + inTag);
-    //        rule.inboundTag.removeAll(inTag);
-    //    }
-    //    else
-    //    {
-    //        auto inboundNode = inboundNodes.value(inTag);
-    //        auto conn = nodeScene->createConnection(node, 0, *nodeScene->node(inboundNode), 0);
-    //        connect(conn.get(), &QtNodes::Connection::connectionCompleted, this, &RouteEditor::onConnectionCreated);
-    //    }
-    //}
-    //
-    //// If not using balancers (use outbound tag)
-    // if (!rule.QV2RAY_RULE_USE_BALANCER)
-    //{
-    //    if (outboundNodes.contains(rule.outboundTag))
-    //    {
-    //        DEBUG(MODULE_GRAPH, "Found outbound tag: " + rule.outboundTag + ", for rule: " + rule.QV2RAY_RULE_TAG)
-    //        auto conn = nodeScene->createConnection(*nodeScene->node(outboundNodes.value(rule.outboundTag)), 0, node, 0);
-    //        connect(conn.get(), &QtNodes::Connection::connectionCompleted, this, &RouteEditor::onConnectionCreated);
-    //    }
-    //    else
-    //    {
-    //        LOG(MODULE_GRAPH, "Outbound tag not found: " + rule.outboundTag + ", for: " + rule.QV2RAY_RULE_TAG)
-    //        // QvMessageBoxWarn(this, tr("No outbound tag"), tr("Please connect
-    //        // the rule with an outbound."));
-    //    }
-    //}
-    //
-    // this->ruleNodes.insert(rule.QV2RAY_RULE_TAG, node.id());
-    // ruleListWidget->addItem(rule.QV2RAY_RULE_TAG);
+    rules << rule;
+    auto pos = nodeGraphWidget->pos();
+    pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
+    pos.setY(pos.y() + rules.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
+    auto _nodeData = std::make_unique<RuleNodeModel>(std::make_shared<RuleObject>(rules.last()));
+    auto &node = nodeScene->createNode(std::move(_nodeData));
+    nodeScene->setNodePosition(node, pos);
+
+    ruleListWidget->addItem(rule.QV2RAY_RULE_TAG);
 }
 
 // Do not use reference here, we need deep copy of EVERY QString.
@@ -272,7 +239,7 @@ void RouteEditor::ResolveDefaultOutboundTag(const QString original, const QStrin
     isLoading = true;
     defaultOutboundCombo->clear();
     //
-    for (const auto &out : outbounds) defaultOutboundCombo->addItem(getTag(out));
+    for (const auto &out : outbounds) defaultOutboundCombo->addItem(getTag(out.realOutbound));
     //
     isLoading = false;
     //
@@ -293,8 +260,8 @@ void RouteEditor::ResolveDefaultOutboundTag(const QString original, const QStrin
         }
         else
         {
-            defaultOutbound = getTag(outbounds.first());
-            defaultOutboundCombo->addItem(getTag(outbounds.first()));
+            defaultOutbound = getTag(outbounds.first().realOutbound);
+            defaultOutboundCombo->addItem(getTag(outbounds.first().realOutbound));
         }
     }
     else

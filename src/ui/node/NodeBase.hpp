@@ -9,17 +9,24 @@
 #include <nodes/internal/NodeDataModel.hpp>
 #include <nodes/internal/PortType.hpp>
 
+constexpr auto META_OUTBOUND_KEY_NAME = "QV2RAY_OUTBOUND_METADATA";
+constexpr auto GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
+
+struct OutboundObjectMeta
+{
+    complex::MetaOutboundObjectType metaType;
+    complex::ChainID chainId;
+    complex::OutboundObject object;
+    OUTBOUND realOutbound;
+    JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, chainId, object))
+};
+
 using QtNodes::NodeData;
 using QtNodes::NodeDataModel;
 using QtNodes::NodeDataType;
 using QtNodes::NodeValidationState;
 using QtNodes::PortIndex;
 using QtNodes::PortType;
-
-using QtNodes::NodeData;
-using QtNodes::NodeDataType;
-
-constexpr auto GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
 
 namespace Qv2ray::ui::nodemodels
 {
@@ -33,8 +40,9 @@ namespace Qv2ray::ui::nodemodels
       public:
         explicit QvNodeWidget(QWidget *parent) : QWidget(parent){};
         template<typename T>
-        void setValue(std::shared_ptr<T>){};
-        virtual void OnSizeUpdated() = 0;
+        void setValue(std::shared_ptr<T>);
+      signals:
+        void OnSizeUpdated();
     };
 
 #define DECL_NODE_DATA_TYPE(name, TYPE, INNER_TYPE)                                                                                             \
@@ -56,13 +64,12 @@ namespace Qv2ray::ui::nodemodels
     }
 
     DECL_NODE_DATA_TYPE(InboundNodeData, NODE_TYPE_INBOUND, INBOUND);
-    DECL_NODE_DATA_TYPE(OutboundNodeData, NODE_TYPE_OUTBOUND, complex::OutboundObjectMeta);
+    DECL_NODE_DATA_TYPE(OutboundNodeData, NODE_TYPE_OUTBOUND, OutboundObjectMeta);
     DECL_NODE_DATA_TYPE(RuleNodeData, NODE_TYPE_RULE, RuleObject);
 
     //
     //***********************************************************************************************************************************
     //
-
 #define DECL_NODE_DATA_MODEL(NAME, CONTENT_TYPE)                                                                                                \
     class NAME : public NodeDataModel                                                                                                           \
     {                                                                                                                                           \
@@ -71,31 +78,36 @@ namespace Qv2ray::ui::nodemodels
         explicit NAME(std::shared_ptr<CONTENT_TYPE> data);                                                                                      \
         ~NAME(){};                                                                                                                              \
                                                                                                                                                 \
-        QString caption() const override                                                                                                        \
+        inline QString caption() const override                                                                                                 \
         {                                                                                                                                       \
             return {};                                                                                                                          \
         }                                                                                                                                       \
-        bool captionVisible() const override                                                                                                    \
+        inline bool captionVisible() const override                                                                                             \
         {                                                                                                                                       \
             return false;                                                                                                                       \
         }                                                                                                                                       \
-        QString name() const override                                                                                                           \
+        inline QString name() const override                                                                                                    \
         {                                                                                                                                       \
             return #NAME;                                                                                                                       \
         }                                                                                                                                       \
+        ConnectionPolicy portOutConnectionPolicy(PortIndex) const override;                                                                     \
+        ConnectionPolicy portInConnectionPolicy(PortIndex) const override;                                                                      \
         unsigned int nPorts(PortType portType) const override;                                                                                  \
         std::shared_ptr<NodeDataType> dataType(PortType portType, PortIndex portIndex) const override;                                          \
-        std::shared_ptr<NodeData> outData(PortIndex) override;                                                                                  \
-        void setInData(std::shared_ptr<NodeData>, int) override;                                                                                \
-        void setData(std::shared_ptr<CONTENT_TYPE> data);                                                                                       \
-        QWidget *embeddedWidget() override                                                                                                      \
+                                                                                                                                                \
+      public:                                                                                                                                   \
+        virtual void setInData(std::shared_ptr<NodeData> nodeData, PortIndex port) override;                                                    \
+        virtual void setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port) override;                                       \
+        virtual std::shared_ptr<NodeData> outData(PortIndex port) override;                                                                     \
+        inline QWidget *embeddedWidget() override                                                                                               \
         {                                                                                                                                       \
             return widget;                                                                                                                      \
         }                                                                                                                                       \
-        std::unique_ptr<NodeDataModel> clone() const override                                                                                   \
+        inline std::unique_ptr<NodeDataModel> clone() const override                                                                            \
         {                                                                                                                                       \
             return {};                                                                                                                          \
         };                                                                                                                                      \
+                                                                                                                                                \
         void inputConnectionCreated(const QtNodes::Connection &) override;                                                                      \
         void inputConnectionDeleted(const QtNodes::Connection &) override;                                                                      \
         void outputConnectionCreated(const QtNodes::Connection &) override;                                                                     \
@@ -106,9 +118,9 @@ namespace Qv2ray::ui::nodemodels
         QvNodeWidget *widget;                                                                                                                   \
     }
 
-    DECL_NODE_DATA_MODEL(InboundNodeDataModel, INBOUND);
-    DECL_NODE_DATA_MODEL(OutboundNodeDataModel, complex::OutboundObjectMeta);
-    DECL_NODE_DATA_MODEL(RuleNodeDataModel, RuleObject);
+    DECL_NODE_DATA_MODEL(InboundNodeModel, INBOUND);
+    DECL_NODE_DATA_MODEL(OutboundNodeModel, OutboundObjectMeta);
+    DECL_NODE_DATA_MODEL(RuleNodeModel, RuleObject);
 
 } // namespace Qv2ray::ui::nodemodels
 

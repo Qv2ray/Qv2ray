@@ -23,6 +23,7 @@ set(QV2RAY_UI_FORMS
 set(QV2RAY_UI_NODEEDITOR_SOURCES
     # NodeEditor Models
     ${CMAKE_SOURCE_DIR}/src/ui/node/NodeBase.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/NodeBase.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/InboundNodeModel.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/InboundNodeModel.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/OutboundNodeModel.hpp

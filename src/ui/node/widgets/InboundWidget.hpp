@@ -13,9 +13,6 @@ class InboundWidget
     explicit InboundWidget(QWidget *parent = nullptr);
     void setValue(std::shared_ptr<INBOUND> data);
 
-  signals:
-    void OnSizeUpdated() override;
-
   protected:
     void changeEvent(QEvent *e) override;
 };
