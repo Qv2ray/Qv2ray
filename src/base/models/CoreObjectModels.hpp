@@ -375,7 +375,7 @@ namespace Qv2ray::base::objects
         };
         //
         // VMess Server
-        constexpr auto VMESS_USER_ALTERID_DEFAULT = 32;
+        constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;
         struct VMessServerObject
         {
             struct UserObject

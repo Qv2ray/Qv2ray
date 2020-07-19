@@ -249,7 +249,7 @@
                <number>65535</number>
               </property>
               <property name="value">
-               <number>32</number>
+               <number>0</number>
               </property>
              </widget>
             </item>
