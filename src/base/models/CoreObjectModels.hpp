@@ -375,6 +375,7 @@ namespace Qv2ray::base::objects
         };
         //
         // VMess Server
+        constexpr auto VMESS_USER_ALTERID_DEFAULT = 32;
         struct VMessServerObject
         {
             struct UserObject
@@ -384,7 +385,7 @@ namespace Qv2ray::base::objects
                 QString security;
                 int level;
                 QString testsEnabled;
-                UserObject() : id(), alterId(64), security("auto"), level(0), testsEnabled("none"){};
+                UserObject() : id(), alterId(VMESS_USER_ALTERID_DEFAULT), security("auto"), level(0), testsEnabled("none"){};
                 JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level, testsEnabled))
             };
 
@@ -405,8 +406,7 @@ namespace Qv2ray::base::objects
             bool ota;
             int level;
             int port;
-            ShadowSocksServerObject()
-                : email(""), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0){};
+            ShadowSocksServerObject() : email(""), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0){};
             JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(email, address, port, method, password, ota, level))
         };
     } // namespace protocol
