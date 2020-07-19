@@ -25,7 +25,7 @@ namespace Qv2ray::core::handler
         {
             return activeKernels.size();
         }
-        const QMap<QString, InboundInfoObject> GetCurrentConnectionInboundInfo() const
+        const QMap<QString, ProtocolSettingsInfoObject> GetCurrentConnectionInboundInfo() const
         {
             return inboundInfo;
         }
@@ -44,7 +44,7 @@ namespace Qv2ray::core::handler
         void OnPluginStatsDataRcvd_p(const long uploadSpeed, const long downloadSpeed);
 
       private:
-        static std::optional<QString> CheckPort(const QMap<QString, InboundInfoObject> &info, int plugins);
+        static std::optional<QString> CheckPort(const QMap<QString, ProtocolSettingsInfoObject> &info, int plugins);
 
       private:
         QMap<QString, int> GetInboundPorts() const
@@ -61,7 +61,7 @@ namespace Qv2ray::core::handler
             QMap<QString, QString> result;
             for (const auto &[tag, info] : inboundInfo.toStdMap())
             {
-                result[tag] = info.listenIp;
+                result[tag] = info.address;
             }
             return result;
         }
@@ -69,7 +69,7 @@ namespace Qv2ray::core::handler
         QMap<QString, QString> outboundKernelMap;
         // Since QMap does not support std::unique_ptr, we use std::map<>
         std::list<std::pair<QString, std::unique_ptr<QvPluginKernel>>> activeKernels;
-        QMap<QString, InboundInfoObject> inboundInfo;
+        QMap<QString, ProtocolSettingsInfoObject> inboundInfo;
         V2RayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
     };

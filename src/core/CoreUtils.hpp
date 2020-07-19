@@ -5,17 +5,10 @@
 
 namespace Qv2ray::core
 {
-    const inline GroupId DefaultGroupId = GroupId("000000000000");
+    const inline GroupId DefaultGroupId{ "000000000000" };
     using namespace Qv2ray::base;
     using namespace Qv2ray::base::safetype;
     using namespace Qv2ray::base::objects;
-    struct InboundInfoObject
-    {
-        QString protocol;
-        QString listenIp;
-        int port;
-    };
-    //
     inline const QString getTag(const INBOUND &in)
     {
         return in["tag"].toString();
@@ -35,8 +28,8 @@ namespace Qv2ray::core
     uint64_t GetConnectionTotalData(const ConnectionId &id);
     const std::tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id);
     //
-    const std::tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status = nullptr);
-    const std::tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status = nullptr);
+    const ProtocolSettingsInfoObject GetConnectionInfo(const ConnectionId &id, bool *status = nullptr);
+    const ProtocolSettingsInfoObject GetConnectionInfo(const CONFIGROOT &out, bool *status = nullptr);
     //
     bool GetOutboundInfo(const OUTBOUND &out, QString *host, int *port, QString *protocol);
     bool IsComplexConfig(const CONFIGROOT &root);
@@ -50,8 +43,8 @@ namespace Qv2ray::core
     // const GroupId GetConnectionGroupId(const ConnectionId &id);
     //
     bool GetInboundInfo(const INBOUND &in, QString *listen, int *port, QString *protocol);
-    const QMap<QString, InboundInfoObject> GetInboundInfo(const CONFIGROOT &root);
-    const QMap<QString, InboundInfoObject> GetInboundInfo(const ConnectionId &id);
+    const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const CONFIGROOT &root);
+    const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const ConnectionId &id);
 } // namespace Qv2ray::core
 
 using namespace Qv2ray::core;

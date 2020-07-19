@@ -7,8 +7,8 @@ void MainWindow::MWSetSystemProxy()
 {
     const auto inboundInfo = KernelInstance->GetCurrentConnectionInboundInfo();
 
-    InboundInfoObject httpInboundInfo;
-    InboundInfoObject socksInboundInfo;
+    ProtocolSettingsInfoObject httpInboundInfo;
+    ProtocolSettingsInfoObject socksInboundInfo;
 
     for (const auto &info : inboundInfo)
     {
@@ -24,7 +24,7 @@ void MainWindow::MWSetSystemProxy()
 
     if (httpEnabled || socksEnabled)
     {
-        proxyAddress = httpEnabled ? httpInboundInfo.listenIp : socksInboundInfo.listenIp;
+        proxyAddress = httpEnabled ? httpInboundInfo.address : socksInboundInfo.address;
         if (proxyAddress == "0.0.0.0")
             proxyAddress = "127.0.0.1";
 

@@ -41,16 +41,17 @@ namespace Qv2ray::base
     };
 
     // Define several safetypes to prevent misuse of QString.
-    class __QvGroup;
-    class __QvConnection;
-    class __QvRoute;
-    typedef IDType<__QvGroup> GroupId;
-    typedef IDType<__QvConnection> ConnectionId;
-    typedef IDType<__QvRoute> GroupRoutingId;
+#define DECL_IDTYPE(type)                                                                                                                       \
+    class __##type;                                                                                                                             \
+    typedef IDType<__##type> type;
+
+    DECL_IDTYPE(GroupId);
+    DECL_IDTYPE(ConnectionId);
+    DECL_IDTYPE(GroupRoutingId);
     //
-    inline const static auto NullConnectionId = ConnectionId("null");
-    inline const static auto NullGroupId = GroupId("null");
-    inline const static auto NullRoutingId = GroupRoutingId("null");
+    inline const static ConnectionId NullConnectionId;
+    inline const static GroupId NullGroupId;
+    inline const static GroupRoutingId NullRoutingId;
     //
     class ConnectionGroupPair
     {
@@ -233,6 +234,21 @@ namespace Qv2ray::base
               {};
         JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
     };
+
+    struct ProtocolSettingsInfoObject
+    {
+        QString protocol;
+        QString address;
+        int port;
+        ProtocolSettingsInfoObject(){};
+        ProtocolSettingsInfoObject(const QString &_protocol, const QString _address, int _port)
+            : protocol(_protocol), //
+              address(_address),   //
+              port(_port)          //
+              {};
+        JSONSTRUCT_REGISTER(ProtocolSettingsInfoObject, F(protocol, address, port))
+    };
+    //
 
     template<typename T>
     inline uint qHash(IDType<T> key)

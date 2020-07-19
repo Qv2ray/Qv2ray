@@ -71,7 +71,7 @@ namespace Qv2ray::core
 
     ///
     /// [Protocol, Host, Port]
-    const std::tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
+    const ProtocolSettingsInfoObject GetConnectionInfo(const ConnectionId &id, bool *status)
     {
         if (status != nullptr)
             *status = false;
@@ -79,7 +79,7 @@ namespace Qv2ray::core
         return GetConnectionInfo(root, status);
     }
 
-    const std::tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status)
+    const ProtocolSettingsInfoObject GetConnectionInfo(const CONFIGROOT &out, bool *status)
     {
         if (status != nullptr)
             *status = false;
@@ -102,7 +102,7 @@ namespace Qv2ray::core
                 //    outboundType += " " + QObject::tr("(Guessed)");
                 //    host += " " + QObject::tr("(Guessed)");
                 //}
-                return { outboundType, host, port };
+                return ProtocolSettingsInfoObject{ outboundType, host, port };
             }
             else
             {
@@ -173,9 +173,9 @@ namespace Qv2ray::core
         return true;
     }
 
-    const QMap<QString, InboundInfoObject> GetInboundInfo(const CONFIGROOT &root)
+    const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const CONFIGROOT &root)
     {
-        QMap<QString, InboundInfoObject> inboundPorts;
+        QMap<QString, ProtocolSettingsInfoObject> inboundPorts;
         for (const auto &inboundVal : root["inbounds"].toArray())
         {
             INBOUND in{ inboundVal.toObject() };
@@ -187,7 +187,7 @@ namespace Qv2ray::core
         return inboundPorts;
     }
 
-    const QMap<QString, InboundInfoObject> GetInboundInfo(const ConnectionId &id)
+    const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const ConnectionId &id)
     {
         return GetInboundInfo(ConnectionManager->GetConnectionRoot(id));
     }

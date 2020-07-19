@@ -191,6 +191,16 @@ void RouteEditor::onNodeClicked(Node &n)
     // }
 }
 
+void RouteEditor::OnDispatcherInboundCreated()
+{
+}
+void RouteEditor::OnDispatcherOutboundCreated()
+{
+}
+void RouteEditor::OnDispatcherRuleCreated()
+{
+}
+
 void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
 {
     LOADINGCHECK

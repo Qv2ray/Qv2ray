@@ -625,7 +625,8 @@ namespace Qv2ray::core::handler
             const auto &_alias = config.first;
             // Should not have complex connection we assume.
             bool canGetOutboundData = false;
-            auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
+            const auto &&[protocol, host, port] = GetConnectionInfo(config.second, &canGetOutboundData);
+            const auto outboundData = std::make_tuple(protocol, host, port);
             //
             // ====================================================================================== Begin guessing new ConnectionId
             if (nameMap.contains(_alias))

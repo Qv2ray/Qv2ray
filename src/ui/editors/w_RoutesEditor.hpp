@@ -72,6 +72,11 @@ class RouteEditor
     void onConnectionCreated(QtNodes::Connection const &c);
     void onConnectionDeleted(QtNodes::Connection const &c);
 
+  private slots:
+    void OnDispatcherInboundCreated();
+    void OnDispatcherOutboundCreated();
+    void OnDispatcherRuleCreated();
+
   private:
     std::shared_ptr<NodeDispatcher> nodeDispatcher;
     bool isLoading = false;

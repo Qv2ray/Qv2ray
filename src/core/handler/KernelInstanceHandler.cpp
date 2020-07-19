@@ -36,7 +36,7 @@ namespace Qv2ray::core::handler
         StopConnection();
     }
 
-    std::optional<QString> KernelInstanceHandler::CheckPort(const QMap<QString, InboundInfoObject> &info, int plugins)
+    std::optional<QString> KernelInstanceHandler::CheckPort(const QMap<QString, ProtocolSettingsInfoObject> &info, int plugins)
     {
         //
         // Check inbound port allocation issue.
@@ -44,12 +44,12 @@ namespace Qv2ray::core::handler
         auto portDetectionMsg = tr("Another process is using the port required to start the connection:") + NEWLINE + NEWLINE;
         for (const auto &key : info.keys())
         {
-            auto result = components::port::CheckTCPPortStatus(info[key].listenIp, info[key].port);
+            auto result = components::port::CheckTCPPortStatus(info[key].address, info[key].port);
             if (!result)
             {
                 portDetectionErrorMessage << tr("Port: %1 for listening IP: %2 for inbound tag: \"%3\"") //
                                                  .arg(info[key].port)
-                                                 .arg(info[key].listenIp)
+                                                 .arg(info[key].address)
                                                  .arg(key);
             }
         }

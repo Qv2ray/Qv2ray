@@ -10,17 +10,7 @@
 #include <nodes/internal/NodeDataModel.hpp>
 #include <nodes/internal/PortType.hpp>
 
-constexpr auto META_OUTBOUND_KEY_NAME = "QV2RAY_OUTBOUND_METADATA";
 constexpr auto GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
-
-struct OutboundObjectMeta
-{
-    complex::MetaOutboundObjectType metaType;
-    complex::ChainID chainId;
-    complex::OutboundObject object;
-    OUTBOUND realOutbound;
-    JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, chainId, object))
-};
 
 using QtNodes::NodeData;
 using QtNodes::NodeDataModel;
