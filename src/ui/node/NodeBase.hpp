@@ -90,6 +90,8 @@ namespace Qv2ray::ui::nodemodels
         std::shared_ptr<NodeDataType> dataType(PortType portType, PortIndex portIndex) const override;                                          \
                                                                                                                                                 \
       public:                                                                                                                                   \
+        void onNodeHoverEnter() override;                                                                                                       \
+        void onNodeHoverLeave() override;                                                                                                       \
         virtual void setInData(std::shared_ptr<NodeData> nodeData, PortIndex port) override;                                                    \
         virtual void setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port) override;                                       \
         virtual std::shared_ptr<NodeData> outData(PortIndex port) override;                                                                     \

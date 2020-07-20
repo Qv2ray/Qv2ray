@@ -4,6 +4,7 @@
 
 RuleNodeModel::RuleNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<RuleObject> data) : NodeDataModel()
 {
+    dataptr = data;
     dispatcher = _dispatcher;
     widget = new QvNodeRuleWidget(dispatcher);
     connect(widget, &QvNodeWidget::OnSizeUpdated, this, &NodeDataModel::embeddedWidgetSizeUpdated);
@@ -31,3 +32,6 @@ void RuleNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
 void RuleNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port)
 {
 }
+
+void RuleNodeModel::onNodeHoverEnter(){};
+void RuleNodeModel::onNodeHoverLeave(){};

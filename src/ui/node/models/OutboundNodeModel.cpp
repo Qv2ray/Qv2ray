@@ -1,11 +1,13 @@
 #include "ui/node/models/OutboundNodeModel.hpp"
 
+#include "core/CoreUtils.hpp"
 #include "ui/node/widgets/BalancerWidget.hpp"
 #include "ui/node/widgets/ChainWidget.hpp"
 #include "ui/node/widgets/InboundOutboundWidget.hpp"
 
 OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<OutboundObjectMeta> data) : NodeDataModel()
 {
+    dataptr = data;
     dispatcher = _dispatcher;
     switch (data->metaType)
     {
@@ -48,6 +50,26 @@ void OutboundNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
 void OutboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
 {
 }
+
 void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port)
+{
+}
+
+void OutboundNodeModel::onNodeHoverEnter()
+{
+    if (dataptr->metaType != METAOUTBOUND_ORIGINAL)
+        return;
+    ProtocolSettingsInfoObject o;
+    if (dataptr->object.mode == MODE_JSON)
+    {
+        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getTag(), GetOutboundInfo(dataptr->realOutbound));
+    }
+    else
+    {
+        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getTag(), GetConnectionInfo(dataptr->object.connectionId));
+    }
+}
+
+void OutboundNodeModel::onNodeHoverLeave()
 {
 }

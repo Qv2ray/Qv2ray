@@ -15,8 +15,6 @@ using QtNodes::ConnectionStyle;
 using QtNodes::FlowScene;
 using QtNodes::Node;
 
-#define GRAPH_GLOBAL_OFFSET_X -80
-#define GRAPH_GLOBAL_OFFSET_Y -10
 enum ROUTE_EDIT_MODE
 {
     RENAME_INBOUND,
@@ -75,6 +73,7 @@ class RouteEditor
     void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>);
     void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>);
+    void OnDispatcherInboundOutboundHovered(const QString &tag, const ProtocolSettingsInfoObject &);
 
   private:
     std::shared_ptr<NodeDispatcher> nodeDispatcher;

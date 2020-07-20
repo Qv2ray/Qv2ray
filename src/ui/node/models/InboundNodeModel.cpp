@@ -1,8 +1,10 @@
 #include "InboundNodeModel.hpp"
 
+#include "core/CoreUtils.hpp"
 #include "ui/node/widgets/InboundOutboundWidget.hpp"
 InboundNodeModel::InboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<INBOUND> data) : NodeDataModel()
 {
+    dataptr = data;
     dispatcher = _dispatcher;
     widget = new InboundOutboundWidget(InboundOutboundWidget::MODE_INBOUND, dispatcher);
     connect(widget, &QvNodeWidget::OnSizeUpdated, this, &InboundNodeModel::embeddedWidgetSizeUpdated);
@@ -28,5 +30,14 @@ void InboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
 }
 
 void InboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port)
+{
+}
+
+void InboundNodeModel::onNodeHoverEnter()
+{
+    emit dispatcher->OnInboundOutboundNodeHovered(getTag(*dataptr.get()), GetInboundInfo(*dataptr.get()));
+}
+
+void InboundNodeModel::onNodeHoverLeave()
 {
 }

@@ -34,6 +34,8 @@ using namespace Qv2ray::ui::nodemodels;
 //        nodeDispatcher->CreateRule({});                                                                                                         \
 //    }
 
+constexpr auto GRAPH_GLOBAL_OFFSET_X = -380;
+constexpr auto GRAPH_GLOBAL_OFFSET_Y = -350;
 #define LOAD_FLAG_BEGIN isLoading = true;
 #define LOAD_FLAG_END isLoading = false;
 
@@ -68,7 +70,8 @@ void RouteEditor::SetupNodeWidget()
     connect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
     connect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
     auto view = new FlowView(nodeScene);
-    // view->scaleDown();
+    view->scaleDown();
+    view->scaleDown();
     l->addWidget(view);
     l->setContentsMargins(0, 0, 0, 0);
     l->setSpacing(0);
@@ -83,6 +86,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundCreated, this, &RouteEditor::OnDispatcherInboundCreated);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
     //
     isLoading = true;
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
@@ -193,13 +197,20 @@ void RouteEditor::onNodeClicked(Node &n)
     //     LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
     // }
 }
+void RouteEditor::OnDispatcherInboundOutboundHovered(const QString &tag, const ProtocolSettingsInfoObject &info)
+{
+    tagLabel->setText("");
+    hostLabel->setText(info.address);
+    portLabel->setNum(info.port);
+    protocolLabel->setText(info.protocol);
+}
 
 void RouteEditor::OnDispatcherInboundCreated(std::shared_ptr<INBOUND> in)
 {
     auto _nodeData = std::make_unique<InboundNodeModel>(nodeDispatcher, in);
     auto &node = nodeScene->createNode(std::move(_nodeData));
     //
-    QPointF pos{ 0 + GRAPH_GLOBAL_OFFSET_X, nodeDispatcher->InboundsCount() * 130.0 + GRAPH_GLOBAL_OFFSET_Y };
+    QPoint pos{ 0 + GRAPH_GLOBAL_OFFSET_X, nodeDispatcher->InboundsCount() * 130 + GRAPH_GLOBAL_OFFSET_Y };
     nodeScene->setNodePosition(node, pos);
 }
 

@@ -46,7 +46,7 @@ class NodeDispatcher : public QObject
     void OnRuleCreated(std::shared_ptr<RuleObject>);
 
   signals:
-    void OnInboundOutboundNodeHovered(const ProtocolSettingsInfoObject &);
+    void OnInboundOutboundNodeHovered(const QString &tag, const ProtocolSettingsInfoObject &);
 
   private:
     QMap<QString, INBOUND> inbounds;
