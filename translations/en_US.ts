@@ -463,6 +463,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Cannot find any QRCode from the image.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InboundEditor</name>
@@ -764,10 +768,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groups / Subscriptions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Click to toggle show/hide</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1039,6 +1039,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Do you want to update these subscriptions?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1914,18 +1918,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Setting timeout failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unresolvable hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sending echo request failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Destination unreachable</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2187,6 +2179,10 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS not resolved</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
