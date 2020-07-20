@@ -43,10 +43,10 @@
   <td>Fedora</td>
   <td>
    <a href="https://build.opensuse.org/package/show/home:zzndb:Qv2ray/Qv2ray">
-    <img alt="Copr Stable" src="https://img.shields.io/badge/Fedora%20Copr-stable-blue" />
+    <img alt="OBS Stable" src="https://img.shields.io/badge/Fedora%20Copr-stable-blue" />
    </a><br/>
    <a href="https://build.opensuse.org/package/show/home:zzndb:Qv2ray/Qv2ray-preview">
-    <img alt="Copr Preview" src="https://img.shields.io/badge/Fedora%20Copr-preview-blue" />
+    <img alt="OBS Preview" src="https://img.shields.io/badge/Fedora%20Copr-preview-blue" />
    </a>
   </td>
  </tr>
