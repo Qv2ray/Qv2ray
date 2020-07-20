@@ -31,7 +31,7 @@ using namespace Qv2ray::ui::nodemodels;
     if (this->rules.isEmpty())                                                                                                                  \
     {                                                                                                                                           \
         LOG(MODULE_UI, "No rules currently, we add one.")                                                                                       \
-        AddNewRule();                                                                                                                           \
+        nodeDispatcher->CreateRule({});                                                                                                         \
     }
 
 #define LOAD_FLAG_BEGIN isLoading = true;
@@ -78,12 +78,15 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
 {
     setupUi(this);
     QvMessageBusConnect(RouteEditor);
+    //
     nodeDispatcher = std::make_shared<NodeDispatcher>(this);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundCreated, this, &RouteEditor::OnDispatcherInboundCreated);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
+    //
     isLoading = true;
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
-    //
     SetupNodeWidget();
-    //
     updateColorScheme();
     //
     domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
@@ -92,7 +95,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     //// Show connections in the node graph
     for (const auto &in : root["inbounds"].toArray())
     {
-        AddInbound(INBOUND(in.toObject()));
+        auto _ = nodeDispatcher->CreateInbound(INBOUND(in.toObject()));
     }
 
     for (const auto &out : root["outbounds"].toArray())
@@ -100,17 +103,17 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
         OutboundObjectMeta meta;
         meta.loadJson(out.toObject()[META_OUTBOUND_KEY_NAME].toObject());
         meta.realOutbound = OUTBOUND(out.toObject());
-        AddOutbound(meta);
+        auto _ = nodeDispatcher->CreateOutbound(meta);
     }
 
     for (const auto &item : root["routing"].toObject()["rules"].toArray())
     {
-        AddRule(RuleObject::fromJson(item.toObject()));
+        auto _ = nodeDispatcher->CreateRule(RuleObject::fromJson(item.toObject()));
     }
 
     //// Set default outboung combo text AFTER adding all outbounds.
-    // defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
-    // defaultOutboundCombo->setCurrentText(defaultOutbound);
+    defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
+    defaultOutboundCombo->setCurrentText(defaultOutbound);
     //
     ////    // Find and add balancers.
     ////    for (auto _balancer : root["routing"].toObject()["balancers"].toArray())
@@ -190,14 +193,13 @@ void RouteEditor::onNodeClicked(Node &n)
     //     LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
     // }
 }
-
-void RouteEditor::OnDispatcherInboundCreated()
+void RouteEditor::OnDispatcherInboundCreated(std::shared_ptr<INBOUND> in)
 {
 }
-void RouteEditor::OnDispatcherOutboundCreated()
+void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out)
 {
 }
-void RouteEditor::OnDispatcherRuleCreated()
+void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule)
 {
 }
 
@@ -465,7 +467,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
             _in_HTTP.insert("settings", httpInSettings);
         }
 
-        AddInbound(_in_HTTP);
+        nodeDispatcher->CreateInbound(_in_HTTP);
     }
     if (_Inconfig.useSocks)
     {
@@ -482,36 +484,37 @@ void RouteEditor::on_addDefaultBtn_clicked()
         {
             _in_SOCKS.insert("sniffing", sniffingOn);
         }
-        AddInbound(_in_SOCKS);
+        nodeDispatcher->CreateInbound(_in_SOCKS);
     }
 
     if (_Inconfig.useTPROXY)
     {
         QList<QString> networks;
-#define _ts_ _Inconfig.tProxySettings
-        if (_ts_.hasTCP)
+#define ts _Inconfig.tProxySettings
+        if (ts.hasTCP)
             networks << "tcp";
-        if (_ts_.hasUDP)
+        if (ts.hasUDP)
             networks << "udp";
         const auto tproxy_network = networks.join(",");
         auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
         //
-        QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-        QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", _ts_.mode } } } };
+        //
+        const static QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+        const QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", ts.mode } } } };
 
-        auto _in_TPROXY = GenerateInboundEntry(_ts_.tProxyIP, _ts_.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf");
-        _in_TPROXY.insert("sniffing", tproxy_sniff);
-        _in_TPROXY.insert("streamSettings", tproxy_streamSettings);
-        AddInbound(_in_TPROXY);
+        auto tProxyIn = GenerateInboundEntry(ts.tProxyIP, ts.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf");
+        tProxyIn.insert("sniffing", tproxy_sniff);
+        tProxyIn.insert("streamSettings", tproxy_streamSettings);
+        nodeDispatcher->CreateInbound(tProxyIn);
 
-        if (!_ts_.tProxyV6IP.isEmpty())
+        if (!ts.tProxyV6IP.isEmpty())
         {
-            auto _in_TPROXY = GenerateInboundEntry(_ts_.tProxyV6IP, _ts_.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf_V6");
-            _in_TPROXY.insert("sniffing", tproxy_sniff);
-            _in_TPROXY.insert("streamSettings", tproxy_streamSettings);
-            AddInbound(_in_TPROXY);
+            auto tProxyV6In = GenerateInboundEntry(ts.tProxyV6IP, ts.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf_V6");
+            tProxyV6In.insert("sniffing", tproxy_sniff);
+            tProxyV6In.insert("streamSettings", tproxy_streamSettings);
+            nodeDispatcher->CreateInbound(tProxyV6In);
         }
-#undef _ts_
+#undef ts
     }
 
     CHECKEMPTYRULES
@@ -533,7 +536,8 @@ void RouteEditor::on_addInboundBtn_clicked()
 
     if (w.result() == QDialog::Accepted)
     {
-        AddInbound(_result);
+        abort();
+        // nodeDispatcher->CreateOutbound(_result);
     }
 
     CHECKEMPTYRULES
@@ -645,7 +649,7 @@ void RouteEditor::on_delBtn_clicked()
 }
 void RouteEditor::on_addRouteBtn_clicked()
 {
-    auto ruleName = AddNewRule();
+    auto ruleName = nodeDispatcher->CreateRule({});
     Q_UNUSED(ruleName)
 }
 void RouteEditor::on_editBtn_clicked()
@@ -817,12 +821,12 @@ void RouteEditor::on_addBalancerBtn_clicked()
 
     OutboundObjectMeta meta;
     meta.metaType = complex::METAOUTBOUND_BALANCER;
-    AddOutbound(meta);
+    nodeDispatcher->CreateOutbound(meta);
 }
 
 void RouteEditor::on_addChainBtn_clicked()
 {
     OutboundObjectMeta meta;
     meta.metaType = complex::METAOUTBOUND_CHAINED;
-    AddOutbound(meta);
+    nodeDispatcher->CreateOutbound(meta);
 }

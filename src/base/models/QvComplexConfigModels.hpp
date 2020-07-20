@@ -17,14 +17,21 @@ namespace Qv2ray::base::objects::complex
      *      |
      *      | Qv2ray-only structures
      *      | ======================
+     *      |
      *      | - Outbounds
-     *      |           | - Single Orginal Outbound Unmodified
-     *      |           | ==========================================
-     *      |           | - QV2RAY_OUTBOUND_METADATA -> OutboundObjectMeta
-     *      |           |
-     *      |           |
-     *      |           |
-     *      |           |
+     *      |   |
+     *      |   | - OUTBOUND
+     *      |   |   - Original Outbound Object
+     *      |   |   ==========================================
+     *      |   |   - "QV2RAY_OUTBOUND_METADATA" -> OutboundObjectMeta
+     *      |   |     - realOutbound                -> OUTBOUND A.K.A ref<OUTBOUND>
+     *      |   |     - chainId                     -> ChainID
+     *      |   |     - object                      -> OutboundObject
+     *      |   |     - metaType                    -> MetaOutboundObjectType
+     *      |   |       - ORIGINAL                      -> Enables realOutbound
+     *      |   |       - CHAINED
+     *      |   |       - BALANCER
+     *      |   |
      *      |
      *      |
      *      |
@@ -62,9 +69,9 @@ namespace Qv2ray::base::objects::complex
 
     struct OutboundObjectMeta
     {
-        complex::MetaOutboundObjectType metaType;
-        complex::ChainId chainId;
-        complex::OutboundObject object;
+        MetaOutboundObjectType metaType;
+        ChainId chainId;
+        OutboundObject object;
         safetype::OUTBOUND realOutbound;
         JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, chainId, object))
     };

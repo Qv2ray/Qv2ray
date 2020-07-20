@@ -73,9 +73,9 @@ class RouteEditor
     void onConnectionDeleted(QtNodes::Connection const &c);
 
   private slots:
-    void OnDispatcherInboundCreated();
-    void OnDispatcherOutboundCreated();
-    void OnDispatcherRuleCreated();
+    void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>);
+    void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>);
+    void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>);
 
   private:
     std::shared_ptr<NodeDispatcher> nodeDispatcher;
@@ -97,9 +97,6 @@ class RouteEditor
     //
     FlowScene *nodeScene;
     // ---------------------------- Extra Source File Headers ----------------
-    void AddInbound(const INBOUND &in);
-    void AddOutbound(OutboundObjectMeta &meta);
-    void AddRule(const RuleObject &rule);
     QString AddNewRule();
     //
     void ResolveDefaultOutboundTag(QString original, QString newTag);
