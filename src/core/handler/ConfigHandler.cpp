@@ -124,16 +124,18 @@ namespace Qv2ray::core::handler
     {
         for (const auto &connection : connections.keys())
         {
-            StartLatencyTest(connection);
+            emit OnLatencyTestStarted(connection);
         }
+        tcpingHelper->TestLatency(connections.keys(), GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const GroupId &id)
     {
         for (const auto &connection : groups[id].connections)
         {
-            StartLatencyTest(connection);
+            emit OnLatencyTestStarted(connection);
         }
+        tcpingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const ConnectionId &id)
@@ -356,7 +358,6 @@ namespace Qv2ray::core::handler
     QvConfigHandler::~QvConfigHandler()
     {
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
-        tcpingHelper->StopAllLatencyTest();
         delete kernelHandler;
         SaveConnectionConfig();
     }

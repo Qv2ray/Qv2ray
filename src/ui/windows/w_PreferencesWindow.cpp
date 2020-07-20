@@ -1183,16 +1183,9 @@ void PreferencesWindow::on_latencyTCPingRB_clicked()
 void PreferencesWindow::on_latencyICMPingRB_clicked()
 {
     LOADINGCHECK
-#ifdef Q_OS_MAC
-    #warning No ICMPing support on macOS
-    CurrentConfig.networkConfig.latencyTestingMethod = TCPING;
-    latencyICMPingRB->setChecked(false);
-    latencyTCPingRB->setChecked(true);
-#else
     CurrentConfig.networkConfig.latencyTestingMethod = ICMPING;
     latencyICMPingRB->setChecked(true);
     latencyTCPingRB->setChecked(false);
-#endif
 }
 
 void PreferencesWindow::on_qvNetworkUATxt_editTextChanged(const QString &arg1)

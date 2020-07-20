@@ -170,7 +170,8 @@ namespace Qv2ray::core::connection
             // Get Alias (AKA ps) from address and port.
             {
                 // Some idiot vmess:// links are using alterId...
-                aid = vmessConf.contains("aid") ? vmessConf.value("aid").toInt() : vmessConf.value("alterId").toInt();
+                aid = vmessConf.contains("aid") ? vmessConf.value("aid").toInt(VMESS_USER_ALTERID_DEFAULT) :
+                                                  vmessConf.value("alterId").toInt(VMESS_USER_ALTERID_DEFAULT);
                 //
                 //
                 __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString()); //

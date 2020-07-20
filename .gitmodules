@@ -6,7 +6,7 @@
 	url = https://github.com/Qv2ray/QNodeEditor
 [submodule "libs/puresource"]
 	path = libs/puresource
-	url = https://github.com/Qv2ray/PureSource/
+	url = https://github.com/Qv2ray/PureSource
 [submodule "3rdparty/zxing-cpp"]
 	path = 3rdparty/zxing-cpp
 	url = https://github.com/nu-book/zxing-cpp
@@ -16,3 +16,9 @@
 [submodule "libs/QJsonStruct"]
 	path = libs/QJsonStruct
 	url = https://github.com/Qv2ray/QJsonStruct
+[submodule "3rdparty/libuv"]
+    path = 3rdparty/libuv
+    url = https://github.com/libuv/libuv.git
+[submodule "3rdparty/uvw"]
+	path = 3rdparty/uvw
+	url = https://github.com/skypjack/uvw.git

@@ -99,6 +99,8 @@ class MainWindow
     //
     void ReloadRecentConnectionList();
     void OnRecentConnectionsMenuReadyToShow();
+    //
+    void OnLogScrollbarValueChanged(int value);
 
   protected:
     void timerEvent(QTimerEvent *event) override;
@@ -154,6 +156,7 @@ class MainWindow
     QTextDocument *qvLogDocument = new QTextDocument(this);
     //
     int qvLogTimerId = -1;
+    bool qvLogAutoScoll = true;
     QMenu *logRCM_Menu = new QMenu(this);
     QAction *action_RCM_tovCoreLog = new QAction(tr("Switch to vCore log"), this);
     QAction *action_RCM_toQvLog = new QAction(tr("Switch to Qv2ray log"), this);
