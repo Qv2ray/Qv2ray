@@ -27,6 +27,18 @@ class NodeDispatcher : public QObject
     {
         return rules.keys();
     }
+    inline int InboundsCount() const
+    {
+        return inbounds.count();
+    }
+    inline int RulesCount() const
+    {
+        return rules.count();
+    }
+    inline int OutboundsCount() const
+    {
+        return outbounds.count();
+    }
 
   signals:
     void OnInboundCreated(std::shared_ptr<INBOUND>);
@@ -34,7 +46,7 @@ class NodeDispatcher : public QObject
     void OnRuleCreated(std::shared_ptr<RuleObject>);
 
   signals:
-    void OnInboundOutboundNodeHovered();
+    void OnInboundOutboundNodeHovered(const ProtocolSettingsInfoObject &);
 
   private:
     QMap<QString, INBOUND> inbounds;

@@ -42,10 +42,9 @@ class RouteEditor
         // Setup icons according to the theme settings.
         addInboundBtn->setIcon(QICON_R("add.png"));
         addOutboundBtn->setIcon(QICON_R("add.png"));
-        editBtn->setIcon(QICON_R("edit.png"));
         addRouteBtn->setIcon(QICON_R("add.png"));
         delBtn->setIcon(QICON_R("delete.png"));
-    };
+    }
     QvMessageBusSlotDecl;
 
   private slots:
@@ -84,10 +83,6 @@ class RouteEditor
     //
     QString domainStrategy;
     QString defaultOutbound;
-    //
-    QList<INBOUND> inbounds;
-    QList<OutboundObjectMeta> outbounds;
-    QList<RuleObject> rules;
     //
     CONFIGROOT root;
     CONFIGROOT original;

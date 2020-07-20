@@ -27,12 +27,12 @@ using namespace Qv2ray::ui::nodemodels;
 #define GetFirstNodeData(_node, name)                                                                                                           \
     (static_cast<name##Data *>(static_cast<Qv##name##Model *>((nodeScene->node(_node))->nodeDataModel())->outData(0).get()))
 
-#define CHECKEMPTYRULES                                                                                                                         \
-    if (this->rules.isEmpty())                                                                                                                  \
-    {                                                                                                                                           \
-        LOG(MODULE_UI, "No rules currently, we add one.")                                                                                       \
-        nodeDispatcher->CreateRule({});                                                                                                         \
-    }
+#define CHECKEMPTYRULES
+//    if (this->rules.isEmpty())                                                                                                                  \
+//    {                                                                                                                                           \
+//        LOG(MODULE_UI, "No rules currently, we add one.")                                                                                       \
+//        nodeDispatcher->CreateRule({});                                                                                                         \
+//    }
 
 #define LOAD_FLAG_BEGIN isLoading = true;
 #define LOAD_FLAG_END isLoading = false;
@@ -193,14 +193,40 @@ void RouteEditor::onNodeClicked(Node &n)
     //     LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
     // }
 }
+
 void RouteEditor::OnDispatcherInboundCreated(std::shared_ptr<INBOUND> in)
 {
+    auto _nodeData = std::make_unique<InboundNodeModel>(nodeDispatcher, in);
+    auto &node = nodeScene->createNode(std::move(_nodeData));
+    //
+    QPointF pos{ 0 + GRAPH_GLOBAL_OFFSET_X, nodeDispatcher->InboundsCount() * 130.0 + GRAPH_GLOBAL_OFFSET_Y };
+    nodeScene->setNodePosition(node, pos);
 }
+
 void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out)
 {
+    auto _nodeData = std::make_unique<OutboundNodeModel>(nodeDispatcher, out);
+    auto &node = nodeScene->createNode(std::move(_nodeData));
+    //
+    auto pos = nodeGraphWidget->pos();
+    pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
+    pos.setY(pos.y() + nodeDispatcher->OutboundsCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
+    //
+    nodeScene->setNodePosition(node, pos);
+    defaultOutboundCombo->addItem(out->getTag());
 }
+
 void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule)
 {
+    auto _nodeData = std::make_unique<RuleNodeModel>(nodeDispatcher, rule);
+    auto &node = nodeScene->createNode(std::move(_nodeData));
+    //
+    auto pos = nodeGraphWidget->pos();
+    pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
+    pos.setY(pos.y() + nodeDispatcher->RulesCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
+    //
+    nodeScene->setNodePosition(node, pos);
+    ruleListWidget->addItem(rule->QV2RAY_RULE_TAG);
 }
 
 void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
@@ -315,12 +341,12 @@ CONFIGROOT RouteEditor::OpenEditor()
 {
     auto result = this->exec();
 
-    if (rules.isEmpty())
-    {
-        // Prevent empty rule list causing mis-detection of config type to
-        // simple.
-        on_addRouteBtn_clicked();
-    }
+    //    if (rules.isEmpty())
+    //    {
+    //        // Prevent empty rule list causing mis-detection of config type to
+    //        // simple.
+    //        on_addRouteBtn_clicked();
+    //    }
 
     // // If clicking OK
     // if (result == QDialog::Accepted)
@@ -441,56 +467,36 @@ void RouteEditor::on_addDefaultBtn_clicked()
     LOADINGCHECK
     // Add default connection from GlobalConfig
     //
-    auto _Inconfig = GlobalConfig.inboundConfig;
+    const auto &inboundConfig = GlobalConfig.inboundConfig;
     QJsonObject sniffingOff{ { "enabled", false } };
     QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
     //
-    if (_Inconfig.useHTTP)
+    if (inboundConfig.useHTTP)
     {
-        INBOUND _in_HTTP;
-        _in_HTTP.insert("listen", _Inconfig.listenip);
-        _in_HTTP.insert("port", _Inconfig.httpSettings.port);
-        _in_HTTP.insert("protocol", "http");
-        _in_HTTP.insert("tag", "http_gConf");
-        if (!_Inconfig.httpSettings.sniffing)
-        {
-            _in_HTTP.insert("sniffing", sniffingOff);
-        }
-        else
-        {
-            _in_HTTP.insert("sniffing", sniffingOn);
-        }
-
-        if (_Inconfig.httpSettings.useAuth)
-        {
-            auto httpInSettings = GenerateHTTPIN(QList<AccountObject>() << _Inconfig.httpSettings.account);
-            _in_HTTP.insert("settings", httpInSettings);
-        }
-
-        nodeDispatcher->CreateInbound(_in_HTTP);
+        auto http = GenerateHTTPIN(QList<AccountObject>() << inboundConfig.httpSettings.account);
+        INBOUND httpConfig = GenerateInboundEntry(inboundConfig.listenip, inboundConfig.httpSettings.port, "http", http, "http_gConf",
+                                                  inboundConfig.httpSettings.sniffing ? sniffingOn : sniffingOff);
+        auto _ = nodeDispatcher->CreateInbound(httpConfig);
     }
-    if (_Inconfig.useSocks)
+    if (inboundConfig.useSocks)
     {
-        auto _in_socksConf = GenerateSocksIN((_Inconfig.socksSettings.useAuth ? "password" : "noauth"), //
-                                             QList<AccountObject>() << _Inconfig.socksSettings.account, //
-                                             _Inconfig.socksSettings.enableUDP,                         //
-                                             _Inconfig.socksSettings.localIP);
-        auto _in_SOCKS = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.socksSettings.port, "socks", _in_socksConf, "SOCKS_gConf");
-        if (!_Inconfig.socksSettings.sniffing)
-        {
-            _in_SOCKS.insert("sniffing", sniffingOff);
-        }
-        else
-        {
-            _in_SOCKS.insert("sniffing", sniffingOn);
-        }
-        nodeDispatcher->CreateInbound(_in_SOCKS);
+        auto socks = GenerateSocksIN((inboundConfig.socksSettings.useAuth ? "password" : "noauth"), //
+                                     QList<AccountObject>() << inboundConfig.socksSettings.account, //
+                                     inboundConfig.socksSettings.enableUDP,                         //
+                                     inboundConfig.socksSettings.localIP);
+        auto socksConfig = GenerateInboundEntry(inboundConfig.listenip,           //
+                                                inboundConfig.socksSettings.port, //
+                                                "socks",                          //
+                                                socks,                            //
+                                                "SOCKS_gConf",                    //
+                                                (inboundConfig.socksSettings.sniffing ? sniffingOn : sniffingOff));
+        auto _ = nodeDispatcher->CreateInbound(socksConfig);
     }
 
-    if (_Inconfig.useTPROXY)
+    if (inboundConfig.useTPROXY)
     {
         QList<QString> networks;
-#define ts _Inconfig.tProxySettings
+#define ts inboundConfig.tProxySettings
         if (ts.hasTCP)
             networks << "tcp";
         if (ts.hasUDP)
@@ -505,14 +511,14 @@ void RouteEditor::on_addDefaultBtn_clicked()
         auto tProxyIn = GenerateInboundEntry(ts.tProxyIP, ts.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf");
         tProxyIn.insert("sniffing", tproxy_sniff);
         tProxyIn.insert("streamSettings", tproxy_streamSettings);
-        nodeDispatcher->CreateInbound(tProxyIn);
+        auto _ = nodeDispatcher->CreateInbound(tProxyIn);
 
         if (!ts.tProxyV6IP.isEmpty())
         {
             auto tProxyV6In = GenerateInboundEntry(ts.tProxyV6IP, ts.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf_V6");
             tProxyV6In.insert("sniffing", tproxy_sniff);
             tProxyV6In.insert("streamSettings", tproxy_streamSettings);
-            nodeDispatcher->CreateInbound(tProxyV6In);
+            auto _ = nodeDispatcher->CreateInbound(tProxyV6In);
         }
 #undef ts
     }
@@ -524,8 +530,7 @@ void RouteEditor::on_insertBlackBtn_clicked()
     LOADINGCHECK
     auto blackHole = GenerateBlackHoleOUT(false);
     auto tag = "blackhole_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
-    auto _blackHoleOutbound = GenerateOutboundEntry("blackhole", blackHole, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
-    abort();
+    auto _blackHoleOutbound = GenerateOutboundEntry("blackhole", blackHole, {}, {}, "0.0.0.0", tag);
     // AddOutbound(_blackHoleOutbound);
 }
 void RouteEditor::on_addInboundBtn_clicked()
@@ -536,8 +541,7 @@ void RouteEditor::on_addInboundBtn_clicked()
 
     if (w.result() == QDialog::Accepted)
     {
-        abort();
-        // nodeDispatcher->CreateOutbound(_result);
+        auto _ = nodeDispatcher->CreateInbound(_result);
     }
 
     CHECKEMPTYRULES
@@ -562,8 +566,7 @@ void RouteEditor::on_addOutboundBtn_clicked()
 
         for (int i = 0; i < confList.count(); i++)
         {
-            abort();
-            // AddOutbound(OUTBOUND(confList[i].toObject()));
+            auto _ = nodeDispatcher->CreateOutbound(make_outbound(OUTBOUND(confList[i].toObject())));
         }
     }
 
@@ -800,10 +803,9 @@ void RouteEditor::on_importExistingBtn_clicked()
 {
     const auto connId = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
     const auto root = ConnectionManager->GetConnectionRoot(connId);
-    auto outbound = root["outbounds"].toArray()[0].toObject();
+    auto outbound = OUTBOUND(root["outbounds"].toArray()[0].toObject());
     outbound["tag"] = GetDisplayName(connId);
-    abort();
-    // AddOutbound(OUTBOUND{ outbound });
+    auto _ = nodeDispatcher->CreateOutbound(make_outbound(outbound));
 }
 
 void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
@@ -818,15 +820,10 @@ void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
 
 void RouteEditor::on_addBalancerBtn_clicked()
 {
-
-    OutboundObjectMeta meta;
-    meta.metaType = complex::METAOUTBOUND_BALANCER;
-    nodeDispatcher->CreateOutbound(meta);
+    auto _ = nodeDispatcher->CreateOutbound(make_outbound(BalancerId{ GenerateRandomString() }, "Balancer"));
 }
 
 void RouteEditor::on_addChainBtn_clicked()
 {
-    OutboundObjectMeta meta;
-    meta.metaType = complex::METAOUTBOUND_CHAINED;
-    nodeDispatcher->CreateOutbound(meta);
+    auto _ = nodeDispatcher->CreateOutbound(make_outbound(ChainId{ GenerateRandomString() }, "Chained Outbound"));
 }

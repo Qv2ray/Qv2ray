@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1100</width>
-    <height>740</height>
+    <height>773</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -22,13 +22,13 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout_3" columnstretch="2,1">
+  <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0">
    <item row="0" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QGroupBox" name="groupBox_2">
        <property name="title">
-        <string>Inbound</string>
+        <string>New Inbound</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
@@ -37,7 +37,7 @@
            <string>Add outbound</string>
           </property>
           <property name="text">
-           <string>Add Inbound</string>
+           <string>Editor</string>
           </property>
          </widget>
         </item>
@@ -47,7 +47,7 @@
            <string>Add default inbound from global config</string>
           </property>
           <property name="text">
-           <string>Add Global Settings</string>
+           <string>Global Settings</string>
           </property>
          </widget>
         </item>
@@ -57,7 +57,7 @@
      <item>
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
-        <string>Outbound</string>
+        <string>New Outbound</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
@@ -80,6 +80,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Editor</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="insertBlackBtn">
             <property name="toolTip">
              <string>Add blackhole outbound</string>
@@ -95,7 +102,7 @@
              <string>Add Freedom outbound</string>
             </property>
             <property name="text">
-             <string>Direct / Freedom</string>
+             <string>Freedom</string>
             </property>
            </widget>
           </item>
@@ -120,7 +127,7 @@
           <item>
            <widget class="QLabel" name="label_18">
             <property name="text">
-             <string>Existing Connection</string>
+             <string>Existed Connection</string>
             </property>
            </widget>
           </item>
@@ -156,64 +163,51 @@
       </spacer>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_6">
+      <widget class="QGroupBox" name="groupBox_5">
        <property name="title">
-        <string>Selected Inbound/Outbound Info</string>
+        <string>Routing Settings</string>
        </property>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_8">
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_11">
           <property name="text">
-           <string>Protocol</string>
+           <string>Domain Strategy</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLabel" name="tagLabel">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Tag</string>
-          </property>
+         <widget class="QComboBox" name="domainStrategyCombo">
+          <item>
+           <property name="text">
+            <string notr="true">AsIs</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">IPIfNonMatch</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">IPOnDemand</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_5">
+         <widget class="QLabel" name="label_9">
           <property name="text">
-           <string>Host</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLabel" name="protocolLabel">
-          <property name="text">
-           <string/>
+           <string>Default Outbound</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLabel" name="hostLabel">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_19">
-          <property name="text">
-           <string>Port</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLabel" name="portLabel">
-          <property name="text">
-           <string/>
+         <widget class="QComboBox" name="defaultOutboundCombo">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
          </widget>
         </item>
@@ -223,199 +217,181 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="title">
-      <string>Routes</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1,0">
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>A rule with no inbound connected means there's no inbound restriction.</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="nodeGraphWidget" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>150</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="routesControlButtons">
-        <item>
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="editBtn">
-          <property name="toolTip">
-           <string>Edit outbound</string>
-          </property>
-          <property name="text">
-           <string>Edit Selection</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="addRouteBtn">
-          <property name="toolTip">
-           <string>Add new route</string>
-          </property>
-          <property name="text">
-           <string>Add Rule</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="delBtn">
-          <property name="toolTip">
-           <string>Delete outbound</string>
-          </property>
-          <property name="text">
-           <string>Delete Selection</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QToolBox" name="toolBox">
+    <widget class="QTabWidget" name="tabWidget_3">
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="page_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>359</width>
-        <height>536</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>General Settings</string>
+     <widget class="QWidget" name="tabWidget_3Page1" native="true">
+      <attribute name="title">
+       <string>Route Editor</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,4">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
        <item>
-        <widget class="QGroupBox" name="groupBox_7">
-         <property name="title">
-          <string>Misc Settings</string>
-         </property>
-         <layout class="QFormLayout" name="formLayout_3">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string>Domain Strategy</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="domainStrategyCombo">
-            <item>
-             <property name="text">
-              <string notr="true">AsIs</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string notr="true">IPIfNonMatch</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string notr="true">IPOnDemand</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Default Outbound</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QComboBox" name="defaultOutboundCombo">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>A rule with no inbound connected means there's no inbound restriction.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="addRouteBtn">
+           <property name="toolTip">
+            <string>Add new route</string>
+           </property>
+           <property name="text">
+            <string>Add Rule</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="delBtn">
+           <property name="toolTip">
+            <string>Delete outbound</string>
+           </property>
+           <property name="text">
+            <string>Delete Selection</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_4">
-         <property name="title">
-          <string>Rule Order Settings</string>
+        <widget class="QWidget" name="nodeGraphWidget" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>150</height>
+          </size>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>Drag and drop to re-order the rules.</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QListWidget" name="ruleListWidget">
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
-            </property>
-            <property name="dragEnabled">
-             <bool>true</bool>
-            </property>
-            <property name="dragDropMode">
-             <enum>QAbstractItemView::InternalMove</enum>
-            </property>
-            <property name="alternatingRowColors">
-             <bool>true</bool>
-            </property>
-            <property name="verticalScrollMode">
-             <enum>QAbstractItemView::ScrollPerPixel</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Chain Editor</string>
+      </attribute>
+     </widget>
     </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QGroupBox" name="horizontalGroupBox">
+       <property name="title">
+        <string>Selected Inbound / Outbound Info</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Tag</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="tagLabel">
+          <property name="text">
+           <string>Unknown</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Protocol</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="protocolLabel">
+          <property name="text">
+           <string>Unknown</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Host</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="hostLabel">
+          <property name="text">
+           <string>Unknown</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_19">
+          <property name="text">
+           <string>Port</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="portLabel">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string>Rules Order</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="0">
+         <widget class="QListWidget" name="ruleListWidget">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="dragDropMode">
+           <enum>QAbstractItemView::InternalMove</enum>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Drag and drop to re-order the rules.</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item row="2" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
@@ -440,9 +416,6 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -454,12 +427,6 @@
  </widget>
  <tabstops>
   <tabstop>addDefaultBtn</tabstop>
-  <tabstop>editBtn</tabstop>
-  <tabstop>addRouteBtn</tabstop>
-  <tabstop>delBtn</tabstop>
-  <tabstop>domainStrategyCombo</tabstop>
-  <tabstop>defaultOutboundCombo</tabstop>
-  <tabstop>ruleListWidget</tabstop>
  </tabstops>
  <resources/>
  <connections>

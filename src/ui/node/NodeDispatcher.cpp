@@ -20,37 +20,23 @@ QString NodeDispatcher::CreateInbound(INBOUND in)
     }
     in["tag"] = tag;
     inbounds[tag] = in;
-    emit OnInboundCreated(std::make_shared<INBOUND>(inbounds.last()));
+    emit OnInboundCreated(std::make_shared<INBOUND>(inbounds[tag]));
     return tag;
 }
 
 QString NodeDispatcher::CreateOutbound(OutboundObjectMeta out)
 {
-    QString tag;
-    switch (out.metaType)
-    {
-        case complex::METAOUTBOUND_CHAINED:
-        case complex::METAOUTBOUND_ORIGINAL:
-        {
-            tag = out.object.externalTag;
-            break;
-        }
-        case complex::METAOUTBOUND_BALANCER:
-        {
-            tag = getTag(out.realOutbound);
-            break;
-        }
-    }
+    QString tag = out.getTag();
     // In case the tag is duplicated:
     while (outbounds.contains(tag))
     {
         tag += "_" + GenerateRandomString(5);
         // It's ok to set them directly without checking.
-        out.object.externalTag = tag;
+        out.object.displayName = tag;
         out.realOutbound["tag"] = tag;
     }
     outbounds[tag] = out;
-    emit OnOutboundCreated(std::make_shared<OutboundObjectMeta>(outbounds.last()));
+    emit OnOutboundCreated(std::make_shared<OutboundObjectMeta>(outbounds[tag]));
     return tag;
 }
 
@@ -62,6 +48,6 @@ QString NodeDispatcher::CreateRule(RuleObject rule)
         tag += "_" + GenerateRandomString(5);
     }
     rules[tag] = rule;
-    emit OnRuleCreated(std::make_shared<RuleObject>(rules.last()));
+    emit OnRuleCreated(std::make_shared<RuleObject>(rules[tag]));
     return tag;
 }
