@@ -55,7 +55,6 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     // partial import means only import as an outbound, will set outboundsOnly to
     // false and disable the checkbox
     keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
-    routeEditBtn->setEnabled(!outboundsOnly);
     groupCombo->setEnabled(false);
     this->exec();
     QMultiHash<QString, CONFIGROOT> conn;
@@ -308,25 +307,6 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     vmessConnectionStringTxt->setTextCursor(c);
 }
 
-void ImportConfigWindow::on_connectionEditBtn_clicked()
-{
-    OutboundEditor w(OUTBOUND(), this);
-    auto outboundEntry = w.OpenEditor();
-    bool isChanged = w.result() == QDialog::Accepted;
-    QString alias = w.GetFriendlyName();
-
-    if (isChanged)
-    {
-        OUTBOUNDS outboundsList;
-        outboundsList.push_back(outboundEntry);
-        CONFIGROOT root;
-        root.insert("outbounds", outboundsList);
-        //
-        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, root);
-        accept();
-    }
-}
-
 void ImportConfigWindow::on_cancelImportBtn_clicked()
 {
     reject();
@@ -348,20 +328,6 @@ void ImportConfigWindow::on_subscriptionButton_clicked()
     }
 
     accept();
-}
-
-void ImportConfigWindow::on_routeEditBtn_clicked()
-{
-    RouteEditor w(QJsonObject(), this);
-    auto result = w.OpenEditor();
-    bool isChanged = w.result() == QDialog::Accepted;
-    QString alias = nameTxt->text();
-
-    if (isChanged)
-    {
-        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, result);
-        accept();
-    }
 }
 
 void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)

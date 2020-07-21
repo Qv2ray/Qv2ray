@@ -1,40 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>assets/icons/ui_dark/add.png</file>
-        <file>assets/icons/ui_dark/delete.png</file>
-        <file>assets/icons/ui_dark/duplicate.png</file>
-        <file>assets/icons/ui_dark/edit.png</file>
-        <file>assets/icons/ui_dark/import.png</file>
-        <file>assets/icons/ui_dark/json.png</file>
-        <file>assets/icons/ui_dark/netspeed_arrow.png</file>
-        <file>assets/icons/ui_dark/ping_gauge.png</file>
-        <file>assets/icons/ui_dark/share.png</file>
-        <file>assets/icons/ui_dark/tray.png</file>
-        <file>assets/icons/ui_light/add.png</file>
-        <file>assets/icons/ui_light/delete.png</file>
-        <file>assets/icons/ui_light/duplicate.png</file>
-        <file>assets/icons/ui_light/edit.png</file>
-        <file>assets/icons/ui_light/import.png</file>
-        <file>assets/icons/ui_light/json.png</file>
-        <file>assets/icons/ui_light/netspeed_arrow.png</file>
-        <file>assets/icons/ui_light/ping_gauge.png</file>
-        <file>assets/icons/ui_light/share.png</file>
-        <file>assets/icons/ui_light/tray.png</file>
         <file>assets/icons/qv2ray.icns</file>
         <file>assets/icons/qv2ray.ico</file>
         <file>assets/icons/qv2ray.png</file>
         <file>assets/credit.html</file>
-        <file>assets/icons/ui_dark/connect.png</file>
-        <file>assets/icons/ui_light/connect.png</file>
-        <file>assets/icons/ui_dark/stop.png</file>
-        <file>assets/icons/ui_light/stop.png</file>
-        <file>assets/icons/ui_dark/locate.png</file>
-        <file>assets/icons/ui_light/locate.png</file>
-        <file>assets/icons/ui_dark/sort.png</file>
-        <file>assets/icons/ui_light/sort.png</file>
-        <file>assets/icons/ui_dark/tray-connected.png</file>
-        <file>assets/icons/ui_dark/tray-systemproxy.png</file>
-        <file>assets/icons/ui_light/tray-connected.png</file>
-        <file>assets/icons/ui_light/tray-systemproxy.png</file>
     </qresource>
 </RCC>

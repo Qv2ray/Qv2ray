@@ -1,7 +1,6 @@
 #pragma once
 
 #include "NodeDispatcher.hpp"
-#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
 #include <QLabel>

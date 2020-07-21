@@ -3,6 +3,7 @@
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "ui/common/QvDialog.hpp"
+#include "ui/common/UIBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui/node/NodeBase.hpp"
 #include "ui_w_RoutesEditor.h"
@@ -38,10 +39,10 @@ class RouteEditor
     void updateColorScheme() override
     {
         // Setup icons according to the theme settings.
-        addInboundBtn->setIcon(QICON_R("add.png"));
-        addOutboundBtn->setIcon(QICON_R("add.png"));
-        addRouteBtn->setIcon(QICON_R("add.png"));
-        delBtn->setIcon(QICON_R("delete.png"));
+        addInboundBtn->setIcon(QICON_R("add"));
+        addOutboundBtn->setIcon(QICON_R("add"));
+        addRouteBtn->setIcon(QICON_R("add"));
+        delBtn->setIcon(QICON_R("ashbin"));
     }
     QvMessageBusSlotDecl;
 

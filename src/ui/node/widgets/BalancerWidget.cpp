@@ -1,12 +1,13 @@
 #include "BalancerWidget.hpp"
 
 #include "base/Qv2rayBase.hpp"
+#include "ui/common/UIBase.hpp"
 
 BalancerWidget::BalancerWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QvNodeWidget(_dispatcher, parent)
 {
     setupUi(this);
-    balancerAddBtn->setIcon(QICON_R("add.png"));
-    balancerDelBtn->setIcon(QICON_R("delete.png"));
+    balancerAddBtn->setIcon(QICON_R("add"));
+    balancerDelBtn->setIcon(QICON_R("ashbin"));
 }
 
 void BalancerWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)

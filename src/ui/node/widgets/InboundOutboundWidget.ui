@@ -35,8 +35,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../../../../resources.qrc">
-       <normaloff>:/assets/icons/ui_light/edit.png</normaloff>:/assets/icons/ui_light/edit.png</iconset>
+      <iconset resource="../../../../resources.new.qrc">
+       <normaloff>:/assets/icons/ui_dark/edit.svg</normaloff>:/assets/icons/ui_dark/edit.svg</iconset>
      </property>
     </widget>
    </item>
@@ -46,15 +46,15 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../../../../resources.qrc">
-       <normaloff>:/assets/icons/ui_light/json.png</normaloff>:/assets/icons/ui_light/json.png</iconset>
+      <iconset resource="../../../../resources.new.qrc">
+       <normaloff>:/assets/icons/ui_dark/code.svg</normaloff>:/assets/icons/ui_dark/code.svg</iconset>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <resources>
-  <include location="../../../../resources.qrc"/>
+  <include location="../../../../resources.new.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -238,8 +238,8 @@ void GroupManager::onRCMActionTriggered_Move()
 
 void GroupManager::updateColorScheme()
 {
-    addGroupButton->setIcon(QICON_R("add.png"));
-    removeGroupButton->setIcon(QICON_R("delete.png"));
+    addGroupButton->setIcon(QICON_R("add"));
+    removeGroupButton->setIcon(QICON_R("ashbin"));
 }
 
 QvMessageBusSlotImpl(GroupManager)

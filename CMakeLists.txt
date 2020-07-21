@@ -205,7 +205,9 @@ endif()
 
 set(QRC_RESOURCES
     ${UISTYLE_QRCS}
-    ${CMAKE_SOURCE_DIR}/resources.qrc)
+    ${CMAKE_SOURCE_DIR}/resources.qrc
+    ${CMAKE_SOURCE_DIR}/resources.new.qrc
+    )
 
 # Qv2ray baselib
 add_library(qv2ray-baselib STATIC

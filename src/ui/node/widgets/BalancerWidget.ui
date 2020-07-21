@@ -27,8 +27,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../../../../resources.qrc">
-       <normaloff>:/assets/icons/ui_light/add.png</normaloff>:/assets/icons/ui_light/add.png</iconset>
+      <iconset resource="../../../../resources.new.qrc">
+       <normaloff>:/assets/icons/ui_dark/add.svg</normaloff>:/assets/icons/ui_dark/add.svg</iconset>
      </property>
     </widget>
    </item>
@@ -41,8 +41,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../../../../resources.qrc">
-       <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
+      <iconset resource="../../../../resources.new.qrc">
+       <normaloff>:/assets/icons/ui_dark/minus.svg</normaloff>:/assets/icons/ui_dark/minus.svg</iconset>
      </property>
     </widget>
    </item>
@@ -62,7 +62,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../../resources.qrc"/>
+  <include location="../../../../resources.new.qrc"/>
  </resources>
  <connections/>
 </ui>

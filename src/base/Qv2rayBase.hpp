@@ -101,12 +101,6 @@ class _qv2ray_global_config_impl_details
     #define ACCESS_OPTIONAL_VALUE(obj) (obj.value())
 #endif
 
-#define QV2RAY_COLORSCHEME_ROOT_X(flag) ((flag) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
-#define QV2RAY_COLORSCHEME_ROOT QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTheme)
-
-#define QICON_R(file) QIcon(QV2RAY_COLORSCHEME_ROOT + file)
-#define Q_TRAYICON(name) (QIcon(QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTrayIcon) + name))
-
 #define QSTRN(num) QString::number(num)
 
 #define OUTBOUND_TAG_BLACKHOLE "outBound_BLACKHOLE"

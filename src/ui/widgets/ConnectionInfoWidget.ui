@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>ConnectionInfoWidget</class>
  <widget class="QWidget" name="ConnectionInfoWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>418</width>
+    <height>220</height>
+   </rect>
+  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
     <horstretch>0</horstretch>
@@ -53,8 +61,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/connect.png</normaloff>:/assets/icons/ui_light/connect.png</iconset>
+          <iconset resource="../../../resources.new.qrc">
+           <normaloff>:/assets/icons/ui_dark/start.svg</normaloff>:/assets/icons/ui_dark/start.svg</iconset>
          </property>
         </widget>
        </item>
@@ -67,8 +75,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/edit.png</normaloff>:/assets/icons/ui_light/edit.png</iconset>
+          <iconset resource="../../../resources.new.qrc">
+           <normaloff>:/assets/icons/ui_dark/edit.svg</normaloff>:/assets/icons/ui_dark/edit.svg</iconset>
          </property>
         </widget>
        </item>
@@ -81,8 +89,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/json.png</normaloff>:/assets/icons/ui_light/json.png</iconset>
+          <iconset resource="../../../resources.new.qrc">
+           <normaloff>:/assets/icons/ui_dark/edit.svg</normaloff>:/assets/icons/ui_dark/edit.svg</iconset>
          </property>
         </widget>
        </item>
@@ -93,10 +101,6 @@
          </property>
          <property name="text">
           <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/ping_gauge.png</normaloff>:/assets/icons/ui_light/ping_gauge.png</iconset>
          </property>
         </widget>
        </item>
@@ -109,8 +113,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
+          <iconset resource="../../../resources.new.qrc">
+           <normaloff>:/assets/icons/ui_dark/ashbin.svg</normaloff>:/assets/icons/ui_dark/ashbin.svg</iconset>
          </property>
         </widget>
        </item>
@@ -442,6 +446,7 @@
  </widget>
  <resources>
   <include location="../../../resources.qrc"/>
+  <include location="../../../resources.new.qrc"/>
  </resources>
  <connections/>
 </ui>

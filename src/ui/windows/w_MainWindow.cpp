@@ -40,27 +40,27 @@ QvMessageBusSlotImpl(MainWindow)
 
 void MainWindow::updateColorScheme()
 {
-    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
+    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
     //
-    importConfigButton->setIcon(QICON_R("import.png"));
-    updownImageBox->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_ROOT + "netspeed_arrow.png)");
-    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_ROOT + "netspeed_arrow.png)");
+    importConfigButton->setIcon(QICON_R("add"));
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
     //
     tray_action_ShowHide->setIcon(this->windowIcon());
-    action_RCM_Start->setIcon(QICON_R("connect.png"));
-    action_RCM_Edit->setIcon(QICON_R("edit.png"));
-    action_RCM_EditJson->setIcon(QICON_R("json.png"));
-    action_RCM_EditComplex->setIcon(QICON_R("edit.png"));
-    action_RCM_Duplicate->setIcon(QICON_R("duplicate.png"));
-    action_RCM_Delete->setIcon(QICON_R("delete.png"));
-    action_RCM_ClearUsage->setIcon(QICON_R("delete.png"));
-    action_RCM_LatencyTest->setIcon(QICON_R("ping_gauge.png"));
+    action_RCM_Start->setIcon(QICON_R("start"));
+    action_RCM_Edit->setIcon(QICON_R("edit"));
+    action_RCM_EditJson->setIcon(QICON_R("code"));
+    action_RCM_EditComplex->setIcon(QICON_R("edit"));
+    action_RCM_Duplicate->setIcon(QICON_R("copy"));
+    action_RCM_Delete->setIcon(QICON_R("ashbin"));
+    action_RCM_ClearUsage->setIcon(QICON_R("ashbin"));
+    action_RCM_LatencyTest->setIcon(QICON_R("ping_gauge"));
     //
-    clearChartBtn->setIcon(QICON_R("delete.png"));
-    clearlogButton->setIcon(QICON_R("delete.png"));
+    clearChartBtn->setIcon(QICON_R("ashbin"));
+    clearlogButton->setIcon(QICON_R("ashbin"));
     //
-    locateBtn->setIcon(QICON_R("locate.png"));
-    sortBtn->setIcon(QICON_R("sort.png"));
+    locateBtn->setIcon(QICON_R("map"));
+    sortBtn->setIcon(QICON_R("arrow-down-filling"));
 }
 
 void MainWindow::MWAddConnectionItem_p(const ConnectionGroupPair &id)
@@ -334,11 +334,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     CheckSubscriptionsUpdate();
     //
-    splitter->setSizes({ 100, 300 });
     qvLogTimerId = startTimer(1000);
     //
     auto checker = new QvUpdateChecker(this);
     checker->CheckUpdate();
+    splitter->setSizes({ 200, 300 });
 }
 
 void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QString, QString> args)
@@ -648,7 +648,7 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
 void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
 {
     Q_UNUSED(id)
-    qvAppTrayIcon->setIcon(Q_TRAYICON("tray.png"));
+    qvAppTrayIcon->setIcon(Q_TRAYICON("tray"));
     tray_action_Start->setEnabled(true);
     tray_action_Stop->setEnabled(false);
     tray_action_Restart->setEnabled(false);
@@ -672,7 +672,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
 void MainWindow::OnConnected(const ConnectionGroupPair &id)
 {
     Q_UNUSED(id)
-    qvAppTrayIcon->setIcon(Q_TRAYICON("tray-connected.png"));
+    qvAppTrayIcon->setIcon(Q_TRAYICON("tray-connected"));
     tray_action_Start->setEnabled(false);
     tray_action_Stop->setEnabled(true);
     tray_action_Restart->setEnabled(true);
