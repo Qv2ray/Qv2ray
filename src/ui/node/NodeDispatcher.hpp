@@ -14,6 +14,7 @@ class NodeDispatcher
     ~NodeDispatcher();
 
   public:
+    CONFIGROOT GetFullConfig() const;
     void LoadFullConfig(const CONFIGROOT &);
     [[nodiscard]] QString CreateInbound(INBOUND);
     [[nodiscard]] QString CreateOutbound(OutboundObjectMeta);

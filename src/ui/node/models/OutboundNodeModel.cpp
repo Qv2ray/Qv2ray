@@ -35,33 +35,11 @@ OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher
     widget->setAttribute(Qt::WA_TranslucentBackground);
 }
 
-void OutboundNodeModel::inputConnectionCreated(const QtNodes::Connection &c)
-{
-    if (dispatcher->IsNodeConstructing())
-        return;
-}
-
-void OutboundNodeModel::inputConnectionDeleted(const QtNodes::Connection &c)
-{
-    if (dispatcher->IsNodeConstructing())
-        return;
-}
-
-void OutboundNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
-{
-    if (dispatcher->IsNodeConstructing())
-        return;
-}
-
-void OutboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
-{
-    if (dispatcher->IsNodeConstructing())
-        return;
-}
-
-void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port)
-{
-}
+void OutboundNodeModel::inputConnectionCreated(const QtNodes::Connection &){};
+void OutboundNodeModel::inputConnectionDeleted(const QtNodes::Connection &){};
+void OutboundNodeModel::outputConnectionCreated(const QtNodes::Connection &){};
+void OutboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &){};
+void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>>, PortIndex){};
 
 void OutboundNodeModel::onNodeHoverEnter()
 {

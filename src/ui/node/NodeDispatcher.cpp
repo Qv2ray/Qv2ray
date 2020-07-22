@@ -16,6 +16,11 @@ NodeDispatcher::~NodeDispatcher()
 {
 }
 
+CONFIGROOT NodeDispatcher::GetFullConfig() const
+{
+    return CONFIGROOT{};
+}
+
 void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
 {
     // Show connections in the node graph

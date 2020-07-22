@@ -5,9 +5,9 @@
 
 #include <QLabel>
 #include <memory>
-#include <nodes/internal/Connection.hpp>
-#include <nodes/internal/NodeDataModel.hpp>
-#include <nodes/internal/PortType.hpp>
+#include <nodes/Connection>
+#include <nodes/Node>
+#include <nodes/NodeDataModel>
 
 constexpr auto GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
 
@@ -47,7 +47,7 @@ namespace Qv2ray::ui::nodemodels
         {                                                                                                                                       \
             return TYPE;                                                                                                                        \
         }                                                                                                                                       \
-        std::shared_ptr<INNER_TYPE> GetInbound()                                                                                                \
+        std::shared_ptr<INNER_TYPE> GetData()                                                                                                   \
         {                                                                                                                                       \
             return data;                                                                                                                        \
         }                                                                                                                                       \
@@ -59,6 +59,17 @@ namespace Qv2ray::ui::nodemodels
     DECL_NODE_DATA_TYPE(InboundNodeData, NODE_TYPE_INBOUND, INBOUND);
     DECL_NODE_DATA_TYPE(OutboundNodeData, NODE_TYPE_OUTBOUND, OutboundObjectMeta);
     DECL_NODE_DATA_TYPE(RuleNodeData, NODE_TYPE_RULE, RuleObject);
+
+    template<typename NODEMODEL_T>
+    NODEMODEL_T *convert_nodemodel(QtNodes::Node *node)
+    {
+        return static_cast<NODEMODEL_T *>(node->nodeDataModel());
+    }
+    template<typename NODEDATA_T>
+    NODEDATA_T *convert_nodedata(QtNodes::Node *node)
+    {
+        return static_cast<NODEDATA_T *>((node->nodeDataModel()->outData(0)).get());
+    }
 
     //
     //***********************************************************************************************************************************
@@ -101,12 +112,16 @@ namespace Qv2ray::ui::nodemodels
         inline std::unique_ptr<NodeDataModel> clone() const override                                                                            \
         {                                                                                                                                       \
             return {};                                                                                                                          \
-        };                                                                                                                                      \
+        }                                                                                                                                       \
                                                                                                                                                 \
         void inputConnectionCreated(const QtNodes::Connection &) override;                                                                      \
         void inputConnectionDeleted(const QtNodes::Connection &) override;                                                                      \
         void outputConnectionCreated(const QtNodes::Connection &) override;                                                                     \
         void outputConnectionDeleted(const QtNodes::Connection &) override;                                                                     \
+        const std::shared_ptr<const CONTENT_TYPE> getData() const                                                                               \
+        {                                                                                                                                       \
+            return dataptr;                                                                                                                     \
+        }                                                                                                                                       \
                                                                                                                                                 \
       private:                                                                                                                                  \
         std::shared_ptr<CONTENT_TYPE> dataptr;                                                                                                  \

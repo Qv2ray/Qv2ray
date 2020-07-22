@@ -65,9 +65,6 @@ class RouteEditor
     void on_addChainBtn_clicked();
 
   private slots:
-    void onConnectionCreated(QtNodes::Connection const &c);
-    void onConnectionDeleted(QtNodes::Connection const &c);
-    //
     void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);

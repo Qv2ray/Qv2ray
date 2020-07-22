@@ -69,8 +69,6 @@ void RouteEditor::SetupNodeWidget()
                                             "PointDiameter": 10.0,"UseDataDefinedColors": false}})");
     }
     nodeScene = new FlowScene(this);
-    connect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
-    connect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
     flowView = new FlowView(nodeScene, nodeGraphWidget);
     flowView->scaleDown();
     flowView->scaleDown();
@@ -169,118 +167,11 @@ void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNo
     ruleListWidget->addItem(rule->QV2RAY_RULE_TAG);
 }
 
-void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
-{
-    LOADINGCHECK
-
-    if (isExiting)
-        return;
-
-    // Connection Established
-    auto const &sourceNode = c.getNode(PortType::Out);
-    auto const &targetNode = c.getNode(PortType::In);
-
-    // if (inboundNodes.values().contains(sourceNode->id()) && ruleNodes.values().contains(targetNode->id()))
-    // {
-    //     // It's a inbound-rule connection
-    //     onNodeClicked(*sourceNode);
-    //     onNodeClicked(*targetNode);
-    //     LOG(MODULE_GRAPH, "Inbound-rule new connection.")
-    //     // Get all connected inbounds to this rule node.
-    //     // QStringList has an helper to let us remove duplicates, see below.
-    //     QSet<QString> _inbounds;
-    //     //
-    //     // Workaround for removing a connection within the loop.
-    //     QList<std::shared_ptr<QtNodes::Connection>> connectionsTobeRemoved;
-    //     for (auto &&[_, conn] : nodeScene->connections())
-    //     {
-    //         const auto &inNode = conn->getNode(PortType::In);
-    //         const auto &outNode = conn->getNode(PortType::Out);
-    //         // If a connection is not current Id, but with same IN/OUT nodes.
-    //         // It is a "duplicated" connection.
-    //         if (inNode->id() == targetNode->id() && outNode->id() == sourceNode->id() && conn->id() != c.id())
-    //         {
-    //             connectionsTobeRemoved << (conn);
-    //         }
-    //         // Append all inbounds
-    //         if (inNode->id() == targetNode->id())
-    //         {
-    //             _inbounds.insert(GetFirstNodeData(outNode->id(), InboundNode)->GetInbound());
-    //         }
-    //     }
-    //     for (const auto &connRemoved : connectionsTobeRemoved)
-    //     {
-    //         nodeScene->deleteConnection(*connRemoved);
-    //     }
-    //
-    //     CurrentRule.inboundTag = _inbounds.values();
-    // }
-    // else if (ruleNodes.values().contains(sourceNode->id()) && outboundNodes.values().contains(targetNode->id()))
-    // {
-    //     // It's a rule-outbound connection
-    //     onNodeClicked(*sourceNode);
-    //     onNodeClicked(*targetNode);
-    //     CurrentRule.outboundTag = GetFirstNodeData(targetNode->id(), OutboundNode)->GetOutbound();
-    //     // Connecting to an outbound will disable the balancer feature.
-    //     CurrentRule.QV2RAY_RULE_USE_BALANCER = false;
-    //     // Update balancer settings.
-    //     // ShowCurrentRuleDetail();
-    //     LOG(MODULE_GRAPH, "Updated outbound: " + CurrentRule.outboundTag)
-    // }
-    // else
-    // {
-    //     // It's an impossible connection
-    //     LOG(MODULE_GRAPH, "Unrecognized connection, RARE.")
-    // }
-}
-
-void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
-{
-    LOADINGCHECK
-
-    if (isExiting)
-        return;
-
-    // Connection Deleted
-    const auto &source = c.getNode(PortType::Out);
-    const auto &target = c.getNode(PortType::In);
-
-    // if (inboundNodes.values().contains(source->id()) && ruleNodes.values().contains(target->id()))
-    //{
-    //    // It's a inbound-rule connection
-    //    onNodeClicked(*source);
-    //    onNodeClicked(*target);
-    //    currentRuleTag = GetFirstNodeData(target->id(), RuleNode)->GetRuleTag();
-    //    auto _inboundTag = GetFirstNodeData(source->id(), InboundNode)->GetInbound();
-    //    LOG(MODULE_UI, "Removing inbound: " + _inboundTag + " from rule: " + currentRuleTag)
-    //    CurrentRule.inboundTag.removeAll(_inboundTag);
-    //}
-    // else if (ruleNodes.values().contains(source->id()) && outboundNodes.values().contains(target->id()))
-    //{
-    //    // It's a rule-outbound connection
-    //    onNodeClicked(*source);
-    //    onNodeClicked(*target);
-    //    currentRuleTag = GetFirstNodeData(source->id(), RuleNode)->GetRuleTag();
-    //    auto _outboundTag = GetFirstNodeData(target->id(), OutboundNode)->GetOutbound();
-    //
-    //    if (!CurrentRule.QV2RAY_RULE_USE_BALANCER && CurrentRule.outboundTag == _outboundTag)
-    //    {
-    //        CurrentRule.outboundTag.clear();
-    //    }
-    //
-    //    LOG(MODULE_GRAPH, "Removing an outbound: " + _outboundTag)
-    //}
-    // else
-    //{
-    //    // It's an impossible connection
-    //    LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
-    //}
-}
-
 CONFIGROOT RouteEditor::OpenEditor()
 {
     auto result = this->exec();
 
+    auto x = nodeDispatcher->GetFullConfig();
     //    if (rules.isEmpty())
     //    {
     //        // Prevent empty rule list causing mis-detection of config type to
