@@ -19,12 +19,6 @@
 
 #ifdef QT_DEBUG
     #include "nodes/../../src/ConnectionPainter.hpp"
-void DebugOperations()
-{
-    QtNodes::ConnectionPainter::IsDebuggingEnabled = true;
-}
-#else
-void DebugOperations(){};
 #endif
 
 using QtNodes::FlowView;
@@ -74,7 +68,6 @@ void RouteEditor::SetupNodeWidget()
                                             "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
                                             "PointDiameter": 10.0,"UseDataDefinedColors": false}})");
     }
-    DebugOperations();
     nodeScene = new FlowScene(this);
     connect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
     connect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
@@ -652,5 +645,7 @@ void RouteEditor::on_debugPainterCB_clicked(bool checked)
 {
 #ifdef QT_DEBUG
     QtNodes::ConnectionPainter::IsDebuggingEnabled = checked;
+    nodeScene->update();
+    flowView->repaint();
 #endif
 }
