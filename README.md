@@ -1,10 +1,22 @@
-# Qv2ray - Make V2Ray real cross-platform
+<h1 align="center">
+<img width="195" height="195" align="left" style="float: left; margin: 0 10px 0 0;" src="https://raw.githubusercontent.com/Qv2ray/Qv2ray/master/assets/icons/qv2ray.png" alt="Qv2ray"/>
+</br>
+Qv2ray - Fully ultilize your V2Ray
+</h1>
+
+-----------------------
+- 使用 Qt 框架的跨平台 V2Ray 客户端。支持 Windows, Linux, macOS,
+- 插件系统支持 SSR / Trojan / Trojan-Go / NaiveProxy
+
+
 
 [![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray)
 [![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Qv2ray/Qv2ray/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Qv2ray/Qv2ray/releases)
 
-使用 Qt 框架的跨平台 V2Ray 客户端。支持 Windows, Linux, macOS。
+
+## 官方文档 / 快速上手
+[qv2ray.github.io](https://qv2ray.github.io)
 
 ## Availability & Status
 
