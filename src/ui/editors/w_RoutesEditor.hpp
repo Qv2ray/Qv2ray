@@ -57,7 +57,6 @@ class RouteEditor
     void on_addInboundBtn_clicked();
     void on_addOutboundBtn_clicked();
     void on_delBtn_clicked();
-    void on_editBtn_clicked();
     void on_domainStrategyCombo_currentIndexChanged(const QString &arg1);
     void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
     void on_importExistingBtn_clicked();
@@ -66,7 +65,6 @@ class RouteEditor
     void on_addChainBtn_clicked();
 
   private slots:
-    void onNodeClicked(Node &n);
     void onConnectionCreated(QtNodes::Connection const &c);
     void onConnectionDeleted(QtNodes::Connection const &c);
     //
@@ -74,6 +72,8 @@ class RouteEditor
     void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
     void OnDispatcherInboundOutboundHovered(const QString &, const ProtocolSettingsInfoObject &);
+
+    void on_debugPainterCB_clicked(bool checked);
 
   private:
     // NOTE: Self managed pointer.

@@ -76,7 +76,6 @@ void RouteEditor::SetupNodeWidget()
     }
     DebugOperations();
     nodeScene = new FlowScene(this);
-    connect(nodeScene, &FlowScene::nodeClicked, this, &RouteEditor::onNodeClicked);
     connect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
     connect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
     flowView = new FlowView(nodeScene, nodeGraphWidget);
@@ -86,11 +85,11 @@ void RouteEditor::SetupNodeWidget()
     {
         // The QWidget will take ownership of layout.
         nodeGraphWidget->setLayout(new QVBoxLayout());
-        auto l = nodeGraphWidget->layout();
-        l->addWidget(flowView);
-        l->setContentsMargins(0, 0, 0, 0);
-        l->setSpacing(0);
     }
+    auto l = nodeGraphWidget->layout();
+    l->addWidget(flowView);
+    l->setContentsMargins(0, 0, 0, 0);
+    l->setSpacing(0);
 }
 
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(parent), root(connection), original(connection)
@@ -131,8 +130,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     {
         importGroupBtn->addItem(GetDisplayName(group), group.toString());
     }
-    //
-    // isLoading = false;
+    isLoading = false;
 }
 
 QvMessageBusSlotImpl(RouteEditor)
@@ -146,55 +144,6 @@ QvMessageBusSlotImpl(RouteEditor)
     }
 }
 
-void RouteEditor::onNodeClicked(Node &n)
-{
-    // LOADINGCHECK
-    //
-    // if (isExiting)
-    //     return;
-    //
-    // auto isOut = outboundNodes.values().contains(n.id());
-    // auto isIn = inboundNodes.values().contains(n.id());
-    // auto isRule = ruleNodes.values().contains(n.id());
-    //
-    // /* if (isRule)
-    //  {
-    //      // It's a rule object
-    //      currentRuleTag = GetFirstNodeData(n.id(), RuleNode)->GetRuleTag();
-    //      DEBUG(MODULE_GRAPH, "Selecting rule: " + currentRuleTag)
-    //      // ShowCurrentRuleDetail();
-    //      toolBox->setCurrentIndex(1);
-    //  }
-    //  else*/
-    // if (isOut || isIn)
-    // {
-    //     // It's an inbound or an outbound.
-    //     QString tag;
-    //     QString host;
-    //     int port;
-    //     QString protocol;
-    //
-    //     if (isOut)
-    //     {
-    //         const auto root = GetFirstNodeData(n.id(), OutboundNode)->GetOutbound();
-    //         GetOutboundInfo(*root, &host, &port, &protocol);
-    //     }
-    //     else
-    //     {
-    //         const auto root = GetFirstNodeData(n.id(), InboundNode)->GetInbound();
-    //         GetInboundInfo(*root, &host, &port, &protocol);
-    //     }
-    //
-    //     tagLabel->setText(tag);
-    //     protocolLabel->setText(protocol);
-    //     portLabel->setText(QSTRN(port));
-    //     hostLabel->setText(host);
-    // }
-    // else
-    // {
-    //     LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
-    // }
-}
 void RouteEditor::OnDispatcherInboundOutboundHovered(const QString &tag, const ProtocolSettingsInfoObject &info)
 {
     tagLabel->setText(tag);
@@ -457,12 +406,12 @@ void RouteEditor::on_buttonBox_accepted()
 
 void RouteEditor::on_insertDirectBtn_clicked()
 {
-    // auto freedom = GenerateFreedomOUT("AsIs", "", 0);
-    // auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
-    // auto out = GenerateOutboundEntry("freedom", freedom, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
-    //// ADD NODE
-    // AddOutbound(out);
-    // statusLabel->setText(tr("Added DIRECT outbound"));
+    auto freedom = GenerateFreedomOUT("AsIs", "", 0);
+    auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
+    auto out = GenerateOutboundEntry("freedom", freedom, {}, {}, "0.0.0.0", tag);
+    // ADD NODE
+    const auto _ = nodeDispatcher->CreateOutbound(make_outbound(out));
+    statusLabel->setText(tr("Added DIRECT outbound"));
 }
 
 void RouteEditor::on_addDefaultBtn_clicked()
@@ -471,13 +420,13 @@ void RouteEditor::on_addDefaultBtn_clicked()
     // Add default connection from GlobalConfig
     //
     const auto &inboundConfig = GlobalConfig.inboundConfig;
-    QJsonObject sniffingOff{ { "enabled", false } };
-    QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+    const static QJsonObject sniffingOff{ { "enabled", false } };
+    const static QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
     //
     if (inboundConfig.useHTTP)
     {
         auto http = GenerateHTTPIN(QList<AccountObject>() << inboundConfig.httpSettings.account);
-        INBOUND httpConfig = GenerateInboundEntry(inboundConfig.listenip, inboundConfig.httpSettings.port, "http", http, "http_gConf",
+        INBOUND httpConfig = GenerateInboundEntry(inboundConfig.listenip, inboundConfig.httpSettings.port, "http", http, "GlobalConfig-HTTP",
                                                   inboundConfig.httpSettings.sniffing ? sniffingOn : sniffingOff);
         auto _ = nodeDispatcher->CreateInbound(httpConfig);
     }
@@ -491,7 +440,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
                                                 inboundConfig.socksSettings.port, //
                                                 "socks",                          //
                                                 socks,                            //
-                                                "SOCKS_gConf",                    //
+                                                "GlobalConfig-Socks",             //
                                                 (inboundConfig.socksSettings.sniffing ? sniffingOn : sniffingOff));
         auto _ = nodeDispatcher->CreateInbound(socksConfig);
     }
@@ -525,17 +474,17 @@ void RouteEditor::on_addDefaultBtn_clicked()
         }
 #undef ts
     }
-
-    CHECKEMPTYRULES
 }
+
 void RouteEditor::on_insertBlackBtn_clicked()
 {
     LOADINGCHECK
     auto blackHole = GenerateBlackHoleOUT(false);
-    auto tag = "blackhole_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
-    auto _blackHoleOutbound = GenerateOutboundEntry("blackhole", blackHole, {}, {}, "0.0.0.0", tag);
-    // AddOutbound(_blackHoleOutbound);
+    auto tag = "BlackHole-" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
+    auto outbound = GenerateOutboundEntry("blackhole", blackHole, {}, {}, "0.0.0.0", tag);
+    const auto _ = nodeDispatcher->CreateOutbound(make_outbound(outbound));
 }
+
 void RouteEditor::on_addInboundBtn_clicked()
 {
     LOADINGCHECK
@@ -546,9 +495,8 @@ void RouteEditor::on_addInboundBtn_clicked()
     {
         auto _ = nodeDispatcher->CreateInbound(_result);
     }
-
-    CHECKEMPTYRULES
 }
+
 void RouteEditor::on_addOutboundBtn_clicked()
 {
     LOADINGCHECK
@@ -658,137 +606,6 @@ void RouteEditor::on_addRouteBtn_clicked()
     auto ruleName = nodeDispatcher->CreateRule({});
     Q_UNUSED(ruleName)
 }
-void RouteEditor::on_editBtn_clicked()
-{
-    if (nodeScene->selectedNodes().empty())
-    {
-        QvMessageBoxWarn(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue."));
-        return;
-    }
-
-    const auto firstNode = nodeScene->selectedNodes().at(0);
-    const auto isInbound = false;  // inboundNodes.values().contains(firstNode->id());
-    const auto isOutbound = false; // outboundNodes.values().contains(firstNode->id());
-
-    if (isInbound)
-    {
-        // currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), InboundNode)->GetInbound();
-        //
-        // if (!inbounds.contains(currentInboundOutboundTag))
-        // {
-        //     QvMessageBoxWarn(this, tr("Edit Inbound"), tr("No inbound tag found: ") + currentInboundOutboundTag);
-        //     return;
-        // }
-        //
-        // auto _in = inbounds[currentInboundOutboundTag];
-        // INBOUND _result;
-        // auto protocol = _in["protocol"].toString();
-        // int _code;
-        //
-        // if (protocol != "http" && protocol != "mtproto" && protocol != "socks" && protocol != "dokodemo-door")
-        // {
-        //     QvMessageBoxWarn(this, tr("Cannot Edit"),
-        //                      tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
-        //                          tr("We will launch Json Editor instead."));
-        //     statusLabel->setText(tr("Opening JSON editor"));
-        //     JsonEditor w(_in, this);
-        //     _result = INBOUND(w.OpenEditor());
-        //     _code = w.result();
-        // }
-        // else
-        // {
-        //     InboundEditor w(_in, this);
-        //     statusLabel->setText(tr("Opening default inbound editor"));
-        //     _result = w.OpenEditor();
-        //     _code = w.result();
-        // }
-        //
-        // statusLabel->setText(tr("OK"));
-        //
-        // if (_code == QDialog::Accepted)
-        // {
-        //     bool isTagChanged = getTag(_in) != getTag(_result);
-        //
-        //     if (isTagChanged)
-        //     {
-        //         auto newTag = getTag(_result);
-        //         RenameItemTag(RENAME_INBOUND, getTag(_in), &newTag);
-        //     }
-        //
-        //     DEBUG(MODULE_UI, "Removed old tag: " + getTag(_in))
-        //     inbounds.remove(getTag(_in));
-        //     DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
-        //     inbounds.insert(getTag(_result), _result);
-        // }
-    }
-    else if (isOutbound)
-    {
-        // currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), OutboundNode)->GetOutbound();
-        //
-        // if (!outbounds.contains(currentInboundOutboundTag))
-        //{
-        //    QvMessageBoxWarn(this, tr("Edit Inbound"), tr("No inbound tag found: ") + currentInboundOutboundTag);
-        //    return;
-        //}
-        //
-        // OUTBOUND _result;
-        // auto _out = outbounds.value(currentInboundOutboundTag);
-        // auto protocol = _out["protocol"].toString().toLower();
-        // int _code;
-        //
-        // bool guisupport = true;
-        // if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks" && protocol != "http")
-        //{
-        //    guisupport = false;
-        //    auto pluginEditorWidgetsInfo = PluginHost->GetOutboundEditorWidgets();
-        //    for (const auto &plugin : pluginEditorWidgetsInfo)
-        //    {
-        //        for (const auto &_d : plugin->OutboundCapabilities())
-        //        {
-        //            guisupport = guisupport || protocol == _d.protocol;
-        //        }
-        //    }
-        //}
-        //
-        // if (!guisupport)
-        //{
-        //    QvMessageBoxWarn(this, tr("Unsupported Outbound Type"),
-        //                     tr("This outbound entry is not supported by the GUI editor.") + NEWLINE +
-        //                         tr("We will launch Json Editor instead."));
-        //    JsonEditor w(_out, this);
-        //    statusLabel->setText(tr("Opening JSON editor"));
-        //    _result = OUTBOUND(w.OpenEditor());
-        //    _code = w.result();
-        //}
-        // else
-        //{
-        //    OutboundEditor w(_out, this);
-        //    statusLabel->setText(tr("Opening default outbound editor."));
-        //    _result = w.OpenEditor();
-        //    _code = w.result();
-        //}
-        //
-        // if (_code == QDialog::Accepted)
-        //{
-        //    bool isTagChanged = getTag(_out) != getTag(_result);
-        //
-        //    if (isTagChanged)
-        //    {
-        //        auto newTag = getTag(_result);
-        //        DEBUG(MODULE_UI, "Outbound tag is changed: " + newTag)
-        //        RenameItemTag(RENAME_OUTBOUND, getTag(_out), &newTag);
-        //    }
-        //
-        //    DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
-        //    outbounds.insert(getTag(_result), _result);
-        //    statusLabel->setText(tr("OK"));
-        //}
-    }
-    else
-    {
-        LOG(MODULE_UI, "Cannot apply 'edit' operation to non-inbound and non-outbound")
-    }
-}
 
 void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1)
 {
@@ -829,4 +646,11 @@ void RouteEditor::on_addBalancerBtn_clicked()
 void RouteEditor::on_addChainBtn_clicked()
 {
     auto _ = nodeDispatcher->CreateOutbound(make_outbound(ChainId{ GenerateRandomString() }, "Chained Outbound"));
+}
+
+void RouteEditor::on_debugPainterCB_clicked(bool checked)
+{
+#ifdef QT_DEBUG
+    QtNodes::ConnectionPainter::IsDebuggingEnabled = checked;
+#endif
 }
