@@ -13,8 +13,7 @@ namespace
 {
     constexpr auto LINK_PAGE = 0;
     constexpr auto QRCODE_PAGE = 1;
-    constexpr auto MANUAL_PAGE = 2;
-    constexpr auto ADVANCED_PAGE = 3;
+    constexpr auto ADVANCED_PAGE = 2;
 } // namespace
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog(parent)
@@ -232,10 +231,6 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             {
                 connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(conf.first, conf.second);
             }
-            break;
-        }
-        case MANUAL_PAGE:
-        {
             break;
         }
         case ADVANCED_PAGE:

@@ -13,6 +13,10 @@ class NodeDispatcher : public QObject
     [[nodiscard]] QString CreateInbound(INBOUND);
     [[nodiscard]] QString CreateOutbound(OutboundObjectMeta);
     [[nodiscard]] QString CreateRule(RuleObject);
+    bool IsNodeConstructing() const
+    {
+        return isConstructing;
+    }
 
   public:
     const inline QStringList GetInboundTags() const
@@ -49,6 +53,7 @@ class NodeDispatcher : public QObject
     void OnInboundOutboundNodeHovered(const QString &tag, const ProtocolSettingsInfoObject &);
 
   private:
+    bool isConstructing;
     QMap<QString, INBOUND> inbounds;
     QMap<QString, RuleObject> rules;
     QMap<QString, OutboundObjectMeta> outbounds;

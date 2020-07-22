@@ -15,18 +15,26 @@ RuleNodeModel::RuleNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::s
 
 void RuleNodeModel::inputConnectionCreated(const QtNodes::Connection &c)
 {
+    if (!dispatcher->IsNodeConstructing())
+        return;
 }
 
 void RuleNodeModel::inputConnectionDeleted(const QtNodes::Connection &c)
 {
+    if (!dispatcher->IsNodeConstructing())
+        return;
 }
 
 void RuleNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
 {
+    if (!dispatcher->IsNodeConstructing())
+        return;
 }
 
 void RuleNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
 {
+    if (!dispatcher->IsNodeConstructing())
+        return;
 }
 
 void RuleNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port)

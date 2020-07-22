@@ -1101,3 +1101,45 @@ void MainWindow::on_pluginsBtn_clicked()
 {
     PluginManageWindow(this).exec();
 }
+
+void MainWindow::on_newConnectionBtn_clicked()
+{
+    OutboundEditor w(OUTBOUND{}, this);
+    auto outboundEntry = w.OpenEditor();
+    bool isChanged = w.result() == QDialog::Accepted;
+    if (isChanged)
+    {
+        const auto alias = w.GetFriendlyName();
+        OUTBOUNDS outboundsList;
+        outboundsList.push_back(outboundEntry);
+        CONFIGROOT root;
+        root.insert("outbounds", outboundsList);
+        //
+        const auto item = connectionListWidget->currentItem();
+        GroupId id = DefaultGroupId;
+        if (item)
+        {
+            id = GetItemWidget(item)->Identifier().groupId;
+        }
+        //
+        ConnectionManager->CreateConnection(root, alias, id);
+    }
+}
+
+void MainWindow::on_newComplexConnectionBtn_clicked()
+{
+    RouteEditor w({}, this);
+    auto root = w.OpenEditor();
+    bool isChanged = w.result() == QDialog::Accepted;
+    if (isChanged)
+    {
+        const auto item = connectionListWidget->currentItem();
+        GroupId id = DefaultGroupId;
+        if (item)
+        {
+            id = GetItemWidget(item)->Identifier().groupId;
+        }
+        //
+        ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, std::tuple{ "outbounds", 0, "tag" }).toString(), id);
+    }
+}

@@ -78,6 +78,10 @@ class MainWindow
     //
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
     //
+    void on_newConnectionBtn_clicked();
+
+    void on_newComplexConnectionBtn_clicked();
+
   private:
     void ToggleVisibility();
     void OnEditRequested(const ConnectionId &id);

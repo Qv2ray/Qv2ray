@@ -15,18 +15,26 @@ InboundNodeModel::InboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, 
 
 void InboundNodeModel::inputConnectionCreated(const QtNodes::Connection &c)
 {
+    if (!dispatcher->IsNodeConstructing())
+        return;
 }
 
 void InboundNodeModel::inputConnectionDeleted(const QtNodes::Connection &c)
 {
+    if (!dispatcher->IsNodeConstructing())
+        return;
 }
 
 void InboundNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
 {
+    if (!dispatcher->IsNodeConstructing())
+        return;
 }
 
 void InboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
 {
+    if (!dispatcher->IsNodeConstructing())
+        return;
 }
 
 void InboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port)
@@ -38,6 +46,4 @@ void InboundNodeModel::onNodeHoverEnter()
     emit dispatcher->OnInboundOutboundNodeHovered(getTag(*dataptr.get()), GetInboundInfo(*dataptr.get()));
 }
 
-void InboundNodeModel::onNodeHoverLeave()
-{
-}
+void InboundNodeModel::onNodeHoverLeave(){};
