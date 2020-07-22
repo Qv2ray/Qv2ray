@@ -1,7 +1,7 @@
 <p align="center">
 <img width="210" height="210" align="left" style="float: left; margin: 0 10px 0 0;" src="https://raw.githubusercontent.com/Qv2ray/Qv2ray/master/assets/icons/qv2ray.png" alt="Qv2ray"/>
 </br>
-<h1>Qv2ray - Fully Ultilize Your V2Ray</h1> 
+<h1>Qv2ray - Unleash Your V2Ray</h1> 
 使用 Qt 框架的跨平台 V2Ray 客户端。支持 Windows, Linux, macOS
 </br>
 插件系统支持 SSR / Trojan / Trojan-Go / NaiveProxy
