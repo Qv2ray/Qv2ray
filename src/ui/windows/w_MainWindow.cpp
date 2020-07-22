@@ -1140,6 +1140,6 @@ void MainWindow::on_newComplexConnectionBtn_clicked()
             id = GetItemWidget(item)->Identifier().groupId;
         }
         //
-        ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, std::tuple{ "outbounds", 0, "tag" }).toString(), id);
+        ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, "outbounds", 0, "tag").toString(), id);
     }
 }
