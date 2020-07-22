@@ -49,7 +49,7 @@ const QString SayLastWords() noexcept
     {
         msg << "Active Kernel Instances:";
         const auto kernels = KernelInstance->GetActiveKernelProtocols();
-        msg << JsonToString(JsonStructHelper::___json_struct_store_data(static_cast<QList<QString>>(kernels)).toArray(), QJsonDocument::Compact);
+        msg << JsonToString(JsonStructHelper::Serialize(static_cast<QList<QString>>(kernels)).toArray(), QJsonDocument::Compact);
         msg << "Current Connection:";
         //
         const auto currentConnection = KernelInstance->CurrentConnection();
@@ -86,7 +86,7 @@ const QString SayLastWords() noexcept
             dataList << data.Author;
             dataList << data.InternalName;
             dataList << data.Description;
-            msg << JsonToString(JsonStructHelper::___json_struct_store_data(dataList).toArray(), QJsonDocument::Compact);
+            msg << JsonToString(JsonStructHelper::Serialize(dataList).toArray(), QJsonDocument::Compact);
         }
         msg << NEWLINE;
     }
