@@ -2,14 +2,19 @@
 #include "base/Qv2rayBase.hpp"
 #include "base/models/QvComplexConfigModels.hpp"
 
-class NodeDispatcher : public QObject
+#include <nodes/FlowScene>
+
+class NodeDispatcher
+    : public QObject
+    , public std::enable_shared_from_this<NodeDispatcher>
 {
     Q_OBJECT
   public:
-    explicit NodeDispatcher(QObject *parent);
+    explicit NodeDispatcher(QtNodes::FlowScene *, QObject *parent = nullptr);
     ~NodeDispatcher();
 
   public:
+    void LoadFullConfig(const CONFIGROOT &);
     [[nodiscard]] QString CreateInbound(INBOUND);
     [[nodiscard]] QString CreateOutbound(OutboundObjectMeta);
     [[nodiscard]] QString CreateRule(RuleObject);
@@ -45,14 +50,22 @@ class NodeDispatcher : public QObject
     }
 
   signals:
-    void OnInboundCreated(std::shared_ptr<INBOUND>);
-    void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>);
-    void OnRuleCreated(std::shared_ptr<RuleObject>);
+    void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
+    void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
+    void OnRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
 
   signals:
     void OnInboundOutboundNodeHovered(const QString &tag, const ProtocolSettingsInfoObject &);
 
   private:
+    void RestoreConnections();
+
+  private:
+    QMap<QString, QUuid> inboundNodes;
+    QMap<QString, QUuid> outboundNodes;
+    QMap<QString, QUuid> ruleNodes;
+    //
+    QtNodes::FlowScene *scene;
     bool isConstructing;
     QMap<QString, INBOUND> inbounds;
     QMap<QString, RuleObject> rules;

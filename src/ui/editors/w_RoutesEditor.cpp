@@ -17,8 +17,21 @@
 #include <nodes/internal/FlowViewStyle.hpp>
 #include <nodes/internal/NodeStyle.hpp>
 
+#ifdef QT_DEBUG
+    #include "nodes/../../src/ConnectionPainter.hpp"
+void DebugOperations()
+{
+    QtNodes::ConnectionPainter::IsDebuggingEnabled = true;
+}
+#else
+void DebugOperations(){};
+#endif
+
 using QtNodes::FlowView;
 using namespace Qv2ray::ui::nodemodels;
+
+constexpr auto GRAPH_GLOBAL_OFFSET_X = -380;
+constexpr auto GRAPH_GLOBAL_OFFSET_Y = -350;
 
 //#define CurrentRule this->rules[this->currentRuleTag]
 #define LOADINGCHECK                                                                                                                            \
@@ -34,8 +47,6 @@ using namespace Qv2ray::ui::nodemodels;
 //        nodeDispatcher->CreateRule({});                                                                                                         \
 //    }
 
-constexpr auto GRAPH_GLOBAL_OFFSET_X = -380;
-constexpr auto GRAPH_GLOBAL_OFFSET_Y = -350;
 #define LOAD_FLAG_BEGIN isLoading = true;
 #define LOAD_FLAG_END isLoading = false;
 
@@ -63,18 +74,23 @@ void RouteEditor::SetupNodeWidget()
                                             "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
                                             "PointDiameter": 10.0,"UseDataDefinedColors": false}})");
     }
-
-    QVBoxLayout *l = new QVBoxLayout(nodeGraphWidget);
-    nodeScene = new FlowScene(nodeGraphWidget);
+    DebugOperations();
+    nodeScene = new FlowScene(this);
     connect(nodeScene, &FlowScene::nodeClicked, this, &RouteEditor::onNodeClicked);
     connect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
     connect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
-    auto view = new FlowView(nodeScene);
-    view->scaleDown();
-    view->scaleDown();
-    l->addWidget(view);
-    l->setContentsMargins(0, 0, 0, 0);
-    l->setSpacing(0);
+    flowView = new FlowView(nodeScene, nodeGraphWidget);
+    flowView->scaleDown();
+    flowView->scaleDown();
+    if (!nodeGraphWidget->layout())
+    {
+        // The QWidget will take ownership of layout.
+        nodeGraphWidget->setLayout(new QVBoxLayout());
+        auto l = nodeGraphWidget->layout();
+        l->addWidget(flowView);
+        l->setContentsMargins(0, 0, 0, 0);
+        l->setSpacing(0);
+    }
 }
 
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(parent), root(connection), original(connection)
@@ -82,39 +98,21 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     setupUi(this);
     QvMessageBusConnect(RouteEditor);
     //
-    nodeDispatcher = std::make_shared<NodeDispatcher>(this);
-    connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundCreated, this, &RouteEditor::OnDispatcherInboundCreated);
-    connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
-    connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
-    connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
-    //
     isLoading = true;
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
     SetupNodeWidget();
     updateColorScheme();
     //
+    nodeDispatcher = std::make_shared<NodeDispatcher>(nodeScene);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundCreated, this, &RouteEditor::OnDispatcherInboundCreated);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
+    //
     domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
     domainStrategyCombo->setCurrentText(domainStrategy);
     //
-    //// Show connections in the node graph
-    for (const auto &in : root["inbounds"].toArray())
-    {
-        auto _ = nodeDispatcher->CreateInbound(INBOUND(in.toObject()));
-    }
-
-    for (const auto &out : root["outbounds"].toArray())
-    {
-        OutboundObjectMeta meta;
-        meta.loadJson(out.toObject()[META_OUTBOUND_KEY_NAME].toObject());
-        meta.realOutbound = OUTBOUND(out.toObject());
-        auto _ = nodeDispatcher->CreateOutbound(meta);
-    }
-
-    for (const auto &item : root["routing"].toObject()["rules"].toArray())
-    {
-        auto _ = nodeDispatcher->CreateRule(RuleObject::fromJson(item.toObject()));
-    }
-
+    nodeDispatcher->LoadFullConfig(root);
     //// Set default outboung combo text AFTER adding all outbounds.
     defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
     defaultOutboundCombo->setCurrentText(defaultOutbound);
@@ -199,43 +197,32 @@ void RouteEditor::onNodeClicked(Node &n)
 }
 void RouteEditor::OnDispatcherInboundOutboundHovered(const QString &tag, const ProtocolSettingsInfoObject &info)
 {
-    tagLabel->setText("");
+    tagLabel->setText(tag);
     hostLabel->setText(info.address);
     portLabel->setNum(info.port);
     protocolLabel->setText(info.protocol);
 }
 
-void RouteEditor::OnDispatcherInboundCreated(std::shared_ptr<INBOUND> in)
+void RouteEditor::OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &node)
 {
-    auto _nodeData = std::make_unique<InboundNodeModel>(nodeDispatcher, in);
-    auto &node = nodeScene->createNode(std::move(_nodeData));
-    //
     QPoint pos{ 0 + GRAPH_GLOBAL_OFFSET_X, nodeDispatcher->InboundsCount() * 130 + GRAPH_GLOBAL_OFFSET_Y };
     nodeScene->setNodePosition(node, pos);
 }
 
-void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out)
+void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out, QtNodes::Node &node)
 {
-    auto _nodeData = std::make_unique<OutboundNodeModel>(nodeDispatcher, out);
-    auto &node = nodeScene->createNode(std::move(_nodeData));
-    //
-    auto pos = nodeGraphWidget->pos();
+    QPoint pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + nodeDispatcher->OutboundsCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    //
     nodeScene->setNodePosition(node, pos);
     defaultOutboundCombo->addItem(out->getTag());
 }
 
-void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule)
+void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNodes::Node &node)
 {
-    auto _nodeData = std::make_unique<RuleNodeModel>(nodeDispatcher, rule);
-    auto &node = nodeScene->createNode(std::move(_nodeData));
-    //
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + nodeDispatcher->RulesCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    //
     nodeScene->setNodePosition(node, pos);
     ruleListWidget->addItem(rule->QV2RAY_RULE_TAG);
 }
@@ -453,11 +440,16 @@ CONFIGROOT RouteEditor::OpenEditor()
 
 RouteEditor::~RouteEditor()
 {
-    // Double prevent events to be processed while closing the Editor.
-    isLoading = true;
-    disconnect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
-    disconnect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
-    disconnect(nodeScene, &FlowScene::nodeClicked, this, &RouteEditor::onNodeClicked);
+    nodeDispatcher.reset();
+    //
+    //    nodeGraphWidget->layout()->removeWidget(flowView);
+    //    delete flowView;
+    //    flowView = nullptr;
+    //    delete nodeScene;
+    //    nodeScene = nullptr;
+    // disconnect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
+    // disconnect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
+    // disconnect(nodeScene, &FlowScene::nodeClicked, this, &RouteEditor::onNodeClicked);
 }
 void RouteEditor::on_buttonBox_accepted()
 {

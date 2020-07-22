@@ -15,25 +15,25 @@ InboundNodeModel::InboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, 
 
 void InboundNodeModel::inputConnectionCreated(const QtNodes::Connection &c)
 {
-    if (!dispatcher->IsNodeConstructing())
+    if (dispatcher->IsNodeConstructing())
         return;
 }
 
 void InboundNodeModel::inputConnectionDeleted(const QtNodes::Connection &c)
 {
-    if (!dispatcher->IsNodeConstructing())
+    if (dispatcher->IsNodeConstructing())
         return;
 }
 
 void InboundNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
 {
-    if (!dispatcher->IsNodeConstructing())
+    if (dispatcher->IsNodeConstructing())
         return;
 }
 
 void InboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
 {
-    if (!dispatcher->IsNodeConstructing())
+    if (dispatcher->IsNodeConstructing())
         return;
 }
 

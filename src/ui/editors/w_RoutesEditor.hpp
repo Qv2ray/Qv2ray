@@ -9,11 +9,13 @@
 #include "ui_w_RoutesEditor.h"
 
 #include <nodes/internal/ConnectionStyle.hpp>
+#include <nodes/internal/FlowView.hpp>
 #include <nodes/internal/Node.hpp>
 #include <nodes/internal/NodeData.hpp>
 
 using QtNodes::ConnectionStyle;
 using QtNodes::FlowScene;
+using QtNodes::FlowView;
 using QtNodes::Node;
 
 enum ROUTE_EDIT_MODE
@@ -60,24 +62,23 @@ class RouteEditor
     void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
     void on_importExistingBtn_clicked();
     void on_importGroupBtn_currentIndexChanged(int index);
-
     void on_addBalancerBtn_clicked();
-
     void on_addChainBtn_clicked();
 
-  public slots:
+  private slots:
     void onNodeClicked(Node &n);
     void onConnectionCreated(QtNodes::Connection const &c);
     void onConnectionDeleted(QtNodes::Connection const &c);
-
-  private slots:
-    void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>);
-    void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>);
-    void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>);
-    void OnDispatcherInboundOutboundHovered(const QString &tag, const ProtocolSettingsInfoObject &);
+    //
+    void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
+    void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
+    void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
+    void OnDispatcherInboundOutboundHovered(const QString &, const ProtocolSettingsInfoObject &);
 
   private:
+    // NOTE: Self managed pointer.
     std::shared_ptr<NodeDispatcher> nodeDispatcher;
+    //
     bool isLoading = false;
     void RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag);
     //
@@ -91,6 +92,7 @@ class RouteEditor
     void SetupNodeWidget();
     //
     FlowScene *nodeScene;
+    FlowView *flowView;
     // ---------------------------- Extra Source File Headers ----------------
     QString AddNewRule();
     //
