@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/handler/ConfigHandler.hpp"
+#include "core/handler/RouteHandler.hpp"
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <QSystemTrayIcon>
@@ -8,6 +10,7 @@
 #else
     #include <SingleApplication>
 #endif
+
 class MainWindow;
 
 namespace Qv2ray

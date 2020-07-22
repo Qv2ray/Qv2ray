@@ -464,6 +464,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Failed to import connection</source>
         <translation>接続のインポート失敗</translation>
     </message>
+    <message>
+        <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
+        <translation>警告：「サブスクリプションリンク」を「共有リンク」と間違えている可能性があります</translation>
+    </message>
 </context>
 <context>
     <name>InboundEditor</name>
@@ -1005,10 +1009,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>プラグイン</translation>
     </message>
     <message>
-        <source>Groups / Subscriptions</source>
-        <translation>グループ/サブスクリプション</translation>
-    </message>
-    <message>
         <source>New</source>
         <translation>作成</translation>
     </message>
@@ -1039,6 +1039,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Do you want to update these subscriptions?</source>
         <translation>これらのサブスクリプションを更新しますか？</translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation>グループ</translation>
     </message>
 </context>
 <context>
@@ -2169,18 +2173,6 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
         <translation>TTL値の設定に失敗しました</translation>
     </message>
     <message>
-        <source>Setting timeout failed</source>
-        <translation>タイムアウトの設定に失敗しました</translation>
-    </message>
-    <message>
-        <source>Unresolvable hostname</source>
-        <translation>ホスト名が解決不能</translation>
-    </message>
-    <message>
-        <source>Sending echo request failed</source>
-        <translation>エコー要求の送信に失敗しました</translation>
-    </message>
-    <message>
         <source>Destination unreachable</source>
         <translation>目的地に到達できません</translation>
     </message>
@@ -2203,6 +2195,10 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message>
         <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
         <translation>PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
+    </message>
+    <message>
+        <source>DNS not resolved</source>
+        <translation>DNSが解決されません</translation>
     </message>
 </context>
 <context>

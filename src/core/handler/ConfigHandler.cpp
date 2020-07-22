@@ -368,7 +368,7 @@ namespace Qv2ray::core::handler
         return connectionRootCache.value(id);
     }
 
-    void QvConfigHandler::OnLatencyDataArrived_p(ConnectionId id, LatencyTestResult result)
+    void QvConfigHandler::OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &result)
     {
         CheckValidId(id, nothing);
         connections[id].latency = result.avg;

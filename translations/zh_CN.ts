@@ -464,6 +464,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Failed to import connection</source>
         <translation>连接导入失败</translation>
     </message>
+    <message>
+        <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
+        <translation>警告：你有可能把“订阅链接”当成了“分享链接”</translation>
+    </message>
 </context>
 <context>
     <name>InboundEditor</name>
@@ -1005,10 +1009,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>插件</translation>
     </message>
     <message>
-        <source>Groups / Subscriptions</source>
-        <translation>分组/订阅</translation>
-    </message>
-    <message>
         <source>New</source>
         <translation>新建</translation>
     </message>
@@ -1039,6 +1039,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Do you want to update these subscriptions?</source>
         <translation>要更新这些订阅吗？</translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation>分组</translation>
     </message>
 </context>
 <context>
@@ -2169,18 +2173,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
         <translation>无法设置 TTL 值</translation>
     </message>
     <message>
-        <source>Setting timeout failed</source>
-        <translation>定时失败</translation>
-    </message>
-    <message>
-        <source>Unresolvable hostname</source>
-        <translation>域名解析失败</translation>
-    </message>
-    <message>
-        <source>Sending echo request failed</source>
-        <translation>ICMP 包发送失败</translation>
-    </message>
-    <message>
         <source>Destination unreachable</source>
         <translation>目标不可达</translation>
     </message>
@@ -2203,6 +2195,10 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
         <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
         <translation>PAC 目前将会继续工作，但是我们强烈建议您切换使用 V2Ray 自带的路由功能。</translation>
+    </message>
+    <message>
+        <source>DNS not resolved</source>
+        <translation>DNS 未解析</translation>
     </message>
 </context>
 <context>

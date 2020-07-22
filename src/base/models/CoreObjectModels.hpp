@@ -375,6 +375,7 @@ namespace Qv2ray::base::objects
         };
         //
         // VMess Server
+        constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;
         struct VMessServerObject
         {
             struct UserObject
@@ -384,7 +385,7 @@ namespace Qv2ray::base::objects
                 QString security;
                 int level;
                 QString testsEnabled;
-                UserObject() : id(), alterId(64), security("auto"), level(0), testsEnabled("none"){};
+                UserObject() : id(), alterId(VMESS_USER_ALTERID_DEFAULT), security("auto"), level(0), testsEnabled("none"){};
                 JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level, testsEnabled))
             };
 

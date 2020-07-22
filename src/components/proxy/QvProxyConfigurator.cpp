@@ -297,6 +297,15 @@ namespace Qv2ray::components::proxy
                                               "--key", "ProxyType", "1" } };
             }
         }
+
+        // Notify kioslaves to reload system proxy configuration.
+        if (isKDE)
+        {
+            actions << ProcessArgument{ "dbus-send",
+                                        { "--type=signal", "/KIO/Scheduler",                 //
+                                          "org.kde.KIO.Scheduler.reparseSlaveConfiguration", //
+                                          "string:''" } };
+        }
         // Execute them all!
         //
         // note: do not use std::all_of / any_of / none_of,
@@ -421,6 +430,15 @@ namespace Qv2ray::components::proxy
                                               "--group", "Proxy Settings",          //
                                               "--key", "ProxyType", "0" } };
             }
+        }
+
+        // Notify kioslaves to reload system proxy configuration.
+        if (isKDE)
+        {
+            actions << ProcessArgument{ "dbus-send",
+                                        { "--type=signal", "/KIO/Scheduler",                 //
+                                          "org.kde.KIO.Scheduler.reparseSlaveConfiguration", //
+                                          "string:''" } };
         }
 
         // Execute the Actions
