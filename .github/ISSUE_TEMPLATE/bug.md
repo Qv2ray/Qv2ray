@@ -7,10 +7,19 @@ assignees: ''
 
 ---
 
-<!-- 我们建议您按照下方模板填写 Bug 反馈，以便我们收集足够多的有效信息。
-     注意：不符合要求的 issue 可能会被关闭。
-     如何勾选一个选项：将 [ ] 改为 [x] 即可
-     请在粘贴 VMess 链接/日志前隐藏你的服务器地址 / 域名和 UUID 等敏感信息。 -->
+<!-- 推荐读物：https://github.com/tvvocold/How-To-Ask-Questions-The-Smart-Way -->
+
+<!-- 
+反馈 BUG 的注意事项：
+1. 请先确定你的问题是 BUG 反馈，而非功能请求、使用咨询。
+   分类错误的 Issue 根据开发者的心情，可能被不加提示直接关闭。
+2. 发 Issue 之前请确保你已阅读过相关文档、搜索过之前的Issue。
+   如果如果文档里明确有的，那么 Issue 可能被不加提示直接关闭；
+   如果之前的 Issue 已有答案 / 解决方案，可能会被发一个链接直接关闭；
+   当然，也可能根据开发者心情，给你多回几句。我们对此不做任何保证。
+3. 因非官方渠道下载渠道 / 教程 / 文档造成的一切问题，我们没有义务进行调查、解答和回复。
+4. 若不遵守模板，根据开发者的心情，你的 Issue 可能会被直接关闭，不需要进一步解释。
+-->
 
 - [ ] **我确定我已经尝试多次触发此次问题，并且将会提供涉及此问题的系统环境，每个软件及其版本。**
 
@@ -34,7 +43,7 @@ assignees: ''
 <details>
 
 ```
-请在此粘贴 Qv2ray 日志：
+请从此行下面的行开始粘贴 Qv2ray 日志：
 
 
 ```
@@ -43,7 +52,7 @@ assignees: ''
 
 ## 系统信息
 
-<!-- 请勾选所有你确认存在问题的操作系统和安装来源。 -->
+<!-- 请删除所有不符合的操作系统和安装来源，只保留符合的项目 -->
 
 ### 打开首选项 -> 关于，填写以下信息
 
@@ -55,25 +64,25 @@ assignees: ''
 
 ### 操作系统
 
-- [ ] Linux
-- [ ] macOS
-- [ ] Windows
+- Linux
+- macOS
+- Windows
 
 ### 安装来源
 
-- [ ] ArchLinuxCN - 稳定版
-- [ ] ArchLinuxCN - 开发版
-- [ ] ArchLinux AUR - 稳定版
-- [ ] ArchLinux AUR - 开发版
-- [ ] Fedora - 稳定版
-- [ ] Fedora - 开发版
-- [ ] openSUSE - 稳定版
-- [ ] openSUSE - 开发版
-- [ ] Flathub 包
-- [ ] Snap 包
-- [ ] Homebrew Cask
-- [ ] Scoop / Chocolatey / Github Release
-- [ ] 手动编译
+- ArchLinuxCN - 稳定版
+- ArchLinuxCN - 开发版
+- ArchLinux AUR - 稳定版
+- ArchLinux AUR - 开发版
+- Fedora - 稳定版
+- Fedora - 开发版
+- openSUSE - 稳定版
+- openSUSE - 开发版
+- Flathub 包
+- Snap 包
+- Homebrew Cask
+- Github Release / Scoop / Chocolatey
+- 手动编译
 
 ### 已安装的插件、版本及安装来源
 
