@@ -68,7 +68,7 @@ class NodeDispatcher
     //
     QtNodes::FlowScene *scene;
     bool isConstructing;
-    QMap<QString, INBOUND> inbounds;
-    QMap<QString, RuleObject> rules;
-    QMap<QString, OutboundObjectMeta> outbounds;
+    QMap<QString, std::shared_ptr<INBOUND>> inbounds;
+    QMap<QString, std::shared_ptr<RuleObject>> rules;
+    QMap<QString, std::shared_ptr<OutboundObjectMeta>> outbounds;
 };

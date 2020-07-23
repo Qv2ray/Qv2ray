@@ -49,14 +49,14 @@ void NodeDispatcher::RestoreConnections()
     isConstructing = true;
     for (const auto &rule : rules)
     {
-        if (!ruleNodes.contains(rule.QV2RAY_RULE_TAG))
+        if (!ruleNodes.contains(rule->QV2RAY_RULE_TAG))
         {
-            LOG(MODULE_NODE, "Could not find rule: " + rule.QV2RAY_RULE_TAG)
+            LOG(MODULE_NODE, "Could not find rule: " + rule->QV2RAY_RULE_TAG)
             continue;
         }
-        const auto ruleNodeId = ruleNodes[rule.QV2RAY_RULE_TAG];
+        const auto ruleNodeId = ruleNodes[rule->QV2RAY_RULE_TAG];
         // Process inbounds.
-        for (const auto &inboundTag : rule.inboundTag)
+        for (const auto &inboundTag : rule->inboundTag)
         {
             if (inboundNodes.contains(inboundTag))
             {
@@ -69,7 +69,7 @@ void NodeDispatcher::RestoreConnections()
             }
         }
 
-        const auto outboundTag = rule.QV2RAY_RULE_USE_BALANCER ? rule.balancerTag : rule.outboundTag;
+        const auto outboundTag = rule->QV2RAY_RULE_USE_BALANCER ? rule->balancerTag : rule->outboundTag;
         if (outboundNodes.contains(outboundTag))
         {
             const auto outboundNodeId = outboundNodes[outboundTag];
@@ -91,10 +91,10 @@ QString NodeDispatcher::CreateInbound(INBOUND in)
         tag += "_" + GenerateRandomString(5);
     }
     in["tag"] = tag;
-    inbounds.insert(tag, in);
+    auto dataPtr = std::make_shared<INBOUND>(in);
+    inbounds.insert(tag, dataPtr);
     // Create node and emit signals.
     {
-        auto dataPtr = std::make_shared<INBOUND>(inbounds[tag]);
         auto nodeData = std::make_unique<InboundNodeModel>(shared_from_this(), dataPtr);
         auto &node = scene->createNode(std::move(nodeData));
         inboundNodes.insert(tag, node.id());
@@ -114,10 +114,10 @@ QString NodeDispatcher::CreateOutbound(OutboundObjectMeta out)
         out.object.displayName = tag;
         out.realOutbound["tag"] = tag;
     }
-    outbounds.insert(tag, out);
+    auto dataPtr = std::make_shared<OutboundObjectMeta>(out);
+    outbounds.insert(tag, dataPtr);
     // Create node and emit signals.
     {
-        auto dataPtr = std::make_shared<OutboundObjectMeta>(outbounds[tag]);
         auto nodeData = std::make_unique<OutboundNodeModel>(shared_from_this(), dataPtr);
         auto &node = scene->createNode(std::move(nodeData));
         outboundNodes.insert(tag, node.id());
@@ -133,10 +133,10 @@ QString NodeDispatcher::CreateRule(RuleObject rule)
     {
         tag += "_" + GenerateRandomString(5);
     }
-    rules.insert(tag, rule);
+    auto dataPtr = std::make_shared<RuleObject>(rule);
+    rules.insert(tag, dataPtr);
     // Create node and emit signals.
     {
-        auto dataPtr = std::make_shared<RuleObject>(rules[tag]);
         auto nodeData = std::make_unique<RuleNodeModel>(shared_from_this(), dataPtr);
         auto &node = scene->createNode(std::move(nodeData));
         ruleNodes.insert(tag, node.id());
