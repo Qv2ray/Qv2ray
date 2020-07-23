@@ -28,6 +28,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog(parent)
     {
         groupCombo->addItem(GetDisplayName(gid), gid.toString());
     }
+    groupCombo->setCurrentText(GetDisplayName(DefaultGroupId));
 }
 
 void ImportConfigWindow::updateColorScheme()
