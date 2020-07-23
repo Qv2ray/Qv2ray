@@ -63,16 +63,15 @@ class RouteEditor
     void on_importGroupBtn_currentIndexChanged(int index);
     void on_addBalancerBtn_clicked();
     void on_addChainBtn_clicked();
+    void on_debugPainterCB_clicked(bool checked);
+    void on_linkExistingBtn_clicked();
 
   private slots:
+    void OnDispatcherOutboundDeleted(const OutboundObjectMeta &);
     void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
     void OnDispatcherInboundOutboundHovered(const QString &, const ProtocolSettingsInfoObject &);
-
-    void on_debugPainterCB_clicked(bool checked);
-
-    void on_linkExistingBtn_clicked();
 
   private:
     // NOTE: Self managed pointer.
@@ -82,18 +81,12 @@ class RouteEditor
     void RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag);
     //
     QString domainStrategy;
-    QString defaultOutbound;
     //
     CONFIGROOT root;
     CONFIGROOT original;
     //
-    // ---------------------------- Node Graph Impl --------------------------
     void SetupNodeWidget();
     //
     FlowScene *nodeScene;
     FlowView *flowView;
-    // ---------------------------- Extra Source File Headers ----------------
-    QString AddNewRule();
-    //
-    void ResolveDefaultOutboundTag(QString original, QString newTag);
 };

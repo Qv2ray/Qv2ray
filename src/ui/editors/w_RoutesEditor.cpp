@@ -31,16 +31,6 @@ constexpr auto GRAPH_GLOBAL_OFFSET_Y = -350;
 #define LOADINGCHECK                                                                                                                            \
     if (isLoading)                                                                                                                              \
         return;
-#define GetFirstNodeData(_node, name)                                                                                                           \
-    (static_cast<name##Data *>(static_cast<Qv##name##Model *>((nodeScene->node(_node))->nodeDataModel())->outData(0).get()))
-
-#define CHECKEMPTYRULES
-//    if (this->rules.isEmpty())                                                                                                                  \
-//    {                                                                                                                                           \
-//        LOG(MODULE_UI, "No rules currently, we add one.")                                                                                       \
-//        nodeDispatcher->CreateRule({});                                                                                                         \
-//    }
-
 #define LOAD_FLAG_BEGIN isLoading = true;
 #define LOAD_FLAG_END isLoading = false;
 
@@ -103,7 +93,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     //
     nodeDispatcher->LoadFullConfig(root);
     //// Set default outboung combo text AFTER adding all outbounds.
-    defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
+    const auto defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
     defaultOutboundCombo->setCurrentText(defaultOutbound);
     //
     ////    // Find and add balancers.
@@ -164,6 +154,15 @@ void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNo
     pos.setY(pos.y() + nodeDispatcher->RulesCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
     nodeScene->setNodePosition(node, pos);
     ruleListWidget->addItem(rule->QV2RAY_RULE_TAG);
+}
+
+void RouteEditor::OnDispatcherOutboundDeleted(const OutboundObjectMeta &data)
+{
+    const auto id = defaultOutboundCombo->findText(data.getTag());
+    if (id > 0)
+    {
+        defaultOutboundCombo->removeItem(id);
+    }
 }
 
 CONFIGROOT RouteEditor::OpenEditor()
@@ -273,15 +272,6 @@ CONFIGROOT RouteEditor::OpenEditor()
 RouteEditor::~RouteEditor()
 {
     nodeDispatcher.reset();
-    //
-    //    nodeGraphWidget->layout()->removeWidget(flowView);
-    //    delete flowView;
-    //    flowView = nullptr;
-    //    delete nodeScene;
-    //    nodeScene = nullptr;
-    // disconnect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
-    // disconnect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
-    // disconnect(nodeScene, &FlowScene::nodeClicked, this, &RouteEditor::onNodeClicked);
 }
 void RouteEditor::on_buttonBox_accepted()
 {
@@ -403,8 +393,6 @@ void RouteEditor::on_addOutboundBtn_clicked()
             auto _ = nodeDispatcher->CreateOutbound(make_outbound(OUTBOUND(confList[i].toObject())));
         }
     }
-
-    CHECKEMPTYRULES
 }
 
 void RouteEditor::on_delBtn_clicked()
@@ -421,7 +409,7 @@ void RouteEditor::on_delBtn_clicked()
         QvMessageBoxWarn(this, tr("Deleting a node"), tr("You need to select a node first"));
         return;
     }
-    nodeDispatcher->DeleteNode(selecteNodes.front()->id());
+    nodeScene->removeNode(*selecteNodes.front());
 }
 
 void RouteEditor::on_addRouteBtn_clicked()
@@ -438,7 +426,7 @@ void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1
 void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1)
 {
     LOADINGCHECK
-    defaultOutbound = arg1;
+    // defaultOutbound = arg1;
 }
 
 void RouteEditor::on_importExistingBtn_clicked()

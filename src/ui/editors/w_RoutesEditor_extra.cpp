@@ -6,76 +6,6 @@
 #include "w_RoutesEditor.hpp"
 
 #include <nodes/internal/FlowScene.hpp>
-// Supplementary source file for Routes editor, basically providing
-// routes-related operations.
-//
-// void RouteEditor::AddInbound(const INBOUND &in)
-//{
-//    const auto tag = getTag(in);
-//    inbounds << in;
-//    auto _nodeData = std::make_unique<InboundNodeModel>(nodeDispatcher, std::make_shared<INBOUND>(inbounds.last()));
-//    auto &node = nodeScene->createNode(std::move(_nodeData));
-//    QPointF pos;
-//    pos.setX(0 + GRAPH_GLOBAL_OFFSET_X);
-//    pos.setY(inbounds.count() * 130 + GRAPH_GLOBAL_OFFSET_Y);
-//    nodeScene->setNodePosition(node, pos);
-//}
-//
-// void RouteEditor::AddOutbound(OutboundObjectMeta &metaOutboud)
-//{
-//    QString tag;
-//    switch (metaOutboud.metaType)
-//    {
-//        case complex::METAOUTBOUND_ORIGINAL:
-//        {
-//            tag = getTag(metaOutboud.realOutbound);
-//            break;
-//        }
-//        case complex::METAOUTBOUND_CHAINED:
-//        case complex::METAOUTBOUND_BALANCER:
-//        {
-//            tag = metaOutboud.object.externalTag;
-//            break;
-//        }
-//    }
-//    outbounds << metaOutboud;
-//    auto _nodeData = std::make_unique<OutboundNodeModel>(nodeDispatcher, std::make_shared<OutboundObjectMeta>(outbounds.last()));
-//    auto pos = nodeGraphWidget->pos();
-//    pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
-//    pos.setY(pos.y() + outbounds.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-//    auto &node = nodeScene->createNode(std::move(_nodeData));
-//    nodeScene->setNodePosition(node, pos);
-//    defaultOutboundCombo->addItem(tag);
-//}
-//
-// QString RouteEditor::AddNewRule()
-//{
-//    // Add Route
-//    RuleObject rule;
-//    //
-//    rule.QV2RAY_RULE_ENABLED = true;
-//    rule.QV2RAY_RULE_USE_BALANCER = false;
-//    // Default balancer tag, it's a random string.
-//    auto bTag = GenerateRandomString();
-//    rule.QV2RAY_RULE_TAG = rules.isEmpty() ? tr("Default rule") : (tr("rule") + "-" + GenerateRandomString(6));
-//    rule.balancerTag = bTag;
-//    // balancers[bTag] = QStringList();
-//    AddRule(rule);
-//    return rule.QV2RAY_RULE_TAG;
-//}
-//
-// void RouteEditor::AddRule(const RuleObject &rule)
-//{
-//    rules << rule;
-//    auto pos = nodeGraphWidget->pos();
-//    pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
-//    pos.setY(pos.y() + rules.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-//    auto _nodeData = std::make_unique<RuleNodeModel>(nodeDispatcher, std::make_shared<RuleObject>(rules.last()));
-//    auto &node = nodeScene->createNode(std::move(_nodeData));
-//    nodeScene->setNodePosition(node, pos);
-//
-//    ruleListWidget->addItem(rule.QV2RAY_RULE_TAG);
-//}
 
 // Do not use reference here, we need deep copy of EVERY QString.
 void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag)
@@ -225,43 +155,43 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
 }
 
 // Do not use const reference here.
-void RouteEditor::ResolveDefaultOutboundTag(const QString original, const QString newTag)
-{
-    // LOG(MODULE_UI, "Resolving default outbound settings: default=" + defaultOutbound + " original=" + original + " new=" + newTag)
-    // auto isDefaultChanged = original == defaultOutbound;
-    ////
-    // isLoading = true;
-    // defaultOutboundCombo->clear();
-    ////
-    // for (const auto &out : outbounds) defaultOutboundCombo->addItem(getTag(out.realOutbound));
-    ////
-    // isLoading = false;
-    ////
-    // if (!isDefaultChanged)
-    //{
-    //    LOG(MODULE_UI, "Default outbound is not changed: retaining: " + defaultOutbound)
-    //    // Just simply restore the default one.
-    //    defaultOutboundCombo->setCurrentText(defaultOutbound);
-    //}
-    // else if (newTag.isEmpty())
-    //{
-    //    LOG(MODULE_UI, "Default outbound is removed, using first key from the outbounds as the default one.")
-    //
-    //    // Removed the default one, so set the first one as the default.
-    //    if (outbounds.isEmpty())
-    //    {
-    //        defaultOutbound.clear();
-    //    }
-    //    else
-    //    {
-    //        defaultOutbound = getTag(outbounds.first().realOutbound);
-    //        defaultOutboundCombo->addItem(getTag(outbounds.first().realOutbound));
-    //    }
-    //}
-    // else
-    //{
-    //    LOG(MODULE_UI, "Default outbound is renamed, new tag is " + newTag)
-    //    defaultOutboundCombo->setCurrentText(newTag);
-    //    defaultOutbound = newTag;
-    //}
-}
+// void RouteEditor::ResolveDefaultOutboundTag(const QString original, const QString newTag)
+//{
+// LOG(MODULE_UI, "Resolving default outbound settings: default=" + defaultOutbound + " original=" + original + " new=" + newTag)
+// auto isDefaultChanged = original == defaultOutbound;
+////
+// isLoading = true;
+// defaultOutboundCombo->clear();
+////
+// for (const auto &out : outbounds) defaultOutboundCombo->addItem(getTag(out.realOutbound));
+////
+// isLoading = false;
+////
+// if (!isDefaultChanged)
+//{
+//    LOG(MODULE_UI, "Default outbound is not changed: retaining: " + defaultOutbound)
+//    // Just simply restore the default one.
+//    defaultOutboundCombo->setCurrentText(defaultOutbound);
+//}
+// else if (newTag.isEmpty())
+//{
+//    LOG(MODULE_UI, "Default outbound is removed, using first key from the outbounds as the default one.")
+//
+//    // Removed the default one, so set the first one as the default.
+//    if (outbounds.isEmpty())
+//    {
+//        defaultOutbound.clear();
+//    }
+//    else
+//    {
+//        defaultOutbound = getTag(outbounds.first().realOutbound);
+//        defaultOutboundCombo->addItem(getTag(outbounds.first().realOutbound));
+//    }
+//}
+// else
+//{
+//    LOG(MODULE_UI, "Default outbound is renamed, new tag is " + newTag)
+//    defaultOutboundCombo->setCurrentText(newTag);
+//    defaultOutbound = newTag;
+//}
+//}

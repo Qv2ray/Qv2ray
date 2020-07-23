@@ -10,6 +10,7 @@
 
 NodeDispatcher::NodeDispatcher(QtNodes::FlowScene *_scene, QObject *parent) : QObject(parent), scene(_scene)
 {
+    connect(scene, &QtNodes::FlowScene::nodeDeleted, this, &NodeDispatcher::DeleteNode);
 }
 
 NodeDispatcher::~NodeDispatcher()
@@ -83,36 +84,52 @@ void NodeDispatcher::RestoreConnections()
     isConstructing = false;
 }
 
-void NodeDispatcher::DeleteNode(const QUuid &nodeId)
+void NodeDispatcher::DeleteNode(const QtNodes::Node &node)
 {
+    const auto nodeId = node.id();
     bool isInbound = inboundNodes.values().contains(nodeId);
     bool isOutbound = outboundNodes.values().contains(nodeId);
     bool isRule = ruleNodes.values().contains(nodeId);
     // Lots of duplicated checks.
     {
-        Q_ASSERT_X(isInbound && !isOutbound, "Delete Node", "Node type error.");
-        Q_ASSERT_X(isInbound && !isRule, "Delete Node", "Node type error.");
-        Q_ASSERT_X(isOutbound && !isInbound, "Delete Node", "Node type error.");
-        Q_ASSERT_X(isOutbound && !isRule, "Delete Node", "Node type error.");
-        Q_ASSERT_X(isRule && !isInbound, "Delete Node", "Node type error.");
-        Q_ASSERT_X(isRule && !isOutbound, "Delete Node", "Node type error.");
+        Q_ASSERT_X(isInbound || isOutbound || isRule, "Delete Node", "Node type error.");
+        if (isInbound)
+            Q_ASSERT_X(!isOutbound && !isRule, "Delete Node", "Node Type Error");
+        if (isOutbound)
+            Q_ASSERT_X(!isInbound && !isRule, "Delete Node", "Node Type Error");
+        if (isRule)
+            Q_ASSERT_X(!isInbound && !isOutbound, "Delete Node", "Node Type Error");
     }
+
+#define CLEANUP(type)                                                                                                                           \
+    if (!type##Nodes.values().contains(nodeId))                                                                                                 \
+    {                                                                                                                                           \
+        LOG(MODULE_NODE, "Could not find a " #type " with id: " + nodeId.toString())                                                            \
+        return;                                                                                                                                 \
+    }                                                                                                                                           \
+    const auto type##Tag = type##Nodes.key(nodeId);                                                                                             \
+    const auto type = type##s.value(type##Tag);                                                                                                 \
+                                                                                                                                                \
+    type##Nodes.remove(type##Tag);                                                                                                              \
+    type##s.remove(type##Tag);
 
     if (isInbound)
     {
-        if (!inboundNodes.values().contains(nodeId))
-        {
-            LOG(MODULE_NODE, "Could not find a inbound with id: " + nodeId.toString())
-        }
+        CLEANUP(inbound);
     }
     else if (isOutbound)
     {
+        CLEANUP(outbound);
+        const auto object = *outbound.get();
+        OnOutboundDeleted(object);
     }
     else if (isRule)
     {
+        CLEANUP(rule);
     }
     else
         Q_UNREACHABLE();
+#undef CLEANUP
 }
 
 QString NodeDispatcher::CreateInbound(INBOUND in)

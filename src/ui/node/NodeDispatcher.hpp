@@ -4,6 +4,12 @@
 
 #include <nodes/FlowScene>
 
+enum QvRenameNodeType
+{
+    NODE_INBOUND,
+    NODE_OUTBOUND
+};
+
 class NodeDispatcher
     : public QObject
     , public std::enable_shared_from_this<NodeDispatcher>
@@ -51,9 +57,38 @@ class NodeDispatcher
     }
 
   public:
-    void DeleteNode(const QUuid &nodeId);
+    void DeleteNode(const QtNodes::Node &node);
+
+    template<QvRenameNodeType t>
+    bool RenameTag(const QString &originalTag, const QString &newTag)
+    {
+        switch (t)
+        {
+            case NODE_INBOUND:
+            {
+                bool hasExisting = inbounds.contains(newTag);
+                if (hasExisting)
+                    return false;
+                inbounds[newTag] = inbounds.take(originalTag);
+                inboundNodes[newTag] = inboundNodes.take(originalTag);
+                break;
+            }
+            case NODE_OUTBOUND:
+            {
+                bool hasExisting = outbounds.contains(newTag);
+                if (hasExisting)
+                    return false;
+                outbounds[newTag] = outbounds.take(originalTag);
+                outboundNodes[newTag] = outboundNodes.take(originalTag);
+                break;
+                break;
+            }
+        }
+    }
 
   signals:
+    void OnOutboundDeleted(const OutboundObjectMeta &object);
+    //
     void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
@@ -65,6 +100,7 @@ class NodeDispatcher
     void RestoreConnections();
 
   private:
+    QString defaultOutbound;
     QMap<QString, QUuid> inboundNodes;
     QMap<QString, QUuid> outboundNodes;
     QMap<QString, QUuid> ruleNodes;
