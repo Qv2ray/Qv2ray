@@ -2,6 +2,8 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreUtils.hpp"
+#include "core/handler/ConfigHandler.hpp"
+#include "ui/common/UIBase.hpp"
 #include "ui/editors/w_InboundEditor.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
@@ -10,6 +12,8 @@ InboundOutboundWidget::InboundOutboundWidget(WidgetMode mode, std::shared_ptr<No
 {
     workingMode = mode;
     setupUi(this);
+    editBtn->setIcon(QICON_R("edit"));
+    editJsonBtn->setIcon(QICON_R("code"));
 }
 
 void InboundOutboundWidget::setValue(std::shared_ptr<INBOUND> data)
@@ -23,7 +27,10 @@ void InboundOutboundWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
 {
     assert(workingMode == MODE_OUTBOUND);
     outboundObject = data;
-    tagTxt->setText(getTag(outboundObject->realOutbound));
+    tagTxt->setText(outboundObject->getTag());
+    isExternalOutbound = outboundObject->object.mode == MODE_CONNECTIONID;
+    statusLabel->setText(isExternalOutbound ? tr("External Config") : "");
+    tagTxt->setEnabled(!isExternalOutbound);
 }
 
 void InboundOutboundWidget::changeEvent(QEvent *e)
@@ -56,13 +63,37 @@ void InboundOutboundWidget::on_editBtn_clicked()
         }
         case MODE_OUTBOUND:
         {
-            OutboundEditor editor{ outboundObject->realOutbound, parentWidget() };
-            outboundObject->realOutbound = editor.OpenEditor();
-            // Set tag
-            const auto newTag = getTag(outboundObject->realOutbound);
-            tagTxt->setText(newTag);
-            outboundObject->realOutbound["tag"] = newTag;
-            break;
+            if (isExternalOutbound)
+            {
+                if (QvMessageBoxAsk(parentWidget(), tr("Edit Outbound"), editExternalMsg) != QMessageBox::Yes)
+                {
+                    return;
+                }
+                const auto externalId = outboundObject->object.connectionId;
+                const auto root = ConnectionManager->GetConnectionRoot(externalId);
+                if (IsComplexConfig(root))
+                {
+                    if (QvMessageBoxAsk(parentWidget(), tr("Trying to edit an Complex Config"), editExternalComplexMsg) != QMessageBox::Yes)
+                    {
+                        return;
+                    }
+                }
+                OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };
+                OutboundEditor editor{ outbound, parentWidget() };
+                outbound = editor.OpenEditor();
+                //
+                ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
+            }
+            else
+            {
+                OutboundEditor editor{ outboundObject->realOutbound, parentWidget() };
+                outboundObject->realOutbound = editor.OpenEditor();
+                // Set tag
+                const auto newTag = getTag(outboundObject->realOutbound);
+                tagTxt->setText(newTag);
+                outboundObject->realOutbound["tag"] = newTag;
+                break;
+            }
         }
     }
 }
@@ -83,13 +114,33 @@ void InboundOutboundWidget::on_editJsonBtn_clicked()
         }
         case MODE_OUTBOUND:
         {
-            JsonEditor editor{ outboundObject->realOutbound, parentWidget() };
-            outboundObject->realOutbound = OUTBOUND{ editor.OpenEditor() };
-            const auto newTag = getTag(outboundObject->realOutbound);
-            // Set tag
-            tagTxt->setText(newTag);
-            outboundObject->realOutbound["tag"] = newTag;
-            break;
+            if (isExternalOutbound)
+            {
+                if (QvMessageBoxAsk(parentWidget(), tr("Edit Outbound"), editExternalMsg) != QMessageBox::Yes)
+                {
+                    return;
+                }
+                const auto externalId = outboundObject->object.connectionId;
+                const auto root = ConnectionManager->GetConnectionRoot(externalId);
+
+                OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };
+                JsonEditor editor{ outbound, parentWidget() };
+                outbound = OUTBOUND{ editor.OpenEditor() };
+                //
+                ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
+            }
+            else
+            {
+                // Open Editor
+                JsonEditor editor{ outboundObject->realOutbound, parentWidget() };
+                outboundObject->realOutbound = OUTBOUND{ editor.OpenEditor() };
+                //
+                // Set tag (only for local connections)
+                const auto newTag = getTag(outboundObject->realOutbound);
+                tagTxt->setText(newTag);
+                outboundObject->realOutbound["tag"] = newTag;
+                break;
+            }
         }
     }
 }

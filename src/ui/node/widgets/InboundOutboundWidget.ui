@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>152</width>
-    <height>64</height>
+    <width>181</width>
+    <height>66</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -26,30 +26,41 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item row="0" column="0" colspan="2">
+   <item>
     <widget class="QLineEdit" name="tagTxt"/>
    </item>
-   <item row="1" column="0">
-    <widget class="QPushButton" name="editBtn">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../../../../resources.new.qrc">
-       <normaloff>:/assets/icons/ui_dark/edit.svg</normaloff>:/assets/icons/ui_dark/edit.svg</iconset>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="editJsonBtn">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../../../../resources.new.qrc">
-       <normaloff>:/assets/icons/ui_dark/code.svg</normaloff>:/assets/icons/ui_dark/code.svg</iconset>
-     </property>
-    </widget>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,1">
+     <item>
+      <widget class="QPushButton" name="editBtn">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../resources.new.qrc">
+         <normaloff>:/assets/icons/ui_light/edit.svg</normaloff>:/assets/icons/ui_light/edit.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="editJsonBtn">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../../resources.new.qrc">
+         <normaloff>:/assets/icons/ui_light/code.svg</normaloff>:/assets/icons/ui_light/code.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="statusLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

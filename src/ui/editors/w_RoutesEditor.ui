@@ -123,11 +123,11 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,1,0">
+         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,1,0,0">
           <item>
            <widget class="QLabel" name="label_18">
             <property name="text">
-             <string>Existed Connection</string>
+             <string>Existing Connection</string>
             </property>
            </widget>
           </item>
@@ -138,9 +138,16 @@
            <widget class="QComboBox" name="importConnBtn"/>
           </item>
           <item>
-           <widget class="QToolButton" name="importExistingBtn">
+           <widget class="QPushButton" name="importExistingBtn">
             <property name="text">
-             <string>OK</string>
+             <string>Copy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="linkExistingBtn">
+            <property name="text">
+             <string>Reference</string>
             </property>
            </widget>
           </item>

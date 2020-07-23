@@ -72,6 +72,8 @@ class RouteEditor
 
     void on_debugPainterCB_clicked(bool checked);
 
+    void on_linkExistingBtn_clicked();
+
   private:
     // NOTE: Self managed pointer.
     std::shared_ptr<NodeDispatcher> nodeDispatcher;

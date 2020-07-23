@@ -107,6 +107,7 @@ namespace Qv2ray::base::objects::complex
     {
         OutboundObjectMeta meta;
         meta.metaType = METAOUTBOUND_ORIGINAL;
+        meta.object.mode = MODE_CONNECTIONID;
         meta.object.connectionId = id;
         meta.object.displayName = tag;
         return meta;

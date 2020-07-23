@@ -33,4 +33,11 @@ class InboundOutboundWidget
     WidgetMode workingMode;
     std::shared_ptr<INBOUND> inboundObject;
     std::shared_ptr<OutboundObjectMeta> outboundObject;
+    bool isExternalOutbound = false;
+
+  private:
+    const QString editExternalMsg = tr("You are trying to edit an external connection config, is this what you want?");
+    const QString editExternalComplexMsg = tr("You have selected an complex config as outbound.") + NEWLINE +
+                                           tr("continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.") +
+                                           NEWLINE + tr("Is this what you want?");
 };

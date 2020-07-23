@@ -83,6 +83,38 @@ void NodeDispatcher::RestoreConnections()
     isConstructing = false;
 }
 
+void NodeDispatcher::DeleteNode(const QUuid &nodeId)
+{
+    bool isInbound = inboundNodes.values().contains(nodeId);
+    bool isOutbound = outboundNodes.values().contains(nodeId);
+    bool isRule = ruleNodes.values().contains(nodeId);
+    // Lots of duplicated checks.
+    {
+        Q_ASSERT_X(isInbound && !isOutbound, "Delete Node", "Node type error.");
+        Q_ASSERT_X(isInbound && !isRule, "Delete Node", "Node type error.");
+        Q_ASSERT_X(isOutbound && !isInbound, "Delete Node", "Node type error.");
+        Q_ASSERT_X(isOutbound && !isRule, "Delete Node", "Node type error.");
+        Q_ASSERT_X(isRule && !isInbound, "Delete Node", "Node type error.");
+        Q_ASSERT_X(isRule && !isOutbound, "Delete Node", "Node type error.");
+    }
+
+    if (isInbound)
+    {
+        if (!inboundNodes.values().contains(nodeId))
+        {
+            LOG(MODULE_NODE, "Could not find a inbound with id: " + nodeId.toString())
+        }
+    }
+    else if (isOutbound)
+    {
+    }
+    else if (isRule)
+    {
+    }
+    else
+        Q_UNREACHABLE();
+}
+
 QString NodeDispatcher::CreateInbound(INBOUND in)
 {
     auto tag = getTag(in);

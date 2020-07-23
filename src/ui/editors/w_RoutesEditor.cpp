@@ -71,7 +71,6 @@ void RouteEditor::SetupNodeWidget()
     nodeScene = new FlowScene(this);
     flowView = new FlowView(nodeScene, nodeGraphWidget);
     flowView->scaleDown();
-    flowView->scaleDown();
     if (!nodeGraphWidget->layout())
     {
         // The QWidget will take ownership of layout.
@@ -416,79 +415,18 @@ void RouteEditor::on_delBtn_clicked()
         return;
     }
 
-    auto firstNode = nodeScene->selectedNodes()[0];
-    auto isInbound = false;  // inboundNodes.values().contains(firstNode->id());
-    auto isOutbound = false; // outboundNodes.values().contains(firstNode->id());
-    auto isRule = false;     // ruleNodes.values().contains(firstNode->id());
-
-    // Get the tag first, and call inbounds/outbounds/rules container variable
-    // remove() Remove the node last since some events may trigger. Then remove
-    // the node container.
-    if (isInbound)
+    const auto selecteNodes = nodeScene->selectedNodes();
+    if (selecteNodes.empty())
     {
-        // currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), InboundNode)->GetInbound();
-        // nodeScene->removeNode(*nodeScene->node(inboundNodes[currentInboundOutboundTag]));
-        // inboundNodes.remove(currentInboundOutboundTag);
-        //
-        // // Remove corresponded inbound tags from the rules.
-        // for (auto k : rules.keys())
-        // {
-        //     auto v = rules[k];
-        //     v.inboundTag.removeAll(currentInboundOutboundTag);
-        //     rules[k] = v;
-        // }
-        //
-        // inbounds.remove(currentInboundOutboundTag);
+        QvMessageBoxWarn(this, tr("Deleting a node"), tr("You need to select a node first"));
+        return;
     }
-    else if (isOutbound)
-    {
-        // currentInboundOutboundTag = GetFirstNodeData(firstNode->id(), OutboundNode)->GetOutbound();
-        // outbounds.remove(currentInboundOutboundTag);
-        // ResolveDefaultOutboundTag(currentInboundOutboundTag, "");
-        //
-        //// Remove corresponded outbound tags from the rules.
-        // for (auto k : rules.keys())
-        //{
-        //    auto v = rules[k];
-        //
-        //    if (v.outboundTag == currentInboundOutboundTag)
-        //        v.outboundTag.clear();
-        //
-        //    rules[k] = v;
-        //}
-        //
-        // nodeScene->removeNode(*nodeScene->node(outboundNodes[currentInboundOutboundTag]));
-        // outboundNodes.remove(currentInboundOutboundTag);
-    }
-    else if (isRule)
-    {
-        // ruleEnableCB->setEnabled(false);
-        // ruleTagLineEdit->setEnabled(false);
-        // ruleRenameBtn->setEnabled(false);
-        // auto RuleTag = GetFirstNodeData(firstNode->id(), RuleNode)->GetRuleTag();
-        // currentRuleTag.clear();
-        // routeRuleGroupBox->setEnabled(false);
-        // routeEditGroupBox->setEnabled(false);
-        // rules.remove(RuleTag);
-        // nodeScene->removeNode(*nodeScene->node(ruleNodes[RuleTag]));
-        // ruleNodes.remove(RuleTag);
-        ////
-        //// Remove item from the rule order list widget.
-        // ruleListWidget->takeItem(ruleListWidget->row(ruleListWidget->findItems(RuleTag, Qt::MatchExactly).first()));
-        // CHECKEMPTYRULES
-        //// currentRuleTag = rules.firstKey();
-        // ShowCurrentRuleDetail();
-    }
-    else
-    {
-        LOG(MODULE_UI, "Unknown node selected.")
-        QvMessageBoxWarn(this, tr("Error"), tr("Qv2ray entered an unknown state."));
-    }
+    nodeDispatcher->DeleteNode(selecteNodes.front()->id());
 }
+
 void RouteEditor::on_addRouteBtn_clicked()
 {
-    auto ruleName = nodeDispatcher->CreateRule({});
-    Q_UNUSED(ruleName)
+    const auto _ = nodeDispatcher->CreateRule({});
 }
 
 void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1)
@@ -539,4 +477,10 @@ void RouteEditor::on_debugPainterCB_clicked(bool checked)
     nodeScene->update();
     flowView->repaint();
 #endif
+}
+
+void RouteEditor::on_linkExistingBtn_clicked()
+{
+    const auto cid = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
+    auto _ = nodeDispatcher->CreateOutbound(make_outbound(cid, GetDisplayName(cid)));
 }

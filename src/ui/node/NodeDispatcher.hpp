@@ -50,6 +50,9 @@ class NodeDispatcher
         return outbounds.count();
     }
 
+  public:
+    void DeleteNode(const QUuid &nodeId);
+
   signals:
     void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
