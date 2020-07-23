@@ -37,12 +37,14 @@ namespace Qv2ray::base::safetype
     SAFE_TYPEDEF(QJsonArray, OUTBOUNDS);
     SAFE_TYPEDEF(QJsonArray, INBOUNDS);
 
-    template<typename T>
+    template<typename T1, typename T2 = T1>
     struct QvPair
     {
-        T value1;
-        T value2;
-        JSONSTRUCT_REGISTER(QvPair<T>, F(value1, value2))
+        T1 value1;
+        T2 value2;
+        JSONSTRUCT_REGISTER(___qvpair_t, F(value1, value2))
+      private:
+        typedef QvPair<T1, T2> ___qvpair_t;
     };
     template<typename enumKey, typename TValue, typename = typename std::enable_if<std::is_enum<enumKey>::value>::type>
     struct QvEnumMap : QMap<enumKey, TValue>
