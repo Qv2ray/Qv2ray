@@ -82,6 +82,8 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/ssd.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/vmess.cpp
     ${CMAKE_SOURCE_DIR}/src/core/connection/serialization/vmess_new.cpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/adapter/AbstractAdapter.hpp
+    ${CMAKE_SOURCE_DIR}/src/core/connection/adapter/SIP008Adapter.cpp
     #
     ${CMAKE_SOURCE_DIR}/src/core/CoreUtils.cpp
     ${CMAKE_SOURCE_DIR}/src/core/CoreUtils.hpp
