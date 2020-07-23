@@ -356,6 +356,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="editable">
+             <bool>true</bool>
+            </property>
             <item>
              <property name="text">
               <string notr="true">none</string>
