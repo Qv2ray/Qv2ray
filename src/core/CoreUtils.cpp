@@ -31,30 +31,30 @@ namespace Qv2ray::core
         *port = 0;
         *protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
 
-        if (*protocol == "vmess")
+        if (*protocol == "vmess" || *protocol == "vless")
         {
-            auto Server = VMessServerObject::fromJson(out["settings"].toObject()["vnext"].toArray().first().toObject());
+            auto Server = VMessServerObject::fromJson(QJsonIO::GetValue(out, "settings", "vnext", 0).toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
         }
         else if (*protocol == "shadowsocks")
         {
-            auto Server = ShadowSocksServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
+            auto Server = ShadowSocksServerObject::fromJson(QJsonIO::GetValue(out, "settings", "servers", 0).toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
         }
         else if (*protocol == "socks")
         {
-            auto Server = SocksServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
+            auto Server = SocksServerObject::fromJson(QJsonIO::GetValue(out, "settings", "servers", 0).toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
         }
         else if (*protocol == "http")
         {
-            auto Server = HttpServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
+            auto Server = HttpServerObject::fromJson(QJsonIO::GetValue(out, "settings", "servers", 0).toObject());
             *host = Server.address;
             *port = Server.port;
             return true;

@@ -9,11 +9,18 @@
 #include <QIntValidator>
 #include <iostream>
 
+constexpr auto STACK_PAGE_VMESS = 0;
+constexpr auto STACK_PAGE_VLESS = 1;
+constexpr auto STACK_PAGE_SHADOWSOCKS = 2;
+constexpr auto STACK_PAGE_SOCKS = 3;
+constexpr auto STACK_PAGE_HTTP = 4;
+
 OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_TAG_PROXY)
 {
     QvMessageBusConnect(OutboundEditor);
     setupUi(this);
     //
+    builtInOutboundTypes = outBoundTypeCombo->count();
     outboundType = "vmess";
     //
     streamSettingsWidget = new StreamSettingsWidget(this);
@@ -43,13 +50,10 @@ QvMessageBusSlotImpl(OutboundEditor)
 {
     switch (msg)
     {
-        case UPDATE_COLORSCHEME:
-        {
-            break;
-        };
-            MBShowDefaultImpl;
-            MBHideDefaultImpl;
-            MBRetranslateDefaultImpl;
+        MBShowDefaultImpl;
+        MBHideDefaultImpl;
+        MBRetranslateDefaultImpl;
+        case UPDATE_COLORSCHEME: break;
     }
 }
 
@@ -83,73 +87,91 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     OUTBOUNDSETTING settings;
     auto streaming = streamSettingsWidget->GetStreamSettings().toJson();
 
-    if (outboundType == "vmess")
+    switch (outboundTypeStackView->currentIndex())
     {
-        // VMess is only a ServerObject, and we need an array { "vnext": [] }
-        QJsonArray vnext;
-        vmess.address = address;
-        vmess.port = port;
-        vnext.append(vmess.toJson());
-        settings.insert("vnext", vnext);
-    }
-    else if (outboundType == "shadowsocks")
-    {
-        // streaming = QJsonObject();
-        // LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
-        QJsonArray servers;
-        shadowsocks.address = address;
-        shadowsocks.port = port;
-        servers.append(shadowsocks.toJson());
-        settings["servers"] = servers;
-    }
-    else if (outboundType == "socks")
-    {
-        if (!socks.users.isEmpty() && socks.users.first().user.isEmpty() && socks.users.first().pass.isEmpty())
+        case STACK_PAGE_VMESS:
         {
-            LOG(MODULE_UI, "Removed empty user form SOCKS settings")
-            socks.users.clear();
+            // VMess is only a ServerObject, and we need an array { "vnext": [] }
+            QJsonArray vnext;
+            vmess.address = serverAddress;
+            vmess.port = serverPort;
+            vnext.append(vmess.toJson());
+            settings.insert("vnext", vnext);
+            break;
         }
-        socks.address = address;
-        socks.port = port;
-        // streaming = QJsonObject();
-        // LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
-        QJsonArray servers;
-        servers.append(socks.toJson());
-        settings["servers"] = servers;
-    }
-    else if (outboundType == "http")
-    {
-        if (!http.users.isEmpty() && http.users.first().user.isEmpty() && http.users.first().pass.isEmpty())
+        case STACK_PAGE_VLESS:
         {
-            LOG(MODULE_UI, "Removed empty user form HTTP settings")
-            http.users.clear();
+            QJsonArray vnext;
+            vless.address = serverAddress;
+            vless.port = serverPort;
+            vnext.append(vless.toJson());
+            settings.insert("vnext", vnext);
+            break;
         }
-        http.address = address;
-        http.port = port;
-        // streaming = QJsonObject();
-        // LOG(MODULE_CONNECTION, "Http outbound does not need StreamSettings.")
-        QJsonArray servers;
-        servers.append(http.toJson());
-        settings["servers"] = servers;
-    }
-    else
-    {
-        streaming = QJsonObject();
-        bool processed = false;
-        for (const auto &plugin : pluginWidgets)
+
+        case STACK_PAGE_SHADOWSOCKS:
         {
-            if (plugin.first.protocol == outboundType)
+            // streaming = QJsonObject();
+            // LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
+            QJsonArray servers;
+            shadowsocks.address = serverAddress;
+            shadowsocks.port = serverPort;
+            servers.append(shadowsocks.toJson());
+            settings["servers"] = servers;
+            break;
+        }
+        case STACK_PAGE_SOCKS:
+        {
+            if (!socks.users.isEmpty() && socks.users.first().user.isEmpty() && socks.users.first().pass.isEmpty())
             {
-                plugin.second->SetHostInfo(address, port);
-                settings = OUTBOUNDSETTING(plugin.second->GetContent());
-                processed = true;
-                break;
+                LOG(MODULE_UI, "Removed empty user form SOCKS settings")
+                socks.users.clear();
             }
+            socks.address = serverAddress;
+            socks.port = serverPort;
+            // streaming = QJsonObject();
+            // LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
+            QJsonArray servers;
+            servers.append(socks.toJson());
+            settings["servers"] = servers;
+            break;
         }
-        if (!processed)
+        case STACK_PAGE_HTTP:
         {
-            QvMessageBoxWarn(this, tr("Unknown outbound type."),
-                             tr("The specified outbound type is not supported, this may happen due to a plugin failure."));
+            if (!http.users.isEmpty() && http.users.first().user.isEmpty() && http.users.first().pass.isEmpty())
+            {
+                LOG(MODULE_UI, "Removed empty user form HTTP settings")
+                http.users.clear();
+            }
+            http.address = serverAddress;
+            http.port = serverPort;
+            // streaming = QJsonObject();
+            // LOG(MODULE_CONNECTION, "Http outbound does not need StreamSettings.")
+            QJsonArray servers;
+            servers.append(http.toJson());
+            settings["servers"] = servers;
+            break;
+        }
+        default:
+        {
+            streaming = QJsonObject();
+            bool processed = false;
+            for (const auto &plugin : pluginWidgets)
+            {
+                if (plugin.first.protocol == outboundType)
+                {
+                    plugin.second->SetHostInfo(serverAddress, serverPort);
+                    settings = OUTBOUNDSETTING(plugin.second->GetContent());
+                    processed = true;
+                    break;
+                }
+            }
+            if (!processed)
+            {
+                QvMessageBoxWarn(this, tr("Unknown outbound type."),
+                                 tr("The specified outbound type is not supported, this may happen due to a plugin failure."));
+            }
+            break;
         }
     }
 
@@ -175,25 +197,36 @@ void OutboundEditor::ReloadGUI()
     //
     if (outboundType == "vmess")
     {
-        outBoundTypeCombo->setCurrentIndex(0);
+        outBoundTypeCombo->setCurrentIndex(STACK_PAGE_VMESS);
         vmess = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
         if (vmess.users.empty())
-        {
             vmess.users.push_back({});
-        }
-        address = vmess.address;
-        port = vmess.port;
-        idLineEdit->setText(vmess.users.front().id);
-        alterLineEdit->setValue(vmess.users.front().alterId);
-        securityCombo->setCurrentText(vmess.users.front().security);
-        testsEnabledCombo->setCurrentText(vmess.users.front().testsEnabled);
+        serverAddress = vmess.address;
+        serverPort = vmess.port;
+        const auto &user = vmess.users.front();
+        idLineEdit->setText(user.id);
+        alterLineEdit->setValue(user.alterId);
+        securityCombo->setCurrentText(user.security);
+        testsEnabledCombo->setCurrentText(user.testsEnabled);
+    }
+    else if (outboundType == "vless")
+    {
+        outBoundTypeCombo->setCurrentIndex(STACK_PAGE_VLESS);
+        vless = VLessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
+        if (vless.users.isEmpty())
+            vless.users.push_back({});
+        serverAddress = vless.address;
+        serverPort = vless.port;
+        const auto &user = vless.users.front();
+        vLessIDTxt->setText(user.id);
+        vLessSecurityCombo->setCurrentText(user.security);
     }
     else if (outboundType == "shadowsocks")
     {
-        outBoundTypeCombo->setCurrentIndex(1);
+        outBoundTypeCombo->setCurrentIndex(STACK_PAGE_SHADOWSOCKS);
         shadowsocks = ShadowSocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
-        address = shadowsocks.address;
-        port = shadowsocks.port;
+        serverAddress = shadowsocks.address;
+        serverPort = shadowsocks.port;
         // ShadowSocks Configs
         ss_emailTxt->setText(shadowsocks.email);
         ss_otaCheckBox->setChecked(shadowsocks.ota);
@@ -202,10 +235,10 @@ void OutboundEditor::ReloadGUI()
     }
     else if (outboundType == "socks")
     {
-        outBoundTypeCombo->setCurrentIndex(2);
+        outBoundTypeCombo->setCurrentIndex(STACK_PAGE_SOCKS);
         socks = SocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
-        address = socks.address;
-        port = socks.port;
+        serverAddress = socks.address;
+        serverPort = socks.port;
         if (socks.users.empty())
         {
             socks.users.push_back({});
@@ -215,10 +248,10 @@ void OutboundEditor::ReloadGUI()
     }
     else if (outboundType == "http")
     {
-        outBoundTypeCombo->setCurrentIndex(3);
+        outBoundTypeCombo->setCurrentIndex(STACK_PAGE_HTTP);
         http = HttpServerObject::fromJson(settings["servers"].toArray().first().toObject());
-        address = http.address;
-        port = http.port;
+        serverAddress = http.address;
+        serverPort = http.port;
         if (http.users.empty())
         {
             http.users.push_back({});
@@ -238,9 +271,9 @@ void OutboundEditor::ReloadGUI()
                 useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
                 plugin.second->SetContent(settings);
                 outBoundTypeCombo->setCurrentIndex(index);
-                auto [_address, _port] = plugin.second->GetHostInfo();
-                address = _address;
-                port = _port;
+                const auto &[_address, _port] = plugin.second->GetHostInfo();
+                serverAddress = _address;
+                serverPort = _port;
                 processed = true;
                 break;
             }
@@ -255,8 +288,8 @@ void OutboundEditor::ReloadGUI()
         }
     }
     //
-    ipLineEdit->setText(address);
-    portLineEdit->setText(QSTRN(port));
+    ipLineEdit->setText(serverAddress);
+    portLineEdit->setText(QSTRN(serverPort));
 }
 
 void OutboundEditor::on_buttonBox_accepted()
@@ -266,12 +299,12 @@ void OutboundEditor::on_buttonBox_accepted()
 
 void OutboundEditor::on_ipLineEdit_textEdited(const QString &arg1)
 {
-    address = arg1;
+    serverAddress = arg1;
 }
 
 void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 {
-    port = arg1.toInt();
+    serverPort = arg1.toInt();
 }
 
 void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
@@ -335,11 +368,11 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
     // 0, 1, 2, 3 as built-in vmess, ss, socks, http
     outboundTypeStackView->setCurrentIndex(index);
-    if (index < 4)
+    if (index < builtInOutboundTypes)
     {
         outboundType = outBoundTypeCombo->currentText().toLower();
         useFPCB->setEnabled(true);
-        useFPCB->setToolTip(tr(""));
+        useFPCB->setToolTip("");
         streamSettingsWidget->setEnabled(!useFPCB->isChecked());
     }
     else
@@ -350,7 +383,6 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
         useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
         streamSettingsWidget->setEnabled(false);
     }
-    
 }
 
 void OutboundEditor::on_ss_emailTxt_textEdited(const QString &arg1)
@@ -404,4 +436,14 @@ void OutboundEditor::on_http_PasswordTxt_textEdited(const QString &arg1)
 void OutboundEditor::on_testsEnabledCombo_currentIndexChanged(const QString &arg1)
 {
     vmess.users.front().testsEnabled = arg1;
+}
+
+void OutboundEditor::on_vLessIDTxt_textEdited(const QString &arg1)
+{
+    vless.users.front().id = arg1;
+}
+
+void OutboundEditor::on_vLessSecurityCombo_currentTextChanged(const QString &arg1)
+{
+    vless.users.front().security = arg1;
 }
