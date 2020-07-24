@@ -62,7 +62,7 @@ void NodeDispatcher::RestoreConnections()
             if (inboundNodes.contains(inboundTag))
             {
                 const auto inboundNodeId = inboundNodes.value(inboundTag);
-                scene->createConnection(*scene->node(ruleNodeId).get(), 0, *scene->node(inboundNodeId).get(), 0);
+                scene->createConnection(*scene->node(ruleNodeId), 0, *scene->node(inboundNodeId), 0);
             }
             else
             {
@@ -74,7 +74,7 @@ void NodeDispatcher::RestoreConnections()
         if (outboundNodes.contains(outboundTag))
         {
             const auto outboundNodeId = outboundNodes[outboundTag];
-            scene->createConnection(*scene->node(outboundNodeId).get(), 0, *scene->node(ruleNodeId).get(), 0);
+            scene->createConnection(*scene->node(outboundNodeId), 0, *scene->node(ruleNodeId), 0);
         }
         else
         {
