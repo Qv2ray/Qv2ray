@@ -24,11 +24,14 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog(parent)
     QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
     //
+    auto defaultItemIndex = 0;
     for (const auto &gid : ConnectionManager->AllGroups())
     {
         groupCombo->addItem(GetDisplayName(gid), gid.toString());
+        if (gid == DefaultGroupId)
+            defaultItemIndex = groupCombo->count() - 1;
     }
-    groupCombo->setCurrentText(GetDisplayName(DefaultGroupId));
+    groupCombo->setCurrentIndex(defaultItemIndex);
 }
 
 void ImportConfigWindow::updateColorScheme()
