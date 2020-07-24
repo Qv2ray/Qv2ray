@@ -20,6 +20,7 @@ set(QV2RAY_UI_FORMS
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_ScreenShot_Core.ui
     #
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/complex/ChainEditorWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/complex/RoutingEditorWidget.ui
     )
 
 set(QV2RAY_UI_NODEEDITOR_SOURCES
@@ -88,6 +89,8 @@ set(QV2RAY_UI_SOURCES
     # Complex Widgets
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/complex/ChainEditorWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/widgets/complex/ChainEditorWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/complex/RoutingEditorWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/widgets/complex/RoutingEditorWidget.hpp
     # Editors
     ${CMAKE_SOURCE_DIR}/src/ui/editors/w_InboundEditor.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/editors/w_InboundEditor.hpp
