@@ -128,7 +128,9 @@ void NodeDispatcher::DeleteNode(const QtNodes::Node &node)
         CLEANUP(rule);
     }
     else
+    {
         Q_UNREACHABLE();
+    }
 #undef CLEANUP
 }
 

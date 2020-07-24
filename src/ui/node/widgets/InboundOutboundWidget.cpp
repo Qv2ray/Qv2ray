@@ -8,7 +8,7 @@
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
 
-InboundOutboundWidget::InboundOutboundWidget(WidgetMode mode, std::shared_ptr<NodeDispatcher> _d, QWidget *parent) : QvNodeWidget(_d, parent)
+InboundOutboundWidget::InboundOutboundWidget(TagNodeMode mode, std::shared_ptr<NodeDispatcher> _d, QWidget *parent) : QvNodeWidget(_d, parent)
 {
     workingMode = mode;
     setupUi(this);
@@ -18,14 +18,14 @@ InboundOutboundWidget::InboundOutboundWidget(WidgetMode mode, std::shared_ptr<No
 
 void InboundOutboundWidget::setValue(std::shared_ptr<INBOUND> data)
 {
-    assert(workingMode == MODE_INBOUND);
+    assert(workingMode == NODE_INBOUND);
     inboundObject = data;
     tagTxt->setText(getTag(*data));
 }
 
 void InboundOutboundWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
 {
-    assert(workingMode == MODE_OUTBOUND);
+    assert(workingMode == NODE_OUTBOUND);
     outboundObject = data;
     tagTxt->setText(outboundObject->getTag());
     isExternalOutbound = outboundObject->object.mode == MODE_CONNECTIONID;
@@ -51,7 +51,7 @@ void InboundOutboundWidget::on_editBtn_clicked()
 {
     switch (workingMode)
     {
-        case MODE_INBOUND:
+        case NODE_INBOUND:
         {
             InboundEditor editor{ *inboundObject, parentWidget() };
             *inboundObject = editor.OpenEditor();
@@ -61,7 +61,7 @@ void InboundOutboundWidget::on_editBtn_clicked()
             (*inboundObject)["tag"] = newTag;
             break;
         }
-        case MODE_OUTBOUND:
+        case NODE_OUTBOUND:
         {
             if (isExternalOutbound)
             {
@@ -102,7 +102,7 @@ void InboundOutboundWidget::on_editJsonBtn_clicked()
 {
     switch (workingMode)
     {
-        case MODE_INBOUND:
+        case NODE_INBOUND:
         {
             JsonEditor editor{ *inboundObject, parentWidget() };
             *inboundObject = INBOUND{ editor.OpenEditor() };
@@ -112,7 +112,7 @@ void InboundOutboundWidget::on_editJsonBtn_clicked()
             (*inboundObject)["tag"] = newTag;
             break;
         }
-        case MODE_OUTBOUND:
+        case NODE_OUTBOUND:
         {
             if (isExternalOutbound)
             {
@@ -149,15 +149,27 @@ void InboundOutboundWidget::on_tagTxt_textEdited(const QString &arg1)
 {
     switch (workingMode)
     {
-        case MODE_INBOUND:
+        case NODE_INBOUND:
         {
-            (*inboundObject)["tag"] = arg1;
-            break;
+            const auto originalTag = (*inboundObject)["tag"].toString();
+            if (originalTag == arg1 || dispatcher->RenameTag<NODE_INBOUND>(originalTag, arg1))
+            {
+                BLACK(tagTxt);
+                (*inboundObject)["tag"] = arg1;
+                break;
+            }
+            RED(tagTxt);
         }
-        case MODE_OUTBOUND:
+        case NODE_OUTBOUND:
         {
-            outboundObject->realOutbound["tag"] = arg1;
-            break;
+            const auto originalTag = outboundObject->getTag();
+            if (originalTag == arg1 || dispatcher->RenameTag<NODE_OUTBOUND>(originalTag, arg1))
+            {
+                BLACK(tagTxt);
+                outboundObject->realOutbound["tag"] = arg1;
+                break;
+            }
+            RED(tagTxt);
         }
     }
 }

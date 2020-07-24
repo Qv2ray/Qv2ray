@@ -6,7 +6,7 @@ InboundNodeModel::InboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, 
 {
     dataptr = data;
     dispatcher = _dispatcher;
-    widget = new InboundOutboundWidget(InboundOutboundWidget::MODE_INBOUND, dispatcher);
+    widget = new InboundOutboundWidget(NODE_INBOUND, dispatcher);
     connect(widget, &QvNodeWidget::OnSizeUpdated, this, &InboundNodeModel::embeddedWidgetSizeUpdated);
     ((InboundOutboundWidget *) widget)->setValue(data);
     widget->setWindowFlags(Qt::FramelessWindowHint);

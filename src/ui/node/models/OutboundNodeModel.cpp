@@ -13,7 +13,7 @@ OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher
     {
         case complex::METAOUTBOUND_ORIGINAL:
         {
-            widget = new InboundOutboundWidget(InboundOutboundWidget::MODE_OUTBOUND, dispatcher);
+            widget = new InboundOutboundWidget(NODE_OUTBOUND, dispatcher);
             ((InboundOutboundWidget *) widget)->setValue(data);
             break;
         }

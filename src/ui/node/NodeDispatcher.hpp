@@ -4,7 +4,7 @@
 
 #include <nodes/FlowScene>
 
-enum QvRenameNodeType
+enum TagNodeMode
 {
     NODE_INBOUND,
     NODE_OUTBOUND
@@ -59,31 +59,26 @@ class NodeDispatcher
   public:
     void DeleteNode(const QtNodes::Node &node);
 
-    template<QvRenameNodeType t>
-    bool RenameTag(const QString &originalTag, const QString &newTag)
+    template<TagNodeMode t>
+    inline bool RenameTag(const QString &originalTag, const QString &newTag)
     {
-        switch (t)
+        if constexpr (t == NODE_INBOUND)
         {
-            case NODE_INBOUND:
-            {
-                bool hasExisting = inbounds.contains(newTag);
-                if (hasExisting)
-                    return false;
-                inbounds[newTag] = inbounds.take(originalTag);
-                inboundNodes[newTag] = inboundNodes.take(originalTag);
-                break;
-            }
-            case NODE_OUTBOUND:
-            {
-                bool hasExisting = outbounds.contains(newTag);
-                if (hasExisting)
-                    return false;
-                outbounds[newTag] = outbounds.take(originalTag);
-                outboundNodes[newTag] = outboundNodes.take(originalTag);
-                break;
-                break;
-            }
+            bool hasExisting = inbounds.contains(newTag);
+            if (hasExisting)
+                return false;
+            inbounds[newTag] = inbounds.take(originalTag);
+            inboundNodes[newTag] = inboundNodes.take(originalTag);
         }
+        else if constexpr (t == NODE_OUTBOUND)
+        {
+            bool hasExisting = outbounds.contains(newTag);
+            if (hasExisting)
+                return false;
+            outbounds[newTag] = outbounds.take(originalTag);
+            outboundNodes[newTag] = outboundNodes.take(originalTag);
+        }
+        return true;
     }
 
   signals:

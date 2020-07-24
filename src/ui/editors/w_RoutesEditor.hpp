@@ -87,6 +87,9 @@ class RouteEditor
     //
     void SetupNodeWidget();
     //
-    FlowScene *nodeScene;
-    FlowView *flowView;
+    FlowScene *ruleScene;
+    FlowView *ruleView;
+    //
+    FlowScene *chainScene;
+    FlowView *chainView;
 };
