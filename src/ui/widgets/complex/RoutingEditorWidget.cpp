@@ -1,7 +1,6 @@
 #include "RoutingEditorWidget.hpp"
 
-RoutingEditorWidget::RoutingEditorWidget(QWidget *parent) :
-    QWidget(parent)
+RoutingEditorWidget::RoutingEditorWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
 }
@@ -9,11 +8,9 @@ RoutingEditorWidget::RoutingEditorWidget(QWidget *parent) :
 void RoutingEditorWidget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        retranslateUi(this);
-        break;
-    default:
-        break;
+    switch (e->type())
+    {
+        case QEvent::LanguageChange: retranslateUi(this); break;
+        default: break;
     }
 }

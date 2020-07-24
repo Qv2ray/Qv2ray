@@ -2,14 +2,15 @@
 
 #include "ui_ChainEditorWidget.h"
 
-class ChainEditorWidget : public QWidget, private Ui::ChainEditorWidget
+class ChainEditorWidget
+    : public QWidget
+    , private Ui::ChainEditorWidget
 {
     Q_OBJECT
 
-public:
+  public:
     explicit ChainEditorWidget(QWidget *parent = nullptr);
 
-protected:
+  protected:
     void changeEvent(QEvent *e);
 };
-

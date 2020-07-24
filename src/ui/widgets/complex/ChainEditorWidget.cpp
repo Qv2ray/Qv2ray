@@ -1,7 +1,6 @@
 #include "ChainEditorWidget.hpp"
 
-ChainEditorWidget::ChainEditorWidget(QWidget *parent) :
-    QWidget(parent)
+ChainEditorWidget::ChainEditorWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
 }
@@ -9,11 +8,9 @@ ChainEditorWidget::ChainEditorWidget(QWidget *parent) :
 void ChainEditorWidget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        retranslateUi(this);
-        break;
-    default:
-        break;
+    switch (e->type())
+    {
+        case QEvent::LanguageChange: retranslateUi(this); break;
+        default: break;
     }
 }

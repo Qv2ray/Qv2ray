@@ -2,14 +2,15 @@
 
 #include "ui_RoutingEditorWidget.h"
 
-class RoutingEditorWidget : public QWidget, private Ui::RoutingEditorWidget
+class RoutingEditorWidget
+    : public QWidget
+    , private Ui::RoutingEditorWidget
 {
     Q_OBJECT
 
-public:
+  public:
     explicit RoutingEditorWidget(QWidget *parent = nullptr);
 
-protected:
+  protected:
     void changeEvent(QEvent *e);
 };
-
