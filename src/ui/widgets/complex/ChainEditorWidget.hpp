@@ -1,6 +1,12 @@
 #pragma once
 
+#include "ui/node/NodeBase.hpp"
 #include "ui_ChainEditorWidget.h"
+
+namespace QtNodes
+{
+    class FlowView;
+}
 
 class ChainEditorWidget
     : public QWidget
@@ -13,4 +19,9 @@ class ChainEditorWidget
 
   protected:
     void changeEvent(QEvent *e);
+
+  private:
+    //
+    QtNodes::FlowScene *chainScene;
+    QtNodes::FlowView *chainView;
 };

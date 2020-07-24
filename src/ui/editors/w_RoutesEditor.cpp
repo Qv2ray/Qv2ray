@@ -12,16 +12,17 @@
 #include "w_JsonEditor.hpp"
 #include "w_OutboundEditor.hpp"
 
-#include <nodes/internal/FlowScene.hpp>
-#include <nodes/internal/FlowView.hpp>
-#include <nodes/internal/FlowViewStyle.hpp>
-#include <nodes/internal/NodeStyle.hpp>
+#include <nodes/ConnectionStyle>
+#include <nodes/FlowScene>
+#include <nodes/FlowView>
+#include <nodes/FlowViewStyle>
+#include <nodes/Node>
 
 #ifdef QT_DEBUG
     #include "nodes/../../src/ConnectionPainter.hpp"
 #endif
 
-using QtNodes::FlowView;
+using namespace QtNodes;
 using namespace Qv2ray::ui::nodemodels;
 
 constexpr auto GRAPH_GLOBAL_OFFSET_X = -380;

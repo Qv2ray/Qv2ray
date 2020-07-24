@@ -8,22 +8,18 @@
 #include "ui/node/NodeBase.hpp"
 #include "ui_w_RoutesEditor.h"
 
-#include <nodes/internal/ConnectionStyle.hpp>
-#include <nodes/internal/FlowView.hpp>
-#include <nodes/internal/Node.hpp>
-#include <nodes/internal/NodeData.hpp>
-
-using QtNodes::ConnectionStyle;
-using QtNodes::FlowScene;
-using QtNodes::FlowView;
-using QtNodes::Node;
-
 enum ROUTE_EDIT_MODE
 {
     RENAME_INBOUND,
     RENAME_OUTBOUND,
     RENAME_RULE,
 };
+
+namespace QtNodes
+{
+    class FlowView;
+    class FlowScene;
+} // namespace QtNodes
 
 class RouteEditor
     : public QvDialog
@@ -87,9 +83,6 @@ class RouteEditor
     //
     void SetupNodeWidget();
     //
-    FlowScene *ruleScene;
-    FlowView *ruleView;
-    //
-    FlowScene *chainScene;
-    FlowView *chainView;
+    QtNodes::FlowScene *ruleScene;
+    QtNodes::FlowView *ruleView;
 };
