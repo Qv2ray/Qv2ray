@@ -2,7 +2,7 @@
 name: Bug 反馈
 about: 使用此模板反馈 bug
 title: ''
-labels: Bugs, help wanted, DiscussionNeeded
+labels: Bugs, help wanted
 assignees: ''
 
 ---
