@@ -3,11 +3,22 @@
 #include <QVBoxLayout>
 #include <nodes/FlowScene>
 
-RoutingEditorWidget::RoutingEditorWidget(QWidget *parent) : QtNodes::FlowView(parent)
+RoutingEditorWidget::RoutingEditorWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
-    setScene(new QtNodes::FlowScene(this));
-    scaleDown();
+    scene = new QtNodes::FlowScene(this);
+    view = new QtNodes::FlowView(scene, this);
+    view->scaleDown();
+
+    if (!viewWidget->layout())
+    {
+        // The QWidget will take ownership of layout.
+        viewWidget->setLayout(new QVBoxLayout());
+    }
+    auto l = viewWidget->layout();
+    l->addWidget(view);
+    l->setContentsMargins(0, 0, 0, 0);
+    l->setSpacing(0);
 }
 
 void RoutingEditorWidget::changeEvent(QEvent *e)

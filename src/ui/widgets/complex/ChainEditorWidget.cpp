@@ -1,9 +1,30 @@
 #include "ChainEditorWidget.hpp"
 
-ChainEditorWidget::ChainEditorWidget(QWidget *parent) : QtNodes::FlowView(parent)
+ChainEditorWidget::ChainEditorWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
-    setScene(new QtNodes::FlowScene(this));
+    QvMessageBusConnect(ChainEditorWidget);
+    scene = new QtNodes::FlowScene(this);
+    view = new QtNodes::FlowView(scene, this);
+    if (!viewWidget->layout())
+    {
+        // The QWidget will take ownership of layout.
+        viewWidget->setLayout(new QVBoxLayout());
+    }
+    auto l = viewWidget->layout();
+    l->addWidget(view);
+    l->setContentsMargins(0, 0, 0, 0);
+    l->setSpacing(0);
+}
+
+QvMessageBusSlotImpl(ChainEditorWidget)
+{
+    switch (msg)
+    {
+        MBRetranslateDefaultImpl;
+        MBUpdateColorSchemeDefaultImpl;
+        default: break;
+    }
 }
 
 void ChainEditorWidget::changeEvent(QEvent *e)
