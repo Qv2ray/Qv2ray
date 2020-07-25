@@ -88,6 +88,6 @@ namespace detail
 
 #define co_yield __co_yield_impl(__LINE__)
 #define coro(f)                                                                                                                                 \
-    [this, ptr = (shared_from_this())](auto &&e, auto &&h) {                                                                                    \
+    [this, ptr = (std::enable_shared_from_this<T>::shared_from_this())](auto &&e, auto &&h) {                                                   \
         f(std::forward<decltype(e)>(e), std::forward<decltype(h)>(h));                                                                          \
     }
