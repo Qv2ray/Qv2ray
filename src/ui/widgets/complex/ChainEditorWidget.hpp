@@ -1,11 +1,12 @@
 #pragma once
 
 #include "ui/messaging/QvMessageBus.hpp"
-#include "ui/node/NodeBase.hpp"
 #include "ui_ChainEditorWidget.h"
 
 #include <nodes/FlowScene>
 #include <nodes/FlowView>
+
+class NodeDispatcher;
 
 class ChainEditorWidget
     : public QWidget
@@ -14,7 +15,7 @@ class ChainEditorWidget
     Q_OBJECT
 
   public:
-    explicit ChainEditorWidget(QWidget *parent = nullptr);
+    explicit ChainEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher, QWidget *parent = nullptr);
     auto getScene()
     {
         return scene;
@@ -30,4 +31,5 @@ class ChainEditorWidget
   private:
     QtNodes::FlowScene *scene;
     QtNodes::FlowView *view;
+    std::shared_ptr<NodeDispatcher> dispatcher;
 };

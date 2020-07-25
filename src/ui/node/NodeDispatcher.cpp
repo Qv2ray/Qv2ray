@@ -47,7 +47,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
 
 void NodeDispatcher::RestoreConnections()
 {
-    isConstructing = true;
+    isOperationLocked = true;
     for (const auto &rule : rules)
     {
         if (!ruleNodes.contains(rule->QV2RAY_RULE_TAG))
@@ -81,11 +81,13 @@ void NodeDispatcher::RestoreConnections()
             LOG(MODULE_NODE, "Could not find outbound: " + outboundTag)
         }
     }
-    isConstructing = false;
+    isOperationLocked = false;
 }
 
 void NodeDispatcher::DeleteNode(const QtNodes::Node &node)
 {
+    if (isOperationLocked)
+        return;
     const auto nodeId = node.id();
     bool isInbound = inboundNodes.values().contains(nodeId);
     bool isOutbound = outboundNodes.values().contains(nodeId);

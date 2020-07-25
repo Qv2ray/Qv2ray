@@ -1,11 +1,15 @@
 #include "ChainEditorWidget.hpp"
 
-ChainEditorWidget::ChainEditorWidget(QWidget *parent) : QWidget(parent)
+#include "ui/node/NodeBase.hpp"
+
+ChainEditorWidget::ChainEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher, QWidget *parent) : QWidget(parent), dispatcher(dispatcher)
 {
     setupUi(this);
     QvMessageBusConnect(ChainEditorWidget);
     scene = new QtNodes::FlowScene(this);
     view = new QtNodes::FlowView(scene, this);
+    view->scaleDown();
+
     if (!viewWidget->layout())
     {
         // The QWidget will take ownership of layout.

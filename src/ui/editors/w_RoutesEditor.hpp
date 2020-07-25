@@ -42,43 +42,33 @@ class RouteEditor
     void processCommands(QString, QStringList, QMap<QString, QString>) override{};
 
   private:
-    void updateColorScheme() override
-    {
-        // Setup icons according to the theme settings.
-        addInboundBtn->setIcon(QICON_R("add"));
-        addOutboundBtn->setIcon(QICON_R("add"));
-        addRouteBtn->setIcon(QICON_R("add"));
-        delBtn->setIcon(QICON_R("ashbin"));
-    }
+    void updateColorScheme() override;
     QvMessageBusSlotDecl;
 
   private slots:
-    void on_buttonBox_accepted();
-    void on_insertDirectBtn_clicked();
-    void on_addRouteBtn_clicked();
-    void on_addDefaultBtn_clicked();
-    void on_insertBlackBtn_clicked();
-    void on_addInboundBtn_clicked();
-    void on_addOutboundBtn_clicked();
-    void on_delBtn_clicked();
-    void on_domainStrategyCombo_currentIndexChanged(const QString &arg1);
-    void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
-    void on_importExistingBtn_clicked();
-    void on_importGroupBtn_currentIndexChanged(int index);
     void on_addBalancerBtn_clicked();
     void on_addChainBtn_clicked();
+    void on_addDefaultBtn_clicked();
+    void on_addInboundBtn_clicked();
+    void on_addOutboundBtn_clicked();
+    void on_buttonBox_accepted();
     void on_debugPainterCB_clicked(bool checked);
+    void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
+    void on_domainStrategyCombo_currentIndexChanged(const QString &arg1);
+    void on_importExistingBtn_clicked();
+    void on_importGroupBtn_currentIndexChanged(int index);
+    void on_insertBlackBtn_clicked();
+    void on_insertDirectBtn_clicked();
     void on_linkExistingBtn_clicked();
 
   private slots:
     void OnDispatcherOutboundDeleted(const complex::OutboundObjectMeta &);
-    void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     void OnDispatcherOutboundCreated(std::shared_ptr<complex::OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
     void OnDispatcherInboundOutboundHovered(const QString &, const ProtocolSettingsInfoObject &);
+    void OnDispatcherObjectTagChanged(TagNodeMode, const QString, const QString);
 
   private:
-    // NOTE: Self managed pointer.
     std::shared_ptr<NodeDispatcher> nodeDispatcher;
     ChainEditorWidget *chainWidget;
     RoutingEditorWidget *ruleWidget;
@@ -88,6 +78,4 @@ class RouteEditor
     //
     CONFIGROOT root;
     CONFIGROOT original;
-    //
-    void SetupNodeWidget();
 };

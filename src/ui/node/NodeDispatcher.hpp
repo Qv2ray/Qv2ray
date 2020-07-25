@@ -4,12 +4,6 @@
 
 #include <nodes/FlowScene>
 
-enum TagNodeMode
-{
-    NODE_INBOUND,
-    NODE_OUTBOUND
-};
-
 class NodeDispatcher
     : public QObject
     , public std::enable_shared_from_this<NodeDispatcher>
@@ -27,7 +21,11 @@ class NodeDispatcher
     [[nodiscard]] QString CreateRule(RuleObject);
     bool IsNodeConstructing() const
     {
-        return isConstructing;
+        return isOperationLocked;
+    }
+    void LockOperation()
+    {
+        isOperationLocked = true;
     }
 
   public:
@@ -60,7 +58,7 @@ class NodeDispatcher
     void DeleteNode(const QtNodes::Node &node);
 
     template<TagNodeMode t>
-    inline bool RenameTag(const QString &originalTag, const QString &newTag)
+    inline bool RenameTag(const QString originalTag, const QString newTag)
     {
         if constexpr (t == NODE_INBOUND)
         {
@@ -78,6 +76,15 @@ class NodeDispatcher
             outbounds[newTag] = outbounds.take(originalTag);
             outboundNodes[newTag] = outboundNodes.take(originalTag);
         }
+        else if constexpr (t == NODE_RULE)
+        {
+            bool hasExisting = rules.contains(newTag);
+            if (hasExisting)
+                return false;
+            rules[newTag] = rules.take(originalTag);
+            ruleNodes[newTag] = ruleNodes.take(originalTag);
+        }
+        emit OnObjectTagChanged(t, originalTag, newTag);
         return true;
     }
 
@@ -87,6 +94,8 @@ class NodeDispatcher
     void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
+    //
+    void OnObjectTagChanged(TagNodeMode, const QString originalTag, const QString newTag);
 
   signals:
     void OnInboundOutboundNodeHovered(const QString &tag, const ProtocolSettingsInfoObject &);
@@ -101,7 +110,7 @@ class NodeDispatcher
     QMap<QString, QUuid> ruleNodes;
     //
     QtNodes::FlowScene *scene;
-    bool isConstructing;
+    bool isOperationLocked;
     QMap<QString, std::shared_ptr<INBOUND>> inbounds;
     QMap<QString, std::shared_ptr<RuleObject>> rules;
     QMap<QString, std::shared_ptr<OutboundObjectMeta>> outbounds;

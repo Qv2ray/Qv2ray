@@ -95,26 +95,31 @@ void QvNodeRuleWidget::on_routeProtocolHTTPCB_stateChanged(int)
     LOADINGCHECK
     SetProtocolProperty();
 }
+
 void QvNodeRuleWidget::on_routeProtocolTLSCB_stateChanged(int)
 {
     LOADINGCHECK
     SetProtocolProperty();
 }
+
 void QvNodeRuleWidget::on_routeProtocolBTCB_stateChanged(int)
 {
     LOADINGCHECK
     SetProtocolProperty();
 }
+
 void QvNodeRuleWidget::on_hostList_textChanged()
 {
     LOADINGCHECK
     rule.domain = SplitLines(hostList->toPlainText());
 }
+
 void QvNodeRuleWidget::on_ipList_textChanged()
 {
     LOADINGCHECK
     rule.ip = SplitLines(ipList->toPlainText());
 }
+
 void QvNodeRuleWidget::on_routePortTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
@@ -125,81 +130,61 @@ void QvNodeRuleWidget::on_routeUserTxt_textEdited(const QString &arg1)
     LOADINGCHECK
     rule.user = SplitLines(arg1);
 }
+
 void QvNodeRuleWidget::on_netUDPRB_clicked()
 {
     LOADINGCHECK
     SetNetworkProperty();
 }
+
 void QvNodeRuleWidget::on_netTCPRB_clicked()
 {
     LOADINGCHECK
     SetNetworkProperty();
 }
+
 void QvNodeRuleWidget::on_sourceIPList_textChanged()
 {
     LOADINGCHECK
     rule.source = SplitLines(sourceIPList->toPlainText());
 }
-void QvNodeRuleWidget::on_enableBalancerCB_stateChanged(int arg1)
-{
-    //    LOADINGCHECK
-    //    auto useBalancer = arg1 == Qt::Checked;
-    //    CurrentRule.QV2RAY_RULE_USE_BALANCER = useBalancer;
-    //    // balancersWidget->setEnabled(useBalancer);
 
-    //    //    if (CurrentRule.balancerTag.isEmpty())
-    //    //    {
-    //    //        LOG(MODULE_UI, "Creating a new balancer tag.")
-    //    //        CurrentRule.balancerTag = GenerateRandomString(6);
-    //    //        balancers[CurrentRule.balancerTag] = QStringList();
-    //    //    }
+// void QvNodeRuleWidget::on_enableBalancerCB_stateChanged(int arg1)
+//{
+//    //    LOADINGCHECK
+//    //    auto useBalancer = arg1 == Qt::Checked;
+//    //    CurrentRule.QV2RAY_RULE_USE_BALANCER = useBalancer;
+//    //    // balancersWidget->setEnabled(useBalancer);
+//
+//    //    //    if (CurrentRule.balancerTag.isEmpty())
+//    //    //    {
+//    //    //        LOG(MODULE_UI, "Creating a new balancer tag.")
+//    //    //        CurrentRule.balancerTag = GenerateRandomString(6);
+//    //    //        balancers[CurrentRule.balancerTag] = QStringList();
+//    //    //    }
+//
+//    //    DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag)
+//
+//    //    if (useBalancer)
+//    //    {
+//    //        LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")
+//    //        auto ruleNode = ruleNodes[currentRuleTag];
+//    //        for (auto &&[_, conn] : nodeScene->connections())
+//    //        {
+//    //            if (conn->getNode(PortType::Out)->id() == ruleNode)
+//    //            {
+//    //                nodeScene->deleteConnection(*conn);
+//    //                // Since there should be only one connection from this rule node.
+//    //                break;
+//    //            }
+//    //        }
+//    //    }
+//    //    else
+//    //    {
+//    //        QvMessageBoxWarn(this, tr("Route Editor"), tr("To make this rule ready to use, you need to connect it to an outbound node."));
+//    //    }
+//}
 
-    //    DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag)
-
-    //    if (useBalancer)
-    //    {
-    //        LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")
-    //        auto ruleNode = ruleNodes[currentRuleTag];
-    //        for (auto &&[_, conn] : nodeScene->connections())
-    //        {
-    //            if (conn->getNode(PortType::Out)->id() == ruleNode)
-    //            {
-    //                nodeScene->deleteConnection(*conn);
-    //                // Since there should be only one connection from this rule node.
-    //                break;
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        QvMessageBoxWarn(this, tr("Route Editor"), tr("To make this rule ready to use, you need to connect it to an outbound node."));
-    //    }
-}
-void QvNodeRuleWidget::on_ruleRenameBtn_clicked()
-{
-    abort();
-    // auto newTag = ruleTagLineEdit->text();
-    //
-    // if (newTag.isEmpty())
-    //{
-    //    LOG(MODULE_UI, "Tag is empty, this is ILLEGAL!")
-    //    QvMessageBoxWarn(this, tr("Renaming a tag"), tr("New tag is empty, please try another."));
-    //}
-    // else if (newTag == rule.QV2RAY_RULE_TAG)
-    //{
-    //    LOG(MODULE_UI, "No tag changed, returning.")
-    //    QvMessageBoxInfo(this, tr("Renaming a tag"), tr("New tag is the same as the original one."));
-    //}
-    // else if (rules.contains(newTag))
-    //{
-    //    LOG(MODULE_UI, "Tag duplicate detected.")
-    //    QvMessageBoxWarn(this, tr("Renaming a tag"), tr("Duplicate rule tag detected, please try another."));
-    //}
-    // else
-    //{
-    //    RenameItemTag(RENAME_RULE, rule.QV2RAY_RULE_TAG, &newTag);
-    //}
-}
 void QvNodeRuleWidget::on_ruleEnableCB_stateChanged(int arg1)
 {
     bool _isEnabled = arg1 == Qt::Checked;
@@ -212,4 +197,16 @@ void QvNodeRuleWidget::on_toolButton_clicked()
     settingsFrame->setVisible(!settingsFrame->isVisible());
     adjustSize();
     emit OnSizeUpdated();
+}
+
+void QvNodeRuleWidget::on_ruleTagLineEdit_textEdited(const QString &arg1)
+{
+    const auto originalTag = rule.QV2RAY_RULE_TAG;
+    if (originalTag == arg1 || dispatcher->RenameTag<NODE_RULE>(originalTag, arg1))
+    {
+        BLACK(ruleTagLineEdit);
+        rule.QV2RAY_RULE_TAG = arg1;
+        return;
+    }
+    RED(ruleTagLineEdit);
 }

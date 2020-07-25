@@ -47,6 +47,13 @@ namespace Qv2ray::base::objects::complex
         MODE_CONNECTIONID
     };
 
+    enum TagNodeMode
+    {
+        NODE_INBOUND,
+        NODE_OUTBOUND,
+        NODE_RULE
+    };
+
     struct OutboundObject
     {
         QString displayName;

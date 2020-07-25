@@ -31,9 +31,10 @@ class QvNodeRuleWidget
     void on_netUDPRB_clicked();
     void on_netTCPRB_clicked();
     void on_sourceIPList_textChanged();
-    void on_enableBalancerCB_stateChanged(int arg1);
-    void on_ruleRenameBtn_clicked();
     void on_ruleEnableCB_stateChanged(int arg1);
+    void on_ruleTagLineEdit_textEdited(const QString &arg1);
+
+    // void on_enableBalancerCB_stateChanged(int arg1);
 
   protected:
     void changeEvent(QEvent *e) override;

@@ -28,9 +28,6 @@
 using namespace QtNodes;
 using namespace Qv2ray::ui::nodemodels;
 
-constexpr auto GRAPH_GLOBAL_OFFSET_X = -380;
-constexpr auto GRAPH_GLOBAL_OFFSET_Y = -350;
-
 //#define CurrentRule this->rules[this->currentRuleTag]
 #define LOADINGCHECK                                                                                                                            \
     if (isLoading)                                                                                                                              \
@@ -38,32 +35,54 @@ constexpr auto GRAPH_GLOBAL_OFFSET_Y = -350;
 #define LOAD_FLAG_BEGIN isLoading = true;
 #define LOAD_FLAG_END isLoading = false;
 
-void RouteEditor::SetupNodeWidget()
+void RouteEditor::updateColorScheme()
 {
+    // Setup icons according to the theme settings.
+    addInboundBtn->setIcon(QICON_R("add"));
+    addOutboundBtn->setIcon(QICON_R("add"));
     if (GlobalConfig.uiConfig.useDarkTheme)
     {
         ConnectionStyle::setConnectionStyle(
             R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
-                                            "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,
-                                            "ConstructionLineWidth": 2.0,"PointDiameter": 10.0,"UseDataDefinedColors": true}})");
+                                                "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,
+                                                "ConstructionLineWidth": 2.0,"PointDiameter": 10.0,"UseDataDefinedColors": true}})");
     }
     else
     {
         QtNodes::NodeStyle::setNodeStyle(
             R"({"NodeStyle": {"NormalBoundaryColor": "darkgray","SelectedBoundaryColor": "deepskyblue",
-                                            "GradientColor0": "mintcream","GradientColor1": "mintcream","GradientColor2": "mintcream",
-                                            "GradientColor3": "mintcream","ShadowColor": [200, 200, 200],"FontColor": [10, 10, 10],
-                                            "FontColorFaded": [100, 100, 100],"ConnectionPointColor": "white","PenWidth": 2.0,"HoveredPenWidth": 2.5,
-                                            "ConnectionPointDiameter": 10.0,"Opacity": 1.0}})");
+                                                "GradientColor0": "mintcream","GradientColor1": "mintcream","GradientColor2": "mintcream",
+                                                "GradientColor3": "mintcream","ShadowColor": [200, 200, 200],"FontColor": [10, 10, 10],
+                                                "FontColorFaded": [100, 100, 100],"ConnectionPointColor": "white","PenWidth": 2.0,"HoveredPenWidth": 2.5,
+                                                "ConnectionPointDiameter": 10.0,"Opacity": 1.0}})");
         QtNodes::FlowViewStyle::setStyle(
             R"({"FlowViewStyle": {"BackgroundColor": [255, 255, 240],"FineGridColor": [245, 245, 230],"CoarseGridColor": [235, 235, 220]}})");
         ConnectionStyle::setConnectionStyle(
             R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
-                                            "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
-                                            "PointDiameter": 10.0,"UseDataDefinedColors": false}})");
+                                                "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
+                                                "PointDiameter": 10.0,"UseDataDefinedColors": false}})");
     }
+}
+
+RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(parent), root(connection), original(connection)
+{
+    setupUi(this);
+    QvMessageBusConnect(RouteEditor);
+    //
+    isLoading = true;
+    // ?
+    // setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
+    updateColorScheme();
+    //
     {
         ruleWidget = new RoutingEditorWidget(ruleEditorUIWidget);
+        //
+        nodeDispatcher = ruleWidget->GetDispatcher();
+        connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
+        connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundDeleted, this, &RouteEditor::OnDispatcherOutboundDeleted);
+        connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
+        connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
+        //
         if (!ruleEditorUIWidget->layout())
         {
             // The QWidget will take ownership of layout.
@@ -74,8 +93,9 @@ void RouteEditor::SetupNodeWidget()
         l->setContentsMargins(0, 0, 0, 0);
         l->setSpacing(0);
     }
+
     {
-        chainWidget = new ChainEditorWidget(chainEditorUIWidget);
+        chainWidget = new ChainEditorWidget(nodeDispatcher, chainEditorUIWidget);
         if (!chainEditorUIWidget->layout())
         {
             // The QWidget will take ownership of layout.
@@ -86,23 +106,6 @@ void RouteEditor::SetupNodeWidget()
         l->setContentsMargins(0, 0, 0, 0);
         l->setSpacing(0);
     }
-}
-
-RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(parent), root(connection), original(connection)
-{
-    setupUi(this);
-    QvMessageBusConnect(RouteEditor);
-    //
-    isLoading = true;
-    setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
-    SetupNodeWidget();
-    updateColorScheme();
-    //
-    nodeDispatcher = std::make_shared<NodeDispatcher>(ruleWidget->getScene());
-    connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundCreated, this, &RouteEditor::OnDispatcherInboundCreated);
-    connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
-    connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
-    connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
     //
     domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
     domainStrategyCombo->setCurrentText(domainStrategy);
@@ -148,27 +151,13 @@ void RouteEditor::OnDispatcherInboundOutboundHovered(const QString &tag, const P
     protocolLabel->setText(info.protocol);
 }
 
-void RouteEditor::OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &node)
+void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out, QtNodes::Node &)
 {
-    QPoint pos{ 0 + GRAPH_GLOBAL_OFFSET_X, nodeDispatcher->InboundsCount() * 130 + GRAPH_GLOBAL_OFFSET_Y };
-    ruleWidget->getScene()->setNodePosition(node, pos);
-}
-
-void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out, QtNodes::Node &node)
-{
-    auto pos = ruleWidget->pos();
-    pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
-    pos.setY(pos.y() + nodeDispatcher->OutboundsCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    ruleWidget->getScene()->setNodePosition(node, pos);
     defaultOutboundCombo->addItem(out->getTag());
 }
 
-void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNodes::Node &node)
+void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNodes::Node &)
 {
-    auto pos = ruleWidget->pos();
-    pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
-    pos.setY(pos.y() + nodeDispatcher->RulesCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    ruleWidget->getScene()->setNodePosition(node, pos);
     ruleListWidget->addItem(rule->QV2RAY_RULE_TAG);
 }
 
@@ -178,6 +167,31 @@ void RouteEditor::OnDispatcherOutboundDeleted(const OutboundObjectMeta &data)
     if (id > 0)
     {
         defaultOutboundCombo->removeItem(id);
+    }
+}
+
+void RouteEditor::OnDispatcherObjectTagChanged(TagNodeMode t, const QString original, const QString current)
+{
+    Q_UNUSED(original)
+    Q_UNUSED(current)
+    //
+    if (t == NODE_INBOUND)
+    {
+        // Pass
+    }
+    else if (t == NODE_RULE)
+    {
+        for (auto i = 0; i < ruleListWidget->count(); i++)
+        {
+            if (ruleListWidget->item(i)->text() == original)
+                ruleListWidget->item(i)->setText(current);
+        }
+    }
+    else if (t == NODE_OUTBOUND)
+    {
+        const auto id = defaultOutboundCombo->findText(original);
+        if (id > 0)
+            defaultOutboundCombo->setItemText(id, current);
     }
 }
 
@@ -287,8 +301,9 @@ CONFIGROOT RouteEditor::OpenEditor()
 
 RouteEditor::~RouteEditor()
 {
-    nodeDispatcher.reset();
+    nodeDispatcher->LockOperation();
 }
+
 void RouteEditor::on_buttonBox_accepted()
 {
 }
@@ -409,28 +424,6 @@ void RouteEditor::on_addOutboundBtn_clicked()
             auto _ = nodeDispatcher->CreateOutbound(make_outbound(OUTBOUND(confList[i].toObject())));
         }
     }
-}
-
-void RouteEditor::on_delBtn_clicked()
-{
-    if (ruleWidget->getScene()->selectedNodes().empty())
-    {
-        QvMessageBoxWarn(this, tr("Remove Items"), tr("Please select a node from the graph to continue."));
-        return;
-    }
-
-    const auto selecteNodes = ruleWidget->getScene()->selectedNodes();
-    if (selecteNodes.empty())
-    {
-        QvMessageBoxWarn(this, tr("Deleting a node"), tr("You need to select a node first"));
-        return;
-    }
-    ruleWidget->getScene()->removeNode(*selecteNodes.front());
-}
-
-void RouteEditor::on_addRouteBtn_clicked()
-{
-    const auto _ = nodeDispatcher->CreateRule({});
 }
 
 void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1)
