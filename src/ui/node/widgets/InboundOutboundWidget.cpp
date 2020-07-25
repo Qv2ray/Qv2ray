@@ -49,127 +49,112 @@ void InboundOutboundWidget::changeEvent(QEvent *e)
 
 void InboundOutboundWidget::on_editBtn_clicked()
 {
-    switch (workingMode)
+    if (workingMode == NODE_INBOUND)
     {
-        case NODE_INBOUND:
+        InboundEditor editor{ *inboundObject, parentWidget() };
+        *inboundObject = editor.OpenEditor();
+        // Set tag
+        const auto newTag = getTag(*inboundObject);
+        tagTxt->setText(newTag);
+        (*inboundObject)["tag"] = newTag;
+    }
+    else
+    {
+        if (isExternalOutbound)
         {
-            InboundEditor editor{ *inboundObject, parentWidget() };
-            *inboundObject = editor.OpenEditor();
-            // Set tag
-            const auto newTag = getTag(*inboundObject);
-            tagTxt->setText(newTag);
-            (*inboundObject)["tag"] = newTag;
-            break;
-        }
-        case NODE_OUTBOUND:
-        {
-            if (isExternalOutbound)
+            if (QvMessageBoxAsk(parentWidget(), tr("Edit Outbound"), editExternalMsg) != QMessageBox::Yes)
             {
-                if (QvMessageBoxAsk(parentWidget(), tr("Edit Outbound"), editExternalMsg) != QMessageBox::Yes)
+                return;
+            }
+            const auto externalId = outboundObject->object.connectionId;
+            const auto root = ConnectionManager->GetConnectionRoot(externalId);
+            if (IsComplexConfig(root))
+            {
+                if (QvMessageBoxAsk(parentWidget(), tr("Trying to edit an Complex Config"), editExternalComplexMsg) != QMessageBox::Yes)
                 {
                     return;
                 }
-                const auto externalId = outboundObject->object.connectionId;
-                const auto root = ConnectionManager->GetConnectionRoot(externalId);
-                if (IsComplexConfig(root))
-                {
-                    if (QvMessageBoxAsk(parentWidget(), tr("Trying to edit an Complex Config"), editExternalComplexMsg) != QMessageBox::Yes)
-                    {
-                        return;
-                    }
-                }
-                OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };
-                OutboundEditor editor{ outbound, parentWidget() };
-                outbound = editor.OpenEditor();
-                //
-                ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
             }
-            else
-            {
-                OutboundEditor editor{ outboundObject->realOutbound, parentWidget() };
-                outboundObject->realOutbound = editor.OpenEditor();
-                // Set tag
-                const auto newTag = getTag(outboundObject->realOutbound);
-                tagTxt->setText(newTag);
-                outboundObject->realOutbound["tag"] = newTag;
-                break;
-            }
+            OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };
+            OutboundEditor editor{ outbound, parentWidget() };
+            outbound = editor.OpenEditor();
+            //
+            ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
+        }
+        else
+        {
+            OutboundEditor editor{ outboundObject->realOutbound, parentWidget() };
+            outboundObject->realOutbound = editor.OpenEditor();
+            // Set tag
+            const auto newTag = getTag(outboundObject->realOutbound);
+            tagTxt->setText(newTag);
+            outboundObject->realOutbound["tag"] = newTag;
         }
     }
 }
 
 void InboundOutboundWidget::on_editJsonBtn_clicked()
 {
-    switch (workingMode)
+    if (workingMode == NODE_INBOUND)
     {
-        case NODE_INBOUND:
+        JsonEditor editor{ *inboundObject, parentWidget() };
+        *inboundObject = INBOUND{ editor.OpenEditor() };
+        const auto newTag = getTag(*inboundObject);
+        // Set tag
+        tagTxt->setText(newTag);
+        (*inboundObject)["tag"] = newTag;
+    }
+    else
+    {
+        if (isExternalOutbound)
         {
-            JsonEditor editor{ *inboundObject, parentWidget() };
-            *inboundObject = INBOUND{ editor.OpenEditor() };
-            const auto newTag = getTag(*inboundObject);
-            // Set tag
-            tagTxt->setText(newTag);
-            (*inboundObject)["tag"] = newTag;
-            break;
-        }
-        case NODE_OUTBOUND:
-        {
-            if (isExternalOutbound)
-            {
-                if (QvMessageBoxAsk(parentWidget(), tr("Edit Outbound"), editExternalMsg) != QMessageBox::Yes)
-                {
-                    return;
-                }
-                const auto externalId = outboundObject->object.connectionId;
-                const auto root = ConnectionManager->GetConnectionRoot(externalId);
+            if (QvMessageBoxAsk(parentWidget(), tr("Edit Outbound"), editExternalMsg) != QMessageBox::Yes)
+                return;
+            const auto externalId = outboundObject->object.connectionId;
+            const auto root = ConnectionManager->GetConnectionRoot(externalId);
 
-                OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };
-                JsonEditor editor{ outbound, parentWidget() };
-                outbound = OUTBOUND{ editor.OpenEditor() };
-                //
-                ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
-            }
-            else
-            {
-                // Open Editor
-                JsonEditor editor{ outboundObject->realOutbound, parentWidget() };
-                outboundObject->realOutbound = OUTBOUND{ editor.OpenEditor() };
-                //
-                // Set tag (only for local connections)
-                const auto newTag = getTag(outboundObject->realOutbound);
-                tagTxt->setText(newTag);
-                outboundObject->realOutbound["tag"] = newTag;
-                break;
-            }
+            OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };
+            JsonEditor editor{ outbound, parentWidget() };
+            outbound = OUTBOUND{ editor.OpenEditor() };
+            //
+            ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
+        }
+        else
+        {
+            // Open Editor
+            JsonEditor editor{ outboundObject->realOutbound, parentWidget() };
+            outboundObject->realOutbound = OUTBOUND{ editor.OpenEditor() };
+            //
+            // Set tag (only for local connections)
+            const auto newTag = getTag(outboundObject->realOutbound);
+            tagTxt->setText(newTag);
+            outboundObject->realOutbound["tag"] = newTag;
         }
     }
 }
 
 void InboundOutboundWidget::on_tagTxt_textEdited(const QString &arg1)
 {
-    switch (workingMode)
+    if (workingMode == NODE_INBOUND)
     {
-        case NODE_INBOUND:
+        const auto originalTag = (*inboundObject)["tag"].toString();
+        if (originalTag == arg1 || dispatcher->RenameTag<NODE_INBOUND>(originalTag, arg1))
         {
-            const auto originalTag = (*inboundObject)["tag"].toString();
-            if (originalTag == arg1 || dispatcher->RenameTag<NODE_INBOUND>(originalTag, arg1))
-            {
-                BLACK(tagTxt);
-                (*inboundObject)["tag"] = arg1;
-                break;
-            }
-            RED(tagTxt);
+            BLACK(tagTxt);
+            (*inboundObject)["tag"] = arg1;
+            return;
         }
-        case NODE_OUTBOUND:
+        RED(tagTxt);
+    }
+    else
+    {
+        const auto originalTag = outboundObject->getTag();
+        if (originalTag == arg1 || dispatcher->RenameTag<NODE_OUTBOUND>(originalTag, arg1))
         {
-            const auto originalTag = outboundObject->getTag();
-            if (originalTag == arg1 || dispatcher->RenameTag<NODE_OUTBOUND>(originalTag, arg1))
-            {
-                BLACK(tagTxt);
-                outboundObject->realOutbound["tag"] = arg1;
-                break;
-            }
-            RED(tagTxt);
+            BLACK(tagTxt);
+            outboundObject->realOutbound["tag"] = arg1;
+            return;
         }
+        RED(tagTxt);
     }
 }

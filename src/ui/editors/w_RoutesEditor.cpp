@@ -4,9 +4,12 @@
 #include "core/connection/Generation.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "ui/common/UIBase.hpp"
+#include "ui/node/NodeBase.hpp"
 #include "ui/node/models/InboundNodeModel.hpp"
 #include "ui/node/models/OutboundNodeModel.hpp"
 #include "ui/node/models/RuleNodeModel.hpp"
+#include "ui/widgets/complex/ChainEditorWidget.hpp"
+#include "ui/widgets/complex/RoutingEditorWidget.hpp"
 #include "ui/windows/w_ImportConfig.hpp"
 #include "w_InboundEditor.hpp"
 #include "w_JsonEditor.hpp"
@@ -59,18 +62,30 @@ void RouteEditor::SetupNodeWidget()
                                             "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
                                             "PointDiameter": 10.0,"UseDataDefinedColors": false}})");
     }
-    ruleScene = new FlowScene(this);
-    ruleView = new FlowView(ruleScene, nodeGraphWidget);
-    ruleView->scaleDown();
-    if (!nodeGraphWidget->layout())
     {
-        // The QWidget will take ownership of layout.
-        nodeGraphWidget->setLayout(new QVBoxLayout());
+        ruleWidget = new RoutingEditorWidget(this);
+        if (!ruleEditorUIWidget->layout())
+        {
+            // The QWidget will take ownership of layout.
+            ruleEditorUIWidget->setLayout(new QVBoxLayout());
+        }
+        auto l = ruleEditorUIWidget->layout();
+        l->addWidget(ruleWidget);
+        l->setContentsMargins(0, 0, 0, 0);
+        l->setSpacing(0);
     }
-    auto l = nodeGraphWidget->layout();
-    l->addWidget(ruleView);
-    l->setContentsMargins(0, 0, 0, 0);
-    l->setSpacing(0);
+    {
+        chainWidget = new ChainEditorWidget(this);
+        if (!chainEditorUIWidget->layout())
+        {
+            // The QWidget will take ownership of layout.
+            chainEditorUIWidget->setLayout(new QVBoxLayout());
+        }
+        auto l = chainEditorUIWidget->layout();
+        l->addWidget(chainWidget);
+        l->setContentsMargins(0, 0, 0, 0);
+        l->setSpacing(0);
+    }
 }
 
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(parent), root(connection), original(connection)
@@ -83,7 +98,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     SetupNodeWidget();
     updateColorScheme();
     //
-    nodeDispatcher = std::make_shared<NodeDispatcher>(ruleScene);
+    nodeDispatcher = std::make_shared<NodeDispatcher>(ruleWidget->scene());
     connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundCreated, this, &RouteEditor::OnDispatcherInboundCreated);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
@@ -136,24 +151,24 @@ void RouteEditor::OnDispatcherInboundOutboundHovered(const QString &tag, const P
 void RouteEditor::OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &node)
 {
     QPoint pos{ 0 + GRAPH_GLOBAL_OFFSET_X, nodeDispatcher->InboundsCount() * 130 + GRAPH_GLOBAL_OFFSET_Y };
-    ruleScene->setNodePosition(node, pos);
+    ruleWidget->scene()->setNodePosition(node, pos);
 }
 
 void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out, QtNodes::Node &node)
 {
-    QPoint pos = nodeGraphWidget->pos();
+    auto pos = ruleWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + nodeDispatcher->OutboundsCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    ruleScene->setNodePosition(node, pos);
+    ruleWidget->scene()->setNodePosition(node, pos);
     defaultOutboundCombo->addItem(out->getTag());
 }
 
 void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNodes::Node &node)
 {
-    auto pos = nodeGraphWidget->pos();
+    auto pos = ruleWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + nodeDispatcher->RulesCount() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    ruleScene->setNodePosition(node, pos);
+    ruleWidget->scene()->setNodePosition(node, pos);
     ruleListWidget->addItem(rule->QV2RAY_RULE_TAG);
 }
 
@@ -398,19 +413,19 @@ void RouteEditor::on_addOutboundBtn_clicked()
 
 void RouteEditor::on_delBtn_clicked()
 {
-    if (ruleScene->selectedNodes().empty())
+    if (ruleWidget->scene()->selectedNodes().empty())
     {
         QvMessageBoxWarn(this, tr("Remove Items"), tr("Please select a node from the graph to continue."));
         return;
     }
 
-    const auto selecteNodes = ruleScene->selectedNodes();
+    const auto selecteNodes = ruleWidget->scene()->selectedNodes();
     if (selecteNodes.empty())
     {
         QvMessageBoxWarn(this, tr("Deleting a node"), tr("You need to select a node first"));
         return;
     }
-    ruleScene->removeNode(*selecteNodes.front());
+    ruleWidget->scene()->removeNode(*selecteNodes.front());
 }
 
 void RouteEditor::on_addRouteBtn_clicked()
@@ -463,8 +478,7 @@ void RouteEditor::on_debugPainterCB_clicked(bool checked)
 {
 #ifdef QT_DEBUG
     QtNodes::ConnectionPainter::IsDebuggingEnabled = checked;
-    ruleScene->update();
-    ruleView->repaint();
+    ruleWidget->repaint();
 #endif
 }
 

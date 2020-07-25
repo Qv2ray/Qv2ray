@@ -1,18 +1,26 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
+#include "base/models/QvComplexConfigModels.hpp"
 #include "common/QvHelpers.hpp"
 #include "ui/common/QvDialog.hpp"
 #include "ui/common/UIBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
-#include "ui/node/NodeBase.hpp"
 #include "ui_w_RoutesEditor.h"
-
 enum ROUTE_EDIT_MODE
 {
     RENAME_INBOUND,
     RENAME_OUTBOUND,
     RENAME_RULE,
+};
+
+class NodeDispatcher;
+class ChainEditorWidget;
+class RoutingEditorWidget;
+
+namespace QtNodes
+{
+    class Node;
 };
 
 namespace QtNodes
@@ -63,26 +71,23 @@ class RouteEditor
     void on_linkExistingBtn_clicked();
 
   private slots:
-    void OnDispatcherOutboundDeleted(const OutboundObjectMeta &);
+    void OnDispatcherOutboundDeleted(const complex::OutboundObjectMeta &);
     void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
-    void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
+    void OnDispatcherOutboundCreated(std::shared_ptr<complex::OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
     void OnDispatcherInboundOutboundHovered(const QString &, const ProtocolSettingsInfoObject &);
 
   private:
     // NOTE: Self managed pointer.
     std::shared_ptr<NodeDispatcher> nodeDispatcher;
+    ChainEditorWidget *chainWidget;
+    RoutingEditorWidget *ruleWidget;
     //
     bool isLoading = false;
-    void RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag);
-    //
     QString domainStrategy;
     //
     CONFIGROOT root;
     CONFIGROOT original;
     //
     void SetupNodeWidget();
-    //
-    QtNodes::FlowScene *ruleScene;
-    QtNodes::FlowView *ruleView;
 };

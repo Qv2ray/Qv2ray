@@ -278,7 +278,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QWidget" name="nodeGraphWidget" native="true">
+        <widget class="QWidget" name="ruleEditorUIWidget" native="true">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -293,6 +293,11 @@
       <attribute name="title">
        <string>Chain Editor</string>
       </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QWidget" name="chainEditorUIWidget" native="true"/>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

@@ -1,8 +1,13 @@
 #include "RoutingEditorWidget.hpp"
 
-RoutingEditorWidget::RoutingEditorWidget(QWidget *parent) : QWidget(parent)
+#include <QVBoxLayout>
+#include <nodes/FlowScene>
+
+RoutingEditorWidget::RoutingEditorWidget(QWidget *parent) : QtNodes::FlowView(parent)
 {
     setupUi(this);
+    setScene(new QtNodes::FlowScene(this));
+    scaleDown();
 }
 
 void RoutingEditorWidget::changeEvent(QEvent *e)

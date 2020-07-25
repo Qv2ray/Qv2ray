@@ -3,25 +3,21 @@
 #include "ui/node/NodeBase.hpp"
 #include "ui_ChainEditorWidget.h"
 
-namespace QtNodes
-{
-    class FlowView;
-}
+#include <nodes/FlowView>
 
 class ChainEditorWidget
-    : public QWidget
+    : public QtNodes::FlowView
     , private Ui::ChainEditorWidget
 {
     Q_OBJECT
 
   public:
     explicit ChainEditorWidget(QWidget *parent = nullptr);
+    auto scene()
+    {
+        return QtNodes::FlowView::scene();
+    }
 
   protected:
     void changeEvent(QEvent *e);
-
-  private:
-    //
-    QtNodes::FlowScene *chainScene;
-    QtNodes::FlowView *chainView;
 };
