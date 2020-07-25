@@ -164,7 +164,7 @@ void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNo
 void RouteEditor::OnDispatcherOutboundDeleted(const OutboundObjectMeta &data)
 {
     const auto id = defaultOutboundCombo->findText(data.getTag());
-    if (id > 0)
+    if (id >= 0)
     {
         defaultOutboundCombo->removeItem(id);
     }
