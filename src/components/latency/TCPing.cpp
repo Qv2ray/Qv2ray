@@ -36,7 +36,7 @@ namespace Qv2ray::components::latency::tcping
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
-        af = isAddr(req.host.toStdString().data(), req.port, &storage, 0);
+        af = isAddr();
         if (af == -1)
         {
             getAddrHandle = loop->resource<uvw::GetAddrInfoReq>();

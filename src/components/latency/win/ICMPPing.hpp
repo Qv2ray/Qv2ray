@@ -3,14 +3,8 @@
 #include <QtGlobal>
 #ifdef Q_OS_WIN
 
-    #include "components/latency/LatencyTest.hpp"
-
     #include "../DNSBase.hpp"
-    #include <QPair>
-    #include <QString>
     #include <memory>
-    #include <optional>
-    #include <utility>
 
 namespace Qv2ray::components::latency::icmping
 {

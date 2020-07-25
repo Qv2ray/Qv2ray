@@ -11,10 +11,11 @@ typedef struct _IO_STATUS_BLOCK
 } IO_STATUS_BLOCK, *PIO_STATUS_BLOCK;
 typedef VOID(NTAPI *PIO_APC_ROUTINE)(IN PVOID ApcContext, IN PIO_STATUS_BLOCK IoStatusBlock, IN ULONG Reserved);
     #define PIO_APC_ROUTINE_DEFINED
-    #include <IcmpAPI.h>
     #include <WS2tcpip.h>
     #include <Windows.h>
     #include <iphlpapi.h>
+    #include <IcmpAPI.h>
+    #include <QString>
 
 namespace Qv2ray::components::latency::icmping
 {
@@ -129,7 +130,7 @@ namespace Qv2ray::components::latency::icmping
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
-        af = isAddr(req.host.toStdString().data(), req.port, &storage, 0);
+        af = isAddr();
         if (af == -1)
         {
             getAddrHandle = loop->resource<uvw::GetAddrInfoReq>();

@@ -18,6 +18,20 @@ namespace Qv2ray::components::latency
         virtual ~DNSBase();
 
       protected:
+        int isAddr()
+        {
+            auto host = req.host.toStdString();
+            if (uv_ip4_addr(host.data(), req.port, reinterpret_cast<sockaddr_in *>(&storage)) == 0)
+            {
+                return AF_INET;
+            }
+            if (uv_ip6_addr(host.data(), req.port, reinterpret_cast<sockaddr_in6 *>(&storage)) == 0)
+            {
+                return AF_INET6;
+            }
+            return -1;
+        }
+
         template<typename E, typename H>
         void async_DNS_lookup(E &&e, H &&h)
         {

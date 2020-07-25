@@ -73,7 +73,7 @@ namespace Qv2ray::components::latency::icmping
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
-        if (isAddr(req.host.toStdString().data(), req.port, &storage, 0) == -1)
+        if (isAddr() == -1)
         {
             getAddrHandle = loop->resource<uvw::GetAddrInfoReq>();
             sprintf(digitBuffer, "%d", req.port);
