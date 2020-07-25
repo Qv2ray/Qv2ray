@@ -61,6 +61,7 @@ void MainWindow::updateColorScheme()
     //
     locateBtn->setIcon(QICON_R("locate.png"));
     sortBtn->setIcon(QICON_R("sort.png"));
+    collapseGroupsBtn->setIcon(QICON_R("arrow-up.svg"));
 }
 
 void MainWindow::MWAddConnectionItem_p(const ConnectionGroupPair &id)
@@ -1100,4 +1101,9 @@ void MainWindow::on_action_RCM_LatencyTest_triggered()
 void MainWindow::on_pluginsBtn_clicked()
 {
     PluginManageWindow(this).exec();
+}
+
+void MainWindow::on_collapseGroupsBtn_clicked()
+{
+    connectionListWidget->collapseAll();
 }

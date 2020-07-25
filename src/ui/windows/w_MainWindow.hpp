@@ -78,6 +78,8 @@ class MainWindow
     //
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
     //
+    void on_collapseGroupsBtn_clicked();
+
   private:
     void ToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
