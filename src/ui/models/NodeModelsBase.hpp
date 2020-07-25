@@ -1,11 +1,11 @@
 #pragma once
 
-#include <nodes/internal/NodeDataModel.hpp>
-#include <nodes/internal/PortType.hpp>
 #include "common/QvHelpers.hpp"
 
 #include <QLabel>
 #include <memory>
+#include <nodes/internal/NodeDataModel.hpp>
+#include <nodes/internal/PortType.hpp>
 
 using QtNodes::NodeData;
 using QtNodes::NodeDataModel;

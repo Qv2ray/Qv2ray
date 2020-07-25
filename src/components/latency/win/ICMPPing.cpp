@@ -12,9 +12,13 @@ typedef struct _IO_STATUS_BLOCK
 typedef VOID(NTAPI *PIO_APC_ROUTINE)(IN PVOID ApcContext, IN PIO_STATUS_BLOCK IoStatusBlock, IN ULONG Reserved);
     #define PIO_APC_ROUTINE_DEFINED
     #include <WS2tcpip.h>
+    //
     #include <Windows.h>
+    //
     #include <iphlpapi.h>
+    //
     #include <IcmpAPI.h>
+    //
     #include <QString>
 
 namespace Qv2ray::components::latency::icmping

@@ -4,6 +4,7 @@
 #ifdef Q_OS_WIN
 
     #include "../DNSBase.hpp"
+
     #include <memory>
 
 namespace Qv2ray::components::latency::icmping
