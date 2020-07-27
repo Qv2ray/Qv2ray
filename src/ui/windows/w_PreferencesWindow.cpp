@@ -156,7 +156,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     {
         bypassCNCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassCN);
         bypassBTCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT);
-        proxyDefaultCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
+        proxyDefaultCb->setChecked(!CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
         //
         localDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS);
     }
@@ -448,7 +448,7 @@ void PreferencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 void PreferencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy = arg1 == Qt::Checked;
+    CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy = !(arg1 == Qt::Checked);
 }
 
 void PreferencesWindow::on_localDNSCb_stateChanged(int arg1)

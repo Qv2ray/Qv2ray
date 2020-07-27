@@ -1486,7 +1486,7 @@ Custom DNS Settings</string>
           <item row="0" column="0">
            <widget class="QLabel" name="label_16">
             <property name="text">
-             <string>Enable Proxy</string>
+             <string>Force Direct for All Connections</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
