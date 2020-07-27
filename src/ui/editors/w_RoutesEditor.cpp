@@ -71,13 +71,17 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     //
     isLoading = true;
     // ?
-    // setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
+    setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
     updateColorScheme();
     //
+    // Do not change the order.
+    nodeDispatcher = std::make_shared<NodeDispatcher>();
+    ruleWidget = new RoutingEditorWidget(nodeDispatcher, ruleEditorUIWidget);
+    chainWidget = new ChainEditorWidget(nodeDispatcher, chainEditorUIWidget);
+    nodeDispatcher->InitializeScenes(ruleWidget->getScene(), chainWidget->getScene());
+    //
     {
-        ruleWidget = new RoutingEditorWidget(ruleEditorUIWidget);
         //
-        nodeDispatcher = ruleWidget->GetDispatcher();
         connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
         connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundDeleted, this, &RouteEditor::OnDispatcherOutboundDeleted);
         connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
@@ -95,7 +99,6 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     }
 
     {
-        chainWidget = new ChainEditorWidget(nodeDispatcher, chainEditorUIWidget);
         if (!chainEditorUIWidget->layout())
         {
             // The QWidget will take ownership of layout.
@@ -107,10 +110,11 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
         l->setSpacing(0);
     }
     //
+    nodeDispatcher->LoadFullConfig(root);
+    //
     domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
     domainStrategyCombo->setCurrentText(domainStrategy);
     //
-    nodeDispatcher->LoadFullConfig(root);
     //// Set default outboung combo text AFTER adding all outbounds.
     const auto defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
     defaultOutboundCombo->setCurrentText(defaultOutbound);
@@ -170,7 +174,7 @@ void RouteEditor::OnDispatcherOutboundDeleted(const OutboundObjectMeta &data)
     }
 }
 
-void RouteEditor::OnDispatcherObjectTagChanged(TagNodeMode t, const QString original, const QString current)
+void RouteEditor::OnDispatcherObjectTagChanged(ComplexTagNodeMode t, const QString original, const QString current)
 {
     Q_UNUSED(original)
     Q_UNUSED(current)
@@ -459,7 +463,7 @@ void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
 
 void RouteEditor::on_addBalancerBtn_clicked()
 {
-    auto _ = nodeDispatcher->CreateOutbound(make_outbound(BalancerId{ GenerateRandomString() }, "Balancer"));
+    auto _ = nodeDispatcher->CreateOutbound(make_outbound(BalancerTag{ GenerateRandomString() }, "Balancer"));
 }
 
 void RouteEditor::on_addChainBtn_clicked()

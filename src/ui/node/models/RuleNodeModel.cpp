@@ -40,21 +40,22 @@ void RuleNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
     const auto &outbound = convert_nodedata<OutboundNodeData>(c.getNode(PortType::In));
     switch (outbound->GetData().get()->metaType)
     {
-        case METAOUTBOUND_CHAINED:
+        case METAOUTBOUND_CHAIN:
         {
             QvMessageBoxWarn(nullptr, "Not Impl", "Connection to a chain has not been implemented.");
             break;
         }
+        case METAOUTBOUND_EXTERNAL:
         case METAOUTBOUND_ORIGINAL:
+        case METAOUTBOUND_BALANCER:
         {
             dataptr->outboundTag = outbound->GetData()->getTag();
             break;
         }
-        case METAOUTBOUND_BALANCER:
-        {
-            dataptr->balancerTag = outbound->GetData()->getTag();
-            break;
-        }
+            {
+                dataptr->balancerTag = outbound->GetData()->getTag();
+                break;
+            }
     }
 }
 

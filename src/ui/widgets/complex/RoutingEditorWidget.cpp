@@ -6,13 +6,12 @@
 constexpr auto GRAPH_GLOBAL_OFFSET_X = -380;
 constexpr auto GRAPH_GLOBAL_OFFSET_Y = -350;
 
-RoutingEditorWidget::RoutingEditorWidget(QWidget *parent) : QWidget(parent)
+RoutingEditorWidget::RoutingEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher, QWidget *parent) : QWidget(parent), dispatcher(dispatcher)
 {
     setupUi(this);
     QvMessageBusConnect(RoutingEditorWidget);
     //
     scene = new QtNodes::FlowScene(this);
-    dispatcher = std::make_shared<NodeDispatcher>(scene, this);
     connect(dispatcher.get(), &NodeDispatcher::OnInboundCreated, this, &RoutingEditorWidget::OnDispatcherInboundCreated);
     connect(dispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RoutingEditorWidget::OnDispatcherOutboundCreated);
     connect(dispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RoutingEditorWidget::OnDispatcherRuleCreated);

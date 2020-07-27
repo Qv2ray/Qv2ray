@@ -8,7 +8,8 @@
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
 
-InboundOutboundWidget::InboundOutboundWidget(TagNodeMode mode, std::shared_ptr<NodeDispatcher> _d, QWidget *parent) : QvNodeWidget(_d, parent)
+InboundOutboundWidget::InboundOutboundWidget(ComplexTagNodeMode mode, std::shared_ptr<NodeDispatcher> _d, QWidget *parent)
+    : QvNodeWidget(_d, parent)
 {
     workingMode = mode;
     setupUi(this);
@@ -28,7 +29,7 @@ void InboundOutboundWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
     assert(workingMode == NODE_OUTBOUND);
     outboundObject = data;
     tagTxt->setText(outboundObject->getTag());
-    isExternalOutbound = outboundObject->object.mode == MODE_CONNECTIONID;
+    isExternalOutbound = outboundObject->metaType == METAOUTBOUND_EXTERNAL;
     statusLabel->setText(isExternalOutbound ? tr("External Config") : "");
     tagTxt->setEnabled(!isExternalOutbound);
 }
@@ -66,7 +67,7 @@ void InboundOutboundWidget::on_editBtn_clicked()
             {
                 return;
             }
-            const auto externalId = outboundObject->object.connectionId;
+            const auto externalId = outboundObject->connectionId;
             const auto root = ConnectionManager->GetConnectionRoot(externalId);
             if (IsComplexConfig(root))
             {
@@ -110,7 +111,7 @@ void InboundOutboundWidget::on_editJsonBtn_clicked()
         {
             if (QvMessageBoxAsk(parentWidget(), tr("Edit Outbound"), editExternalMsg) != QMessageBox::Yes)
                 return;
-            const auto externalId = outboundObject->object.connectionId;
+            const auto externalId = outboundObject->connectionId;
             const auto root = ConnectionManager->GetConnectionRoot(externalId);
 
             OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };

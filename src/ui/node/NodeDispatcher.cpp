@@ -8,9 +8,8 @@
 
 #include <nodes/Node>
 
-NodeDispatcher::NodeDispatcher(QtNodes::FlowScene *_scene, QObject *parent) : QObject(parent), scene(_scene)
+NodeDispatcher::NodeDispatcher(QObject *parent) : QObject(parent)
 {
-    connect(scene, &QtNodes::FlowScene::nodeDeleted, this, &NodeDispatcher::DeleteNode);
 }
 
 NodeDispatcher::~NodeDispatcher()
@@ -62,7 +61,7 @@ void NodeDispatcher::RestoreConnections()
             if (inboundNodes.contains(inboundTag))
             {
                 const auto inboundNodeId = inboundNodes.value(inboundTag);
-                scene->createConnection(*scene->node(ruleNodeId), 0, *scene->node(inboundNodeId), 0);
+                ruleScene->createConnection(*ruleScene->node(ruleNodeId), 0, *ruleScene->node(inboundNodeId), 0);
             }
             else
             {
@@ -74,7 +73,7 @@ void NodeDispatcher::RestoreConnections()
         if (outboundNodes.contains(outboundTag))
         {
             const auto outboundNodeId = outboundNodes[outboundTag];
-            scene->createConnection(*scene->node(outboundNodeId), 0, *scene->node(ruleNodeId), 0);
+            ruleScene->createConnection(*ruleScene->node(outboundNodeId), 0, *ruleScene->node(ruleNodeId), 0);
         }
         else
         {
@@ -149,7 +148,7 @@ QString NodeDispatcher::CreateInbound(INBOUND in)
     // Create node and emit signals.
     {
         auto nodeData = std::make_unique<InboundNodeModel>(shared_from_this(), dataPtr);
-        auto &node = scene->createNode(std::move(nodeData));
+        auto &node = ruleScene->createNode(std::move(nodeData));
         inboundNodes.insert(tag, node.id());
         emit OnInboundCreated(dataPtr, node);
     }
@@ -164,7 +163,7 @@ QString NodeDispatcher::CreateOutbound(OutboundObjectMeta out)
     {
         tag += "_" + GenerateRandomString(5);
         // It's ok to set them directly without checking.
-        out.object.displayName = tag;
+        out.displayName = tag;
         out.realOutbound["tag"] = tag;
     }
     auto dataPtr = std::make_shared<OutboundObjectMeta>(out);
@@ -172,7 +171,7 @@ QString NodeDispatcher::CreateOutbound(OutboundObjectMeta out)
     // Create node and emit signals.
     {
         auto nodeData = std::make_unique<OutboundNodeModel>(shared_from_this(), dataPtr);
-        auto &node = scene->createNode(std::move(nodeData));
+        auto &node = ruleScene->createNode(std::move(nodeData));
         outboundNodes.insert(tag, node.id());
         emit OnOutboundCreated(dataPtr, node);
     }
@@ -191,7 +190,7 @@ QString NodeDispatcher::CreateRule(RuleObject rule)
     // Create node and emit signals.
     {
         auto nodeData = std::make_unique<RuleNodeModel>(shared_from_this(), dataPtr);
-        auto &node = scene->createNode(std::move(nodeData));
+        auto &node = ruleScene->createNode(std::move(nodeData));
         ruleNodes.insert(tag, node.id());
         emit OnRuleCreated(dataPtr, node);
     }

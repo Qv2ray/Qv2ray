@@ -11,7 +11,7 @@ class InboundOutboundWidget
     Q_OBJECT
 
   public:
-    explicit InboundOutboundWidget(TagNodeMode mode, std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent = nullptr);
+    explicit InboundOutboundWidget(ComplexTagNodeMode mode, std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent = nullptr);
     void setValue(std::shared_ptr<INBOUND>);
     void setValue(std::shared_ptr<OutboundObjectMeta> data);
 
@@ -24,7 +24,7 @@ class InboundOutboundWidget
     void on_tagTxt_textEdited(const QString &arg1);
 
   private:
-    TagNodeMode workingMode;
+    ComplexTagNodeMode workingMode;
     std::shared_ptr<INBOUND> inboundObject;
     std::shared_ptr<OutboundObjectMeta> outboundObject;
     bool isExternalOutbound = false;

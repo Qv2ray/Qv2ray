@@ -17,14 +17,10 @@ class RoutingEditorWidget
     Q_OBJECT
 
   public:
-    explicit RoutingEditorWidget(QWidget *parent = nullptr);
+    explicit RoutingEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher, QWidget *parent = nullptr);
     auto getScene()
     {
         return scene;
-    }
-    std::shared_ptr<NodeDispatcher> GetDispatcher() const
-    {
-        return dispatcher;
     }
 
   protected:

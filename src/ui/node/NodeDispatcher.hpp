@@ -10,8 +10,14 @@ class NodeDispatcher
 {
     Q_OBJECT
   public:
-    explicit NodeDispatcher(QtNodes::FlowScene *, QObject *parent = nullptr);
+    explicit NodeDispatcher(QObject *parent = nullptr);
     ~NodeDispatcher();
+    void InitializeScenes(QtNodes::FlowScene *rule, QtNodes::FlowScene *chain)
+    {
+        ruleScene = rule;
+        chainScene = chain;
+        connect(ruleScene, &QtNodes::FlowScene::nodeDeleted, this, &NodeDispatcher::DeleteNode);
+    }
 
   public:
     CONFIGROOT GetFullConfig() const;
@@ -57,7 +63,7 @@ class NodeDispatcher
   public:
     void DeleteNode(const QtNodes::Node &node);
 
-    template<TagNodeMode t>
+    template<ComplexTagNodeMode t>
     inline bool RenameTag(const QString originalTag, const QString newTag)
     {
         if constexpr (t == NODE_INBOUND)
@@ -95,7 +101,7 @@ class NodeDispatcher
     void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
     //
-    void OnObjectTagChanged(TagNodeMode, const QString originalTag, const QString newTag);
+    void OnObjectTagChanged(ComplexTagNodeMode, const QString originalTag, const QString newTag);
 
   signals:
     void OnInboundOutboundNodeHovered(const QString &tag, const ProtocolSettingsInfoObject &);
@@ -109,7 +115,9 @@ class NodeDispatcher
     QMap<QString, QUuid> outboundNodes;
     QMap<QString, QUuid> ruleNodes;
     //
-    QtNodes::FlowScene *scene;
+    QtNodes::FlowScene *ruleScene;
+    QtNodes::FlowScene *chainScene;
+    //
     bool isOperationLocked;
     QMap<QString, std::shared_ptr<INBOUND>> inbounds;
     QMap<QString, std::shared_ptr<RuleObject>> rules;

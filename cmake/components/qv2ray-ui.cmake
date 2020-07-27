@@ -35,6 +35,8 @@ set(QV2RAY_UI_NODEEDITOR_SOURCES
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/OutboundNodeModel.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/RuleNodeModel.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/models/RuleNodeModel.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/models/ChainOutboundNodeModel.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/models/ChainOutboundNodeModel.hpp
     # NodeEditor Widgets
     ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/RuleWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/RuleWidget.hpp
@@ -48,6 +50,9 @@ set(QV2RAY_UI_NODEEDITOR_SOURCES
     ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/BalancerWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/BalancerWidget.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/BalancerWidget.ui
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/ChainOutboundWidget.cpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/ChainOutboundWidget.hpp
+    ${CMAKE_SOURCE_DIR}/src/ui/node/widgets/ChainOutboundWidget.ui
     )
 
 set(QV2RAY_UI_SOURCES

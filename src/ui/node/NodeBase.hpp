@@ -23,6 +23,7 @@ namespace Qv2ray::ui::nodemodels
     const auto NODE_TYPE_OUTBOUND = std::make_shared<NodeDataType>("outbound", QObject::tr("Outbound"));
     const auto NODE_TYPE_INBOUND = std::make_shared<NodeDataType>("inbound", QObject::tr("Inbound"));
     const auto NODE_TYPE_RULE = std::make_shared<NodeDataType>("rule", QObject::tr("Rule"));
+    const auto NODE_TYPE_CHAINED_OUTBOUND = std::make_shared<NodeDataType>("chain_outbound", QObject::tr("Chained Outbound"));
 
     class QvNodeWidget : public QWidget
     {
@@ -59,6 +60,7 @@ namespace Qv2ray::ui::nodemodels
     DECL_NODE_DATA_TYPE(InboundNodeData, NODE_TYPE_INBOUND, INBOUND);
     DECL_NODE_DATA_TYPE(OutboundNodeData, NODE_TYPE_OUTBOUND, OutboundObjectMeta);
     DECL_NODE_DATA_TYPE(RuleNodeData, NODE_TYPE_RULE, RuleObject);
+    DECL_NODE_DATA_TYPE(ChainOutboundData, NODE_TYPE_CHAINED_OUTBOUND, ChainObject);
 
     template<typename NODEMODEL_T>
     NODEMODEL_T *convert_nodemodel(QtNodes::Node *node)
@@ -68,7 +70,7 @@ namespace Qv2ray::ui::nodemodels
     template<typename NODEDATA_T>
     NODEDATA_T *convert_nodedata(QtNodes::Node *node)
     {
-        return static_cast<NODEDATA_T *>((node->nodeDataModel()->outData(0)).get());
+        return static_cast<NODEDATA_T *>(node->nodeDataModel()->outData(0).get());
     }
 
     //

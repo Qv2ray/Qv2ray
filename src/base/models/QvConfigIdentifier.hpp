@@ -43,7 +43,7 @@ namespace Qv2ray::base
     // Define several safetypes to prevent misuse of QString.
 #define DECL_IDTYPE(type)                                                                                                                       \
     class __##type;                                                                                                                             \
-    typedef IDType<__##type> type;
+    typedef IDType<__##type> type
 
     DECL_IDTYPE(GroupId);
     DECL_IDTYPE(ConnectionId);

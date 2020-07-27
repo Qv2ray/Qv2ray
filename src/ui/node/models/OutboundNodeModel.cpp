@@ -12,6 +12,7 @@ OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher
     switch (data->metaType)
     {
         case complex::METAOUTBOUND_ORIGINAL:
+        case complex::METAOUTBOUND_EXTERNAL:
         {
             widget = new InboundOutboundWidget(NODE_OUTBOUND, dispatcher);
             ((InboundOutboundWidget *) widget)->setValue(data);
@@ -23,7 +24,7 @@ OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher
             ((BalancerWidget *) widget)->setValue(data);
             break;
         }
-        case complex::METAOUTBOUND_CHAINED:
+        case complex::METAOUTBOUND_CHAIN:
         {
             widget = new ChainWidget(dispatcher);
             ((ChainWidget *) widget)->setValue(data);
@@ -43,16 +44,14 @@ void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>>, PortIn
 
 void OutboundNodeModel::onNodeHoverEnter()
 {
-    if (dataptr->metaType != METAOUTBOUND_ORIGINAL)
-        return;
     ProtocolSettingsInfoObject o;
-    if (dataptr->object.mode == MODE_JSON)
+    if (dataptr->metaType == METAOUTBOUND_ORIGINAL)
     {
         emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getTag(), GetOutboundInfo(dataptr->realOutbound));
     }
-    else
+    else if (dataptr->metaType == METAOUTBOUND_EXTERNAL)
     {
-        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getTag(), GetConnectionInfo(dataptr->object.connectionId));
+        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getTag(), GetConnectionInfo(dataptr->connectionId));
     }
 }
 
