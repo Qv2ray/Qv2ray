@@ -248,6 +248,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     fpPasswordTx->setEnabled(fpUseAuthCB->isChecked());
     //
     maxLogLinesSB->setValue(CurrentConfig.uiConfig.maximumLogLines);
+    jumpListCountSB->setValue(CurrentConfig.uiConfig.maxJumpListCount);
     //
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.setSystemProxy);
     //
