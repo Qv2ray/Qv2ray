@@ -14,3 +14,8 @@ void ChainOutboundWidget::changeEvent(QEvent *e)
         default: break;
     }
 }
+
+void ChainOutboundWidget::setValue(std::shared_ptr<QString> tag)
+{
+    tagLabel->setText(*tag);
+}

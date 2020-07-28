@@ -60,7 +60,7 @@ namespace Qv2ray::ui::nodemodels
     DECL_NODE_DATA_TYPE(InboundNodeData, NODE_TYPE_INBOUND, INBOUND);
     DECL_NODE_DATA_TYPE(OutboundNodeData, NODE_TYPE_OUTBOUND, OutboundObjectMeta);
     DECL_NODE_DATA_TYPE(RuleNodeData, NODE_TYPE_RULE, RuleObject);
-    DECL_NODE_DATA_TYPE(ChainOutboundData, NODE_TYPE_CHAINED_OUTBOUND, ChainObject);
+    DECL_NODE_DATA_TYPE(ChainOutboundData, NODE_TYPE_CHAINED_OUTBOUND, QString);
 
     template<typename NODEMODEL_T>
     NODEMODEL_T *convert_nodemodel(QtNodes::Node *node)
@@ -81,7 +81,8 @@ namespace Qv2ray::ui::nodemodels
     {                                                                                                                                           \
         Q_OBJECT                                                                                                                                \
       public:                                                                                                                                   \
-        explicit NAME(std::shared_ptr<NodeDispatcher>, std::shared_ptr<CONTENT_TYPE>);                                                          \
+        typedef CONTENT_TYPE node_data_t;                                                                                                       \
+        explicit NAME(std::shared_ptr<NodeDispatcher>, std::shared_ptr<node_data_t>);                                                           \
         ~NAME(){};                                                                                                                              \
                                                                                                                                                 \
         inline QString caption() const override                                                                                                 \
@@ -120,13 +121,13 @@ namespace Qv2ray::ui::nodemodels
         void inputConnectionDeleted(const QtNodes::Connection &) override;                                                                      \
         void outputConnectionCreated(const QtNodes::Connection &) override;                                                                     \
         void outputConnectionDeleted(const QtNodes::Connection &) override;                                                                     \
-        const std::shared_ptr<const CONTENT_TYPE> getData() const                                                                               \
+        const std::shared_ptr<const node_data_t> getData() const                                                                                \
         {                                                                                                                                       \
             return dataptr;                                                                                                                     \
         }                                                                                                                                       \
                                                                                                                                                 \
       private:                                                                                                                                  \
-        std::shared_ptr<CONTENT_TYPE> dataptr;                                                                                                  \
+        std::shared_ptr<node_data_t> dataptr;                                                                                                   \
         QvNodeWidget *widget;                                                                                                                   \
         std::shared_ptr<NodeDispatcher> dispatcher;                                                                                             \
     }
@@ -134,6 +135,7 @@ namespace Qv2ray::ui::nodemodels
     DECL_NODE_DATA_MODEL(InboundNodeModel, INBOUND);
     DECL_NODE_DATA_MODEL(OutboundNodeModel, OutboundObjectMeta);
     DECL_NODE_DATA_MODEL(RuleNodeModel, RuleObject);
+    DECL_NODE_DATA_MODEL(ChainOutboundNodeModel, QString);
 
 } // namespace Qv2ray::ui::nodemodels
 

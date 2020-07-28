@@ -1,14 +1,15 @@
 #include "ChainOutboundNodeModel.hpp"
 
-ChainOutboundNodeModel::ChainOutboundNodeModel(std::shared_ptr<ChainObject>)
+#include "ui/node/widgets/ChainOutboundWidget.hpp"
+
+ChainOutboundNodeModel::ChainOutboundNodeModel(std::shared_ptr<NodeDispatcher> dispatcher, std::shared_ptr<node_data_t> data)
 {
+    this->dispatcher = dispatcher;
+    widget = new ChainOutboundWidget(dispatcher);
+    ((ChainOutboundWidget *) widget)->setValue(data);
 }
 
-void ChainOutboundNodeModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex port)
-{
-}
-
-void ChainOutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> nodeData, PortIndex port)
+void ChainOutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>>, PortIndex)
 {
 }
 
@@ -27,3 +28,5 @@ void ChainOutboundNodeModel::outputConnectionCreated(const QtNodes::Connection &
 void ChainOutboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &)
 {
 }
+void ChainOutboundNodeModel::onNodeHoverLeave(){};
+void ChainOutboundNodeModel::onNodeHoverEnter(){};

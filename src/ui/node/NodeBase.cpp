@@ -18,6 +18,10 @@ std::shared_ptr<NodeDataType> RuleNodeModel::dataType(PortType portType, PortInd
         default: return {};
     }
 }
+std::shared_ptr<NodeDataType> ChainOutboundNodeModel::dataType(PortType, PortIndex) const
+{
+    return NODE_TYPE_CHAINED_OUTBOUND;
+}
 //
 // *******************************************************************************************
 //
@@ -32,6 +36,10 @@ unsigned int OutboundNodeModel::nPorts(PortType portType) const
     return portType == PortType::Out ? 0 : 1;
 }
 unsigned int RuleNodeModel::nPorts(PortType) const
+{
+    return 1;
+}
+unsigned int ChainOutboundNodeModel::nPorts(PortType) const
 {
     return 1;
 }
@@ -54,6 +62,10 @@ std::shared_ptr<NodeData> RuleNodeModel::outData(PortIndex)
 {
     return std::make_shared<RuleNodeData>(dataptr);
 }
+std::shared_ptr<NodeData> ChainOutboundNodeModel::outData(PortIndex)
+{
+    return std::make_shared<ChainOutboundData>(dataptr);
+}
 
 //
 // *******************************************************************************************
@@ -68,6 +80,10 @@ void OutboundNodeModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex 
     setInData(std::vector{ nodeData }, port);
 }
 void RuleNodeModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex port)
+{
+    setInData(std::vector{ nodeData }, port);
+}
+void ChainOutboundNodeModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex port)
 {
     setInData(std::vector{ nodeData }, port);
 }
@@ -89,6 +105,10 @@ QtNodes::NodeDataModel::ConnectionPolicy RuleNodeModel::portInConnectionPolicy(P
 {
     return NodeDataModel::ConnectionPolicy::Many;
 }
+QtNodes::NodeDataModel::ConnectionPolicy ChainOutboundNodeModel::portInConnectionPolicy(PortIndex) const
+{
+    return NodeDataModel::ConnectionPolicy::One;
+}
 
 //
 // *******************************************************************************************
@@ -104,6 +124,10 @@ QtNodes::NodeDataModel::ConnectionPolicy OutboundNodeModel::portOutConnectionPol
     return NodeDataModel::ConnectionPolicy::One;
 }
 QtNodes::NodeDataModel::ConnectionPolicy RuleNodeModel::portOutConnectionPolicy(PortIndex) const
+{
+    return NodeDataModel::ConnectionPolicy::One;
+}
+QtNodes::NodeDataModel::ConnectionPolicy ChainOutboundNodeModel::portOutConnectionPolicy(PortIndex) const
 {
     return NodeDataModel::ConnectionPolicy::One;
 }

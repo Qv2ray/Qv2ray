@@ -5,7 +5,7 @@
 #include "ui/node/widgets/ChainWidget.hpp"
 #include "ui/node/widgets/InboundOutboundWidget.hpp"
 
-OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<OutboundObjectMeta> data) : NodeDataModel()
+OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<node_data_t> data) : NodeDataModel()
 {
     dataptr = data;
     dispatcher = _dispatcher;
@@ -41,6 +41,7 @@ void OutboundNodeModel::inputConnectionDeleted(const QtNodes::Connection &){};
 void OutboundNodeModel::outputConnectionCreated(const QtNodes::Connection &){};
 void OutboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &){};
 void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>>, PortIndex){};
+void OutboundNodeModel::onNodeHoverLeave(){};
 
 void OutboundNodeModel::onNodeHoverEnter()
 {
@@ -54,5 +55,3 @@ void OutboundNodeModel::onNodeHoverEnter()
         emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getTag(), GetConnectionInfo(dataptr->connectionId));
     }
 }
-
-void OutboundNodeModel::onNodeHoverLeave(){};

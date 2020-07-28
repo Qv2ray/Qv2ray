@@ -3,7 +3,7 @@
 #include "core/CoreUtils.hpp"
 #include "ui/node/widgets/RuleWidget.hpp"
 
-RuleNodeModel::RuleNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<RuleObject> data) : NodeDataModel()
+RuleNodeModel::RuleNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<node_data_t> data) : NodeDataModel()
 {
     dataptr = data;
     dispatcher = _dispatcher;
