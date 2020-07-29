@@ -4,12 +4,15 @@ Name=Qv2ray
 Type=Application
 GenericName=V2Ray Graphical Frontend
 GenericName[zh_CN]=V2Ray 图形前端
+GenericName[zh_TW]=V2Ray 圖形前端
 GenericName[ja]=V2Rayグラフィックフロントエンド
 Comment=A Cross-Platform V2Ray Qt GUI Client
 Comment[zh_CN]=跨平台的 V2Ray Qt 图形客户端
+Comment[zh_TW]=跨平臺的 V2Ray Qt 圖形用戶端
 Comment[ja]=とあるクロスプラットフォームV2Rayグラフィックフロントエンド
 Keywords=Internet;VPN;Proxy;v2ray;Qt;qv;
 Keywords[zh_CN]=Internet;VPN;Proxy;v2ray;Qt;qv;代理;
+Keywords[zh_TW]=Internet;VPN;Proxy;v2ray;Qt;qv;代理;
 Keywords[ja]=インターネット;VPN;プロキシ;Qt;v2ray;qv;
 Categories=Network;Qt;
 Terminal=false
@@ -21,30 +24,35 @@ Actions=debug;noPlugin;noScaleFactor;noAPI;noAutoConnection;
 [Desktop Action debug]
 Name=Start with Debug Mode
 Name[zh_CN]=以调试模式运行
+Name[zh_TW]=以調試模式運行
 Name[ja]=デバッグモードで起動
 Exec=qv2ray --debug
 
 [Desktop Action noPlugin]
 Name=Start without Plugins
 Name[zh_CN]=不使用插件启动
+Name[zh_TW]=不使用外掛程式啟動
 Name[ja]=プラグイン使用せずに起動
 Exec=qv2ray --noPlugin
 
 [Desktop Action noScaleFactor]
 Name=Start without Scaling Factor
 Name[zh_CN]=禁用界面缩放启动
+Name[zh_TW]=禁用介面縮放啟動
 Name[ja]=インターフェーススケーリング使用せずに起動
 Exec=qv2ray --noScaleFactor
 
 [Desktop Action noAPI]
 Name=Start without gRPC API
 Name[zh_CN]=不使用 gRPC API 启动
+Name[zh_TW]=不使用 gRPC API 啟動
 Name[ja]=gRPC使用せずに起動
 Exec=qv2ray --noAPI
 
 [Desktop Action noAutoConnection]
 Name=Start without automatic connection
 Name[zh_CN]=不自动连接节点启动
+Name[zh_TW]=不自動連接節點啟動
 Name[ja]=自動接続使用せずに起動
 Exec=qv2ray --noAutoConnection
 
