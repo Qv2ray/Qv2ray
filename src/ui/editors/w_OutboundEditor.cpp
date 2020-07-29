@@ -366,7 +366,7 @@ void OutboundEditor::on_useFPCB_stateChanged(int arg1)
 
 void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
-    // 0, 1, 2, 3 as built-in vmess, ss, socks, http
+    // 0, 1, 2, 3, 4 as built-in vmess, vless, ss, socks, http
     outboundTypeStackView->setCurrentIndex(index);
     if (index < builtInOutboundTypes)
     {
