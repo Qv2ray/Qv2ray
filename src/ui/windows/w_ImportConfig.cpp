@@ -54,7 +54,7 @@ ImportConfigWindow::~ImportConfigWindow()
 {
 }
 
-QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
+QMultiMap<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
 {
     // partial import means only import as an outbound, will set outboundsOnly to
     // false and disable the checkbox
@@ -62,7 +62,7 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     routeEditBtn->setEnabled(!outboundsOnly);
     groupCombo->setEnabled(false);
     this->exec();
-    QMultiHash<QString, CONFIGROOT> conn;
+    QMultiMap<QString, CONFIGROOT> conn;
     for (const auto &connEntry : connectionsToNewGroup.values())
     {
         conn += connEntry;
@@ -71,7 +71,7 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     {
         conn += connEntry;
     }
-    return result() == Accepted ? conn : QMultiHash<QString, CONFIGROOT>{};
+    return result() == Accepted ? conn : QMultiMap<QString, CONFIGROOT>{};
 }
 
 int ImportConfigWindow::PerformImportConnection()

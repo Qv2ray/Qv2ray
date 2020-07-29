@@ -15,7 +15,7 @@ class ImportConfigWindow
     explicit ImportConfigWindow(QWidget *parent = nullptr);
     ~ImportConfigWindow();
     int PerformImportConnection();
-    QMultiHash<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
+    QMultiMap<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
     void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
     {
         const static QMap<QString, int> indexMap{
@@ -53,6 +53,7 @@ class ImportConfigWindow
     void updateColorScheme() override;
     QMap<QString, QString> linkErrors;
     //
-    QHash<GroupId, QMultiHash<QString, CONFIGROOT>> connectionsToExistingGroup;
-    QHash<QString, QMultiHash<QString, CONFIGROOT>> connectionsToNewGroup;
+    // Use hash here since the order is not important.
+    QHash<GroupId, QMultiMap<QString, CONFIGROOT>> connectionsToExistingGroup;
+    QMap<QString, QMultiMap<QString, CONFIGROOT>> connectionsToNewGroup;
 };
