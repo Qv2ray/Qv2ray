@@ -80,7 +80,7 @@ namespace Qv2ray::base::objects::complex
         ChainId chainId;
         //
         safetype::OUTBOUND realOutbound;
-        QString getTag() const
+        QString getDisplayName() const
         {
             if (metaType == METAOUTBOUND_ORIGINAL)
                 return realOutbound["tag"].toString();

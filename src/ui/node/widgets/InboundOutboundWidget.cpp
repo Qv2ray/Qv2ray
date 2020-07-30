@@ -28,7 +28,7 @@ void InboundOutboundWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
 {
     assert(workingMode == NODE_OUTBOUND);
     outboundObject = data;
-    tagTxt->setText(outboundObject->getTag());
+    tagTxt->setText(outboundObject->getDisplayName());
     isExternalOutbound = outboundObject->metaType == METAOUTBOUND_EXTERNAL;
     statusLabel->setText(isExternalOutbound ? tr("External Config") : "");
     tagTxt->setEnabled(!isExternalOutbound);
@@ -149,7 +149,7 @@ void InboundOutboundWidget::on_tagTxt_textEdited(const QString &arg1)
     }
     else
     {
-        const auto originalTag = outboundObject->getTag();
+        const auto originalTag = outboundObject->getDisplayName();
         if (originalTag == arg1 || dispatcher->RenameTag<NODE_OUTBOUND>(originalTag, arg1))
         {
             BLACK(tagTxt);

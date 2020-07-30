@@ -135,6 +135,10 @@ void NodeDispatcher::DeleteNode(const QtNodes::Node &node)
 #undef CLEANUP
 }
 
+void NodeDispatcher::RequestEditChain(const ChainId &id)
+{
+}
+
 QString NodeDispatcher::CreateInbound(INBOUND in)
 {
     auto tag = getTag(in);
@@ -157,7 +161,7 @@ QString NodeDispatcher::CreateInbound(INBOUND in)
 
 QString NodeDispatcher::CreateOutbound(OutboundObjectMeta out)
 {
-    QString tag = out.getTag();
+    QString tag = out.getDisplayName();
     // In case the tag is duplicated:
     while (outbounds.contains(tag))
     {
@@ -174,6 +178,12 @@ QString NodeDispatcher::CreateOutbound(OutboundObjectMeta out)
         auto &node = ruleScene->createNode(std::move(nodeData));
         outboundNodes.insert(tag, node.id());
         emit OnOutboundCreated(dataPtr, node);
+    }
+    // Create node and emit signals.
+    {
+        // auto nodeData = std::make_unique<ChainOutboundNodeModel>(shared_from_this(), dataPtr->getDisplayName());
+        // auto &node = chainScene->createNode(std::move(nodeData));
+        // emit OnChainOutboundCreate(dataPtr, node);
     }
     return tag;
 }

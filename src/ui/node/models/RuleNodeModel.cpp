@@ -49,11 +49,11 @@ void RuleNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
         case METAOUTBOUND_ORIGINAL:
         case METAOUTBOUND_BALANCER:
         {
-            dataptr->outboundTag = outbound->GetData()->getTag();
+            dataptr->outboundTag = outbound->GetData()->getDisplayName();
             break;
         }
             {
-                dataptr->balancerTag = outbound->GetData()->getTag();
+                dataptr->balancerTag = outbound->GetData()->getDisplayName();
                 break;
             }
     }

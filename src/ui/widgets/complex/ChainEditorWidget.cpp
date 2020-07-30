@@ -31,6 +31,10 @@ QvMessageBusSlotImpl(ChainEditorWidget)
     }
 }
 
+void ChainEditorWidget::editChain(const ChainId &id)
+{
+}
+
 void ChainEditorWidget::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);
@@ -39,4 +43,8 @@ void ChainEditorWidget::changeEvent(QEvent *e)
         case QEvent::LanguageChange: retranslateUi(this); break;
         default: break;
     }
+}
+
+void ChainEditorWidget::on_chainComboBox_currentIndexChanged(const QString &arg1)
+{
 }

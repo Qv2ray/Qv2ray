@@ -62,6 +62,15 @@ class NodeDispatcher
 
   public:
     void DeleteNode(const QtNodes::Node &node);
+    void RequestEditChain(const ChainId &id);
+    const QList<const std::shared_ptr<OutboundObjectMeta>> GetChainableOutboudns() const
+    {
+        for (const auto &outbound : outbounds.values())
+        {
+            //
+        }
+        return {};
+    }
 
     template<ComplexTagNodeMode t>
     inline bool RenameTag(const QString originalTag, const QString newTag)
@@ -90,6 +99,10 @@ class NodeDispatcher
             rules[newTag] = rules.take(originalTag);
             ruleNodes[newTag] = ruleNodes.take(originalTag);
         }
+        else
+        {
+            Q_UNREACHABLE();
+        }
         emit OnObjectTagChanged(t, originalTag, newTag);
         return true;
     }
@@ -100,6 +113,7 @@ class NodeDispatcher
     void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
+    void OnChainOutboundCreate(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     //
     void OnObjectTagChanged(ComplexTagNodeMode, const QString originalTag, const QString newTag);
 

@@ -224,9 +224,9 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QTabWidget" name="tabWidget_3">
+    <widget class="QTabWidget" name="nodesTab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabWidget_3Page1">
       <attribute name="title">
@@ -252,6 +252,16 @@
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
         <widget class="QWidget" name="chainEditorUIWidget" native="true"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>DNS Settings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QWidget" name="widget" native="true"/>
        </item>
       </layout>
      </widget>

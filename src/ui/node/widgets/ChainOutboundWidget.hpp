@@ -11,7 +11,7 @@ class ChainOutboundWidget
 
   public:
     explicit ChainOutboundWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent = nullptr);
-    void setValue(std::shared_ptr<QString>);
+    void setValue(std::shared_ptr<OutboundObjectMeta>);
 
   protected:
     void changeEvent(QEvent *e);

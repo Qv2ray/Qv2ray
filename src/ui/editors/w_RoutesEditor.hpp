@@ -62,6 +62,7 @@ class RouteEditor
     void on_linkExistingBtn_clicked();
 
   private slots:
+    void OnDispatcherEditChainRequested(const ChainId &);
     void OnDispatcherOutboundDeleted(const complex::OutboundObjectMeta &);
     void OnDispatcherOutboundCreated(std::shared_ptr<complex::OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);

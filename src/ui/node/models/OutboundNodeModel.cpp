@@ -48,10 +48,10 @@ void OutboundNodeModel::onNodeHoverEnter()
     ProtocolSettingsInfoObject o;
     if (dataptr->metaType == METAOUTBOUND_ORIGINAL)
     {
-        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getTag(), GetOutboundInfo(dataptr->realOutbound));
+        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getDisplayName(), GetOutboundInfo(dataptr->realOutbound));
     }
     else if (dataptr->metaType == METAOUTBOUND_EXTERNAL)
     {
-        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getTag(), GetConnectionInfo(dataptr->connectionId));
+        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getDisplayName(), GetConnectionInfo(dataptr->connectionId));
     }
 }

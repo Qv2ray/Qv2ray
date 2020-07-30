@@ -15,8 +15,16 @@ class ChainWidget
 
   signals:
     void OnSizeUpdated();
+    void OnEditChainRequested(const ChainId &id);
 
   protected:
     void changeEvent(QEvent *e);
     QStringList targetList;
+  private slots:
+    void on_displayNameTxt_textEdited(const QString &arg1);
+
+    void on_editChainBtn_clicked();
+
+  private:
+    std::shared_ptr<OutboundObjectMeta> dataptr;
 };

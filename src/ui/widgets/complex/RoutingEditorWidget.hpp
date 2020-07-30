@@ -30,9 +30,7 @@ class RoutingEditorWidget
     void OnDispatcherInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     void OnDispatcherOutboundCreated(std::shared_ptr<complex::OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
-
     void on_addRouteBtn_clicked();
-
     void on_delBtn_clicked();
 
   private:

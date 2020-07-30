@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ui/messaging/QvMessageBus.hpp"
+#include "ui/node/NodeBase.hpp"
 #include "ui_ChainEditorWidget.h"
 
 #include <nodes/FlowScene>
@@ -16,6 +17,7 @@ class ChainEditorWidget
 
   public:
     explicit ChainEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher, QWidget *parent = nullptr);
+    void editChain(const ChainId &id);
     auto getScene()
     {
         return scene;
@@ -23,6 +25,9 @@ class ChainEditorWidget
 
   protected:
     void changeEvent(QEvent *e);
+
+  private slots:
+    void on_chainComboBox_currentIndexChanged(const QString &arg1);
 
   private:
     void updateColorScheme(){};

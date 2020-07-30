@@ -60,7 +60,7 @@ namespace Qv2ray::ui::nodemodels
     DECL_NODE_DATA_TYPE(InboundNodeData, NODE_TYPE_INBOUND, INBOUND);
     DECL_NODE_DATA_TYPE(OutboundNodeData, NODE_TYPE_OUTBOUND, OutboundObjectMeta);
     DECL_NODE_DATA_TYPE(RuleNodeData, NODE_TYPE_RULE, RuleObject);
-    DECL_NODE_DATA_TYPE(ChainOutboundData, NODE_TYPE_CHAINED_OUTBOUND, QString);
+    DECL_NODE_DATA_TYPE(ChainOutboundData, NODE_TYPE_CHAINED_OUTBOUND, OutboundObjectMeta);
 
     template<typename NODEMODEL_T>
     NODEMODEL_T *convert_nodemodel(QtNodes::Node *node)
@@ -135,7 +135,7 @@ namespace Qv2ray::ui::nodemodels
     DECL_NODE_DATA_MODEL(InboundNodeModel, INBOUND);
     DECL_NODE_DATA_MODEL(OutboundNodeModel, OutboundObjectMeta);
     DECL_NODE_DATA_MODEL(RuleNodeModel, RuleObject);
-    DECL_NODE_DATA_MODEL(ChainOutboundNodeModel, QString);
+    DECL_NODE_DATA_MODEL(ChainOutboundNodeModel, OutboundObjectMeta);
 
 } // namespace Qv2ray::ui::nodemodels
 

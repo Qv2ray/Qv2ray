@@ -15,7 +15,7 @@ void ChainOutboundWidget::changeEvent(QEvent *e)
     }
 }
 
-void ChainOutboundWidget::setValue(std::shared_ptr<QString> tag)
+void ChainOutboundWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
 {
-    tagLabel->setText(*tag);
+    tagLabel->setText(data->getDisplayName());
 }
