@@ -18,6 +18,7 @@ std::shared_ptr<NodeDataType> RuleNodeModel::dataType(PortType portType, PortInd
         default: return {};
     }
 }
+
 std::shared_ptr<NodeDataType> ChainOutboundNodeModel::dataType(PortType, PortIndex) const
 {
     return NODE_TYPE_CHAINED_OUTBOUND;

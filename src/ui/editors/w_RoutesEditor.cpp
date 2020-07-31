@@ -211,7 +211,6 @@ void RouteEditor::OnDispatcherObjectTagChanged(ComplexTagNodeMode t, const QStri
 void RouteEditor::OnDispatcherEditChainRequested(const ChainId &id)
 {
     nodesTab->setCurrentIndex(NODE_TAB_CHAIN_EDITOR);
-    chainWidget->editChain(id);
 }
 
 CONFIGROOT RouteEditor::OpenEditor()
@@ -490,7 +489,8 @@ void RouteEditor::on_debugPainterCB_clicked(bool checked)
 {
 #ifdef QT_DEBUG
     QtNodes::ConnectionPainter::IsDebuggingEnabled = checked;
-    ruleWidget->repaint();
+    ruleWidget->getScene()->update();
+    chainWidget->getScene()->update();
 #endif
 }
 

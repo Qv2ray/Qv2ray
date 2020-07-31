@@ -83,7 +83,7 @@ void NodeDispatcher::RestoreConnections()
     isOperationLocked = false;
 }
 
-void NodeDispatcher::DeleteNode(const QtNodes::Node &node)
+void NodeDispatcher::OnNodeDeleted(const QtNodes::Node &node)
 {
     if (isOperationLocked)
         return;
@@ -122,7 +122,12 @@ void NodeDispatcher::DeleteNode(const QtNodes::Node &node)
     {
         CLEANUP(outbound);
         const auto object = *outbound.get();
-        OnOutboundDeleted(object);
+        emit OnOutboundDeleted(object);
+        if (chainedOutboundNodes.contains(object.getDisplayName()))
+        {
+            emit OnChainedOutboundDeleted(object);
+        }
+        chainedOutboundNodes.remove(outboundTag);
     }
     else if (isRule)
     {
@@ -179,12 +184,20 @@ QString NodeDispatcher::CreateOutbound(OutboundObjectMeta out)
         outboundNodes.insert(tag, node.id());
         emit OnOutboundCreated(dataPtr, node);
     }
+
     // Create node and emit signals.
+    if (dataPtr->metaType == METAOUTBOUND_EXTERNAL || dataPtr->metaType == METAOUTBOUND_ORIGINAL)
     {
-        // auto nodeData = std::make_unique<ChainOutboundNodeModel>(shared_from_this(), dataPtr->getDisplayName());
-        // auto &node = chainScene->createNode(std::move(nodeData));
-        // emit OnChainOutboundCreate(dataPtr, node);
+        auto nodeData = std::make_unique<ChainOutboundNodeModel>(shared_from_this(), dataPtr);
+        auto &node = chainScene->createNode(std::move(nodeData));
+        chainedOutboundNodes[tag] = node.id();
+        emit OnChainedOutboundCreated(dataPtr, node);
     }
+    else
+    {
+        LOG(MODULE_UI, "Ignored non-connection outbound for Chain Editor.")
+    }
+
     return tag;
 }
 

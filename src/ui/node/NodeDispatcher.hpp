@@ -16,7 +16,8 @@ class NodeDispatcher
     {
         ruleScene = rule;
         chainScene = chain;
-        connect(ruleScene, &QtNodes::FlowScene::nodeDeleted, this, &NodeDispatcher::DeleteNode);
+        connect(ruleScene, &QtNodes::FlowScene::nodeDeleted, this, &NodeDispatcher::OnNodeDeleted);
+        connect(chainScene, &QtNodes::FlowScene::nodeDeleted, this, &NodeDispatcher::OnNodeDeleted);
     }
 
   public:
@@ -59,45 +60,38 @@ class NodeDispatcher
     {
         return outbounds.count();
     }
+    inline int ChainedOutboundsCount() const
+    {
+        return chainedOutboundNodes.count();
+    }
 
   public:
-    void DeleteNode(const QtNodes::Node &node);
+    void OnNodeDeleted(const QtNodes::Node &node);
     void RequestEditChain(const ChainId &id);
-    const QList<const std::shared_ptr<OutboundObjectMeta>> GetChainableOutboudns() const
-    {
-        for (const auto &outbound : outbounds.values())
-        {
-            //
-        }
-        return {};
-    }
 
     template<ComplexTagNodeMode t>
     inline bool RenameTag(const QString originalTag, const QString newTag)
     {
+#define PROCESS(type)                                                                                                                           \
+    bool hasExisting = type##s.contains(newTag);                                                                                                \
+    if (hasExisting)                                                                                                                            \
+        return false;                                                                                                                           \
+    type##s[newTag] = type##s.take(originalTag);                                                                                                \
+    type##Nodes[newTag] = type##Nodes.take(originalTag);
+
         if constexpr (t == NODE_INBOUND)
         {
-            bool hasExisting = inbounds.contains(newTag);
-            if (hasExisting)
-                return false;
-            inbounds[newTag] = inbounds.take(originalTag);
-            inboundNodes[newTag] = inboundNodes.take(originalTag);
+            PROCESS(inbound);
         }
         else if constexpr (t == NODE_OUTBOUND)
         {
-            bool hasExisting = outbounds.contains(newTag);
-            if (hasExisting)
-                return false;
-            outbounds[newTag] = outbounds.take(originalTag);
-            outboundNodes[newTag] = outboundNodes.take(originalTag);
+            PROCESS(outbound)
+            if (chainedOutboundNodes.contains(originalTag))
+                chainedOutboundNodes[newTag] = chainedOutboundNodes.take(originalTag);
         }
         else if constexpr (t == NODE_RULE)
         {
-            bool hasExisting = rules.contains(newTag);
-            if (hasExisting)
-                return false;
-            rules[newTag] = rules.take(originalTag);
-            ruleNodes[newTag] = ruleNodes.take(originalTag);
+            PROCESS(rule)
         }
         else
         {
@@ -105,15 +99,19 @@ class NodeDispatcher
         }
         emit OnObjectTagChanged(t, originalTag, newTag);
         return true;
+#undef PROCESS
     }
 
   signals:
+    void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
+    //
+    void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnOutboundDeleted(const OutboundObjectMeta &object);
     //
-    void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
-    void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
-    void OnChainOutboundCreate(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
+    //
+    void OnChainedOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
+    void OnChainedOutboundDeleted(const OutboundObjectMeta &object);
     //
     void OnObjectTagChanged(ComplexTagNodeMode, const QString originalTag, const QString newTag);
 
@@ -127,6 +125,7 @@ class NodeDispatcher
     QString defaultOutbound;
     QMap<QString, QUuid> inboundNodes;
     QMap<QString, QUuid> outboundNodes;
+    QMap<QString, QUuid> chainedOutboundNodes;
     QMap<QString, QUuid> ruleNodes;
     //
     QtNodes::FlowScene *ruleScene;

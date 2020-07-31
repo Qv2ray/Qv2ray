@@ -17,7 +17,6 @@ class ChainEditorWidget
 
   public:
     explicit ChainEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher, QWidget *parent = nullptr);
-    void editChain(const ChainId &id);
     auto getScene()
     {
         return scene;
@@ -28,12 +27,14 @@ class ChainEditorWidget
 
   private slots:
     void on_chainComboBox_currentIndexChanged(const QString &arg1);
+    void OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
 
   private:
     void updateColorScheme(){};
     QvMessageBusSlotDecl;
 
   private:
+    QMap<QString, QUuid> chainOutbounds;
     QtNodes::FlowScene *scene;
     QtNodes::FlowView *view;
     std::shared_ptr<NodeDispatcher> dispatcher;

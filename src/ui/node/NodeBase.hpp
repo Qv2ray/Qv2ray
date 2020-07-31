@@ -20,10 +20,10 @@ using QtNodes::PortType;
 
 namespace Qv2ray::ui::nodemodels
 {
-    const auto NODE_TYPE_OUTBOUND = std::make_shared<NodeDataType>("outbound", QObject::tr("Outbound"));
-    const auto NODE_TYPE_INBOUND = std::make_shared<NodeDataType>("inbound", QObject::tr("Inbound"));
+    const auto NODE_TYPE_OUTBOUND = std::make_shared<NodeDataType>("outbound", QObject::tr("Out"));
+    const auto NODE_TYPE_INBOUND = std::make_shared<NodeDataType>("inbound", QObject::tr("In"));
     const auto NODE_TYPE_RULE = std::make_shared<NodeDataType>("rule", QObject::tr("Rule"));
-    const auto NODE_TYPE_CHAINED_OUTBOUND = std::make_shared<NodeDataType>("chain_outbound", QObject::tr("Chained Outbound"));
+    const auto NODE_TYPE_CHAINED_OUTBOUND = std::make_shared<NodeDataType>("chain_outbound", QObject::tr("Chain"));
 
     class QvNodeWidget : public QWidget
     {

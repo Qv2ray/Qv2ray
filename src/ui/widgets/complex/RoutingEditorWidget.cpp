@@ -3,8 +3,8 @@
 #include "ui/common/UIBase.hpp"
 #include "ui/node/NodeBase.hpp"
 
-constexpr auto GRAPH_GLOBAL_OFFSET_X = -380;
-constexpr auto GRAPH_GLOBAL_OFFSET_Y = -350;
+constexpr auto GRAPH_GLOBAL_OFFSET_X = -100;
+constexpr auto GRAPH_GLOBAL_OFFSET_Y = -100;
 
 RoutingEditorWidget::RoutingEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher, QWidget *parent) : QWidget(parent), dispatcher(dispatcher)
 {

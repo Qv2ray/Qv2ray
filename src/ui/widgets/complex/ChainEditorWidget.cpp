@@ -2,6 +2,9 @@
 
 #include "ui/node/NodeBase.hpp"
 
+constexpr auto GRAPH_GLOBAL_OFFSET_X = -20;
+constexpr auto GRAPH_GLOBAL_OFFSET_Y = -300;
+
 ChainEditorWidget::ChainEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher, QWidget *parent) : QWidget(parent), dispatcher(dispatcher)
 {
     setupUi(this);
@@ -19,6 +22,8 @@ ChainEditorWidget::ChainEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher,
     l->addWidget(view);
     l->setContentsMargins(0, 0, 0, 0);
     l->setSpacing(0);
+    //
+    connect(dispatcher.get(), &NodeDispatcher::OnChainedOutboundCreated, this, &ChainEditorWidget::OnDispatcherOutboundCreated);
 }
 
 QvMessageBusSlotImpl(ChainEditorWidget)
@@ -31,8 +36,14 @@ QvMessageBusSlotImpl(ChainEditorWidget)
     }
 }
 
-void ChainEditorWidget::editChain(const ChainId &id)
+void ChainEditorWidget::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &node)
 {
+    const auto outboundCount = dispatcher->ChainedOutboundsCount();
+    const static int offsets[]{ 0, 300, -300 };
+    auto pos = this->pos();
+    pos.setX(pos.x() + GRAPH_GLOBAL_OFFSET_X + offsets[outboundCount % 3]);
+    pos.setY(pos.y() + outboundCount * 100 + GRAPH_GLOBAL_OFFSET_Y);
+    scene->setNodePosition(node, pos);
 }
 
 void ChainEditorWidget::changeEvent(QEvent *e)
