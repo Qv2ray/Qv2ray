@@ -13,20 +13,20 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>Back</string>
-       </property>
-      </widget>
-     </item>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1">
      <item>
       <widget class="QComboBox" name="chainComboBox"/>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="statusLabel">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QWidget" name="viewWidget" native="true"/>

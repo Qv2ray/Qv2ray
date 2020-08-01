@@ -17,7 +17,6 @@ class NodeDispatcher
         ruleScene = rule;
         chainScene = chain;
         connect(ruleScene, &QtNodes::FlowScene::nodeDeleted, this, &NodeDispatcher::OnNodeDeleted);
-        connect(chainScene, &QtNodes::FlowScene::nodeDeleted, this, &NodeDispatcher::OnNodeDeleted);
     }
 
   public:
@@ -60,14 +59,9 @@ class NodeDispatcher
     {
         return outbounds.count();
     }
-    inline int ChainedOutboundsCount() const
-    {
-        return chainedOutboundNodes.count();
-    }
 
   public:
     void OnNodeDeleted(const QtNodes::Node &node);
-    void RequestEditChain(const ChainId &id);
 
     template<ComplexTagNodeMode t>
     inline bool RenameTag(const QString originalTag, const QString newTag)
@@ -86,8 +80,6 @@ class NodeDispatcher
         else if constexpr (t == NODE_OUTBOUND)
         {
             PROCESS(outbound)
-            if (chainedOutboundNodes.contains(originalTag))
-                chainedOutboundNodes[newTag] = chainedOutboundNodes.take(originalTag);
         }
         else if constexpr (t == NODE_RULE)
         {
@@ -103,15 +95,18 @@ class NodeDispatcher
     }
 
   signals:
+    void RequestEditChain(const QString &id);
     void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     //
     void OnOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
-    void OnOutboundDeleted(const OutboundObjectMeta &object);
+    void OnOutboundDeleted(const OutboundObjectMeta &);
     //
     void OnRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
     //
+    void OnChainedCreated(std::shared_ptr<OutboundObjectMeta>);
+    void OnChainedDeleted(const OutboundObjectMeta &);
     void OnChainedOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
-    void OnChainedOutboundDeleted(const OutboundObjectMeta &object);
+    void OnChainedOutboundDeleted(const OutboundObjectMeta &);
     //
     void OnObjectTagChanged(ComplexTagNodeMode, const QString originalTag, const QString newTag);
 
@@ -125,7 +120,6 @@ class NodeDispatcher
     QString defaultOutbound;
     QMap<QString, QUuid> inboundNodes;
     QMap<QString, QUuid> outboundNodes;
-    QMap<QString, QUuid> chainedOutboundNodes;
     QMap<QString, QUuid> ruleNodes;
     //
     QtNodes::FlowScene *ruleScene;

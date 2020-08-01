@@ -122,12 +122,11 @@ void NodeDispatcher::OnNodeDeleted(const QtNodes::Node &node)
     {
         CLEANUP(outbound);
         const auto object = *outbound.get();
-        emit OnOutboundDeleted(object);
-        if (chainedOutboundNodes.contains(object.getDisplayName()))
+        if (object.metaType == METAOUTBOUND_CHAIN)
         {
             emit OnChainedOutboundDeleted(object);
         }
-        chainedOutboundNodes.remove(outboundTag);
+        emit OnOutboundDeleted(object);
     }
     else if (isRule)
     {
@@ -138,10 +137,6 @@ void NodeDispatcher::OnNodeDeleted(const QtNodes::Node &node)
         Q_UNREACHABLE();
     }
 #undef CLEANUP
-}
-
-void NodeDispatcher::RequestEditChain(const ChainId &id)
-{
 }
 
 QString NodeDispatcher::CreateInbound(INBOUND in)
@@ -190,8 +185,11 @@ QString NodeDispatcher::CreateOutbound(OutboundObjectMeta out)
     {
         auto nodeData = std::make_unique<ChainOutboundNodeModel>(shared_from_this(), dataPtr);
         auto &node = chainScene->createNode(std::move(nodeData));
-        chainedOutboundNodes[tag] = node.id();
         emit OnChainedOutboundCreated(dataPtr, node);
+    }
+    else if (dataPtr->metaType == METAOUTBOUND_CHAIN)
+    {
+        emit OnChainedCreated(dataPtr);
     }
     else
     {

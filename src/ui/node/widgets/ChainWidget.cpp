@@ -41,5 +41,5 @@ void ChainWidget::on_displayNameTxt_textEdited(const QString &arg1)
 
 void ChainWidget::on_editChainBtn_clicked()
 {
-    emit dispatcher->RequestEditChain(dataptr->chainId);
+    emit dispatcher->RequestEditChain(dataptr->getDisplayName());
 }

@@ -92,7 +92,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundDeleted, this, &RouteEditor::OnDispatcherOutboundDeleted);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
-    // connect(nodeDispatcher.get(), &NodeDispatcher::OnEditChainRequested, this, &RouteEditor::OnDispatcherEditChainRequested);
+    connect(nodeDispatcher.get(), &NodeDispatcher::RequestEditChain, this, &RouteEditor::OnDispatcherEditChainRequested);
     //
     {
         //
@@ -208,7 +208,7 @@ void RouteEditor::OnDispatcherObjectTagChanged(ComplexTagNodeMode t, const QStri
     }
 }
 
-void RouteEditor::OnDispatcherEditChainRequested(const ChainId &id)
+void RouteEditor::OnDispatcherEditChainRequested(const QString &id)
 {
     nodesTab->setCurrentIndex(NODE_TAB_CHAIN_EDITOR);
 }
@@ -482,7 +482,7 @@ void RouteEditor::on_addBalancerBtn_clicked()
 
 void RouteEditor::on_addChainBtn_clicked()
 {
-    auto _ = nodeDispatcher->CreateOutbound(make_outbound(ChainId{ GenerateRandomString() }, "Chained Outbound"));
+    auto _ = nodeDispatcher->CreateOutbound(make_outbound(QList<QString>{}, "Chained Outbound"));
 }
 
 void RouteEditor::on_debugPainterCB_clicked(bool checked)

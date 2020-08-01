@@ -23,7 +23,16 @@ ChainEditorWidget::ChainEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher,
     l->setContentsMargins(0, 0, 0, 0);
     l->setSpacing(0);
     //
-    connect(dispatcher.get(), &NodeDispatcher::OnChainedOutboundCreated, this, &ChainEditorWidget::OnDispatcherOutboundCreated);
+    connect(dispatcher.get(), &NodeDispatcher::OnChainedOutboundCreated, this, &ChainEditorWidget::OnDispatcherChainedOutboundCreated);
+    connect(dispatcher.get(), &NodeDispatcher::OnChainedOutboundDeleted, this, &ChainEditorWidget::OnDispatcherChainedOutboundDeleted);
+    connect(dispatcher.get(), &NodeDispatcher::OnChainedCreated, this, &ChainEditorWidget::OnDispatcherChainCreated);
+    connect(dispatcher.get(), &NodeDispatcher::OnChainedDeleted, this, &ChainEditorWidget::OnDispatcherChainDeleted);
+    connect(dispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &ChainEditorWidget::OnDispatcherObjectTagChanged);
+    //
+    connect(dispatcher.get(), &NodeDispatcher::RequestEditChain, this, &ChainEditorWidget::BeginEditChain);
+    //
+    connect(scene, &QtNodes::FlowScene::connectionCreated, this, &ChainEditorWidget::OnSceneConnectionCreated);
+    connect(scene, &QtNodes::FlowScene::connectionDeleted, this, &ChainEditorWidget::OnSceneConnectionRemoved);
 }
 
 QvMessageBusSlotImpl(ChainEditorWidget)
@@ -36,9 +45,10 @@ QvMessageBusSlotImpl(ChainEditorWidget)
     }
 }
 
-void ChainEditorWidget::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &node)
+void ChainEditorWidget::OnDispatcherChainedOutboundCreated(std::shared_ptr<OutboundObjectMeta> data, QtNodes::Node &node)
 {
-    const auto outboundCount = dispatcher->ChainedOutboundsCount();
+    outboundNodes[data->getDisplayName()] = node.id();
+    const auto outboundCount = outboundNodes.count();
     const static int offsets[]{ 0, 300, -300 };
     auto pos = this->pos();
     pos.setX(pos.x() + GRAPH_GLOBAL_OFFSET_X + offsets[outboundCount % 3]);
@@ -56,6 +66,196 @@ void ChainEditorWidget::changeEvent(QEvent *e)
     }
 }
 
+void ChainEditorWidget::BeginEditChain(const QString &chain)
+{
+    const auto index = chainComboBox->findText(chain);
+    if (index >= 0)
+    {
+        // Triggers the on_chainComboBox_currentIndexChanged function.
+        chainComboBox->setCurrentIndex(index);
+    }
+}
+
+void ChainEditorWidget::ShowChainLinkedList()
+{
+    connectionSignalBlocked = true;
+    const auto connections = scene->connections();
+    for (const auto &connection : connections)
+    {
+        scene->deleteConnection(*connection.second);
+    }
+    //
+    const auto &outbounds = currentChain->chainedOutbounds;
+    for (auto index = 0; index < outbounds.count() - 1; index++)
+    {
+        const auto &nodeIn = scene->node(outboundNodes[outbounds[index + 1]]);
+        const auto &nodeOut = scene->node(outboundNodes[outbounds[index]]);
+        scene->createConnection(*nodeIn, 0, *nodeOut, 0);
+    }
+    connectionSignalBlocked = false;
+}
+
+std::tuple<bool, QString, QStringList> ChainEditorWidget::VerifyChainLinkedList(const QUuid &ignoredConnectionId)
+{
+    QList<QString> resultList;
+    auto conns = scene->connections();
+    bool needReIterate = true;
+    const auto expectedChainLength = conns.size() + uint(ignoredConnectionId.isNull());
+    for (auto i = 0u; i < expectedChainLength; i++)
+    {
+        auto iter = conns.begin();
+        // Loop against all items.
+        while (iter != conns.end())
+        {
+#define NEED_ITERATE(x)                                                                                                                         \
+    needReIterate = x;                                                                                                                          \
+    continue
+            const auto &id = iter->first;
+            const auto &connection = iter->second;
+            const auto &nodeInId = connection->getNode(QtNodes::PortType::In)->id();
+            const auto &nodeOutId = connection->getNode(QtNodes::PortType::Out)->id();
+            //
+            const auto &nextTag = outboundNodes.key(nodeInId);
+            const auto &previousTag = outboundNodes.key(nodeOutId);
+            //
+            // If we are ignoring this node.
+            if (id == ignoredConnectionId)
+            {
+                iter++;
+                NEED_ITERATE(false);
+                continue;
+            }
+            //
+            if (resultList.isEmpty())
+            {
+                iter++;
+                resultList << previousTag << nextTag;
+                NEED_ITERATE(false);
+            }
+
+            if (resultList.last() != previousTag && resultList.first() != nextTag)
+            {
+                iter++;
+                NEED_ITERATE(true);
+                // return std::make_tuple(false, tr("Two different chains detected."), QStringList());
+            }
+
+            if (resultList.contains(previousTag) && resultList.contains(nextTag))
+            {
+                iter++;
+                NEED_ITERATE(true);
+                // return std::make_tuple(false, tr("Looped chain detected."), QStringList());
+            }
+
+            if (resultList.last() == previousTag)
+            {
+                resultList << nextTag;
+                iter = conns.erase(iter);
+                NEED_ITERATE(false);
+            }
+
+            if (resultList.front() == nextTag)
+            {
+                resultList.prepend(previousTag);
+                iter = conns.erase(iter);
+                NEED_ITERATE(false);
+            }
+#undef NEED_ITERATE
+        }
+        if ((ulong) resultList.count() == expectedChainLength)
+        {
+            return { true, tr("OK"), resultList };
+        }
+    }
+    return { false, ">", resultList };
+}
+
 void ChainEditorWidget::on_chainComboBox_currentIndexChanged(const QString &arg1)
 {
+    currentChain = chains[arg1];
+    ShowChainLinkedList();
+}
+
+void ChainEditorWidget::TrySaveChainOutboudData(const QUuid &ignoredConnectionId)
+{
+    if (!currentChain)
+    {
+        QvMessageBoxWarn(this, tr("Chain Editor"), tr("Please Select a Chain"));
+        return;
+    }
+    const auto &[result, errMessage, list] = VerifyChainLinkedList(ignoredConnectionId);
+    if (!result)
+    {
+        RED(statusLabel);
+        statusLabel->setText(errMessage);
+    }
+    else
+    {
+        BLACK(statusLabel);
+        statusLabel->setText(list.join(" >> "));
+        currentChain->chainedOutbounds = list;
+    }
+}
+
+void ChainEditorWidget::OnSceneConnectionCreated(const QtNodes::Connection &)
+{
+    if (connectionSignalBlocked)
+        return;
+    TrySaveChainOutboudData();
+}
+
+void ChainEditorWidget::OnSceneConnectionRemoved(const QtNodes::Connection &c)
+{
+    if (connectionSignalBlocked)
+        return;
+    TrySaveChainOutboudData(c.id());
+}
+
+void ChainEditorWidget::OnDispatcherChainedOutboundDeleted(const OutboundObjectMeta &data)
+{
+    const auto displayName = data.getDisplayName();
+    if (chainedOutbounds.contains(displayName))
+    {
+        chainedOutbounds.remove(displayName);
+    }
+    if (outboundNodes.contains(displayName))
+    {
+        scene->removeNode(*scene->node(outboundNodes[displayName]));
+        outboundNodes.remove(displayName);
+    }
+}
+
+void ChainEditorWidget::OnDispatcherChainCreated(std::shared_ptr<OutboundObjectMeta> data)
+{
+    const auto displayName = data->getDisplayName();
+    chains[displayName] = data;
+    chainComboBox->addItem(displayName);
+}
+
+void ChainEditorWidget::OnDispatcherChainDeleted(const OutboundObjectMeta &data)
+{
+    const auto displayName = data.getDisplayName();
+    const auto index = chainComboBox->findText(displayName);
+    chainComboBox->removeItem(index);
+    chains.remove(displayName);
+}
+
+void ChainEditorWidget::OnDispatcherObjectTagChanged(ComplexTagNodeMode mode, const QString originalTag, const QString newTag)
+{
+    if (mode == NODE_OUTBOUND)
+    {
+        // Simply compare if there is a match (Since no duplication of DisplayName should occur.)
+        if (outboundNodes.contains(originalTag))
+            outboundNodes[newTag] = outboundNodes.take(originalTag);
+
+        // Check Chains.
+        if (chains.contains(originalTag))
+            chains[newTag] = chains.take(originalTag);
+
+        const auto index = chainComboBox->findText(originalTag);
+        if (index >= 0)
+        {
+            chainComboBox->setItemText(index, newTag);
+        }
+    }
 }

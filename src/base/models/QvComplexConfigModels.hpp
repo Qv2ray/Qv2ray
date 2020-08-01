@@ -28,15 +28,9 @@ namespace Qv2ray::base::objects::complex
      *      |   |     - object                      -> OutboundObject
      *      |   |     - metaType                    -> MetaOutboundObjectType
      *      |   |       - ORIGINAL                      -> Enables realOutbound
-     *      |   |       - CHAINED
-     *      |   |       - BALANCER
-     *      |   |
-     *      |
-     *      |
-     *      |
-     *      |
-     *      |
-     *      |
+     *      |   |       - EXTERNAL                      -> Enables connectionId
+     *      |   |       - CHAINED                       -> Enables chainId
+     *      |   |       - BALANCER                      -> ?
      *      |
      *
      *******************************************************************/
@@ -56,17 +50,10 @@ namespace Qv2ray::base::objects::complex
         METAOUTBOUND_CHAIN
     };
 
-    DECL_IDTYPE(ChainId);
     DECL_IDTYPE(BalancerTag);
 
     constexpr auto META_OUTBOUND_KEY_NAME = "QV2RAY_OUTBOUND_METADATA";
-    constexpr auto META_CHANS_KEY = "QV2RAY_OUTBOUND_CHAINS";
-    struct ChainObject
-    {
-        ChainId id;
-        QList<QString> outboundTags;
-        JSONSTRUCT_REGISTER(ChainObject, F(id, outboundTags))
-    };
+    constexpr auto META_CHANS_KEY = "QV2RAY_CHAINS";
 
     typedef BalancerObject ComplexBalancerObject;
 
@@ -77,7 +64,7 @@ namespace Qv2ray::base::objects::complex
         //
         ConnectionId connectionId;
         BalancerTag balancerTag;
-        ChainId chainId;
+        QList<QString> chainedOutbounds;
         //
         safetype::OUTBOUND realOutbound;
         QString getDisplayName() const
@@ -88,14 +75,14 @@ namespace Qv2ray::base::objects::complex
                 return displayName;
         }
         explicit OutboundObjectMeta() : metaType(METAOUTBOUND_ORIGINAL){};
-        JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, displayName, connectionId, balancerTag, chainId))
+        JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, displayName, connectionId, balancerTag, chainedOutbounds))
     };
 
-    inline OutboundObjectMeta make_outbound(const ChainId &id, const QString &tag)
+    inline OutboundObjectMeta make_outbound(const QList<QString> &chain, const QString &tag)
     {
         OutboundObjectMeta meta;
         meta.metaType = METAOUTBOUND_CHAIN;
-        meta.chainId = id;
+        meta.chainedOutbounds = chain;
         meta.displayName = tag;
         return meta;
     }

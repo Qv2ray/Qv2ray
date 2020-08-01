@@ -15,7 +15,7 @@ class ChainWidget
 
   signals:
     void OnSizeUpdated();
-    void OnEditChainRequested(const ChainId &id);
+    void OnEditChainRequested(const QString &id);
 
   protected:
     void changeEvent(QEvent *e);
