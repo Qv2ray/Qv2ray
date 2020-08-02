@@ -93,6 +93,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
     connect(nodeDispatcher.get(), &NodeDispatcher::RequestEditChain, this, &RouteEditor::OnDispatcherEditChainRequested);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &RouteEditor::OnDispatcherObjectTagChanged);
     //
     {
         //
@@ -166,7 +167,8 @@ void RouteEditor::OnDispatcherInboundOutboundHovered(const QString &tag, const P
 
 void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out, QtNodes::Node &)
 {
-    defaultOutboundCombo->addItem(out->getDisplayName());
+    if (out->metaType != METAOUTBOUND_BALANCER)
+        defaultOutboundCombo->addItem(out->getDisplayName());
 }
 
 void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNodes::Node &)
@@ -203,7 +205,7 @@ void RouteEditor::OnDispatcherObjectTagChanged(ComplexTagNodeMode t, const QStri
     else if (t == NODE_OUTBOUND)
     {
         const auto id = defaultOutboundCombo->findText(original);
-        if (id > 0)
+        if (id >= 0)
             defaultOutboundCombo->setItemText(id, current);
     }
 }
@@ -453,7 +455,11 @@ void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1
 void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1)
 {
     LOADINGCHECK
-    // defaultOutbound = arg1;
+    if (defaultOutboundTag != arg1)
+    {
+        LOG(MODULE_UI, "Default outbound changed: " + arg1)
+        defaultOutboundTag = arg1;
+    }
 }
 
 void RouteEditor::on_importExistingBtn_clicked()

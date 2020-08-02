@@ -70,6 +70,7 @@ class RouteEditor
     void OnDispatcherObjectTagChanged(ComplexTagNodeMode, const QString, const QString);
 
   private:
+    QString defaultOutboundTag;
     std::shared_ptr<NodeDispatcher> nodeDispatcher;
     ChainEditorWidget *chainWidget;
     RoutingEditorWidget *ruleWidget;
