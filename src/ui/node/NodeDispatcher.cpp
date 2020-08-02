@@ -16,9 +16,15 @@ NodeDispatcher::~NodeDispatcher()
 {
 }
 
-CONFIGROOT NodeDispatcher::GetFullConfig() const
+std::tuple<QList<INBOUND>, QList<RuleObject>, QList<OutboundObjectMeta>> NodeDispatcher::GetData() const
 {
-    return CONFIGROOT{};
+    QList<INBOUND> _inbounds;
+    QList<RuleObject> _rules;
+    QList<OutboundObjectMeta> _outbounds;
+    for (const auto &val : inbounds) _inbounds << *val;
+    for (const auto &val : rules) _rules << *val;
+    for (const auto &val : outbounds) _outbounds << *val;
+    return std::make_tuple(_inbounds, _rules, _outbounds);
 }
 
 void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)

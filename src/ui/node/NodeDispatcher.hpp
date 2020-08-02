@@ -20,7 +20,7 @@ class NodeDispatcher
     }
 
   public:
-    CONFIGROOT GetFullConfig() const;
+    std::tuple<QList<INBOUND>, QList<RuleObject>, QList<OutboundObjectMeta>> GetData() const;
     void LoadFullConfig(const CONFIGROOT &);
     [[nodiscard]] QString CreateInbound(INBOUND);
     [[nodiscard]] QString CreateOutbound(OutboundObjectMeta);

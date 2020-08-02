@@ -218,8 +218,11 @@ void RouteEditor::OnDispatcherEditChainRequested(const QString &id)
 CONFIGROOT RouteEditor::OpenEditor()
 {
     auto result = this->exec();
+    if (result == QDialog::Accepted)
+        return original;
 
-    auto x = nodeDispatcher->GetFullConfig();
+    const auto &[in, rule, out] = nodeDispatcher->GetData();
+
     //    if (rules.isEmpty())
     //    {
     //        // Prevent empty rule list causing mis-detection of config type to
