@@ -114,9 +114,6 @@ class NodeDispatcher
     void OnInboundOutboundNodeHovered(const QString &tag, const ProtocolSettingsInfoObject &);
 
   private:
-    void RestoreConnections();
-
-  private:
     QString defaultOutbound;
     QMap<QString, QUuid> inboundNodes;
     QMap<QString, QUuid> outboundNodes;

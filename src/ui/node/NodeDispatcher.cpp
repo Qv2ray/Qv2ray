@@ -41,11 +41,6 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
     {
         auto _ = CreateRule(RuleObject::fromJson(item.toObject()));
     }
-    RestoreConnections();
-}
-
-void NodeDispatcher::RestoreConnections()
-{
     isOperationLocked = true;
     for (const auto &rule : rules)
     {
