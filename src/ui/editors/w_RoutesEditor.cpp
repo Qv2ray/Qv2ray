@@ -126,19 +126,9 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     domainStrategyCombo->setCurrentText(domainStrategy);
     //
     //// Set default outboung combo text AFTER adding all outbounds.
-    const auto defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
-    defaultOutboundCombo->setCurrentText(defaultOutbound);
-    //
-    ////    // Find and add balancers.
-    ////    for (auto _balancer : root["routing"].toObject()["balancers"].toArray())
-    ////    {
-    ////        auto _balancerObject = _balancer.toObject();
-    ////        if (!_balancerObject["tag"].toString().isEmpty())
-    ////        {
-    ////            balancers.insert(_balancerObject["tag"].toString(), _balancerObject["selector"].toVariant().toStringList());
-    ////        }
-    ////    }
-    //
+    defaultOutboundTag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
+    defaultOutboundCombo->setCurrentText(defaultOutboundTag);
+
     for (const auto &group : ConnectionManager->AllGroups())
     {
         importGroupBtn->addItem(GetDisplayName(group), group.toString());
@@ -218,118 +208,86 @@ void RouteEditor::OnDispatcherEditChainRequested(const QString &)
 CONFIGROOT RouteEditor::OpenEditor()
 {
     auto result = this->exec();
-    if (result == QDialog::Accepted)
+    if (result != QDialog::Accepted)
         return original;
 
     const auto &[inbounds, rules, outbounds] = nodeDispatcher->GetData();
+    //
+    // Inbounds
     QJsonArray inboundsJson;
     for (const auto &in : inbounds)
     {
         inboundsJson << in;
     }
-    QJsonArray rulesJson;
-    for (const auto &rule : rules)
+    root["inbounds"] = inboundsJson;
+    //
+    // QJsonArray rules
+    QJsonArray rulesJsonArray;
+    for (auto i = 0; i < ruleListWidget->count(); i++)
     {
-        rulesJson << rule.toJson();
+        // Sorted
+        const auto ruleTag = ruleListWidget->item(i)->text();
+        if (rules.contains(ruleTag))
+        {
+            const auto &ruleObject = rules[ruleTag];
+            auto ruleJson = ruleObject.toJson();
+            // Remove some empty fields.
+            // if (ruleObject.port.isEmpty())
+            //    ruleJson.remove("port");
+            // if (ruleObject.network.isEmpty())
+            //    ruleJson.remove("network");
+            JAUTOREMOVE(ruleJson, "network");
+            JAUTOREMOVE(ruleJson, "port");
+            JAUTOREMOVE(ruleJson, "outboundTag");
+            JAUTOREMOVE(ruleJson, "balancerTag");
+            rulesJsonArray << ruleJson;
+        }
+        else
+        {
+            LOG(MODULE_UI, "Could not find rule tag: " + ruleTag)
+        }
+    }
+    //
+    // QJsonArray balancers
+    QJsonArray balancersArray;
+    for (const auto &out : outbounds)
+    {
+        if (out.metaType != METAOUTBOUND_BALANCER)
+            continue;
+        BalancerObject o;
+        o.tag = out.getDisplayName();
+        o.selector = out.outboundTags;
+        balancersArray << o.toJson();
     }
 
-    //    if (rules.isEmpty())
-    //    {
-    //        // Prevent empty rule list causing mis-detection of config type to
-    //        // simple.
-    //        on_addRouteBtn_clicked();
-    //    }
+    QJsonObject routingObject;
+    routingObject["domainStrategy"] = domainStrategy;
+    routingObject["rules"] = rulesJsonArray;
+    routingObject["balancers"] = balancersArray;
+    root["routing"] = routingObject;
 
-    // // If clicking OK
-    // if (result == QDialog::Accepted)
-    // {
-    // QJsonArray rulesArray;
-    // QJsonArray _balancers;
     //
-    //// Append rules by order
-    // for (auto i = 0; i < ruleListWidget->count(); i++)
-    //{
-    //    auto _rule = rules[i];
-    //    auto ruleJsonObject = _rule.toJson();
-    //
-    //    // Process balancer for a rule
-    //    if (_rule.QV2RAY_RULE_USE_BALANCER)
-    //    {
-    //        // Do not use outbound tag.
-    //        ruleJsonObject.remove("outboundTag");
-    //
-    //        //                // Find balancer list
-    //        //                if (!balancers.contains(_rule.balancerTag))
-    //        //                {
-    //        //                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
-    //        //                }
-    //        //                else
-    //        //                {
-    //        //                    auto _balancerList = balancers[_rule.balancerTag];
-    //        //                    QJsonObject balancerEntry;
-    //        //                    balancerEntry["tag"] = _rule.balancerTag;
-    //        //                    balancerEntry["selector"] = QJsonArray::fromStringList(_balancerList);
-    //        //                    _balancers.append(balancerEntry);
-    //        //                }
-    //    }
-    //
-    //    // Remove some empty fields.
-    //    if (_rule.port.isEmpty())
-    //    {
-    //        ruleJsonObject.remove("port");
-    //    }
-    //
-    //    if (_rule.network.isEmpty())
-    //    {
-    //        ruleJsonObject.remove("network");
-    //    }
-    //
-    //  rulesArray.append(ruleJsonObject);
-    //}
+    // QJsonArray Outbounds
+    QJsonArray outboundsArray;
 
-    // QJsonObject routing;
-    // routing["domainStrategy"] = domainStrategy;
-    // routing["rules"] = rulesArray;
-    // routing["balancers"] = _balancers;
-    // //
-    // QJsonArray _inbounds;
-    // QJsonArray _outbounds;
-    //
-    // // Convert our internal data format to QJsonArray
-    // for (auto x : inbounds)
-    // {
-    //     if (x.isEmpty())
-    //         continue;
-    //
-    //     _inbounds.append(x.raw());
-    // }
-    //
-    // for (auto x : outbounds)
-    // {
-    //     if (x.isEmpty())
-    //         continue;
-    //
-    //     if (getTag(x) == defaultOutbound)
-    //     {
-    //         LOG(MODULE_CONNECTION, "Pushing default outbound to the front.")
-    //         // Put the default outbound to the first.
-    //         _outbounds.push_front(x.raw());
-    //     }
-    //     else
-    //     {
-    //         _outbounds.push_back(x.raw());
-    //     }
-    // }
-    //
-    // root["inbounds"] = _inbounds;
-    // root["outbounds"] = _outbounds;
-    // root["routing"] = routing;
-    //    return root;
-    //}
-    // else
-    //{
-    return original;
-    //}
+    for (const auto &out : outbounds)
+    {
+        QJsonObject outboundJsonObject;
+        if (out.metaType == METAOUTBOUND_BALANCER)
+            continue;
+        if (out.metaType == METAOUTBOUND_ORIGINAL)
+        {
+            outboundJsonObject = out.realOutbound;
+        }
+        outboundJsonObject[META_OUTBOUND_KEY_NAME] = out.toJson();
+        const auto displayName = out.getDisplayName();
+        if (displayName == defaultOutboundTag)
+            outboundsArray.prepend(outboundJsonObject);
+        else
+            outboundsArray.append(outboundJsonObject);
+    }
+    root["outbounds"] = outboundsArray;
+    return root;
 }
 
 RouteEditor::~RouteEditor()

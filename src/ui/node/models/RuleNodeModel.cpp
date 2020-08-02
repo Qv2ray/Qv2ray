@@ -12,6 +12,25 @@ RuleNodeModel::RuleNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::s
     ((QvNodeRuleWidget *) widget)->setValue(data);
     widget->setWindowFlags(Qt::FramelessWindowHint);
     widget->setAttribute(Qt::WA_TranslucentBackground);
+    //
+    const auto renameFunc = [this](ComplexTagNodeMode mode, const QString originalTag, const QString newTag) {
+        if (mode == NODE_INBOUND)
+        {
+            if (dataptr->inboundTag.contains(originalTag))
+            {
+                dataptr->inboundTag.removeAll(originalTag);
+                dataptr->inboundTag.push_back(newTag);
+            }
+        }
+        else if (mode == NODE_OUTBOUND)
+        {
+            if (dataptr->outboundTag == originalTag)
+                dataptr->outboundTag = newTag;
+            if (dataptr->balancerTag == originalTag)
+                dataptr->balancerTag = newTag;
+        }
+    };
+    connect(dispatcher.get(), &NodeDispatcher::OnObjectTagChanged, renameFunc);
 }
 
 void RuleNodeModel::inputConnectionCreated(const QtNodes::Connection &c)
@@ -19,7 +38,7 @@ void RuleNodeModel::inputConnectionCreated(const QtNodes::Connection &c)
     if (dispatcher->IsNodeConstructing())
         return;
     const auto &inNodeData = convert_nodedata<InboundNodeData>(c.getNode(PortType::Out));
-    const auto inboundTag = getTag(*inNodeData->GetData().get());
+    const auto inboundTag = getTag(*inNodeData->GetData());
     if (!dataptr->inboundTag.contains(inboundTag))
         dataptr->inboundTag.push_back(inboundTag);
 }
@@ -29,7 +48,7 @@ void RuleNodeModel::inputConnectionDeleted(const QtNodes::Connection &c)
     if (dispatcher->IsNodeConstructing())
         return;
     const auto &inNodeData = convert_nodedata<InboundNodeData>(c.getNode(PortType::Out));
-    const auto inboundTag = getTag(*inNodeData->GetData().get());
+    const auto inboundTag = getTag(*inNodeData->GetData());
     dataptr->inboundTag.removeAll(inboundTag);
 }
 
@@ -41,21 +60,19 @@ void RuleNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
     switch (outbound->GetData().get()->metaType)
     {
         case METAOUTBOUND_CHAIN:
-        {
-            QvMessageBoxWarn(nullptr, "Not Impl", "Connection to a chain has not been implemented.");
-            break;
-        }
         case METAOUTBOUND_EXTERNAL:
         case METAOUTBOUND_ORIGINAL:
-        case METAOUTBOUND_BALANCER:
         {
+            dataptr->balancerTag.clear();
             dataptr->outboundTag = outbound->GetData()->getDisplayName();
             break;
         }
-            {
-                dataptr->balancerTag = outbound->GetData()->getDisplayName();
-                break;
-            }
+        case METAOUTBOUND_BALANCER:
+        {
+            dataptr->outboundTag.clear();
+            dataptr->balancerTag = outbound->GetData()->getDisplayName();
+            break;
+        }
     }
 }
 

@@ -51,7 +51,6 @@ namespace Qv2ray::base::objects::complex
     };
 
     constexpr auto META_OUTBOUND_KEY_NAME = "QV2RAY_OUTBOUND_METADATA";
-    constexpr auto META_CHANS_KEY = "QV2RAY_CHAINS";
 
     typedef BalancerObject ComplexBalancerObject;
 

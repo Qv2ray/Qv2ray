@@ -29,6 +29,12 @@ ChainEditorWidget::ChainEditorWidget(std::shared_ptr<NodeDispatcher> dispatcher,
     connect(dispatcher.get(), &NodeDispatcher::OnChainedDeleted, this, &ChainEditorWidget::OnDispatcherChainDeleted);
     connect(dispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &ChainEditorWidget::OnDispatcherObjectTagChanged);
     //
+    connect(dispatcher.get(), &NodeDispatcher::OnFullConfigLoadCompleted, [this]() {
+        if (!chains.isEmpty())
+            currentChain = chains.first();
+        ShowChainLinkedList();
+    });
+    //
     connect(dispatcher.get(), &NodeDispatcher::RequestEditChain, this, &ChainEditorWidget::BeginEditChain);
     //
     connect(scene, &QtNodes::FlowScene::connectionCreated, this, &ChainEditorWidget::OnSceneConnectionCreated);
@@ -78,6 +84,8 @@ void ChainEditorWidget::BeginEditChain(const QString &chain)
 
 void ChainEditorWidget::ShowChainLinkedList()
 {
+    if (dispatcher->IsNodeConstructing())
+        return;
     connectionSignalBlocked = true;
     const auto connections = scene->connections();
     for (const auto &connection : connections)
@@ -85,12 +93,29 @@ void ChainEditorWidget::ShowChainLinkedList()
         scene->deleteConnection(*connection.second);
     }
     //
+    // Warn: Some outbound node MAY NOT be created YET!
+    if (!currentChain)
+        return;
     const auto &outbounds = currentChain->outboundTags;
     for (auto index = 0; index < outbounds.count() - 1; index++)
     {
-        const auto &nodeIn = scene->node(outboundNodes[outbounds[index + 1]]);
-        const auto &nodeOut = scene->node(outboundNodes[outbounds[index]]);
-        scene->createConnection(*nodeIn, 0, *nodeOut, 0);
+        const auto &inTag = outbounds[index + 1];
+        const auto &outTag = outbounds[index];
+        bool hasErrorOccured = false;
+        for (const auto &tag : { inTag, outTag })
+        {
+            if (!outboundNodes.contains(tag))
+            {
+                QvMessageBoxWarn(this, tr("Chain Editor"), tr("Could not find outbound tag: %1, The chain may be corrupted").arg(tag));
+                hasErrorOccured = true;
+            }
+        }
+        if (!hasErrorOccured)
+        {
+            const auto &nodeIn = scene->node(outboundNodes[inTag]);
+            const auto &nodeOut = scene->node(outboundNodes[outTag]);
+            scene->createConnection(*nodeIn, 0, *nodeOut, 0);
+        }
     }
     connectionSignalBlocked = false;
 }

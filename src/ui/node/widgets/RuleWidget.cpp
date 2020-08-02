@@ -149,42 +149,6 @@ void QvNodeRuleWidget::on_sourceIPList_textChanged()
     rule.source = SplitLines(sourceIPList->toPlainText());
 }
 
-// void QvNodeRuleWidget::on_enableBalancerCB_stateChanged(int arg1)
-//{
-//    //    LOADINGCHECK
-//    //    auto useBalancer = arg1 == Qt::Checked;
-//    //    CurrentRule.QV2RAY_RULE_USE_BALANCER = useBalancer;
-//    //    // balancersWidget->setEnabled(useBalancer);
-//
-//    //    //    if (CurrentRule.balancerTag.isEmpty())
-//    //    //    {
-//    //    //        LOG(MODULE_UI, "Creating a new balancer tag.")
-//    //    //        CurrentRule.balancerTag = GenerateRandomString(6);
-//    //    //        balancers[CurrentRule.balancerTag] = QStringList();
-//    //    //    }
-//
-//    //    DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag)
-//
-//    //    if (useBalancer)
-//    //    {
-//    //        LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")
-//    //        auto ruleNode = ruleNodes[currentRuleTag];
-//    //        for (auto &&[_, conn] : nodeScene->connections())
-//    //        {
-//    //            if (conn->getNode(PortType::Out)->id() == ruleNode)
-//    //            {
-//    //                nodeScene->deleteConnection(*conn);
-//    //                // Since there should be only one connection from this rule node.
-//    //                break;
-//    //            }
-//    //        }
-//    //    }
-//    //    else
-//    //    {
-//    //        QvMessageBoxWarn(this, tr("Route Editor"), tr("To make this rule ready to use, you need to connect it to an outbound node."));
-//    //    }
-//}
-
 void QvNodeRuleWidget::on_ruleEnableCB_stateChanged(int arg1)
 {
     bool _isEnabled = arg1 == Qt::Checked;

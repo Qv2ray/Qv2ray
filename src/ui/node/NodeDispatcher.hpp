@@ -105,6 +105,7 @@ class NodeDispatcher
     }
 
   signals:
+    void OnFullConfigLoadCompleted();
     void RequestEditChain(const QString &id);
     void OnInboundCreated(std::shared_ptr<INBOUND>, QtNodes::Node &);
     //

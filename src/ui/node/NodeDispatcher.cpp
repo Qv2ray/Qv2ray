@@ -29,6 +29,7 @@ std::tuple<QMap<QString, INBOUND>, QMap<QString, RuleObject>, QMap<QString, Outb
 
 void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
 {
+    isOperationLocked = true;
     // Show connections in the node graph
     for (const auto &in : root["inbounds"].toArray())
     {
@@ -47,7 +48,6 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
     {
         auto _ = CreateRule(RuleObject::fromJson(item.toObject()));
     }
-    isOperationLocked = true;
     for (const auto &rule : rules)
     {
         if (!ruleNodes.contains(rule->QV2RAY_RULE_TAG))
@@ -82,6 +82,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
         }
     }
     isOperationLocked = false;
+    emit OnFullConfigLoadCompleted();
 }
 
 void NodeDispatcher::OnNodeDeleted(const QtNodes::Node &node)
