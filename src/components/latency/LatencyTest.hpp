@@ -27,8 +27,6 @@ namespace Qv2ray::components::latency
         Qv2rayLatencyTestingMethod method;
     };
 
-    int isAddr(const char *host, int port, struct sockaddr_storage *storage, int ipv6first);
-
     class LatencyTestHost : public QObject
     {
         Q_OBJECT

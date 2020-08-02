@@ -46,7 +46,7 @@ void MainWindow::updateColorScheme()
     updownImageBox->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
     updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
     //
-    tray_action_ShowHide->setIcon(this->windowIcon());
+    tray_action_ToggleVisibility->setIcon(this->windowIcon());
     action_RCM_Start->setIcon(QICON_R("start"));
     action_RCM_Edit->setIcon(QICON_R("edit"));
     action_RCM_EditJson->setIcon(QICON_R("code"));
@@ -61,6 +61,7 @@ void MainWindow::updateColorScheme()
     //
     locateBtn->setIcon(QICON_R("map"));
     sortBtn->setIcon(QICON_R("arrow-down-filling"));
+    collapseGroupsBtn->setIcon(QICON_R("arrow-up"));
 }
 
 void MainWindow::MWAddConnectionItem_p(const ConnectionGroupPair &id)
@@ -206,9 +207,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     tray_SystemProxyMenu->addAction(tray_action_SetSystemProxy);
     tray_SystemProxyMenu->addAction(tray_action_ClearSystemProxy);
     //
-    tray_RootMenu->addAction(tray_action_ShowHide);
+    tray_RootMenu->addAction(tray_action_ToggleVisibility);
     tray_RootMenu->addSeparator();
-    tray_RootMenu->addAction(tray_action_ShowPreferencesWindow);
+    tray_RootMenu->addAction(tray_action_Preferences);
     tray_RootMenu->addMenu(tray_SystemProxyMenu);
     //
     tray_RootMenu->addSeparator();
@@ -223,8 +224,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     tray_RootMenu->addAction(tray_action_Quit);
     qvAppTrayIcon->setContextMenu(tray_RootMenu);
     //
-    connect(tray_action_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
-    connect(tray_action_ShowPreferencesWindow, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
+    connect(tray_action_ToggleVisibility, &QAction::triggered, this, &MainWindow::ToggleVisibility);
+    connect(tray_action_Preferences, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
     connect(tray_action_Start, &QAction::triggered, [this] { ConnectionManager->StartConnection(lastConnectedIdentifier); });
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
@@ -328,7 +329,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     }
     //
     //
-    tray_action_ShowHide->setText(!connectionStarted ? tr("Hide") : tr("Show"));
+    tray_action_ToggleVisibility->setText(!connectionStarted ? tr("Hide") : tr("Show"));
     if (!connectionStarted)
         this->show();
     //
@@ -459,7 +460,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     TransformProcessType(&psn, kProcessTransformToUIElementApplication);
 #endif
     this->hide();
-    tray_action_ShowHide->setText(tr("Show"));
+    tray_action_ToggleVisibility->setText(tr("Show"));
     event->ignore();
 }
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
@@ -500,7 +501,7 @@ void MainWindow::ToggleVisibility()
         ProcessSerialNumber psn = { 0, kCurrentProcess };
         TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 #endif
-        tray_action_ShowHide->setText(tr("Hide"));
+        tray_action_ToggleVisibility->setText(tr("Hide"));
     }
     else
     {
@@ -509,7 +510,7 @@ void MainWindow::ToggleVisibility()
         TransformProcessType(&psn, kProcessTransformToUIElementApplication);
 #endif
         this->hide();
-        tray_action_ShowHide->setText(tr("Show"));
+        tray_action_ToggleVisibility->setText(tr("Show"));
     }
 }
 
@@ -1142,4 +1143,9 @@ void MainWindow::on_newComplexConnectionBtn_clicked()
         //
         ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, "outbounds", 0, "tag").toString(), id);
     }
+}
+
+void MainWindow::on_collapseGroupsBtn_clicked()
+{
+    connectionListWidget->collapseAll();
 }

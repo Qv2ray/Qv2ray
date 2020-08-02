@@ -23,25 +23,26 @@ plugs:
 
 apps:
   qv2ray:
-      command: bin/desktop-launch qv2ray
-      environment:
-        QT_QPA_PLATFORMTHEME: gtk3
-      plugs:
-        - home
-        - x11
-        - wayland
-        - opengl
-        - network
-        - network-bind
-        - unity7
-        - pulseaudio
-        - desktop
-        - desktop-legacy
-        - gsettings
-        - network-control
-        - network-manager
-      common-id: com.github.Qv2ray
-      desktop: "usr/share/applications/qv2ray.desktop"
+    command: bin/desktop-launch qv2ray
+    environment:
+      QT_QPA_PLATFORMTHEME: gtk3
+      DISABLE_WAYLAND: 1
+    plugs:
+      - home
+      - x11
+      - wayland
+      - opengl
+      - network
+      - network-bind
+      - unity7
+      - pulseaudio
+      - desktop
+      - desktop-legacy
+      - gsettings
+      - network-control
+      - network-manager
+    common-id: com.github.Qv2ray
+    desktop: "usr/share/applications/qv2ray.desktop"
 
 parts:
   ppa:

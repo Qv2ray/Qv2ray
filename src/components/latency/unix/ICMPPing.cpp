@@ -52,81 +52,33 @@ namespace Qv2ray::components::latency::icmping
         }
     }
 
-    ICMPPing::ICMPPing(int ttl,std::shared_ptr<uvw::Loop> loop_in,LatencyTestRequest& req_in,LatencyTestHost* testHost):
-          loop(std::move(loop_in)),
-          req(std::move(req_in)),
-          testHost(testHost)
+    void ICMPPing::start(int ttl)
     {
         if (((socketId = socket(PF_INET, SOCK_DGRAM, IPPROTO_ICMP)) < 0))
         {
-            initErrorMessage = "EPING_SOCK: " + QObject::tr("Socket creation failed");
+            data.errorMessage = "EPING_SOCK: " + QObject::tr("Socket creation failed");
+            data.avg = LATENCY_TEST_VALUE_ERROR;
+            testHost->OnLatencyTestCompleted(req.id, data);
             return;
         }
         // set TTL
         if (setsockopt(socketId, SOL_IP, IP_TTL, &ttl, sizeof(ttl)) != 0)
         {
-            deinit();
-            initErrorMessage = "EPING_TTL: " + QObject::tr("Failed to setup TTL value");
+            data.errorMessage = "EPING_TTL: " + QObject::tr("Failed to setup TTL value");
+            data.avg = LATENCY_TEST_VALUE_ERROR;
+            testHost->OnLatencyTestCompleted(req.id, data);
             return;
         }
-
-        initialized = true;
         data.totalCount = req.totalCount;
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
-        if (isAddr(req.host.toStdString().data(), req.port, &storage, 0) == -1)
+        if (isAddr() == -1)
         {
             getAddrHandle = loop->resource<uvw::GetAddrInfoReq>();
             sprintf(digitBuffer, "%d", req.port);
         }
-    }
-
-    int ICMPPing::getAddrInfoRes(uvw::AddrInfoEvent &e)
-    {
-        struct addrinfo *rp = nullptr;
-        for (rp = e.data.get(); rp != nullptr; rp = rp->ai_next)
-            if (rp->ai_family == AF_INET)
-            {
-                if (rp->ai_family == AF_INET)
-                    memcpy(&storage, rp->ai_addr, sizeof(struct sockaddr_in));
-                else if (rp->ai_family == AF_INET6)
-                    memcpy(&storage, rp->ai_addr, sizeof(struct sockaddr_in6));
-                break;
-            }
-        if (rp == nullptr)
-        {
-            // fallback: if we can't find prefered AF, then we choose alternative.
-            for (rp = e.data.get(); rp != nullptr; rp = rp->ai_next)
-            {
-                if (rp->ai_family == AF_INET)
-                    memcpy(&storage, rp->ai_addr, sizeof(struct sockaddr_in));
-                else if (rp->ai_family == AF_INET6)
-                    memcpy(&storage, rp->ai_addr, sizeof(struct sockaddr_in6));
-                break;
-            }
-        }
-        if (rp)
-            return 0;
-        return -1;
-    }
-    void ICMPPing::start()
-    {
-        if (!initialized)
-        {
-            data.errorMessage = initErrorMessage;
-            data.avg = LATENCY_TEST_VALUE_ERROR;
-            testHost->OnLatencyTestCompleted(req.id, data);
-            return;
-        }
-        if (socketId < 0)
-        {
-            data.errorMessage="EPING_SOCK:" + QObject::tr("Socket creation failed");
-            data.avg = LATENCY_TEST_VALUE_ERROR;
-            testHost->OnLatencyTestCompleted(req.id, data);
-            return;
-        }
-        async_DNS_lookup(0,0);
+        async_DNS_lookup(0, 0);
     }
 
     bool ICMPPing::notifyTestHost()
@@ -138,15 +90,15 @@ namespace Qv2ray::components::latency::icmping
             else
                 data.errorMessage.clear(), data.avg = data.avg / successCount;
             testHost->OnLatencyTestCompleted(req.id, data);
-            if(timoutTimer)
+            if (timeoutTimer)
             {
-                timoutTimer->stop();
-                timoutTimer->clear();
-                timoutTimer->close();
+                timeoutTimer->stop();
+                timeoutTimer->clear();
+                timeoutTimer->close();
             }
-            if(pollHandle)
+            if (pollHandle)
             {
-                if(!pollHandle->closing())
+                if (!pollHandle->closing())
                     pollHandle->stop();
                 pollHandle->clear();
                 pollHandle->close();
@@ -158,99 +110,98 @@ namespace Qv2ray::components::latency::icmping
 
     void ICMPPing::ping()
     {
-        timoutTimer = loop->resource<uvw::TimerHandle>();
+        timeoutTimer = loop->resource<uvw::TimerHandle>();
         uvw::OSSocketHandle osSocketHandle{ socketId };
         pollHandle = loop->resource<uvw::PollHandle>(osSocketHandle);
-        timoutTimer->once<uvw::TimerEvent>([this,ptr=std::weak_ptr<ICMPPing>{shared_from_this()}](auto&,uvw::TimerHandle&h)
-                                           {
-                                                if(ptr.expired())
-                                                    return;
-                                                else
-                                                {
-                                                    auto p=ptr.lock();
-                                                    pollHandle->clear();
-                                                    if(!pollHandle->closing())
-                                                    pollHandle->stop();
-                                                    pollHandle->close();
-                                                    successCount = 0;
-                                                    data.failedCount = data.totalCount = req.totalCount;
-                                                    notifyTestHost();
-                                                }
-                                           });
-        timoutTimer->start(uvw::TimerHandle::Time{ 10000 }, uvw::TimerHandle::Time{ 0 });
+        timeoutTimer->once<uvw::TimerEvent>([this, ptr = std::weak_ptr<ICMPPing>{ shared_from_this() }](auto &, uvw::TimerHandle &h) {
+            if (ptr.expired())
+                return;
+            else
+            {
+                auto p = ptr.lock();
+                pollHandle->clear();
+                if (!pollHandle->closing())
+                    pollHandle->stop();
+                pollHandle->close();
+                successCount = 0;
+                data.failedCount = data.totalCount = req.totalCount;
+                notifyTestHost();
+            }
+        });
+        timeoutTimer->start(uvw::TimerHandle::Time{ 10000 }, uvw::TimerHandle::Time{ 0 });
         auto pollEvent = uvw::Flags<uvw::PollHandle::Event>::from<uvw::PollHandle::Event::READABLE>();
         pollHandle->on<uvw::PollEvent>([this, ptr = shared_from_this()](uvw::PollEvent &, uvw::PollHandle &h) {
-          timeval end;
-          sockaddr_in addr;
-          socklen_t slen = sizeof(sockaddr_in);
-          int rlen = 0;
-          char buf[1024];
-          do
-          {
-              do
-              {
-                  rlen = recvfrom(socketId,buf , 1024, 0, (struct sockaddr *) &addr, &slen);
-              } while (rlen == -1 && errno == EINTR);
+            timeval end;
+            sockaddr_in addr;
+            socklen_t slen = sizeof(sockaddr_in);
+            int rlen = 0;
+            char buf[1024];
+            do
+            {
+                do
+                {
+                    rlen = recvfrom(socketId, buf, 1024, 0, (struct sockaddr *) &addr, &slen);
+                } while (rlen == -1 && errno == EINTR);
 
-              // skip malformed
-#ifdef Q_OS_MAC
-              if(rlen<sizeof(icmp)+20)
-#else
-              if (rlen < sizeof(icmp))
-#endif
-                  continue;
+                // skip malformed
+    #ifdef Q_OS_MAC
+                if (rlen < sizeof(icmp) + 20)
+    #else
+                if (rlen < sizeof(icmp))
+    #endif
+                    continue;
 
-#ifdef Q_OS_MAC
-              auto& resp=*reinterpret_cast<icmp*>(buf+20);
-#else
-              auto& resp=*reinterpret_cast<icmp*>(buf);
-#endif
-              // skip the ones we didn't send
-              auto cur_seq = resp.icmp_hun.ih_idseq.icd_seq;
-              if (cur_seq >= seq)
-                  continue;
+    #ifdef Q_OS_MAC
+                auto &resp = *reinterpret_cast<icmp *>(buf + 20);
+    #else
+                auto &resp = *reinterpret_cast<icmp *>(buf);
+    #endif
+                // skip the ones we didn't send
+                auto cur_seq = resp.icmp_hun.ih_idseq.icd_seq;
+                if (cur_seq >= seq)
+                    continue;
 
-              switch (resp.icmp_type)
-              {
-                  case ICMP_ECHOREPLY:
-                      gettimeofday(&end, nullptr);
-                      data.avg +=
-                          1000 * (end.tv_sec - startTimevals[cur_seq - 1].tv_sec) + (end.tv_usec - startTimevals[cur_seq - 1].tv_usec)/1000;
-                      successCount++;
-                      notifyTestHost();
-                      continue;
-                  case ICMP_UNREACH:
-                      data.errorMessage = "EPING_DST: " + QObject::tr("Destination unreachable");
-                      data.failedCount++;
-                      if (notifyTestHost())
-                      {
-                          h.clear();
-                          h.close();
-                          return;
-                      }
-                      continue;
-                  case ICMP_TIMXCEED:
-                      data.errorMessage = "EPING_TIME: " + QObject::tr("Timeout");
-                      data.failedCount++;
-                      if (notifyTestHost())
-                      {
-                          h.clear();
-                          h.close();
-                          return;
-                      }
-                      continue;
-                  default:
-                      data.errorMessage = "EPING_UNK: " + QObject::tr("Unknown error");
-                      data.failedCount++;
-                      if (notifyTestHost())
-                      {
-                          h.clear();
-                          h.close();
-                          return;
-                      }
-                      continue;
-              }
-          } while (rlen > 0);
+                switch (resp.icmp_type)
+                {
+                    case ICMP_ECHOREPLY:
+                        gettimeofday(&end, nullptr);
+                        data.avg +=
+                            1000 * (end.tv_sec - startTimevals[cur_seq - 1].tv_sec) + (end.tv_usec - startTimevals[cur_seq - 1].tv_usec) / 1000;
+                        successCount++;
+                        notifyTestHost();
+                        continue;
+                    case ICMP_UNREACH:
+                        data.errorMessage = "EPING_DST: " + QObject::tr("Destination unreachable");
+                        data.failedCount++;
+                        if (notifyTestHost())
+                        {
+                            h.clear();
+                            h.close();
+                            return;
+                        }
+                        continue;
+                    case ICMP_TIMXCEED:
+                        data.errorMessage = "EPING_TIME: " + QObject::tr("Timeout");
+                        data.failedCount++;
+                        if (notifyTestHost())
+                        {
+                            h.clear();
+                            h.close();
+                            return;
+                        }
+                        continue;
+                    default:
+                        data.errorMessage = "EPING_UNK: " + QObject::tr("Unknown error");
+                        data.failedCount++;
+                        if (notifyTestHost())
+                        {
+                            h.clear();
+                            h.close();
+                            return;
+                        }
+                        continue;
+                }
+            } while (rlen > 0);
         });
         pollHandle->start(pollEvent);
         for (int i = 0; i < req.totalCount; ++i)
@@ -271,6 +222,10 @@ namespace Qv2ray::components::latency::icmping
                 n = ::sendto(socketId, &_icmp_request, sizeof(icmp), 0, (struct sockaddr *) &storage, sizeof(struct sockaddr));
             } while (n < 0 && errno == EINTR);
         }
+    }
+    ICMPPing::~ICMPPing()
+    {
+        deinit();
     }
 } // namespace Qv2ray::components::latency::icmping
 #endif

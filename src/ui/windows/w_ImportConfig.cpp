@@ -23,11 +23,14 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog(parent)
     QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
     //
+    auto defaultItemIndex = 0;
     for (const auto &gid : ConnectionManager->AllGroups())
     {
         groupCombo->addItem(GetDisplayName(gid), gid.toString());
+        if (gid == DefaultGroupId)
+            defaultItemIndex = groupCombo->count() - 1;
     }
-    groupCombo->setCurrentText(GetDisplayName(DefaultGroupId));
+    groupCombo->setCurrentIndex(defaultItemIndex);
 }
 
 void ImportConfigWindow::updateColorScheme()
@@ -50,14 +53,14 @@ ImportConfigWindow::~ImportConfigWindow()
 {
 }
 
-QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
+QMultiMap<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
 {
     // partial import means only import as an outbound, will set outboundsOnly to
     // false and disable the checkbox
     keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
     groupCombo->setEnabled(false);
     this->exec();
-    QMultiHash<QString, CONFIGROOT> conn;
+    QMultiMap<QString, CONFIGROOT> conn;
     for (const auto &connEntry : connectionsToNewGroup.values())
     {
         conn += connEntry;
@@ -66,7 +69,7 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     {
         conn += connEntry;
     }
-    return result() == Accepted ? conn : QMultiHash<QString, CONFIGROOT>{};
+    return result() == Accepted ? conn : QMultiMap<QString, CONFIGROOT>{};
 }
 
 int ImportConfigWindow::PerformImportConnection()
@@ -308,22 +311,18 @@ void ImportConfigWindow::on_cancelImportBtn_clicked()
     reject();
 }
 
-void ImportConfigWindow::on_subscriptionButton_clicked()
+void ImportConfigWindow::on_routeEditBtn_clicked()
 {
-    hide();
-    GroupManager w(this);
-    w.exec();
-    auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
-    connectionsToNewGroup.clear();
-    connectionsToExistingGroup.clear();
+    RouteEditor w(QJsonObject(), this);
+    auto result = w.OpenEditor();
+    bool isChanged = w.result() == QDialog::Accepted;
+    QString alias = nameTxt->text();
 
-    if (importToComplex)
+    if (isChanged)
     {
-        auto [alias, conf] = w.GetSelectedConfig();
-        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, conf);
+        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, result);
+        accept();
     }
-
-    accept();
 }
 
 void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)

@@ -19,7 +19,7 @@ namespace Qv2ray::components::latency
 
     void LatencyTestThread::pushRequest(const ConnectionId &id, int totalTestCount, Qv2rayLatencyTestingMethod method)
     {
-        if(isStop)
+        if (isStop)
             return;
         std::unique_lock<std::mutex> lockGuard{ m };
         const auto &[protocol, host, port] = GetConnectionInfo(id);
@@ -33,16 +33,18 @@ namespace Qv2ray::components::latency
         stopTimer->on<uvw::TimerEvent>([this](auto &, auto &handle) {
             if (isStop)
             {
-                if(!requests.empty())
+                if (!requests.empty())
                     requests.clear();
-                int timer_count=0;
-                //LOG(MODULE_NETWORK,"fuck")
-                loop->walk([&timer_count,this](uvw::BaseHandle&h)
-                           {
-                                if(!h.closing())
-                                    timer_count++;
-                           });
-                if(timer_count==1)//only current timer
+                int timer_count = 0;
+                uv_walk(
+                    loop->raw(),
+                    [](uv_handle_t *handle, void *arg) {
+                        int &counter = *static_cast<int *>(arg);
+                        if (uv_is_closing(handle) == 0)
+                            counter++;
+                    },
+                    &timer_count);
+                if (timer_count == 1) // only current timer
                 {
                     handle.stop();
                     handle.close();
@@ -63,13 +65,8 @@ namespace Qv2ray::components::latency
                     {
                         case ICMPING:
                         {
-#ifdef Q_OS_UNIX
-                            auto ptr = std::make_shared<icmping::ICMPPing>(30,loop,req,parent);
+                            auto ptr = std::make_shared<icmping::ICMPPing>(loop, req, parent);
                             ptr->start();
-#else
-                            auto ptr = std::make_shared<icmping::ICMPPing>(30);
-                            ptr->start(loop,req,parent);
-#endif
                         }
                         break;
                         case TCPING:
@@ -89,7 +86,7 @@ namespace Qv2ray::components::latency
     }
     void LatencyTestThread::pushRequest(const QList<ConnectionId> &ids, int totalTestCount, Qv2rayLatencyTestingMethod method)
     {
-        if(isStop)
+        if (isStop)
             return;
         std::unique_lock<std::mutex> lockGuard{ m };
         for (const auto &id : ids)
