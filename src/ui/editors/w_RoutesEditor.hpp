@@ -60,6 +60,7 @@ class RouteEditor
     void on_insertBlackBtn_clicked();
     void on_insertDirectBtn_clicked();
     void on_linkExistingBtn_clicked();
+    void on_importOutboundBtn_clicked();
 
   private slots:
     void OnDispatcherEditChainRequested(const QString &);

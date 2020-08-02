@@ -70,7 +70,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="addOutboundBtn">
+           <widget class="QPushButton" name="importOutboundBtn">
             <property name="toolTip">
              <string>Add outbound</string>
             </property>
@@ -80,7 +80,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="addOutboundBtn">
             <property name="text">
              <string>Editor</string>
             </property>

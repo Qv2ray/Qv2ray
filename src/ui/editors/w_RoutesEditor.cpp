@@ -424,25 +424,12 @@ void RouteEditor::on_addInboundBtn_clicked()
 void RouteEditor::on_addOutboundBtn_clicked()
 {
     LOADINGCHECK
-    ImportConfigWindow w(this);
-    // True here for not keep the inbounds.
-    auto configs = w.SelectConnection(true);
+    OutboundEditor w(OUTBOUND(), this);
+    auto _result = w.OpenEditor();
 
-    for (auto i = 0; i < configs.count(); i++)
+    if (w.result() == QDialog::Accepted)
     {
-        auto conf = configs.values()[i];
-        auto name = configs.key(conf, "");
-
-        if (name.isEmpty())
-            continue;
-
-        // conf is rootObject, needs to unwrap it.
-        auto confList = conf["outbounds"].toArray();
-
-        for (int i = 0; i < confList.count(); i++)
-        {
-            auto _ = nodeDispatcher->CreateOutbound(make_outbound(OUTBOUND(confList[i].toObject())));
-        }
+        auto _ = nodeDispatcher->CreateOutbound(make_outbound(_result));
     }
 }
 
@@ -504,4 +491,29 @@ void RouteEditor::on_linkExistingBtn_clicked()
 {
     const auto cid = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
     auto _ = nodeDispatcher->CreateOutbound(make_outbound(cid, GetDisplayName(cid)));
+}
+
+void RouteEditor::on_importOutboundBtn_clicked()
+{
+    LOADINGCHECK
+    ImportConfigWindow w(this);
+    // True here for not keep the inbounds.
+    auto configs = w.SelectConnection(true);
+
+    for (auto i = 0; i < configs.count(); i++)
+    {
+        auto conf = configs.values()[i];
+        auto name = configs.key(conf, "");
+
+        if (name.isEmpty())
+            continue;
+
+        // conf is rootObject, needs to unwrap it.
+        auto confList = conf["outbounds"].toArray();
+
+        for (int i = 0; i < confList.count(); i++)
+        {
+            auto _ = nodeDispatcher->CreateOutbound(make_outbound(OUTBOUND(confList[i].toObject())));
+        }
+    }
 }
