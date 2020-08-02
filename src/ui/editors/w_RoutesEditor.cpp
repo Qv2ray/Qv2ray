@@ -8,6 +8,7 @@
 #include "ui/node/models/InboundNodeModel.hpp"
 #include "ui/node/models/OutboundNodeModel.hpp"
 #include "ui/node/models/RuleNodeModel.hpp"
+#include "ui/widgets/DnsSettingsWidget.hpp"
 #include "ui/widgets/complex/ChainEditorWidget.hpp"
 #include "ui/widgets/complex/RoutingEditorWidget.hpp"
 #include "ui/windows/w_ImportConfig.hpp"
@@ -87,6 +88,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     nodeDispatcher = std::make_shared<NodeDispatcher>();
     ruleWidget = new RoutingEditorWidget(nodeDispatcher, ruleEditorUIWidget);
     chainWidget = new ChainEditorWidget(nodeDispatcher, chainEditorUIWidget);
+    dnsWidget = new DnsSettingsWidget(this);
     nodeDispatcher->InitializeScenes(ruleWidget->getScene(), chainWidget->getScene());
     connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundDeleted, this, &RouteEditor::OnDispatcherOutboundDeleted);
@@ -95,37 +97,28 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     connect(nodeDispatcher.get(), &NodeDispatcher::RequestEditChain, this, &RouteEditor::OnDispatcherEditChainRequested);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &RouteEditor::OnDispatcherObjectTagChanged);
     //
-    {
-        //
-        if (!ruleEditorUIWidget->layout())
-        {
-            // The QWidget will take ownership of layout.
-            ruleEditorUIWidget->setLayout(new QVBoxLayout());
-        }
-        auto l = ruleEditorUIWidget->layout();
-        l->addWidget(ruleWidget);
-        l->setContentsMargins(0, 0, 0, 0);
-        l->setSpacing(0);
+#define SETLAYOUT(parent, child)                                                                                                                \
+    {                                                                                                                                           \
+        if (!parent->layout())                                                                                                                  \
+        {                                                                                                                                       \
+            parent->setLayout(new QVBoxLayout());                                                                                               \
+        }                                                                                                                                       \
+        auto l = parent->layout();                                                                                                              \
+        l->addWidget(child);                                                                                                                    \
+        l->setContentsMargins(0, 0, 0, 0);                                                                                                      \
+        l->setSpacing(0);                                                                                                                       \
     }
-
-    {
-        if (!chainEditorUIWidget->layout())
-        {
-            // The QWidget will take ownership of layout.
-            chainEditorUIWidget->setLayout(new QVBoxLayout());
-        }
-        auto l = chainEditorUIWidget->layout();
-        l->addWidget(chainWidget);
-        l->setContentsMargins(0, 0, 0, 0);
-        l->setSpacing(0);
-    }
+    SETLAYOUT(ruleEditorUIWidget, ruleWidget);
+    SETLAYOUT(chainEditorUIWidget, chainWidget);
+    SETLAYOUT(dnsEditorUIWidget, dnsWidget);
     //
     nodeDispatcher->LoadFullConfig(root);
+    dnsWidget->SetDNSObject(DNSObject::fromJson(root["dns"].toObject()));
     //
     domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
     domainStrategyCombo->setCurrentText(domainStrategy);
     //
-    //// Set default outboung combo text AFTER adding all outbounds.
+    // Set default outboung combo text AFTER adding all outbounds.
     defaultOutboundTag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
     defaultOutboundCombo->setCurrentText(defaultOutboundTag);
 
@@ -287,6 +280,7 @@ CONFIGROOT RouteEditor::OpenEditor()
             outboundsArray.append(outboundJsonObject);
     }
     root["outbounds"] = outboundsArray;
+    root["dns"] = dnsWidget->GetDNSObject().toJson();
     return root;
 }
 

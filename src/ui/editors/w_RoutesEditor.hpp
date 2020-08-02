@@ -17,6 +17,7 @@ enum ROUTE_EDIT_MODE
 class NodeDispatcher;
 class ChainEditorWidget;
 class RoutingEditorWidget;
+class DnsSettingsWidget;
 
 namespace QtNodes
 {
@@ -71,6 +72,7 @@ class RouteEditor
     std::shared_ptr<NodeDispatcher> nodeDispatcher;
     ChainEditorWidget *chainWidget;
     RoutingEditorWidget *ruleWidget;
+    DnsSettingsWidget *dnsWidget;
     //
     bool isLoading = false;
     QString domainStrategy;

@@ -261,7 +261,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="0">
-        <widget class="QWidget" name="widget" native="true"/>
+        <widget class="QWidget" name="dnsEditorUIWidget" native="true"/>
        </item>
       </layout>
      </widget>

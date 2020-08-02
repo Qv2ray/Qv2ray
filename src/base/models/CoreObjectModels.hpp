@@ -31,7 +31,29 @@ namespace Qv2ray::base::objects
                        left.domains == right.domains &&                                     //
                        left.expectIPs == right.expectIPs;
             }
-            JSONSTRUCT_REGISTER(DNSServerObject, F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs))
+            void loadJson(const QJsonValue &___json_object_)
+            {
+                // Hack to convert simple DNS settings to complex format.
+                if (___json_object_.isString())
+                {
+                    address = ___json_object_.toString();
+                    QV2RAY_DNS_IS_COMPLEX_DNS = false;
+                    return;
+                }
+                FOREACH_CALL_FUNC(___DESERIALIZE_FROM_JSON_EXTRACT_B_F, F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs));
+            }
+            [[nodiscard]] static auto fromJson(const QJsonValue &___json_object_)
+            {
+                DNSServerObject _t;
+                _t.loadJson(___json_object_);
+                return _t;
+            }
+            [[nodiscard]] const QJsonObject toJson() const
+            {
+                QJsonObject ___json_object_;
+                FOREACH_CALL_FUNC(___SERIALIZE_TO_JSON_EXTRACT_B_F, F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs));
+                return ___json_object_;
+            }
         };
         QMap<QString, QString> hosts;
         QList<DNSServerObject> servers;
