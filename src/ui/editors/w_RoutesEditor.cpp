@@ -380,18 +380,17 @@ void RouteEditor::on_addDefaultBtn_clicked()
         const auto tproxy_network = networks.join(",");
         auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
         //
-        //
         const static QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
         const QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", ts.mode } } } };
-
-        auto tProxyIn = GenerateInboundEntry(ts.tProxyIP, ts.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf");
-        tProxyIn.insert("sniffing", tproxy_sniff);
-        tProxyIn.insert("streamSettings", tproxy_streamSettings);
-        auto _ = nodeDispatcher->CreateInbound(tProxyIn);
-
+        {
+            auto tProxyIn = GenerateInboundEntry(ts.tProxyIP, ts.port, "dokodemo-door", tproxyInSettings, "tProxy IPv4");
+            tProxyIn.insert("sniffing", tproxy_sniff);
+            tProxyIn.insert("streamSettings", tproxy_streamSettings);
+            auto _ = nodeDispatcher->CreateInbound(tProxyIn);
+        }
         if (!ts.tProxyV6IP.isEmpty())
         {
-            auto tProxyV6In = GenerateInboundEntry(ts.tProxyV6IP, ts.port, "dokodemo-door", tproxyInSettings, "TPROXY_gConf_V6");
+            auto tProxyV6In = GenerateInboundEntry(ts.tProxyV6IP, ts.port, "dokodemo-door", tproxyInSettings, "tProxy IPv6");
             tProxyV6In.insert("sniffing", tproxy_sniff);
             tProxyV6In.insert("streamSettings", tproxy_streamSettings);
             auto _ = nodeDispatcher->CreateInbound(tProxyV6In);
