@@ -80,8 +80,11 @@ namespace Qv2ray
 #ifdef Q_OS_LINUX
         setFallbackSessionManagementEnabled(false);
         connect(this, &QGuiApplication::commitDataRequest, [] {
+            RouteManager->SaveRoutes();
             ConnectionManager->SaveConnectionConfig();
-            LOG(MODULE_INIT, "Quit triggered by session manager.")
+            PluginHost->SavePluginSettings();
+            SaveGlobalSettings();
+            LOG(MODULE_INIT, "Saving settings triggered by session manager.")
         });
 #endif
         return NORMAL;
@@ -89,6 +92,13 @@ namespace Qv2ray
 
     void Qv2rayApplication::aboutToQuitSlot()
     {
+        LOG(MODULE_INIT, "Terminating connections and saving data.")
+        // Do not change the order.
+        ConnectionManager->StopConnection();
+        RouteManager->SaveRoutes();
+        ConnectionManager->SaveConnectionConfig();
+        PluginHost->SavePluginSettings();
+        SaveGlobalSettings();
         delete mainWindow;
         delete hTray;
         delete ConnectionManager;
