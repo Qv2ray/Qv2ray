@@ -50,8 +50,6 @@ namespace Qv2ray::base::objects::complex
         METAOUTBOUND_CHAIN
     };
 
-    DECL_IDTYPE(BalancerTag);
-
     constexpr auto META_OUTBOUND_KEY_NAME = "QV2RAY_OUTBOUND_METADATA";
     constexpr auto META_CHANS_KEY = "QV2RAY_CHAINS";
 
@@ -63,8 +61,7 @@ namespace Qv2ray::base::objects::complex
         QString displayName;
         //
         ConnectionId connectionId;
-        BalancerTag balancerTag;
-        QList<QString> chainedOutbounds;
+        QList<QString> outboundTags;
         //
         safetype::OUTBOUND realOutbound;
         QString getDisplayName() const
@@ -75,28 +72,28 @@ namespace Qv2ray::base::objects::complex
                 return displayName;
         }
         explicit OutboundObjectMeta() : metaType(METAOUTBOUND_ORIGINAL){};
-        JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, displayName, connectionId, balancerTag, chainedOutbounds))
+        JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, displayName, connectionId, outboundTags))
     };
 
-    inline OutboundObjectMeta make_outbound(const QList<QString> &chain, const QString &tag)
+    inline OutboundObjectMeta make_chained_outbound(const QList<QString> &chain, const QString &tag)
     {
         OutboundObjectMeta meta;
         meta.metaType = METAOUTBOUND_CHAIN;
-        meta.chainedOutbounds = chain;
+        meta.outboundTags = chain;
         meta.displayName = tag;
         return meta;
     }
 
-    inline OutboundObjectMeta make_outbound(const BalancerTag &id, const QString &tag)
+    inline OutboundObjectMeta make_balancer_outbound(const QList<QString> &outbounds, const QString &tag)
     {
         OutboundObjectMeta meta;
         meta.metaType = METAOUTBOUND_BALANCER;
-        meta.balancerTag = id;
+        meta.outboundTags = outbounds;
         meta.displayName = tag;
         return meta;
     }
 
-    inline OutboundObjectMeta make_outbound(const ConnectionId &id, const QString &tag)
+    inline OutboundObjectMeta make_external_outbound(const ConnectionId &id, const QString &tag)
     {
         OutboundObjectMeta meta;
         meta.metaType = METAOUTBOUND_EXTERNAL;
@@ -105,7 +102,7 @@ namespace Qv2ray::base::objects::complex
         return meta;
     }
 
-    inline OutboundObjectMeta make_outbound(const safetype::OUTBOUND &outbound)
+    inline OutboundObjectMeta make_normal_outbound(const safetype::OUTBOUND &outbound)
     {
         OutboundObjectMeta meta;
         meta.metaType = METAOUTBOUND_ORIGINAL;

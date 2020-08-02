@@ -85,7 +85,7 @@ void ChainEditorWidget::ShowChainLinkedList()
         scene->deleteConnection(*connection.second);
     }
     //
-    const auto &outbounds = currentChain->chainedOutbounds;
+    const auto &outbounds = currentChain->outboundTags;
     for (auto index = 0; index < outbounds.count() - 1; index++)
     {
         const auto &nodeIn = scene->node(outboundNodes[outbounds[index + 1]]);
@@ -193,7 +193,7 @@ void ChainEditorWidget::TrySaveChainOutboudData(const QUuid &ignoredConnectionId
     {
         BLACK(statusLabel);
         statusLabel->setText(list.join(" >> "));
-        currentChain->chainedOutbounds = list;
+        currentChain->outboundTags = list;
     }
 }
 

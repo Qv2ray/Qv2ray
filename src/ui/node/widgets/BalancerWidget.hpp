@@ -15,6 +15,12 @@ class BalancerWidget
   private slots:
     void on_balancerAddBtn_clicked();
     void on_balancerDelBtn_clicked();
+    void on_balancerTagTxt_textEdited(const QString &arg1);
+
+  private:
+    void OutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
+    void OutboundDeleted(const OutboundObjectMeta &);
+    void OnTagChanged(ComplexTagNodeMode _t1, const QString _t2, const QString _t3);
 
   signals:
     void OnSizeUpdated();
@@ -22,5 +28,4 @@ class BalancerWidget
   protected:
     void changeEvent(QEvent *e);
     std::shared_ptr<OutboundObjectMeta> outboundData;
-    QStringList targetList;
 };

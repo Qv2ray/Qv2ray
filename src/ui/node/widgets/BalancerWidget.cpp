@@ -8,11 +8,17 @@ BalancerWidget::BalancerWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWid
     setupUi(this);
     balancerAddBtn->setIcon(QICON_R("add"));
     balancerDelBtn->setIcon(QICON_R("ashbin"));
+    connect(dispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &BalancerWidget::OutboundCreated);
+    connect(dispatcher.get(), &NodeDispatcher::OnOutboundDeleted, this, &BalancerWidget::OutboundDeleted);
+    connect(dispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &BalancerWidget::OnTagChanged);
 }
 
 void BalancerWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
 {
     outboundData = data;
+    balancerSelectionCombo->clear();
+    balancerSelectionCombo->addItems(dispatcher->GetRealOutboundTags());
+    balancerTagTxt->setText(data->getDisplayName());
 }
 
 void BalancerWidget::changeEvent(QEvent *e)
@@ -31,24 +37,52 @@ void BalancerWidget::on_balancerAddBtn_clicked()
 
     if (!balancerTx.isEmpty())
     {
-        targetList.append(balancerSelectionCombo->currentText());
+        outboundData->outboundTags.append(balancerSelectionCombo->currentText());
         balancerList->addItem(balancerTx);
         balancerSelectionCombo->setEditText("");
     }
-    else
-    {
-        // statusLabel->setText(tr("Balancer is empty, not processing."));
-    }
+}
+
+void BalancerWidget::OutboundCreated(std::shared_ptr<OutboundObjectMeta> data, QtNodes::Node &)
+{
+    if (data->metaType != METAOUTBOUND_BALANCER)
+        balancerSelectionCombo->addItem(data->getDisplayName());
+}
+
+void BalancerWidget::OutboundDeleted(const OutboundObjectMeta &data)
+{
+    if (data.metaType != METAOUTBOUND_BALANCER)
+        balancerSelectionCombo->removeItem(balancerSelectionCombo->findText(data.getDisplayName()));
+}
+
+void BalancerWidget::OnTagChanged(ComplexTagNodeMode type, const QString originalTag, const QString newTag)
+{
+    if (type != NODE_OUTBOUND)
+        return;
+    const auto index = balancerSelectionCombo->findText(originalTag);
+    if (index >= 0)
+        balancerSelectionCombo->setItemText(index, newTag);
 }
 
 void BalancerWidget::on_balancerDelBtn_clicked()
 {
     if (balancerList->currentRow() < 0)
-    {
         return;
-    }
 
-    targetList.removeAt(balancerList->currentRow());
+    outboundData->outboundTags.removeOne(balancerList->currentItem()->text());
     balancerList->takeItem(balancerList->currentRow());
-    // statusLabel->setText(tr("Removed a balancer entry."));
+}
+
+void BalancerWidget::on_balancerTagTxt_textEdited(const QString &arg1)
+{
+    const auto originalName = outboundData->getDisplayName();
+    if (originalName == arg1 || dispatcher->RenameTag<NODE_OUTBOUND>(originalName, arg1))
+    {
+        outboundData->displayName = arg1;
+        BLACK(balancerTagTxt)
+    }
+    else
+    {
+        RED(balancerTagTxt)
+    }
 }

@@ -210,7 +210,7 @@ void RouteEditor::OnDispatcherObjectTagChanged(ComplexTagNodeMode t, const QStri
     }
 }
 
-void RouteEditor::OnDispatcherEditChainRequested(const QString &id)
+void RouteEditor::OnDispatcherEditChainRequested(const QString &)
 {
     nodesTab->setCurrentIndex(NODE_TAB_CHAIN_EDITOR);
 }
@@ -221,7 +221,17 @@ CONFIGROOT RouteEditor::OpenEditor()
     if (result == QDialog::Accepted)
         return original;
 
-    const auto &[in, rule, out] = nodeDispatcher->GetData();
+    const auto &[inbounds, rules, outbounds] = nodeDispatcher->GetData();
+    QJsonArray inboundsJson;
+    for (const auto &in : inbounds)
+    {
+        inboundsJson << in;
+    }
+    QJsonArray rulesJson;
+    for (const auto &rule : rules)
+    {
+        rulesJson << rule.toJson();
+    }
 
     //    if (rules.isEmpty())
     //    {
@@ -337,7 +347,7 @@ void RouteEditor::on_insertDirectBtn_clicked()
     auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto out = GenerateOutboundEntry("freedom", freedom, {}, {}, "0.0.0.0", tag);
     // ADD NODE
-    const auto _ = nodeDispatcher->CreateOutbound(make_outbound(out));
+    const auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(out));
     statusLabel->setText(tr("Added DIRECT outbound"));
 }
 
@@ -408,7 +418,7 @@ void RouteEditor::on_insertBlackBtn_clicked()
     auto blackHole = GenerateBlackHoleOUT(false);
     auto tag = "BlackHole-" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto outbound = GenerateOutboundEntry("blackhole", blackHole, {}, {}, "0.0.0.0", tag);
-    const auto _ = nodeDispatcher->CreateOutbound(make_outbound(outbound));
+    const auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(outbound));
 }
 
 void RouteEditor::on_addInboundBtn_clicked()
@@ -431,7 +441,7 @@ void RouteEditor::on_addOutboundBtn_clicked()
 
     if (w.result() == QDialog::Accepted)
     {
-        auto _ = nodeDispatcher->CreateOutbound(make_outbound(_result));
+        auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(_result));
     }
 }
 
@@ -457,7 +467,7 @@ void RouteEditor::on_importExistingBtn_clicked()
     const auto root = ConnectionManager->GetConnectionRoot(connId);
     auto outbound = OUTBOUND(root["outbounds"].toArray()[0].toObject());
     outbound["tag"] = GetDisplayName(connId);
-    auto _ = nodeDispatcher->CreateOutbound(make_outbound(outbound));
+    auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(outbound));
 }
 
 void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
@@ -472,12 +482,12 @@ void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
 
 void RouteEditor::on_addBalancerBtn_clicked()
 {
-    auto _ = nodeDispatcher->CreateOutbound(make_outbound(BalancerTag{ GenerateRandomString() }, "Balancer"));
+    auto _ = nodeDispatcher->CreateOutbound(make_balancer_outbound({}, "Balancer"));
 }
 
 void RouteEditor::on_addChainBtn_clicked()
 {
-    auto _ = nodeDispatcher->CreateOutbound(make_outbound(QList<QString>{}, "Chained Outbound"));
+    auto _ = nodeDispatcher->CreateOutbound(make_chained_outbound({}, "Chained Outbound"));
 }
 
 void RouteEditor::on_debugPainterCB_clicked(bool checked)
@@ -492,7 +502,7 @@ void RouteEditor::on_debugPainterCB_clicked(bool checked)
 void RouteEditor::on_linkExistingBtn_clicked()
 {
     const auto cid = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
-    auto _ = nodeDispatcher->CreateOutbound(make_outbound(cid, GetDisplayName(cid)));
+    auto _ = nodeDispatcher->CreateOutbound(make_external_outbound(cid, GetDisplayName(cid)));
 }
 
 void RouteEditor::on_importOutboundBtn_clicked()
@@ -515,7 +525,7 @@ void RouteEditor::on_importOutboundBtn_clicked()
 
         for (int i = 0; i < confList.count(); i++)
         {
-            auto _ = nodeDispatcher->CreateOutbound(make_outbound(OUTBOUND(confList[i].toObject())));
+            auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(OUTBOUND(confList[i].toObject())));
         }
     }
 }

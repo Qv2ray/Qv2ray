@@ -9,6 +9,8 @@ class NodeDispatcher
     , public std::enable_shared_from_this<NodeDispatcher>
 {
     Q_OBJECT
+    using FullConfig = std::tuple<QMap<QString, INBOUND>, QMap<QString, RuleObject>, QMap<QString, OutboundObjectMeta>>;
+
   public:
     explicit NodeDispatcher(QObject *parent = nullptr);
     ~NodeDispatcher();
@@ -20,7 +22,7 @@ class NodeDispatcher
     }
 
   public:
-    std::tuple<QList<INBOUND>, QList<RuleObject>, QList<OutboundObjectMeta>> GetData() const;
+    FullConfig GetData() const;
     void LoadFullConfig(const CONFIGROOT &);
     [[nodiscard]] QString CreateInbound(INBOUND);
     [[nodiscard]] QString CreateOutbound(OutboundObjectMeta);
@@ -46,6 +48,14 @@ class NodeDispatcher
     const inline QStringList GetRuleTags() const
     {
         return rules.keys();
+    }
+    const inline QStringList GetRealOutboundTags() const
+    {
+        QStringList l;
+        for (const auto &[k, v] : outbounds.toStdMap())
+            if (v->metaType != METAOUTBOUND_BALANCER)
+                l << k;
+        return l;
     }
     inline int InboundsCount() const
     {

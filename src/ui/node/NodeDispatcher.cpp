@@ -16,14 +16,14 @@ NodeDispatcher::~NodeDispatcher()
 {
 }
 
-std::tuple<QList<INBOUND>, QList<RuleObject>, QList<OutboundObjectMeta>> NodeDispatcher::GetData() const
+std::tuple<QMap<QString, INBOUND>, QMap<QString, RuleObject>, QMap<QString, OutboundObjectMeta>> NodeDispatcher::GetData() const
 {
-    QList<INBOUND> _inbounds;
-    QList<RuleObject> _rules;
-    QList<OutboundObjectMeta> _outbounds;
-    for (const auto &val : inbounds) _inbounds << *val;
-    for (const auto &val : rules) _rules << *val;
-    for (const auto &val : outbounds) _outbounds << *val;
+    QMap<QString, INBOUND> _inbounds;
+    QMap<QString, RuleObject> _rules;
+    QMap<QString, OutboundObjectMeta> _outbounds;
+    for (const auto &[key, val] : inbounds.toStdMap()) _inbounds[key] = *val;
+    for (const auto &[key, val] : rules.toStdMap()) _rules[key] = *val;
+    for (const auto &[key, val] : outbounds.toStdMap()) _outbounds[key] = *val;
     return std::make_tuple(_inbounds, _rules, _outbounds);
 }
 
