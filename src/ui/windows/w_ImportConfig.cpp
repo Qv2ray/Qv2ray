@@ -336,24 +336,6 @@ void ImportConfigWindow::on_cancelImportBtn_clicked()
     reject();
 }
 
-void ImportConfigWindow::on_subscriptionButton_clicked()
-{
-    hide();
-    GroupManager w(this);
-    w.exec();
-    auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
-    connectionsToNewGroup.clear();
-    connectionsToExistingGroup.clear();
-
-    if (importToComplex)
-    {
-        auto [alias, conf] = w.GetSelectedConfig();
-        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, conf);
-    }
-
-    accept();
-}
-
 void ImportConfigWindow::on_routeEditBtn_clicked()
 {
     RouteEditor w(QJsonObject(), this);

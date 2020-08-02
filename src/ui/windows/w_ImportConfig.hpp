@@ -44,7 +44,6 @@ class ImportConfigWindow
     void on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void on_connectionEditBtn_clicked();
     void on_cancelImportBtn_clicked();
-    void on_subscriptionButton_clicked();
     void on_routeEditBtn_clicked();
     void on_hideQv2rayCB_stateChanged(int arg1);
     void on_jsonEditBtn_clicked();

@@ -781,12 +781,6 @@ void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
     }
 }
 
-void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentConfig.defaultRouteConfig.forwardProxyConfig.port = arg1;
-}
-
 void PreferencesWindow::on_fpUseAuthCB_stateChanged(int arg1)
 {
     bool authEnabled = arg1 == Qt::Checked;
