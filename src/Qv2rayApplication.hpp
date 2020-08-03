@@ -11,6 +11,18 @@
     #include <SingleApplication>
 #endif
 
+#ifdef Q_OS_ANDROID
+    #define QV2RAY_NO_SINGLEAPPLICATON
+#endif
+
+#define QV2RAY_WORKAROUND_MACOS_MEMLOCK 0
+
+#if QV2RAY_WORKAROUND_MACOS_MEMLOCK
+    #ifndef QV2RAY_NO_SINGLEAPPLICATION
+        #define QV2RAY_NO_SINGLEAPPLICATON
+    #endif
+#endif
+
 class MainWindow;
 
 namespace Qv2ray
@@ -47,7 +59,7 @@ namespace Qv2ray
     };
 
     inline Qv2rayProcessArguments Qv2rayProcessArgument;
-#ifdef Q_OS_ANDROID
+#ifdef QV2RAY_NO_SINGLEAPPLICATON
     class Qv2rayApplication : public QApplication
 #else
     class Qv2rayApplication : public SingleApplication
@@ -95,9 +107,12 @@ namespace Qv2ray
 
       private slots:
         void aboutToQuitSlot();
-        void onMessageReceived(quint32 clientID, QByteArray msg);
 
       private:
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
+        void onMessageReceived(quint32 clientID, QByteArray msg);
+#endif
+
         QSystemTrayIcon *hTray;
         MainWindow *mainWindow;
         static commandline_status ParseCommandLine(QString *errorMessage, const QStringList &args);

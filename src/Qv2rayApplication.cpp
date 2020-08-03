@@ -26,7 +26,7 @@ namespace Qv2ray
     constexpr auto QV2RAY_CONFIG_PATH_ENV_NAME = "QV2RAY_CONFIG_PATH";
 
     Qv2rayApplication::Qv2rayApplication(int &argc, char *argv[])
-#ifdef Q_OS_ANDROID
+#ifdef QV2RAY_NO_SINGLEAPPLICATON
         : QApplication(argc, argv)
 #else
         : SingleApplication(argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion)
@@ -57,9 +57,9 @@ namespace Qv2ray
         //
         setQuitOnLastWindowClosed(false);
 
-#ifndef Q_OS_ANDROID
-        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived, Qt::QueuedConnection);
         connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
+        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived, Qt::QueuedConnection);
         if (isSecondary())
         {
             if (Qv2rayProcessArgument.arguments.isEmpty())
@@ -107,6 +107,7 @@ namespace Qv2ray
         delete StyleManager;
     }
 
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
     void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray _msg)
     {
         // Sometimes SingleApplication will send message with clientId == 0, ignore them.
@@ -189,6 +190,7 @@ namespace Qv2ray
             }
         }
     }
+#endif
 
     Qv2rayExitCode Qv2rayApplication::RunQv2ray()
     {
