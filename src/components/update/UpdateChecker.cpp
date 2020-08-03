@@ -49,17 +49,26 @@ namespace Qv2ray::components
         const auto currentVersionStr = QString(QV2RAY_VERSION_STRING);
         const auto ignoredVersionStr = GlobalConfig.updateConfig.ignoredVersion.isEmpty() ? "0.0.0" : GlobalConfig.updateConfig.ignoredVersion;
         //
-        const auto newVersion = semver::version::from_string(newVersionStr.toStdString());
-        const auto currentVersion = semver::version::from_string(currentVersionStr.toStdString());
-        const auto ignoredVersion = semver::version::from_string(ignoredVersionStr.toStdString());
-        //
-        LOG(MODULE_UPDATE, QString("Received update info:") + NEWLINE +         //
-                               " --> Latest: " + newVersionStr + NEWLINE +      //
-                               " --> Current: " + currentVersionStr + NEWLINE + //
-                               " --> Ignored: " + ignoredVersionStr)
-        // If the version is newer than us.
-        // And new version is newer than the ignored version.
-        if (newVersion > currentVersion && newVersion > ignoredVersion)
+        bool hasUpdate = false;
+        try
+        {
+            const auto newVersion = semver::version::from_string(newVersionStr.toStdString());
+            const auto currentVersion = semver::version::from_string(currentVersionStr.toStdString());
+            const auto ignoredVersion = semver::version::from_string(ignoredVersionStr.toStdString());
+            //
+            LOG(MODULE_UPDATE, QString("Received update info:") + NEWLINE +         //
+                                   " --> Latest: " + newVersionStr + NEWLINE +      //
+                                   " --> Current: " + currentVersionStr + NEWLINE + //
+                                   " --> Ignored: " + ignoredVersionStr)
+            // If the version is newer than us.
+            // And new version is newer than the ignored version.
+            hasUpdate = (newVersion > currentVersion && newVersion > ignoredVersion);
+        }
+        catch (...)
+        {
+            LOG(MODULE_UPDATE, "Some strange exception occured, cannot check update.")
+        }
+        if (hasUpdate)
         {
             const auto name = root["name"].toString("");
             if (name.contains("NO_RELEASE"))
@@ -82,7 +91,7 @@ namespace Qv2ray::components
             else if (result == QMessageBox::Ignore)
             {
                 // Set and save ingored version.
-                GlobalConfig.updateConfig.ignoredVersion = QString::fromStdString(newVersion.str());
+                GlobalConfig.updateConfig.ignoredVersion = newVersionStr;
                 SaveGlobalSettings();
             }
         }
