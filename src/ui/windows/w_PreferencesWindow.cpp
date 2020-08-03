@@ -846,6 +846,15 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     {
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), result);
     }
+    else if (!result.toLower().contains("v2ray"))
+    {
+        const auto strWarnContent = //
+            tr("This does not seem like an output from V2Ray Core.\r\n"
+               "If you've been looking for plugin cores, you should change this in plugin settings rather than here.\r\n"
+               "Output: \r\n\r\n") +
+            result;
+        QvMessageBoxWarn(this, tr("'V2Ray Core' Settings"), strWarnContent);
+    }
     else
     {
         QvMessageBoxInfo(this, tr("V2Ray Core Settings"),
