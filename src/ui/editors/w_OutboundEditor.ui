@@ -344,7 +344,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="securityLabel_2">
             <property name="text">
-             <string>Security</string>
+             <string>Encryption</string>
             </property>
            </widget>
           </item>

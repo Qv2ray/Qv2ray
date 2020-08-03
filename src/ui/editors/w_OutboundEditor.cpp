@@ -230,7 +230,7 @@ void OutboundEditor::ReloadGUI()
             vless.users.push_back({});
         const auto &user = vless.users.front();
         vLessIDTxt->setText(user.id);
-        vLessSecurityCombo->setCurrentText(user.security);
+        vLessSecurityCombo->setCurrentText(user.encryption);
     }
     else if (outboundType == "shadowsocks")
     {
@@ -447,5 +447,5 @@ void OutboundEditor::on_vLessIDTxt_textEdited(const QString &arg1)
 
 void OutboundEditor::on_vLessSecurityCombo_currentTextChanged(const QString &arg1)
 {
-    vless.users.front().security = arg1;
+    vless.users.front().encryption = arg1;
 }
