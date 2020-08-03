@@ -15,6 +15,18 @@ constexpr auto STACK_PAGE_SHADOWSOCKS = 2;
 constexpr auto STACK_PAGE_SOCKS = 3;
 constexpr auto STACK_PAGE_HTTP = 4;
 
+#define ALLOCATE_USERS                                                                                                                          \
+    {                                                                                                                                           \
+        if (vmess.users.empty())                                                                                                                \
+            vmess.users.push_back({});                                                                                                          \
+        if (vless.users.isEmpty())                                                                                                              \
+            vless.users.push_back({});                                                                                                          \
+        if (http.users.empty())                                                                                                                 \
+            http.users.push_back({});                                                                                                           \
+        if (socks.users.empty())                                                                                                                \
+            socks.users.push_back({});                                                                                                          \
+    }
+
 OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_TAG_PROXY)
 {
     QvMessageBusConnect(OutboundEditor);
@@ -22,14 +34,11 @@ OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_
     //
     builtInOutboundTypes = outBoundTypeCombo->count();
     outboundType = "vmess";
+    ALLOCATE_USERS;
     //
     streamSettingsWidget = new StreamSettingsWidget(this);
     streamSettingsWidget->SetStreamObject({});
     transportFrame->addWidget(streamSettingsWidget);
-    //
-    socks.users.push_back({});
-    http.users.push_back({});
-    vmess.users.push_back({});
     //
     auto pluginEditorWidgetsInfo = PluginHost->GetOutboundEditorWidgets();
     for (const auto &plugin : pluginEditorWidgetsInfo)
@@ -86,7 +95,7 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
 {
     OUTBOUNDSETTING settings;
     auto streaming = streamSettingsWidget->GetStreamSettings().toJson();
-
+    ALLOCATE_USERS;
     switch (outboundTypeStackView->currentIndex())
     {
         case STACK_PAGE_VMESS:
@@ -193,16 +202,18 @@ void OutboundEditor::ReloadGUI()
     muxEnabledCB->setChecked(muxConfig["enabled"].toBool());
     muxConcurrencyTxt->setValue(muxConfig["concurrency"].toInt());
     //
+    ALLOCATE_USERS;
+    //
     const auto &settings = originalConfig["settings"].toObject();
     //
     if (outboundType == "vmess")
     {
         outBoundTypeCombo->setCurrentIndex(STACK_PAGE_VMESS);
         vmess = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
-        if (vmess.users.empty())
-            vmess.users.push_back({});
         serverAddress = vmess.address;
         serverPort = vmess.port;
+        if (vmess.users.empty())
+            vmess.users.push_back({});
         const auto &user = vmess.users.front();
         idLineEdit->setText(user.id);
         alterLineEdit->setValue(user.alterId);
@@ -213,10 +224,10 @@ void OutboundEditor::ReloadGUI()
     {
         outBoundTypeCombo->setCurrentIndex(STACK_PAGE_VLESS);
         vless = VLessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
-        if (vless.users.isEmpty())
-            vless.users.push_back({});
         serverAddress = vless.address;
         serverPort = vless.port;
+        if (vless.users.isEmpty())
+            vless.users.push_back({});
         const auto &user = vless.users.front();
         vLessIDTxt->setText(user.id);
         vLessSecurityCombo->setCurrentText(user.security);
@@ -240,9 +251,7 @@ void OutboundEditor::ReloadGUI()
         serverAddress = socks.address;
         serverPort = socks.port;
         if (socks.users.empty())
-        {
             socks.users.push_back({});
-        }
         socks_PasswordTxt->setText(socks.users.front().pass);
         socks_UserNameTxt->setText(socks.users.front().user);
     }
@@ -253,9 +262,7 @@ void OutboundEditor::ReloadGUI()
         serverAddress = http.address;
         serverPort = http.port;
         if (http.users.empty())
-        {
             http.users.push_back({});
-        }
         http_PasswordTxt->setText(http.users.front().pass);
         http_UserNameTxt->setText(http.users.front().user);
     }
@@ -321,17 +328,11 @@ void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
         BLACK(idLineEdit);
     }
 
-    if (vmess.users.empty())
-        vmess.users.push_back({});
-
     vmess.users.front().id = arg1;
 }
 
 void OutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
-    if (vmess.users.empty())
-        vmess.users.push_back({});
-
     vmess.users.front().security = arg1;
 }
 
@@ -352,9 +353,6 @@ void OutboundEditor::on_muxConcurrencyTxt_valueChanged(int arg1)
 
 void OutboundEditor::on_alterLineEdit_valueChanged(int arg1)
 {
-    if (vmess.users.empty())
-        vmess.users.push_back({});
-
     vmess.users.front().alterId = arg1;
 }
 
@@ -407,29 +405,21 @@ void OutboundEditor::on_ss_otaCheckBox_stateChanged(int arg1)
 
 void OutboundEditor::on_socks_UserNameTxt_textEdited(const QString &arg1)
 {
-    if (socks.users.isEmpty())
-        socks.users.push_back({});
     socks.users.front().user = arg1;
 }
 
 void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
 {
-    if (socks.users.isEmpty())
-        socks.users.push_back({});
     socks.users.front().pass = arg1;
 }
 
 void OutboundEditor::on_http_UserNameTxt_textEdited(const QString &arg1)
 {
-    if (http.users.isEmpty())
-        http.users.push_back({});
     http.users.front().user = arg1;
 }
 
 void OutboundEditor::on_http_PasswordTxt_textEdited(const QString &arg1)
 {
-    if (http.users.isEmpty())
-        http.users.push_back({});
     http.users.front().pass = arg1;
 }
 
@@ -440,6 +430,18 @@ void OutboundEditor::on_testsEnabledCombo_currentIndexChanged(const QString &arg
 
 void OutboundEditor::on_vLessIDTxt_textEdited(const QString &arg1)
 {
+    const static QRegularExpression regExpUUID("^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$",
+                                               QRegularExpression::PatternOption::CaseInsensitiveOption);
+
+    if (!regExpUUID.match(arg1).hasMatch())
+    {
+        RED(vLessIDTxt);
+    }
+    else
+    {
+        BLACK(vLessIDTxt);
+    }
+
     vless.users.front().id = arg1;
 }
 
