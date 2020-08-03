@@ -121,7 +121,6 @@ namespace Qv2ray::base::objects
     {
         // Added due to the request of @aliyuchang33
         bool QV2RAY_RULE_ENABLED;
-        bool QV2RAY_RULE_USE_BALANCER;
         QString QV2RAY_RULE_TAG;
         //
         QString type;
@@ -137,10 +136,10 @@ namespace Qv2ray::base::objects
         QString outboundTag;
         QString balancerTag;
         RuleObject()
-            : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_USE_BALANCER(false), QV2RAY_RULE_TAG("new rule"), type("field"), domain(), ip(),
-              port("1-65535"), network(""), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag(""){};
-        JSONSTRUCT_REGISTER(RuleObject, F(QV2RAY_RULE_ENABLED, QV2RAY_RULE_USE_BALANCER, QV2RAY_RULE_TAG, type, domain, ip, port, network,
-                                          source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
+            : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_TAG("new rule"), type("field"), domain(), ip(), port("1-65535"), network(""), source(),
+              user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag(""){};
+        JSONSTRUCT_REGISTER(RuleObject, F(QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG, type, domain, ip, port, network, source, user, inboundTag,
+                                          protocol, attrs, outboundTag, balancerTag))
     };
     //
     //

@@ -40,24 +40,6 @@ void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
     ruleTagLineEdit->setEnabled(true);
     LOAD_FLAG_BEGIN
     ruleTagLineEdit->setText(rule.QV2RAY_RULE_TAG);
-    //    balancerSelectionCombo->clear();
-
-    //    for (auto out : outbounds)
-    //    {
-    //        balancerSelectionCombo->addItem(getTag(OUTBOUND(out)));
-    //    }
-
-    //    //
-    //    // Balancers combo and balancer list.
-    //    enableBalancerCB->setChecked(CurrentRule.QV2RAY_RULE_USE_BALANCER);
-    //    balancersWidget->setEnabled(CurrentRule.QV2RAY_RULE_USE_BALANCER);
-
-    //    if (!CurrentRule.balancerTag.isEmpty())
-    //    {
-    //        balancerList->clear();
-    //        balancerList->addItems(balancers[CurrentRule.balancerTag]);
-    //    }
-
     isLoading = false;
     // Networks
     auto network = rule.network.toLower();

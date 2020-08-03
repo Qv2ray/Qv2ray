@@ -70,15 +70,17 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
             }
         }
 
-        const auto outboundTag = rule->QV2RAY_RULE_USE_BALANCER ? rule->balancerTag : rule->outboundTag;
-        if (outboundNodes.contains(outboundTag))
+        for (const auto &outboundTag : { rule->outboundTag, rule->balancerTag })
         {
-            const auto outboundNodeId = outboundNodes[outboundTag];
-            ruleScene->createConnection(*ruleScene->node(outboundNodeId), 0, *ruleScene->node(ruleNodeId), 0);
-        }
-        else
-        {
-            LOG(MODULE_NODE, "Could not find outbound: " + outboundTag)
+            if (outboundNodes.contains(outboundTag))
+            {
+                const auto &outboundNodeId = outboundNodes[outboundTag];
+                ruleScene->createConnection(*ruleScene->node(outboundNodeId), 0, *ruleScene->node(ruleNodeId), 0);
+            }
+            else
+            {
+                LOG(MODULE_NODE, "Could not find outbound: " + outboundTag)
+            }
         }
     }
     isOperationLocked = false;

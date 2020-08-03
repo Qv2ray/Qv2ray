@@ -136,9 +136,9 @@ namespace Qv2ray::core::handler
         // logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
         QJsonIO::SetValue(root, V2RayLogLevel[GlobalConfig.logLevel], "log", "loglevel");
         //
-        // Since Qv2ray does not support settings DNS manually for now.
-        // These settings are being added for both complex config AND simple config.
-        if (root.contains("dns") && !root.value("dns").toObject().isEmpty())
+        // Process DNS
+        const auto hasDNS = root.contains("dns") && !root.value("dns").toObject().isEmpty();
+        if (hasDNS)
         {
             // We assume the users are using THEIR DNS settings.
             LOG(MODULE_CONNECTION, "Found DNS settings specified manually, skipping inserting GlobalConfig")
@@ -156,8 +156,8 @@ namespace Qv2ray::core::handler
         {
 #define INCONF GlobalConfig.inboundConfig
             INBOUNDS inboundsList;
-            const QJsonObject sniffingOff{ { "enabled", false } };
-            const QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+            const static QJsonObject sniffingOff{ { "enabled", false } };
+            const static QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
 
             // HTTP Inbound
             if (GlobalConfig.inboundConfig.useHTTP)
@@ -261,12 +261,13 @@ namespace Qv2ray::core::handler
 
             for (const auto &_rule : routing["rules"].toArray())
             {
-                auto _b = _rule.toObject();
+                auto rule = _rule.toObject();
 
-                if (_b.contains("QV2RAY_RULE_USE_BALANCER"))
+                // For compatibility
+                if (rule.contains("QV2RAY_RULE_USE_BALANCER"))
                 {
                     // We use balancer, or the normal outbound
-                    _b.remove(_b["QV2RAY_RULE_USE_BALANCER"].toBool(false) ? "outboundTag" : "balancerTag");
+                    rule.remove(rule["QV2RAY_RULE_USE_BALANCER"].toBool(false) ? "outboundTag" : "balancerTag");
                 }
                 else
                 {
@@ -274,13 +275,13 @@ namespace Qv2ray::core::handler
                 }
 
                 // If this entry has been disabled.
-                if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == false)
+                if (rule.contains("QV2RAY_RULE_ENABLED") && rule["QV2RAY_RULE_ENABLED"].toBool() == false)
                 {
                     LOG(MODULE_SETTINGS, "Discarded a rule as it's been set DISABLED")
                 }
                 else
                 {
-                    rules.append(_b);
+                    rules.append(rule);
                 }
             }
 
@@ -297,7 +298,7 @@ namespace Qv2ray::core::handler
                 LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
             }
             //
-            auto tag = getTag(OUTBOUND(QJsonIO::GetValue(root, "outbounds", 0).toObject()));
+            auto tag = QJsonIO::GetValue(root, "outbounds", 0, "tag").toString();
             if (tag.isEmpty())
             {
                 LOG(MODULE_CONNECTION, "Applying workaround when an outbound tag is empty")
@@ -329,11 +330,11 @@ namespace Qv2ray::core::handler
                     }
                     else if (!fpConf.type.isEmpty())
                     {
-                        DEBUG(MODULE_CONNECTION, "WARNING: Unsupported outbound type: " + fpConf.type)
+                        DEBUG(MODULE_CONNECTION, "WARNING: Unsupported forward proxy type: " + fpConf.type)
                     }
                     else
                     {
-                        DEBUG(MODULE_CONNECTION, "WARNING: Empty outbound type.")
+                        DEBUG(MODULE_CONNECTION, "WARNING: Empty forward proxy type.")
                     }
                 }
                 else
@@ -361,7 +362,7 @@ namespace Qv2ray::core::handler
             {
                 const auto hasTProxy = GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.tProxySettings.hasUDP;
                 const auto hasIPv6 = hasTProxy && (!GlobalConfig.inboundConfig.tProxySettings.tProxyV6IP.isEmpty());
-                const bool hasSocksUDP = GlobalConfig.inboundConfig.useSocks && GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                const auto hasSocksUDP = GlobalConfig.inboundConfig.useSocks && GlobalConfig.inboundConfig.socksSettings.enableUDP;
                 DNSInterceptFilter(root, hasTProxy, hasIPv6, hasSocksUDP);
             }
 
@@ -391,9 +392,9 @@ namespace Qv2ray::core::handler
             // Routes
             QJsonObject routing = root["routing"].toObject();
             QJsonArray routingRules = routing["rules"].toArray();
-            QJsonObject APIRouteRoot{ { "type", "field" },                //
-                                      { "outboundTag", API_TAG_DEFAULT }, //
-                                      { "inboundTag", QJsonArray{ API_TAG_INBOUND } } };
+            const static QJsonObject APIRouteRoot{ { "type", "field" },                //
+                                                   { "outboundTag", API_TAG_DEFAULT }, //
+                                                   { "inboundTag", QJsonArray{ API_TAG_INBOUND } } };
             routingRules.push_front(APIRouteRoot);
             routing["rules"] = routingRules;
             root["routing"] = routing;

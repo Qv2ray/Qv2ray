@@ -80,7 +80,6 @@ void RuleNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
 {
     if (dispatcher->IsNodeConstructing())
         return;
-    dataptr->QV2RAY_RULE_USE_BALANCER = false;
     dataptr->balancerTag.clear();
     dataptr->outboundTag.clear();
 }
