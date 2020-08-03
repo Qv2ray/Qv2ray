@@ -124,129 +124,14 @@ namespace Qv2ray::core::handler
         const auto &routeConf = config.overrideRoute ? config.routeConfig : GlobalConfig.defaultRouteConfig.routeConfig;
         const auto &fpConf = config.overrideForwardProxyConfig ? config.forwardProxyConfig : GlobalConfig.defaultRouteConfig.forwardProxyConfig;
         //
-        // See: https://github.com/Qv2ray/Qv2ray/issues/129
-        // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly
-        // check the routing tables
-        //
-        // Check if is complex BEFORE adding anything.
-        bool isComplex = IsComplexConfig(root);
-        //
-        //
-        // logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
-        // logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
-        QJsonIO::SetValue(root, V2RayLogLevel[GlobalConfig.logLevel], "log", "loglevel");
-        //
-        // Process DNS
-        const auto hasDNS = root.contains("dns") && !root.value("dns").toObject().isEmpty();
-        if (hasDNS)
-        {
-            // We assume the users are using THEIR DNS settings.
-            LOG(MODULE_CONNECTION, "Found DNS settings specified manually, skipping inserting GlobalConfig")
-        }
-        else
-        {
-            root.insert("dns", GenerateDNS(connConf.withLocalDNS, dnsConf));
-        }
-        //
-        //
-        // If inbounds list is empty we append our global configured inbounds to the config.
-        // The setting applies to BOTH complex config AND simple config.
-        // Just to ensure there's AT LEAST 1 possible inbound is being configured.
-        if (!root.contains("inbounds") || root.value("inbounds").toArray().empty())
-        {
-#define INCONF GlobalConfig.inboundConfig
-            INBOUNDS inboundsList;
-            const static QJsonObject sniffingOff{ { "enabled", false } };
-            const static QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-
-            // HTTP Inbound
-            if (GlobalConfig.inboundConfig.useHTTP)
-            {
-                const auto httpInBoundObject =                     //
-                    GenerateInboundEntry(INCONF.listenip,          //
-                                         INCONF.httpSettings.port, //
-                                         "http",                   //
-                                         INBOUNDSETTING{},         //
-                                         "http_IN",                //
-                                         { INCONF.httpSettings.sniffing ? sniffingOn : sniffingOff });
-                if (INCONF.httpSettings.useAuth)
-                {
-                    QJsonIO::SetValue(httpInBoundObject, GenerateHTTPIN({ INCONF.httpSettings.account }), "settings");
-                }
-
-                inboundsList.append(httpInBoundObject);
-            }
-
-            // SOCKS Inbound
-            if (INCONF.useSocks)
-            {
-                const auto socksInBoundObject =                                                                //
-                    GenerateInboundEntry(INCONF.listenip,                                                      //
-                                         INCONF.socksSettings.port,                                            //
-                                         "socks",                                                              //
-                                         GenerateSocksIN(INCONF.socksSettings.useAuth ? "password" : "noauth", //
-                                                         { INCONF.socksSettings.account },                     //
-                                                         INCONF.socksSettings.enableUDP,                       //
-                                                         INCONF.socksSettings.localIP),                        //
-                                         "socks_IN",                                                           //
-                                         { INCONF.socksSettings.sniffing ? sniffingOn : sniffingOff });
-                inboundsList.append(socksInBoundObject);
-            }
-
-            // TPROXY
-            if (INCONF.useTPROXY)
-            {
-                QList<QString> networks;
-                if (INCONF.tProxySettings.hasTCP)
-                    networks << "tcp";
-                if (INCONF.tProxySettings.hasUDP)
-                    networks << "udp";
-                const auto tproxy_network = networks.join(",");
-                // tProxy IPv4 Settings
-                {
-                    LOG(MODULE_CONNECTION, "Processing tProxy IPv4 inbound")
-                    INBOUND tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyIP,                        //
-                                                            INCONF.tProxySettings.port,                            //
-                                                            "dokodemo-door",                                       //
-                                                            GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0), //
-                                                            "tproxy_IN",                                           //
-                                                            {
-                                                                { "enabled", true },                            //
-                                                                { "destOverride", QJsonArray{ "http", "tls" } } //
-                                                            });
-                    tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
-                    inboundsList.append(tProxyIn);
-                }
-                if (!INCONF.tProxySettings.tProxyV6IP.isEmpty())
-                {
-                    LOG(MODULE_CONNECTION, "Processing tProxy IPv6 inbound")
-                    INBOUND tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyV6IP,                      //
-                                                            INCONF.tProxySettings.port,                            //
-                                                            "dokodemo-door",                                       //
-                                                            GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0), //
-                                                            "tproxy_IN_V6",                                        //
-                                                            {
-                                                                { "enabled", true },                            //
-                                                                { "destOverride", QJsonArray{ "http", "tls" } } //
-                                                            });
-                    tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
-                    inboundsList.append(tProxyIn);
-                }
-            }
-
-            root["inbounds"] = inboundsList;
-            DEBUG(MODULE_CONNECTION, "Added global config inbounds to the config")
-        }
-#undef INCONF
-
-        // Process every inbounds to make sure a tag is configured, fixed
-        // API 0 speed issue when no tag is configured.
-        FillupTagsFilter(root, "inbounds");
-        //
         //
         // Note: The part below always makes the whole functionality in
         // trouble...... BE EXTREME CAREFUL when changing these code
         // below...
+        //
+        // Check if is complex BEFORE adding anything.
+        bool isComplex = IsComplexConfig(root);
+
         if (isComplex)
         {
             // For some config files that has routing entries already.
@@ -263,7 +148,7 @@ namespace Qv2ray::core::handler
             {
                 auto rule = _rule.toObject();
 
-                // For compatibility
+                // For backward compatibility
                 if (rule.contains("QV2RAY_RULE_USE_BALANCER"))
                 {
                     // We use balancer, or the normal outbound
@@ -381,7 +266,114 @@ namespace Qv2ray::core::handler
             // Remove empty Mux object from settings.
             RemoveEmptyMuxFilter(root);
         }
+        //
+        //
+        // logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
+        // logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
+        QJsonIO::SetValue(root, V2RayLogLevel[GlobalConfig.logLevel], "log", "loglevel");
 
+        {
+            //
+            // Process DNS
+            const auto hasDNS = root.contains("dns") && !root.value("dns").toObject().isEmpty();
+            if (hasDNS)
+            {
+                // We assume the users are using THEIR DNS settings.
+                LOG(MODULE_CONNECTION, "Found DNS settings specified manually, skipping inserting GlobalConfig")
+            }
+            else
+            {
+                root.insert("dns", GenerateDNS(connConf.withLocalDNS, dnsConf));
+            }
+        }
+        //
+        {
+            //
+            // If inbounds list is empty we append our global configured inbounds to the config.
+            // The setting applies to BOTH complex config AND simple config.
+            // Just to ensure there's AT LEAST 1 possible inbound is being configured.
+            if (!root.contains("inbounds") || root.value("inbounds").toArray().empty())
+            {
+#define INCONF GlobalConfig.inboundConfig
+                INBOUNDS inboundsList;
+                const static QJsonObject sniffingOff{ { "enabled", false } };
+                const static QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+
+                // HTTP Inbound
+                if (GlobalConfig.inboundConfig.useHTTP)
+                {
+                    const auto httpInSettings = GenerateHTTPIN(INCONF.httpSettings.useAuth, { INCONF.httpSettings.account });
+                    const auto httpInboundObject = GenerateInboundEntry(INCONF.listenip,          //
+                                                                        INCONF.httpSettings.port, //
+                                                                        "http",                   //
+                                                                        httpInSettings,           //
+                                                                        "http_IN",                //
+                                                                        { INCONF.httpSettings.sniffing ? sniffingOn : sniffingOff });
+                    inboundsList.append(httpInboundObject);
+                }
+
+                // SOCKS Inbound
+                if (INCONF.useSocks)
+                {
+                    const auto socksInSettings = GenerateSocksIN(INCONF.socksSettings.useAuth ? "password" : "noauth", //
+                                                                 { INCONF.socksSettings.account },                     //
+                                                                 INCONF.socksSettings.enableUDP,                       //
+                                                                 INCONF.socksSettings.localIP);
+                    const auto socksInboundObject = GenerateInboundEntry(INCONF.listenip,           //
+                                                                         INCONF.socksSettings.port, //
+                                                                         "socks",                   //
+                                                                         socksInSettings,           //
+                                                                         "socks_IN",                //
+                                                                         { INCONF.socksSettings.sniffing ? sniffingOn : sniffingOff });
+                    inboundsList.append(socksInboundObject);
+                }
+
+                // TPROXY
+                if (INCONF.useTPROXY)
+                {
+                    QList<QString> networks;
+                    if (INCONF.tProxySettings.hasTCP)
+                        networks << "tcp";
+                    if (INCONF.tProxySettings.hasUDP)
+                        networks << "udp";
+                    const auto tproxy_network = networks.join(",");
+                    const auto tProxySettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
+                    const static QJsonObject sniffingSettings = { { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+                    // tProxy IPv4 Settings
+                    {
+                        LOG(MODULE_CONNECTION, "Processing tProxy IPv4 inbound")
+                        auto tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyIP, //
+                                                             INCONF.tProxySettings.port,     //
+                                                             "dokodemo-door",                //
+                                                             tProxySettings,                 //
+                                                             "tproxy_IN",                    //
+                                                             sniffingSettings);
+                        tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
+                        inboundsList.append(tProxyIn);
+                    }
+                    if (!INCONF.tProxySettings.tProxyV6IP.isEmpty())
+                    {
+                        LOG(MODULE_CONNECTION, "Processing tProxy IPv6 inbound")
+                        auto tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyV6IP, //
+                                                             INCONF.tProxySettings.port,       //
+                                                             "dokodemo-door",                  //
+                                                             tProxySettings,                   //
+                                                             "tproxy_IN_V6",                   //
+                                                             sniffingSettings);
+                        tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
+                        inboundsList.append(tProxyIn);
+                    }
+                }
+
+                root["inbounds"] = inboundsList;
+                DEBUG(MODULE_CONNECTION, "Added global config inbounds to the config")
+#undef INCONF
+            }
+            // API 0 speed issue when no tag is configured.
+            // Process every inbounds to make sure a tag is configured, fixed
+            FillupTagsFilter(root, "inbounds");
+        }
+        //
         // Let's process some api features.
         if (hasAPI && GlobalConfig.kernelConfig.enableAPI)
         {

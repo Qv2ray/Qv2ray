@@ -314,7 +314,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
     //
     if (inboundConfig.useHTTP)
     {
-        auto http = GenerateHTTPIN(QList<AccountObject>() << inboundConfig.httpSettings.account);
+        auto http = GenerateHTTPIN(inboundConfig.httpSettings.useAuth, { inboundConfig.httpSettings.account });
         INBOUND httpConfig = GenerateInboundEntry(inboundConfig.listenip, inboundConfig.httpSettings.port, "http", http, "GlobalConfig-HTTP",
                                                   inboundConfig.httpSettings.sniffing ? sniffingOn : sniffingOff);
         auto _ = nodeDispatcher->CreateInbound(httpConfig);
@@ -322,7 +322,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
     if (inboundConfig.useSocks)
     {
         auto socks = GenerateSocksIN((inboundConfig.socksSettings.useAuth ? "password" : "noauth"), //
-                                     QList<AccountObject>() << inboundConfig.socksSettings.account, //
+                                     { inboundConfig.socksSettings.account },                       //
                                      inboundConfig.socksSettings.enableUDP,                         //
                                      inboundConfig.socksSettings.localIP);
         auto socksConfig = GenerateInboundEntry(inboundConfig.listenip,           //

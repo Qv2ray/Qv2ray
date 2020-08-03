@@ -9,7 +9,7 @@ namespace Qv2ray::core::connection::generation::inbounds
         return root;
     }
 
-    INBOUNDSETTING GenerateHTTPIN(const QList<AccountObject> &_accounts, int timeout, bool allowTransparent, int userLevel)
+    INBOUNDSETTING GenerateHTTPIN(bool enableAuth, const QList<AccountObject> &_accounts, int timeout, bool allowTransparent, int userLevel)
     {
         INBOUNDSETTING root;
         QJsonArray accounts;
@@ -21,7 +21,7 @@ namespace Qv2ray::core::connection::generation::inbounds
             accounts.append(account.toJson());
         }
 
-        if (!accounts.isEmpty())
+        if (enableAuth && !accounts.isEmpty())
             JADD(accounts)
 
         JADD(timeout, allowTransparent, userLevel)

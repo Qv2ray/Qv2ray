@@ -21,7 +21,8 @@ namespace Qv2ray::core::connection::generation
     {
         INBOUNDSETTING GenerateDokodemoIN(const QString &address, int port, const QString &network, int timeout, bool followRedirect,
                                           int userLevel);
-        INBOUNDSETTING GenerateHTTPIN(const QList<AccountObject> &accounts, int timeout = 300, bool allowTransparent = true, int userLevel = 0);
+        INBOUNDSETTING GenerateHTTPIN(bool auth, const QList<AccountObject> &accounts, int timeout = 300, bool allowTransparent = true,
+                                      int userLevel = 0);
         INBOUNDSETTING GenerateSocksIN(const QString &auth, const QList<AccountObject> &_accounts, bool udp = false,
                                        const QString &ip = "127.0.0.1", int userLevel = 0);
         INBOUND GenerateInboundEntry(const QString &listen, int port, const QString &protocol, const INBOUNDSETTING &settings,
