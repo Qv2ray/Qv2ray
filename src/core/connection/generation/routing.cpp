@@ -18,17 +18,22 @@ namespace Qv2ray::core::connection::generation::routing
         return root;
     }
 
-    ROUTERULE GenerateSingleRouteRule(const QString &str, bool isDomain, const QString &outboundTag, const QString &type)
+    ROUTERULE GenerateSingleRouteRule(RuleType t, const QString &str, const QString &outboundTag, const QString &type)
     {
-        return GenerateSingleRouteRule(QStringList{ str }, isDomain, outboundTag, type);
+        return GenerateSingleRouteRule(t, QStringList{ str }, outboundTag, type);
     }
 
-    ROUTERULE GenerateSingleRouteRule(const QStringList &rules, bool isDomain, const QString &outboundTag, const QString &type)
+    ROUTERULE GenerateSingleRouteRule(RuleType t, const QStringList &rules, const QString &outboundTag, const QString &type)
     {
         ROUTERULE root;
         auto list = rules;
         list.removeAll("");
-        root.insert(isDomain ? "domain" : "ip", QJsonArray::fromStringList(rules));
+        switch (t)
+        {
+            case RULE_IPS: root.insert("domain", QJsonArray::fromStringList(rules)); break;
+            case RULE_DOMAINS: root.insert("ip", QJsonArray::fromStringList(rules)); break;
+            default: Q_UNREACHABLE();
+        }
         JADD(outboundTag, type)
         return root;
     }

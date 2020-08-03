@@ -7,8 +7,13 @@ namespace Qv2ray::core::connection::generation
 {
     namespace routing
     {
-        ROUTERULE GenerateSingleRouteRule(const QString &str, bool isDomain, const QString &outboundTag, const QString &type = "field");
-        ROUTERULE GenerateSingleRouteRule(const QStringList &list, bool isDomain, const QString &outboundTag, const QString &type = "field");
+        enum RuleType
+        {
+            RULE_DOMAINS,
+            RULE_IPS
+        };
+        ROUTERULE GenerateSingleRouteRule(RuleType t, const QString &str, const QString &outboundTag, const QString &type = "field");
+        ROUTERULE GenerateSingleRouteRule(RuleType t, const QStringList &list, const QString &outboundTag, const QString &type = "field");
         QJsonObject GenerateDNS(bool withLocalhost, const QvConfig_DNS &dnsServer);
     } // namespace routing
 
