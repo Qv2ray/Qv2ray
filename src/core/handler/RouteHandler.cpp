@@ -53,14 +53,14 @@ namespace Qv2ray::core::handler
         QJsonArray rulesList;
 
         // Private IPs should always NOT TO PROXY!
-        rulesList.append(GenerateSingleRouteRule(RULE_IPS, "geoip:private", OUTBOUND_TAG_DIRECT));
+        rulesList.append(GenerateSingleRouteRule(RULE_IP, "geoip:private", OUTBOUND_TAG_DIRECT));
         //
         if (!enableProxy)
         {
             // This is added to disable all proxies, as a alternative influence of #64
-            rulesList.append(GenerateSingleRouteRule(RULE_DOMAINS, "regexp:.*", OUTBOUND_TAG_DIRECT));
-            rulesList.append(GenerateSingleRouteRule(RULE_IPS, "0.0.0.0/0", OUTBOUND_TAG_DIRECT));
-            rulesList.append(GenerateSingleRouteRule(RULE_IPS, "::/0", OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, "regexp:.*", OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(RULE_IP, "0.0.0.0/0", OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(RULE_IP, "::/0", OUTBOUND_TAG_DIRECT));
         }
         else
         {
@@ -68,121 +68,44 @@ namespace Qv2ray::core::handler
             // Blocked.
             if (!routeConfig.ips.block.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(RULE_IPS, routeConfig.ips.block, OUTBOUND_TAG_BLACKHOLE));
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, routeConfig.ips.block, OUTBOUND_TAG_BLACKHOLE));
             }
             if (!routeConfig.domains.block.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(RULE_DOMAINS, routeConfig.domains.block, OUTBOUND_TAG_BLACKHOLE));
+                rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.block, OUTBOUND_TAG_BLACKHOLE));
             }
             //
             // Proxied
             if (!routeConfig.ips.proxy.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(RULE_IPS, routeConfig.ips.proxy, outTag));
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, routeConfig.ips.proxy, outTag));
             }
             if (!routeConfig.domains.proxy.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(RULE_DOMAINS, routeConfig.domains.proxy, outTag));
+                rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.proxy, outTag));
             }
             //
             // Directed
             if (!routeConfig.ips.direct.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(RULE_IPS, routeConfig.ips.direct, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, routeConfig.ips.direct, OUTBOUND_TAG_DIRECT));
             }
             if (!routeConfig.domains.direct.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(RULE_DOMAINS, routeConfig.domains.direct, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.direct, OUTBOUND_TAG_DIRECT));
             }
             //
             // Check if CN needs proxy, or direct.
             if (bypassCN)
             {
                 // No proxy agains CN addresses.
-                rulesList.append(GenerateSingleRouteRule(RULE_IPS, "geoip:cn", OUTBOUND_TAG_DIRECT));
-                rulesList.append(GenerateSingleRouteRule(RULE_IPS, "geosite:cn", OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, "geoip:cn", OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, "geosite:cn", OUTBOUND_TAG_DIRECT));
             }
         }
 
         root.insert("rules", rulesList);
         return root;
-    }
-    INBOUNDS RouteHandler::GenerateDefaultInbounds() const
-    {
-
-#define INCONF GlobalConfig.inboundConfig
-        INBOUNDS inboundsList;
-        const static QJsonObject sniffingOff{ { "enabled", false } };
-        const static QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-
-        // HTTP Inbound
-        if (GlobalConfig.inboundConfig.useHTTP)
-        {
-            const auto httpInSettings = GenerateHTTPIN(INCONF.httpSettings.useAuth, { INCONF.httpSettings.account });
-            const auto httpInboundObject = GenerateInboundEntry(INCONF.listenip,          //
-                                                                INCONF.httpSettings.port, //
-                                                                "http",                   //
-                                                                httpInSettings,           //
-                                                                "http_IN",                //
-                                                                { INCONF.httpSettings.sniffing ? sniffingOn : sniffingOff });
-            inboundsList.append(httpInboundObject);
-        }
-
-        // SOCKS Inbound
-        if (INCONF.useSocks)
-        {
-            const auto socksInSettings = GenerateSocksIN(INCONF.socksSettings.useAuth ? "password" : "noauth", //
-                                                         { INCONF.socksSettings.account },                     //
-                                                         INCONF.socksSettings.enableUDP,                       //
-                                                         INCONF.socksSettings.localIP);
-            const auto socksInboundObject = GenerateInboundEntry(INCONF.listenip,           //
-                                                                 INCONF.socksSettings.port, //
-                                                                 "socks",                   //
-                                                                 socksInSettings,           //
-                                                                 "socks_IN",                //
-                                                                 { INCONF.socksSettings.sniffing ? sniffingOn : sniffingOff });
-            inboundsList.append(socksInboundObject);
-        }
-
-        // TPROXY
-        if (INCONF.useTPROXY)
-        {
-            QList<QString> networks;
-            if (INCONF.tProxySettings.hasTCP)
-                networks << "tcp";
-            if (INCONF.tProxySettings.hasUDP)
-                networks << "udp";
-            const auto tproxy_network = networks.join(",");
-            const auto tProxySettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
-            const static QJsonObject sniffingSettings = { { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-            // tProxy IPv4 Settings
-            {
-                LOG(MODULE_CONNECTION, "Processing tProxy IPv4 inbound")
-                auto tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyIP, //
-                                                     INCONF.tProxySettings.port,     //
-                                                     "dokodemo-door",                //
-                                                     tProxySettings,                 //
-                                                     "tproxy_IN",                    //
-                                                     sniffingSettings);
-                tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
-                inboundsList.append(tProxyIn);
-            }
-            if (!INCONF.tProxySettings.tProxyV6IP.isEmpty())
-            {
-                LOG(MODULE_CONNECTION, "Processing tProxy IPv6 inbound")
-                auto tProxyIn = GenerateInboundEntry(INCONF.tProxySettings.tProxyV6IP, //
-                                                     INCONF.tProxySettings.port,       //
-                                                     "dokodemo-door",                  //
-                                                     tProxySettings,                   //
-                                                     "tproxy_IN_V6",                   //
-                                                     sniffingSettings);
-                tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
-                inboundsList.append(tProxyIn);
-            }
-        }
-
-#undef INCONF
-        return inboundsList;
     }
     // -------------------------- END CONFIG GENERATIONS
     //
@@ -295,12 +218,9 @@ namespace Qv2ray::core::handler
                                                                                fpConf.useAuth,       //
                                                                                fpConf.username,      //
                                                                                fpConf.password);
-                        const auto forwardProxyOutbound = GenerateOutboundEntry(fpConf.type.toLower(), //
-                                                                                forwardProxySettings,  //
-                                                                                {},                    //
-                                                                                {},                    //
-                                                                                "0.0.0.0",             //
-                                                                                OUTBOUND_TAG_FORWARD_PROXY);
+                        const auto forwardProxyOutbound = GenerateOutboundEntry(OUTBOUND_TAG_FORWARD_PROXY, //
+                                                                                fpConf.type.toLower(),      //
+                                                                                forwardProxySettings, {});
                         outboundArray.push_back(forwardProxyOutbound);
                     }
                 }
@@ -318,8 +238,8 @@ namespace Qv2ray::core::handler
             {
                 OUTBOUNDS outbounds(root["outbounds"].toArray());
                 const auto freeDS = (connConf.v2rayFreedomDNS) ? "UseIP" : "AsIs";
-                outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT(freeDS, ":0", 0), {}, {}, "0.0.0.0", OUTBOUND_TAG_DIRECT));
-                outbounds.append(GenerateOutboundEntry("blackhole", GenerateBlackHoleOUT(false), {}, {}, "0.0.0.0", OUTBOUND_TAG_BLACKHOLE));
+                outbounds.append(GenerateOutboundEntry(OUTBOUND_TAG_DIRECT, "freedom", GenerateFreedomOUT(freeDS, ":0", 0), {}));
+                outbounds.append(GenerateOutboundEntry(OUTBOUND_TAG_BLACKHOLE, "blackhole", GenerateBlackHoleOUT(false), {}));
                 root["outbounds"] = outbounds;
             }
             //
@@ -333,24 +253,20 @@ namespace Qv2ray::core::handler
             }
 
             if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
-            {
                 OutboundMarkSettingFilter(root, GlobalConfig.outboundConfig.mark);
-            }
 
+            // Process bypass bitTorrent
             if (connConf.bypassBT)
-            {
                 BypassBTFilter(root);
-            }
-            // Process mKCP seed.
+
+            // Process mKCP seed
             mKCPSeedFilter(root);
 
-            // Remove empty Mux object from settings.
+            // Remove empty Mux object from settings
             RemoveEmptyMuxFilter(root);
         }
         //
-        //
-        // logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
-        // logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
+        // Process Log
         QJsonIO::SetValue(root, V2RayLogLevel[GlobalConfig.logLevel], "log", "loglevel");
 
         //
@@ -402,8 +318,10 @@ namespace Qv2ray::core::handler
             // Inbounds
             INBOUNDS inbounds(root["inbounds"].toArray());
             QJsonObject fakeDocodemoDoor{ { "address", "127.0.0.1" } };
-            const auto apiInboundsRoot = GenerateInboundEntry("127.0.0.1", GlobalConfig.kernelConfig.statsPort, "dokodemo-door",
-                                                              INBOUNDSETTING(fakeDocodemoDoor), API_TAG_INBOUND);
+            const auto apiInboundsRoot = GenerateInboundEntry(API_TAG_INBOUND, "dokodemo-door",    //
+                                                              "127.0.0.1",                         //
+                                                              GlobalConfig.kernelConfig.statsPort, //
+                                                              INBOUNDSETTING(fakeDocodemoDoor));
             inbounds.push_front(apiInboundsRoot);
             root["inbounds"] = inbounds;
             //

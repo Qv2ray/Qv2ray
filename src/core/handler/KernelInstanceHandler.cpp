@@ -132,7 +132,7 @@ namespace Qv2ray::core::handler
                 //
                 const auto pluginOutSettings = GenerateHTTPSOCKSOut("127.0.0.1", pluginPort, false, "", "");
                 //
-                const auto pluginOut = GenerateOutboundEntry("socks", pluginOutSettings, {}, {}, "0.0.0.0", outbound["tag"].toString());
+                const auto pluginOut = GenerateOutboundEntry(outbound["tag"].toString(), "socks", pluginOutSettings, {});
                 //
                 // Add the integration outbound to the list.
                 processedOutbounds.push_back(pluginOut);

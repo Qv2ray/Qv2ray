@@ -297,7 +297,7 @@ void RouteEditor::on_insertDirectBtn_clicked()
 {
     auto freedom = GenerateFreedomOUT("AsIs", "", 0);
     auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
-    auto out = GenerateOutboundEntry("freedom", freedom, {}, {}, "0.0.0.0", tag);
+    auto out = GenerateOutboundEntry(tag, "freedom", freedom, {});
     // ADD NODE
     const auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(out));
     statusLabel->setText(tr("Added DIRECT outbound"));
@@ -314,8 +314,11 @@ void RouteEditor::on_addDefaultBtn_clicked()
     //
     if (inboundConfig.useHTTP)
     {
-        auto http = GenerateHTTPIN(inboundConfig.httpSettings.useAuth, { inboundConfig.httpSettings.account });
-        INBOUND httpConfig = GenerateInboundEntry(inboundConfig.listenip, inboundConfig.httpSettings.port, "http", http, "GlobalConfig-HTTP",
+        const auto httpSettings = GenerateHTTPIN(inboundConfig.httpSettings.useAuth, { inboundConfig.httpSettings.account });
+        INBOUND httpConfig = GenerateInboundEntry("GlobalConfig-HTTP", "http",     //
+                                                  inboundConfig.listenip,          //
+                                                  inboundConfig.httpSettings.port, //
+                                                  httpSettings,                    //
                                                   inboundConfig.httpSettings.sniffing ? sniffingOn : sniffingOff);
         auto _ = nodeDispatcher->CreateInbound(httpConfig);
     }
@@ -325,11 +328,10 @@ void RouteEditor::on_addDefaultBtn_clicked()
                                      { inboundConfig.socksSettings.account },                       //
                                      inboundConfig.socksSettings.enableUDP,                         //
                                      inboundConfig.socksSettings.localIP);
-        auto socksConfig = GenerateInboundEntry(inboundConfig.listenip,           //
+        auto socksConfig = GenerateInboundEntry("GlobalConfig-Socks", "socks",    //
+                                                inboundConfig.listenip,           //
                                                 inboundConfig.socksSettings.port, //
-                                                "socks",                          //
                                                 socks,                            //
-                                                "GlobalConfig-Socks",             //
                                                 (inboundConfig.socksSettings.sniffing ? sniffingOn : sniffingOff));
         auto _ = nodeDispatcher->CreateInbound(socksConfig);
     }
@@ -348,14 +350,14 @@ void RouteEditor::on_addDefaultBtn_clicked()
         const static QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
         const QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", ts.mode } } } };
         {
-            auto tProxyIn = GenerateInboundEntry(ts.tProxyIP, ts.port, "dokodemo-door", tproxyInSettings, "tProxy IPv4");
+            auto tProxyIn = GenerateInboundEntry("tProxy IPv4", "dokodemo-door", ts.tProxyIP, ts.port, tproxyInSettings);
             tProxyIn.insert("sniffing", tproxy_sniff);
             tProxyIn.insert("streamSettings", tproxy_streamSettings);
             auto _ = nodeDispatcher->CreateInbound(tProxyIn);
         }
         if (!ts.tProxyV6IP.isEmpty())
         {
-            auto tProxyV6In = GenerateInboundEntry(ts.tProxyV6IP, ts.port, "dokodemo-door", tproxyInSettings, "tProxy IPv6");
+            auto tProxyV6In = GenerateInboundEntry("tProxy IPv6", "dokodemo-door", ts.tProxyV6IP, ts.port, tproxyInSettings);
             tProxyV6In.insert("sniffing", tproxy_sniff);
             tProxyV6In.insert("streamSettings", tproxy_streamSettings);
             auto _ = nodeDispatcher->CreateInbound(tProxyV6In);
@@ -369,7 +371,7 @@ void RouteEditor::on_insertBlackBtn_clicked()
     LOADINGCHECK
     auto blackHole = GenerateBlackHoleOUT(false);
     auto tag = "BlackHole-" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
-    auto outbound = GenerateOutboundEntry("blackhole", blackHole, {}, {}, "0.0.0.0", tag);
+    auto outbound = GenerateOutboundEntry(tag, "blackhole", blackHole, {});
     const auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(outbound));
 }
 

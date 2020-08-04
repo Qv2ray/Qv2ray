@@ -30,8 +30,8 @@ namespace Qv2ray::core::connection::generation::routing
         list.removeAll("");
         switch (t)
         {
-            case RULE_IPS: root.insert("domain", QJsonArray::fromStringList(rules)); break;
-            case RULE_DOMAINS: root.insert("ip", QJsonArray::fromStringList(rules)); break;
+            case RULE_IP: root.insert("domain", QJsonArray::fromStringList(rules)); break;
+            case RULE_DOMAIN: root.insert("ip", QJsonArray::fromStringList(rules)); break;
             default: Q_UNREACHABLE();
         }
         JADD(outboundTag, type)

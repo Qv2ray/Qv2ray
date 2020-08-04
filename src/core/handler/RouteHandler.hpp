@@ -29,7 +29,7 @@ namespace Qv2ray::core::handler
         CONFIGROOT GenerateFinalConfig(const ConnectionGroupPair &pair, bool hasAPI = true) const;
         CONFIGROOT GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId, bool hasAPI = true) const;
         //
-        INBOUNDS GenerateDefaultInbounds() const;
+        OUTBOUNDS ExpandChainedOutbounds() const;
         //
         // Route Table Generation
         ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, const QString &outboundTag, const QvConfig_Route &routeConfig) const;
