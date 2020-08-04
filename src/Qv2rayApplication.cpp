@@ -410,15 +410,20 @@ namespace Qv2ray
 
         const auto allTranslations = Qv2rayTranslator->GetAvailableLanguages();
         const auto osLanguage = QLocale::system().name();
-        if (!allTranslations.contains(confObject.uiConfig.language) && allTranslations.contains(osLanguage))
+
+        if (!allTranslations.contains(confObject.uiConfig.language))
         {
-            // If configured language is not found. Set to system language.
+            // If we need to reset the language.
+            if (allTranslations.contains(osLanguage))
+            {
+                confObject.uiConfig.language = osLanguage;
+            }
+            else if (!allTranslations.isEmpty())
+            {
+                confObject.uiConfig.language = allTranslations.first();
+            }
+            // If configured language is not found.
             LOG(MODULE_UI, "Fall back language setting to: " + osLanguage)
-            confObject.uiConfig.language = osLanguage;
-        }
-        else if (!allTranslations.isEmpty())
-        {
-            confObject.uiConfig.language = allTranslations.first();
         }
 
         if (!Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
