@@ -105,7 +105,6 @@ set(QV2RAY_UI_SOURCES
     ${CMAKE_SOURCE_DIR}/src/ui/editors/w_OutboundEditor.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/editors/w_RoutesEditor.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/editors/w_RoutesEditor.cpp
-    ${CMAKE_SOURCE_DIR}/src/ui/editors/w_RoutesEditor_extra.cpp
     # Windows
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_ImportConfig.hpp
     ${CMAKE_SOURCE_DIR}/src/ui/windows/w_ImportConfig.cpp
