@@ -1,4 +1,3 @@
-#include "uvw.hpp"
 #include "LatencyTest.hpp"
 
 #include "LatencyTestThread.hpp"
@@ -6,18 +5,6 @@
 
 namespace Qv2ray::components::latency
 {
-    int isAddr(const char *host, int port, struct sockaddr_storage *storage, int ipv6first)
-    {
-        if (uv_ip4_addr(host, port, reinterpret_cast<sockaddr_in *>(storage)) == 0)
-        {
-            return AF_INET;
-        }
-        if (uv_ip6_addr(host, port, reinterpret_cast<sockaddr_in6 *>(storage)) == 0)
-        {
-            return AF_INET6;
-        }
-        return -1;
-    }
     LatencyTestHost::LatencyTestHost(const int defaultCount, QObject *parent) : QObject(parent)
     {
         qRegisterMetaType<ConnectionId>();

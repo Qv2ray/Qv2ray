@@ -271,6 +271,7 @@ void GroupManager::on_addGroupButton_clicked()
     auto item = new QListWidgetItem(key);
     item->setData(Qt::UserRole, id.toString());
     groupList->addItem(item);
+    groupList->setCurrentRow(groupList->count() - 1);
 }
 
 void GroupManager::on_updateButton_clicked()
@@ -296,17 +297,20 @@ void GroupManager::on_updateButton_clicked()
 
 void GroupManager::on_removeGroupButton_clicked()
 {
-    if (QvMessageBoxAsk(this, tr("Deleting a subscription"), tr("All connections will be moved to default group, do you want to continue?")) ==
+    if (QvMessageBoxAsk(this, tr("Deleting a group"), tr("All connections will be moved to default group, do you want to continue?")) ==
         QMessageBox::Yes)
     {
         ConnectionManager->DeleteGroup(currentGroupId);
         auto item = groupList->currentItem();
+        int index = groupList->row(item);
         groupList->removeItemWidget(item);
         delete item;
         if (groupList->count() > 0)
         {
-            groupList->setCurrentItem(groupList->item(0));
-            on_groupList_itemClicked(groupList->item(0));
+            index = std::max(index, 0);
+            index = std::min(index, groupList->count() - 1);
+            groupList->setCurrentItem(groupList->item(index));
+            on_groupList_itemClicked(groupList->item(index));
         }
         else
         {

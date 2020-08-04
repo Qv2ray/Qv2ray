@@ -80,8 +80,11 @@ namespace Qv2ray
 #ifdef Q_OS_LINUX
         setFallbackSessionManagementEnabled(false);
         connect(this, &QGuiApplication::commitDataRequest, [] {
+            RouteManager->SaveRoutes();
             ConnectionManager->SaveConnectionConfig();
-            LOG(MODULE_INIT, "Quit triggered by session manager.")
+            PluginHost->SavePluginSettings();
+            SaveGlobalSettings();
+            LOG(MODULE_INIT, "Saving settings triggered by session manager.")
         });
 #endif
         return NORMAL;
@@ -89,6 +92,13 @@ namespace Qv2ray
 
     void Qv2rayApplication::aboutToQuitSlot()
     {
+        LOG(MODULE_INIT, "Terminating connections and saving data.")
+        // Do not change the order.
+        ConnectionManager->StopConnection();
+        RouteManager->SaveRoutes();
+        ConnectionManager->SaveConnectionConfig();
+        PluginHost->SavePluginSettings();
+        SaveGlobalSettings();
         delete mainWindow;
         delete hTray;
         delete ConnectionManager;
@@ -396,11 +406,17 @@ namespace Qv2ray
         // Load config object from upgraded config QJsonObject
         auto confObject = Qv2rayConfigObject::fromJson(conf);
 
-        if (!Qv2rayTranslator->GetAvailableLanguages().contains(confObject.uiConfig.language))
+        const auto allTranslations = Qv2rayTranslator->GetAvailableLanguages();
+        const auto osLanguage = QLocale::system().name();
+        if (!allTranslations.contains(confObject.uiConfig.language) && allTranslations.contains(osLanguage))
         {
-            // Prevent empty.
-            LOG(MODULE_UI, "Setting default UI language to system locale.")
-            confObject.uiConfig.language = QLocale::system().name();
+            // If configured language is not found. Set to system language.
+            LOG(MODULE_UI, "Fall back language setting to: " + osLanguage)
+            confObject.uiConfig.language = osLanguage;
+        }
+        else if (!allTranslations.isEmpty())
+        {
+            confObject.uiConfig.language = allTranslations.first();
         }
 
         if (!Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
@@ -409,6 +425,7 @@ namespace Qv2ray
                              "Cannot load translation for " + confObject.uiConfig.language + NEWLINE + //
                                  "English is now used." + NEWLINE + NEWLINE +                          //
                                  "Please go to Preferences Window to change language or open an Issue");
+            confObject.uiConfig.language = "en_US";
         }
 
         // Let's save the config.

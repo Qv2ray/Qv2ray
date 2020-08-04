@@ -47,6 +47,10 @@ class OutboundEditor
 
     void on_testsEnabledCombo_currentIndexChanged(const QString &arg1);
 
+    void on_vLessIDTxt_textEdited(const QString &arg1);
+
+    void on_vLessSecurityCombo_currentTextChanged(const QString &arg1);
+
   private:
     QString tag;
     void ReloadGUI();
@@ -58,15 +62,18 @@ class OutboundEditor
     //
     // Connection Configs
     QString outboundType;
-    QString address;
-    int port;
+    QString serverAddress;
+    int serverPort;
     //
     VMessServerObject vmess;
+    VLessServerObject vless;
     ShadowSocksServerObject shadowsocks;
     SocksServerObject socks;
     HttpServerObject http;
     //
     StreamSettingsWidget *streamSettingsWidget;
+    //
+    int builtInOutboundTypes;
     //
     QMap<int, QPair<QvPluginOutboundProtocolObject, QvPluginEditor *>> pluginWidgets;
 };

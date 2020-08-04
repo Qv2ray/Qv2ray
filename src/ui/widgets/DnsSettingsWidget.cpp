@@ -100,7 +100,8 @@ bool DnsSettingsWidget::CheckIsValidDNS() const
 
 void DnsSettingsWidget::ProcessDnsPortEnabledState()
 {
-    if (detailsSettingsGB->isChecked()){
+    if (detailsSettingsGB->isChecked())
+    {
         if (const auto addr = serverAddressTxt->text(); addr.startsWith("https:") || addr.startsWith("https+"))
         {
             serverPortSB->setEnabled(false);

@@ -67,7 +67,8 @@ namespace Qv2ray::base::config
         bool v2rayFreedomDNS;
         bool withLocalDNS;
         bool dnsIntercept;
-        QvConfig_Connection() : enableProxy(true), bypassCN(true), bypassBT(false), v2rayFreedomDNS(false), withLocalDNS(false), dnsIntercept(false){};
+        QvConfig_Connection()
+            : enableProxy(true), bypassCN(true), bypassBT(false), v2rayFreedomDNS(false), withLocalDNS(false), dnsIntercept(false){};
         JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept))
     };
 

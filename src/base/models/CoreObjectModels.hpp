@@ -396,6 +396,24 @@ namespace Qv2ray::base::objects
             JSONSTRUCT_REGISTER(VMessServerObject, F(address, port, users))
         };
         //
+        // VLess Server
+        struct VLessServerObject
+        {
+            struct UserObject
+            {
+                QString id;
+                QString encryption;
+                UserObject() : id(), encryption("none"){};
+                JSONSTRUCT_REGISTER(UserObject, F(id, encryption))
+            };
+
+            QString address;
+            int port;
+            QList<UserObject> users;
+            VLessServerObject() : address(""), port(0), users(){};
+            JSONSTRUCT_REGISTER(VLessServerObject, F(address, port, users))
+        };
+        //
         // ShadowSocks Server
         struct ShadowSocksServerObject
         {
