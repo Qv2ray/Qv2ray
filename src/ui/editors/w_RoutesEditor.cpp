@@ -279,7 +279,7 @@ CONFIGROOT RouteEditor::OpenEditor()
             outboundsArray.append(outboundJsonObject);
     }
     root["outbounds"] = outboundsArray;
-    root["dns"] = dnsWidget->GetDNSObject().toJson();
+    root["dns"] = GenerateDNS(false, dnsWidget->GetDNSObject());
     return root;
 }
 

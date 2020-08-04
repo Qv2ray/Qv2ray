@@ -82,6 +82,23 @@ namespace Qv2ray::core::handler
         return newOutbounds;
     }
 
+    OUTBOUNDS RouteHandler::ExpandConnectionId(const OUTBOUNDS &outbounds) const
+    {
+        OUTBOUNDS result;
+        for (const auto &out : outbounds)
+        {
+            auto outObject = out.toObject();
+            const auto meta = OutboundObjectMeta::loadFromOutbound(OUTBOUND(outObject));
+            if (meta.metaType == METAOUTBOUND_EXTERNAL)
+            {
+                outObject = ConnectionManager->GetConnectionRoot(meta.connectionId)["outbounds"].toArray().first().toObject();
+                outObject["tag"] = meta.getDisplayName();
+            }
+            result << outObject;
+        }
+        return result;
+    }
+
     OUTBOUNDS RouteHandler::ExpandProxyChains(const OUTBOUNDS &outbounds) const
     {
         QMap<QString, OUTBOUND> outboundMap;
@@ -157,6 +174,7 @@ namespace Qv2ray::core::handler
 
             routing["rules"] = newRules;
             root["routing"] = routing;
+            root["outbounds"] = ExpandConnectionId(OUTBOUNDS(root["outbounds"].toArray()));
             root["outbounds"] = ExpandProxyChains(OUTBOUNDS(root["outbounds"].toArray()));
         }
         else

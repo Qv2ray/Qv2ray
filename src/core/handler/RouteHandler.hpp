@@ -24,6 +24,9 @@ namespace Qv2ray::core::handler
         //
         bool SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns);
         bool SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_Route &dns);
+        //
+        OUTBOUNDS ExpandConnectionId(const OUTBOUNDS &outbounds) const;
+        //
         OUTBOUNDS ExpandProxyChains(const QMap<QString, OUTBOUND> &outbounds) const;
         OUTBOUNDS ExpandProxyChains(const OUTBOUNDS &outbounds) const;
         //
