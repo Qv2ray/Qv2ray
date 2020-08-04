@@ -24,15 +24,14 @@ namespace Qv2ray::core::handler
         //
         bool SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns);
         bool SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_Route &dns);
+        OUTBOUNDS ExpandProxyChains(const QMap<QString, OUTBOUND> &outbounds) const;
+        OUTBOUNDS ExpandProxyChains(const OUTBOUNDS &outbounds) const;
         //
         // Final Config Generation
         CONFIGROOT GenerateFinalConfig(const ConnectionGroupPair &pair, bool hasAPI = true) const;
         CONFIGROOT GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId, bool hasAPI = true) const;
         //
         OUTBOUNDS ExpandChainedOutbounds() const;
-        //
-        // Route Table Generation
-        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, const QString &outboundTag, const QvConfig_Route &routeConfig) const;
 
       private:
         QHash<GroupRoutingId, GroupRoutingConfig> configs;

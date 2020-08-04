@@ -70,6 +70,13 @@ namespace Qv2ray::base::objects::complex
             else
                 return displayName;
         }
+        static OutboundObjectMeta loadFromOutbound(const safetype::OUTBOUND &out)
+        {
+            OutboundObjectMeta meta;
+            meta.loadJson(out[META_OUTBOUND_KEY_NAME].toObject());
+            meta.realOutbound = out;
+            return meta;
+        }
         explicit OutboundObjectMeta() : metaType(METAOUTBOUND_ORIGINAL){};
         JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, displayName, connectionId, outboundTags))
     };

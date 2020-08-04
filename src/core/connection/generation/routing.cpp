@@ -38,4 +38,69 @@ namespace Qv2ray::core::connection::generation::routing
         return root;
     }
 
+    // -------------------------- BEGIN CONFIG GENERATIONS
+    ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, const QString &outTag, const QvConfig_Route &routeConfig)
+    {
+        ROUTING root;
+        root.insert("domainStrategy", routeConfig.domainStrategy);
+        //
+        // For Rules list
+        QJsonArray rulesList;
+
+        // Private IPs should always NOT TO PROXY!
+        rulesList.append(GenerateSingleRouteRule(RULE_IP, "geoip:private", OUTBOUND_TAG_DIRECT));
+        //
+        if (!enableProxy)
+        {
+            // This is added to disable all proxies, as a alternative influence of #64
+            rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, "regexp:.*", OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(RULE_IP, "0.0.0.0/0", OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(RULE_IP, "::/0", OUTBOUND_TAG_DIRECT));
+        }
+        else
+        {
+            //
+            // Blocked.
+            if (!routeConfig.ips.block.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, routeConfig.ips.block, OUTBOUND_TAG_BLACKHOLE));
+            }
+            if (!routeConfig.domains.block.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.block, OUTBOUND_TAG_BLACKHOLE));
+            }
+            //
+            // Proxied
+            if (!routeConfig.ips.proxy.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, routeConfig.ips.proxy, outTag));
+            }
+            if (!routeConfig.domains.proxy.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.proxy, outTag));
+            }
+            //
+            // Directed
+            if (!routeConfig.ips.direct.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, routeConfig.ips.direct, OUTBOUND_TAG_DIRECT));
+            }
+            if (!routeConfig.domains.direct.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.direct, OUTBOUND_TAG_DIRECT));
+            }
+            //
+            // Check if CN needs proxy, or direct.
+            if (bypassCN)
+            {
+                // No proxy agains CN addresses.
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, "geoip:cn", OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(RULE_IP, "geosite:cn", OUTBOUND_TAG_DIRECT));
+            }
+        }
+
+        root.insert("rules", rulesList);
+        return root;
+    }
+
 } // namespace Qv2ray::core::connection::generation::routing

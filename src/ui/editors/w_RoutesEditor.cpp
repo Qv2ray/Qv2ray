@@ -80,7 +80,6 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     QvMessageBusConnect(RouteEditor);
     //
     isLoading = true;
-    // ?
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
     updateColorScheme();
     //

@@ -38,9 +38,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
 
     for (const auto &out : root["outbounds"].toArray())
     {
-        OutboundObjectMeta meta;
-        meta.loadJson(out.toObject()[META_OUTBOUND_KEY_NAME].toObject());
-        meta.realOutbound = OUTBOUND(out.toObject());
+        const auto meta = OutboundObjectMeta::loadFromOutbound(OUTBOUND(out.toObject()));
         auto _ = CreateOutbound(meta);
     }
 
@@ -48,6 +46,19 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
     {
         auto _ = CreateRule(RuleObject::fromJson(item.toObject()));
     }
+
+    for (const auto &balancer : root["routing"].toObject()["balancers"].toArray())
+    {
+        const auto array = balancer.toObject()["selector"].toArray();
+        QStringList selector;
+        for (const auto &item : array)
+        {
+            selector << item.toString();
+        }
+        const auto meta = make_balancer_outbound(selector, balancer.toObject()["tag"].toString());
+        auto _ = CreateOutbound(meta);
+    }
+
     for (const auto &rule : rules)
     {
         if (!ruleNodes.contains(rule->QV2RAY_RULE_TAG))
@@ -59,28 +70,24 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
         // Process inbounds.
         for (const auto &inboundTag : rule->inboundTag)
         {
-            if (inboundNodes.contains(inboundTag))
-            {
-                const auto inboundNodeId = inboundNodes.value(inboundTag);
-                ruleScene->createConnection(*ruleScene->node(ruleNodeId), 0, *ruleScene->node(inboundNodeId), 0);
-            }
-            else
+            if (!inboundNodes.contains(inboundTag))
             {
                 LOG(MODULE_NODE, "Could not find inbound: " + inboundTag)
+                continue;
             }
+            const auto inboundNodeId = inboundNodes.value(inboundTag);
+            ruleScene->createConnection(*ruleScene->node(ruleNodeId), 0, *ruleScene->node(inboundNodeId), 0);
         }
 
         for (const auto &outboundTag : { rule->outboundTag, rule->balancerTag })
         {
-            if (outboundNodes.contains(outboundTag))
-            {
-                const auto &outboundNodeId = outboundNodes[outboundTag];
-                ruleScene->createConnection(*ruleScene->node(outboundNodeId), 0, *ruleScene->node(ruleNodeId), 0);
-            }
-            else
+            if (!outboundNodes.contains(outboundTag))
             {
                 LOG(MODULE_NODE, "Could not find outbound: " + outboundTag)
+                continue;
             }
+            const auto &outboundNodeId = outboundNodes[outboundTag];
+            ruleScene->createConnection(*ruleScene->node(outboundNodeId), 0, *ruleScene->node(ruleNodeId), 0);
         }
     }
     isOperationLocked = false;

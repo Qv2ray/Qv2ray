@@ -19,6 +19,7 @@ void BalancerWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
     balancerSelectionCombo->clear();
     balancerSelectionCombo->addItems(dispatcher->GetRealOutboundTags());
     balancerTagTxt->setText(data->getDisplayName());
+    balancerList->addItems(data->outboundTags);
 }
 
 void BalancerWidget::changeEvent(QEvent *e)
