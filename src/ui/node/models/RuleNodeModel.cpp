@@ -76,7 +76,7 @@ void RuleNodeModel::outputConnectionCreated(const QtNodes::Connection &c)
     }
 }
 
-void RuleNodeModel::outputConnectionDeleted(const QtNodes::Connection &c)
+void RuleNodeModel::outputConnectionDeleted(const QtNodes::Connection &)
 {
     if (dispatcher->IsNodeConstructing())
         return;
