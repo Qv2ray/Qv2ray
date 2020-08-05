@@ -113,7 +113,7 @@ void signalHandler(int signum)
     {
         std::cout << msg.toStdString() << std::endl;
         QDir().mkpath(QV2RAY_CONFIG_DIR + "bugreport/");
-        StringToFile(msg, filePath);
+        StringToFile("Signal: " + QSTRN(signum) + NEWLINE + msg, filePath);
         std::cout << "Backtrace saved in: " + filePath.toStdString() << std::endl;
     }
     if (qvApp)
@@ -124,7 +124,7 @@ void signalHandler(int signum)
                           filePath;
         QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
     }
-    exit(-99);
+    kill(0, SIGTRAP);
 }
 
 QPair<Qv2rayExitCode, std::optional<QString>> RunQv2rayApplicationScoped(int argc, char *argv[])
