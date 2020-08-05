@@ -27,7 +27,6 @@ namespace Qv2ray::core::handler
         //
         OUTBOUNDS ExpandConnectionId(const OUTBOUNDS &outbounds) const;
         //
-        OUTBOUNDS ExpandProxyChains(const QMap<QString, OUTBOUND> &outbounds) const;
         OUTBOUNDS ExpandProxyChains(const OUTBOUNDS &outbounds) const;
         //
         // Final Config Generation

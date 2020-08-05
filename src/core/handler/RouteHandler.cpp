@@ -45,43 +45,6 @@ namespace Qv2ray::core::handler
         return true;
     }
 
-    OUTBOUNDS RouteHandler::ExpandProxyChains(const QMap<QString, OUTBOUND> &outbounds) const
-    {
-        OUTBOUNDS newOutbounds;
-        OUTBOUNDS chainReault;
-        // Copy construct.
-        for (auto out : outbounds.values())
-        {
-            const auto meta = OutboundObjectMeta::loadFromOutbound(out);
-            if (meta.metaType != METAOUTBOUND_CHAIN)
-            {
-                newOutbounds.push_back(out);
-                continue;
-            }
-            const auto &chainName = meta.getDisplayName();
-            for (auto i = 0; i < meta.outboundTags.count(); i++)
-            {
-                auto chainOutbound = outbounds[meta.outboundTags[i]];
-                const auto &currentTag = (i == 0) ? chainName : chainName + "_" + QSTRN(i) + "_" + meta.outboundTags[i];
-                QJsonIO::SetValue(chainOutbound, currentTag, "tag");
-
-                if (i < meta.outboundTags.count() - 1)
-                {
-                    // Has next Tag
-                    const auto &nextTag = chainName + "_" + QSTRN(i + 1) + "_" + meta.outboundTags[i + 1];
-                    QJsonIO::SetValue(chainOutbound, nextTag, "proxySettings", "tag");
-                }
-
-                chainReault.append(chainOutbound);
-            }
-        }
-        for (const auto &chainOutbound : chainReault)
-        {
-            newOutbounds.append(chainOutbound);
-        }
-        return newOutbounds;
-    }
-
     OUTBOUNDS RouteHandler::ExpandConnectionId(const OUTBOUNDS &outbounds) const
     {
         OUTBOUNDS result;
@@ -107,7 +70,39 @@ namespace Qv2ray::core::handler
             const auto meta = OutboundObjectMeta::loadFromOutbound(OUTBOUND(out.toObject()));
             outboundMap[meta.getDisplayName()] = OUTBOUND(out.toObject());
         }
-        return ExpandProxyChains(outboundMap);
+        OUTBOUNDS newOutbounds;
+        OUTBOUNDS chainReault;
+        // Copy construct.
+        for (const auto &out : outbounds)
+        {
+            const auto meta = OutboundObjectMeta::loadFromOutbound(OUTBOUND(out.toObject()));
+            if (meta.metaType != METAOUTBOUND_CHAIN)
+            {
+                newOutbounds.push_back(out);
+                continue;
+            }
+            const auto &chainName = meta.getDisplayName();
+            for (auto i = 0; i < meta.outboundTags.count(); i++)
+            {
+                auto chainOutbound = outboundMap[meta.outboundTags[i]];
+                const auto &currentTag = (i == 0) ? chainName : chainName + "_" + QSTRN(i) + "_" + meta.outboundTags[i];
+                QJsonIO::SetValue(chainOutbound, currentTag, "tag");
+
+                if (i < meta.outboundTags.count() - 1)
+                {
+                    // Has next Tag
+                    const auto &nextTag = chainName + "_" + QSTRN(i + 1) + "_" + meta.outboundTags[i + 1];
+                    QJsonIO::SetValue(chainOutbound, nextTag, "proxySettings", "tag");
+                }
+
+                chainReault.append(chainOutbound);
+            }
+        }
+        for (const auto &chainOutbound : chainReault)
+        {
+            newOutbounds.append(chainOutbound);
+        }
+        return newOutbounds;
     }
 
     CONFIGROOT RouteHandler::GenerateFinalConfig(const ConnectionGroupPair &p, bool api) const
