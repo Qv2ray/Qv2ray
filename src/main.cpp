@@ -124,7 +124,11 @@ void signalHandler(int signum)
                           filePath;
         QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
     }
+#ifndef Q_OS_WIN
     kill(0, SIGTRAP);
+#else
+    exit(-99);
+#endif
 }
 
 QPair<Qv2rayExitCode, std::optional<QString>> RunQv2rayApplicationScoped(int argc, char *argv[])
