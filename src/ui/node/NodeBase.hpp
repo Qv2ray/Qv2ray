@@ -50,7 +50,7 @@ namespace Qv2ray::ui::nodemodels
         }                                                                                                                                       \
         std::shared_ptr<INNER_TYPE> GetData()                                                                                                   \
         {                                                                                                                                       \
-            return data;                                                                                                                        \
+            return std::shared_ptr<INNER_TYPE>(data);                                                                                           \
         }                                                                                                                                       \
                                                                                                                                                 \
       private:                                                                                                                                  \
