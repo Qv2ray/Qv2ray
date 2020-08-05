@@ -4,6 +4,8 @@
 #include <QThread>
 #include <mutex>
 #include <unordered_set>
+#include <curl/curl.h>
+
 namespace uvw
 {
     class Loop;
@@ -27,7 +29,13 @@ namespace Qv2ray::components::latency
         void run() override;
 
       private:
+        struct CURLGlobal
+        {
+            CURLGlobal(){curl_global_init(CURL_GLOBAL_DEFAULT);}
+            ~CURLGlobal(){curl_global_cleanup();}
+        };
         std::shared_ptr<uvw::Loop> loop;
+        CURLGlobal curlGlobal;
         bool isStop = false;
         std::shared_ptr<uvw::TimerHandle> stopTimer;
         std::vector<LatencyTestRequest> requests;

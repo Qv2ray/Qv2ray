@@ -120,6 +120,7 @@ class PreferencesWindow
     void on_fixedAutoConnectRB_clicked();
     void on_latencyTCPingRB_clicked();
     void on_latencyICMPingRB_clicked();
+    void on_latencyRealPingRB_clicked();
     void on_qvNetworkUATxt_editTextChanged(const QString &arg1);
     void on_V2RayOutboundStatsCB_stateChanged(int arg1);
     void on_hasDirectStatisticsCB_stateChanged(int arg1);

@@ -139,7 +139,8 @@ namespace Qv2ray::base::config
     enum Qv2rayLatencyTestingMethod
     {
         TCPING,
-        ICMPING
+        ICMPING,
+        REALPING
     };
 
     struct Qv2rayConfig_Network

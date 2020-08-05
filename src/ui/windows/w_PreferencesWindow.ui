@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>888</width>
+    <width>928</width>
     <height>652</height>
    </rect>
   </property>
@@ -430,6 +430,13 @@ For example, for updating subscriptions.</string>
                 </property>
                 <property name="autoExclusive">
                  <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="latencyRealPingRB">
+                <property name="text">
+                 <string>RealPing</string>
                 </property>
                </widget>
               </item>
@@ -987,8 +994,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>842</width>
-            <height>594</height>
+            <width>888</width>
+            <height>554</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
