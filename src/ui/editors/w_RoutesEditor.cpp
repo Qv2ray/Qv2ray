@@ -92,6 +92,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &RouteEditor::OnDispatcherOutboundCreated);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnOutboundDeleted, this, &RouteEditor::OnDispatcherOutboundDeleted);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleCreated, this, &RouteEditor::OnDispatcherRuleCreated);
+    connect(nodeDispatcher.get(), &NodeDispatcher::OnRuleDeleted, this, &RouteEditor::OnDispatcherRuleDeleted);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
     connect(nodeDispatcher.get(), &NodeDispatcher::RequestEditChain, this, &RouteEditor::OnDispatcherEditChainRequested);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &RouteEditor::OnDispatcherObjectTagChanged);
@@ -156,6 +157,13 @@ void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta
 void RouteEditor::OnDispatcherRuleCreated(std::shared_ptr<RuleObject> rule, QtNodes::Node &)
 {
     ruleListWidget->addItem(rule->QV2RAY_RULE_TAG);
+}
+
+void RouteEditor::OnDispatcherRuleDeleted(const RuleObject &rule)
+{
+    const auto items = ruleListWidget->findItems(rule.QV2RAY_RULE_TAG, Qt::MatchExactly);
+    if (!items.isEmpty())
+        ruleListWidget->takeItem(ruleListWidget->row(items.first()));
 }
 
 void RouteEditor::OnDispatcherOutboundDeleted(const OutboundObjectMeta &data)

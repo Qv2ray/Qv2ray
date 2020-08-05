@@ -64,6 +64,7 @@ class RouteEditor
     void OnDispatcherOutboundDeleted(const complex::OutboundObjectMeta &);
     void OnDispatcherOutboundCreated(std::shared_ptr<complex::OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
+    void OnDispatcherRuleDeleted(const RuleObject &);
     void OnDispatcherInboundOutboundHovered(const QString &, const ProtocolSettingsInfoObject &);
     void OnDispatcherObjectTagChanged(ComplexTagNodeMode, const QString, const QString);
 

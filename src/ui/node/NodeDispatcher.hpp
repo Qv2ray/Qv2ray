@@ -113,6 +113,7 @@ class NodeDispatcher
     void OnOutboundDeleted(const OutboundObjectMeta &);
     //
     void OnRuleCreated(std::shared_ptr<RuleObject>, QtNodes::Node &);
+    void OnRuleDeleted(const RuleObject &);
     //
     void OnChainedCreated(std::shared_ptr<OutboundObjectMeta>);
     void OnChainedDeleted(const OutboundObjectMeta &);

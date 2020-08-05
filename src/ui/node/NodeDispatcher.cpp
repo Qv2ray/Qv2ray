@@ -132,7 +132,7 @@ void NodeDispatcher::OnNodeDeleted(const QtNodes::Node &node)
     else if (isOutbound)
     {
         CLEANUP(outbound);
-        const auto object = *outbound.get();
+        const auto object = *outbound;
         if (object.metaType == METAOUTBOUND_CHAIN)
         {
             emit OnChainedOutboundDeleted(object);
@@ -142,6 +142,7 @@ void NodeDispatcher::OnNodeDeleted(const QtNodes::Node &node)
     else if (isRule)
     {
         CLEANUP(rule);
+        emit OnRuleDeleted(*rule);
     }
     else
     {
