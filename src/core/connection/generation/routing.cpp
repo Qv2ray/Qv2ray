@@ -30,8 +30,8 @@ namespace Qv2ray::core::connection::generation::routing
         list.removeAll("");
         switch (t)
         {
-            case RULE_IP: root.insert("domain", QJsonArray::fromStringList(rules)); break;
-            case RULE_DOMAIN: root.insert("ip", QJsonArray::fromStringList(rules)); break;
+            case RULE_DOMAIN: root.insert("domain", QJsonArray::fromStringList(rules)); break;
+            case RULE_IP: root.insert("ip", QJsonArray::fromStringList(rules)); break;
             default: Q_UNREACHABLE();
         }
         JADD(outboundTag, type)
@@ -95,7 +95,7 @@ namespace Qv2ray::core::connection::generation::routing
             {
                 // No proxy agains CN addresses.
                 rulesList.append(GenerateSingleRouteRule(RULE_IP, "geoip:cn", OUTBOUND_TAG_DIRECT));
-                rulesList.append(GenerateSingleRouteRule(RULE_IP, "geosite:cn", OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(RULE_DOMAIN, "geosite:cn", OUTBOUND_TAG_DIRECT));
             }
         }
 
