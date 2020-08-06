@@ -10,12 +10,6 @@ namespace Qv2ray::ui
 {
     using namespace ZXing;
 
-    template<typename T, typename _ = decltype(ToString(T()))>
-    QDebug operator<<(QDebug dbg, const T &v)
-    {
-        return dbg.noquote() << QString::fromStdString(ToString(v));
-    }
-
     QString DecodeQRCode(const QImage &img)
     {
         DecodeHints hints;
