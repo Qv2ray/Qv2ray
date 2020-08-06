@@ -2,9 +2,9 @@
 #include "LatencyTest.hpp"
 
 #include <QThread>
+#include <curl/curl.h>
 #include <mutex>
 #include <unordered_set>
-#include <curl/curl.h>
 
 namespace uvw
 {
@@ -31,8 +31,14 @@ namespace Qv2ray::components::latency
       private:
         struct CURLGlobal
         {
-            CURLGlobal(){curl_global_init(CURL_GLOBAL_ALL);}
-            ~CURLGlobal(){curl_global_cleanup();}
+            CURLGlobal()
+            {
+                curl_global_init(CURL_GLOBAL_ALL);
+            }
+            ~CURLGlobal()
+            {
+                curl_global_cleanup();
+            }
         };
         std::shared_ptr<uvw::Loop> loop;
         CURLGlobal curlGlobal;

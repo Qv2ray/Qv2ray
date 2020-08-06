@@ -360,7 +360,7 @@ For example, for updating subscriptions.</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_67">
               <property name="text">
                <string>User-Agent</string>
@@ -370,7 +370,7 @@ For example, for updating subscriptions.</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="3" column="1">
              <widget class="QComboBox" name="qvNetworkUATxt">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
@@ -442,7 +442,7 @@ For example, for updating subscriptions.</string>
               </item>
              </layout>
             </item>
-            <item row="3" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="label_71">
               <property name="text">
                <string>Qv2ray Proxy</string>
@@ -452,7 +452,7 @@ For example, for updating subscriptions.</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="4" column="1">
              <layout class="QFormLayout" name="formLayout_3">
               <item row="0" column="0" colspan="2">
                <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -553,6 +553,20 @@ For example, for updating subscriptions.</string>
                </layout>
               </item>
              </layout>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_40">
+              <property name="text">
+               <string>RealPing Test URL</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="latencyRealPingTestURLTxt">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>

@@ -15,7 +15,7 @@ namespace Qv2ray::components::latency::realping
       public:
         RealPing(std::shared_ptr<uvw::Loop> loopin, LatencyTestRequest &req, LatencyTestHost *testHost);
         ~RealPing();
-        void start(const std::string &request_name = "https://www.google.com");
+        void start();
         void notifyTestHost();
         void recordHanleTime(CURL *);
         long getHandleTime(CURL *);

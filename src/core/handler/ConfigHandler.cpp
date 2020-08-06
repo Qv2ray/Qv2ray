@@ -72,8 +72,8 @@ namespace Qv2ray::core::handler
         connect(kernelHandler, &KernelInstanceHandler::OnConnected, this, &QvConfigHandler::OnConnected);
         connect(kernelHandler, &KernelInstanceHandler::OnDisconnected, this, &QvConfigHandler::OnDisconnected);
         //
-        tcpingHelper = new LatencyTestHost(5, this);
-        connect(tcpingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
+        pingHelper = new LatencyTestHost(5, this);
+        connect(pingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
         // Save per 1 hour.
         saveTimerId = startTimer(1 * 60 * 60 * 1000);
@@ -126,7 +126,7 @@ namespace Qv2ray::core::handler
         {
             emit OnLatencyTestStarted(connection);
         }
-        tcpingHelper->TestLatency(connections.keys(), GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(connections.keys(), GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const GroupId &id)
@@ -135,13 +135,13 @@ namespace Qv2ray::core::handler
         {
             emit OnLatencyTestStarted(connection);
         }
-        tcpingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const ConnectionId &id)
     {
         emit OnLatencyTestStarted(id);
-        tcpingHelper->TestLatency(id, GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(id, GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     const QList<GroupId> QvConfigHandler::Subscriptions() const

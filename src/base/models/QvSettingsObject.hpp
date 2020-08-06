@@ -146,6 +146,7 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_Network
     {
         Qv2rayLatencyTestingMethod latencyTestingMethod;
+        QString latencyRealPingTestURL;
         enum Qv2rayProxyType : int
         {
             QVPROXY_NONE = 0,
@@ -158,12 +159,13 @@ namespace Qv2ray::base::config
         int port;
         QString userAgent;
         Qv2rayConfig_Network()
-            : proxyType(QVPROXY_NONE), //
-              address("127.0.0.1"),    //
-              type("http"),            //
-              port(8000),              //
+            : proxyType(QVPROXY_NONE),                          //
+              latencyRealPingTestURL("https://www.google.com"), //
+              address("127.0.0.1"),                             //
+              type("http"),                                     //
+              port(8000),                                       //
               userAgent("Qv2ray/$VERSION WebRequestHelper"){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, proxyType, type, address, port, userAgent))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent))
     };
 
     enum Qv2rayAutoConnectionBehavior

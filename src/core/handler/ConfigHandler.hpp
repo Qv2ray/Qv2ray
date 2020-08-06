@@ -181,7 +181,7 @@ namespace Qv2ray::core::handler
         QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
       private:
-        LatencyTestHost *tcpingHelper;
+        LatencyTestHost *pingHelper;
         KernelInstanceHandler *kernelHandler;
         Qv2ray::common::network::NetworkRequestHelper *asyncRequestHelper;
     };

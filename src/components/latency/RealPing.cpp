@@ -8,6 +8,10 @@ struct RealPingContext
 {
     std::shared_ptr<uvw::PollHandle> handle;
     curl_socket_t sockfd;
+    RealPingContext(curl_socket_t sockfd, uvw::Loop &loop)
+        : handle{ loop.resource<uvw::PollHandle>(uvw::OSSocketHandle{ sockfd }) }, sockfd{ sockfd }
+    {
+    }
 };
 struct RealPingGlobalInfo
 {
@@ -17,18 +21,10 @@ struct RealPingGlobalInfo
     int *successCountPtr;
     LatencyTestResult *latencyResultPtr;
 };
-static RealPingContext *create_curl_context(curl_socket_t sockfd, uvw::Loop &loop)
-{
-    auto *context = new RealPingContext;
-    context->sockfd = sockfd;
-    uvw::OSSocketHandle osSocketHandle{ sockfd };
-    context->handle = loop.resource<uvw::PollHandle>(osSocketHandle);
-    return context;
-}
 
 static void check_multi_info(CURLM *curl_handle, int *success_num, LatencyTestResult *latencyTestResultPtr, RealPingGlobalInfo *info)
 {
-    CURLMsg *message{ nullptr };
+    CURLMsg *message;
     int pending;
     CURL *easy_handle;
 
@@ -87,7 +83,7 @@ static int handle_socket(CURL *easy, curl_socket_t s, int action, void *userp, v
     {
         case CURL_POLL_IN:
         case CURL_POLL_OUT:
-            curl_context = socketp ? (RealPingContext *) socketp : create_curl_context(s, pRealPingGlobalInfo->timer->loop());
+            curl_context = socketp ? (RealPingContext *) socketp : new RealPingContext{ s, pRealPingGlobalInfo->timer->loop() };
 
             if (!socketp)
                 curl_multi_assign(pRealPingGlobalInfo->multiHandle, s, (void *) curl_context);
@@ -97,7 +93,8 @@ static int handle_socket(CURL *easy, curl_socket_t s, int action, void *userp, v
             if (action == CURL_POLL_OUT)
                 events = events | uvw::Flags<uvw::PollHandle::Event>::from<uvw::PollHandle::Event::WRITABLE>();
             curl_context->handle->on<uvw::ErrorEvent>(
-                [sockfd = curl_context->sockfd, pRealPingGlobalInfo](uvw::ErrorEvent &e, uvw::PollHandle &h) {
+                [sockfd = curl_context->sockfd, pRealPingGlobalInfo](uvw::ErrorEvent &, uvw::PollHandle &) {
+                    pRealPingGlobalInfo->timer->stop();
                     int running_handles;
                     auto flags = CURL_CSELECT_ERR;
                     curl_multi_socket_action(pRealPingGlobalInfo->multiHandle, sockfd, flags, &running_handles);
@@ -105,21 +102,21 @@ static int handle_socket(CURL *easy, curl_socket_t s, int action, void *userp, v
                                      pRealPingGlobalInfo->latencyResultPtr, pRealPingGlobalInfo);
                     pRealPingGlobalInfo->_preserve_life_time->notifyTestHost();
                 });
-            curl_context->handle->on<uvw::PollEvent>(
-                [sockfd = curl_context->sockfd, pRealPingGlobalInfo](uvw::PollEvent &e, uvw::PollHandle &h) {
-                    int running_handles;
-                    int flags = 0;
+            curl_context->handle->on<uvw::PollEvent>([sockfd = curl_context->sockfd, pRealPingGlobalInfo](uvw::PollEvent &e, uvw::PollHandle &) {
+                pRealPingGlobalInfo->timer->stop();
+                int running_handles;
+                int flags = 0;
 
-                    if (e.flags & uvw::Flags<uvw::PollHandle::Event>{ uvw::PollHandle::Event::READABLE })
-                        flags |= CURL_CSELECT_IN;
-                    if (e.flags & uvw::Flags<uvw::PollHandle::Event>{ uvw::PollHandle::Event::WRITABLE })
-                        flags |= CURL_CSELECT_OUT;
+                if (e.flags & uvw::Flags<uvw::PollHandle::Event>{ uvw::PollHandle::Event::READABLE })
+                    flags |= CURL_CSELECT_IN;
+                if (e.flags & uvw::Flags<uvw::PollHandle::Event>{ uvw::PollHandle::Event::WRITABLE })
+                    flags |= CURL_CSELECT_OUT;
 
-                    curl_multi_socket_action(pRealPingGlobalInfo->multiHandle, sockfd, flags, &running_handles);
-                    check_multi_info(pRealPingGlobalInfo->multiHandle, pRealPingGlobalInfo->successCountPtr,
-                                     pRealPingGlobalInfo->latencyResultPtr, pRealPingGlobalInfo);
-                    pRealPingGlobalInfo->_preserve_life_time->notifyTestHost();
-                });
+                curl_multi_socket_action(pRealPingGlobalInfo->multiHandle, sockfd, flags, &running_handles);
+                check_multi_info(pRealPingGlobalInfo->multiHandle, pRealPingGlobalInfo->successCountPtr, pRealPingGlobalInfo->latencyResultPtr,
+                                 pRealPingGlobalInfo);
+                pRealPingGlobalInfo->_preserve_life_time->notifyTestHost();
+            });
             pRealPingGlobalInfo->_preserve_life_time->recordHanleTime(easy);
             curl_context->handle->start(events);
             break;
@@ -137,28 +134,29 @@ static int handle_socket(CURL *easy, curl_socket_t s, int action, void *userp, v
     }
     return 0;
 }
-static size_t noop_cb(void *ptr, size_t size, size_t nmemb, void *data)
+static size_t noop_cb(void *, size_t size, size_t nmemb, void *)
 {
     return size * nmemb;
 }
 namespace Qv2ray::components::latency::realping
 {
     RealPing::RealPing(std::shared_ptr<uvw::Loop> loopin, LatencyTestRequest &req, LatencyTestHost *testHost)
-        : loop(std::move(loopin)), req(std::move(req)), testHost(testHost), timeout(loop->resource<uvw::TimerHandle>())
+        : req(std::move(req)), testHost(testHost), loop(std::move(loopin)), timeout(loop->resource<uvw::TimerHandle>())
     {
     }
-    void RealPing::start(const std::string &request_name)
+    void RealPing::start()
     {
-        data.totalCount = 0;
-        data.failedCount = 0;
-        data.worst = 0;
-        data.avg = 0;
         if (!GlobalConfig.inboundConfig.useSocks && !GlobalConfig.inboundConfig.useHTTP)
         {
             data.avg = LATENCY_TEST_VALUE_ERROR;
             testHost->OnLatencyTestCompleted(req.id, data);
             return;
         }
+        auto request_name = GlobalConfig.networkConfig.latencyRealPingTestURL.toStdString();
+        data.totalCount = 0;
+        data.failedCount = 0;
+        data.worst = 0;
+        data.avg = 0;
         auto local_proxy_address =
             (!GlobalConfig.inboundConfig.useHTTP ?
                  "socks5://" + GlobalConfig.inboundConfig.listenip + ":" + QSTRN(GlobalConfig.inboundConfig.socksSettings.port) :
@@ -171,7 +169,7 @@ namespace Qv2ray::components::latency::realping
             curl_multi_cleanup(curlMultiHandle);
             h.clear();
         });
-        timeout->on<uvw::TimerEvent>([globalInfo, curlMultiHandle, suc_cnt_ptr = &successCount, fail_cnt_ptr = &data, this](auto &, auto &h) {
+        timeout->on<uvw::TimerEvent>([globalInfo, curlMultiHandle, suc_cnt_ptr = &successCount, fail_cnt_ptr = &data, this](auto &, auto &) {
             int running_handles;
             curl_multi_socket_action(curlMultiHandle, CURL_SOCKET_TIMEOUT, 0, &running_handles);
             check_multi_info(curlMultiHandle, suc_cnt_ptr, fail_cnt_ptr, globalInfo.get());
@@ -187,6 +185,8 @@ namespace Qv2ray::components::latency::realping
             curl_easy_setopt(handle, CURLOPT_URL, request_name.c_str());
             curl_easy_setopt(handle, CURLOPT_PROXY, local_proxy_address.c_str());
             curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, noop_cb);
+            /* complete within 10 seconds */
+            curl_easy_setopt(handle, CURLOPT_TIMEOUT, 10L);
             curl_multi_add_handle(curlMultiHandle, handle);
         }
     }

@@ -554,6 +554,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
         action_RCM_Rename->setEnabled(isConnection);
         action_RCM_Duplicate->setEnabled(isConnection);
         action_RCM_UpdateSubscription->setEnabled(!isConnection);
+        action_RCM_LatencyTest->setEnabled(GlobalConfig.networkConfig.latencyTestingMethod != REALPING || isConnection);
         connectionListRCM_Menu->popup(_pos);
     }
 }
@@ -702,7 +703,10 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     GlobalConfig.uiConfig.recentConnections.push_front(id);
     ReloadRecentConnectionList();
     //
-    ConnectionManager->StartLatencyTest(id.connectionId);
+    QTimer::singleShot(1000, ConnectionManager, [id]() {
+        // After the kernel initialization is complete, we can test the delay without worry
+        ConnectionManager->StartLatencyTest(id.connectionId);
+    });
     if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
     {
         MWSetSystemProxy();

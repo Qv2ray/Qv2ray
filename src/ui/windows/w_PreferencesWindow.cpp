@@ -165,6 +165,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     latencyTCPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == TCPING);
     latencyICMPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == ICMPING);
     latencyRealPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == REALPING);
+    latencyRealPingTestURLTxt->setText(CurrentConfig.networkConfig.latencyRealPingTestURL);
     //
     {
         qvProxyPortCB->setValue(CurrentConfig.networkConfig.port);
@@ -445,6 +446,11 @@ void PreferencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.socksSettings.account.pass = arg1;
+}
+
+void PreferencesWindow::on_latencyRealPingTestURLTxt_textEdited(const QString &arg1)
+{
+    CurrentConfig.networkConfig.latencyRealPingTestURL = arg1;
 }
 
 void PreferencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
