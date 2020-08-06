@@ -249,6 +249,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(masterLogBrowser, &QTextBrowser::customContextMenuRequested, [this](const QPoint &) { logRCM_Menu->popup(QCursor::pos()); });
     connect(action_RCM_tovCoreLog, &QAction::triggered, this, &MainWindow::on_action_RCM_tovCoreLog_triggered);
     connect(action_RCM_toQvLog, &QAction::triggered, this, &MainWindow::on_action_RCM_toQvLog_triggered);
+    masterLogBrowser->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    {
+        auto font = masterLogBrowser->font();
+        font.setPointSize(9);
+        masterLogBrowser->setFont(font);
+        qvLogDocument->setDefaultFont(font);
+        vCoreLogDocument->setDefaultFont(font);
+    }
     //
     // Globally invokable signals.
     //
