@@ -254,10 +254,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>连接管理</translation>
     </message>
     <message>
-        <source>Deleting a subscription</source>
-        <translation>删除订阅</translation>
-    </message>
-    <message>
         <source>All connections will be moved to default group, do you want to continue?</source>
         <translation>本订阅中的所有连接都将移动到默认分组，您确定要继续吗？</translation>
     </message>
@@ -300,6 +296,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>The subscription link is invalid.</source>
         <translation>订阅链接无效。</translation>
+    </message>
+    <message>
+        <source>Deleting a group</source>
+        <translation>删除分组</translation>
     </message>
 </context>
 <context>
@@ -1044,6 +1044,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Groups</source>
         <translation>分组</translation>
     </message>
+    <message>
+        <source>Collapse all groups</source>
+        <translation>收起所有分组</translation>
+    </message>
 </context>
 <context>
     <name>OutboundEditor</name>
@@ -1171,6 +1175,14 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Http</source>
         <translation>HTTP</translation>
     </message>
+    <message>
+        <source>VLESS</source>
+        <translation>VLESS</translation>
+    </message>
+    <message>
+        <source>Encryption</source>
+        <translation>加密方式</translation>
+    </message>
 </context>
 <context>
     <name>PluginManageWindow</name>
@@ -1262,10 +1274,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>监听地址</translation>
     </message>
     <message>
-        <source>HTTP</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
         <source>Set System Proxy</source>
         <translation>设置系统代理</translation>
     </message>
@@ -1310,10 +1318,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>常规连接设置</translation>
     </message>
     <message>
-        <source>Enable Proxy</source>
-        <translation>启用代理</translation>
-    </message>
-    <message>
         <source>Use Local DNS</source>
         <translation>使用本地 DNS</translation>
     </message>
@@ -1336,10 +1340,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Type</source>
         <translation>类型</translation>
-    </message>
-    <message>
-        <source>Socks</source>
-        <translation>SOCKS</translation>
     </message>
     <message>
         <source>Host Address</source>
@@ -1913,6 +1913,26 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
         <source>This will make your TLS fingerpring different from common Golang programs.</source>
         <translation>这将使你的 TLS 指纹有异于正常的 Golang 程序。</translation>
     </message>
+    <message>
+        <source>Force Direct for All Connections</source>
+        <translation>强制所有连接直连</translation>
+    </message>
+    <message>
+        <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
+If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
+Output: <byte value="xd"/>
+<byte value="xd"/>
+</source>
+        <translation>这不像是 V2Ray 核心来的输出。
+若你在找插件核心，你应在插件设置中变更此项设定而非这里。
+输出如下: 
+
+</translation>
+    </message>
+    <message>
+        <source>&apos;V2Ray Core&apos; Settings</source>
+        <translation>“V2Ray 核心”设定</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2159,10 +2179,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
         <source>Timeout</source>
         <translation>超时</translation>
-    </message>
-    <message>
-        <source>DNS lookup failed.</source>
-        <translation>DNS 解析失败。</translation>
     </message>
     <message>
         <source>Socket creation failed</source>
