@@ -31,7 +31,7 @@ namespace Qv2ray::components::latency
       private:
         struct CURLGlobal
         {
-            CURLGlobal(){curl_global_init(CURL_GLOBAL_DEFAULT);}
+            CURLGlobal(){curl_global_init(CURL_GLOBAL_ALL);}
             ~CURLGlobal(){curl_global_cleanup();}
         };
         std::shared_ptr<uvw::Loop> loop;

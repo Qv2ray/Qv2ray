@@ -36,6 +36,8 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/components/latency/LatencyTestThread.hpp
     ${CMAKE_SOURCE_DIR}/src/components/latency/TCPing.cpp
     ${CMAKE_SOURCE_DIR}/src/components/latency/TCPing.hpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/RealPing.cpp
+    ${CMAKE_SOURCE_DIR}/src/components/latency/RealPing.hpp
     ${CMAKE_SOURCE_DIR}/src/components/latency/DNSBase.hpp
     ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPing.cpp
     ${CMAKE_SOURCE_DIR}/src/components/latency/win/ICMPPing.hpp
