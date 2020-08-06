@@ -41,7 +41,7 @@ jobs:
           submodules: 'recursive'
       - name: Install build dependencies
         run: |
-          apt-get install -y build-essential devscripts reprepro debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl-dev
+          apt-get install -y build-essential devscripts reprepro debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl4-openssl-dev
       - name: Build
         run: |
           dch -l${{ matrix.distro }} -m 'Build against ${{ matrix.distro }}' -D ${{ matrix.distro }}
