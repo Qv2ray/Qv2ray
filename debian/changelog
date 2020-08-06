@@ -1,3 +1,12 @@
+qv2ray (2.6.3-1) unstable; urgency=medium
+
+  * add: added support for VLESS
+  * add: support collapse all groups in one click
+  * fix: fixed/refined new vmess share link parser
+  * trying to save your brains
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Tue, 04 Aug 2020 20:37:13 +0800
+
 qv2ray (2.6.2-1) unstable; urgency=medium
 
   * fix: changed VMess default user alterId to 32

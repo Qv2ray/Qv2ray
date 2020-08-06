@@ -5,28 +5,40 @@
 #include "MultiFormatWriter.h"
 #include "ReadBarcode.h"
 #include "base/Qv2rayBase.hpp"
+
 namespace Qv2ray::ui
 {
     using namespace ZXing;
-    QString DecodeQRCode(const QImage &source)
+
+    QString DecodeQRCode(const QImage &img)
     {
-        if (source.isNull())
-            return "";
-        QImage img = source.copy();
-        const auto result =
-            ReadBarcode(img.width(), img.height(), img.bits(), img.width() * 4, 4, 0, 1, 2, { ZXing::BarcodeFormat::QR_CODE }, true, true);
-
-        if (result.isValid())
-        {
-            auto errLevel = result.metadata().getString(ResultMetadata::Key::ERROR_CORRECTION_LEVEL);
-            if (!errLevel.empty())
+        DecodeHints hints;
+        hints.setTryHarder(true);
+        hints.setTryRotate(true);
+        //
+        auto ImgFmtFromQImg = [](const QImage &img) {
+            switch (img.format())
             {
-                LOG(MODULE_UI, "EC Level: " + QString::fromStdWString(errLevel))
+                case QImage::Format_ARGB32:
+                case QImage::Format_RGB32:
+#if Q_BYTE_ORDER == Q_LITTLE_ENDIAN
+                    return ImageFormat::BGRX;
+#else
+                    return ImageFormat::XRGB;
+#endif
+                case QImage::Format_RGB888: return ImageFormat::RGB;
+                case QImage::Format_RGBX8888:
+                case QImage::Format_RGBA8888: return ImageFormat::RGBX;
+                case QImage::Format_Grayscale8: return ImageFormat::Lum;
+                default: return ImageFormat::None;
             }
-            return QString::fromStdWString(result.text());
-        }
+        };
 
-        return "";
+        auto exec = [&](const QImage &img) {
+            return QString::fromStdWString(ZXing::ReadBarcode({ img.bits(), img.width(), img.height(), ImgFmtFromQImg(img) }, hints).text());
+        };
+
+        return ImgFmtFromQImg(img) == ImageFormat::None ? exec(img.convertToFormat(QImage::Format_RGBX8888)) : exec(img);
     }
 
     QImage EncodeQRCode(const QString &content, const QSize &size)

@@ -15,7 +15,7 @@ class ImportConfigWindow
     explicit ImportConfigWindow(QWidget *parent = nullptr);
     ~ImportConfigWindow();
     int PerformImportConnection();
-    QMultiHash<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
+    QMultiMap<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
     void processCommands(QString command, QStringList commands, QMap<QString, QString> args) override
     {
         const static QMap<QString, int> indexMap{
@@ -44,7 +44,6 @@ class ImportConfigWindow
     void on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void on_connectionEditBtn_clicked();
     void on_cancelImportBtn_clicked();
-    void on_subscriptionButton_clicked();
     void on_routeEditBtn_clicked();
     void on_hideQv2rayCB_stateChanged(int arg1);
     void on_jsonEditBtn_clicked();
@@ -53,6 +52,7 @@ class ImportConfigWindow
     void updateColorScheme() override;
     QMap<QString, QString> linkErrors;
     //
-    QHash<GroupId, QMultiHash<QString, CONFIGROOT>> connectionsToExistingGroup;
-    QHash<QString, QMultiHash<QString, CONFIGROOT>> connectionsToNewGroup;
+    // Use hash here since the order is not important.
+    QHash<GroupId, QMultiMap<QString, CONFIGROOT>> connectionsToExistingGroup;
+    QMap<QString, QMultiMap<QString, CONFIGROOT>> connectionsToNewGroup;
 };

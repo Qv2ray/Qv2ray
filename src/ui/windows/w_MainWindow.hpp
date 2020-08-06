@@ -58,8 +58,10 @@ class MainWindow
     void on_masterLogBrowser_textChanged();
 
     void on_pluginsBtn_clicked();
+    void on_collapseGroupsBtn_clicked();
 
-  private slots:
+  private:
+    // Do not declare as slots, we connect them manually.
     void on_actionExit_triggered();
     void on_action_StartThis_triggered();
     void on_action_RCM_SetAutoConnection_triggered();
@@ -72,12 +74,10 @@ class MainWindow
     void on_action_RCM_DeleteThese_triggered();
     void on_action_RCM_DuplicateThese_triggered();
     void on_action_RCM_ClearUsage_triggered();
-    //
     void on_action_RCM_tovCoreLog_triggered();
     void on_action_RCM_toQvLog_triggered();
-    //
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
-    //
+
   private:
     void ToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
@@ -122,8 +122,8 @@ class MainWindow
     QMenu *tray_RecentConnectionsMenu = new QMenu(tr("Recent Connections"), this);
     QAction *tray_ClearRecentConnectionsAction = new QAction(tr("Clear Recent Connections"), this);
     //
-    QAction *tray_action_ShowHide = new QAction(tr("Hide"), this);
-    QAction *tray_action_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
+    QAction *tray_action_ToggleVisibility = new QAction(tr("Hide"), this);
+    QAction *tray_action_Preferences = new QAction(tr("Preferences"), this);
     QAction *tray_action_Quit = new QAction(tr("Quit"), this);
     QAction *tray_action_Start = new QAction(tr("Connect"), this);
     QAction *tray_action_Restart = new QAction(tr("Reconnect"), this);

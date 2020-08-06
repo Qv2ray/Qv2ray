@@ -36,7 +36,7 @@ namespace Qv2ray::core::connection
                 mkAllowInsecure(conf);
                 connectionConf << QPair{ *aliasPrefix, conf };
             }
-            else if (link.startsWith("ss://"))
+            else if (link.startsWith("ss://") && !link.contains("plugin="))
             {
                 auto conf = ss::Deserialize(link, aliasPrefix, errMessage);
                 connectionConf << QPair{ *aliasPrefix, conf };

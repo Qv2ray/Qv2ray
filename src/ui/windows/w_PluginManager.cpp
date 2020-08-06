@@ -133,6 +133,6 @@ void PluginManageWindow::on_openPluginFolder_clicked()
 
 void PluginManageWindow::on_toolButton_clicked()
 {
-    auto address = GlobalConfig.uiConfig.language.contains("zh") ? "https://qv2ray.github.io/plugins/" : "https://qv2ray.github.io/en/plugins/";
+    auto address = GlobalConfig.uiConfig.language.contains("zh") ? "https://qv2ray.net/plugins/" : "https://qv2ray.net/en/plugins/";
     QDesktopServices::openUrl(QUrl(address));
 }

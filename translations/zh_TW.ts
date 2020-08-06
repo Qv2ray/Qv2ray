@@ -301,6 +301,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>The subscription link is invalid.</source>
         <translation>訂閱連結無效。</translation>
     </message>
+    <message>
+        <source>Deleting a group</source>
+        <translation>刪除分組</translation>
+    </message>
 </context>
 <context>
     <name>ImportConfigWindow</name>
@@ -1044,6 +1048,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Groups</source>
         <translation>分組</translation>
     </message>
+    <message>
+        <source>Collapse all groups</source>
+        <translation>收起所有分組</translation>
+    </message>
 </context>
 <context>
     <name>OutboundEditor</name>
@@ -1170,6 +1178,14 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Http</source>
         <translation>HTTP</translation>
+    </message>
+    <message>
+        <source>VLESS</source>
+        <translation>VLESS</translation>
+    </message>
+    <message>
+        <source>Encryption</source>
+        <translation>加密方法</translation>
     </message>
 </context>
 <context>
@@ -1912,6 +1928,26 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
         <source>This will make your TLS fingerpring different from common Golang programs.</source>
         <translation>這將使你的 TLS 指紋有異于正常的 Golang 程式。</translation>
+    </message>
+    <message>
+        <source>Force Direct for All Connections</source>
+        <translation>所有連接皆直連</translation>
+    </message>
+    <message>
+        <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
+If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
+Output: <byte value="xd"/>
+<byte value="xd"/>
+</source>
+        <translation>此輸出非似源於 V2Ray 核心。
+變更外掛程式核心須在外掛程式設定中變更。
+輸出：
+
+</translation>
+    </message>
+    <message>
+        <source>&apos;V2Ray Core&apos; Settings</source>
+        <translation>“V2Ray”核心設置</translation>
     </message>
 </context>
 <context>

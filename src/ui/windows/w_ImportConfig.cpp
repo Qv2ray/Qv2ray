@@ -24,10 +24,14 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog(parent)
     QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
     //
+    auto defaultItemIndex = 0;
     for (const auto &gid : ConnectionManager->AllGroups())
     {
         groupCombo->addItem(GetDisplayName(gid), gid.toString());
+        if (gid == DefaultGroupId)
+            defaultItemIndex = groupCombo->count() - 1;
     }
+    groupCombo->setCurrentIndex(defaultItemIndex);
 }
 
 void ImportConfigWindow::updateColorScheme()
@@ -50,7 +54,7 @@ ImportConfigWindow::~ImportConfigWindow()
 {
 }
 
-QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
+QMultiMap<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
 {
     // partial import means only import as an outbound, will set outboundsOnly to
     // false and disable the checkbox
@@ -58,7 +62,7 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     routeEditBtn->setEnabled(!outboundsOnly);
     groupCombo->setEnabled(false);
     this->exec();
-    QMultiHash<QString, CONFIGROOT> conn;
+    QMultiMap<QString, CONFIGROOT> conn;
     for (const auto &connEntry : connectionsToNewGroup.values())
     {
         conn += connEntry;
@@ -67,7 +71,7 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     {
         conn += connEntry;
     }
-    return result() == Accepted ? conn : QMultiHash<QString, CONFIGROOT>{};
+    return result() == Accepted ? conn : QMultiMap<QString, CONFIGROOT>{};
 }
 
 int ImportConfigWindow::PerformImportConnection()
@@ -330,24 +334,6 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
 void ImportConfigWindow::on_cancelImportBtn_clicked()
 {
     reject();
-}
-
-void ImportConfigWindow::on_subscriptionButton_clicked()
-{
-    hide();
-    GroupManager w(this);
-    w.exec();
-    auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
-    connectionsToNewGroup.clear();
-    connectionsToExistingGroup.clear();
-
-    if (importToComplex)
-    {
-        auto [alias, conf] = w.GetSelectedConfig();
-        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, conf);
-    }
-
-    accept();
 }
 
 void ImportConfigWindow::on_routeEditBtn_clicked()

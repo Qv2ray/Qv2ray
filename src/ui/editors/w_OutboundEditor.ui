@@ -84,6 +84,11 @@
          </item>
          <item>
           <property name="text">
+           <string>VLESS</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string notr="true">ShadowSocks</string>
           </property>
          </item>
@@ -202,316 +207,366 @@
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="3">
-        <item>
-         <widget class="QStackedWidget" name="outboundTypeStackView">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
-          <widget class="QWidget" name="page_2">
-           <layout class="QFormLayout" name="formLayout_2">
-            <item row="0" column="0">
-             <widget class="QLabel" name="idLabel">
-              <property name="text">
-               <string>UUID</string>
-              </property>
-             </widget>
+       <widget class="QStackedWidget" name="outboundTypeStackView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="page_2">
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="idLabel">
+            <property name="text">
+             <string>UUID</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="idLineEdit">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="maxLength">
+             <number>36</number>
+            </property>
+            <property name="placeholderText">
+             <string notr="true">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="alterLabel">
+            <property name="text">
+             <string>Alter ID</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="alterLineEdit">
+            <property name="maximum">
+             <number>65535</number>
+            </property>
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="securityLabel">
+            <property name="text">
+             <string>Security</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="securityCombo">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <item>
+             <property name="text">
+              <string notr="true">auto</string>
+             </property>
             </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="idLineEdit">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="maxLength">
-               <number>36</number>
-              </property>
-              <property name="placeholderText">
-               <string notr="true">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">aes-128-gcm</string>
+             </property>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="alterLabel">
-              <property name="text">
-               <string>Alter ID</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">chacha20-poly1305</string>
+             </property>
             </item>
-            <item row="1" column="1">
-             <widget class="QSpinBox" name="alterLineEdit">
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">none</string>
+             </property>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="securityLabel">
-              <property name="text">
-               <string>Security</string>
-              </property>
-             </widget>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Tests</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="testsEnabledCombo">
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+            <item>
+             <property name="text">
+              <string notr="true">none</string>
+             </property>
             </item>
-            <item row="2" column="1">
-             <widget class="QComboBox" name="securityCombo">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <item>
-               <property name="text">
-                <string notr="true">auto</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">aes-128-gcm</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">chacha20-poly1305</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">none</string>
-               </property>
-              </item>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">VMessAEAD</string>
+             </property>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>Tests</string>
-              </property>
-             </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_5">
+         <layout class="QFormLayout" name="formLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="idLabel_2">
+            <property name="text">
+             <string>UUID</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="vLessIDTxt">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="maxLength">
+             <number>36</number>
+            </property>
+            <property name="placeholderText">
+             <string notr="true">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="securityLabel_2">
+            <property name="text">
+             <string>Encryption</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="vLessSecurityCombo">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+            <item>
+             <property name="text">
+              <string notr="true">none</string>
+             </property>
             </item>
-            <item row="3" column="1">
-             <widget class="QComboBox" name="testsEnabledCombo">
-              <property name="editable">
-               <bool>true</bool>
-              </property>
-              <item>
-               <property name="text">
-                <string notr="true">none</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">VMessAEAD</string>
-               </property>
-              </item>
-             </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page">
+         <layout class="QFormLayout" name="formLayout_6">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Email</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="ss_emailTxt">
+            <property name="placeholderText">
+             <string notr="true">my.name@domain.com</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="ss_passwordTxt">
+            <property name="placeholderText">
+             <string notr="true">p@ssw0rd</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>Encryption Method</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="ss_encryptionMethod">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <item>
+             <property name="text">
+              <string notr="true">none</string>
+             </property>
             </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="page">
-           <layout class="QFormLayout" name="formLayout_6">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string>Email</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">aes-256-cfb</string>
+             </property>
             </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="ss_emailTxt">
-              <property name="placeholderText">
-               <string notr="true">my.name@domain.com</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">aes-128-cfb</string>
+             </property>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_22">
-              <property name="text">
-               <string>Password</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">aes-256-gcm</string>
+             </property>
             </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="ss_passwordTxt">
-              <property name="placeholderText">
-               <string notr="true">p@ssw0rd</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">aes-128-gcm</string>
+             </property>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_14">
-              <property name="text">
-               <string>Encryption Method</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">chacha20-ietf</string>
+             </property>
             </item>
-            <item row="2" column="1">
-             <widget class="QComboBox" name="ss_encryptionMethod">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <item>
-               <property name="text">
-                <string notr="true">aes-256-cfb</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">aes-128-cfb</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">aes-256-gcm</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">aes-128-gcm</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">chacha20-ietf</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">chacha20</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">chacha20-poly1305</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">chacha20-ietf-poly1305</string>
-               </property>
-              </item>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">chacha20</string>
+             </property>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_30">
-              <property name="text">
-               <string>OTA</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">chacha20-poly1305</string>
+             </property>
             </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="ss_otaCheckBox">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">chacha20-ietf-poly1305</string>
+             </property>
             </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="page_3">
-           <layout class="QFormLayout" name="formLayout">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_21">
-              <property name="text">
-               <string>Username</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="socks_UserNameTxt">
-              <property name="placeholderText">
-               <string notr="true">Username</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_31">
-              <property name="text">
-               <string>Password</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="socks_PasswordTxt">
-              <property name="placeholderText">
-               <string notr="true">p@ssw0rd</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="page_4">
-           <layout class="QFormLayout" name="formLayout_1">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_21_1">
-              <property name="text">
-               <string>Username</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="http_UserNameTxt">
-              <property name="placeholderText">
-               <string notr="true">Username</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_31_1">
-              <property name="text">
-               <string>Password</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="http_PasswordTxt">
-              <property name="placeholderText">
-               <string notr="true">p@ssw0rd</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <spacer name="verticalSpacer_1">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_30">
+            <property name="text">
+             <string>OTA</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="ss_otaCheckBox">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_3">
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string>Username</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="socks_UserNameTxt">
+            <property name="placeholderText">
+             <string notr="true">Username</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_31">
+            <property name="text">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="socks_PasswordTxt">
+            <property name="placeholderText">
+             <string notr="true">p@ssw0rd</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_4">
+         <layout class="QFormLayout" name="formLayout_1">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_21_1">
+            <property name="text">
+             <string>Username</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="http_UserNameTxt">
+            <property name="placeholderText">
+             <string notr="true">Username</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_31_1">
+            <property name="text">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="http_PasswordTxt">
+            <property name="placeholderText">
+             <string notr="true">p@ssw0rd</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <spacer name="verticalSpacer_1">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </item>
      </layout>
     </widget>

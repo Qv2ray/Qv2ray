@@ -98,6 +98,20 @@
            </widget>
           </item>
           <item>
+           <widget class="QToolButton" name="collapseGroupsBtn">
+            <property name="toolTip">
+             <string>Collapse all groups</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../../../resources.qrc">
+              <normaloff>:/assets/icons/ui_light/arrow-up.svg</normaloff>:/assets/icons/ui_light/arrow-up.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QToolButton" name="sortBtn">
             <property name="toolTip">
              <string>Sort</string>
@@ -379,11 +393,6 @@
                  <width>0</width>
                  <height>200</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>9</pointsize>
-                </font>
                </property>
                <property name="contextMenuPolicy">
                 <enum>Qt::CustomContextMenu</enum>

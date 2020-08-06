@@ -14,7 +14,7 @@ jobs:
       - run: echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')
         shell: bash
       - name: Checking out sources
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Hash File
         shell: bash
         run: |

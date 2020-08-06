@@ -28,6 +28,7 @@ namespace Qv2ray::components::plugins
         //
         bool GetPluginEnableState(const QString &internalName) const;
         void SetPluginEnableState(const QString &internalName, bool isEnabled);
+        void SavePluginSettings() const;
         //
         bool inline GetPluginLoadState(const QString &internalName) const
         {

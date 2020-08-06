@@ -156,7 +156,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     {
         bypassCNCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassCN);
         bypassBTCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT);
-        proxyDefaultCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
+        proxyDefaultCb->setChecked(!CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
         //
         localDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS);
     }
@@ -248,6 +248,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     fpPasswordTx->setEnabled(fpUseAuthCB->isChecked());
     //
     maxLogLinesSB->setValue(CurrentConfig.uiConfig.maximumLogLines);
+    jumpListCountSB->setValue(CurrentConfig.uiConfig.maxJumpListCount);
     //
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.setSystemProxy);
     //
@@ -448,7 +449,7 @@ void PreferencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 void PreferencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy = arg1 == Qt::Checked;
+    CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy = !(arg1 == Qt::Checked);
 }
 
 void PreferencesWindow::on_localDNSCb_stateChanged(int arg1)
@@ -780,12 +781,6 @@ void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
     }
 }
 
-void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentConfig.defaultRouteConfig.forwardProxyConfig.port = arg1;
-}
-
 void PreferencesWindow::on_fpUseAuthCB_stateChanged(int arg1)
 {
     bool authEnabled = arg1 == Qt::Checked;
@@ -850,6 +845,15 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     if (!V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result))
     {
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), result);
+    }
+    else if (!result.toLower().contains("v2ray"))
+    {
+        const auto strWarnContent = //
+            tr("This does not seem like an output from V2Ray Core.\r\n"
+               "If you've been looking for plugin cores, you should change this in plugin settings rather than here.\r\n"
+               "Output: \r\n\r\n") +
+            result;
+        QvMessageBoxWarn(this, tr("'V2Ray Core' Settings"), strWarnContent);
     }
     else
     {

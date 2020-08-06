@@ -170,7 +170,7 @@ namespace Qv2ray::components::plugins
         return true;
     }
 
-    QvPluginHost::~QvPluginHost()
+    void QvPluginHost::SavePluginSettings() const
     {
         for (const auto &name : plugins.keys())
         {
@@ -181,6 +181,11 @@ namespace Qv2ray::components::plugins
                 StringToFile(JsonToString(conf), QV2RAY_PLUGIN_SETTINGS_DIR + name + ".conf");
             }
         }
+    }
+
+    QvPluginHost::~QvPluginHost()
+    {
+        SavePluginSettings();
         ClearPlugins();
     }
 
