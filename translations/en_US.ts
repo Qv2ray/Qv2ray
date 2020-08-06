@@ -285,10 +285,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deleting a subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All connections will be moved to default group, do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -298,6 +294,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>The subscription link is invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting a group</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1045,6 +1045,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Collapse all groups</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OutboundEditor</name>
@@ -1170,6 +1174,14 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Http</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VLESS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encryption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1523,10 +1535,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Bypass CN Mainland</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1548,14 +1556,6 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Only simple config is supported.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HTTP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Socks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1898,15 +1898,27 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <source>This will make your TLS fingerpring different from common Golang programs.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Force Direct for All Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
+If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
+Output: <byte value="xd"/>
+<byte value="xd"/>
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;V2Ray Core&apos; Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DNS lookup failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
