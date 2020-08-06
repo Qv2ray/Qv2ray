@@ -1,6 +1,7 @@
 #pragma once
 #include "LatencyTest.hpp"
-
+#include <memory>
+#include <unordered_map>
 #include <curl/curl.h>
 #include <utility>
 namespace uvw
