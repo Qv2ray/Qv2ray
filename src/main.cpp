@@ -11,6 +11,8 @@
     #include <Windows.h>
     //
     #include <DbgHelp.h>
+#else
+    #include <unistd.h>
 #endif
 
 const QString SayLastWords() noexcept
@@ -125,7 +127,7 @@ void signalHandler(int signum)
         QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
     }
 #ifndef Q_OS_WIN
-    kill(0, SIGTRAP);
+    kill(getpid(), SIGTRAP);
 #else
     exit(-99);
 #endif
