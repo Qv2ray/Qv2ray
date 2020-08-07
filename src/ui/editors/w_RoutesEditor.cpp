@@ -110,6 +110,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     }
     SETLAYOUT(ruleEditorUIWidget, ruleWidget);
     SETLAYOUT(chainEditorUIWidget, chainWidget);
+    chainWidget->setEnabled(false);
     SETLAYOUT(dnsEditorUIWidget, dnsWidget);
     //
     nodeDispatcher->LoadFullConfig(root);
@@ -448,6 +449,8 @@ void RouteEditor::on_addBalancerBtn_clicked()
 
 void RouteEditor::on_addChainBtn_clicked()
 {
+    QvMessageBoxWarn(this, "Chain", "Chain is not supported currently.");
+    return;
     auto _ = nodeDispatcher->CreateOutbound(make_chained_outbound({}, "Chained Outbound"));
 }
 
