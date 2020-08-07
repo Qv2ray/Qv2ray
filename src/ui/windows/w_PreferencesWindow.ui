@@ -1624,12 +1624,12 @@ Custom DNS Settings</string>
            <widget class="QComboBox" name="fpTypeCombo">
             <item>
              <property name="text">
-              <string>http</string>
+              <string notr="true">http</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>socks</string>
+              <string notr="true">socks</string>
              </property>
             </item>
            </widget>

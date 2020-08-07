@@ -26,7 +26,7 @@ namespace Qv2ray
     constexpr auto QV2RAY_CONFIG_PATH_ENV_NAME = "QV2RAY_CONFIG_PATH";
 
     Qv2rayApplication::Qv2rayApplication(int &argc, char *argv[])
-#ifdef Q_OS_ANDROID
+#ifdef QV2RAY_NO_SINGLEAPPLICATON
         : QApplication(argc, argv)
 #else
         : SingleApplication(argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion)
@@ -57,9 +57,9 @@ namespace Qv2ray
         //
         setQuitOnLastWindowClosed(false);
 
-#ifndef Q_OS_ANDROID
-        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived, Qt::QueuedConnection);
         connect(this, &SingleApplication::aboutToQuit, this, &Qv2rayApplication::aboutToQuitSlot);
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
+        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayApplication::onMessageReceived, Qt::QueuedConnection);
         if (isSecondary())
         {
             if (Qv2rayProcessArgument.arguments.isEmpty())
@@ -107,6 +107,7 @@ namespace Qv2ray
         delete StyleManager;
     }
 
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
     void Qv2rayApplication::onMessageReceived(quint32 clientId, QByteArray _msg)
     {
         // Sometimes SingleApplication will send message with clientId == 0, ignore them.
@@ -136,7 +137,7 @@ namespace Qv2ray
             if (result == QMessageBox::Yes)
             {
                 Qv2rayProcessArgument._qvNewVersionPath = newPath;
-                QuitApplication(QV2RAY_NEW_VERSION);
+                QuitApplication(QVEXIT_NEW_VERSION);
             }
         }
 
@@ -189,6 +190,7 @@ namespace Qv2ray
             }
         }
     }
+#endif
 
     Qv2rayExitCode Qv2rayApplication::RunQv2ray()
     {
@@ -408,15 +410,20 @@ namespace Qv2ray
 
         const auto allTranslations = Qv2rayTranslator->GetAvailableLanguages();
         const auto osLanguage = QLocale::system().name();
-        if (!allTranslations.contains(confObject.uiConfig.language) && allTranslations.contains(osLanguage))
+
+        if (!allTranslations.contains(confObject.uiConfig.language))
         {
-            // If configured language is not found. Set to system language.
+            // If we need to reset the language.
+            if (allTranslations.contains(osLanguage))
+            {
+                confObject.uiConfig.language = osLanguage;
+            }
+            else if (!allTranslations.isEmpty())
+            {
+                confObject.uiConfig.language = allTranslations.first();
+            }
+            // If configured language is not found.
             LOG(MODULE_UI, "Fall back language setting to: " + osLanguage)
-            confObject.uiConfig.language = osLanguage;
-        }
-        else if (!allTranslations.isEmpty())
-        {
-            confObject.uiConfig.language = allTranslations.first();
         }
 
         if (!Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
@@ -442,21 +449,19 @@ namespace Qv2ray
         StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
     }
 
-    bool Qv2rayApplication::PreInitialize(int argc, char **argv)
+    Qv2rayPreInitResult Qv2rayApplication::PreInitialize(int argc, char **argv)
     {
         QString errorMessage;
-
+        Qv2rayPreInitResult result;
         {
             QCoreApplication coreApp(argc, argv);
             const auto &args = coreApp.arguments();
             Qv2rayProcessArgument.version = QV2RAY_VERSION_STRING;
             Qv2rayProcessArgument.fullArgs = args;
-            switch (ParseCommandLine(&errorMessage, args))
-            {
-                case QV2RAY_QUIT: return false;
-                case QV2RAY_ERROR: LOG(MODULE_INIT, errorMessage) return false;
-                default: break;
-            }
+            result = ParseCommandLine(&errorMessage, args);
+            LOG(MODULE_INIT, "Qv2ray PreInitialization: " + errorMessage)
+            if (result != PRE_INIT_RESULT_CONTINUE)
+                return result;
 #ifdef Q_OS_WIN
             const auto appPath = QDir::toNativeSeparators(coreApp.applicationFilePath());
             const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + QV2RAY_URL_SCHEME;
@@ -492,10 +497,10 @@ namespace Qv2ray
             QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
         }
-        return true;
+        return result;
     }
 
-    Qv2rayApplication::commandline_status Qv2rayApplication::ParseCommandLine(QString *errorMessage, const QStringList &_argx_)
+    Qv2rayPreInitResult Qv2rayApplication::ParseCommandLine(QString *errorMessage, const QStringList &_argx_)
     {
         QStringList filteredArgs;
         for (const auto &arg : _argx_)
@@ -535,19 +540,19 @@ namespace Qv2ray
         if (!parser.parse(filteredArgs))
         {
             *errorMessage = parser.errorText();
-            return QV2RAY_ERROR;
+            return PRE_INIT_RESULT_CONTINUE;
         }
 
         if (parser.isSet(versionOption))
         {
             parser.showVersion();
-            return QV2RAY_QUIT;
+            return PRE_INIT_RESULT_QUIT;
         }
 
         if (parser.isSet(helpOption))
         {
             parser.showHelp();
-            return QV2RAY_QUIT;
+            return PRE_INIT_RESULT_QUIT;
         }
 
         for (const auto &arg : parser.positionalArguments())
@@ -606,8 +611,8 @@ namespace Qv2ray
             DEBUG(MODULE_INIT, "noPluginOption is set.")
             StartupOption.noPlugins = true;
         }
-
-        return QV2RAY_CONTINUE;
+        *errorMessage = "OK";
+        return PRE_INIT_RESULT_CONTINUE;
     }
 
 } // namespace Qv2ray

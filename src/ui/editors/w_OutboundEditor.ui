@@ -344,7 +344,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="securityLabel_2">
             <property name="text">
-             <string>Security</string>
+             <string>Encryption</string>
             </property>
            </widget>
           </item>
@@ -413,6 +413,11 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <item>
+             <property name="text">
+              <string notr="true">none</string>
+             </property>
+            </item>
             <item>
              <property name="text">
               <string notr="true">aes-256-cfb</string>

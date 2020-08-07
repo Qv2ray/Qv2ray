@@ -5,6 +5,7 @@ Maintainer: Guobang Bi <ymshenyu@gmail.com>
 Uploaders: Boyuan Yang <byang@debian.org>
 Build-Depends:  debhelper (>= 11),
                 cmake (>= 3.10.1),
+                pkg-config,
                 ninja-build,
                 libgrpc++-dev (>= 1.16.1-1~),
                 libprotobuf-dev (>= 3.6.1.3-1~),

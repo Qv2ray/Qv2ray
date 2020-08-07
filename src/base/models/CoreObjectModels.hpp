@@ -423,9 +423,9 @@ namespace Qv2ray::base::objects
             struct UserObject
             {
                 QString id;
-                QString security;
-                UserObject() : id(), security("none"){};
-                JSONSTRUCT_REGISTER(UserObject, F(id, security))
+                QString encryption;
+                UserObject() : id(), encryption("none"){};
+                JSONSTRUCT_REGISTER(UserObject, F(id, encryption))
             };
 
             QString address;

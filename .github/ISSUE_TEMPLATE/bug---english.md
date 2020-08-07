@@ -2,7 +2,7 @@
 name: Bug Report
 about: Use this template to report a bug
 title: ''
-labels: Bugs, help wanted, DiscussionNeeded
+labels: Bugs, help wanted
 assignees: ''
 
 ---

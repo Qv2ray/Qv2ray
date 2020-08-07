@@ -11,20 +11,32 @@
     #include <SingleApplication>
 #endif
 
+#ifdef Q_OS_ANDROID
+    #define QV2RAY_NO_SINGLEAPPLICATON
+#endif
+
+#define QV2RAY_WORKAROUND_MACOS_MEMLOCK 0
+
+#if QV2RAY_WORKAROUND_MACOS_MEMLOCK
+    #ifndef QV2RAY_NO_SINGLEAPPLICATION
+        #define QV2RAY_NO_SINGLEAPPLICATON
+    #endif
+#endif
+
 class MainWindow;
 
 namespace Qv2ray
 {
     enum Qv2rayExitCode
     {
-        QV2RAY_NORMAL = 0,
-        QV2RAY_SECONDARY_INSTANCE = 0,
-        QV2RAY_PRE_INITIALIZE_FAIL = -1,
-        QV2RAY_EARLY_SETUP_FAIL = -2,
-        QV2RAY_CONFIG_PATH_FAIL = -3,
-        QV2RAY_CONFIG_FILE_FAIL = -4,
-        QV2RAY_SSL_FAIL = -5,
-        QV2RAY_NEW_VERSION = -6
+        QVEXIT_NORMAL = 0,
+        QVEXIT_SECONDARY_INSTANCE = 0,
+        QVEXIT_PRE_INITIALIZE_FAIL = -1,
+        QVEXIT_EARLY_SETUP_FAIL = -2,
+        QVEXIT_CONFIG_PATH_FAIL = -3,
+        QVEXIT_CONFIG_FILE_FAIL = -4,
+        QVEXIT_SSL_FAIL = -5,
+        QVEXIT_NEW_VERSION = -6
     };
     struct Qv2rayProcessArguments
     {
@@ -46,21 +58,21 @@ namespace Qv2ray
         JSONSTRUCT_REGISTER(Qv2rayProcessArguments, F(arguments, version, data, links, fullArgs))
     };
 
+    enum Qv2rayPreInitResult
+    {
+        PRE_INIT_RESULT_ERROR,
+        PRE_INIT_RESULT_QUIT,
+        PRE_INIT_RESULT_CONTINUE
+    };
+
     inline Qv2rayProcessArguments Qv2rayProcessArgument;
-#ifdef Q_OS_ANDROID
+#ifdef QV2RAY_NO_SINGLEAPPLICATON
     class Qv2rayApplication : public QApplication
 #else
     class Qv2rayApplication : public SingleApplication
 #endif
     {
         Q_OBJECT
-
-        enum commandline_status
-        {
-            QV2RAY_ERROR,
-            QV2RAY_QUIT,
-            QV2RAY_CONTINUE
-        };
 
       public:
         enum Qv2raySetupStatus
@@ -71,7 +83,7 @@ namespace Qv2ray
         };
         //
         void QuitApplication(int retCode = 0);
-        static bool PreInitialize(int argc, char **argv);
+        static Qv2rayPreInitResult PreInitialize(int argc, char **argv);
         explicit Qv2rayApplication(int &argc, char *argv[]);
         Qv2raySetupStatus SetupQv2ray();
         bool FindAndCreateInitialConfiguration();
@@ -95,12 +107,15 @@ namespace Qv2ray
 
       private slots:
         void aboutToQuitSlot();
-        void onMessageReceived(quint32 clientID, QByteArray msg);
 
       private:
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
+        void onMessageReceived(quint32 clientID, QByteArray msg);
+#endif
+
         QSystemTrayIcon *hTray;
         MainWindow *mainWindow;
-        static commandline_status ParseCommandLine(QString *errorMessage, const QStringList &args);
+        static Qv2rayPreInitResult ParseCommandLine(QString *errorMessage, const QStringList &args);
         bool initialized = false;
     };
 } // namespace Qv2ray
