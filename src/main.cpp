@@ -11,6 +11,8 @@
     #include <Windows.h>
     //
     #include <DbgHelp.h>
+#else
+    #include <unistd.h>
 #endif
 
 const QString SayLastWords() noexcept
@@ -49,7 +51,7 @@ const QString SayLastWords() noexcept
     {
         msg << "Active Kernel Instances:";
         const auto kernels = KernelInstance->GetActiveKernelProtocols();
-        msg << JsonToString(JsonStructHelper::___json_struct_store_data(static_cast<QList<QString>>(kernels)).toArray(), QJsonDocument::Compact);
+        msg << JsonToString(JsonStructHelper::Serialize(static_cast<QList<QString>>(kernels)).toArray(), QJsonDocument::Compact);
         msg << "Current Connection:";
         //
         const auto currentConnection = KernelInstance->CurrentConnection();
@@ -86,7 +88,7 @@ const QString SayLastWords() noexcept
             dataList << data.Author;
             dataList << data.InternalName;
             dataList << data.Description;
-            msg << JsonToString(JsonStructHelper::___json_struct_store_data(dataList).toArray(), QJsonDocument::Compact);
+            msg << JsonToString(JsonStructHelper::Serialize(dataList).toArray(), QJsonDocument::Compact);
         }
         msg << NEWLINE;
     }
@@ -113,7 +115,7 @@ void signalHandler(int signum)
     {
         std::cout << msg.toStdString() << std::endl;
         QDir().mkpath(QV2RAY_CONFIG_DIR + "bugreport/");
-        StringToFile(msg, filePath);
+        StringToFile("Signal: " + QSTRN(signum) + NEWLINE + msg, filePath);
         std::cout << "Backtrace saved in: " + filePath.toStdString() << std::endl;
     }
     if (qvApp)
@@ -124,7 +126,11 @@ void signalHandler(int signum)
                           filePath;
         QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
     }
+#ifndef Q_OS_WIN
+    kill(getpid(), SIGTRAP);
+#else
     exit(-99);
+#endif
 }
 
 QPair<Qv2rayExitCode, std::optional<QString>> RunQv2rayApplicationScoped(int argc, char *argv[])

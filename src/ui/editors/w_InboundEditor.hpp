@@ -32,8 +32,6 @@ class InboundEditor
 
     void on_httpTransparentCB_stateChanged(int arg1);
 
-    void on_httpUserLevelSB_valueChanged(int arg1);
-
     void on_httpRemoveUserBtn_clicked();
 
     void on_httpAddUserBtn_clicked();
@@ -52,8 +50,6 @@ class InboundEditor
 
     void on_socksUDPIPAddrTxt_textEdited(const QString &arg1);
 
-    void on_socksUserLevelSB_valueChanged(int arg1);
-
     void on_socksRemoveUserBtn_clicked();
 
     void on_socksAddUserBtn_clicked();
@@ -70,15 +66,11 @@ class InboundEditor
 
     void on_dokoFollowRedirectCB_stateChanged(int arg1);
 
-    void on_dokoUserLevelSB_valueChanged(int arg1);
-
     void on_dokotproxyCombo_currentIndexChanged(const QString &arg1);
 
     void on_mtEMailTxt_textEdited(const QString &arg1);
 
     void on_mtSecretTxt_textEdited(const QString &arg1);
-
-    void on_mtUserLevelSB_valueChanged(int arg1);
 
     void on_inboundHostTxt_textEdited(const QString &arg1);
 

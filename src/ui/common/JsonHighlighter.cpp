@@ -64,8 +64,7 @@ namespace Qv2ray::ui
                                  "certificates",
                                  "serverName",
                                  "QV2RAY_RULE_ENABLED",
-                                 "QV2RAY_RULE_TAG",
-                                 "QV2RAY_RULE_USE_BALANCER" };
+                                 "QV2RAY_RULE_TAG" };
         int i = 0;
         for (const QString &pattern : keywordPatterns)
         {

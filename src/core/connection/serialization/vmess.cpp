@@ -285,7 +285,7 @@ namespace Qv2ray::core::connection
             QJsonArray vnextArray;
             vnextArray.append(serv.toJson());
             vConf["vnext"] = vnextArray;
-            auto outbound = GenerateOutboundEntry("vmess", vConf, streaming.toJson(), {}, "0.0.0.0", OUTBOUND_TAG_PROXY);
+            auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, "vmess", vConf, streaming.toJson());
             //
             root["outbounds"] = QJsonArray{ outbound };
             // If previous alias is empty, just the PS is needed, else, append a "_"

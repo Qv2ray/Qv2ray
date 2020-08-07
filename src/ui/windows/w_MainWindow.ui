@@ -22,14 +22,14 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
       <item>
-       <widget class="QPushButton" name="preferencesBtn">
+       <widget class="QPushButton" name="subsButton">
         <property name="text">
-         <string>Preferences</string>
+         <string>Groups</string>
         </property>
        </widget>
       </item>
@@ -37,6 +37,13 @@
        <widget class="QPushButton" name="pluginsBtn">
         <property name="text">
          <string>Plugins</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="preferencesBtn">
+        <property name="text">
+         <string>Preferences</string>
         </property>
        </widget>
       </item>
@@ -88,12 +95,9 @@
             <property name="toolTip">
              <string>Locate Current Connection</string>
             </property>
-            <property name="text">
-             <string/>
-            </property>
             <property name="icon">
-             <iconset resource="../../../resources.qrc">
-              <normaloff>:/assets/icons/ui_light/locate.png</normaloff>:/assets/icons/ui_light/locate.png</iconset>
+             <iconset resource="../../../resources.new.qrc">
+              <normaloff>:/assets/icons/ui_dark/map.svg</normaloff>:/assets/icons/ui_dark/map.svg</iconset>
             </property>
            </widget>
           </item>
@@ -120,8 +124,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../resources.qrc">
-              <normaloff>:/assets/icons/ui_light/sort.png</normaloff>:/assets/icons/ui_light/sort.png</iconset>
+             <iconset resource="../../../resources.new.qrc">
+              <normaloff>:/assets/icons/ui_light/arrow-down-filling.svg</normaloff>:/assets/icons/ui_light/arrow-down-filling.svg</iconset>
             </property>
             <property name="popupMode">
              <enum>QToolButton::InstantPopup</enum>
@@ -179,12 +183,6 @@
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
            </spacer>
           </item>
           <item>
@@ -193,14 +191,21 @@
              <string>Import Connection</string>
             </property>
             <property name="text">
+             <string>Import</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="newConnectionBtn">
+            <property name="text">
              <string>New</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="subsButton">
+           <widget class="QPushButton" name="newComplexConnectionBtn">
             <property name="text">
-             <string>Groups</string>
+             <string>New Complex</string>
             </property>
            </widget>
           </item>
@@ -211,8 +216,8 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
-              <height>20</height>
+              <width>0</width>
+              <height>0</height>
              </size>
             </property>
            </spacer>
@@ -222,6 +227,12 @@
        </layout>
       </widget>
       <widget class="QScrollArea" name="scrollArea">
+       <property name="minimumSize">
+        <size>
+         <width>500</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
        </property>
@@ -233,7 +244,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>412</width>
+          <width>500</width>
           <height>738</height>
          </rect>
         </property>
@@ -305,8 +316,8 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../../resources.qrc">
-                 <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
+                <iconset resource="../../../resources.new.qrc">
+                 <normaloff>:/assets/icons/ui_light/ashbin.svg</normaloff>:/assets/icons/ui_light/ashbin.svg</iconset>
                </property>
               </widget>
              </item>
@@ -374,8 +385,8 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../../resources.qrc">
-                 <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
+                <iconset resource="../../../resources.new.qrc">
+                 <normaloff>:/assets/icons/ui_light/ashbin.svg</normaloff>:/assets/icons/ui_light/ashbin.svg</iconset>
                </property>
               </widget>
              </item>
@@ -555,7 +566,7 @@
   <tabstop>importConfigButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../resources.qrc"/>
+  <include location="../../../resources.new.qrc"/>
  </resources>
  <connections/>
 </ui>

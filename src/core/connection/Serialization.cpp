@@ -57,7 +57,7 @@ namespace Qv2ray::core::connection
                     for (const auto &[_alias, _protocol, _outbound] : configs)
                     {
                         CONFIGROOT root;
-                        auto outbound = GenerateOutboundEntry(_protocol, OUTBOUNDSETTING(_outbound), {});
+                        auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, _protocol, OUTBOUNDSETTING(_outbound), {});
                         QJsonIO::SetValue(root, outbound, "outbounds", 0);
                         connectionConf << QPair{ _alias, root };
                     }

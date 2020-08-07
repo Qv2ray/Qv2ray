@@ -1,6 +1,7 @@
 #pragma once
-#include <QDialog>
+#include "ui/common/UIBase.hpp"
 
+#include <QDialog>
 class QvDialog : public QDialog
 {
     Q_OBJECT

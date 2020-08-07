@@ -56,9 +56,11 @@ class MainWindow
     void on_clearChartBtn_clicked();
     void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void on_masterLogBrowser_textChanged();
-
+    //
     void on_pluginsBtn_clicked();
     void on_collapseGroupsBtn_clicked();
+    void on_newConnectionBtn_clicked();
+    void on_newComplexConnectionBtn_clicked();
 
   private:
     // Do not declare as slots, we connect them manually.

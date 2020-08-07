@@ -71,7 +71,7 @@ namespace Qv2ray::core
 
     ///
     /// [Protocol, Host, Port]
-    const std::tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
+    const ProtocolSettingsInfoObject GetConnectionInfo(const ConnectionId &id, bool *status)
     {
         if (status != nullptr)
             *status = false;
@@ -79,7 +79,7 @@ namespace Qv2ray::core
         return GetConnectionInfo(root, status);
     }
 
-    const std::tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status)
+    const ProtocolSettingsInfoObject GetConnectionInfo(const CONFIGROOT &out, bool *status)
     {
         if (status != nullptr)
             *status = false;
@@ -102,7 +102,7 @@ namespace Qv2ray::core
                 //    outboundType += " " + QObject::tr("(Guessed)");
                 //    host += " " + QObject::tr("(Guessed)");
                 //}
-                return { outboundType, host, port };
+                return ProtocolSettingsInfoObject{ outboundType, host, port };
             }
             else
             {
@@ -165,23 +165,30 @@ namespace Qv2ray::core
         return TruncateString(ConnectionManager->GetGroupMetaObject(id).displayName, limit);
     }
 
-    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const CONFIGROOT &root)
+    bool GetInboundInfo(const INBOUND &in, QString *listen, int *port, QString *protocol)
     {
-        QMap<QString, InboundInfoObject> inboundPorts;
+        *protocol = in["protocol"].toString();
+        *listen = in["listen"].toString();
+        *port = in["port"].toVariant().toInt();
+        return true;
+    }
+
+    const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const CONFIGROOT &root)
+    {
+        QMap<QString, ProtocolSettingsInfoObject> inboundPorts;
         for (const auto &inboundVal : root["inbounds"].toArray())
         {
-            const auto &inbound = inboundVal.toObject();
-            inboundPorts[inbound["tag"].toString()] = {
-                inbound["protocol"].toString(),     //
-                inbound["listen"].toString(),       //
-                inbound["port"].toVariant().toInt() //
-            };
+            INBOUND in{ inboundVal.toObject() };
+            QString host, protocol;
+            int port;
+            if (GetInboundInfo(in, &host, &port, &protocol))
+                inboundPorts[getTag(in)] = { protocol, host, port };
         }
         return inboundPorts;
     }
 
-    const QMap<QString, InboundInfoObject> GetConfigInboundInfo(const ConnectionId &id)
+    const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const ConnectionId &id)
     {
-        return GetConfigInboundInfo(ConnectionManager->GetConnectionRoot(id));
+        return GetInboundInfo(ConnectionManager->GetConnectionRoot(id));
     }
 } // namespace Qv2ray::core

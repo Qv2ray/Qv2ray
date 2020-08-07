@@ -4,10 +4,6 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSION" QV2RAY_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSIONSUFFIX" QV2RAY_VERSION_SUFFIX)
 
-if(NOT CMAKE_BUILD_TYPE STREQUAL "Release")
-    add_definitions(-DNODE_DEBUG_DRAWING)
-endif()
-
 set(QV2RAY_VERSION_STRING "${QV2RAY_VERSION}${QV2RAY_VERSION_SUFFIX}")
 project(qv2ray)
 
@@ -205,7 +201,9 @@ endif()
 
 set(QRC_RESOURCES
     ${UISTYLE_QRCS}
-    ${CMAKE_SOURCE_DIR}/resources.qrc)
+    ${CMAKE_SOURCE_DIR}/resources.qrc
+    ${CMAKE_SOURCE_DIR}/resources.new.qrc
+    )
 
 # Qv2ray baselib
 add_library(qv2ray-baselib STATIC

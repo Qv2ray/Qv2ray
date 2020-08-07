@@ -13,8 +13,7 @@ namespace
 {
     constexpr auto LINK_PAGE = 0;
     constexpr auto QRCODE_PAGE = 1;
-    constexpr auto MANUAL_PAGE = 2;
-    constexpr auto ADVANCED_PAGE = 3;
+    constexpr auto ADVANCED_PAGE = 2;
 } // namespace
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog(parent)
@@ -59,7 +58,6 @@ QMultiMap<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboun
     // partial import means only import as an outbound, will set outboundsOnly to
     // false and disable the checkbox
     keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
-    routeEditBtn->setEnabled(!outboundsOnly);
     groupCombo->setEnabled(false);
     this->exec();
     QMultiMap<QString, CONFIGROOT> conn;
@@ -239,10 +237,6 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             }
             break;
         }
-        case MANUAL_PAGE:
-        {
-            break;
-        }
         case ADVANCED_PAGE:
         {
             // From File...
@@ -310,25 +304,6 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     c.setPosition(startPos);
     c.setPosition(endPos, QTextCursor::KeepAnchor);
     vmessConnectionStringTxt->setTextCursor(c);
-}
-
-void ImportConfigWindow::on_connectionEditBtn_clicked()
-{
-    OutboundEditor w(OUTBOUND(), this);
-    auto outboundEntry = w.OpenEditor();
-    bool isChanged = w.result() == QDialog::Accepted;
-    QString alias = w.GetFriendlyName();
-
-    if (isChanged)
-    {
-        OUTBOUNDS outboundsList;
-        outboundsList.push_back(outboundEntry);
-        CONFIGROOT root;
-        root.insert("outbounds", outboundsList);
-        //
-        connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, root);
-        accept();
-    }
 }
 
 void ImportConfigWindow::on_cancelImportBtn_clicked()

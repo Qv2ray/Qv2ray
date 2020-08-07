@@ -149,7 +149,6 @@ void InboundEditor::LoadUIData()
     // HTTP
     httpTimeoutSpinBox->setValue(httpSettings["timeout"].toInt());
     httpTransparentCB->setChecked(httpSettings["allowTransparent"].toBool());
-    httpUserLevelSB->setValue(httpSettings["userLevel"].toInt());
     httpAccountListBox->clear();
 
     for (auto user : httpSettings["accounts"].toArray())
@@ -161,7 +160,6 @@ void InboundEditor::LoadUIData()
     socksAuthCombo->setCurrentText(socksSettings["auth"].toString());
     socksUDPCB->setChecked(socksSettings["udp"].toBool());
     socksUDPIPAddrTxt->setText(socksSettings["ip"].toString());
-    socksUserLevelSB->setValue(socksSettings["userLevel"].toInt());
 
     for (auto user : socksSettings["accounts"].toArray())
     {
@@ -173,13 +171,11 @@ void InboundEditor::LoadUIData()
     dokoIPAddrTxt->setText(dokoSettings["address"].toString());
     dokoPortSB->setValue(dokoSettings["port"].toInt());
     dokoTimeoutSB->setValue(dokoSettings["timeout"].toInt());
-    dokoUserLevelSB->setValue(dokoSettings["userLevel"].toInt());
     dokoTCPCB->setChecked(dokoSettings["network"].toString().contains("tcp"));
     dokoUDPCB->setChecked(dokoSettings["network"].toString().contains("udp"));
     dokotproxyCombo->setCurrentText(dokotproxy);
     // MTProto
     mtEMailTxt->setText(mtSettings["users"].toArray().first().toObject()["email"].toString());
-    mtUserLevelSB->setValue(mtSettings["users"].toArray().first().toObject()["level"].toInt());
     mtSecretTxt->setText(mtSettings["users"].toArray().first().toObject()["secret"].toString());
     isLoading = false;
 }
@@ -215,12 +211,6 @@ void InboundEditor::on_httpTransparentCB_stateChanged(int arg1)
 {
     CHECKLOADING
     httpSettings["allowTransparent"] = arg1 == Qt::Checked;
-}
-
-void InboundEditor::on_httpUserLevelSB_valueChanged(int arg1)
-{
-    CHECKLOADING
-    httpSettings["userLevel"] = arg1;
 }
 
 void InboundEditor::on_httpRemoveUserBtn_clicked()
@@ -399,12 +389,6 @@ void InboundEditor::on_socksUDPIPAddrTxt_textEdited(const QString &arg1)
     socksSettings["ip"] = arg1;
 }
 
-void InboundEditor::on_socksUserLevelSB_valueChanged(int arg1)
-{
-    CHECKLOADING
-    socksSettings["userLevel"] = arg1;
-}
-
 void InboundEditor::on_dokoIPAddrTxt_textEdited(const QString &arg1)
 {
     CHECKLOADING
@@ -455,12 +439,6 @@ void InboundEditor::on_dokoFollowRedirectCB_stateChanged(int arg1)
     dokoSettings["followRedirect"] = arg1 == Qt::Checked;
 }
 
-void InboundEditor::on_dokoUserLevelSB_valueChanged(int arg1)
-{
-    CHECKLOADING
-    dokoSettings["userLevel"] = arg1;
-}
-
 void InboundEditor::on_dokotproxyCombo_currentIndexChanged(const QString &arg1)
 {
     CHECKLOADING
@@ -490,20 +468,6 @@ void InboundEditor::on_mtSecretTxt_textEdited(const QString &arg1)
 
     QJsonObject user = mtSettings["users"].toArray().empty() ? QJsonObject() : mtSettings["users"].toArray().first().toObject();
     user["secret"] = arg1;
-    QJsonArray list;
-    list.append(user);
-    mtSettings["users"] = list;
-}
-
-void InboundEditor::on_mtUserLevelSB_valueChanged(int arg1)
-{
-    CHECKLOADING
-
-    if (!mtSettings.contains("users"))
-        mtSettings["users"] = QJsonArray();
-
-    QJsonObject user = mtSettings["users"].toArray().empty() ? QJsonObject() : mtSettings["users"].toArray().first().toObject();
-    user["userLevel"] = arg1;
     QJsonArray list;
     list.append(user);
     mtSettings["users"] = list;

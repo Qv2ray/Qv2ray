@@ -1,14 +1,15 @@
 #include "common/QvHelpers.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "src/Qv2rayApplication.hpp"
+#include "ui/common/UIBase.hpp"
 #include "w_MainWindow.hpp"
 
 void MainWindow::MWSetSystemProxy()
 {
-    const auto inboundInfo = KernelInstance->GetInboundInfo();
+    const auto inboundInfo = KernelInstance->GetCurrentConnectionInboundInfo();
 
-    InboundInfoObject httpInboundInfo;
-    InboundInfoObject socksInboundInfo;
+    ProtocolSettingsInfoObject httpInboundInfo;
+    ProtocolSettingsInfoObject socksInboundInfo;
 
     for (const auto &info : inboundInfo)
     {
@@ -24,7 +25,7 @@ void MainWindow::MWSetSystemProxy()
 
     if (httpEnabled || socksEnabled)
     {
-        proxyAddress = httpEnabled ? httpInboundInfo.listenIp : socksInboundInfo.listenIp;
+        proxyAddress = httpEnabled ? httpInboundInfo.address : socksInboundInfo.address;
         if (proxyAddress == "0.0.0.0")
             proxyAddress = "127.0.0.1";
 
@@ -33,7 +34,7 @@ void MainWindow::MWSetSystemProxy()
 
         LOG(MODULE_UI, "ProxyAddress: " + proxyAddress);
         SetSystemProxy(proxyAddress, httpInboundInfo.port, socksInboundInfo.port);
-        qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy.png"));
+        qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy"));
         if (!GlobalConfig.uiConfig.quietMode)
         {
             qvApp->showMessage(tr("System proxy configured."));
@@ -49,7 +50,7 @@ void MainWindow::MWSetSystemProxy()
 void MainWindow::MWClearSystemProxy()
 {
     ClearSystemProxy();
-    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
+    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
     if (!GlobalConfig.uiConfig.quietMode)
     {
         qvApp->showMessage(tr("System proxy removed."));
