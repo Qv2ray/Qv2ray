@@ -33,8 +33,13 @@ QvMessageBusSlotImpl(MainWindow)
     {
         MBShowDefaultImpl;
         MBHideDefaultImpl;
-        MBRetranslateDefaultImpl;
         MBUpdateColorSchemeDefaultImpl;
+        case RETRANSLATE:
+        {
+            retranslateUi(this);
+            UpdateActionTranslations();
+            break;
+        }
     }
 }
 
@@ -51,10 +56,10 @@ void MainWindow::updateColorScheme()
     action_RCM_Edit->setIcon(QICON_R("edit"));
     action_RCM_EditJson->setIcon(QICON_R("code"));
     action_RCM_EditComplex->setIcon(QICON_R("edit"));
-    action_RCM_Duplicate->setIcon(QICON_R("copy"));
-    action_RCM_Delete->setIcon(QICON_R("ashbin"));
-    action_RCM_ClearUsage->setIcon(QICON_R("ashbin"));
-    action_RCM_LatencyTest->setIcon(QICON_R("ping_gauge"));
+    action_RCM_DuplicateConnection->setIcon(QICON_R("copy"));
+    action_RCM_DeleteConnection->setIcon(QICON_R("ashbin"));
+    action_RCM_ResetStats->setIcon(QICON_R("ashbin"));
+    action_RCM_TestLatency->setIcon(QICON_R("ping_gauge"));
     //
     clearChartBtn->setIcon(QICON_R("ashbin"));
     clearlogButton->setIcon(QICON_R("ashbin"));
@@ -147,6 +152,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
     updateColorScheme();
+    UpdateActionTranslations();
     //
     //
     connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [this](const ConnectionGroupPair &, const QString &reason) {
@@ -229,16 +235,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(tray_action_Start, &QAction::triggered, [this] { ConnectionManager->StartConnection(lastConnectedIdentifier); });
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
-    connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
+    connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::Action_Exit);
     connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
     connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [this]() {
         GlobalConfig.uiConfig.recentConnections.clear();
         ReloadRecentConnectionList();
         if (!GlobalConfig.uiConfig.quietMode)
-        {
-            qvApp->showMessage(tr("Recent connections' jump list cleared."));
-        }
+            qvApp->showMessage(tr("Recent Connection list cleared."));
     });
     connect(qvAppTrayIcon, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
@@ -247,8 +251,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     logRCM_Menu->addAction(action_RCM_tovCoreLog);
     logRCM_Menu->addAction(action_RCM_toQvLog);
     connect(masterLogBrowser, &QTextBrowser::customContextMenuRequested, [this](const QPoint &) { logRCM_Menu->popup(QCursor::pos()); });
-    connect(action_RCM_tovCoreLog, &QAction::triggered, this, &MainWindow::on_action_RCM_tovCoreLog_triggered);
-    connect(action_RCM_toQvLog, &QAction::triggered, this, &MainWindow::on_action_RCM_toQvLog_triggered);
+    connect(action_RCM_tovCoreLog, &QAction::triggered, this, &MainWindow::Action_SwitchCoreLog);
+    connect(action_RCM_toQvLog, &QAction::triggered, this, &MainWindow::Action_SwitchQv2rayLog);
     masterLogBrowser->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     {
         auto font = masterLogBrowser->font();
@@ -272,36 +276,30 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_EditJson);
     connectionListRCM_Menu->addAction(action_RCM_EditComplex);
     connectionListRCM_Menu->addSeparator();
-    connectionListRCM_Menu->addAction(action_RCM_LatencyTest);
+    connectionListRCM_Menu->addAction(action_RCM_TestLatency);
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_SetAutoConnection);
     connectionListRCM_Menu->addSeparator();
-    connectionListRCM_Menu->addAction(action_RCM_Rename);
-    connectionListRCM_Menu->addAction(action_RCM_Duplicate);
-    connectionListRCM_Menu->addAction(action_RCM_ClearUsage);
+    connectionListRCM_Menu->addAction(action_RCM_RenameConnection);
+    connectionListRCM_Menu->addAction(action_RCM_DuplicateConnection);
+    connectionListRCM_Menu->addAction(action_RCM_ResetStats);
     connectionListRCM_Menu->addAction(action_RCM_UpdateSubscription);
     connectionListRCM_Menu->addSeparator();
-    connectionListRCM_Menu->addAction(action_RCM_Delete);
-    connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
-    connect(action_RCM_SetAutoConnection, &QAction::triggered, this, &MainWindow::on_action_RCM_SetAutoConnection_triggered);
-    connect(action_RCM_Edit, &QAction::triggered, this, &MainWindow::on_action_RCM_EditThis_triggered);
-    connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsJson_triggered);
-    connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
-    connect(action_RCM_LatencyTest, &QAction::triggered, this, &MainWindow::on_action_RCM_LatencyTest_triggered);
-    connect(action_RCM_Rename, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
-    connect(action_RCM_Duplicate, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
-    connect(action_RCM_ClearUsage, &QAction::triggered, this, &MainWindow::on_action_RCM_ClearUsage_triggered);
-    connect(action_RCM_UpdateSubscription, &QAction::triggered, this, &MainWindow::on_action_RCM_UpdateSubscription_triggered);
-    connect(action_RCM_Delete, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
+    connectionListRCM_Menu->addAction(action_RCM_DeleteConnection);
+    //
+    connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::Action_Start);
+    connect(action_RCM_SetAutoConnection, &QAction::triggered, this, &MainWindow::Action_SetAutoConnection);
+    connect(action_RCM_Edit, &QAction::triggered, this, &MainWindow::Action_Edit);
+    connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::Action_EditJson);
+    connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::Action_EditComplex);
+    connect(action_RCM_TestLatency, &QAction::triggered, this, &MainWindow::Action_TestLatency);
+    connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::Action_RenameConnection);
+    connect(action_RCM_DuplicateConnection, &QAction::triggered, this, &MainWindow::Action_DuplicateConnection);
+    connect(action_RCM_ResetStats, &QAction::triggered, this, &MainWindow::Action_ResetStats);
+    connect(action_RCM_UpdateSubscription, &QAction::triggered, this, &MainWindow::Action_UpdateSubscription);
+    connect(action_RCM_DeleteConnection, &QAction::triggered, this, &MainWindow::Action_DeleteConnections);
     //
     // Sort Menu
-    //
-    connect(sortAction_SortByName_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, true); });
-    connect(sortAction_SortByName_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, false); });
-    connect(sortAction_SortByData_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, true); });
-    connect(sortAction_SortByData_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, false); });
-    connect(sortAction_SortByPing_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, true); });
-    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, false); });
     //
     sortMenu->addAction(sortAction_SortByName_Asc);
     sortMenu->addAction(sortAction_SortByName_Dsc);
@@ -312,16 +310,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     sortMenu->addAction(sortAction_SortByPing_Asc);
     sortMenu->addAction(sortAction_SortByPing_Dsc);
     //
+    connect(sortAction_SortByName_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, true); });
+    connect(sortAction_SortByName_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, false); });
+    connect(sortAction_SortByData_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, true); });
+    connect(sortAction_SortByData_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, false); });
+    connect(sortAction_SortByPing_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, true); });
+    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, false); });
+    //
     sortBtn->setMenu(sortMenu);
     //
     LOG(MODULE_UI, "Loading data...")
     for (const auto &group : ConnectionManager->AllGroups())
     {
         MWAddGroupItem_p(group);
-        for (const auto &connection : ConnectionManager->Connections(group))
-        {
-            MWAddConnectionItem_p({ connection, group });
-        }
+        for (const auto &connection : ConnectionManager->Connections(group)) MWAddConnectionItem_p({ connection, group });
     }
     //
     // Find and start if there is an auto-connection
@@ -342,9 +344,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         this->show();
     //
     CheckSubscriptionsUpdate();
-    //
     qvLogTimerId = startTimer(1000);
-    //
     auto checker = new QvUpdateChecker(this);
     checker->CheckUpdate();
     splitter->setSizes({ 200, 300 });
@@ -410,7 +410,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         }
         else if (e->key() == Qt::Key_Delete)
         {
-            on_action_RCM_DeleteThese_triggered();
+            Action_DeleteConnections();
         }
     }
 
@@ -431,7 +431,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     else if (e->modifiers() & Qt::ControlModifier && e->key() == Qt::Key_Q)
     {
         if (QvMessageBoxAsk(this, tr("Quit Qv2ray"), tr("Are you sure to exit Qv2ray?")) == QMessageBox::Yes)
-            on_actionExit_triggered();
+            Action_Exit();
     }
 }
 
@@ -448,7 +448,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
     }
 }
 
-void MainWindow::on_action_StartThis_triggered()
+void MainWindow::Action_Start()
 {
     CheckCurrentWidget;
     if (widget->IsConnection())
@@ -522,7 +522,7 @@ void MainWindow::ToggleVisibility()
     }
 }
 
-void MainWindow::on_actionExit_triggered()
+void MainWindow::Action_Exit()
 {
     ConnectionManager->StopConnection();
     qvApp->QuitApplication();
@@ -551,14 +551,14 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
         action_RCM_Edit->setEnabled(isConnection);
         action_RCM_EditJson->setEnabled(isConnection);
         action_RCM_EditComplex->setEnabled(isConnection);
-        action_RCM_Rename->setEnabled(isConnection);
-        action_RCM_Duplicate->setEnabled(isConnection);
+        action_RCM_RenameConnection->setEnabled(isConnection);
+        action_RCM_DuplicateConnection->setEnabled(isConnection);
         action_RCM_UpdateSubscription->setEnabled(!isConnection);
         connectionListRCM_Menu->popup(_pos);
     }
 }
 
-void MainWindow::on_action_RCM_DeleteThese_triggered()
+void MainWindow::Action_DeleteConnections()
 {
     QList<ConnectionGroupPair> connlist;
 
@@ -617,7 +617,7 @@ void MainWindow::on_importConfigButton_clicked()
     w.PerformImportConnection();
 }
 
-void MainWindow::on_action_RCM_EditAsComplex_triggered()
+void MainWindow::Action_EditComplex()
 {
     CheckCurrentWidget;
     if (widget->IsConnection())
@@ -949,13 +949,13 @@ void MainWindow::on_locateBtn_clicked()
     }
 }
 
-void MainWindow::on_action_RCM_RenameThis_triggered()
+void MainWindow::Action_RenameConnection()
 {
     CheckCurrentWidget;
     widget->BeginRename();
 }
 
-void MainWindow::on_action_RCM_DuplicateThese_triggered()
+void MainWindow::Action_DuplicateConnection()
 {
     QList<ConnectionGroupPair> connlist;
 
@@ -984,13 +984,13 @@ void MainWindow::on_action_RCM_DuplicateThese_triggered()
     }
 }
 
-void MainWindow::on_action_RCM_EditThis_triggered()
+void MainWindow::Action_Edit()
 {
     CheckCurrentWidget;
     OnEditRequested(widget->Identifier().connectionId);
 }
 
-void MainWindow::on_action_RCM_EditAsJson_triggered()
+void MainWindow::Action_EditJson()
 {
     CheckCurrentWidget;
     OnEditJsonRequested(widget->Identifier().connectionId);
@@ -1020,12 +1020,12 @@ void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *cur
     }
 }
 
-void MainWindow::on_action_RCM_tovCoreLog_triggered()
+void MainWindow::Action_SwitchCoreLog()
 {
     masterLogBrowser->setDocument(vCoreLogDocument);
 }
 
-void MainWindow::on_action_RCM_toQvLog_triggered()
+void MainWindow::Action_SwitchQv2rayLog()
 {
     masterLogBrowser->setDocument(qvLogDocument);
 }
@@ -1038,7 +1038,7 @@ void MainWindow::on_masterLogBrowser_textChanged()
     bar->setValue(bar->maximum());
 }
 
-void MainWindow::on_action_RCM_SetAutoConnection_triggered()
+void MainWindow::Action_SetAutoConnection()
 {
     auto current = connectionListWidget->currentItem();
     if (current != nullptr)
@@ -1055,7 +1055,7 @@ void MainWindow::on_action_RCM_SetAutoConnection_triggered()
     }
 }
 
-void MainWindow::on_action_RCM_ClearUsage_triggered()
+void MainWindow::Action_ResetStats()
 {
     auto current = connectionListWidget->currentItem();
     if (current != nullptr)
@@ -1071,7 +1071,7 @@ void MainWindow::on_action_RCM_ClearUsage_triggered()
     }
 }
 
-void MainWindow::on_action_RCM_UpdateSubscription_triggered()
+void MainWindow::Action_UpdateSubscription()
 {
     auto current = connectionListWidget->currentItem();
     if (current != nullptr)
@@ -1090,7 +1090,7 @@ void MainWindow::on_action_RCM_UpdateSubscription_triggered()
     }
 }
 
-void MainWindow::on_action_RCM_LatencyTest_triggered()
+void MainWindow::Action_TestLatency()
 {
     for (const auto &current : connectionListWidget->selectedItems())
     {
