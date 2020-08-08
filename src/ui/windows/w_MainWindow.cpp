@@ -1156,7 +1156,10 @@ void MainWindow::on_collapseGroupsBtn_clicked()
 void MainWindow::Action_CopyRecentLogs()
 {
     const auto lines = SplitLines(masterLogBrowser->document()->toPlainText());
-    constexpr auto line = 20;
+    bool accepted = false;
+    const auto line = QInputDialog::getInt(this, tr("Copy latest logs"), tr("Number of lines of logs to copy"), 20, 0, 2500, 1, &accepted);
+    if (!accepted)
+        return;
     const auto totalLinesCount = lines.count();
     const auto linesToCopy = std::min(totalLinesCount, line);
     QStringList result;

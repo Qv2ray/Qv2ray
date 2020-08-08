@@ -155,7 +155,7 @@ class MainWindow
         action_RCM_SwitchQv2rayLog->setText(tr("Switch to Qv2ray log"));
         //
         graph_action_CopyAsImage->setText(tr("Copy graph as image."));
-        action_RCM_CopyRecentLogs->setText(tr("Copy recent 20 lines."));
+        action_RCM_CopyRecentLogs->setText(tr("Copy latest logs."));
     }
 
     //
