@@ -45,7 +45,9 @@ class _qv2ray_global_config_impl_details
 // Base folder suffix.
 #ifdef QT_DEBUG
     #define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
+    #define _BOMB_ (static_cast<QObject *>(nullptr)->event(nullptr))
 #else
+    #define _BOMB_
     #define QV2RAY_CONFIG_DIR_SUFFIX "/"
 #endif
 
