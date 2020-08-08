@@ -251,6 +251,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     logRCM_Menu->addAction(action_RCM_tovCoreLog);
     logRCM_Menu->addAction(action_RCM_toQvLog);
     connect(masterLogBrowser, &QTextBrowser::customContextMenuRequested, [this](const QPoint &) { logRCM_Menu->popup(QCursor::pos()); });
+    //
+    speedChartWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(speedChartWidget, &QWidget::customContextMenuRequested, [this](const QPoint &) { graphWidgetMenu->popup(QCursor::pos()); });
+    //
     connect(action_RCM_tovCoreLog, &QAction::triggered, this, &MainWindow::Action_SwitchCoreLog);
     connect(action_RCM_toQvLog, &QAction::triggered, this, &MainWindow::Action_SwitchQv2rayLog);
     masterLogBrowser->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
@@ -318,6 +322,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(sortAction_SortByPing_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, false); });
     //
     sortBtn->setMenu(sortMenu);
+    //
+    graphWidgetMenu->addAction(graph_action_CopyAsImage);
+    connect(graph_action_CopyAsImage, &QAction::triggered, this, &MainWindow::Action_CopyGraphAsImage);
     //
     LOG(MODULE_UI, "Loading data...")
     for (const auto &group : ConnectionManager->AllGroups())
@@ -1104,6 +1111,12 @@ void MainWindow::Action_TestLatency()
         else
             ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
     }
+}
+
+void MainWindow::Action_CopyGraphAsImage()
+{
+    const auto image = speedChartWidget->grab();
+    qApp->clipboard()->setImage(image.toImage());
 }
 
 void MainWindow::on_pluginsBtn_clicked()

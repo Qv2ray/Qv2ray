@@ -110,7 +110,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../../../resources.qrc">
+             <iconset resource="../../../resources.new.qrc">
               <normaloff>:/assets/icons/ui_light/arrow-up.svg</normaloff>:/assets/icons/ui_light/arrow-up.svg</iconset>
             </property>
            </widget>
@@ -183,6 +183,12 @@
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
            </spacer>
           </item>
           <item>
@@ -244,8 +250,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>500</width>
-          <height>738</height>
+          <width>486</width>
+          <height>728</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,1">

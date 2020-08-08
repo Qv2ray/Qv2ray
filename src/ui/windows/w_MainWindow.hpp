@@ -78,6 +78,7 @@ class MainWindow
     void Action_ResetStats();
     void Action_SwitchCoreLog();
     void Action_SwitchQv2rayLog();
+    void Action_CopyGraphAsImage();
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
 
   private:
@@ -153,6 +154,8 @@ class MainWindow
         //
         action_RCM_tovCoreLog->setText(tr("Switch to Core log"));
         action_RCM_toQvLog->setText(tr("Switch to Qv2ray log"));
+        //
+        graph_action_CopyAsImage->setText(tr("Copy graph as image."));
     }
 
     //
@@ -164,6 +167,7 @@ class MainWindow
     QMenu *sortMenu = new QMenu(this);
     QMenu *logRCM_Menu = new QMenu(this);
     QMenu *connectionListRCM_Menu = new QMenu(this);
+    QMenu *graphWidgetMenu = new QMenu(this);
     DECL_ACTION(tray_RecentConnectionsMenu, tray_ClearRecentConnectionsAction);
     DECL_ACTION(tray_RootMenu, tray_action_ToggleVisibility);
     DECL_ACTION(tray_RootMenu, tray_action_Preferences);
@@ -173,6 +177,7 @@ class MainWindow
     DECL_ACTION(tray_RootMenu, tray_action_Stop);
     DECL_ACTION(tray_RootMenu, tray_action_SetSystemProxy);
     DECL_ACTION(tray_RootMenu, tray_action_ClearSystemProxy);
+    DECL_ACTION(graphWidgetMenu, graph_action_CopyAsImage);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_Start);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_SetAutoConnection);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_UpdateSubscription);
