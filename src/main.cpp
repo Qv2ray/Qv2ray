@@ -1,3 +1,4 @@
+#include "3rdparty/backward-cpp/backward.hpp"
 #include "Qv2rayApplication.hpp"
 #include "common/QvHelpers.hpp"
 
@@ -10,7 +11,6 @@
 #ifndef Q_OS_WIN
     #include <unistd.h>
 #endif
-#include "3rdparty/backward-cpp/backward.hpp"
 
 const QString SayLastWords() noexcept
 {
