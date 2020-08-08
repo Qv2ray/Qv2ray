@@ -33,12 +33,17 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
     // Show connections in the node graph
     for (const auto &in : root["inbounds"].toArray())
     {
+        auto inObject = in.toObject();
+        if (inObject["tag"].toString().isEmpty())
+            inObject["tag"] = GenerateRandomString();
         auto _ = CreateInbound(INBOUND(in.toObject()));
     }
 
     for (const auto &out : root["outbounds"].toArray())
     {
         const auto meta = OutboundObjectMeta::loadFromOutbound(OUTBOUND(out.toObject()));
+        if (meta.metaType == METAOUTBOUND_ORIGINAL && meta.realOutbound["tag"].toString().isEmpty())
+            meta.realOutbound["tag"] = GenerateRandomString();
         auto _ = CreateOutbound(meta);
     }
 
@@ -79,16 +84,14 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
             ruleScene->createConnection(*ruleScene->node(ruleNodeId), 0, *ruleScene->node(inboundNodeId), 0);
         }
 
-        for (const auto &outboundTag : { rule->outboundTag, rule->balancerTag })
+        const auto &outboundTag = rule->outboundTag.isEmpty() ? rule->balancerTag : rule->outboundTag;
+        if (!outboundNodes.contains(outboundTag))
         {
-            if (!outboundNodes.contains(outboundTag))
-            {
-                LOG(MODULE_NODE, "Could not find outbound: " + outboundTag)
-                continue;
-            }
-            const auto &outboundNodeId = outboundNodes[outboundTag];
-            ruleScene->createConnection(*ruleScene->node(outboundNodeId), 0, *ruleScene->node(ruleNodeId), 0);
+            LOG(MODULE_NODE, "Could not find outbound: " + outboundTag)
+            continue;
         }
+        const auto &outboundNodeId = outboundNodes[outboundTag];
+        ruleScene->createConnection(*ruleScene->node(outboundNodeId), 0, *ruleScene->node(ruleNodeId), 0);
     }
     isOperationLocked = false;
     emit OnFullConfigLoadCompleted();

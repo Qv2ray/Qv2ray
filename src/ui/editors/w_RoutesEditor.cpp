@@ -239,8 +239,10 @@ CONFIGROOT RouteEditor::OpenEditor()
             //    ruleJson.remove("network");
             JAUTOREMOVE(ruleJson, "network");
             JAUTOREMOVE(ruleJson, "port");
-            JAUTOREMOVE(ruleJson, "outboundTag");
-            JAUTOREMOVE(ruleJson, "balancerTag");
+            if (ruleJson["outboundTag"].toString().isEmpty())
+                ruleJson.remove("outboundTag");
+            else
+                ruleJson.remove("balancerTag");
             rulesJsonArray << ruleJson;
         }
         else

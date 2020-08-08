@@ -79,8 +79,8 @@ void InboundOutboundWidget::on_editBtn_clicked()
             OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };
             OutboundEditor editor{ outbound, parentWidget() };
             outbound = editor.OpenEditor();
-            //
-            ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
+            if (editor.result() == QDialog::Accepted)
+                ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
         }
         else
         {
@@ -117,8 +117,8 @@ void InboundOutboundWidget::on_editJsonBtn_clicked()
             OUTBOUND outbound{ QJsonIO::GetValue(root, "outbounds", 0).toObject() };
             JsonEditor editor{ outbound, parentWidget() };
             outbound = OUTBOUND{ editor.OpenEditor() };
-            //
-            ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
+            if (editor.result() == QDialog::Accepted)
+                ConnectionManager->UpdateConnection(externalId, CONFIGROOT{ QJsonObject{ { "outbounds", QJsonArray{ outbound } } } });
         }
         else
         {

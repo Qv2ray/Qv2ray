@@ -85,10 +85,14 @@ class NodeDispatcher
 
         if constexpr (t == NODE_INBOUND)
         {
+            if (newTag.isEmpty())
+                return false;
             PROCESS(inbound);
         }
         else if constexpr (t == NODE_OUTBOUND)
         {
+            if (newTag.isEmpty())
+                return false;
             PROCESS(outbound)
         }
         else if constexpr (t == NODE_RULE)
