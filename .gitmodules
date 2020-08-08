@@ -22,3 +22,6 @@
 [submodule "3rdparty/uvw"]
 	path = 3rdparty/uvw
 	url = https://github.com/skypjack/uvw.git
+[submodule "3rdparty/backward-cpp"]
+	path = 3rdparty/backward-cpp
+	url = https://github.com/Qv2ray/backward-cpp

@@ -228,13 +228,16 @@ set(QV2RAY_FULL_SOURCES
     ${QRC_RESOURCES}
     ${QM_FILES})
 
+
 if(ANDROID)
     add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
     target_link_libraries(qv2ray -llog -landroid)
 else()
+    include(cmake/backward-cpp.cmake)
     add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+    list(APPEND QV2RAY_QT_LIBS Backward::Backward)
+    add_backward(qv2ray-baselib)
 endif()
-
 
 target_link_libraries(qv2ray-baselib
     ${QV2RAY_PROTOBUF_LIBRARY}

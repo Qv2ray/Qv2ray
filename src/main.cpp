@@ -1,3 +1,4 @@
+#include "3rdparty/backward-cpp/backward.hpp"
 #include "Qv2rayApplication.hpp"
 #include "common/QvHelpers.hpp"
 
@@ -19,33 +20,32 @@ const QString SayLastWords() noexcept
 {
     QStringList msg;
     msg << "------- BEGIN QV2RAY CRASH REPORT -------";
-#ifdef Q_OS_WIN
-    void *stack[1024];
-    HANDLE process = GetCurrentProcess();
-    SymInitialize(process, NULL, TRUE);
-    SymSetOptions(SYMOPT_LOAD_ANYTHING);
-    WORD numberOfFrames = CaptureStackBackTrace(0, 1024, stack, NULL);
-    SYMBOL_INFO *symbol = (SYMBOL_INFO *) malloc(sizeof(SYMBOL_INFO) + (512 - 1) * sizeof(TCHAR));
-    symbol->MaxNameLen = 512;
-    symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-    DWORD displacement;
-    IMAGEHLP_LINE64 *line = (IMAGEHLP_LINE64 *) malloc(sizeof(IMAGEHLP_LINE64));
-    line->SizeOfStruct = sizeof(IMAGEHLP_LINE64);
-    //
-    for (int i = 0; i < numberOfFrames; i++)
+
     {
-        const auto address = (DWORD64) stack[i];
-        SymFromAddr(process, address, NULL, symbol);
-        if (SymGetLineFromAddr64(process, address, &displacement, line))
+        backward::StackTrace st;
+        backward::TraceResolver resolver;
+        st.load_here();
+        resolver.load_stacktrace(st);
+        //
+        for (size_t i = 0; i < st.size(); i++)
         {
-            msg << QString("[%1]: %2 (%3:%4)").arg(symbol->Address).arg(symbol->Name).arg(line->FileName).arg(line->LineNumber);
-        }
-        else
-        {
-            msg << QString("[%1]: %2 SymGetLineFromAddr64[%3]").arg(symbol->Address).arg(symbol->Name).arg(GetLastError());
+            const auto &trace = resolver.resolve(st[i]);
+            const auto line = QString("#%1: [%2] %3 in %4")
+                                  .arg(i)
+                                  .arg(reinterpret_cast<size_t>(trace.addr))
+                                  .arg(trace.object_function.c_str())
+                                  .arg(trace.object_filename.c_str());
+            if (!trace.source.filename.empty())
+            {
+                const auto sourceFile = QString("%0:[%1:%2]").arg(trace.source.filename.c_str()).arg(trace.source.line).arg(trace.source.col);
+                msg << line + " --> " + sourceFile;
+            }
+            else
+            {
+                msg << line;
+            }
         }
     }
-#endif
 
     if (KernelInstance)
     {
@@ -110,15 +110,15 @@ void signalHandler(int signum)
         return;
     }
     std::cout << "Collecting StackTrace" << std::endl;
-    const auto msg = SayLastWords();
+    const auto msg = "Signal: " + QSTRN(signum) + NEWLINE + SayLastWords();
     const auto filePath = QV2RAY_CONFIG_DIR + "bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
     {
         std::cout << msg.toStdString() << std::endl;
         QDir().mkpath(QV2RAY_CONFIG_DIR + "bugreport/");
-        StringToFile("Signal: " + QSTRN(signum) + NEWLINE + msg, filePath);
+        StringToFile(msg, filePath);
         std::cout << "Backtrace saved in: " + filePath.toStdString() << std::endl;
     }
-    if (qvApp)
+    if (qApp)
     {
         qApp->clipboard()->setText(filePath);
         QString message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
@@ -186,7 +186,6 @@ QPair<Qv2rayExitCode, std::optional<QString>> RunQv2rayApplicationScoped(int arg
                              "OSsl.Cr.V=" + osslCurVersion);
         return { QVEXIT_SSL_FAIL, app.tr("Cannot start Qv2ray without OpenSSL") };
     }
-
     app.InitializeGlobalVariables();
 
 #ifndef Q_OS_WIN
