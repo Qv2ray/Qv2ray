@@ -3,7 +3,6 @@
 #include "common/QvHelpers.hpp"
 #include "components/geosite/QvGeositeReader.hpp"
 #include "components/route/RouteSchemeIO.hpp"
-#include "components/route/presets/RouteScheme_V2rayN.hpp"
 #include "ui/common/UIBase.hpp"
 
 #include <QFileDialog>
@@ -45,7 +44,7 @@ QList<QAction *> RouteSettingsMatrixWidget::getBuiltInSchemes()
 {
     QList<QAction *> list;
     list.append(this->schemeToAction(tr("empty scheme"), emptyScheme));
-    list.append(this->schemeToAction(tr("v2rayN preset"), presets::v2rayN::v2rayNScheme));
+    list.append(this->schemeToAction(tr("empty scheme (no ads)"), noAdsScheme));
     return list;
 }
 

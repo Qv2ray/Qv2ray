@@ -55,7 +55,6 @@ set(QV2RAY_LIB_SOURCES
     ${CMAKE_SOURCE_DIR}/src/components/proxy/QvProxyConfigurator.cpp
     ${CMAKE_SOURCE_DIR}/src/components/proxy/QvProxyConfigurator.hpp
     #
-    ${CMAKE_SOURCE_DIR}/src/components/route/presets/RouteScheme_V2rayN.hpp
     ${CMAKE_SOURCE_DIR}/src/components/route/RouteSchemeIO.cpp
     ${CMAKE_SOURCE_DIR}/src/components/route/RouteSchemeIO.hpp
     #

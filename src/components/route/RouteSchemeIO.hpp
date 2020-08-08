@@ -3,6 +3,8 @@
 namespace Qv2ray::components::route
 {
     const inline QvConfig_Route emptyScheme;
+    const inline QvConfig_Route noAdsScheme({ {}, { "geosite:category-ads-all" }, {} }, { {}, {}, {} }, "AsIs");
+
     /**
      * @brief The Qv2rayRouteScheme struct
      * @author DuckSoft <realducksoft@gmail.com>
