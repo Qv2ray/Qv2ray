@@ -248,15 +248,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     // Actions for right click the log text browser
     //
-    logRCM_Menu->addAction(action_RCM_tovCoreLog);
-    logRCM_Menu->addAction(action_RCM_toQvLog);
+    logRCM_Menu->addAction(action_RCM_CopyRecentLogs);
+    logRCM_Menu->addSeparator();
+    logRCM_Menu->addAction(action_RCM_SwitchCoreLog);
+    logRCM_Menu->addAction(action_RCM_SwitchQv2rayLog);
     connect(masterLogBrowser, &QTextBrowser::customContextMenuRequested, [this](const QPoint &) { logRCM_Menu->popup(QCursor::pos()); });
+    connect(action_RCM_SwitchCoreLog, &QAction::triggered, [this] { masterLogBrowser->setDocument(vCoreLogDocument); });
+    connect(action_RCM_SwitchQv2rayLog, &QAction::triggered, [this] { masterLogBrowser->setDocument(qvLogDocument); });
+    connect(action_RCM_CopyRecentLogs, &QAction::triggered, this, &MainWindow::Action_CopyRecentLogs);
     //
     speedChartWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(speedChartWidget, &QWidget::customContextMenuRequested, [this](const QPoint &) { graphWidgetMenu->popup(QCursor::pos()); });
     //
-    connect(action_RCM_tovCoreLog, &QAction::triggered, this, &MainWindow::Action_SwitchCoreLog);
-    connect(action_RCM_toQvLog, &QAction::triggered, this, &MainWindow::Action_SwitchQv2rayLog);
     masterLogBrowser->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     {
         auto font = masterLogBrowser->font();
@@ -1027,16 +1030,6 @@ void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *cur
     }
 }
 
-void MainWindow::Action_SwitchCoreLog()
-{
-    masterLogBrowser->setDocument(vCoreLogDocument);
-}
-
-void MainWindow::Action_SwitchQv2rayLog()
-{
-    masterLogBrowser->setDocument(qvLogDocument);
-}
-
 void MainWindow::on_masterLogBrowser_textChanged()
 {
     if (!qvLogAutoScoll)
@@ -1136,14 +1129,8 @@ void MainWindow::on_newConnectionBtn_clicked()
         outboundsList.push_back(outboundEntry);
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
-        //
         const auto item = connectionListWidget->currentItem();
-        GroupId id = DefaultGroupId;
-        if (item)
-        {
-            id = GetItemWidget(item)->Identifier().groupId;
-        }
-        //
+        const auto id = item ? DefaultGroupId : GetItemWidget(item)->Identifier().groupId;
         ConnectionManager->CreateConnection(root, alias, id);
     }
 }
@@ -1156,12 +1143,7 @@ void MainWindow::on_newComplexConnectionBtn_clicked()
     if (isChanged)
     {
         const auto item = connectionListWidget->currentItem();
-        GroupId id = DefaultGroupId;
-        if (item)
-        {
-            id = GetItemWidget(item)->Identifier().groupId;
-        }
-        //
+        const auto id = item ? DefaultGroupId : GetItemWidget(item)->Identifier().groupId;
         ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, "outbounds", 0, "tag").toString(), id);
     }
 }
@@ -1169,4 +1151,18 @@ void MainWindow::on_newComplexConnectionBtn_clicked()
 void MainWindow::on_collapseGroupsBtn_clicked()
 {
     connectionListWidget->collapseAll();
+}
+
+void MainWindow::Action_CopyRecentLogs()
+{
+    const auto lines = SplitLines(masterLogBrowser->document()->toPlainText());
+    constexpr auto line = 20;
+    const auto totalLinesCount = lines.count();
+    const auto linesToCopy = std::min(totalLinesCount, line);
+    QStringList result;
+    for (auto i = totalLinesCount - linesToCopy; i < totalLinesCount; i++)
+    {
+        result.append(lines[i]);
+    }
+    qApp->clipboard()->setText(result.join(NEWLINE));
 }

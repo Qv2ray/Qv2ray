@@ -76,9 +76,8 @@ class MainWindow
     void Action_DeleteConnections();
     void Action_DuplicateConnection();
     void Action_ResetStats();
-    void Action_SwitchCoreLog();
-    void Action_SwitchQv2rayLog();
     void Action_CopyGraphAsImage();
+    void Action_CopyRecentLogs();
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
 
   private:
@@ -152,10 +151,11 @@ class MainWindow
         sortAction_SortByData_Asc->setText(tr("By data, Ascending"));
         sortAction_SortByData_Dsc->setText(tr("By data, Descending"));
         //
-        action_RCM_tovCoreLog->setText(tr("Switch to Core log"));
-        action_RCM_toQvLog->setText(tr("Switch to Qv2ray log"));
+        action_RCM_SwitchCoreLog->setText(tr("Switch to Core log"));
+        action_RCM_SwitchQv2rayLog->setText(tr("Switch to Qv2ray log"));
         //
         graph_action_CopyAsImage->setText(tr("Copy graph as image."));
+        action_RCM_CopyRecentLogs->setText(tr("Copy recent 20 lines."));
     }
 
     //
@@ -195,8 +195,9 @@ class MainWindow
     DECL_ACTION(sortMenu, sortAction_SortByPing_Dsc);
     DECL_ACTION(sortMenu, sortAction_SortByData_Asc);
     DECL_ACTION(sortMenu, sortAction_SortByData_Dsc);
-    DECL_ACTION(logRCM_Menu, action_RCM_tovCoreLog);
-    DECL_ACTION(logRCM_Menu, action_RCM_toQvLog);
+    DECL_ACTION(logRCM_Menu, action_RCM_SwitchCoreLog);
+    DECL_ACTION(logRCM_Menu, action_RCM_SwitchQv2rayLog);
+    DECL_ACTION(logRCM_Menu, action_RCM_CopyRecentLogs);
 #undef DECL_ACTION
     //
     QTextDocument *vCoreLogDocument = new QTextDocument(this);
