@@ -27,8 +27,6 @@ namespace Qv2ray::core::handler
         //
         OUTBOUNDS ExpandConnectionId(const OUTBOUNDS &outbounds) const;
         //
-        OUTBOUNDS ExpandProxyChains(const OUTBOUNDS &outbounds) const;
-        //
         // Final Config Generation
         CONFIGROOT GenerateFinalConfig(const ConnectionGroupPair &pair, bool hasAPI = true) const;
         CONFIGROOT GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId, bool hasAPI = true) const;
