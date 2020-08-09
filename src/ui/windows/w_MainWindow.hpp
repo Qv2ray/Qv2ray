@@ -70,6 +70,7 @@ class MainWindow
     void on_action_RCM_EditAsComplex_triggered();
     void on_action_RCM_UpdateSubscription_triggered();
     void on_action_RCM_LatencyTest_triggered();
+    void on_action_RCM_RealLatencyTest_triggered();
     void on_action_RCM_RenameThis_triggered();
     void on_action_RCM_DeleteThese_triggered();
     void on_action_RCM_DuplicateThese_triggered();
@@ -141,6 +142,7 @@ class MainWindow
     QAction *action_RCM_Rename = new QAction(tr("Rename"), this);
     QAction *action_RCM_Duplicate = new QAction(tr("Duplicate to the Same Group"), this);
     QAction *action_RCM_LatencyTest = new QAction(tr("Test Latency"), this);
+    QAction *action_RCM_RealLatencyTest = new QAction(tr("Test Real Latency"), this);
     QAction *action_RCM_ClearUsage = new QAction(tr("Clear Usage Data"), this);
     QAction *action_RCM_Delete = new QAction(tr("Delete Connection"), this);
     //

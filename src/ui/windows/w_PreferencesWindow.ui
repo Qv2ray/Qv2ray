@@ -433,13 +433,6 @@ For example, for updating subscriptions.</string>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QRadioButton" name="latencyRealPingRB">
-                <property name="text">
-                 <string>RealPing</string>
-                </property>
-               </widget>
-              </item>
              </layout>
             </item>
             <item row="4" column="0">

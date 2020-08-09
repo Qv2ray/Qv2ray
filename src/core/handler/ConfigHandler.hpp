@@ -115,7 +115,7 @@ namespace Qv2ray::core::handler
         // Misc Connection Operations
         void StartLatencyTest();
         void StartLatencyTest(const GroupId &id);
-        void StartLatencyTest(const ConnectionId &id);
+        void StartLatencyTest(const ConnectionId &id, Qv2rayLatencyTestingMethod method = GlobalConfig.networkConfig.latencyTestingMethod);
         //
         // Group Operations
         const GroupId CreateGroup(const QString &displayName, bool isSubscription);

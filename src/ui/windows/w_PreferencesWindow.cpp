@@ -164,7 +164,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     //
     latencyTCPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == TCPING);
     latencyICMPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == ICMPING);
-    latencyRealPingRB->setChecked(CurrentConfig.networkConfig.latencyTestingMethod == REALPING);
     latencyRealPingTestURLTxt->setText(CurrentConfig.networkConfig.latencyRealPingTestURL);
     //
     {
@@ -1188,7 +1187,6 @@ void PreferencesWindow::on_latencyTCPingRB_clicked()
     LOADINGCHECK
     CurrentConfig.networkConfig.latencyTestingMethod = TCPING;
     latencyICMPingRB->setChecked(false);
-    latencyRealPingRB->setChecked(false);
     latencyTCPingRB->setChecked(true);
 }
 
@@ -1198,16 +1196,6 @@ void PreferencesWindow::on_latencyICMPingRB_clicked()
     CurrentConfig.networkConfig.latencyTestingMethod = ICMPING;
     latencyICMPingRB->setChecked(true);
     latencyTCPingRB->setChecked(false);
-    latencyRealPingRB->setChecked(false);
-}
-
-void PreferencesWindow::on_latencyRealPingRB_clicked()
-{
-    LOADINGCHECK
-    CurrentConfig.networkConfig.latencyTestingMethod = REALPING;
-    latencyICMPingRB->setChecked(false);
-    latencyTCPingRB->setChecked(false);
-    latencyRealPingRB->setChecked(true);
 }
 
 void PreferencesWindow::on_qvNetworkUATxt_editTextChanged(const QString &arg1)

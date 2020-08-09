@@ -55,6 +55,7 @@ void MainWindow::updateColorScheme()
     action_RCM_Delete->setIcon(QICON_R("delete.png"));
     action_RCM_ClearUsage->setIcon(QICON_R("delete.png"));
     action_RCM_LatencyTest->setIcon(QICON_R("ping_gauge.png"));
+    action_RCM_RealLatencyTest->setIcon(QICON_R("ping_gauge.png"));
     //
     clearChartBtn->setIcon(QICON_R("delete.png"));
     clearlogButton->setIcon(QICON_R("delete.png"));
@@ -273,6 +274,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_EditComplex);
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_LatencyTest);
+    connectionListRCM_Menu->addAction(action_RCM_RealLatencyTest);
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_SetAutoConnection);
     connectionListRCM_Menu->addSeparator();
@@ -288,6 +290,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsJson_triggered);
     connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
     connect(action_RCM_LatencyTest, &QAction::triggered, this, &MainWindow::on_action_RCM_LatencyTest_triggered);
+    connect(action_RCM_RealLatencyTest, &QAction::triggered, this, &MainWindow::on_action_RCM_RealLatencyTest_triggered);
     connect(action_RCM_Rename, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
     connect(action_RCM_Duplicate, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
     connect(action_RCM_ClearUsage, &QAction::triggered, this, &MainWindow::on_action_RCM_ClearUsage_triggered);
@@ -554,7 +557,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
         action_RCM_Rename->setEnabled(isConnection);
         action_RCM_Duplicate->setEnabled(isConnection);
         action_RCM_UpdateSubscription->setEnabled(!isConnection);
-        action_RCM_LatencyTest->setEnabled(GlobalConfig.networkConfig.latencyTestingMethod != REALPING || isConnection);
+        action_RCM_RealLatencyTest->setEnabled(isConnection);
         connectionListRCM_Menu->popup(_pos);
     }
 }
@@ -1107,6 +1110,20 @@ void MainWindow::on_action_RCM_LatencyTest_triggered()
             ConnectionManager->StartLatencyTest(widget->Identifier().connectionId);
         else
             ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
+    }
+}
+
+void MainWindow::on_action_RCM_RealLatencyTest_triggered()
+{
+    for (const auto &current : connectionListWidget->selectedItems())
+    {
+        if (!current)
+            continue;
+        const auto widget = GetItemWidget(current);
+        if (!widget)
+            continue;
+        if (widget->IsConnection())
+            ConnectionManager->StartLatencyTest(widget->Identifier().connectionId, REALPING);
     }
 }
 

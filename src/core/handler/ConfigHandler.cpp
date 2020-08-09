@@ -138,10 +138,10 @@ namespace Qv2ray::core::handler
         pingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
-    void QvConfigHandler::StartLatencyTest(const ConnectionId &id)
+    void QvConfigHandler::StartLatencyTest(const ConnectionId &id, Qv2rayLatencyTestingMethod method)
     {
         emit OnLatencyTestStarted(id);
-        pingHelper->TestLatency(id, GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(id, method);
     }
 
     const QList<GroupId> QvConfigHandler::Subscriptions() const
