@@ -4,7 +4,7 @@
 #include "core/handler/RouteHandler.hpp"
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
-#include <QSystemTrayIcon>
+#include <QtWidgets/QSystemTrayIcon>
 #ifdef Q_OS_ANDROID
     #include <QApplication>
 #else

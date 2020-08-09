@@ -2,8 +2,8 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "base/Qv2rayLog.hpp"
-#include "common/QvHelpers.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "utils/QvHelpers.hpp"
 
 #include <QPluginLoader>
 

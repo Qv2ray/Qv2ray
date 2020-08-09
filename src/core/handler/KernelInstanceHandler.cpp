@@ -1,6 +1,6 @@
 #include "KernelInstanceHandler.hpp"
 
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 #include "components/port/QvPortDetector.hpp"
 #include "core/connection/Generation.hpp"
 

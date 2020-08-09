@@ -1,6 +1,6 @@
 #include "3rdparty/backward-cpp/backward.hpp"
 #include "Qv2rayApplication.hpp"
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 
 #include <QFileInfo>
 #include <QLocale>
@@ -116,7 +116,7 @@ void signalHandler(int signum)
     }
     if (qApp)
     {
-        qApp->clipboard()->setText(filePath);
+        // qApp->clipboard()->setText(filePath);
         QString message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
                           QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
                           filePath;
@@ -214,13 +214,13 @@ int main(int argc, char *argv[])
     //
     // This line must be called before any other ones, since we are using these
     // values to identify instances.
-    QApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
+    QCoreApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
     //
 #ifdef QT_DEBUG
-    QApplication::setApplicationName("qv2ray_debug");
-    QApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
+    QCoreApplication::setApplicationName("qv2ray_debug");
+    // QApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
 #else
-    QApplication::setApplicationName("qv2ray");
+    QCoreApplication::setApplicationName("qv2ray");
     QApplication::setApplicationDisplayName("Qv2ray");
 #endif
     //
@@ -231,7 +231,7 @@ int main(int argc, char *argv[])
         case PRE_INIT_RESULT_CONTINUE: break;
         case PRE_INIT_RESULT_ERROR:
         {
-            QApplication errorApplication{ argc, argv };
+            QCoreApplication errorApplication{ argc, argv };
             QvMessageBoxWarn(nullptr, "Cannot Start Qv2ray!", "Early initialization failed!");
             return QVEXIT_PRE_INITIALIZE_FAIL;
         }
@@ -245,7 +245,7 @@ int main(int argc, char *argv[])
     }
     else if (str)
     {
-        QApplication errorApplication{ argc, argv };
+        QCoreApplication errorApplication{ argc, argv };
         QvMessageBoxWarn(nullptr, errorApplication.tr("Cannot start Qv2ray"),
                          ACCESS_OPTIONAL_VALUE(str) + //
                              NEWLINE +                //

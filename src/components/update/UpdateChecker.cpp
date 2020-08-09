@@ -2,12 +2,12 @@
 
 #include "3rdparty/libsemver/version.hpp"
 #include "base/Qv2rayBase.hpp"
-#include "common/HTTPRequestHelper.hpp"
-#include "common/QvHelpers.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "utils/HTTPRequestHelper.hpp"
+#include "utils/QvHelpers.hpp"
 
-#include <QDesktopServices>
 #include <QVersionNumber>
+#include <QtGui/QDesktopServices>
 
 const inline QMap<int, QString> UpdateChannelLink //
     {

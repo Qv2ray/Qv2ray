@@ -38,16 +38,32 @@ if(ANDROID)
     include(${ANDROID_SDK}/android_openssl/CMakeLists.txt)
 endif()
 
-set(QV2RAY_ONLY_USE_QML OFF CACHE BOOL "Only use QML when building Qv2ray")
+set(QV2RAY_USE_QWIDGET OFF CACHE BOOL "Use QWidget as Qv2ray GUI")
+set(QV2RAY_USE_QML OFF CACHE BOOL "Use QML as Qv2ray GUI")
 
-if(QV2RAY_ONLY_USE_QML)
-    find_package(Qt5 5.11 COMPONENTS Core Gui Network Qml Quick REQUIRED)
-    set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network Qt5::Quick Qt5::Qml Qt5::Gui)
-    add_definitions(-DQV2RAY_QML)
-else()
-    find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
-    set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network Qt5::Widgets Qt5::Gui)
+find_package(Qt5 5.11 COMPONENTS Core Gui Network REQUIRED)
+set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network)
+
+if(QV2RAY_USE_QWIDGET)
+    set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "QNodeEditor Provider")
+    set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
+    if (QV2RAY_HAS_BUILT_IN_THEMES)
+        include(libs/uistyles/uistyles.cmake)
+    endif()
+    include(cmake/qnodeeditor.cmake)
+    include(cmake/components/qv2ray-ui-widget.cmake)
+    find_package(Qt5 5.11 COMPONENTS Widgets Gui REQUIRED)
+    list(APPEND QV2RAY_QT_LIBS Qt5::Widgets Qt5::Gui)
     add_definitions(-DQV2RAY_QWIDGETS)
+    add_definitions(-DQAPPLICATION_CLASS=QApplication)
+elseif(QV2RAY_USE_QML)
+    find_package(Qt5 5.11 COMPONENTS Qml Quick Gui REQUIRED)
+    list(APPEND QV2RAY_QT_LIBS Qt5::Quick Qt5::Qml Qt5::Gui)
+    add_definitions(-DQV2RAY_QML)
+    add_definitions(-DQAPPLICATION_CLASS=QApplication)
+else()
+    add_definitions(-DQAPPLICATION_CLASS=QCoreApplication)
+    #message(FATAL_ERROR "Not Supported")
 endif()
 
 find_package(Threads REQUIRED)
@@ -97,31 +113,35 @@ endif()
 # ==================================================================================
 # Qv2ray Build Arguments
 # ==================================================================================
-set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "QNodeEditor Provider")
 set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp Provider")
+
 if (ANDROID)
 else()
     set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication Provider")
+    set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "V2Ray assets path")
+    set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "V2Ray core path")
+    set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
+    if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
+        add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
+    endif()
+
+    if(QV2RAY_DEFAULT_VCORE_PATH AND NOT QV2RAY_DEFAULT_VCORE_PATH STREQUAL "unset")
+        add_definitions(-DQV2RAY_DEFAULT_VCORE_PATH="${QV2RAY_DEFAULT_VCORE_PATH}")
+    endif()
+
+    if(QV2RAY_TRANSLATION_PATH AND NOT QV2RAY_TRANSLATION_PATH STREQUAL "unset")
+        add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
+    endif()
 endif()
-set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "V2Ray assets path")
-set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "V2Ray core path")
-set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
+
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
 set(BUILD_TESTING OFF CACHE BOOL "Build Tests")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed Translations")
-set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
-set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
 
-if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
-    add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
-endif()
-
-if(QV2RAY_DEFAULT_VCORE_PATH AND NOT QV2RAY_DEFAULT_VCORE_PATH STREQUAL "unset")
-    add_definitions(-DQV2RAY_DEFAULT_VCORE_PATH="${QV2RAY_DEFAULT_VCORE_PATH}")
-endif()
-
-if(QV2RAY_TRANSLATION_PATH AND NOT QV2RAY_TRANSLATION_PATH STREQUAL "unset")
-    add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
+if(EMBED_TRANSLATIONS)
+    add_definitions(-DEMBED_TRANSLATIONS)
+    configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
+    set(QV2RAY_EMBED_TRANSLATION_QRC ${CMAKE_BINARY_DIR}/translations.qrc)
 endif()
 
 if(QV2RAY_DISABLE_AUTO_UPDATE)
@@ -132,11 +152,6 @@ if(FALL_BACK_TO_XDG_OPEN)
     add_definitions(-DFALL_BACK_TO_XDG_OPEN)
 endif()
 
-if(EMBED_TRANSLATIONS)
-    add_definitions(-DEMBED_TRANSLATIONS)
-    configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
-    set(QV2RAY_EMBED_TRANSLATION_QRC ${CMAKE_BINARY_DIR}/translations.qrc)
-endif()
 
 
 # ==================================================================================
@@ -145,7 +160,6 @@ endif()
 include(cmake/libuv.cmake)
 include(cmake/libcurl.cmake)
 include(cmake/translations.cmake)
-include(cmake/qnodeeditor.cmake)
 if (ANDROID)
 else()
     include(cmake/singleapplication.cmake)
@@ -194,12 +208,9 @@ include(src/plugin-interface/QvPluginInterface.cmake)
 # ==================================================================================
 # Qv2ray Sources and Headers
 # ==================================================================================
-include(cmake/components/qv2ray-lib.cmake)
+include(cmake/components/qv2ray-base.cmake)
 include(cmake/components/qv2ray-ui.cmake)
 
-if (QV2RAY_HAS_BUILT_IN_THEMES)
-    include(libs/uistyles/uistyles.cmake)
-endif()
 
 set(QRC_RESOURCES
     ${UISTYLE_QRCS}
@@ -283,7 +294,8 @@ endif()
 
 # Qt language translations
 add_custom_target(lupdate
-    COMMAND lupdate ${QV2RAY_BASE_HEADERS}
+    COMMAND lupdate
+    ${QV2RAY_BASE_HEADERS}
     ${QV2RAY_LIB_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
     ${QV2RAY_UI_SOURCES}
@@ -328,7 +340,7 @@ if(APPLE)
         MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2019-2020 Qv2ray Development Group"
         MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.qv2ray"
         MACOSX_BUNDLE_ICON_FILE "qv2ray.icns"
-        MACOSX_BUNDLE_INFO_STRING "Created by Qv2ray development team"
+        MACOSX_BUNDLE_INFO_STRING "Created by Qv2ray Workgroup"
         MACOSX_BUNDLE_LONG_VERSION_STRING ${QV2RAY_VERSION_STRING}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${QV2RAY_VERSION_STRING}
         RESOURCE
@@ -336,30 +348,23 @@ if(APPLE)
         )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
-
     install(TARGETS qv2ray
         BUNDLE DESTINATION . COMPONENT Runtime
         RUNTIME DESTINATION bin COMPONENT Runtime
         )
-    if(QV2RAY_AUTO_DEPLOY)
-        add_custom_command(TARGET qv2ray POST_BUILD
-            COMMAND ${Qt5_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
-            )
-    endif()
     set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.app")
     include(cmake/deployment.cmake)
 endif()
 
-if(UNIX AND NOT APPLE AND NOT WIN32)
-    set(QV2RAY_LINUX_ICON_DIMENSIONS 16 22 32 48 64 128 256 512 1024)
-
+if(UNIX AND NOT APPLE AND NOT WIN32 AND NOT ANDROID)
     install(TARGETS qv2ray RUNTIME DESTINATION bin)
     install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
     install(FILES assets/qv2ray.desktop DESTINATION share/applications)
     install(FILES assets/icons/qv2ray.svg DESTINATION share/icons/hicolor/scalable/apps)
-    foreach(QV2RAY_LINUX_ICON_DIMENSION ${QV2RAY_LINUX_ICON_DIMENSIONS})
-        install(FILES assets/icons/qv2ray.${QV2RAY_LINUX_ICON_DIMENSION}.png DESTINATION share/icons/hicolor/${QV2RAY_LINUX_ICON_DIMENSION}x${QV2RAY_LINUX_ICON_DIMENSION}/apps RENAME qv2ray.png)
-    endforeach(QV2RAY_LINUX_ICON_DIMENSION)
+    set(QV2RAY_ICON_DIMENSIONS 16 22 32 48 64 128 256 512 1024)
+    foreach(ICON_DIMENSION ${QV2RAY_ICON_DIMENSIONS})
+        install(FILES assets/icons/qv2ray.${ICON_DIMENSION}.png DESTINATION share/icons/hicolor/${ICON_DIMENSION}x${ICON_DIMENSION}/apps RENAME qv2ray.png)
+    endforeach(ICON_DIMENSION)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION share/qv2ray/lang)
     endif()
@@ -372,12 +377,24 @@ if(WIN32)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION lang)
     endif()
-    if(QV2RAY_AUTO_DEPLOY)
-        add_custom_command(TARGET qv2ray POST_BUILD
-            COMMAND ${Qt5_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
-            )
-    endif()
     install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
     set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
     include(cmake/deployment.cmake)
+endif()
+
+#
+# Automatic deployment
+set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
+if(QV2RAY_AUTO_DEPLOY AND WIN32)
+    add_custom_command(TARGET qv2ray POST_BUILD
+        COMMAND ${Qt5_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
+        )
+endif()
+if(QV2RAY_AUTO_DEPLOY AND APPLE)
+    add_custom_command(TARGET qv2ray POST_BUILD
+        COMMAND ${Qt5_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
+        )
+endif()
+if(QV2RAY_AUTO_DEPLOY AND ANDROID)
+    message("Qv2ray Android auto deploy todo.")
 endif()

@@ -1,6 +1,6 @@
 #include "SettingsBackend.hpp"
 
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::config
 {

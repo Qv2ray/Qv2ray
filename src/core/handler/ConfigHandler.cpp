@@ -1,11 +1,11 @@
 #include "ConfigHandler.hpp"
 
-#include "common/HTTPRequestHelper.hpp"
-#include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/connection/Serialization.hpp"
 #include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "utils/HTTPRequestHelper.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::handler
 {

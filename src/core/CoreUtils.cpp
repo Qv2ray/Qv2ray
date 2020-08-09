@@ -1,6 +1,6 @@
 #include "CoreUtils.hpp"
 
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 #include "core/connection/Serialization.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
