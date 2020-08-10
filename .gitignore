@@ -17,6 +17,7 @@ libs/x86-windows/
 libs/libqvb-*
 
 build**/
+out/
 
 # IntelliJ-based IDE Trash
 /.idea/
