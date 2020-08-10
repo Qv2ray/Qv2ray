@@ -4,10 +4,6 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSION" QV2RAY_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSIONSUFFIX" QV2RAY_VERSION_SUFFIX)
 
-if(NOT CMAKE_BUILD_TYPE STREQUAL "Release")
-    add_definitions(-DNODE_DEBUG_DRAWING)
-endif()
-
 set(QV2RAY_VERSION_STRING "${QV2RAY_VERSION}${QV2RAY_VERSION_SUFFIX}")
 project(qv2ray)
 
@@ -85,6 +81,7 @@ message(" ")
 
 if(WIN32)
     add_compile_options("/std:c++17")
+    add_compile_options("/utf-8")
     add_definitions(-DUNICODE -D_UNICODE -DNOMINMAX)
     add_definitions(-D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
     set(GUI_TYPE WIN32)
@@ -100,18 +97,18 @@ endif()
 # ==================================================================================
 # Qv2ray Build Arguments
 # ==================================================================================
-set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
-set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
+set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "QNodeEditor Provider")
+set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp Provider")
 if (ANDROID)
 else()
-    set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication provider")
+    set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication Provider")
 endif()
-set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
-set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
+set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "V2Ray assets path")
+set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "V2Ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
-set(BUILD_TESTING OFF CACHE BOOL "Build test")
-set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
+set(BUILD_TESTING OFF CACHE BOOL "Build Tests")
+set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed Translations")
 set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
 set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
 
@@ -206,7 +203,9 @@ endif()
 
 set(QRC_RESOURCES
     ${UISTYLE_QRCS}
-    ${CMAKE_SOURCE_DIR}/resources.qrc)
+    ${CMAKE_SOURCE_DIR}/resources.qrc
+    ${CMAKE_SOURCE_DIR}/resources.new.qrc
+    )
 
 # Qv2ray baselib
 add_library(qv2ray-baselib STATIC
@@ -231,13 +230,16 @@ set(QV2RAY_FULL_SOURCES
     ${QRC_RESOURCES}
     ${QM_FILES})
 
+
 if(ANDROID)
     add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
     target_link_libraries(qv2ray -llog -landroid)
 else()
+    include(cmake/backward-cpp.cmake)
     add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+    list(APPEND QV2RAY_QT_LIBS Backward::Backward)
+    add_backward(qv2ray-baselib)
 endif()
-
 
 target_link_libraries(qv2ray-baselib
     ${QV2RAY_PROTOBUF_LIBRARY}

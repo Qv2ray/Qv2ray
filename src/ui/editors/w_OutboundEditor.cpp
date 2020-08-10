@@ -184,7 +184,7 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         }
     }
 
-    auto root = GenerateOutboundEntry(outboundType, settings, streaming, muxConfig, "0.0.0.0", tag);
+    auto root = GenerateOutboundEntry(tag, outboundType, settings, streaming, muxConfig);
     root[QV2RAY_USE_FPROXY_KEY] = useForwardProxy;
     return root;
 }

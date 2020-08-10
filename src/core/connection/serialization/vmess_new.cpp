@@ -125,7 +125,7 @@ namespace Qv2ray::core::connection
             QJsonArray vnextArray;
             vnextArray.append(server.toJson());
             vConf["vnext"] = vnextArray;
-            auto outbound = GenerateOutboundEntry("vmess", vConf, stream.toJson(), {}, "0.0.0.0", OUTBOUND_TAG_PROXY);
+            auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, "vmess", vConf, stream.toJson());
             //
             root["outbounds"] = QJsonArray{ outbound };
             return root;

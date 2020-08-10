@@ -21,8 +21,7 @@ class ImportConfigWindow
         const static QMap<QString, int> indexMap{
             { "link", 0 },    //
             { "qr", 1 },      //
-            { "manual", 2 },  //
-            { "advanced", 3 } //
+            { "advanced", 2 } //
         };
         nameTxt->setText(args["name"]);
         if (commands.isEmpty())
@@ -42,7 +41,6 @@ class ImportConfigWindow
     void on_beginImportBtn_clicked();
     void on_selectImageBtn_clicked();
     void on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-    void on_connectionEditBtn_clicked();
     void on_cancelImportBtn_clicked();
     void on_routeEditBtn_clicked();
     void on_hideQv2rayCB_stateChanged(int arg1);

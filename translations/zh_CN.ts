@@ -2,6 +2,54 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>BalancerWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+</context>
+<context>
+    <name>ChainEditorWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Chain Editor</source>
+        <translation>代理链编辑器</translation>
+    </message>
+    <message>
+        <source>Could not find outbound tag: %1, The chain may be corrupted</source>
+        <translation>找不到出站标签 %1，代理链可能已损坏</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>好</translation>
+    </message>
+    <message>
+        <source>Please Select a Chain</source>
+        <translation>请选择一条链</translation>
+    </message>
+</context>
+<context>
+    <name>ChainOutboundWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+</context>
+<context>
+    <name>ChainWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Chained</source>
+        <translation>链式</translation>
+    </message>
+</context>
+<context>
     <name>ConnectionInfoWidget</name>
     <message>
         <source>Form</source>
@@ -222,14 +270,6 @@
         <translation>DNS 列表</translation>
     </message>
     <message>
-        <source>△</source>
-        <translation>上移</translation>
-    </message>
-    <message>
-        <source>▽</source>
-        <translation>下移</translation>
-    </message>
-    <message>
         <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
 
 It cannot be a private address.</source>
@@ -349,10 +389,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>手动输入连接</translation>
     </message>
     <message>
-        <source>Open Connection Editor</source>
-        <translation>打开连接编辑器</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -437,26 +473,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>检测到的链接</translation>
     </message>
     <message>
-        <source>Input Manually</source>
-        <translation>手动输入</translation>
-    </message>
-    <message>
-        <source>Simple Editor</source>
-        <translation>简单编辑器</translation>
-    </message>
-    <message>
-        <source>Complex Editor</source>
-        <translation>复杂编辑器</translation>
-    </message>
-    <message>
-        <source>Open Route / Complex Connection Editor</source>
-        <translation>打开路由/复杂连接编辑器</translation>
-    </message>
-    <message>
-        <source>You can manually input connection here.</source>
-        <translation>你可在此手动输入连接信息。</translation>
-    </message>
-    <message>
         <source>Advanced</source>
         <translation>高级</translation>
     </message>
@@ -490,10 +506,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Hostname or IP Address</source>
         <translation>主机名或IP地址</translation>
-    </message>
-    <message>
-        <source>:</source>
-        <translation>:</translation>
     </message>
     <message>
         <source>Port: 1080|80-85</source>
@@ -552,20 +564,8 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>允许透明</translation>
     </message>
     <message>
-        <source>User Level</source>
-        <translation>用户级别</translation>
-    </message>
-    <message>
-        <source>-</source>
-        <translation>-</translation>
-    </message>
-    <message>
         <source>Password</source>
         <translation>密码</translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation>+</translation>
     </message>
     <message>
         <source>Add</source>
@@ -678,6 +678,41 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>tproxy mode</source>
         <translation>透明代理模式</translation>
+    </message>
+</context>
+<context>
+    <name>InboundOutboundWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>External Config</source>
+        <translation>外部配置</translation>
+    </message>
+    <message>
+        <source>Edit Outbound</source>
+        <translation>编辑出站</translation>
+    </message>
+    <message>
+        <source>Trying to edit an Complex Config</source>
+        <translation>试图编辑复杂配置</translation>
+    </message>
+    <message>
+        <source>You are trying to edit an external connection config, is this what you want?</source>
+        <translation>你正试图编辑一个外来的连接配置，这是你想要的吗？</translation>
+    </message>
+    <message>
+        <source>You have selected an complex config as outbound.</source>
+        <translation>你已选定一个复杂配置作为出站。</translation>
+    </message>
+    <message>
+        <source>continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</source>
+        <translation>继续编辑此配置会使你失去所有的入站与路由设定。</translation>
+    </message>
+    <message>
+        <source>Is this what you want?</source>
+        <translation>这是你想要的吗？</translation>
     </message>
 </context>
 <context>
@@ -997,10 +1032,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>删除连接</translation>
     </message>
     <message>
-        <source>Switch to vCore log</source>
-        <translation>切换到 vCore 日志</translation>
-    </message>
-    <message>
         <source>Switch to Qv2ray log</source>
         <translation>切换到 Qv2ray 日志</translation>
     </message>
@@ -1015,10 +1046,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Clear Recent Connections</source>
         <translation>清除最近连接</translation>
-    </message>
-    <message>
-        <source>Recent connections&apos; jump list cleared.</source>
-        <translation>已清空最近连接列表。</translation>
     </message>
     <message>
         <source>Update Subscription</source>
@@ -1047,6 +1074,38 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Collapse all groups</source>
         <translation>收起所有分组</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>导入</translation>
+    </message>
+    <message>
+        <source>New Complex</source>
+        <translation>新复杂配置</translation>
+    </message>
+    <message>
+        <source>Switch to Core log</source>
+        <translation>切换到核心日志</translation>
+    </message>
+    <message>
+        <source>Copy graph as image.</source>
+        <translation>复制图像到剪贴板</translation>
+    </message>
+    <message>
+        <source>Copy latest logs.</source>
+        <translation>复制最近日志</translation>
+    </message>
+    <message>
+        <source>Recent Connection list cleared.</source>
+        <translation>已清除最近连接列表。</translation>
+    </message>
+    <message>
+        <source>Copy latest logs</source>
+        <translation>复制最近日志</translation>
+    </message>
+    <message>
+        <source>Number of lines of logs to copy</source>
+        <translation>要复制的日志的行数</translation>
     </message>
 </context>
 <context>
@@ -2057,14 +2116,6 @@ Output: <byte value="xd"/>
         <translation>（复杂配置）</translation>
     </message>
     <message>
-        <source>Outbound</source>
-        <translation>出站</translation>
-    </message>
-    <message>
-        <source>Inbound</source>
-        <translation>入站</translation>
-    </message>
-    <message>
         <source>core executable file %1 does not exist</source>
         <translation>核心可执行文件 %1 不存在</translation>
     </message>
@@ -2215,6 +2266,22 @@ Output: <byte value="xd"/>
     <message>
         <source>DNS not resolved</source>
         <translation>DNS 未解析</translation>
+    </message>
+    <message>
+        <source>Out</source>
+        <translation>出</translation>
+    </message>
+    <message>
+        <source>In</source>
+        <translation>入</translation>
+    </message>
+    <message>
+        <source>Rule</source>
+        <translation>规则</translation>
+    </message>
+    <message>
+        <source>Chain</source>
+        <translation>链条</translation>
     </message>
 </context>
 <context>
@@ -2532,39 +2599,10 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>QvInboundNodeModel</name>
-    <message>
-        <source>Missing or incorrect inputs</source>
-        <translation>输入丢失或不正确</translation>
-    </message>
-</context>
-<context>
-    <name>QvOutboundNodeModel</name>
-    <message>
-        <source>Missing or incorrect inputs</source>
-        <translation>输入丢失或不正确</translation>
-    </message>
-</context>
-<context>
-    <name>QvRuleNodeModel</name>
-    <message>
-        <source>Missing or incorrect inputs</source>
-        <translation>输入丢失或不正确</translation>
-    </message>
-</context>
-<context>
     <name>RouteEditor</name>
     <message>
         <source>Route Editor</source>
         <translation>路由编辑器</translation>
-    </message>
-    <message>
-        <source>Route Detail Settings</source>
-        <translation>路由详细设置</translation>
-    </message>
-    <message>
-        <source>Source IP Matches</source>
-        <translation>源 IP 匹配</translation>
     </message>
     <message>
         <source>Status</source>
@@ -2587,14 +2625,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation>添加出站</translation>
     </message>
     <message>
-        <source>Delete outbound</source>
-        <translation>删除出站</translation>
-    </message>
-    <message>
-        <source>Edit outbound</source>
-        <translation>编辑出站</translation>
-    </message>
-    <message>
         <source>Add Freedom outbound</source>
         <translation>添加自由出站</translation>
     </message>
@@ -2603,84 +2633,12 @@ Maybe you have downloaded the wrong core?</source>
         <translation>添加黑洞出站</translation>
     </message>
     <message>
-        <source>Routes</source>
-        <translation>路由</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation>已启用</translation>
-    </message>
-    <message>
-        <source>Outbound</source>
-        <translation>出站</translation>
-    </message>
-    <message>
-        <source>Add new route</source>
-        <translation>添加新路由</translation>
-    </message>
-    <message>
-        <source>Use Balancers</source>
-        <translation>使用负载均衡</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <source>Target IP List</source>
-        <translation>目标 IP 列表</translation>
-    </message>
-    <message>
-        <source>Target Domain List</source>
-        <translation>目标域名列表</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation>网络</translation>
-    </message>
-    <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
-    </message>
-    <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>全部</translation>
-    </message>
-    <message>
         <source>Protocol</source>
         <translation>协议</translation>
     </message>
     <message>
-        <source>Inbound</source>
-        <translation>入站</translation>
-    </message>
-    <message>
-        <source>Selected Inbound/Outbound Info</source>
-        <translation>选定进出站信息</translation>
-    </message>
-    <message>
         <source>Host</source>
         <translation>主机</translation>
-    </message>
-    <message>
-        <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-        <translation>没有入站连接的规则意味着没有入站限制。</translation>
-    </message>
-    <message>
-        <source>Edit Selection</source>
-        <translation>编辑所选项</translation>
-    </message>
-    <message>
-        <source>Delete Selection</source>
-        <translation>删除所选项</translation>
-    </message>
-    <message>
-        <source>General Settings</source>
-        <translation>常规设置</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
@@ -2691,204 +2649,12 @@ Maybe you have downloaded the wrong core?</source>
         <translation>默认出站</translation>
     </message>
     <message>
-        <source>Rule Order Settings</source>
-        <translation>规则顺序设置</translation>
-    </message>
-    <message>
         <source>Drag and drop to re-order the rules.</source>
         <translation>拖放以重新排序规则。</translation>
     </message>
     <message>
-        <source>Rule Settings</source>
-        <translation>规则设置</translation>
-    </message>
-    <message>
-        <source>Rule Status</source>
-        <translation>规则状态</translation>
-    </message>
-    <message>
-        <source>Rule Tag</source>
-        <translation>规则标签</translation>
-    </message>
-    <message>
-        <source>HTTP</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
-        <source>TLS</source>
-        <translation>TLS</translation>
-    </message>
-    <message>
-        <source>BitTorrent</source>
-        <translation>BitTorrent</translation>
-    </message>
-    <message>
-        <source>e.g. 80, 443, 8000-8080</source>
-        <translation>例如：80、443、8000-8080</translation>
-    </message>
-    <message>
-        <source>Balancers</source>
-        <translation>负载均衡器</translation>
-    </message>
-    <message>
-        <source>Users List</source>
-        <translation>用户列表</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>好</translation>
-    </message>
-    <message>
-        <source>Cannot Edit</source>
-        <translation>无法编辑</translation>
-    </message>
-    <message>
-        <source>This outbound entry is not supported by the GUI editor.</source>
-        <translation>此出站条目不支持GUI编辑。</translation>
-    </message>
-    <message>
-        <source>We will launch Json Editor instead.</source>
-        <translation>我们将启动 Json 编辑器。</translation>
-    </message>
-    <message>
-        <source>Show rule details</source>
-        <translation>查看规则细节</translation>
-    </message>
-    <message>
-        <source>A rule cannot be found: </source>
-        <translation>规则未找到: </translation>
-    </message>
-    <message>
-        <source>Protocol list changed: </source>
-        <translation>协议列表已更改： </translation>
-    </message>
-    <message>
-        <source>Balancer is empty, not processing.</source>
-        <translation>负载均衡器列表是空的，不处理。</translation>
-    </message>
-    <message>
-        <source>Default rule</source>
-        <translation>默认规则</translation>
-    </message>
-    <message>
-        <source>rule</source>
-        <translation>规则</translation>
-    </message>
-    <message>
-        <source>No Inbound</source>
-        <translation>无入站</translation>
-    </message>
-    <message>
-        <source>No inbound item found: </source>
-        <translation>入站项目未找到: </translation>
-    </message>
-    <message>
-        <source>The new tag has been used, we appended a postfix.</source>
-        <translation>原标签被占用，自动添加后缀。</translation>
-    </message>
-    <message>
-        <source>The new tag has been used, we appended a random string to the tag.</source>
-        <translation>原标签被占用，自动添加随机字符串以避免重复。</translation>
-    </message>
-    <message>
-        <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
-        <translation>要使这条规则可以使用，您需要将它连接到一个出站节点。</translation>
-    </message>
-    <message>
-        <source>Remove Items</source>
-        <translation>移除项目</translation>
-    </message>
-    <message>
-        <source>Please select a node from the graph to continue.</source>
-        <translation>请从图表中选择要继续的节点。</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>错误</translation>
-    </message>
-    <message>
-        <source>Qv2ray entered an unknown state.</source>
-        <translation>Qv2ray 进入了未知状态。</translation>
-    </message>
-    <message>
-        <source>Edit Inbound/Outbound</source>
-        <translation>编辑入站/出站</translation>
-    </message>
-    <message>
-        <source>Edit Inbound</source>
-        <translation>编辑入站</translation>
-    </message>
-    <message>
-        <source>No inbound tag found: </source>
-        <translation>入站标签未找到: </translation>
-    </message>
-    <message>
-        <source>Opening JSON editor</source>
-        <translation>正在打开 JSON 编辑器</translation>
-    </message>
-    <message>
-        <source>Unsupported Outbound Type</source>
-        <translation>不支持的出站类型</translation>
-    </message>
-    <message>
-        <source>Opening default outbound editor.</source>
-        <translation>打开默认出站编辑器。</translation>
-    </message>
-    <message>
-        <source>Renaming a tag</source>
-        <translation>重命名标签</translation>
-    </message>
-    <message>
-        <source>New tag is empty, please try another.</source>
-        <translation>新的标签是空的，请尝试另外一个。</translation>
-    </message>
-    <message>
-        <source>New tag is the same as the original one.</source>
-        <translation>新的标签与旧标签相同。</translation>
-    </message>
-    <message>
-        <source>Duplicate rule tag detected, please try another.</source>
-        <translation>检测到重复的标签，请重试。</translation>
-    </message>
-    <message>
         <source>Added DIRECT outbound</source>
         <translation>已添加直连出站</translation>
-    </message>
-    <message>
-        <source>Currently, this type of outbound is not supported by the editor.</source>
-        <translation>目前不支持此类型的出站。</translation>
-    </message>
-    <message>
-        <source>Opening default inbound editor</source>
-        <translation>打开默认的入站编辑器</translation>
-    </message>
-    <message>
-        <source>Removed a balancer entry.</source>
-        <translation>删除了一个平衡条目。</translation>
-    </message>
-    <message>
-        <source>Rename tags</source>
-        <translation>重命名标签</translation>
-    </message>
-    <message>
-        <source>Add Rule</source>
-        <translation>添加路由规则</translation>
-    </message>
-    <message>
-        <source>Misc Settings</source>
-        <translation>杂项设置</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>重命名</translation>
-    </message>
-    <message>
-        <source>Add Inbound</source>
-        <translation>添加入站</translation>
-    </message>
-    <message>
-        <source>Add Global Settings</source>
-        <translation>添加全局设置</translation>
     </message>
     <message>
         <source>New Outbound</source>
@@ -2903,12 +2669,72 @@ Maybe you have downloaded the wrong core?</source>
         <translation>黑洞</translation>
     </message>
     <message>
-        <source>Direct / Freedom</source>
-        <translation>直连 / 自由</translation>
+        <source>New Inbound</source>
+        <translation>新入站</translation>
     </message>
     <message>
-        <source>Existing Outbound</source>
-        <translation>现有节点</translation>
+        <source>Editor</source>
+        <translation>编辑器</translation>
+    </message>
+    <message>
+        <source>Global Settings</source>
+        <translation>全局设定</translation>
+    </message>
+    <message>
+        <source>Freedom</source>
+        <translation>自由</translation>
+    </message>
+    <message>
+        <source>Balancer</source>
+        <translation>均衡器</translation>
+    </message>
+    <message>
+        <source>Chain</source>
+        <translation>代理链</translation>
+    </message>
+    <message>
+        <source>Existing Connection</source>
+        <translation>现有连接</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>复制</translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation>引用</translation>
+    </message>
+    <message>
+        <source>Routing Settings</source>
+        <translation>路由设定</translation>
+    </message>
+    <message>
+        <source>Chain Editor</source>
+        <translation>代理链编辑器</translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation>DNS 设置</translation>
+    </message>
+    <message>
+        <source>Selected Inbound / Outbound Info</source>
+        <translation>选定入站/出站信息</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>未知</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    <message>
+        <source>Rules Order</source>
+        <translation>规则顺序</translation>
+    </message>
+    <message>
+        <source>Debug Connection Painter</source>
+        <translation>调试连接绘图</translation>
     </message>
 </context>
 <context>
@@ -2977,10 +2803,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation>空白方案</translation>
     </message>
     <message>
-        <source>v2rayN preset</source>
-        <translation>v2rayN 方案</translation>
-    </message>
-    <message>
         <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
  Description: %3</source>
         <translation>要导入 &apos;%2&apos; 的方案 &apos;%1&apos; 吗？
@@ -3021,6 +2843,112 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>QvRoute Schemes(*.json)</source>
         <translation>QvRoute 方案(*.json)</translation>
+    </message>
+    <message>
+        <source>empty scheme (no ads)</source>
+        <translation>空白方案（去广告）</translation>
+    </message>
+</context>
+<context>
+    <name>RoutingEditorWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
+        <translation>没有入站连接的规则意味着没有入站限制。</translation>
+    </message>
+    <message>
+        <source>Add new route</source>
+        <translation>添加新路由</translation>
+    </message>
+    <message>
+        <source>Add Rule</source>
+        <translation>添加路由规则</translation>
+    </message>
+    <message>
+        <source>Delete outbound</source>
+        <translation>删除出站</translation>
+    </message>
+    <message>
+        <source>Delete Selection</source>
+        <translation>删除所选项</translation>
+    </message>
+    <message>
+        <source>Remove Items</source>
+        <translation>移除项目</translation>
+    </message>
+    <message>
+        <source>Please select a node from the graph to continue.</source>
+        <translation>请从图表中选择要继续的节点。</translation>
+    </message>
+    <message>
+        <source>Deleting a node</source>
+        <translation>删除节点</translation>
+    </message>
+    <message>
+        <source>You need to select a node first</source>
+        <translation>你需要先选中一个节点</translation>
+    </message>
+</context>
+<context>
+    <name>RuleWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>已启用</translation>
+    </message>
+    <message>
+        <source>Details</source>
+        <translation>详情</translation>
+    </message>
+    <message>
+        <source>Target IP</source>
+        <translation>目的IP</translation>
+    </message>
+    <message>
+        <source>Target Domain</source>
+        <translation>目的域名</translation>
+    </message>
+    <message>
+        <source>Source IP</source>
+        <translation>源IP</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>常规</translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation>TCP</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation>UDP</translation>
+    </message>
+    <message>
+        <source>HTTP</source>
+        <translation>HTTP</translation>
+    </message>
+    <message>
+        <source>TLS</source>
+        <translation>TLS</translation>
+    </message>
+    <message>
+        <source>Torrent</source>
+        <translation>BitTorrent</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>端口</translation>
+    </message>
+    <message>
+        <source>80, 443, 8000-8080</source>
+        <translation>80, 443, 8000-8080</translation>
     </message>
 </context>
 <context>

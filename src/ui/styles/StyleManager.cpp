@@ -58,13 +58,11 @@ namespace Qv2ray::ui::styles
         {
             LOG(MODULE_UI, "Applying built-in darkmode theme.")
             // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
-
+            static const QColor darkColor(45, 45, 45);
+            static const QColor disabledColor(70, 70, 70);
+            static const QColor defaultTextColor(210, 210, 210);
+            //
             QPalette darkPalette;
-            //
-            QColor darkColor(45, 45, 45);
-            QColor disabledColor(127, 127, 127);
-            QColor defaultTextColor(210, 210, 210);
-            //
             darkPalette.setColor(QPalette::Window, darkColor);
             darkPalette.setColor(QPalette::Button, darkColor);
             darkPalette.setColor(QPalette::AlternateBase, darkColor);

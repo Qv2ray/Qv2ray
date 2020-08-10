@@ -45,7 +45,9 @@ class _qv2ray_global_config_impl_details
 // Base folder suffix.
 #ifdef QT_DEBUG
     #define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
+    #define _BOMB_ (static_cast<QObject *>(nullptr)->event(nullptr))
 #else
+    #define _BOMB_
     #define QV2RAY_CONFIG_DIR_SUFFIX "/"
 #endif
 
@@ -100,12 +102,6 @@ class _qv2ray_global_config_impl_details
 #else
     #define ACCESS_OPTIONAL_VALUE(obj) (obj.value())
 #endif
-
-#define QV2RAY_COLORSCHEME_ROOT_X(flag) ((flag) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
-#define QV2RAY_COLORSCHEME_ROOT QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTheme)
-
-#define QICON_R(file) QIcon(QV2RAY_COLORSCHEME_ROOT + file)
-#define Q_TRAYICON(name) (QIcon(QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTrayIcon) + name))
 
 #define QSTRN(num) QString::number(num)
 

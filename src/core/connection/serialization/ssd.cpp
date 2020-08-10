@@ -207,7 +207,7 @@ namespace Qv2ray::core::connection::serialization
                 // appending to the total list
                 CONFIGROOT root;
                 OUTBOUNDS outbounds;
-                outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT({ ssObject }), {}));
+                outbounds.append(GenerateOutboundEntry(OUTBOUND_TAG_PROXY, "shadowsocks", GenerateShadowSocksOUT({ ssObject }), {}));
                 JADD(outbounds)
                 serverList.append({ totalName, root });
             }

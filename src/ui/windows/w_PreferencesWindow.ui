@@ -1952,10 +1952,10 @@ Custom DNS Settings</string>
               </sizepolicy>
              </property>
              <property name="text">
-              <string notr="true">https://github.com/Qv2ray/Qv2ray</string>
+              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a style=&quot; text-decoration: none; color:#2980b9;&quot; href=&quot;https://github.com/Qv2ray/Qv2ray&quot;&gt;https://github.com/Qv2ray/Qv2ray&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="textFormat">
-              <enum>Qt::PlainText</enum>
+              <enum>Qt::RichText</enum>
              </property>
              <property name="wordWrap">
               <bool>false</bool>
@@ -2028,10 +2028,10 @@ Custom DNS Settings</string>
               </font>
              </property>
              <property name="text">
-              <string notr="true">GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)</string>
+              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GPLv3 (&lt;a style=&quot; text-decoration: none; color:#2980b9;&quot; href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;https://www.gnu.org/licenses/gpl-3.0.txt&lt;/a&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="textFormat">
-              <enum>Qt::PlainText</enum>
+              <enum>Qt::RichText</enum>
              </property>
              <property name="wordWrap">
               <bool>false</bool>
