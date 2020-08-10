@@ -85,7 +85,7 @@ jobs:
         shell: bash
         run: |
          curl -o ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
-         curl -o ./libs/Qv2ray-deps-curl-${{ matrix.arch }}-windows.7z -L https://github.com/DuckVador/Qv2ray-deps/releases/download/release/Qv2ray-deps-curl-${{ matrix.arch }}-windows.7z
+         curl -o ./libs/Qv2ray-deps-curl-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-curl-${{ matrix.arch }}-windows.7z
       - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
         uses: DuckSoft/extract-7z-action@v1.0
         with:
