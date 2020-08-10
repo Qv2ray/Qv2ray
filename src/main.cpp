@@ -129,6 +129,14 @@ void signalHandler(int signum)
 #endif
 }
 
+#ifdef Q_OS_WIN
+LONG WINAPI TopLevelExceptionHandler(PEXCEPTION_POINTERS)
+{
+    signalHandler(-1);
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+#endif
+
 QPair<Qv2rayExitCode, std::optional<QString>> RunQv2rayApplicationScoped(int argc, char *argv[])
 {
     Qv2rayApplication app(argc, argv);
@@ -200,6 +208,8 @@ int main(int argc, char *argv[])
 #ifndef Q_OS_WIN
     signal(SIGHUP, signalHandler);
     signal(SIGKILL, signalHandler);
+#else
+    AddVectoredExceptionHandler(0, TopLevelExceptionHandler);
 #endif
     //
     // This line must be called before any other ones, since we are using these
