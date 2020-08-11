@@ -73,7 +73,7 @@ class MainWindow
     void Action_EditComplex();
     void Action_UpdateSubscription();
     void Action_TestLatency();
-    void on_action_RCM_RealLatencyTest_triggered();
+    void Action_TestRealLatency();
     void Action_RenameConnection();
     void Action_DeleteConnections();
     void Action_DuplicateConnection();
@@ -120,46 +120,7 @@ class MainWindow
     SpeedWidget *speedChartWidget;
     SyntaxHighlighter *vCoreLogHighlighter;
     ConnectionInfoWidget *infoWidget;
-    void UpdateActionTranslations()
-    {
-        tray_SystemProxyMenu->setTitle(tr("System Proxy"));
-        tray_RecentConnectionsMenu->setTitle(tr("Recent Connections"));
-        tray_ClearRecentConnectionsAction->setText(tr("Clear Recent Connections"));
-        //
-        tray_action_ToggleVisibility->setText(tr("Hide"));
-        tray_action_Preferences->setText(tr("Preferences"));
-        tray_action_Quit->setText(tr("Quit"));
-        tray_action_Start->setText(tr("Connect"));
-        tray_action_Restart->setText(tr("Reconnect"));
-        tray_action_Stop->setText(tr("Disconnect"));
-        tray_action_SetSystemProxy->setText(tr("Enable System Proxy"));
-        tray_action_ClearSystemProxy->setText(tr("Disable System Proxy"));
-        //
-        action_RCM_Start->setText(tr("Connect to this"));
-        action_RCM_SetAutoConnection->setText(tr("Set as automatically connected"));
-        action_RCM_EditJson->setText(tr("Edit as JSON"));
-        action_RCM_UpdateSubscription->setText(tr("Update Subscription"));
-        action_RCM_EditComplex->setText(tr("Edit as Complex Config"));
-        action_RCM_RenameConnection->setText(tr("Rename"));
-        action_RCM_Edit->setText(tr("Edit"));
-        action_RCM_DuplicateConnection->setText(tr("Duplicate to the Same Group"));
-        action_RCM_TestLatency->setText(tr("Test Latency"));
-        action_RCM_ResetStats->setText(tr("Clear Usage Data"));
-        action_RCM_DeleteConnection->setText(tr("Delete Connection"));
-        sortMenu->setTitle(tr("Sort connection list."));
-        sortAction_SortByName_Asc->setText(tr("By connection name, A-Z"));
-        sortAction_SortByName_Dsc->setText(tr("By connection name, Z-A"));
-        sortAction_SortByPing_Asc->setText(tr("By latency, Ascending"));
-        sortAction_SortByPing_Dsc->setText(tr("By latency, Descending"));
-        sortAction_SortByData_Asc->setText(tr("By data, Ascending"));
-        sortAction_SortByData_Dsc->setText(tr("By data, Descending"));
-        //
-        action_RCM_SwitchCoreLog->setText(tr("Switch to Core log"));
-        action_RCM_SwitchQv2rayLog->setText(tr("Switch to Qv2ray log"));
-        //
-        graph_action_CopyAsImage->setText(tr("Copy graph as image."));
-        action_RCM_CopyRecentLogs->setText(tr("Copy latest logs."));
-    }
+    void UpdateActionTranslations();
 
     //
     // Declare Actions
@@ -193,7 +154,7 @@ class MainWindow
     DECL_ACTION(connectionListRCM_Menu, action_RCM_RenameConnection);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_DuplicateConnection);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_TestLatency);
-    QAction *action_RCM_RealLatencyTest = new QAction(tr("Test Real Latency"), this);
+    DECL_ACTION(connectionListRCM_Menu, action_RCM_RealLatencyTest);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_ResetStats);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_DeleteConnection);
     DECL_ACTION(sortMenu, sortAction_SortByName_Asc);
