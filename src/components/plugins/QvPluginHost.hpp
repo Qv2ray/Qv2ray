@@ -42,15 +42,15 @@ namespace Qv2ray::components::plugins
         {
             return plugins.keys();
         }
-        inline std::unique_ptr<QWidget> GetPluginSettingsWidget(const QString &internalName) const
-        {
-            return plugins.value(internalName).pluginInterface->GetSettingsWidget();
-        }
+        // inline std::unique_ptr<QWidget> GetPluginSettingsWidget(const QString &internalName) const
+        // {
+        //     return plugins.value(internalName).pluginInterface->GetSettingsWidget();
+        // }
         const inline QJsonObject GetPluginSettings(const QString &internalName) const
         {
             return plugins.value(internalName).pluginInterface->GetSettngs();
         }
-        bool inline SetPluginSettings(const QString &internalName, const QJsonObject &settings) const
+        void inline SetPluginSettings(const QString &internalName, const QJsonObject &settings) const
         {
             return plugins.value(internalName).pluginInterface->UpdateSettings(settings);
         }
@@ -59,7 +59,7 @@ namespace Qv2ray::components::plugins
             return plugins.value(internalName).metadata;
         }
         const QMap<QString, QList<QString>> GetPluginKernels() const;
-        const std::unique_ptr<QvPluginKernel> CreatePluginKernel(const QString &pluginInternalName) const;
+        const std::unique_ptr<PluginKernel> CreatePluginKernel(const QString &pluginInternalName) const;
         //
         const QList<std::tuple<QString, QString, QJsonObject>> TryDeserializeShareLink(const QString &sharelink, //
                                                                                        QString *aliasPrefix,     //
@@ -72,8 +72,8 @@ namespace Qv2ray::components::plugins
                                             const QString &alias,                //
                                             const QString &groupName,            //
                                             bool *status) const;
-        const QvPluginOutboundInfoObject TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const;
-        const QList<QvPluginEditor *> GetOutboundEditorWidgets() const;
+        const QMap<OutboundInfoFlags, QVariant> TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const;
+        // const QList<QvPluginEditor *> GetOutboundEditorWidgets() const;
         //
         void Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object);
         void Send_ConnectivityEvent(const Events::Connectivity::EventObject &object);
@@ -93,8 +93,7 @@ namespace Qv2ray::components::plugins
         QHash<QString, QvPluginInfo> plugins;
     };
 
-    const QString GetPluginTypeString(const SPECIAL_TYPE_FLAGS &types);
-    const QString GetPluginCapabilityString(const CAPABILITY_FLAGS &caps);
+    const QString GetPluginTypeString(const QList<PluginComponentType> &types);
     inline ::Qv2ray::components::plugins::QvPluginHost *PluginHost = nullptr;
 } // namespace Qv2ray::components::plugins
 

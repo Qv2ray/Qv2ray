@@ -1,5 +1,5 @@
 #include "3rdparty/backward-cpp/backward.hpp"
-#include "Qv2rayApplication.hpp"
+#include "base/Qv2rayBaseApplication.hpp"
 #include "utils/QvHelpers.hpp"
 
 #include <QFileInfo>
@@ -16,7 +16,6 @@ const QString SayLastWords() noexcept
 {
     QStringList msg;
     msg << "------- BEGIN QV2RAY CRASH REPORT -------";
-
     {
         backward::StackTrace st;
         backward::TraceResolver resolver;

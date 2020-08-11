@@ -165,7 +165,7 @@ namespace Qv2ray::components::plugins
         }
 
         auto conf = JsonFromString(StringFromFile(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + ".conf"));
-        plugins[internalName].pluginInterface->Initialize(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + "/", conf);
+        plugins[internalName].pluginInterface->InitializePlugin(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + "/", conf);
         plugins[internalName].isLoaded = true;
         return true;
     }
@@ -194,57 +194,33 @@ namespace Qv2ray::components::plugins
     {
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_STATS))
-            {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionStats(object);
-            }
         }
     }
     void QvPluginHost::Send_ConnectivityEvent(const Events::Connectivity::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTIVITY))
-            {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_Connectivity(object);
-            }
         }
     }
     void QvPluginHost::Send_ConnectionEvent(const Events::ConnectionEntry::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTION_ENTRY))
-            {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionEntry(object);
-            }
         }
     }
     void QvPluginHost::Send_SystemProxyEvent(const Events::SystemProxy::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_SYSTEM_PROXY))
-            {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_SystemProxy(object);
-            }
         }
-    }
-
-    const QList<QvPluginEditor *> QvPluginHost::GetOutboundEditorWidgets() const
-    {
-        QList<QvPluginEditor *> data;
-        for (const auto &plugin : plugins)
-        {
-            if (!plugin.isLoaded)
-                continue;
-            auto editor = plugin.pluginInterface->GetEditorWidget(UI_TYPE::UI_TYPE_OUTBOUND_EDITOR);
-            if (editor)
-            {
-                data.append(editor.release());
-            }
-        }
-        return data;
     }
 
     const QList<std::tuple<QString, QString, QJsonObject>> QvPluginHost::TryDeserializeShareLink(const QString &sharelink, //
@@ -258,11 +234,11 @@ namespace Qv2ray::components::plugins
         *ok = false;
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
             {
-                auto serializer = plugin.pluginInterface->GetSerializer();
+                auto serializer = plugin.pluginInterface->GetOutboundHandler();
                 bool thisPluginCanHandle = false;
-                for (const auto &prefix : serializer->ShareLinkPrefixes())
+                for (const auto &prefix : serializer->SupportedProtocols().values())
                 {
                     thisPluginCanHandle = thisPluginCanHandle || sharelink.startsWith(prefix);
                 }
@@ -280,15 +256,16 @@ namespace Qv2ray::components::plugins
         }
         return data;
     }
-    const QvPluginOutboundInfoObject QvPluginHost::TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const
+
+    const QMap<OutboundInfoFlags, QVariant> QvPluginHost::TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const
     {
         *status = false;
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
             {
-                auto serializer = plugin.pluginInterface->GetSerializer();
-                if (serializer && serializer->OutboundProtocols().contains(protocol))
+                auto serializer = plugin.pluginInterface->GetOutboundHandler();
+                if (serializer && serializer->SupportedProtocols().contains(protocol))
                 {
                     auto info = serializer->GetOutboundInfo(protocol, o);
                     *status = true;
@@ -307,10 +284,10 @@ namespace Qv2ray::components::plugins
         *status = false;
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
             {
-                auto serializer = plugin.pluginInterface->GetSerializer();
-                if (serializer && serializer->OutboundProtocols().contains(protocol))
+                auto serializer = plugin.pluginInterface->GetOutboundHandler();
+                if (serializer && serializer->SupportedProtocols().contains(protocol))
                 {
                     auto link = serializer->SerializeOutbound(protocol, alias, groupName, outboundSettings);
                     *status = true;
@@ -321,12 +298,12 @@ namespace Qv2ray::components::plugins
         return "";
     }
 
-    const std::unique_ptr<QvPluginKernel> QvPluginHost::CreatePluginKernel(const QString &pluginInternalName) const
+    const std::unique_ptr<PluginKernel> QvPluginHost::CreatePluginKernel(const QString &pluginInternalName) const
     {
         if (!plugins.contains(pluginInternalName))
             return nullptr;
         const auto &plugin = plugins.value(pluginInternalName);
-        if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_KERNEL))
+        if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_KERNEL))
         {
             return plugin.pluginInterface->CreateKernel();
         }
@@ -338,56 +315,36 @@ namespace Qv2ray::components::plugins
         QMap<QString, QList<QString>> kernels;
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_KERNEL))
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_KERNEL))
             {
-                QStringList outbounds;
-                for (const auto &info : plugin.metadata.KernelOutboundCapabilities)
-                {
-                    outbounds << info.protocol;
-                }
+                const auto outbounds = plugin.pluginInterface->GetKernelProtocols();
                 kernels.insert(plugin.metadata.InternalName, outbounds);
             }
         }
         return kernels;
     }
 
-    const QString GetPluginTypeString(const SPECIAL_TYPE_FLAGS &types)
+    const QString GetPluginTypeString(const QList<PluginComponentType> &types)
     {
         QStringList typesList;
         if (types.isEmpty())
         {
-            typesList << QObject::tr("Normal Plugin");
+            typesList << QObject::tr("None");
         }
         for (auto type : types)
         {
             switch (type)
             {
-                case SPECIAL_TYPE_KERNEL: typesList << QObject::tr("Kernel"); break;
-                case SPECIAL_TYPE_SERIALIZOR: typesList << QObject::tr("Share Link Parser"); break;
+                case COMPONENT_INBOUND_EDITOR: typesList << QObject::tr("Inbound Editor"); break;
+                case COMPONENT_KERNEL: typesList << QObject::tr("Kernel"); break;
+                case COMPONENT_MAINWINDOW_WIDGET: typesList << QObject::tr("MainWindow Widget"); break;
+                case COMPONENT_OUTBOUND_EDITOR: typesList << QObject::tr("Outbound Editor"); break;
+                case COMPONENT_OUTBOUND_HANDLER: typesList << QObject::tr("Share Link Parser"); break;
+                case COMPONENT_SUBSCRIPTION_ADAPTER: typesList << QObject::tr("Subscription Adapter"); break;
+                case COMPONENT_EVENT_HANDLER: typesList << QObject::tr("Event Handler"); break;
                 default: typesList << QObject::tr("Unknown type."); break;
             }
         }
         return typesList.join(NEWLINE);
-    }
-
-    const QString GetPluginCapabilityString(const CAPABILITY_FLAGS &caps)
-    {
-        QStringList capsString;
-        if (caps.isEmpty())
-        {
-            capsString << QObject::tr("No Capability");
-        }
-        for (auto cap : caps)
-        {
-            switch (cap)
-            {
-                case CAPABILITY_CONNECTIVITY: capsString << QObject::tr("Connection State Change"); break;
-                case CAPABILITY_CONNECTION_ENTRY: capsString << QObject::tr("Connection Change"); break;
-                case CAPABILITY_STATS: capsString << QObject::tr("Statistics Event"); break;
-                case CAPABILITY_SYSTEM_PROXY: capsString << QObject::tr("System Proxy Event"); break;
-                default: capsString << QObject::tr("Unknown"); break;
-            }
-        }
-        return capsString.join(NEWLINE);
     }
 } // namespace Qv2ray::components::plugins

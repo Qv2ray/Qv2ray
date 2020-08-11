@@ -47,22 +47,16 @@ set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network)
 if(QV2RAY_USE_QWIDGET)
     set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "QNodeEditor Provider")
     set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
-    if (QV2RAY_HAS_BUILT_IN_THEMES)
-        include(libs/uistyles/uistyles.cmake)
-    endif()
-    include(cmake/qnodeeditor.cmake)
-    include(cmake/components/qv2ray-ui-widget.cmake)
     find_package(Qt5 5.11 COMPONENTS Widgets Gui REQUIRED)
     list(APPEND QV2RAY_QT_LIBS Qt5::Widgets Qt5::Gui)
-    add_definitions(-DQV2RAY_QWIDGETS)
-    add_definitions(-DQAPPLICATION_CLASS=QApplication)
+    add_definitions(-DQV2RAY_QWIDGETS -DQV2RAY_GUI)
+    set(QV2RAY_HAS_QTGUI ON)
 elseif(QV2RAY_USE_QML)
     find_package(Qt5 5.11 COMPONENTS Qml Quick Gui REQUIRED)
     list(APPEND QV2RAY_QT_LIBS Qt5::Quick Qt5::Qml Qt5::Gui)
-    add_definitions(-DQV2RAY_QML)
-    add_definitions(-DQAPPLICATION_CLASS=QApplication)
+    add_definitions(-DQV2RAY_QML -DQV2RAY_GUI)
+    set(QV2RAY_HAS_QTGUI ON)
 else()
-    add_definitions(-DQAPPLICATION_CLASS=QCoreApplication)
     #message(FATAL_ERROR "Not Supported")
 endif()
 
@@ -113,8 +107,6 @@ endif()
 # ==================================================================================
 # Qv2ray Build Arguments
 # ==================================================================================
-set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp Provider")
-
 if (ANDROID)
 else()
     set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication Provider")
@@ -134,6 +126,7 @@ else()
     endif()
 endif()
 
+set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp Provider")
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
 set(BUILD_TESTING OFF CACHE BOOL "Build Tests")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed Translations")
@@ -151,23 +144,6 @@ endif()
 if(FALL_BACK_TO_XDG_OPEN)
     add_definitions(-DFALL_BACK_TO_XDG_OPEN)
 endif()
-
-
-
-# ==================================================================================
-# 3rdparty Sources
-# ==================================================================================
-include(cmake/libuv.cmake)
-include(cmake/libcurl.cmake)
-include(cmake/translations.cmake)
-if (ANDROID)
-else()
-    include(cmake/singleapplication.cmake)
-    include(cmake/protobuf.cmake)
-    include(cmake/backend.cmake)
-endif()
-include(cmake/zxing-cpp.cmake)
-include(cmake/libsemver.cmake)
 
 
 # ==================================================================================
@@ -199,6 +175,22 @@ message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 
 
 # ==================================================================================
+# 3rdparty Sources
+# ==================================================================================
+include(cmake/libuv.cmake)
+include(cmake/libcurl.cmake)
+if (ANDROID)
+else()
+    include(cmake/singleapplication.cmake)
+    include(cmake/protobuf.cmake)
+    include(cmake/backend.cmake)
+endif()
+
+include(cmake/zxing-cpp.cmake)
+include(cmake/libsemver.cmake)
+
+
+# ==================================================================================
 # Plugin Interface Headers
 # ==================================================================================
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/plugin-interface")
@@ -208,9 +200,27 @@ include(src/plugin-interface/QvPluginInterface.cmake)
 # ==================================================================================
 # Qv2ray Sources and Headers
 # ==================================================================================
+#
+# Common Sources
+include(cmake/translations.cmake)
 include(cmake/components/qv2ray-base.cmake)
-include(cmake/components/qv2ray-ui.cmake)
 
+#
+# GUI Frontend
+if(QV2RAY_GUI)
+    include(cmake/components/qv2ray-ui.cmake)
+    include(src/plugin-interface/QvGUIPluginInterface.cmake)
+    if(QV2RAY_USE_QWIDGET)
+        if (QV2RAY_HAS_BUILT_IN_THEMES)
+            include(libs/uistyles/uistyles.cmake)
+        endif()
+        include(cmake/qnodeeditor.cmake)
+        include(cmake/components/qv2ray-ui-widget.cmake)
+    elseif(QV2RAY_USE_QML)
+    else()
+        message(FATAL_ERROR "Cannot build with GUI without a Qt UI framework.")
+    endif()
+endif()
 
 set(QRC_RESOURCES
     ${UISTYLE_QRCS}
@@ -220,8 +230,7 @@ set(QRC_RESOURCES
 
 # Qv2ray baselib
 add_library(qv2ray-baselib STATIC
-    ${QV2RAY_BASE_HEADERS}
-    ${QV2RAY_LIB_SOURCES}
+    ${QV2RAY_BASE_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
     ${LIBSEMVER_SOURCES}
     ${PROTO_SRCS}
@@ -241,7 +250,6 @@ set(QV2RAY_FULL_SOURCES
     ${QRC_RESOURCES}
     ${QM_FILES})
 
-
 if(ANDROID)
     add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
     target_link_libraries(qv2ray -llog -landroid)
@@ -256,10 +264,10 @@ target_link_libraries(qv2ray-baselib
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARIES}
     ${ZXING_LIBRARY}
-    Threads::Threads
     ${QV2RAY_QT_LIBS}
     ${LibUV_LIBRARIES}
     ${CURL_LIBRARIES}
+    Threads::Threads
     )
 
 target_link_libraries(qv2ray
@@ -278,13 +286,14 @@ target_include_directories(qv2ray PUBLIC
     )
 
 target_include_directories(qv2ray-baselib PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}
+    ${QV2RAY_BASEDIR_COMPONENTS}
     ${ZXING_INCLUDE_PATH}
-    ${Protobuf_INCLUDE_DIRS}
     ${LibUV_INCLUDE_DIR}
     ${CURL_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${Protobuf_INCLUDE_DIRS}
     )
 
 if (BUILD_TESTING)

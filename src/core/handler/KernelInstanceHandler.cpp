@@ -1,8 +1,8 @@
 #include "KernelInstanceHandler.hpp"
 
-#include "utils/QvHelpers.hpp"
 #include "components/port/QvPortDetector.hpp"
 #include "core/connection/Generation.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::handler
 {
@@ -91,7 +91,6 @@ namespace Qv2ray::core::handler
         //    inboundInfo.push_back({ inbound["protocol"].toString(), inbound["port"].toInt(), inbound["tag"].toString() });
         //}
         //
-        using _k = Qv2rayPlugin::QvPluginKernel;
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
             //
@@ -117,15 +116,15 @@ namespace Qv2ray::core::handler
                 // New object does not need disconnect?
                 // disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                 //
-                QMap<QvPluginKernel::KernelSetting, QVariant> _inboundSettings;
+                QMap<KernelOptionFlags, QVariant> _inboundSettings;
 
                 LOG(MODULE_VCORE, "V2RayIntegration: " + QSTRN(pluginPort) + " = " + outProtocol)
-                _inboundSettings[_k::KERNEL_HTTP_ENABLED] = false;
-                _inboundSettings[_k::KERNEL_SOCKS_ENABLED] = true;
-                _inboundSettings[_k::KERNEL_SOCKS_PORT] = pluginPort;
-                _inboundSettings[_k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
-                _inboundSettings[_k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
-                _inboundSettings[_k::KERNEL_LISTEN_ADDRESS] = "127.0.0.1";
+                _inboundSettings[KERNEL_HTTP_ENABLED] = false;
+                _inboundSettings[KERNEL_SOCKS_ENABLED] = true;
+                _inboundSettings[KERNEL_SOCKS_PORT] = pluginPort;
+                _inboundSettings[KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                _inboundSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
+                _inboundSettings[KERNEL_LISTEN_ADDRESS] = "127.0.0.1";
                 LOG(MODULE_CONNECTION, "Sending connection settings to kernel.")
                 kernel->SetConnectionSettings(_inboundSettings, outbound["settings"].toObject());
                 activeKernels.push_back({ outProtocol, std::move(kernel) });
@@ -163,9 +162,9 @@ namespace Qv2ray::core::handler
                 {
                     LOG(MODULE_CONNECTION, "Starting kernel for protocol: " + outboundProtocol)
                     bool status = kernelObject->StartKernel();
-                    connect(kernelObject.get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p,
+                    connect(kernelObject.get(), &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p,
                             Qt::QueuedConnection);
-                    connect(kernelObject.get(), &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p,
+                    connect(kernelObject.get(), &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p,
                             Qt::QueuedConnection);
                     hasAllKernelStarted = hasAllKernelStarted && status;
                     if (!status)
@@ -206,26 +205,26 @@ namespace Qv2ray::core::handler
                 }
                 Q_ASSERT(activeKernels.size() == 1);
 #define theKernel (activeKernels.front().second.get())
-                connect(theKernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p,
+                connect(theKernel, &PluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p,
                         Qt::QueuedConnection);
-                connect(theKernel, &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
-                connect(theKernel, &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p, Qt::QueuedConnection);
+                connect(theKernel, &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
+                connect(theKernel, &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p, Qt::QueuedConnection);
                 currentId = id;
                 //
-                QMap<QvPluginKernel::KernelSetting, QVariant> pluginSettings;
+                QMap<KernelOptionFlags, QVariant> pluginSettings;
 
                 for (const auto &v : inboundInfo)
                 {
                     if (v.protocol != "http" && v.protocol != "socks")
                         continue;
-                    pluginSettings[_k::KERNEL_HTTP_ENABLED] = pluginSettings[_k::KERNEL_HTTP_ENABLED].toBool() || v.protocol == "http";
-                    pluginSettings[_k::KERNEL_SOCKS_ENABLED] = pluginSettings[_k::KERNEL_SOCKS_ENABLED].toBool() || v.protocol == "socks";
-                    pluginSettings.insert(v.protocol.toLower() == "http" ? _k::KERNEL_HTTP_PORT : _k::KERNEL_SOCKS_PORT, v.port);
+                    pluginSettings[KERNEL_HTTP_ENABLED] = pluginSettings[KERNEL_HTTP_ENABLED].toBool() || v.protocol == "http";
+                    pluginSettings[KERNEL_SOCKS_ENABLED] = pluginSettings[KERNEL_SOCKS_ENABLED].toBool() || v.protocol == "socks";
+                    pluginSettings.insert(v.protocol.toLower() == "http" ? KERNEL_HTTP_PORT : KERNEL_SOCKS_PORT, v.port);
                 }
 
-                pluginSettings[_k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
-                pluginSettings[_k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
-                pluginSettings[_k::KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
+                pluginSettings[KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                pluginSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
+                pluginSettings[KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
                 //
                 theKernel->SetConnectionSettings(pluginSettings, firstOutbound["settings"].toObject());
                 bool kernelStarted = theKernel->StartKernel();

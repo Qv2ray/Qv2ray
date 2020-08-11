@@ -216,17 +216,16 @@ namespace Qv2ray::common
 
     void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
     {
-        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+        QvBaseApplication->MessageBoxWarn(parent, title, text, MessageOptions::OK);
     }
 
     void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
     {
-        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+        QvBaseApplication->MessageBoxInfo(parent, title, text, MessageOptions::OK);
     }
-    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
-                                                QMessageBox::StandardButton extraButtons)
+    MessageOptions QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOptions> &options)
     {
-        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
+        return QvBaseApplication->MessageBoxAsk(parent, title, text, options);
     }
 
 } // namespace Qv2ray::common

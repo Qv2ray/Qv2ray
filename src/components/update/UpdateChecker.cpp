@@ -77,18 +77,18 @@ namespace Qv2ray::components
                 return;
             }
             const auto link = root["html_url"].toString("");
-            auto result = QvMessageBoxAsk(nullptr, tr("Qv2ray Update"),
-                                          tr("A new version of Qv2ray has been found:") + //
-                                              "v" + newVersionStr + NEWLINE + NEWLINE +   //
-                                              name + NEWLINE "------------" NEWLINE +     //
-                                              root["body"].toString(""),
-                                          QMessageBox::Ignore);
+            const auto versionMessage =
+                QString("A new version of Qv2ray has been found:" NEWLINE "v%1" NEWLINE NEWLINE "%2" NEWLINE "------------" NEWLINE "%3")
+                    .arg(newVersionStr)
+                    .arg(name)
+                    .arg(root["body"].toString());
 
-            if (result == QMessageBox::Yes)
+            const auto result = QvMessageBoxAsk(nullptr, tr("Qv2ray Update"), versionMessage, { Yes, No, Ignore });
+            if (result == Yes)
             {
                 QDesktopServices::openUrl(link);
             }
-            else if (result == QMessageBox::Ignore)
+            else if (result == Ignore)
             {
                 // Set and save ingored version.
                 GlobalConfig.updateConfig.ignoredVersion = newVersionStr;

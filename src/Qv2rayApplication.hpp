@@ -1,15 +1,8 @@
 #pragma once
 
-#include "core/handler/ConfigHandler.hpp"
-#include "core/handler/RouteHandler.hpp"
-#include "libs/QJsonStruct/QJsonStruct.hpp"
+#include "base/Qv2rayBaseApplication.hpp"
 
-#include <QtWidgets/QSystemTrayIcon>
-#ifdef Q_OS_ANDROID
-    #include <QApplication>
-#else
-    #include <SingleApplication>
-#endif
+#include <QSystemTrayIcon>
 
 #ifdef Q_OS_ANDROID
     #define QV2RAY_NO_SINGLEAPPLICATON
@@ -23,21 +16,14 @@
     #endif
 #endif
 
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
+    #include <SingleApplication>
+#endif
+
 class MainWindow;
 
 namespace Qv2ray
 {
-    enum Qv2rayExitCode
-    {
-        QVEXIT_NORMAL = 0,
-        QVEXIT_SECONDARY_INSTANCE = 0,
-        QVEXIT_PRE_INITIALIZE_FAIL = -1,
-        QVEXIT_EARLY_SETUP_FAIL = -2,
-        QVEXIT_CONFIG_PATH_FAIL = -3,
-        QVEXIT_CONFIG_FILE_FAIL = -4,
-        QVEXIT_SSL_FAIL = -5,
-        QVEXIT_NEW_VERSION = -6
-    };
     struct Qv2rayProcessArguments
     {
         enum Argument

@@ -77,7 +77,7 @@ namespace Qv2ray::core::handler
 
         QMap<QString, QString> outboundKernelMap;
         // Since QMap does not support std::unique_ptr, we use std::map<>
-        std::list<std::pair<QString, std::unique_ptr<QvPluginKernel>>> activeKernels;
+        std::list<std::pair<QString, std::unique_ptr<PluginKernel>>> activeKernels;
         QMap<QString, ProtocolSettingsInfoObject> inboundInfo;
         V2RayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};

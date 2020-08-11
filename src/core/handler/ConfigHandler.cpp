@@ -527,7 +527,7 @@ namespace Qv2ray::core::handler
             LOG(MODULE_SUBSCRIPTION, "Found a subscription with less than 5 connections.")
             if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
                                 tr("%n entrie(s) have been found from the subscription source, do you want to continue?", "",
-                                   _newConnections.count())) != QMessageBox::Yes)
+                                   _newConnections.count())) != Yes)
 
                 return false;
         }
@@ -618,7 +618,7 @@ namespace Qv2ray::core::handler
             QvMessageBoxAsk(nullptr, tr("Update Subscription"),
                             tr("%1 out of %n entrie(s) have been filtered out, do you want to continue?", "", _newConnections.count())
                                     .arg(filteredConnections.count()) +
-                                NEWLINE + GetDisplayName(id)) == QMessageBox::Yes;
+                                NEWLINE + GetDisplayName(id)) == Yes;
 
         for (const auto &config : useFilteredConnections ? filteredConnections : _newConnections)
         {
@@ -669,7 +669,7 @@ namespace Qv2ray::core::handler
                                 tr("Update Subscription"),
                                 tr("There're %n connection(s) in the group that do not belong the current subscription (any more).", "",
                                    originalConnectionIdList.count()) +
-                                    NEWLINE + GetDisplayName(id) + NEWLINE + tr("Would you like to remove them?")) == QMessageBox::Yes;
+                                    NEWLINE + GetDisplayName(id) + NEWLINE + tr("Would you like to remove them?")) == Yes;
             if (needContinue)
             {
                 LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")

@@ -1,8 +1,8 @@
 #include "CoreUtils.hpp"
 
-#include "utils/QvHelpers.hpp"
 #include "core/connection/Serialization.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core
 {
@@ -63,8 +63,8 @@ namespace Qv2ray::core
         {
             bool status;
             auto info = PluginHost->TryGetOutboundInfo(*protocol, out["settings"].toObject(), &status);
-            *host = info.hostName;
-            *port = info.port;
+            *host = info[INFO_SERVER].toString();
+            *port = info[INFO_PORT].toInt();
             return status;
         }
     }
