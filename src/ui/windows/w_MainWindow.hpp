@@ -168,7 +168,9 @@ class MainWindow
     QMenu *logRCM_Menu = new QMenu(this);
     QMenu *connectionListRCM_Menu = new QMenu(this);
     QMenu *graphWidgetMenu = new QMenu(this);
-    DECL_ACTION(tray_RecentConnectionsMenu, tray_ClearRecentConnectionsAction);
+    // Do not set parent=tray_RecentConnectionsMenu
+    // Calling clear() will cause this QAction being deleted.
+    DECL_ACTION(this, tray_ClearRecentConnectionsAction);
     DECL_ACTION(tray_RootMenu, tray_action_ToggleVisibility);
     DECL_ACTION(tray_RootMenu, tray_action_Preferences);
     DECL_ACTION(tray_RootMenu, tray_action_Quit);
