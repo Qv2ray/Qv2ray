@@ -64,6 +64,7 @@ class MainWindow
 
   private:
     // Do not declare as slots, we connect them manually.
+
     void Action_Exit();
     void Action_Start();
     void Action_SetAutoConnection();
@@ -72,12 +73,14 @@ class MainWindow
     void Action_EditComplex();
     void Action_UpdateSubscription();
     void Action_TestLatency();
+    void on_action_RCM_RealLatencyTest_triggered();
     void Action_RenameConnection();
     void Action_DeleteConnections();
     void Action_DuplicateConnection();
     void Action_ResetStats();
     void Action_CopyGraphAsImage();
     void Action_CopyRecentLogs();
+
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
 
   private:
@@ -167,6 +170,7 @@ class MainWindow
     QMenu *sortMenu = new QMenu(this);
     QMenu *logRCM_Menu = new QMenu(this);
     QMenu *connectionListRCM_Menu = new QMenu(this);
+
     QMenu *graphWidgetMenu = new QMenu(this);
     // Do not set parent=tray_RecentConnectionsMenu
     // Calling clear() will cause this QAction being deleted.
@@ -189,6 +193,7 @@ class MainWindow
     DECL_ACTION(connectionListRCM_Menu, action_RCM_RenameConnection);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_DuplicateConnection);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_TestLatency);
+    QAction *action_RCM_RealLatencyTest = new QAction(tr("Test Real Latency"), this);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_ResetStats);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_DeleteConnection);
     DECL_ACTION(sortMenu, sortAction_SortByName_Asc);
@@ -201,6 +206,7 @@ class MainWindow
     DECL_ACTION(logRCM_Menu, action_RCM_SwitchQv2rayLog);
     DECL_ACTION(logRCM_Menu, action_RCM_CopyRecentLogs);
 #undef DECL_ACTION
+
     //
     QTextDocument *vCoreLogDocument = new QTextDocument(this);
     QTextDocument *qvLogDocument = new QTextDocument(this);

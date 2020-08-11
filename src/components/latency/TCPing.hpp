@@ -11,7 +11,7 @@ namespace Qv2ray::components::latency::tcping
       public:
         using DNSBase<TCPing>::DNSBase;
         void start();
-        ~TCPing();
+        ~TCPing() override;
 
       protected:
       private:

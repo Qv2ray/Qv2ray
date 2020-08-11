@@ -1,5 +1,6 @@
 #include "LatencyTestThread.hpp"
 
+#include "RealPing.hpp"
 #include "TCPing.hpp"
 #include "core/CoreUtils.hpp"
 
@@ -73,6 +74,12 @@ namespace Qv2ray::components::latency
                         default:
                         {
                             auto ptr = std::make_shared<tcping::TCPing>(loop, req, parent);
+                            ptr->start();
+                            break;
+                        }
+                        case REALPING:
+                        {
+                            auto ptr = std::make_shared<realping::RealPing>(loop, req, parent);
                             ptr->start();
                             break;
                         }

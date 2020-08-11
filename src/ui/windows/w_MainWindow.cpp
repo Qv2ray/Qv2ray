@@ -52,6 +52,7 @@ void MainWindow::updateColorScheme()
     updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
     //
     tray_action_ToggleVisibility->setIcon(this->windowIcon());
+
     action_RCM_Start->setIcon(QICON_R("start"));
     action_RCM_Edit->setIcon(QICON_R("edit"));
     action_RCM_EditJson->setIcon(QICON_R("code"));
@@ -60,6 +61,8 @@ void MainWindow::updateColorScheme()
     action_RCM_DeleteConnection->setIcon(QICON_R("ashbin"));
     action_RCM_ResetStats->setIcon(QICON_R("ashbin"));
     action_RCM_TestLatency->setIcon(QICON_R("ping_gauge"));
+    action_RCM_RealLatencyTest->setIcon(QICON_R("ping_gauge"));
+
     //
     clearChartBtn->setIcon(QICON_R("ashbin"));
     clearlogButton->setIcon(QICON_R("ashbin"));
@@ -283,7 +286,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_EditJson);
     connectionListRCM_Menu->addAction(action_RCM_EditComplex);
     connectionListRCM_Menu->addSeparator();
+
     connectionListRCM_Menu->addAction(action_RCM_TestLatency);
+    connectionListRCM_Menu->addAction(action_RCM_RealLatencyTest);
+
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_SetAutoConnection);
     connectionListRCM_Menu->addSeparator();
@@ -292,7 +298,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_ResetStats);
     connectionListRCM_Menu->addAction(action_RCM_UpdateSubscription);
     connectionListRCM_Menu->addSeparator();
+
     connectionListRCM_Menu->addAction(action_RCM_DeleteConnection);
+
     //
     connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::Action_Start);
     connect(action_RCM_SetAutoConnection, &QAction::triggered, this, &MainWindow::Action_SetAutoConnection);
@@ -300,6 +308,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::Action_EditJson);
     connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::Action_EditComplex);
     connect(action_RCM_TestLatency, &QAction::triggered, this, &MainWindow::Action_TestLatency);
+    connect(action_RCM_RealLatencyTest, &QAction::triggered, this, &MainWindow::on_action_RCM_RealLatencyTest_triggered);
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::Action_RenameConnection);
     connect(action_RCM_DuplicateConnection, &QAction::triggered, this, &MainWindow::Action_DuplicateConnection);
     connect(action_RCM_ResetStats, &QAction::triggered, this, &MainWindow::Action_ResetStats);
@@ -564,6 +573,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
         action_RCM_RenameConnection->setEnabled(isConnection);
         action_RCM_DuplicateConnection->setEnabled(isConnection);
         action_RCM_UpdateSubscription->setEnabled(!isConnection);
+        action_RCM_RealLatencyTest->setEnabled(isConnection);
         connectionListRCM_Menu->popup(_pos);
     }
 }
@@ -712,7 +722,10 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     GlobalConfig.uiConfig.recentConnections.push_front(id);
     ReloadRecentConnectionList();
     //
-    ConnectionManager->StartLatencyTest(id.connectionId);
+    QTimer::singleShot(1000, ConnectionManager, [id]() {
+        // After the kernel initialization is complete, we can test the delay without worry
+        ConnectionManager->StartLatencyTest(id.connectionId);
+    });
     if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
     {
         MWSetSystemProxy();
@@ -1103,6 +1116,21 @@ void MainWindow::Action_TestLatency()
             ConnectionManager->StartLatencyTest(widget->Identifier().connectionId);
         else
             ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
+    }
+}
+
+
+void MainWindow::on_action_RCM_RealLatencyTest_triggered()
+{
+    for (const auto &current : connectionListWidget->selectedItems())
+    {
+        if (!current)
+            continue;
+        const auto widget = GetItemWidget(current);
+        if (!widget)
+            continue;
+        if (widget->IsConnection())
+            ConnectionManager->StartLatencyTest(widget->Identifier().connectionId, REALPING);
     }
 }
 

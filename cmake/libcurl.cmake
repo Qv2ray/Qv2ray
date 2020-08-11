@@ -1,0 +1,5 @@
+if(NOT WIN32)
+    find_package(CURL REQUIRED)
+else()
+    find_package(CURL CONFIG REQUIRED)
+endif()
