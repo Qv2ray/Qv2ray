@@ -157,10 +157,13 @@ namespace Qv2ray::components::latency::realping
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
+        struct sockaddr_in addr{};
+        const auto &ip = GlobalConfig.inboundConfig.listenip.toStdString();
+        bool is_ipv4 = (uv_ip4_addr(ip.c_str(), 0, &addr) == 0);
+        const auto &proxy_ip = is_ipv4 ? GlobalConfig.inboundConfig.listenip : "[" + GlobalConfig.inboundConfig.listenip + "]";
         auto local_proxy_address =
-            (!GlobalConfig.inboundConfig.useHTTP ?
-                 "socks5://" + GlobalConfig.inboundConfig.listenip + ":" + QSTRN(GlobalConfig.inboundConfig.socksSettings.port) :
-                 "http://" + GlobalConfig.inboundConfig.listenip + ":" + QSTRN(GlobalConfig.inboundConfig.httpSettings.port))
+            (!GlobalConfig.inboundConfig.useHTTP ? "socks5://" + proxy_ip + ":" + QSTRN(GlobalConfig.inboundConfig.socksSettings.port) :
+                                                   "http://" + proxy_ip + ":" + QSTRN(GlobalConfig.inboundConfig.httpSettings.port))
                 .toStdString();
         auto curlMultiHandle = curl_multi_init();
         auto globalInfo = std::make_shared<RealPingGlobalInfo>(
@@ -185,8 +188,9 @@ namespace Qv2ray::components::latency::realping
             curl_easy_setopt(handle, CURLOPT_URL, request_name.c_str());
             curl_easy_setopt(handle, CURLOPT_PROXY, local_proxy_address.c_str());
             curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, noop_cb);
-            /* complete within 10 seconds */
-            curl_easy_setopt(handle, CURLOPT_TIMEOUT, 10L);
+            /* complete within 5 seconds */
+            curl_easy_setopt(handle, CURLOPT_CONNECTTIMEOUT, 5L);
+            curl_easy_setopt(handle, CURLOPT_TIMEOUT, 5L);
             curl_multi_add_handle(curlMultiHandle, handle);
         }
     }
