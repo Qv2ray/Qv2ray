@@ -1,6 +1,7 @@
-set(QV2RAY_QWIDGETS_UI_BASEDIR ${CMAKE_SOURCE_DIR}/src/ui-widgets)
+set(QV2RAY_QWIDGETS_UI_BASEDIR ${CMAKE_SOURCE_DIR}/src/ui/widgets)
+add_definitions(-DQAPPLICATION_CLASS=QApplication)
 
-set(QV2RAY_UI_FORMS
+set(_QV2RAY_UI_FORMS
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_OutboundEditor.ui
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_InboundEditor.ui
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_JsonEditor.ui
@@ -25,7 +26,7 @@ set(QV2RAY_UI_FORMS
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/complex/RoutingEditorWidget.ui
     )
 
-set(QV2RAY_UI_NODEEDITOR_SOURCES
+set(_QV2RAY_UI_NODEEDITOR_SOURCES
     # NodeEditor Models
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/node/NodeBase.hpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/node/NodeBase.cpp
@@ -57,8 +58,14 @@ set(QV2RAY_UI_NODEEDITOR_SOURCES
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/node/widgets/ChainOutboundWidget.ui
     )
 
-set(QV2RAY_UI_SOURCES
+set(_QV2RAY_UI_SOURCES
     # Style Manager
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/Qv2rayWidgetApplication.cpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/Qv2rayWidgetApplication.hpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/common/WidgetUIBase.hpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/common/QJsonModel.hpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/common/QJsonModel.cpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/styles/StyleManager.cpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/styles/StyleManager.cpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/styles/StyleManager.hpp
     # UI Widgets
@@ -106,5 +113,6 @@ set(QV2RAY_UI_SOURCES
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/windows/w_ScreenShot_Core.cpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/windows/w_GroupManager.hpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/windows/w_GroupManager.cpp
-    ${QV2RAY_UI_NODEEDITOR_SOURCES}
     )
+
+set(QV2RAY_UI_WIDGET_SOURCES ${_QV2RAY_UI_FORMS} ${_QV2RAY_UI_SOURCES} ${_QV2RAY_UI_NODEEDITOR_SOURCES})

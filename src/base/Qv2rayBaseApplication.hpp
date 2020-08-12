@@ -7,17 +7,15 @@
 #include <QObject>
 namespace Qv2ray
 {
-
     enum Qv2rayExitCode
     {
         QVEXIT_NORMAL = 0,
         QVEXIT_SECONDARY_INSTANCE = 0,
         QVEXIT_PRE_INITIALIZE_FAIL = -1,
         QVEXIT_EARLY_SETUP_FAIL = -2,
-        QVEXIT_CONFIG_PATH_FAIL = -3,
-        QVEXIT_CONFIG_FILE_FAIL = -4,
-        QVEXIT_SSL_FAIL = -5,
-        QVEXIT_NEW_VERSION = -6
+        QVEXIT_CONFIG_FILE_FAIL = -3,
+        QVEXIT_SSL_FAIL = -4,
+        QVEXIT_NEW_VERSION = -5
     };
 
     enum MessageOptions
@@ -29,17 +27,60 @@ namespace Qv2ray
         Ignore
     };
 
-    class Qv2rayBaseApplication : public QCoreApplication
+    enum Qv2rayPreInitResult
     {
-        Q_OBJECT
+        PRE_INIT_RESULT_ERROR,
+        PRE_INIT_RESULT_QUIT,
+        PRE_INIT_RESULT_CONTINUE
+    };
+
+    enum Qv2raySetupStatus
+    {
+        NORMAL,
+        SINGLE_APPLICATION,
+        FAILED
+    };
+
+    struct Qv2rayProcessArguments
+    {
+        enum Argument
+        {
+            NORMAL = 0,
+            QV2RAY_LINK = 1,
+            EXIT = 2,
+            RECONNECT = 3,
+            DISCONNECT = 4
+        };
+        QList<Argument> arguments;
+        QString version;
+        QString data;
+        QList<QString> links;
+        QList<QString> fullArgs;
+        //
+        QString _qvNewVersionPath;
+        JSONSTRUCT_REGISTER(Qv2rayProcessArguments, F(arguments, version, data, links, fullArgs))
+    };
+
+    inline Qv2rayProcessArguments Qv2rayProcessArgument;
+    class Qv2rayApplicationManagerInterface
+    {
       public:
-        Qv2rayBaseApplication(int argc, char *argv[]);
-        virtual ~Qv2rayBaseApplication(){};
+        static Qv2rayPreInitResult PreInitialize(int argc, char **argv);
+        static Qv2rayPreInitResult ParseCommandLine(QString *errorMessage, const QStringList &_argx_);
+        explicit Qv2rayApplicationManagerInterface(int argc, char *argv[]);
+        ~Qv2rayApplicationManagerInterface();
+        //
+        virtual Qv2raySetupStatus Initialize() = 0;
+        virtual bool FindAndCreateInitialConfiguration() = 0;
+        virtual Qv2rayExitCode RunQv2ray() = 0;
         virtual void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button) = 0;
         virtual void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button) = 0;
         virtual MessageOptions MessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
                                              const QList<MessageOptions> &buttons) = 0;
+        virtual void OpenURL(const QString &url) = 0;
     };
+    inline Qv2rayApplicationManagerInterface *qvApplicationInstance = nullptr;
 
-#define QvBaseApplication (static_cast<Qv2rayBaseApplication *>(qApp))
+#define QvCoreApplication static_cast<Qv2rayApplicationManagerInterface *>(qvApplicationInstance)
+
 } // namespace Qv2ray

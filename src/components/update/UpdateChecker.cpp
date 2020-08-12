@@ -6,9 +6,6 @@
 #include "utils/HTTPRequestHelper.hpp"
 #include "utils/QvHelpers.hpp"
 
-#include <QVersionNumber>
-#include <QtGui/QDesktopServices>
-
 const inline QMap<int, QString> UpdateChannelLink //
     {
         { 0, "https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest" },    //
@@ -86,7 +83,7 @@ namespace Qv2ray::components
             const auto result = QvMessageBoxAsk(nullptr, tr("Qv2ray Update"), versionMessage, { Yes, No, Ignore });
             if (result == Yes)
             {
-                QDesktopServices::openUrl(link);
+                QvCoreApplication->OpenURL(link);
             }
             else if (result == Ignore)
             {

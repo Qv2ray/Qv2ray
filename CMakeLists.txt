@@ -49,15 +49,13 @@ if(QV2RAY_USE_QWIDGET)
     set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
     find_package(Qt5 5.11 COMPONENTS Widgets Gui REQUIRED)
     list(APPEND QV2RAY_QT_LIBS Qt5::Widgets Qt5::Gui)
-    add_definitions(-DQV2RAY_QWIDGETS -DQV2RAY_GUI)
-    set(QV2RAY_HAS_QTGUI ON)
+    set(QV2RAY_HAS_GUI ON)
 elseif(QV2RAY_USE_QML)
     find_package(Qt5 5.11 COMPONENTS Qml Quick Gui REQUIRED)
     list(APPEND QV2RAY_QT_LIBS Qt5::Quick Qt5::Qml Qt5::Gui)
-    add_definitions(-DQV2RAY_QML -DQV2RAY_GUI)
-    set(QV2RAY_HAS_QTGUI ON)
+    set(QV2RAY_HAS_GUI ON)
 else()
-    #message(FATAL_ERROR "Not Supported")
+    message("Experimental CLI Support enabled.")
 endif()
 
 find_package(Threads REQUIRED)
@@ -179,56 +177,21 @@ message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 # ==================================================================================
 include(cmake/libuv.cmake)
 include(cmake/libcurl.cmake)
-if (ANDROID)
-else()
-    include(cmake/singleapplication.cmake)
+include(cmake/libsemver.cmake)
+if (NOT ANDROID)
     include(cmake/protobuf.cmake)
     include(cmake/backend.cmake)
 endif()
 
-include(cmake/zxing-cpp.cmake)
-include(cmake/libsemver.cmake)
-
-
 # ==================================================================================
-# Plugin Interface Headers
+# Qv2ray Baselib
 # ==================================================================================
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/plugin-interface")
 include(src/plugin-interface/QvPluginInterface.cmake)
 
-
-# ==================================================================================
-# Qv2ray Sources and Headers
-# ==================================================================================
-#
-# Common Sources
+# Qv2ray baselib
 include(cmake/translations.cmake)
 include(cmake/components/qv2ray-base.cmake)
-
-#
-# GUI Frontend
-if(QV2RAY_GUI)
-    include(cmake/components/qv2ray-ui.cmake)
-    include(src/plugin-interface/QvGUIPluginInterface.cmake)
-    if(QV2RAY_USE_QWIDGET)
-        if (QV2RAY_HAS_BUILT_IN_THEMES)
-            include(libs/uistyles/uistyles.cmake)
-        endif()
-        include(cmake/qnodeeditor.cmake)
-        include(cmake/components/qv2ray-ui-widget.cmake)
-    elseif(QV2RAY_USE_QML)
-    else()
-        message(FATAL_ERROR "Cannot build with GUI without a Qt UI framework.")
-    endif()
-endif()
-
-set(QRC_RESOURCES
-    ${UISTYLE_QRCS}
-    ${CMAKE_SOURCE_DIR}/resources.qrc
-    ${CMAKE_SOURCE_DIR}/resources.new.qrc
-    )
-
-# Qv2ray baselib
 add_library(qv2ray-baselib STATIC
     ${QV2RAY_BASE_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
@@ -239,13 +202,70 @@ add_library(qv2ray-baselib STATIC
     ${API_PROTO_SRCS}
     )
 
+target_link_libraries(qv2ray-baselib
+    ${QV2RAY_PROTOBUF_LIBRARY}
+    ${QV2RAY_BACKEND_LIBRARY}
+    ${QV2RAY_QT_LIBS}
+    ${LibUV_LIBRARIES}
+    ${CURL_LIBRARIES}
+    Threads::Threads
+    )
+
+target_include_directories(qv2ray-baselib PUBLIC
+    ${CMAKE_BINARY_DIR}
+    ${QV2RAY_BASEDIR_COMPONENTS}
+    ${LibUV_INCLUDE_DIR}
+    ${CURL_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${Protobuf_INCLUDE_DIRS}
+    )
+
+# ==================================================================================
+# Qv2ray GUI/CLI Frontend
+# ==================================================================================
+if(QV2RAY_HAS_GUI)
+    add_definitions(-DQV2RAY_GUI)
+    include(cmake/zxing-cpp.cmake)
+    include(cmake/components/qv2ray-ui.cmake)
+    list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_COMMON_SOURCES})
+    include(src/plugin-interface/QvGUIPluginInterface.cmake)
+    list(APPEND QV2RAY_UI_SOURCES ${QVGUIPLUGIN_INTERFACE_HEADERS})
+    #
+    if(QV2RAY_USE_QWIDGET)
+        add_definitions(-DQV2RAY_GUI -DQV2RAY_GUI_QWIDGETS)
+        include(cmake/components/qv2ray-ui-widget.cmake)
+        list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_WIDGET_SOURCES})
+        #
+        if (QV2RAY_HAS_BUILT_IN_THEMES)
+            include(libs/uistyles/uistyles.cmake)
+            list(APPEND QV2RAY_UI_SOURCE ${UISTYLE_QRCS})
+        endif()
+        #
+        include(cmake/qnodeeditor.cmake)
+        list(APPEND QV2RAY_UI_SOURCES ${QNODEEDITOR_QRC_RESOURCES})
+    elseif(QV2RAY_USE_QML)
+        add_definitions(-DQV2RAY_GUI -DQV2RAY_GUI_QML)
+        #
+    endif()
+
+    # Include SingleApplication on non-android platform.
+    if(NOT ANDROID)
+        include(cmake/singleapplication.cmake)
+        list(APPEND QV2RAY_UI_SOURCES ${SINGLEAPPLICATION_SOURCES})
+    endif()
+else()
+    add_definitions(-DQV2RAY_CLI)
+    include(cmake/components/qv2ray-cli.cmake)
+    list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_CLI_SOURCES})
+endif()
+
 set(QV2RAY_FULL_SOURCES
     src/main.cpp
     assets/qv2ray.rc
-    ${QV2RAY_UI_FORMS}
+    ${CMAKE_SOURCE_DIR}/resources.qrc
+    ${CMAKE_SOURCE_DIR}/resources.new.qrc
     ${QV2RAY_UI_SOURCES}
-    ${SINGLEAPPLICATION_SOURCES}
-    ${QNODEEDITOR_QRC_RESOURCES}
     ${QV2RAY_EMBED_TRANSLATION_QRC}
     ${QRC_RESOURCES}
     ${QM_FILES})
@@ -256,22 +276,13 @@ if(ANDROID)
 else()
     include(cmake/backward-cpp.cmake)
     add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
-    list(APPEND QV2RAY_QT_LIBS Backward::Backward)
+    target_link_libraries(qv2ray-baselib Backward::Backward)
     add_backward(qv2ray-baselib)
 endif()
 
-target_link_libraries(qv2ray-baselib
-    ${QV2RAY_PROTOBUF_LIBRARY}
-    ${QV2RAY_BACKEND_LIBRARIES}
-    ${ZXING_LIBRARY}
-    ${QV2RAY_QT_LIBS}
-    ${LibUV_LIBRARIES}
-    ${CURL_LIBRARIES}
-    Threads::Threads
-    )
-
 target_link_libraries(qv2ray
     qv2ray-baselib
+    ${ZXING_LIBRARY}
     ${QNODEEDITOR_LIBRARY}
     ${SINGLEAPPLICATION_LIBRARY}
     )
@@ -282,17 +293,7 @@ target_include_directories(qv2ray PUBLIC
     ${CMAKE_BINARY_DIR}
     ${QNODEEDITOR_INCLUDE_PATH}
     ${SINGLEAPPLICATION_DIR}
-    ${Protobuf_INCLUDE_DIRS}
-    )
-
-target_include_directories(qv2ray-baselib PUBLIC
-    ${CMAKE_BINARY_DIR}
-    ${QV2RAY_BASEDIR_COMPONENTS}
     ${ZXING_INCLUDE_PATH}
-    ${LibUV_INCLUDE_DIR}
-    ${CURL_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${Protobuf_INCLUDE_DIRS}
     )
 

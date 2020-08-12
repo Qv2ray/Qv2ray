@@ -42,10 +42,6 @@ namespace Qv2ray::components::plugins
         {
             return plugins.keys();
         }
-        // inline std::unique_ptr<QWidget> GetPluginSettingsWidget(const QString &internalName) const
-        // {
-        //     return plugins.value(internalName).pluginInterface->GetSettingsWidget();
-        // }
         const inline QJsonObject GetPluginSettings(const QString &internalName) const
         {
             return plugins.value(internalName).pluginInterface->GetSettngs();
@@ -57,6 +53,10 @@ namespace Qv2ray::components::plugins
         const inline QvPluginMetadata GetPluginMetadata(const QString &internalName) const
         {
             return plugins.value(internalName).metadata;
+        }
+        const inline Qv2rayPluginGUIInterface *GetPluginGUIInterface(const QString &internalName) const
+        {
+            return plugins.value(internalName).pluginInterface->GetGUIInterface();
         }
         const QMap<QString, QList<QString>> GetPluginKernels() const;
         const std::unique_ptr<PluginKernel> CreatePluginKernel(const QString &pluginInternalName) const;
