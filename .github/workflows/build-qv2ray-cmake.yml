@@ -25,7 +25,7 @@ jobs:
       matrix:
         qt_version: [5.15.0]
         platform: [ubuntu-16.04, macos-latest, windows-latest]
-        build_type: [RelWithDebInfo, Release]
+        build_type: [Debug, Release]
         arch: [x86, x64]
         include:
           - platform: windows-latest
