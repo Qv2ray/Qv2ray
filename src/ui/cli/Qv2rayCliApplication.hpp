@@ -11,11 +11,11 @@ namespace Qv2ray
         Q_OBJECT
       public:
         explicit Qv2rayCliApplication(int argc, char *argv[]);
-        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button) override
+        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
         {
             std::cout << text.toStdString() << std::endl;
         }
-        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button) override
+        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
         {
             std::cout << text.toStdString() << std::endl;
         }
@@ -24,17 +24,17 @@ namespace Qv2ray
             std::cout << text.toStdString() << std::endl;
             return {};
         }
-        Qv2raySetupStatus Initialize()
+        Qv2raySetupStatus Initialize() override
         {
             std::cout << "Welcome to use Qv2ray!" << std::endl;
             return {};
         }
-        bool FindAndCreateInitialConfiguration()
+        bool FindAndCreateInitialConfiguration() override
         {
             std::cout << "Looking for configuration files." << std::endl;
             return true;
         }
-        Qv2rayExitCode RunQv2ray()
+        Qv2rayExitCode RunQv2ray() override
         {
             std::cout << "Please select a node to connect" << std::endl;
             return {};

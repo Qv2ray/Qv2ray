@@ -27,7 +27,6 @@ namespace Qv2ray
 #endif
           Qv2rayApplicationManagerInterface(argc, argv)
     {
-        hTray = new QSystemTrayIcon();
     }
 
     void Qv2rayWidgetApplication::QuitApplication(int retCode)
@@ -41,6 +40,7 @@ namespace Qv2ray
 #ifdef Q_OS_WIN
         SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
 #endif
+        hTray = new QSystemTrayIcon();
         // Install a default translater. From the OS/DE
         Qv2rayTranslator = std::make_unique<QvTranslator>();
         Qv2rayTranslator->InstallTranslation(QLocale::system().name());
@@ -185,8 +185,13 @@ namespace Qv2ray
 
     Qv2rayExitCode Qv2rayWidgetApplication::RunQv2ray()
     {
-        InitializeGlobalVariables();
-
+        {
+            StyleManager = new QvStyleManager();
+            PluginHost = new QvPluginHost();
+            RouteManager = new RouteHandler();
+            ConnectionManager = new QvConfigHandler();
+            StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
+        }
         // Show MainWindow
         mainWindow = new MainWindow();
         if (Qv2rayProcessArgument.arguments.contains(Qv2rayProcessArguments::QV2RAY_LINK))
@@ -433,12 +438,4 @@ namespace Qv2ray
         return true;
     }
 
-    void Qv2rayWidgetApplication::InitializeGlobalVariables()
-    {
-        StyleManager = new QvStyleManager();
-        PluginHost = new QvPluginHost();
-        RouteManager = new RouteHandler();
-        ConnectionManager = new QvConfigHandler();
-        StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
-    }
 } // namespace Qv2ray

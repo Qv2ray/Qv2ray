@@ -53,11 +53,11 @@ namespace Qv2ray
         Qv2rayExitCode RunQv2ray() override;
 
       public:
-        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button) override
+        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
         {
             QMessageBox::warning(parent, title, text, MessageBoxButtonMap[button]);
         }
-        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button) override
+        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
         {
             QMessageBox::information(parent, title, text, MessageBoxButtonMap[button]);
         }
@@ -98,7 +98,6 @@ namespace Qv2ray
 #endif
         bool initialized = false;
         bool LoadConfiguration();
-        void InitializeGlobalVariables();
         QSystemTrayIcon *hTray;
         MainWindow *mainWindow;
     };

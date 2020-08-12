@@ -7,15 +7,32 @@
 #endif
 #include "utils/QvHelpers.hpp"
 
-#include <QFileInfo>
-#include <QLocale>
-#include <QProcess>
 #include <QSslSocket>
 #include <csignal>
 
 #ifndef Q_OS_WIN
     #include <unistd.h>
 #endif
+
+int globalArgc;
+char **globalArgv;
+
+void BootstrapMessageBox(const QString &title, const QString &text)
+{
+#ifdef QV2RAY_GUI
+    if (qApp)
+    {
+        QMessageBox::warning(nullptr, title, text);
+    }
+    else
+    {
+        QApplication p(globalArgc, globalArgv);
+        QMessageBox::warning(nullptr, title, text);
+    }
+#else
+    std::cout << title.toStdString() << NEWLINE << text.toStdString() << std::endl;
+#endif
+}
 
 const QString SayLastWords() noexcept
 {
@@ -124,7 +141,7 @@ void signalHandler(int signum)
         QString message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
                           QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
                           filePath;
-        QvMessageBoxWarn(nullptr, "UNCAUGHT EXCEPTION", message);
+        BootstrapMessageBox("UNCAUGHT EXCEPTION", message);
     }
 #ifndef Q_OS_WIN
     kill(getpid(), SIGTRAP);
@@ -143,6 +160,8 @@ LONG WINAPI TopLevelExceptionHandler(PEXCEPTION_POINTERS)
 
 int main(int argc, char *argv[])
 {
+    globalArgc = argc;
+    globalArgv = argv;
     // Register signal handlers.
     signal(SIGABRT, signalHandler);
     signal(SIGSEGV, signalHandler);
@@ -185,13 +204,11 @@ int main(int argc, char *argv[])
         case PRE_INIT_RESULT_CONTINUE: break;
         case PRE_INIT_RESULT_ERROR:
         {
-            QCoreApplication errorApplication{ argc, argv };
-            QvMessageBoxWarn(nullptr, "Cannot Start Qv2ray!", "Early initialization failed!");
+            BootstrapMessageBox("Cannot Start Qv2ray!", "Early initialization failed!");
             return QVEXIT_PRE_INITIALIZE_FAIL;
         }
         default: Q_UNREACHABLE();
     }
-    Qv2rayApplication app(argc, argv);
     // Check OpenSSL version for auto-update and subscriptions
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString();
@@ -201,14 +218,14 @@ int main(int argc, char *argv[])
     {
         LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
-        QvMessageBoxWarn(nullptr, QObject::tr("Dependency Missing"),
-                         QObject::tr("Cannot find openssl libs") + NEWLINE +
-                             QObject::tr("This could be caused by a missing of `openssl` package in your system.") + NEWLINE +
-                             QObject::tr("If you are using an AppImage from Github Action, please report a bug.") + NEWLINE + //
-                             NEWLINE + QObject::tr("Technical Details") + NEWLINE +                                           //
-                             "OSsl.Rq.V=" + osslReqVersion + NEWLINE +                                                        //
-                             "OSsl.Cr.V=" + osslCurVersion);
-        QvMessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Cannot start Qv2ray without OpenSSL"));
+        BootstrapMessageBox(QObject::tr("Dependency Missing"),
+                            QObject::tr("Cannot find openssl libs") + NEWLINE +
+                                QObject::tr("This could be caused by a missing of `openssl` package in your system.") + NEWLINE +
+                                QObject::tr("If you are using an AppImage from Github Action, please report a bug.") + NEWLINE + //
+                                NEWLINE + QObject::tr("Technical Details") + NEWLINE +                                           //
+                                "OSsl.Rq.V=" + osslReqVersion + NEWLINE +                                                        //
+                                "OSsl.Cr.V=" + osslCurVersion);
+        BootstrapMessageBox(QObject::tr("Cannot start Qv2ray"), QObject::tr("Cannot start Qv2ray without OpenSSL"));
         return QVEXIT_SSL_FAIL;
     }
 
@@ -230,34 +247,37 @@ int main(int argc, char *argv[])
 #endif
     }
 
-    switch (app.Initialize())
     {
-        case NORMAL: break;
-        case SINGLE_APPLICATION: return QVEXIT_SECONDARY_INSTANCE;
-        case FAILED:
+        Qv2rayApplication app(argc, argv);
+        switch (app.Initialize())
         {
-            QvMessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Qv2ray early initialization failed."));
-            return QVEXIT_EARLY_SETUP_FAIL;
+            case NORMAL: break;
+            case SINGLE_APPLICATION: return QVEXIT_SECONDARY_INSTANCE;
+            case FAILED:
+            {
+                app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Qv2ray early initialization failed."));
+                return QVEXIT_EARLY_SETUP_FAIL;
+            }
         }
-    }
 
-    // Qv2ray Initialize, find possible config paths and verify them.
-    if (!app.FindAndCreateInitialConfiguration())
-    {
-        LOG(MODULE_INIT, "Cannot load or create initial configuration file.")
-        QvMessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Cannot load config file."));
-        return QVEXIT_CONFIG_FILE_FAIL;
-    }
+        // Qv2ray Initialize, find possible config paths and verify them.
+        if (!app.FindAndCreateInitialConfiguration())
+        {
+            LOG(MODULE_INIT, "Cannot load or create initial configuration file.")
+            app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Cannot load config file."));
+            return QVEXIT_CONFIG_FILE_FAIL;
+        }
 
 #ifndef Q_OS_WIN
-    signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
-    signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
+        signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
+        signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
-    const auto rcode = app.RunQv2ray();
-    if (rcode == QVEXIT_NEW_VERSION)
-    {
-        LOG(MODULE_INIT, "Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath)
-        QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
+        const auto rcode = app.RunQv2ray();
+        if (rcode == QVEXIT_NEW_VERSION)
+        {
+            LOG(MODULE_INIT, "Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath)
+            QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
+        }
+        return rcode;
     }
-    return rcode;
 }
