@@ -1,6 +1,7 @@
 #pragma once
 #include "src/plugin-interface/QvPluginInterface.hpp"
 
+#include <QHash>
 #include <QMap>
 #include <QObject>
 #include <memory>
