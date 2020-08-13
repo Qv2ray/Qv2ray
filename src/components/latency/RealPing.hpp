@@ -1,8 +1,9 @@
 #pragma once
 #include "LatencyTest.hpp"
+
+#include <curl/curl.h>
 #include <memory>
 #include <unordered_map>
-#include <curl/curl.h>
 #include <utility>
 namespace uvw
 {
@@ -20,6 +21,7 @@ namespace Qv2ray::components::latency::realping
         void notifyTestHost();
         void recordHanleTime(CURL *);
         long getHandleTime(CURL *);
+        std::string getProxyAddress();
 
       private:
         int successCount = 0;
