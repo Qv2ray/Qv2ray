@@ -138,11 +138,68 @@ static size_t noop_cb(void *, size_t size, size_t nmemb, void *)
 {
     return size * nmemb;
 }
+namespace
+{
+    bool isIPv6Any(in6_addr &addr)
+    {
+        return memcmp(reinterpret_cast<char *>(&addr), reinterpret_cast<char *>(const_cast<in6_addr *>(&in6addr_any)), sizeof(addr)) == 0;
+    }
+    bool isIPv4Any(in_addr &addr)
+    {
+        return addr.s_addr == INADDR_ANY;
+    }
+} // namespace
 namespace Qv2ray::components::latency::realping
 {
     RealPing::RealPing(std::shared_ptr<uvw::Loop> loopin, LatencyTestRequest &req, LatencyTestHost *testHost)
         : req(std::move(req)), testHost(testHost), loop(std::move(loopin)), timeout(loop->resource<uvw::TimerHandle>())
     {
+    }
+    std::string RealPing::getProxyAddress()
+    {
+        struct sockaddr_storage addr
+        {
+        };
+        const auto &ip = GlobalConfig.inboundConfig.listenip.toStdString();
+        bool is_addr_any = false;
+        bool is_ipv4 = (uv_ip4_addr(ip.c_str(), 0, reinterpret_cast<sockaddr_in *>(&addr)) == 0);
+        QString proxy_ip;
+        if (!is_ipv4)
+        {
+            uv_ip6_addr(ip.c_str(), 0, reinterpret_cast<sockaddr_in6 *>(&addr));
+            is_addr_any = isIPv6Any(reinterpret_cast<sockaddr_in6 &>(addr).sin6_addr);
+            if (!is_addr_any)
+                proxy_ip = "[" + GlobalConfig.inboundConfig.listenip + "]";
+            else
+                proxy_ip = "[::1]";
+        }
+        else
+        {
+            is_addr_any = isIPv4Any(reinterpret_cast<sockaddr_in &>(addr).sin_addr);
+            if (!is_addr_any)
+                proxy_ip = GlobalConfig.inboundConfig.listenip;
+            else
+                proxy_ip = "127.0.0.1";
+        }
+        QString protocolWithUsrPwd;
+        int port;
+        if (GlobalConfig.inboundConfig.useHTTP)
+        {
+            protocolWithUsrPwd = "http://";
+            if (GlobalConfig.inboundConfig.httpSettings.useAuth)
+                protocolWithUsrPwd +=
+                    GlobalConfig.inboundConfig.httpSettings.account.user + ":" + GlobalConfig.inboundConfig.httpSettings.account.pass + "@";
+            port = GlobalConfig.inboundConfig.httpSettings.port;
+        }
+        else
+        {
+            protocolWithUsrPwd = "socks5://";
+            if (GlobalConfig.inboundConfig.socksSettings.useAuth)
+                protocolWithUsrPwd +=
+                    GlobalConfig.inboundConfig.socksSettings.account.user + ":" + GlobalConfig.inboundConfig.socksSettings.account.pass + "@";
+            port = GlobalConfig.inboundConfig.socksSettings.port;
+        }
+        return (protocolWithUsrPwd + proxy_ip + ":" + QSTRN(port)).toStdString();
     }
     void RealPing::start()
     {
@@ -157,14 +214,7 @@ namespace Qv2ray::components::latency::realping
         data.failedCount = 0;
         data.worst = 0;
         data.avg = 0;
-        struct sockaddr_in addr{};
-        const auto &ip = GlobalConfig.inboundConfig.listenip.toStdString();
-        bool is_ipv4 = (uv_ip4_addr(ip.c_str(), 0, &addr) == 0);
-        const auto &proxy_ip = is_ipv4 ? GlobalConfig.inboundConfig.listenip : "[" + GlobalConfig.inboundConfig.listenip + "]";
-        auto local_proxy_address =
-            (!GlobalConfig.inboundConfig.useHTTP ? "socks5://" + proxy_ip + ":" + QSTRN(GlobalConfig.inboundConfig.socksSettings.port) :
-                                                   "http://" + proxy_ip + ":" + QSTRN(GlobalConfig.inboundConfig.httpSettings.port))
-                .toStdString();
+        auto local_proxy_address = getProxyAddress();
         auto curlMultiHandle = curl_multi_init();
         auto globalInfo = std::make_shared<RealPingGlobalInfo>(
             RealPingGlobalInfo{ shared_from_this(), curlMultiHandle, timeout->shared_from_this(), &successCount, &data });
