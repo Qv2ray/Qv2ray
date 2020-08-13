@@ -447,10 +447,17 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             this->close();
         }
     }
+    // Ctrl + Q = Exit
     else if (e->modifiers() & Qt::ControlModifier && e->key() == Qt::Key_Q)
     {
         if (QvMessageBoxAsk(this, tr("Quit Qv2ray"), tr("Are you sure to exit Qv2ray?")) == QMessageBox::Yes)
             Action_Exit();
+    }
+    // Control + W = Close Window
+    else if (e->modifiers() & Qt::ControlModifier && e->key() == Qt::Key_W)
+    {
+        if (this->isActiveWindow())
+            this->close();
     }
 }
 
