@@ -39,7 +39,8 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
     pluginDescriptionLabel->setText(info.Description);
     pluginLibPathLabel->setText(plugin->libraryPath);
     pluginStateLabel->setText(plugin->isLoaded ? tr("Loaded") : tr("Not loaded"));
-    pluginTypeLabel->setText(GetPluginTypeString(info.Components).join(NEWLINE));
+    pluginComponentsLabel->setText(GetPluginComponentsString(info.Components).join(NEWLINE));
+    pluginGuiComponentsLabel->setText(GetPluginComponentsString(pluginUIInterface->GetComponents()).join(NEWLINE));
     //
     if (!current)
     {
@@ -56,9 +57,10 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
         pluginUnloadLabel->setText(tr("Plugin Not Loaded"));
         return;
     }
-    settingsWidget = pluginUIInterface->GetSettingsWidget();
-    if (settingsWidget)
+
+    if (pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
     {
+        settingsWidget = pluginUIInterface->GetSettingsWidget();
         pluginUnloadLabel->setVisible(false);
         pluginSettingsLayout->addWidget(settingsWidget.get());
     }

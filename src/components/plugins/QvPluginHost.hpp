@@ -87,7 +87,8 @@ namespace Qv2ray::components::plugins
         QHash<QString, QvPluginInfo> plugins;
     };
 
-    const QStringList GetPluginTypeString(const QList<PluginComponentType> &types);
+    const QStringList GetPluginComponentsString(const QList<PluginGuiComponentType> &types);
+    const QStringList GetPluginComponentsString(const QList<PluginComponentType> &types);
     inline ::Qv2ray::components::plugins::QvPluginHost *PluginHost = nullptr;
 
 } // namespace Qv2ray::components::plugins

@@ -297,7 +297,26 @@ namespace Qv2ray::components::plugins
         return "";
     }
 
-    const QStringList GetPluginTypeString(const QList<PluginComponentType> &types)
+    const QStringList GetPluginComponentsString(const QList<PluginGuiComponentType> &types)
+    {
+        QStringList typesList;
+        if (types.isEmpty())
+            typesList << QObject::tr("None");
+        for (auto type : types)
+        {
+            switch (type)
+            {
+                case GUI_COMPONENT_SETTINGS: typesList << QObject::tr("Settings Widget"); break;
+                case GUI_COMPONENT_INBOUND_EDITOR: typesList << QObject::tr("Inbound Editor"); break;
+                case GUI_COMPONENT_OUTBOUND_EDITOR: typesList << QObject::tr("Outbound Editor"); break;
+                case GUI_COMPONENT_MAINWINDOW_WIDGET: typesList << QObject::tr("MainWindow Widget"); break;
+                default: typesList << QObject::tr("Unknown type."); break;
+            }
+        }
+        return typesList;
+    }
+
+    const QStringList GetPluginComponentsString(const QList<PluginComponentType> &types)
     {
         QStringList typesList;
         if (types.isEmpty())
@@ -307,7 +326,7 @@ namespace Qv2ray::components::plugins
             switch (type)
             {
                 case COMPONENT_KERNEL: typesList << QObject::tr("Kernel"); break;
-                case COMPONENT_OUTBOUND_HANDLER: typesList << QObject::tr("Share Link Parser"); break;
+                case COMPONENT_OUTBOUND_HANDLER: typesList << QObject::tr("Outbound Handler/Parser"); break;
                 case COMPONENT_SUBSCRIPTION_ADAPTER: typesList << QObject::tr("Subscription Adapter"); break;
                 case COMPONENT_EVENT_HANDLER: typesList << QObject::tr("Event Handler"); break;
                 case COMPONENT_GUI: typesList << QObject::tr("GUI Components"); break;
