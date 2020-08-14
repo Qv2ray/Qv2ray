@@ -209,7 +209,7 @@ int main(int argc, char *argv[])
     signal(SIGHUP, signalHandler);
     signal(SIGKILL, signalHandler);
 #else
-    AddVectoredExceptionHandler(0, TopLevelExceptionHandler);
+    // AddVectoredExceptionHandler(0, TopLevelExceptionHandler);
 #endif
     //
     // This line must be called before any other ones, since we are using these
