@@ -67,6 +67,7 @@ parts:
       - libprotobuf-dev
       - protobuf-compiler-grpc
       - pkg-config
+      - libcurl4-openssl-dev
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -78,6 +79,7 @@ parts:
       - libqt5network5
       - libqt5widgets5
       - libglib2.0-bin
+      - libcurl4
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
