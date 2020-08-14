@@ -72,5 +72,5 @@ class OutboundEditor
     //
     int builtInOutboundTypes;
     //
-    QMap<int, QPair<QString, QvPluginEditor *>> pluginWidgets;
+    QMap<int, QPair<ProtocolInfoObject, QvPluginEditor *>> pluginWidgets;
 };

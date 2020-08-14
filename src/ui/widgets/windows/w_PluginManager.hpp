@@ -41,6 +41,6 @@ class PluginManageWindow
 
   private:
     void updateColorScheme() override{};
-    std::unique_ptr<Qv2rayPlugin::QvPluginSettingsWidget> settingsWidget;
+    std::shared_ptr<Qv2rayPlugin::QvPluginSettingsWidget> settingsWidget;
     bool isLoading = true;
 };

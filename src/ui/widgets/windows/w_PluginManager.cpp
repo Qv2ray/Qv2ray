@@ -10,11 +10,11 @@ PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog(parent)
     setupUi(this);
     for (auto &plugin : PluginHost->AvailablePlugins())
     {
-        const auto &info = PluginHost->GetPluginMetadata(plugin);
+        const auto &info = PluginHost->GetPlugin(plugin)->metadata;
         auto item = new QListWidgetItem(pluginListWidget);
-        item->setCheckState(PluginHost->GetPluginEnableState(info.InternalName) ? Qt::Checked : Qt::Unchecked);
+        item->setCheckState(PluginHost->IsPluginEnabled(info.InternalName) ? Qt::Checked : Qt::Unchecked);
         item->setData(Qt::UserRole, info.InternalName);
-        item->setText(info.Name + " (" + (PluginHost->GetPluginLoadState(info.InternalName) ? tr("Loaded") : tr("Not loaded")) + ")");
+        item->setText(info.Name + " (" + (PluginHost->GetPlugin(info.InternalName)->isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
         pluginListWidget->addItem(item);
     }
     isLoading = false;
@@ -28,19 +28,18 @@ PluginManageWindow::~PluginManageWindow()
 void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
-    auto &info = PluginHost->GetPluginMetadata(current->data(Qt::UserRole).toString());
-    {
-        const auto pluginUIInterface = PluginHost->GetPluginGUIInterface(current->data(Qt::UserRole).toString());
-        if (pluginUIInterface)
-            pluginIconLabel->setPixmap(pluginUIInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
-    }
+    const auto plugin = PluginHost->GetPlugin(current->data(Qt::UserRole).toString());
+    auto &info = plugin->metadata;
+    const auto pluginUIInterface = plugin->pluginInterface->GetGUIInterface();
+    if (pluginUIInterface)
+        pluginIconLabel->setPixmap(pluginUIInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
     //
     pluginNameLabel->setText(info.Name);
     pluginAuthorLabel->setText(info.Author);
     pluginDescriptionLabel->setText(info.Description);
-    pluginLibPathLabel->setText(PluginHost->GetPluginLibraryPath(info.InternalName));
-    pluginStateLabel->setText(PluginHost->GetPluginLoadState(info.InternalName) ? tr("Loaded") : tr("Not loaded"));
-    pluginTypeLabel->setText(GetPluginTypeString(info.Components));
+    pluginLibPathLabel->setText(plugin->libraryPath);
+    pluginStateLabel->setText(plugin->isLoaded ? tr("Loaded") : tr("Not loaded"));
+    pluginTypeLabel->setText(GetPluginTypeString(info.Components).join(NEWLINE));
     //
     if (!current)
     {
@@ -51,18 +50,16 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
         pluginSettingsLayout->removeWidget(settingsWidget.get());
         settingsWidget.reset();
     }
-    if (!PluginHost->GetPluginLoadState(info.InternalName))
+    if (!plugin->isLoaded)
     {
         pluginUnloadLabel->setVisible(true);
         pluginUnloadLabel->setText(tr("Plugin Not Loaded"));
         return;
     }
-
-    settingsWidget = PluginHost->GetPluginGUIInterface(info.InternalName)->GetSettingsWidget();
+    settingsWidget = pluginUIInterface->GetSettingsWidget();
     if (settingsWidget)
     {
         pluginUnloadLabel->setVisible(false);
-        settingsWidget.get()->setParent(this);
         pluginSettingsLayout->addWidget(settingsWidget.get());
     }
     else
@@ -83,10 +80,10 @@ void PluginManageWindow::on_pluginListWidget_itemChanged(QListWidgetItem *item)
     if (isLoading)
         return;
     bool isEnabled = item->checkState() == Qt::Checked;
-    auto pluginInternalName = item->data(Qt::UserRole).toString();
-    PluginHost->SetPluginEnableState(pluginInternalName, isEnabled);
-    auto &info = PluginHost->GetPluginMetadata(pluginInternalName);
-    item->setText(info.Name + " (" + (PluginHost->GetPluginLoadState(info.InternalName) ? tr("Loaded") : tr("Not loaded")) + ")");
+    const auto pluginInternalName = item->data(Qt::UserRole).toString();
+    PluginHost->SetIsPluginEnabled(pluginInternalName, isEnabled);
+    const auto info = PluginHost->GetPlugin(pluginInternalName);
+    item->setText(info->metadata.Name + " (" + (info->isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
     //
     if (!isEnabled)
     {
@@ -98,17 +95,17 @@ void PluginManageWindow::on_pluginEditSettingsJsonBtn_clicked()
 {
     if (const auto &current = pluginListWidget->currentItem(); current != nullptr)
     {
-        const auto &info = PluginHost->GetPluginMetadata(current->data(Qt::UserRole).toString());
-        if (!PluginHost->GetPluginLoadState(info.InternalName))
+        const auto &info = PluginHost->GetPlugin(current->data(Qt::UserRole).toString());
+        if (!info->isLoaded)
         {
             QvMessageBoxWarn(this, tr("Plugin not loaded"), tr("This plugin is not loaded, please enable or reload the plugin to continue."));
             return;
         }
-        JsonEditor w(PluginHost->GetPluginSettings(info.InternalName));
+        JsonEditor w(info->pluginInterface->GetSettngs());
         auto newConf = w.OpenEditor();
         if (w.result() == QDialog::Accepted)
         {
-            PluginHost->SetPluginSettings(info.InternalName, newConf);
+            info->pluginInterface->UpdateSettings(newConf);
         }
     }
 }

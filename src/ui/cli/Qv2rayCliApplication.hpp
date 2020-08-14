@@ -36,6 +36,7 @@ namespace Qv2ray
         }
         Qv2rayExitCode RunQv2ray() override
         {
+            PluginHost = new QvPluginHost();
             std::cout << "Please select a node to connect" << std::endl;
             return {};
         }

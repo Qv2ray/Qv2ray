@@ -99,7 +99,7 @@ const QString SayLastWords() noexcept
         const auto plugins = PluginHost->AvailablePlugins();
         for (const auto &plugin : plugins)
         {
-            const auto data = PluginHost->GetPluginMetadata(plugin);
+            const auto data = PluginHost->GetPlugin(plugin)->metadata;
             QList<QString> dataList;
             dataList << data.Name;
             dataList << data.Author;

@@ -43,16 +43,23 @@ OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_
     //
     for (const auto &name : PluginHost->AvailablePlugins())
     {
-        if (PluginHost->GetPluginEnableState(name))
+        if (!PluginHost->ShouldUsePlugin(name))
+            continue;
+
+        const auto plugin = PluginHost->GetPlugin(name);
+        if (!plugin->hasComponent(COMPONENT_GUI))
+            continue;
+
+        const auto guiInterface = plugin->pluginInterface->GetGUIInterface();
+        if (!guiInterface->GetComponents().contains(GUI_COMPONENT_OUTBOUND_EDITOR))
+            continue;
+
+        const auto editors = guiInterface->GetOutboundEditors();
+        for (const auto &editorInfo : editors)
         {
-            auto pluginEditorWidgetsInfo = PluginHost->GetPluginGUIInterface(name);
-            const auto editor = pluginEditorWidgetsInfo->GetOutboundEditor();
-            for (const auto &outbound : editor->OutboundCapabilities())
-            {
-                outBoundTypeCombo->addItem(outbound[INFO_DISPLAYNAME].toString(), "");
-                auto index = outboundTypeStackView->addWidget(editor.get());
-                pluginWidgets.insert(index, { outbound[INFO_PROTOCOL].toString(), editor.get() });
-            }
+            outBoundTypeCombo->addItem(editorInfo.first.displayName, "");
+            auto index = outboundTypeStackView->addWidget(editorInfo.second);
+            pluginWidgets.insert(index, { editorInfo.first, editorInfo.second });
         }
     }
     //
@@ -172,9 +179,9 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
             bool processed = false;
             for (const auto &plugin : pluginWidgets)
             {
-                if (plugin.first[INFO_PROTOCOL] == outboundType)
+                if (plugin.first.protocol == outboundType)
                 {
-                    plugin.second->SetHostInfo(serverAddress, serverPort);
+                    plugin.second->SetHostAddress(serverAddress, serverPort);
                     settings = OUTBOUNDSETTING(plugin.second->GetContent());
                     processed = true;
                     break;
@@ -277,13 +284,13 @@ void OutboundEditor::ReloadGUI()
         for (const auto &index : pluginWidgets.keys())
         {
             const auto &plugin = pluginWidgets.value(index);
-            if (plugin.first[INFO_PROTOCOL] == outboundType)
+            if (plugin.first.protocol == outboundType)
             {
                 useFPCB->setEnabled(false);
                 useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
                 plugin.second->SetContent(settings);
                 outBoundTypeCombo->setCurrentIndex(index);
-                const auto &[_address, _port] = plugin.second->GetHostInfo();
+                const auto &[_address, _port] = plugin.second->GetHostAddress();
                 serverAddress = _address;
                 serverPort = _port;
                 processed = true;
@@ -380,7 +387,7 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
     }
     else
     {
-        outboundType = pluginWidgets.value(index).first;
+        outboundType = pluginWidgets.value(index).first.protocol;
         useFPCB->setChecked(false);
         useFPCB->setEnabled(false);
         useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));

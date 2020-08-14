@@ -15,11 +15,14 @@ namespace Qv2ray::core::handler
         connect(vCoreInstance, &V2RayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLog_p);
         connect(vCoreInstance, &V2RayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
         //
-        auto kernelList = PluginHost->GetPluginKernels();
-        for (const auto &internalName : kernelList.keys())
+        auto kernelList = PluginHost->UsablePlugins();
+        for (const auto &internalName : kernelList)
         {
-            auto kernel = kernelList.value(internalName);
-            for (const auto &protocol : kernel)
+            const auto info = PluginHost->GetPlugin(internalName);
+            if (!info->hasComponent(COMPONENT_KERNEL))
+                continue;
+            auto kernel = info->pluginInterface->GetKernel();
+            for (const auto &protocol : kernel->GetKernelProtocols())
             {
                 if (outboundKernelMap.contains(protocol))
                 {
@@ -93,7 +96,6 @@ namespace Qv2ray::core::handler
         //
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
-            //
             // Process outbounds.
             OUTBOUNDS processedOutbounds;
             auto pluginPort = GlobalConfig.pluginConfig.portAllocationStart;
@@ -112,7 +114,7 @@ namespace Qv2ray::core::handler
                     continue;
                 }
                 LOG(MODULE_CONNECTION, "Creating kernel plugin instance for protocol" + outProtocol)
-                auto kernel = PluginHost->CreatePluginKernel(outboundKernelMap[outProtocol]);
+                auto kernel = PluginHost->GetPlugin(outboundKernelMap[outProtocol])->pluginInterface->GetKernel()->CreateKernel();
                 // New object does not need disconnect?
                 // disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                 //
@@ -200,7 +202,9 @@ namespace Qv2ray::core::handler
                 // Connections without V2Ray Integration will have and ONLY have ONE kernel.
                 LOG(MODULE_CONNECTION, "Starting kernel " + firstOutboundProtocol + " without V2Ray Integration")
                 {
-                    auto kernel = PluginHost->CreatePluginKernel(outboundKernelMap[firstOutbound["protocol"].toString()]);
+                    auto kernel = PluginHost->GetPlugin(outboundKernelMap[firstOutbound["protocol"].toString()])
+                                      ->pluginInterface->GetKernel()
+                                      ->CreateKernel();
                     activeKernels.push_back({ firstOutboundProtocol, std::move(kernel) });
                 }
                 Q_ASSERT(activeKernels.size() == 1);

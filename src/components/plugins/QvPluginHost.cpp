@@ -107,12 +107,12 @@ namespace Qv2ray::components::plugins
         }
     }
 
-    bool QvPluginHost::GetPluginEnableState(const QString &internalName) const
+    bool QvPluginHost::IsPluginEnabled(const QString &internalName) const
     {
         return GlobalConfig.pluginConfig.pluginStates[internalName];
     }
 
-    void QvPluginHost::SetPluginEnableState(const QString &internalName, bool isEnabled)
+    void QvPluginHost::SetIsPluginEnabled(const QString &internalName, bool isEnabled)
     {
         LOG(MODULE_PLUGINHOST, "Set plugin: \"" + internalName + "\" enable state: " + (isEnabled ? "true" : "false"))
         GlobalConfig.pluginConfig.pluginStates[internalName] = isEnabled;
@@ -120,7 +120,6 @@ namespace Qv2ray::components::plugins
         {
             // Load plugin if it haven't been loaded.
             InitializePlugin(internalName);
-
             QvMessageBoxInfo(nullptr, tr("Enabling a plugin"), tr("The plugin will become fully functional after restarting Qv2ray."));
         }
     }
@@ -298,53 +297,27 @@ namespace Qv2ray::components::plugins
         return "";
     }
 
-    const std::unique_ptr<PluginKernel> QvPluginHost::CreatePluginKernel(const QString &pluginInternalName) const
-    {
-        if (!plugins.contains(pluginInternalName))
-            return nullptr;
-        const auto &plugin = plugins.value(pluginInternalName);
-        if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_KERNEL))
-        {
-            return plugin.pluginInterface->CreateKernel();
-        }
-        return nullptr;
-    }
-
-    const QMap<QString, QList<QString>> QvPluginHost::GetPluginKernels() const
-    {
-        QMap<QString, QList<QString>> kernels;
-        for (const auto &plugin : plugins)
-        {
-            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_KERNEL))
-            {
-                const auto outbounds = plugin.pluginInterface->GetKernelProtocols();
-                kernels.insert(plugin.metadata.InternalName, outbounds);
-            }
-        }
-        return kernels;
-    }
-
-    const QString GetPluginTypeString(const QList<PluginComponentType> &types)
+    const QStringList GetPluginTypeString(const QList<PluginComponentType> &types)
     {
         QStringList typesList;
         if (types.isEmpty())
-        {
             typesList << QObject::tr("None");
-        }
         for (auto type : types)
         {
             switch (type)
             {
-                case COMPONENT_INBOUND_EDITOR: typesList << QObject::tr("Inbound Editor"); break;
                 case COMPONENT_KERNEL: typesList << QObject::tr("Kernel"); break;
-                case COMPONENT_MAINWINDOW_WIDGET: typesList << QObject::tr("MainWindow Widget"); break;
-                case COMPONENT_OUTBOUND_EDITOR: typesList << QObject::tr("Outbound Editor"); break;
                 case COMPONENT_OUTBOUND_HANDLER: typesList << QObject::tr("Share Link Parser"); break;
                 case COMPONENT_SUBSCRIPTION_ADAPTER: typesList << QObject::tr("Subscription Adapter"); break;
                 case COMPONENT_EVENT_HANDLER: typesList << QObject::tr("Event Handler"); break;
+                case COMPONENT_GUI: typesList << QObject::tr("GUI Components"); break;
                 default: typesList << QObject::tr("Unknown type."); break;
             }
         }
-        return typesList.join(NEWLINE);
+        return typesList;
     }
+    /*
+                case COMPONENT_MAINWINDOW_WIDGET: typesList << QObject::tr("MainWindow Widget"); break;
+                case COMPONENT_OUTBOUND_EDITOR: typesList << QObject::tr("Outbound Editor"); break;
+            case COMPONENT_INBOUND_EDITOR: typesList << QObject::tr("Inbound Editor"); break;*/
 } // namespace Qv2ray::components::plugins
