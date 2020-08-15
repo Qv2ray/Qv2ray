@@ -237,7 +237,7 @@ namespace Qv2ray::components::plugins
             {
                 auto serializer = plugin.pluginInterface->GetOutboundHandler();
                 bool thisPluginCanHandle = false;
-                for (const auto &prefix : serializer->SupportedProtocols().values())
+                for (const auto &prefix : serializer->SupportedLinkPrefixes())
                 {
                     thisPluginCanHandle = thisPluginCanHandle || sharelink.startsWith(prefix);
                 }
@@ -335,8 +335,4 @@ namespace Qv2ray::components::plugins
         }
         return typesList;
     }
-    /*
-                case COMPONENT_MAINWINDOW_WIDGET: typesList << QObject::tr("MainWindow Widget"); break;
-                case COMPONENT_OUTBOUND_EDITOR: typesList << QObject::tr("Outbound Editor"); break;
-            case COMPONENT_INBOUND_EDITOR: typesList << QObject::tr("Inbound Editor"); break;*/
 } // namespace Qv2ray::components::plugins

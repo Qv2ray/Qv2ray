@@ -6,6 +6,11 @@
 
 #include <memory>
 
+namespace Qv2ray::components::plugins
+{
+    struct QvPluginInfo;
+}
+
 class PluginManageWindow
     : public QvDialog
     , private Ui::w_PluginManager
@@ -41,6 +46,7 @@ class PluginManageWindow
 
   private:
     void updateColorScheme() override{};
-    std::shared_ptr<Qv2rayPlugin::QvPluginSettingsWidget> settingsWidget;
+    std::shared_ptr<Qv2rayPlugin::QvPluginSettingsWidget> currentSettingsWidget;
+    Qv2ray::components::plugins::QvPluginInfo *currentPluginInfo;
     bool isLoading = true;
 };

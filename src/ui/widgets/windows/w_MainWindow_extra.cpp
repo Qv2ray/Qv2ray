@@ -121,3 +121,72 @@ void MainWindow::CheckSubscriptionsUpdate()
         }
     }
 }
+
+void MainWindow::updateColorScheme()
+{
+    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
+    //
+    importConfigButton->setIcon(QICON_R("add"));
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
+    //
+    tray_action_ToggleVisibility->setIcon(this->windowIcon());
+
+    action_RCM_Start->setIcon(QICON_R("start"));
+    action_RCM_Edit->setIcon(QICON_R("edit"));
+    action_RCM_EditJson->setIcon(QICON_R("code"));
+    action_RCM_EditComplex->setIcon(QICON_R("edit"));
+    action_RCM_DuplicateConnection->setIcon(QICON_R("copy"));
+    action_RCM_DeleteConnection->setIcon(QICON_R("ashbin"));
+    action_RCM_ResetStats->setIcon(QICON_R("ashbin"));
+    action_RCM_TestLatency->setIcon(QICON_R("ping_gauge"));
+    action_RCM_RealLatencyTest->setIcon(QICON_R("ping_gauge"));
+    //
+    clearChartBtn->setIcon(QICON_R("ashbin"));
+    clearlogButton->setIcon(QICON_R("ashbin"));
+    //
+    locateBtn->setIcon(QICON_R("map"));
+    sortBtn->setIcon(QICON_R("arrow-down-filling"));
+    collapseGroupsBtn->setIcon(QICON_R("arrow-up"));
+}
+
+void MainWindow::UpdateActionTranslations()
+{
+    tray_SystemProxyMenu->setTitle(tr("System Proxy"));
+    tray_RecentConnectionsMenu->setTitle(tr("Recent Connections"));
+    tray_ClearRecentConnectionsAction->setText(tr("Clear Recent Connections"));
+    //
+    tray_action_ToggleVisibility->setText(tr("Hide"));
+    tray_action_Preferences->setText(tr("Preferences"));
+    tray_action_Quit->setText(tr("Quit"));
+    tray_action_Start->setText(tr("Connect"));
+    tray_action_Restart->setText(tr("Reconnect"));
+    tray_action_Stop->setText(tr("Disconnect"));
+    tray_action_SetSystemProxy->setText(tr("Enable System Proxy"));
+    tray_action_ClearSystemProxy->setText(tr("Disable System Proxy"));
+    //
+    action_RCM_Start->setText(tr("Connect to this"));
+    action_RCM_SetAutoConnection->setText(tr("Set as automatically connected"));
+    action_RCM_EditJson->setText(tr("Edit as JSON"));
+    action_RCM_UpdateSubscription->setText(tr("Update Subscription"));
+    action_RCM_EditComplex->setText(tr("Edit as Complex Config"));
+    action_RCM_RenameConnection->setText(tr("Rename"));
+    action_RCM_Edit->setText(tr("Edit"));
+    action_RCM_DuplicateConnection->setText(tr("Duplicate to the Same Group"));
+    action_RCM_TestLatency->setText(tr("Test Latency"));
+    action_RCM_ResetStats->setText(tr("Clear Usage Data"));
+    action_RCM_DeleteConnection->setText(tr("Delete Connection"));
+    sortMenu->setTitle(tr("Sort connection list."));
+    sortAction_SortByName_Asc->setText(tr("By connection name, A-Z"));
+    sortAction_SortByName_Dsc->setText(tr("By connection name, Z-A"));
+    sortAction_SortByPing_Asc->setText(tr("By latency, Ascending"));
+    sortAction_SortByPing_Dsc->setText(tr("By latency, Descending"));
+    sortAction_SortByData_Asc->setText(tr("By data, Ascending"));
+    sortAction_SortByData_Dsc->setText(tr("By data, Descending"));
+    //
+    action_RCM_SwitchCoreLog->setText(tr("Switch to Core log"));
+    action_RCM_SwitchQv2rayLog->setText(tr("Switch to Qv2ray log"));
+    //
+    graph_action_CopyAsImage->setText(tr("Copy graph as image."));
+    action_RCM_CopyRecentLogs->setText(tr("Copy latest logs."));
+}

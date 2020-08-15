@@ -28,41 +28,42 @@ PluginManageWindow::~PluginManageWindow()
 void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
-    const auto plugin = PluginHost->GetPlugin(current->data(Qt::UserRole).toString());
-    auto &info = plugin->metadata;
-    const auto pluginUIInterface = plugin->pluginInterface->GetGUIInterface();
-    if (pluginUIInterface)
-        pluginIconLabel->setPixmap(pluginUIInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
-    //
+    if (currentPluginInfo && currentSettingsWidget)
+    {
+        currentPluginInfo->pluginInterface->UpdateSettings(currentSettingsWidget->GetSettings());
+        pluginSettingsLayout->removeWidget(currentSettingsWidget.get());
+        currentSettingsWidget.reset();
+    }
+
+    if (!current)
+        return;
+
+    currentPluginInfo = PluginHost->GetPlugin(current->data(Qt::UserRole).toString());
+    auto &info = currentPluginInfo->metadata;
+
     pluginNameLabel->setText(info.Name);
     pluginAuthorLabel->setText(info.Author);
     pluginDescriptionLabel->setText(info.Description);
-    pluginLibPathLabel->setText(plugin->libraryPath);
-    pluginStateLabel->setText(plugin->isLoaded ? tr("Loaded") : tr("Not loaded"));
+    pluginLibPathLabel->setText(currentPluginInfo->libraryPath);
+    pluginStateLabel->setText(currentPluginInfo->isLoaded ? tr("Loaded") : tr("Not loaded"));
     pluginComponentsLabel->setText(GetPluginComponentsString(info.Components).join(NEWLINE));
-    pluginGuiComponentsLabel->setText(GetPluginComponentsString(pluginUIInterface->GetComponents()).join(NEWLINE));
-    //
-    if (!current)
-    {
-        return;
-    }
-    if (settingsWidget || settingsWidget.get())
-    {
-        pluginSettingsLayout->removeWidget(settingsWidget.get());
-        settingsWidget.reset();
-    }
-    if (!plugin->isLoaded)
+
+    if (!currentPluginInfo->isLoaded)
     {
         pluginUnloadLabel->setVisible(true);
         pluginUnloadLabel->setText(tr("Plugin Not Loaded"));
         return;
     }
 
-    if (pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
+    const auto pluginUIInterface = currentPluginInfo->pluginInterface->GetGUIInterface();
+    if (pluginUIInterface && pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
     {
-        settingsWidget = pluginUIInterface->GetSettingsWidget();
+        pluginGuiComponentsLabel->setText(GetPluginComponentsString(pluginUIInterface->GetComponents()).join(NEWLINE));
+        pluginIconLabel->setPixmap(pluginUIInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
+        currentSettingsWidget = pluginUIInterface->GetSettingsWidget();
+        currentSettingsWidget->SetSettings(currentPluginInfo->pluginInterface->GetSettngs());
         pluginUnloadLabel->setVisible(false);
-        pluginSettingsLayout->addWidget(settingsWidget.get());
+        pluginSettingsLayout->addWidget(currentSettingsWidget.get());
     }
     else
     {

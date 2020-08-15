@@ -12,6 +12,11 @@
 #include <QMenu>
 #include <QSystemTrayIcon>
 
+namespace Qv2rayPlugin
+{
+    class QvPluginMainWindowWidget;
+}
+
 enum MW_ITEM_COL
 {
     MW_ITEM_COL_NAME = 1,
@@ -106,6 +111,9 @@ class MainWindow
     void OnRecentConnectionsMenuReadyToShow();
     //
     void OnLogScrollbarValueChanged(int value);
+    //
+    void UpdateActionTranslations();
+    void OnPluginButtonClicked();
 
   protected:
     void timerEvent(QTimerEvent *event) override;
@@ -120,47 +128,6 @@ class MainWindow
     SpeedWidget *speedChartWidget;
     SyntaxHighlighter *vCoreLogHighlighter;
     ConnectionInfoWidget *infoWidget;
-    void UpdateActionTranslations()
-    {
-        tray_SystemProxyMenu->setTitle(tr("System Proxy"));
-        tray_RecentConnectionsMenu->setTitle(tr("Recent Connections"));
-        tray_ClearRecentConnectionsAction->setText(tr("Clear Recent Connections"));
-        //
-        tray_action_ToggleVisibility->setText(tr("Hide"));
-        tray_action_Preferences->setText(tr("Preferences"));
-        tray_action_Quit->setText(tr("Quit"));
-        tray_action_Start->setText(tr("Connect"));
-        tray_action_Restart->setText(tr("Reconnect"));
-        tray_action_Stop->setText(tr("Disconnect"));
-        tray_action_SetSystemProxy->setText(tr("Enable System Proxy"));
-        tray_action_ClearSystemProxy->setText(tr("Disable System Proxy"));
-        //
-        action_RCM_Start->setText(tr("Connect to this"));
-        action_RCM_SetAutoConnection->setText(tr("Set as automatically connected"));
-        action_RCM_EditJson->setText(tr("Edit as JSON"));
-        action_RCM_UpdateSubscription->setText(tr("Update Subscription"));
-        action_RCM_EditComplex->setText(tr("Edit as Complex Config"));
-        action_RCM_RenameConnection->setText(tr("Rename"));
-        action_RCM_Edit->setText(tr("Edit"));
-        action_RCM_DuplicateConnection->setText(tr("Duplicate to the Same Group"));
-        action_RCM_TestLatency->setText(tr("Test Latency"));
-        action_RCM_ResetStats->setText(tr("Clear Usage Data"));
-        action_RCM_DeleteConnection->setText(tr("Delete Connection"));
-        sortMenu->setTitle(tr("Sort connection list."));
-        sortAction_SortByName_Asc->setText(tr("By connection name, A-Z"));
-        sortAction_SortByName_Dsc->setText(tr("By connection name, Z-A"));
-        sortAction_SortByPing_Asc->setText(tr("By latency, Ascending"));
-        sortAction_SortByPing_Dsc->setText(tr("By latency, Descending"));
-        sortAction_SortByData_Asc->setText(tr("By data, Ascending"));
-        sortAction_SortByData_Dsc->setText(tr("By data, Descending"));
-        //
-        action_RCM_SwitchCoreLog->setText(tr("Switch to Core log"));
-        action_RCM_SwitchQv2rayLog->setText(tr("Switch to Qv2ray log"));
-        //
-        graph_action_CopyAsImage->setText(tr("Copy graph as image."));
-        action_RCM_CopyRecentLogs->setText(tr("Copy latest logs."));
-    }
-
     //
     // Declare Actions
 #define DECL_ACTION(parent, name) QAction *name = new QAction(parent)
@@ -170,7 +137,6 @@ class MainWindow
     QMenu *sortMenu = new QMenu(this);
     QMenu *logRCM_Menu = new QMenu(this);
     QMenu *connectionListRCM_Menu = new QMenu(this);
-
     QMenu *graphWidgetMenu = new QMenu(this);
     // Do not set parent=tray_RecentConnectionsMenu
     // Calling clear() will cause this QAction being deleted.
@@ -207,7 +173,6 @@ class MainWindow
     DECL_ACTION(logRCM_Menu, action_RCM_CopyRecentLogs);
 #undef DECL_ACTION
 
-    //
     QTextDocument *vCoreLogDocument = new QTextDocument(this);
     QTextDocument *qvLogDocument = new QTextDocument(this);
     //
@@ -224,4 +189,6 @@ class MainWindow
     //
     void MWAddConnectionItem_p(const ConnectionGroupPair &id);
     void MWAddGroupItem_p(const GroupId &groupId);
+    //
+    QList<Qv2rayPlugin::QvPluginMainWindowWidget *> pluginWidgets;
 };

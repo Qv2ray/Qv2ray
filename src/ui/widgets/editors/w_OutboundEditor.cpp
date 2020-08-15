@@ -46,11 +46,15 @@ OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_
         if (!PluginHost->ShouldUsePlugin(name))
             continue;
 
-        const auto plugin = PluginHost->GetPlugin(name);
+        const auto &plugin = PluginHost->GetPlugin(name);
         if (!plugin->hasComponent(COMPONENT_GUI))
             continue;
 
         const auto guiInterface = plugin->pluginInterface->GetGUIInterface();
+
+        if (!guiInterface)
+            LOG(MODULE_PLUGINHOST, "Found a plugin with COMPONENT_GUI but returns an invalid GUI interface: " + plugin->metadata.Name)
+
         if (!guiInterface->GetComponents().contains(GUI_COMPONENT_OUTBOUND_EDITOR))
             continue;
 

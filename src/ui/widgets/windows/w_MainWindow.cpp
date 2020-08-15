@@ -3,6 +3,7 @@
 #include "components/update/UpdateChecker.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "plugin-interface/QvGUIPluginInterface.hpp"
 #include "ui/widgets/Qv2rayWidgetApplication.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
@@ -30,6 +31,8 @@
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
 #define NumericString(i) (QString("%1").arg(i, 30, 10, QLatin1Char('0')))
 
+#define PLUGIN_BUTTON_PROPERTY_KEY "plugin_list_index"
+
 QvMessageBusSlotImpl(MainWindow)
 {
     switch (msg)
@@ -44,35 +47,6 @@ QvMessageBusSlotImpl(MainWindow)
             break;
         }
     }
-}
-
-void MainWindow::updateColorScheme()
-{
-    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
-    //
-    importConfigButton->setIcon(QICON_R("add"));
-    updownImageBox->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
-    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
-    //
-    tray_action_ToggleVisibility->setIcon(this->windowIcon());
-
-    action_RCM_Start->setIcon(QICON_R("start"));
-    action_RCM_Edit->setIcon(QICON_R("edit"));
-    action_RCM_EditJson->setIcon(QICON_R("code"));
-    action_RCM_EditComplex->setIcon(QICON_R("edit"));
-    action_RCM_DuplicateConnection->setIcon(QICON_R("copy"));
-    action_RCM_DeleteConnection->setIcon(QICON_R("ashbin"));
-    action_RCM_ResetStats->setIcon(QICON_R("ashbin"));
-    action_RCM_TestLatency->setIcon(QICON_R("ping_gauge"));
-    action_RCM_RealLatencyTest->setIcon(QICON_R("ping_gauge"));
-
-    //
-    clearChartBtn->setIcon(QICON_R("ashbin"));
-    clearlogButton->setIcon(QICON_R("ashbin"));
-    //
-    locateBtn->setIcon(QICON_R("map"));
-    sortBtn->setIcon(QICON_R("arrow-down-filling"));
-    collapseGroupsBtn->setIcon(QICON_R("arrow-up"));
 }
 
 void MainWindow::MWAddConnectionItem_p(const ConnectionGroupPair &id)
@@ -370,6 +344,46 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     auto checker = new QvUpdateChecker(this);
     checker->CheckUpdate();
     splitter->setSizes({ 200, 300 });
+    //
+    for (const auto &name : PluginHost->AvailablePlugins())
+    {
+        const auto &plugin = PluginHost->GetPlugin(name);
+        if (!plugin->hasComponent(COMPONENT_GUI))
+            continue;
+        const auto &guiInterface = plugin->pluginInterface->GetGUIInterface();
+        if (!guiInterface)
+            continue;
+        if (!guiInterface->GetComponents().contains(GUI_COMPONENT_MAINWINDOW_WIDGET))
+            continue;
+        auto mainWindowWidgetPtr = guiInterface->GetMainWindowWidget();
+        if (!mainWindowWidgetPtr)
+            continue;
+        const auto index = pluginWidgets.count();
+        {
+            // Let Qt manage the ownership.
+            auto widget = mainWindowWidgetPtr.release();
+            pluginWidgets.append(widget);
+        }
+        auto btn = new QPushButton(plugin->metadata.Name, this);
+        connect(btn, &QPushButton::clicked, this, &MainWindow::OnPluginButtonClicked);
+        btn->setProperty(PLUGIN_BUTTON_PROPERTY_KEY, index);
+        topButtonsLayout->addWidget(btn);
+    }
+}
+
+void MainWindow::OnPluginButtonClicked()
+{
+    const auto senderWidget = qobject_cast<QPushButton *>(sender());
+    if (!senderWidget)
+        return;
+    bool ok = false;
+    const auto index = senderWidget->property(PLUGIN_BUTTON_PROPERTY_KEY).toInt(&ok);
+    if (!ok)
+        return;
+    const auto widget = pluginWidgets.at(index);
+    if (!widget)
+        return;
+    widget->setVisible(!widget->isVisible());
 }
 
 void MainWindow::ProcessCommand(QString command, QStringList commands, QMap<QString, QString> args)
@@ -481,6 +495,7 @@ void MainWindow::Action_Start()
 
 MainWindow::~MainWindow()
 {
+    for (auto &widget : pluginWidgets) widget->accept();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
