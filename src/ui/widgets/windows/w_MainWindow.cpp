@@ -417,8 +417,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto log = readLastLog().trimmed();
         if (!log.isEmpty())
         {
-            FastAppendTextDocument(NEWLINE + log, qvLogDocument); /*end*/
-            // qvLogDocument->setPlainText(qvLogDocument->toPlainText() + NEWLINE + log);
+            FastAppendTextDocument(NEWLINE + log, qvLogDocument);
         }
     }
 }

@@ -18,11 +18,14 @@ PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog(parent)
         pluginListWidget->addItem(item);
     }
     isLoading = false;
+    if (pluginListWidget->count() > 0)
+        on_pluginListWidget_currentItemChanged(pluginListWidget->item(0), nullptr);
 }
 
 PluginManageWindow::~PluginManageWindow()
 {
     DEBUG(MODULE_UI, "Plugin window destructor.")
+    on_pluginListWidget_currentItemChanged(nullptr, nullptr);
 }
 
 void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
