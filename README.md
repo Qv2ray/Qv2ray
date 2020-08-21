@@ -93,7 +93,7 @@
 </table>
 
 ## Related Links
- - [Website](https://qv2ray.github.io/en/) and [First Time Usage](https://qv2ray.github.io/en/getting-started/)
+ - [Website](https://qv2ray.net/en/) and [First Time Usage](https://qv2ray.net/en/getting-started/)
  - Latest **[Release](https://github.com/Qv2ray/Qv2ray/releases/latest)**
  - Welcome to translate Qv2ray via: **[Transifex](https://www.transifex.com/qv2ray/qv2ray)**
 
