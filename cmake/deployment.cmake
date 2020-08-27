@@ -19,7 +19,7 @@ if(MSVC)
             ExecWait \\\"taskkill /f /im qv2ray.exe\\\"
             ExecWait \\\"taskkill /f /im v2ray.exe\\\"
             ExecWait \\\"taskkill /f /im wv2ray.exe\\\"
-        ")
+            ")
         set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
             CreateShortCut \\\"$DESKTOP\\\\Qv2ray.lnk\\\" \\\"$INSTDIR\\\\qv2ray.exe\\\"
             CreateDirectory \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Qv2ray\\\"
@@ -29,14 +29,14 @@ if(MSVC)
             WriteRegStr HKLM \\\"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\qv2ray\\\" \\\"InstallLocation\\\" \\\"$INSTDIR\\\"
             WriteRegStr HKLM \\\"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\qv2ray\\\" \\\"URLUpdateInfo\\\" \\\"https://github.com/Qv2ray/Qv2ray/releases\\\"
             WriteRegStr HKLM \\\"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\qv2ray\\\" \\\"URLInfoAbout\\\" \\\"https://github.com/Qv2ray/Qv2ray\\\"
-        ")
+            ")
         set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
             ExecWait \\\"taskkill /f /im qv2ray.exe\\\"
             Delete \\\"$DESKTOP\\\\Qv2ray.lnk\\\"
             Delete \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Qv2ray\\\\Qv2ray.lnk\\\"
             RMDir \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Qv2ray\\\"
             DeleteRegKey HKLM \\\"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\qv2ray\\\"
-        ")
+            ")
         set(CPACK_PACKAGE_INSTALL_DIRECTORY "qv2ray")
     endif()
 endif()
@@ -81,6 +81,6 @@ message(STATUS "QT_PLUGINS: ${QT_PLUGINS}")
 message(STATUS "DIRS: ${DIRS}")
 
 install(CODE "
-   include(BundleUtilities)
-   fixup_bundle(\"${APPS}\"   \"\"   \"${DIRS}\")
-   " COMPONENT Runtime)
+    include(BundleUtilities)
+    fixup_bundle(\"${APPS}\"   \"\"   \"${DIRS}\")
+    " COMPONENT Runtime)

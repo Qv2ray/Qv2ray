@@ -1,9 +1,18 @@
-#include "3rdparty/backward-cpp/backward.hpp"
+#ifdef QV2RAY_HAS_BACKWARD
+    #include "3rdparty/backward-cpp/backward.hpp"
+#endif
 #ifdef QV2RAY_CLI
     #include "ui/cli/Qv2rayCliApplication.hpp"
 #endif
 #ifdef QV2RAY_GUI_QWIDGETS
     #include "ui/widgets/Qv2rayWidgetApplication.hpp"
+#endif
+#ifdef QV2RAY_GUI_QML
+    #include "ui/qml/Qv2rayQMLApplication.hpp"
+#endif
+#ifdef QV2RAY_GUI
+    #include <QApplication>
+    #include <QMessageBox>
 #endif
 #include "utils/QvHelpers.hpp"
 
@@ -39,6 +48,7 @@ const QString SayLastWords() noexcept
     QStringList msg;
     msg << "------- BEGIN QV2RAY CRASH REPORT -------";
     {
+#ifdef QV2RAY_HAS_BACKWARD
         backward::StackTrace st;
         backward::TraceResolver resolver;
         st.load_here();
@@ -62,6 +72,7 @@ const QString SayLastWords() noexcept
                 msg << line;
             }
         }
+#endif
     }
 
     if (KernelInstance)
@@ -241,7 +252,7 @@ int main(int argc, char *argv[])
         DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    #ifdef QV2RAY_QWIDGETS
+    #ifdef QV2RAY_GUI
         QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
     #endif
 #endif
