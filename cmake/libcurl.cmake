@@ -1,8 +1,7 @@
 if(ANDROID)
-    set(CURL_LIBRARIES -lcurl)
+    set(CURL_LIBRARIES -lcurl -lssl -lcrypto -lz)
 endif()
-
-if(WIN32)
+if(WIN32 OR ANDROID)
     find_package(CURL CONFIG REQUIRED)
 else()
     find_package(CURL REQUIRED)

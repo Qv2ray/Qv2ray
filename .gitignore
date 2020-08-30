@@ -12,6 +12,7 @@ CMakeSettings.json
 SourceTrail/
 
 libs/gen/
+libs/deps
 libs/x64-windows/
 libs/x86-windows/
 libs/x86-android/

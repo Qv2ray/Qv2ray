@@ -37,35 +37,17 @@ endif()
 set(QV2RAY_USE_QWIDGET ON CACHE BOOL "Use QWidget as Qv2ray GUI")
 set(QV2RAY_USE_QML OFF CACHE BOOL "Use QML as Qv2ray GUI")
 
+set(ANDROID_PACKAGE_SOURCE ${CMAKE_SOURCE_DIR}/assets/android)
+set(QT_ANDROID_PACKAGE_SOURCE_DIR "\"android-package-source-directory\":\"${ANDROID_PACKAGE_SOURCE}\",")
+
 if(ANDROID)
     message("Configuring for Android, ABI: ${ANDROID_ABI}")
     include(cmake/platforms/android.cmake)
 endif()
 
-find_package(Qt5 5.11 COMPONENTS Core Network REQUIRED)
-set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network)
 
-if(QV2RAY_USE_QML)
-    message("QML Enabled.")
-    find_package(Qt5 5.11 COMPONENTS Qml Quick Widgets Svg QuickControls2 Gui REQUIRED)
-    list(APPEND QV2RAY_QT_LIBS Qt5::Quick Qt5::Qml Qt5::Widgets Qt5::Svg Qt5::QuickControls2 Qt5::Gui)
-    set(QV2RAY_HAS_GUI ON)
-elseif(QV2RAY_USE_QWIDGET)
-    message("QWidgets Enabled.")
-    set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "QNodeEditor Provider")
-    set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
-    find_package(Qt5 5.11 COMPONENTS Widgets Svg Gui REQUIRED)
-    list(APPEND QV2RAY_QT_LIBS Qt5::Widgets Qt5::Svg Qt5::Gui)
-    set(QV2RAY_HAS_GUI ON)
-else()
-    message("Experimental CLI Support enabled.")
-endif()
 
 find_package(Threads REQUIRED)
-
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
 
 cmake_policy(SET CMP0071 NEW)
 
@@ -186,6 +168,29 @@ include(cmake/backend.cmake)
 # ==================================================================================
 # Qv2ray Baselib
 # ==================================================================================
+
+find_package(Qt5 5.11 COMPONENTS Core Network REQUIRED)
+set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+if(QV2RAY_USE_QML)
+    message("QML Enabled.")
+    find_package(Qt5 5.11 COMPONENTS Qml Quick Widgets Svg QuickControls2 Gui REQUIRED)
+    list(APPEND QV2RAY_QT_LIBS Qt5::Quick Qt5::Qml Qt5::Widgets Qt5::Svg Qt5::QuickControls2 Qt5::Gui)
+    set(QV2RAY_HAS_GUI ON)
+elseif(QV2RAY_USE_QWIDGET)
+    message("QWidgets Enabled.")
+    set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "QNodeEditor Provider")
+    set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
+    find_package(Qt5 5.11 COMPONENTS Widgets Svg Gui REQUIRED)
+    list(APPEND QV2RAY_QT_LIBS Qt5::Widgets Qt5::Svg Qt5::Gui)
+    set(QV2RAY_HAS_GUI ON)
+else()
+    message("Experimental CLI Support enabled.")
+endif()
+
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/plugin-interface")
 include(src/plugin-interface/QvPluginInterface.cmake)
 
@@ -280,13 +285,6 @@ set(QV2RAY_FULL_SOURCES
 if(ANDROID)
     add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
     target_link_libraries(qv2ray -llog -landroid)
-    include(cmake/android/AddQtAndroidApk.cmake)
-    list(APPEND ANDROID_EXTRA_LIBS "${CMAKE_SOURCE_DIR}/libs/x86-android/debug/lib/libprotobufd.so")
-    list(APPEND ANDROID_EXTRA_LIBS "${CMAKE_SOURCE_DIR}/libs/x86-android/debug/lib/libre2.so")
-    add_qt_android_apk(Qv2rayAPK ${PROJECT_NAME}
-        PACKAGE_SOURCES ${CMAKE_SOURCE_DIR}/assets/android
-        DEPENDS ${ANDROID_EXTRA_LIBS}
-        )
 else()
     include(cmake/backward-cpp.cmake)
     add_definitions(-DQV2RAY_HAS_BACKWARD)
@@ -422,7 +420,6 @@ if(QV2RAY_AUTO_DEPLOY AND APPLE)
 endif()
 
 if(ANDROID)
-    set(ANDROID_)
     if(QV2RAY_AUTO_DEPLOY AND ANDROID)
         message("Qv2ray Android auto deploy todo.")
     endif()

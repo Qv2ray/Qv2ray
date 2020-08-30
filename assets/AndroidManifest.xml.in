@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <manifest android:versionName="@APK_PACKAGE_VERSION@" package="@APK_PACKAGE_NAME@" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="@APK_PACKAGE_VERSIONCODE@">
     <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28"/>
-    <application android:label="@APK_PACKAGE_VERSION@" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:icon="@drawable/icon">
+    <application android:label="@APK_DISPLAY_NAME@" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:icon="@drawable/icon">
         <activity android:label="@APK_DISPLAY_NAME@" android:name="org.qtproject.qt5.android.bindings.QtActivity" android:screenOrientation="unspecified" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation">
 
             <intent-filter>
@@ -60,7 +60,7 @@
                 * minimal - useful for Quick Controls 2 apps, it is much faster than "full"
                 * none - useful for apps that don't use any of the above Qt modules
                 -->
-            <meta-data android:name="android.app.extract_android_style" android:value="default"/>
+            <meta-data android:name="android.app.extract_android_style" android:value="minimal"/>
             <!-- extract android style -->
         </activity>
 
