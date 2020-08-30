@@ -17,8 +17,8 @@ list(GET VERSION_LIST 2 CPACK_PACKAGE_VERSION_PATCH)
 
 # Tweaks and other defaults
 # Setting CMAKE to use loose block and search for find modules in source directory
-set ( CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true )
-set ( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH} )
+set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 # For Windows RC file.
 add_definitions(-DQV2RAY_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR})
