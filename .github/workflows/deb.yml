@@ -38,10 +38,10 @@ jobs:
       - name: Checking out sources
         uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       - name: Install build dependencies
         run: |
-          apt-get install -y build-essential devscripts reprepro debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl4-openssl-dev
+          apt-get install -y build-essential devscripts reprepro debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl4-openssl-dev libqt5svg5-dev
       - name: Build
         run: |
           dch -l${{ matrix.distro }} -m 'Build against ${{ matrix.distro }}' -D ${{ matrix.distro }}
@@ -84,4 +84,3 @@ jobs:
           asset_name: ${{ steps.get_package.outputs.NAME }}
           tag: ${{ github.ref }}
           overwrite: true
-      
