@@ -2161,8 +2161,8 @@ Output: <byte value="xd"/>
         <translation>检测到 Deepin</translation>
     </message>
     <message>
-        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
-        <translation>Deepin可能自作聪明，为你设置了错误的 HTTPS_PROXY 和 FTP_PROXY 环境变量。</translation>
+        <source>Deepin may sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.You can add proxy info to /home/<username>/.bashrc, such as: export https_proxy="http://127.0.0.1:8080".</source>
+        <translation>Deepin可能为你设置了错误的 HTTPS_PROXY 和 FTP_PROXY 环境变量。可以通过在/home/<username>/.bashrc文件中添加代理信息，例如：export https_proxy="http://127.0.0.1:8080"。</translation>
     </message>
     <message>
         <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
