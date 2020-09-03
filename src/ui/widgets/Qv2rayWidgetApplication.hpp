@@ -1,67 +1,35 @@
 #pragma once
 
-#include "base/Qv2rayBaseApplication.hpp"
+#include "ui/common/platforms/Qv2rayPlatformApplication.hpp"
 
 #include <QApplication>
 #include <QDesktopServices>
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 
-#ifdef Q_OS_ANDROID
-    #define QV2RAY_NO_SINGLEAPPLICATON
-#endif
-
-#define QV2RAY_WORKAROUND_MACOS_MEMLOCK 0
-
-#if QV2RAY_WORKAROUND_MACOS_MEMLOCK
-    #ifndef QV2RAY_NO_SINGLEAPPLICATION
-        #define QV2RAY_NO_SINGLEAPPLICATON
-    #endif
-#endif
-
-#ifndef QV2RAY_NO_SINGLEAPPLICATON
-    #include <SingleApplication>
-#endif
-
 class MainWindow;
 
 namespace Qv2ray
 {
-    const static inline QMap<MessageOptions, QMessageBox::StandardButton> MessageBoxButtonMap = //
-        { { No, QMessageBox::No },
-          { OK, QMessageBox::Ok },
-          { Yes, QMessageBox::Yes },
-          { Cancel, QMessageBox::Cancel },
-          { Ignore, QMessageBox::Ignore } };
-
-    class Qv2rayWidgetApplication
-#ifdef QV2RAY_NO_SINGLEAPPLICATION
-        : public QApplication
-#else
-        : public SingleApplication
-#endif
-        , public Qv2rayApplicationManagerInterface
+    class Qv2rayWidgetApplication : public Qv2rayPlatformApplication
     {
         Q_OBJECT
-
       public:
         //
-        void QuitApplication(int retCode = 0);
         explicit Qv2rayWidgetApplication(int &argc, char *argv[]);
-        bool FindAndCreateInitialConfiguration() override;
         Qv2raySetupStatus Initialize() override;
         Qv2rayExitCode RunQv2ray() override;
 
       public:
-        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
+        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override
         {
             QMessageBox::warning(parent, title, text, MessageBoxButtonMap[button]);
         }
-        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
+        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override
         {
             QMessageBox::information(parent, title, text, MessageBoxButtonMap[button]);
         }
-        MessageOptions MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOptions> &buttons) override
+        MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) override
         {
             QFlags<QMessageBox::StandardButton> btns;
             for (const auto &b : buttons)
@@ -86,18 +54,12 @@ namespace Qv2ray
         {
             QDesktopServices::openUrl(url);
         }
-      private slots:
-        void aboutToQuitSlot();
 
       private:
-        static Qv2rayPreInitResult ParseCommandLine(QString *errorMessage, const QStringList &args);
-
-      private:
+        void TerminateUI() override;
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
-        void onMessageReceived(quint32 clientID, QByteArray msg);
+        void onMessageReceived(quint32 clientID, QByteArray msg) override;
 #endif
-        bool initialized = false;
-        bool LoadConfiguration();
         QSystemTrayIcon *hTray;
         MainWindow *mainWindow;
     };

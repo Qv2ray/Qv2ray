@@ -1,58 +1,29 @@
 #include "base/Qv2rayBaseApplication.hpp"
+#include "ui/common/platforms/Qv2rayPlatformApplication.hpp"
 
-#include <QApplication>
-#include <QQmlApplicationEngine>
-#include <QQuickStyle>
-#include <iostream>
+#include <QQuickView>
 
 namespace Qv2ray
 {
-    class Qv2rayQMLApplication
-        : public QApplication
-        , public Qv2rayApplicationManagerInterface
+    class Qv2rayQMLApplication : public Qv2rayPlatformApplication
     {
         Q_OBJECT
       public:
-        explicit Qv2rayQMLApplication(int argc, char *argv[]);
-        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
-        {
-        }
-        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
-        {
-        }
-        MessageOptions MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOptions> &buttons) override
-        {
-            return {};
-        }
-        Qv2raySetupStatus Initialize() override
-        {
-            return {};
-        }
+        explicit Qv2rayQMLApplication(int &argc, char *argv[]);
+        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override;
+        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override;
+        MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) override;
+        Qv2raySetupStatus Initialize() override;
+        Qv2rayExitCode RunQv2ray() override;
+        void OpenURL(const QString &url) override;
 
-        bool FindAndCreateInitialConfiguration() override
-        {
-            return true;
-        }
-        Qv2rayExitCode RunQv2ray() override
-        {
-            PluginHost = new QvPluginHost();
-            QQmlApplicationEngine engine{ this };
-            QQuickStyle::setStyle("Material");
-            const QUrl url("qrc:/forms/MainWindow.qml");
-            const auto connectLambda = [url](QObject *obj, const QUrl &objUrl) {
-                if (!obj && url == objUrl)
-                {
-                    QCoreApplication::exit(-1);
-                }
-            };
-            connect(&engine, &QQmlApplicationEngine::objectCreated, this, connectLambda, Qt::QueuedConnection);
-            engine.addImportPath(QStringLiteral("qrc:/forms/"));
-            engine.load(url);
-            return (Qv2rayExitCode) exec();
-        }
-        void OpenURL(const QString &url) override
-        {
-        }
+      private slots:
+        void TerminateUI() override;
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
+        void onMessageReceived(quint32 clientId, QByteArray msg) override;
+#endif
+      private:
+        QQuickView qmlViewer;
     };
 
 #ifdef Qv2rayApplication

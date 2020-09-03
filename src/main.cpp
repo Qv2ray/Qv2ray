@@ -10,10 +10,7 @@
 #ifdef QV2RAY_GUI_QML
     #include "ui/qml/Qv2rayQMLApplication.hpp"
 #endif
-#ifdef QV2RAY_GUI
-    #include <QApplication>
-    #include <QMessageBox>
-#endif
+
 #include "utils/QvHelpers.hpp"
 
 #include <QSslSocket>
@@ -21,6 +18,10 @@
 
 #ifndef Q_OS_WIN
     #include <unistd.h>
+#endif
+
+#ifdef QV2RAY_GUI
+    #include <QMessageBox>
 #endif
 
 int globalArgc;
@@ -47,8 +48,8 @@ const QString SayLastWords() noexcept
 {
     QStringList msg;
     msg << "------- BEGIN QV2RAY CRASH REPORT -------";
-    {
 #ifdef QV2RAY_HAS_BACKWARD
+    {
         backward::StackTrace st;
         backward::TraceResolver resolver;
         st.load_here();
@@ -72,8 +73,8 @@ const QString SayLastWords() noexcept
                 msg << line;
             }
         }
-#endif
     }
+#endif
 
     if (KernelInstance)
     {
@@ -209,7 +210,7 @@ int main(int argc, char *argv[])
 #endif
 
     // parse the command line before starting as a Qt application
-    switch (Qv2rayApplication::PreInitialize(argc, argv))
+    switch (Qv2rayApplicationManager::PreInitialize(argc, argv))
     {
         case PRE_INIT_RESULT_QUIT: return QVEXIT_NORMAL;
         case PRE_INIT_RESULT_CONTINUE: break;
@@ -270,7 +271,7 @@ int main(int argc, char *argv[])
                 return QVEXIT_EARLY_SETUP_FAIL;
             }
         }
-
+        //
         // Qv2ray Initialize, find possible config paths and verify them.
         if (!app.FindAndCreateInitialConfiguration())
         {

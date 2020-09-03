@@ -10,7 +10,7 @@ Item {
 
     ColumnLayout {
         id: rowLayout
-        anchors.fill: parent
+        Layout.fillWidth: true
 
         Button {
             id: button
@@ -36,7 +36,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;formeditorZoom:0.75;height:480;width:640}
+    D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/
 

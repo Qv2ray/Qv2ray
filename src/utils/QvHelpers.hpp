@@ -93,7 +93,7 @@ namespace Qv2ray::common
 
     void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text);
     void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text);
-    MessageOptions QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOptions> &opt = { Yes, No });
+    MessageOpt QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &opt = { Yes, No });
 } // namespace Qv2ray::common
 
 using namespace Qv2ray::common;

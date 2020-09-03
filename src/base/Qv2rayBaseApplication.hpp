@@ -5,6 +5,7 @@
 
 #include <QCoreApplication>
 #include <QObject>
+
 namespace Qv2ray
 {
     enum Qv2rayExitCode
@@ -18,7 +19,7 @@ namespace Qv2ray
         QVEXIT_NEW_VERSION = -5
     };
 
-    enum MessageOptions
+    enum MessageOpt
     {
         OK,
         Cancel,
@@ -62,25 +63,27 @@ namespace Qv2ray
     };
 
     inline Qv2rayProcessArguments Qv2rayProcessArgument;
-    class Qv2rayApplicationManagerInterface
+    class Qv2rayApplicationManager
     {
       public:
         static Qv2rayPreInitResult PreInitialize(int argc, char **argv);
-        static Qv2rayPreInitResult ParseCommandLine(QString *errorMessage, const QStringList &_argx_);
-        explicit Qv2rayApplicationManagerInterface(int argc, char *argv[]);
-        ~Qv2rayApplicationManagerInterface();
+        explicit Qv2rayApplicationManager(int argc, char *argv[]);
+        ~Qv2rayApplicationManager();
+        virtual bool FindAndCreateInitialConfiguration() final;
         //
         virtual Qv2raySetupStatus Initialize() = 0;
-        virtual bool FindAndCreateInitialConfiguration() = 0;
         virtual Qv2rayExitCode RunQv2ray() = 0;
-        virtual void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button) = 0;
-        virtual void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button) = 0;
-        virtual MessageOptions MessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
-                                             const QList<MessageOptions> &buttons) = 0;
+        //
+        virtual void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button) = 0;
+        virtual void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button) = 0;
+        virtual MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) = 0;
         virtual void OpenURL(const QString &url) = 0;
-    };
-    inline Qv2rayApplicationManagerInterface *qvApplicationInstance = nullptr;
 
-#define QvCoreApplication static_cast<Qv2rayApplicationManagerInterface *>(qvApplicationInstance)
+      private:
+        static Qv2rayPreInitResult ParseCommandLine(QString *errorMessage, const QStringList &_argx_);
+    };
+    inline Qv2rayApplicationManager *qvApplicationInstance = nullptr;
+
+#define QvCoreApplication static_cast<Qv2rayApplicationManager *>(qvApplicationInstance)
 
 } // namespace Qv2ray

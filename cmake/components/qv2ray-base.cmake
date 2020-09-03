@@ -30,6 +30,8 @@ set(QV2RAY_BASE_SOURCES
     #
     ${QV2RAY_BASEDIR_COMPONENTS}/latency/LatencyTest.cpp
     ${QV2RAY_BASEDIR_COMPONENTS}/latency/LatencyTest.hpp
+    ${QV2RAY_BASEDIR_COMPONENTS}/translations/QvTranslator.cpp
+    ${QV2RAY_BASEDIR_COMPONENTS}/translations/QvTranslator.hpp
     ${QV2RAY_BASEDIR_COMPONENTS}/latency/LatencyTestThread.cpp
     ${QV2RAY_BASEDIR_COMPONENTS}/latency/LatencyTestThread.hpp
     ${QV2RAY_BASEDIR_COMPONENTS}/latency/TCPing.cpp

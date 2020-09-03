@@ -29,11 +29,6 @@ namespace Qv2ray
             std::cout << "Welcome to use Qv2ray!" << std::endl;
             return {};
         }
-        bool FindAndCreateInitialConfiguration() override
-        {
-            std::cout << "Looking for configuration files." << std::endl;
-            return true;
-        }
         Qv2rayExitCode RunQv2ray() override
         {
             PluginHost = new QvPluginHost();

@@ -45,10 +45,7 @@ if(ANDROID)
     include(cmake/platforms/android.cmake)
 endif()
 
-
-
 find_package(Threads REQUIRED)
-
 cmake_policy(SET CMP0071 NEW)
 
 if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.17.0")
