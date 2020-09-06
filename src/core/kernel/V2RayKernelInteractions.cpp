@@ -1,7 +1,7 @@
 #include "V2RayKernelInteractions.hpp"
 
 #include "APIBackend.hpp"
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 #include "core/connection/ConnectionIO.hpp"
 
 #include <QProcess>

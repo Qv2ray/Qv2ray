@@ -23,8 +23,8 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_PACMAN') }}
     name: Arch Linux
     runs-on: ubuntu-latest
-    container: archlinux:latest
-    
+    container: archlinux/base:latest
+
     steps:
       - name: Setup Basic Environment
         run: |
@@ -34,8 +34,8 @@ jobs:
       - name: Checking out sources
         uses: actions/checkout@v2
         with:
-          path: 'Qv2ray'
-      
+          path: "Qv2ray"
+
       - name: Build
         run: |
           cat <<PKGBUILD > PKGBUILD
@@ -46,10 +46,10 @@ jobs:
           arch=('x86_64')
           url='https://github.com/Qv2ray/Qv2ray'
           license=('GPL3')
-          depends=('hicolor-icon-theme' 'qt5-base>5.11.0' 'grpc>=1.27.0' 'zxing-cpp')
+          depends=('hicolor-icon-theme' 'qt5-base>5.11.0' 'grpc>=1.27.0' 'zxing-cpp' 'qt5-svg')
           optdepends=('v2ray: use system v2ray core.')
           makedepends=('git' 'make' 'qt5-tools' 'which' 'gcc' 'qt5-declarative'
-                       'grpc-cli>=1.27.0' 'cmake' 'ninja')
+                       'grpc-cli>=1.27.0' 'cmake' 'ninja' 'qt5-svg')
           provides=('qv2ray')
           conflicts=('qv2ray')
 
@@ -96,8 +96,7 @@ jobs:
 
       - name: Get package name
         id: get_package
-        run:
-          echo ::set-output name=NAME::$(basename qv2ray*.xz)
+        run: echo ::set-output name=NAME::$(basename qv2ray*.xz)
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2-preview

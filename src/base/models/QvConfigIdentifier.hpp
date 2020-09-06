@@ -56,15 +56,22 @@ namespace Qv2ray::base
     class ConnectionGroupPair
     {
       public:
-        ConnectionId connectionId = NullConnectionId;
-        GroupId groupId = NullGroupId;
         ConnectionGroupPair() : connectionId(NullConnectionId), groupId(NullGroupId){};
         ConnectionGroupPair(const ConnectionId &conn, const GroupId &group) : connectionId(conn), groupId(group){};
+        Q_PROPERTY(ConnectionId connectionId MEMBER)
+        Q_PROPERTY(GroupId groupId MEMBER)
+        //
+        ConnectionId connectionId = NullConnectionId;
+        GroupId groupId = NullGroupId;
+
+      public slots:
         void clear()
         {
             connectionId = NullConnectionId;
             groupId = NullGroupId;
         }
+
+      public:
         bool isEmpty() const
         {
             return groupId == NullGroupId || connectionId == NullConnectionId;
@@ -72,6 +79,10 @@ namespace Qv2ray::base
         friend bool operator==(const ConnectionGroupPair &lhs, const ConnectionGroupPair &rhs)
         {
             return lhs.groupId == rhs.groupId && lhs.connectionId == rhs.connectionId;
+        }
+        friend bool operator!=(const ConnectionGroupPair &lhs, const ConnectionGroupPair &rhs)
+        {
+            return !(lhs == rhs);
         }
         JSONSTRUCT_REGISTER(ConnectionGroupPair, F(connectionId, groupId))
     };

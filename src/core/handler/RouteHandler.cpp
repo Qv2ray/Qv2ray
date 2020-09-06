@@ -1,7 +1,7 @@
 #include "RouteHandler.hpp"
 
 #include "base/models/QvComplexConfigModels.hpp"
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/handler/ConfigHandler.hpp"

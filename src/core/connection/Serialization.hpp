@@ -1,6 +1,6 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection::serialization
 {

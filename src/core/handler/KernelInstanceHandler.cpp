@@ -1,8 +1,8 @@
 #include "KernelInstanceHandler.hpp"
 
-#include "common/QvHelpers.hpp"
 #include "components/port/QvPortDetector.hpp"
 #include "core/connection/Generation.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::handler
 {
@@ -15,11 +15,14 @@ namespace Qv2ray::core::handler
         connect(vCoreInstance, &V2RayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLog_p);
         connect(vCoreInstance, &V2RayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
         //
-        auto kernelList = PluginHost->GetPluginKernels();
-        for (const auto &internalName : kernelList.keys())
+        auto kernelList = PluginHost->UsablePlugins();
+        for (const auto &internalName : kernelList)
         {
-            auto kernel = kernelList.value(internalName);
-            for (const auto &protocol : kernel)
+            const auto info = PluginHost->GetPlugin(internalName);
+            if (!info->hasComponent(COMPONENT_KERNEL))
+                continue;
+            auto kernel = info->pluginInterface->GetKernel();
+            for (const auto &protocol : kernel->GetKernelProtocols())
             {
                 if (outboundKernelMap.contains(protocol))
                 {
@@ -91,10 +94,8 @@ namespace Qv2ray::core::handler
         //    inboundInfo.push_back({ inbound["protocol"].toString(), inbound["port"].toInt(), inbound["tag"].toString() });
         //}
         //
-        using _k = Qv2rayPlugin::QvPluginKernel;
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
-            //
             // Process outbounds.
             OUTBOUNDS processedOutbounds;
             auto pluginPort = GlobalConfig.pluginConfig.portAllocationStart;
@@ -113,19 +114,19 @@ namespace Qv2ray::core::handler
                     continue;
                 }
                 LOG(MODULE_CONNECTION, "Creating kernel plugin instance for protocol" + outProtocol)
-                auto kernel = PluginHost->CreatePluginKernel(outboundKernelMap[outProtocol]);
+                auto kernel = PluginHost->GetPlugin(outboundKernelMap[outProtocol])->pluginInterface->GetKernel()->CreateKernel();
                 // New object does not need disconnect?
                 // disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                 //
-                QMap<QvPluginKernel::KernelSetting, QVariant> _inboundSettings;
+                QMap<KernelOptionFlags, QVariant> _inboundSettings;
 
                 LOG(MODULE_VCORE, "V2RayIntegration: " + QSTRN(pluginPort) + " = " + outProtocol)
-                _inboundSettings[_k::KERNEL_HTTP_ENABLED] = false;
-                _inboundSettings[_k::KERNEL_SOCKS_ENABLED] = true;
-                _inboundSettings[_k::KERNEL_SOCKS_PORT] = pluginPort;
-                _inboundSettings[_k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
-                _inboundSettings[_k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
-                _inboundSettings[_k::KERNEL_LISTEN_ADDRESS] = "127.0.0.1";
+                _inboundSettings[KERNEL_HTTP_ENABLED] = false;
+                _inboundSettings[KERNEL_SOCKS_ENABLED] = true;
+                _inboundSettings[KERNEL_SOCKS_PORT] = pluginPort;
+                _inboundSettings[KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                _inboundSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
+                _inboundSettings[KERNEL_LISTEN_ADDRESS] = "127.0.0.1";
                 LOG(MODULE_CONNECTION, "Sending connection settings to kernel.")
                 kernel->SetConnectionSettings(_inboundSettings, outbound["settings"].toObject());
                 activeKernels.push_back({ outProtocol, std::move(kernel) });
@@ -163,9 +164,9 @@ namespace Qv2ray::core::handler
                 {
                     LOG(MODULE_CONNECTION, "Starting kernel for protocol: " + outboundProtocol)
                     bool status = kernelObject->StartKernel();
-                    connect(kernelObject.get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p,
+                    connect(kernelObject.get(), &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p,
                             Qt::QueuedConnection);
-                    connect(kernelObject.get(), &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p,
+                    connect(kernelObject.get(), &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p,
                             Qt::QueuedConnection);
                     hasAllKernelStarted = hasAllKernelStarted && status;
                     if (!status)
@@ -201,31 +202,33 @@ namespace Qv2ray::core::handler
                 // Connections without V2Ray Integration will have and ONLY have ONE kernel.
                 LOG(MODULE_CONNECTION, "Starting kernel " + firstOutboundProtocol + " without V2Ray Integration")
                 {
-                    auto kernel = PluginHost->CreatePluginKernel(outboundKernelMap[firstOutbound["protocol"].toString()]);
+                    auto kernel = PluginHost->GetPlugin(outboundKernelMap[firstOutbound["protocol"].toString()])
+                                      ->pluginInterface->GetKernel()
+                                      ->CreateKernel();
                     activeKernels.push_back({ firstOutboundProtocol, std::move(kernel) });
                 }
                 Q_ASSERT(activeKernels.size() == 1);
 #define theKernel (activeKernels.front().second.get())
-                connect(theKernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p,
+                connect(theKernel, &PluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p,
                         Qt::QueuedConnection);
-                connect(theKernel, &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
-                connect(theKernel, &QvPluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p, Qt::QueuedConnection);
+                connect(theKernel, &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
+                connect(theKernel, &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p, Qt::QueuedConnection);
                 currentId = id;
                 //
-                QMap<QvPluginKernel::KernelSetting, QVariant> pluginSettings;
+                QMap<KernelOptionFlags, QVariant> pluginSettings;
 
                 for (const auto &v : inboundInfo)
                 {
                     if (v.protocol != "http" && v.protocol != "socks")
                         continue;
-                    pluginSettings[_k::KERNEL_HTTP_ENABLED] = pluginSettings[_k::KERNEL_HTTP_ENABLED].toBool() || v.protocol == "http";
-                    pluginSettings[_k::KERNEL_SOCKS_ENABLED] = pluginSettings[_k::KERNEL_SOCKS_ENABLED].toBool() || v.protocol == "socks";
-                    pluginSettings.insert(v.protocol.toLower() == "http" ? _k::KERNEL_HTTP_PORT : _k::KERNEL_SOCKS_PORT, v.port);
+                    pluginSettings[KERNEL_HTTP_ENABLED] = pluginSettings[KERNEL_HTTP_ENABLED].toBool() || v.protocol == "http";
+                    pluginSettings[KERNEL_SOCKS_ENABLED] = pluginSettings[KERNEL_SOCKS_ENABLED].toBool() || v.protocol == "socks";
+                    pluginSettings.insert(v.protocol.toLower() == "http" ? KERNEL_HTTP_PORT : KERNEL_SOCKS_PORT, v.port);
                 }
 
-                pluginSettings[_k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
-                pluginSettings[_k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
-                pluginSettings[_k::KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
+                pluginSettings[KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                pluginSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
+                pluginSettings[KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
                 //
                 theKernel->SetConnectionSettings(pluginSettings, firstOutbound["settings"].toObject());
                 bool kernelStarted = theKernel->StartKernel();
