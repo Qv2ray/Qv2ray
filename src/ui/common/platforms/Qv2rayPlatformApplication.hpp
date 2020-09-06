@@ -14,7 +14,7 @@
 #endif
 
 #ifdef Q_OS_WIN
-    #include <winbase.h>
+    #include <windows.h>
 #endif
 
 #ifdef QV2RAY_GUI
