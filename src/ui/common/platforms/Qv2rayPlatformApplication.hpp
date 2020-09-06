@@ -13,6 +13,10 @@
     #define QV2RAY_NO_SINGLEAPPLICATON
 #endif
 
+#ifdef Q_OS_WIN
+    #include <winbase.h>
+#endif
+
 #ifdef QV2RAY_GUI
     #include <QApplication>
     #include <QFont>
