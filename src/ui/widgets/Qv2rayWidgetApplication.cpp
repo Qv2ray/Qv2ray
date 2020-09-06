@@ -56,7 +56,7 @@ namespace Qv2ray
         {
             const auto newPath = msg.fullArgs.first();
             QString message;
-            message += tr("A new version of Qv2ray is attemping to start:") + NEWLINE;
+            message += tr("A new version of Qv2ray is starting:") + NEWLINE;
             message += NEWLINE;
             message += tr("New version information: ") + NEWLINE;
             message += tr("Qv2ray version: %1").arg(msg.version) + NEWLINE;
