@@ -1,3 +1,4 @@
+#include "Qv2rayQMLProperty.hpp"
 #include "base/Qv2rayBaseApplication.hpp"
 #include "ui/common/platforms/Qv2rayPlatformApplication.hpp"
 
@@ -20,10 +21,11 @@ namespace Qv2ray
       private slots:
         void TerminateUI() override;
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
-        void onMessageReceived(quint32 clientId, QByteArray msg) override;
+        void onMessageReceived(quint32, QByteArray) override;
 #endif
       private:
         QQuickView qmlViewer;
+        Qv2rayQMLProperty uiProperty;
     };
 
 #ifdef Qv2rayApplication

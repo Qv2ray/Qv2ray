@@ -1,42 +1,63 @@
 import QtQuick 2.13
-import QtQuick.Window 2.13
 import QtQuick.Controls 2.13
+
+import "components"
 import QtQuick.Layouts 1.11
-import QtQuick.Controls.Material 2.0
+import "widgets"
 
 Item {
     id: element
     anchors.fill: parent
+    Frame {
+        id: frame
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
 
-    ColumnLayout {
-        id: rowLayout
-        Layout.fillWidth: true
+        Row {
+            id: row
+            x: 0
+            y: 24
+            width: 200
+            height: 400
 
-        Button {
-            id: button
-            text: "Hello"
-            Layout.fillHeight: false
-            Layout.fillWidth: true
-            property string yay: "value"
+            IconButton {
+                id: iconButton
+            }
+
+            Text {
+                id: element1
+                text: qsTr("Qv2ray")
+                font.pixelSize: frame.width / 15
+            }
         }
-        ListView {
-            id: listView
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+    }
+
+    ScrollView {
+        anchors.fill: parent
+        font.kerning: false
+        id: rowLayout
+        ConnectionItem {
+            id: connectionItem
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Text {
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                text: qsTr("text")
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+        }
+        ConnectionItem {
+            id: connectionItem1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
+        ConnectionItem {
+            id: connectionItem2
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}
+    D{i:0;autoSize:true;formeditorZoom:0.75;height:480;width:640}
 }
 ##^##*/
 
