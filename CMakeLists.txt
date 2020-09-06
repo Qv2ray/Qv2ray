@@ -191,6 +191,12 @@ endif()
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/plugin-interface")
 include(src/plugin-interface/QvPluginInterface.cmake)
 
+# Include SingleApplication on non-android platform.
+if(NOT ANDROID)
+    include(cmake/singleapplication.cmake)
+    list(APPEND QV2RAY_UI_SOURCES ${SINGLEAPPLICATION_SOURCES})
+endif()
+
 # Qv2ray baselib
 include(cmake/translations.cmake)
 include(cmake/components/qv2ray-base.cmake)
@@ -210,6 +216,7 @@ target_link_libraries(qv2ray-baselib
     ${QV2RAY_QT_LIBS}
     ${LibUV_LIBRARIES}
     ${CURL_LIBRARIES}
+    ${SINGLEAPPLICATION_LIBRARY}
     Threads::Threads
     )
 
@@ -217,6 +224,7 @@ target_include_directories(qv2ray-baselib PUBLIC
     ${CMAKE_BINARY_DIR}
     ${QV2RAY_BASEDIR_COMPONENTS}
     ${LibUV_INCLUDE_DIR}
+    ${SINGLEAPPLICATION_DIR}
     ${CURL_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -251,12 +259,7 @@ if(QV2RAY_HAS_GUI)
         include(cmake/qnodeeditor.cmake)
         list(APPEND QV2RAY_UI_SOURCES ${QNODEEDITOR_QRC_RESOURCES})
     endif()
-    
-    # Include SingleApplication on non-android platform.
-    if(NOT ANDROID)
-        include(cmake/singleapplication.cmake)
-        list(APPEND QV2RAY_UI_SOURCES ${SINGLEAPPLICATION_SOURCES})
-    else()
+    if(ANDROID)
         set(APK_PACKAGE_NAME "net.qv2ray.qv2ray")
         set(APK_PACKAGE_VERSION "v${QV2RAY_VERSION_STRING}")
         set(APK_DISPLAY_NAME "Qv2ray")
@@ -294,7 +297,6 @@ target_link_libraries(qv2ray
     qv2ray-baselib
     ${ZXING_LIBRARY}
     ${QNODEEDITOR_LIBRARY}
-    ${SINGLEAPPLICATION_LIBRARY}
     )
 
 target_include_directories(qv2ray PUBLIC
@@ -302,7 +304,6 @@ target_include_directories(qv2ray PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_BINARY_DIR}
     ${QNODEEDITOR_INCLUDE_PATH}
-    ${SINGLEAPPLICATION_DIR}
     ${ZXING_INCLUDE_PATH}
     ${Protobuf_INCLUDE_DIRS}
     )

@@ -1,43 +1,36 @@
 #include "base/Qv2rayBaseApplication.hpp"
-
-#include <iostream>
+#include "src/ui/Qv2rayPlatformApplication.hpp"
 
 namespace Qv2ray
 {
-    class Qv2rayCliApplication
-        : public QCoreApplication
-        , public Qv2rayApplicationManagerInterface
+    class Qv2rayCliApplication : public Qv2rayPlatformApplication
     {
         Q_OBJECT
       public:
-        explicit Qv2rayCliApplication(int argc, char *argv[]);
-        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
-        {
-            std::cout << text.toStdString() << std::endl;
-        }
-        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOptions button = OK) override
-        {
-            std::cout << text.toStdString() << std::endl;
-        }
-        MessageOptions MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOptions> &buttons) override
-        {
-            std::cout << text.toStdString() << std::endl;
-            return {};
-        }
-        Qv2raySetupStatus Initialize() override
-        {
-            std::cout << "Welcome to use Qv2ray!" << std::endl;
-            return {};
-        }
-        Qv2rayExitCode RunQv2ray() override
-        {
-            PluginHost = new QvPluginHost();
-            std::cout << "Please select a node to connect" << std::endl;
-            return {};
-        }
-        void OpenURL(const QString &url) override
+        explicit Qv2rayCliApplication(int &argc, char *argv[]);
+        Qv2raySetupStatus Initialize() override;
+        Qv2rayExitCode RunQv2ray() override;
+
+      public:
+        void MessageBoxWarn(QWidget *, const QString &, const QString &, MessageOpt = OK) override
         {
         }
+        void MessageBoxInfo(QWidget *, const QString &, const QString &, MessageOpt = OK) override
+        {
+        }
+        MessageOpt MessageBoxAsk(QWidget *, const QString &, const QString &, const QList<MessageOpt> &) override
+        {
+            return OK;
+        }
+        void OpenURL(const QString &) override
+        {
+        }
+
+      private:
+        void TerminateUI() override;
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
+        void onMessageReceived(quint32 clientID, QByteArray msg) override;
+#endif
     };
 
 #ifdef Qv2rayApplication

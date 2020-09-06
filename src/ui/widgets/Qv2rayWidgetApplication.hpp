@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ui/common/platforms/Qv2rayPlatformApplication.hpp"
+#include "ui/Qv2rayPlatformApplication.hpp"
 
 #include <QApplication>
 #include <QDesktopServices>
@@ -15,7 +15,6 @@ namespace Qv2ray
     {
         Q_OBJECT
       public:
-        //
         explicit Qv2rayWidgetApplication(int &argc, char *argv[]);
         Qv2raySetupStatus Initialize() override;
         Qv2rayExitCode RunQv2ray() override;

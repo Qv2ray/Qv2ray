@@ -2,8 +2,6 @@ set(QV2RAY_UI_COMMON_BASEDIR ${CMAKE_SOURCE_DIR}/src/ui/common)
 add_definitions(-DQAPPLICATION_CLASS=QApplication)
 
 set(QV2RAY_UI_COMMON_SOURCES
-    # Platform Dependent
-    ${QV2RAY_UI_COMMON_BASEDIR}/platforms/Qv2rayPlatformApplication.hpp
     # Common Utils
     ${QV2RAY_UI_COMMON_BASEDIR}/QRCodeHelper.cpp
     ${QV2RAY_UI_COMMON_BASEDIR}/QRCodeHelper.hpp

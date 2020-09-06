@@ -5,6 +5,9 @@ set(QV2RAY_BASEDIR_BASE ${CMAKE_SOURCE_DIR}/src/base)
 set(QV2RAY_BASE_SOURCES
     ${QV2RAY_BASEDIR_BASE}/Qv2rayBaseApplication.cpp
     ${QV2RAY_BASEDIR_BASE}/Qv2rayBaseApplication.hpp
+    # Platform Dependent UI
+    ${CMAKE_SOURCE_DIR}/src/ui/Qv2rayPlatformApplication.hpp
+    #
     ${QV2RAY_BASEDIR_BASE}/JsonHelpers.hpp
     ${QV2RAY_BASEDIR_BASE}/models/CoreObjectModels.hpp
     ${QV2RAY_BASEDIR_BASE}/models/QvComplexConfigModels.hpp

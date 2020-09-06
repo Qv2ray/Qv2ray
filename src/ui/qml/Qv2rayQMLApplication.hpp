@@ -1,6 +1,6 @@
 #include "Qv2rayQMLProperty.hpp"
 #include "base/Qv2rayBaseApplication.hpp"
-#include "ui/common/platforms/Qv2rayPlatformApplication.hpp"
+#include "ui/Qv2rayPlatformApplication.hpp"
 
 #include <QQuickView>
 
