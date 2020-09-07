@@ -1,7 +1,7 @@
 #include "QvHelpers.hpp"
 
+#include "3rdparty/puresource/src/PureJson.hpp"
 #include "base/Qv2rayBase.hpp"
-#include "libs/puresource/src/PureJson.hpp"
 
 namespace Qv2ray::common
 {

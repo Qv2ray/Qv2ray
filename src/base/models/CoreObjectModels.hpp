@@ -1,6 +1,6 @@
 #pragma once
-#include "libs/QJsonStruct/QJsonIO.hpp"
-#include "libs/QJsonStruct/QJsonStruct.hpp"
+#include "3rdparty/QJsonStruct/QJsonIO.hpp"
+#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
 
 #include <QList>
 #include <QMap>

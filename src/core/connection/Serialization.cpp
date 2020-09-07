@@ -4,7 +4,6 @@
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/handler/ConfigHandler.hpp"
-#include "libs/QJsonStruct/QJsonIO.hpp"
 
 namespace Qv2ray::core::connection
 {

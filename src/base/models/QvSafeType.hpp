@@ -1,5 +1,5 @@
 #pragma once
-#include "libs/QJsonStruct/QJsonStruct.hpp"
+#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
 
 #include <QJsonArray>
 #include <QJsonDocument>

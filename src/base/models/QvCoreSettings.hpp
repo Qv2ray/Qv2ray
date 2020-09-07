@@ -1,6 +1,6 @@
 #pragma once
+#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
 #include "base/models/CoreObjectModels.hpp"
-#include "libs/QJsonStruct/QJsonStruct.hpp"
 namespace Qv2ray::base::config
 {
     struct QvConfig_Route

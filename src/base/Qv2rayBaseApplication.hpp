@@ -1,7 +1,6 @@
 #pragma once
 #include "core/handler/ConfigHandler.hpp"
 #include "core/handler/RouteHandler.hpp"
-#include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <QCoreApplication>
 #include <QObject>

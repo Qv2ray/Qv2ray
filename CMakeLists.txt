@@ -252,7 +252,7 @@ if(QV2RAY_HAS_GUI)
         list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_WIDGET_SOURCES})
         #
         if (QV2RAY_HAS_BUILT_IN_THEMES)
-            include(libs/uistyles/uistyles.cmake)
+            include(3rdparty/uistyles/uistyles.cmake)
             list(APPEND QV2RAY_UI_SOURCE ${UISTYLE_QRCS})
         endif()
         #

@@ -1,6 +1,6 @@
 #pragma once
+#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
 #include "QvCoreSettings.hpp"
-#include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <QHash>
 #include <QHashFunctions>
