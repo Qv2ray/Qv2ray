@@ -4,8 +4,8 @@
 [submodule "3rdparty/QNodeEditor"]
 	path = 3rdparty/QNodeEditor
 	url = https://github.com/Qv2ray/QNodeEditor
-[submodule "libs/puresource"]
-	path = libs/puresource
+[submodule "3rdparty/puresource"]
+	path = 3rdparty/puresource
 	url = https://github.com/Qv2ray/PureSource
 [submodule "3rdparty/zxing-cpp"]
 	path = 3rdparty/zxing-cpp
@@ -13,8 +13,8 @@
 [submodule "src/plugin-interface"]
 	path = src/plugin-interface
 	url = https://github.com/Qv2ray/QvPlugin-Interface
-[submodule "libs/QJsonStruct"]
-	path = libs/QJsonStruct
+[submodule "3rdparty/QJsonStruct"]
+	path = 3rdparty/QJsonStruct
 	url = https://github.com/Qv2ray/QJsonStruct
 [submodule "3rdparty/libuv"]
     path = 3rdparty/libuv
