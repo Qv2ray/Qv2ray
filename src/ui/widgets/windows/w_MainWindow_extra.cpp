@@ -174,8 +174,10 @@ void MainWindow::UpdateActionTranslations()
     action_RCM_Edit->setText(tr("Edit"));
     action_RCM_DuplicateConnection->setText(tr("Duplicate to the Same Group"));
     action_RCM_TestLatency->setText(tr("Test Latency"));
+    action_RCM_RealLatencyTest->setText(tr("Test Real Latency"));
     action_RCM_ResetStats->setText(tr("Clear Usage Data"));
     action_RCM_DeleteConnection->setText(tr("Delete Connection"));
+    //
     sortMenu->setTitle(tr("Sort connection list."));
     sortAction_SortByName_Asc->setText(tr("By connection name, A-Z"));
     sortAction_SortByName_Dsc->setText(tr("By connection name, Z-A"));
@@ -187,6 +189,6 @@ void MainWindow::UpdateActionTranslations()
     action_RCM_SwitchCoreLog->setText(tr("Switch to Core log"));
     action_RCM_SwitchQv2rayLog->setText(tr("Switch to Qv2ray log"));
     //
-    graph_action_CopyAsImage->setText(tr("Copy graph as image."));
+    action_RCM_CopyGraph->setText(tr("Copy graph as image."));
     action_RCM_CopyRecentLogs->setText(tr("Copy latest logs."));
 }

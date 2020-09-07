@@ -312,8 +312,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     sortBtn->setMenu(sortMenu);
     //
-    graphWidgetMenu->addAction(graph_action_CopyAsImage);
-    connect(graph_action_CopyAsImage, &QAction::triggered, this, &MainWindow::Action_CopyGraphAsImage);
+    graphWidgetMenu->addAction(action_RCM_CopyGraph);
+    connect(action_RCM_CopyGraph, &QAction::triggered, this, &MainWindow::Action_CopyGraphAsImage);
     //
     LOG(MODULE_UI, "Loading data...")
     for (const auto &group : ConnectionManager->AllGroups())

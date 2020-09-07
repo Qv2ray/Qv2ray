@@ -149,7 +149,6 @@ class MainWindow
     DECL_ACTION(tray_RootMenu, tray_action_Stop);
     DECL_ACTION(tray_RootMenu, tray_action_SetSystemProxy);
     DECL_ACTION(tray_RootMenu, tray_action_ClearSystemProxy);
-    DECL_ACTION(graphWidgetMenu, graph_action_CopyAsImage);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_Start);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_SetAutoConnection);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_UpdateSubscription);
@@ -168,6 +167,7 @@ class MainWindow
     DECL_ACTION(sortMenu, sortAction_SortByPing_Dsc);
     DECL_ACTION(sortMenu, sortAction_SortByData_Asc);
     DECL_ACTION(sortMenu, sortAction_SortByData_Dsc);
+    DECL_ACTION(graphWidgetMenu, action_RCM_CopyGraph);
     DECL_ACTION(logRCM_Menu, action_RCM_SwitchCoreLog);
     DECL_ACTION(logRCM_Menu, action_RCM_SwitchQv2rayLog);
     DECL_ACTION(logRCM_Menu, action_RCM_CopyRecentLogs);
