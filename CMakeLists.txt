@@ -162,10 +162,20 @@ include(cmake/libsemver.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/backend.cmake)
 
+
+# ==================================================================================
+# Qv2ray Builtin Plugins
+# ==================================================================================
+option(QV2RAY_HAS_BUILTIN_PLUGINS "Include builtin plugins" ON)
+
+if(QV2RAY_HAS_BUILTIN_PLUGINS)
+    add_subdirectory(src/plugins)
+endif()
+
+
 # ==================================================================================
 # Qv2ray Baselib
 # ==================================================================================
-
 find_package(Qt5 5.11 COMPONENTS Core Network REQUIRED)
 set(QV2RAY_QT_LIBS Qt5::Core Qt5::Network)
 

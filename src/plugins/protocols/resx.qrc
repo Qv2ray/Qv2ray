@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/qv2ray.png</file>
+    </qresource>
+</RCC>
