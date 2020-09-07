@@ -68,6 +68,7 @@ parts:
       - protobuf-compiler-grpc
       - pkg-config
       - libcurl4-openssl-dev
+      - libqt5svg5-dev
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -78,6 +79,7 @@ parts:
       - libqt5gui5
       - libqt5network5
       - libqt5widgets5
+      - libqt5svg5
       - libglib2.0-bin
       - libcurl4
     cmake-parameters:
