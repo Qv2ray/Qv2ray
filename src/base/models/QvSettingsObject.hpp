@@ -48,13 +48,13 @@ namespace Qv2ray::base::config
         int maxJumpListCount;
         bool useOldShareLinkFormat;
         Qv2rayConfig_UI()
-            : theme("Fusion"),            //
-              language("en_US"),          //
-              useDarkTheme(false),        //
-              useDarkTrayIcon(true),      //
-              maximumLogLines(500),       //
-              maxJumpListCount(20),       //
-              useOldShareLinkFormat(true) //
+            : theme("Fusion"),             //
+              language("en_US"),           //
+              useDarkTheme(false),         //
+              useDarkTrayIcon(true),       //
+              maximumLogLines(500),        //
+              maxJumpListCount(20),        //
+              useOldShareLinkFormat(false) //
               {};
         JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines,
                                                maxJumpListCount, recentConnections, useOldShareLinkFormat))
