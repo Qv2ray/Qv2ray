@@ -191,17 +191,18 @@ endif()
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/plugin-interface")
 include(src/plugin-interface/QvPluginInterface.cmake)
 
-# Include SingleApplication on non-android platform.
-if(NOT ANDROID)
-    include(cmake/singleapplication.cmake)
-    list(APPEND QV2RAY_UI_SOURCES ${SINGLEAPPLICATION_SOURCES})
-endif()
-
 # Qv2ray baselib
 include(cmake/translations.cmake)
 include(cmake/components/qv2ray-base.cmake)
+
+# Include SingleApplication on non-android platform.
+if(NOT ANDROID)
+    include(cmake/singleapplication.cmake)
+endif()
+
 add_library(qv2ray-baselib STATIC
     ${QV2RAY_BASE_SOURCES}
+    ${SINGLEAPPLICATION_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
     ${LIBSEMVER_SOURCES}
     ${PROTO_SRCS}
