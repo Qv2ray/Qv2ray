@@ -67,7 +67,7 @@ namespace Qv2ray
     {
       public:
         static Qv2rayPreInitResult PreInitialize(int argc, char **argv);
-        explicit Qv2rayApplicationManager(int argc, char *argv[]);
+        explicit Qv2rayApplicationManager();
         ~Qv2rayApplicationManager();
         virtual bool FindAndCreateInitialConfiguration() final;
         //

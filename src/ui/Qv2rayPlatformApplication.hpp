@@ -49,7 +49,7 @@ class Qv2rayPlatformApplication
     Q_OBJECT
   public:
     Qv2rayPlatformApplication(int &argc, char *argv[])
-        : QV2RAY_BASE_APPLICATION_CLASS(QV2RAY_BASE_CLASS_CONSTRUCTOR_ARGS), Qv2rayApplicationManager(argc, argv){};
+        : QV2RAY_BASE_APPLICATION_CLASS(QV2RAY_BASE_CLASS_CONSTRUCTOR_ARGS), Qv2rayApplicationManager(){};
     virtual ~Qv2rayPlatformApplication(){};
 
     void QuitApplication(int retCode = 0)

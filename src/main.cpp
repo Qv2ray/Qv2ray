@@ -221,6 +221,25 @@ int main(int argc, char *argv[])
         }
         default: Q_UNREACHABLE();
     }
+
+    // noScaleFactors = disable HiDPI
+    if (StartupOption.noScaleFactor)
+    {
+        LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
+        DEBUG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
+        qputenv("QT_SCALE_FACTOR", "1");
+    }
+    else
+    {
+        DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    #ifdef QV2RAY_GUI
+        QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+    #endif
+#endif
+    }
+
     // Check OpenSSL version for auto-update and subscriptions
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString();
@@ -241,55 +260,37 @@ int main(int argc, char *argv[])
         return QVEXIT_SSL_FAIL;
     }
 
-    // noScaleFactors = disable HiDPI
-    if (StartupOption.noScaleFactor)
+    Qv2rayApplication app(argc, argv);
+    switch (app.Initialize())
     {
-        LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
-        DEBUG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
-        qputenv("QT_SCALE_FACTOR", "1");
-    }
-    else
-    {
-        DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
-        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    #ifdef QV2RAY_GUI
-        QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
-    #endif
-#endif
+        case NORMAL: break;
+        case SINGLE_APPLICATION: return QVEXIT_SECONDARY_INSTANCE;
+        case FAILED:
+        {
+            app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Qv2ray early initialization failed."));
+            return QVEXIT_EARLY_SETUP_FAIL;
+        }
     }
 
+    //
+    // Qv2ray Initialize, find possible config paths and verify them.
+    if (!app.FindAndCreateInitialConfiguration())
     {
-        Qv2rayApplication app(argc, argv);
-        switch (app.Initialize())
-        {
-            case NORMAL: break;
-            case SINGLE_APPLICATION: return QVEXIT_SECONDARY_INSTANCE;
-            case FAILED:
-            {
-                app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Qv2ray early initialization failed."));
-                return QVEXIT_EARLY_SETUP_FAIL;
-            }
-        }
-        //
-        // Qv2ray Initialize, find possible config paths and verify them.
-        if (!app.FindAndCreateInitialConfiguration())
-        {
-            LOG(MODULE_INIT, "Cannot load or create initial configuration file.")
-            app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Cannot load config file."));
-            return QVEXIT_CONFIG_FILE_FAIL;
-        }
+        LOG(MODULE_INIT, "Cannot load or create initial configuration file.")
+        app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Cannot load config file."));
+        return QVEXIT_CONFIG_FILE_FAIL;
+    }
 
 #ifndef Q_OS_WIN
-        signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
-        signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
+    signal(SIGUSR1, [](int) { ConnectionManager->RestartConnection(); });
+    signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
-        const auto rcode = app.RunQv2ray();
-        if (rcode == QVEXIT_NEW_VERSION)
-        {
-            LOG(MODULE_INIT, "Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath)
-            QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
-        }
-        return rcode;
+
+    const auto rcode = app.RunQv2ray();
+    if (rcode == QVEXIT_NEW_VERSION)
+    {
+        LOG(MODULE_INIT, "Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath)
+        QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
     }
+    return rcode;
 }

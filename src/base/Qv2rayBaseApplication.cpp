@@ -12,7 +12,7 @@ const static inline QString QV2RAY_URL_SCHEME = "qv2ray";
 
 constexpr auto QV2RAY_CONFIG_PATH_ENV_NAME = "QV2RAY_CONFIG_PATH";
 
-Qv2rayApplicationManager::Qv2rayApplicationManager(int, char *[])
+Qv2rayApplicationManager::Qv2rayApplicationManager()
 {
     qvApplicationInstance = this;
     LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
