@@ -114,7 +114,7 @@ void ConnectionItemWidget::OnConnected(const ConnectionGroupPair &id)
 {
     if (id == ConnectionGroupPair{ connectionId, groupId })
     {
-        connNameLabel->setText("• " + originalItemName);
+        connNameLabel->setText("● " + originalItemName);
         DEBUG(MODULE_UI, "ConnectionItemWidgetOnConnected signal received for: " + id.connectionId.toString())
         emit RequestWidgetFocus(this);
     }
@@ -193,7 +193,7 @@ void ConnectionItemWidget::OnConnectionItemRenamed(const ConnectionId &id, const
 {
     if (id == connectionId)
     {
-        connNameLabel->setText((ConnectionManager->IsConnected({ connectionId, groupId }) ? "• " : "") + newName);
+        connNameLabel->setText((ConnectionManager->IsConnected({ connectionId, groupId }) ? "● " : "") + newName);
         originalItemName = newName;
         const auto conn = ConnectionManager->GetConnectionMetaObject(connectionId);
         this->setToolTip(newName +                                                             //
