@@ -22,8 +22,6 @@ class OutboundEditor
   private:
     explicit OutboundEditor(QWidget *parent = nullptr);
     QvMessageBusSlotDecl;
-  signals:
-    void s_reload_config(bool need_restart);
   private slots:
     void on_buttonBox_accepted();
     void on_ipLineEdit_textEdited(const QString &arg1);

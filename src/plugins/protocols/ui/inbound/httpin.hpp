@@ -3,6 +3,8 @@
 #include "QvGUIPluginInterface.hpp"
 #include "ui_httpin.h"
 
+#include <QJsonArray>
+
 class HTTPInboundEditor
     : public Qv2rayPlugin::QvPluginEditor
     , private Ui::httpInEditor
@@ -18,15 +20,31 @@ class HTTPInboundEditor
         return {};
     };
 
-    void SetContent(const QJsonObject &content) override
-    {
-        this->content = content;
-    };
+    void SetContent(const QJsonObject &content) override;
     const QJsonObject GetContent() const override
     {
-        return content;
-    };
+        auto newObject = content;
+        // Remove useless, misleading 'accounts' array.
+        if (newObject["accounts"].toArray().count() == 0)
+        {
+            newObject.remove("accounts");
+        }
+        return newObject;
+    }
 
   protected:
     void changeEvent(QEvent *e) override;
+
+  private slots:
+
+    void on_httpTimeoutSpinBox_valueChanged(int arg1);
+
+    void on_httpTransparentCB_stateChanged(int arg1);
+
+    void on_httpRemoveUserBtn_clicked();
+
+    void on_httpAddUserBtn_clicked();
+
+  private:
+    bool isLoading = false;
 };
