@@ -1,5 +1,5 @@
+#include "PluginSettingsWidget.hpp"
 #include "QvGUIPluginInterface.hpp"
-#include "ui/PluginSettingsWidget.hpp"
 //
 #include "inbound/dokodemo-door.hpp"
 #include "inbound/httpin.hpp"

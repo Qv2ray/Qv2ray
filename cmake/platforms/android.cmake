@@ -1,5 +1,3 @@
-set(QV2RAY_USE_QML ON)
-
 if(NOT ANDROID_SDK)
     set(ANDROID_SDK $ENV{ANDROID_SDK_ROOT})
 endif()
@@ -47,4 +45,12 @@ else() #Release build: Put Release paths before Debug paths. Debug Paths are req
         ${QV2RAY_ANDROID_ROOT}
         ${QV2RAY_ANDROID_ROOT}/debug
         )
+endif()
+
+if(ANDROID)
+    set(APK_PACKAGE_NAME "net.qv2ray.qv2ray")
+    set(APK_PACKAGE_VERSION "v${QV2RAY_VERSION_STRING}")
+    set(APK_DISPLAY_NAME "Qv2ray")
+    set(APK_PACKAGE_VERSIONCODE 0)
+    configure_file(${CMAKE_SOURCE_DIR}/assets/AndroidManifest.xml.in ${CMAKE_SOURCE_DIR}/assets/android/AndroidManifest.xml @ONLY)
 endif()

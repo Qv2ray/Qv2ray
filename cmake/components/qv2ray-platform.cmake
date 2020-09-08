@@ -4,5 +4,5 @@ if(ANDROID)
         ${CMAKE_SOURCE_DIR}/src/platforms/android/QvVPNService.hpp
         ${CMAKE_SOURCE_DIR}/src/platforms/android/QvVPNService.cpp
         )
-    list(APPEND QV2RAY_PLATFORM_LIBS Qt5::AndroidExtras)
+    list(APPEND QV2RAY_PLATFORM_LIBS Qt5::AndroidExtras -llog -landroid)
 endif()
