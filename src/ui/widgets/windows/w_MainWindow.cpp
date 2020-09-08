@@ -345,7 +345,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     checker->CheckUpdate();
     splitter->setSizes({ 200, 300 });
     //
-    for (const auto &name : PluginHost->AvailablePlugins())
+    for (const auto &name : PluginHost->UsablePlugins())
     {
         const auto &plugin = PluginHost->GetPlugin(name);
         if (!plugin->hasComponent(COMPONENT_GUI))
