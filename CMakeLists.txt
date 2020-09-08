@@ -162,17 +162,6 @@ include(cmake/libsemver.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/backend.cmake)
 
-
-# ==================================================================================
-# Qv2ray Builtin Plugins
-# ==================================================================================
-option(QV2RAY_HAS_BUILTIN_PLUGINS "Include builtin plugins" ON)
-
-if(QV2RAY_HAS_BUILTIN_PLUGINS)
-    add_subdirectory(src/plugins)
-endif()
-
-
 # ==================================================================================
 # Qv2ray Baselib
 # ==================================================================================
@@ -242,6 +231,22 @@ target_include_directories(qv2ray-baselib PUBLIC
     ${Protobuf_INCLUDE_DIRS}
     )
 
+
+# ==================================================================================
+# Qv2ray Builtin Plugins
+# ==================================================================================
+option(QV2RAY_HAS_BUILTIN_PLUGINS "Include builtin plugins" ON)
+
+if(QV2RAY_HAS_BUILTIN_PLUGINS)
+    add_subdirectory(src/plugins)
+endif()
+
+
+# ==================================================================================
+# Qv2ray Platform-Dependent Sources
+# ==================================================================================
+include(cmake/components/qv2ray-platform.cmake)
+
 # ==================================================================================
 # Qv2ray GUI/CLI Frontend
 # ==================================================================================
@@ -289,6 +294,7 @@ set(QV2RAY_FULL_SOURCES
     ${CMAKE_SOURCE_DIR}/resources.qrc
     ${CMAKE_SOURCE_DIR}/resources.new.qrc
     ${QV2RAY_UI_SOURCES}
+    ${QV2RAY_PLATFORM_SOURCES}
     ${QV2RAY_EMBED_TRANSLATION_QRC}
     ${QRC_RESOURCES}
     ${QM_FILES})
@@ -308,6 +314,7 @@ target_link_libraries(qv2ray
     qv2ray-baselib
     ${ZXING_LIBRARY}
     ${QNODEEDITOR_LIBRARY}
+    ${QV2RAY_PLATFORM_LIBS}
     )
 
 target_include_directories(qv2ray PUBLIC
