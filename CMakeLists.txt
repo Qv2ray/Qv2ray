@@ -87,8 +87,8 @@ endif()
 option(QV2RAY_AUTO_DEPLOY "Automatically run deploy command after build" ON)
 QVLOG(QV2RAY_AUTO_DEPLOY)
 
-option(QV2RAY_BUILD_TESTING "Build Tests" OFF)
-QVLOG(QV2RAY_BUILD_TESTING)
+option(BUILD_TESTING "Build Tests" OFF)
+QVLOG(BUILD_TESTING)
 
 set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "Default V2Ray assets path")
 QVLOG(QV2RAY_DEFAULT_VASSETS_PATH)
@@ -366,7 +366,7 @@ target_link_libraries(qv2ray
 # ==================================================================================
 # Qv2ray Unit Tests
 # ==================================================================================
-if (QV2RAY_BUILD_TESTING)
+if (BUILD_TESTING)
     include(CTest)
     add_subdirectory(test)
 endif()
