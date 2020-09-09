@@ -85,7 +85,7 @@ parts:
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
-      - -DEMBED_TRANSLATIONS=ON
+      - -DQV2RAY_EMBED_TRANSLATIONS=ON
       - -DFALL_BACK_TO_XDG_OPEN=ON
     override-pull: |
       snapcraftctl pull
