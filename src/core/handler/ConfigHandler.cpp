@@ -379,7 +379,7 @@ namespace Qv2ray::core::handler
     {
         CheckValidId(id, false);
         //
-        auto path = QV2RAY_CONNECTIONS_DIR + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        auto path = QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         auto content = JsonToString(root);
         bool result = StringToFile(content, path);
         //

@@ -1,23 +1,30 @@
 #pragma once
 
-#include <QApplication>
 #include <QDialog>
 #include <QGraphicsEffect>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <QPainter>
 #include <QTextCursor>
 #include <QTextDocument>
-#include <QtGui>
 
-#define QV2RAY_USE_NEW_ICONS
+// GUI TOOLS
+#define RED(obj)                                                                                                                                \
+    {                                                                                                                                           \
+        auto _temp = obj->palette();                                                                                                            \
+        _temp.setColor(QPalette::Text, Qt::red);                                                                                                \
+        obj->setPalette(_temp);                                                                                                                 \
+    }
+
+#define BLACK(obj) obj->setPalette(QWidget::palette());
 
 constexpr auto QV2RAY_ICON_EXTENSION = ".svg";
 
 #define QV2RAY_COLORSCHEME_ROOT_X(isDark) (QString(":/assets/icons/") + ((isDark) ? "ui_dark/" : "ui_light/"))
 #define QV2RAY_COLORSCHEME_ROOT QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTheme)
 #define QV2RAY_ICON_RESOURCE(file) (QV2RAY_COLORSCHEME_ROOT + file + QV2RAY_ICON_EXTENSION)
-#define QICON_R(file) QIcon(QV2RAY_ICON_RESOURCE(file))
-#define Q_TRAYICON(name) (QIcon(QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTrayIcon) + name + ".png"))
+#define QICON_R(file) QPixmap(QV2RAY_ICON_RESOURCE(file))
+#define Q_TRAYICON(name) (QPixmap(QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTrayIcon) + name + ".png"))
 
 class QvDialog : public QDialog
 {

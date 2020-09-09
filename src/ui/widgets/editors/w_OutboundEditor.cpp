@@ -239,7 +239,7 @@ void OutboundEditor::ReloadGUI()
     else if (outboundType == "vless")
     {
         outBoundTypeCombo->setCurrentIndex(STACK_PAGE_VLESS);
-        vless = VLessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
+        vless = VLESSServerObject::fromJson(settings["vnext"].toArray().first().toObject());
         serverAddress = vless.address;
         serverPort = vless.port;
         if (vless.users.isEmpty())

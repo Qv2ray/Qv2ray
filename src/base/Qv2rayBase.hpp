@@ -52,50 +52,38 @@ class _qv2ray_global_config_impl_details
 #endif
 
 #ifdef Q_OS_WIN
-    #define QV2RAY_EXECUTABLE_FILENAME_SUFFIX ".exe"
+    #define QV2RAY_EXECUTABLE_SUFFIX ".exe"
 #else
-    #define QV2RAY_EXECUTABLE_FILENAME_SUFFIX ""
+    #define QV2RAY_EXECUTABLE_SUFFIX ""
 #endif
 
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 //
-#define QV2RAY_ROUTING_DIR (QV2RAY_CONFIG_DIR + "rounting/")
 #define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
 //
 #define QV2RAY_PLUGIN_SETTINGS_DIR (QV2RAY_CONFIG_DIR + "plugin_settings/")
 //
 #define QV2RAY_CONFIG_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
-#define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
 
 #if !defined(QV2RAY_DEFAULT_VCORE_PATH) && !defined(QV2RAY_DEFAULT_VASSETS_PATH)
     #define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
-    #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_FILENAME_SUFFIX)
-    #define QV2RAY_DEFAULT_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_FILENAME_SUFFIX)
+    #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_SUFFIX)
+    #define QV2RAY_DEFAULT_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_SUFFIX)
 #elif defined(QV2RAY_DEFAULT_VCORE_PATH) && defined(QV2RAY_DEFAULT_VASSETS_PATH)
 // ---- Using user-specified VCore and VAssets path
 #else
     #error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to be presented when using manually specify the paths.
 #endif
 
-#define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_FILENAME_SUFFIX)
-#define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_FILENAME_SUFFIX)
+#define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_SUFFIX)
+#define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_SUFFIX)
 
-#define QV2RAY_VCORE_LOG_DIRNAME "logs/"
-#define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
-#define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
-
-// GUI TOOLS
-#define RED(obj)                                                                                                                                \
-    {                                                                                                                                           \
-        auto _temp = obj->palette();                                                                                                            \
-        _temp.setColor(QPalette::Text, Qt::red);                                                                                                \
-        obj->setPalette(_temp);                                                                                                                 \
-    }
-
-#define BLACK(obj) obj->setPalette(QWidget::palette());
+constexpr auto QV2RAY_VCORE_LOG_DIRNAME = "logs/";
+constexpr auto QV2RAY_VCORE_ACCESS_LOG_FILENAME = "access.log";
+constexpr auto QV2RAY_VCORE_ERROR_LOG_FILENAME = "error.log";
 
 #ifdef Q_OS_MACOS
     #define ACCESS_OPTIONAL_VALUE(obj) (*obj)

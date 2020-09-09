@@ -76,7 +76,7 @@ namespace Qv2ray::components::plugins
         //
       private slots:
         void QvPluginLog(const QString &log);
-        void QvPluginMessageBox(const QString &message);
+        void QvPluginMessageBox(const QString &title, const QString &message);
 
       private:
         void InitializePluginHost();

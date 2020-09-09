@@ -1,5 +1,6 @@
 #include "StreamSettingsWidget.hpp"
 
+#include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
 #include "utils/QvHelpers.hpp"
 

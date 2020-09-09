@@ -61,7 +61,7 @@ class OutboundEditor
     int serverPort;
     //
     VMessServerObject vmess;
-    VLessServerObject vless;
+    VLESSServerObject vless;
     ShadowSocksServerObject shadowsocks;
     SocksServerObject socks;
     HttpServerObject http;

@@ -1,10 +1,11 @@
 #include "V2RayKernelInteractions.hpp"
 
 #include "APIBackend.hpp"
-#include "utils/QvHelpers.hpp"
 #include "core/connection/ConnectionIO.hpp"
+#include "utils/QvHelpers.hpp"
 
 #include <QProcess>
+#define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
 
 namespace Qv2ray::core::kernel
 {
@@ -40,7 +41,7 @@ namespace Qv2ray::core::kernel
         // Also do the same thing for v2ctl.
         // TODO: Simplify This / Extract This Creepy Thing
         const auto coreControlFilePath =
-            QDir::cleanPath(QFileInfo(coreFile).absoluteDir().path() + QDir::separator() + "v2ctl" QV2RAY_EXECUTABLE_FILENAME_SUFFIX);
+            QDir::cleanPath(QFileInfo(coreFile).absoluteDir().path() + QDir::separator() + "v2ctl" QV2RAY_EXECUTABLE_SUFFIX);
 
         QFile coreControlFile(coreControlFilePath);
         if (!coreControlFile.permissions().testFlag(QFileDevice::ExeUser))

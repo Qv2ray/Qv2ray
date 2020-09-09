@@ -8,6 +8,7 @@
 #include "ui/widgets/widgets/RouteSettingsMatrix.hpp"
 #include "utils/QvHelpers.hpp"
 
+#include <QDesktopServices>
 #include <QFileDialog>
 #include <QListWidgetItem>
 

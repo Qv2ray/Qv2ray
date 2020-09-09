@@ -1,6 +1,7 @@
 #include "DnsSettingsWidget.hpp"
 
 #include "components/geosite/QvGeositeReader.hpp"
+#include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/widgets/QvAutoCompleteTextEdit.hpp"
 #include "utils/QvHelpers.hpp"
 

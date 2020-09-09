@@ -23,7 +23,10 @@ class ProtocolGUIInterface : public PluginGUIInterface
     ~ProtocolGUIInterface(){};
     QList<PluginGuiComponentType> GetComponents() const override
     {
-        return { GUI_COMPONENT_SETTINGS, GUI_COMPONENT_INBOUND_EDITOR, GUI_COMPONENT_OUTBOUND_EDITOR };
+        return {
+            GUI_COMPONENT_INBOUND_EDITOR, //
+            GUI_COMPONENT_OUTBOUND_EDITOR //
+        };
     }
     std::unique_ptr<QvPluginSettingsWidget> createSettingsWidgets() const override
     {

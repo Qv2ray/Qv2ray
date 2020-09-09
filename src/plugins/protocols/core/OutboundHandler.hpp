@@ -1,8 +1,6 @@
 #pragma once
 #include "QvPluginProcessor.hpp"
 
-#include <QObject>
-
 class BuiltinSerializer : public Qv2rayPlugin::PluginOutboundHandler
 {
   public:
