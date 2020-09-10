@@ -31,7 +31,4 @@ class DokodemoDoorInboundEditor
     void on_dokoTCPCB_stateChanged(int arg1);
     void on_dokoUDPCB_stateChanged(int arg1);
     void on_dokoTimeoutSB_valueChanged(int arg1);
-
-  private:
-    bool isLoading = false;
 };

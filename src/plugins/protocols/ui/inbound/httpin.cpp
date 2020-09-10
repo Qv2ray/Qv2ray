@@ -2,10 +2,6 @@
 
 #include "QvPluginInterface.hpp"
 
-#define CHECKLOADING                                                                                                                            \
-    if (isLoading)                                                                                                                              \
-        return;
-
 HTTPInboundEditor::HTTPInboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
 {
     setupUi(this);
@@ -24,32 +20,34 @@ void HTTPInboundEditor::changeEvent(QEvent *e)
 
 void HTTPInboundEditor::SetContent(const QJsonObject &content)
 {
-    this->content = content; // HTTP
-    httpTimeoutSpinBox->setValue(content["timeout"].toInt());
-    httpTransparentCB->setChecked(content["allowTransparent"].toBool());
-    httpAccountListBox->clear();
+    PLUGIN_EDITOR_LOADING_SCOPE({
+        this->content = content; // HTTP
+        httpTimeoutSpinBox->setValue(content["timeout"].toInt());
+        httpTransparentCB->setChecked(content["allowTransparent"].toBool());
+        httpAccountListBox->clear();
 
-    for (const auto &user : content["accounts"].toArray())
-    {
-        httpAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
-    }
+        for (const auto &user : content["accounts"].toArray())
+        {
+            httpAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
+        }
+    })
 }
 
 void HTTPInboundEditor::on_httpTimeoutSpinBox_valueChanged(int arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["timtout"] = arg1;
 }
 
 void HTTPInboundEditor::on_httpTransparentCB_stateChanged(int arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["allowTransparent"] = arg1 == Qt::Checked;
 }
 
 void HTTPInboundEditor::on_httpRemoveUserBtn_clicked()
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     if (httpAccountListBox->currentRow() < 0)
     {
         Qv2rayPlugin::pluginInstance->PluginErrorMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
@@ -74,7 +72,7 @@ void HTTPInboundEditor::on_httpRemoveUserBtn_clicked()
 
 void HTTPInboundEditor::on_httpAddUserBtn_clicked()
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     const auto user = httpAddUserTxt->text();
     const auto pass = httpAddPasswordTxt->text();
     //

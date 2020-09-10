@@ -1,9 +1,5 @@
 #include "dokodemo-door.hpp"
 
-#define CHECKLOADING                                                                                                                            \
-    if (isLoading)                                                                                                                              \
-        return;
-
 DokodemoDoorInboundEditor::DokodemoDoorInboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
 {
     setupUi(this);
@@ -22,16 +18,16 @@ void DokodemoDoorInboundEditor::changeEvent(QEvent *e)
 
 void DokodemoDoorInboundEditor::SetContent(const QJsonObject &content)
 {
-    isLoading = true;
-    this->content = content;
-    // Dokodemo-Door
-    dokoFollowRedirectCB->setChecked(content["followRedirect"].toBool());
-    dokoIPAddrTxt->setText(content["address"].toString());
-    dokoPortSB->setValue(content["port"].toInt());
-    dokoTimeoutSB->setValue(content["timeout"].toInt());
-    dokoTCPCB->setChecked(content["network"].toString().contains("tcp"));
-    dokoUDPCB->setChecked(content["network"].toString().contains("udp"));
-    isLoading = false;
+    PLUGIN_EDITOR_LOADING_SCOPE({
+        this->content = content;
+        // Dokodemo-Door
+        dokoFollowRedirectCB->setChecked(content["followRedirect"].toBool());
+        dokoIPAddrTxt->setText(content["address"].toString());
+        dokoPortSB->setValue(content["port"].toInt());
+        dokoTimeoutSB->setValue(content["timeout"].toInt());
+        dokoTCPCB->setChecked(content["network"].toString().contains("tcp"));
+        dokoUDPCB->setChecked(content["network"].toString().contains("udp"));
+    })
 }
 const QJsonObject DokodemoDoorInboundEditor::GetContent() const
 {
@@ -40,13 +36,13 @@ const QJsonObject DokodemoDoorInboundEditor::GetContent() const
 
 void DokodemoDoorInboundEditor::on_dokoIPAddrTxt_textEdited(const QString &arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["address"] = arg1;
 }
 
 void DokodemoDoorInboundEditor::on_dokoPortSB_valueChanged(int arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["port"] = arg1;
 }
 
@@ -62,26 +58,26 @@ void DokodemoDoorInboundEditor::on_dokoPortSB_valueChanged(int arg1)
 
 void DokodemoDoorInboundEditor::on_dokoTCPCB_stateChanged(int arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     Q_UNUSED(arg1)
     SET_NETWORK;
 }
 
 void DokodemoDoorInboundEditor::on_dokoUDPCB_stateChanged(int arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     Q_UNUSED(arg1)
     SET_NETWORK;
 }
 
 void DokodemoDoorInboundEditor::on_dokoTimeoutSB_valueChanged(int arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["timeout"] = arg1;
 }
 
 void DokodemoDoorInboundEditor::on_dokoFollowRedirectCB_stateChanged(int arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["followRedirect"] = arg1 == Qt::Checked;
 }

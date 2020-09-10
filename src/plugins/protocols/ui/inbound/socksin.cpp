@@ -2,10 +2,6 @@
 
 #include "QvPluginInterface.hpp"
 
-#define CHECKLOADING                                                                                                                            \
-    if (isLoading)                                                                                                                              \
-        return;
-
 SocksInboundEditor::SocksInboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
 {
     setupUi(this);
@@ -24,22 +20,23 @@ void SocksInboundEditor::changeEvent(QEvent *e)
 
 void SocksInboundEditor::SetContent(const QJsonObject &content)
 {
-    this->content = content;
-    // SOCKS
-    socksAuthCombo->setCurrentText(content["auth"].toString());
-    socksUDPCB->setChecked(content["udp"].toBool());
-    socksUDPIPAddrTxt->setText(content["ip"].toString());
+    PLUGIN_EDITOR_LOADING_SCOPE({
+        this->content = content;
+        // SOCKS
+        socksAuthCombo->setCurrentText(content["auth"].toString());
+        socksUDPCB->setChecked(content["udp"].toBool());
+        socksUDPIPAddrTxt->setText(content["ip"].toString());
 
-    for (auto user : content["accounts"].toArray())
-    {
-        socksAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
-    }
+        for (auto user : content["accounts"].toArray())
+        {
+            socksAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
+        }
+    })
 }
 
 void SocksInboundEditor::on_socksRemoveUserBtn_clicked()
 {
-    CHECKLOADING
-
+    PLUGIN_EDITOR_LOADING_GUARD
     if (socksAccountListBox->currentRow() != -1)
     {
         auto item = socksAccountListBox->currentItem();
@@ -67,7 +64,7 @@ void SocksInboundEditor::on_socksRemoveUserBtn_clicked()
 
 void SocksInboundEditor::on_socksAddUserBtn_clicked()
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     auto user = socksAddUserTxt->text();
     auto pass = socksAddPasswordTxt->text();
     //
@@ -96,18 +93,18 @@ void SocksInboundEditor::on_socksAddUserBtn_clicked()
 
 void SocksInboundEditor::on_socksUDPCB_stateChanged(int arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["udp"] = arg1 == Qt::Checked;
 }
 
 void SocksInboundEditor::on_socksUDPIPAddrTxt_textEdited(const QString &arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["ip"] = arg1;
 }
 
 void SocksInboundEditor::on_socksAuthCombo_currentIndexChanged(const QString &arg1)
 {
-    CHECKLOADING
+    PLUGIN_EDITOR_LOADING_GUARD
     content["auth"] = arg1.toLower();
 }

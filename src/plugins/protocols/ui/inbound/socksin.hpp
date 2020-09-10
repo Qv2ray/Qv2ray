@@ -40,7 +40,4 @@ class SocksInboundEditor
 
   protected:
     void changeEvent(QEvent *e) override;
-
-  private:
-    bool isLoading = false;
 };

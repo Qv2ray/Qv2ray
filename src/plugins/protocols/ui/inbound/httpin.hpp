@@ -44,7 +44,4 @@ class HTTPInboundEditor
     void on_httpRemoveUserBtn_clicked();
 
     void on_httpAddUserBtn_clicked();
-
-  private:
-    bool isLoading = false;
 };

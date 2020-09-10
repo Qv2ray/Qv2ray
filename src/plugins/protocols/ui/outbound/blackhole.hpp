@@ -18,10 +18,7 @@ class BlackholeOutboundEditor
         return {};
     };
 
-    void SetContent(const QJsonObject &content) override
-    {
-        this->content = content;
-    };
+    void SetContent(const QJsonObject &content) override;
     const QJsonObject GetContent() const override
     {
         return content;
@@ -29,4 +26,6 @@ class BlackholeOutboundEditor
 
   protected:
     void changeEvent(QEvent *e) override;
+  private slots:
+    void on_responseTypeCB_currentTextChanged(const QString &arg1);
 };

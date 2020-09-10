@@ -29,7 +29,8 @@ ADD_SOURCE(inbound socksin)
 
 set(BUILTIN_PROTOCOL_PLUGIN_SOURCES
     ${PLUGIN_UI_SOURCE}
-    ${CMAKE_CURRENT_LIST_DIR}/BuiltinProtocolPlugin.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/common/CommonTypes.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/BuiltinProtocolPlugin.hpp
     ${CMAKE_CURRENT_LIST_DIR}/BuiltinProtocolPlugin.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/OutboundHandler.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/OutboundHandler.hpp
@@ -48,6 +49,7 @@ add_library(${BUILT_IN_PROTOCOL_PLUGIN_TARGET} MODULE
     )
 
 target_include_directories(${BUILT_IN_PROTOCOL_PLUGIN_TARGET} PRIVATE ${QVPLUGIN_INTERFACE_INCLUDE_DIR})
+target_include_directories(${BUILT_IN_PROTOCOL_PLUGIN_TARGET} PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
 if(APPLE)
     add_custom_command(TARGET ${BUILT_IN_PROTOCOL_PLUGIN_TARGET}

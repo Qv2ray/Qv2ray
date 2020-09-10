@@ -43,14 +43,14 @@ class ProtocolGUIInterface : public PluginGUIInterface
     QList<typed_plugin_editor> createOutboundEditors() const override
     {
         return {
-            MakeEditorInfoPair<VmessOutboundEditor>("vmess", "VMess"),                   //
-            MakeEditorInfoPair<VlessOutboundEditor>("vless", "VLESS"),                   //
-            MakeEditorInfoPair<ShadowsocksOutboundEditor>("shadowsocks", "Shadowsocks"), //
-            MakeEditorInfoPair<HttpOutboundEditor>("http", "HTTP"),                      //
-            MakeEditorInfoPair<SocksOutboundEditor>("socks", "SOCKS"),                   //
-            MakeEditorInfoPair<FreedomOutboundEditor>("freedom", "Freedom"),             //
-            MakeEditorInfoPair<BlackholeOutboundEditor>("blackhole", "Blackhole"),       //
-            MakeEditorInfoPair<DnsOutboundEditor>("dns", "DNS"),                         //
+            // MakeEditorInfoPair<VmessOutboundEditor>("vmess", "VMess"),                   //
+            // MakeEditorInfoPair<VlessOutboundEditor>("vless", "VLESS"),                   //
+            // MakeEditorInfoPair<ShadowsocksOutboundEditor>("shadowsocks", "Shadowsocks"), //
+            MakeEditorInfoPair<HttpOutboundEditor>("http", "HTTP"),                //
+            MakeEditorInfoPair<SocksOutboundEditor>("socks", "SOCKS"),             //
+            MakeEditorInfoPair<FreedomOutboundEditor>("freedom", "Freedom"),       //
+            MakeEditorInfoPair<BlackholeOutboundEditor>("blackhole", "Blackhole"), //
+            MakeEditorInfoPair<DnsOutboundEditor>("dns", "DNS"),                   //
         };
     }
     std::unique_ptr<QvPluginMainWindowWidget> createMainWindowWidget() const override

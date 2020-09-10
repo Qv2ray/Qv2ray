@@ -3,6 +3,8 @@
 #endif
 #ifdef QV2RAY_CLI
     #include "ui/cli/Qv2rayCliApplication.hpp"
+#else
+    #include <QMessageBox>
 #endif
 #ifdef QV2RAY_GUI_QWIDGETS
     #include "ui/widgets/Qv2rayWidgetApplication.hpp"
@@ -18,10 +20,6 @@
 
 #ifndef Q_OS_WIN
     #include <unistd.h>
-#endif
-
-#ifdef QV2RAY_GUI
-    #include <QMessageBox>
 #endif
 
 int globalArgc;
@@ -221,7 +219,7 @@ int main(int argc, char *argv[])
         }
         default: Q_UNREACHABLE();
     }
-
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
     // noScaleFactors = disable HiDPI
     if (StartupOption.noScaleFactor)
     {

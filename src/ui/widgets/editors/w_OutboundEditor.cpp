@@ -13,8 +13,6 @@
 constexpr auto STACK_PAGE_VMESS = 0;
 constexpr auto STACK_PAGE_VLESS = 1;
 constexpr auto STACK_PAGE_SHADOWSOCKS = 2;
-constexpr auto STACK_PAGE_SOCKS = 3;
-constexpr auto STACK_PAGE_HTTP = 4;
 
 #define ALLOCATE_USERS                                                                                                                          \
     {                                                                                                                                           \
@@ -22,10 +20,6 @@ constexpr auto STACK_PAGE_HTTP = 4;
             vmess.users.push_back({});                                                                                                          \
         if (vless.users.isEmpty())                                                                                                              \
             vless.users.push_back({});                                                                                                          \
-        if (http.users.empty())                                                                                                                 \
-            http.users.push_back({});                                                                                                           \
-        if (socks.users.empty())                                                                                                                \
-            socks.users.push_back({});                                                                                                          \
     }
 
 OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_TAG_PROXY)
@@ -145,38 +139,6 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
             settings["servers"] = servers;
             break;
         }
-        case STACK_PAGE_SOCKS:
-        {
-            if (!socks.users.isEmpty() && socks.users.first().user.isEmpty() && socks.users.first().pass.isEmpty())
-            {
-                LOG(MODULE_UI, "Removed empty user form SOCKS settings")
-                socks.users.clear();
-            }
-            socks.address = serverAddress;
-            socks.port = serverPort;
-            // streaming = QJsonObject();
-            // LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
-            QJsonArray servers;
-            servers.append(socks.toJson());
-            settings["servers"] = servers;
-            break;
-        }
-        case STACK_PAGE_HTTP:
-        {
-            if (!http.users.isEmpty() && http.users.first().user.isEmpty() && http.users.first().pass.isEmpty())
-            {
-                LOG(MODULE_UI, "Removed empty user form HTTP settings")
-                http.users.clear();
-            }
-            http.address = serverAddress;
-            http.port = serverPort;
-            // streaming = QJsonObject();
-            // LOG(MODULE_CONNECTION, "Http outbound does not need StreamSettings.")
-            QJsonArray servers;
-            servers.append(http.toJson());
-            settings["servers"] = servers;
-            break;
-        }
         default:
         {
             streaming = QJsonObject();
@@ -259,28 +221,6 @@ void OutboundEditor::ReloadGUI()
         ss_otaCheckBox->setChecked(shadowsocks.ota);
         ss_passwordTxt->setText(shadowsocks.password);
         ss_encryptionMethod->setCurrentText(shadowsocks.method);
-    }
-    else if (outboundType == "socks")
-    {
-        outBoundTypeCombo->setCurrentIndex(STACK_PAGE_SOCKS);
-        socks = SocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
-        serverAddress = socks.address;
-        serverPort = socks.port;
-        if (socks.users.empty())
-            socks.users.push_back({});
-        socks_PasswordTxt->setText(socks.users.front().pass);
-        socks_UserNameTxt->setText(socks.users.front().user);
-    }
-    else if (outboundType == "http")
-    {
-        outBoundTypeCombo->setCurrentIndex(STACK_PAGE_HTTP);
-        http = HttpServerObject::fromJson(settings["servers"].toArray().first().toObject());
-        serverAddress = http.address;
-        serverPort = http.port;
-        if (http.users.empty())
-            http.users.push_back({});
-        http_PasswordTxt->setText(http.users.front().pass);
-        http_UserNameTxt->setText(http.users.front().user);
     }
     else
     {
@@ -395,7 +335,12 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
         useFPCB->setChecked(false);
         useFPCB->setEnabled(false);
         useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
-        streamSettingsWidget->setEnabled(false);
+        auto x = outboundTypeStackView->currentWidget();
+        if (!x)
+            return;
+        const auto prop = x->property("QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
+        const auto hasStreamSettings = prop.isValid() && prop.type() == QVariant::Bool && prop.toBool();
+        streamSettingsWidget->setEnabled(hasStreamSettings);
     }
 }
 
@@ -417,26 +362,6 @@ void OutboundEditor::on_ss_encryptionMethod_currentIndexChanged(const QString &a
 void OutboundEditor::on_ss_otaCheckBox_stateChanged(int arg1)
 {
     shadowsocks.ota = arg1 == Qt::Checked;
-}
-
-void OutboundEditor::on_socks_UserNameTxt_textEdited(const QString &arg1)
-{
-    socks.users.front().user = arg1;
-}
-
-void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
-{
-    socks.users.front().pass = arg1;
-}
-
-void OutboundEditor::on_http_UserNameTxt_textEdited(const QString &arg1)
-{
-    http.users.front().user = arg1;
-}
-
-void OutboundEditor::on_http_PasswordTxt_textEdited(const QString &arg1)
-{
-    http.users.front().pass = arg1;
 }
 
 void OutboundEditor::on_testsEnabledCombo_currentIndexChanged(const QString &arg1)
