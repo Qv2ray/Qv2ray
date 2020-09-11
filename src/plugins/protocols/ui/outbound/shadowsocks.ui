@@ -13,6 +13,112 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Email</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="ss_emailTxt">
+     <property name="placeholderText">
+      <string notr="true">my.name@domain.com</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_22">
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="ss_passwordTxt">
+     <property name="placeholderText">
+      <string notr="true">p@ssw0rd</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_14">
+     <property name="text">
+      <string>Encryption Method</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="ss_encryptionMethod">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <item>
+      <property name="text">
+       <string notr="true">none</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">aes-256-cfb</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">aes-128-cfb</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">aes-256-gcm</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">aes-128-gcm</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">chacha20-ietf</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">chacha20</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">chacha20-poly1305</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">chacha20-ietf-poly1305</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_30">
+     <property name="text">
+      <string>OTA</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QCheckBox" name="ss_otaCheckBox">
+     <property name="text">
+      <string>Enabled</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

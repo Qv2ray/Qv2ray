@@ -1,6 +1,7 @@
 #pragma once
 
 #include "QvGUIPluginInterface.hpp"
+#include "common/CommonTypes.hpp"
 #include "ui_shadowsocks.h"
 
 class ShadowsocksOutboundEditor
@@ -12,21 +13,47 @@ class ShadowsocksOutboundEditor
   public:
     explicit ShadowsocksOutboundEditor(QWidget *parent = nullptr);
 
-    void SetHostAddress(const QString &, int) override{};
+    void SetHostAddress(const QString &addr, int port) override
+    {
+        shadowsocks.address = addr;
+        shadowsocks.port = port;
+    };
     QPair<QString, int> GetHostAddress() const override
     {
-        return {};
+        return { shadowsocks.address, shadowsocks.port };
     };
 
     void SetContent(const QJsonObject &content) override
     {
-        this->content = content;
-    };
+        PLUGIN_EDITOR_LOADING_SCOPE({
+            if (content["servers"].toArray().isEmpty())
+                content["servers"] = QJsonArray{ QJsonObject{} };
+            // ShadowSocks Configs
+            shadowsocks = ShadowSocksServerObject::fromJson(content["servers"].toArray().first().toObject());
+            ss_emailTxt->setText(shadowsocks.email);
+            ss_otaCheckBox->setChecked(shadowsocks.ota);
+            ss_passwordTxt->setText(shadowsocks.password);
+            ss_encryptionMethod->setCurrentText(shadowsocks.method);
+        })
+    }
     const QJsonObject GetContent() const override
     {
-        return content;
-    };
+        auto result = content;
+        QJsonArray servers;
+        servers.append(shadowsocks.toJson());
+        result.insert("servers", servers);
+        return result;
+    }
 
   protected:
     void changeEvent(QEvent *e) override;
+
+  private slots:
+    void on_ss_emailTxt_textEdited(const QString &arg1);
+    void on_ss_encryptionMethod_currentIndexChanged(const QString &arg1);
+    void on_ss_otaCheckBox_stateChanged(int arg1);
+    void on_ss_passwordTxt_textEdited(const QString &arg1);
+
+  private:
+    ShadowSocksServerObject shadowsocks;
 };

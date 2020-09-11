@@ -28,9 +28,10 @@ class SocksOutboundEditor
     {
         socks.loadJson(content);
         PLUGIN_EDITOR_LOADING_SCOPE({
-            if (!socks.users.isEmpty())
-            {
-            }
+            if (socks.users.isEmpty())
+                socks.users.push_back({});
+            socks_UserNameTxt->setText(socks.users.first().user);
+            socks_PasswordTxt->setText(socks.users.first().pass);
         })
     }
     const QJsonObject GetContent() const override

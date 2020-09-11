@@ -29,7 +29,7 @@ InboundEditor::InboundEditor(INBOUND source, QWidget *parent) : QDialog(parent),
     }
     transportFrame->layout()->addWidget(streamSettingsWidget);
     this->current = source;
-    inboundProtocol = current["protocol"].toString();
+    inboundProtocol = current["protocol"].toString("http");
     allocateSettings = current["allocate"].toObject();
     sniffingSettings = current["sniffing"].toObject();
 
@@ -54,13 +54,12 @@ InboundEditor::InboundEditor(INBOUND source, QWidget *parent) : QDialog(parent),
         const auto editors = guiInterface->GetInboundEditors();
         for (const auto &editorInfo : editors)
         {
-            inboundProtocolCombo->addItem(editorInfo.first.displayName, "");
-            auto index = stackedWidget->addWidget(editorInfo.second);
-            pluginWidgets.insert(index, { editorInfo.first, editorInfo.second });
+            inboundProtocolCombo->addItem(editorInfo.first.displayName, editorInfo.first.protocol);
+            stackedWidget->addWidget(editorInfo.second);
+            pluginWidgets.insert(editorInfo.first.protocol, editorInfo.second);
         }
     }
-    if (inboundProtocol.isEmpty() && !pluginWidgets.isEmpty())
-        inboundProtocol = pluginWidgets.first().first.protocol;
+    inboundProtocolCombo->model()->sort(0);
     isLoading = false;
     loadUI();
 }
@@ -85,11 +84,11 @@ INBOUND InboundEditor::OpenEditor()
 INBOUND InboundEditor::getResult()
 {
     INBOUND newRoot = current;
-    for (const auto &plugin : pluginWidgets)
+    for (const auto &[protocol, widget] : pluginWidgets.toStdMap())
     {
-        if (plugin.first.protocol == inboundProtocol)
+        if (protocol == inboundProtocol)
         {
-            newRoot["settings"] = INBOUNDSETTING(plugin.second->GetContent());
+            newRoot["settings"] = INBOUNDSETTING(widget->GetContent());
             break;
         }
     }
@@ -122,24 +121,23 @@ void InboundEditor::loadUI()
     }
     {
         sniffingGroupBox->setChecked(sniffingSettings["enabled"].toBool());
-        const auto &data = sniffingSettings["destOverride"].toArray();
+        const auto data = sniffingSettings["destOverride"].toArray();
         sniffHTTPCB->setChecked(data.contains("http"));
         sniffTLSCB->setChecked(data.contains("tls"));
     }
     bool processed = false;
     const auto settings = current["settings"].toObject();
-    //
-    for (const auto &index : pluginWidgets.keys())
+    for (const auto &[protocol, widget] : pluginWidgets.toStdMap())
     {
-        const auto &plugin = pluginWidgets.value(index);
-        if (plugin.first.protocol == inboundProtocol)
+        if (protocol == inboundProtocol)
         {
-            plugin.second->SetContent(settings);
-            inboundProtocolCombo->setCurrentIndex(index);
+            widget->SetContent(settings);
+            inboundProtocolCombo->setCurrentIndex(inboundProtocolCombo->findData(protocol));
             processed = true;
             break;
         }
     }
+
     if (!processed)
     {
         LOG(MODULE_UI, "Inbound protocol: " + inboundProtocol + " is not supported.")
@@ -148,7 +146,6 @@ void InboundEditor::loadUI()
                              tr("Please use the JsonEditor or reload the plugin."));
         reject();
     }
-    stackedWidget->setCurrentIndex(inboundProtocolCombo->currentIndex());
     isLoading = false;
 }
 
@@ -156,11 +153,11 @@ InboundEditor::~InboundEditor()
 {
 }
 
-void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(int index)
+void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(int)
 {
     CHECKLOADING
-    inboundProtocol = pluginWidgets.value(index).first.protocol;
-    stackedWidget->setCurrentIndex(index);
+    inboundProtocol = inboundProtocolCombo->currentData().toString();
+    on_stackedWidget_currentChanged(0);
 }
 
 void InboundEditor::on_inboundTagTxt_textEdited(const QString &arg1)
@@ -213,24 +210,23 @@ void InboundEditor::on_sniffingGroupBox_clicked(bool checked)
         list << "tls";                                                                                                                          \
     sniffingSettings["destOverride"] = QJsonArray::fromStringList(list)
 
-void InboundEditor::on_sniffHTTPCB_stateChanged(int arg1)
+void InboundEditor::on_sniffHTTPCB_stateChanged(int)
 {
-    Q_UNUSED(arg1)
     SET_SNIFF_DEST_OVERRIDE;
 }
 
-void InboundEditor::on_sniffTLSCB_stateChanged(int arg1)
+void InboundEditor::on_sniffTLSCB_stateChanged(int)
 {
-    Q_UNUSED(arg1)
     SET_SNIFF_DEST_OVERRIDE;
 }
 
 void InboundEditor::on_stackedWidget_currentChanged(int)
 {
-    auto x = stackedWidget->currentWidget();
-    if (!x)
+    inboundProtocol = inboundProtocolCombo->currentData().toString();
+    auto widget = pluginWidgets[inboundProtocol];
+    if (!widget)
         return;
-    const auto prop = x->property("QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
-    const auto hasStreamSettings = prop.isValid() && prop.type() == QVariant::Bool && prop.toBool();
+    stackedWidget->setCurrentWidget(widget);
+    const auto hasStreamSettings = GetProperty(widget, "QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
     streamSettingsWidget->setEnabled(hasStreamSettings);
 }

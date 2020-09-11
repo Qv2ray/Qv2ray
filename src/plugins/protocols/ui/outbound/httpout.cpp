@@ -4,6 +4,7 @@ HttpOutboundEditor::HttpOutboundEditor(QWidget *parent) : Qv2rayPlugin::QvPlugin
 {
     setupUi(this);
     setProperty("QV2RAY_INTERNAL_HAS_STREAMSETTINGS", true);
+    setProperty("QV2RAY_INTERNAL_HAS_FORWARD_PROXY", true);
 }
 
 void HttpOutboundEditor::changeEvent(QEvent *e)

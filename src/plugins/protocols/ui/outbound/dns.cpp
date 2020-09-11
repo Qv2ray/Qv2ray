@@ -4,6 +4,7 @@ DnsOutboundEditor::DnsOutboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEd
 {
     setupUi(this);
     setProperty("QV2RAY_INTERNAL_HAS_STREAMSETTINGS", false);
+    setProperty("QV2RAY_INTERNAL_HAS_FORWARD_PROXY", false);
 }
 
 void DnsOutboundEditor::changeEvent(QEvent *e)

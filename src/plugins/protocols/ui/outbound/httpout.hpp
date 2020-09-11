@@ -28,11 +28,11 @@ class HttpOutboundEditor
     {
         http.loadJson(content);
         PLUGIN_EDITOR_LOADING_SCOPE({
-            if (!http.users.isEmpty())
-            {
-                http_UserNameTxt->setText(http.users.first().user);
-                http_PasswordTxt->setText(http.users.first().pass);
-            }
+            if (http.users.isEmpty())
+
+                http.users.push_back({});
+            http_UserNameTxt->setText(http.users.first().user);
+            http_PasswordTxt->setText(http.users.first().pass);
         })
     }
 

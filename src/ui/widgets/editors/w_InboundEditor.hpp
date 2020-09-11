@@ -57,5 +57,5 @@ class InboundEditor
     QJsonObject sniffingSettings;
     QJsonObject allocateSettings;
     QString inboundProtocol;
-    QMap<int, QPair<ProtocolInfoObject, QvPluginEditor *>> pluginWidgets;
+    QMap<QString, QvPluginEditor *> pluginWidgets;
 };
