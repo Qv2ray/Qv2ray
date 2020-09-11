@@ -22,35 +22,20 @@ class OutboundEditor
   private:
     explicit OutboundEditor(QWidget *parent = nullptr);
     QvMessageBusSlotDecl;
-  signals:
-    void s_reload_config(bool need_restart);
+
   private slots:
     void on_buttonBox_accepted();
     void on_ipLineEdit_textEdited(const QString &arg1);
-    void on_portLineEdit_textEdited(const QString &arg1);
-    void on_idLineEdit_textEdited(const QString &arg1);
-    void on_tagTxt_textEdited(const QString &arg1);
-    void on_muxEnabledCB_stateChanged(int arg1);
     void on_muxConcurrencyTxt_valueChanged(int arg1);
-    void on_alterLineEdit_valueChanged(int arg1);
-    void on_useFPCB_stateChanged(int arg1);
+    void on_muxEnabledCB_stateChanged(int arg1);
     void on_outBoundTypeCombo_currentIndexChanged(int index);
-    void on_ss_emailTxt_textEdited(const QString &arg1);
-    void on_ss_passwordTxt_textEdited(const QString &arg1);
-    void on_ss_encryptionMethod_currentIndexChanged(const QString &arg1);
-    void on_ss_otaCheckBox_stateChanged(int arg1);
-    void on_socks_UserNameTxt_textEdited(const QString &arg1);
-    void on_socks_PasswordTxt_textEdited(const QString &arg1);
-    void on_http_UserNameTxt_textEdited(const QString &arg1);
-    void on_http_PasswordTxt_textEdited(const QString &arg1);
-    void on_securityCombo_currentIndexChanged(const QString &arg1);
-    void on_testsEnabledCombo_currentIndexChanged(const QString &arg1);
-    void on_vLessIDTxt_textEdited(const QString &arg1);
-    void on_vLessSecurityCombo_currentTextChanged(const QString &arg1);
+    void on_portLineEdit_textEdited(const QString &arg1);
+    void on_tagTxt_textEdited(const QString &arg1);
+    void on_useFPCB_stateChanged(int arg1);
 
   private:
     QString tag;
-    void ReloadGUI();
+    void reloadGUI();
     bool useForwardProxy;
     OUTBOUND GenerateConnectionJson();
     OUTBOUND originalConfig;
@@ -59,18 +44,8 @@ class OutboundEditor
     //
     // Connection Configs
     QString outboundType;
-    QString serverAddress;
-    int serverPort;
-    //
-    VMessServerObject vmess;
-    VLessServerObject vless;
-    ShadowSocksServerObject shadowsocks;
-    SocksServerObject socks;
-    HttpServerObject http;
     //
     StreamSettingsWidget *streamSettingsWidget;
     //
-    int builtInOutboundTypes;
-    //
-    QMap<int, QPair<ProtocolInfoObject, QvPluginEditor *>> pluginWidgets;
+    QMap<QString, QvPluginEditor *> pluginWidgets;
 };

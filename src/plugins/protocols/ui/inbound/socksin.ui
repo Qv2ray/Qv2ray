@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>socksInEditor</class>
+ <widget class="QWidget" name="socksInEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>302</width>
+    <height>256</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_20">
+     <property name="text">
+      <string>Enable UDP</string>
+     </property>
+     <property name="buddy">
+      <cstring>socksUDPCB</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QCheckBox" name="socksUDPCB">
+     <property name="text">
+      <string>Enabled</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_19">
+     <property name="text">
+      <string>UDP Local IP</string>
+     </property>
+     <property name="buddy">
+      <cstring>socksUDPIPAddrTxt</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="socksUDPIPAddrTxt">
+     <property name="placeholderText">
+      <string>127.0.0.1</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_10">
+     <property name="text">
+      <string>Auth</string>
+     </property>
+     <property name="buddy">
+      <cstring>socksAuthCombo</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="socksAuthCombo">
+     <item>
+      <property name="text">
+       <string notr="true">noauth</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">password</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Users</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLineEdit" name="socksAddUserTxt">
+       <property name="placeholderText">
+        <string>Username</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="socksAddPasswordTxt">
+       <property name="placeholderText">
+        <string>Password</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QToolButton" name="socksAddUserBtn">
+       <property name="icon">
+        <iconset resource="../../../../../resources.new.qrc">
+         <normaloff>:/assets/icons/ui_dark/add.svg</normaloff>:/assets/icons/ui_dark/add.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" rowspan="2" colspan="2">
+      <widget class="QListWidget" name="socksAccountListBox"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QToolButton" name="socksRemoveUserBtn">
+       <property name="icon">
+        <iconset resource="../../../../../resources.new.qrc">
+         <normaloff>:/assets/icons/ui_dark/minus.svg</normaloff>:/assets/icons/ui_dark/minus.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../../../../resources.new.qrc"/>
+ </resources>
+ <connections/>
+</ui>

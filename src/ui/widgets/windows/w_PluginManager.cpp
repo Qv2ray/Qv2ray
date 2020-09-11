@@ -5,6 +5,8 @@
 #include "ui/widgets/editors/w_JsonEditor.hpp"
 #include "utils/QvHelpers.hpp"
 
+#include <QDesktopServices>
+
 PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog(parent)
 {
     setupUi(this);
@@ -59,9 +61,11 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
     }
 
     const auto pluginUIInterface = currentPluginInfo->pluginInterface->GetGUIInterface();
-    if (pluginUIInterface && pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
+    Q_ASSERT_X(pluginUIInterface, "PluginManager", "PluginInterface must not be nullptr");
+    if (pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
     {
         pluginGuiComponentsLabel->setText(GetPluginComponentsString(pluginUIInterface->GetComponents()).join(NEWLINE));
+        pluginIconLabel->setPixmap({});
         pluginIconLabel->setPixmap(pluginUIInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
         currentSettingsWidget = pluginUIInterface->GetSettingsWidget();
         currentSettingsWidget->SetSettings(currentPluginInfo->pluginInterface->GetSettngs());

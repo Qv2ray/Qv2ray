@@ -45,20 +45,6 @@ namespace Qv2ray::core
             *port = Server.port;
             return true;
         }
-        else if (*protocol == "socks")
-        {
-            auto Server = SocksServerObject::fromJson(QJsonIO::GetValue(out, "settings", "servers", 0).toObject());
-            *host = Server.address;
-            *port = Server.port;
-            return true;
-        }
-        else if (*protocol == "http")
-        {
-            auto Server = HttpServerObject::fromJson(QJsonIO::GetValue(out, "settings", "servers", 0).toObject());
-            *host = Server.address;
-            *port = Server.port;
-            return true;
-        }
         else
         {
             bool status;

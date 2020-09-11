@@ -2,6 +2,54 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ja_JP">
 <context>
+    <name>BalancerWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>ChainEditorWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Chain Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not find outbound tag: %1, The chain may be corrupted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Please Select a Chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChainOutboundWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>ChainWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Chained</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConnectionInfoWidget</name>
     <message>
         <source>Form</source>
@@ -222,14 +270,6 @@
         <translation>DNSリスト</translation>
     </message>
     <message>
-        <source>△</source>
-        <translation>上がる</translation>
-    </message>
-    <message>
-        <source>▽</source>
-        <translation>下へ</translation>
-    </message>
-    <message>
         <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
 
 It cannot be a private address.</source>
@@ -303,6 +343,25 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
 </context>
 <context>
+    <name>HTTPInboundEditor</name>
+    <message>
+        <source>Removing a user</source>
+        <translation type="unfinished">ユーザーを削除する</translation>
+    </message>
+    <message>
+        <source>You haven&apos;t selected a user yet.</source>
+        <translation type="unfinished">まだユーザーを選択していません。</translation>
+    </message>
+    <message>
+        <source>Add a user</source>
+        <translation type="unfinished">ユーザーを追加する</translation>
+    </message>
+    <message>
+        <source>This user exists already.</source>
+        <translation type="unfinished">このユーザーは既に存在します.</translation>
+    </message>
+</context>
+<context>
     <name>ImportConfigWindow</name>
     <message>
         <source>Import file</source>
@@ -351,10 +410,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Manually Input Connections</source>
         <translation>接続を手動で入力する</translation>
-    </message>
-    <message>
-        <source>Open Connection Editor</source>
-        <translation>接続エディターを開く</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -437,26 +492,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>検出リンク</translation>
     </message>
     <message>
-        <source>Input Manually</source>
-        <translation>手動</translation>
-    </message>
-    <message>
-        <source>Simple Editor</source>
-        <translation>簡単エディター</translation>
-    </message>
-    <message>
-        <source>Complex Editor</source>
-        <translation>複雑エディター</translation>
-    </message>
-    <message>
-        <source>Open Route / Complex Connection Editor</source>
-        <translation>ルート/複雑エディターを開く</translation>
-    </message>
-    <message>
-        <source>You can manually input connection here.</source>
-        <translation>ここで接続を手動で入力する。</translation>
-    </message>
-    <message>
         <source>Advanced</source>
         <translation>その他</translation>
     </message>
@@ -490,10 +525,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Hostname or IP Address</source>
         <translation>ホスト名またはIPアドレス</translation>
-    </message>
-    <message>
-        <source>:</source>
-        <translation>:</translation>
     </message>
     <message>
         <source>Port: 1080|80-85</source>
@@ -536,148 +567,63 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>目標上書き</translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
-    </message>
-    <message>
-        <source>HTTP Inbound Settings</source>
-        <translation>HTTPインバウンド設定</translation>
-    </message>
-    <message>
-        <source>Timeout</source>
-        <translation>タイムアウト</translation>
-    </message>
-    <message>
-        <source>Allow Transparent</source>
-        <translation>透明を許可</translation>
-    </message>
-    <message>
-        <source>User Level</source>
-        <translation>ユーザーレベル</translation>
-    </message>
-    <message>
-        <source>-</source>
-        <translation>-</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation>+</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>追加</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>ユーザー名</translation>
-    </message>
-    <message>
-        <source>Accounts</source>
-        <translation>アカウント</translation>
-    </message>
-    <message>
-        <source>SOCKS Inbound Settings</source>
-        <translation>SOCKSインバウンド設定</translation>
-    </message>
-    <message>
-        <source>Auth</source>
-        <translation>認証</translation>
-    </message>
-    <message>
-        <source>Enable UDP</source>
-        <translation>UDPを有効にする</translation>
-    </message>
-    <message>
-        <source>Local UDP IP</source>
-        <translation>ローカルUDP IP</translation>
-    </message>
-    <message>
-        <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
-    </message>
-    <message>
-        <source>Dokodemo-Door Inbound Settings</source>
-        <translation>どこでもドアのインバウンド設定</translation>
-    </message>
-    <message>
-        <source>IP Address</source>
-        <translation>IPアドレス</translation>
-    </message>
-    <message>
-        <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-        <translation>「リダイレクトに従う」を設定する場合は不要</translation>
-    </message>
-    <message>
         <source>Port</source>
         <translation>ポート</translation>
     </message>
     <message>
-        <source>Network</source>
-        <translation>ネットワーク</translation>
+        <source>HTTP</source>
+        <translation type="unfinished">HTTP</translation>
     </message>
     <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
+        <source>TLS</source>
+        <translation type="unfinished">TLS</translation>
     </message>
     <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
+        <source>Unknown inbound.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Follow Redirect</source>
-        <translation>リダイレクトに従う</translation>
+        <source>The specified inbound type is invalid, this may be caused by a plugin failure.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MTProto Inbound Settings</source>
-        <translation>MTProtoインバウンド設定</translation>
+        <source>Please use the JsonEditor or reload the plugin.</source>
+        <translation type="unfinished">JsonEditorを使用するか、プラグインをリロードしてください。</translation>
+    </message>
+</context>
+<context>
+    <name>InboundOutboundWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>EMail Address</source>
-        <translation>電子メールアドレス</translation>
+        <source>External Config</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Secret</source>
-        <translation>Secret</translation>
+        <source>Edit Outbound</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SECRET</source>
-        <translation>SECRET</translation>
+        <source>Trying to edit an Complex Config</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Inbound type not supported</source>
-        <translation>インバウンドタイプがサポートされていません</translation>
+        <source>You are trying to edit an external connection config, is this what you want?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
-        <translation>このインバウンドタイプは、Qv2rayでは(まだ)サポートされていません。 JsonEditorを使用して設定を変更してください</translation>
+        <source>You have selected an complex config as outbound.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Inbound: </source>
-        <translation>Inbound: </translation>
+        <source>continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Removing a user</source>
-        <translation>ユーザーを削除する</translation>
-    </message>
-    <message>
-        <source>You haven&apos;t selected a user yet.</source>
-        <translation>まだユーザーを選択していません。</translation>
-    </message>
-    <message>
-        <source>Add a user</source>
-        <translation>ユーザーを追加する</translation>
-    </message>
-    <message>
-        <source>This user exists already.</source>
-        <translation>このユーザーは既に存在します.</translation>
-    </message>
-    <message>
-        <source>tproxy mode</source>
-        <translation>透過プロキシのモード</translation>
+        <source>Is this what you want?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -909,10 +855,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>転送量降順</translation>
     </message>
     <message>
-        <source>Switch to vCore log</source>
-        <translation>vCoreログに切り替える</translation>
-    </message>
-    <message>
         <source>Switch to Qv2ray log</source>
         <translation>Qv2rayログに切り替える</translation>
     </message>
@@ -1017,10 +959,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>最近の項目をクリア</translation>
     </message>
     <message>
-        <source>Recent connections&apos; jump list cleared.</source>
-        <translation>最近の項目がクリアされました。</translation>
-    </message>
-    <message>
         <source>Update Subscription</source>
         <translation>サブスクリプションを更新</translation>
     </message>
@@ -1047,6 +985,42 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Collapse all groups</source>
         <translation>グループを折り畳む</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="unfinished">インポート</translation>
+    </message>
+    <message>
+        <source>New Complex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent Connection list cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy latest logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of lines of logs to copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Test Real Latency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switch to Core log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy graph as image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy latest logs.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1217,6 +1191,13 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
         <translation>このプラグインがロードされていません, プラグインを有効にするか、プラグインをリロードしてください.</translation>
+    </message>
+</context>
+<context>
+    <name>PluginSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
     </message>
 </context>
 <context>
@@ -1933,595 +1914,55 @@ Output: <byte value="xd"/>
         <source>&apos;V2Ray Core&apos; Settings</source>
         <translation>「V2Rayコア」設定</translation>
     </message>
+    <message>
+        <source>RealPing Test URL</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <source>Unsupported share link format.</source>
-        <translation>サポートされていない共有リンク形式。</translation>
+        <source>Out</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SS URI is too short</source>
-        <translation>SS URIが短すぎます</translation>
+        <source>In</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Can&apos;t find the colon separator between method and password</source>
-        <translation>メソッドとパスワードの間にコロンセパレーターが見つかりません</translation>
+        <source>Rule</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Can&apos;t find the at separator between password and hostname</source>
-        <translation>パスワードとホスト名の間の「アット」セパレーターが見つかりません</translation>
-    </message>
-    <message>
-        <source>Can&apos;t find the colon separator between hostname and port</source>
-        <translation>ホスト名とポートの間にコロンセパレーターが見つかりません</translation>
-    </message>
-    <message>
-        <source>VMess string should start with &apos;vmess://&apos;</source>
-        <translation>VMess文字列は「vmess://」で始まる必要があります</translation>
-    </message>
-    <message>
-        <source>VMess string should be a valid base64 string</source>
-        <translation>VMess文字列は有効なbase64文字列でなければなりません</translation>
-    </message>
-    <message>
-        <source>JSON should not be empty</source>
-        <translation>JSONを空にしないでください</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>なし</translation>
-    </message>
-    <message>
-        <source>invalid ssd link: json: field %1 must exist</source>
-        <translation>無効なssdリンク：json：フィールド%1が存在する必要があります</translation>
-    </message>
-    <message>
-        <source>invalid ssd link: json: field %1 must be valid port number</source>
-        <translation>無効なssdリンク：json：フィールド%1は有効なポート番号でなければなりません</translation>
-    </message>
-    <message>
-        <source>invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-        <translation>無効なssdリンク：json：フィールド%1は &apos;string&apos;型でなければなりません</translation>
-    </message>
-    <message>
-        <source>invalid ssd link: json: field %1 must be an array</source>
-        <translation>無効なssdリンク：json：フィールド%1は配列でなければなりません</translation>
-    </message>
-    <message>
-        <source>skipping invalid ssd server: server must be an object</source>
-        <translation>無効なssdサーバーをスキップ：serverはオブジェクトでなければなりません</translation>
-    </message>
-    <message>
-        <source>skipping invalid ssd server: missing required field %1</source>
-        <translation>無効なssdサーバーをスキップしています：必須フィールド%1がありません</translation>
-    </message>
-    <message>
-        <source>skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-        <translation>無効なssdサーバーをスキップしています：フィールド%1はstring型でなければなりません</translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: should begin with ssd://</source>
-        <translation>無効なssdリンク：「ssd://」で始まる必要があります</translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: base64 parse failed</source>
-        <translation>無効なssdリンク：base64の解析に失敗しました</translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: json parse failed: </source>
-        <translation>無効なssdリンク：JSON解析に失敗しました： </translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: found non-object json, aborting</source>
-        <translation>無効なssdリンク：非オブジェクトjsonが見つかりました</translation>
-    </message>
-    <message>
-        <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-        <translation>無効なssdリンク：rc4-md5暗号化はv2ray-coreでサポートされていません</translation>
-    </message>
-    <message>
-        <source>Default Group</source>
-        <translation>デフォルトグループ</translation>
-    </message>
-    <message>
-        <source>Deprecated</source>
-        <translation>非推奨</translation>
-    </message>
-    <message>
-        <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation>PACは非推奨になり、使用を推奨されなくなりました。</translation>
-    </message>
-    <message>
-        <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation>今後削除されるか、プラグインとして提供されます。</translation>
-    </message>
-    <message>
-        <source>Configuration Upgrade Failed</source>
-        <translation>構成のアップグレードに失敗しました</translation>
-    </message>
-    <message>
-        <source>Unsupported config version number: </source>
-        <translation>サポートされていない構成バージョン番号： </translation>
-    </message>
-    <message>
-        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-        <translation>まずQv2ray v2.0 / v2.1にアップグレードしてから、もう一度試してください。</translation>
-    </message>
-    <message>
-        <source>%1 - %2 (rate %3)</source>
-        <translation>%1 - %2 (%3 倍)</translation>
-    </message>
-    <message>
-        <source>(Complex config)</source>
-        <translation>（複雑構成）</translation>
-    </message>
-    <message>
-        <source>Outbound</source>
-        <translation>アウトバウンド</translation>
-    </message>
-    <message>
-        <source>Inbound</source>
-        <translation>インバウンド</translation>
-    </message>
-    <message>
-        <source>core executable file %1 does not exist</source>
-        <translation>コア実行可能ファイル%1は存在しません</translation>
-    </message>
-    <message>
-        <source>cannot open core executable file %1 in read-only mode</source>
-        <translation>コア実行可能ファイル%1を読み取り専用モードで開けません</translation>
-    </message>
-    <message>
-        <source>core executable file %1 is an empty file</source>
-        <translation>コア実行可能ファイル%1は空のファイルです</translation>
-    </message>
-    <message>
-        <source>core executable file %1 is too short to be executed</source>
-        <translation>コア実行可能ファイル%1は実行するには短すぎます</translation>
-    </message>
-    <message>
-        <source>cannot deduce the type of core executable file %1</source>
-        <translation>コア実行可能ファイル%1のタイプを推測できません</translation>
-    </message>
-    <message>
-        <source>Windows PE executable</source>
-        <translation>Windows PE実行可能ファイル</translation>
-    </message>
-    <message>
-        <source>macOS Mach-O executable</source>
-        <translation>macOS Mach-O実行可能ファイル</translation>
-    </message>
-    <message>
-        <source>ELF x86 executable</source>
-        <translation>ELF x86実行可能ファイル</translation>
-    </message>
-    <message>
-        <source>ELF amd64 executable</source>
-        <translation>ELF amd64実行可能ファイル</translation>
-    </message>
-    <message>
-        <source>ELF arm64 executable</source>
-        <translation>ELF arm64実行可能ファイル</translation>
-    </message>
-    <message>
-        <source>ELF arm executable</source>
-        <translation>ELF arm 実行可能ファイル</translation>
-    </message>
-    <message>
-        <source>other ELF executable</source>
-        <translation>他のELF実行可能ファイル</translation>
-    </message>
-    <message>
-        <source>unknown abi</source>
-        <translation>不明なABI</translation>
-    </message>
-    <message>
-        <source>Normal Plugin</source>
-        <translation>通常のプラグイン</translation>
-    </message>
-    <message>
-        <source>Kernel</source>
-        <translation>カーネル</translation>
-    </message>
-    <message>
-        <source>Share Link Parser</source>
-        <translation>シェアリンクパーサー</translation>
-    </message>
-    <message>
-        <source>Unknown type.</source>
-        <translation>タイプ不明。</translation>
-    </message>
-    <message>
-        <source>No Capability</source>
-        <translation>無能力</translation>
-    </message>
-    <message>
-        <source>Connection State Change</source>
-        <translation>接続状態の変更</translation>
-    </message>
-    <message>
-        <source>Connection Change</source>
-        <translation>接続の変更</translation>
-    </message>
-    <message>
-        <source>Statistics Event</source>
-        <translation>統計イベント</translation>
-    </message>
-    <message>
-        <source>System Proxy Event</source>
-        <translation>システムプロキシイベント</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation>不明</translation>
-    </message>
-    <message>
-        <source>Deepin Detected</source>
-        <translation>Deepin検出</translation>
-    </message>
-    <message>
-        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
-        <translation>Deepinのバカ、間違ったHTTPS_PROXYとFTP_PROXYの環境変数を設定します。</translation>
-    </message>
-    <message>
-        <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
-        <translation>元のスキームのhttpがhttpsとftpに間違って置き換えられてしまい、問題が発生しています。</translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
-        <translation>Qv2rayでは元に戻すことはできません。何かあっても私たちのせいにしないでください。</translation>
-    </message>
-    <message>
-        <source>trusted abi</source>
-        <translation>信頼できるABI</translation>
-    </message>
-    <message>
-        <source>Timeout</source>
-        <translation>タイムアウト</translation>
-    </message>
-    <message>
-        <source>Socket creation failed</source>
-        <translation>ソケット作成に失敗しました</translation>
-    </message>
-    <message>
-        <source>Failed to setup TTL value</source>
-        <translation>TTL値の設定に失敗しました</translation>
-    </message>
-    <message>
-        <source>Destination unreachable</source>
-        <translation>目的地に到達できません</translation>
-    </message>
-    <message>
-        <source>Unknown error</source>
-        <translation>不明なエラー</translation>
-    </message>
-    <message>
-        <source>vmess:// url is invalid</source>
-        <translation>vmess:// url が無効です</translation>
-    </message>
-    <message>
-        <source>Invalid streamSettings protocol: </source>
-        <translation>無効な streamSettings プロトコル: </translation>
-    </message>
-    <message>
-        <source>Unknown state.</source>
-        <translation>不明な状態。</translation>
-    </message>
-    <message>
-        <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
-        <translation>PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
-    </message>
-    <message>
-        <source>DNS not resolved</source>
-        <translation>DNSが解決されません</translation>
+        <source>Chain</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>Qv2ray::Qv2rayApplication</name>
+    <name>Qv2ray::Qv2rayWidgetApplication</name>
     <message>
-        <source>A new version of Qv2ray is attemping to start:</source>
-        <translation>新しいバージョンのQv2rayが起動しようとしています:</translation>
+        <source>A new version of Qv2ray is starting:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>New version information: </source>
-        <translation>新バージョン情報です: </translation>
+        <translation type="unfinished">新バージョン情報です: </translation>
     </message>
     <message>
         <source>Qv2ray version: %1</source>
-        <translation>Qv2ray バージョン: %1</translation>
+        <translation type="unfinished">Qv2ray バージョン: %1</translation>
     </message>
     <message>
         <source>Qv2ray path: %1</source>
-        <translation>Qv2ray パス: %1</translation>
+        <translation type="unfinished">Qv2ray パス: %1</translation>
     </message>
     <message>
         <source>Do you want to exit and launch that new version?</source>
-        <translation>現在のバージョンを終了して、新しいバージョンを起動しますか？</translation>
+        <translation type="unfinished">現在のバージョンを終了して、新しいバージョンを起動しますか？</translation>
     </message>
     <message>
         <source>New version detected</source>
-        <translation>新しいバージョンを検出</translation>
-    </message>
-    <message>
-        <source>Cannot Start Qv2ray</source>
-        <translation>Qv2rayが起動できない</translation>
-    </message>
-    <message>
-        <source>Cannot find a place to store config files.</source>
-        <translation>設定ファイルを保存する場所が見つかりません。</translation>
-    </message>
-    <message>
-        <source>Qv2ray has searched these paths below:</source>
-        <translation>Qv2rayは以下のパスを検索しました:</translation>
-    </message>
-    <message>
-        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-        <translation>普通はそこら辺の場所への書き込み許可がないってことですよね。</translation>
-    </message>
-    <message>
-        <source>Qv2ray will now exit.</source>
-        <translation>これでQv2rayは終了します。</translation>
-    </message>
-    <message>
-        <source>Failed to initialise Qv2ray</source>
-        <translation>Qv2rayの初期化に失敗しました</translation>
-    </message>
-    <message>
-        <source>Failed to determine the location of config file:</source>
-        <translation>設定ファイルの場所の決定に失敗しました:</translation>
-    </message>
-    <message>
-        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-        <translation>Qv2rayは設定ファイルを見つけましたが、いくつかのエラーによりロードに失敗しました。</translation>
-    </message>
-    <message>
-        <source>A workaround is to remove the this file and restart Qv2ray:</source>
-        <translation>回避策は、このファイルを削除してQv2rayを再起動することです:</translation>
-    </message>
-    <message>
-        <source>Please report if you think it&apos;s a bug.</source>
-        <translation>バグだと思ったら報告してください。</translation>
-    </message>
-    <message>
-        <source>Qv2ray Cannot Continue</source>
-        <translation>Qv2rayは続行できません</translation>
-    </message>
-    <message>
-        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-        <translation>現在の設定ファイルと比較して、Qv2rayのバージョンが低くなっています。</translation>
-    </message>
-    <message>
-        <source>Please check if there&apos;s an issue explaining about it.</source>
-        <translation>それについて説明する問題があるかどうかを確認してください。</translation>
-    </message>
-    <message>
-        <source>Or submit a new issue if you think this is an error.</source>
-        <translation>または、これがエラーだと思われる場合は、新しい問題を提出してください。</translation>
-    </message>
-    <message>
-        <source>Disable gRPC API subsystem</source>
-        <translation>gRPC APIサブシステムを無効にする</translation>
-    </message>
-    <message>
-        <source>Disable plugins feature</source>
-        <translation>プラグインの機能を無効にする</translation>
-    </message>
-    <message>
-        <source>Disable Qt UI scale factor</source>
-        <translation>Qt UIのスケールファクタを無効にする</translation>
-    </message>
-    <message>
-        <source>Enable debug output</source>
-        <translation>デバッグ出力を有効にする</translation>
-    </message>
-    <message>
-        <source>Stop current connection</source>
-        <translation>現在の接続を停止する</translation>
-    </message>
-    <message>
-        <source>Reconnect last connection</source>
-        <translation>最後の接続を再接続</translation>
-    </message>
-    <message>
-        <source>Exit Qv2ray</source>
-        <translation>Qv2rayを終了</translation>
-    </message>
-    <message>
-        <source>Do not automatically connect</source>
-        <translation>自動的に接続しない</translation>
-    </message>
-    <message>
-        <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
-        <translation>Qv2ray - V2Ray用のクロスプラットフォームQtフロントエンド。</translation>
-    </message>
-</context>
-<context>
-    <name>Qv2ray::components::QvUpdateChecker</name>
-    <message>
-        <source>Qv2ray Update</source>
-        <translation>Qv2rayの更新</translation>
-    </message>
-    <message>
-        <source>A new version of Qv2ray has been found:</source>
-        <translation>Qv2rayの新しいバージョンが見つかりました：</translation>
-    </message>
-</context>
-<context>
-    <name>Qv2ray::components::plugins::QvPluginHost</name>
-    <message>
-        <source>Cannot load plugin</source>
-        <translation>プラグインをロードできない</translation>
-    </message>
-    <message>
-        <source>This plugin was built against an older/newer version of the Plugin Interface.</source>
-        <translation>このプラグインは、プラグインインターフェイスの古いバージョン/新しいバージョンに対応して構築されています。</translation>
-    </message>
-    <message>
-        <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-        <translation>プラグインの提供者に連絡するか、Qv2ray 制作チームに問題を報告してください。</translation>
-    </message>
-    <message>
-        <source>Enabling a plugin</source>
-        <translation>プラグインを有効にする</translation>
-    </message>
-    <message>
-        <source>The plugin will become fully functional after restarting Qv2ray.</source>
-        <translation>プラグインを正しく動作するには、Qv2rayを再起動する必要があります。</translation>
-    </message>
-    <message>
-        <source>The plugin located here cannot be loaded: </source>
-        <translation>ここにあるプラグインは読み込めません: </translation>
-    </message>
-</context>
-<context>
-    <name>Qv2ray::core::handler::KernelInstanceHandler</name>
-    <message>
-        <source>Another process is using the port required to start the connection:</source>
-        <translation>別のプロセスは、接続の必要なポートを使用しています：</translation>
-    </message>
-    <message>
-        <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-        <translation>プラグインカーネルの起動に失敗しました。アウトバウンドの設定を確認してください。</translation>
-    </message>
-    <message>
-        <source>Port: %1 for listening IP: %2 for inbound tag: &quot;%3&quot;</source>
-        <translation>受信タグ &quot;%1&quot; は、ポート &quot;%3&quot; で &quot;%2&quot; をリッスンする必要があります</translation>
-    </message>
-    <message>
-        <source>Port: %1 for listening IP: 127.0.0.1 for plugin integration.</source>
-        <translation>プラグイン統合は、ポート &quot;%1&quot; で 127.0.0.1 をリッスンする必要があります。</translation>
-    </message>
-</context>
-<context>
-    <name>Qv2ray::core::handler::QvConfigHandler</name>
-    <message>
-        <source>Default Group</source>
-        <translation>デフォルトグループ</translation>
-    </message>
-    <message>
-        <source>Group does not exist</source>
-        <translation>グループが存在しません</translation>
-    </message>
-    <message>
-        <source>Failed to start connection</source>
-        <translation>接続起動失敗</translation>
-    </message>
-    <message>
-        <source>Update Subscription</source>
-        <translation>サブスクリプションを更新</translation>
-    </message>
-    <message>
-        <source>Group: %1</source>
-        <translation>グループ: %1</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
-        <translation>
-            <numerusform>サブスクリプションソースから %n 項目が見つかりましたが、続けますか?</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
-        <translation>
-            <numerusform>%n 個のエントリのうち %1 個がフィルタリングされましたが、続けますか？</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Would you like to remove them?</source>
-        <translation>撤去しますか？</translation>
-    </message>
-    <message numerus="yes">
-        <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
-        <translation>
-            <numerusform>現在のサブスクリプションに属していない接続がグループ内に %n あります。</numerusform>
-        </translation>
-    </message>
-</context>
-<context>
-    <name>Qv2ray::core::kernel::APIWorker</name>
-    <message>
-        <source>Failed to get statistics data, please check if V2Ray is running properly</source>
-        <translation>統計データの取得に失敗しました。V2Rayが正常に動作しているか確認してください</translation>
-    </message>
-</context>
-<context>
-    <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
-    <message>
-        <source>Core file is lacking executable permission for the current user.</source>
-        <translation>コアファイルには、現在のユーザーの実行可能なパーミッションがありません。</translation>
-    </message>
-    <message>
-        <source>Qv2ray tried to set, but failed because permission denied.</source>
-        <translation>Qv2rayが設定しようとしましたが、権限が拒否されたため失敗しました。</translation>
-    </message>
-    <message>
-        <source>Core control file is lacking executable permission for the current user.</source>
-        <translation>コアコントロールファイルには、現在のユーザーの実行可能なパーミッションがありません。</translation>
-    </message>
-    <message>
-        <source>Check is skipped</source>
-        <translation>チェックはスキップされます</translation>
-    </message>
-    <message>
-        <source>V2Ray core executable not found.</source>
-        <translation>V2Rayコア実行可能ファイルが見つかりません。</translation>
-    </message>
-    <message>
-        <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation>V2Rayコアファイルを開けません。フォルダーの代わりにファイルがあることを確認してください。</translation>
-    </message>
-    <message>
-        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
-Expected core ABI is %1, but got actual %2.<byte value="xd"/>
-Maybe you have downloaded the wrong core?</source>
-        <translation>V2Rayコアはプラットフォームと互換性がありません。
-予想されるコアABIは%1ですが、実際は%2でした。
-間違ったコアをダウンロードした可能性がありませんか？</translation>
-    </message>
-    <message>
-        <source>V2Ray assets path is not valid.</source>
-        <translation>V2Rayアセットのパスが無効です。</translation>
-    </message>
-    <message>
-        <source>No geoip.dat in assets path.</source>
-        <translation>アセットパスにgeoip.datはありません。</translation>
-    </message>
-    <message>
-        <source>No geosite.dat in assets path.</source>
-        <translation>アセットパスにgeosite.datはありません。</translation>
-    </message>
-    <message>
-        <source>V2Ray core failed with an exit code: </source>
-        <translation>V2Rayコアがエラー終了しました、終了コード: </translation>
-    </message>
-    <message>
-        <source>V2Ray core returns empty string.</source>
-        <translation>V2Rayコアは空の文字列を返します。</translation>
-    </message>
-    <message>
-        <source>Configuration Error</source>
-        <translation>構成エラー</translation>
-    </message>
-    <message>
-        <source>Cannot start V2Ray</source>
-        <translation>V2Rayを起動できません</translation>
-    </message>
-    <message>
-        <source>V2Ray core settings is incorrect.</source>
-        <translation>V2Rayコアの設定が正しくありません。</translation>
-    </message>
-    <message>
-        <source>The error is: </source>
-        <translation>エラーは次のとおりです: </translation>
-    </message>
-    <message>
-        <source>Invalid V2Ray Instance Status.</source>
-        <translation>無効なV2Rayインスタンスステータス。</translation>
-    </message>
-    <message>
-        <source>V2Ray kernel failed to start.</source>
-        <translation>V2Rayカーネルの起動に失敗しました。</translation>
+        <translation type="unfinished">新しいバージョンを検出</translation>
     </message>
 </context>
 <context>
@@ -2532,39 +1973,10 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>QvInboundNodeModel</name>
-    <message>
-        <source>Missing or incorrect inputs</source>
-        <translation>Missing or incorrect inputs</translation>
-    </message>
-</context>
-<context>
-    <name>QvOutboundNodeModel</name>
-    <message>
-        <source>Missing or incorrect inputs</source>
-        <translation>Missing or incorrect inputs</translation>
-    </message>
-</context>
-<context>
-    <name>QvRuleNodeModel</name>
-    <message>
-        <source>Missing or incorrect inputs</source>
-        <translation>入力の欠落または誤入力</translation>
-    </message>
-</context>
-<context>
     <name>RouteEditor</name>
     <message>
         <source>Route Editor</source>
         <translation>ルートエディター</translation>
-    </message>
-    <message>
-        <source>Route Detail Settings</source>
-        <translation>ルート詳細設定</translation>
-    </message>
-    <message>
-        <source>Source IP Matches</source>
-        <translation>ソースIPマッチング</translation>
     </message>
     <message>
         <source>Status</source>
@@ -2587,14 +1999,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation>アウトバウンドを追加</translation>
     </message>
     <message>
-        <source>Delete outbound</source>
-        <translation>アウトバウンドを削除</translation>
-    </message>
-    <message>
-        <source>Edit outbound</source>
-        <translation>アウトバウンドを編集</translation>
-    </message>
-    <message>
         <source>Add Freedom outbound</source>
         <translation>フリーアウトバウンドを追加</translation>
     </message>
@@ -2603,84 +2007,12 @@ Maybe you have downloaded the wrong core?</source>
         <translation>ブラックホールアウトバウンドを追加</translation>
     </message>
     <message>
-        <source>Routes</source>
-        <translation>ルート</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
-    </message>
-    <message>
-        <source>Outbound</source>
-        <translation>アウトバウンド</translation>
-    </message>
-    <message>
-        <source>Add new route</source>
-        <translation>新しいルートを追加</translation>
-    </message>
-    <message>
-        <source>Use Balancers</source>
-        <translation>バランサーを使用する</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <source>Target IP List</source>
-        <translation>ターゲットIPリスト</translation>
-    </message>
-    <message>
-        <source>Target Domain List</source>
-        <translation>ターゲットドメインリスト</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation>ネットワーク</translation>
-    </message>
-    <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
-    </message>
-    <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
-    </message>
-    <message>
-        <source>Both</source>
-        <translation>両方</translation>
-    </message>
-    <message>
         <source>Protocol</source>
         <translation>プロトコル</translation>
     </message>
     <message>
-        <source>Inbound</source>
-        <translation>インバウンド</translation>
-    </message>
-    <message>
-        <source>Selected Inbound/Outbound Info</source>
-        <translation>選択したインバウンド/アウトバウンドの情報</translation>
-    </message>
-    <message>
         <source>Host</source>
         <translation>ホスト</translation>
-    </message>
-    <message>
-        <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-        <translation>接続ルールのないインバウンドは、接続制限のないインバウンドを意味します。</translation>
-    </message>
-    <message>
-        <source>Edit Selection</source>
-        <translation>選択したものを編集</translation>
-    </message>
-    <message>
-        <source>Delete Selection</source>
-        <translation>選択したものを削除</translation>
-    </message>
-    <message>
-        <source>General Settings</source>
-        <translation>一般設定</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
@@ -2691,204 +2023,12 @@ Maybe you have downloaded the wrong core?</source>
         <translation>デフォルトのアウトバウンド</translation>
     </message>
     <message>
-        <source>Rule Order Settings</source>
-        <translation>ルールの順番設定</translation>
-    </message>
-    <message>
         <source>Drag and drop to re-order the rules.</source>
         <translation>ルール順番を変更するには、ドラッグアンドドロップします。</translation>
     </message>
     <message>
-        <source>Rule Settings</source>
-        <translation>ルール設定</translation>
-    </message>
-    <message>
-        <source>Rule Status</source>
-        <translation>ルールステータス</translation>
-    </message>
-    <message>
-        <source>Rule Tag</source>
-        <translation>ルールタグ</translation>
-    </message>
-    <message>
-        <source>HTTP</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
-        <source>TLS</source>
-        <translation>TLS</translation>
-    </message>
-    <message>
-        <source>BitTorrent</source>
-        <translation>BitTorrent</translation>
-    </message>
-    <message>
-        <source>e.g. 80, 443, 8000-8080</source>
-        <translation>例えば 80, 443, 8000-8080</translation>
-    </message>
-    <message>
-        <source>Balancers</source>
-        <translation>バランサー</translation>
-    </message>
-    <message>
-        <source>Users List</source>
-        <translation>ユーザーリスト</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Cannot Edit</source>
-        <translation>編集できません</translation>
-    </message>
-    <message>
-        <source>This outbound entry is not supported by the GUI editor.</source>
-        <translation>このアウトバウンドエントリは、GUIエディタでサポートされていません。</translation>
-    </message>
-    <message>
-        <source>We will launch Json Editor instead.</source>
-        <translation>代わりにJson Editorを起動します。</translation>
-    </message>
-    <message>
-        <source>Show rule details</source>
-        <translation>ルールの詳細を表示</translation>
-    </message>
-    <message>
-        <source>A rule cannot be found: </source>
-        <translation>ルールが見つかりません: </translation>
-    </message>
-    <message>
-        <source>Protocol list changed: </source>
-        <translation>変更されたプロトコルリスト: </translation>
-    </message>
-    <message>
-        <source>Balancer is empty, not processing.</source>
-        <translation>バランサーがないため、処理をスキップする。</translation>
-    </message>
-    <message>
-        <source>Default rule</source>
-        <translation>デフォルトルール</translation>
-    </message>
-    <message>
-        <source>rule</source>
-        <translation>ルール</translation>
-    </message>
-    <message>
-        <source>No Inbound</source>
-        <translation>インバウンドなし</translation>
-    </message>
-    <message>
-        <source>No inbound item found: </source>
-        <translation>インバウンドアイテムが見つかりませんでした: </translation>
-    </message>
-    <message>
-        <source>The new tag has been used, we appended a postfix.</source>
-        <translation>新しいタグ名は既に使用されているため、サフィックスを追加します。</translation>
-    </message>
-    <message>
-        <source>The new tag has been used, we appended a random string to the tag.</source>
-        <translation>新しいタグ名は既に使用されているため、ランダムな文字列をタグ名に追加します。</translation>
-    </message>
-    <message>
-        <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
-        <translation>このルールを使用できるようにするには、アウトバウンドノードに接続する必要があります。</translation>
-    </message>
-    <message>
-        <source>Remove Items</source>
-        <translation>アイテムを削除する</translation>
-    </message>
-    <message>
-        <source>Please select a node from the graph to continue.</source>
-        <translation>続行するには、グラフからノードを選択してください。</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>エラー</translation>
-    </message>
-    <message>
-        <source>Qv2ray entered an unknown state.</source>
-        <translation>Qv2rayが不明な状態になりました。</translation>
-    </message>
-    <message>
-        <source>Edit Inbound/Outbound</source>
-        <translation>インバウンド/アウトバウンドの編集</translation>
-    </message>
-    <message>
-        <source>Edit Inbound</source>
-        <translation>インバウンドを編集</translation>
-    </message>
-    <message>
-        <source>No inbound tag found: </source>
-        <translation>受信タグが見つかりません: </translation>
-    </message>
-    <message>
-        <source>Opening JSON editor</source>
-        <translation>JSONエディターを開く</translation>
-    </message>
-    <message>
-        <source>Unsupported Outbound Type</source>
-        <translation>サポートされていないアウトバウンドタイプ</translation>
-    </message>
-    <message>
-        <source>Opening default outbound editor.</source>
-        <translation>デフォルトのアウトバウンドエディターを開きます。</translation>
-    </message>
-    <message>
-        <source>Renaming a tag</source>
-        <translation>タグの名前を変更する</translation>
-    </message>
-    <message>
-        <source>New tag is empty, please try another.</source>
-        <translation>新しいタグ名が空です。別のタグ名を試してください。</translation>
-    </message>
-    <message>
-        <source>New tag is the same as the original one.</source>
-        <translation>新しいタグ名と元のタグ名と同じです。</translation>
-    </message>
-    <message>
-        <source>Duplicate rule tag detected, please try another.</source>
-        <translation>重複したルールタグ名が検出されました。別のタグ名を試してください。</translation>
-    </message>
-    <message>
         <source>Added DIRECT outbound</source>
         <translation>DIRECTアウトバウンドを追加しました</translation>
-    </message>
-    <message>
-        <source>Currently, this type of outbound is not supported by the editor.</source>
-        <translation>現在、このタイプのアウトバウンドはエディターでサポートされていません。</translation>
-    </message>
-    <message>
-        <source>Opening default inbound editor</source>
-        <translation>デフォルトのインバウンドエディターを開く</translation>
-    </message>
-    <message>
-        <source>Removed a balancer entry.</source>
-        <translation>バランサーエントリを削除しました。</translation>
-    </message>
-    <message>
-        <source>Rename tags</source>
-        <translation>タグの名前を変更する</translation>
-    </message>
-    <message>
-        <source>Add Rule</source>
-        <translation>ルールを追加</translation>
-    </message>
-    <message>
-        <source>Misc Settings</source>
-        <translation>その他の設定</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation>リネーム</translation>
-    </message>
-    <message>
-        <source>Add Inbound</source>
-        <translation>インバウンドを追加</translation>
-    </message>
-    <message>
-        <source>Add Global Settings</source>
-        <translation>グローバル設定を追加</translation>
     </message>
     <message>
         <source>New Outbound</source>
@@ -2903,12 +2043,72 @@ Maybe you have downloaded the wrong core?</source>
         <translation>ブラックホール</translation>
     </message>
     <message>
-        <source>Direct / Freedom</source>
-        <translation>直接・自由</translation>
+        <source>New Inbound</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Existing Outbound</source>
-        <translation>既存のアウトバウンド</translation>
+        <source>Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Freedom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Balancer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Routing Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chain Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation type="unfinished">DNS設定</translation>
+    </message>
+    <message>
+        <source>Selected Inbound / Outbound Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">不明</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <source>Rules Order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Debug Connection Painter</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2977,10 +2177,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation>空スキーム</translation>
     </message>
     <message>
-        <source>v2rayN preset</source>
-        <translation>v2rayN スキーム</translation>
-    </message>
-    <message>
         <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
  Description: %3</source>
         <translation>「%2」のスキーム「%1」をインポートしますか？
@@ -3022,6 +2218,112 @@ Maybe you have downloaded the wrong core?</source>
         <source>QvRoute Schemes(*.json)</source>
         <translation>QvRouteスキーム(* .json)</translation>
     </message>
+    <message>
+        <source>empty scheme (no ads)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RoutingEditorWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
+        <translation type="unfinished">接続ルールのないインバウンドは、接続制限のないインバウンドを意味します。</translation>
+    </message>
+    <message>
+        <source>Add new route</source>
+        <translation type="unfinished">新しいルートを追加</translation>
+    </message>
+    <message>
+        <source>Add Rule</source>
+        <translation type="unfinished">ルールを追加</translation>
+    </message>
+    <message>
+        <source>Delete outbound</source>
+        <translation type="unfinished">アウトバウンドを削除</translation>
+    </message>
+    <message>
+        <source>Delete Selection</source>
+        <translation type="unfinished">選択したものを削除</translation>
+    </message>
+    <message>
+        <source>Remove Items</source>
+        <translation type="unfinished">アイテムを削除する</translation>
+    </message>
+    <message>
+        <source>Please select a node from the graph to continue.</source>
+        <translation type="unfinished">続行するには、グラフからノードを選択してください。</translation>
+    </message>
+    <message>
+        <source>Deleting a node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to select a node first</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RuleWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">有効</translation>
+    </message>
+    <message>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target Domain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation type="unfinished">TCP</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation type="unfinished">UDP</translation>
+    </message>
+    <message>
+        <source>HTTP</source>
+        <translation type="unfinished">HTTP</translation>
+    </message>
+    <message>
+        <source>TLS</source>
+        <translation type="unfinished">TLS</translation>
+    </message>
+    <message>
+        <source>Torrent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished">ポート</translation>
+    </message>
+    <message>
+        <source>80, 443, 8000-8080</source>
+        <translation type="unfinished">80, 443, 8000-8080</translation>
+    </message>
 </context>
 <context>
     <name>ScreenShot</name>
@@ -3040,6 +2342,25 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>Screen Shot</source>
         <translation>スクリーンショット</translation>
+    </message>
+</context>
+<context>
+    <name>SocksInboundEditor</name>
+    <message>
+        <source>Removing a user</source>
+        <translation type="unfinished">ユーザーを削除する</translation>
+    </message>
+    <message>
+        <source>You haven&apos;t selected a user yet.</source>
+        <translation type="unfinished">まだユーザーを選択していません。</translation>
+    </message>
+    <message>
+        <source>Add a user</source>
+        <translation type="unfinished">ユーザーを追加する</translation>
+    </message>
+    <message>
+        <source>This user exists already.</source>
+        <translation type="unfinished">このユーザーは既に存在します.</translation>
     </message>
 </context>
 <context>
@@ -3209,6 +2530,179 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
+    <name>blackholeOutEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>dnsOutEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>dokodemodoorInEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">アドレス</translation>
+    </message>
+    <message>
+        <source>Optional when using &quot;Follow Redirect&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished">ポート</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation type="unfinished">ネットワーク</translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation type="unfinished">TCP</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation type="unfinished">UDP</translation>
+    </message>
+    <message>
+        <source>Timeout</source>
+        <translation type="unfinished">タイムアウト</translation>
+    </message>
+    <message>
+        <source>Follow Redirect</source>
+        <translation type="unfinished">リダイレクトに従う</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">有効</translation>
+    </message>
+</context>
+<context>
+    <name>freedomOutEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>httpInEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Allow Transparent</source>
+        <translation type="unfinished">透明を許可</translation>
+    </message>
+    <message>
+        <source>Timeout</source>
+        <translation type="unfinished">タイムアウト</translation>
+    </message>
+    <message>
+        <source>s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">パスワード</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">ユーザー名</translation>
+    </message>
+    <message>
+        <source>Option</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>httpOutEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>shadowsocksOutEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>socksInEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Enable UDP</source>
+        <translation type="unfinished">UDPを有効にする</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">有効</translation>
+    </message>
+    <message>
+        <source>UDP Local IP</source>
+        <translation type="unfinished">UDP ローカル IP</translation>
+    </message>
+    <message>
+        <source>127.0.0.1</source>
+        <translation type="unfinished">127.0.0.1</translation>
+    </message>
+    <message>
+        <source>Auth</source>
+        <translation type="unfinished">認証</translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">ユーザー名</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">パスワード</translation>
+    </message>
+</context>
+<context>
+    <name>socksOutEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>vlessOutEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
+    <name>vmessOutEditor</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+</context>
+<context>
     <name>w_GroupManager</name>
     <message>
         <source>Group Editor</source>
@@ -3366,14 +2860,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation>状態</translation>
     </message>
     <message>
-        <source>Capability</source>
-        <translation>機能</translation>
-    </message>
-    <message>
-        <source>Special Type</source>
-        <translation>特殊タイプ</translation>
-    </message>
-    <message>
         <source>Manually Edit Settings</source>
         <translation>設定を手動で編集する</translation>
     </message>
@@ -3400,6 +2886,14 @@ Maybe you have downloaded the wrong core?</source>
     <message>
         <source>?</source>
         <translation>?</translation>
+    </message>
+    <message>
+        <source>GUI Components</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Components</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

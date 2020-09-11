@@ -31,6 +31,10 @@ namespace Qv2ray::base::objects
                        left.domains == right.domains &&                                     //
                        left.expectIPs == right.expectIPs;
             }
+            friend bool operator!=(const DNSServerObject &left, const DNSServerObject &right)
+            {
+                return !(left == right);
+            }
             void loadJson(const QJsonValue &___json_object_)
             {
                 // Hack to convert simple DNS settings to complex format.
@@ -63,6 +67,10 @@ namespace Qv2ray::base::objects
         {
             return left.hosts == right.hosts && left.servers == right.servers && left.clientIp == right.clientIp && left.tag == right.tag;
         }
+        friend bool operator!=(const DNSObject &left, const DNSObject &right)
+        {
+            return !(left == right);
+        }
         JSONSTRUCT_REGISTER(DNSObject, F(hosts, servers, clientIp, tag))
     };
     //
@@ -76,50 +84,8 @@ namespace Qv2ray::base::objects
     };
     //
     //
-    struct ApiObject
-    {
-        QString tag;
-        QList<QString> services;
-        ApiObject() : tag("api"), services(){};
-        JSONSTRUCT_REGISTER(ApiObject, F(tag, services))
-    };
-    //
-    //
-    struct SystemPolicyObject
-    {
-        bool statsInboundUplink;
-        bool statsInboundDownlink;
-        SystemPolicyObject() : statsInboundUplink(), statsInboundDownlink(){};
-        JSONSTRUCT_REGISTER(SystemPolicyObject, F(statsInboundUplink, statsInboundDownlink))
-    };
-    //
-    //
-    struct LevelPolicyObject
-    {
-        int handshake;
-        int connIdle;
-        int uplinkOnly;
-        int downlinkOnly;
-        bool statsUserUplink;
-        bool statsUserDownlink;
-        int bufferSize;
-        LevelPolicyObject() : handshake(), connIdle(), uplinkOnly(), downlinkOnly(), statsUserUplink(), statsUserDownlink(), bufferSize(){};
-        JSONSTRUCT_REGISTER(LevelPolicyObject, F(handshake, connIdle, uplinkOnly, downlinkOnly, statsUserUplink, statsUserDownlink, bufferSize))
-    };
-    //
-    //
-    struct PolicyObject
-    {
-        QMap<QString, LevelPolicyObject> level;
-        QList<SystemPolicyObject> system;
-        PolicyObject() : level(), system(){};
-        JSONSTRUCT_REGISTER(PolicyObject, F(level, system))
-    };
-    //
-    //
     struct RuleObject
     {
-        // Added due to the request of @aliyuchang33
         bool QV2RAY_RULE_ENABLED;
         QString QV2RAY_RULE_TAG;
         //
@@ -176,27 +142,27 @@ namespace Qv2ray::base::objects
         };
         //
         //
-        struct TCPHeader_M_Object
+        struct TCPHeader_Internal
         {
             QString type;
             HTTPRequestObject request;
             HTTPResponseObject response;
-            TCPHeader_M_Object() : type("none"), request(), response(){};
-            JSONSTRUCT_REGISTER(TCPHeader_M_Object, F(type, request, response))
+            TCPHeader_Internal() : type("none"), request(), response(){};
+            JSONSTRUCT_REGISTER(TCPHeader_Internal, F(type, request, response))
         };
         //
         //
-        struct HeaderObject
+        struct ObfsHeaderObject
         {
             QString type;
-            HeaderObject() : type("none"){};
-            JSONSTRUCT_REGISTER(HeaderObject, F(type))
+            ObfsHeaderObject() : type("none"){};
+            JSONSTRUCT_REGISTER(ObfsHeaderObject, F(type))
         };
         //
         //
         struct TCPObject
         {
-            TCPHeader_M_Object header;
+            TCPHeader_Internal header;
             TCPObject() : header(){};
             JSONSTRUCT_REGISTER(TCPObject, F(header))
         };
@@ -212,7 +178,7 @@ namespace Qv2ray::base::objects
             int readBufferSize = 1;
             int writeBufferSize = 1;
             QString seed;
-            HeaderObject header;
+            ObfsHeaderObject header;
             KCPObject() : header(){};
             JSONSTRUCT_REGISTER(KCPObject,
                                 F(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header, seed))
@@ -249,7 +215,7 @@ namespace Qv2ray::base::objects
         {
             QString security;
             QString key;
-            HeaderObject header;
+            ObfsHeaderObject header;
             QuicObject() : security(""), key(""), header(){};
             JSONSTRUCT_REGISTER(QuicObject, F(security, key, header))
         };
@@ -322,15 +288,6 @@ namespace Qv2ray::base::objects
                                                     dsSettings, quicSettings))
     };
     //
-    //
-    struct MuxObject
-    {
-        bool enabled;
-        int concurrency;
-        MuxObject() : enabled(), concurrency(){};
-        JSONSTRUCT_REGISTER(MuxObject, F(enabled, concurrency))
-    };
-    //
     // Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
     namespace protocol
     {
@@ -359,42 +316,6 @@ namespace Qv2ray::base::objects
             JSONSTRUCT_REGISTER(MTProtoIn, F(users))
         };
         //
-        // Socks, OutBound
-        struct SocksServerObject
-        {
-            struct UserObject
-            {
-                QString user;
-                QString pass;
-                int level;
-                UserObject() : user(), pass(), level(0){};
-                JSONSTRUCT_REGISTER(UserObject, F(user, pass, level))
-            };
-            QString address;
-            int port;
-            QList<UserObject> users;
-            SocksServerObject() : address("0.0.0.0"), port(0), users(){};
-            JSONSTRUCT_REGISTER(SocksServerObject, F(address, port, users))
-        };
-        //
-        // Http, OutBound
-        struct HttpServerObject
-        {
-            struct UserObject
-            {
-                QString user;
-                QString pass;
-                int level;
-                UserObject() : user(), pass(), level(0){};
-                JSONSTRUCT_REGISTER(UserObject, F(user, pass, level))
-            };
-            QString address;
-            int port;
-            QList<UserObject> users;
-            HttpServerObject() : address("0.0.0.0"), port(0), users(){};
-            JSONSTRUCT_REGISTER(HttpServerObject, F(address, port, users))
-        };
-        //
         // VMess Server
         constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;
         struct VMessServerObject
@@ -415,24 +336,6 @@ namespace Qv2ray::base::objects
             QList<UserObject> users;
             VMessServerObject() : address(""), port(0), users(){};
             JSONSTRUCT_REGISTER(VMessServerObject, F(address, port, users))
-        };
-        //
-        // VLess Server
-        struct VLessServerObject
-        {
-            struct UserObject
-            {
-                QString id;
-                QString encryption;
-                UserObject() : id(), encryption("none"){};
-                JSONSTRUCT_REGISTER(UserObject, F(id, encryption))
-            };
-
-            QString address;
-            int port;
-            QList<UserObject> users;
-            VLessServerObject() : address(""), port(0), users(){};
-            JSONSTRUCT_REGISTER(VLessServerObject, F(address, port, users))
         };
         //
         // ShadowSocks Server

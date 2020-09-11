@@ -73,7 +73,8 @@ namespace Qv2ray::components::plugins
                     continue;
                 }
                 connect(plugin, SIGNAL(PluginLog(const QString &)), this, SLOT(QvPluginLog(const QString &)));
-                connect(plugin, SIGNAL(PluginErrorMessageBox(const QString &)), this, SLOT(QvPluginMessageBox(const QString &)));
+                connect(plugin, SIGNAL(PluginErrorMessageBox(const QString &, const QString &)), this,
+                        SLOT(QvPluginMessageBox(const QString &, const QString &)));
                 LOG(MODULE_PLUGINHOST, "Loaded plugin: \"" + info.metadata.Name + "\" made by: \"" + info.metadata.Author + "\"")
                 plugins.insert(info.metadata.InternalName, info);
             }
@@ -94,17 +95,14 @@ namespace Qv2ray::components::plugins
         }
     }
 
-    void QvPluginHost::QvPluginMessageBox(const QString &msg)
+    void QvPluginHost::QvPluginMessageBox(const QString &title, const QString &message)
     {
-        auto _sender = sender();
-        if (auto _interface = qobject_cast<Qv2rayInterface *>(_sender); _interface)
-        {
-            QvMessageBoxWarn(nullptr, _interface->GetMetadata().Name, msg);
-        }
+        const auto _sender = sender();
+        const auto _interface = qobject_cast<Qv2rayInterface *>(_sender);
+        if (_interface)
+            QvMessageBoxWarn(nullptr, _interface->GetMetadata().Name + " - " + title, message);
         else
-        {
-            QvMessageBoxWarn(nullptr, "Unknown Plugin", msg);
-        }
+            QvMessageBoxWarn(nullptr, "Unknown Plugin - " + title, message);
     }
 
     bool QvPluginHost::IsPluginEnabled(const QString &internalName) const

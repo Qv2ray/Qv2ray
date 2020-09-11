@@ -15,6 +15,7 @@
 #include "ui/widgets/windows/w_PluginManager.hpp"
 #include "ui/widgets/windows/w_PreferencesWindow.hpp"
 
+#include <QClipboard>
 #include <QInputDialog>
 #include <QScrollBar>
 
