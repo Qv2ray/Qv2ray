@@ -165,6 +165,8 @@ namespace Qv2ray::components::autolaunch
         QString appName = QCoreApplication::applicationName();
         QString userAutoStartPath = getUserAutostartDir_private();
         QString desktopFileLocation = userAutoStartPath + appName + QLatin1String(".desktop");
+        QStringList appCmdList =  QCoreApplication::arguments();
+        appCmdList.replace(0, binPath);
 
         if (enable)
         {
@@ -187,9 +189,9 @@ namespace Qv2ray::components::autolaunch
             QTextStream ts(&iniFile);
             ts.setCodec("UTF-8");
             ts << QLatin1String("[Desktop Entry]") << NEWLINE                                                                        //
-               << QLatin1String("Name=") << QCoreApplication::applicationName() + QCoreApplication::arguments().join(" ") << NEWLINE //
+               << QLatin1String("Name=") << appName << NEWLINE                                                                       //
                << QLatin1String("GenericName=") << QLatin1String("V2Ray Frontend") << NEWLINE                                        //
-               << QLatin1String("Exec=") << binPath << NEWLINE                                                                       //
+               << QLatin1String("Exec=") << appCmdList.join(" ") << NEWLINE                                                          //
                << QLatin1String("Terminal=") << "false" << NEWLINE                                                                   //
                << QLatin1String("Icon=") << "qv2ray" << NEWLINE                                                                      //
                << QLatin1String("Categories=") << "Network" << NEWLINE                                                               //
