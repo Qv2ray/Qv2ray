@@ -14,7 +14,7 @@ target_include_directories(qv2ray PRIVATE
 
 set(MACOSX_ICON "${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns")
 set(MACOSX_PLIST "${CMAKE_SOURCE_DIR}/assets/MacOSXBundleInfo.plist.in")
-set_source_files_properties(${QM_FILES}
+set_source_files_properties(${QV2RAY_QM_FILES}
     PROPERTIES
     MACOSX_PACKAGE_LOCATION Resources/lang
     )
