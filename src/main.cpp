@@ -128,8 +128,10 @@ const QString SayLastWords() noexcept
 
 void signalHandler(int signum)
 {
+#ifndef Q_OS_WIN
     if (signum == SIGTRAP)
         exit(-99);
+#endif
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
 
     if (signum == SIGTERM)
