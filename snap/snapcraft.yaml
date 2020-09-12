@@ -87,6 +87,7 @@ parts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DQV2RAY_EMBED_TRANSLATIONS=ON
       - -DFALL_BACK_TO_XDG_OPEN=ON
+    cmake-generator: Ninja
     override-pull: |
       snapcraftctl pull
       build_number=$(cat makespec/BUILDVERSION)
@@ -157,6 +158,7 @@ parts:
       - -DUSE_SYSTEM_LIBUV=ON
       - -DSTATIC_LINK_LIBUV=OFF
       - -DSTATIC_LINK_SODIUM=OFF
+    cmake-generator: Ninja
     after:
       - desktop-qt5
 
@@ -186,5 +188,6 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -DFORCE_TCP_FASTOPEN=ON
+    cmake-generator: Ninja
     after:
       - desktop-qt5
