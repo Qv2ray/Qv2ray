@@ -158,12 +158,14 @@ void OutboundEditor::on_buttonBox_accepted()
 
 void OutboundEditor::on_ipLineEdit_textEdited(const QString &arg1)
 {
-    qobject_cast<QvPluginEditor *>(outboundTypeStackView->currentWidget())->SetHostAddress(arg1, portLineEdit->text().toInt());
+    Q_ASSERT(pluginWidgets.contains(outboundType));
+    pluginWidgets[outboundType]->SetHostAddress(arg1, portLineEdit->text().toInt());
 }
 
 void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 {
-    qobject_cast<QvPluginEditor *>(outboundTypeStackView->currentWidget())->SetHostAddress(ipLineEdit->text(), arg1.toInt());
+    Q_ASSERT(pluginWidgets.contains(outboundType));
+    pluginWidgets[outboundType]->SetHostAddress(ipLineEdit->text(), arg1.toInt());
 }
 
 void OutboundEditor::on_tagTxt_textEdited(const QString &arg1)

@@ -59,13 +59,12 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
         pluginUnloadLabel->setText(tr("Plugin Not Loaded"));
         return;
     }
-
     const auto pluginUIInterface = currentPluginInfo->pluginInterface->GetGUIInterface();
-    Q_ASSERT_X(pluginUIInterface, "PluginManager", "PluginInterface must not be nullptr");
-    if (pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
+    if (currentPluginInfo->hasComponent(COMPONENT_GUI) && pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
     {
         pluginGuiComponentsLabel->setText(GetPluginComponentsString(pluginUIInterface->GetComponents()).join(NEWLINE));
         pluginIconLabel->setPixmap({});
+        pluginIconLabel->clear();
         pluginIconLabel->setPixmap(pluginUIInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
         currentSettingsWidget = pluginUIInterface->GetSettingsWidget();
         currentSettingsWidget->SetSettings(currentPluginInfo->pluginInterface->GetSettngs());

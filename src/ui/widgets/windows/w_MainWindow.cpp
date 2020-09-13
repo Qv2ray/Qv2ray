@@ -351,7 +351,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         const auto &plugin = PluginHost->GetPlugin(name);
         if (!plugin->hasComponent(COMPONENT_GUI))
             continue;
-        const auto &guiInterface = plugin->pluginInterface->GetGUIInterface();
+        const auto guiInterface = plugin->pluginInterface->GetGUIInterface();
         if (!guiInterface)
             continue;
         if (!guiInterface->GetComponents().contains(GUI_COMPONENT_MAINWINDOW_WIDGET))
