@@ -20,16 +20,31 @@ BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  elfutils-devel
 BuildRequires:  binutils-devel
 BuildRequires:  libdwarf-devel
+Requires:       openssl
+Recommends:     QvPlugin-BuiltinProtocolSupport
 
 %description
-A Qt based cross-platform GUI fontend for V2Ray.
+Qv2ray, A Qt frontend for v2ray. Written in c++.
+Features:
+    * Cross-platform, multi-distribution support
+    * Versatile Host Importing
+    * Subscriptions
+    * Built-in Host Editors
+    * (Almost) Full Functionality Support
+    * Real-time Speed & Data Usage Monitoring
+    * Latency Testing (TCP)
+More detail Please check https://qv2ray.net/
 
 %prep
 %setup -q -n @NAME_VERSION@
 
 
 %build
-%cmake
+%cmake -DQV2RAY_DEFAULT_VCORE_PATH="/usr/bin/v2ray" \
+       -DQV2RAY_DEFAULT_VASSETS_PATH="/usr/share/v2ray/" \
+       -DQV2RAY_DISABLE_AUTO_UPDATE=ON \
+       -DQV2RAY_ZXING_PROVIDER="module" \
+       -DCMAKE_BUILD_TYPE=Release
 %cmake_build
 
 
@@ -42,20 +57,20 @@ rm -rf "$RPM_BUILD_ROOT"
 %files -f %{name}.lang
 %license LICENSE
 %doc README.md
-%dir %{_datadir}/qv2ray/plugins/
-%{_bindir}/qv2ray
+%dir %{_datadir}/%{name}/plugins/
+%{_bindir}/%{name}
 %{_datadir}/icons/*
-%{_datadir}/applications/*
-%{_datadir}/metainfo/*
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/metainfo/%{name}.metainfo.xml
 
 
 %package -n QvPlugin-BuiltinProtocolSupport
 Summary:        A Qt frontend for V2Ray, written in c++
-Requires:       qv2ray
+Requires:       %{name}
 %description -n QvPlugin-BuiltinProtocolSupport
 Enable built-in VMess, VLESS, SOCKS, HTTP, Shadowsocks, Dokodemo-door support.
 %files -n QvPlugin-BuiltinProtocolSupport
-%{_datadir}/qv2ray/plugins/libQvPlugin-BuiltinProtocolSupport.so
+%{_datadir}/%{name}/plugins/libQvPlugin-BuiltinProtocolSupport.so
 
 
 %changelog
