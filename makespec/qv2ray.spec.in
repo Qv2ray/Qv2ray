@@ -36,15 +36,26 @@ A Qt based cross-platform GUI fontend for V2Ray.
 %install
 rm -rf "$RPM_BUILD_ROOT"
 %cmake_install
+%find_lang %{name} --with-qt --all-name
 
 
-%files
+%files -f %{name}.lang
 %license LICENSE
 %doc README.md
+%dir %{_datadir}/qv2ray/plugins/
 %{_bindir}/qv2ray
 %{_datadir}/icons/*
 %{_datadir}/applications/*
 %{_datadir}/metainfo/*
+
+
+%package -n QvPlugin-BuiltinProtocolSupport
+Summary:        A Qt frontend for V2Ray, written in c++
+Requires:       qv2ray
+%description -n QvPlugin-BuiltinProtocolSupport
+Enable built-in VMess, VLESS, SOCKS, HTTP, Shadowsocks, Dokodemo-door support.
+%files -n QvPlugin-BuiltinProtocolSupport
+%{_datadir}/qv2ray/plugins/libQvPlugin-BuiltinProtocolSupport.so
 
 
 %changelog
