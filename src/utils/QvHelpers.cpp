@@ -3,6 +3,10 @@
 #include "3rdparty/puresource/src/PureJson.hpp"
 #include "base/Qv2rayBase.hpp"
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    #include <QStringConverter>
+#endif
+
 namespace Qv2ray::common
 {
     const QString GenerateRandomString(int len)
@@ -35,7 +39,16 @@ namespace Qv2ray::common
         auto byteArray = source.readAll();
         if (!wasOpened)
             source.close();
-        //
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        for (const auto &encoding : { QStringDecoder::Utf8, QStringDecoder::Utf16, QStringDecoder::System })
+        {
+            auto converter = QStringDecoder(encoding, QStringConverter::Flag::ConvertInvalidToNull);
+            const auto data = converter(byteArray).data;
+            if (!data.contains("\0"))
+                return data;
+        }
+        Q_ASSERT_X(false, Q_FUNC_INFO, "Unsupported File Encoding");
+#else
         QTextCodec *codec = QTextCodec::codecForName("UTF-8");
         QTextCodec::ConverterState state;
         const QString text = codec->toUnicode(byteArray.constData(), byteArray.size(), &state);
@@ -44,6 +57,7 @@ namespace Qv2ray::common
             LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source.fileName())
         }
         return state.invalidChars > 0 ? byteArray : text;
+#endif
     }
 
     bool StringToFile(const QString &text, const QString &targetpath)
@@ -142,7 +156,9 @@ namespace Qv2ray::common
 
     QStringList SplitLines(const QString &_string)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        return _string.split(QRegularExpression("[\r\n]"), Qt::SkipEmptyParts);
+#elif QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         return _string.split(QRegExp("[\r\n]"), Qt::SkipEmptyParts);
 #else
         return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);

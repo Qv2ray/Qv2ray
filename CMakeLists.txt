@@ -135,6 +135,37 @@ elseif(QV2RAY_USE_QWIDGET)
     QVLOG(QV2RAY_QNODEEDITOR_PROVIDER)
 endif()
 
+option(QV2RAY_QT6 "Use Qt6 for Debugging")
+QVLOG(QV2RAY_QT6)
+if(QV2RAY_QT6)
+    cmake_policy(SET CMP0072 NEW)
+    set(QV_QT_MAJOR_VERSION 6)
+    set(QV_QT_MINOR_VERSION 0)
+    set(QV_QT_LIBNAME Qt6)
+    #From: https://github.com/KDE/kwin/blob/master/cmake/modules/FindXKB.cmake#L35
+    find_package(PkgConfig)
+    pkg_check_modules(PKG_XKB QUIET xkbcommon)
+    set(XKB_DEFINITIONS ${PKG_XKB_CFLAGS_OTHER})
+    find_path(XKB_INCLUDE_DIR NAMES xkbcommon/xkbcommon.h HINTS ${PKG_XKB_INCLUDE_DIRS})
+    find_library(XKB_LIBRARY NAMES xkbcommon HINTS ${PKG_XKB_LIBRARY_DIRS})
+    set(XKB_LIBRARIES ${XKB_LIBRARY})
+    set(XKB_INCLUDE_DIRS ${XKB_INCLUDE_DIR})
+    set(XKB_VERSION ${PKG_XKB_VERSION})
+    include(FindPackageHandleStandardArgs)
+    find_package_handle_standard_args(XKB FOUND_VAR XKB_FOUND REQUIRED_VARS XKB_LIBRARY XKB_INCLUDE_DIR VERSION_VAR XKB_VERSION)
+    add_library(XKB::XKB UNKNOWN IMPORTED)
+    set_target_properties(XKB::XKB PROPERTIES
+        IMPORTED_LOCATION "${XKB_LIBRARY}"
+        INTERFACE_COMPILE_OPTIONS "${XKB_DEFINITIONS}"
+        INTERFACE_INCLUDE_DIRECTORIES "${XKB_INCLUDE_DIR}"
+        )
+else()
+    set(QV_QT_MAJOR_VERSION 5)
+    set(QV_QT_MINOR_VERSION 11)
+    set(QV_QT_LIBNAME Qt5)
+endif()
+
+
 # ==================================================================================
 # Default Core/Assets Path
 # ==================================================================================
@@ -210,8 +241,8 @@ include(cmake/backend.cmake)
 # Qv2ray Base, Qt Libraries, Qv2ray GUI Libraries, libThreads
 # ==================================================================================
 find_package(Threads REQUIRED)
-find_package(Qt5 5.11 COMPONENTS Core Network REQUIRED)
-list(APPEND QV2RAY_QT_LIBS Qt5::Core Qt5::Network)
+find_package(${QV_QT_LIBNAME} ${QV_QT_MAJOR_VERSION}.${QV_QT_MINOR_VERSION} COMPONENTS Core Network REQUIRED)
+list(APPEND QV2RAY_QT_LIBS ${QV_QT_LIBNAME}::Core ${QV_QT_LIBNAME}::Network)
 
 cmake_policy(SET CMP0071 NEW)
 set(CMAKE_AUTOMOC ON)
@@ -219,12 +250,21 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 if(QV2RAY_USE_QML)
-    find_package(Qt5 5.11 COMPONENTS Qml Quick Widgets Svg QuickControls2 Gui REQUIRED)
-    list(APPEND QV2RAY_QT_LIBS Qt5::Quick Qt5::Qml Qt5::Widgets Qt5::Svg Qt5::QuickControls2 Qt5::Gui)
+    find_package(${QV_QT_LIBNAME} ${QV_QT_MAJOR_VERSION}.${QV_QT_MINOR_VERSION} COMPONENTS Qml Quick Widgets Svg QuickControls2 Gui REQUIRED)
+    list(APPEND QV2RAY_QT_LIBS
+        ${QV_QT_LIBNAME}::Quick
+        ${QV_QT_LIBNAME}::Qml
+        ${QV_QT_LIBNAME}::Widgets
+        ${QV_QT_LIBNAME}::Svg
+        ${QV_QT_LIBNAME}::QuickControls2
+        ${QV_QT_LIBNAME}::Gui)
     set(_QV2RAY_HAS_GUI_INTERNAL_ ON)
 elseif(QV2RAY_USE_QWIDGET)
-    find_package(Qt5 5.11 COMPONENTS Widgets Svg Gui REQUIRED)
-    list(APPEND QV2RAY_QT_LIBS Qt5::Widgets Qt5::Svg Qt5::Gui)
+    find_package(${QV_QT_LIBNAME} ${QV_QT_MAJOR_VERSION}.${QV_QT_MINOR_VERSION} COMPONENTS Widgets Svg Gui REQUIRED)
+    list(APPEND QV2RAY_QT_LIBS
+        ${QV_QT_LIBNAME}::Widgets
+        ${QV_QT_LIBNAME}::Svg
+        ${QV_QT_LIBNAME}::Gui)
     set(_QV2RAY_HAS_GUI_INTERNAL_ ON)
 else()
 endif()

@@ -83,12 +83,12 @@ void MainWindow::CheckSubscriptionsUpdate()
         if (info.subscriptionOption.updateInterval == 0)
             continue;
         //
-        const auto lastRenewDate = QDateTime::fromTime_t(info.lastUpdatedDate);
+        const auto lastRenewDate = QDateTime::fromSecsSinceEpoch(info.lastUpdatedDate);
         const auto renewTime = lastRenewDate.addSecs(info.subscriptionOption.updateInterval * 86400);
 
         if (renewTime <= QDateTime::currentDateTime())
         {
-            updateList << QPair{ info.displayName, entry };
+            updateList << QPair<QString, GroupId>{ info.displayName, entry };
             updateNamesList << info.displayName;
             LOG(MODULE_SUBSCRIPTION, QString("Subscription update \"%1\": L=%2 R=%3 I=%4")
                                          .arg(info.displayName)

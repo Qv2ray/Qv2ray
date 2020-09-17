@@ -93,7 +93,7 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
 void MainWindow::ReloadRecentConnectionList()
 {
     QList<ConnectionGroupPair> newRecentConnections;
-    const auto iterateRange = std::min(GlobalConfig.uiConfig.maxJumpListCount, GlobalConfig.uiConfig.recentConnections.count());
+    const auto iterateRange = std::min(GlobalConfig.uiConfig.maxJumpListCount, (int) GlobalConfig.uiConfig.recentConnections.count());
     for (auto i = 0; i < iterateRange; i++)
     {
         const auto &item = GlobalConfig.uiConfig.recentConnections.at(i);
@@ -1213,7 +1213,7 @@ void MainWindow::Action_CopyRecentLogs()
     if (!accepted)
         return;
     const auto totalLinesCount = lines.count();
-    const auto linesToCopy = std::min(totalLinesCount, line);
+    const auto linesToCopy = std::min((int) totalLinesCount, line);
     QStringList result;
     for (auto i = totalLinesCount - linesToCopy; i < totalLinesCount; i++)
     {

@@ -24,7 +24,11 @@ InboundEditor::InboundEditor(INBOUND source, QWidget *parent) : QDialog(parent),
         auto l = new QGridLayout();
         l->setHorizontalSpacing(0);
         l->setVerticalSpacing(0);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        l->setContentsMargins(0, 0, 0, 0);
+#else
         l->setMargin(0);
+#endif
         transportFrame->setLayout(l);
     }
     transportFrame->layout()->addWidget(streamSettingsWidget);
