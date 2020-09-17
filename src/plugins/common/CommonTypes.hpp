@@ -72,8 +72,9 @@ struct VLESSServerObject
     {
         QString id;
         QString encryption;
-        UserObject() : id(), encryption("none"){};
-        JSONSTRUCT_REGISTER(UserObject, F(id, encryption))
+        QString flow;
+        UserObject() : id(), encryption("none"), flow(){};
+        JSONSTRUCT_REGISTER(UserObject, F(id, encryption, flow))
     };
 
     QString address;

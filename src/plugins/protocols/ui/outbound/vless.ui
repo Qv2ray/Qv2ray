@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>172</width>
-    <height>167</height>
+    <width>288</width>
+    <height>178</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,14 +34,14 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="securityLabel_2">
      <property name="text">
       <string>Encryption</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="2" column="1">
     <widget class="QComboBox" name="vLessSecurityCombo">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -55,6 +55,27 @@
      <item>
       <property name="text">
        <string notr="true">none</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Flow</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="flowCombo">
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>xtls-rprx-origin</string>
       </property>
      </item>
     </widget>

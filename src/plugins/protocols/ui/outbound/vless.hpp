@@ -35,6 +35,7 @@ class VlessOutboundEditor
             const auto &user = vless.users.front();
             vLessIDTxt->setText(user.id);
             vLessSecurityCombo->setCurrentText(user.encryption);
+            flowCombo->setCurrentText(user.flow);
         })
     }
 
@@ -54,6 +55,7 @@ class VlessOutboundEditor
     VLESSServerObject vless;
 
   private slots:
+    void on_flowCombo_currentIndexChanged(const QString &arg1);
     void on_vLessIDTxt_textEdited(const QString &arg1);
     void on_vLessSecurityCombo_currentTextChanged(const QString &arg1);
 };
