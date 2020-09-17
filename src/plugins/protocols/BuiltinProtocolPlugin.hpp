@@ -10,7 +10,7 @@ using namespace Qv2rayPlugin;
 
 class InternalProtocolSupportPlugin
     : public QObject
-    , Qv2rayInterface
+    , public Qv2rayInterface
 {
     Q_INTERFACES(Qv2rayPlugin::Qv2rayInterface)
     Q_PLUGIN_METADATA(IID Qv2rayInterface_IID)

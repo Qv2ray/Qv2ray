@@ -1,6 +1,6 @@
 #pragma once
+#include "CommonTypes.hpp"
 #include "QvPluginProcessor.hpp"
-#include "common/CommonTypes.hpp"
 
 class BuiltinSerializer : public Qv2rayPlugin::PluginOutboundHandler
 {

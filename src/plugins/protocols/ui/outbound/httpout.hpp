@@ -1,7 +1,7 @@
 #pragma once
 
+#include "CommonTypes.hpp"
 #include "QvGUIPluginInterface.hpp"
-#include "common/CommonTypes.hpp"
 #include "ui_httpout.h"
 
 class HttpOutboundEditor
