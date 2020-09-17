@@ -130,7 +130,10 @@ void signalHandler(int signum)
 {
 #ifndef Q_OS_WIN
     if (signum == SIGTRAP)
+    {
         exit(-99);
+        return;
+    }
 #endif
     std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
 
@@ -157,10 +160,10 @@ void signalHandler(int signum)
                           filePath;
         BootstrapMessageBox("UNCAUGHT EXCEPTION", message);
     }
-#ifndef Q_OS_WIN
-    kill(getpid(), SIGTRAP);
-#else
+#if defined Q_OS_WIN || defined QT_DEBUG
     exit(-99);
+#else
+    kill(getpid(), SIGTRAP);
 #endif
 }
 
