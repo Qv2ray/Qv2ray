@@ -94,7 +94,7 @@ jobs:
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages
         if: matrix.platform == 'macos-latest'
         run: |
-          brew install protobuf grpc ninja pkg-config
+          brew install protobuf grpc ninja pkg-config openssl
       # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Setup Ninja
         if: matrix.platform == 'windows-latest'
