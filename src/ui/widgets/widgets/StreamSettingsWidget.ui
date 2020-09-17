@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>455</width>
-    <height>501</height>
+    <width>387</width>
+    <height>397</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -625,11 +625,30 @@
        <string>TLS Settings</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0" colspan="2">
-        <widget class="QCheckBox" name="tlsCB">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_21">
          <property name="text">
-          <string>Enable TLS</string>
+          <string>Security Type</string>
          </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="securityTypeCB">
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TLS</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>XTLS</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
@@ -643,6 +662,16 @@
         <widget class="QCheckBox" name="allowInsecureCiphersCB">
          <property name="text">
           <string>Allow Insecure Ciphers</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QCheckBox" name="disableSessionResumptionCB">
+         <property name="text">
+          <string>Disable Session Resumption</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -665,16 +694,6 @@
        </item>
        <item row="5" column="1">
         <widget class="QPlainTextEdit" name="alpnTxt"/>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QCheckBox" name="disableSessionResumptionCB">
-         <property name="text">
-          <string>Disable Session Resumption</string>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -765,7 +784,6 @@
   <tabstop>quicSecurityCB</tabstop>
   <tabstop>quicKeyTxt</tabstop>
   <tabstop>quicHeaderTypeCB</tabstop>
-  <tabstop>tlsCB</tabstop>
   <tabstop>allowInsecureCB</tabstop>
   <tabstop>serverNameTxt</tabstop>
   <tabstop>alpnTxt</tabstop>

@@ -29,51 +29,69 @@ StreamSettingsObject StreamSettingsWidget::GetStreamSettings() const
 void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
 {
     stream = sso;
-    //
     transportCombo->setCurrentText(stream.network);
-    // TLS
-    tlsCB->setChecked(stream.security == "tls");
-    serverNameTxt->setText(stream.tlsSettings.serverName);
-    allowInsecureCB->setChecked(stream.tlsSettings.allowInsecure);
-    allowInsecureCiphersCB->setChecked(stream.tlsSettings.allowInsecureCiphers);
-    disableSessionResumptionCB->setChecked(stream.tlsSettings.disableSessionResumption);
-    alpnTxt->setPlainText(stream.tlsSettings.alpn.join(NEWLINE));
-    // TCP
-    tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
-    tcpRequestTxt->setPlainText(JsonToString(stream.tcpSettings.header.request.toJson()));
-    tcpRespTxt->setPlainText(JsonToString(stream.tcpSettings.header.response.toJson()));
-    // HTTP
-    httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
-    httpPathTxt->setText(stream.httpSettings.path);
-    // WS
-    wsPathTxt->setText(stream.wsSettings.path);
-    QString wsHeaders;
-    for (auto i = 0; i < stream.wsSettings.headers.count(); i++)
+    // TLS XTLS
     {
-        wsHeaders = wsHeaders % stream.wsSettings.headers.keys().at(i) % "|" % stream.wsSettings.headers.values().at(i) % NEWLINE;
+        const static QMap<QString, int> securityIndexMap{ { "none", 0 }, { "tls", 1 }, { "xtls", 2 } };
+        if (securityIndexMap.contains(stream.security))
+            securityTypeCB->setCurrentIndex(securityIndexMap[stream.security]);
+        else
+            LOG(MODULE_UI, "Unsupported Security Type: " + stream.security)
+        serverNameTxt->setText(stream.tlsSettings.serverName);
+        allowInsecureCB->setChecked(stream.tlsSettings.allowInsecure);
+        allowInsecureCiphersCB->setChecked(stream.tlsSettings.allowInsecureCiphers);
+        disableSessionResumptionCB->setChecked(stream.tlsSettings.disableSessionResumption);
+        alpnTxt->setPlainText(stream.tlsSettings.alpn.join(NEWLINE));
     }
-
-    wsHeadersTxt->setPlainText(wsHeaders);
+    // TCP
+    {
+        tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
+        tcpRequestTxt->setPlainText(JsonToString(stream.tcpSettings.header.request.toJson()));
+        tcpRespTxt->setPlainText(JsonToString(stream.tcpSettings.header.response.toJson()));
+    }
+    // HTTP
+    {
+        httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
+        httpPathTxt->setText(stream.httpSettings.path);
+    }
+    // WS
+    {
+        wsPathTxt->setText(stream.wsSettings.path);
+        QString wsHeaders;
+        for (const auto &[key, value] : stream.wsSettings.headers.toStdMap())
+        {
+            wsHeaders = wsHeaders % key % "|" % value % NEWLINE;
+        }
+        wsHeadersTxt->setPlainText(wsHeaders);
+    }
     // mKCP
-    kcpMTU->setValue(stream.kcpSettings.mtu);
-    kcpTTI->setValue(stream.kcpSettings.tti);
-    kcpHeaderType->setCurrentText(stream.kcpSettings.header.type);
-    kcpCongestionCB->setChecked(stream.kcpSettings.congestion);
-    kcpReadBufferSB->setValue(stream.kcpSettings.readBufferSize);
-    kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
-    kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
-    kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
-    kcpSeedTxt->setText(stream.kcpSettings.seed);
+    {
+        kcpMTU->setValue(stream.kcpSettings.mtu);
+        kcpTTI->setValue(stream.kcpSettings.tti);
+        kcpHeaderType->setCurrentText(stream.kcpSettings.header.type);
+        kcpCongestionCB->setChecked(stream.kcpSettings.congestion);
+        kcpReadBufferSB->setValue(stream.kcpSettings.readBufferSize);
+        kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
+        kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
+        kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
+        kcpSeedTxt->setText(stream.kcpSettings.seed);
+    }
     // DS
-    dsPathTxt->setText(stream.dsSettings.path);
+    {
+        dsPathTxt->setText(stream.dsSettings.path);
+    }
     // QUIC
-    quicKeyTxt->setText(stream.quicSettings.key);
-    quicSecurityCB->setCurrentText(stream.quicSettings.security);
-    quicHeaderTypeCB->setCurrentText(stream.quicSettings.header.type);
+    {
+        quicKeyTxt->setText(stream.quicSettings.key);
+        quicSecurityCB->setCurrentText(stream.quicSettings.security);
+        quicHeaderTypeCB->setCurrentText(stream.quicSettings.header.type);
+    }
     // SOCKOPT
-    tProxyCB->setCurrentText(stream.sockopt.tproxy);
-    tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
-    soMarkSpinBox->setValue(stream.sockopt.mark);
+    {
+        tProxyCB->setCurrentText(stream.sockopt.tproxy);
+        tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
+        soMarkSpinBox->setValue(stream.sockopt.mark);
+    }
 }
 
 void StreamSettingsWidget::on_transportCombo_currentIndexChanged(int index)
@@ -157,11 +175,6 @@ void StreamSettingsWidget::on_tcpRespDefBtn_clicked()
     tcpRespTxt->clear();
     tcpRespTxt->setPlainText(
         "{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
-}
-
-void StreamSettingsWidget::on_tlsCB_stateChanged(int arg1)
-{
-    stream.security = arg1 == Qt::Checked ? "tls" : "none";
 }
 
 void StreamSettingsWidget::on_soMarkSpinBox_valueChanged(int arg1)
@@ -300,4 +313,9 @@ void StreamSettingsWidget::on_disableSessionResumptionCB_stateChanged(int arg1)
 void StreamSettingsWidget::on_kcpSeedTxt_textEdited(const QString &arg1)
 {
     stream.kcpSettings.seed = arg1;
+}
+
+void StreamSettingsWidget::on_securityTypeCB_currentIndexChanged(const QString &arg1)
+{
+    stream.security = arg1.toLower();
 }

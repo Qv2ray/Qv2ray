@@ -28,8 +28,6 @@ class StreamSettingsWidget
 
     void on_tcpRespDefBtn_clicked();
 
-    void on_tlsCB_stateChanged(int arg1);
-
     void on_soMarkSpinBox_valueChanged(int arg1);
 
     void on_tcpFastOpenCB_stateChanged(int arg1);
@@ -83,6 +81,8 @@ class StreamSettingsWidget
     void on_disableSessionResumptionCB_stateChanged(int arg1);
 
     void on_kcpSeedTxt_textEdited(const QString &arg1);
+
+    void on_securityTypeCB_currentIndexChanged(const QString &arg1);
 
   private:
     QvMessageBusSlotDecl;
