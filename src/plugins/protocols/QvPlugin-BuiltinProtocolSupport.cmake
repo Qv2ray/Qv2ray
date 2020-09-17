@@ -68,4 +68,4 @@ else()
     message(FATAL_ERROR "?")
 endif()
 
-target_link_libraries(${BUILT_IN_PROTOCOL_PLUGIN_TARGET} Qt::Core Qt::Gui Qt::Widgets)
+target_link_libraries(${BUILT_IN_PROTOCOL_PLUGIN_TARGET} ${QV_QT_LIBNAME}::Core ${QV_QT_LIBNAME}::Gui ${QV_QT_LIBNAME}::Widgets)

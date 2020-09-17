@@ -242,7 +242,7 @@ include(cmake/backend.cmake)
 # ==================================================================================
 find_package(Threads REQUIRED)
 find_package(${QV_QT_LIBNAME} ${QV_QT_MAJOR_VERSION}.${QV_QT_MINOR_VERSION} COMPONENTS Core Network REQUIRED)
-list(APPEND QV2RAY_QT_LIBS Qt::Core Qt::Network)
+list(APPEND QV2RAY_QT_LIBS ${QV_QT_LIBNAME}::Core ${QV_QT_LIBNAME}::Network)
 
 cmake_policy(SET CMP0071 NEW)
 set(CMAKE_AUTOMOC ON)
@@ -252,19 +252,19 @@ set(CMAKE_AUTOUIC ON)
 if(QV2RAY_USE_QML)
     find_package(${QV_QT_LIBNAME} ${QV_QT_MAJOR_VERSION}.${QV_QT_MINOR_VERSION} COMPONENTS Qml Quick Widgets Svg QuickControls2 Gui REQUIRED)
     list(APPEND QV2RAY_QT_LIBS
-        Qt::Quick
-        Qt::Qml
-        Qt::Widgets
-        Qt::Svg
-        Qt::QuickControls2
-        Qt::Gui)
+        ${QV_QT_LIBNAME}::Quick
+        ${QV_QT_LIBNAME}::Qml
+        ${QV_QT_LIBNAME}::Widgets
+        ${QV_QT_LIBNAME}::Svg
+        ${QV_QT_LIBNAME}::QuickControls2
+        ${QV_QT_LIBNAME}::Gui)
     set(_QV2RAY_HAS_GUI_INTERNAL_ ON)
 elseif(QV2RAY_USE_QWIDGET)
     find_package(${QV_QT_LIBNAME} ${QV_QT_MAJOR_VERSION}.${QV_QT_MINOR_VERSION} COMPONENTS Widgets Svg Gui REQUIRED)
     list(APPEND QV2RAY_QT_LIBS
-        Qt::Widgets
-        Qt::Svg
-        Qt::Gui)
+        ${QV_QT_LIBNAME}::Widgets
+        ${QV_QT_LIBNAME}::Svg
+        ${QV_QT_LIBNAME}::Gui)
     set(_QV2RAY_HAS_GUI_INTERNAL_ ON)
 else()
 endif()
