@@ -1001,8 +1001,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>888</width>
-            <height>554</height>
+            <width>404</width>
+            <height>547</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1514,7 +1514,7 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_17">
             <property name="text">
              <string>Bypass CN Mainland</string>
@@ -1524,14 +1524,14 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QCheckBox" name="bypassCNCb">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_76">
             <property name="text">
              <string>Bypass Bittorrent Protocol</string>
@@ -1541,14 +1541,14 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QCheckBox" name="bypassBTCb">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_75">
             <property name="text">
              <string>Use V2Ray DNS for Direct Connection</string>
@@ -1558,14 +1558,14 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="4" column="1">
            <widget class="QCheckBox" name="DnsFreedomCb">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
+          <item row="5" column="0">
            <widget class="QLabel" name="label_18">
             <property name="text">
              <string>Use Local DNS</string>
@@ -1575,14 +1575,14 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
+          <item row="5" column="1">
            <widget class="QCheckBox" name="localDNSCb">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="6" column="0">
            <widget class="QLabel" name="label_39">
             <property name="text">
              <string>DNS Intercept</string>
@@ -1592,10 +1592,24 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
+          <item row="6" column="1">
            <widget class="QCheckBox" name="dnsIntercept">
             <property name="text">
              <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="bypassPrivateCb">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_41">
+            <property name="text">
+             <string>Bypass Private Addresses</string>
             </property>
            </widget>
           </item>

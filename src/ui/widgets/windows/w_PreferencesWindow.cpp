@@ -159,6 +159,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
         bypassCNCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassCN);
         bypassBTCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT);
         proxyDefaultCb->setChecked(!CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
+        bypassPrivateCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassLAN);
         //
         localDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS);
     }
@@ -221,8 +222,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
             CurrentConfig.autoStartId.groupId = DefaultGroupId;
         }
         //
-        auto autoStartConnId = CurrentConfig.autoStartId.connectionId;
-        auto autoStartGroupId = CurrentConfig.autoStartId.groupId;
+        const auto &autoStartConnId = CurrentConfig.autoStartId.connectionId;
+        const auto &autoStartGroupId = CurrentConfig.autoStartId.groupId;
         //
         for (const auto &group : ConnectionManager->AllGroups()) //
             autoStartSubsCombo->addItem(GetDisplayName(group), group.toString());
@@ -520,11 +521,13 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     if (arg1 == Qt::Checked)
     {
         // We enable it!
-        if (QvMessageBoxAsk(this, tr("Enable tProxy Support"),
+        const auto asResult =
+            QvMessageBoxAsk(this, tr("Enable tProxy Support"),
                             tr("This will append capabilities to the V2Ray executable.") + NEWLINE + NEWLINE +
                                 tr("Qv2ray will copy your V2Ray core to this path: ") + NEWLINE + QV2RAY_TPROXY_VCORE_PATH + NEWLINE + NEWLINE +
                                 tr("If anything goes wrong after enabling this, please check issue #57 or the link below:") + NEWLINE +
-                                " https://github.com/Qv2ray/Qv2ray/wiki/FAQ ") != Yes)
+                                " https://github.com/Qv2ray/Qv2ray/wiki/FAQ ");
+        if (asResult != Yes)
         {
             tProxyCheckBox->setChecked(false);
             LOG(MODULE_UI, "Canceled enabling tProxy feature.")
@@ -739,14 +742,8 @@ void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString 
     }
     else
     {
-        // Fully qualify the connection item.
-        // Will not work when duplicated names are in the same group.
         CurrentConfig.autoStartId.groupId = GroupId(autoStartSubsCombo->currentData().toString());
         CurrentConfig.autoStartId.connectionId = ConnectionId(autoStartConnCombo->currentData().toString());
-        //= autoStartConnCombo->currentData().toString();
-        //            ConnectionManager->GetConnectionIdByDisplayName(arg1,
-        //            ConnectionManager->GetGroupIdByDisplayName(autoStartSubsCombo->currentText()))
-        //              .toString();
     }
 }
 
@@ -1225,4 +1222,11 @@ void PreferencesWindow::on_useOldShareLinkFormatCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.useOldShareLinkFormat = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_bypassPrivateCb_clicked(bool checked)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.defaultRouteConfig.connectionConfig.bypassLAN = checked;
 }

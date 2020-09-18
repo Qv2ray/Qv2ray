@@ -1,10 +1,10 @@
 #include "RouteHandler.hpp"
 
 #include "base/models/QvComplexConfigModels.hpp"
-#include "utils/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::handler
 {
@@ -194,7 +194,7 @@ namespace Qv2ray::core::handler
                 tag = GenerateRandomString(15);
                 QJsonIO::SetValue(root, tag, "outbounds", 0, "tag");
             }
-            root["routing"] = GenerateRoutes(connConf.enableProxy, connConf.bypassCN, tag, routeConf);
+            root["routing"] = GenerateRoutes(connConf.enableProxy, connConf.bypassCN, connConf.bypassLAN, tag, routeConf);
 
             //
             // Forward proxy
@@ -325,7 +325,7 @@ namespace Qv2ray::core::handler
             //
             // Inbounds
             INBOUNDS inbounds(root["inbounds"].toArray());
-            const QJsonObject fakeDocodemoDoor{ { "address", "127.0.0.1" } };
+            static const QJsonObject fakeDocodemoDoor{ { "address", "127.0.0.1" } };
             const auto apiInboundsRoot = GenerateInboundEntry(API_TAG_INBOUND, "dokodemo-door",    //
                                                               "127.0.0.1",                         //
                                                               GlobalConfig.kernelConfig.statsPort, //
