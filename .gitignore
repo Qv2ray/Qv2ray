@@ -6,20 +6,22 @@ compile_commands.json
 .vs/
 *.qm
 ./.vscode
+
+assets/package_dmg.json
 CMakeSettings.json
 /makespec/qv2ray.spec
 
 SourceTrail/
 
-libs/gen/
+libs/gen
 libs/deps
-libs/x64-windows/
-libs/x86-windows/
-libs/x86-android/
-libs/x64-android/
-libs/arm-android/
-libs/arm64-android/
-libs/tools/
+libs/x64-windows
+libs/x86-windows
+libs/x86-android
+libs/x64-android
+libs/arm-android
+libs/arm64-android
+libs/tools
 libs/libqvb-*
 
 assets/android/AndroidManifest*
