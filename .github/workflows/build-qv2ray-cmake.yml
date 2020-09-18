@@ -101,7 +101,7 @@ jobs:
         uses: ashutoshvarma/setup-ninja@master
         with:
           # ninja version to download. Default: 1.10.0
-          version: 1.10.0   
+          version: 1.10.0
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
         if: matrix.platform == 'windows-latest'
@@ -131,6 +131,8 @@ jobs:
       - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
         if: matrix.platform == 'macos-latest'
+        env:
+          PKG_CONFIG_PATH: /usr/local/opt/openssl@1.1/lib/pkgconfig
         run: |
           mkdir build
           cd build
