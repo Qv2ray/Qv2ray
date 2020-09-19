@@ -81,6 +81,11 @@
        <string>xtls-rprx-origin</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+       <string>xtls-rprx-origin-udp443</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>
