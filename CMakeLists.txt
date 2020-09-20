@@ -148,11 +148,6 @@ if(QV2RAY_QT6)
     set(XKB_DEFINITIONS ${PKG_XKB_CFLAGS_OTHER})
     find_path(XKB_INCLUDE_DIR NAMES xkbcommon/xkbcommon.h HINTS ${PKG_XKB_INCLUDE_DIRS})
     find_library(XKB_LIBRARY NAMES xkbcommon HINTS ${PKG_XKB_LIBRARY_DIRS})
-    set(XKB_LIBRARIES ${XKB_LIBRARY})
-    set(XKB_INCLUDE_DIRS ${XKB_INCLUDE_DIR})
-    set(XKB_VERSION ${PKG_XKB_VERSION})
-    include(FindPackageHandleStandardArgs)
-    find_package_handle_standard_args(XKB FOUND_VAR XKB_FOUND REQUIRED_VARS XKB_LIBRARY XKB_INCLUDE_DIR VERSION_VAR XKB_VERSION)
     add_library(XKB::XKB UNKNOWN IMPORTED)
     set_target_properties(XKB::XKB PROPERTIES
         IMPORTED_LOCATION "${XKB_LIBRARY}"
