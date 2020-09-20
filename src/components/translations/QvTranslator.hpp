@@ -16,7 +16,10 @@ namespace Qv2ray::common
          * @brief get the available languages.
          * @return (if available) languages (zh_CN, en_US, ...)
          */
-        QStringList GetAvailableLanguages();
+        const inline QStringList GetAvailableLanguages() const
+        {
+            return languages;
+        }
         /**
          * @brief reload the translation from file
          * @param code eg: en_US, zh_CN, ...
@@ -24,7 +27,9 @@ namespace Qv2ray::common
         bool InstallTranslation(const QString &);
 
       private:
+        void refreshTranslations();
         QStringList languages;
+        QStringList searchPaths;
         std::unique_ptr<QTranslator> pTranslator;
     };
     inline std::unique_ptr<common::QvTranslator> Qv2rayTranslator;

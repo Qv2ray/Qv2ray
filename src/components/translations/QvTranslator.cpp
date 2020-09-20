@@ -25,25 +25,25 @@ namespace Qv2ray::common
 {
     QvTranslator::QvTranslator()
     {
-        GetAvailableLanguages();
+        refreshTranslations();
     }
 
-    QStringList QvTranslator::GetAvailableLanguages()
+    void QvTranslator::refreshTranslations()
     {
+        searchPaths = getLanguageSearchPaths();
         languages.clear();
-        for (const auto &path : getLanguageSearchPaths())
+        for (const auto &path : searchPaths)
         {
-            languages << QDir(path).entryList(QStringList{ "*.qm" }, QDir::Hidden | QDir::Files);
+            languages << QDir(path).entryList({ "*.qm" }, QDir::Hidden | QDir::Files);
         }
         std::transform(languages.begin(), languages.end(), languages.begin(), [](QString &fileName) { return fileName.replace(".qm", ""); });
         languages.removeDuplicates();
         DEBUG(MODULE_UI, "Found translations: " + languages.join(" "))
-        return languages;
     }
 
     bool QvTranslator::InstallTranslation(const QString &code)
     {
-        for (const auto &path : getLanguageSearchPaths())
+        for (const auto &path : searchPaths)
         {
             if (FileExistsIn(QDir(path), code + ".qm"))
             {
