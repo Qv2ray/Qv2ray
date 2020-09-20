@@ -177,7 +177,6 @@ namespace Qv2ray::base::config
     struct Qv2rayConfigObject
     {
         int config_version;
-        bool tProxySupport;
         int logLevel;
         //
         ConnectionGroupPair autoStartId;
@@ -197,11 +196,10 @@ namespace Qv2ray::base::config
         explicit Qv2rayConfigObject()
         {
             config_version = QV2RAY_CONFIG_VERSION;
-            tProxySupport = false;
         }
-        JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                          //
-                            F(config_version, tProxySupport, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
-                            F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig),        //
+        JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                   //
+                            F(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
+                            F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
                             F(inboundConfig, outboundConfig, defaultRouteConfig))
     };
 } // namespace Qv2ray::base::config

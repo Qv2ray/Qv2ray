@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>928</width>
-    <height>652</height>
+    <width>886</width>
+    <height>603</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -216,23 +216,6 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>Transparent Proxy</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="tProxyCheckBox">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
              <widget class="QLabel" name="label_86">
               <property name="text">
                <string>Quiet Mode</string>
@@ -242,21 +225,28 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="1" column="1">
              <widget class="QCheckBox" name="quietModeCB">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_38">
+              <property name="text">
+               <string>Old Share Link Format</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
              <widget class="QCheckBox" name="useOldShareLinkFormatCB">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_19">
               <property name="text">
                <string>Auto Connect</string>
@@ -266,7 +256,7 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
+            <item row="3" column="1">
              <layout class="QFormLayout" name="formLayout_16">
               <item row="2" column="1">
                <widget class="QComboBox" name="autoStartConnCombo"/>
@@ -327,13 +317,6 @@
                </layout>
               </item>
              </layout>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_38">
-              <property name="text">
-               <string>Old Share Link Format</string>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>
@@ -1001,7 +984,7 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>404</width>
+            <width>832</width>
             <height>547</height>
            </rect>
           </property>

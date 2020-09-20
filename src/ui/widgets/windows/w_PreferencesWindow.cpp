@@ -48,9 +48,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
 {
     setupUi(this);
     //
-    tProxyCheckBox->setVisible(false);
-    label_7->setVisible(false);
-    //
     QvMessageBusConnect(PreferencesWindow);
     textBrowser->setHtml(StringFromFile(":/assets/credit.html"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -87,7 +84,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     darkTrayCB->setChecked(CurrentConfig.uiConfig.useDarkTrayIcon);
     languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
-    tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     useOldShareLinkFormatCB->setChecked(CurrentConfig.uiConfig.useOldShareLinkFormat);
     //
@@ -505,129 +501,6 @@ void PreferencesWindow::on_cancelIgnoreVersionBtn_clicked()
 {
     CurrentConfig.updateConfig.ignoredVersion.clear();
     cancelIgnoreVersionBtn->setEnabled(false);
-}
-
-void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
-{
-    LOADINGCHECK
-#ifdef Q_OS_LINUX
-    // Setting up tProxy for linux
-    // Steps:
-    // --> 1. Copy V2Ray core files to the QV2RAY_TPROXY_VCORE_PATH and QV2RAY_TPROXY_VCTL_PATH dir.
-    // --> 2. Change GlobalConfig.v2CorePath.
-    // --> 3. Call `pkexec setcap
-    // CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2Ray core.
-    auto const kernelPath = CurrentConfig.kernelConfig.KernelPath();
-    if (arg1 == Qt::Checked)
-    {
-        // We enable it!
-        const auto asResult =
-            QvMessageBoxAsk(this, tr("Enable tProxy Support"),
-                            tr("This will append capabilities to the V2Ray executable.") + NEWLINE + NEWLINE +
-                                tr("Qv2ray will copy your V2Ray core to this path: ") + NEWLINE + QV2RAY_TPROXY_VCORE_PATH + NEWLINE + NEWLINE +
-                                tr("If anything goes wrong after enabling this, please check issue #57 or the link below:") + NEWLINE +
-                                " https://github.com/Qv2ray/Qv2ray/wiki/FAQ ");
-        if (asResult != Yes)
-        {
-            tProxyCheckBox->setChecked(false);
-            LOG(MODULE_UI, "Canceled enabling tProxy feature.")
-        }
-        else
-        {
-
-            LOG(MODULE_VCORE, "ENABLING tProxy Support")
-            LOG(MODULE_FILEIO, " --> Origin V2Ray core file is at: " + kernelPath)
-            auto v2ctlPath = QFileInfo(kernelPath).absolutePath() + "/v2ctl";
-            auto newPath = QFileInfo(QV2RAY_TPROXY_VCORE_PATH).absolutePath();
-            QString mkPathResult = QDir().mkpath(newPath) ? "OK" : "FAILED";
-            LOG(MODULE_FILEIO, " --> mkPath result: " + mkPathResult)
-            //
-            LOG(MODULE_FILEIO, " --> Origin v2ctl file is at: " + v2ctlPath)
-            LOG(MODULE_FILEIO, " --> New V2Ray files will be placed in: " + newPath)
-            //
-            LOG(MODULE_FILEIO, " --> Copying files....")
-
-            if (QFileInfo(kernelPath).absoluteFilePath() != QFileInfo(QV2RAY_TPROXY_VCORE_PATH).absoluteFilePath())
-            {
-                // Only trying to remove file when they are not in the default
-                // dir. (In other words...) Keep using the current files.
-                // <Because we don't know where else we can copy the file
-                // from...>
-                //
-                if (QFile(QV2RAY_TPROXY_VCORE_PATH).exists())
-                {
-                    LOG(MODULE_FILEIO, QString(QV2RAY_TPROXY_VCORE_PATH) + ": File already exists.")
-                    LOG(MODULE_FILEIO, QString(QV2RAY_TPROXY_VCORE_PATH) + ": Deleting file.")
-                    QFile(QV2RAY_TPROXY_VCORE_PATH).remove();
-                }
-
-                if (QFile(QV2RAY_TPROXY_VCTL_PATH).exists())
-                {
-                    LOG(MODULE_FILEIO, QV2RAY_TPROXY_VCTL_PATH + ": File already exists.")
-                    LOG(MODULE_FILEIO, QV2RAY_TPROXY_VCTL_PATH + ": Deleting file.")
-                    QFile(QV2RAY_TPROXY_VCTL_PATH).remove();
-                }
-
-                QString vCoreresult = QFile(kernelPath).copy(QV2RAY_TPROXY_VCORE_PATH) ? "OK" : "FAILED";
-                LOG(MODULE_FILEIO, " --> V2Ray Core: " + vCoreresult)
-                //
-                QString vCtlresult = QFile(v2ctlPath).copy(QV2RAY_TPROXY_VCTL_PATH) ? "OK" : "FAILED";
-                LOG(MODULE_FILEIO, " --> V2Ray Ctl: " + vCtlresult)
-                //
-
-                if (vCoreresult == "OK" && vCtlresult == "OK")
-                {
-                    LOG(MODULE_VCORE, " --> Done copying files.")
-                    on_vCorePathTxt_textEdited(QV2RAY_TPROXY_VCORE_PATH);
-                }
-                else
-                {
-                    LOG(MODULE_VCORE, "FAILED to copy V2Ray files. Aborting.")
-                    QvMessageBoxWarn(this, tr("Enable tProxy Support"),
-                                     tr("Qv2ray cannot copy one or both V2Ray files from: ") + NEWLINE + NEWLINE + kernelPath + NEWLINE +
-                                         v2ctlPath + NEWLINE + NEWLINE + tr("to this path: ") + NEWLINE + newPath);
-                    return;
-                }
-            }
-            else
-            {
-                LOG(MODULE_VCORE, "Skipped removing files since the current V2Ray core is in the default path.")
-                LOG(MODULE_VCORE, " --> Actually because we don't know where else to obtain the files.")
-            }
-
-            LOG(MODULE_UI, "Calling pkexec and setcap...")
-            int ret = QProcess::execute("pkexec", { "/usr/sbin/setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + kernelPath });
-            if (ret != 0)
-            {
-                LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-                QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2Ray executable. You may need to run `setcap` manually."));
-            }
-
-            CurrentConfig.tProxySupport = true;
-            NEEDRESTART
-        }
-    }
-    else
-    {
-        int ret = QProcess::execute("pkexec", { "/usr/sbin/setcap -r " + kernelPath });
-
-        if (ret != 0)
-        {
-            LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-            QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2Ray executable. You may need to run `setcap` manually."));
-        }
-
-        CurrentConfig.tProxySupport = false;
-        NEEDRESTART
-    }
-
-#else
-    Q_UNUSED(arg1)
-    // No such tProxy thing on Windows and macOS
-    QvMessageBoxWarn(this, tr("Preferences"), tr("tProxy is not supported on macOS and Windows"));
-    CurrentConfig.tProxySupport = false;
-    tProxyCheckBox->setChecked(false);
-#endif
 }
 
 void PreferencesWindow::on_bypassCNCb_stateChanged(int arg1)

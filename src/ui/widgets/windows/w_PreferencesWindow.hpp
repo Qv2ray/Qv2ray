@@ -62,7 +62,6 @@ class PreferencesWindow
     void on_selectVAssetBtn_clicked();
     void on_aboutQt_clicked();
     void on_cancelIgnoreVersionBtn_clicked();
-    void on_tProxyCheckBox_stateChanged(int arg1);
     void on_bypassCNCb_stateChanged(int arg1);
     void on_bypassBTCb_stateChanged(int arg1);
     void on_statsPortBox_valueChanged(int arg1);
