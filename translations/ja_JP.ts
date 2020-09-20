@@ -640,10 +640,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>OK</translation>
     </message>
     <message>
-        <source>Json Structure Preview</source>
-        <translation>JSON構造プレビュー</translation>
-    </message>
-    <message>
         <source>Format JSON</source>
         <translation>JSON初期化</translation>
     </message>
@@ -678,6 +674,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Remove All Comments</source>
         <translation>コメントを全削除</translation>
+    </message>
+    <message>
+        <source>Structure Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1050,10 +1050,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>タイプ</translation>
     </message>
     <message>
-        <source>Socks</source>
-        <translation>Socks</translation>
-    </message>
-    <message>
         <source>Use Mux</source>
         <translation>Muxを使う</translation>
     </message>
@@ -1086,38 +1082,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>アウトバウンド設定</translation>
     </message>
     <message>
-        <source>UUID</source>
-        <translation>UUID</translation>
-    </message>
-    <message>
-        <source>Alter ID</source>
-        <translation>アルターID</translation>
-    </message>
-    <message>
-        <source>Security</source>
-        <translation>セキュリティ</translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation>電子メール</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
-    </message>
-    <message>
-        <source>Encryption Method</source>
-        <translation>暗号化方法</translation>
-    </message>
-    <message>
-        <source>OTA</source>
-        <translation>OTA</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>ユーザー名</translation>
-    </message>
-    <message>
         <source>Unknown outbound type.</source>
         <translation>不明なアウトバウンドタイプ。</translation>
     </message>
@@ -1140,22 +1104,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation>JsonEditorを使用するか、プラグインをリロードしてください。</translation>
-    </message>
-    <message>
-        <source>Tests</source>
-        <translation>テスト</translation>
-    </message>
-    <message>
-        <source>Http</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
-        <source>VLESS</source>
-        <translation>VLESS</translation>
-    </message>
-    <message>
-        <source>Encryption</source>
-        <translation>暗号化方法</translation>
     </message>
 </context>
 <context>
@@ -1383,14 +1331,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>Qtについて</translation>
     </message>
     <message>
-        <source>Enable tProxy Support</source>
-        <translation>tProxyサポートを有効にする</translation>
-    </message>
-    <message>
-        <source>to this path: </source>
-        <translation>このパスへ: </translation>
-    </message>
-    <message>
         <source>Version: %1</source>
         <translation>バージョン: %1</translation>
     </message>
@@ -1405,10 +1345,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Invalid inbound listening address.</source>
         <translation>無効なインバウンドリスニングアドレス。</translation>
-    </message>
-    <message>
-        <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
-        <translation>これを有効にした後に何か問題が発生した場合は、問題#57または以下のリンクを確認してください:</translation>
     </message>
     <message>
         <source>tProxy is not supported on macOS and Windows</source>
@@ -1473,10 +1409,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Behavior</source>
         <translation>動作</translation>
-    </message>
-    <message>
-        <source>Transparent Proxy</source>
-        <translation>透過型プロキシ</translation>
     </message>
     <message>
         <source>Group</source>
@@ -1859,22 +1791,6 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
         <translation>V2Rayコアファイルを開く</translation>
     </message>
     <message>
-        <source>This will append capabilities to the V2Ray executable.</source>
-        <translation>これにより、V2Ray実行可能ファイルに機能が追加されます。</translation>
-    </message>
-    <message>
-        <source>Qv2ray will copy your V2Ray core to this path: </source>
-        <translation>Qv2rayは、V2Rayコアを次のパスにコピーします: </translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot copy one or both V2Ray files from: </source>
-        <translation>Qv2rayは、V2Rayファイルの一つまたは二つを以下からコピーできません: </translation>
-    </message>
-    <message>
-        <source>Failed to setcap onto V2Ray executable. You may need to run `setcap` manually.</source>
-        <translation>V2Ray実行可能ファイルへのsetcapに失敗しました。`setcap`を手動で実行する必要がある可能性があります。</translation>
-    </message>
-    <message>
         <source>V2Ray path configuration check passed.</source>
         <translation>V2Rayパス構成チェックに通過しました。</translation>
     </message>
@@ -1916,6 +1832,10 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>RealPing Test URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bypass Private Addresses</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2513,10 +2433,6 @@ Output: <byte value="xd"/>
         <translation>tProxy モード</translation>
     </message>
     <message>
-        <source>Enable TLS</source>
-        <translation>TLSを有効にする</translation>
-    </message>
-    <message>
         <source>Allow Insecure Ciphers</source>
         <translation>安全でない暗号を許可する</translation>
     </message>
@@ -2528,6 +2444,22 @@ Output: <byte value="xd"/>
         <source>Disable Session Resumption</source>
         <translation>セッション再開を無効にする</translation>
     </message>
+    <message>
+        <source>Security Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">なし</translation>
+    </message>
+    <message>
+        <source>TLS</source>
+        <translation type="unfinished">TLS</translation>
+    </message>
+    <message>
+        <source>XTLS</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>blackholeOutEditor</name>
@@ -2535,12 +2467,44 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
     </message>
+    <message>
+        <source>Response</source>
+        <translation type="unfinished">レスポンス</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">タイプ</translation>
+    </message>
 </context>
 <context>
     <name>dnsOutEditor</name>
     <message>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation type="unfinished">ネットワーク</translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation type="unfinished">TCP</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation type="unfinished">UDP</translation>
+    </message>
+    <message>
+        <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">アドレス</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished">ポート</translation>
     </message>
 </context>
 <context>
@@ -2592,6 +2556,18 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
     </message>
+    <message>
+        <source>Domain Strategy</source>
+        <translation type="unfinished">ドメインポリシー</translation>
+    </message>
+    <message>
+        <source>Redirect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>:0</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>httpInEditor</name>
@@ -2634,12 +2610,40 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
     </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">ユーザー名</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">パスワード</translation>
+    </message>
 </context>
 <context>
     <name>shadowsocksOutEditor</name>
     <message>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished">電子メール</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">パスワード</translation>
+    </message>
+    <message>
+        <source>Encryption Method</source>
+        <translation type="unfinished">暗号化方法</translation>
+    </message>
+    <message>
+        <source>OTA</source>
+        <translation type="unfinished">OTA</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">有効</translation>
     </message>
 </context>
 <context>
@@ -2687,6 +2691,14 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
     </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">ユーザー名</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">パスワード</translation>
+    </message>
 </context>
 <context>
     <name>vlessOutEditor</name>
@@ -2694,12 +2706,48 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
     </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished">UUID</translation>
+    </message>
+    <message>
+        <source>Encryption</source>
+        <translation type="unfinished">暗号化方法</translation>
+    </message>
+    <message>
+        <source>Flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>xtls-rprx-origin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>xtls-rprx-origin-udp443</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>vmessOutEditor</name>
     <message>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished">UUID</translation>
+    </message>
+    <message>
+        <source>Alter ID</source>
+        <translation type="unfinished">アルターID</translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation type="unfinished">セキュリティ</translation>
+    </message>
+    <message>
+        <source>Tests</source>
+        <translation type="unfinished">テスト</translation>
     </message>
 </context>
 <context>

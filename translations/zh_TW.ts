@@ -640,10 +640,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>好</translation>
     </message>
     <message>
-        <source>Json Structure Preview</source>
-        <translation>Json 結構預覽</translation>
-    </message>
-    <message>
         <source>Format JSON</source>
         <translation>格式化 JSON</translation>
     </message>
@@ -678,6 +674,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Remove All Comments</source>
         <translation>移除所有注釋</translation>
+    </message>
+    <message>
+        <source>Structure Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1050,10 +1050,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>類型</translation>
     </message>
     <message>
-        <source>Socks</source>
-        <translation>Socks</translation>
-    </message>
-    <message>
         <source>Use Mux</source>
         <translation>使用Mux</translation>
     </message>
@@ -1086,38 +1082,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>出站設置</translation>
     </message>
     <message>
-        <source>UUID</source>
-        <translation>UUID</translation>
-    </message>
-    <message>
-        <source>Alter ID</source>
-        <translation>Alter ID</translation>
-    </message>
-    <message>
-        <source>Security</source>
-        <translation>安全</translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation>郵箱</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>密碼</translation>
-    </message>
-    <message>
-        <source>Encryption Method</source>
-        <translation>加密方法</translation>
-    </message>
-    <message>
-        <source>OTA</source>
-        <translation>OTA</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>用戶名</translation>
-    </message>
-    <message>
         <source>Unknown outbound type.</source>
         <translation>未知的出站類型。</translation>
     </message>
@@ -1140,22 +1104,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation>請使用 JSON 編輯器或重載對應外掛程式。</translation>
-    </message>
-    <message>
-        <source>Tests</source>
-        <translation>測試</translation>
-    </message>
-    <message>
-        <source>Http</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
-        <source>VLESS</source>
-        <translation>VLESS</translation>
-    </message>
-    <message>
-        <source>Encryption</source>
-        <translation>加密方法</translation>
     </message>
 </context>
 <context>
@@ -1363,14 +1311,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>關於 Qt</translation>
     </message>
     <message>
-        <source>Enable tProxy Support</source>
-        <translation>啟用 tProxy 支持</translation>
-    </message>
-    <message>
-        <source>to this path: </source>
-        <translation>到此路徑: </translation>
-    </message>
-    <message>
         <source>Version: %1</source>
         <translation>版本：%1</translation>
     </message>
@@ -1385,10 +1325,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Invalid inbound listening address.</source>
         <translation>入站監聽位址不可用。</translation>
-    </message>
-    <message>
-        <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
-        <translation>如果有出現任何問題，請參閱 Issue #57 或以下連結：</translation>
     </message>
     <message>
         <source>tProxy is not supported on macOS and Windows</source>
@@ -1473,10 +1409,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Behavior</source>
         <translation>行為</translation>
-    </message>
-    <message>
-        <source>Transparent Proxy</source>
-        <translation>透明代理</translation>
     </message>
     <message>
         <source>Group</source>
@@ -1859,22 +1791,6 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
         <translation>打開 V2Ray 核心文件</translation>
     </message>
     <message>
-        <source>This will append capabilities to the V2Ray executable.</source>
-        <translation>這會將功能附加到 V2Ray 可執行檔。</translation>
-    </message>
-    <message>
-        <source>Qv2ray will copy your V2Ray core to this path: </source>
-        <translation>Qv2ray 會將您的 V2Ray 核心複製到以下路徑: </translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot copy one or both V2Ray files from: </source>
-        <translation>Qv2ray 無法從以下位置複製一個或兩個 V2Ray 檔: </translation>
-    </message>
-    <message>
-        <source>Failed to setcap onto V2Ray executable. You may need to run `setcap` manually.</source>
-        <translation>無法為 V2Ray 可執行檔應用 setcap。您可能需要手動運行 setcap。</translation>
-    </message>
-    <message>
         <source>V2Ray path configuration check passed.</source>
         <translation>V2Ray 路徑配置檢查通過。</translation>
     </message>
@@ -1916,6 +1832,10 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>RealPing Test URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bypass Private Addresses</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2513,10 +2433,6 @@ Output: <byte value="xd"/>
         <translation>tProxy 工作模式</translation>
     </message>
     <message>
-        <source>Enable TLS</source>
-        <translation>啟用 TLS</translation>
-    </message>
-    <message>
         <source>Allow Insecure Ciphers</source>
         <translation>允許不安全的 TLS 演算法</translation>
     </message>
@@ -2528,6 +2444,22 @@ Output: <byte value="xd"/>
         <source>Disable Session Resumption</source>
         <translation>禁用會話返回</translation>
     </message>
+    <message>
+        <source>Security Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">不使用</translation>
+    </message>
+    <message>
+        <source>TLS</source>
+        <translation type="unfinished">TLS</translation>
+    </message>
+    <message>
+        <source>XTLS</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>blackholeOutEditor</name>
@@ -2535,12 +2467,44 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">視窗</translation>
     </message>
+    <message>
+        <source>Response</source>
+        <translation type="unfinished">回應</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">類型</translation>
+    </message>
 </context>
 <context>
     <name>dnsOutEditor</name>
     <message>
         <source>Form</source>
         <translation type="unfinished">視窗</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation type="unfinished">網路</translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation type="unfinished">TCP</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation type="unfinished">UDP</translation>
+    </message>
+    <message>
+        <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">位址</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished">通訊埠</translation>
     </message>
 </context>
 <context>
@@ -2592,6 +2556,18 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">視窗</translation>
     </message>
+    <message>
+        <source>Domain Strategy</source>
+        <translation type="unfinished">網域策略</translation>
+    </message>
+    <message>
+        <source>Redirect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>:0</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>httpInEditor</name>
@@ -2634,12 +2610,40 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">視窗</translation>
     </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">用戶名</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">密碼</translation>
+    </message>
 </context>
 <context>
     <name>shadowsocksOutEditor</name>
     <message>
         <source>Form</source>
         <translation type="unfinished">視窗</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished">郵箱</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">密碼</translation>
+    </message>
+    <message>
+        <source>Encryption Method</source>
+        <translation type="unfinished">加密方法</translation>
+    </message>
+    <message>
+        <source>OTA</source>
+        <translation type="unfinished">OTA</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">已啟用</translation>
     </message>
 </context>
 <context>
@@ -2687,6 +2691,14 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">視窗</translation>
     </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">用戶名</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">密碼</translation>
+    </message>
 </context>
 <context>
     <name>vlessOutEditor</name>
@@ -2694,12 +2706,48 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished">視窗</translation>
     </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished">UUID</translation>
+    </message>
+    <message>
+        <source>Encryption</source>
+        <translation type="unfinished">加密方法</translation>
+    </message>
+    <message>
+        <source>Flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>xtls-rprx-origin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>xtls-rprx-origin-udp443</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>vmessOutEditor</name>
     <message>
         <source>Form</source>
         <translation type="unfinished">視窗</translation>
+    </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished">UUID</translation>
+    </message>
+    <message>
+        <source>Alter ID</source>
+        <translation type="unfinished">Alter ID</translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation type="unfinished">安全選項</translation>
+    </message>
+    <message>
+        <source>Tests</source>
+        <translation type="unfinished">測試</translation>
     </message>
 </context>
 <context>

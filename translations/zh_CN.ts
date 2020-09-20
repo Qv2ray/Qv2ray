@@ -346,19 +346,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>HTTPInboundEditor</name>
     <message>
         <source>Removing a user</source>
-        <translation type="unfinished">移除用户</translation>
+        <translation>移除用户</translation>
     </message>
     <message>
         <source>You haven&apos;t selected a user yet.</source>
-        <translation type="unfinished">你尚未选择一个用户。</translation>
+        <translation>你尚未选择一个用户。</translation>
     </message>
     <message>
         <source>Add a user</source>
-        <translation type="unfinished">添加用户</translation>
+        <translation>添加用户</translation>
     </message>
     <message>
         <source>This user exists already.</source>
-        <translation type="unfinished">此用户已存在。</translation>
+        <translation>此用户已存在。</translation>
     </message>
 </context>
 <context>
@@ -572,23 +572,23 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>HTTP</source>
-        <translation type="unfinished">HTTP</translation>
+        <translation>HTTP</translation>
     </message>
     <message>
         <source>TLS</source>
-        <translation type="unfinished">TLS</translation>
+        <translation>TLS</translation>
     </message>
     <message>
         <source>Unknown inbound.</source>
-        <translation type="unfinished"></translation>
+        <translation>未知入站。</translation>
     </message>
     <message>
         <source>The specified inbound type is invalid, this may be caused by a plugin failure.</source>
-        <translation type="unfinished"></translation>
+        <translation>指定的入站类型无效，可能是插件问题。</translation>
     </message>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
-        <translation type="unfinished">请使用 JSON 编辑器或重载对应插件。</translation>
+        <translation>请使用 JSON 编辑器或重载对应插件。</translation>
     </message>
 </context>
 <context>
@@ -640,10 +640,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>好</translation>
     </message>
     <message>
-        <source>Json Structure Preview</source>
-        <translation>Json 结构预览</translation>
-    </message>
-    <message>
         <source>Format JSON</source>
         <translation>格式化 JSON</translation>
     </message>
@@ -678,6 +674,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Remove All Comments</source>
         <translation>移除所有注释</translation>
+    </message>
+    <message>
+        <source>Structure Preview</source>
+        <translation>结构预览</translation>
     </message>
 </context>
 <context>
@@ -1020,7 +1020,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Test Real Latency</source>
-        <translation type="unfinished"></translation>
+        <translation>测试真实延迟</translation>
     </message>
 </context>
 <context>
@@ -1048,10 +1048,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Type</source>
         <translation>类型</translation>
-    </message>
-    <message>
-        <source>Socks</source>
-        <translation>Socks</translation>
     </message>
     <message>
         <source>Use Mux</source>
@@ -1086,38 +1082,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>出站设置</translation>
     </message>
     <message>
-        <source>UUID</source>
-        <translation>UUID</translation>
-    </message>
-    <message>
-        <source>Alter ID</source>
-        <translation>Alter ID</translation>
-    </message>
-    <message>
-        <source>Security</source>
-        <translation>安全</translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation>邮箱</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>密码</translation>
-    </message>
-    <message>
-        <source>Encryption Method</source>
-        <translation>加密方法</translation>
-    </message>
-    <message>
-        <source>OTA</source>
-        <translation>OTA</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>用户名</translation>
-    </message>
-    <message>
         <source>Unknown outbound type.</source>
         <translation>未知的出站类型。</translation>
     </message>
@@ -1140,22 +1104,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation>请使用 JSON 编辑器或重载对应插件。</translation>
-    </message>
-    <message>
-        <source>Tests</source>
-        <translation>测试</translation>
-    </message>
-    <message>
-        <source>Http</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
-        <source>VLESS</source>
-        <translation>VLESS</translation>
-    </message>
-    <message>
-        <source>Encryption</source>
-        <translation>加密方式</translation>
     </message>
 </context>
 <context>
@@ -1197,7 +1145,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>PluginSettingsWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
     </message>
 </context>
 <context>
@@ -1363,14 +1311,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>关于 Qt</translation>
     </message>
     <message>
-        <source>Enable tProxy Support</source>
-        <translation>启用 tProxy 支持</translation>
-    </message>
-    <message>
-        <source>to this path: </source>
-        <translation>到此路径: </translation>
-    </message>
-    <message>
         <source>Version: %1</source>
         <translation>版本：%1</translation>
     </message>
@@ -1385,10 +1325,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Invalid inbound listening address.</source>
         <translation>入站监听地址不可用。</translation>
-    </message>
-    <message>
-        <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
-        <translation>如果有出现任何问题，请参阅 Issue #57 或以下链接：</translation>
     </message>
     <message>
         <source>tProxy is not supported on macOS and Windows</source>
@@ -1473,10 +1409,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Behavior</source>
         <translation>行为</translation>
-    </message>
-    <message>
-        <source>Transparent Proxy</source>
-        <translation>透明代理</translation>
     </message>
     <message>
         <source>Group</source>
@@ -1859,22 +1791,6 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
         <translation>打开 V2Ray 核心文件</translation>
     </message>
     <message>
-        <source>This will append capabilities to the V2Ray executable.</source>
-        <translation>这会将功能附加到 V2Ray 可执行文件。</translation>
-    </message>
-    <message>
-        <source>Qv2ray will copy your V2Ray core to this path: </source>
-        <translation>Qv2ray 会将您的 V2Ray 核心复制到以下路径: </translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot copy one or both V2Ray files from: </source>
-        <translation>Qv2ray 无法从以下位置复制一个或两个 V2Ray 文件: </translation>
-    </message>
-    <message>
-        <source>Failed to setcap onto V2Ray executable. You may need to run `setcap` manually.</source>
-        <translation>无法为 V2Ray 可执行文件应用 setcap。您可能需要手动运行 setcap。</translation>
-    </message>
-    <message>
         <source>V2Ray path configuration check passed.</source>
         <translation>V2Ray 路径配置检查通过。</translation>
     </message>
@@ -1916,7 +1832,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>RealPing Test URL</source>
-        <translation type="unfinished"></translation>
+        <translation>真实延迟测试 URL</translation>
+    </message>
+    <message>
+        <source>Bypass Private Addresses</source>
+        <translation>绕过私有地址</translation>
     </message>
 </context>
 <context>
@@ -1942,27 +1862,27 @@ Output: <byte value="xd"/>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
     <message>
         <source>A new version of Qv2ray is starting:</source>
-        <translation type="unfinished"></translation>
+        <translation>新版 Qv2ray 正在启动：</translation>
     </message>
     <message>
         <source>New version information: </source>
-        <translation type="unfinished">新版本信息: </translation>
+        <translation>新版本信息: </translation>
     </message>
     <message>
         <source>Qv2ray version: %1</source>
-        <translation type="unfinished">Qv2ray 版本: %1</translation>
+        <translation>Qv2ray 版本: %1</translation>
     </message>
     <message>
         <source>Qv2ray path: %1</source>
-        <translation type="unfinished">Qv2ray 路径: %1</translation>
+        <translation>Qv2ray 路径: %1</translation>
     </message>
     <message>
         <source>Do you want to exit and launch that new version?</source>
-        <translation type="unfinished">要退出当前版本并运行新版本吗？</translation>
+        <translation>要退出当前版本并运行新版本吗？</translation>
     </message>
     <message>
         <source>New version detected</source>
-        <translation type="unfinished">检测到新版</translation>
+        <translation>检测到新版</translation>
     </message>
 </context>
 <context>
@@ -2348,19 +2268,19 @@ Output: <byte value="xd"/>
     <name>SocksInboundEditor</name>
     <message>
         <source>Removing a user</source>
-        <translation type="unfinished">移除用户</translation>
+        <translation>移除用户</translation>
     </message>
     <message>
         <source>You haven&apos;t selected a user yet.</source>
-        <translation type="unfinished">你尚未选择一个用户。</translation>
+        <translation>你尚未选择一个用户。</translation>
     </message>
     <message>
         <source>Add a user</source>
-        <translation type="unfinished">添加用户</translation>
+        <translation>添加用户</translation>
     </message>
     <message>
         <source>This user exists already.</source>
-        <translation type="unfinished">此用户已存在。</translation>
+        <translation>此用户已存在。</translation>
     </message>
 </context>
 <context>
@@ -2513,10 +2433,6 @@ Output: <byte value="xd"/>
         <translation>tProxy 工作模式</translation>
     </message>
     <message>
-        <source>Enable TLS</source>
-        <translation>启用 TLS</translation>
-    </message>
-    <message>
         <source>Allow Insecure Ciphers</source>
         <translation>允许不安全的 TLS 算法</translation>
     </message>
@@ -2528,178 +2444,310 @@ Output: <byte value="xd"/>
         <source>Disable Session Resumption</source>
         <translation>禁用会话返回</translation>
     </message>
+    <message>
+        <source>Security Type</source>
+        <translation>安全类型</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>不使用</translation>
+    </message>
+    <message>
+        <source>TLS</source>
+        <translation>TLS</translation>
+    </message>
+    <message>
+        <source>XTLS</source>
+        <translation>XTLS</translation>
+    </message>
 </context>
 <context>
     <name>blackholeOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Response</source>
+        <translation>响应</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>类型</translation>
     </message>
 </context>
 <context>
     <name>dnsOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>网络</translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation>TCP</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation>UDP</translation>
+    </message>
+    <message>
+        <source>Original</source>
+        <translation>原始</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>端口</translation>
     </message>
 </context>
 <context>
     <name>dokodemodoorInEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished">地址</translation>
+        <translation>地址</translation>
     </message>
     <message>
         <source>Optional when using &quot;Follow Redirect&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>使用“跟随重定向”时，此项可选</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">端口</translation>
+        <translation>端口</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation type="unfinished">网络</translation>
+        <translation>网络</translation>
     </message>
     <message>
         <source>TCP</source>
-        <translation type="unfinished">TCP</translation>
+        <translation>TCP</translation>
     </message>
     <message>
         <source>UDP</source>
-        <translation type="unfinished">UDP</translation>
+        <translation>UDP</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished">超时</translation>
+        <translation>超时</translation>
     </message>
     <message>
         <source>Follow Redirect</source>
-        <translation type="unfinished">跟随重定向</translation>
+        <translation>跟随重定向</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished">已启用</translation>
+        <translation>已启用</translation>
     </message>
 </context>
 <context>
     <name>freedomOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Domain Strategy</source>
+        <translation>域名策略</translation>
+    </message>
+    <message>
+        <source>Redirect</source>
+        <translation>重定向</translation>
+    </message>
+    <message>
+        <source>:0</source>
+        <translation>:0</translation>
     </message>
 </context>
 <context>
     <name>httpInEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
     </message>
     <message>
         <source>Allow Transparent</source>
-        <translation type="unfinished">允许透明</translation>
+        <translation>允许透明代理</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished">超时</translation>
+        <translation>超时</translation>
     </message>
     <message>
         <source>s</source>
-        <translation type="unfinished"></translation>
+        <translation>秒</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation>用户</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">密码</translation>
+        <translation>密码</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">用户名</translation>
+        <translation>用户名</translation>
     </message>
     <message>
         <source>Option</source>
-        <translation type="unfinished"></translation>
+        <translation>选项</translation>
     </message>
 </context>
 <context>
     <name>httpOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>用户名</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
     </message>
 </context>
 <context>
     <name>shadowsocksOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>邮箱</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
+    </message>
+    <message>
+        <source>Encryption Method</source>
+        <translation>加密方法</translation>
+    </message>
+    <message>
+        <source>OTA</source>
+        <translation>OTA</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>已启用</translation>
     </message>
 </context>
 <context>
     <name>socksInEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
     </message>
     <message>
         <source>Enable UDP</source>
-        <translation type="unfinished">启用 UDP</translation>
+        <translation>启用 UDP</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished">已启用</translation>
+        <translation>已启用</translation>
     </message>
     <message>
         <source>UDP Local IP</source>
-        <translation type="unfinished">UDP 本地IP</translation>
+        <translation>UDP 本地 IP</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation type="unfinished">127.0.0.1</translation>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <source>Auth</source>
-        <translation type="unfinished">认证</translation>
+        <translation>认证</translation>
     </message>
     <message>
         <source>Users</source>
-        <translation type="unfinished"></translation>
+        <translation>用户</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">用户名</translation>
+        <translation>用户名</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">密码</translation>
+        <translation>密码</translation>
     </message>
 </context>
 <context>
     <name>socksOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>用户名</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
     </message>
 </context>
 <context>
     <name>vlessOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>UUID</source>
+        <translation>UUID</translation>
+    </message>
+    <message>
+        <source>Encryption</source>
+        <translation>加密</translation>
+    </message>
+    <message>
+        <source>Flow</source>
+        <translation>流控</translation>
+    </message>
+    <message>
+        <source>xtls-rprx-origin</source>
+        <translation>xtls-rprx-origin</translation>
+    </message>
+    <message>
+        <source>xtls-rprx-origin-udp443</source>
+        <translation>xtls-rprx-origin-udp443</translation>
     </message>
 </context>
 <context>
     <name>vmessOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <source>UUID</source>
+        <translation>UUID</translation>
+    </message>
+    <message>
+        <source>Alter ID</source>
+        <translation>Alter ID</translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation>安全选项</translation>
+    </message>
+    <message>
+        <source>Tests</source>
+        <translation>测试</translation>
     </message>
 </context>
 <context>
@@ -2889,11 +2937,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>GUI Components</source>
-        <translation type="unfinished"></translation>
+        <translation>GUI 组件</translation>
     </message>
     <message>
         <source>Components</source>
-        <translation type="unfinished"></translation>
+        <translation>组件</translation>
     </message>
 </context>
 </TS>

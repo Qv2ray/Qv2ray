@@ -651,10 +651,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Json Structure Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -676,6 +672,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Please fix the JSON errors or remove the comments before continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Structure Preview</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1047,10 +1047,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Socks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Host</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1087,38 +1083,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UUID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alter ID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Security</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Encryption Method</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OTA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown outbound type.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1140,22 +1104,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tests</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Http</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VLESS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Encryption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1249,10 +1197,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Launch at Login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transparent Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1632,18 +1576,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable tProxy Support</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>to this path: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1846,22 +1778,6 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This will append capabilities to the V2Ray executable.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray will copy your V2Ray core to this path: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray cannot copy one or both V2Ray files from: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to setcap onto V2Ray executable. You may need to run `setcap` manually.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>V2Ray path configuration check passed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1897,6 +1813,10 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>RealPing Test URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bypass Private Addresses</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2477,10 +2397,6 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable TLS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Allow Insecure Ciphers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2508,6 +2424,22 @@ Output: <byte value="xd"/>
         <source>Disable Session Resumption</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Security Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TLS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XTLS</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>blackholeOutEditor</name>
@@ -2515,11 +2447,43 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Response</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>dnsOutEditor</name>
     <message>
         <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2572,6 +2536,18 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Domain Strategy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Redirect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>:0</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>httpInEditor</name>
@@ -2614,11 +2590,39 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>shadowsocksOutEditor</name>
     <message>
         <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encryption Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OTA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2667,6 +2671,14 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>vlessOutEditor</name>
@@ -2674,11 +2686,47 @@ Output: <byte value="xd"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>xtls-rprx-origin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>xtls-rprx-origin-udp443</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>vmessOutEditor</name>
     <message>
         <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alter ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tests</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
