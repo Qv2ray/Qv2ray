@@ -107,25 +107,26 @@ namespace Qv2ray
 {
     inline QStringList Qv2rayAssetsPaths(const QString &dirName)
     {
+#define makeAbs(p) QDir(p).absolutePath()
         // Configuration Path
         QStringList list;
-        list << QV2RAY_CONFIG_DIR + dirName;
+        list << makeAbs(QV2RAY_CONFIG_DIR + dirName);
         list << ":/" + dirName;
         //
 #ifdef Q_OS_LINUX
         // Linux platform directories.
-        list << QString("/lib/qv2ray/" + dirName);
-        list << QString("/usr/lib/qv2ray/" + dirName);
-        list << QString("/usr/local/lib/qv2ray/" + dirName);
+        list << makeAbs("/usr/local/lib/qv2ray/" + dirName);
+        list << makeAbs("/usr/lib/qv2ray/" + dirName);
+        list << makeAbs("/lib/qv2ray/" + dirName);
         //
-        list << QString("/usr/share/qv2ray/" + dirName);
-        list << QString("/usr/local/share/qv2ray/" + dirName);
+        list << makeAbs("/usr/local/share/qv2ray/" + dirName);
+        list << makeAbs("/usr/share/qv2ray/" + dirName);
         // For AppImage?
-        list << QString(QDir(QCoreApplication::applicationDirPath() + "/../share/qv2ray/" + dirName).absolutePath());
+        list << makeAbs(QCoreApplication::applicationDirPath() + "/../share/qv2ray/" + dirName);
         // For Snap
         if (qEnvironmentVariableIsSet("SNAP"))
         {
-            list << QString(qEnvironmentVariable("SNAP") + "/usr/share/qv2ray/" + dirName);
+            list << makeAbs(qEnvironmentVariable("SNAP") + "/usr/share/qv2ray/" + dirName);
         }
 #elif defined(Q_OS_MAC)
         // macOS platform directories.
@@ -134,9 +135,10 @@ namespace Qv2ray
         list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, dirName, QStandardPaths::LocateDirectory);
         list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, dirName, QStandardPaths::LocateDirectory);
         // This is the default behavior on Windows
-        list << QCoreApplication::applicationDirPath() + "/" + dirName;
+        list << makeAbs(QCoreApplication::applicationDirPath() + "/" + dirName);
         list.removeDuplicates();
         return list;
+#undef makeAbs
     }
 
 } // namespace Qv2ray
