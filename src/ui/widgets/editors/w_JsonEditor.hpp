@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
-#include "ui/common/JsonHighlighter.hpp"
 #include "ui/common/QvMessageBus.hpp"
 #include "ui/widgets/common/QJsonModel.hpp"
 #include "ui_w_JsonEditor.h"
@@ -33,6 +32,4 @@ class JsonEditor
     QJsonModel model;
     QJsonObject original;
     QJsonObject final;
-    //
-    std::unique_ptr<vCoreConfigJsonHighlighter> highlighter;
 };

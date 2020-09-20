@@ -7,8 +7,6 @@ set(QV2RAY_UI_COMMON_SOURCES
     ${QV2RAY_UI_COMMON_BASEDIR}/QRCodeHelper.hpp
     ${QV2RAY_UI_COMMON_BASEDIR}/autolaunch/QvAutoLaunch.hpp
     ${QV2RAY_UI_COMMON_BASEDIR}/autolaunch/QvAutoLaunch.cpp
-    ${QV2RAY_UI_COMMON_BASEDIR}/JsonHighlighter.hpp
-    ${QV2RAY_UI_COMMON_BASEDIR}/JsonHighlighter.cpp
     ${QV2RAY_UI_COMMON_BASEDIR}/LogHighlighter.hpp
     ${QV2RAY_UI_COMMON_BASEDIR}/LogHighlighter.cpp
     # Message bus

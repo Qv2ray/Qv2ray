@@ -7,7 +7,6 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) : QDialog(parent
 {
     setupUi(this);
     QvMessageBusConnect(JsonEditor);
-    highlighter = std::make_unique<vCoreConfigJsonHighlighter>(jsonEditor->document());
     //
     original = rootObject;
     final = rootObject;
@@ -33,11 +32,10 @@ QvMessageBusSlotImpl(JsonEditor)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl //
-            case UPDATE_COLORSCHEME:
-        {
-            highlighter.reset(new vCoreConfigJsonHighlighter(jsonEditor->document()));
-        }
+        MBShowDefaultImpl;
+        MBHideDefaultImpl;
+        MBRetranslateDefaultImpl;
+        case UPDATE_COLORSCHEME: break;
     }
 }
 
