@@ -19,11 +19,8 @@ OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_
     streamSettingsWidget->SetStreamObject({});
     transportFrame->addWidget(streamSettingsWidget);
     //
-    for (const auto &name : PluginHost->AvailablePlugins())
+    for (const auto &name : PluginHost->UsablePlugins())
     {
-        if (!PluginHost->ShouldUsePlugin(name))
-            continue;
-
         const auto &plugin = PluginHost->GetPlugin(name);
         if (!plugin->hasComponent(COMPONENT_GUI))
             continue;

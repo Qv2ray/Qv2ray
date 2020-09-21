@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>387</width>
-    <height>397</height>
+    <width>455</width>
+    <height>379</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -231,173 +231,15 @@
           </layout>
          </widget>
          <widget class="QWidget" name="mKCPStackPage">
-          <layout class="QFormLayout" name="formLayout_7">
+          <layout class="QFormLayout" name="formLayout_5">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="label_16">
              <property name="text">
-              <string>MTU</string>
+              <string>Header</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="kcpMTU">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>576</number>
-             </property>
-             <property name="maximum">
-              <number>1460</number>
-             </property>
-             <property name="value">
-              <number>1350</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>TTI (ms)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="kcpTTI">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>10</number>
-             </property>
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="value">
-              <number>50</number>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Uplink Capacity (MB/s)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="kcpUploadCapacSB">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maximum">
-              <number>4096</number>
-             </property>
-             <property name="value">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_15">
-             <property name="text">
-              <string>Congestion</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QCheckBox" name="kcpCongestionCB">
-             <property name="text">
-              <string>Enabled</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>Downlink Capacity (MB/s)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QSpinBox" name="kcpDownCapacitySB">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maximum">
-              <number>4096</number>
-             </property>
-             <property name="value">
-              <number>20</number>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>Read Buffer Size (MB)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QSpinBox" name="kcpReadBufferSB">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maximum">
-              <number>1024</number>
-             </property>
-             <property name="value">
-              <number>2</number>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="labelx">
-             <property name="text">
-              <string>Write Buffer Size (MB)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <widget class="QSpinBox" name="kcpWriteBufferSB">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maximum">
-              <number>1024</number>
-             </property>
-             <property name="value">
-              <number>2</number>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="label_16">
-             <property name="text">
-              <string>Type</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="1">
             <widget class="QComboBox" name="kcpHeaderType">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -437,15 +279,196 @@
              </item>
             </widget>
            </item>
-           <item row="8" column="0">
+           <item row="1" column="0">
             <widget class="QLabel" name="label_13">
              <property name="text">
-              <string>Seed (Experimental)</string>
+              <string>Seed</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="1">
+           <item row="1" column="1">
             <widget class="QLineEdit" name="kcpSeedTxt"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Capacity</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1">
+             <item>
+              <widget class="QSpinBox" name="kcpUploadCapacSB">
+               <property name="suffix">
+                <string notr="true"> MB/s</string>
+               </property>
+               <property name="prefix">
+                <string>Up: </string>
+               </property>
+               <property name="maximum">
+                <number>4096</number>
+               </property>
+               <property name="value">
+                <number>5</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="kcpDownCapacitySB">
+               <property name="minimumSize">
+                <size>
+                 <width>80</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="suffix">
+                <string notr="true"> MB/s</string>
+               </property>
+               <property name="prefix">
+                <string>Down: </string>
+               </property>
+               <property name="maximum">
+                <number>4096</number>
+               </property>
+               <property name="value">
+                <number>20</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>Buffer Size</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1">
+             <item>
+              <widget class="QSpinBox" name="kcpWriteBufferSB">
+               <property name="suffix">
+                <string notr="true"> MB</string>
+               </property>
+               <property name="prefix">
+                <string>Write Size: </string>
+               </property>
+               <property name="maximum">
+                <number>1024</number>
+               </property>
+               <property name="value">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="kcpReadBufferSB">
+               <property name="suffix">
+                <string notr="true"> MB</string>
+               </property>
+               <property name="prefix">
+                <string>Read Size: </string>
+               </property>
+               <property name="maximum">
+                <number>1024</number>
+               </property>
+               <property name="value">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_24">
+             <property name="text">
+              <string>Congestion</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QCheckBox" name="kcpCongestionCB">
+             <property name="text">
+              <string>Congestion</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Options</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>MTU</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="kcpMTU">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="suffix">
+                <string notr="true"> B</string>
+               </property>
+               <property name="minimum">
+                <number>576</number>
+               </property>
+               <property name="maximum">
+                <number>1460</number>
+               </property>
+               <property name="value">
+                <number>1350</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>TTI</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="kcpTTI">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="suffix">
+                <string notr="true"> ms</string>
+               </property>
+               <property name="minimum">
+                <number>10</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="value">
+                <number>50</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -636,17 +659,17 @@
         <widget class="QComboBox" name="securityTypeCB">
          <item>
           <property name="text">
-           <string>None</string>
+           <string notr="true">None</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>TLS</string>
+           <string notr="true">TLS</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>XTLS</string>
+           <string notr="true">XTLS</string>
           </property>
          </item>
         </widget>
@@ -659,13 +682,6 @@
         </widget>
        </item>
        <item row="2" column="0" colspan="2">
-        <widget class="QCheckBox" name="allowInsecureCiphersCB">
-         <property name="text">
-          <string>Allow Insecure Ciphers</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="2">
         <widget class="QCheckBox" name="disableSessionResumptionCB">
          <property name="text">
           <string>Disable Session Resumption</string>
@@ -675,25 +691,25 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Server</string>
+          <string>Server Address (SNI)</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="3" column="1">
         <widget class="QLineEdit" name="serverNameTxt"/>
        </item>
-       <item row="5" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
           <string>ALPN</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QPlainTextEdit" name="alpnTxt"/>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="alpnTxt"/>
        </item>
       </layout>
      </widget>
@@ -772,21 +788,14 @@
   <tabstop>httpHostTxt</tabstop>
   <tabstop>wsPathTxt</tabstop>
   <tabstop>wsHeadersTxt</tabstop>
-  <tabstop>kcpMTU</tabstop>
-  <tabstop>kcpTTI</tabstop>
   <tabstop>kcpUploadCapacSB</tabstop>
-  <tabstop>kcpCongestionCB</tabstop>
   <tabstop>kcpDownCapacitySB</tabstop>
-  <tabstop>kcpReadBufferSB</tabstop>
-  <tabstop>kcpWriteBufferSB</tabstop>
-  <tabstop>kcpHeaderType</tabstop>
   <tabstop>dsPathTxt</tabstop>
   <tabstop>quicSecurityCB</tabstop>
   <tabstop>quicKeyTxt</tabstop>
   <tabstop>quicHeaderTypeCB</tabstop>
   <tabstop>allowInsecureCB</tabstop>
   <tabstop>serverNameTxt</tabstop>
-  <tabstop>alpnTxt</tabstop>
   <tabstop>soMarkSpinBox</tabstop>
   <tabstop>tcpFastOpenCB</tabstop>
   <tabstop>tProxyCB</tabstop>

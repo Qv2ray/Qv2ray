@@ -79,7 +79,7 @@ namespace Qv2ray::base::objects
     {
         QString user;
         QString pass;
-        AccountObject() : user(), pass(){};
+        AccountObject(){};
         JSONSTRUCT_REGISTER(AccountObject, F(user, pass))
     };
     //
@@ -101,9 +101,7 @@ namespace Qv2ray::base::objects
         QString attrs;
         QString outboundTag;
         QString balancerTag;
-        RuleObject()
-            : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_TAG("new rule"), type("field"), domain(), ip(), port("1-65535"), network(""), source(),
-              user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag(""){};
+        RuleObject() : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_TAG("new rule"), type("field"), port("1-65535"){};
         JSONSTRUCT_REGISTER(RuleObject, F(QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG, type, domain, ip, port, network, source, user, inboundTag,
                                           protocol, attrs, outboundTag, balancerTag))
     };
@@ -113,7 +111,7 @@ namespace Qv2ray::base::objects
     {
         QString tag;
         QList<QString> selector;
-        BalancerObject() : tag(), selector(){};
+        BalancerObject(){};
         JSONSTRUCT_REGISTER(BalancerObject, F(tag, selector))
     };
     //
@@ -147,7 +145,7 @@ namespace Qv2ray::base::objects
             QString type;
             HTTPRequestObject request;
             HTTPResponseObject response;
-            TCPHeader_Internal() : type("none"), request(), response(){};
+            TCPHeader_Internal() : type("none"){};
             JSONSTRUCT_REGISTER(TCPHeader_Internal, F(type, request, response))
         };
         //
@@ -163,7 +161,7 @@ namespace Qv2ray::base::objects
         struct TCPObject
         {
             TCPHeader_Internal header;
-            TCPObject() : header(){};
+            TCPObject(){};
             JSONSTRUCT_REGISTER(TCPObject, F(header))
         };
         //
@@ -179,7 +177,7 @@ namespace Qv2ray::base::objects
             int writeBufferSize = 1;
             QString seed;
             ObfsHeaderObject header;
-            KCPObject() : header(){};
+            KCPObject(){};
             JSONSTRUCT_REGISTER(KCPObject,
                                 F(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header, seed))
         };
@@ -189,7 +187,7 @@ namespace Qv2ray::base::objects
         {
             QString path;
             QMap<QString, QString> headers;
-            WebSocketObject() : path("/"), headers(){};
+            WebSocketObject() : path("/"){};
             JSONSTRUCT_REGISTER(WebSocketObject, F(path, headers))
         };
         //
@@ -216,7 +214,7 @@ namespace Qv2ray::base::objects
             QString security;
             QString key;
             ObfsHeaderObject header;
-            QuicObject() : security(""), key(""), header(){};
+            QuicObject(){};
             JSONSTRUCT_REGISTER(QuicObject, F(security, key, header))
         };
         //
@@ -238,7 +236,7 @@ namespace Qv2ray::base::objects
             QString keyFile;
             QList<QString> certificate;
             QList<QString> key;
-            CertificateObject() : usage(), certificateFile(), keyFile(), certificate(), key(){};
+            CertificateObject(){};
             JSONSTRUCT_REGISTER(CertificateObject, F(usage, certificateFile, keyFile, certificate, key))
         };
         //
@@ -252,21 +250,26 @@ namespace Qv2ray::base::objects
             QList<QString> alpn;
             QList<CertificateObject> certificates;
             bool disableSystemRoot;
-            TLSObject()
-                : serverName(), allowInsecure(), allowInsecureCiphers(), disableSessionResumption(true), certificates(), disableSystemRoot(){};
+            TLSObject() : disableSessionResumption(true){};
             JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, allowInsecureCiphers, disableSessionResumption, alpn, certificates,
                                              disableSystemRoot))
         };
+        //
+        //
+        struct XTLSObject
+        {
+            QString serverName;
+            bool allowInsecure;
+            bool allowInsecureCiphers;
+            bool disableSessionResumption;
+            QList<QString> alpn;
+            QList<CertificateObject> certificates;
+            bool disableSystemRoot;
+            XTLSObject() : disableSessionResumption(false){};
+            JSONSTRUCT_REGISTER(XTLSObject, F(serverName, allowInsecure, allowInsecureCiphers, disableSessionResumption, alpn, certificates,
+                                              disableSystemRoot))
+        };
     } // namespace transfer
-    //
-    //
-    struct SniffingObject
-    {
-        bool enabled = false;
-        QList<QString> destOverride;
-        SniffingObject() : enabled(), destOverride(){};
-        JSONSTRUCT_REGISTER(SniffingObject, F(enabled, destOverride))
-    };
     //
     //
     struct StreamSettingsObject
@@ -275,6 +278,7 @@ namespace Qv2ray::base::objects
         QString security;
         transfer::SockoptObject sockopt;
         transfer::TLSObject tlsSettings;
+        transfer::XTLSObject xtlsSettings;
         transfer::TCPObject tcpSettings;
         transfer::KCPObject kcpSettings;
         transfer::WebSocketObject wsSettings;
@@ -282,39 +286,17 @@ namespace Qv2ray::base::objects
         transfer::DomainSocketObject dsSettings;
         transfer::QuicObject quicSettings;
         StreamSettingsObject()
-            : network("tcp"), security("none"), sockopt(), tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(),
-              dsSettings(), quicSettings(){};
-        JSONSTRUCT_REGISTER(StreamSettingsObject, F(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings,
-                                                    dsSettings, quicSettings))
+        {
+            network = "tcp";
+            security = "none";
+        }
+        JSONSTRUCT_REGISTER(StreamSettingsObject, F(network, security, sockopt, tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings,
+                                                    httpSettings, dsSettings, quicSettings))
     };
     //
     // Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
     namespace protocol
     {
-        // DNS, OutBound
-        struct DNSOut
-        {
-            QString network;
-            QString address;
-            int port;
-            DNSOut() : network(""), address("0.0.0.0"), port(0){};
-            JSONSTRUCT_REGISTER(DNSOut, F(network, address, port))
-        };
-        //
-        // MTProto, InBound || OutBound
-        struct MTProtoIn
-        {
-            struct UserObject
-            {
-                QString email;
-                int level;
-                QString secret;
-                UserObject() : email("user@domain.com"), level(0), secret(""){};
-                JSONSTRUCT_REGISTER(UserObject, F(email, level, secret))
-            };
-            QList<UserObject> users;
-            JSONSTRUCT_REGISTER(MTProtoIn, F(users))
-        };
         //
         // VMess Server
         constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;

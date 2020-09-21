@@ -360,9 +360,16 @@ void PreferencesWindow::on_buttonBox_accepted()
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
         if (NeedRestart && !KernelInstance->CurrentConnection().isEmpty())
         {
-            this->setEnabled(false);
-            qApp->processEvents();
-            ConnectionManager->RestartConnection();
+            const auto message = tr("You may need to reconnect to apply the settings now.") + NEWLINE +              //
+                                 tr("Otherwise they will be applied next time you connect to a server.") + NEWLINE + //
+                                 NEWLINE +                                                                           //
+                                 tr("Do you want to reconnect now?");
+            const auto askResult = QvMessageBoxAsk(this, tr("Reconnect Required"), message);
+            if (askResult == Yes)
+            {
+                ConnectionManager->RestartConnection();
+                this->setEnabled(false);
+            }
         }
         emit accept();
     }

@@ -24,8 +24,9 @@ class HttpOutboundEditor
         return { http.address, http.port };
     }
 
-    void SetContent(const QJsonObject &content) override
+    void SetContent(const QJsonObject &source) override
     {
+        const auto content = source["servers"].toArray().first().toObject();
         http.loadJson(content);
         PLUGIN_EDITOR_LOADING_SCOPE({
             if (http.users.isEmpty())
@@ -41,7 +42,7 @@ class HttpOutboundEditor
         auto result = http.toJson();
         if (http.users.isEmpty())
             result.remove("users");
-        return result;
+        return QJsonObject{ { "servers", QJsonArray{ result } } };
     }
 
   protected:

@@ -37,11 +37,19 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
             securityTypeCB->setCurrentIndex(securityIndexMap[stream.security]);
         else
             LOG(MODULE_UI, "Unsupported Security Type: " + stream.security)
-        serverNameTxt->setText(stream.tlsSettings.serverName);
-        allowInsecureCB->setChecked(stream.tlsSettings.allowInsecure);
-        allowInsecureCiphersCB->setChecked(stream.tlsSettings.allowInsecureCiphers);
-        disableSessionResumptionCB->setChecked(stream.tlsSettings.disableSessionResumption);
-        alpnTxt->setPlainText(stream.tlsSettings.alpn.join(NEWLINE));
+
+#define tls_xtls_process(prefix)                                                                                                                \
+    {                                                                                                                                           \
+        serverNameTxt->setText(stream.prefix##Settings.serverName);                                                                             \
+        allowInsecureCB->setChecked(stream.prefix##Settings.allowInsecure);                                                                     \
+        disableSessionResumptionCB->setChecked(stream.prefix##Settings.disableSessionResumption);                                               \
+        alpnTxt->setText(stream.prefix##Settings.alpn.join("|"));                                                                               \
+    }
+
+        tls_xtls_process(tls);
+
+        if (stream.security == "xtls")
+            tls_xtls_process(xtls);
     }
     // TCP
     {
@@ -106,55 +114,37 @@ void StreamSettingsWidget::on_httpPathTxt_textEdited(const QString &arg1)
 
 void StreamSettingsWidget::on_httpHostTxt_textChanged()
 {
-    try
+    const auto hosts = httpHostTxt->toPlainText().replace("\r", "").split("\n");
+    stream.httpSettings.host.clear();
+    for (const auto &host : hosts)
     {
-        QStringList hosts = httpHostTxt->toPlainText().replace("\r", "").split("\n");
-        stream.httpSettings.host.clear();
-
-        for (auto host : hosts)
-        {
-            if (!host.trimmed().isEmpty())
-            {
-                stream.httpSettings.host.push_back(host.trimmed());
-            }
-        }
-
-        BLACK(httpHostTxt)
-    }
-    catch (...)
-    {
-        RED(httpHostTxt)
+        if (!host.trimmed().isEmpty())
+            stream.httpSettings.host.push_back(host.trimmed());
     }
 }
 
 void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
 {
-    try
+    const auto headers = SplitLines(wsHeadersTxt->toPlainText());
+    stream.wsSettings.headers.clear();
+    for (const auto &header : headers)
     {
-        QStringList headers = SplitLines(wsHeadersTxt->toPlainText());
-        stream.wsSettings.headers.clear();
+        if (header.isEmpty())
+            continue;
 
-        for (auto header : headers)
+        if (!header.contains("|"))
         {
-            if (header.isEmpty())
-                continue;
-
-            auto index = header.indexOf("|");
-
-            if (index < 0)
-                throw "fast fail to set RED color";
-
-            auto key = header.left(index);
-            auto value = header.right(header.length() - index - 1);
-            stream.wsSettings.headers[key] = value;
+            LOG(MODULE_UI, "Header missing '|' separator")
+            RED(wsHeadersTxt)
+            return;
         }
 
-        BLACK(wsHeadersTxt)
+        const auto index = header.indexOf("|");
+        auto key = header.left(index);
+        auto value = header.right(header.length() - index - 1);
+        stream.wsSettings.headers[key] = value;
     }
-    catch (...)
-    {
-        RED(wsHeadersTxt)
-    }
+    BLACK(wsHeadersTxt)
 }
 
 void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
@@ -173,8 +163,12 @@ void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
 void StreamSettingsWidget::on_tcpRespDefBtn_clicked()
 {
     tcpRespTxt->clear();
-    tcpRespTxt->setPlainText(
-        "{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
+    tcpRespTxt->setPlainText("{\"version\":\"1.1\",\"status\":\"200\",\""
+                             "reason\":\"OK\",\"headers\":{\"Content-Typ"
+                             "e\":[\"application/octet-stream\",\"video/"
+                             "mpeg\"],\"Transfer-Encoding\":[\"chunked\""
+                             "],\"Connection\":[\"keep-alive\"],\"Pragma"
+                             "\":\"no-cache\"}}");
 }
 
 void StreamSettingsWidget::on_soMarkSpinBox_valueChanged(int arg1)
@@ -257,6 +251,11 @@ void StreamSettingsWidget::on_kcpHeaderType_currentTextChanged(const QString &ar
     stream.kcpSettings.header.type = arg1;
 }
 
+void StreamSettingsWidget::on_kcpSeedTxt_textEdited(const QString &arg1)
+{
+    stream.kcpSettings.seed = arg1;
+}
+
 void StreamSettingsWidget::on_dsPathTxt_textEdited(const QString &arg1)
 {
     stream.dsSettings.path = arg1;
@@ -285,37 +284,34 @@ void StreamSettingsWidget::on_transportCombo_currentIndexChanged(const QString &
     stream.network = arg1;
 }
 
+void StreamSettingsWidget::on_securityTypeCB_currentIndexChanged(const QString &arg1)
+{
+    stream.security = arg1.toLower();
+}
+
+//
+// Dirty hack, since XTLSSettings are the same as TLSSettings (Split them if required in the future)
+//
 void StreamSettingsWidget::on_serverNameTxt_textEdited(const QString &arg1)
 {
     stream.tlsSettings.serverName = arg1;
+    stream.xtlsSettings.serverName = arg1;
 }
 
 void StreamSettingsWidget::on_allowInsecureCB_stateChanged(int arg1)
 {
     stream.tlsSettings.allowInsecure = arg1 == Qt::Checked;
-}
-
-void StreamSettingsWidget::on_alpnTxt_textChanged()
-{
-    stream.tlsSettings.alpn = SplitLines(alpnTxt->toPlainText());
-}
-
-void StreamSettingsWidget::on_allowInsecureCiphersCB_stateChanged(int arg1)
-{
-    stream.tlsSettings.allowInsecureCiphers = arg1 == Qt::Checked;
+    stream.xtlsSettings.allowInsecure = arg1 == Qt::Checked;
 }
 
 void StreamSettingsWidget::on_disableSessionResumptionCB_stateChanged(int arg1)
 {
     stream.tlsSettings.disableSessionResumption = arg1 == Qt::Checked;
+    stream.xtlsSettings.disableSessionResumption = arg1 == Qt::Checked;
 }
 
-void StreamSettingsWidget::on_kcpSeedTxt_textEdited(const QString &arg1)
+void StreamSettingsWidget::on_alpnTxt_textEdited(const QString &arg1)
 {
-    stream.kcpSettings.seed = arg1;
-}
-
-void StreamSettingsWidget::on_securityTypeCB_currentIndexChanged(const QString &arg1)
-{
-    stream.security = arg1.toLower();
+    stream.tlsSettings.alpn = arg1.split('|');
+    stream.xtlsSettings.alpn = arg1.split('|');
 }

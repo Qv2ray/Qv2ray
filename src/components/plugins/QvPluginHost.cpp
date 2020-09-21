@@ -17,7 +17,7 @@ namespace Qv2ray::components::plugins
             {
                 dir.mkpath(QV2RAY_PLUGIN_SETTINGS_DIR);
             }
-            InitializePluginHost();
+            initializePluginHost();
         }
         else
         {
@@ -25,9 +25,9 @@ namespace Qv2ray::components::plugins
         }
     }
 
-    int QvPluginHost::RefreshPluginList()
+    int QvPluginHost::refreshPluginList()
     {
-        ClearPlugins();
+        clearPlugins();
         LOG(MODULE_PLUGINHOST, "Reloading plugin list")
         for (const auto &pluginDirPath : Qv2rayAssetsPaths("plugins"))
         {
@@ -45,7 +45,9 @@ namespace Qv2ray::components::plugins
                 QObject *plugin = info.pluginLoader->instance();
                 if (plugin == nullptr)
                 {
-                    LOG(MODULE_PLUGINHOST, info.pluginLoader->errorString());
+                    const auto errMessage = info.pluginLoader->errorString();
+                    LOG(MODULE_PLUGINHOST, errMessage);
+                    QvMessageBoxWarn(nullptr, tr("Failed to load plugin"), errMessage);
                     continue;
                 }
                 info.pluginInterface = qobject_cast<Qv2rayInterface *>(plugin);
@@ -61,9 +63,10 @@ namespace Qv2ray::components::plugins
                     // The plugin was built for a not-compactable version of Qv2ray. Don't load the plugin by default.
                     LOG(MODULE_PLUGINHOST, info.libraryPath + " is built with an older Interface, ignoring")
                     QvMessageBoxWarn(nullptr, tr("Cannot load plugin"),
-                                     tr("The plugin located here cannot be loaded: ") + NEWLINE + info.libraryPath + NEWLINE NEWLINE +
-                                         tr("This plugin was built against an older/newer version of the Plugin Interface.") + NEWLINE +
+                                     tr("The plugin cannot be loaded: ") + NEWLINE + info.libraryPath + NEWLINE NEWLINE +
+                                         tr("This plugin was built against a different version of the Plugin Interface.") + NEWLINE +
                                          tr("Please contact the plugin provider or report the issue to Qv2ray Workgroup."));
+                    info.pluginLoader->unload();
                     continue;
                 }
                 info.metadata = info.pluginInterface->GetMetadata();
@@ -105,33 +108,33 @@ namespace Qv2ray::components::plugins
             QvMessageBoxWarn(nullptr, "Unknown Plugin - " + title, message);
     }
 
-    bool QvPluginHost::IsPluginEnabled(const QString &internalName) const
+    bool QvPluginHost::GetPluginEnabled(const QString &internalName) const
     {
         return GlobalConfig.pluginConfig.pluginStates[internalName];
     }
 
-    void QvPluginHost::SetIsPluginEnabled(const QString &internalName, bool isEnabled)
+    void QvPluginHost::SetPluginEnabled(const QString &internalName, bool isEnabled)
     {
         LOG(MODULE_PLUGINHOST, "Set plugin: \"" + internalName + "\" enable state: " + (isEnabled ? "true" : "false"))
         GlobalConfig.pluginConfig.pluginStates[internalName] = isEnabled;
         if (isEnabled && !plugins[internalName].isLoaded)
         {
             // Load plugin if it haven't been loaded.
-            InitializePlugin(internalName);
+            initializePlugin(internalName);
             QvMessageBoxInfo(nullptr, tr("Enabling a plugin"), tr("The plugin will become fully functional after restarting Qv2ray."));
         }
     }
 
-    void QvPluginHost::InitializePluginHost()
+    void QvPluginHost::initializePluginHost()
     {
-        RefreshPluginList();
+        refreshPluginList();
         for (auto &plugin : plugins.keys())
         {
-            InitializePlugin(plugin);
+            initializePlugin(plugin);
         }
     }
 
-    void QvPluginHost::ClearPlugins()
+    void QvPluginHost::clearPlugins()
     {
         for (auto &&plugin : plugins)
         {
@@ -141,7 +144,7 @@ namespace Qv2ray::components::plugins
         }
         plugins.clear();
     }
-    bool QvPluginHost::InitializePlugin(const QString &internalName)
+    bool QvPluginHost::initializePlugin(const QString &internalName)
     {
         const auto &plugin = plugins[internalName];
         if (plugin.isLoaded)
@@ -183,7 +186,7 @@ namespace Qv2ray::components::plugins
     QvPluginHost::~QvPluginHost()
     {
         SavePluginSettings();
-        ClearPlugins();
+        clearPlugins();
     }
 
     // ================== BEGIN SEND EVENTS ==================
@@ -272,7 +275,7 @@ namespace Qv2ray::components::plugins
         }
         return {};
     }
-    const QString QvPluginHost::TrySerializeShareLink(const QString &protocol,             //
+    const QString QvPluginHost::SerializeOutbound(const QString &protocol,             //
                                                       const QJsonObject &outboundSettings, //
                                                       const QString &alias,                //
                                                       const QString &groupName,            //

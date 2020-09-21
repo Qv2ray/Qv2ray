@@ -10,11 +10,11 @@
 PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog(parent)
 {
     setupUi(this);
-    for (auto &plugin : PluginHost->AvailablePlugins())
+    for (auto &plugin : PluginHost->AllPlugins())
     {
         const auto &info = PluginHost->GetPlugin(plugin)->metadata;
         auto item = new QListWidgetItem(pluginListWidget);
-        item->setCheckState(PluginHost->IsPluginEnabled(info.InternalName) ? Qt::Checked : Qt::Unchecked);
+        item->setCheckState(PluginHost->GetPluginEnabled(info.InternalName) ? Qt::Checked : Qt::Unchecked);
         item->setData(Qt::UserRole, info.InternalName);
         item->setText(info.Name + " (" + (PluginHost->GetPlugin(info.InternalName)->isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
         pluginListWidget->addItem(item);
@@ -90,7 +90,7 @@ void PluginManageWindow::on_pluginListWidget_itemChanged(QListWidgetItem *item)
         return;
     bool isEnabled = item->checkState() == Qt::Checked;
     const auto pluginInternalName = item->data(Qt::UserRole).toString();
-    PluginHost->SetIsPluginEnabled(pluginInternalName, isEnabled);
+    PluginHost->SetPluginEnabled(pluginInternalName, isEnabled);
     const auto info = PluginHost->GetPlugin(pluginInternalName);
     item->setText(info->metadata.Name + " (" + (info->isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
     //

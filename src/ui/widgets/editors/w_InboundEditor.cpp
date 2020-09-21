@@ -9,8 +9,8 @@
 
 #include <QGridLayout>
 
-#define CHECKLOADING                                                                                                                            \
-    if (isLoading)                                                                                                                              \
+#define CHECKLOADING                                                                                                                                 \
+    if (isLoading)                                                                                                                                   \
         return;
 
 InboundEditor::InboundEditor(INBOUND source, QWidget *parent) : QDialog(parent), original(source)
@@ -38,11 +38,8 @@ InboundEditor::InboundEditor(INBOUND source, QWidget *parent) : QDialog(parent),
     sniffingSettings = current["sniffing"].toObject();
 
     isLoading = true;
-    for (const auto &name : PluginHost->AvailablePlugins())
+    for (const auto &name : PluginHost->UsablePlugins())
     {
-        if (!PluginHost->ShouldUsePlugin(name))
-            continue;
-
         const auto &plugin = PluginHost->GetPlugin(name);
         if (!plugin->hasComponent(COMPONENT_GUI))
             continue;
@@ -109,7 +106,6 @@ INBOUND InboundEditor::getResult()
 void InboundEditor::loadUI()
 {
     isLoading = true;
-    inboundProtocolCombo->setCurrentText(inboundProtocol);
     streamSettingsWidget->SetStreamObject(StreamSettingsObject::fromJson(original["streamSettings"].toObject()));
     {
         inboundTagTxt->setText(current["tag"].toString());
@@ -151,6 +147,7 @@ void InboundEditor::loadUI()
         reject();
     }
     isLoading = false;
+    on_stackedWidget_currentChanged(0);
 }
 
 InboundEditor::~InboundEditor()
@@ -160,7 +157,6 @@ InboundEditor::~InboundEditor()
 void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(int)
 {
     CHECKLOADING
-    inboundProtocol = inboundProtocolCombo->currentData().toString();
     on_stackedWidget_currentChanged(0);
 }
 
@@ -201,31 +197,35 @@ void InboundEditor::on_inboundPortTxt_textEdited(const QString &arg1)
 
 void InboundEditor::on_sniffingGroupBox_clicked(bool checked)
 {
+    CHECKLOADING
     sniffingSettings["enabled"] = checked;
 }
 
-#define SET_SNIFF_DEST_OVERRIDE                                                                                                                 \
-    const auto hasHTTP = sniffHTTPCB->isChecked();                                                                                              \
-    const auto hasTLS = sniffTLSCB->isChecked();                                                                                                \
-    QStringList list;                                                                                                                           \
-    if (hasHTTP)                                                                                                                                \
-        list << "http";                                                                                                                         \
-    if (hasTLS)                                                                                                                                 \
-        list << "tls";                                                                                                                          \
+#define SET_SNIFF_DEST_OVERRIDE                                                                                                                      \
+    const auto hasHTTP = sniffHTTPCB->isChecked();                                                                                                   \
+    const auto hasTLS = sniffTLSCB->isChecked();                                                                                                     \
+    QStringList list;                                                                                                                                \
+    if (hasHTTP)                                                                                                                                     \
+        list << "http";                                                                                                                              \
+    if (hasTLS)                                                                                                                                      \
+        list << "tls";                                                                                                                               \
     sniffingSettings["destOverride"] = QJsonArray::fromStringList(list)
 
 void InboundEditor::on_sniffHTTPCB_stateChanged(int)
 {
+    CHECKLOADING
     SET_SNIFF_DEST_OVERRIDE;
 }
 
 void InboundEditor::on_sniffTLSCB_stateChanged(int)
 {
+    CHECKLOADING
     SET_SNIFF_DEST_OVERRIDE;
 }
 
 void InboundEditor::on_stackedWidget_currentChanged(int)
 {
+    CHECKLOADING
     inboundProtocol = inboundProtocolCombo->currentData().toString();
     auto widget = pluginWidgets[inboundProtocol];
     if (!widget)

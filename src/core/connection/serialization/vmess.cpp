@@ -124,7 +124,7 @@ namespace Qv2ray::core::connection
             //   - It can be empty, if so,           if the key is not in the JSON, or the value is empty,  report an error.
             //   - Else if it contains one thing.    if the key is not in the JSON, or the value is empty,  use that one.
             //   - Else if it contains many things,  when the key IS in the JSON but not within the THINGS, use the first in the THINGS
-            //   - Else,                                                                                    use the JSON value
+            //   - Else -------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  use the JSON value
             //
 #define __vmess_checker__func(key, values)                                                                                                      \
     {                                                                                                                                           \
@@ -282,11 +282,8 @@ namespace Qv2ray::core::connection
             //
             // VMess root config
             OUTBOUNDSETTING vConf;
-            QJsonArray vnextArray;
-            vnextArray.append(serv.toJson());
-            vConf["vnext"] = vnextArray;
-            auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, "vmess", vConf, streaming.toJson());
-            //
+            vConf["vnext"] = QJsonArray{ serv.toJson() };
+            const auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, "vmess", vConf, streaming.toJson());
             root["outbounds"] = QJsonArray{ outbound };
             // If previous alias is empty, just the PS is needed, else, append a "_"
             *alias = alias->trimmed().isEmpty() ? ps : *alias + "_" + ps;

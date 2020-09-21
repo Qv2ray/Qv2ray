@@ -32,27 +32,24 @@ namespace Qv2ray::components::plugins
         explicit QvPluginHost(QObject *parent = nullptr);
         ~QvPluginHost();
         //
-        bool IsPluginEnabled(const QString &internalName) const;
-        void SetIsPluginEnabled(const QString &internalName, bool isEnabled);
+        bool GetPluginEnabled(const QString &internalName) const;
+        void SetPluginEnabled(const QString &internalName, bool isEnabled);
+        //
         void SavePluginSettings() const;
         //
-        bool ShouldUsePlugin(const QString &internalName)
-        {
-            return IsPluginEnabled(internalName) && plugins[internalName].isLoaded;
-        }
         QvPluginInfo *GetPlugin(const QString &internalName)
         {
             return plugins.contains(internalName) ? &plugins[internalName] : nullptr;
         }
-        const inline QStringList AvailablePlugins() const
+        const inline QStringList AllPlugins() const
         {
             return plugins.keys();
         }
-        const inline QStringList UsablePlugins()
+        const inline QStringList UsablePlugins() const
         {
             QStringList result;
             for (const auto &pluginName : plugins.keys())
-                if (ShouldUsePlugin(pluginName))
+                if (shouldUsePlugin(pluginName))
                     result << pluginName;
             return result;
         }
@@ -62,11 +59,7 @@ namespace Qv2ray::components::plugins
                                                                                        QString *errMessage,      //
                                                                                        QString *newGroupName,    //
                                                                                        bool *status) const;
-        const QString TrySerializeShareLink(const QString &protocol,             //
-                                            const QJsonObject &outboundSettings, //
-                                            const QString &alias,                //
-                                            const QString &groupName,            //
-                                            bool *status) const;
+        const QString SerializeOutbound(const QString &protocol, const QJsonObject &out, const QString &name, const QString &group, bool *ok) const;
         const QMap<OutboundInfoFlags, QVariant> TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const;
         //
         void Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object);
@@ -79,10 +72,14 @@ namespace Qv2ray::components::plugins
         void QvPluginMessageBox(const QString &title, const QString &message);
 
       private:
-        void InitializePluginHost();
-        int RefreshPluginList();
-        bool InitializePlugin(const QString &internalName);
-        void ClearPlugins();
+        bool shouldUsePlugin(const QString &internalName) const
+        {
+            return GetPluginEnabled(internalName) && plugins[internalName].isLoaded;
+        }
+        void initializePluginHost();
+        int refreshPluginList();
+        bool initializePlugin(const QString &internalName);
+        void clearPlugins();
         // Internal name, plugin info
         QHash<QString, QvPluginInfo> plugins;
     };

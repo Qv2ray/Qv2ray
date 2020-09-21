@@ -106,7 +106,7 @@ const QString SayLastWords() noexcept
     if (PluginHost)
     {
         msg << "Plugins:";
-        const auto plugins = PluginHost->AvailablePlugins();
+        const auto plugins = PluginHost->AllPlugins();
         for (const auto &plugin : plugins)
         {
             const auto data = PluginHost->GetPlugin(plugin)->metadata;

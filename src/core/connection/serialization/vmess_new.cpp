@@ -1,7 +1,7 @@
-#include "utils/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/connection/Serialization.hpp"
+#include "utils/QvHelpers.hpp"
 
 #include <QUrl>
 #include <QUrlQuery>
@@ -26,13 +26,14 @@ namespace Qv2ray::core::connection
                 *errMessage = QObject::tr("vmess:// url is invalid");
                 return default;
             }
-            const auto name = url.fragment(QUrl::FullyDecoded);
 
             // If previous alias is empty, just the PS is needed, else, append a "_"
-            *alias = alias->trimmed().isEmpty() ? name : *alias + "_" + name;
+            const auto name = url.fragment(QUrl::FullyDecoded).trimmed();
+            *alias = alias->isEmpty() ? name : (*alias + "_" + name);
 
             VMessServerObject server;
             server.users << VMessServerObject::UserObject{};
+
             StreamSettingsObject stream;
             QString net;
             bool tls = false;
@@ -40,8 +41,10 @@ namespace Qv2ray::core::connection
             {
                 for (const auto &_protocol : url.userName().split("+"))
                 {
-                    tls = tls || _protocol == "tls";
-                    net = _protocol == "tls" ? net : _protocol;
+                    if (_protocol == "tls")
+                        tls = true;
+                    else
+                        net = _protocol;
                 }
                 if (!NetworkType.contains(net))
                 {
@@ -53,6 +56,7 @@ namespace Qv2ray::core::connection
                 stream.network = net;
                 stream.security = tls ? "tls" : "";
             }
+            // Host Port UUID AlterID
             {
                 const auto host = url.host();
                 int port = url.port();
@@ -69,17 +73,15 @@ namespace Qv2ray::core::connection
                 server.users.first().id = uuid;
                 server.users.first().alterId = aid;
                 server.users.first().security = "auto";
-                // L("uuid: " << uuid.toString().toStdString());
-                // L("aid: " << aid);
-                // L("host: " << host.toStdString());
-                // L("port: " << port);
             }
-            auto getQueryValue = [&](const QString &key, const QString &defaultValue) {
+
+            const static auto getQueryValue = [&query](const QString &key, const QString &defaultValue) {
                 if (query.hasQueryItem(key))
                     return query.queryItemValue(key, QUrl::FullyDecoded);
                 else
                     return defaultValue;
             };
+
             //
             // Begin transport settings parser
             {
@@ -110,7 +112,7 @@ namespace Qv2ray::core::connection
                 }
                 else
                 {
-                    *errMessage = QObject::tr("Unknown state.");
+                    *errMessage = QObject::tr("Unknown transport method: ") + net;
                     return default;
                 }
             }

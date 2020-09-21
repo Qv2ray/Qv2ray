@@ -115,7 +115,7 @@ namespace Qv2ray::core::connection
                 else
                 {
                     bool ok = false;
-                    sharelink = PluginHost->TrySerializeShareLink(type, settings, alias, groupName, &ok);
+                    sharelink = PluginHost->SerializeOutbound(type, settings, alias, groupName, &ok);
                     Q_UNUSED(ok)
                 }
             }

@@ -110,10 +110,21 @@ namespace Qv2ray
 #define makeAbs(p) QDir(p).absolutePath()
         // Configuration Path
         QStringList list;
+        // This is the default behavior on Windows
+        list << makeAbs(QCoreApplication::applicationDirPath() + "/" + dirName);
         list << makeAbs(QV2RAY_CONFIG_DIR + dirName);
         list << ":/" + dirName;
         //
+        list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, dirName, QStandardPaths::LocateDirectory);
+        list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, dirName, QStandardPaths::LocateDirectory);
+
 #ifdef Q_OS_LINUX
+        // For AppImage?
+        if (qEnvironmentVariableIsSet("APPIMAGE"))
+            list << makeAbs(QCoreApplication::applicationDirPath() + "/../share/qv2ray/" + dirName);
+        // For Snap
+        if (qEnvironmentVariableIsSet("SNAP"))
+            list << makeAbs(qEnvironmentVariable("SNAP") + "/usr/share/qv2ray/" + dirName);
         // Linux platform directories.
         list << makeAbs("/usr/local/lib/qv2ray/" + dirName);
         list << makeAbs("/usr/lib/qv2ray/" + dirName);
@@ -121,21 +132,10 @@ namespace Qv2ray
         //
         list << makeAbs("/usr/local/share/qv2ray/" + dirName);
         list << makeAbs("/usr/share/qv2ray/" + dirName);
-        // For AppImage?
-        list << makeAbs(QCoreApplication::applicationDirPath() + "/../share/qv2ray/" + dirName);
-        // For Snap
-        if (qEnvironmentVariableIsSet("SNAP"))
-        {
-            list << makeAbs(qEnvironmentVariable("SNAP") + "/usr/share/qv2ray/" + dirName);
-        }
 #elif defined(Q_OS_MAC)
         // macOS platform directories.
         list << QDir(QCoreApplication::applicationDirPath() + "/../Resources/" + dirName).absolutePath();
 #endif
-        list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, dirName, QStandardPaths::LocateDirectory);
-        list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, dirName, QStandardPaths::LocateDirectory);
-        // This is the default behavior on Windows
-        list << makeAbs(QCoreApplication::applicationDirPath() + "/" + dirName);
         list.removeDuplicates();
         return list;
 #undef makeAbs
