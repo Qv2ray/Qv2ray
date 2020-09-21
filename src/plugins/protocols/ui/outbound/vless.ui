@@ -73,17 +73,17 @@
      </property>
      <item>
       <property name="text">
-       <string/>
+       <string notr="true"/>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>xtls-rprx-origin</string>
+       <string notr="true">xtls-rprx-origin</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>xtls-rprx-origin-udp443</string>
+       <string notr="true">xtls-rprx-origin-udp443</string>
       </property>
      </item>
     </widget>

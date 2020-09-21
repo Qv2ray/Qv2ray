@@ -65,7 +65,7 @@
        <item row="2" column="1">
         <widget class="QLineEdit" name="inboundPortTxt">
          <property name="placeholderText">
-          <string>1080|80-85</string>
+          <string notr="true">1080|80-85</string>
          </property>
         </widget>
        </item>
@@ -110,14 +110,14 @@
         <item row="1" column="0" colspan="2">
          <widget class="QCheckBox" name="sniffHTTPCB">
           <property name="text">
-           <string>HTTP</string>
+           <string notr="true">HTTP</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0" colspan="2">
          <widget class="QCheckBox" name="sniffTLSCB">
           <property name="text">
-           <string>TLS</string>
+           <string notr="true">TLS</string>
           </property>
          </widget>
         </item>
@@ -150,12 +150,12 @@
           </property>
           <item>
            <property name="text">
-            <string>always</string>
+            <string notr="true">always</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>random</string>
+            <string notr="true">random</string>
            </property>
           </item>
          </widget>
