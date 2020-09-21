@@ -519,16 +519,8 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>此入站条目的标签</translation>
     </message>
     <message>
-        <source>Listening</source>
-        <translation>正在监听</translation>
-    </message>
-    <message>
         <source>Hostname or IP Address</source>
         <translation>主机名或IP地址</translation>
-    </message>
-    <message>
-        <source>Port: 1080|80-85</source>
-        <translation>端口： 1080|80-85</translation>
     </message>
     <message>
         <source>Protocol</source>
@@ -589,6 +581,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation>请使用 JSON 编辑器或重载对应插件。</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <source>1080|80-85</source>
+        <translation>1080|80-85</translation>
+    </message>
+    <message>
+        <source>Inbound Settings</source>
+        <translation>入站设置</translation>
+    </message>
+    <message>
+        <source>Stream Settings</source>
+        <translation>流设置</translation>
     </message>
 </context>
 <context>
@@ -1838,6 +1846,22 @@ Output: <byte value="xd"/>
         <source>Bypass Private Addresses</source>
         <translation>绕过私有地址</translation>
     </message>
+    <message>
+        <source>You may need to reconnect to apply the settings now.</source>
+        <translation>你可能需要重新连接方能应用设定。</translation>
+    </message>
+    <message>
+        <source>Otherwise they will be applied next time you connect to a server.</source>
+        <translation>否则将在下次连接时生效。</translation>
+    </message>
+    <message>
+        <source>Do you want to reconnect now?</source>
+        <translation>要现在重连吗？</translation>
+    </message>
+    <message>
+        <source>Reconnect Required</source>
+        <translation>需要重连</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2329,10 +2353,6 @@ Output: <byte value="xd"/>
         <translation>TLS 设置</translation>
     </message>
     <message>
-        <source>Server</source>
-        <translation>服务器</translation>
-    </message>
-    <message>
         <source>ALPN</source>
         <translation>ALPN</translation>
     </message>
@@ -2381,28 +2401,8 @@ Output: <byte value="xd"/>
         <translation>MTU</translation>
     </message>
     <message>
-        <source>TTI (ms)</source>
-        <translation>TTI (ms)</translation>
-    </message>
-    <message>
-        <source>Uplink Capacity (MB/s)</source>
-        <translation>上行容量 (MB/s)</translation>
-    </message>
-    <message>
         <source>Congestion</source>
         <translation>拥塞控制</translation>
-    </message>
-    <message>
-        <source>Downlink Capacity (MB/s)</source>
-        <translation>下行容量 (MB/s)</translation>
-    </message>
-    <message>
-        <source>Read Buffer Size (MB)</source>
-        <translation>读取缓冲区大小 (MB)</translation>
-    </message>
-    <message>
-        <source>Write Buffer Size (MB)</source>
-        <translation>写入缓冲区大小 (MB)</translation>
     </message>
     <message>
         <source>Security</source>
@@ -2433,14 +2433,6 @@ Output: <byte value="xd"/>
         <translation>tProxy 工作模式</translation>
     </message>
     <message>
-        <source>Allow Insecure Ciphers</source>
-        <translation>允许不安全的 TLS 算法</translation>
-    </message>
-    <message>
-        <source>Seed (Experimental)</source>
-        <translation>种子（实验性选项）</translation>
-    </message>
-    <message>
         <source>Disable Session Resumption</source>
         <translation>禁用会话返回</translation>
     </message>
@@ -2449,16 +2441,48 @@ Output: <byte value="xd"/>
         <translation>安全类型</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>不使用</translation>
+        <source>Header</source>
+        <translation>请求头</translation>
     </message>
     <message>
-        <source>TLS</source>
-        <translation>TLS</translation>
+        <source>Seed</source>
+        <translation>种子</translation>
     </message>
     <message>
-        <source>XTLS</source>
-        <translation>XTLS</translation>
+        <source>Capacity</source>
+        <translation>容量</translation>
+    </message>
+    <message>
+        <source>Up: </source>
+        <translation>上行: </translation>
+    </message>
+    <message>
+        <source>Down: </source>
+        <translation>下行: </translation>
+    </message>
+    <message>
+        <source>Buffer Size</source>
+        <translation>缓冲区大小</translation>
+    </message>
+    <message>
+        <source>Write Size: </source>
+        <translation>写大小: </translation>
+    </message>
+    <message>
+        <source>Read Size: </source>
+        <translation>读大小: </translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>选项</translation>
+    </message>
+    <message>
+        <source>TTI</source>
+        <translation>TTI</translation>
+    </message>
+    <message>
+        <source>Server Address (SNI)</source>
+        <translation>服务器地址（SNI）</translation>
     </message>
 </context>
 <context>

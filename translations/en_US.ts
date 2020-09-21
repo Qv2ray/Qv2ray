@@ -518,15 +518,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Listening</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hostname or IP Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port: 1080|80-85</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -587,6 +579,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1080|80-85</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stream Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1819,6 +1827,22 @@ Output: <byte value="xd"/>
         <source>Bypass Private Addresses</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You may need to reconnect to apply the settings now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Otherwise they will be applied next time you connect to a server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to reconnect now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect Required</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2337,31 +2361,11 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TTI (ms)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Uplink Capacity (MB/s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Congestion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Downlink Capacity (MB/s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Read Buffer Size (MB)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Write Buffer Size (MB)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2389,15 +2393,7 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ALPN</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Allow Insecure Ciphers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2417,10 +2413,6 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Seed (Experimental)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disable Session Resumption</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2429,15 +2421,47 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>None</source>
+        <source>Header</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TLS</source>
+        <source>Seed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>XTLS</source>
+        <source>Capacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Up: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Down: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Buffer Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Write Size: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read Size: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TTI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server Address (SNI)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -519,16 +519,8 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>此入站條目的標籤</translation>
     </message>
     <message>
-        <source>Listening</source>
-        <translation>正在監聽</translation>
-    </message>
-    <message>
         <source>Hostname or IP Address</source>
         <translation>主機名稱或IP位址</translation>
-    </message>
-    <message>
-        <source>Port: 1080|80-85</source>
-        <translation>通訊埠： 1080|80-85</translation>
     </message>
     <message>
         <source>Protocol</source>
@@ -589,6 +581,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
         <translation type="unfinished">請使用 JSON 編輯器或重載對應外掛程式。</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation type="unfinished">位址</translation>
+    </message>
+    <message>
+        <source>1080|80-85</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound Settings</source>
+        <translation type="unfinished">入站設置</translation>
+    </message>
+    <message>
+        <source>Stream Settings</source>
+        <translation type="unfinished">流設置</translation>
     </message>
 </context>
 <context>
@@ -1838,6 +1846,22 @@ Output: <byte value="xd"/>
         <source>Bypass Private Addresses</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You may need to reconnect to apply the settings now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Otherwise they will be applied next time you connect to a server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to reconnect now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect Required</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2329,10 +2353,6 @@ Output: <byte value="xd"/>
         <translation>TLS 設置</translation>
     </message>
     <message>
-        <source>Server</source>
-        <translation>伺服器</translation>
-    </message>
-    <message>
         <source>ALPN</source>
         <translation>ALPN</translation>
     </message>
@@ -2381,28 +2401,8 @@ Output: <byte value="xd"/>
         <translation>MTU</translation>
     </message>
     <message>
-        <source>TTI (ms)</source>
-        <translation>TTI (ms)</translation>
-    </message>
-    <message>
-        <source>Uplink Capacity (MB/s)</source>
-        <translation>上行容量 (MB/s)</translation>
-    </message>
-    <message>
         <source>Congestion</source>
         <translation>擁塞控制</translation>
-    </message>
-    <message>
-        <source>Downlink Capacity (MB/s)</source>
-        <translation>下行容量 (MB/s)</translation>
-    </message>
-    <message>
-        <source>Read Buffer Size (MB)</source>
-        <translation>讀取緩衝區大小 (MB)</translation>
-    </message>
-    <message>
-        <source>Write Buffer Size (MB)</source>
-        <translation>寫入緩衝區大小 (MB)</translation>
     </message>
     <message>
         <source>Security</source>
@@ -2433,14 +2433,6 @@ Output: <byte value="xd"/>
         <translation>tProxy 工作模式</translation>
     </message>
     <message>
-        <source>Allow Insecure Ciphers</source>
-        <translation>允許不安全的 TLS 演算法</translation>
-    </message>
-    <message>
-        <source>Seed (Experimental)</source>
-        <translation>種子（實驗性選項）</translation>
-    </message>
-    <message>
         <source>Disable Session Resumption</source>
         <translation>禁用會話返回</translation>
     </message>
@@ -2449,15 +2441,47 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="unfinished">不使用</translation>
+        <source>Header</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TLS</source>
-        <translation type="unfinished">TLS</translation>
+        <source>Seed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>XTLS</source>
+        <source>Capacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Up: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Down: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Buffer Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Write Size: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read Size: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TTI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server Address (SNI)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
