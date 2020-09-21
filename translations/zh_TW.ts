@@ -535,14 +535,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>策略</translation>
     </message>
     <message>
-        <source>always</source>
-        <translation>總是</translation>
-    </message>
-    <message>
-        <source>random</source>
-        <translation>隨機</translation>
-    </message>
-    <message>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
@@ -563,14 +555,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>通訊埠</translation>
     </message>
     <message>
-        <source>HTTP</source>
-        <translation type="unfinished">HTTP</translation>
-    </message>
-    <message>
-        <source>TLS</source>
-        <translation type="unfinished">TLS</translation>
-    </message>
-    <message>
         <source>Unknown inbound.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -585,10 +569,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Address</source>
         <translation type="unfinished">位址</translation>
-    </message>
-    <message>
-        <source>1080|80-85</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Inbound Settings</source>
@@ -2740,14 +2720,6 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Flow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>xtls-rprx-origin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>xtls-rprx-origin-udp443</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

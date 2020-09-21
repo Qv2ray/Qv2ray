@@ -534,14 +534,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>always</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>random</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -562,14 +554,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>HTTP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TLS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown inbound.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -583,10 +567,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>1080|80-85</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2720,14 +2700,6 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Flow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>xtls-rprx-origin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>xtls-rprx-origin-udp443</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
