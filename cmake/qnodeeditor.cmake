@@ -74,9 +74,9 @@ if(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "module")
         ${QNODEEDITOR_INCLUDE_PATH}
         )
     target_link_libraries(${QNODEEDITOR_LIBRARY}
-        Qt5::Core
-        Qt5::Widgets
-        Qt5::Gui
+        ${QV_QT_LIBNAME}::Core
+        ${QV_QT_LIBNAME}::Widgets
+        ${QV_QT_LIBNAME}::Gui
         )
     set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR}/resources/resources.qrc)
 elseif(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "package")

@@ -1,9 +1,3 @@
-%if 0%{?rhel}
-%global use_system_grpc 0
-%else
-%global use_system_grpc 1
-%endif
-
 Name:           @NAME@
 Version:        @VERSION@
 Release:        @RELEASE@
@@ -13,44 +7,73 @@ License:        GPLv3
 URL:            https://github.com/Qv2ray/Qv2ray
 Source0:        @SOURCE0@
 
+%if 0%{?rhel}
+BuildRequires:  epel-rpm-macros
+%endif
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  protobuf-compiler
 BuildRequires:  protobuf-devel
-
-%if 0%{?use_system_grpc}
 BuildRequires:  grpc-devel
 BuildRequires:  grpc-plugins
-%endif
+BuildRequires:  libcurl-devel
+BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  elfutils-devel
+BuildRequires:  binutils-devel
+BuildRequires:  libdwarf-devel
+Requires:       openssl
+Recommends:     QvPlugin-BuiltinProtocolSupport
 
 %description
-A Qt based cross-platform GUI fontend for V2Ray.
+Qv2ray, A Qt frontend for v2ray. Written in c++.
+Features:
+    * Cross-platform, multi-distribution support
+    * Versatile Host Importing
+    * Subscriptions
+    * Built-in Host Editors
+    * (Almost) Full Functionality Support
+    * Real-time Speed & Data Usage Monitoring
+    * Latency Testing (TCP)
+More detail Please check https://qv2ray.net/
 
 %prep
 %setup -q -n @NAME_VERSION@
 
 
 %build
-%cmake -DCMAKE_BUILD_TYPE:STRING=Release -DUSE_LIBQVB:BOOL=OFF -DEMBED_TRANSLATIONS:BOOL=ON .
-%make_build
+%cmake -DQV2RAY_DEFAULT_VCORE_PATH="/usr/bin/v2ray" \
+       -DQV2RAY_DEFAULT_VASSETS_PATH="/usr/share/v2ray/" \
+       -DQV2RAY_DISABLE_AUTO_UPDATE=ON \
+       -DQV2RAY_ZXING_PROVIDER="module" \
+       -DCMAKE_BUILD_TYPE=Release
+%cmake_build
 
 
 %install
 rm -rf "$RPM_BUILD_ROOT"
-%make_install
-install -D LICENSE "$RPM_BUILD_ROOT"/%{_datadir}/licenses/qv2ray/LICENSE
-install -D README.md "$RPM_BUILD_ROOT"/%{_docdir}/qv2ray/README.md
+%cmake_install
+%find_lang %{name} --with-qt --all-name
 
 
-%files
+%files -f %{name}.lang
 %license LICENSE
 %doc README.md
-%{_bindir}/qv2ray
+%dir %{_datadir}/%{name}/plugins/
+%{_bindir}/%{name}
 %{_datadir}/icons/*
-%{_datadir}/applications/*
-%{_datadir}/metainfo/*
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/metainfo/%{name}.metainfo.xml
+
+
+%package -n QvPlugin-BuiltinProtocolSupport
+Summary:        A Qt frontend for V2Ray, written in c++
+Requires:       %{name}
+%description -n QvPlugin-BuiltinProtocolSupport
+Enable built-in VMess, VLESS, SOCKS, HTTP, Shadowsocks, Dokodemo-door support.
+%files -n QvPlugin-BuiltinProtocolSupport
+%{_datadir}/%{name}/plugins/libQvPlugin-BuiltinProtocolSupport.so
 
 
 %changelog

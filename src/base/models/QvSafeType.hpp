@@ -1,28 +1,28 @@
 #pragma once
-#include "libs/QJsonStruct/QJsonStruct.hpp"
+#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
 
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMap>
 
-#define SAFE_TYPEDEF_EXTRA(Base, name, extra)                                                                                                   \
-    class name : public Base                                                                                                                    \
-    {                                                                                                                                           \
-      public:                                                                                                                                   \
-        template<class... Args>                                                                                                                 \
-        explicit name(Args... args) : Base(args...)                                                                                             \
-        {                                                                                                                                       \
-        }                                                                                                                                       \
-        const Base &raw() const                                                                                                                 \
-        {                                                                                                                                       \
-            return *this;                                                                                                                       \
-        }                                                                                                                                       \
-        extra                                                                                                                                   \
+template<typename placeholder, typename BASETYPE_T>
+class SAFETYPE_IMPL : public BASETYPE_T
+{
+  public:
+    template<class... Args>
+    explicit SAFETYPE_IMPL(Args... args) : BASETYPE_T(args...){};
+    const BASETYPE_T &raw() const
+    {
+        return *this;
     }
+};
+
+#define SAFE_TYPEDEF(BASE, CLASS)                                                                                                               \
+    class __##CLASS##__;                                                                                                                        \
+    typedef SAFETYPE_IMPL<__##CLASS##__, BASE> CLASS;
 
 #define nothing
-#define SAFE_TYPEDEF(Base, name) SAFE_TYPEDEF_EXTRA(Base, name, nothing)
 namespace Qv2ray::base::safetype
 {
     // To prevent anonying QJsonObject misuse
@@ -31,30 +31,30 @@ namespace Qv2ray::base::safetype
     SAFE_TYPEDEF(QJsonObject, INBOUND);
     SAFE_TYPEDEF(QJsonObject, OUTBOUND);
     SAFE_TYPEDEF(QJsonObject, CONFIGROOT);
-    SAFE_TYPEDEF(QJsonObject, PROXYSETTING);
-    //
-    SAFE_TYPEDEF(QJsonArray, ROUTERULELIST);
-    SAFE_TYPEDEF(QJsonArray, INOUTLIST);
     SAFE_TYPEDEF(QJsonObject, ROUTING);
     SAFE_TYPEDEF(QJsonObject, ROUTERULE);
-    SAFE_TYPEDEF(INOUTLIST, OUTBOUNDS);
-    SAFE_TYPEDEF(INOUTLIST, INBOUNDS);
+    //
+    SAFE_TYPEDEF(QJsonArray, OUTBOUNDS);
+    SAFE_TYPEDEF(QJsonArray, INBOUNDS);
 
-    template<typename T>
+    template<typename T1, typename T2 = T1>
     struct QvPair
     {
-        T value1;
-        T value2;
-        JSONSTRUCT_REGISTER(QvPair<T>, F(value1, value2))
+        T1 value1;
+        T2 value2;
+        JSONSTRUCT_REGISTER(___qvpair_t, F(value1, value2))
+      private:
+        typedef QvPair<T1, T2> ___qvpair_t;
     };
     template<typename enumKey, typename TValue, typename = typename std::enable_if<std::is_enum<enumKey>::value>::type>
     struct QvEnumMap : QMap<enumKey, TValue>
     {
+        // WARN: Changing this will bread all existing JSON.
         static constexpr auto ENUM_JSON_KEY_PREFIX = "$";
         void loadJson(const QJsonValue &json_object)
         {
             QMap<QString, TValue> data;
-            JsonStructHelper::___json_struct_load_data(data, json_object);
+            JsonStructHelper::Deserialize(data, json_object);
             this->clear();
             for (QString k_str : data.keys())
             {
@@ -75,7 +75,7 @@ namespace Qv2ray::base::safetype
             {
                 data[ENUM_JSON_KEY_PREFIX + QString::number(k)] = this->value(k);
             }
-            return JsonStructHelper::___json_struct_store_data(data).toObject();
+            return JsonStructHelper::Serialize(data).toObject();
         }
     };
 

@@ -67,7 +67,8 @@ parts:
       - libprotobuf-dev
       - protobuf-compiler-grpc
       - pkg-config
-      - libzxingcore-dev
+      - libcurl4-openssl-dev
+      - libqt5svg5-dev
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -78,14 +79,15 @@ parts:
       - libqt5gui5
       - libqt5network5
       - libqt5widgets5
+      - libqt5svg5
       - libglib2.0-bin
-      - libzxingcore1
+      - libcurl4
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
-      - -DEMBED_TRANSLATIONS=ON
+      - -DQV2RAY_EMBED_TRANSLATIONS=ON
       - -DFALL_BACK_TO_XDG_OPEN=ON
-      - -DQV2RAY_ZXING_PROVIDER=package
+    cmake-generator: Ninja
     override-pull: |
       snapcraftctl pull
       build_number=$(cat makespec/BUILDVERSION)
@@ -126,39 +128,6 @@ parts:
     stage-packages:
       - qt5-gtk-platformtheme
 
-  qv2ray-ssr-plugin:
-    plugin: cmake
-    source-type: git
-    source: https://github.com/Qv2ray/QvPlugin-SSR.git
-    source-branch: dev
-    build-packages:
-      - build-essential
-      - libsodium-dev
-      - libuv1-dev
-      - libssl-dev
-      - qttools5-dev
-      - qt5-default
-    stage-packages:
-      - libgcc1
-      - libstdc++6
-      - libssl1.1
-      - libqt5core5a
-      - libqt5gui5
-      - libqt5network5
-      - libqt5widgets5
-      - libuv1
-      - libsodium23
-    cmake-parameters:
-      - -DCMAKE_INSTALL_PREFIX=/usr
-      - -DCMAKE_BUILD_TYPE=Release
-      - -DSSR_UVW_WITH_QT=ON
-      - -DUSE_SYSTEM_SODIUM=ON
-      - -DUSE_SYSTEM_LIBUV=ON
-      - -DSTATIC_LINK_LIBUV=OFF
-      - -DSTATIC_LINK_SODIUM=OFF
-    after:
-      - desktop-qt5
-
   qv2ray-trojan-plugin:
     plugin: cmake
     source-type: git
@@ -185,5 +154,6 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -DFORCE_TCP_FASTOPEN=ON
+    cmake-generator: Ninja
     after:
       - desktop-qt5

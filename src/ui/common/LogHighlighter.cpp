@@ -1,6 +1,6 @@
 #include "LogHighlighter.hpp"
 
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 
 #define TO_EOL "(([\\s\\S]*)|([\\d\\D]*)|([\\w\\W]*))$"
 

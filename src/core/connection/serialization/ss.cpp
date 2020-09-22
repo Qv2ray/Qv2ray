@@ -1,4 +1,4 @@
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/connection/Serialization.hpp"
@@ -100,7 +100,7 @@ namespace Qv2ray::core::connection
             d_name = QUrl::fromPercentEncoding(d_name.toUtf8());
             CONFIGROOT root;
             OUTBOUNDS outbounds;
-            outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT({ server }), {}));
+            outbounds.append(GenerateOutboundEntry(OUTBOUND_TAG_PROXY, "shadowsocks", GenerateShadowSocksOUT({ server }), {}));
             JADD(outbounds)
             *alias = alias->isEmpty() ? d_name : *alias + "_" + d_name;
             LOG(MODULE_CONNECTION, "Deduced alias: " + *alias)

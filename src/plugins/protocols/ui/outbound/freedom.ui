@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>freedomOutEditor</class>
+ <widget class="QWidget" name="freedomOutEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>257</width>
+    <height>134</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Domain Strategy</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="DSCB">
+     <item>
+      <property name="text">
+       <string notr="true">AsIs</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">UseIP</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">UseIPv4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">UseIPv6</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Redirect</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="redirectTxt">
+     <property name="text">
+      <string>:0</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

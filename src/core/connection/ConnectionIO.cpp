@@ -1,7 +1,7 @@
 #include "ConnectionIO.hpp"
 
 #include "Serialization.hpp"
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection::connectionIO
 {

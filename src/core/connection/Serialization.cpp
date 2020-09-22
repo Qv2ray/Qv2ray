@@ -4,7 +4,6 @@
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/handler/ConfigHandler.hpp"
-#include "libs/QJsonStruct/QJsonIO.hpp"
 
 namespace Qv2ray::core::connection
 {
@@ -57,7 +56,7 @@ namespace Qv2ray::core::connection
                     for (const auto &[_alias, _protocol, _outbound] : configs)
                     {
                         CONFIGROOT root;
-                        auto outbound = GenerateOutboundEntry(_protocol, OUTBOUNDSETTING(_outbound), {});
+                        auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, _protocol, OUTBOUNDSETTING(_outbound), {});
                         QJsonIO::SetValue(root, outbound, "outbounds", 0);
                         connectionConf << QPair{ _alias, root };
                     }
@@ -87,20 +86,24 @@ namespace Qv2ray::core::connection
         {
             const auto outbound = OUTBOUND(server["outbounds"].toArray().first().toObject());
             const auto type = outbound["protocol"].toString();
-            const auto &settings = outbound["settings"].toObject();
-            QString sharelink = "";
+            const auto settings = outbound["settings"].toObject();
+
+            QString sharelink;
+
+            if (type.isEmpty())
+            {
+                DEBUG(MODULE_CONNECTION, "WARNING: Empty outbound type.")
+                return "";
+            }
+
             if (type == "vmess")
             {
-                auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
-                auto transport = StreamSettingsObject::fromJson(outbound["streamSettings"].toObject());
+                const auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
+                const auto transport = StreamSettingsObject::fromJson(outbound["streamSettings"].toObject());
                 if (GlobalConfig.uiConfig.useOldShareLinkFormat)
-                {
                     sharelink = vmess::Serialize(transport, vmessServer, alias);
-                }
                 else
-                {
                     sharelink = vmess_new::Serialize(transport, vmessServer, alias);
-                }
             }
             else if (type == "shadowsocks")
             {
@@ -109,16 +112,9 @@ namespace Qv2ray::core::connection
             }
             else
             {
-                if (type.isEmpty())
-                {
-                    DEBUG(MODULE_CONNECTION, "WARNING: Empty outbound type.")
-                }
-                else
-                {
-                    bool ok = false;
-                    sharelink = PluginHost->TrySerializeShareLink(type, settings, alias, groupName, &ok);
-                    Q_UNUSED(ok)
-                }
+                bool ok = false;
+                sharelink = PluginHost->SerializeOutbound(type, settings, alias, groupName, &ok);
+                Q_UNUSED(ok)
             }
 
             return sharelink;

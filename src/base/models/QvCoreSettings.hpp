@@ -1,6 +1,6 @@
 #pragma once
+#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
 #include "base/models/CoreObjectModels.hpp"
-#include "libs/QJsonStruct/QJsonStruct.hpp"
 namespace Qv2ray::base::config
 {
     struct QvConfig_Route
@@ -64,12 +64,20 @@ namespace Qv2ray::base::config
         bool enableProxy;
         bool bypassCN;
         bool bypassBT;
+        bool bypassLAN;
         bool v2rayFreedomDNS;
         bool withLocalDNS;
         bool dnsIntercept;
         QvConfig_Connection()
-            : enableProxy(true), bypassCN(true), bypassBT(false), v2rayFreedomDNS(false), withLocalDNS(false), dnsIntercept(false){};
-        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept))
+            : enableProxy(true),      //
+              bypassCN(true),         //
+              bypassBT(false),        //
+              bypassLAN(true),        //
+              v2rayFreedomDNS(false), //
+              withLocalDNS(false),    //
+              dnsIntercept(false)     //
+              {};
+        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept))
     };
 
     struct QvConfig_SystemProxy

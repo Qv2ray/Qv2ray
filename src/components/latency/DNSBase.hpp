@@ -12,7 +12,7 @@ namespace Qv2ray::components::latency
     {
       public:
         DNSBase(const std::shared_ptr<uvw::Loop> &loopin, LatencyTestRequest &req, LatencyTestHost *testHost)
-            : loop(loopin), req(std::move(req)), testHost(testHost)
+            : req(std::move(req)), testHost(testHost), loop(loopin)
         {
         }
         virtual ~DNSBase();

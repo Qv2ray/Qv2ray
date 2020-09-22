@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <QString>
 
@@ -26,7 +26,7 @@ namespace Qv2ray::base
 const inline QString MODULE_INIT = "INIT";
 const inline QString MODULE_MESSAGING = "BASE-MESSAGING";
 const inline QString MODULE_UI = "CORE-UI";
-const inline QString MODULE_GRAPH = "CORE-UI-GRAPH";
+const inline QString MODULE_NODE = "CORE-UI-NODE";
 const inline QString MODULE_SETTINGS = "CORE-SETTINGS";
 const inline QString MODULE_VCORE = "CORE-VCORE";
 //

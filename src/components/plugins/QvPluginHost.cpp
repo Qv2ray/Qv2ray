@@ -2,8 +2,8 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "base/Qv2rayLog.hpp"
-#include "common/QvHelpers.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "utils/QvHelpers.hpp"
 
 #include <QPluginLoader>
 
@@ -17,7 +17,7 @@ namespace Qv2ray::components::plugins
             {
                 dir.mkpath(QV2RAY_PLUGIN_SETTINGS_DIR);
             }
-            InitializePluginHost();
+            initializePluginHost();
         }
         else
         {
@@ -25,9 +25,9 @@ namespace Qv2ray::components::plugins
         }
     }
 
-    int QvPluginHost::RefreshPluginList()
+    int QvPluginHost::refreshPluginList()
     {
-        ClearPlugins();
+        clearPlugins();
         LOG(MODULE_PLUGINHOST, "Reloading plugin list")
         for (const auto &pluginDirPath : Qv2rayAssetsPaths("plugins"))
         {
@@ -45,7 +45,9 @@ namespace Qv2ray::components::plugins
                 QObject *plugin = info.pluginLoader->instance();
                 if (plugin == nullptr)
                 {
-                    LOG(MODULE_PLUGINHOST, info.pluginLoader->errorString());
+                    const auto errMessage = info.pluginLoader->errorString();
+                    LOG(MODULE_PLUGINHOST, errMessage);
+                    QvMessageBoxWarn(nullptr, tr("Failed to load plugin"), errMessage);
                     continue;
                 }
                 info.pluginInterface = qobject_cast<Qv2rayInterface *>(plugin);
@@ -61,9 +63,10 @@ namespace Qv2ray::components::plugins
                     // The plugin was built for a not-compactable version of Qv2ray. Don't load the plugin by default.
                     LOG(MODULE_PLUGINHOST, info.libraryPath + " is built with an older Interface, ignoring")
                     QvMessageBoxWarn(nullptr, tr("Cannot load plugin"),
-                                     tr("The plugin located here cannot be loaded: ") + NEWLINE + info.libraryPath + NEWLINE NEWLINE +
-                                         tr("This plugin was built against an older/newer version of the Plugin Interface.") + NEWLINE +
+                                     tr("The plugin cannot be loaded: ") + NEWLINE + info.libraryPath + NEWLINE NEWLINE +
+                                         tr("This plugin was built against a different version of the Plugin Interface.") + NEWLINE +
                                          tr("Please contact the plugin provider or report the issue to Qv2ray Workgroup."));
+                    info.pluginLoader->unload();
                     continue;
                 }
                 info.metadata = info.pluginInterface->GetMetadata();
@@ -73,7 +76,8 @@ namespace Qv2ray::components::plugins
                     continue;
                 }
                 connect(plugin, SIGNAL(PluginLog(const QString &)), this, SLOT(QvPluginLog(const QString &)));
-                connect(plugin, SIGNAL(PluginErrorMessageBox(const QString &)), this, SLOT(QvPluginMessageBox(const QString &)));
+                connect(plugin, SIGNAL(PluginErrorMessageBox(const QString &, const QString &)), this,
+                        SLOT(QvPluginMessageBox(const QString &, const QString &)));
                 LOG(MODULE_PLUGINHOST, "Loaded plugin: \"" + info.metadata.Name + "\" made by: \"" + info.metadata.Author + "\"")
                 plugins.insert(info.metadata.InternalName, info);
             }
@@ -94,47 +98,43 @@ namespace Qv2ray::components::plugins
         }
     }
 
-    void QvPluginHost::QvPluginMessageBox(const QString &msg)
+    void QvPluginHost::QvPluginMessageBox(const QString &title, const QString &message)
     {
-        auto _sender = sender();
-        if (auto _interface = qobject_cast<Qv2rayInterface *>(_sender); _interface)
-        {
-            QvMessageBoxWarn(nullptr, _interface->GetMetadata().Name, msg);
-        }
+        const auto _sender = sender();
+        const auto _interface = qobject_cast<Qv2rayInterface *>(_sender);
+        if (_interface)
+            QvMessageBoxWarn(nullptr, _interface->GetMetadata().Name + " - " + title, message);
         else
-        {
-            QvMessageBoxWarn(nullptr, "Unknown Plugin", msg);
-        }
+            QvMessageBoxWarn(nullptr, "Unknown Plugin - " + title, message);
     }
 
-    bool QvPluginHost::GetPluginEnableState(const QString &internalName) const
+    bool QvPluginHost::GetPluginEnabled(const QString &internalName) const
     {
         return GlobalConfig.pluginConfig.pluginStates[internalName];
     }
 
-    void QvPluginHost::SetPluginEnableState(const QString &internalName, bool isEnabled)
+    void QvPluginHost::SetPluginEnabled(const QString &internalName, bool isEnabled)
     {
         LOG(MODULE_PLUGINHOST, "Set plugin: \"" + internalName + "\" enable state: " + (isEnabled ? "true" : "false"))
         GlobalConfig.pluginConfig.pluginStates[internalName] = isEnabled;
         if (isEnabled && !plugins[internalName].isLoaded)
         {
             // Load plugin if it haven't been loaded.
-            InitializePlugin(internalName);
-
+            initializePlugin(internalName);
             QvMessageBoxInfo(nullptr, tr("Enabling a plugin"), tr("The plugin will become fully functional after restarting Qv2ray."));
         }
     }
 
-    void QvPluginHost::InitializePluginHost()
+    void QvPluginHost::initializePluginHost()
     {
-        RefreshPluginList();
+        refreshPluginList();
         for (auto &plugin : plugins.keys())
         {
-            InitializePlugin(plugin);
+            initializePlugin(plugin);
         }
     }
 
-    void QvPluginHost::ClearPlugins()
+    void QvPluginHost::clearPlugins()
     {
         for (auto &&plugin : plugins)
         {
@@ -144,7 +144,7 @@ namespace Qv2ray::components::plugins
         }
         plugins.clear();
     }
-    bool QvPluginHost::InitializePlugin(const QString &internalName)
+    bool QvPluginHost::initializePlugin(const QString &internalName)
     {
         const auto &plugin = plugins[internalName];
         if (plugin.isLoaded)
@@ -165,7 +165,7 @@ namespace Qv2ray::components::plugins
         }
 
         auto conf = JsonFromString(StringFromFile(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + ".conf"));
-        plugins[internalName].pluginInterface->Initialize(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + "/", conf);
+        plugins[internalName].pluginInterface->InitializePlugin(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + "/", conf);
         plugins[internalName].isLoaded = true;
         return true;
     }
@@ -186,7 +186,7 @@ namespace Qv2ray::components::plugins
     QvPluginHost::~QvPluginHost()
     {
         SavePluginSettings();
-        ClearPlugins();
+        clearPlugins();
     }
 
     // ================== BEGIN SEND EVENTS ==================
@@ -194,57 +194,33 @@ namespace Qv2ray::components::plugins
     {
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_STATS))
-            {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionStats(object);
-            }
         }
     }
     void QvPluginHost::Send_ConnectivityEvent(const Events::Connectivity::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTIVITY))
-            {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_Connectivity(object);
-            }
         }
     }
     void QvPluginHost::Send_ConnectionEvent(const Events::ConnectionEntry::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTION_ENTRY))
-            {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionEntry(object);
-            }
         }
     }
     void QvPluginHost::Send_SystemProxyEvent(const Events::SystemProxy::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_SYSTEM_PROXY))
-            {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_SystemProxy(object);
-            }
         }
-    }
-
-    const QList<QvPluginEditor *> QvPluginHost::GetOutboundEditorWidgets() const
-    {
-        QList<QvPluginEditor *> data;
-        for (const auto &plugin : plugins)
-        {
-            if (!plugin.isLoaded)
-                continue;
-            auto editor = plugin.pluginInterface->GetEditorWidget(UI_TYPE::UI_TYPE_OUTBOUND_EDITOR);
-            if (editor)
-            {
-                data.append(editor.release());
-            }
-        }
-        return data;
     }
 
     const QList<std::tuple<QString, QString, QJsonObject>> QvPluginHost::TryDeserializeShareLink(const QString &sharelink, //
@@ -258,11 +234,11 @@ namespace Qv2ray::components::plugins
         *ok = false;
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
             {
-                auto serializer = plugin.pluginInterface->GetSerializer();
+                auto serializer = plugin.pluginInterface->GetOutboundHandler();
                 bool thisPluginCanHandle = false;
-                for (const auto &prefix : serializer->ShareLinkPrefixes())
+                for (const auto &prefix : serializer->SupportedLinkPrefixes())
                 {
                     thisPluginCanHandle = thisPluginCanHandle || sharelink.startsWith(prefix);
                 }
@@ -280,15 +256,16 @@ namespace Qv2ray::components::plugins
         }
         return data;
     }
-    const QvPluginOutboundInfoObject QvPluginHost::TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const
+
+    const QMap<OutboundInfoFlags, QVariant> QvPluginHost::TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const
     {
         *status = false;
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
             {
-                auto serializer = plugin.pluginInterface->GetSerializer();
-                if (serializer && serializer->OutboundProtocols().contains(protocol))
+                auto serializer = plugin.pluginInterface->GetOutboundHandler();
+                if (serializer && serializer->SupportedProtocols().contains(protocol))
                 {
                     auto info = serializer->GetOutboundInfo(protocol, o);
                     *status = true;
@@ -298,7 +275,7 @@ namespace Qv2ray::components::plugins
         }
         return {};
     }
-    const QString QvPluginHost::TrySerializeShareLink(const QString &protocol,             //
+    const QString QvPluginHost::SerializeOutbound(const QString &protocol,             //
                                                       const QJsonObject &outboundSettings, //
                                                       const QString &alias,                //
                                                       const QString &groupName,            //
@@ -307,10 +284,10 @@ namespace Qv2ray::components::plugins
         *status = false;
         for (const auto &plugin : plugins)
         {
-            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
             {
-                auto serializer = plugin.pluginInterface->GetSerializer();
-                if (serializer && serializer->OutboundProtocols().contains(protocol))
+                auto serializer = plugin.pluginInterface->GetOutboundHandler();
+                if (serializer && serializer->SupportedProtocols().contains(protocol))
                 {
                     auto link = serializer->SerializeOutbound(protocol, alias, groupName, outboundSettings);
                     *status = true;
@@ -321,73 +298,42 @@ namespace Qv2ray::components::plugins
         return "";
     }
 
-    const std::unique_ptr<QvPluginKernel> QvPluginHost::CreatePluginKernel(const QString &pluginInternalName) const
-    {
-        if (!plugins.contains(pluginInternalName))
-            return nullptr;
-        const auto &plugin = plugins.value(pluginInternalName);
-        if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_KERNEL))
-        {
-            return plugin.pluginInterface->CreateKernel();
-        }
-        return nullptr;
-    }
-
-    const QMap<QString, QList<QString>> QvPluginHost::GetPluginKernels() const
-    {
-        QMap<QString, QList<QString>> kernels;
-        for (const auto &plugin : plugins)
-        {
-            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_KERNEL))
-            {
-                QStringList outbounds;
-                for (const auto &info : plugin.metadata.KernelOutboundCapabilities)
-                {
-                    outbounds << info.protocol;
-                }
-                kernels.insert(plugin.metadata.InternalName, outbounds);
-            }
-        }
-        return kernels;
-    }
-
-    const QString GetPluginTypeString(const SPECIAL_TYPE_FLAGS &types)
+    const QStringList GetPluginComponentsString(const QList<PluginGuiComponentType> &types)
     {
         QStringList typesList;
         if (types.isEmpty())
-        {
-            typesList << QObject::tr("Normal Plugin");
-        }
+            typesList << QObject::tr("None");
         for (auto type : types)
         {
             switch (type)
             {
-                case SPECIAL_TYPE_KERNEL: typesList << QObject::tr("Kernel"); break;
-                case SPECIAL_TYPE_SERIALIZOR: typesList << QObject::tr("Share Link Parser"); break;
+                case GUI_COMPONENT_SETTINGS: typesList << QObject::tr("Settings Widget"); break;
+                case GUI_COMPONENT_INBOUND_EDITOR: typesList << QObject::tr("Inbound Editor"); break;
+                case GUI_COMPONENT_OUTBOUND_EDITOR: typesList << QObject::tr("Outbound Editor"); break;
+                case GUI_COMPONENT_MAINWINDOW_WIDGET: typesList << QObject::tr("MainWindow Widget"); break;
                 default: typesList << QObject::tr("Unknown type."); break;
             }
         }
-        return typesList.join(NEWLINE);
+        return typesList;
     }
 
-    const QString GetPluginCapabilityString(const CAPABILITY_FLAGS &caps)
+    const QStringList GetPluginComponentsString(const QList<PluginComponentType> &types)
     {
-        QStringList capsString;
-        if (caps.isEmpty())
+        QStringList typesList;
+        if (types.isEmpty())
+            typesList << QObject::tr("None");
+        for (auto type : types)
         {
-            capsString << QObject::tr("No Capability");
-        }
-        for (auto cap : caps)
-        {
-            switch (cap)
+            switch (type)
             {
-                case CAPABILITY_CONNECTIVITY: capsString << QObject::tr("Connection State Change"); break;
-                case CAPABILITY_CONNECTION_ENTRY: capsString << QObject::tr("Connection Change"); break;
-                case CAPABILITY_STATS: capsString << QObject::tr("Statistics Event"); break;
-                case CAPABILITY_SYSTEM_PROXY: capsString << QObject::tr("System Proxy Event"); break;
-                default: capsString << QObject::tr("Unknown"); break;
+                case COMPONENT_KERNEL: typesList << QObject::tr("Kernel"); break;
+                case COMPONENT_OUTBOUND_HANDLER: typesList << QObject::tr("Outbound Handler/Parser"); break;
+                case COMPONENT_SUBSCRIPTION_ADAPTER: typesList << QObject::tr("Subscription Adapter"); break;
+                case COMPONENT_EVENT_HANDLER: typesList << QObject::tr("Event Handler"); break;
+                case COMPONENT_GUI: typesList << QObject::tr("GUI Components"); break;
+                default: typesList << QObject::tr("Unknown type."); break;
             }
         }
-        return capsString.join(NEWLINE);
+        return typesList;
     }
 } // namespace Qv2ray::components::plugins

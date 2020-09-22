@@ -1,6 +1,7 @@
 #pragma once
 #include "src/plugin-interface/QvPluginInterface.hpp"
 
+#include <QHash>
 #include <QMap>
 #include <QObject>
 #include <memory>
@@ -12,11 +13,16 @@ namespace Qv2ray::components::plugins
 {
     struct QvPluginInfo
     {
+      public:
         bool isLoaded = false;
         QString libraryPath;
         QvPluginMetadata metadata;
         QPluginLoader *pluginLoader;
         Qv2rayInterface *pluginInterface;
+        bool hasComponent(PluginComponentType t)
+        {
+            return metadata.Components.contains(t);
+        }
     };
 
     class QvPluginHost : public QObject
@@ -26,54 +32,35 @@ namespace Qv2ray::components::plugins
         explicit QvPluginHost(QObject *parent = nullptr);
         ~QvPluginHost();
         //
-        bool GetPluginEnableState(const QString &internalName) const;
-        void SetPluginEnableState(const QString &internalName, bool isEnabled);
+        bool GetPluginEnabled(const QString &internalName) const;
+        void SetPluginEnabled(const QString &internalName, bool isEnabled);
+        //
         void SavePluginSettings() const;
         //
-        bool inline GetPluginLoadState(const QString &internalName) const
+        QvPluginInfo *GetPlugin(const QString &internalName)
         {
-            return plugins.value(internalName).isLoaded;
+            return plugins.contains(internalName) ? &plugins[internalName] : nullptr;
         }
-        const inline QString GetPluginLibraryPath(const QString &internalName) const
-        {
-            return plugins.value(internalName).libraryPath;
-        }
-        const inline QStringList AvailablePlugins() const
+        const inline QStringList AllPlugins() const
         {
             return plugins.keys();
         }
-        inline std::unique_ptr<QWidget> GetPluginSettingsWidget(const QString &internalName) const
+        const inline QStringList UsablePlugins() const
         {
-            return plugins.value(internalName).pluginInterface->GetSettingsWidget();
+            QStringList result;
+            for (const auto &pluginName : plugins.keys())
+                if (shouldUsePlugin(pluginName))
+                    result << pluginName;
+            return result;
         }
-        const inline QJsonObject GetPluginSettings(const QString &internalName) const
-        {
-            return plugins.value(internalName).pluginInterface->GetSettngs();
-        }
-        bool inline SetPluginSettings(const QString &internalName, const QJsonObject &settings) const
-        {
-            return plugins.value(internalName).pluginInterface->UpdateSettings(settings);
-        }
-        const inline QvPluginMetadata GetPluginMetadata(const QString &internalName) const
-        {
-            return plugins.value(internalName).metadata;
-        }
-        const QMap<QString, QList<QString>> GetPluginKernels() const;
-        const std::unique_ptr<QvPluginKernel> CreatePluginKernel(const QString &pluginInternalName) const;
-        //
+
         const QList<std::tuple<QString, QString, QJsonObject>> TryDeserializeShareLink(const QString &sharelink, //
                                                                                        QString *aliasPrefix,     //
                                                                                        QString *errMessage,      //
                                                                                        QString *newGroupName,    //
                                                                                        bool *status) const;
-        //
-        const QString TrySerializeShareLink(const QString &protocol,             //
-                                            const QJsonObject &outboundSettings, //
-                                            const QString &alias,                //
-                                            const QString &groupName,            //
-                                            bool *status) const;
-        const QvPluginOutboundInfoObject TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const;
-        const QList<QvPluginEditor *> GetOutboundEditorWidgets() const;
+        const QString SerializeOutbound(const QString &protocol, const QJsonObject &out, const QString &name, const QString &group, bool *ok) const;
+        const QMap<OutboundInfoFlags, QVariant> TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const;
         //
         void Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object);
         void Send_ConnectivityEvent(const Events::Connectivity::EventObject &object);
@@ -82,20 +69,24 @@ namespace Qv2ray::components::plugins
         //
       private slots:
         void QvPluginLog(const QString &log);
-        void QvPluginMessageBox(const QString &message);
+        void QvPluginMessageBox(const QString &title, const QString &message);
 
       private:
-        void InitializePluginHost();
-        int RefreshPluginList();
-        bool InitializePlugin(const QString &internalName);
-        void ClearPlugins();
+        bool shouldUsePlugin(const QString &internalName) const
+        {
+            return GetPluginEnabled(internalName) && plugins[internalName].isLoaded;
+        }
+        void initializePluginHost();
+        int refreshPluginList();
+        bool initializePlugin(const QString &internalName);
+        void clearPlugins();
         // Internal name, plugin info
         QHash<QString, QvPluginInfo> plugins;
     };
 
-    const QString GetPluginTypeString(const SPECIAL_TYPE_FLAGS &types);
-    const QString GetPluginCapabilityString(const CAPABILITY_FLAGS &caps);
+    const QStringList GetPluginComponentsString(const QList<PluginGuiComponentType> &types);
+    const QStringList GetPluginComponentsString(const QList<PluginComponentType> &types);
     inline ::Qv2ray::components::plugins::QvPluginHost *PluginHost = nullptr;
-} // namespace Qv2ray::components::plugins
 
+} // namespace Qv2ray::components::plugins
 using namespace Qv2ray::components::plugins;

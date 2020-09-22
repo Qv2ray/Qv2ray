@@ -48,13 +48,13 @@ namespace Qv2ray::base::config
         int maxJumpListCount;
         bool useOldShareLinkFormat;
         Qv2rayConfig_UI()
-            : theme("Fusion"),            //
-              language("en_US"),          //
-              useDarkTheme(false),        //
-              useDarkTrayIcon(true),      //
-              maximumLogLines(500),       //
-              maxJumpListCount(20),       //
-              useOldShareLinkFormat(true) //
+            : theme("Fusion"),             //
+              language("en_US"),           //
+              useDarkTheme(false),         //
+              useDarkTrayIcon(true),       //
+              maximumLogLines(500),        //
+              maxJumpListCount(20),        //
+              useOldShareLinkFormat(false) // v2.7.0-alpha1: Changed to false
               {};
         JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines,
                                                maxJumpListCount, recentConnections, useOldShareLinkFormat))
@@ -80,13 +80,12 @@ namespace Qv2ray::base::config
         QString v2AssetsPath_macx;
         QString v2CorePath_win;
         QString v2AssetsPath_win;
-        Qv2rayConfig_Kernel()
-            : enableAPI(true), statsPort(15490),        //
-              v2CorePath_linux(), v2AssetsPath_linux(), //
-              v2CorePath_macx(), v2AssetsPath_macx(),   //
-              v2CorePath_win(), v2AssetsPath_win()      //
-              {};
-        //
+        explicit Qv2rayConfig_Kernel()
+        {
+            enableAPI = true;
+            statsPort = 15490;
+        }
+
 #ifdef Q_OS_LINUX
     #define _VARNAME_VCOREPATH_ v2CorePath_linux
     #define _VARNAME_VASSETSPATH_ v2AssetsPath_linux
@@ -139,12 +138,14 @@ namespace Qv2ray::base::config
     enum Qv2rayLatencyTestingMethod
     {
         TCPING,
-        ICMPING
+        ICMPING,
+        REALPING
     };
 
     struct Qv2rayConfig_Network
     {
         Qv2rayLatencyTestingMethod latencyTestingMethod;
+        QString latencyRealPingTestURL;
         enum Qv2rayProxyType : int
         {
             QVPROXY_NONE = 0,
@@ -157,12 +158,13 @@ namespace Qv2ray::base::config
         int port;
         QString userAgent;
         Qv2rayConfig_Network()
-            : proxyType(QVPROXY_NONE), //
-              address("127.0.0.1"),    //
-              type("http"),            //
-              port(8000),              //
+            : latencyRealPingTestURL("https://www.google.com"), //
+              proxyType(QVPROXY_NONE),                          //
+              address("127.0.0.1"),                             //
+              type("http"),                                     //
+              port(8000),                                       //
               userAgent("Qv2ray/$VERSION WebRequestHelper"){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, proxyType, type, address, port, userAgent))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent))
     };
 
     enum Qv2rayAutoConnectionBehavior
@@ -175,7 +177,6 @@ namespace Qv2ray::base::config
     struct Qv2rayConfigObject
     {
         int config_version;
-        bool tProxySupport;
         int logLevel;
         //
         ConnectionGroupPair autoStartId;
@@ -192,25 +193,13 @@ namespace Qv2ray::base::config
         Qv2rayConfig_Advanced advancedConfig;
         GroupRoutingConfig defaultRouteConfig;
 
-        Qv2rayConfigObject()
-            : config_version(QV2RAY_CONFIG_VERSION), //
-              tProxySupport(false),                  //
-              logLevel(),                            //
-              autoStartId(),                         //
-              autoStartBehavior(),                   //
-              uiConfig(),                            //
-              pluginConfig(),                        //
-              kernelConfig(),                        //
-              updateConfig(),                        //
-              networkConfig(),                       //
-              inboundConfig(),                       //
-              outboundConfig(),                      //
-              advancedConfig(),                      //
-              defaultRouteConfig(){};
-
-        JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                          //
-                            F(config_version, tProxySupport, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
-                            F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig),        //
+        explicit Qv2rayConfigObject()
+        {
+            config_version = QV2RAY_CONFIG_VERSION;
+        }
+        JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                   //
+                            F(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
+                            F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
                             F(inboundConfig, outboundConfig, defaultRouteConfig))
     };
 } // namespace Qv2ray::base::config

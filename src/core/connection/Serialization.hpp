@@ -1,17 +1,17 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-#include "common/QvHelpers.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection::serialization
 {
-    const inline auto QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER = QObject::tr("(Complex config)");
+    const inline QString QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER = "(N/A)";
     /**
      * pattern for the nodes in ssd links.
      * %1: airport name
      * %2: node name
      * %3: rate
      */
-    const inline auto QV2RAY_SSD_DEFAULT_NAME_PATTERN = QObject::tr("%1 - %2 (rate %3)");
+    const inline QString QV2RAY_SSD_DEFAULT_NAME_PATTERN = "%1 - %2 (rate %3)";
     //
     // General
     inline const QString TryDecodeSubscriptionString(const QByteArray &arr)

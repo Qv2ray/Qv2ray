@@ -1,11 +1,12 @@
 #include "QvProxyConfigurator.hpp"
 
 #include "base/Qv2rayBase.hpp"
-#include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
+#include "utils/QvHelpers.hpp"
 #ifdef Q_OS_WIN
-    #include <WinInet.h>
     #include <Windows.h>
+    //
+    #include <WinInet.h>
 #endif
 
 namespace Qv2ray::components::proxy

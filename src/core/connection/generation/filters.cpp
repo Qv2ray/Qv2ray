@@ -1,5 +1,5 @@
-#include "common/QvHelpers.hpp"
 #include "core/connection/Generation.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection::generation::filters
 {
@@ -67,8 +67,10 @@ namespace Qv2ray::core::connection::generation::filters
     {
         for (auto i = 0; i < root["outbounds"].toArray().count(); i++)
         {
-            bool isEmptySeed = QJsonIO::GetValue(root, "outbounds", i, "streamSettings", "kcpSettings", "seed").toString().isEmpty();
-            if (isEmptySeed)
+            const auto seedItem = QJsonIO::GetValue(root, "outbounds", i, "streamSettings", "kcpSettings", "seed");
+            bool shouldProcess = !seedItem.isNull() && !seedItem.isUndefined();
+            bool isEmptySeed = seedItem.toString().isEmpty();
+            if (shouldProcess && isEmptySeed)
                 QJsonIO::SetValue(root, QJsonIO::Undefined, "outbounds", i, "streamSettings", "kcpSettings", "seed");
         }
     }
@@ -79,8 +81,8 @@ namespace Qv2ray::core::connection::generation::filters
         {
             if (QJsonIO::GetValue(root, subKey, i, "tag").toString().isEmpty())
             {
-                LOG(MODULE_SETTINGS, "Adding a tag to an inbound.")
                 const auto tag = GenerateRandomString(8);
+                LOG(MODULE_SETTINGS, "Adding tag " + tag + " to inbound.")
                 QJsonIO::SetValue(root, tag, subKey, i, "tag");
             }
         }

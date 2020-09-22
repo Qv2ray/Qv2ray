@@ -6,9 +6,9 @@
  */
 
 #include "base/Qv2rayBase.hpp"
-#include "common/QvHelpers.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/connection/Serialization.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection::serialization
 {
@@ -64,15 +64,6 @@ namespace Qv2ray::core::connection::serialization
         continue;                                                                                                                               \
     }
 
-        // std::pair<std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksServerObject>>>>, QStringList>
-        // AKA
-        //
-        // pair<optional<std::pair<QString, QList<pair<QString, ShadowSocksServerObject>>>>, QStringList>
-        // That is....
-        //
-        // A pair of an error string list, together with some optionally existed pair, which contains a QString for airport name and a List of
-        // pairs that contains a QString for connection name and finally, our ShadowSocksServerObject
-        //
         QList<QPair<QString, CONFIGROOT>> Deserialize(const QString &uri, QString *groupName, QStringList *logList)
         {
             // ssd links should begin with "ssd://"
@@ -92,35 +83,27 @@ namespace Qv2ray::core::connection::serialization
                 return {};
             }
 
-            // parse json
-            QJsonParseError err;
-            QJsonDocument document = QJsonDocument::fromJson(decodedJSON, &err);
-
-            if (document.isNull())
+            const auto decodeError = VerifyJsonString(decodedJSON);
+            if (!decodeError.isEmpty())
             {
-                *logList << QObject::tr("Invalid ssd link: json parse failed: ") % err.errorString();
-                return {};
-            }
-
-            // json should be an object
-            if (!document.isObject())
-            {
-                *logList << QObject::tr("Invalid ssd link: found non-object json, aborting");
+                *logList << QObject::tr("Invalid ssd link: json parse failed: ") % decodeError;
                 return {};
             }
 
             // casting to object
-            QJsonObject obj = document.object();
-            //
+            const auto obj = JsonFromString(decodedJSON);
+
             // obj.airport
             MUST_STRING("airport");
             *groupName = obj["airport"].toString();
+
             // obj.port
             MUST_PORT("port");
             const int port = obj["port"].toInt();
+
             // obj.encryption
             MUST_STRING("encryption");
-            const QString encryption = obj["encryption"].toString();
+            const auto encryption = obj["encryption"].toString();
 
             // check: rc4-md5 is not supported by v2ray-core
             // TODO: more checks, including all algorithms
@@ -132,7 +115,7 @@ namespace Qv2ray::core::connection::serialization
 
             // obj.password
             MUST_STRING("password");
-            const QString password = obj["password"].toString();
+            const auto password = obj["password"].toString();
             // obj.servers
             MUST_ARRAY("servers");
             //
@@ -140,18 +123,21 @@ namespace Qv2ray::core::connection::serialization
             //
 
             // iterate through the servers
-            for (QJsonValueRef server : obj["servers"].toArray())
+            for (const auto &server : obj["servers"].toArray())
             {
                 SERVER_SHOULD_BE_OBJECT(server);
-                QJsonObject serverObject = server.toObject();
+                const auto serverObject = server.toObject();
                 ShadowSocksServerObject ssObject;
+
                 // encryption
                 ssObject.method = encryption;
+
                 // password
                 ssObject.password = password;
+
                 // address :-> "server"
                 SHOULD_STRING("server");
-                const QString serverAddress = serverObject["server"].toString();
+                const auto serverAddress = serverObject["server"].toString();
                 ssObject.address = serverAddress;
 
                 // port selection:
@@ -174,7 +160,6 @@ namespace Qv2ray::core::connection::serialization
                 //   untitled: using server:port as name
                 //   entitled: using given name
                 QString nodeName;
-
                 if (serverObject["remarks"].isUndefined())
                 {
                     nodeName = QString("%1:%2").arg(ssObject.address).arg(ssObject.port);
@@ -192,24 +177,23 @@ namespace Qv2ray::core::connection::serialization
                 //   unspecified: ratio = 1
                 //   specified:   use given value
                 double ratio = 1.0;
-
                 if (auto currRatio = serverObject["ratio"].toDouble(-1.0); currRatio != -1.0)
                 {
                     ratio = currRatio;
                 }
-                else if (!serverObject["ratio"].isUndefined())
-                {
-                    //*logList << QObject::tr("Invalid ratio encountered. using fallback value.");
-                }
+                //  else if (!serverObject["ratio"].isUndefined())
+                //  {
+                //      //*logList << QObject::tr("Invalid ratio encountered. using fallback value.");
+                //  }
 
                 // format the total name of the node.
-                const QString totalName = QV2RAY_SSD_DEFAULT_NAME_PATTERN.arg(*groupName, nodeName).arg(ratio);
+                const auto finalName = QV2RAY_SSD_DEFAULT_NAME_PATTERN.arg(*groupName, nodeName).arg(ratio);
                 // appending to the total list
                 CONFIGROOT root;
                 OUTBOUNDS outbounds;
-                outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT({ ssObject }), {}));
-                JADD(outbounds)
-                serverList.append({ totalName, root });
+                outbounds.append(GenerateOutboundEntry(OUTBOUND_TAG_PROXY, "shadowsocks", GenerateShadowSocksOUT({ ssObject }), {}));
+                root["outbounds"] = outbounds;
+                serverList.append({ finalName, root });
             }
 
             // returns the current result

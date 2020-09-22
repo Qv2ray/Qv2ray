@@ -1,4 +1,4 @@
-#include "libs/QJsonStruct/QJsonIO.hpp"
+#include "3rdparty/QJsonStruct/QJsonIO.hpp"
 
 #include <QJsonDocument>
 #include <QJsonObject>

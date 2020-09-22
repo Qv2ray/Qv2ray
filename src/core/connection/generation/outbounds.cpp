@@ -53,8 +53,8 @@ namespace Qv2ray::core::connection::generation::outbounds
         return root;
     }
 
-    OUTBOUND GenerateOutboundEntry(const QString &protocol, const OUTBOUNDSETTING &settings, const QJsonObject &streamSettings,
-                                   const QJsonObject &mux, const QString &sendThrough, const QString &tag)
+    OUTBOUND GenerateOutboundEntry(const QString &tag, const QString &protocol, const OUTBOUNDSETTING &settings,
+                                   const QJsonObject &streamSettings, const QJsonObject &mux, const QString &sendThrough)
     {
         OUTBOUND root;
         JADD(sendThrough, protocol, settings, tag, streamSettings, mux)

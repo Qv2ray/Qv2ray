@@ -1,11 +1,11 @@
 #include "ConfigHandler.hpp"
 
-#include "common/HTTPRequestHelper.hpp"
-#include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/connection/Serialization.hpp"
 #include "core/handler/RouteHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "utils/HTTPRequestHelper.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::handler
 {
@@ -72,8 +72,8 @@ namespace Qv2ray::core::handler
         connect(kernelHandler, &KernelInstanceHandler::OnConnected, this, &QvConfigHandler::OnConnected);
         connect(kernelHandler, &KernelInstanceHandler::OnDisconnected, this, &QvConfigHandler::OnDisconnected);
         //
-        tcpingHelper = new LatencyTestHost(5, this);
-        connect(tcpingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
+        pingHelper = new LatencyTestHost(5, this);
+        connect(pingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
         // Save per 1 hour.
         saveTimerId = startTimer(1 * 60 * 60 * 1000);
@@ -126,7 +126,7 @@ namespace Qv2ray::core::handler
         {
             emit OnLatencyTestStarted(connection);
         }
-        tcpingHelper->TestLatency(connections.keys(), GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(connections.keys(), GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const GroupId &id)
@@ -135,13 +135,13 @@ namespace Qv2ray::core::handler
         {
             emit OnLatencyTestStarted(connection);
         }
-        tcpingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig.latencyTestingMethod);
     }
 
-    void QvConfigHandler::StartLatencyTest(const ConnectionId &id)
+    void QvConfigHandler::StartLatencyTest(const ConnectionId &id, Qv2rayLatencyTestingMethod method)
     {
         emit OnLatencyTestStarted(id);
-        tcpingHelper->TestLatency(id, GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(id, method);
     }
 
     const QList<GroupId> QvConfigHandler::Subscriptions() const
@@ -379,7 +379,7 @@ namespace Qv2ray::core::handler
     {
         CheckValidId(id, false);
         //
-        auto path = QV2RAY_CONNECTIONS_DIR + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        auto path = QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         auto content = JsonToString(root);
         bool result = StringToFile(content, path);
         //
@@ -527,7 +527,7 @@ namespace Qv2ray::core::handler
             LOG(MODULE_SUBSCRIPTION, "Found a subscription with less than 5 connections.")
             if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
                                 tr("%n entrie(s) have been found from the subscription source, do you want to continue?", "",
-                                   _newConnections.count())) != QMessageBox::Yes)
+                                   _newConnections.count())) != Yes)
 
                 return false;
         }
@@ -618,14 +618,15 @@ namespace Qv2ray::core::handler
             QvMessageBoxAsk(nullptr, tr("Update Subscription"),
                             tr("%1 out of %n entrie(s) have been filtered out, do you want to continue?", "", _newConnections.count())
                                     .arg(filteredConnections.count()) +
-                                NEWLINE + GetDisplayName(id)) == QMessageBox::Yes;
+                                NEWLINE + GetDisplayName(id)) == Yes;
 
         for (const auto &config : useFilteredConnections ? filteredConnections : _newConnections)
         {
             const auto &_alias = config.first;
             // Should not have complex connection we assume.
             bool canGetOutboundData = false;
-            auto outboundData = GetConnectionInfo(config.second, &canGetOutboundData);
+            const auto &&[protocol, host, port] = GetConnectionInfo(config.second, &canGetOutboundData);
+            const auto outboundData = std::make_tuple(protocol, host, port);
             //
             // ====================================================================================== Begin guessing new ConnectionId
             if (nameMap.contains(_alias))
@@ -668,7 +669,7 @@ namespace Qv2ray::core::handler
                                 tr("Update Subscription"),
                                 tr("There're %n connection(s) in the group that do not belong the current subscription (any more).", "",
                                    originalConnectionIdList.count()) +
-                                    NEWLINE + GetDisplayName(id) + NEWLINE + tr("Would you like to remove them?")) == QMessageBox::Yes;
+                                    NEWLINE + GetDisplayName(id) + NEWLINE + tr("Would you like to remove them?")) == Yes;
             if (needContinue)
             {
                 LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")

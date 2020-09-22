@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>vlessOutEditor</class>
+ <widget class="QWidget" name="vlessOutEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>288</width>
+    <height>178</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="idLabel_2">
+     <property name="text">
+      <string>UUID</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="vLessIDTxt">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="maxLength">
+      <number>36</number>
+     </property>
+     <property name="placeholderText">
+      <string notr="true">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="securityLabel_2">
+     <property name="text">
+      <string>Encryption</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="vLessSecurityCombo">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string notr="true">none</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Flow</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="flowCombo">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string notr="true"/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">xtls-rprx-origin</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">xtls-rprx-origin-udp443</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
