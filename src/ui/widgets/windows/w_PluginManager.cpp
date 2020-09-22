@@ -19,6 +19,7 @@ PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog(parent)
         item->setText(info.Name + " (" + (PluginHost->GetPlugin(info.InternalName)->isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
         pluginListWidget->addItem(item);
     }
+    pluginListWidget->sortItems();
     isLoading = false;
     if (pluginListWidget->count() > 0)
         on_pluginListWidget_currentItemChanged(pluginListWidget->item(0), nullptr);
