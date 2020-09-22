@@ -24,8 +24,12 @@ class SocksOutboundEditor
         return { socks.address, socks.port };
     }
 
-    void SetContent(const QJsonObject &content) override
+    void SetContent(const QJsonObject &source) override
     {
+        auto servers = source["servers"].toArray();
+        if (servers.isEmpty())
+            return;
+        const auto content = servers.first().toObject();
         socks.loadJson(content);
         PLUGIN_EDITOR_LOADING_SCOPE({
             if (socks.users.isEmpty())
@@ -39,7 +43,7 @@ class SocksOutboundEditor
         auto result = socks.toJson();
         if (socks.users.isEmpty())
             result.remove("users");
-        return result;
+        return QJsonObject{ { "servers", QJsonArray{ result } } };
     }
 
   protected:

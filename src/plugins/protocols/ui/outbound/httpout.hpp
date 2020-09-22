@@ -26,11 +26,13 @@ class HttpOutboundEditor
 
     void SetContent(const QJsonObject &source) override
     {
-        const auto content = source["servers"].toArray().first().toObject();
+        auto servers = source["servers"].toArray();
+        if (servers.isEmpty())
+            return;
+        const auto content = servers.first().toObject();
         http.loadJson(content);
         PLUGIN_EDITOR_LOADING_SCOPE({
             if (http.users.isEmpty())
-
                 http.users.push_back({});
             http_UserNameTxt->setText(http.users.first().user);
             http_PasswordTxt->setText(http.users.first().pass);
