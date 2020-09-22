@@ -1,6 +1,5 @@
 #pragma once
 
-#include "QvGUIPluginInterface.hpp"
 #include "QvPluginInterface.hpp"
 
 #include <QObject>
@@ -20,7 +19,7 @@ class InternalProtocolSupportPlugin
     // Basic metainfo of this plugin
     const QvPluginMetadata GetMetadata() const override
     {
-        return { "Built-in Protocol Support",                                                     //
+        return { "Builtin Protocol Support",                                                      //
                  "Qv2ray Core Workgroup",                                                         //
                  "qvplugin_builtin_protocol",                                                     //
                  "Enable built-in VMess, VLESS, SOCKS, HTTP, Shadowsocks, Dokodemo-door support", //
