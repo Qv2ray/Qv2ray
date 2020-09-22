@@ -1,7 +1,7 @@
 #include "ConnectionItemWidget.hpp"
 
-#include "utils/QvHelpers.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "utils/QvHelpers.hpp"
 
 #include <QStyleFactory>
 
@@ -30,7 +30,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionGroupPair &id, QWidge
                                    tr("Error") :                     //
                                    (QSTRN(latency) + " ms")));       //
     //
-    connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id.connectionId));
+    connTypeLabel->setText(GetConnectionProtocolString(id.connectionId).toUpper());
     auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     //

@@ -33,14 +33,14 @@ namespace Qv2ray::core
 
         if (*protocol == "vmess" || *protocol == "vless")
         {
-            auto Server = VMessServerObject::fromJson(QJsonIO::GetValue(out, "settings", "vnext", 0).toObject());
+            const auto Server = VMessServerObject::fromJson(QJsonIO::GetValue(out, "settings", "vnext", 0).toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
         }
         else if (*protocol == "shadowsocks")
         {
-            auto Server = ShadowSocksServerObject::fromJson(QJsonIO::GetValue(out, "settings", "servers", 0).toObject());
+            const auto Server = ShadowSocksServerObject::fromJson(QJsonIO::GetValue(out, "settings", "servers", 0).toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
@@ -48,7 +48,7 @@ namespace Qv2ray::core
         else
         {
             bool status;
-            auto info = PluginHost->TryGetOutboundInfo(*protocol, out["settings"].toObject(), &status);
+            const auto info = PluginHost->TryGetOutboundInfo(*protocol, out["settings"].toObject(), &status);
             *host = info[INFO_SERVER].toString();
             *port = info[INFO_PORT].toInt();
             return status;
@@ -61,7 +61,7 @@ namespace Qv2ray::core
     {
         if (status != nullptr)
             *status = false;
-        auto root = ConnectionManager->GetConnectionRoot(id);
+        const auto root = ConnectionManager->GetConnectionRoot(id);
         return GetConnectionInfo(root, status);
     }
 
@@ -71,9 +71,9 @@ namespace Qv2ray::core
             *status = false;
         //
         //
-        for (auto item : out["outbounds"].toArray())
+        for (const auto &item : out["outbounds"].toArray())
         {
-            OUTBOUND outBoundRoot = OUTBOUND(item.toObject());
+            const auto outBoundRoot = OUTBOUND(item.toObject());
             QString host;
             int port;
             QString outboundType = "";
@@ -106,13 +106,13 @@ namespace Qv2ray::core
 
     uint64_t GetConnectionTotalData(const ConnectionId &id)
     {
-        auto result = GetConnectionUsageAmount(id);
-        return std::get<0>(result) + std::get<1>(result);
+        const auto &[a, b] = GetConnectionUsageAmount(id);
+        return a + b;
     }
 
     int64_t GetConnectionLatency(const ConnectionId &id)
     {
-        auto connection = ConnectionManager->GetConnectionMetaObject(id);
+        const auto connection = ConnectionManager->GetConnectionMetaObject(id);
         return std::max(connection.latency, {});
     }
 
@@ -123,22 +123,24 @@ namespace Qv2ray::core
         {
             return QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER;
         }
-        CONFIGROOT root = ConnectionManager->GetConnectionRoot(id);
-        QString result;
-        QStringList streamProtocols;
-        auto outbound = root["outbounds"].toArray().first().toObject();
-        result.append(outbound["protocol"].toString());
 
-        if (outbound.contains("streamSettings") && outbound["streamSettings"].toObject().contains("network"))
-        {
-            result.append(" / " + outbound["streamSettings"].toObject()["network"].toString());
-            if (outbound["streamSettings"].toObject().contains("tls"))
-            {
-                result.append(outbound["streamSettings"].toObject()["tls"].toBool() ? " / tls" : "");
-            }
-        }
+        const auto root = ConnectionManager->GetConnectionRoot(id);
+        const auto outbound = root["outbounds"].toArray().first().toObject();
 
-        return result;
+        QStringList result;
+        result << outbound["protocol"].toString();
+
+        const auto streamSettings = outbound["streamSettings"].toObject();
+
+        if (streamSettings.contains("network"))
+            result << streamSettings["network"].toString();
+        else
+            result << "tcp";
+
+        if (streamSettings["security"].isString() && streamSettings["security"] != "none")
+            result << streamSettings["security"].toString();
+
+        return result.join("+");
     }
 
     const QString GetDisplayName(const ConnectionId &id, int limit)
