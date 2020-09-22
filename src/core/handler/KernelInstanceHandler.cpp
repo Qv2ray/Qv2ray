@@ -24,12 +24,12 @@ namespace Qv2ray::core::handler
             auto kernel = info->pluginInterface->GetKernel();
             for (const auto &protocol : kernel->GetKernelProtocols())
             {
-                if (outboundKernelMap.contains(protocol))
+                if (kernelMap.contains(protocol))
                 {
                     LOG(MODULE_PLUGINHOST, "Found multiple kernel providers for a protocol: " + protocol)
                     continue;
                 }
-                outboundKernelMap.insert(protocol, internalName);
+                kernelMap.insert(protocol, internalName);
             }
         }
     }
@@ -63,8 +63,7 @@ namespace Qv2ray::core::handler
                 auto result = components::port::CheckTCPPortStatus("127.0.0.1", GlobalConfig.pluginConfig.portAllocationStart + i);
                 if (!result)
                 {
-                    portDetectionErrorMessage << tr("Port: %1 for listening IP: 127.0.0.1 for plugin integration.")
-                                                     .arg(GlobalConfig.pluginConfig.portAllocationStart + i);
+                    portDetectionErrorMessage << tr("Port: %1 for plugin integration.").arg(GlobalConfig.pluginConfig.portAllocationStart + i);
                 }
             }
         }
@@ -105,7 +104,7 @@ namespace Qv2ray::core::handler
                 auto outbound = QJsonIO::GetValue(fullConfig, "outbounds", i).toObject();
                 const auto outProtocol = outbound["protocol"].toString();
                 //
-                if (!outboundKernelMap.contains(outProtocol))
+                if (!kernelMap.contains(outProtocol))
                 {
                     // Normal outbound, or the one without a plugin supported.
                     // Marked as processed.
@@ -114,7 +113,7 @@ namespace Qv2ray::core::handler
                     continue;
                 }
                 LOG(MODULE_CONNECTION, "Creating kernel plugin instance for protocol" + outProtocol)
-                auto kernel = PluginHost->GetPlugin(outboundKernelMap[outProtocol])->pluginInterface->GetKernel()->CreateKernel();
+                auto kernel = PluginHost->GetPlugin(kernelMap[outProtocol])->pluginInterface->GetKernel()->CreateKernel();
                 // New object does not need disconnect?
                 // disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                 //
@@ -197,14 +196,13 @@ namespace Qv2ray::core::handler
                     PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
                 }
             }
-            else if (outboundKernelMap.contains(firstOutboundProtocol))
+            else if (kernelMap.contains(firstOutboundProtocol))
             {
                 // Connections without V2Ray Integration will have and ONLY have ONE kernel.
                 LOG(MODULE_CONNECTION, "Starting kernel " + firstOutboundProtocol + " without V2Ray Integration")
                 {
-                    auto kernel = PluginHost->GetPlugin(outboundKernelMap[firstOutbound["protocol"].toString()])
-                                      ->pluginInterface->GetKernel()
-                                      ->CreateKernel();
+                    auto kernel =
+                        PluginHost->GetPlugin(kernelMap[firstOutbound["protocol"].toString()])->pluginInterface->GetKernel()->CreateKernel();
                     activeKernels.push_back({ firstOutboundProtocol, std::move(kernel) });
                 }
                 Q_ASSERT(activeKernels.size() == 1);

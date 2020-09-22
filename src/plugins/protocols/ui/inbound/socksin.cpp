@@ -1,6 +1,6 @@
 #include "socksin.hpp"
 
-#include "QvPluginInterface.hpp"
+#include "BuiltinProtocolPlugin.hpp"
 
 SocksInboundEditor::SocksInboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
 {
@@ -58,7 +58,7 @@ void SocksInboundEditor::on_socksRemoveUserBtn_clicked()
     }
     else
     {
-        Qv2rayPlugin::pluginInstance->PluginErrorMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
+        InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
     }
 }
 
@@ -76,7 +76,7 @@ void SocksInboundEditor::on_socksAddUserBtn_clicked()
 
         if (_user["user"].toString() == user)
         {
-            Qv2rayPlugin::pluginInstance->PluginErrorMessageBox(tr("Add a user"), tr("This user exists already."));
+            InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Add a user"), tr("This user exists already."));
             return;
         }
     }

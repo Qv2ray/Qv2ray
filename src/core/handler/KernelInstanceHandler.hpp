@@ -75,7 +75,7 @@ namespace Qv2ray::core::handler
             return result;
         }
 
-        QMap<QString, QString> outboundKernelMap;
+        QMap<QString, QString> kernelMap;
         // Since QMap does not support std::unique_ptr, we use std::map<>
         std::list<std::pair<QString, std::unique_ptr<PluginKernel>>> activeKernels;
         QMap<QString, ProtocolSettingsInfoObject> inboundInfo;

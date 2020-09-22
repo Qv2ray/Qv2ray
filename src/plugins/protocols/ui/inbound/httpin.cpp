@@ -1,6 +1,6 @@
 #include "httpin.hpp"
 
-#include "QvPluginInterface.hpp"
+#include "BuiltinProtocolPlugin.hpp"
 
 HTTPInboundEditor::HTTPInboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
 {
@@ -50,7 +50,7 @@ void HTTPInboundEditor::on_httpRemoveUserBtn_clicked()
     PLUGIN_EDITOR_LOADING_GUARD
     if (httpAccountListBox->currentRow() < 0)
     {
-        Qv2rayPlugin::pluginInstance->PluginErrorMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
+        InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
         return;
     }
     const auto item = httpAccountListBox->currentItem();
@@ -83,7 +83,7 @@ void HTTPInboundEditor::on_httpAddUserBtn_clicked()
         const auto _user = list[i].toObject();
         if (_user["user"].toString() == user)
         {
-            Qv2rayPlugin::pluginInstance->PluginErrorMessageBox(tr("Add a user"), tr("This user exists already."));
+            InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Add a user"), tr("This user exists already."));
             return;
         }
     }

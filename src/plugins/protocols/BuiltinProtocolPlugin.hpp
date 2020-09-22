@@ -38,3 +38,5 @@ class InternalProtocolSupportPlugin
     void PluginLog(const QString &) const override;
     void PluginErrorMessageBox(const QString &, const QString &) const override;
 };
+
+DECLARE_PLUGIN_INSTANCE(InternalProtocolSupportPlugin);
