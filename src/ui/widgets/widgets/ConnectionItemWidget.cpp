@@ -139,7 +139,7 @@ void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionGroupPair &i
 void ConnectionItemWidget::OnConnectionModified(const ConnectionId &id)
 {
     if (connectionId == id)
-        connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id));
+        connTypeLabel->setText(GetConnectionProtocolString(id).toUpper());
 }
 
 void ConnectionItemWidget::OnLatencyTestStart(const ConnectionId &id)

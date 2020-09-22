@@ -94,7 +94,6 @@
            <property name="font">
             <font>
              <pointsize>8</pointsize>
-             <italic>true</italic>
             </font>
            </property>
            <property name="text">

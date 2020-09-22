@@ -137,7 +137,8 @@ namespace Qv2ray::core
         else
             result << "tcp";
 
-        if (streamSettings["security"].isString() && streamSettings["security"] != "none")
+        const auto security = streamSettings["security"].toString();
+        if (!security.isEmpty() && security != "none")
             result << streamSettings["security"].toString();
 
         return result.join("+");
