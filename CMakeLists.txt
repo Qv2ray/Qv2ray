@@ -101,6 +101,12 @@ QVLOG(QV2RAY_DISABLE_AUTO_UPDATE)
 
 option(QV2RAY_HAS_BUILTIN_PLUGINS "Build With Built-in Plugins" ON)
 QVLOG(QV2RAY_HAS_BUILTIN_PLUGINS)
+if(QV2RAY_HAS_BUILTIN_PLUGINS)
+    option(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN "Build With Built-in Protocol Support Plugin" ON)
+    QVLOG(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN)
+    option(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN "Build With Built-in Subscription Plugin" OFF)
+    QVLOG(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN)
+endif()
 
 option(QV2RAY_EMBED_TRANSLATIONS "Embed Translations" OFF)
 option(QV2RAY_USE_QML "Use QML as Qv2ray GUI" OFF)
@@ -310,10 +316,12 @@ target_include_directories(qv2ray-baselib PUBLIC
 # ==================================================================================
 # Qv2ray Builtin Plugins
 # ==================================================================================
-if(QV2RAY_HAS_BUILTIN_PLUGINS)
+if(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN)
     include(src/plugins/protocols/QvPlugin-BuiltinProtocolSupport.cmake)
 endif()
-
+if(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN)
+    include(src/plugins/subscription-adapters/QvPlugin-BuiltinSubscriptionAdapters.cmake)
+endif()
 # ==================================================================================
 # Qv2ray UI Frontend
 # ==================================================================================
