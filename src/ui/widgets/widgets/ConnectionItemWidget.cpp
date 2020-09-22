@@ -30,7 +30,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionGroupPair &id, QWidge
                                    tr("Error") :                     //
                                    (QSTRN(latency) + " ms")));       //
     //
-    connTypeLabel->setText(GetConnectionProtocolString(id.connectionId).toUpper());
+    connTypeLabel->setText(GetConnectionProtocolString(id.connectionId));
     auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     //
@@ -139,7 +139,7 @@ void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionGroupPair &i
 void ConnectionItemWidget::OnConnectionModified(const ConnectionId &id)
 {
     if (connectionId == id)
-        connTypeLabel->setText(GetConnectionProtocolString(id).toUpper());
+        connTypeLabel->setText(GetConnectionProtocolString(id));
 }
 
 void ConnectionItemWidget::OnLatencyTestStart(const ConnectionId &id)

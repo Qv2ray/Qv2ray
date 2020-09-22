@@ -93,7 +93,7 @@
           <widget class="QLabel" name="connTypeLabel">
            <property name="font">
             <font>
-             <pointsize>8</pointsize>
+             <pointsize>9</pointsize>
             </font>
            </property>
            <property name="text">
