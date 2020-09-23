@@ -86,6 +86,16 @@
        <string notr="true">xtls-rprx-origin-udp443</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+       <string notr="true">xtls-rprx-direct</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">xtls-rprx-direct-udp443</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>
