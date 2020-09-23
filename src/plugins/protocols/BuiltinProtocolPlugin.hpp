@@ -19,12 +19,12 @@ class InternalProtocolSupportPlugin
     // Basic metainfo of this plugin
     const QvPluginMetadata GetMetadata() const override
     {
-        return { "Builtin Protocol Support",                                                      //
-                 "Qv2ray Core Workgroup",                                                         //
-                 "qvplugin_builtin_protocol",                                                     //
-                 "Enable built-in VMess, VLESS, SOCKS, HTTP, Shadowsocks, Dokodemo-door support", //
-                 QV2RAY_VERSION_STRING,                                                           //
-                 "Qv2ray/Qv2ray",                                                                 //
+        return { "Builtin Protocol Support",                                                  //
+                 "Qv2ray Core Workgroup",                                                     //
+                 "qvplugin_builtin_protocol",                                                 //
+                 "VMess, VLESS, SOCKS, HTTP, Shadowsocks, DNS, Dokodemo-door editor support", //
+                 QV2RAY_VERSION_STRING,                                                       //
+                 "Qv2ray/Qv2ray",                                                             //
                  {
                      COMPONENT_OUTBOUND_HANDLER, //
                      COMPONENT_GUI               //
