@@ -40,7 +40,7 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
         pluginSettingsLayout->removeWidget(currentSettingsWidget.get());
         currentSettingsWidget.reset();
     }
-
+    pluginIconLabel->clear();
     if (!current)
         return;
 
@@ -60,22 +60,28 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
         pluginUnloadLabel->setText(tr("Plugin Not Loaded"));
         return;
     }
-    const auto pluginUIInterface = currentPluginInfo->pluginInterface->GetGUIInterface();
-    if (currentPluginInfo->hasComponent(COMPONENT_GUI) && pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
+
+    if (currentPluginInfo->hasComponent(COMPONENT_GUI))
     {
+        const auto pluginUIInterface = currentPluginInfo->pluginInterface->GetGUIInterface();
         pluginGuiComponentsLabel->setText(GetPluginComponentsString(pluginUIInterface->GetComponents()).join(NEWLINE));
-        pluginIconLabel->setPixmap({});
-        pluginIconLabel->clear();
         pluginIconLabel->setPixmap(pluginUIInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
-        currentSettingsWidget = pluginUIInterface->GetSettingsWidget();
-        currentSettingsWidget->SetSettings(currentPluginInfo->pluginInterface->GetSettngs());
-        pluginUnloadLabel->setVisible(false);
-        pluginSettingsLayout->addWidget(currentSettingsWidget.get());
+        if (pluginUIInterface->GetComponents().contains(GUI_COMPONENT_SETTINGS))
+        {
+            currentSettingsWidget = pluginUIInterface->GetSettingsWidget();
+            currentSettingsWidget->SetSettings(currentPluginInfo->pluginInterface->GetSettngs());
+            pluginUnloadLabel->setVisible(false);
+            pluginSettingsLayout->addWidget(currentSettingsWidget.get());
+        }
+        else
+        {
+            pluginUnloadLabel->setVisible(true);
+            pluginUnloadLabel->setText(tr("Plugin does not have settings widget."));
+        }
     }
     else
     {
-        pluginUnloadLabel->setVisible(true);
-        pluginUnloadLabel->setText(tr("Plugin does not have settings widget."));
+        pluginGuiComponentsLabel->setText(tr("None"));
     }
 }
 
