@@ -217,7 +217,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: Qv2ray.dmg
-          asset_name: Qv2ray-${{ steps.get_version.outputs.VERSION }}.macOS-${{ matrix.arch }}.dmg
+          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.macOS-${{ matrix.arch }}.dmg
           tag: ${{ github.ref }}
           overwrite: true
       # --------------------------------------------------------
