@@ -7,8 +7,9 @@
 #ifdef Q_OS_LINUX
 #elif defined(Q_OS_WIN32)
     #include <QSettings>
-#else
-// TODO: macOS headers.
+#elif defined(Q_OS_MAC)
+    #include <CoreServices/CoreServices.h>
+    #include <CoreFoundation/CoreFoundation.h>
 #endif
 
 namespace Qv2ray::components::darkmode
@@ -17,15 +18,30 @@ namespace Qv2ray::components::darkmode
     // Copyright (C) 2020 KeePassXC Team <team@keepassxc.org>
     bool isDarkMode()
     {
+#if defined(Q_OS_WIN32)
+        QSettings settings(R"(HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize)", QSettings::NativeFormat);
+        return settings.value("AppsUseLightTheme", 1).toInt() == 0;
+#elif defined(Q_OS_MAC)
+        bool isDark = false;
+
+        CFStringRef uiStyleKey = CFSTR("AppleInterfaceStyle");
+        CFStringRef uiStyle = nullptr;
+        CFStringRef darkUiStyle = CFSTR("Dark");
+
+        if (uiStyle = (CFStringRef)CFPreferencesCopyAppValue(uiStyleKey, kCFPreferencesCurrentApplication);
+           uiStyle) {
+           isDark = (kCFCompareEqualTo == CFStringCompare(uiStyle, darkUiStyle, 0));
+           CFRelease(uiStyle);
+        }
+
+        return isDark;
+#endif
+        
         if (!qApp || !qApp->style())
         {
             return false;
         }
         return qApp->style()->standardPalette().color(QPalette::Window).toHsl().lightness() < 110;
-#if defined(Q_OS_WIN32)
-        QSettings settings(R"(HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize)", QSettings::NativeFormat);
-        return settings.value("AppsUseLightTheme", 1).toInt() == 0;
-#endif
     }
 
 } // namespace Qv2ray::components::darkmode
