@@ -18,8 +18,8 @@ class SAFETYPE_IMPL : public BASETYPE_T
     }
 };
 
-#define SAFE_TYPEDEF(BASE, CLASS)                                                                                                               \
-    class __##CLASS##__;                                                                                                                        \
+#define SAFE_TYPEDEF(BASE, CLASS)                                                                                                                    \
+    class __##CLASS##__;                                                                                                                             \
     typedef SAFETYPE_IMPL<__##CLASS##__, BASE> CLASS;
 
 #define nothing
@@ -46,10 +46,11 @@ namespace Qv2ray::base::safetype
       private:
         typedef QvPair<T1, T2> ___qvpair_t;
     };
+
     template<typename enumKey, typename TValue, typename = typename std::enable_if<std::is_enum<enumKey>::value>::type>
     struct QvEnumMap : QMap<enumKey, TValue>
     {
-        // WARN: Changing this will bread all existing JSON.
+        // WARN: Changing this will break all existing JSON.
         static constexpr auto ENUM_JSON_KEY_PREFIX = "$";
         void loadJson(const QJsonValue &json_object)
         {

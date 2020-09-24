@@ -27,21 +27,21 @@ using Qv2ray::common::validation::IsIPv6Address;
 using Qv2ray::common::validation::IsValidDNSServer;
 using Qv2ray::common::validation::IsValidIPAddress;
 
-#define LOADINGCHECK                                                                                                                            \
-    if (!finishedLoading)                                                                                                                       \
+#define LOADINGCHECK                                                                                                                                 \
+    if (!finishedLoading)                                                                                                                            \
         return;
-#define NEEDRESTART                                                                                                                             \
-    LOADINGCHECK                                                                                                                                \
-    if (finishedLoading)                                                                                                                        \
+#define NEEDRESTART                                                                                                                                  \
+    LOADINGCHECK                                                                                                                                     \
+    if (finishedLoading)                                                                                                                             \
         NeedRestart = true;
 
-#define SET_PROXY_UI_ENABLE(_enabled)                                                                                                           \
-    qvProxyTypeCombo->setEnabled(_enabled);                                                                                                     \
-    qvProxyAddressTxt->setEnabled(_enabled);                                                                                                    \
+#define SET_PROXY_UI_ENABLE(_enabled)                                                                                                                \
+    qvProxyTypeCombo->setEnabled(_enabled);                                                                                                          \
+    qvProxyAddressTxt->setEnabled(_enabled);                                                                                                         \
     qvProxyPortCB->setEnabled(_enabled);
 
-#define SET_AUTOSTART_UI_ENABLED(_enabled)                                                                                                      \
-    autoStartConnCombo->setEnabled(_enabled);                                                                                                   \
+#define SET_AUTOSTART_UI_ENABLED(_enabled)                                                                                                           \
+    autoStartConnCombo->setEnabled(_enabled);                                                                                                        \
     autoStartSubsCombo->setEnabled(_enabled);
 
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), CurrentConfig()
@@ -226,8 +226,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
 
         autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
-        for (const auto &conn : ConnectionManager->Connections(autoStartGroupId))
-            autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
+        for (const auto &conn : ConnectionManager->Connections(autoStartGroupId)) autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
 
         autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
     }
@@ -316,8 +315,7 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ivp4 address."));
     }
-    else if (CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP != "" &&
-             !IsIPv6Address(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP))
+    else if (CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP != "" && !IsIPv6Address(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP))
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ipv6 address."));
     }
@@ -699,8 +697,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     QString result;
 
     // prevent some bullshit situations.
-    if (const auto vCorePathSmallCased = vcorePath.toLower();
-        vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
+    if (const auto vCorePathSmallCased = vcorePath.toLower(); vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
     {
         const auto strWarnTitle = tr("Watch Out!");
         const auto strWarnContent = //
@@ -743,8 +740,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     else
     {
         QvMessageBoxInfo(this, tr("V2Ray Core Settings"),
-                         tr("V2Ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2Ray is: ") + NEWLINE +
-                             result);
+                         tr("V2Ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2Ray is: ") + NEWLINE + result);
     }
 }
 
@@ -794,7 +790,7 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
 void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
 {
     LOADINGCHECK
-    CurrentConfig.updateConfig.updateChannel = index;
+    CurrentConfig.updateConfig.updateChannel = (Qv2rayConfig_Update::UpdateChannel) index;
     CurrentConfig.updateConfig.ignoredVersion.clear();
 }
 

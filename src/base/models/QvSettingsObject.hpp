@@ -11,10 +11,10 @@ namespace Qv2ray::base::config
 {
     struct QvGraphPenConfig
     {
-        int R, G, B;
-        float width;
-        Qt::PenStyle style;
-        QvGraphPenConfig() : R(150), G(150), B(150), width(1.5f), style(Qt::SolidLine){};
+        int R = 150, G = 150, B = 150;
+        float width = 1.5f;
+        Qt::PenStyle style = Qt::SolidLine;
+        QvGraphPenConfig(){};
         QvGraphPenConfig(int R, int G, int B, float w, Qt::PenStyle s)
         {
             this->R = R;
@@ -28,34 +28,24 @@ namespace Qv2ray::base::config
 
     struct Qv2rayConfig_Graph
     {
-        bool useOutboundStats;
-        bool hasDirectStats;
-        Qv2rayConfig_Graph() : useOutboundStats(false), hasDirectStats(false){};
+        bool useOutboundStats = true;
+        bool hasDirectStats = true;
         safetype::QvEnumMap<StatisticsType, safetype::QvPair<QvGraphPenConfig>> colorConfig;
         JSONSTRUCT_REGISTER(Qv2rayConfig_Graph, F(useOutboundStats, hasDirectStats, colorConfig))
     };
 
     struct Qv2rayConfig_UI
     {
-        QString theme;
-        QString language;
+        QString theme = "Fusion";
+        QString language = "en_US";
         QList<ConnectionGroupPair> recentConnections;
         Qv2rayConfig_Graph graphConfig;
-        bool quietMode;
-        bool useDarkTheme;
-        bool useDarkTrayIcon;
-        int maximumLogLines;
-        int maxJumpListCount;
-        bool useOldShareLinkFormat;
-        Qv2rayConfig_UI()
-            : theme("Fusion"),             //
-              language("en_US"),           //
-              useDarkTheme(false),         //
-              useDarkTrayIcon(true),       //
-              maximumLogLines(500),        //
-              maxJumpListCount(20),        //
-              useOldShareLinkFormat(false) // v2.7.0-alpha1: Changed to false
-              {};
+        bool quietMode = false;
+        bool useDarkTheme = false;
+        bool useDarkTrayIcon = false;
+        int maximumLogLines = 500;
+        int maxJumpListCount = 20;
+        bool useOldShareLinkFormat = false;
         JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines,
                                                maxJumpListCount, recentConnections, useOldShareLinkFormat))
     };
@@ -63,16 +53,15 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_Plugin
     {
         QMap<QString, bool> pluginStates;
-        bool v2rayIntegration;
-        int portAllocationStart;
-        Qv2rayConfig_Plugin() : pluginStates(), v2rayIntegration(true), portAllocationStart(15000){};
+        bool v2rayIntegration = true;
+        int portAllocationStart = 15000;
         JSONSTRUCT_REGISTER(Qv2rayConfig_Plugin, F(pluginStates, v2rayIntegration, portAllocationStart))
     };
 
     struct Qv2rayConfig_Kernel
     {
-        bool enableAPI;
-        int statsPort;
+        bool enableAPI = true;
+        int statsPort = 15490;
         //
         QString v2CorePath_linux;
         QString v2AssetsPath_linux;
@@ -80,11 +69,6 @@ namespace Qv2ray::base::config
         QString v2AssetsPath_macx;
         QString v2CorePath_win;
         QString v2AssetsPath_win;
-        explicit Qv2rayConfig_Kernel()
-        {
-            enableAPI = true;
-            statsPort = 15490;
-        }
 
 #ifdef Q_OS_LINUX
     #define _VARNAME_VCOREPATH_ v2CorePath_linux
@@ -118,52 +102,47 @@ namespace Qv2ray::base::config
 
     struct Qv2rayConfig_Update
     {
+        enum UpdateChannel
+        {
+            CHANNEL_STABLE = 0,
+            CHANNEL_TESTING = 1
+        };
+        UpdateChannel updateChannel = CHANNEL_STABLE;
         QString ignoredVersion;
-        ///
-        /// \brief updateChannel
-        /// 0: Stable
-        /// 1: Testing
-        int updateChannel;
         JSONSTRUCT_REGISTER(Qv2rayConfig_Update, F(ignoredVersion, updateChannel))
     };
 
     struct Qv2rayConfig_Advanced
     {
-        bool setAllowInsecure;
-        bool setSessionResumption;
-        bool testLatencyPeriodcally;
+        bool setAllowInsecure = false;
+        bool setSessionResumption = false;
+        bool testLatencyPeriodcally = false;
         JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally))
     };
 
     enum Qv2rayLatencyTestingMethod
     {
-        TCPING,
-        ICMPING,
-        REALPING
+        TCPING = 0,
+        ICMPING = 1,
+        REALPING = 2
     };
 
     struct Qv2rayConfig_Network
     {
-        Qv2rayLatencyTestingMethod latencyTestingMethod;
-        QString latencyRealPingTestURL;
-        enum Qv2rayProxyType : int
+        enum Qv2rayProxyType
         {
             QVPROXY_NONE = 0,
             QVPROXY_SYSTEM = 1,
             QVPROXY_CUSTOM = 2
-        } proxyType;
+        };
 
-        QString address;
-        QString type;
-        int port;
-        QString userAgent;
-        Qv2rayConfig_Network()
-            : latencyRealPingTestURL("https://www.google.com"), //
-              proxyType(QVPROXY_NONE),                          //
-              address("127.0.0.1"),                             //
-              type("http"),                                     //
-              port(8000),                                       //
-              userAgent("Qv2ray/$VERSION WebRequestHelper"){};
+        Qv2rayLatencyTestingMethod latencyTestingMethod = TCPING;
+        QString latencyRealPingTestURL = "https://www.google.com";
+        Qv2rayProxyType proxyType = QVPROXY_NONE;
+        QString address = "127.0.0.1";
+        QString type = "http";
+        int port = 8000;
+        QString userAgent = "Qv2ray/$VERSION WebRequestHelper";
         JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent))
     };
 
@@ -177,11 +156,11 @@ namespace Qv2ray::base::config
     struct Qv2rayConfigObject
     {
         int config_version;
-        int logLevel;
+        int logLevel = 0;
         //
         ConnectionGroupPair autoStartId;
         ConnectionGroupPair lastConnectedId;
-        Qv2rayAutoConnectionBehavior autoStartBehavior;
+        Qv2rayAutoConnectionBehavior autoStartBehavior = AUTO_CONNECTION_NONE;
         //
         Qv2rayConfig_UI uiConfig;
         Qv2rayConfig_Plugin pluginConfig;

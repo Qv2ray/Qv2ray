@@ -40,68 +40,55 @@ namespace Qv2ray::base::config
 
     struct QvConfig_Outbounds
     {
-        int mark;
-        QvConfig_Outbounds() : mark(255){};
+        int mark = 255;
         JSONSTRUCT_REGISTER(QvConfig_Outbounds, F(mark))
     };
 
     struct QvConfig_ForwardProxy
     {
-        bool enableForwardProxy;
-        QString type;
+        bool enableForwardProxy = false;
+        QString type = "http";
         QString serverAddress;
         int port;
-        bool useAuth;
+        bool useAuth = false;
         QString username;
         QString password;
-        QvConfig_ForwardProxy()
-            : enableForwardProxy(false), type("http"), serverAddress("127.0.0.1"), port(8008), useAuth(false), username(), password(){};
         JSONSTRUCT_REGISTER(QvConfig_ForwardProxy, F(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
     };
 
     struct QvConfig_Connection
     {
-        bool enableProxy;
-        bool bypassCN;
-        bool bypassBT;
-        bool bypassLAN;
-        bool v2rayFreedomDNS;
-        bool withLocalDNS;
-        bool dnsIntercept;
-        QvConfig_Connection()
-            : enableProxy(true),      //
-              bypassCN(true),         //
-              bypassBT(false),        //
-              bypassLAN(true),        //
-              v2rayFreedomDNS(false), //
-              withLocalDNS(false),    //
-              dnsIntercept(false)     //
-              {};
+        bool enableProxy = true;
+        bool bypassCN = true;
+        bool bypassBT = false;
+        bool bypassLAN = true;
+        bool v2rayFreedomDNS = false;
+        bool withLocalDNS = true;
+        bool dnsIntercept = false;
         JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept))
     };
 
     struct QvConfig_SystemProxy
     {
-        bool setSystemProxy;
-        QvConfig_SystemProxy() : setSystemProxy(true){};
+        bool setSystemProxy = true;
         JSONSTRUCT_REGISTER(QvConfig_SystemProxy, F(setSystemProxy))
     };
 
     struct __Qv2rayConfig_ProtocolInboundBase
     {
         int port;
-        bool useAuth;
-        bool sniffing;
+        bool useAuth = false;
+        bool sniffing = false;
         objects::AccountObject account;
-        __Qv2rayConfig_ProtocolInboundBase(int _port = 0) : port(_port), useAuth(false), sniffing(false), account(){};
+        __Qv2rayConfig_ProtocolInboundBase(int _port = 0) : port(_port){};
         JSONSTRUCT_REGISTER(__Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, account))
     };
 
     struct QvConfig_SocksInbound : __Qv2rayConfig_ProtocolInboundBase
     {
-        bool enableUDP;
-        QString localIP;
-        QvConfig_SocksInbound() : __Qv2rayConfig_ProtocolInboundBase(1089), enableUDP(true), localIP("127.0.0.1"){};
+        bool enableUDP = true;
+        QString localIP = "127.0.0.1";
+        QvConfig_SocksInbound() : __Qv2rayConfig_ProtocolInboundBase(1089){};
         JSONSTRUCT_REGISTER(QvConfig_SocksInbound, B(__Qv2rayConfig_ProtocolInboundBase), F(enableUDP, localIP))
     };
 
@@ -113,36 +100,26 @@ namespace Qv2ray::base::config
 
     struct QvConfig_TProxy
     {
-        QString tProxyIP;
+        QString tProxyIP = "127.0.0.1";
         QString tProxyV6IP;
-        int port;
-        bool hasTCP;
-        bool hasUDP;
-        QString mode;
-        QvConfig_TProxy()
-            : tProxyIP("127.0.0.1"), //
-              tProxyV6IP(""),        //
-              port(12345),           //
-              hasTCP(true),          //
-              hasUDP(false),         //
-              mode("tproxy")         //
-              {};
+        int port = 12345;
+        bool hasTCP = true;
+        bool hasUDP = true;
+        QString mode = "tproxy";
         JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, mode))
     };
 
     struct QvConfig_Inbounds
     {
-        QString listenip;
-        bool useSocks;
-        bool useHTTP;
-        bool useTPROXY;
+        QString listenip = "127.0.0.1";
+        bool useSocks = true;
+        bool useHTTP = true;
+        bool useTPROXY = false;
         //
         QvConfig_TProxy tProxySettings;
         QvConfig_HttpInbound httpSettings;
         QvConfig_SocksInbound socksSettings;
         QvConfig_SystemProxy systemProxySettings;
-        QvConfig_Inbounds() : listenip("127.0.0.1"), useSocks(true), useHTTP(true), useTPROXY(false){};
-
         JSONSTRUCT_REGISTER(QvConfig_Inbounds,                         //
                             F(listenip, useSocks, useHTTP, useTPROXY), //
                             F(tProxySettings, httpSettings, socksSettings, systemProxySettings))

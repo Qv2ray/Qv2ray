@@ -94,34 +94,25 @@ namespace Qv2ray::base
     struct __Qv2rayConfigObjectBase
     {
         QString displayName;
-        qint64 creationDate;
-        qint64 lastUpdatedDate;
-        __Qv2rayConfigObjectBase()
-            : displayName(), creationDate(system_clock::to_time_t(system_clock::now())), //
-              lastUpdatedDate(system_clock::to_time_t(system_clock::now())){};           //
+        qint64 creationDate = system_clock::to_time_t(system_clock::now());
+        qint64 lastUpdatedDate = system_clock::to_time_t(system_clock::now());
         JSONSTRUCT_REGISTER(__Qv2rayConfigObjectBase, F(displayName, creationDate, lastUpdatedDate))
     };
 
     struct GroupRoutingConfig : __Qv2rayConfigObjectBase
     {
-        bool overrideDNS;
+        bool overrideDNS = false;
         config::QvConfig_DNS dnsConfig;
         //
-        bool overrideRoute;
+        bool overrideRoute = false;
         config::QvConfig_Route routeConfig;
         //
-        bool overrideConnectionConfig;
+        bool overrideConnectionConfig = false;
         config::QvConfig_Connection connectionConfig;
         //
-        bool overrideForwardProxyConfig;
+        bool overrideForwardProxyConfig = false;
         config::QvConfig_ForwardProxy forwardProxyConfig;
         //
-        GroupRoutingConfig()
-            : overrideDNS(false),               //
-              overrideRoute(false),             //
-              overrideConnectionConfig(false),  //
-              overrideForwardProxyConfig(false) //
-              {};
         JSONSTRUCT_REGISTER(GroupRoutingConfig,                            //
                             F(overrideRoute, routeConfig),                 //
                             F(overrideDNS, dnsConfig),                     //
@@ -138,27 +129,23 @@ namespace Qv2ray::base
     struct SubscriptionConfigObject
     {
         QString address;
-        QString type;
-        float updateInterval;
-        SubscriptionFilterRelation IncludeRelation;
+        QString type = "simple_base64";
+        float updateInterval = 10;
         QList<QString> IncludeKeywords;
-        SubscriptionFilterRelation ExcludeRelation;
         QList<QString> ExcludeKeywords;
-        SubscriptionConfigObject()
-            : address(""), type("simple_base64"), updateInterval(10), //
-              IncludeRelation(RELATION_OR), IncludeKeywords(),        //
-              ExcludeRelation(RELATION_AND), ExcludeKeywords(){};
+        SubscriptionFilterRelation IncludeRelation = RELATION_OR;
+        SubscriptionFilterRelation ExcludeRelation = RELATION_AND;
         JSONSTRUCT_REGISTER(SubscriptionConfigObject,
                             F(updateInterval, address, type, IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
     };
 
     struct GroupObject : __Qv2rayConfigObjectBase
     {
+        bool isSubscription = false;
         QList<ConnectionId> connections;
-        bool isSubscription;
         GroupRoutingId routeConfigId;
         SubscriptionConfigObject subscriptionOption;
-        GroupObject() : __Qv2rayConfigObjectBase(), connections(), isSubscription(false), subscriptionOption(){};
+        GroupObject() : __Qv2rayConfigObjectBase(){};
         JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
@@ -231,19 +218,11 @@ namespace Qv2ray::base
     struct ConnectionObject : __Qv2rayConfigObjectBase
     {
         qint64 lastConnected;
-        qint64 latency;
-        ConnectionImportSource importSource;
+        qint64 latency = LATENCY_TEST_VALUE_NODATA;
+        ConnectionImportSource importSource = IMPORT_SOURCE_MANUAL;
         ConnectionStatsObject stats;
         //
-        int __qvConnectionRefCount;
-        //
-        ConnectionObject()
-            : lastConnected(),                    //
-              latency(LATENCY_TEST_VALUE_NODATA), //
-              importSource(IMPORT_SOURCE_MANUAL), //
-              stats(),                            //
-              __qvConnectionRefCount(0)           //
-              {};
+        int __qvConnectionRefCount = 0;
         JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
     };
 
