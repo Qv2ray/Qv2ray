@@ -1278,7 +1278,7 @@ Custom DNS Settings</string>
              <item row="1" column="0" colspan="2">
               <widget class="QGroupBox" name="tproxGroupBox">
                <property name="title">
-                <string>Transparent Proxy Settings</string>
+                <string>Dokodemo Door Settings</string>
                </property>
                <property name="checkable">
                 <bool>true</bool>
