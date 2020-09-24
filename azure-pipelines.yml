@@ -19,11 +19,13 @@ steps:
     inputs:
       versionSpec: "12.x"
   - script: |
-      brew install protobuf grpc ninja qt5 pkg-config
+      pip3 install aqtinstall
+      aqt install --outputdir $AGENT_BUILDDIRECTORY/qt 5.15.1 mac desktop
+      brew install protobuf grpc ninja pkg-config tree
       npm install -g appdmg
     displayName: Prepare dependencies
   - script: |
-      PATH=/usr/local/opt/qt5/bin:$PATH
+      PATH=$AGENT_BUILDDIRECTORY/qt/5.15.1/clang_64/bin:$PATH
       mkdir build
       cd build
       cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.12
@@ -32,7 +34,7 @@ steps:
       appdmg ../assets/package_dmg.json ../qv2ray-legacy.dmg
     displayName: Build Qv2ray
     env:
-      Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
+      Qt5_DIR: $(Agent.BuildDirectory)/qt/5.15.1/clang_64/lib/cmake/Qt5
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: "qv2ray-legacy.dmg"
