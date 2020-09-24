@@ -96,7 +96,7 @@
            <string>Add Subscription</string>
           </property>
           <property name="icon">
-           <iconset resource="../../../resources.new.qrc">
+           <iconset resource="../../../../resources.new.qrc">
             <normaloff>:/assets/icons/ui_dark/add.svg</normaloff>:/assets/icons/ui_dark/add.svg</iconset>
           </property>
          </widget>
@@ -116,7 +116,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../../resources.new.qrc">
+           <iconset resource="../../../../resources.new.qrc">
             <normaloff>:/assets/icons/ui_dark/minus.svg</normaloff>:/assets/icons/ui_dark/minus.svg</iconset>
           </property>
          </widget>
@@ -245,27 +245,44 @@
            <widget class="QLineEdit" name="subAddrTxt"/>
           </item>
           <item row="1" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Subscription Type</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="subscriptionTypeCB">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
            <widget class="QLabel" name="label_6">
             <property name="text">
              <string>Last Updated</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QLabel" name="lastUpdatedLabel">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Update Notify Interval</string>
+             <string>Update Interval</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="QDoubleSpinBox" name="updateIntervalSB">
@@ -302,84 +319,83 @@
             </item>
            </layout>
           </item>
-          <item row="3" column="0" colspan="2">
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="title">
-             <string>Import Filters</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1,0,1">
-             <item row="1" column="2" colspan="2">
-              <widget class="QPlainTextEdit" name="ExcludeKeywords">
-               <property name="placeholderText">
-                <string>Leave blank to exclude nothing</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="3">
-              <widget class="QComboBox" name="ExcludeRelation">
-               <item>
-                <property name="text">
-                 <string notr="true">And</string>
-                </property>
+          <item row="4" column="0" colspan="2">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QGroupBox" name="groupBox_4">
+              <property name="title">
+               <string>Import Include Filters</string>
+              </property>
+              <layout class="QFormLayout" name="formLayout_4">
+               <item row="0" column="0" colspan="2">
+                <widget class="QPlainTextEdit" name="IncludeKeywords">
+                 <property name="placeholderText">
+                  <string>Leave blank to include all</string>
+                 </property>
+                </widget>
                </item>
-               <item>
-                <property name="text">
-                 <string notr="true">Or</string>
-                </property>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Relation</string>
+                 </property>
+                </widget>
                </item>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>Relation</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QPlainTextEdit" name="IncludeKeywords">
-               <property name="placeholderText">
-                <string>Leave blank to include all</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="IncludeRelation">
-               <item>
-                <property name="text">
-                 <string notr="true">And</string>
-                </property>
+               <item row="1" column="1">
+                <widget class="QComboBox" name="IncludeRelation">
+                 <item>
+                  <property name="text">
+                   <string notr="true">And</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string notr="true">Or</string>
+                  </property>
+                 </item>
+                </widget>
                </item>
-               <item>
-                <property name="text">
-                 <string notr="true">Or</string>
-                </property>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_3">
+              <property name="title">
+               <string>Import Exclude Filters</string>
+              </property>
+              <layout class="QFormLayout" name="formLayout">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>Relation</string>
+                 </property>
+                </widget>
                </item>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_7">
-               <property name="text">
-                <string>Relation</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0" colspan="2">
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>Only import when containing...</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2" colspan="2">
-              <widget class="QLabel" name="label_10">
-               <property name="text">
-                <string>Only import when NOT containing...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
+               <item row="1" column="1">
+                <widget class="QComboBox" name="ExcludeRelation">
+                 <item>
+                  <property name="text">
+                   <string notr="true">And</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string notr="true">Or</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="0" column="0" colspan="2">
+                <widget class="QPlainTextEdit" name="ExcludeKeywords">
+                 <property name="placeholderText">
+                  <string>Leave blank to exclude nothing</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -444,7 +460,7 @@
   <tabstop>updateIntervalSB</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../resources.new.qrc"/>
+  <include location="../../../../resources.new.qrc"/>
  </resources>
  <connections>
   <connection>

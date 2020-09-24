@@ -45,7 +45,7 @@ namespace Qv2ray::core::handler
         return true;
     }
 
-    OUTBOUNDS RouteHandler::ExpandConnectionId(const OUTBOUNDS &outbounds) const
+    OUTBOUNDS RouteHandler::ExpandExternalConnection(const OUTBOUNDS &outbounds) const
     {
         OUTBOUNDS result;
         for (const auto &out : outbounds)
@@ -126,7 +126,7 @@ namespace Qv2ray::core::handler
 
             routing["rules"] = newRules;
             root["routing"] = routing;
-            root["outbounds"] = ExpandConnectionId(OUTBOUNDS(root["outbounds"].toArray()));
+            root["outbounds"] = ExpandExternalConnection(OUTBOUNDS(root["outbounds"].toArray()));
 #ifdef QV2RAY_USE_PROXYSETTINGS
             {
                 const auto outbounds = root["outbounds"].toArray();

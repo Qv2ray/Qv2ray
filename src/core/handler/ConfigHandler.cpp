@@ -292,12 +292,7 @@ namespace Qv2ray::core::handler
 
     const std::optional<QString> QvConfigHandler::DeleteGroup(const GroupId &id)
     {
-        CheckValidId(id, {});
-        if (!groups.contains(id) || id == NullGroupId)
-        {
-            return tr("Group does not exist");
-        }
-
+        CheckValidId(id, tr("Group does not exist"));
         // Copy construct
         auto list = groups[id].connections;
         for (const auto &conn : list)
@@ -417,11 +412,7 @@ namespace Qv2ray::core::handler
 
     const std::optional<QString> QvConfigHandler::RenameGroup(const GroupId &id, const QString &newName)
     {
-        CheckValidId(id, {});
-        if (!groups.contains(id))
-        {
-            return tr("Group does not exist");
-        }
+        CheckValidId(id, tr("Group does not exist"));
         OnGroupRenamed(id, groups[id].displayName, newName);
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Renamed, newName, groups[id].displayName });
         groups[id].displayName = newName;
@@ -445,12 +436,19 @@ namespace Qv2ray::core::handler
         return true;
     }
 
-    bool QvConfigHandler::SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords)
+    bool QvConfigHandler::SetSubscriptionType(const GroupId &id, const QString &type)
+    {
+        CheckValidId(id, false);
+        groups[id].subscriptionOption.type = type;
+        return true;
+    }
+
+    bool QvConfigHandler::SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &keywords)
     {
         CheckValidId(id, false);
         groups[id].subscriptionOption.IncludeKeywords.clear();
 
-        for (const auto &keyword : Keywords)
+        for (const auto &keyword : keywords)
         {
             if (!keyword.trimmed().isEmpty())
             {
@@ -463,19 +461,15 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
         CheckValidId(id, false);
-        if (!groups.contains(id))
-        {
-            return false;
-        }
         groups[id].subscriptionOption.IncludeRelation = relation;
         return true;
     }
 
-    bool QvConfigHandler::SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords)
+    bool QvConfigHandler::SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &keywords)
     {
         CheckValidId(id, false);
         groups[id].subscriptionOption.ExcludeKeywords.clear();
-        for (const auto &keyword : Keywords)
+        for (const auto &keyword : keywords)
         {
             if (!keyword.trimmed().isEmpty())
             {
@@ -514,21 +508,60 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QByteArray &data)
     {
         CheckValidId(id, false);
-        if (!groups.contains(id))
-        {
-            return false;
-        }
         //
         // ====================================================================================== Begin reading subscription
+        std::shared_ptr<SubscriptionDecoder> decoder;
 
-        auto _newConnections = GetConnectionConfigFromSubscription(data, GetDisplayName(id));
+        {
+            const auto type = groups[id].subscriptionOption.type;
+            for (const auto &plugin : PluginHost->UsablePlugins())
+            {
+                const auto pluginInfo = PluginHost->GetPlugin(plugin);
+                if (pluginInfo->hasComponent(COMPONENT_SUBSCRIPTION_ADAPTER))
+                {
+                    const auto adapterInterface = pluginInfo->pluginInterface->GetSubscriptionAdapter();
+                    for (const auto &[t, _] : adapterInterface->SupportedSubscriptionTypes())
+                    {
+                        if (t == type)
+                            decoder = adapterInterface->GetSubscriptionDecoder(t);
+                    }
+                }
+            }
+
+            if (decoder == nullptr)
+            {
+                QvMessageBoxWarn(nullptr, tr("Cannot update subscription"),
+                                 tr("Unknown subscription type: %1").arg(type) + NEWLINE + tr("MAybe a plugin is missing?"));
+                return false;
+            }
+        }
+
+        const auto groupName = groups[id].displayName;
+        const auto result = decoder->DecodeData(data);
+        QList<QPair<QString, CONFIGROOT>> _newConnections;
+
+        for (const auto &[name, json] : result.connections)
+        {
+            _newConnections.append({ name, CONFIGROOT(json) });
+        }
+        for (const auto &link : result.links)
+        {
+            // Assign a group name, to pass the name check.
+            QString _alias;
+            QString errMessage;
+            QString __groupName = groupName;
+            const auto connectionConfigMap = ConvertConfigFromString(link.trimmed(), &_alias, &errMessage, &__groupName);
+            if (!errMessage.isEmpty())
+                LOG(MODULE_SUBSCRIPTION, "Error: " + errMessage)
+            _newConnections << connectionConfigMap;
+        }
+
         if (_newConnections.count() < 5)
         {
             LOG(MODULE_SUBSCRIPTION, "Found a subscription with less than 5 connections.")
-            if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
-                                tr("%n entrie(s) have been found from the subscription source, do you want to continue?", "",
-                                   _newConnections.count())) != Yes)
-
+            if (QvMessageBoxAsk(
+                    nullptr, tr("Update Subscription"),
+                    tr("%n entrie(s) have been found from the subscription source, do you want to continue?", "", _newConnections.count())) != Yes)
                 return false;
         }
         //
@@ -664,12 +697,11 @@ namespace Qv2ray::core::handler
         // Check if anything left behind (not being updated or changed significantly)
         if (!originalConnectionIdList.isEmpty())
         {
-            bool needContinue =
-                QvMessageBoxAsk(nullptr, //
-                                tr("Update Subscription"),
-                                tr("There're %n connection(s) in the group that do not belong the current subscription (any more).", "",
-                                   originalConnectionIdList.count()) +
-                                    NEWLINE + GetDisplayName(id) + NEWLINE + tr("Would you like to remove them?")) == Yes;
+            bool needContinue = QvMessageBoxAsk(nullptr, //
+                                                tr("Update Subscription"),
+                                                tr("There're %n connection(s) in the group that do not belong the current subscription (any more).",
+                                                   "", originalConnectionIdList.count()) +
+                                                    NEWLINE + GetDisplayName(id) + NEWLINE + tr("Would you like to remove them?")) == Yes;
             if (needContinue)
             {
                 LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")

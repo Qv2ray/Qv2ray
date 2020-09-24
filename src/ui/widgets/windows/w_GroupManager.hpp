@@ -19,7 +19,6 @@ class GroupManager
   public:
     explicit GroupManager(QWidget *parent = nullptr);
     ~GroupManager();
-    std::tuple<QString, CONFIGROOT> GetSelectedConfig();
     void processCommands(QString command, QStringList commands, QMap<QString, QString>) override
     {
         const static QMap<QString, int> indexMap{ { "connection", 0 },   //
@@ -60,12 +59,9 @@ class GroupManager
     void on_deleteSelectedConnBtn_clicked();
     void on_exportSelectedConnBtn_clicked();
     void on_connectionsTable_customContextMenuRequested(const QPoint &pos);
+    void on_subscriptionTypeCB_currentIndexChanged(const QString &arg1);
 
   private:
-    void reloadCurrentGroup()
-    {
-        this->reloadConnectionsList(currentGroupId);
-    }
     void updateColorScheme() override;
     void reloadConnectionsList(const GroupId &group);
     void onRCMActionTriggered_Move();
@@ -73,7 +69,7 @@ class GroupManager
     void onRCMActionTriggered_Link();
     void reloadGroupRCMActions();
     //
-    void ExportConnectionFilter(CONFIGROOT &root);
+    void exportConnectionFilter(CONFIGROOT &root);
     //
     DnsSettingsWidget *dnsSettingsWidget;
     RouteSettingsMatrixWidget *routeSettingsWidget;

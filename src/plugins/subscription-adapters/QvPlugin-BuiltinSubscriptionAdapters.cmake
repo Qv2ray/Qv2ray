@@ -1,0 +1,44 @@
+set(BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET QvPlugin-BuiltinSubscriptionSupport)
+
+set(QVPLUGIN_INTERFACE_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/src/plugin-interface)
+
+include(${CMAKE_SOURCE_DIR}/src/plugin-interface/QvPluginInterface.cmake)
+include(${CMAKE_SOURCE_DIR}/src/plugin-interface/QvGUIPluginInterface.cmake)
+
+set(BUILTIN_SUBSCRIPTION_PLUGIN_SOURCES
+    ${QVPLUGIN_INTERFACE_HEADERS}
+    ${QVGUIPLUGIN_INTERFACE_HEADERS}
+    ${CMAKE_CURRENT_LIST_DIR}/BuiltinSubscriptionAdapter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/BuiltinSubscriptionAdapter.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/SubscriptionAdapter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/SubscriptionAdapter.hpp
+    )
+list(APPEND PLUGIN_TRANSLATION_SOURCES ${BUILTIN_PROTOCOL_PLUGIN_SOURCES})
+
+add_library(${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET} MODULE
+    ${CMAKE_CURRENT_LIST_DIR}/resx.qrc
+    ${BUILTIN_SUBSCRIPTION_PLUGIN_SOURCES}
+    )
+
+target_include_directories(${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET} PRIVATE ${QVPLUGIN_INTERFACE_INCLUDE_DIR})
+target_include_directories(${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET} PRIVATE ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../common)
+
+if(APPLE)
+    add_custom_command(TARGET ${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET}
+        POST_BUILD
+        COMMAND ${CMAKE_INSTALL_NAME_TOOL} -add_rpath "@executable_path/../Frameworks/" $<TARGET_FILE:${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET}>)
+endif()
+
+
+if(UNIX AND NOT APPLE AND NOT WIN32 AND NOT ANDROID)
+    install(TARGETS ${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET} LIBRARY DESTINATION share/qv2ray/plugins)
+elseif(WIN32 OR ANDROID)
+    install(TARGETS ${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET} LIBRARY DESTINATION plugins)
+elseif(APPLE)
+    install(TARGETS ${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET} LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/qv2ray.app/Contents/Resources/plugins)
+else()
+    message(FATAL_ERROR "?")
+endif()
+
+target_link_libraries(${BUILT_IN_SUBSCRIPTION_PLUGIN_TARGET} ${QV_QT_LIBNAME}::Core ${QV_QT_LIBNAME}::Gui ${QV_QT_LIBNAME}::Widgets)

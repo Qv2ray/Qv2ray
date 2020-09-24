@@ -11,10 +11,10 @@ namespace Qv2ray::common::network
     class NetworkRequestHelper;
 }
 
-#define CheckValidId(id, returnValue)                                                                                                           \
-    {                                                                                                                                           \
-        if (!IsValidId(id))                                                                                                                     \
-            return returnValue;                                                                                                                 \
+#define CheckValidId(id, returnValue)                                                                                                                \
+    {                                                                                                                                                \
+        if (!IsValidId(id))                                                                                                                          \
+            return returnValue;                                                                                                                      \
     }
 
 namespace Qv2ray::core::handler
@@ -129,7 +129,7 @@ namespace Qv2ray::core::handler
         bool UpdateSubscription(const GroupId &id);
         bool SetSubscriptionData(const GroupId &id, std::optional<bool> isSubscription = std::nullopt,
                                  const std::optional<QString> &address = std::nullopt, std::optional<float> updateInterval = std::nullopt);
-
+        bool SetSubscriptionType(const GroupId &id, const QString &type);
         bool SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &Keywords);
         bool SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &Keywords);
         bool SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation);

@@ -41,8 +41,8 @@ namespace Qv2ray::base
     };
 
     // Define several safetypes to prevent misuse of QString.
-#define DECL_IDTYPE(type)                                                                                                                       \
-    class __##type;                                                                                                                             \
+#define DECL_IDTYPE(type)                                                                                                                            \
+    class __##type;                                                                                                                                  \
     typedef IDType<__##type> type
 
     DECL_IDTYPE(GroupId);
@@ -138,17 +138,18 @@ namespace Qv2ray::base
     struct SubscriptionConfigObject
     {
         QString address;
+        QString type;
         float updateInterval;
         SubscriptionFilterRelation IncludeRelation;
-        SubscriptionFilterRelation ExcludeRelation;
         QList<QString> IncludeKeywords;
+        SubscriptionFilterRelation ExcludeRelation;
         QList<QString> ExcludeKeywords;
         SubscriptionConfigObject()
-            : address(""), updateInterval(10),                             //
-              IncludeRelation(RELATION_OR), ExcludeRelation(RELATION_AND), //
-              IncludeKeywords(), ExcludeKeywords(){};
+            : address(""), type("simple_base64"), updateInterval(10), //
+              IncludeRelation(RELATION_OR), IncludeKeywords(),        //
+              ExcludeRelation(RELATION_AND), ExcludeKeywords(){};
         JSONSTRUCT_REGISTER(SubscriptionConfigObject,
-                            F(updateInterval, address, IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
+                            F(updateInterval, address, type, IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
     };
 
     struct GroupObject : __Qv2rayConfigObjectBase

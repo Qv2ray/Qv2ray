@@ -12,13 +12,6 @@ namespace Qv2ray::core::connection::serialization
      * %3: rate
      */
     const inline QString QV2RAY_SSD_DEFAULT_NAME_PATTERN = "%1 - %2 (rate %3)";
-    //
-    // General
-    inline const QString TryDecodeSubscriptionString(const QByteArray &arr)
-    {
-        auto result = QString::fromUtf8(arr).trimmed();
-        return result.contains("://") ? result : SafeBase64Decode(result);
-    }
     QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
                                                               QString *newGroupName = nullptr);
     const QString ConvertConfigToString(const ConnectionGroupPair &id, bool isSip002 = true);

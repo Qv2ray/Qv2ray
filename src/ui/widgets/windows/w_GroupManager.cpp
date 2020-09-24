@@ -12,30 +12,44 @@
 #include <QFileDialog>
 #include <QListWidgetItem>
 
-#define SELECTED_ROWS_INDEX                                                                                                                     \
-    ([&]() {                                                                                                                                    \
-        const auto &__selection = connectionsTable->selectedItems();                                                                            \
-        QSet<int> rows;                                                                                                                         \
-        for (const auto &selection : __selection)                                                                                               \
-        {                                                                                                                                       \
-            rows.insert(connectionsTable->row(selection));                                                                                      \
-        }                                                                                                                                       \
-        return rows;                                                                                                                            \
+#define SELECTED_ROWS_INDEX                                                                                                                          \
+    ([&]() {                                                                                                                                         \
+        const auto &__selection = connectionsTable->selectedItems();                                                                                 \
+        QSet<int> rows;                                                                                                                              \
+        for (const auto &selection : __selection)                                                                                                    \
+        {                                                                                                                                            \
+            rows.insert(connectionsTable->row(selection));                                                                                           \
+        }                                                                                                                                            \
+        return rows;                                                                                                                                 \
     }())
 
-#define GET_SELECTED_CONNECTION_IDS(connectionIdList)                                                                                           \
-    ([&]() {                                                                                                                                    \
-        QList<ConnectionId> _list;                                                                                                              \
-        for (const auto &i : connectionIdList)                                                                                                  \
-        {                                                                                                                                       \
-            _list.push_back(ConnectionId(connectionsTable->item(i, 0)->data(Qt::UserRole).toString()));                                         \
-        }                                                                                                                                       \
-        return _list;                                                                                                                           \
+#define GET_SELECTED_CONNECTION_IDS(connectionIdList)                                                                                                \
+    ([&]() {                                                                                                                                         \
+        QList<ConnectionId> _list;                                                                                                                   \
+        for (const auto &i : connectionIdList)                                                                                                       \
+        {                                                                                                                                            \
+            _list.push_back(ConnectionId(connectionsTable->item(i, 0)->data(Qt::UserRole).toString()));                                              \
+        }                                                                                                                                            \
+        return _list;                                                                                                                                \
     }())
 GroupManager::GroupManager(QWidget *parent) : QvDialog(parent)
 {
     setupUi(this);
     QvMessageBusConnect(GroupManager);
+
+    for (const auto &plugin : PluginHost->UsablePlugins())
+    {
+        const auto pluginInfo = PluginHost->GetPlugin(plugin);
+        if (!pluginInfo->hasComponent(COMPONENT_SUBSCRIPTION_ADAPTER))
+            continue;
+        const auto subscriptionAdapterInterface = pluginInfo->pluginInterface->GetSubscriptionAdapter();
+        const auto types = subscriptionAdapterInterface->SupportedSubscriptionTypes();
+        for (const auto &type : types)
+        {
+            subscriptionTypeCB->addItem(type.displayName, type.protocol);
+        }
+    }
+
     //
     dnsSettingsWidget = new DnsSettingsWidget(this);
     routeSettingsWidget = new RouteSettingsMatrixWidget(GlobalConfig.kernelConfig.AssetsPath(), this);
@@ -58,7 +72,7 @@ GroupManager::GroupManager(QWidget *parent) : QvDialog(parent)
     connect(exportConnectionAction, &QAction::triggered, this, &GroupManager::onRCMExportConnectionTriggered);
     connect(deleteConnectionAction, &QAction::triggered, this, &GroupManager::onRCMDeleteConnectionTriggered);
     //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &GroupManager::reloadCurrentGroup);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, [this] { reloadConnectionsList(currentGroupId); });
     //
     connect(ConnectionManager, &QvConfigHandler::OnGroupCreated, this, &GroupManager::reloadGroupRCMActions);
     connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &GroupManager::reloadGroupRCMActions);
@@ -79,6 +93,7 @@ GroupManager::GroupManager(QWidget *parent) : QvDialog(parent)
         groupInfoGroupBox->setEnabled(false);
         tabWidget->setEnabled(false);
     }
+
     reloadGroupRCMActions();
 }
 
@@ -108,7 +123,7 @@ void GroupManager::onRCMExportConnectionTriggered()
             auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId }, false);
             //
             // Apply export filter
-            ExportConnectionFilter(root);
+            exportConnectionFilter(root);
             //
             if (filePath.endsWith(".json"))
             {
@@ -130,7 +145,7 @@ void GroupManager::onRCMExportConnectionTriggered()
                 auto root = RouteManager->GenerateFinalConfig({ id, currentGroupId });
                 //
                 // Apply export filter
-                ExportConnectionFilter(root);
+                exportConnectionFilter(root);
                 //
                 const auto fileName = RemoveInvalidFileName(GetDisplayName(id)) + ".json";
                 StringToFile(JsonToString(root), path + "/" + fileName);
@@ -177,9 +192,11 @@ void GroupManager::reloadConnectionsList(const GroupId &group)
     {
         const auto &conn = connections.at(i);
         connectionsTable->insertRow(i);
+        //
         auto displayNameItem = new QTableWidgetItem(GetDisplayName(conn));
         displayNameItem->setData(Qt::UserRole, conn.toString());
         auto typeItem = new QTableWidgetItem(GetConnectionProtocolString(conn));
+        //
         const auto [type, host, port] = GetConnectionInfo(conn);
         auto hostPortItem = new QTableWidgetItem(host + ":" + QSTRN(port));
         //
@@ -254,11 +271,6 @@ QvMessageBusSlotImpl(GroupManager)
     }
 }
 
-std::tuple<QString, CONFIGROOT> GroupManager::GetSelectedConfig()
-{
-    return { GetDisplayName(currentConnectionId), ConnectionManager->GetConnectionRoot(currentConnectionId) };
-}
-
 GroupManager::~GroupManager()
 {
     DEBUG(MODULE_UI, "Group window destructor.")
@@ -277,12 +289,13 @@ void GroupManager::on_addGroupButton_clicked()
 
 void GroupManager::on_updateButton_clicked()
 {
-    if (subAddrTxt->text().trimmed().isEmpty())
+    const auto address = subAddrTxt->text().trimmed();
+    if (address.isEmpty())
     {
         QvMessageBoxWarn(this, tr("Update Subscription"), tr("The subscription link is empty."));
         return;
     }
-    if (!QUrl{ subAddrTxt->text() }.isValid())
+    if (!QUrl(address).isValid())
     {
         QvMessageBoxWarn(this, tr("Update Subscription"), tr("The subscription link is invalid."));
         return;
@@ -290,6 +303,7 @@ void GroupManager::on_updateButton_clicked()
     if (QvMessageBoxAsk(this, tr("Update Subscription"), tr("Would you like to update the subscription?")) == Yes)
     {
         this->setEnabled(false);
+        qApp->processEvents();
         ConnectionManager->UpdateSubscription(currentGroupId);
         this->setEnabled(true);
         on_groupList_itemClicked(groupList->currentItem());
@@ -298,7 +312,7 @@ void GroupManager::on_updateButton_clicked()
 
 void GroupManager::on_removeGroupButton_clicked()
 {
-    if (QvMessageBoxAsk(this, tr("Deleting a group"), tr("All connections will be moved to default group, do you want to continue?")) == Yes)
+    if (QvMessageBoxAsk(this, tr("Remove a Group"), tr("All connections will be moved to default group, do you want to continue?")) == Yes)
     {
         ConnectionManager->DeleteGroup(currentGroupId);
         auto item = groupList->currentItem();
@@ -344,34 +358,46 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     }
     groupInfoGroupBox->setEnabled(true);
     currentGroupId = GroupId(item->data(Qt::UserRole).toString());
-    //
     groupNameTxt->setText(GetDisplayName(currentGroupId));
-    const auto &groupMetaObject = ConnectionManager->GetGroupMetaObject(currentGroupId);
-    groupIsSubscriptionGroup->setChecked(groupMetaObject.isSubscription);
-    subAddrTxt->setText(groupMetaObject.subscriptionOption.address);
-    lastUpdatedLabel->setText(timeToString(groupMetaObject.lastUpdatedDate));
-    createdAtLabel->setText(timeToString(groupMetaObject.creationDate));
-    updateIntervalSB->setValue(groupMetaObject.subscriptionOption.updateInterval);
-    IncludeKeywords->clear();
-    for (const auto &key : groupMetaObject.subscriptionOption.IncludeKeywords)
+    //
+    const auto _group = ConnectionManager->GetGroupMetaObject(currentGroupId);
+    groupIsSubscriptionGroup->setChecked(_group.isSubscription);
+    subAddrTxt->setText(_group.subscriptionOption.address);
+    lastUpdatedLabel->setText(timeToString(_group.lastUpdatedDate));
+    createdAtLabel->setText(timeToString(_group.creationDate));
+    updateIntervalSB->setValue(_group.subscriptionOption.updateInterval);
     {
-        auto str = key.trimmed();
-        if (!str.isEmpty())
+        const auto &type = _group.subscriptionOption.type;
+        const auto index = subscriptionTypeCB->findData(type);
+        if (index < 0)
+            QvMessageBoxWarn(this, tr("Unknown Subscription Type"), tr("Unknown subscription type \"%1\", a plugin may be missing.").arg(type));
+        else
+            subscriptionTypeCB->setCurrentIndex(index);
+    }
+    //
+    // Import filters
+    {
+        IncludeRelation->setCurrentIndex(_group.subscriptionOption.IncludeRelation);
+        IncludeKeywords->clear();
+        for (const auto &key : _group.subscriptionOption.IncludeKeywords)
         {
-            IncludeKeywords->appendPlainText(str);
+            auto str = key.trimmed();
+            if (!str.isEmpty())
+            {
+                IncludeKeywords->appendPlainText(str);
+            }
+        }
+        ExcludeRelation->setCurrentIndex(_group.subscriptionOption.ExcludeRelation);
+        ExcludeKeywords->clear();
+        for (const auto &key : _group.subscriptionOption.ExcludeKeywords)
+        {
+            auto str = key.trimmed();
+            if (!str.isEmpty())
+            {
+                ExcludeKeywords->appendPlainText(str);
+            }
         }
     }
-    ExcludeKeywords->clear();
-    for (const auto &key : groupMetaObject.subscriptionOption.ExcludeKeywords)
-    {
-        auto str = key.trimmed();
-        if (!str.isEmpty())
-        {
-            ExcludeKeywords->appendPlainText(str);
-        }
-    }
-    IncludeRelation->setCurrentIndex(groupMetaObject.subscriptionOption.IncludeRelation);
-    ExcludeRelation->setCurrentIndex(groupMetaObject.subscriptionOption.ExcludeRelation);
     //
     // Load DNS / Route config
     const auto routeId = ConnectionManager->GetGroupRoutingId(currentGroupId);
@@ -379,8 +405,7 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
         const auto &[overrideDns, dns] = RouteManager->GetDNSSettings(routeId);
         dnsSettingsWidget->SetDNSObject(dns);
         dnsSettingsGB->setChecked(overrideDns);
-    }
-    {
+        //
         const auto &[overrideRoute, route] = RouteManager->GetAdvancedRoutingSettings(routeId);
         routeSettingsWidget->SetRouteConfig(route);
         routeSettingsGB->setChecked(overrideRoute);
@@ -468,18 +493,17 @@ void GroupManager::on_exportSelectedConnBtn_clicked()
     onRCMExportConnectionTriggered();
 }
 
-void GroupManager::ExportConnectionFilter(CONFIGROOT &root)
+void GroupManager::exportConnectionFilter(CONFIGROOT &root)
 {
     root.remove("api");
     root.remove("stats");
-    QJsonArray inbounds = root["inbounds"].toArray();
-    for (int i = root["inbounds"].toArray().count() - 1; i >= 0; i--)
+    auto inbounds = root["inbounds"].toArray();
+    for (auto iter = inbounds.begin(); iter != inbounds.end();)
     {
-        auto obj = root["inbounds"].toArray().at(i).toObject();
+        auto obj = iter->toObject();
         if (obj["tag"] == API_TAG_INBOUND)
-        {
-            inbounds.removeAt(i);
-        }
+            iter = inbounds.erase(iter);
+        iter++;
     }
     root["inbounds"] = inbounds;
 }
@@ -490,4 +514,9 @@ void GroupManager::on_connectionsTable_customContextMenuRequested(const QPoint &
 {
     Q_UNUSED(pos)
     connectionListRCMenu->popup(QCursor::pos());
+}
+
+void GroupManager::on_subscriptionTypeCB_currentIndexChanged(const QString &)
+{
+    ConnectionManager->SetSubscriptionType(currentGroupId, subscriptionTypeCB->currentData().toString());
 }

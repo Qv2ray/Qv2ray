@@ -25,7 +25,7 @@ namespace Qv2ray::core::handler
         bool SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns);
         bool SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_Route &dns);
         //
-        OUTBOUNDS ExpandConnectionId(const OUTBOUNDS &outbounds) const;
+        OUTBOUNDS ExpandExternalConnection(const OUTBOUNDS &outbounds) const;
         //
         // Final Config Generation
         CONFIGROOT GenerateFinalConfig(const ConnectionGroupPair &pair, bool hasAPI = true) const;
