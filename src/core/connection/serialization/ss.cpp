@@ -1,7 +1,7 @@
-#include "utils/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/connection/Serialization.hpp"
+#include "utils/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection
 {
@@ -30,13 +30,6 @@ namespace Qv2ray::core::connection
                 uri.truncate(hashPos);
             }
 
-            // No plugins for Qv2ray so disable those lnes.i
-            // size_t pluginPos = uri.find_first_of('/');
-            //
-            // if (pluginPos != std::string::npos) {
-            //    // TODO: support plugins. For now, just ignore them
-            //    uri.erase(pluginPos);
-            //}
             auto atPos = uri.indexOf('@');
             DEBUG(MODULE_CONNECTION, "At sign position: " + QSTRN(atPos))
 

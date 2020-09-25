@@ -306,9 +306,8 @@ namespace Qv2ray::base::objects
             QString method = "aes-256-cfb";
             QString password;
             bool ota = false;
-            int level;
             int port;
-            JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(email, address, port, method, password, ota, level))
+            JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(email, address, port, method, password, ota))
         };
     } // namespace protocol
 } // namespace Qv2ray::base::objects

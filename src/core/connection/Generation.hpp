@@ -60,8 +60,7 @@ namespace Qv2ray::core::connection::generation
                                                      int port,                //
                                                      const QString &method,   //
                                                      const QString &password, //
-                                                     bool ota,                //
-                                                     int level);
+                                                     bool ota);
         OUTBOUNDSETTING GenerateHTTPSOCKSOut(const QString &address,  //
                                              int port,                //
                                              bool useAuth,            //
