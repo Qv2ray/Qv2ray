@@ -2,6 +2,8 @@
 #include "CommonTypes.hpp"
 #include "QvPluginProcessor.hpp"
 
+using namespace Qv2rayPlugin;
+
 const inline QStringList SplitLines(const QString &_string)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -13,43 +15,47 @@ const inline QStringList SplitLines(const QString &_string)
 #endif
 }
 
-class BuiltinSerializer : public Qv2rayPlugin::SubscriptionDecoder
+class SimpleBase64Decoder : public Qv2rayPlugin::SubscriptionDecoder
 {
   public:
-    explicit BuiltinSerializer() : Qv2rayPlugin::SubscriptionDecoder(){};
-    SubscriptionDecodeResult DecodeData(const QByteArray &data) const override
-    {
-        const static auto SafeBase64Decode = [](QString string) -> QString {
-            QByteArray ba = string.replace(QChar('-'), QChar('+')).replace(QChar('_'), QChar('/')).toUtf8();
-            return QByteArray::fromBase64(ba, QByteArray::Base64Option::OmitTrailingEquals);
-        };
-
-        auto source = QString::fromUtf8(data).trimmed();
-        const auto resultList = source.contains("://") ? source : SafeBase64Decode(source);
-        //
-        SubscriptionDecodeResult result;
-        result.links = SplitLines(resultList);
-        return result;
-    }
+    explicit SimpleBase64Decoder() : SubscriptionDecoder(){};
+    SubscriptionDecodeResult DecodeData(const QByteArray &data) const override;
 };
 
-class BuiltinSubscriptionAdapterInterface : public Qv2rayPlugin::SubscriptionInterface
+class SIP008Decoder : public Qv2rayPlugin::SubscriptionDecoder
 {
   public:
-    explicit BuiltinSubscriptionAdapterInterface() : Qv2rayPlugin::SubscriptionInterface()
+    explicit SIP008Decoder() : SubscriptionDecoder(){};
+    SubscriptionDecodeResult DecodeData(const QByteArray &data) const override;
+};
+
+class BuiltinSubscriptionAdapterInterface : public SubscriptionInterface
+{
+  public:
+    explicit BuiltinSubscriptionAdapterInterface() : SubscriptionInterface()
     {
-        simple_base64 = std::make_shared<BuiltinSerializer>();
+        simple_base64 = std::make_shared<SimpleBase64Decoder>();
+        sip008 = std::make_shared<SIP008Decoder>();
     }
+
     QList<Qv2rayPlugin::ProtocolInfoObject> SupportedSubscriptionTypes() const override
     {
         // "simple_base64" = magic value in Qv2ray main application
-        return { Qv2rayPlugin::ProtocolInfoObject{ "simple_base64", "Basic Base64" } };
+        return {                                                        //
+                 ProtocolInfoObject{ "simple_base64", "Basic Base64" }, //
+                 ProtocolInfoObject{ "sip008", "SIP008" }
+        };
     }
+
     std::shared_ptr<Qv2rayPlugin::SubscriptionDecoder> GetSubscriptionDecoder(const QString &type) const override
     {
         if (type == "simple_base64")
             return simple_base64;
+        if (type == "sip008")
+            return sip008;
         return nullptr;
     }
-    std::shared_ptr<Qv2rayPlugin::SubscriptionDecoder> simple_base64;
+
+    std::shared_ptr<SubscriptionDecoder> simple_base64;
+    std::shared_ptr<SubscriptionDecoder> sip008;
 };
