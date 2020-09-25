@@ -76,11 +76,11 @@ class NodeDispatcher
     template<ComplexTagNodeMode t>
     inline bool RenameTag(const QString originalTag, const QString newTag)
     {
-#define PROCESS(type)                                                                                                                           \
-    bool hasExisting = type##s.contains(newTag);                                                                                                \
-    if (hasExisting)                                                                                                                            \
-        return false;                                                                                                                           \
-    type##s[newTag] = type##s.take(originalTag);                                                                                                \
+#define PROCESS(type)                                                                                                                                \
+    bool hasExisting = type##s.contains(newTag);                                                                                                     \
+    if (hasExisting)                                                                                                                                 \
+        return false;                                                                                                                                \
+    type##s[newTag] = type##s.take(originalTag);                                                                                                     \
     type##Nodes[newTag] = type##Nodes.take(originalTag);
 
         if constexpr (t == NODE_INBOUND)

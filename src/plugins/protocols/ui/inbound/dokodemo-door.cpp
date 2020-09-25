@@ -46,14 +46,14 @@ void DokodemoDoorInboundEditor::on_dokoPortSB_valueChanged(int arg1)
     content["port"] = arg1;
 }
 
-#define SET_NETWORK                                                                                                                             \
-    bool hasTCP = dokoTCPCB->checkState() == Qt::Checked;                                                                                       \
-    bool hasUDP = dokoUDPCB->checkState() == Qt::Checked;                                                                                       \
-    QStringList list;                                                                                                                           \
-    if (hasTCP)                                                                                                                                 \
-        list << "tcp";                                                                                                                          \
-    if (hasUDP)                                                                                                                                 \
-        list << "udp";                                                                                                                          \
+#define SET_NETWORK                                                                                                                                  \
+    bool hasTCP = dokoTCPCB->checkState() == Qt::Checked;                                                                                            \
+    bool hasUDP = dokoUDPCB->checkState() == Qt::Checked;                                                                                            \
+    QStringList list;                                                                                                                                \
+    if (hasTCP)                                                                                                                                      \
+        list << "tcp";                                                                                                                               \
+    if (hasUDP)                                                                                                                                      \
+        list << "udp";                                                                                                                               \
     content["network"] = list.join(",")
 
 void DokodemoDoorInboundEditor::on_dokoTCPCB_stateChanged(int arg1)

@@ -8,8 +8,7 @@
 #include <QFileDialog>
 #include <QInputDialog>
 
-RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent)
-    : QWidget(parent), assetsDirPath(assetsDirPath)
+RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent) : QWidget(parent), assetsDirPath(assetsDirPath)
 {
     setupUi(this);
     //

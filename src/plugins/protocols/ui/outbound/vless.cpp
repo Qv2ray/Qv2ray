@@ -1,7 +1,7 @@
 #include "vless.hpp"
 
-#define ENSURE_USERS                                                                                                                            \
-    if (vless.users.isEmpty())                                                                                                                  \
+#define ENSURE_USERS                                                                                                                                 \
+    if (vless.users.isEmpty())                                                                                                                       \
         vless.users.push_back({});
 
 VlessOutboundEditor::VlessOutboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)

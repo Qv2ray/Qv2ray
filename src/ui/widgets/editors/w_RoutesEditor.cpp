@@ -34,8 +34,8 @@ namespace
     constexpr auto NODE_TAB_CHAIN_EDITOR = 1;
 } // namespace
 
-#define LOADINGCHECK                                                                                                                            \
-    if (isLoading)                                                                                                                              \
+#define LOADINGCHECK                                                                                                                                 \
+    if (isLoading)                                                                                                                                   \
         return;
 #define LOAD_FLAG_BEGIN isLoading = true;
 #define LOAD_FLAG_END isLoading = false;
@@ -96,16 +96,16 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(par
     connect(nodeDispatcher.get(), &NodeDispatcher::RequestEditChain, this, &RouteEditor::OnDispatcherEditChainRequested);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &RouteEditor::OnDispatcherObjectTagChanged);
     //
-#define SETLAYOUT(parent, child)                                                                                                                \
-    {                                                                                                                                           \
-        if (!parent->layout())                                                                                                                  \
-        {                                                                                                                                       \
-            parent->setLayout(new QVBoxLayout());                                                                                               \
-        }                                                                                                                                       \
-        auto l = parent->layout();                                                                                                              \
-        l->addWidget(child);                                                                                                                    \
-        l->setContentsMargins(0, 0, 0, 0);                                                                                                      \
-        l->setSpacing(0);                                                                                                                       \
+#define SETLAYOUT(parent, child)                                                                                                                     \
+    {                                                                                                                                                \
+        if (!parent->layout())                                                                                                                       \
+        {                                                                                                                                            \
+            parent->setLayout(new QVBoxLayout());                                                                                                    \
+        }                                                                                                                                            \
+        auto l = parent->layout();                                                                                                                   \
+        l->addWidget(child);                                                                                                                         \
+        l->setContentsMargins(0, 0, 0, 0);                                                                                                           \
+        l->setSpacing(0);                                                                                                                            \
     }
     SETLAYOUT(ruleEditorUIWidget, ruleWidget);
     SETLAYOUT(chainEditorUIWidget, chainWidget);

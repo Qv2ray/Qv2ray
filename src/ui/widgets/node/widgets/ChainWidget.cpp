@@ -2,7 +2,6 @@
 
 #include "base/Qv2rayBase.hpp"
 
-
 ChainWidget::ChainWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QvNodeWidget(_dispatcher, parent)
 {
     setupUi(this);

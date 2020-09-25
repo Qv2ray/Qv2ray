@@ -126,26 +126,26 @@ namespace Qv2ray::core::connection
             //   - Else if it contains many things,  when the key IS in the JSON but not within the THINGS, use the first in the THINGS
             //   - Else -------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  use the JSON value
             //
-#define __vmess_checker__func(key, values)                                                                                                      \
-    {                                                                                                                                           \
-        auto val = QStringList() values;                                                                                                        \
-        if (vmessConf.contains(#key) && !vmessConf[#key].toVariant().toString().trimmed().isEmpty() &&                                          \
-            (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString())))                                                          \
-        {                                                                                                                                       \
-            key = vmessConf[#key].toVariant().toString();                                                                                       \
-        }                                                                                                                                       \
-        else if (!val.isEmpty())                                                                                                                \
-        {                                                                                                                                       \
-            key = val.first();                                                                                                                  \
-            DEBUG(MODULE_IMPORT, "Using key \"" #key "\" from the first candidate list: " + key)                                                \
-        }                                                                                                                                       \
-        else                                                                                                                                    \
-        {                                                                                                                                       \
-            *errMessage = QObject::tr(#key " does not exist.");                                                                                 \
-            LOG(MODULE_IMPORT, "Cannot process \"" #key "\" since it's not included in the json object.")                                       \
-            LOG(MODULE_IMPORT, " --> values: " + val.join(";"))                                                                                 \
-            LOG(MODULE_IMPORT, " --> PS: " + ps)                                                                                                \
-        }                                                                                                                                       \
+#define __vmess_checker__func(key, values)                                                                                                           \
+    {                                                                                                                                                \
+        auto val = QStringList() values;                                                                                                             \
+        if (vmessConf.contains(#key) && !vmessConf[#key].toVariant().toString().trimmed().isEmpty() &&                                               \
+            (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString())))                                                               \
+        {                                                                                                                                            \
+            key = vmessConf[#key].toVariant().toString();                                                                                            \
+        }                                                                                                                                            \
+        else if (!val.isEmpty())                                                                                                                     \
+        {                                                                                                                                            \
+            key = val.first();                                                                                                                       \
+            DEBUG(MODULE_IMPORT, "Using key \"" #key "\" from the first candidate list: " + key)                                                     \
+        }                                                                                                                                            \
+        else                                                                                                                                         \
+        {                                                                                                                                            \
+            *errMessage = QObject::tr(#key " does not exist.");                                                                                      \
+            LOG(MODULE_IMPORT, "Cannot process \"" #key "\" since it's not included in the json object.")                                            \
+            LOG(MODULE_IMPORT, " --> values: " + val.join(";"))                                                                                      \
+            LOG(MODULE_IMPORT, " --> PS: " + ps)                                                                                                     \
+        }                                                                                                                                            \
     }
 
             // vmess v1 upgrader

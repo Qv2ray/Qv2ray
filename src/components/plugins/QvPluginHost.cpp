@@ -276,10 +276,10 @@ namespace Qv2ray::components::plugins
         return {};
     }
     const QString QvPluginHost::SerializeOutbound(const QString &protocol,             //
-                                                      const QJsonObject &outboundSettings, //
-                                                      const QString &alias,                //
-                                                      const QString &groupName,            //
-                                                      bool *status) const
+                                                  const QJsonObject &outboundSettings, //
+                                                  const QString &alias,                //
+                                                  const QString &groupName,            //
+                                                  bool *status) const
     {
         *status = false;
         for (const auto &plugin : plugins)

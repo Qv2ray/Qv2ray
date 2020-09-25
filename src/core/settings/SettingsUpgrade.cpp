@@ -284,8 +284,8 @@ namespace Qv2ray
                         //
                         for (const auto &cid : aSubscription["connections"].toArray())
                         {
-                            ConnectionsCache[cid.toString()] = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "subscriptions/" + key + "/" +
-                                                                                             cid.toString() + QV2RAY_CONFIG_FILE_EXTENSION));
+                            ConnectionsCache[cid.toString()] = JsonFromString(
+                                StringFromFile(QV2RAY_CONFIG_DIR + "subscriptions/" + key + "/" + cid.toString() + QV2RAY_CONFIG_FILE_EXTENSION));
                         }
                         //
                         allGroupsObject[key] = aSubscription;
@@ -336,8 +336,7 @@ namespace Qv2ray
                     //      Only Store (connections.json in CONFIG_PATH) and ($groupID.json in GROUP_PATH)
                     for (const auto &cid : ConnectionsCache.keys())
                     {
-                        StringToFile(JsonToString(ConnectionsCache[cid]),
-                                     QV2RAY_CONFIG_DIR + "connections/" + cid + QV2RAY_CONFIG_FILE_EXTENSION);
+                        StringToFile(JsonToString(ConnectionsCache[cid]), QV2RAY_CONFIG_DIR + "connections/" + cid + QV2RAY_CONFIG_FILE_EXTENSION);
                     }
                     //
                 }

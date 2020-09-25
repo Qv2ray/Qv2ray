@@ -8,8 +8,8 @@
 #elif defined(Q_OS_WIN32)
     #include <QSettings>
 #elif defined(Q_OS_MAC)
-    #include <CoreServices/CoreServices.h>
     #include <CoreFoundation/CoreFoundation.h>
+    #include <CoreServices/CoreServices.h>
 #endif
 
 namespace Qv2ray::components::darkmode
@@ -28,15 +28,15 @@ namespace Qv2ray::components::darkmode
         CFStringRef uiStyle = nullptr;
         CFStringRef darkUiStyle = CFSTR("Dark");
 
-        if (uiStyle = (CFStringRef)CFPreferencesCopyAppValue(uiStyleKey, kCFPreferencesCurrentApplication);
-           uiStyle) {
-           isDark = (kCFCompareEqualTo == CFStringCompare(uiStyle, darkUiStyle, 0));
-           CFRelease(uiStyle);
+        if (uiStyle = (CFStringRef) CFPreferencesCopyAppValue(uiStyleKey, kCFPreferencesCurrentApplication); uiStyle)
+        {
+            isDark = (kCFCompareEqualTo == CFStringCompare(uiStyle, darkUiStyle, 0));
+            CFRelease(uiStyle);
         }
 
         return isDark;
 #endif
-        
+
         if (!qApp || !qApp->style())
         {
             return false;

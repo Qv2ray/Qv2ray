@@ -5,8 +5,8 @@
 
 #define LOAD_FLAG_END isLoading = false;
 #define LOAD_FLAG_BEGIN isLoading = true;
-#define LOADINGCHECK                                                                                                                            \
-    if (isLoading)                                                                                                                              \
+#define LOADINGCHECK                                                                                                                                 \
+    if (isLoading)                                                                                                                                   \
         return;
 #define rule (*(this->ruleptr))
 

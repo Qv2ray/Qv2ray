@@ -6,25 +6,25 @@
 #include <QObject>
 #include <QVariant>
 
-#define Q_PROPERTY_DECL(type, name, val)                                                                                                        \
-  public:                                                                                                                                       \
-    typedef type __prop_##name##_type;                                                                                                          \
-                                                                                                                                                \
-    type &name()                                                                                                                                \
-    {                                                                                                                                           \
-        return __##name;                                                                                                                        \
-    }                                                                                                                                           \
-    void set_##name(const type &_in_val)                                                                                                        \
-    {                                                                                                                                           \
-        setProperty(#name, QVariant::fromValue(_in_val));                                                                                       \
-    }                                                                                                                                           \
-                                                                                                                                                \
-  private:                                                                                                                                      \
+#define Q_PROPERTY_DECL(type, name, val)                                                                                                             \
+  public:                                                                                                                                            \
+    typedef type __prop_##name##_type;                                                                                                               \
+                                                                                                                                                     \
+    type &name()                                                                                                                                     \
+    {                                                                                                                                                \
+        return __##name;                                                                                                                             \
+    }                                                                                                                                                \
+    void set_##name(const type &_in_val)                                                                                                             \
+    {                                                                                                                                                \
+        setProperty(#name, QVariant::fromValue(_in_val));                                                                                            \
+    }                                                                                                                                                \
+                                                                                                                                                     \
+  private:                                                                                                                                           \
     type __##name = val
 
 #define PROPERTY_CHANGED_SIGNAL_NAME(name) on_##name##_changed
-#define PROPERTY_CHANGED_SIGNAL(name)                                                                                                           \
-    void __property__internal__##name##_chk(const __prop_##name##_type d);                                                                      \
+#define PROPERTY_CHANGED_SIGNAL(name)                                                                                                                \
+    void __property__internal__##name##_chk(const __prop_##name##_type d);                                                                           \
     void PROPERTY_CHANGED_SIGNAL_NAME(name)();
 
 #define PROPERTY_ARGS(type, name) type name MEMBER __##name

@@ -132,8 +132,8 @@ std::tuple<bool, QString, QStringList> ChainEditorWidget::VerifyChainLinkedList(
         // Loop against all items.
         while (iter != conns.end())
         {
-#define NEED_ITERATE(x)                                                                                                                         \
-    needReIterate = x;                                                                                                                          \
+#define NEED_ITERATE(x)                                                                                                                              \
+    needReIterate = x;                                                                                                                               \
     continue
             const auto &id = iter->first;
             const auto &connection = iter->second;

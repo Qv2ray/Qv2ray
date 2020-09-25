@@ -40,10 +40,7 @@ namespace Qv2ray::core::connection::generation::filters
         if (dnsRouteInTag.isEmpty())
             return;
 
-        const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" },
-                                             { "port", "53" },
-                                             { "type", "field" },
-                                             { "inboundTag", dnsRouteInTag } };
+        const QJsonObject dnsRoutingRuleObj{ { "outboundTag", "dns-out" }, { "port", "53" }, { "type", "field" }, { "inboundTag", dnsRouteInTag } };
 
         // DNS Outbound
         QJsonIO::SetValue(root, dnsOutboundObj, "outbounds", root["outbounds"].toArray().count());

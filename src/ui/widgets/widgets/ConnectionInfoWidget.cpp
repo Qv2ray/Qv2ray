@@ -192,8 +192,7 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
     }
     else if (qrLabel->underMouse() && event->type() == QEvent::MouseButtonRelease)
     {
-        qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.png") :
-                                                           (isRealPixmapShown ? qrPixmapBlured : qrPixmap));
+        qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.png") : (isRealPixmapShown ? qrPixmapBlured : qrPixmap));
         isRealPixmapShown = !isRealPixmapShown;
     }
 

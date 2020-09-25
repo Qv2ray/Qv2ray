@@ -9,22 +9,22 @@
 #define QvMessageBusSlotDecl void QvMessageBusSlotIdentifier(QvMessageBusSlotSig)
 #define QvMessageBusSlotImpl(CLASSNAME) void CLASSNAME::QvMessageBusSlotIdentifier(QvMessageBusSlotSig)
 
-#define MBShowDefaultImpl                                                                                                                       \
-    case SHOW_WINDOWS:                                                                                                                          \
-        this->setWindowOpacity(1);                                                                                                              \
+#define MBShowDefaultImpl                                                                                                                            \
+    case SHOW_WINDOWS:                                                                                                                               \
+        this->setWindowOpacity(1);                                                                                                                   \
         break;
 
-#define MBHideDefaultImpl                                                                                                                       \
-    case HIDE_WINDOWS:                                                                                                                          \
-        this->setWindowOpacity(0);                                                                                                              \
+#define MBHideDefaultImpl                                                                                                                            \
+    case HIDE_WINDOWS:                                                                                                                               \
+        this->setWindowOpacity(0);                                                                                                                   \
         break;
 
-#define MBRetranslateDefaultImpl                                                                                                                \
-    case RETRANSLATE:                                                                                                                           \
-        this->retranslateUi(this);                                                                                                              \
+#define MBRetranslateDefaultImpl                                                                                                                     \
+    case RETRANSLATE:                                                                                                                                \
+        this->retranslateUi(this);                                                                                                                   \
         break;
 
-#define MBUpdateColorSchemeDefaultImpl                                                                                                          \
+#define MBUpdateColorSchemeDefaultImpl                                                                                                               \
     case UPDATE_COLORSCHEME: this->updateColorScheme(); break;
 
 namespace Qv2ray::ui::messaging

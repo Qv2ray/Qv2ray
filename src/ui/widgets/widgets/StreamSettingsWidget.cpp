@@ -38,12 +38,12 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         else
             LOG(MODULE_UI, "Unsupported Security Type: " + stream.security)
 
-#define tls_xtls_process(prefix)                                                                                                                \
-    {                                                                                                                                           \
-        serverNameTxt->setText(stream.prefix##Settings.serverName);                                                                             \
-        allowInsecureCB->setChecked(stream.prefix##Settings.allowInsecure);                                                                     \
-        disableSessionResumptionCB->setChecked(stream.prefix##Settings.disableSessionResumption);                                               \
-        alpnTxt->setText(stream.prefix##Settings.alpn.join("|"));                                                                               \
+#define tls_xtls_process(prefix)                                                                                                                     \
+    {                                                                                                                                                \
+        serverNameTxt->setText(stream.prefix##Settings.serverName);                                                                                  \
+        allowInsecureCB->setChecked(stream.prefix##Settings.allowInsecure);                                                                          \
+        disableSessionResumptionCB->setChecked(stream.prefix##Settings.disableSessionResumption);                                                    \
+        alpnTxt->setText(stream.prefix##Settings.alpn.join("|"));                                                                                    \
     }
 
         tls_xtls_process(tls);

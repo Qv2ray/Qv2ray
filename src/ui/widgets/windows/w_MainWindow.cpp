@@ -24,9 +24,9 @@
 #endif
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
-#define CheckCurrentWidget                                                                                                                      \
-    auto widget = GetItemWidget(connectionListWidget->currentItem());                                                                           \
-    if (widget == nullptr)                                                                                                                      \
+#define CheckCurrentWidget                                                                                                                           \
+    auto widget = GetItemWidget(connectionListWidget->currentItem());                                                                                \
+    if (widget == nullptr)                                                                                                                           \
         return;
 
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))

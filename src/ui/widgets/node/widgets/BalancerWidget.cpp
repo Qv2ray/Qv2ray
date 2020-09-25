@@ -2,7 +2,6 @@
 
 #include "base/Qv2rayBase.hpp"
 
-
 BalancerWidget::BalancerWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QvNodeWidget(_dispatcher, parent)
 {
     setupUi(this);

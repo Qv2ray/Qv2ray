@@ -8,8 +8,7 @@ struct RealPingContext
 {
     std::shared_ptr<uvw::PollHandle> handle;
     curl_socket_t sockfd;
-    RealPingContext(curl_socket_t sockfd, uvw::Loop &loop)
-        : handle{ loop.resource<uvw::PollHandle>(uvw::OSSocketHandle{ sockfd }) }, sockfd{ sockfd }
+    RealPingContext(curl_socket_t sockfd, uvw::Loop &loop) : handle{ loop.resource<uvw::PollHandle>(uvw::OSSocketHandle{ sockfd }) }, sockfd{ sockfd }
     {
     }
 };
@@ -92,16 +91,15 @@ static int handle_socket(CURL *easy, curl_socket_t s, int action, void *userp, v
                 events = events | uvw::Flags<uvw::PollHandle::Event>::from<uvw::PollHandle::Event::READABLE>();
             if (action == CURL_POLL_OUT)
                 events = events | uvw::Flags<uvw::PollHandle::Event>::from<uvw::PollHandle::Event::WRITABLE>();
-            curl_context->handle->on<uvw::ErrorEvent>(
-                [sockfd = curl_context->sockfd, pRealPingGlobalInfo](uvw::ErrorEvent &, uvw::PollHandle &) {
-                    pRealPingGlobalInfo->timer->stop();
-                    int running_handles;
-                    auto flags = CURL_CSELECT_ERR;
-                    curl_multi_socket_action(pRealPingGlobalInfo->multiHandle, sockfd, flags, &running_handles);
-                    check_multi_info(pRealPingGlobalInfo->multiHandle, pRealPingGlobalInfo->successCountPtr,
-                                     pRealPingGlobalInfo->latencyResultPtr, pRealPingGlobalInfo);
-                    pRealPingGlobalInfo->_preserve_life_time->notifyTestHost();
-                });
+            curl_context->handle->on<uvw::ErrorEvent>([sockfd = curl_context->sockfd, pRealPingGlobalInfo](uvw::ErrorEvent &, uvw::PollHandle &) {
+                pRealPingGlobalInfo->timer->stop();
+                int running_handles;
+                auto flags = CURL_CSELECT_ERR;
+                curl_multi_socket_action(pRealPingGlobalInfo->multiHandle, sockfd, flags, &running_handles);
+                check_multi_info(pRealPingGlobalInfo->multiHandle, pRealPingGlobalInfo->successCountPtr, pRealPingGlobalInfo->latencyResultPtr,
+                                 pRealPingGlobalInfo);
+                pRealPingGlobalInfo->_preserve_life_time->notifyTestHost();
+            });
             curl_context->handle->on<uvw::PollEvent>([sockfd = curl_context->sockfd, pRealPingGlobalInfo](uvw::PollEvent &e, uvw::PollHandle &) {
                 pRealPingGlobalInfo->timer->stop();
                 int running_handles;

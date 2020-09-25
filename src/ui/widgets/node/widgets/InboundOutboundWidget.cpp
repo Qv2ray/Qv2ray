@@ -3,13 +3,11 @@
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/handler/ConfigHandler.hpp"
-
 #include "ui/widgets/editors/w_InboundEditor.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
 #include "ui/widgets/editors/w_OutboundEditor.hpp"
 
-InboundOutboundWidget::InboundOutboundWidget(ComplexTagNodeMode mode, std::shared_ptr<NodeDispatcher> _d, QWidget *parent)
-    : QvNodeWidget(_d, parent)
+InboundOutboundWidget::InboundOutboundWidget(ComplexTagNodeMode mode, std::shared_ptr<NodeDispatcher> _d, QWidget *parent) : QvNodeWidget(_d, parent)
 {
     workingMode = mode;
     setupUi(this);

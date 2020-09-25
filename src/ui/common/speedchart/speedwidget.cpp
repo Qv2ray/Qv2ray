@@ -164,8 +164,8 @@ namespace
 void SpeedWidget::UpdateSpeedPlotSettings()
 {
 #define Graph GlobalConfig.uiConfig.graphConfig
-#define _X_(x, y)                                                                                                                               \
-    if (!Graph.colorConfig.contains(x))                                                                                                         \
+#define _X_(x, y)                                                                                                                                    \
+    if (!Graph.colorConfig.contains(x))                                                                                                              \
         Graph.colorConfig[x] = y;
 
     _X_(API_INBOUND, (QvPair<QvGraphPenConfig>{ { 134, 196, 63, 1.5f, Qt::SolidLine }, { 50, 153, 255, 1.5f, Qt::SolidLine } }));

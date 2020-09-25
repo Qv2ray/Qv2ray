@@ -53,41 +53,41 @@ namespace detail
 
 } // namespace detail
 
-#define co_enter(c)                                                                                                                             \
-    switch (::detail::coroutine_ref _coro_value = c)                                                                                            \
-    case -1:                                                                                                                                    \
-        if (_coro_value)                                                                                                                        \
-        {                                                                                                                                       \
-            goto terminate_coroutine;                                                                                                           \
-        terminate_coroutine:                                                                                                                    \
-            _coro_value = -1;                                                                                                                   \
-            goto bail_out_of_coroutine;                                                                                                         \
-        bail_out_of_coroutine:                                                                                                                  \
-            break;                                                                                                                              \
-        }                                                                                                                                       \
-        else                                                                                                                                    \
+#define co_enter(c)                                                                                                                                  \
+    switch (::detail::coroutine_ref _coro_value = c)                                                                                                 \
+    case -1:                                                                                                                                         \
+        if (_coro_value)                                                                                                                             \
+        {                                                                                                                                            \
+            goto terminate_coroutine;                                                                                                                \
+        terminate_coroutine:                                                                                                                         \
+            _coro_value = -1;                                                                                                                        \
+            goto bail_out_of_coroutine;                                                                                                              \
+        bail_out_of_coroutine:                                                                                                                       \
+            break;                                                                                                                                   \
+        }                                                                                                                                            \
+        else                                                                                                                                         \
         case 0:
 
-#define __co_yield_impl(n)                                                                                                                      \
-    for (_coro_value = (n);;)                                                                                                                   \
-        if (_coro_value == 0)                                                                                                                   \
-        {                                                                                                                                       \
-            case (n):; break;                                                                                                                   \
-        }                                                                                                                                       \
-        else                                                                                                                                    \
-            switch (_coro_value ? 0 : 1)                                                                                                        \
-                for (;;) case -1:                                                                                                               \
-                    if (_coro_value)                                                                                                            \
-                        goto terminate_coroutine;                                                                                               \
-                    else                                                                                                                        \
-                        for (;;) case 1:                                                                                                        \
-                            if (_coro_value)                                                                                                    \
-                                goto bail_out_of_coroutine;                                                                                     \
-                            else                                                                                                                \
+#define __co_yield_impl(n)                                                                                                                           \
+    for (_coro_value = (n);;)                                                                                                                        \
+        if (_coro_value == 0)                                                                                                                        \
+        {                                                                                                                                            \
+            case (n):; break;                                                                                                                        \
+        }                                                                                                                                            \
+        else                                                                                                                                         \
+            switch (_coro_value ? 0 : 1)                                                                                                             \
+                for (;;) case -1:                                                                                                                    \
+                    if (_coro_value)                                                                                                                 \
+                        goto terminate_coroutine;                                                                                                    \
+                    else                                                                                                                             \
+                        for (;;) case 1:                                                                                                             \
+                            if (_coro_value)                                                                                                         \
+                                goto bail_out_of_coroutine;                                                                                          \
+                            else                                                                                                                     \
                             case 0:
 
 #define co_yield __co_yield_impl(__LINE__)
-#define coro(f)                                                                                                                                 \
-    [this, ptr = (std::enable_shared_from_this<T>::shared_from_this())](auto &&e, auto &&h) {                                                   \
-        f(std::forward<decltype(e)>(e), std::forward<decltype(h)>(h));                                                                          \
+#define coro(f)                                                                                                                                      \
+    [this, ptr = (std::enable_shared_from_this<T>::shared_from_this())](auto &&e, auto &&h) {                                                        \
+        f(std::forward<decltype(e)>(e), std::forward<decltype(h)>(h));                                                                               \
     }
