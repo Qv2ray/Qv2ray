@@ -17,12 +17,6 @@ void ShadowsocksOutboundEditor::changeEvent(QEvent *e)
     }
 }
 
-void ShadowsocksOutboundEditor::on_ss_emailTxt_textEdited(const QString &arg1)
-{
-    PLUGIN_EDITOR_LOADING_GUARD
-    shadowsocks.email = arg1;
-}
-
 void ShadowsocksOutboundEditor::on_ss_passwordTxt_textEdited(const QString &arg1)
 {
     PLUGIN_EDITOR_LOADING_GUARD
@@ -33,10 +27,4 @@ void ShadowsocksOutboundEditor::on_ss_encryptionMethod_currentIndexChanged(const
 {
     PLUGIN_EDITOR_LOADING_GUARD
     shadowsocks.method = arg1;
-}
-
-void ShadowsocksOutboundEditor::on_ss_otaCheckBox_stateChanged(int arg1)
-{
-    PLUGIN_EDITOR_LOADING_GUARD
-    shadowsocks.ota = arg1 == Qt::Checked;
 }

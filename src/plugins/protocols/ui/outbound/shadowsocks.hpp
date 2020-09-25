@@ -30,8 +30,6 @@ class ShadowsocksOutboundEditor
                 content["servers"] = QJsonArray{ QJsonObject{} };
             // ShadowSocks Configs
             shadowsocks = ShadowSocksServerObject::fromJson(content["servers"].toArray().first().toObject());
-            ss_emailTxt->setText(shadowsocks.email);
-            ss_otaCheckBox->setChecked(shadowsocks.ota);
             ss_passwordTxt->setText(shadowsocks.password);
             ss_encryptionMethod->setCurrentText(shadowsocks.method);
         })
@@ -49,9 +47,7 @@ class ShadowsocksOutboundEditor
     void changeEvent(QEvent *e) override;
 
   private slots:
-    void on_ss_emailTxt_textEdited(const QString &arg1);
     void on_ss_encryptionMethod_currentIndexChanged(const QString &arg1);
-    void on_ss_otaCheckBox_stateChanged(int arg1);
     void on_ss_passwordTxt_textEdited(const QString &arg1);
 
   private:

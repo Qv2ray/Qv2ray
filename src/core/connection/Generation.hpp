@@ -55,12 +55,10 @@ namespace Qv2ray::core::connection::generation
                                            int userLevel);
         OUTBOUNDSETTING GenerateBlackHoleOUT(bool useHTTP);
         OUTBOUNDSETTING GenerateShadowSocksOUT(const QList<ShadowSocksServerObject> &servers);
-        OUTBOUNDSETTING GenerateShadowSocksServerOUT(const QString &email,    //
-                                                     const QString &address,  //
-                                                     int port,                //
-                                                     const QString &method,   //
-                                                     const QString &password, //
-                                                     bool ota);
+        OUTBOUNDSETTING GenerateShadowSocksServerOUT(const QString &address, //
+                                                     int port,               //
+                                                     const QString &method,  //
+                                                     const QString &password);
         OUTBOUNDSETTING GenerateHTTPSOCKSOut(const QString &address,  //
                                              int port,                //
                                              bool useAuth,            //

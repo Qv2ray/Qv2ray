@@ -301,13 +301,11 @@ namespace Qv2ray::base::objects
         // ShadowSocks Server
         struct ShadowSocksServerObject
         {
-            QString email;
             QString address;
             QString method = "aes-256-cfb";
             QString password;
-            bool ota = false;
             int port;
-            JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(email, address, port, method, password, ota))
+            JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(address, port, method, password))
         };
     } // namespace protocol
 } // namespace Qv2ray::base::objects
