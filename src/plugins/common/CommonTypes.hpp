@@ -19,14 +19,12 @@ struct SocksServerObject
     {
         QString user;
         QString pass;
-        int level;
-        UserObject() : user(), pass(), level(0){};
+        int level = 0;
         JSONSTRUCT_REGISTER(UserObject, F(user, pass, level))
     };
-    QString address;
-    int port;
+    QString address = "0.0.0.0";
+    int port = 0;
     QList<UserObject> users;
-    SocksServerObject() : address("0.0.0.0"), port(0), users(){};
     JSONSTRUCT_REGISTER(SocksServerObject, F(address, port, users))
 };
 
@@ -38,14 +36,12 @@ struct HttpServerObject
     {
         QString user;
         QString pass;
-        int level;
-        UserObject() : user(), pass(), level(0){};
+        int level = 0;
         JSONSTRUCT_REGISTER(UserObject, F(user, pass, level))
     };
-    QString address;
-    int port;
+    QString address = "0.0.0.0";
+    int port = 0;
     QList<UserObject> users;
-    HttpServerObject() : address("0.0.0.0"), port(0), users(){};
     JSONSTRUCT_REGISTER(HttpServerObject, F(address, port, users))
 };
 
@@ -53,11 +49,10 @@ struct HttpServerObject
 // ShadowSocks Server
 struct ShadowSocksServerObject
 {
-    QString address;
-    QString method;
+    QString address = "0.0.0.0";
+    QString method = "aes-256-cfb";
     QString password;
-    int port;
-    ShadowSocksServerObject() : address("0.0.0.0"), method("aes-256-cfb"), password(""), port(0){};
+    int port = 0;
     JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(address, port, method, password))
 };
 
@@ -68,16 +63,14 @@ struct VLESSServerObject
     struct UserObject
     {
         QString id;
-        QString encryption;
+        QString encryption = "none";
         QString flow;
-        UserObject() : id(), encryption("none"), flow(){};
         JSONSTRUCT_REGISTER(UserObject, F(id, encryption, flow))
     };
 
     QString address;
-    int port;
+    int port = 0;
     QList<UserObject> users;
-    VLESSServerObject() : address(""), port(0), users(){};
     JSONSTRUCT_REGISTER(VLESSServerObject, F(address, port, users))
 };
 
@@ -89,17 +82,14 @@ struct VMessServerObject
     struct UserObject
     {
         QString id;
-        int alterId;
-        QString security;
-        int level;
-        QString testsEnabled;
-        UserObject() : id(), alterId(VMESS_USER_ALTERID_DEFAULT), security("auto"), level(0), testsEnabled("none"){};
-        JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level, testsEnabled))
+        int alterId = VMESS_USER_ALTERID_DEFAULT;
+        QString security = "auto";
+        int level = 0;
+        JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level))
     };
 
     QString address;
-    int port;
+    int port = 0;
     QList<UserObject> users;
-    VMessServerObject() : address(""), port(0), users(){};
     JSONSTRUCT_REGISTER(VMessServerObject, F(address, port, users))
 };

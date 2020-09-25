@@ -37,7 +37,6 @@ class VmessOutboundEditor
             idLineEdit->setText(user.id);
             alterLineEdit->setValue(user.alterId);
             securityCombo->setCurrentText(user.security);
-            testsEnabledCombo->setCurrentText(user.testsEnabled);
         })
     }
     const QJsonObject GetContent() const override
@@ -59,5 +58,4 @@ class VmessOutboundEditor
     void on_idLineEdit_textEdited(const QString &arg1);
     void on_securityCombo_currentIndexChanged(const QString &arg1);
     void on_alterLineEdit_valueChanged(int arg1);
-    void on_testsEnabledCombo_currentIndexChanged(const QString &arg1);
 };

@@ -35,8 +35,3 @@ void VmessOutboundEditor::on_alterLineEdit_valueChanged(int arg1)
 {
     vmess.users.front().alterId = arg1;
 }
-
-void VmessOutboundEditor::on_testsEnabledCombo_currentIndexChanged(const QString &arg1)
-{
-    vmess.users.front().testsEnabled = arg1;
-}
