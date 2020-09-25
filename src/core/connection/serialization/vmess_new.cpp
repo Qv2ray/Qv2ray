@@ -135,6 +135,8 @@ namespace Qv2ray::core::connection
 
         const QString Serialize(const StreamSettingsObject &stream, const VMessServerObject &server, const QString &alias)
         {
+            if (server.users.empty())
+                return QObject::tr("(Empty Users)");
             QUrl url;
             QUrlQuery query;
             url.setFragment(alias, QUrl::StrictMode);

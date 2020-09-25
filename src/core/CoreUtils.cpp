@@ -26,33 +26,20 @@ namespace Qv2ray::core
 
     bool GetOutboundInfo(const OUTBOUND &out, QString *host, int *port, QString *protocol)
     {
-        // Set initial values.
-        *host = QObject::tr("N/A");
-        *port = 0;
         *protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
-
-        if (*protocol == "vmess" || *protocol == "vless")
+        bool ok;
+        const auto info = PluginHost->TryGetOutboundInfo(*protocol, out["settings"].toObject(), &ok);
+        if (ok)
         {
-            const auto Server = VMessServerObject::fromJson(QJsonIO::GetValue(out, "settings", "vnext", 0).toObject());
-            *host = Server.address;
-            *port = Server.port;
-            return true;
-        }
-        else if (*protocol == "shadowsocks")
-        {
-            const auto Server = ShadowSocksServerObject::fromJson(QJsonIO::GetValue(out, "settings", "servers", 0).toObject());
-            *host = Server.address;
-            *port = Server.port;
-            return true;
+            *host = info[INFO_SERVER].toString();
+            *port = info[INFO_PORT].toInt();
         }
         else
         {
-            bool status;
-            const auto info = PluginHost->TryGetOutboundInfo(*protocol, out["settings"].toObject(), &status);
-            *host = info[INFO_SERVER].toString();
-            *port = info[INFO_PORT].toInt();
-            return status;
+            *host = QObject::tr("N/A");
+            *port = 0;
         }
+        return ok;
     }
 
     ///
