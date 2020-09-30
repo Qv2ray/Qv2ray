@@ -335,6 +335,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     tray_action_ToggleVisibility->setText(!connectionStarted ? tr("Hide") : tr("Show"));
     if (!connectionStarted)
         MWShowWindow();
+    else
+        MWHideWindow();
     //
     CheckSubscriptionsUpdate();
     qvLogTimerId = startTimer(1000);
