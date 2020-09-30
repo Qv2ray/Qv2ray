@@ -89,7 +89,7 @@ class MainWindow
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
 
   private:
-    void ToggleVisibility();
+    void MWToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
     void OnEditJsonRequested(const ConnectionId &id);
     void OnConnected(const ConnectionGroupPair &id);
@@ -182,6 +182,8 @@ class MainWindow
     ConnectionGroupPair lastConnectedIdentifier;
     void MWSetSystemProxy();
     void MWClearSystemProxy();
+    void MWShowWindow();
+    void MWHideWindow();
     void CheckSubscriptionsUpdate();
     bool StartAutoConnectionEntry();
     //

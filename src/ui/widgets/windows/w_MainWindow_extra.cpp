@@ -4,6 +4,44 @@
 #include "utils/QvHelpers.hpp"
 #include "w_MainWindow.hpp"
 
+#ifdef Q_OS_MAC
+    #include <ApplicationServices/ApplicationServices.h>
+#endif
+
+void MainWindow::MWToggleVisibility()
+{
+    if (isHidden())
+        MWShowWindow();
+    else
+        MWHideWindow();
+}
+
+void MainWindow::MWShowWindow()
+{
+    this->show();
+#ifdef Q_OS_WIN
+    setWindowState(Qt::WindowNoState);
+    SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+    QThread::msleep(20);
+    SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+#endif
+#ifdef Q_OS_MAC
+    ProcessSerialNumber psn = { 0, kCurrentProcess };
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+#endif
+    tray_action_ToggleVisibility->setText(tr("Hide"));
+}
+
+void MainWindow::MWHideWindow()
+{
+#ifdef Q_OS_MAC
+    ProcessSerialNumber psn = { 0, kCurrentProcess };
+    TransformProcessType(&psn, kProcessTransformToUIElementApplication);
+#endif
+    this->hide();
+    tray_action_ToggleVisibility->setText(tr("Show"));
+}
+
 void MainWindow::MWSetSystemProxy()
 {
     const auto inboundInfo = KernelInstance->GetCurrentConnectionInboundInfo();

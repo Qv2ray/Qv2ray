@@ -19,10 +19,6 @@
 #include <QInputDialog>
 #include <QScrollBar>
 
-#ifdef Q_OS_MAC
-    #include <ApplicationServices/ApplicationServices.h>
-#endif
-
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 #define CheckCurrentWidget                                                                                                                           \
     auto widget = GetItemWidget(connectionListWidget->currentItem());                                                                                \
@@ -137,7 +133,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     //
     connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [this](const ConnectionGroupPair &, const QString &reason) {
-        this->show();
+        MWShowWindow();
         QvMessageBoxWarn(this, tr("Kernel terminated."),
                          tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
                              tr("To solve the problem, read the kernel log in the log text browser."));
@@ -211,7 +207,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     tray_RootMenu->addAction(tray_action_Quit);
     qvAppTrayIcon->setContextMenu(tray_RootMenu);
     //
-    connect(tray_action_ToggleVisibility, &QAction::triggered, this, &MainWindow::ToggleVisibility);
+    connect(tray_action_ToggleVisibility, &QAction::triggered, this, &MainWindow::MWToggleVisibility);
     connect(tray_action_Preferences, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
     connect(tray_action_Start, &QAction::triggered, [this] { ConnectionManager->StartConnection(lastConnectedIdentifier); });
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
@@ -223,7 +219,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         GlobalConfig.uiConfig.recentConnections.clear();
         ReloadRecentConnectionList();
         if (!GlobalConfig.uiConfig.quietMode)
-            QvWidgetApplication->showMessage(tr("Recent Connection list cleared."));
+            QvWidgetApplication->ShowTrayMessage(tr("Recent Connection list cleared."));
     });
     connect(qvAppTrayIcon, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
@@ -338,7 +334,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     tray_action_ToggleVisibility->setText(!connectionStarted ? tr("Hide") : tr("Show"));
     if (!connectionStarted)
-        this->show();
+        MWShowWindow();
     //
     CheckSubscriptionsUpdate();
     qvLogTimerId = startTimer(1000);
@@ -507,63 +503,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-#ifdef Q_OS_MAC
-    ProcessSerialNumber psn = { 0, kCurrentProcess };
-    TransformProcessType(&psn, kProcessTransformToUIElementApplication);
-#endif
-    this->hide();
-    tray_action_ToggleVisibility->setText(tr("Show"));
+    MWHideWindow();
     event->ignore();
 }
+
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 {
-    switch (reason)
-    {
-        case QSystemTrayIcon::Trigger:
-            // Toggle Show/Hide
 #ifndef __APPLE__
-            // Every single click will trigger the Show/Hide toggling.
-            // So, as what common macOS Apps do, we don't toggle visibility
-            // here.
-            ToggleVisibility();
+    const auto toggleTriggerEvent = QSystemTrayIcon::Trigger;
+#else
+    const auto toggleTriggerEvent = QSystemTrayIcon::DoubleClick;
 #endif
-            break;
-
-        case QSystemTrayIcon::DoubleClick:
-#ifdef __APPLE__
-            ToggleVisibility();
-#endif
-            break;
-
-        default: break;
-    }
-}
-void MainWindow::ToggleVisibility()
-{
-    if (this->isHidden())
-    {
-        this->show();
-#ifdef Q_OS_WIN
-        setWindowState(Qt::WindowNoState);
-        SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
-        QThread::msleep(20);
-        SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
-#endif
-#ifdef Q_OS_MAC
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-#endif
-        tray_action_ToggleVisibility->setText(tr("Hide"));
-    }
-    else
-    {
-#ifdef Q_OS_MAC
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToUIElementApplication);
-#endif
-        this->hide();
-        tray_action_ToggleVisibility->setText(tr("Show"));
-    }
+    if (reason == toggleTriggerEvent)
+        MWToggleVisibility();
 }
 
 void MainWindow::Action_Exit()
@@ -575,7 +527,6 @@ void MainWindow::Action_Exit()
 void MainWindow::on_preferencesBtn_clicked()
 {
     PreferencesWindow{ this }.exec();
-    // ProcessCommand("open", { "preference", "general" }, {});
 }
 void MainWindow::on_clearlogButton_clicked()
 {
@@ -711,7 +662,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
     locateBtn->setEnabled(false);
     if (!GlobalConfig.uiConfig.quietMode)
     {
-        QvWidgetApplication->showMessage(tr("Disconnected from: ") + GetDisplayName(id.connectionId), this->windowIcon());
+        QvWidgetApplication->ShowTrayMessage(tr("Disconnected from: ") + GetDisplayName(id.connectionId), this->windowIcon());
     }
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX);
     netspeedLabel->setText("0.00 B/s" NEWLINE "0.00 B/s");
@@ -738,7 +689,7 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     auto name = GetDisplayName(id.connectionId);
     if (!GlobalConfig.uiConfig.quietMode)
     {
-        QvWidgetApplication->showMessage(tr("Connected: ") + name, this->windowIcon());
+        QvWidgetApplication->ShowTrayMessage(tr("Connected: ") + name, this->windowIcon());
     }
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
     connetionStatusLabel->setText(tr("Connected: ") + name);
@@ -1087,7 +1038,7 @@ void MainWindow::Action_SetAutoConnection()
         GlobalConfig.autoStartBehavior = AUTO_CONNECTION_FIXED;
         if (!GlobalConfig.uiConfig.quietMode)
         {
-            QvWidgetApplication->showMessage(tr("%1 has been set as auto connect.").arg(GetDisplayName(identifier.connectionId)));
+            QvWidgetApplication->ShowTrayMessage(tr("%1 has been set as auto connect.").arg(GetDisplayName(identifier.connectionId)));
         }
         SaveGlobalSettings();
     }
