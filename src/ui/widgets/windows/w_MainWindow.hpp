@@ -3,6 +3,7 @@
 #include "ui/common/QvMessageBus.hpp"
 #include "ui/common/speedchart/speedwidget.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
+#include "ui/widgets/models/ConnectionModelHelper.hpp"
 #include "ui/widgets/widgets/ConnectionInfoWidget.hpp"
 #include "ui/widgets/widgets/ConnectionItemWidget.hpp"
 #include "ui_w_MainWindow.h"
@@ -16,15 +17,6 @@ namespace Qv2rayPlugin
 {
     class QvPluginMainWindowWidget;
 }
-
-enum MW_ITEM_COL
-{
-    MW_ITEM_COL_NAME = 1,
-    MW_ITEM_COL_PING = 2,
-    MW_ITEM_COL_IMPORTTIME = 3,
-    MW_ITEM_COL_LASTCONNETED = 4,
-    MW_ITEM_COL_DATA = 5
-};
 
 class MainWindow
     : public QMainWindow
@@ -47,25 +39,29 @@ class MainWindow
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void on_preferencesBtn_clicked();
     void on_clearlogButton_clicked();
-    void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
+    void on_connectionTreeView_customContextMenuRequested(const QPoint &pos);
     void on_importConfigButton_clicked();
     void on_subsButton_clicked();
     //
-    void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_connectionFilterTxt_textEdited(const QString &arg1);
-    void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
     void on_locateBtn_clicked();
     //
     void on_chartVisibilityBtn_clicked();
     void on_logVisibilityBtn_clicked();
     void on_clearChartBtn_clicked();
-    void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void on_masterLogBrowser_textChanged();
     //
     void on_pluginsBtn_clicked();
     void on_collapseGroupsBtn_clicked();
     void on_newConnectionBtn_clicked();
     void on_newComplexConnectionBtn_clicked();
+    //
+    // void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
+    // void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
+    // void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+
+    void on_connectionTreeView_doubleClicked(const QModelIndex &index);
+    void on_connectionTreeView_clicked(const QModelIndex &index);
 
   private:
     // Do not declare as slots, we connect them manually.
@@ -86,8 +82,6 @@ class MainWindow
     void Action_CopyGraphAsImage();
     void Action_CopyRecentLogs();
 
-    void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
-
   private:
     void MWToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
@@ -98,14 +92,7 @@ class MainWindow
     void OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data);
     void OnVCoreLogAvailable(const ConnectionGroupPair &id, const QString &log);
     //
-    void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
-    void OnConnectionDeleted(const ConnectionGroupPair &Id);
-    void OnConnectionLinkedWithGroup(const ConnectionGroupPair &id);
-    //
-    void OnGroupCreated(const GroupId &id, const QString &displayName);
-    void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
-    //
-    void SortConnectionList(MW_ITEM_COL byCol, bool asending);
+    void SortConnectionList(ConnectionInfoRole byCol, bool asending);
     //
     void ReloadRecentConnectionList();
     void OnRecentConnectionsMenuReadyToShow();
@@ -122,8 +109,6 @@ class MainWindow
     void closeEvent(QCloseEvent *) override;
 
   private:
-    QHash<GroupId, std::shared_ptr<QTreeWidgetItem>> groupNodes;
-    QHash<ConnectionGroupPair, std::shared_ptr<QTreeWidgetItem>> connectionNodes;
     // Charts
     SpeedWidget *speedChartWidget;
     SyntaxHighlighter *vCoreLogHighlighter;
@@ -179,7 +164,7 @@ class MainWindow
     int qvLogTimerId = -1;
     bool qvLogAutoScoll = true;
     //
-    ConnectionGroupPair lastConnectedIdentifier;
+    ConnectionGroupPair lastConnected;
     void MWSetSystemProxy();
     void MWClearSystemProxy();
     void MWShowWindow();
@@ -189,8 +174,7 @@ class MainWindow
     //
     void updateColorScheme();
     //
-    void MWAddConnectionItem_p(const ConnectionGroupPair &id);
-    void MWAddGroupItem_p(const GroupId &groupId);
-    //
     QList<Qv2rayPlugin::QvPluginMainWindowWidget *> pluginWidgets;
+    //
+    Qv2ray::ui::widgets::models::ConnectionListHelper *modelHelper;
 };

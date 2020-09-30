@@ -35,7 +35,7 @@ class SpeedWidget : public QGraphicsView
 {
     Q_OBJECT
   public:
-    enum GraphID
+    enum GraphType
     {
         INBOUND_UP,
         INBOUND_DOWN,
@@ -59,7 +59,7 @@ class SpeedWidget : public QGraphicsView
 
     explicit SpeedWidget(QWidget *parent = nullptr);
     void UpdateSpeedPlotSettings();
-    void AddPointData(QMap<SpeedWidget::GraphID, long> data);
+    void AddPointData(QMap<SpeedWidget::GraphType, long> data);
     void Clear();
     void replot();
 
@@ -76,7 +76,7 @@ class SpeedWidget : public QGraphicsView
     };
 
     quint64 maxYValue();
-    QList<PointData> m_datahalfMin;
+    QList<PointData> dataCollection;
 
-    QMap<GraphID, GraphProperties> m_properties;
+    QMap<GraphType, GraphProperties> m_properties;
 };

@@ -20,12 +20,13 @@
 #include <QScrollBar>
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
+
 #define CheckCurrentWidget                                                                                                                           \
-    auto widget = GetItemWidget(connectionListWidget->currentItem());                                                                                \
+    auto widget = GetIndexWidget(connectionTreeView->currentIndex());                                                                                \
     if (widget == nullptr)                                                                                                                           \
         return;
 
-#define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
+#define GetIndexWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionTreeView->indexWidget(item)))
 #define NumericString(i) (QString("%1").arg(i, 30, 10, QLatin1Char('0')))
 
 #define PLUGIN_BUTTON_PROPERTY_KEY "plugin_list_index"
@@ -46,43 +47,9 @@ QvMessageBusSlotImpl(MainWindow)
     }
 }
 
-void MainWindow::MWAddConnectionItem_p(const ConnectionGroupPair &id)
+void MainWindow::SortConnectionList(ConnectionInfoRole byCol, bool asending)
 {
-    if (!groupNodes.contains(id.groupId))
-    {
-        MWAddGroupItem_p(id.groupId);
-    }
-    auto groupItem = groupNodes.value(id.groupId);
-    auto connectionItem = std::make_shared<QTreeWidgetItem>(QStringList{
-        "",                                                    //
-        GetDisplayName(id.connectionId),                       //
-        NumericString(GetConnectionLatency(id.connectionId)),  //
-        "IMPORTTIME_NOT_SUPPORTED",                            //
-        "LAST_CONNECTED_NOT_SUPPORTED",                        //
-        NumericString(GetConnectionTotalData(id.connectionId)) //
-    });
-    connectionNodes.insert(id, connectionItem);
-    groupItem->addChild(connectionItem.get());
-    auto widget = new ConnectionItemWidget(id, connectionListWidget);
-    connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::OnConnectionWidgetFocusRequested);
-    connectionListWidget->setItemWidget(connectionItem.get(), 0, widget);
-}
-
-void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
-{
-    auto groupItem = std::make_shared<QTreeWidgetItem>(QStringList{ "", GetDisplayName(groupId) });
-    groupNodes.insert(groupId, groupItem);
-    connectionListWidget->addTopLevelItem(groupItem.get());
-    connectionListWidget->setItemWidget(groupItem.get(), 0, new ConnectionItemWidget(groupId, connectionListWidget));
-}
-
-void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
-{
-    connectionListWidget->sortByColumn(MW_ITEM_COL_NAME, Qt::AscendingOrder);
-    for (auto i = 0; i < connectionListWidget->topLevelItemCount(); i++)
-    {
-        connectionListWidget->topLevelItem(i)->sortChildren(byCol, asending ? Qt::AscendingOrder : Qt::DescendingOrder);
-    }
+    modelHelper->Sort(byCol, asending ? Qt::AscendingOrder : Qt::DescendingOrder);
     on_locateBtn_clicked();
 }
 
@@ -108,8 +75,10 @@ void MainWindow::OnRecentConnectionsMenuReadyToShow()
     for (const auto &conn : GlobalConfig.uiConfig.recentConnections)
     {
         if (ConnectionManager->IsValidId(conn))
-            tray_RecentConnectionsMenu->addAction(GetDisplayName(conn.connectionId) + " (" + GetDisplayName(conn.groupId) + ")",
-                                                  [=]() { emit ConnectionManager->StartConnection(conn); });
+        {
+            const auto name = GetDisplayName(conn.connectionId) + " (" + GetDisplayName(conn.groupId) + ")";
+            tray_RecentConnectionsMenu->addAction(name, [=]() { emit ConnectionManager->StartConnection(conn); });
+        }
     }
 }
 
@@ -126,6 +95,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // For charts
     speedChartWidget = new SpeedWidget(this);
     speedChart->addWidget(speedChartWidget);
+    //
+    modelHelper = new ConnectionListHelper(connectionTreeView);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
     updateColorScheme();
@@ -144,32 +115,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ConnectionManager, &QvConfigHandler::OnStatsAvailable, this, &MainWindow::OnStatsAvailable);
     connect(ConnectionManager, &QvConfigHandler::OnKernelLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
     //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, this, &MainWindow::OnConnectionDeleted);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &MainWindow::OnConnectionLinkedWithGroup);
-    //
-    connect(ConnectionManager, &QvConfigHandler::OnGroupCreated, this, &MainWindow::OnGroupCreated);
-    connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
-    //
     connect(ConnectionManager, &QvConfigHandler::OnSubscriptionAsyncUpdateFinished, [](const GroupId &gid) {
         QvWidgetApplication->ShowTrayMessage(tr("Subscription \"%1\" has been updated").arg(GetDisplayName(gid))); //
-    });
-    //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [this](const ConnectionId &id, const QString &, const QString &newName) {
-        for (const auto &gid : ConnectionManager->GetGroupId(id))
-        {
-            ConnectionGroupPair pair{ id, gid };
-            if (connectionNodes.contains(pair))
-                connectionNodes.value(pair)->setText(MW_ITEM_COL_NAME, newName);
-        }
-    });
-    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [this](const ConnectionId &id, const int avg) {
-        for (const auto &gid : ConnectionManager->GetGroupId(id))
-        {
-            ConnectionGroupPair pair{ id, gid };
-            if (connectionNodes.contains(pair))
-                connectionNodes.value(pair)->setText(MW_ITEM_COL_PING, NumericString(avg)); //
-        }
     });
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
@@ -209,7 +156,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     connect(tray_action_ToggleVisibility, &QAction::triggered, this, &MainWindow::MWToggleVisibility);
     connect(tray_action_Preferences, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
-    connect(tray_action_Start, &QAction::triggered, [this] { ConnectionManager->StartConnection(lastConnectedIdentifier); });
+    connect(tray_action_Start, &QAction::triggered, [this] { ConnectionManager->StartConnection(lastConnected); });
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::Action_Exit);
@@ -300,39 +247,38 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     sortMenu->addAction(sortAction_SortByPing_Asc);
     sortMenu->addAction(sortAction_SortByPing_Dsc);
     //
-    connect(sortAction_SortByName_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, true); });
-    connect(sortAction_SortByName_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_NAME, false); });
-    connect(sortAction_SortByData_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, true); });
-    connect(sortAction_SortByData_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_DATA, false); });
-    connect(sortAction_SortByPing_Asc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, true); });
-    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [this] { SortConnectionList(MW_ITEM_COL_PING, false); });
+    connect(sortAction_SortByName_Asc, &QAction::triggered, [this] { SortConnectionList(ROLE_DISPLAYNAME, true); });
+    connect(sortAction_SortByName_Dsc, &QAction::triggered, [this] { SortConnectionList(ROLE_DISPLAYNAME, false); });
+    connect(sortAction_SortByData_Asc, &QAction::triggered, [this] { SortConnectionList(ROLE_DATA_USAGE, true); });
+    connect(sortAction_SortByData_Dsc, &QAction::triggered, [this] { SortConnectionList(ROLE_DATA_USAGE, false); });
+    connect(sortAction_SortByPing_Asc, &QAction::triggered, [this] { SortConnectionList(ROLE_LATENCY, true); });
+    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [this] { SortConnectionList(ROLE_LATENCY, false); });
     //
     sortBtn->setMenu(sortMenu);
     //
     graphWidgetMenu->addAction(action_RCM_CopyGraph);
     connect(action_RCM_CopyGraph, &QAction::triggered, this, &MainWindow::Action_CopyGraphAsImage);
     //
-    LOG(MODULE_UI, "Loading data...")
-    for (const auto &group : ConnectionManager->AllGroups())
-    {
-        MWAddGroupItem_p(group);
-        for (const auto &connection : ConnectionManager->Connections(group)) MWAddConnectionItem_p({ connection, group });
-    }
-    //
     // Find and start if there is an auto-connection
     const auto connectionStarted = StartAutoConnectionEntry();
-    if (!connectionStarted && connectionListWidget->topLevelItemCount() > 0)
+
+    if (!connectionStarted && !ConnectionManager->Connections().isEmpty())
     {
-        ReloadRecentConnectionList();
         // Select the first connection.
-        const auto &topLevelItem = connectionListWidget->topLevelItem(0);
-        const auto &item = (topLevelItem->childCount() > 0) ? topLevelItem->child(0) : topLevelItem;
-        connectionListWidget->setCurrentItem(item);
-        on_connectionListWidget_itemClicked(item, 0);
+        const auto groups = ConnectionManager->AllGroups();
+        if (!groups.isEmpty())
+        {
+            const auto connections = ConnectionManager->Connections(groups.first());
+            if (!connections.empty())
+            {
+                const auto index = modelHelper->GetConnectionPairIndex({ connections.first(), groups.first() });
+                on_connectionTreeView_clicked(index);
+            }
+        }
     }
+    ReloadRecentConnectionList();
     //
     //
-    tray_action_ToggleVisibility->setText(!connectionStarted ? tr("Hide") : tr("Show"));
     if (!connectionStarted)
         MWShowWindow();
     else
@@ -423,7 +369,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
-    if (focusWidget() == connectionListWidget)
+    if (focusWidget() == connectionTreeView)
     {
         CheckCurrentWidget;
         if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return)
@@ -435,7 +381,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             }
             else
             {
-                connectionListWidget->expandItem(connectionListWidget->currentItem());
+                connectionTreeView->expand(connectionTreeView->currentIndex());
             }
         }
         else if (e->key() == Qt::Key_F2)
@@ -450,7 +396,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
     if (e->key() == Qt::Key_Escape)
     {
-        auto widget = GetItemWidget(connectionListWidget->currentItem());
+        auto widget = GetIndexWidget(connectionTreeView->currentIndex());
         // Check if this key was accpted by the ConnectionItemWidget
         if (widget && widget->IsRenaming())
         {
@@ -481,10 +427,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
     // Workaround of QtWidget not grabbing KeyDown and KeyUp in keyPressEvent
     if (e->key() == Qt::Key_Up || e->key() == Qt::Key_Down)
     {
-        if (focusWidget() == connectionListWidget)
+        if (focusWidget() == connectionTreeView)
         {
             CheckCurrentWidget;
-            on_connectionListWidget_itemClicked(connectionListWidget->currentItem(), 0);
+            on_connectionTreeView_clicked(connectionTreeView->currentIndex());
         }
     }
 }
@@ -500,6 +446,7 @@ void MainWindow::Action_Start()
 
 MainWindow::~MainWindow()
 {
+    delete modelHelper;
     for (auto &widget : pluginWidgets) widget->accept();
 }
 
@@ -534,14 +481,14 @@ void MainWindow::on_clearlogButton_clicked()
 {
     masterLogBrowser->document()->clear();
 }
-void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
+void MainWindow::on_connectionTreeView_customContextMenuRequested(const QPoint &pos)
 {
     Q_UNUSED(pos)
     auto _pos = QCursor::pos();
-    auto item = connectionListWidget->itemAt(connectionListWidget->mapFromGlobal(_pos));
-    if (item != nullptr)
+    auto item = connectionTreeView->indexAt(connectionTreeView->mapFromGlobal(_pos));
+    if (item.isValid())
     {
-        bool isConnection = GetItemWidget(item)->IsConnection();
+        bool isConnection = GetIndexWidget(item)->IsConnection();
         // Disable connection-specific settings.
         action_RCM_Start->setEnabled(isConnection);
         action_RCM_SetAutoConnection->setEnabled(isConnection);
@@ -551,7 +498,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
         action_RCM_RenameConnection->setEnabled(isConnection);
         action_RCM_DuplicateConnection->setEnabled(isConnection);
         action_RCM_UpdateSubscription->setEnabled(!isConnection);
-        action_RCM_RealLatencyTest->setEnabled(isConnection && ConnectionManager->IsConnected(GetItemWidget(item)->Identifier()));
+        action_RCM_RealLatencyTest->setEnabled(isConnection && ConnectionManager->IsConnected(GetIndexWidget(item)->Identifier()));
         connectionListRCM_Menu->popup(_pos);
     }
 }
@@ -560,9 +507,9 @@ void MainWindow::Action_DeleteConnections()
 {
     QList<ConnectionGroupPair> connlist;
 
-    for (const auto &item : connectionListWidget->selectedItems())
+    for (const auto &item : connectionTreeView->selectionModel()->selectedIndexes())
     {
-        auto widget = GetItemWidget(item);
+        auto widget = GetIndexWidget(item);
         if (widget)
         {
             const auto identifier = widget->Identifier();
@@ -640,18 +587,6 @@ void MainWindow::on_subsButton_clicked()
     GroupManager().exec();
 }
 
-void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
-{
-    Q_UNUSED(column)
-    auto widget = GetItemWidget(item);
-    if (widget == nullptr)
-        return;
-    if (widget->IsConnection())
-    {
-        widget->BeginConnection();
-    }
-}
-
 void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
 {
     Q_UNUSED(id)
@@ -660,7 +595,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
     tray_action_Stop->setEnabled(false);
     tray_action_Restart->setEnabled(false);
     tray_SystemProxyMenu->setEnabled(false);
-    lastConnectedIdentifier = id;
+    lastConnected = id;
     locateBtn->setEnabled(false);
     if (!GlobalConfig.uiConfig.quietMode)
     {
@@ -684,7 +619,7 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     tray_action_Stop->setEnabled(true);
     tray_action_Restart->setEnabled(true);
     tray_SystemProxyMenu->setEnabled(true);
-    lastConnectedIdentifier = id;
+    lastConnected = id;
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
     speedChartWidget->Clear();
@@ -710,68 +645,9 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     }
 }
 
-void MainWindow::OnConnectionWidgetFocusRequested(const ConnectionItemWidget *_widget)
-{
-    if (_widget == nullptr)
-    {
-        return;
-    }
-
-    for (auto _item_ : connectionListWidget->findItems(QString("*"), Qt::MatchWrap | Qt::MatchWildcard | Qt::MatchRecursive))
-    {
-        if (GetItemWidget(_item_) == _widget)
-        {
-            LOG(MODULE_UI, "Setting current item.")
-            connectionListWidget->setCurrentItem(_item_);
-            connectionListWidget->scrollToItem(_item_);
-            // Click it to show details.
-            on_connectionListWidget_itemClicked(_item_, 0);
-        }
-    }
-}
-
 void MainWindow::on_connectionFilterTxt_textEdited(const QString &arg1)
 {
-    // No recursive since we only need top level item
-    for (auto _top_item_ : connectionListWidget->findItems(QString("*"), Qt::MatchWrap | Qt::MatchWildcard))
-    {
-        // auto topWidget = GetItemWidget(_top_item_);
-        bool isTotallyHide = true;
-
-        for (auto i = 0; i < _top_item_->childCount(); i++)
-        {
-            auto _child_ = _top_item_->child(i);
-
-            if (GetItemWidget(_child_)->NameMatched(arg1))
-            {
-                LOG(MODULE_UI, "Setting current item.")
-                // Show the child
-                _child_->setHidden(false);
-                // If any one of the children matches, the parent should not be hidden.
-                isTotallyHide = false;
-            }
-            else
-            {
-                _child_->setHidden(true);
-            }
-        }
-
-        _top_item_->setHidden(isTotallyHide);
-
-        if (!isTotallyHide)
-        {
-            connectionListWidget->expandItem(_top_item_);
-        }
-    }
-}
-
-void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column)
-{
-    Q_UNUSED(column)
-    auto widget = GetItemWidget(item);
-    if (widget == nullptr)
-        return;
-    infoWidget->ShowDetails(widget->Identifier());
+    modelHelper->Filter(arg1);
 }
 
 void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeedData> &data)
@@ -781,13 +657,13 @@ void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<Stat
     // This may not be, or may not precisely be, speed per second if the backend
     // has "any" latency. (Hope not...)
     //
-    QMap<SpeedWidget::GraphID, long> pointData;
+    QMap<SpeedWidget::GraphType, long> pointData;
     bool isOutbound = GlobalConfig.uiConfig.graphConfig.useOutboundStats;
     bool hasDirect = isOutbound && GlobalConfig.uiConfig.graphConfig.hasDirectStats;
-    for (const auto &type : data.keys())
+    for (const auto &[type, data] : data.toStdMap())
     {
-        const auto upSpeed = data[type].first.first;
-        const auto downSpeed = data[type].first.second;
+        const auto upSpeed = data.first.first;
+        const auto downSpeed = data.first.second;
         switch (type)
         {
             case API_INBOUND:
@@ -829,12 +705,6 @@ void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<Stat
     //
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + GetDisplayName(id.connectionId) + //
                               NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
-    //
-    // Set data accordingly
-    if (connectionNodes.contains(id))
-    {
-        connectionNodes.value(id)->setText(MW_ITEM_COL_DATA, NumericString(GetConnectionTotalData(id.connectionId)));
-    }
 }
 
 void MainWindow::OnVCoreLogAvailable(const ConnectionGroupPair &id, const QString &log)
@@ -903,34 +773,6 @@ void MainWindow::OnEditJsonRequested(const ConnectionId &id)
     }
 }
 
-void MainWindow::OnConnectionCreated(const ConnectionGroupPair &id, const QString &displayName)
-{
-    Q_UNUSED(displayName)
-    MWAddConnectionItem_p(id);
-}
-void MainWindow::OnConnectionDeleted(const ConnectionGroupPair &id)
-{
-    auto child = connectionNodes.take(id);
-    groupNodes.value(id.groupId)->removeChild(child.get());
-}
-void MainWindow::OnConnectionLinkedWithGroup(const ConnectionGroupPair &pairId)
-{
-    MWAddConnectionItem_p(pairId);
-}
-void MainWindow::OnGroupCreated(const GroupId &id, const QString &displayName)
-{
-    Q_UNUSED(displayName)
-    MWAddGroupItem_p(id);
-}
-void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections)
-{
-    for (const auto &conn : connections)
-    {
-        groupNodes.value(id)->removeChild(connectionNodes.value({ conn, id }).get());
-    }
-    groupNodes.remove(id);
-}
-
 void MainWindow::OnLogScrollbarValueChanged(int value)
 {
     if (masterLogBrowser->verticalScrollBar()->maximum() == value)
@@ -944,9 +786,10 @@ void MainWindow::on_locateBtn_clicked()
     auto id = KernelInstance->CurrentConnection();
     if (!id.isEmpty())
     {
-        connectionListWidget->setCurrentItem(connectionNodes.value(id).get());
-        connectionListWidget->scrollToItem(connectionNodes.value(id).get());
-        on_connectionListWidget_itemClicked(connectionNodes.value(id).get(), 0);
+        const auto index = modelHelper->GetConnectionPairIndex(id);
+        connectionTreeView->setCurrentIndex(index);
+        connectionTreeView->scrollTo(index);
+        on_connectionTreeView_clicked(index);
     }
 }
 
@@ -960,9 +803,9 @@ void MainWindow::Action_DuplicateConnection()
 {
     QList<ConnectionGroupPair> connlist;
 
-    for (const auto &item : connectionListWidget->selectedItems())
+    for (const auto &item : connectionTreeView->selectionModel()->selectedIndexes())
     {
-        auto widget = GetItemWidget(item);
+        auto widget = GetIndexWidget(item);
         if (widget->IsConnection())
         {
             connlist.append(widget->Identifier());
@@ -1012,14 +855,14 @@ void MainWindow::on_clearChartBtn_clicked()
     speedChartWidget->Clear();
 }
 
-void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
-{
-    Q_UNUSED(previous)
-    if (current != nullptr && !isExiting)
-    {
-        on_connectionListWidget_itemClicked(current, 0);
-    }
-}
+// void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+//{
+//    Q_UNUSED(previous)
+//    if (current != nullptr && !isExiting)
+//    {
+//        on_connectionListWidget_itemClicked(current, 0);
+//    }
+//}
 
 void MainWindow::on_masterLogBrowser_textChanged()
 {
@@ -1031,10 +874,10 @@ void MainWindow::on_masterLogBrowser_textChanged()
 
 void MainWindow::Action_SetAutoConnection()
 {
-    auto current = connectionListWidget->currentItem();
-    if (current != nullptr)
+    auto current = connectionTreeView->currentIndex();
+    if (current.isValid())
     {
-        auto widget = GetItemWidget(current);
+        auto widget = GetIndexWidget(current);
         const auto identifier = widget->Identifier();
         GlobalConfig.autoStartId = identifier;
         GlobalConfig.autoStartBehavior = AUTO_CONNECTION_FIXED;
@@ -1048,10 +891,10 @@ void MainWindow::Action_SetAutoConnection()
 
 void MainWindow::Action_ResetStats()
 {
-    auto current = connectionListWidget->currentItem();
-    if (current != nullptr)
+    auto current = connectionTreeView->currentIndex();
+    if (current.isValid())
     {
-        auto widget = GetItemWidget(current);
+        auto widget = GetIndexWidget(current);
         if (widget)
         {
             if (widget->IsConnection())
@@ -1064,10 +907,10 @@ void MainWindow::Action_ResetStats()
 
 void MainWindow::Action_UpdateSubscription()
 {
-    auto current = connectionListWidget->currentItem();
-    if (current != nullptr)
+    auto current = connectionTreeView->currentIndex();
+    if (current.isValid())
     {
-        auto widget = GetItemWidget(current);
+        auto widget = GetIndexWidget(current);
         if (widget)
         {
             if (widget->IsConnection())
@@ -1083,11 +926,11 @@ void MainWindow::Action_UpdateSubscription()
 
 void MainWindow::Action_TestLatency()
 {
-    for (const auto &current : connectionListWidget->selectedItems())
+    for (const auto &current : connectionTreeView->selectionModel()->selectedIndexes())
     {
-        if (!current)
+        if (!current.isValid())
             continue;
-        const auto widget = GetItemWidget(current);
+        const auto widget = GetIndexWidget(current);
         if (!widget)
             continue;
         if (widget->IsConnection())
@@ -1099,11 +942,11 @@ void MainWindow::Action_TestLatency()
 
 void MainWindow::Action_TestRealLatency()
 {
-    for (const auto &current : connectionListWidget->selectedItems())
+    for (const auto &current : connectionTreeView->selectionModel()->selectedIndexes())
     {
-        if (!current)
+        if (!current.isValid())
             continue;
-        const auto widget = GetItemWidget(current);
+        const auto widget = GetIndexWidget(current);
         if (!widget)
             continue;
         if (widget->IsConnection())
@@ -1134,8 +977,8 @@ void MainWindow::on_newConnectionBtn_clicked()
         outboundsList.push_back(outboundEntry);
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
-        const auto item = connectionListWidget->currentItem();
-        const auto id = item ? DefaultGroupId : GetItemWidget(item)->Identifier().groupId;
+        const auto item = connectionTreeView->currentIndex();
+        const auto id = item.isValid() ? DefaultGroupId : GetIndexWidget(item)->Identifier().groupId;
         ConnectionManager->CreateConnection(root, alias, id);
     }
 }
@@ -1147,15 +990,15 @@ void MainWindow::on_newComplexConnectionBtn_clicked()
     bool isChanged = w.result() == QDialog::Accepted;
     if (isChanged)
     {
-        const auto item = connectionListWidget->currentItem();
-        const auto id = item ? DefaultGroupId : GetItemWidget(item)->Identifier().groupId;
+        const auto item = connectionTreeView->currentIndex();
+        const auto id = item.isValid() ? DefaultGroupId : GetIndexWidget(item)->Identifier().groupId;
         ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, "outbounds", 0, "tag").toString(), id);
     }
 }
 
 void MainWindow::on_collapseGroupsBtn_clicked()
 {
-    connectionListWidget->collapseAll();
+    connectionTreeView->collapseAll();
 }
 
 void MainWindow::Action_CopyRecentLogs()
@@ -1173,4 +1016,21 @@ void MainWindow::Action_CopyRecentLogs()
         result.append(lines[i]);
     }
     qApp->clipboard()->setText(result.join(NEWLINE));
+}
+
+void MainWindow::on_connectionTreeView_doubleClicked(const QModelIndex &index)
+{
+    auto widget = GetIndexWidget(index);
+    if (widget == nullptr)
+        return;
+    if (widget->IsConnection())
+        widget->BeginConnection();
+}
+
+void MainWindow::on_connectionTreeView_clicked(const QModelIndex &index)
+{
+    auto widget = GetIndexWidget(index);
+    if (widget == nullptr)
+        return;
+    infoWidget->ShowDetails(widget->Identifier());
 }

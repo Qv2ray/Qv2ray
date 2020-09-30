@@ -35,12 +35,15 @@
 
 #define VIEWABLE 120
 
+// table of supposed nice steps for grid marks to get nice looking quarters of scale
+const static double roundingTable[] = { 1.2, 1.6, 2, 2.4, 2.8, 3.2, 4, 6, 8 };
+
 SpeedWidget::SpeedWidget(QWidget *parent) : QGraphicsView(parent)
 {
     UpdateSpeedPlotSettings();
 }
 
-void SpeedWidget::AddPointData(QMap<SpeedWidget::GraphID, long> data)
+void SpeedWidget::AddPointData(QMap<SpeedWidget::GraphType, long> data)
 {
     SpeedWidget::PointData point;
     point.x = QDateTime::currentMSecsSinceEpoch() / 1000;
@@ -50,11 +53,11 @@ void SpeedWidget::AddPointData(QMap<SpeedWidget::GraphID, long> data)
             point.y[id] = data;
     }
 
-    m_datahalfMin.push_back(point);
+    dataCollection.push_back(point);
 
-    while (m_datahalfMin.length() > VIEWABLE)
+    while (dataCollection.length() > VIEWABLE)
     {
-        m_datahalfMin.removeFirst();
+        dataCollection.removeFirst();
     }
     replot();
 }
@@ -93,73 +96,66 @@ int friendlyUnitPrecision(const SizeUnit unit)
         default: return 3;
     }
 }
-
-namespace
+struct SplittedValue
 {
-    // table of supposed nice steps for grid marks to get nice looking quarters
-    // of scale
-    const static double roundingTable[] = { 1.2, 1.6, 2, 2.4, 2.8, 3.2, 4, 6, 8 };
-    struct SplittedValue
+    double arg;
+    SizeUnit unit;
+    qint64 sizeInBytes() const
     {
-        double arg;
-        SizeUnit unit;
-        qint64 sizeInBytes() const
+        auto size = arg;
+        for (int i = 0; i < static_cast<int>(unit); ++i)
         {
-            auto size = arg;
-            for (int i = 0; i < static_cast<int>(unit); ++i)
-            {
-                size *= 1024;
-            }
-            return size;
+            size *= 1024;
         }
-    };
+        return size;
+    }
+};
 
-    SplittedValue getRoundedYScale(double value)
+SplittedValue getRoundedYScale(double value)
+{
+    if (value == 0.0)
+        return { 0, SizeUnit::Byte };
+
+    if (value <= 12.0)
+        return { 12, SizeUnit::Byte };
+
+    auto calculatedUnit = SizeUnit::Byte;
+
+    while (value > 1000)
     {
-        if (value == 0.0)
-            return { 0, SizeUnit::Byte };
-
-        if (value <= 12.0)
-            return { 12, SizeUnit::Byte };
-
-        auto calculatedUnit = SizeUnit::Byte;
-
-        while (value > 1000)
-        {
-            value /= 1000;
-            calculatedUnit = static_cast<SizeUnit>(static_cast<int>(calculatedUnit) + 1);
-        }
-
-        if (value > 100.0)
-        {
-            int roundedValue = static_cast<int>(value / 40) * 40;
-            while (roundedValue < value) roundedValue += 40;
-            return { static_cast<double>(roundedValue), calculatedUnit };
-        }
-
-        if (value > 10.0)
-        {
-            int roundedValue = static_cast<int>(value / 4) * 4;
-            while (roundedValue < value) roundedValue += 4;
-            return { static_cast<double>(roundedValue), calculatedUnit };
-        }
-
-        for (const auto &roundedValue : roundingTable)
-        {
-            if (value <= roundedValue)
-                return { roundedValue, calculatedUnit };
-        }
-
-        return { 10.0, calculatedUnit };
+        value /= 1000;
+        calculatedUnit = static_cast<SizeUnit>(static_cast<int>(calculatedUnit) + 1);
     }
 
-    QString formatLabel(const double argValue, const SizeUnit unit)
+    if (value > 100.0)
     {
-        // check is there need for digits after decimal separator
-        const int precision = (argValue < 10) ? friendlyUnitPrecision(unit) : 0;
-        return QLocale::system().toString(argValue, 'f', precision) + " " + unitString(unit, true);
+        int roundedValue = static_cast<int>(value / 40) * 40;
+        while (roundedValue < value) roundedValue += 40;
+        return { static_cast<double>(roundedValue), calculatedUnit };
     }
-} // namespace
+
+    if (value > 10.0)
+    {
+        int roundedValue = static_cast<int>(value / 4) * 4;
+        while (roundedValue < value) roundedValue += 4;
+        return { static_cast<double>(roundedValue), calculatedUnit };
+    }
+
+    for (const auto &roundedValue : roundingTable)
+    {
+        if (value <= roundedValue)
+            return { roundedValue, calculatedUnit };
+    }
+
+    return { 10.0, calculatedUnit };
+}
+
+QString formatLabel(const double argValue, const SizeUnit unit)
+{
+    // check is there need for digits after decimal separator
+    const int precision = (argValue < 10) ? friendlyUnitPrecision(unit) : 0;
+    return QLocale::system().toString(argValue, 'f', precision) + " " + unitString(unit, true);
+}
 
 void SpeedWidget::UpdateSpeedPlotSettings()
 {
@@ -168,9 +164,12 @@ void SpeedWidget::UpdateSpeedPlotSettings()
     if (!Graph.colorConfig.contains(x))                                                                                                              \
         Graph.colorConfig[x] = y;
 
-    _X_(API_INBOUND, (QvPair<QvGraphPenConfig>{ { 134, 196, 63, 1.5f, Qt::SolidLine }, { 50, 153, 255, 1.5f, Qt::SolidLine } }));
+    const static QvPair<QvGraphPenConfig> defaultPen{ { 134, 196, 63, 1.5f, Qt::SolidLine }, { 50, 153, 255, 1.5f, Qt::SolidLine } };
+    const static QvPair<QvGraphPenConfig> directPen{ { 0, 210, 240, 1.5f, Qt::DotLine }, { 235, 220, 42, 1.5f, Qt::DotLine } };
+
+    _X_(API_INBOUND, defaultPen);
     _X_(API_OUTBOUND_PROXY, Graph.colorConfig[API_INBOUND]);
-    _X_(API_OUTBOUND_DIRECT, (QvPair<QvGraphPenConfig>{ { 0, 210, 240, 1.5f, Qt::DotLine }, { 235, 220, 42, 1.5f, Qt::DotLine } }));
+    _X_(API_OUTBOUND_DIRECT, directPen);
 
     const auto getPen = [](const QvGraphPenConfig &conf) {
         QPen p{ { conf.R, conf.G, conf.B } };
@@ -200,7 +199,7 @@ void SpeedWidget::UpdateSpeedPlotSettings()
 
 void SpeedWidget::Clear()
 {
-    m_datahalfMin.clear();
+    dataCollection.clear();
     m_properties.clear();
     UpdateSpeedPlotSettings();
     replot();
@@ -215,9 +214,9 @@ quint64 SpeedWidget::maxYValue()
     quint64 maxYValue = 0;
 
     for (int id = 0; id < NB_GRAPHS; ++id)
-        for (int i = m_datahalfMin.size() - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
-            if (m_datahalfMin[i].y[id] > maxYValue)
-                maxYValue = m_datahalfMin[i].y[id];
+        for (int i = dataCollection.size() - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
+            if (dataCollection[i].y[id] > maxYValue)
+                maxYValue = dataCollection[i].y[id];
 
     return maxYValue;
 }
@@ -288,10 +287,10 @@ void SpeedWidget::paintEvent(QPaintEvent *)
     {
         QVector<QPoint> points;
 
-        for (int i = static_cast<int>(m_datahalfMin.size()) - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
+        for (int i = static_cast<int>(dataCollection.size()) - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
         {
             const int newX = rect.right() - j * xTickSize;
-            const int newY = rect.bottom() - m_datahalfMin[i].y[id] * yMultiplier;
+            const int newY = rect.bottom() - dataCollection[i].y[id] * yMultiplier;
             points.push_back({ newX, newY });
         }
 

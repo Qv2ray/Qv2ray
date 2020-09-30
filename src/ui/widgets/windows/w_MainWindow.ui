@@ -135,7 +135,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QTreeWidget" name="connectionListWidget">
+         <widget class="QTreeView" name="connectionTreeView">
           <property name="contextMenuPolicy">
            <enum>Qt::CustomContextMenu</enum>
           </property>
@@ -154,26 +154,12 @@
           <property name="sortingEnabled">
            <bool>true</bool>
           </property>
-          <property name="animated">
-           <bool>true</bool>
-          </property>
           <property name="allColumnsShowFocus">
            <bool>true</bool>
           </property>
           <property name="headerHidden">
            <bool>true</bool>
           </property>
-          <property name="expandsOnDoubleClick">
-           <bool>true</bool>
-          </property>
-          <attribute name="headerShowSortIndicator" stdset="0">
-           <bool>false</bool>
-          </attribute>
-          <column>
-           <property name="text">
-            <string notr="true">1</string>
-           </property>
-          </column>
          </widget>
         </item>
         <item>
@@ -568,7 +554,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
  </tabstops>
  <resources>

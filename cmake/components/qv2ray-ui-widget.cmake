@@ -68,6 +68,9 @@ set(_QV2RAY_UI_SOURCES
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/styles/StyleManager.cpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/styles/StyleManager.cpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/styles/StyleManager.hpp
+    # Models
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/models/ConnectionModelHelper.cpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/models/ConnectionModelHelper.hpp
     # UI Widgets
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/ConnectionInfoWidget.hpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/ConnectionInfoWidget.cpp
