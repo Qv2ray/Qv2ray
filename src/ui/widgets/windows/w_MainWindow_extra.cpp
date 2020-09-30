@@ -37,7 +37,7 @@ void MainWindow::MWSetSystemProxy()
         qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy"));
         if (!GlobalConfig.uiConfig.quietMode)
         {
-            QvWidgetApplication->showMessage(tr("System proxy configured."));
+            QvWidgetApplication->ShowTrayMessage(tr("System proxy configured."));
         }
     }
     else
@@ -53,7 +53,7 @@ void MainWindow::MWClearSystemProxy()
     qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
     if (!GlobalConfig.uiConfig.quietMode)
     {
-        QvWidgetApplication->showMessage(tr("System proxy removed."));
+        QvWidgetApplication->ShowTrayMessage(tr("System proxy removed."));
     }
 }
 

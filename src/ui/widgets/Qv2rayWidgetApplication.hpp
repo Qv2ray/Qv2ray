@@ -41,11 +41,11 @@ namespace Qv2ray
         {
             return &hTray;
         }
-        void showMessage(const QString &m, const QIcon &icon, int msecs = 10000)
+        void ShowTrayMessage(const QString &m, const QIcon &icon, int msecs = 10000)
         {
             hTray->showMessage("Qv2ray", m, icon, msecs);
         }
-        void showMessage(const QString &m, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int msecs = 10000)
+        void ShowTrayMessage(const QString &m, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int msecs = 10000)
         {
             hTray->showMessage("Qv2ray", m, icon, msecs);
         }

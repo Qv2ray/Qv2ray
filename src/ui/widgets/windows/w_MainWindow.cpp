@@ -156,7 +156,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
     //
     connect(ConnectionManager, &QvConfigHandler::OnSubscriptionAsyncUpdateFinished, [](const GroupId &gid) {
-        QvWidgetApplication->showMessage(tr("Subscription \"%1\" has been updated").arg(GetDisplayName(gid))); //
+        QvWidgetApplication->ShowTrayMessage(tr("Subscription \"%1\" has been updated").arg(GetDisplayName(gid))); //
     });
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [this](const ConnectionId &id, const QString &, const QString &newName) {
