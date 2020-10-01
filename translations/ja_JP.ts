@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ja_JP">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ja_JP" version="2.1">
 <context>
     <name>BalancerWidget</name>
     <message>
@@ -129,9 +127,7 @@
     </message>
     <message numerus="yes">
         <source>(Ignored %n complex config(s))</source>
-        <translation>
-            <numerusform>(無視される %n 複雑な構成)</numerusform>
-        </translation>
+        <translation><numerusform>(無視される %n 複雑な構成)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -141,20 +137,12 @@
         <translation>未テスト</translation>
     </message>
     <message>
-        <source>ms</source>
-        <translation>ms</translation>
+        <source>Error</source>
+        <translation>エラー</translation>
     </message>
     <message>
         <source>Type: </source>
         <translation>タイプ: </translation>
-    </message>
-    <message>
-        <source>Testing...</source>
-        <translation>テスト中...</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>エラー</translation>
     </message>
     <message>
         <source>connection</source>
@@ -163,6 +151,14 @@
     <message>
         <source>connections</source>
         <translation>つ</translation>
+    </message>
+    <message>
+        <source>Testing...</source>
+        <translation>テスト中...</translation>
+    </message>
+    <message>
+        <source>ms</source>
+        <translation>ms</translation>
     </message>
     <message>
         <source>Last Connected: </source>
@@ -230,6 +226,10 @@
         <translation>DNSサーバー</translation>
     </message>
     <message>
+        <source>DNS List</source>
+        <translation>DNSリスト</translation>
+    </message>
+    <message>
         <source>DNS Server Settings</source>
         <translation>DNSサーバーの設定</translation>
     </message>
@@ -242,16 +242,20 @@
         <translation>詳細設定</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+        <source>Expectd IPs</source>
+        <translation>期待されるIP</translation>
     </message>
     <message>
         <source>Domains</source>
         <translation>ドメイン</translation>
     </message>
     <message>
-        <source>Expectd IPs</source>
-        <translation>期待されるIP</translation>
+        <source>Port</source>
+        <translation>ポート</translation>
+    </message>
+    <message>
+        <source>Statically Resolved Domains</source>
+        <translation>静的解決ドメイン</translation>
     </message>
     <message>
         <source>Domain</source>
@@ -262,15 +266,7 @@
         <translation>解決済みIP</translation>
     </message>
     <message>
-        <source>Statically Resolved Domains</source>
-        <translation>静的解決ドメイン</translation>
-    </message>
-    <message>
-        <source>DNS List</source>
-        <translation>DNSリスト</translation>
-    </message>
-    <message>
-        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+        <source>The current system's IP address is used to notify the server of the client's location when querying DNS. 
 
 It cannot be a private address.</source>
         <translation>DNS照会時にクライアントの位置をサーバに通知するために使用される現在のシステムのIPアドレス。
@@ -281,7 +277,7 @@ It cannot be a private address.</source>
         <translation>(V2Ray 4.13+) このDNSによって送信される問い合わせトラフィックは、localhostとDOHLモードを除いて、この識別子を持ち、ルート内のinboundTagと照合することができます。</translation>
     </message>
     <message>
-        <source>Port for DNS server. Normally it&apos;s 53.
+        <source>Port for DNS server. Normally it's 53.
 This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>DNSサーバーのポート。通常は53です。
 このエントリはDoHサーバを使用する場合、V2Rayコアでは無視されます。</translation>
@@ -289,14 +285,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 </context>
 <context>
     <name>GroupManager</name>
-    <message>
-        <source>Connection Management</source>
-        <translation>項目管理</translation>
-    </message>
-    <message>
-        <source>All connections will be moved to default group, do you want to continue?</source>
-        <translation>すべての項目がデフォルトグループに移動します。続行しますか？</translation>
-    </message>
     <message>
         <source>Export Connection(s)</source>
         <translation>項目をエクスポート</translation>
@@ -318,6 +306,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>リンクして...</translation>
     </message>
     <message>
+        <source>Connection Management</source>
+        <translation>項目管理</translation>
+    </message>
+    <message>
         <source>New Group</source>
         <translation>新しいグループ</translation>
     </message>
@@ -328,6 +320,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Would you like to update the subscription?</source>
         <translation>サブスクリプションを更新しますか？</translation>
+    </message>
+    <message>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation>すべての項目がデフォルトグループに移動します。続行しますか？</translation>
     </message>
     <message>
         <source>The subscription link is empty.</source>
@@ -372,44 +368,92 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>名前/プレフィックス</translation>
     </message>
     <message>
-        <source> secs</source>
-        <translation> 秒</translation>
+        <source>A prefix to the imported connection</source>
+        <translation>インポート接続のプレフィックス</translation>
     </message>
     <message>
-        <source>Hide Qv2ray</source>
-        <translation>Qv2rayを非表示</translation>
+        <source>Import To Group</source>
+        <translation>グループにインポート</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>リンク</translation>
     </message>
     <message>
         <source>Share Link</source>
         <translation>リンク共有</translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>インポート</translation>
+        <source>Error List</source>
+        <translation>エラーリスト</translation>
     </message>
     <message>
-        <source>Path</source>
-        <translation>パス</translation>
+        <source>Paste share link here, one line for each.</source>
+        <translation>ここに vmess:// を1行ずつ貼り付けます。</translation>
+    </message>
+    <message>
+        <source>QR Code</source>
+        <translation>QRコード</translation>
+    </message>
+    <message>
+        <source>QRCode File</source>
+        <translation>QRコード画像ファイル</translation>
     </message>
     <message>
         <source>Select</source>
         <translation>選択</translation>
     </message>
     <message>
-        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-        <translation>複雑構成としてインポート（ルーティングルールとインバウンドを手動で編集）</translation>
+        <source>Screenshot</source>
+        <translation>スクリーンショット</translation>
+    </message>
+    <message>
+        <source>Hide Qv2ray</source>
+        <translation>Qv2rayを非表示</translation>
+    </message>
+    <message>
+        <source> secs</source>
+        <translation> 秒</translation>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>後</translation>
     </message>
     <message>
         <source>Go</source>
         <translation>実行</translation>
     </message>
     <message>
-        <source>Error List</source>
-        <translation>エラーリスト</translation>
+        <source>Detected Link</source>
+        <translation>検出リンク</translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>その他</translation>
     </message>
     <message>
         <source>Manually Input Connections</source>
         <translation>接続を手動で入力する</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation>パス</translation>
+    </message>
+    <message>
+        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+        <translation>複雑構成としてインポート（ルーティングルールとインバウンドを手動で編集）</translation>
+    </message>
+    <message>
+        <source>Json Editor</source>
+        <translation>JSONエディター</translation>
+    </message>
+    <message>
+        <source>Open JSON Editor</source>
+        <translation>JSONエディターを開く</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>インポート</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -426,6 +470,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation>この領域から有効なQRコードが見つかりません。</translation>
+    </message>
+    <message>
+        <source>Failed to import connection</source>
+        <translation>接続のインポート失敗</translation>
     </message>
     <message>
         <source>Import config file</source>
@@ -446,58 +494,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Cannot find any QRCode from the image.</source>
         <translation>画像からQRコードが見つかりません。</translation>
-    </message>
-    <message>
-        <source>QRCode File</source>
-        <translation>QRコード画像ファイル</translation>
-    </message>
-    <message>
-        <source>Screenshot</source>
-        <translation>スクリーンショット</translation>
-    </message>
-    <message>
-        <source>Delay</source>
-        <translation>後</translation>
-    </message>
-    <message>
-        <source>Json Editor</source>
-        <translation>JSONエディター</translation>
-    </message>
-    <message>
-        <source>Open JSON Editor</source>
-        <translation>JSONエディターを開く</translation>
-    </message>
-    <message>
-        <source>A prefix to the imported connection</source>
-        <translation>インポート接続のプレフィックス</translation>
-    </message>
-    <message>
-        <source>Paste share link here, one line for each.</source>
-        <translation>ここに vmess:// を1行ずつ貼り付けます。</translation>
-    </message>
-    <message>
-        <source>Import To Group</source>
-        <translation>グループにインポート</translation>
-    </message>
-    <message>
-        <source>Link</source>
-        <translation>リンク</translation>
-    </message>
-    <message>
-        <source>QR Code</source>
-        <translation>QRコード</translation>
-    </message>
-    <message>
-        <source>Detected Link</source>
-        <translation>検出リンク</translation>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation>その他</translation>
-    </message>
-    <message>
-        <source>Failed to import connection</source>
-        <translation>接続のインポート失敗</translation>
     </message>
     <message>
         <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
@@ -624,16 +620,24 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 <context>
     <name>JsonEditor</name>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>JSON Editor</source>
+        <translation>JSONエディター</translation>
+    </message>
+    <message>
+        <source>Json Editor</source>
+        <translation>JSONエディター</translation>
     </message>
     <message>
         <source>Format JSON</source>
         <translation>JSON初期化</translation>
     </message>
     <message>
-        <source>Json Editor</source>
-        <translation>JSONエディター</translation>
+        <source>Remove All Comments</source>
+        <translation>コメントを全削除</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Json Contains Syntax Errors</source>
@@ -656,14 +660,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>JSONエラーを修正する、もしくはコメントを削除してから続行してください</translation>
     </message>
     <message>
-        <source>JSON Editor</source>
-        <translation>JSONエディター</translation>
-    </message>
-    <message>
-        <source>Remove All Comments</source>
-        <translation>コメントを全削除</translation>
-    </message>
-    <message>
         <source>Structure Preview</source>
         <translation>構造プレビュー</translation>
     </message>
@@ -675,24 +671,12 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>Qv2ray</translation>
     </message>
     <message>
-        <source>Connect</source>
-        <translation>接続</translation>
-    </message>
-    <message>
-        <source>Disconnect</source>
-        <translation>切断</translation>
-    </message>
-    <message>
-        <source>Reconnect</source>
-        <translation>再接続</translation>
-    </message>
-    <message>
         <source>Preferences</source>
         <translation>設定</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation>編集</translation>
+        <source>Plugins</source>
+        <translation>プラグイン</translation>
     </message>
     <message>
         <source>Locate Current Connection</source>
@@ -703,12 +687,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>検索</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>並べ替え</translation>
+    </message>
+    <message>
         <source>Import Connection</source>
         <translation>項目をインポート</translation>
     </message>
     <message>
-        <source>Sort</source>
-        <translation>並べ替え</translation>
+        <source>New</source>
+        <translation>作成</translation>
     </message>
     <message>
         <source>Click to toggle show/hide</source>
@@ -763,6 +751,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 0.00 B</translation>
     </message>
     <message>
+        <source>System Proxy</source>
+        <translation>システムプロキシ</translation>
+    </message>
+    <message>
+        <source>Recent Connections</source>
+        <translation>最近の項目</translation>
+    </message>
+    <message>
+        <source>Clear Recent Connections</source>
+        <translation>最近の項目をクリア</translation>
+    </message>
+    <message>
         <source>Hide</source>
         <translation>非表示</translation>
     </message>
@@ -771,12 +771,44 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>終了</translation>
     </message>
     <message>
+        <source>Connect</source>
+        <translation>接続</translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation>再接続</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>切断</translation>
+    </message>
+    <message>
+        <source>Enable System Proxy</source>
+        <translation>システムプロキシ有効</translation>
+    </message>
+    <message>
+        <source>Disable System Proxy</source>
+        <translation>システムプロキシ無効</translation>
+    </message>
+    <message>
+        <source>Connect to this</source>
+        <translation>これに接続</translation>
+    </message>
+    <message>
         <source>Set as automatically connected</source>
         <translation>自動接続に設定</translation>
     </message>
     <message>
+        <source>Edit</source>
+        <translation>編集</translation>
+    </message>
+    <message>
         <source>Edit as JSON</source>
         <translation>JSONとして編集</translation>
+    </message>
+    <message>
+        <source>Edit as Complex Config</source>
+        <translation>複雑構成として編集</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -797,22 +829,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Delete Connection</source>
         <translation>項目を削除</translation>
-    </message>
-    <message>
-        <source>Connect to this</source>
-        <translation>これに接続</translation>
-    </message>
-    <message>
-        <source>Recent Connections</source>
-        <translation>最近の項目</translation>
-    </message>
-    <message>
-        <source>Edit as Complex Config</source>
-        <translation>複雑構成として編集</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>表示</translation>
     </message>
     <message>
         <source>Sort connection list.</source>
@@ -847,10 +863,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>Qv2rayログに切り替える</translation>
     </message>
     <message>
-        <source>Connected: </source>
-        <translation>接続済み: </translation>
-    </message>
-    <message>
         <source>Kernel terminated.</source>
         <translation>コアが終了しました。</translation>
     </message>
@@ -863,6 +875,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>問題を解決するには、ログテキストブラウザでカーネルログを確認しでください。</translation>
     </message>
     <message>
+        <source>Show</source>
+        <translation>表示</translation>
+    </message>
+    <message>
         <source>Quit Qv2ray</source>
         <translation>Qv2rayを終了</translation>
     </message>
@@ -871,20 +887,36 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>Qv2rayを終了してよろしいでしょうか？</translation>
     </message>
     <message numerus="yes">
+        <source>Removing Connection(s)</source>
+        <translation><numerusform>項目を削除</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Are you sure to remove selected connection(s)?</source>
+        <translation><numerusform>選択した項目を削除しますか？</numerusform></translation>
+    </message>
+    <message>
+        <source>Disconnected from: </source>
+        <translation>接続切断されました: </translation>
+    </message>
+    <message>
+        <source>Connected: </source>
+        <translation>接続済み: </translation>
+    </message>
+    <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation>
-            <numerusform>項目をコピー</numerusform>
-        </translation>
+        <translation><numerusform>項目をコピー</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation>
-            <numerusform>選択した項目をコピーしますか？</numerusform>
-        </translation>
+        <translation><numerusform>選択した項目をコピーしますか？</numerusform></translation>
     </message>
     <message>
         <source> (Copy)</source>
         <translation> （コピー）</translation>
+    </message>
+    <message>
+        <source>System proxy configured.</source>
+        <translation>システムプロキシが設定されています。</translation>
     </message>
     <message>
         <source>Cannot set system proxy</source>
@@ -895,56 +927,12 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>HTTPインバウンドとSOCKSインバウンドの両方とも無効です</translation>
     </message>
     <message>
-        <source>System proxy configured.</source>
-        <translation>システムプロキシが設定されています。</translation>
-    </message>
-    <message>
         <source>System proxy removed.</source>
         <translation>システムプロキシが削除されました。</translation>
     </message>
     <message>
         <source>Update Subscriptions</source>
         <translation>サブスクリプションを更新</translation>
-    </message>
-    <message>
-        <source>Enable System Proxy</source>
-        <translation>システムプロキシ有効</translation>
-    </message>
-    <message>
-        <source>Disable System Proxy</source>
-        <translation>システムプロキシ無効</translation>
-    </message>
-    <message>
-        <source>System Proxy</source>
-        <translation>システムプロキシ</translation>
-    </message>
-    <message>
-        <source>Disconnected from: </source>
-        <translation>接続切断されました: </translation>
-    </message>
-    <message numerus="yes">
-        <source>Removing Connection(s)</source>
-        <translation>
-            <numerusform>項目を削除</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>Are you sure to remove selected connection(s)?</source>
-        <translation>
-            <numerusform>選択した項目を削除しますか？</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Plugins</source>
-        <translation>プラグイン</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation>作成</translation>
-    </message>
-    <message>
-        <source>Clear Recent Connections</source>
-        <translation>最近の項目をクリア</translation>
     </message>
     <message>
         <source>Update Subscription</source>
@@ -1014,12 +1002,24 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 <context>
     <name>OutboundEditor</name>
     <message>
+        <source>Edit Connection Settings</source>
+        <translation>接続設定の編集</translation>
+    </message>
+    <message>
+        <source>Stream Settings</source>
+        <translation>ストリーム設定</translation>
+    </message>
+    <message>
         <source>Tag</source>
         <translation>タグ</translation>
     </message>
     <message>
         <source>Tag of this outbound setting</source>
         <translation>このアウトバウンド設定のタグ</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>タイプ</translation>
     </message>
     <message>
         <source>Host</source>
@@ -1034,8 +1034,8 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>ポート</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>タイプ</translation>
+        <source>Misc Settings</source>
+        <translation>その他の設定</translation>
     </message>
     <message>
         <source>Use Mux</source>
@@ -1044,18 +1044,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Enabled</source>
         <translation>有効</translation>
-    </message>
-    <message>
-        <source>Edit Connection Settings</source>
-        <translation>接続設定の編集</translation>
-    </message>
-    <message>
-        <source>Stream Settings</source>
-        <translation>ストリーム設定</translation>
-    </message>
-    <message>
-        <source>Misc Settings</source>
-        <translation>その他の設定</translation>
     </message>
     <message>
         <source>Mux Concurrency</source>
@@ -1143,16 +1131,158 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>設定</translation>
     </message>
     <message>
-        <source>UI Theme</source>
-        <translation>UIテーマ</translation>
+        <source>General Settings</source>
+        <translation>一般設定</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>外観</translation>
     </message>
     <message>
         <source>Enabled</source>
         <translation>有効</translation>
     </message>
     <message>
+        <source>UI Theme</source>
+        <translation>UIテーマ</translation>
+    </message>
+    <message>
         <source>Language</source>
         <translation>言語</translation>
+    </message>
+    <message>
+        <source>Maximum log lines</source>
+        <translation>最大ログ行</translation>
+    </message>
+    <message>
+        <source> lines</source>
+        <translation> 行</translation>
+    </message>
+    <message>
+        <source>Recent Jumplist</source>
+        <translation>最近の項目</translation>
+    </message>
+    <message>
+        <source> Connections</source>
+        <translation> 個</translation>
+    </message>
+    <message>
+        <source>Behavior</source>
+        <translation>動作</translation>
+    </message>
+    <message>
+        <source>Launch at Login</source>
+        <translation>ログイン時に起動</translation>
+    </message>
+    <message>
+        <source>Auto Connect</source>
+        <translation>自動接続</translation>
+    </message>
+    <message>
+        <source>Config</source>
+        <translation>項目</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>グループ</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>なし</translation>
+    </message>
+    <message>
+        <source>Last Connected</source>
+        <translation>最後に接続された項目</translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation>固定項目</translation>
+    </message>
+    <message>
+        <source>Quiet Mode</source>
+        <translation>サイレントモード</translation>
+    </message>
+    <message>
+        <source>Network Settings</source>
+        <translation>ネットワーク設定</translation>
+    </message>
+    <message>
+        <source>These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation>これらの設定はQv2ray自体のためのものです。
+例えば、サブスクリプションの更新などです。</translation>
+    </message>
+    <message>
+        <source>User-Agent</source>
+        <translation>ユーザーエージェント</translation>
+    </message>
+    <message>
+        <source>Latency Test Method</source>
+        <translation>遅延テスト方法</translation>
+    </message>
+    <message>
+        <source>TCPing</source>
+        <translation>TCPing</translation>
+    </message>
+    <message>
+        <source>ICMPing</source>
+        <translation>ICMPing</translation>
+    </message>
+    <message>
+        <source>Qv2ray Proxy</source>
+        <translation>Qv2ray プロキシ</translation>
+    </message>
+    <message>
+        <source>System Proxy</source>
+        <translation>システムプロキシを使う</translation>
+    </message>
+    <message>
+        <source>Custom Proxy</source>
+        <translation>カスタムプロキシを使う</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>タイプ</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>サーバー</translation>
+    </message>
+    <message>
+        <source>:</source>
+        <translation>:</translation>
+    </message>
+    <message>
+        <source>Advanced Behavior</source>
+        <translation>高度的な動作</translation>
+    </message>
+    <message>
+        <source>Set AllowInsecure By Default</source>
+        <translation>デフォルトで AllowInsecure を設定する</translation>
+    </message>
+    <message>
+        <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
+This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
+        <translation>インポート時にすべての項目に対して「AllowInsecure」の設定を有効にします。
+これは証明書の問題を緩和することができますが、TLS MITM 攻撃を受けるリスクが高くなります。</translation>
+    </message>
+    <message>
+        <source>Test Latency Periodcally</source>
+        <translation>周期的の遅延テスト</translation>
+    </message>
+    <message>
+        <source>Run TCPing or ICMPing periodcally after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
+        <translation>サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
+有効にすると、Qv2ray はより正確なレイテンシ値が得られますが、サーバーは制限される可能性が高くなります。</translation>
+    </message>
+    <message>
+        <source>Enable SessionResumption By Default</source>
+        <translation>デフォルトで SessionResumption を有効にする</translation>
+    </message>
+    <message>
+        <source>Kernel Settings</source>
+        <translation>カーネル設定</translation>
     </message>
     <message>
         <source>Log Level</source>
@@ -1179,244 +1309,8 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>エラー</translation>
     </message>
     <message>
-        <source>Config</source>
-        <translation>項目</translation>
-    </message>
-    <message>
         <source>Select</source>
         <translation>選択</translation>
-    </message>
-    <message>
-        <source>Auto Connect</source>
-        <translation>自動接続</translation>
-    </message>
-    <message>
-        <source>Inbound Settings</source>
-        <translation>インバウンド設定</translation>
-    </message>
-    <message>
-        <source>Listening Address</source>
-        <translation>リスニングアドレス</translation>
-    </message>
-    <message>
-        <source>Set System Proxy</source>
-        <translation>システムプロキシに設定する</translation>
-    </message>
-    <message>
-        <source>SOCKS Settings</source>
-        <translation>SOCKS設定</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation>ポート</translation>
-    </message>
-    <message>
-        <source>UDP Support</source>
-        <translation>UDPサポート</translation>
-    </message>
-    <message>
-        <source>Launch at Login</source>
-        <translation>ログイン時に起動</translation>
-    </message>
-    <message>
-        <source>Authentication</source>
-        <translation>認証</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>ユーザー名</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
-    </message>
-    <message>
-        <source>HTTP Settings</source>
-        <translation>HTTP設定</translation>
-    </message>
-    <message>
-        <source>Connection Settings</source>
-        <translation>接続設定</translation>
-    </message>
-    <message>
-        <source>General Connection Settings</source>
-        <translation>一般接続設定</translation>
-    </message>
-    <message>
-        <source>Use Local DNS</source>
-        <translation>ローカルDNSを使用する</translation>
-    </message>
-    <message>
-        <source>Forward Proxy</source>
-        <translation>フォワードプロキシ</translation>
-    </message>
-    <message>
-        <source>Only simple config is supported.</source>
-        <translation>簡易構成のみがサポートされています。</translation>
-    </message>
-    <message>
-        <source>Build Info</source>
-        <translation>ビルド情報</translation>
-    </message>
-    <message>
-        <source>Extra Build Info</source>
-        <translation>追加ビルド情報</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>タイプ</translation>
-    </message>
-    <message>
-        <source>Host Address</source>
-        <translation>ホストアドレス</translation>
-    </message>
-    <message>
-        <source>General Settings</source>
-        <translation>一般設定</translation>
-    </message>
-    <message>
-        <source>Maximum log lines</source>
-        <translation>最大ログ行</translation>
-    </message>
-    <message>
-        <source> lines</source>
-        <translation> 行</translation>
-    </message>
-    <message>
-        <source>UDP Local IP</source>
-        <translation>UDP ローカル IP</translation>
-    </message>
-    <message>
-        <source>Transparent Proxy Settings</source>
-        <translation>透過プロキシ設定</translation>
-    </message>
-    <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
-    </message>
-    <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation>このソフトについて</translation>
-    </message>
-    <message>
-        <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation>バージョン：</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>キャンセル</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation>Qtについて</translation>
-    </message>
-    <message>
-        <source>Version: %1</source>
-        <translation>バージョン: %1</translation>
-    </message>
-    <message>
-        <source>Update is disabled by your vendor.</source>
-        <translation>ベンダーによって更新が無効になっています。</translation>
-    </message>
-    <message>
-        <source>Duplicated port numbers detected, please check the port number settings.</source>
-        <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください。</translation>
-    </message>
-    <message>
-        <source>Invalid inbound listening address.</source>
-        <translation>無効なインバウンドリスニングアドレス。</translation>
-    </message>
-    <message>
-        <source>tProxy is not supported on macOS and Windows</source>
-        <translation>tProxyはmacOSおよびWindowsではサポートされていません</translation>
-    </message>
-    <message>
-        <source>Dangerous Operation</source>
-        <translation>危険操作</translation>
-    </message>
-    <message>
-        <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-        <translation>TLSの保護を失い、MITMの攻撃を受ける可能性が高くなります。</translation>
-    </message>
-    <message>
-        <source>This will (probably) make it easy to fingerprint your connection.</source>
-        <translation>そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
-    </message>
-    <message>
-        <source>Start with boot</source>
-        <translation>システム起動時に起動します</translation>
-    </message>
-    <message>
-        <source>Failed to set auto start option.</source>
-        <translation>自動起動オプションの設定に失敗しました。</translation>
-    </message>
-    <message>
-        <source>Bypass CN Mainland</source>
-        <translation>中国本土をバイパス</translation>
-    </message>
-    <message>
-        <source>Advanced Route Settings</source>
-        <translation>ルート詳細設定</translation>
-    </message>
-    <message>
-        <source>License</source>
-        <translation>ライセンス</translation>
-    </message>
-    <message>
-        <source>Official Repo</source>
-        <translation>公式レポ</translation>
-    </message>
-    <message>
-        <source>Built Time</source>
-        <translation>ビルド時間</translation>
-    </message>
-    <message>
-        <source>Update Channel</source>
-        <translation>更新チャネル</translation>
-    </message>
-    <message>
-        <source>Stable Release</source>
-        <translation>安定版</translation>
-    </message>
-    <message>
-        <source>Testing</source>
-        <translation>テスト版</translation>
-    </message>
-    <message>
-        <source>Appearance</source>
-        <translation>外観</translation>
-    </message>
-    <message>
-        <source>Behavior</source>
-        <translation>動作</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>グループ</translation>
-    </message>
-    <message>
-        <source>Network Settings</source>
-        <translation>ネットワーク設定</translation>
-    </message>
-    <message>
-        <source>:</source>
-        <translation>:</translation>
-    </message>
-    <message>
-        <source>User-Agent</source>
-        <translation>ユーザーエージェント</translation>
-    </message>
-    <message>
-        <source>Kernel Settings</source>
-        <translation>カーネル設定</translation>
     </message>
     <message>
         <source>Plugin Kernel Settings</source>
@@ -1445,60 +1339,76 @@ Custom DNS Settings</source>
         <translation>ポート割り当て開始</translation>
     </message>
     <message>
-        <source>Ignored Version</source>
-        <translation>バージョン無視</translation>
+        <source>Inbound Settings</source>
+        <translation>インバウンド設定</translation>
     </message>
     <message>
-        <source>Plugin Interface</source>
-        <translation>プラグインインタフェース</translation>
+        <source>Listening Address</source>
+        <translation>リスニングアドレス</translation>
     </message>
     <message>
-        <source>Advanced Behavior</source>
-        <translation>高度的な動作</translation>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
+        <translation>IPv4アドレス、例えば、127.0.0.1；またはIPv6アドレス、例えば、::1</translation>
     </message>
     <message>
-        <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-        <translation>インポート時にすべての項目に対して「AllowInsecure」の設定を有効にします。
-これは証明書の問題を緩和することができますが、TLS MITM 攻撃を受けるリスクが高くなります。</translation>
+        <source>Set System Proxy</source>
+        <translation>システムプロキシに設定する</translation>
     </message>
     <message>
-        <source>Test Latency Periodcally</source>
-        <translation>周期的の遅延テスト</translation>
+        <source>SOCKS Settings</source>
+        <translation>SOCKS設定</translation>
     </message>
     <message>
-        <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation>サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
-有効にすると、Qv2ray はより正確なレイテンシ値が得られますが、サーバーは制限される可能性が高くなります。</translation>
+        <source>Port</source>
+        <translation>ポート</translation>
     </message>
     <message>
-        <source>Quiet Mode</source>
-        <translation>サイレントモード</translation>
+        <source>UDP Support</source>
+        <translation>UDPサポート</translation>
     </message>
     <message>
-        <source>Recent Jumplist</source>
-        <translation>最近の項目</translation>
+        <source>UDP Local IP</source>
+        <translation>UDP ローカル IP</translation>
     </message>
     <message>
-        <source> Connections</source>
-        <translation> 個</translation>
+        <source>Authentication</source>
+        <translation>認証</translation>
     </message>
     <message>
-        <source>Qv2ray Proxy</source>
-        <translation>Qv2ray プロキシ</translation>
+        <source>Username</source>
+        <translation>ユーザー名</translation>
     </message>
     <message>
-        <source>System Proxy</source>
-        <translation>システムプロキシを使う</translation>
+        <source>Password</source>
+        <translation>パスワード</translation>
     </message>
     <message>
-        <source>Custom Proxy</source>
-        <translation>カスタムプロキシを使う</translation>
+        <source>Sniffing</source>
+        <translation>フィルター</translation>
+    </message>
+    <message>
+        <source>HTTP Settings</source>
+        <translation>HTTP設定</translation>
+    </message>
+    <message>
+        <source>Transparent Proxy Settings</source>
+        <translation>透過プロキシ設定</translation>
+    </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
+        <translation>IPv4アドレス、例えば、127.0.0.1</translation>
     </message>
     <message>
         <source>Network Options</source>
         <translation>ネットワーク設定</translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation>TCP</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation>UDP</translation>
     </message>
     <message>
         <source>DNS Intercept</source>
@@ -1513,12 +1423,144 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>アウトバウンドマーク</translation>
     </message>
     <message>
-        <source>Sniffing</source>
-        <translation>フィルター</translation>
+        <source>Listening IPv4 Address</source>
+        <translation>リスニングIPv4アドレス</translation>
+    </message>
+    <message>
+        <source>Listening IPv6 Address</source>
+        <translation>リスニングIPv6アドレス</translation>
+    </message>
+    <message>
+        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
+        <translation>IPv6アドレス、例えば、::1。空欄のままにしておくとIPv6を無効にします。</translation>
+    </message>
+    <message>
+        <source>Connection Settings</source>
+        <translation>接続設定</translation>
+    </message>
+    <message>
+        <source>General Connection Settings</source>
+        <translation>一般接続設定</translation>
+    </message>
+    <message>
+        <source>Bypass CN Mainland</source>
+        <translation>中国本土をバイパス</translation>
     </message>
     <message>
         <source>Bypass Bittorrent Protocol</source>
         <translation>ビットトレントプロトコルをバイパス</translation>
+    </message>
+    <message>
+        <source>Use Local DNS</source>
+        <translation>ローカルDNSを使用する</translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation>DNS設定</translation>
+    </message>
+    <message>
+        <source>Forward Proxy</source>
+        <translation>フォワードプロキシ</translation>
+    </message>
+    <message>
+        <source>Only simple config is supported.</source>
+        <translation>簡易構成のみがサポートされています。</translation>
+    </message>
+    <message>
+        <source>Host Address</source>
+        <translation>ホストアドレス</translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation>ルート詳細設定</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>このソフトについて</translation>
+    </message>
+    <message>
+        <source>Ignored Version</source>
+        <translation>バージョン無視</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>キャンセル</translation>
+    </message>
+    <message>
+        <source>Update Channel</source>
+        <translation>更新チャネル</translation>
+    </message>
+    <message>
+        <source>Stable Release</source>
+        <translation>安定版</translation>
+    </message>
+    <message>
+        <source>Testing</source>
+        <translation>テスト版</translation>
+    </message>
+    <message>
+        <source>Qv2ray</source>
+        <translation>Qv2ray</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation>バージョン：</translation>
+    </message>
+    <message>
+        <source>Plugin Interface</source>
+        <translation>プラグインインタフェース</translation>
+    </message>
+    <message>
+        <source>Extra Build Info</source>
+        <translation>追加ビルド情報</translation>
+    </message>
+    <message>
+        <source>Built Time</source>
+        <translation>ビルド時間</translation>
+    </message>
+    <message>
+        <source>Build Info</source>
+        <translation>ビルド情報</translation>
+    </message>
+    <message>
+        <source>Official Repo</source>
+        <translation>公式レポ</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>ライセンス</translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation>Qtについて</translation>
+    </message>
+    <message>
+        <source>Version: %1</source>
+        <translation>バージョン: %1</translation>
+    </message>
+    <message>
+        <source>Update is disabled by your vendor.</source>
+        <translation>ベンダーによって更新が無効になっています。</translation>
+    </message>
+    <message>
+        <source>Duplicated port numbers detected, please check the port number settings.</source>
+        <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください。</translation>
+    </message>
+    <message>
+        <source>Invalid inbound listening address.</source>
+        <translation>無効なインバウンドリスニングアドレス。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ivp4 address.</source>
+        <translation>無効なtProxyリスニングIPv4アドレス。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ipv6 address.</source>
+        <translation>無効なtProxyリスニングIPv6アドレス。</translation>
+    </message>
+    <message>
+        <source>tProxy is not supported on macOS and Windows</source>
+        <translation>tProxyはmacOSおよびWindowsではサポートされていません</translation>
     </message>
     <message>
         <source>Note</source>
@@ -1533,6 +1575,14 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>tProxyインバウンドのスニッフィングはデフォルトで有効になっています。</translation>
     </message>
     <message>
+        <source>Start with boot</source>
+        <translation>システム起動時に起動します</translation>
+    </message>
+    <message>
+        <source>Failed to set auto start option.</source>
+        <translation>自動起動オプションの設定に失敗しました。</translation>
+    </message>
+    <message>
         <source>Disabling API Subsystem</source>
         <translation>APIサブシステムを無効</translation>
     </message>
@@ -1543,6 +1593,18 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     <message>
         <source>Speed chart and traffic statistics will be disabled.</source>
         <translation>スピードチャートや交通統計は無効になります。</translation>
+    </message>
+    <message>
+        <source>Dangerous Operation</source>
+        <translation>危険操作</translation>
+    </message>
+    <message>
+        <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
+        <translation>TLSの保護を失い、MITMの攻撃を受ける可能性が高くなります。</translation>
+    </message>
+    <message>
+        <source>This will (probably) make it easy to fingerprint your connection.</source>
+        <translation>そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
     </message>
     <message>
         <source>NTP Checker</source>
@@ -1593,80 +1655,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>サーバの検索に失敗しました：%1</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>なし</translation>
-    </message>
-    <message>
-        <source>Last Connected</source>
-        <translation>最後に接続された項目</translation>
-    </message>
-    <message>
-        <source>Fixed</source>
-        <translation>固定項目</translation>
-    </message>
-    <message>
-        <source>These settings are used by Qv2ray itself.
-For example, for updating subscriptions.</source>
-        <translation>これらの設定はQv2ray自体のためのものです。
-例えば、サブスクリプションの更新などです。</translation>
-    </message>
-    <message>
-        <source>Latency Test Method</source>
-        <translation>遅延テスト方法</translation>
-    </message>
-    <message>
-        <source>TCPing</source>
-        <translation>TCPing</translation>
-    </message>
-    <message>
-        <source>ICMPing</source>
-        <translation>ICMPing</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>サーバー</translation>
-    </message>
-    <message>
-        <source>Set AllowInsecure By Default</source>
-        <translation>デフォルトで AllowInsecure を設定する</translation>
-    </message>
-    <message>
-        <source>Enable SessionResumption By Default</source>
-        <translation>デフォルトで SessionResumption を有効にする</translation>
-    </message>
-    <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
-        <translation>IPv4アドレス、例えば、127.0.0.1</translation>
-    </message>
-    <message>
-        <source>Listening IPv4 Address</source>
-        <translation>リスニングIPv4アドレス</translation>
-    </message>
-    <message>
-        <source>Listening IPv6 Address</source>
-        <translation>リスニングIPv6アドレス</translation>
-    </message>
-    <message>
-        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
-        <translation>IPv6アドレス、例えば、::1。空欄のままにしておくとIPv6を無効にします。</translation>
-    </message>
-    <message>
-        <source>Invalid tproxy listening ivp4 address.</source>
-        <translation>無効なtProxyリスニングIPv4アドレス。</translation>
-    </message>
-    <message>
-        <source>Invalid tproxy listening ipv6 address.</source>
-        <translation>無効なtProxyリスニングIPv6アドレス。</translation>
-    </message>
-    <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
-        <translation>IPv4アドレス、例えば、127.0.0.1；またはIPv6アドレス、例えば、::1</translation>
-    </message>
-    <message>
-        <source>DNS Settings</source>
-        <translation>DNS設定</translation>
-    </message>
-    <message>
         <source>You can configure default DNS settings for all simple connection config here.</source>
         <translation>ここでは、すべてのシンプルな接続設定のデフォルトDNS設定を行うことができます。</translation>
     </message>
@@ -1690,7 +1678,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
-This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
         <translation>V2RayコアをQv2ray自体に誤って設定している可能性がありますが、これは絶対に正しくありません。
 しかし、Qv2rayはシングルトンモードで動作するため、フォークボムは発生しません。
@@ -1788,7 +1776,7 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
     </message>
     <message>
         <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
-The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation>V2RayコアをV2Ray制御実行ファイルに間違って設定している可能性がありますが、これは絶対に正しくありません。
 V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&apos;です。賢明に選択してください。
@@ -1804,7 +1792,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
         <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
+If you've been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
 Output: <byte value="xd"/>
 <byte value="xd"/>
 </source>
@@ -1903,40 +1891,36 @@ Output: <byte value="xd"/>
         <translation>ルートエディター</translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>ステータス</translation>
+        <source>Add outbound</source>
+        <translation>アウトバウンドを追加</translation>
     </message>
     <message>
         <source>Add default inbound from global config</source>
         <translation>グローバル設定からデフォルトのインバウンドを追加</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
-    </message>
-    <message>
-        <source>Tag</source>
-        <translation>タグ</translation>
-    </message>
-    <message>
-        <source>Add outbound</source>
-        <translation>アウトバウンドを追加</translation>
+        <source>Add blackhole outbound</source>
+        <translation>ブラックホールアウトバウンドを追加</translation>
     </message>
     <message>
         <source>Add Freedom outbound</source>
         <translation>フリーアウトバウンドを追加</translation>
     </message>
     <message>
-        <source>Add blackhole outbound</source>
-        <translation>ブラックホールアウトバウンドを追加</translation>
-    </message>
-    <message>
         <source>Protocol</source>
         <translation>プロトコル</translation>
     </message>
     <message>
+        <source>Tag</source>
+        <translation>タグ</translation>
+    </message>
+    <message>
         <source>Host</source>
         <translation>ホスト</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>ポート</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
@@ -1949,6 +1933,10 @@ Output: <byte value="xd"/>
     <message>
         <source>Drag and drop to re-order the rules.</source>
         <translation>ルール順番を変更するには、ドラッグアンドドロップします。</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>ステータス</translation>
     </message>
     <message>
         <source>Added DIRECT outbound</source>
@@ -2042,24 +2030,28 @@ Output: <byte value="xd"/>
         <translation>Form</translation>
     </message>
     <message>
+        <source>Domain Strategy</source>
+        <translation>ドメインポリシー</translation>
+    </message>
+    <message>
         <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
         <translation>「geoip:」または「geosite:」で始まる行は、geoip.datおよびgeosite.datから自動補完されます</translation>
-    </message>
-    <message>
-        <source>Direct</source>
-        <translation>直接接続</translation>
-    </message>
-    <message>
-        <source>Proxy</source>
-        <translation>プロキシで接続</translation>
     </message>
     <message>
         <source>Block</source>
         <translation>ブロック</translation>
     </message>
     <message>
+        <source>Direct</source>
+        <translation>直接接続</translation>
+    </message>
+    <message>
         <source>Domain</source>
         <translation>ドメイン</translation>
+    </message>
+    <message>
+        <source>Proxy</source>
+        <translation>プロキシで接続</translation>
     </message>
     <message>
         <source>IP</source>
@@ -2070,28 +2062,24 @@ Output: <byte value="xd"/>
         <translation>プリセットルーティングスキームを使用する</translation>
     </message>
     <message>
-        <source>Import route scheme from file</source>
-        <translation>ファイルからスキームをインポートする</translation>
-    </message>
-    <message>
-        <source>Export route scheme to file</source>
-        <translation>スキームをファイルにエクスポート</translation>
-    </message>
-    <message>
         <source>Built-in Schemes...</source>
         <translation>プリセットスキーム...</translation>
+    </message>
+    <message>
+        <source>Import route scheme from file</source>
+        <translation>ファイルからスキームをインポートする</translation>
     </message>
     <message>
         <source>Import Scheme...</source>
         <translation>スキームをインポート...</translation>
     </message>
     <message>
-        <source>Export Scheme...</source>
-        <translation>スキームをエクスポート...</translation>
+        <source>Export route scheme to file</source>
+        <translation>スキームをファイルにエクスポート</translation>
     </message>
     <message>
-        <source>Domain Strategy</source>
-        <translation>ドメインポリシー</translation>
+        <source>Export Scheme...</source>
+        <translation>スキームをエクスポート...</translation>
     </message>
 </context>
 <context>
@@ -2101,7 +2089,7 @@ Output: <byte value="xd"/>
         <translation>空スキーム</translation>
     </message>
     <message>
-        <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
+        <source>Import scheme '%1' made by '%2'? <byte value="xd"/>
  Description: %3</source>
         <translation>「%2」のスキーム「%1」をインポートしますか？
  追加情報： %3</translation>
@@ -2260,12 +2248,12 @@ Output: <byte value="xd"/>
         <translation>サイズ</translation>
     </message>
     <message>
-        <source>FG</source>
-        <translation>FG</translation>
-    </message>
-    <message>
         <source>Screen Shot</source>
         <translation>スクリーンショット</translation>
+    </message>
+    <message>
+        <source>FG</source>
+        <translation>FG</translation>
     </message>
 </context>
 <context>
@@ -2321,48 +2309,28 @@ Output: <byte value="xd"/>
         <translation>ストリーム設定ウィジェット</translation>
     </message>
     <message>
-        <source>Transport Protocol</source>
-        <translation>転送プロトコル</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
-    </message>
-    <message>
-        <source>TLS Settings</source>
-        <translation>TLS設定</translation>
-    </message>
-    <message>
-        <source>ALPN</source>
-        <translation>ALPN</translation>
-    </message>
-    <message>
-        <source>SOCK Options</source>
-        <translation>SOCKオプション</translation>
-    </message>
-    <message>
-        <source>Mark</source>
-        <translation>マーク</translation>
-    </message>
-    <message>
-        <source>TCP Fast Open</source>
-        <translation>TCP Fast Open</translation>
-    </message>
-    <message>
         <source>Protocol Settings</source>
         <translation>プロトコル設定</translation>
-    </message>
-    <message>
-        <source>Request</source>
-        <translation>リクエスト</translation>
     </message>
     <message>
         <source>Type</source>
         <translation>タイプ</translation>
     </message>
     <message>
+        <source>Edit</source>
+        <translation>編集</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation>リセット</translation>
+    </message>
+    <message>
         <source>Response</source>
         <translation>レスポンス</translation>
+    </message>
+    <message>
+        <source>Request</source>
+        <translation>リクエスト</translation>
     </message>
     <message>
         <source>Path</source>
@@ -2385,6 +2353,10 @@ Output: <byte value="xd"/>
         <translation>輻輳制御</translation>
     </message>
     <message>
+        <source>Enabled</source>
+        <translation>有効</translation>
+    </message>
+    <message>
         <source>Security</source>
         <translation>セキュリティ</translation>
     </message>
@@ -2397,16 +2369,32 @@ Output: <byte value="xd"/>
         <translation>keys</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation>編集</translation>
+        <source>Transport Protocol</source>
+        <translation>転送プロトコル</translation>
     </message>
     <message>
-        <source>Reset</source>
-        <translation>リセット</translation>
+        <source>TLS Settings</source>
+        <translation>TLS設定</translation>
     </message>
     <message>
         <source>Allow Insecure Certificates</source>
         <translation>安全でない証明書を許可する</translation>
+    </message>
+    <message>
+        <source>ALPN</source>
+        <translation>ALPN</translation>
+    </message>
+    <message>
+        <source>SOCK Options</source>
+        <translation>SOCKオプション</translation>
+    </message>
+    <message>
+        <source>Mark</source>
+        <translation>マーク</translation>
+    </message>
+    <message>
+        <source>TCP Fast Open</source>
+        <translation>TCP Fast Open</translation>
     </message>
     <message>
         <source>tProxy Mode</source>
@@ -2753,6 +2741,18 @@ Output: <byte value="xd"/>
         <translation>グループ編集</translation>
     </message>
     <message>
+        <source>Group Info</source>
+        <translation>グループ情報</translation>
+    </message>
+    <message>
+        <source>Group Name</source>
+        <translation>グループ名</translation>
+    </message>
+    <message>
+        <source>Created At</source>
+        <translation>作成日</translation>
+    </message>
+    <message>
         <source>Group List</source>
         <translation>グループ一覧</translation>
     </message>
@@ -2765,48 +2765,12 @@ Output: <byte value="xd"/>
         <translation>サブスクリプションを削除</translation>
     </message>
     <message>
-        <source>Group Name</source>
-        <translation>グループ名</translation>
-    </message>
-    <message>
-        <source>Subscription Address</source>
-        <translation>アドレス</translation>
-    </message>
-    <message>
-        <source>Days</source>
-        <translation>日ごと</translation>
-    </message>
-    <message>
-        <source>Last Updated</source>
-        <translation>最終更新</translation>
-    </message>
-    <message>
-        <source>Group Info</source>
-        <translation>グループ情報</translation>
-    </message>
-    <message>
-        <source>Created At</source>
-        <translation>作成日</translation>
-    </message>
-    <message>
         <source>Connections</source>
         <translation>項目</translation>
     </message>
     <message>
         <source>Delete Selection</source>
         <translation>選択したものを削除</translation>
-    </message>
-    <message>
-        <source>Export Selection</source>
-        <translation>選択したものをエクスポート</translation>
-    </message>
-    <message>
-        <source>Subscription Settings</source>
-        <translation>サブスクリプション設定</translation>
-    </message>
-    <message>
-        <source>This group is a subscription</source>
-        <translation>このグループはサブスクリプションです</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2825,8 +2789,32 @@ Output: <byte value="xd"/>
         <translation>グループ</translation>
     </message>
     <message>
+        <source>Export Selection</source>
+        <translation>選択したものをエクスポート</translation>
+    </message>
+    <message>
+        <source>Subscription Settings</source>
+        <translation>サブスクリプション設定</translation>
+    </message>
+    <message>
+        <source>This group is a subscription</source>
+        <translation>このグループはサブスクリプションです</translation>
+    </message>
+    <message>
+        <source>Subscription Address</source>
+        <translation>アドレス</translation>
+    </message>
+    <message>
+        <source>Last Updated</source>
+        <translation>最終更新</translation>
+    </message>
+    <message>
         <source>Update Notify Interval</source>
         <translation>更新間隔</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation>日ごと</translation>
     </message>
     <message>
         <source>Import Filters</source>
@@ -2853,20 +2841,20 @@ Output: <byte value="xd"/>
         <translation>含まれていない場合のみインポートして...</translation>
     </message>
     <message>
-        <source>DNS Settings</source>
-        <translation>DNS設定</translation>
-    </message>
-    <message>
-        <source>Advanced Route Settings</source>
-        <translation>ルート詳細設定</translation>
-    </message>
-    <message>
         <source>Update Subscription</source>
         <translation>サブスクリプションを更新</translation>
     </message>
     <message>
+        <source>DNS Settings</source>
+        <translation>DNS設定</translation>
+    </message>
+    <message>
         <source>Override Global DNS Settings</source>
         <translation>グローバルDNS設定のオーバーライド</translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation>ルート詳細設定</translation>
     </message>
     <message>
         <source>Override Global Advanced Route Settings</source>
@@ -2882,6 +2870,22 @@ Output: <byte value="xd"/>
     <message>
         <source>Plugins</source>
         <translation>プラグイン一覧</translation>
+    </message>
+    <message>
+        <source>Open Local Plugin Folder</source>
+        <translation>ローカルプラグインフォルダを開く</translation>
+    </message>
+    <message>
+        <source>Online help about plugins</source>
+        <translation>プラグインに関するオンラインヘルプ</translation>
+    </message>
+    <message>
+        <source>?</source>
+        <translation>?</translation>
+    </message>
+    <message>
+        <source>Plugin Metadata</source>
+        <translation>プラグインのメタデータ</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2904,14 +2908,6 @@ Output: <byte value="xd"/>
         <translation>状態</translation>
     </message>
     <message>
-        <source>Manually Edit Settings</source>
-        <translation>設定を手動で編集する</translation>
-    </message>
-    <message>
-        <source>Plugin Metadata</source>
-        <translation>プラグインのメタデータ</translation>
-    </message>
-    <message>
         <source>Plugin Settings</source>
         <translation>プラグイン設定</translation>
     </message>
@@ -2920,16 +2916,8 @@ Output: <byte value="xd"/>
         <translation>プラグインがロードされていない</translation>
     </message>
     <message>
-        <source>Open Local Plugin Folder</source>
-        <translation>ローカルプラグインフォルダを開く</translation>
-    </message>
-    <message>
-        <source>Online help about plugins</source>
-        <translation>プラグインに関するオンラインヘルプ</translation>
-    </message>
-    <message>
-        <source>?</source>
-        <translation>?</translation>
+        <source>Manually Edit Settings</source>
+        <translation>設定を手動で編集する</translation>
     </message>
     <message>
         <source>GUI Components</source>
