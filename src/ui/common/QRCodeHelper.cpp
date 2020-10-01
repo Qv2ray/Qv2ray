@@ -51,7 +51,6 @@ namespace Qv2ray::ui
             writer.setEccLevel(eccLevel);
 
             const auto bitmap = writer.encode(content.toStdWString(), size.width(), size.height());
-            const auto BM = bitmap.toByteMatrix();
             //
             const auto black = qRgba(0, 0, 0, 255);
             const auto white = qRgba(255, 255, 255, 255);
