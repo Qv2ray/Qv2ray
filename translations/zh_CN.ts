@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>BalancerWidget</name>
     <message>
@@ -129,9 +127,7 @@
     </message>
     <message numerus="yes">
         <source>(Ignored %n complex config(s))</source>
-        <translation>
-            <numerusform>（忽略 %n 个复杂配置）</numerusform>
-        </translation>
+        <translation><numerusform>（忽略 %n 个复杂配置）</numerusform></translation>
     </message>
 </context>
 <context>
@@ -141,20 +137,12 @@
         <translation>未测试</translation>
     </message>
     <message>
-        <source>ms</source>
-        <translation>ms</translation>
+        <source>Error</source>
+        <translation>错误</translation>
     </message>
     <message>
         <source>Type: </source>
         <translation>类型: </translation>
-    </message>
-    <message>
-        <source>Testing...</source>
-        <translation>正在测试…</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>错误</translation>
     </message>
     <message>
         <source>connection</source>
@@ -163,6 +151,14 @@
     <message>
         <source>connections</source>
         <translation>个</translation>
+    </message>
+    <message>
+        <source>Testing...</source>
+        <translation>正在测试…</translation>
+    </message>
+    <message>
+        <source>ms</source>
+        <translation>ms</translation>
     </message>
     <message>
         <source>Last Connected: </source>
@@ -230,6 +226,10 @@
         <translation>DNS 服务器</translation>
     </message>
     <message>
+        <source>DNS List</source>
+        <translation>DNS 列表</translation>
+    </message>
+    <message>
         <source>DNS Server Settings</source>
         <translation>DNS 服务器设置</translation>
     </message>
@@ -242,16 +242,20 @@
         <translation>详细设置</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>端口</translation>
+        <source>Expectd IPs</source>
+        <translation>期待 IP</translation>
     </message>
     <message>
         <source>Domains</source>
         <translation>域名</translation>
     </message>
     <message>
-        <source>Expectd IPs</source>
-        <translation>期待 IP</translation>
+        <source>Port</source>
+        <translation>端口</translation>
+    </message>
+    <message>
+        <source>Statically Resolved Domains</source>
+        <translation>静态解析域名</translation>
     </message>
     <message>
         <source>Domain</source>
@@ -262,15 +266,7 @@
         <translation>解析 IP</translation>
     </message>
     <message>
-        <source>Statically Resolved Domains</source>
-        <translation>静态解析域名</translation>
-    </message>
-    <message>
-        <source>DNS List</source>
-        <translation>DNS 列表</translation>
-    </message>
-    <message>
-        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+        <source>The current system's IP address is used to notify the server of the client's location when querying DNS. 
 
 It cannot be a private address.</source>
         <translation>当前系统的 IP 地址。用作在查询 DNS 时提示服务器客户端所在的位置。
@@ -281,7 +277,7 @@ It cannot be a private address.</source>
         <translation>(V2Ray 4.13+) 除 localhost 和 DoH Local 模式之外，DNS 的查询流量都会被当作从该入站标签进入的流量参与路由。</translation>
     </message>
     <message>
-        <source>Port for DNS server. Normally it&apos;s 53.
+        <source>Port for DNS server. Normally it's 53.
 This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>DNS 服务器端口。通常为 53。
 当使用 DoH 模式时，此项无效。</translation>
@@ -289,14 +285,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 </context>
 <context>
     <name>GroupManager</name>
-    <message>
-        <source>Connection Management</source>
-        <translation>连接管理</translation>
-    </message>
-    <message>
-        <source>All connections will be moved to default group, do you want to continue?</source>
-        <translation>本订阅中的所有连接都将移动到默认分组，您确定要继续吗？</translation>
-    </message>
     <message>
         <source>Export Connection(s)</source>
         <translation>导出连接</translation>
@@ -318,6 +306,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>链接到...</translation>
     </message>
     <message>
+        <source>Connection Management</source>
+        <translation>连接管理</translation>
+    </message>
+    <message>
         <source>New Group</source>
         <translation>新分组</translation>
     </message>
@@ -328,6 +320,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Would you like to update the subscription?</source>
         <translation>您要更新订阅吗？</translation>
+    </message>
+    <message>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation>本订阅中的所有连接都将移动到默认分组，您确定要继续吗？</translation>
     </message>
     <message>
         <source>The subscription link is empty.</source>
@@ -372,40 +368,92 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>名称/前缀</translation>
     </message>
     <message>
-        <source> secs</source>
-        <translation> 秒</translation>
+        <source>A prefix to the imported connection</source>
+        <translation>导入链接的名称前缀</translation>
     </message>
     <message>
-        <source>Hide Qv2ray</source>
-        <translation>隐藏 Qv2ray</translation>
+        <source>Import To Group</source>
+        <translation>导入组中</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>链接</translation>
     </message>
     <message>
         <source>Share Link</source>
         <translation>分享链接</translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>导入</translation>
+        <source>Error List</source>
+        <translation>错误列表</translation>
     </message>
     <message>
-        <source>Path</source>
-        <translation>路径</translation>
+        <source>Paste share link here, one line for each.</source>
+        <translation>在此粘贴，一行一个。</translation>
+    </message>
+    <message>
+        <source>QR Code</source>
+        <translation>二维码</translation>
+    </message>
+    <message>
+        <source>QRCode File</source>
+        <translation>二维码文件</translation>
     </message>
     <message>
         <source>Select</source>
         <translation>选择</translation>
     </message>
     <message>
+        <source>Screenshot</source>
+        <translation>二维码截屏</translation>
+    </message>
+    <message>
+        <source>Hide Qv2ray</source>
+        <translation>隐藏 Qv2ray</translation>
+    </message>
+    <message>
+        <source> secs</source>
+        <translation> 秒</translation>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>延迟</translation>
+    </message>
+    <message>
         <source>Go</source>
         <translation>开始</translation>
     </message>
     <message>
-        <source>Error List</source>
-        <translation>错误列表</translation>
+        <source>Detected Link</source>
+        <translation>检测到的链接</translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>高级</translation>
     </message>
     <message>
         <source>Manually Input Connections</source>
         <translation>手动输入连接</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation>路径</translation>
+    </message>
+    <message>
+        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+        <translation>作为复杂配置导入（手动编辑路由规则与入站）</translation>
+    </message>
+    <message>
+        <source>Json Editor</source>
+        <translation>Json 编辑器</translation>
+    </message>
+    <message>
+        <source>Open JSON Editor</source>
+        <translation>打开 Json 编辑器</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>导入</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -422,6 +470,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation>无法从这个区域找到有效的二维码。</translation>
+    </message>
+    <message>
+        <source>Failed to import connection</source>
+        <translation>连接导入失败</translation>
     </message>
     <message>
         <source>Import config file</source>
@@ -442,62 +494,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Cannot find any QRCode from the image.</source>
         <translation>无法从图像中找到任何二维码。</translation>
-    </message>
-    <message>
-        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-        <translation>作为复杂配置导入（手动编辑路由规则与入站）</translation>
-    </message>
-    <message>
-        <source>QRCode File</source>
-        <translation>二维码文件</translation>
-    </message>
-    <message>
-        <source>Screenshot</source>
-        <translation>二维码截屏</translation>
-    </message>
-    <message>
-        <source>Delay</source>
-        <translation>延迟</translation>
-    </message>
-    <message>
-        <source>Json Editor</source>
-        <translation>Json 编辑器</translation>
-    </message>
-    <message>
-        <source>Open JSON Editor</source>
-        <translation>打开 Json 编辑器</translation>
-    </message>
-    <message>
-        <source>A prefix to the imported connection</source>
-        <translation>导入链接的名称前缀</translation>
-    </message>
-    <message>
-        <source>Paste share link here, one line for each.</source>
-        <translation>在此粘贴，一行一个。</translation>
-    </message>
-    <message>
-        <source>Import To Group</source>
-        <translation>导入组中</translation>
-    </message>
-    <message>
-        <source>Link</source>
-        <translation>链接</translation>
-    </message>
-    <message>
-        <source>QR Code</source>
-        <translation>二维码</translation>
-    </message>
-    <message>
-        <source>Detected Link</source>
-        <translation>检测到的链接</translation>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation>高级</translation>
-    </message>
-    <message>
-        <source>Failed to import connection</source>
-        <translation>连接导入失败</translation>
     </message>
     <message>
         <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
@@ -624,16 +620,24 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 <context>
     <name>JsonEditor</name>
     <message>
-        <source>OK</source>
-        <translation>好</translation>
+        <source>JSON Editor</source>
+        <translation>JSON 编辑器</translation>
+    </message>
+    <message>
+        <source>Json Editor</source>
+        <translation>Json 编辑器</translation>
     </message>
     <message>
         <source>Format JSON</source>
         <translation>格式化 JSON</translation>
     </message>
     <message>
-        <source>Json Editor</source>
-        <translation>Json 编辑器</translation>
+        <source>Remove All Comments</source>
+        <translation>移除所有注释</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>好</translation>
     </message>
     <message>
         <source>Json Contains Syntax Errors</source>
@@ -656,14 +660,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>请先修复 JSON 错误或移除其中的注释再继续</translation>
     </message>
     <message>
-        <source>JSON Editor</source>
-        <translation>JSON 编辑器</translation>
-    </message>
-    <message>
-        <source>Remove All Comments</source>
-        <translation>移除所有注释</translation>
-    </message>
-    <message>
         <source>Structure Preview</source>
         <translation>结构预览</translation>
     </message>
@@ -679,12 +675,28 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>首选项</translation>
     </message>
     <message>
-        <source>Import Connection</source>
-        <translation>导入连接</translation>
+        <source>Plugins</source>
+        <translation>插件</translation>
+    </message>
+    <message>
+        <source>Locate Current Connection</source>
+        <translation>定位到当前连接</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>搜索</translation>
     </message>
     <message>
         <source>Sort</source>
         <translation>排序</translation>
+    </message>
+    <message>
+        <source>Import Connection</source>
+        <translation>导入连接</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>新建</translation>
     </message>
     <message>
         <source>Click to toggle show/hide</source>
@@ -705,6 +717,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Clear log</source>
         <translation>清除日志</translation>
+    </message>
+    <message>
+        <source>Not Connected</source>
+        <translation>未连接</translation>
     </message>
     <message>
         <source>Speed</source>
@@ -735,136 +751,20 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 0.00 B</translation>
     </message>
     <message>
-        <source>Hide</source>
-        <translation>隐藏</translation>
-    </message>
-    <message>
-        <source>Show</source>
-        <translation>显示</translation>
-    </message>
-    <message>
-        <source>Sort connection list.</source>
-        <translation>排序连接列表。</translation>
-    </message>
-    <message>
-        <source>By connection name, A-Z</source>
-        <translation>按名称，顺序</translation>
-    </message>
-    <message>
-        <source>By connection name, Z-A</source>
-        <translation>按名称，逆序</translation>
-    </message>
-    <message>
-        <source>By data, Ascending</source>
-        <translation>低数据使用量优先</translation>
-    </message>
-    <message>
-        <source>By data, Descending</source>
-        <translation>高数据使用量优先</translation>
-    </message>
-    <message>
-        <source>By latency, Ascending</source>
-        <translation>低延迟优先</translation>
+        <source>System Proxy</source>
+        <translation>系统代理</translation>
     </message>
     <message>
         <source>Recent Connections</source>
         <translation>最近连接</translation>
     </message>
     <message>
-        <source>By latency, Descending</source>
-        <translation>高延迟优先</translation>
+        <source>Clear Recent Connections</source>
+        <translation>清除最近连接</translation>
     </message>
     <message>
-        <source>Connected: </source>
-        <translation>已连接: </translation>
-    </message>
-    <message numerus="yes">
-        <source>Duplicating Connection(s)</source>
-        <translation>
-            <numerusform>复制连接</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>Are you sure to duplicate these connection(s)?</source>
-        <translation>
-            <numerusform>您确定要复制这（些）连接吗？</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source> (Copy)</source>
-        <translation> （副本）</translation>
-    </message>
-    <message>
-        <source>Cannot set system proxy</source>
-        <translation>无法设置系统代理</translation>
-    </message>
-    <message>
-        <source>Both HTTP and SOCKS inbounds are not enabled</source>
-        <translation>HTTP 和 SOCKS 都没有启用</translation>
-    </message>
-    <message>
-        <source>System proxy configured.</source>
-        <translation>系统代理已设置。</translation>
-    </message>
-    <message>
-        <source>System proxy removed.</source>
-        <translation>系统代理已清除。</translation>
-    </message>
-    <message>
-        <source>Update Subscriptions</source>
-        <translation>更新订阅</translation>
-    </message>
-    <message>
-        <source>System Proxy</source>
-        <translation>系统代理</translation>
-    </message>
-    <message>
-        <source>Disconnected from: </source>
-        <translation>已断开连接: </translation>
-    </message>
-    <message numerus="yes">
-        <source>Removing Connection(s)</source>
-        <translation>
-            <numerusform>删除连接</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Kernel terminated.</source>
-        <translation>核心已终止。</translation>
-    </message>
-    <message>
-        <source>The kernel terminated unexpectedly:</source>
-        <translation>核心意外终止：</translation>
-    </message>
-    <message>
-        <source>To solve the problem, read the kernel log in the log text browser.</source>
-        <translation>要解决问题，请阅读日志窗口中的核心日志。</translation>
-    </message>
-    <message>
-        <source>Quit Qv2ray</source>
-        <translation>退出 Qv2ray</translation>
-    </message>
-    <message>
-        <source>Are you sure to exit Qv2ray?</source>
-        <translation>确信要退出 Qv2ray 吗？</translation>
-    </message>
-    <message numerus="yes">
-        <source>Are you sure to remove selected connection(s)?</source>
-        <translation>
-            <numerusform>您确定要删除这些项目吗？</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Locate Current Connection</source>
-        <translation>定位到当前连接</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation>搜索</translation>
-    </message>
-    <message>
-        <source>Not Connected</source>
-        <translation>未连接</translation>
+        <source>Hide</source>
+        <translation>隐藏</translation>
     </message>
     <message>
         <source>Quit</source>
@@ -931,20 +831,108 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>删除连接</translation>
     </message>
     <message>
+        <source>Sort connection list.</source>
+        <translation>排序连接列表。</translation>
+    </message>
+    <message>
+        <source>By connection name, A-Z</source>
+        <translation>按名称，顺序</translation>
+    </message>
+    <message>
+        <source>By connection name, Z-A</source>
+        <translation>按名称，逆序</translation>
+    </message>
+    <message>
+        <source>By latency, Ascending</source>
+        <translation>低延迟优先</translation>
+    </message>
+    <message>
+        <source>By latency, Descending</source>
+        <translation>高延迟优先</translation>
+    </message>
+    <message>
+        <source>By data, Ascending</source>
+        <translation>低数据使用量优先</translation>
+    </message>
+    <message>
+        <source>By data, Descending</source>
+        <translation>高数据使用量优先</translation>
+    </message>
+    <message>
         <source>Switch to Qv2ray log</source>
         <translation>切换到 Qv2ray 日志</translation>
     </message>
     <message>
-        <source>Plugins</source>
-        <translation>插件</translation>
+        <source>Kernel terminated.</source>
+        <translation>核心已终止。</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation>新建</translation>
+        <source>The kernel terminated unexpectedly:</source>
+        <translation>核心意外终止：</translation>
     </message>
     <message>
-        <source>Clear Recent Connections</source>
-        <translation>清除最近连接</translation>
+        <source>To solve the problem, read the kernel log in the log text browser.</source>
+        <translation>要解决问题，请阅读日志窗口中的核心日志。</translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation>显示</translation>
+    </message>
+    <message>
+        <source>Quit Qv2ray</source>
+        <translation>退出 Qv2ray</translation>
+    </message>
+    <message>
+        <source>Are you sure to exit Qv2ray?</source>
+        <translation>确信要退出 Qv2ray 吗？</translation>
+    </message>
+    <message numerus="yes">
+        <source>Removing Connection(s)</source>
+        <translation><numerusform>删除连接</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Are you sure to remove selected connection(s)?</source>
+        <translation><numerusform>您确定要删除这些项目吗？</numerusform></translation>
+    </message>
+    <message>
+        <source>Disconnected from: </source>
+        <translation>已断开连接: </translation>
+    </message>
+    <message>
+        <source>Connected: </source>
+        <translation>已连接: </translation>
+    </message>
+    <message numerus="yes">
+        <source>Duplicating Connection(s)</source>
+        <translation><numerusform>复制连接</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Are you sure to duplicate these connection(s)?</source>
+        <translation><numerusform>您确定要复制这（些）连接吗？</numerusform></translation>
+    </message>
+    <message>
+        <source> (Copy)</source>
+        <translation> （副本）</translation>
+    </message>
+    <message>
+        <source>System proxy configured.</source>
+        <translation>系统代理已设置。</translation>
+    </message>
+    <message>
+        <source>Cannot set system proxy</source>
+        <translation>无法设置系统代理</translation>
+    </message>
+    <message>
+        <source>Both HTTP and SOCKS inbounds are not enabled</source>
+        <translation>HTTP 和 SOCKS 都没有启用</translation>
+    </message>
+    <message>
+        <source>System proxy removed.</source>
+        <translation>系统代理已清除。</translation>
+    </message>
+    <message>
+        <source>Update Subscriptions</source>
+        <translation>更新订阅</translation>
     </message>
     <message>
         <source>Update Subscription</source>
@@ -983,18 +971,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>新复杂配置</translation>
     </message>
     <message>
-        <source>Switch to Core log</source>
-        <translation>切换到核心日志</translation>
-    </message>
-    <message>
-        <source>Copy graph as image.</source>
-        <translation>复制图像到剪贴板</translation>
-    </message>
-    <message>
-        <source>Copy latest logs.</source>
-        <translation>复制最近日志</translation>
-    </message>
-    <message>
         <source>Recent Connection list cleared.</source>
         <translation>已清除最近连接列表。</translation>
     </message>
@@ -1010,9 +986,29 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Test Real Latency</source>
         <translation>测试真实延迟</translation>
     </message>
+    <message>
+        <source>Switch to Core log</source>
+        <translation>切换到核心日志</translation>
+    </message>
+    <message>
+        <source>Copy graph as image.</source>
+        <translation>复制图像到剪贴板</translation>
+    </message>
+    <message>
+        <source>Copy latest logs.</source>
+        <translation>复制最近日志</translation>
+    </message>
 </context>
 <context>
     <name>OutboundEditor</name>
+    <message>
+        <source>Edit Connection Settings</source>
+        <translation>编辑连接设置</translation>
+    </message>
+    <message>
+        <source>Stream Settings</source>
+        <translation>流设置</translation>
+    </message>
     <message>
         <source>Tag</source>
         <translation>标签</translation>
@@ -1020,6 +1016,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Tag of this outbound setting</source>
         <translation>此出站设置的标签</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>类型</translation>
     </message>
     <message>
         <source>Host</source>
@@ -1034,8 +1034,8 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>端口</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>类型</translation>
+        <source>Misc Settings</source>
+        <translation>其他设置</translation>
     </message>
     <message>
         <source>Use Mux</source>
@@ -1044,18 +1044,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Enabled</source>
         <translation>已启用</translation>
-    </message>
-    <message>
-        <source>Edit Connection Settings</source>
-        <translation>编辑连接设置</translation>
-    </message>
-    <message>
-        <source>Stream Settings</source>
-        <translation>流设置</translation>
-    </message>
-    <message>
-        <source>Misc Settings</source>
-        <translation>其他设置</translation>
     </message>
     <message>
         <source>Mux Concurrency</source>
@@ -1143,16 +1131,158 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>首选项</translation>
     </message>
     <message>
-        <source>UI Theme</source>
-        <translation>界面主题</translation>
+        <source>General Settings</source>
+        <translation>常规设置</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>外观</translation>
     </message>
     <message>
         <source>Enabled</source>
         <translation>已启用</translation>
     </message>
     <message>
+        <source>UI Theme</source>
+        <translation>界面主题</translation>
+    </message>
+    <message>
         <source>Language</source>
         <translation>语言</translation>
+    </message>
+    <message>
+        <source>Maximum log lines</source>
+        <translation>日志最大行数</translation>
+    </message>
+    <message>
+        <source> lines</source>
+        <translation> 行</translation>
+    </message>
+    <message>
+        <source>Recent Jumplist</source>
+        <translation>最近列表</translation>
+    </message>
+    <message>
+        <source> Connections</source>
+        <translation> 个</translation>
+    </message>
+    <message>
+        <source>Behavior</source>
+        <translation>行为</translation>
+    </message>
+    <message>
+        <source>Launch at Login</source>
+        <translation>登录时启动</translation>
+    </message>
+    <message>
+        <source>Auto Connect</source>
+        <translation>自动连接</translation>
+    </message>
+    <message>
+        <source>Config</source>
+        <translation>配置</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>分组</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>不使用</translation>
+    </message>
+    <message>
+        <source>Last Connected</source>
+        <translation>记忆上次的连接</translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation>固定连接</translation>
+    </message>
+    <message>
+        <source>Quiet Mode</source>
+        <translation>安静模式</translation>
+    </message>
+    <message>
+        <source>Network Settings</source>
+        <translation>网络设置</translation>
+    </message>
+    <message>
+        <source>These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation>这些设定是针对 Qv2ray 本身的。
+例如，用在更新订阅时。</translation>
+    </message>
+    <message>
+        <source>User-Agent</source>
+        <translation>User Agent</translation>
+    </message>
+    <message>
+        <source>Latency Test Method</source>
+        <translation>延迟测试方案</translation>
+    </message>
+    <message>
+        <source>TCPing</source>
+        <translation>TCPing</translation>
+    </message>
+    <message>
+        <source>ICMPing</source>
+        <translation>ICMPing</translation>
+    </message>
+    <message>
+        <source>Qv2ray Proxy</source>
+        <translation>Qv2ray 代理</translation>
+    </message>
+    <message>
+        <source>System Proxy</source>
+        <translation>使用系统代理</translation>
+    </message>
+    <message>
+        <source>Custom Proxy</source>
+        <translation>使用自定义代理</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>类型</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>服务器</translation>
+    </message>
+    <message>
+        <source>:</source>
+        <translation>:</translation>
+    </message>
+    <message>
+        <source>Advanced Behavior</source>
+        <translation>高级行为</translation>
+    </message>
+    <message>
+        <source>Set AllowInsecure By Default</source>
+        <translation>默认设置 AllowInsecure</translation>
+    </message>
+    <message>
+        <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
+This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
+        <translation>导入链接时默认启用 &quot;AllowInsecure&quot; 选项。
+可能对部分机场/节点的证书问题有所帮助，但更可能会使您遭受来自第三人的 TLS MITM 攻击。</translation>
+    </message>
+    <message>
+        <source>Test Latency Periodcally</source>
+        <translation>定时测试延迟</translation>
+    </message>
+    <message>
+        <source>Run TCPing or ICMPing periodcally after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
+        <translation>连接到节点之后，对节点进行周期性的延迟监测。
+若启用，Qv2ray 对节点的延迟监测将会更加准确，但这也许会提升您服务器被暴露的风险。</translation>
+    </message>
+    <message>
+        <source>Enable SessionResumption By Default</source>
+        <translation>默认允许 SessionResumption</translation>
+    </message>
+    <message>
+        <source>Kernel Settings</source>
+        <translation>内核设置</translation>
     </message>
     <message>
         <source>Log Level</source>
@@ -1183,242 +1313,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>选择</translation>
     </message>
     <message>
-        <source>Inbound Settings</source>
-        <translation>入站设置</translation>
-    </message>
-    <message>
-        <source>Listening Address</source>
-        <translation>监听地址</translation>
-    </message>
-    <message>
-        <source>Set System Proxy</source>
-        <translation>设置系统代理</translation>
-    </message>
-    <message>
-        <source>SOCKS Settings</source>
-        <translation>SOCKS 设置</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation>端口</translation>
-    </message>
-    <message>
-        <source>UDP Support</source>
-        <translation>UDP 支持</translation>
-    </message>
-    <message>
-        <source>Launch at Login</source>
-        <translation>登录时启动</translation>
-    </message>
-    <message>
-        <source>Authentication</source>
-        <translation>身份验证</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>用户名</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>密码</translation>
-    </message>
-    <message>
-        <source>HTTP Settings</source>
-        <translation>HTTP 设置</translation>
-    </message>
-    <message>
-        <source>Connection Settings</source>
-        <translation>连接设置</translation>
-    </message>
-    <message>
-        <source>General Connection Settings</source>
-        <translation>常规连接设置</translation>
-    </message>
-    <message>
-        <source>Use Local DNS</source>
-        <translation>使用本地 DNS</translation>
-    </message>
-    <message>
-        <source>Forward Proxy</source>
-        <translation>前置代理</translation>
-    </message>
-    <message>
-        <source>Only simple config is supported.</source>
-        <translation>只支持简单配置。</translation>
-    </message>
-    <message>
-        <source>Build Info</source>
-        <translation>编译信息</translation>
-    </message>
-    <message>
-        <source>Extra Build Info</source>
-        <translation>额外编译信息</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>类型</translation>
-    </message>
-    <message>
-        <source>Host Address</source>
-        <translation>主机地址</translation>
-    </message>
-    <message>
-        <source>General Settings</source>
-        <translation>常规设置</translation>
-    </message>
-    <message>
-        <source>Maximum log lines</source>
-        <translation>日志最大行数</translation>
-    </message>
-    <message>
-        <source> lines</source>
-        <translation> 行</translation>
-    </message>
-    <message>
-        <source>UDP Local IP</source>
-        <translation>UDP 本地IP</translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation>关于</translation>
-    </message>
-    <message>
-        <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation>版本：</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>取消</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation>关于 Qt</translation>
-    </message>
-    <message>
-        <source>Version: %1</source>
-        <translation>版本：%1</translation>
-    </message>
-    <message>
-        <source>Update is disabled by your vendor.</source>
-        <translation>自动更新已被供应者禁用。</translation>
-    </message>
-    <message>
-        <source>Duplicated port numbers detected, please check the port number settings.</source>
-        <translation>检测到重复的端口号，请检查端口号设置。</translation>
-    </message>
-    <message>
-        <source>Invalid inbound listening address.</source>
-        <translation>入站监听地址不可用。</translation>
-    </message>
-    <message>
-        <source>tProxy is not supported on macOS and Windows</source>
-        <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
-    </message>
-    <message>
-        <source>Dangerous Operation</source>
-        <translation>危险操作</translation>
-    </message>
-    <message>
-        <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-        <translation>你会失去 TLS 的保护，并可能使您的连接受害于中间人攻击（MitM）。</translation>
-    </message>
-    <message>
-        <source>This will (probably) make it easy to fingerprint your connection.</source>
-        <translation>这将让 GFW 更容易识别出您的连接。</translation>
-    </message>
-    <message>
-        <source>Start with boot</source>
-        <translation>开机启动</translation>
-    </message>
-    <message>
-        <source>Failed to set auto start option.</source>
-        <translation>无法设置自动启动选项。</translation>
-    </message>
-    <message>
-        <source>Transparent Proxy Settings</source>
-        <translation>透明代理设置</translation>
-    </message>
-    <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
-    </message>
-    <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
-    </message>
-    <message>
-        <source>Config</source>
-        <translation>配置</translation>
-    </message>
-    <message>
-        <source>Auto Connect</source>
-        <translation>自动连接</translation>
-    </message>
-    <message>
-        <source>Bypass CN Mainland</source>
-        <translation>绕过中国大陆</translation>
-    </message>
-    <message>
-        <source>Advanced Route Settings</source>
-        <translation>高级路由设置</translation>
-    </message>
-    <message>
-        <source>License</source>
-        <translation>许可证</translation>
-    </message>
-    <message>
-        <source>Official Repo</source>
-        <translation>官方仓库</translation>
-    </message>
-    <message>
-        <source>Built Time</source>
-        <translation>构建时间</translation>
-    </message>
-    <message>
-        <source>Update Channel</source>
-        <translation>更新通道</translation>
-    </message>
-    <message>
-        <source>Stable Release</source>
-        <translation>稳定通道</translation>
-    </message>
-    <message>
-        <source>Testing</source>
-        <translation>测试通道</translation>
-    </message>
-    <message>
-        <source>Appearance</source>
-        <translation>外观</translation>
-    </message>
-    <message>
-        <source>Behavior</source>
-        <translation>行为</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>分组</translation>
-    </message>
-    <message>
-        <source>Network Settings</source>
-        <translation>网络设置</translation>
-    </message>
-    <message>
-        <source>:</source>
-        <translation>:</translation>
-    </message>
-    <message>
-        <source>User-Agent</source>
-        <translation>User Agent</translation>
-    </message>
-    <message>
-        <source>Kernel Settings</source>
-        <translation>内核设置</translation>
-    </message>
-    <message>
         <source>Plugin Kernel Settings</source>
         <translation>插件内核设置</translation>
     </message>
@@ -1445,60 +1339,76 @@ Custom DNS Settings</source>
         <translation>端口分配起始值</translation>
     </message>
     <message>
-        <source>Ignored Version</source>
-        <translation>忽略版本</translation>
+        <source>Inbound Settings</source>
+        <translation>入站设置</translation>
     </message>
     <message>
-        <source>Plugin Interface</source>
-        <translation>插件接口</translation>
+        <source>Listening Address</source>
+        <translation>监听地址</translation>
     </message>
     <message>
-        <source>Advanced Behavior</source>
-        <translation>高级行为</translation>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
+        <translation>IPv4 地址，例如 127.0.0.1；或 IPv6 地址，例如 ::1</translation>
     </message>
     <message>
-        <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-        <translation>导入链接时默认启用 &quot;AllowInsecure&quot; 选项。
-可能对部分机场/节点的证书问题有所帮助，但更可能会使您遭受来自第三人的 TLS MITM 攻击。</translation>
+        <source>Set System Proxy</source>
+        <translation>设置系统代理</translation>
     </message>
     <message>
-        <source>Test Latency Periodcally</source>
-        <translation>定时测试延迟</translation>
+        <source>SOCKS Settings</source>
+        <translation>SOCKS 设置</translation>
     </message>
     <message>
-        <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation>连接到节点之后，对节点进行周期性的延迟监测。
-若启用，Qv2ray 对节点的延迟监测将会更加准确，但这也许会提升您服务器被暴露的风险。</translation>
+        <source>Port</source>
+        <translation>端口</translation>
     </message>
     <message>
-        <source>Quiet Mode</source>
-        <translation>安静模式</translation>
+        <source>UDP Support</source>
+        <translation>UDP 支持</translation>
     </message>
     <message>
-        <source>Recent Jumplist</source>
-        <translation>最近列表</translation>
+        <source>UDP Local IP</source>
+        <translation>UDP 本地IP</translation>
     </message>
     <message>
-        <source> Connections</source>
-        <translation> 个</translation>
+        <source>Authentication</source>
+        <translation>身份验证</translation>
     </message>
     <message>
-        <source>Qv2ray Proxy</source>
-        <translation>Qv2ray 代理</translation>
+        <source>Username</source>
+        <translation>用户名</translation>
     </message>
     <message>
-        <source>System Proxy</source>
-        <translation>使用系统代理</translation>
+        <source>Password</source>
+        <translation>密码</translation>
     </message>
     <message>
-        <source>Custom Proxy</source>
-        <translation>使用自定义代理</translation>
+        <source>Sniffing</source>
+        <translation>嗅探</translation>
+    </message>
+    <message>
+        <source>HTTP Settings</source>
+        <translation>HTTP 设置</translation>
+    </message>
+    <message>
+        <source>Transparent Proxy Settings</source>
+        <translation>透明代理设置</translation>
+    </message>
+    <message>
+        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
+        <translation>IPv4 地址，例如 127.0.0.1</translation>
     </message>
     <message>
         <source>Network Options</source>
         <translation>网络选项</translation>
+    </message>
+    <message>
+        <source>TCP</source>
+        <translation>TCP</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation>UDP</translation>
     </message>
     <message>
         <source>DNS Intercept</source>
@@ -1513,12 +1423,144 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>出站 Mark</translation>
     </message>
     <message>
-        <source>Sniffing</source>
-        <translation>嗅探</translation>
+        <source>Listening IPv4 Address</source>
+        <translation>IPv4 监听地址</translation>
+    </message>
+    <message>
+        <source>Listening IPv6 Address</source>
+        <translation>IPv6 监听地址</translation>
+    </message>
+    <message>
+        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
+        <translation>IPv6 地址，例如 ::1。留空会禁用 IPv6 透明代理。</translation>
+    </message>
+    <message>
+        <source>Connection Settings</source>
+        <translation>连接设置</translation>
+    </message>
+    <message>
+        <source>General Connection Settings</source>
+        <translation>常规连接设置</translation>
+    </message>
+    <message>
+        <source>Bypass CN Mainland</source>
+        <translation>绕过中国大陆</translation>
     </message>
     <message>
         <source>Bypass Bittorrent Protocol</source>
         <translation>绕过 BitTorrent 协议</translation>
+    </message>
+    <message>
+        <source>Use Local DNS</source>
+        <translation>使用本地 DNS</translation>
+    </message>
+    <message>
+        <source>DNS Settings</source>
+        <translation>DNS 设置</translation>
+    </message>
+    <message>
+        <source>Forward Proxy</source>
+        <translation>前置代理</translation>
+    </message>
+    <message>
+        <source>Only simple config is supported.</source>
+        <translation>只支持简单配置。</translation>
+    </message>
+    <message>
+        <source>Host Address</source>
+        <translation>主机地址</translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation>高级路由设置</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <source>Ignored Version</source>
+        <translation>忽略版本</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <source>Update Channel</source>
+        <translation>更新通道</translation>
+    </message>
+    <message>
+        <source>Stable Release</source>
+        <translation>稳定通道</translation>
+    </message>
+    <message>
+        <source>Testing</source>
+        <translation>测试通道</translation>
+    </message>
+    <message>
+        <source>Qv2ray</source>
+        <translation>Qv2ray</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation>版本：</translation>
+    </message>
+    <message>
+        <source>Plugin Interface</source>
+        <translation>插件接口</translation>
+    </message>
+    <message>
+        <source>Extra Build Info</source>
+        <translation>额外编译信息</translation>
+    </message>
+    <message>
+        <source>Built Time</source>
+        <translation>构建时间</translation>
+    </message>
+    <message>
+        <source>Build Info</source>
+        <translation>编译信息</translation>
+    </message>
+    <message>
+        <source>Official Repo</source>
+        <translation>官方仓库</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>许可证</translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation>关于 Qt</translation>
+    </message>
+    <message>
+        <source>Version: %1</source>
+        <translation>版本：%1</translation>
+    </message>
+    <message>
+        <source>Update is disabled by your vendor.</source>
+        <translation>自动更新已被供应者禁用。</translation>
+    </message>
+    <message>
+        <source>Duplicated port numbers detected, please check the port number settings.</source>
+        <translation>检测到重复的端口号，请检查端口号设置。</translation>
+    </message>
+    <message>
+        <source>Invalid inbound listening address.</source>
+        <translation>入站监听地址不可用。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ivp4 address.</source>
+        <translation>无效的透明代理 IPv4 监听地址。</translation>
+    </message>
+    <message>
+        <source>Invalid tproxy listening ipv6 address.</source>
+        <translation>无效的透明代理 IPv6 监听地址。</translation>
+    </message>
+    <message>
+        <source>tProxy is not supported on macOS and Windows</source>
+        <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
     <message>
         <source>Note</source>
@@ -1533,6 +1575,14 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>tProxy 入站的嗅探选项默认开启。</translation>
     </message>
     <message>
+        <source>Start with boot</source>
+        <translation>开机启动</translation>
+    </message>
+    <message>
+        <source>Failed to set auto start option.</source>
+        <translation>无法设置自动启动选项。</translation>
+    </message>
+    <message>
         <source>Disabling API Subsystem</source>
         <translation>禁用 API 子系统</translation>
     </message>
@@ -1543,6 +1593,18 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     <message>
         <source>Speed chart and traffic statistics will be disabled.</source>
         <translation>速度图表和流量统计功能将不再可用。</translation>
+    </message>
+    <message>
+        <source>Dangerous Operation</source>
+        <translation>危险操作</translation>
+    </message>
+    <message>
+        <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
+        <translation>你会失去 TLS 的保护，并可能使您的连接受害于中间人攻击（MitM）。</translation>
+    </message>
+    <message>
+        <source>This will (probably) make it easy to fingerprint your connection.</source>
+        <translation>这将让 GFW 更容易识别出您的连接。</translation>
     </message>
     <message>
         <source>NTP Checker</source>
@@ -1593,80 +1655,6 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
         <translation>无法查找服务器：%1</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>不使用</translation>
-    </message>
-    <message>
-        <source>Last Connected</source>
-        <translation>记忆上次的连接</translation>
-    </message>
-    <message>
-        <source>Fixed</source>
-        <translation>固定连接</translation>
-    </message>
-    <message>
-        <source>These settings are used by Qv2ray itself.
-For example, for updating subscriptions.</source>
-        <translation>这些设定是针对 Qv2ray 本身的。
-例如，用在更新订阅时。</translation>
-    </message>
-    <message>
-        <source>Latency Test Method</source>
-        <translation>延迟测试方案</translation>
-    </message>
-    <message>
-        <source>TCPing</source>
-        <translation>TCPing</translation>
-    </message>
-    <message>
-        <source>ICMPing</source>
-        <translation>ICMPing</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>服务器</translation>
-    </message>
-    <message>
-        <source>Set AllowInsecure By Default</source>
-        <translation>默认设置 AllowInsecure</translation>
-    </message>
-    <message>
-        <source>Enable SessionResumption By Default</source>
-        <translation>默认允许 SessionResumption</translation>
-    </message>
-    <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
-        <translation>IPv4 地址，例如 127.0.0.1</translation>
-    </message>
-    <message>
-        <source>Listening IPv4 Address</source>
-        <translation>IPv4 监听地址</translation>
-    </message>
-    <message>
-        <source>Listening IPv6 Address</source>
-        <translation>IPv6 监听地址</translation>
-    </message>
-    <message>
-        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
-        <translation>IPv6 地址，例如 ::1。留空会禁用 IPv6 透明代理。</translation>
-    </message>
-    <message>
-        <source>Invalid tproxy listening ivp4 address.</source>
-        <translation>无效的透明代理 IPv4 监听地址。</translation>
-    </message>
-    <message>
-        <source>Invalid tproxy listening ipv6 address.</source>
-        <translation>无效的透明代理 IPv6 监听地址。</translation>
-    </message>
-    <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
-        <translation>IPv4 地址，例如 127.0.0.1；或 IPv6 地址，例如 ::1</translation>
-    </message>
-    <message>
-        <source>DNS Settings</source>
-        <translation>DNS 设置</translation>
-    </message>
-    <message>
         <source>You can configure default DNS settings for all simple connection config here.</source>
         <translation>你可在此为所有简单连接配置 DNS 设定。</translation>
     </message>
@@ -1690,7 +1678,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
-This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
         <translation>您或许要将 V2Ray 的可执行文件错误地设置成 Qv2ray 本身了，这是非常不对的。
 然而，这样做并不会触发 Fork 炸弹，因为 Qv2ray 以单例模式工作。
@@ -1788,7 +1776,7 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
     </message>
     <message>
         <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
-The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
+The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation>您或许要将 V2Ray 的核心可执行文件错误地设置成 V2Ray 控制文件了，这是非常不对的。
 V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。确保你作出了正确的选择。
@@ -1804,7 +1792,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
         <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
+If you've been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
 Output: <byte value="xd"/>
 <byte value="xd"/>
 </source>
@@ -1903,40 +1891,36 @@ Output: <byte value="xd"/>
         <translation>路由编辑器</translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>状态</translation>
+        <source>Add outbound</source>
+        <translation>添加出站</translation>
     </message>
     <message>
         <source>Add default inbound from global config</source>
         <translation>从全局配置中添加默认的入站设置</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>端口</translation>
-    </message>
-    <message>
-        <source>Tag</source>
-        <translation>标签</translation>
-    </message>
-    <message>
-        <source>Add outbound</source>
-        <translation>添加出站</translation>
+        <source>Add blackhole outbound</source>
+        <translation>添加黑洞出站</translation>
     </message>
     <message>
         <source>Add Freedom outbound</source>
         <translation>添加自由出站</translation>
     </message>
     <message>
-        <source>Add blackhole outbound</source>
-        <translation>添加黑洞出站</translation>
-    </message>
-    <message>
         <source>Protocol</source>
         <translation>协议</translation>
     </message>
     <message>
+        <source>Tag</source>
+        <translation>标签</translation>
+    </message>
+    <message>
         <source>Host</source>
         <translation>主机</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>端口</translation>
     </message>
     <message>
         <source>Domain Strategy</source>
@@ -1949,6 +1933,10 @@ Output: <byte value="xd"/>
     <message>
         <source>Drag and drop to re-order the rules.</source>
         <translation>拖放以重新排序规则。</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>状态</translation>
     </message>
     <message>
         <source>Added DIRECT outbound</source>
@@ -2042,24 +2030,28 @@ Output: <byte value="xd"/>
         <translation>窗体</translation>
     </message>
     <message>
+        <source>Domain Strategy</source>
+        <translation>域名策略</translation>
+    </message>
+    <message>
         <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
         <translation>以“geoip:”或“geosite:”开头的行可以自动补全</translation>
-    </message>
-    <message>
-        <source>Direct</source>
-        <translation>直连</translation>
-    </message>
-    <message>
-        <source>Proxy</source>
-        <translation>代理</translation>
     </message>
     <message>
         <source>Block</source>
         <translation>阻断</translation>
     </message>
     <message>
+        <source>Direct</source>
+        <translation>直连</translation>
+    </message>
+    <message>
         <source>Domain</source>
         <translation>域名</translation>
+    </message>
+    <message>
+        <source>Proxy</source>
+        <translation>代理</translation>
     </message>
     <message>
         <source>IP</source>
@@ -2070,28 +2062,24 @@ Output: <byte value="xd"/>
         <translation>使用预置路由方案</translation>
     </message>
     <message>
-        <source>Import route scheme from file</source>
-        <translation>从文件导入路由方案</translation>
-    </message>
-    <message>
-        <source>Export route scheme to file</source>
-        <translation>导出方案到文件</translation>
-    </message>
-    <message>
         <source>Built-in Schemes...</source>
         <translation>预置方案...</translation>
+    </message>
+    <message>
+        <source>Import route scheme from file</source>
+        <translation>从文件导入路由方案</translation>
     </message>
     <message>
         <source>Import Scheme...</source>
         <translation>导入方案...</translation>
     </message>
     <message>
-        <source>Export Scheme...</source>
-        <translation>导出方案...</translation>
+        <source>Export route scheme to file</source>
+        <translation>导出方案到文件</translation>
     </message>
     <message>
-        <source>Domain Strategy</source>
-        <translation>域名策略</translation>
+        <source>Export Scheme...</source>
+        <translation>导出方案...</translation>
     </message>
 </context>
 <context>
@@ -2101,7 +2089,7 @@ Output: <byte value="xd"/>
         <translation>空白方案</translation>
     </message>
     <message>
-        <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
+        <source>Import scheme '%1' made by '%2'? <byte value="xd"/>
  Description: %3</source>
         <translation>要导入 &apos;%2&apos; 的方案 &apos;%1&apos; 吗？
 描述: %3</translation>
@@ -2260,12 +2248,12 @@ Output: <byte value="xd"/>
         <translation>大小</translation>
     </message>
     <message>
-        <source>FG</source>
-        <translation>FG</translation>
-    </message>
-    <message>
         <source>Screen Shot</source>
         <translation>截屏</translation>
+    </message>
+    <message>
+        <source>FG</source>
+        <translation>FG</translation>
     </message>
 </context>
 <context>
@@ -2321,48 +2309,28 @@ Output: <byte value="xd"/>
         <translation>流设置控件</translation>
     </message>
     <message>
-        <source>Transport Protocol</source>
-        <translation>传输协议</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation>已启用</translation>
-    </message>
-    <message>
-        <source>TLS Settings</source>
-        <translation>TLS 设置</translation>
-    </message>
-    <message>
-        <source>ALPN</source>
-        <translation>ALPN</translation>
-    </message>
-    <message>
-        <source>SOCK Options</source>
-        <translation>SOCK 选项</translation>
-    </message>
-    <message>
-        <source>Mark</source>
-        <translation>Mark</translation>
-    </message>
-    <message>
-        <source>TCP Fast Open</source>
-        <translation>TCP 快速打开</translation>
-    </message>
-    <message>
         <source>Protocol Settings</source>
         <translation>协议设置</translation>
-    </message>
-    <message>
-        <source>Request</source>
-        <translation>请求</translation>
     </message>
     <message>
         <source>Type</source>
         <translation>类型</translation>
     </message>
     <message>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation>重置</translation>
+    </message>
+    <message>
         <source>Response</source>
         <translation>响应</translation>
+    </message>
+    <message>
+        <source>Request</source>
+        <translation>请求</translation>
     </message>
     <message>
         <source>Path</source>
@@ -2385,6 +2353,10 @@ Output: <byte value="xd"/>
         <translation>拥塞控制</translation>
     </message>
     <message>
+        <source>Enabled</source>
+        <translation>已启用</translation>
+    </message>
+    <message>
         <source>Security</source>
         <translation>安全选项</translation>
     </message>
@@ -2397,16 +2369,32 @@ Output: <byte value="xd"/>
         <translation>密钥</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation>编辑</translation>
+        <source>Transport Protocol</source>
+        <translation>传输协议</translation>
     </message>
     <message>
-        <source>Reset</source>
-        <translation>重置</translation>
+        <source>TLS Settings</source>
+        <translation>TLS 设置</translation>
     </message>
     <message>
         <source>Allow Insecure Certificates</source>
         <translation>允许不安全的证书</translation>
+    </message>
+    <message>
+        <source>ALPN</source>
+        <translation>ALPN</translation>
+    </message>
+    <message>
+        <source>SOCK Options</source>
+        <translation>SOCK 选项</translation>
+    </message>
+    <message>
+        <source>Mark</source>
+        <translation>Mark</translation>
+    </message>
+    <message>
+        <source>TCP Fast Open</source>
+        <translation>TCP 快速打开</translation>
     </message>
     <message>
         <source>tProxy Mode</source>
@@ -2753,6 +2741,18 @@ Output: <byte value="xd"/>
         <translation>组编辑器</translation>
     </message>
     <message>
+        <source>Group Info</source>
+        <translation>分组信息</translation>
+    </message>
+    <message>
+        <source>Group Name</source>
+        <translation>分组名称</translation>
+    </message>
+    <message>
+        <source>Created At</source>
+        <translation>创建于</translation>
+    </message>
+    <message>
         <source>Group List</source>
         <translation>组列表</translation>
     </message>
@@ -2765,48 +2765,12 @@ Output: <byte value="xd"/>
         <translation>删除订阅</translation>
     </message>
     <message>
-        <source>Group Name</source>
-        <translation>分组名称</translation>
-    </message>
-    <message>
-        <source>Subscription Address</source>
-        <translation>订阅地址</translation>
-    </message>
-    <message>
-        <source>Days</source>
-        <translation>天</translation>
-    </message>
-    <message>
-        <source>Last Updated</source>
-        <translation>最后更新</translation>
-    </message>
-    <message>
-        <source>Group Info</source>
-        <translation>分组信息</translation>
-    </message>
-    <message>
-        <source>Created At</source>
-        <translation>创建于</translation>
-    </message>
-    <message>
         <source>Connections</source>
         <translation>连接</translation>
     </message>
     <message>
         <source>Delete Selection</source>
         <translation>删除所选项</translation>
-    </message>
-    <message>
-        <source>Export Selection</source>
-        <translation>导出所选项</translation>
-    </message>
-    <message>
-        <source>Subscription Settings</source>
-        <translation>订阅设置</translation>
-    </message>
-    <message>
-        <source>This group is a subscription</source>
-        <translation>此分组是一个订阅</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2825,8 +2789,32 @@ Output: <byte value="xd"/>
         <translation>分组</translation>
     </message>
     <message>
+        <source>Export Selection</source>
+        <translation>导出所选项</translation>
+    </message>
+    <message>
+        <source>Subscription Settings</source>
+        <translation>订阅设置</translation>
+    </message>
+    <message>
+        <source>This group is a subscription</source>
+        <translation>此分组是一个订阅</translation>
+    </message>
+    <message>
+        <source>Subscription Address</source>
+        <translation>订阅地址</translation>
+    </message>
+    <message>
+        <source>Last Updated</source>
+        <translation>最后更新</translation>
+    </message>
+    <message>
         <source>Update Notify Interval</source>
         <translation>提醒间隔</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation>天</translation>
     </message>
     <message>
         <source>Import Filters</source>
@@ -2853,20 +2841,20 @@ Output: <byte value="xd"/>
         <translation>只导入不包含特定...</translation>
     </message>
     <message>
-        <source>DNS Settings</source>
-        <translation>DNS 设置</translation>
-    </message>
-    <message>
-        <source>Advanced Route Settings</source>
-        <translation>高级路由设置</translation>
-    </message>
-    <message>
         <source>Update Subscription</source>
         <translation>更新订阅</translation>
     </message>
     <message>
+        <source>DNS Settings</source>
+        <translation>DNS 设置</translation>
+    </message>
+    <message>
         <source>Override Global DNS Settings</source>
         <translation>覆盖全局 DNS 设置</translation>
+    </message>
+    <message>
+        <source>Advanced Route Settings</source>
+        <translation>高级路由设置</translation>
     </message>
     <message>
         <source>Override Global Advanced Route Settings</source>
@@ -2882,6 +2870,22 @@ Output: <byte value="xd"/>
     <message>
         <source>Plugins</source>
         <translation>插件列表</translation>
+    </message>
+    <message>
+        <source>Open Local Plugin Folder</source>
+        <translation>打开本地插件目录</translation>
+    </message>
+    <message>
+        <source>Online help about plugins</source>
+        <translation>获取关于插件的在线帮助</translation>
+    </message>
+    <message>
+        <source>?</source>
+        <translation>?</translation>
+    </message>
+    <message>
+        <source>Plugin Metadata</source>
+        <translation>元数据</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2904,14 +2908,6 @@ Output: <byte value="xd"/>
         <translation>状态</translation>
     </message>
     <message>
-        <source>Manually Edit Settings</source>
-        <translation>手动编辑设定</translation>
-    </message>
-    <message>
-        <source>Plugin Metadata</source>
-        <translation>元数据</translation>
-    </message>
-    <message>
         <source>Plugin Settings</source>
         <translation>设定</translation>
     </message>
@@ -2920,16 +2916,8 @@ Output: <byte value="xd"/>
         <translation>插件未加载</translation>
     </message>
     <message>
-        <source>Open Local Plugin Folder</source>
-        <translation>打开本地插件目录</translation>
-    </message>
-    <message>
-        <source>Online help about plugins</source>
-        <translation>获取关于插件的在线帮助</translation>
-    </message>
-    <message>
-        <source>?</source>
-        <translation>?</translation>
+        <source>Manually Edit Settings</source>
+        <translation>手动编辑设定</translation>
     </message>
     <message>
         <source>GUI Components</source>
