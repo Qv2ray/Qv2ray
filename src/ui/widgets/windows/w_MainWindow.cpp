@@ -272,6 +272,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             if (!connections.empty())
             {
                 const auto index = modelHelper->GetConnectionPairIndex({ connections.first(), groups.first() });
+                connectionTreeView->setCurrentIndex(index);
                 on_connectionTreeView_clicked(index);
             }
         }
