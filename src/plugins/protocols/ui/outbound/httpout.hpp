@@ -42,7 +42,7 @@ class HttpOutboundEditor
     const QJsonObject GetContent() const override
     {
         auto result = http.toJson();
-        if (http.users.isEmpty())
+        if (http.users.isEmpty() || (http.users.first().user.isEmpty() && http.users.first().pass.isEmpty()))
             result.remove("users");
         return QJsonObject{ { "servers", QJsonArray{ result } } };
     }
