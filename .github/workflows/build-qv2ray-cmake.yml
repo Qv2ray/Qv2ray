@@ -184,7 +184,7 @@ jobs:
           cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
           cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           cd ..
-          ./linuxdeployqt-6-x86_64.AppImage AppDir/usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite --extra-plugins=iconengines,imageformats,platforminputcontexts
+          ./linuxdeployqt-6-x86_64.AppImage AppDir/usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite -extra-plugins=iconengines,imageformats,platforminputcontexts
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading Artifact
         if: matrix.platform == 'ubuntu-16.04'
