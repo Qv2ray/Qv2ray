@@ -43,6 +43,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         serverNameTxt->setText(stream.prefix##Settings.serverName);                                                                                  \
         allowInsecureCB->setChecked(stream.prefix##Settings.allowInsecure);                                                                          \
         disableSessionResumptionCB->setChecked(stream.prefix##Settings.disableSessionResumption);                                                    \
+        disableSystemRoot->setChecked(stream.prefix##Settings.disableSystemRoot);                                                                    \
         alpnTxt->setText(stream.prefix##Settings.alpn.join("|"));                                                                                    \
     }
 
@@ -314,4 +315,10 @@ void StreamSettingsWidget::on_alpnTxt_textEdited(const QString &arg1)
 {
     stream.tlsSettings.alpn = arg1.split('|');
     stream.xtlsSettings.alpn = arg1.split('|');
+}
+
+void StreamSettingsWidget::on_disableSystemRoot_stateChanged(int arg1)
+{
+    stream.tlsSettings.disableSystemRoot = arg1;
+    stream.xtlsSettings.disableSystemRoot = arg1;
 }
