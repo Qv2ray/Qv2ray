@@ -102,6 +102,7 @@ QStandardItem *ConnectionListHelper::addConnectionItem(const ConnectionGroupPair
     connect(widget, &ConnectionItemWidget::RequestWidgetFocus, [widget, connectionIndex, this]() {
         parentView->setCurrentIndex(connectionIndex);
         parentView->scrollTo(connectionIndex);
+        parentView->clicked(connectionIndex);
     });
     //
     parentView->setIndexWidget(connectionIndex, widget);
