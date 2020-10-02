@@ -60,6 +60,8 @@ class StreamSettingsWidget
     void on_wsHeadersTxt_textChanged();
     void on_wsPathTxt_textEdited(const QString &arg1);
 
+    void on_disableSystemRoot_stateChanged(int arg1);
+
   private:
     QvMessageBusSlotDecl;
     StreamSettingsObject stream;
