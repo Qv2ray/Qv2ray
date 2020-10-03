@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ja_JP" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ja_JP">
 <context>
     <name>BalancerWidget</name>
     <message>
@@ -127,7 +129,9 @@
     </message>
     <message numerus="yes">
         <source>(Ignored %n complex config(s))</source>
-        <translation><numerusform>(無視される %n 複雑な構成)</numerusform></translation>
+        <translation>
+            <numerusform>(無視される %n 複雑な構成)</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -139,10 +143,6 @@
     <message>
         <source>Error</source>
         <translation>エラー</translation>
-    </message>
-    <message>
-        <source>Type: </source>
-        <translation>タイプ: </translation>
     </message>
     <message>
         <source>connection</source>
@@ -195,16 +195,16 @@
         <translation>500ms</translation>
     </message>
     <message>
-        <source>Type: vmess + tls + ws</source>
-        <translation>タイプ: vmess + tls + ws</translation>
-    </message>
-    <message>
         <source>0KB / 0KB</source>
         <translation>0KB / 0KB</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>VMESS + WS + TLS</source>
+        <translation>VMESS + WS + TLS</translation>
     </message>
 </context>
 <context>
@@ -266,7 +266,7 @@
         <translation>解決済みIP</translation>
     </message>
     <message>
-        <source>The current system's IP address is used to notify the server of the client's location when querying DNS. 
+        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
 
 It cannot be a private address.</source>
         <translation>DNS照会時にクライアントの位置をサーバに通知するために使用される現在のシステムのIPアドレス。
@@ -277,7 +277,7 @@ It cannot be a private address.</source>
         <translation>(V2Ray 4.13+) このDNSによって送信される問い合わせトラフィックは、localhostとDOHLモードを除いて、この識別子を持ち、ルート内のinboundTagと照合することができます。</translation>
     </message>
     <message>
-        <source>Port for DNS server. Normally it's 53.
+        <source>Port for DNS server. Normally it&apos;s 53.
 This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>DNSサーバーのポート。通常は53です。
 このエントリはDoHサーバを使用する場合、V2Rayコアでは無視されます。</translation>
@@ -334,8 +334,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>このサブスクリプションリンクが無効です。</translation>
     </message>
     <message>
-        <source>Deleting a group</source>
+        <source>Remove a Group</source>
         <translation>グループを削除</translation>
+    </message>
+    <message>
+        <source>Unknown Subscription Type</source>
+        <translation>不明なサブスクリプションタイプ</translation>
+    </message>
+    <message>
+        <source>Unknown subscription type &quot;%1&quot;, a plugin may be missing.</source>
+        <translation>不明なサブスクリプションタイプ「%1」で、プラグインを失う可能性があります。</translation>
     </message>
 </context>
 <context>
@@ -888,11 +896,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation><numerusform>項目を削除</numerusform></translation>
+        <translation>
+            <numerusform>項目を削除</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation><numerusform>選択した項目を削除しますか？</numerusform></translation>
+        <translation>
+            <numerusform>選択した項目を削除しますか？</numerusform>
+        </translation>
     </message>
     <message>
         <source>Disconnected from: </source>
@@ -904,11 +916,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation><numerusform>項目をコピー</numerusform></translation>
+        <translation>
+            <numerusform>項目をコピー</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation><numerusform>選択した項目をコピーしますか？</numerusform></translation>
+        <translation>
+            <numerusform>選択した項目をコピーしますか？</numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
@@ -1115,6 +1131,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
         <translation>このプラグインがロードされていません, プラグインを有効にするか、プラグインをリロードしてください.</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>なし</translation>
     </message>
 </context>
 <context>
@@ -1389,10 +1409,6 @@ Custom DNS Settings</source>
     <message>
         <source>HTTP Settings</source>
         <translation>HTTP設定</translation>
-    </message>
-    <message>
-        <source>Transparent Proxy Settings</source>
-        <translation>透過プロキシ設定</translation>
     </message>
     <message>
         <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
@@ -1678,7 +1694,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
-This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
         <translation>V2RayコアをQv2ray自体に誤って設定している可能性がありますが、これは絶対に正しくありません。
 しかし、Qv2rayはシングルトンモードで動作するため、フォークボムは発生しません。
@@ -1776,7 +1792,7 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
     </message>
     <message>
         <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
-The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation>V2RayコアをV2Ray制御実行ファイルに間違って設定している可能性がありますが、これは絶対に正しくありません。
 V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&apos;です。賢明に選択してください。
@@ -1792,7 +1808,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
         <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you've been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
+If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
 Output: <byte value="xd"/>
 <byte value="xd"/>
 </source>
@@ -1829,6 +1845,10 @@ Output: <byte value="xd"/>
     <message>
         <source>Reconnect Required</source>
         <translation>再接続が必要</translation>
+    </message>
+    <message>
+        <source>Dokodemo Door Settings</source>
+        <translation>ドコデモドーアの設定</translation>
     </message>
 </context>
 <context>
@@ -2089,7 +2109,7 @@ Output: <byte value="xd"/>
         <translation>空スキーム</translation>
     </message>
     <message>
-        <source>Import scheme '%1' made by '%2'? <byte value="xd"/>
+        <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
  Description: %3</source>
         <translation>「%2」のスキーム「%1」をインポートしますか？
  追加情報： %3</translation>
@@ -2452,6 +2472,10 @@ Output: <byte value="xd"/>
         <source>Server Address (SNI)</source>
         <translation>サーバーアドレス（SNI）</translation>
     </message>
+    <message>
+        <source>Disable System Root Certificates</source>
+        <translation>システムルート証明書を無効にする</translation>
+    </message>
 </context>
 <context>
     <name>blackholeOutEditor</name>
@@ -2618,24 +2642,12 @@ Output: <byte value="xd"/>
         <translation>Form</translation>
     </message>
     <message>
-        <source>Email</source>
-        <translation>電子メール</translation>
-    </message>
-    <message>
         <source>Password</source>
         <translation>パスワード</translation>
     </message>
     <message>
         <source>Encryption Method</source>
         <translation>暗号化方法</translation>
-    </message>
-    <message>
-        <source>OTA</source>
-        <translation>OTA</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
     </message>
 </context>
 <context>
@@ -2729,10 +2741,6 @@ Output: <byte value="xd"/>
         <source>Security</source>
         <translation>セキュリティ</translation>
     </message>
-    <message>
-        <source>Tests</source>
-        <translation>テスト</translation>
-    </message>
 </context>
 <context>
     <name>w_GroupManager</name>
@@ -2809,16 +2817,8 @@ Output: <byte value="xd"/>
         <translation>最終更新</translation>
     </message>
     <message>
-        <source>Update Notify Interval</source>
-        <translation>更新間隔</translation>
-    </message>
-    <message>
         <source>Days</source>
         <translation>日ごと</translation>
-    </message>
-    <message>
-        <source>Import Filters</source>
-        <translation>インポートフィルタ</translation>
     </message>
     <message>
         <source>Leave blank to exclude nothing</source>
@@ -2831,14 +2831,6 @@ Output: <byte value="xd"/>
     <message>
         <source>Leave blank to include all</source>
         <translation>すべてを含む場合は空白のままにしてください</translation>
-    </message>
-    <message>
-        <source>Only import when containing...</source>
-        <translation>含む場合のみインポートする...</translation>
-    </message>
-    <message>
-        <source>Only import when NOT containing...</source>
-        <translation>含まれていない場合のみインポートして...</translation>
     </message>
     <message>
         <source>Update Subscription</source>
@@ -2859,6 +2851,22 @@ Output: <byte value="xd"/>
     <message>
         <source>Override Global Advanced Route Settings</source>
         <translation>グローバルルート設定のオーバーライド</translation>
+    </message>
+    <message>
+        <source>Subscription Type</source>
+        <translation>サブスクリプションタイプ</translation>
+    </message>
+    <message>
+        <source>Update Interval</source>
+        <translation>更新インターバル</translation>
+    </message>
+    <message>
+        <source>Import Include Filters</source>
+        <translation>含む条件</translation>
+    </message>
+    <message>
+        <source>Import Exclude Filters</source>
+        <translation>除く条件</translation>
     </message>
 </context>
 <context>

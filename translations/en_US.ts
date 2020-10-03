@@ -146,10 +146,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>connection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -200,15 +196,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type: vmess + tls + ws</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>0KB / 0KB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VMESS + WS + TLS</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -337,7 +333,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deleting a group</source>
+        <source>Remove a Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown Subscription Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown subscription type &quot;%1&quot;, a plugin may be missing.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1129,6 +1133,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginSettingsWidget</name>
@@ -1393,10 +1401,6 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>HTTP Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transparent Proxy Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1821,6 +1825,10 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Reconnect Required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dokodemo Door Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2444,6 +2452,10 @@ Output: <byte value="xd"/>
         <source>Server Address (SNI)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Disable System Root Certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>blackholeOutEditor</name>
@@ -2610,23 +2622,11 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Email</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Encryption Method</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OTA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2721,10 +2721,6 @@ Output: <byte value="xd"/>
         <source>Security</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Tests</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>w_GroupManager</name>
@@ -2801,15 +2797,7 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Update Notify Interval</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Days</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import Filters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2822,14 +2810,6 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Leave blank to include all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only import when containing...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only import when NOT containing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2850,6 +2830,22 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Override Global Advanced Route Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Interval</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Include Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Exclude Filters</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

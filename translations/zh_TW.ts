@@ -145,10 +145,6 @@
         <translation>ms</translation>
     </message>
     <message>
-        <source>Type: </source>
-        <translation>類型: </translation>
-    </message>
-    <message>
         <source>Testing...</source>
         <translation>正在測試…</translation>
     </message>
@@ -199,16 +195,16 @@
         <translation>500ms</translation>
     </message>
     <message>
-        <source>Type: vmess + tls + ws</source>
-        <translation>類型: vmess + tls + ws</translation>
-    </message>
-    <message>
         <source>0KB / 0KB</source>
         <translation>0KB / 0KB</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>好</translation>
+    </message>
+    <message>
+        <source>VMESS + WS + TLS</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -338,8 +334,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>訂閱連結無效。</translation>
     </message>
     <message>
-        <source>Deleting a group</source>
-        <translation>刪除分組</translation>
+        <source>Remove a Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown Subscription Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown subscription type &quot;%1&quot;, a plugin may be missing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1128,6 +1132,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
         <translation>外掛程式未載入，請啟用或重載此外掛程式。</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">不使用</translation>
+    </message>
 </context>
 <context>
     <name>PluginSettingsWidget</name>
@@ -1337,10 +1345,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Failed to set auto start option.</source>
         <translation>無法設置自動啟動選項。</translation>
-    </message>
-    <message>
-        <source>Transparent Proxy Settings</source>
-        <translation>透明代理設置</translation>
     </message>
     <message>
         <source>TCP</source>
@@ -1840,6 +1844,10 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Reconnect Required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dokodemo Door Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2464,6 +2472,10 @@ Output: <byte value="xd"/>
         <source>Server Address (SNI)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Disable System Root Certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>blackholeOutEditor</name>
@@ -2630,24 +2642,12 @@ Output: <byte value="xd"/>
         <translation type="unfinished">視窗</translation>
     </message>
     <message>
-        <source>Email</source>
-        <translation type="unfinished">郵箱</translation>
-    </message>
-    <message>
         <source>Password</source>
         <translation type="unfinished">密碼</translation>
     </message>
     <message>
         <source>Encryption Method</source>
         <translation type="unfinished">加密方法</translation>
-    </message>
-    <message>
-        <source>OTA</source>
-        <translation type="unfinished">OTA</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished">已啟用</translation>
     </message>
 </context>
 <context>
@@ -2741,10 +2741,6 @@ Output: <byte value="xd"/>
         <source>Security</source>
         <translation type="unfinished">安全選項</translation>
     </message>
-    <message>
-        <source>Tests</source>
-        <translation type="unfinished">測試</translation>
-    </message>
 </context>
 <context>
     <name>w_GroupManager</name>
@@ -2825,14 +2821,6 @@ Output: <byte value="xd"/>
         <translation>分組</translation>
     </message>
     <message>
-        <source>Update Notify Interval</source>
-        <translation>提醒間隔</translation>
-    </message>
-    <message>
-        <source>Import Filters</source>
-        <translation>導入篩檢程式</translation>
-    </message>
-    <message>
         <source>Leave blank to exclude nothing</source>
         <translation>留空不排除</translation>
     </message>
@@ -2843,14 +2831,6 @@ Output: <byte value="xd"/>
     <message>
         <source>Leave blank to include all</source>
         <translation>留空包含全部</translation>
-    </message>
-    <message>
-        <source>Only import when containing...</source>
-        <translation>只導入包含特定...</translation>
-    </message>
-    <message>
-        <source>Only import when NOT containing...</source>
-        <translation>只導入不包含特定...</translation>
     </message>
     <message>
         <source>DNS Settings</source>
@@ -2871,6 +2851,22 @@ Output: <byte value="xd"/>
     <message>
         <source>Override Global Advanced Route Settings</source>
         <translation>覆蓋全域高級路由設置</translation>
+    </message>
+    <message>
+        <source>Subscription Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Interval</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Include Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Exclude Filters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
