@@ -2,23 +2,22 @@
 
 #include "Generation.hpp"
 #include "components/plugins/QvPluginHost.hpp"
-#include "core/CoreUtils.hpp"
-#include "core/handler/ConfigHandler.hpp"
 
 namespace Qv2ray::core::connection
 {
     namespace serialization
     {
-        QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
-                                                                  QString *newGroupName)
+        QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage, QString *newGroup)
         {
-            const auto mkAllowInsecure = [](QJsonObject &conf) {
-                auto allowI = GlobalConfig.advancedConfig.setAllowInsecure;
-                auto allowSR = GlobalConfig.advancedConfig.setSessionResumption;
-                if (allowI || allowSR)
+            const auto TLSOptionsFilter = [](QJsonObject &conf) {
+                auto allowInsecure = GlobalConfig.advancedConfig.setAllowInsecure;
+                auto setSR = GlobalConfig.advancedConfig.setSessionResumption;
+                auto disableSystemRoot = GlobalConfig.advancedConfig.disableSystemRoot;
+                for (const QString &prefix : { "tls", "xtls" })
                 {
-                    QJsonIO::SetValue(conf, allowI, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecure");
-                    QJsonIO::SetValue(conf, !allowSR, "outbounds", 0, "streamSettings", "tlsSettings", "disableSessionResumption");
+                    QJsonIO::SetValue(conf, allowInsecure, { "outbounds", 0, "streamSettings", prefix + "Settings", "allowInsecure" });
+                    QJsonIO::SetValue(conf, !setSR, { "outbounds", 0, "streamSettings", prefix + "Settings", "disableSessionResumption" });
+                    QJsonIO::SetValue(conf, !disableSystemRoot, { "outbounds", 0, "streamSettings", prefix + "Settings", "disableSystemRoot" });
                 }
             };
 
@@ -26,13 +25,13 @@ namespace Qv2ray::core::connection
             if (link.startsWith("vmess://") && link.contains("@"))
             {
                 auto conf = vmess_new::Deserialize(link, aliasPrefix, errMessage);
-                mkAllowInsecure(conf);
+                TLSOptionsFilter(conf);
                 connectionConf << QPair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("vmess://"))
             {
                 auto conf = vmess::Deserialize(link, aliasPrefix, errMessage);
-                mkAllowInsecure(conf);
+                TLSOptionsFilter(conf);
                 connectionConf << QPair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ss://") && !link.contains("plugin="))
@@ -43,13 +42,13 @@ namespace Qv2ray::core::connection
             else if (link.startsWith("ssd://"))
             {
                 QStringList errMessageList;
-                connectionConf << ssd::Deserialize(link, newGroupName, &errMessageList);
+                connectionConf << ssd::Deserialize(link, newGroup, &errMessageList);
                 *errMessage = errMessageList.join(NEWLINE);
             }
             else
             {
                 bool ok = false;
-                const auto configs = PluginHost->TryDeserializeShareLink(link, aliasPrefix, errMessage, newGroupName, &ok);
+                const auto configs = PluginHost->TryDeserializeShareLink(link, aliasPrefix, errMessage, newGroup, &ok);
                 if (ok)
                 {
                     errMessage->clear();
