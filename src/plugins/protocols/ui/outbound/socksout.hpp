@@ -38,6 +38,7 @@ class SocksOutboundEditor
             socks_PasswordTxt->setText(socks.users.first().pass);
         })
     }
+
     const QJsonObject GetContent() const override
     {
         auto result = socks.toJson();

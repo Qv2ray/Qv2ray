@@ -20,13 +20,13 @@ void HttpOutboundEditor::changeEvent(QEvent *e)
 void HttpOutboundEditor::on_http_UserNameTxt_textEdited(const QString &arg1)
 {
     if (http.users.isEmpty())
-        http.users << HttpServerObject::UserObject{};
+        http.users << HTTPSOCKSUserObject{};
     http.users.front().user = arg1;
 }
 
 void HttpOutboundEditor::on_http_PasswordTxt_textEdited(const QString &arg1)
 {
     if (http.users.isEmpty())
-        http.users << HttpServerObject::UserObject{};
+        http.users << HTTPSOCKSUserObject{};
     http.users.front().pass = arg1;
 }

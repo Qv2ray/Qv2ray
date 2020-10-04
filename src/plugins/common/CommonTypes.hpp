@@ -11,20 +11,20 @@
 
 #define BLACK(obj) obj->setPalette(QWidget::palette());
 
+struct HTTPSOCKSUserObject
+{
+    QString user;
+    QString pass;
+    int level = 0;
+    JSONSTRUCT_REGISTER(HTTPSOCKSUserObject, F(user, pass, level))
+};
 //
 // Socks, OutBound
 struct SocksServerObject
 {
-    struct UserObject
-    {
-        QString user;
-        QString pass;
-        int level = 0;
-        JSONSTRUCT_REGISTER(UserObject, F(user, pass, level))
-    };
     QString address = "0.0.0.0";
     int port = 0;
-    QList<UserObject> users;
+    QList<HTTPSOCKSUserObject> users;
     JSONSTRUCT_REGISTER(SocksServerObject, F(address, port, users))
 };
 
@@ -32,16 +32,9 @@ struct SocksServerObject
 // Http, OutBound
 struct HttpServerObject
 {
-    struct UserObject
-    {
-        QString user;
-        QString pass;
-        int level = 0;
-        JSONSTRUCT_REGISTER(UserObject, F(user, pass, level))
-    };
     QString address = "0.0.0.0";
     int port = 0;
-    QList<UserObject> users;
+    QList<HTTPSOCKSUserObject> users;
     JSONSTRUCT_REGISTER(HttpServerObject, F(address, port, users))
 };
 
