@@ -37,10 +37,12 @@ class OutboundEditor
     QString tag;
     void reloadGUI();
     bool useForwardProxy;
-    OUTBOUND GenerateConnectionJson();
+    OUTBOUND generateConnectionJson();
     OUTBOUND originalConfig;
     OUTBOUND resultConfig;
     QJsonObject muxConfig;
+    QString serverAddress;
+    int serverPort;
     //
     // Connection Configs
     QString outboundType;

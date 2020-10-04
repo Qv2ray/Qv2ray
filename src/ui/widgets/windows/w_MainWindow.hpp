@@ -7,7 +7,6 @@
 #include "ui/widgets/widgets/ConnectionInfoWidget.hpp"
 #include "ui/widgets/widgets/ConnectionItemWidget.hpp"
 #include "ui_w_MainWindow.h"
-#include "utils/HTTPRequestHelper.hpp"
 
 #include <QMainWindow>
 #include <QMenu>

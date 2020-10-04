@@ -20,18 +20,30 @@ void VmessOutboundEditor::changeEvent(QEvent *e)
 void VmessOutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
 {
     const static QRegularExpression regExpUUID("^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$", QRegularExpression::CaseInsensitiveOption);
+
     if (!regExpUUID.match(arg1).hasMatch())
+    {
         RED(idLineEdit)
+    }
     else
-        BLACK(idLineEdit) vmess.users.front().id = arg1;
+    {
+        BLACK(idLineEdit)
+    }
+    if (vmess.users.isEmpty())
+        vmess.users << VMessServerObject::UserObject{};
+    vmess.users.front().id = arg1;
 }
 
 void VmessOutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
+    if (vmess.users.isEmpty())
+        vmess.users << VMessServerObject::UserObject{};
     vmess.users.front().security = arg1;
 }
 
 void VmessOutboundEditor::on_alterLineEdit_valueChanged(int arg1)
 {
+    if (vmess.users.isEmpty())
+        vmess.users << VMessServerObject::UserObject{};
     vmess.users.front().alterId = arg1;
 }

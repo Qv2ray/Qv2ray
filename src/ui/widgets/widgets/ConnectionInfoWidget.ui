@@ -61,7 +61,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../resources.new.qrc">
+          <iconset resource="../../../../resources.new.qrc">
            <normaloff>:/assets/icons/ui_dark/start.svg</normaloff>:/assets/icons/ui_dark/start.svg</iconset>
          </property>
         </widget>
@@ -75,7 +75,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../resources.new.qrc">
+          <iconset resource="../../../../resources.new.qrc">
            <normaloff>:/assets/icons/ui_dark/edit.svg</normaloff>:/assets/icons/ui_dark/edit.svg</iconset>
          </property>
         </widget>
@@ -89,7 +89,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../resources.new.qrc">
+          <iconset resource="../../../../resources.new.qrc">
            <normaloff>:/assets/icons/ui_dark/edit.svg</normaloff>:/assets/icons/ui_dark/edit.svg</iconset>
          </property>
         </widget>
@@ -113,7 +113,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../../../resources.new.qrc">
+          <iconset resource="../../../../resources.new.qrc">
            <normaloff>:/assets/icons/ui_dark/ashbin.svg</normaloff>:/assets/icons/ui_dark/ashbin.svg</iconset>
          </property>
         </widget>
@@ -166,7 +166,7 @@
             <cursorShape>IBeamCursor</cursorShape>
            </property>
            <property name="text">
-            <string/>
+            <string notr="true"/>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
@@ -195,7 +195,7 @@
             <cursorShape>IBeamCursor</cursorShape>
            </property>
            <property name="text">
-            <string/>
+            <string notr="true"/>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
@@ -224,7 +224,7 @@
             <cursorShape>IBeamCursor</cursorShape>
            </property>
            <property name="text">
-            <string/>
+            <string notr="true"/>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
@@ -253,7 +253,7 @@
             <cursorShape>IBeamCursor</cursorShape>
            </property>
            <property name="text">
-            <string/>
+            <string notr="true"/>
            </property>
            <property name="textInteractionFlags">
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -271,6 +271,9 @@
           <widget class="QLineEdit" name="shareLinkTxt">
            <property name="cursor">
             <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string notr="true"/>
            </property>
            <property name="readOnly">
             <bool>true</bool>
@@ -324,7 +327,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="../../../resources.qrc">:/assets/icons/qv2ray.png</pixmap>
+             <pixmap resource="../../../../resources.qrc">:/assets/icons/qv2ray.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -445,8 +448,8 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../resources.qrc"/>
-  <include location="../../../resources.new.qrc"/>
+  <include location="../../../../resources.qrc"/>
+  <include location="../../../../resources.new.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -8,7 +8,6 @@
 
 #include <QFile>
 #include <QIntValidator>
-#include <iostream>
 
 OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_TAG_PROXY)
 {
@@ -76,12 +75,10 @@ QString OutboundEditor::GetFriendlyName()
 {
     auto host = ipLineEdit->text().replace(":", "-").replace("/", "_").replace("\\", "_");
     auto port = portLineEdit->text().replace(":", "-").replace("/", "_").replace("\\", "_");
-    auto type = outboundType;
-    QString name = tag.isEmpty() ? host + "-[" + port + "]-" + type : tag;
-    return name;
+    return tag.isEmpty() ? outboundType + "@" + host + ":" + port : tag;
 }
 
-OUTBOUND OutboundEditor::GenerateConnectionJson()
+OUTBOUND OutboundEditor::generateConnectionJson()
 {
     OUTBOUNDSETTING settings;
     auto streaming = streamSettingsWidget->GetStreamSettings().toJson();
@@ -90,6 +87,7 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     {
         if (protocol == outboundType)
         {
+            widget->SetHostAddress(serverAddress, serverPort);
             settings = OUTBOUNDSETTING(widget->GetContent());
             const auto prop = widget->property("QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
             const auto hasStreamSettings = prop.isValid() && prop.type() == QVariant::Bool && prop.toBool();
@@ -129,9 +127,11 @@ void OutboundEditor::reloadGUI()
     {
         if (protocol == outboundType)
         {
-            widget->SetContent(settings);
             outBoundTypeCombo->setCurrentIndex(outBoundTypeCombo->findData(protocol));
+            widget->SetContent(settings);
             const auto &[_address, _port] = widget->GetHostAddress();
+            serverAddress = _address;
+            serverPort = _port;
             ipLineEdit->setText(_address);
             portLineEdit->setText(QSTRN(_port));
             processed = true;
@@ -150,19 +150,17 @@ void OutboundEditor::reloadGUI()
 
 void OutboundEditor::on_buttonBox_accepted()
 {
-    resultConfig = GenerateConnectionJson();
+    resultConfig = generateConnectionJson();
 }
 
 void OutboundEditor::on_ipLineEdit_textEdited(const QString &arg1)
 {
-    Q_ASSERT(pluginWidgets.contains(outboundType));
-    pluginWidgets[outboundType]->SetHostAddress(arg1, portLineEdit->text().toInt());
+    serverAddress = arg1;
 }
 
 void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 {
-    Q_ASSERT(pluginWidgets.contains(outboundType));
-    pluginWidgets[outboundType]->SetHostAddress(ipLineEdit->text(), arg1.toInt());
+    serverPort = arg1.toInt();
 }
 
 void OutboundEditor::on_tagTxt_textEdited(const QString &arg1)
