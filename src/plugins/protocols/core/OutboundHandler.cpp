@@ -2,6 +2,8 @@
 
 #include "3rdparty/QJsonStruct/QJsonIO.hpp"
 
+#include <QUrl>
+
 const Qv2rayPlugin::OutboundInfoObject BuiltinSerializer::GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const
 {
     Qv2rayPlugin::OutboundInfoObject obj;

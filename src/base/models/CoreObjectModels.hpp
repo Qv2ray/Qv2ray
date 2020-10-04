@@ -220,7 +220,7 @@ namespace Qv2ray::base::objects
         //
         struct CertificateObject
         {
-            QString usage;
+            QString usage = "encipherment";
             QString certificateFile;
             QString keyFile;
             QList<QString> certificate;
@@ -235,7 +235,7 @@ namespace Qv2ray::base::objects
             bool allowInsecure = false;
             bool allowInsecureCiphers = false;
             bool disableSessionResumption = true;
-            QList<QString> alpn;
+            QList<QString> alpn = { "h2", "http/1.1" };
             QList<CertificateObject> certificates;
             bool disableSystemRoot;
             JSONSTRUCT_REGISTER(TLSObject,
