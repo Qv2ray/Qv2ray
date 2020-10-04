@@ -127,6 +127,8 @@ class PreferencesWindow
 
     void on_bypassPrivateCb_clicked(bool checked);
 
+    void on_disableSystemRootCB_stateChanged(int arg1);
+
   private:
     //
     DnsSettingsWidget *dnsSettingsWidget;

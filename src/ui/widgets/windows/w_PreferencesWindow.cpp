@@ -180,6 +180,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
         setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
         setSessionResumptionCB->setChecked(CurrentConfig.advancedConfig.setSessionResumption);
         setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
+        disableSystemRootCB->setChecked(CurrentConfig.advancedConfig.disableSystemRoot);
     }
     //
     {
@@ -1101,4 +1102,10 @@ void PreferencesWindow::on_bypassPrivateCb_clicked(bool checked)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.defaultRouteConfig.connectionConfig.bypassLAN = checked;
+}
+
+void PreferencesWindow::on_disableSystemRootCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.advancedConfig.disableSystemRoot = arg1 == Qt::Checked;
 }
