@@ -127,11 +127,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
     tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasUDP);
     tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tProxySettings.mode);
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
-#ifndef Q_OS_LINUX
-    tproxGroupBox->setChecked(false);
-    tproxGroupBox->setEnabled(false);
-    tproxGroupBox->setToolTip(tr("tProxy is not supported on macOS and Windows"));
-#endif
+    //
     dnsIntercept->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
     DnsFreedomCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS);
     //
