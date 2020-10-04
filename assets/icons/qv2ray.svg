@@ -10,8 +10,8 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    inkscape:export-ydpi="512"
    inkscape:export-xdpi="512"
-   sodipodi:docname="Applogo_Bird_colorful.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="qv2ray.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    id="svg8"
    version="1.1"
    viewBox="0 0 12.699999 12.7"
@@ -19,18 +19,6 @@
    width="48">
   <defs
      id="defs2">
-    <linearGradient
-       id="linearGradient908"
-       inkscape:collect="always">
-      <stop
-         id="stop904"
-         offset="0"
-         style="stop-color:#6e7678;stop-opacity:1" />
-      <stop
-         id="stop906"
-         offset="1"
-         style="stop-color:#2e3235;stop-opacity:1" />
-    </linearGradient>
     <linearGradient
        id="linearGradient847"
        inkscape:collect="always">
@@ -44,18 +32,6 @@
          style="stop-color:#ff5c5b;stop-opacity:1" />
     </linearGradient>
     <linearGradient
-       id="linearGradient5057"
-       inkscape:collect="always">
-      <stop
-         id="stop5053"
-         offset="0"
-         style="stop-color:#3c3c3c;stop-opacity:1;" />
-      <stop
-         id="stop5055"
-         offset="1"
-         style="stop-color:#282728;stop-opacity:0.6574803" />
-    </linearGradient>
-    <linearGradient
        id="linearGradient4759"
        inkscape:collect="always">
       <stop
@@ -67,37 +43,6 @@
          offset="1"
          style="stop-color:#1c90ff;stop-opacity:1" />
     </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4713">
-      <stop
-         style="stop-color:#3de256;stop-opacity:1"
-         offset="0"
-         id="stop4709" />
-      <stop
-         style="stop-color:#2fbeba;stop-opacity:1"
-         offset="1"
-         id="stop4711" />
-    </linearGradient>
-    <linearGradient
-       gradientTransform="translate(38.574145,1.3181723)"
-       gradientUnits="userSpaceOnUse"
-       y2="39.934193"
-       x2="108.00179"
-       y1="19.458199"
-       x1="89.965836"
-       id="linearGradient4707"
-       xlink:href="#linearGradient4713"
-       inkscape:collect="always" />
-    <linearGradient
-       gradientUnits="userSpaceOnUse"
-       y2="94.022179"
-       x2="140.26065"
-       y1="48.940449"
-       x1="92.227142"
-       id="linearGradient5059"
-       xlink:href="#linearGradient5057"
-       inkscape:collect="always" />
     <linearGradient
        y2="35.515835"
        x2="113.08728"
@@ -117,28 +62,6 @@
        gradientUnits="userSpaceOnUse"
        id="linearGradient955"
        xlink:href="#linearGradient847"
-       inkscape:collect="always" />
-    <clipPath
-       id="clipPath922"
-       clipPathUnits="userSpaceOnUse">
-      <rect
-         ry="1.0638391"
-         y="284.56458"
-         x="9.5367426e-08"
-         height="12.170834"
-         width="12.7"
-         id="rect924"
-         style="fill:none;fill-opacity:1;stroke:#23d829;stroke-width:0.044;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.72265625" />
-    </clipPath>
-    <linearGradient
-       gradientTransform="matrix(0.87500008,0,0,0.87505491,0.81442048,36.315602)"
-       gradientUnits="userSpaceOnUse"
-       y2="297"
-       x2="12.7"
-       y1="284.29999"
-       x1="12.7"
-       id="linearGradient910"
-       xlink:href="#linearGradient908"
        inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
@@ -193,7 +116,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
