@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>277</width>
-    <height>211</height>
+    <width>335</width>
+    <height>307</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,74 +52,45 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="httpAddPasswordTxt">
-       <property name="placeholderText">
-        <string>Password</string>
-       </property>
-      </widget>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLineEdit" name="httpAddUserTxt">
+         <property name="placeholderText">
+          <string>Username</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="httpAddPasswordTxt">
+         <property name="placeholderText">
+          <string>Password</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="httpAddUserBtn">
+         <property name="icon">
+          <iconset resource="../../../../../resources.new.qrc">
+           <normaloff>:/assets/icons/ui_dark/add.svg</normaloff>:/assets/icons/ui_dark/add.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="httpRemoveUserBtn">
+         <property name="icon">
+          <iconset resource="../../../../../resources.new.qrc">
+           <normaloff>:/assets/icons/ui_dark/minus.svg</normaloff>:/assets/icons/ui_dark/minus.svg</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
-     <item row="0" column="0">
-      <widget class="QLineEdit" name="httpAddUserTxt">
-       <property name="placeholderText">
-        <string>Username</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QToolButton" name="httpAddUserBtn">
-       <property name="icon">
-        <iconset resource="../../../../../resources.new.qrc">
-         <normaloff>:/assets/icons/ui_dark/add.svg</normaloff>:/assets/icons/ui_dark/add.svg</iconset>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QToolButton" name="httpRemoveUserBtn">
-       <property name="icon">
-        <iconset resource="../../../../../resources.new.qrc">
-         <normaloff>:/assets/icons/ui_dark/minus.svg</normaloff>:/assets/icons/ui_dark/minus.svg</iconset>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="0" rowspan="2" colspan="2">
+     <item>
       <widget class="QListWidget" name="httpAccountListBox"/>
      </item>
     </layout>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Option</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>
