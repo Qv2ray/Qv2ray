@@ -76,11 +76,13 @@ namespace detail
         }                                                                                                                                            \
         else                                                                                                                                         \
             switch (_coro_value ? 0 : 1)                                                                                                             \
-                for (;;) case -1:                                                                                                                    \
+                for (;;)                                                                                                                             \
+                case -1:                                                                                                                             \
                     if (_coro_value)                                                                                                                 \
                         goto terminate_coroutine;                                                                                                    \
                     else                                                                                                                             \
-                        for (;;) case 1:                                                                                                             \
+                        for (;;)                                                                                                                     \
+                        case 1:                                                                                                                      \
                             if (_coro_value)                                                                                                         \
                                 goto bail_out_of_coroutine;                                                                                          \
                             else                                                                                                                     \

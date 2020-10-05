@@ -120,10 +120,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     //
     connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [this](const ConnectionGroupPair &, const QString &reason) {
         MWShowWindow();
-        QvMessageBoxWarn(
-            this, tr("Kernel terminated."),
-            tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
-                tr("To solve the problem, read the kernel log in the log text browser."));
+        QvMessageBoxWarn(this, tr("Kernel terminated."),
+                         tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
+                             tr("To solve the problem, read the kernel log in the log text browser."));
     });
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &MainWindow::OnConnected);
@@ -719,9 +718,8 @@ void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<Stat
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
     //
-    qvAppTrayIcon->setToolTip(
-        TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + GetDisplayName(id.connectionId) + //
-        NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+    qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + GetDisplayName(id.connectionId) + //
+                              NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
 }
 
 void MainWindow::OnVCoreLogAvailable(const ConnectionGroupPair &id, const QString &log)
@@ -840,8 +838,8 @@ void MainWindow::Action_DuplicateConnection()
 
     for (const auto &conn : connlist)
     {
-        ConnectionManager->CreateConnection(
-            ConnectionManager->GetConnectionRoot(conn.connectionId), GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId);
+        ConnectionManager->CreateConnection(ConnectionManager->GetConnectionRoot(conn.connectionId),
+                                            GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId);
     }
 }
 

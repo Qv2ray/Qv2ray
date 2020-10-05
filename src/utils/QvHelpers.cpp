@@ -133,7 +133,8 @@ namespace Qv2ray::common
             auto tmp = base64.replace(QChar('+'), QChar('-')).replace(QChar('/'), QChar('_'));
             auto crbedin = tmp.crbegin();
             auto idx = tmp.length();
-            while (crbedin != tmp.crend() && (*crbedin) == '=') idx -= 1, crbedin++;
+            while (crbedin != tmp.crend() && (*crbedin) == '=')
+                idx -= 1, crbedin++;
             return idx != tmp.length() ? tmp.remove(idx, tmp.length() - idx) : tmp;
         }
         else
@@ -183,7 +184,8 @@ namespace Qv2ray::common
         int i;
         double dblByte = _bytes;
 
-        for (i = 0; i < 5 && _bytes >= 1000; i++, _bytes /= 1000) dblByte = _bytes / 1000.0;
+        for (i = 0; i < 5 && _bytes >= 1000; i++, _bytes /= 1000)
+            dblByte = _bytes / 1000.0;
 
         sprintf(str, "%.2f", dblByte);
         return QString(str) + " " + QString(sizes[i]);

@@ -130,14 +130,16 @@ SplittedValue getRoundedYScale(double value)
     if (value > 100.0)
     {
         int roundedValue = static_cast<int>(value / 40) * 40;
-        while (roundedValue < value) roundedValue += 40;
+        while (roundedValue < value)
+            roundedValue += 40;
         return { static_cast<double>(roundedValue), calculatedUnit };
     }
 
     if (value > 10.0)
     {
         int roundedValue = static_cast<int>(value / 4) * 4;
-        while (roundedValue < value) roundedValue += 4;
+        while (roundedValue < value)
+            roundedValue += 4;
         return { static_cast<double>(roundedValue), calculatedUnit };
     }
 

@@ -13,8 +13,8 @@
 
 namespace
 {
-    constexpr auto LINK_PAGE     = 0;
-    constexpr auto QRCODE_PAGE   = 1;
+    constexpr auto LINK_PAGE = 0;
+    constexpr auto QRCODE_PAGE = 1;
     constexpr auto ADVANCED_PAGE = 2;
 } // namespace
 
@@ -85,7 +85,7 @@ int ImportConfigWindow::PerformImportConnection()
     for (const auto &groupObject : connectionsToNewGroup)
     {
         const auto groupName = connectionsToNewGroup.key(groupObject);
-        GroupId groupId      = ConnectionManager->CreateGroup(groupName, false);
+        GroupId groupId = ConnectionManager->CreateGroup(groupName, false);
         for (const auto &connConf : groupObject)
         {
             auto connName = groupObject.key(connConf);
@@ -104,7 +104,7 @@ int ImportConfigWindow::PerformImportConnection()
         const auto groupId = connectionsToExistingGroup.key(groupObject);
         for (const auto &connConf : groupObject)
         {
-            auto connName               = groupObject.key(connConf);
+            auto connName = groupObject.key(connConf);
             auto [protocol, host, port] = GetConnectionInfo(connConf);
             if (connName.isEmpty())
             {
@@ -175,7 +175,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             while (!linkList.isEmpty())
             {
-                aliasPrefix     = nameTxt->text();
+                aliasPrefix = nameTxt->text();
                 const auto link = linkList.takeFirst().trimmed();
                 if (link.isEmpty() || link.startsWith("#") || link.startsWith("//"))
                     continue;
@@ -247,7 +247,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
         {
             // From File...
             bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
-            QString path         = fileLineTxt->text();
+            QString path = fileLineTxt->text();
 
             if (!V2RayKernelInstance::ValidateConfig(path))
             {
@@ -295,10 +295,10 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     }
 
     auto currentErrorText = current->text();
-    auto vmessEntry       = linkErrors.key(currentErrorText);
+    auto vmessEntry = linkErrors.key(currentErrorText);
     //
     auto startPos = vmessConnectionStringTxt->toPlainText().indexOf(vmessEntry);
-    auto endPos   = startPos + vmessEntry.length();
+    auto endPos = startPos + vmessEntry.length();
 
     if (startPos < 0)
     {
@@ -320,9 +320,9 @@ void ImportConfigWindow::on_cancelImportBtn_clicked()
 void ImportConfigWindow::on_routeEditBtn_clicked()
 {
     RouteEditor w(QJsonObject(), this);
-    auto result    = w.OpenEditor();
+    auto result = w.OpenEditor();
     bool isChanged = w.result() == QDialog::Accepted;
-    QString alias  = nameTxt->text();
+    QString alias = nameTxt->text();
 
     if (isChanged)
     {
@@ -340,9 +340,9 @@ void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)
 void ImportConfigWindow::on_jsonEditBtn_clicked()
 {
     JsonEditor w(QJsonObject(), this);
-    auto result    = w.OpenEditor();
+    auto result = w.OpenEditor();
     bool isChanged = w.result() == QDialog::Accepted;
-    QString alias  = nameTxt->text();
+    QString alias = nameTxt->text();
 
     if (isChanged)
     {

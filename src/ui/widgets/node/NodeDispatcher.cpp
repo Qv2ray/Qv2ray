@@ -21,9 +21,12 @@ std::tuple<QMap<QString, INBOUND>, QMap<QString, RuleObject>, QMap<QString, Outb
     QMap<QString, INBOUND> _inbounds;
     QMap<QString, RuleObject> _rules;
     QMap<QString, OutboundObjectMeta> _outbounds;
-    for (const auto &[key, val] : inbounds.toStdMap()) _inbounds[key] = *val;
-    for (const auto &[key, val] : rules.toStdMap()) _rules[key] = *val;
-    for (const auto &[key, val] : outbounds.toStdMap()) _outbounds[key] = *val;
+    for (const auto &[key, val] : inbounds.toStdMap())
+        _inbounds[key] = *val;
+    for (const auto &[key, val] : rules.toStdMap())
+        _rules[key] = *val;
+    for (const auto &[key, val] : outbounds.toStdMap())
+        _outbounds[key] = *val;
     return std::make_tuple(_inbounds, _rules, _outbounds);
 }
 

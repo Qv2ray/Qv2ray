@@ -53,7 +53,8 @@ class SpeedWidget : public QGraphicsView
         quint64 y[NB_GRAPHS];
         PointData()
         {
-            for (auto i = 0; i < NB_GRAPHS; i++) y[i] = 0;
+            for (auto i = 0; i < NB_GRAPHS; i++)
+                y[i] = 0;
         }
     };
 
