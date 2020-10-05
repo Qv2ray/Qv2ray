@@ -89,14 +89,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
     addStateOptions("y", { [&] { return y(); }, [&](QJsonValue val) { move(x(), val.toInt()); } });
 
-    const auto setSplitterSize1 = [&](QJsonValue val) { splitter->setSizes({ val.toInt(), splitter->sizes()[1] }); };
-    const auto setSplitterSize2 = [&](QJsonValue val) { splitter->setSizes({ splitter->sizes()[0], val.toInt() }); };
-    addStateOptions("splitter.part1", { [&] { return splitter->sizes()[0]; }, setSplitterSize1 });
-    addStateOptions("splitter.part2", { [&] { return splitter->sizes()[1]; }, setSplitterSize2 });
+    const auto setSplitterSize = [&](QJsonValue val) { splitter->setSizes({ val.toArray()[0].toInt(), val.toArray()[1].toInt() }); };
+    addStateOptions("splitterSizes", { [&] { return QJsonArray{ splitter->sizes()[0], splitter->sizes()[1] }; }, setSplitterSize });
 
     const auto setSpeedWidgetVisibility = [&](QJsonValue val) { speedChartHolderWidget->setVisible(val.toBool()); };
     const auto setLogWidgetVisibility = [&](QJsonValue val) { masterLogBrowser->setVisible(val.toBool()); };
-    addStateOptions("speedchar.visibility", { [&] { return speedChartHolderWidget->isVisible(); }, setSpeedWidgetVisibility });
+    addStateOptions("speedchart.visibility", { [&] { return speedChartHolderWidget->isVisible(); }, setSpeedWidgetVisibility });
     addStateOptions("log.visibility", { [&] { return masterLogBrowser->isVisible(); }, setLogWidgetVisibility });
 
     setupUi(this);
