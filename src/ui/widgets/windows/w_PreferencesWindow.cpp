@@ -44,8 +44,13 @@ using Qv2ray::common::validation::IsValidIPAddress;
     autoStartConnCombo->setEnabled(_enabled);                                                                                                        \
     autoStartSubsCombo->setEnabled(_enabled);
 
-PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), CurrentConfig()
+PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWindow", parent), CurrentConfig()
 {
+    addStateOptions("width", { [&] { return width(); }, [&](QJsonValue val) { resize(val.toInt(), size().height()); } });
+    addStateOptions("height", { [&] { return height(); }, [&](QJsonValue val) { resize(size().width(), val.toInt()); } });
+    addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
+    addStateOptions("y", { [&] { return y(); }, [&](QJsonValue val) { move(x(), val.toInt()); } });
+
     setupUi(this);
     //
     QvMessageBusConnect(PreferencesWindow);
@@ -223,7 +228,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(parent), Curren
 
         autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
-        for (const auto &conn : ConnectionManager->Connections(autoStartGroupId)) autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
+        for (const auto &conn : ConnectionManager->Connections(autoStartGroupId))
+            autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
 
         autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
     }
@@ -413,11 +419,11 @@ void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 
     if (arg1 == "" || IsValidIPAddress(arg1))
     {
-        BLACK(listenIPTxt)
+        BLACK(listenIPTxt);
     }
     else
     {
-        RED(listenIPTxt)
+        RED(listenIPTxt);
     }
 
     // pacAccessPathTxt->setText("http://" + arg1 + ":" +
@@ -516,9 +522,10 @@ void PreferencesWindow::on_bypassBTCb_stateChanged(int arg1)
     NEEDRESTART
     if (arg1 == Qt::Checked)
     {
-        QvMessageBoxInfo(this, tr("Note"),
-                         tr("To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.") + NEWLINE +
-                             tr("tproxy inbound's sniffing is enabled by default."));
+        QvMessageBoxInfo(
+            this, tr("Note"),
+            tr("To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.") + NEWLINE +
+                tr("tproxy inbound's sniffing is enabled by default."));
     }
     CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT = arg1 == Qt::Checked;
 }
@@ -555,11 +562,11 @@ void PreferencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 
     if (IsValidIPAddress(arg1))
     {
-        BLACK(socksUDPIP)
+        BLACK(socksUDPIP);
     }
     else
     {
-        RED(socksUDPIP)
+        RED(socksUDPIP);
     }
 }
 
@@ -653,11 +660,11 @@ void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
 
     if (IsValidIPAddress(arg1))
     {
-        BLACK(fpAddressTx)
+        BLACK(fpAddressTx);
     }
     else
     {
-        RED(fpAddressTx)
+        RED(fpAddressTx);
     }
 }
 
@@ -701,9 +708,10 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
             tr("You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.\r\n"
                "This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.\r\n"
                "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
-        const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
-                                                 QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
-                                                 QMessageBox::StandardButton::Abort);
+        const auto answer = QMessageBox::warning(
+            this, strWarnTitle, strWarnContent,                                       //
+            QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
+            QMessageBox::StandardButton::Abort);
         if (answer == QMessageBox::StandardButton::Abort)
             return;
     }
@@ -714,9 +722,10 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
             tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
                "The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.\r\n"
                "If you insist to proceed, we're not providing with any support.");
-        const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
-                                                 QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
-                                                 QMessageBox::StandardButton::Abort);
+        const auto answer = QMessageBox::warning(
+            this, strWarnTitle, strWarnContent,                                       //
+            QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
+            QMessageBox::StandardButton::Abort);
         if (answer == QMessageBox::StandardButton::Abort)
             return;
     }
@@ -736,8 +745,9 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     }
     else
     {
-        QvMessageBoxInfo(this, tr("V2Ray Core Settings"),
-                         tr("V2Ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2Ray is: ") + NEWLINE + result);
+        QvMessageBoxInfo(
+            this, tr("V2Ray Core Settings"),
+            tr("V2Ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2Ray is: ") + NEWLINE + result);
     }
 }
 
@@ -899,11 +909,11 @@ void PreferencesWindow::on_tproxyListenAddr_textEdited(const QString &arg1)
 
     if (arg1 == "" || IsIPv4Address(arg1))
     {
-        BLACK(tproxyListenAddr)
+        BLACK(tproxyListenAddr);
     }
     else
     {
-        RED(tproxyListenAddr)
+        RED(tproxyListenAddr);
     }
 }
 
@@ -914,11 +924,11 @@ void PreferencesWindow::on_tproxyListenV6Addr_textEdited(const QString &arg1)
 
     if (arg1 == "" || IsIPv6Address(arg1))
     {
-        BLACK(tproxyListenV6Addr)
+        BLACK(tproxyListenV6Addr);
     }
     else
     {
-        RED(tproxyListenV6Addr)
+        RED(tproxyListenV6Addr);
     }
 }
 

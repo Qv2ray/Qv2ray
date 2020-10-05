@@ -126,11 +126,11 @@ void DnsSettingsWidget::ShowCurrentDnsServerDetails()
     //
     if (serverAddressTxt->text().isEmpty() || IsValidDNSServer(serverAddressTxt->text()))
     {
-        BLACK(serverAddressTxt)
+        BLACK(serverAddressTxt);
     }
     else
     {
-        RED(serverAddressTxt)
+        RED(serverAddressTxt);
     }
     ProcessDnsPortEnabledState();
 }
@@ -235,11 +235,11 @@ void DnsSettingsWidget::on_serverAddressTxt_textEdited(const QString &arg1)
     serversListbox->currentItem()->setText(arg1);
     if (arg1.isEmpty() || IsValidDNSServer(arg1))
     {
-        BLACK(serverAddressTxt)
+        BLACK(serverAddressTxt);
     }
     else
     {
-        RED(serverAddressTxt)
+        RED(serverAddressTxt);
     }
 
     ProcessDnsPortEnabledState();

@@ -2,9 +2,6 @@
 
 #include "ui/Qv2rayPlatformApplication.hpp"
 
-#include <QApplication>
-#include <QDesktopServices>
-#include <QMessageBox>
 #include <QSystemTrayIcon>
 
 class MainWindow;
@@ -18,40 +15,19 @@ namespace Qv2ray
         explicit Qv2rayWidgetApplication(int &argc, char *argv[]);
         Qv2raySetupStatus Initialize() override;
         Qv2rayExitCode RunQv2ray() override;
+        QJsonObject UIStates;
 
       public:
-        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override
-        {
-            QMessageBox::warning(parent, title, text, MessageBoxButtonMap[button]);
-        }
-        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override
-        {
-            QMessageBox::information(parent, title, text, MessageBoxButtonMap[button]);
-        }
-        MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) override
-        {
-            QFlags<QMessageBox::StandardButton> btns;
-            for (const auto &b : buttons)
-            {
-                btns.setFlag(MessageBoxButtonMap[b]);
-            }
-            return MessageBoxButtonMap.key(QMessageBox::question(parent, title, text, btns));
-        }
-        QSystemTrayIcon **GetTrayIcon()
+        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override;
+        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override;
+        MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) override;
+        void ShowTrayMessage(const QString &m, const QIcon &icon, int msecs = 10000);
+        void ShowTrayMessage(const QString &m, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int msecs = 10000);
+        void OpenURL(const QString &url) override;
+
+        inline QSystemTrayIcon **GetTrayIcon()
         {
             return &hTray;
-        }
-        void ShowTrayMessage(const QString &m, const QIcon &icon, int msecs = 10000)
-        {
-            hTray->showMessage("Qv2ray", m, icon, msecs);
-        }
-        void ShowTrayMessage(const QString &m, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int msecs = 10000)
-        {
-            hTray->showMessage("Qv2ray", m, icon, msecs);
-        }
-        void OpenURL(const QString &url) override
-        {
-            QDesktopServices::openUrl(url);
         }
 
       private:

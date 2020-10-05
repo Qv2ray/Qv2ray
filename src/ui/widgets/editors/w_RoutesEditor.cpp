@@ -32,6 +32,20 @@ namespace
 {
     constexpr auto NODE_TAB_ROUTE_EDITOR = 0;
     constexpr auto NODE_TAB_CHAIN_EDITOR = 1;
+    constexpr auto DarkConnectionStyle = R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
+                                         "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,
+                                         "ConstructionLineWidth": 2.0,"PointDiameter": 10.0,"UseDataDefinedColors": true}})";
+    constexpr auto LightNodeStyle = R"({"NodeStyle": {"NormalBoundaryColor": "darkgray","SelectedBoundaryColor": "deepskyblue",
+                                    "GradientColor0": "mintcream","GradientColor1": "mintcream","GradientColor2": "mintcream",
+                                    "GradientColor3": "mintcream","ShadowColor": [200, 200, 200],"FontColor": [10, 10, 10],
+                                    "FontColorFaded": [100, 100, 100],"ConnectionPointColor": "white","PenWidth": 2.0,"HoveredPenWidth": 2.5,
+                                    "ConnectionPointDiameter": 10.0,"Opacity": 1.0}})";
+    constexpr auto LightViewStyle =
+        R"({"FlowViewStyle": {"BackgroundColor": [255, 255, 240],"FineGridColor": [245, 245, 230],"CoarseGridColor": [235, 235, 220]}})";
+    constexpr auto LightConnectionStyle = R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
+                                          "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
+                                          "PointDiameter": 10.0,"UseDataDefinedColors": false}})";
+
 } // namespace
 
 #define LOADINGCHECK                                                                                                                                 \
@@ -45,35 +59,21 @@ void RouteEditor::updateColorScheme()
     // Setup icons according to the theme settings.
     addInboundBtn->setIcon(QICON_R("add"));
     addOutboundBtn->setIcon(QICON_R("add"));
-    //
-    const static auto darkConnectionStyle = R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
-                                             "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,
-                                             "ConstructionLineWidth": 2.0,"PointDiameter": 10.0,"UseDataDefinedColors": true}})";
-    const static auto lightNodeStyle = R"({"NodeStyle": {"NormalBoundaryColor": "darkgray","SelectedBoundaryColor": "deepskyblue",
-                                        "GradientColor0": "mintcream","GradientColor1": "mintcream","GradientColor2": "mintcream",
-                                        "GradientColor3": "mintcream","ShadowColor": [200, 200, 200],"FontColor": [10, 10, 10],
-                                        "FontColorFaded": [100, 100, 100],"ConnectionPointColor": "white","PenWidth": 2.0,"HoveredPenWidth": 2.5,
-                                        "ConnectionPointDiameter": 10.0,"Opacity": 1.0}})";
-    const static auto lightViewStyle =
-        R"({"FlowViewStyle": {"BackgroundColor": [255, 255, 240],"FineGridColor": [245, 245, 230],"CoarseGridColor": [235, 235, 220]}})";
-    const static auto lightConnectionStyle = R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
-                                              "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
-                                              "PointDiameter": 10.0,"UseDataDefinedColors": false}})";
     if (GlobalConfig.uiConfig.useDarkTheme)
     {
         QtNodes::NodeStyle::reset();
         QtNodes::FlowViewStyle::reset();
-        ConnectionStyle::setConnectionStyle(darkConnectionStyle);
+        ConnectionStyle::setConnectionStyle(DarkConnectionStyle);
     }
     else
     {
-        QtNodes::NodeStyle::setNodeStyle(lightNodeStyle);
-        QtNodes::FlowViewStyle::setStyle(lightViewStyle);
-        ConnectionStyle::setConnectionStyle(lightConnectionStyle);
+        QtNodes::NodeStyle::setNodeStyle(LightNodeStyle);
+        QtNodes::FlowViewStyle::setStyle(LightViewStyle);
+        ConnectionStyle::setConnectionStyle(LightConnectionStyle);
     }
 }
 
-RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog(parent), root(connection), original(connection)
+RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog("RouteEditor", parent), root(connection), original(connection)
 {
     setupUi(this);
     QvMessageBusConnect(RouteEditor);

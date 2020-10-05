@@ -8,12 +8,17 @@
 #include "ui/widgets/windows/w_MainWindow.hpp"
 #include "utils/QvHelpers.hpp"
 
+#include <QApplication>
+#include <QDesktopServices>
+#include <QMessageBox>
 #include <QUrl>
 #include <QUrlQuery>
 
 #ifdef Q_OS_WIN
     #include <Winbase.h>
 #endif
+
+constexpr auto QV2RAY_WIDGETUI_STATE_FILENAME = "UIState.json";
 
 namespace Qv2ray
 {
@@ -36,6 +41,7 @@ namespace Qv2ray
         delete mainWindow;
         delete hTray;
         delete StyleManager;
+        StringToFile(JsonToString(UIStates), QV2RAY_CONFIG_DIR + QV2RAY_WIDGETUI_STATE_FILENAME);
     }
 
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
@@ -129,6 +135,7 @@ namespace Qv2ray
         StyleManager = new QvStyleManager();
         StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
         // Show MainWindow
+        UIStates = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + QV2RAY_WIDGETUI_STATE_FILENAME));
         mainWindow = new MainWindow();
         if (Qv2rayProcessArgument.arguments.contains(Qv2rayProcessArguments::QV2RAY_LINK))
         {
@@ -168,4 +175,40 @@ namespace Qv2ray
 #endif
         return (Qv2rayExitCode) exec();
     }
+
+    void Qv2rayWidgetApplication::OpenURL(const QString &url)
+    {
+        QDesktopServices::openUrl(url);
+    }
+
+    void Qv2rayWidgetApplication::MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button)
+    {
+        QMessageBox::warning(parent, title, text, MessageBoxButtonMap[button]);
+    }
+
+    void Qv2rayWidgetApplication::MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button)
+    {
+        QMessageBox::information(parent, title, text, MessageBoxButtonMap[button]);
+    }
+
+    MessageOpt Qv2rayWidgetApplication::MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons)
+    {
+        QFlags<QMessageBox::StandardButton> btns;
+        for (const auto &b : buttons)
+        {
+            btns.setFlag(MessageBoxButtonMap[b]);
+        }
+        return MessageBoxButtonMap.key(QMessageBox::question(parent, title, text, btns));
+    }
+
+    void Qv2rayWidgetApplication::ShowTrayMessage(const QString &m, const QIcon &icon, int msecs)
+    {
+        hTray->showMessage("Qv2ray", m, icon, msecs);
+    }
+
+    void Qv2rayWidgetApplication::ShowTrayMessage(const QString &m, QSystemTrayIcon::MessageIcon icon, int msecs)
+    {
+        hTray->showMessage("Qv2ray", m, icon, msecs);
+    }
+
 } // namespace Qv2ray

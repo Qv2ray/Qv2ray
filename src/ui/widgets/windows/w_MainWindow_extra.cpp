@@ -18,6 +18,7 @@ void MainWindow::MWToggleVisibility()
 
 void MainWindow::MWShowWindow()
 {
+    RestoreState();
     this->show();
 #ifdef Q_OS_WIN
     setWindowState(Qt::WindowNoState);
@@ -39,6 +40,7 @@ void MainWindow::MWHideWindow()
     TransformProcessType(&psn, kProcessTransformToUIElementApplication);
 #endif
     this->hide();
+    SaveState();
     tray_action_ToggleVisibility->setText(tr("Show"));
 }
 
@@ -139,10 +141,11 @@ void MainWindow::CheckSubscriptionsUpdate()
     if (!updateList.isEmpty())
     {
         const auto result = GlobalConfig.uiConfig.quietMode ? Yes :
-                                                              QvMessageBoxAsk(this, tr("Update Subscriptions"),                            //
-                                                                              tr("Do you want to update these subscriptions?") + NEWLINE + //
-                                                                                  updateNamesList.join(NEWLINE),                           //
-                                                                              { Yes, No, Ignore });
+                                                              QvMessageBoxAsk(
+                                                                  this, tr("Update Subscriptions"),                            //
+                                                                  tr("Do you want to update these subscriptions?") + NEWLINE + //
+                                                                      updateNamesList.join(NEWLINE),                           //
+                                                                  { Yes, No, Ignore });
 
         for (const auto &[name, id] : updateList)
         {

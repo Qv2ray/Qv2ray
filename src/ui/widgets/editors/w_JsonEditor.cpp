@@ -66,7 +66,7 @@ void JsonEditor::on_jsonEditor_textChanged()
 
     if (VerifyResult.isEmpty())
     {
-        BLACK(jsonEditor)
+        BLACK(jsonEditor);
         final = JsonFromString(string);
         model.loadJson(QJsonDocument(final).toJson());
         jsonTree->expandAll();
@@ -74,7 +74,7 @@ void JsonEditor::on_jsonEditor_textChanged()
     }
     else
     {
-        RED(jsonEditor)
+        RED(jsonEditor);
     }
 }
 
@@ -86,7 +86,7 @@ void JsonEditor::on_formatJsonBtn_clicked()
 
     if (VerifyResult.isEmpty())
     {
-        BLACK(jsonEditor)
+        BLACK(jsonEditor);
         jsonEditor->setPlainText(JsonToString(JsonFromString(string)));
         LOG(MODULE_UI, "Reloading JSON model")
         model.loadJson(QJsonDocument(JsonFromString(string)).toJson());
@@ -96,7 +96,7 @@ void JsonEditor::on_formatJsonBtn_clicked()
     }
     else
     {
-        RED(jsonEditor)
+        RED(jsonEditor);
         QvMessageBoxWarn(this, tr("Syntax Errors"), tr("Please fix the JSON errors or remove the comments before continue"));
     }
 }

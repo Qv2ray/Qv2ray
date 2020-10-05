@@ -10,7 +10,6 @@
 
 #include <QMainWindow>
 #include <QMenu>
-#include <QSystemTrayIcon>
 
 namespace Qv2rayPlugin
 {
@@ -19,6 +18,7 @@ namespace Qv2rayPlugin
 
 class MainWindow
     : public QMainWindow
+    , QvStateObject
     , Ui::MainWindow
 {
     Q_OBJECT
@@ -55,10 +55,6 @@ class MainWindow
     void on_newConnectionBtn_clicked();
     void on_newComplexConnectionBtn_clicked();
     //
-    // void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
-    // void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
-    // void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-
     void on_connectionTreeView_doubleClicked(const QModelIndex &index);
     void on_connectionTreeView_clicked(const QModelIndex &index);
 

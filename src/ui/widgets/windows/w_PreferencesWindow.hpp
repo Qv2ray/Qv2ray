@@ -40,7 +40,7 @@ class PreferencesWindow
 
   private:
     void updateColorScheme() override{};
-    QvMessageBusSlotDecl;
+    QvMessageBusSlotDecl override;
 
   private slots:
     void on_buttonBox_accepted();
@@ -124,9 +124,7 @@ class PreferencesWindow
     void on_V2RayOutboundStatsCB_stateChanged(int arg1);
     void on_hasDirectStatisticsCB_stateChanged(int arg1);
     void on_useOldShareLinkFormatCB_stateChanged(int arg1);
-
     void on_bypassPrivateCb_clicked(bool checked);
-
     void on_disableSystemRootCB_stateChanged(int arg1);
 
   private:

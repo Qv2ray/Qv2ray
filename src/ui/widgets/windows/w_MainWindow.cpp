@@ -82,8 +82,23 @@ void MainWindow::OnRecentConnectionsMenuReadyToShow()
     }
 }
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("MainWindow")
 {
+    addStateOptions("width", { [&] { return width(); }, [&](QJsonValue val) { resize(val.toInt(), size().height()); } });
+    addStateOptions("height", { [&] { return height(); }, [&](QJsonValue val) { resize(size().width(), val.toInt()); } });
+    addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
+    addStateOptions("y", { [&] { return y(); }, [&](QJsonValue val) { move(x(), val.toInt()); } });
+
+    const auto setSplitterSize1 = [&](QJsonValue val) { splitter->setSizes({ val.toInt(), splitter->sizes()[1] }); };
+    const auto setSplitterSize2 = [&](QJsonValue val) { splitter->setSizes({ splitter->sizes()[0], val.toInt() }); };
+    addStateOptions("splitter.part1", { [&] { return splitter->sizes()[0]; }, setSplitterSize1 });
+    addStateOptions("splitter.part2", { [&] { return splitter->sizes()[1]; }, setSplitterSize2 });
+
+    const auto setSpeedWidgetVisibility = [&](QJsonValue val) { speedChartHolderWidget->setVisible(val.toBool()); };
+    const auto setLogWidgetVisibility = [&](QJsonValue val) { masterLogBrowser->setVisible(val.toBool()); };
+    addStateOptions("speedchar.visibility", { [&] { return speedChartHolderWidget->isVisible(); }, setSpeedWidgetVisibility });
+    addStateOptions("log.visibility", { [&] { return masterLogBrowser->isVisible(); }, setLogWidgetVisibility });
+
     setupUi(this);
     QvMessageBusConnect(MainWindow);
     //
@@ -105,9 +120,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [this](const ConnectionGroupPair &, const QString &reason) {
         MWShowWindow();
-        QvMessageBoxWarn(this, tr("Kernel terminated."),
-                         tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
-                             tr("To solve the problem, read the kernel log in the log text browser."));
+        QvMessageBoxWarn(
+            this, tr("Kernel terminated."),
+            tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
+                tr("To solve the problem, read the kernel log in the log text browser."));
     });
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &MainWindow::OnConnected);
@@ -282,14 +298,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     if (!connectionStarted)
         MWShowWindow();
-    else
-        MWHideWindow();
     //
     CheckSubscriptionsUpdate();
     qvLogTimerId = startTimer(1000);
     auto checker = new QvUpdateChecker(this);
     checker->CheckUpdate();
-    splitter->setSizes({ 200, 300 });
     //
     for (const auto &name : PluginHost->UsablePlugins())
     {
@@ -447,8 +460,10 @@ void MainWindow::Action_Start()
 
 MainWindow::~MainWindow()
 {
+    SaveState();
     delete modelHelper;
-    for (auto &widget : pluginWidgets) widget->accept();
+    for (auto &widget : pluginWidgets)
+        widget->accept();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -704,8 +719,9 @@ void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<Stat
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
     //
-    qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + GetDisplayName(id.connectionId) + //
-                              NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+    qvAppTrayIcon->setToolTip(
+        TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + GetDisplayName(id.connectionId) + //
+        NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
 }
 
 void MainWindow::OnVCoreLogAvailable(const ConnectionGroupPair &id, const QString &log)
@@ -824,8 +840,8 @@ void MainWindow::Action_DuplicateConnection()
 
     for (const auto &conn : connlist)
     {
-        ConnectionManager->CreateConnection(ConnectionManager->GetConnectionRoot(conn.connectionId),
-                                            GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId);
+        ConnectionManager->CreateConnection(
+            ConnectionManager->GetConnectionRoot(conn.connectionId), GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId);
     }
 }
 

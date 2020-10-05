@@ -79,10 +79,10 @@ void BalancerWidget::on_balancerTagTxt_textEdited(const QString &arg1)
     if (originalName == arg1 || dispatcher->RenameTag<NODE_OUTBOUND>(originalName, arg1))
     {
         outboundData->displayName = arg1;
-        BLACK(balancerTagTxt)
+        BLACK(balancerTagTxt);
     }
     else
     {
-        RED(balancerTagTxt)
+        RED(balancerTagTxt);
     }
 }

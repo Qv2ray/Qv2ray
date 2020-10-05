@@ -40,7 +40,7 @@ class RouteEditor
 
   private:
     void updateColorScheme() override;
-    QvMessageBusSlotDecl;
+    QvMessageBusSlotDecl override;
 
   private slots:
     void on_addBalancerBtn_clicked();

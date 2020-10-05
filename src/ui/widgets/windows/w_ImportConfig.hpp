@@ -34,7 +34,8 @@ class ImportConfigWindow
     }
 
   private:
-    QvMessageBusSlotDecl;
+    QvMessageBusSlotDecl override;
+
   private slots:
     void on_selectFileBtn_clicked();
     void on_qrFromScreenBtn_clicked();

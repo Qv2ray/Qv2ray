@@ -136,7 +136,7 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
         if (!header.contains("|"))
         {
             LOG(MODULE_UI, "Header missing '|' separator")
-            RED(wsHeadersTxt)
+            RED(wsHeadersTxt);
             return;
         }
 
@@ -145,7 +145,7 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
         auto value = header.right(header.length() - index - 1);
         stream.wsSettings.headers[key] = value;
     }
-    BLACK(wsHeadersTxt)
+    BLACK(wsHeadersTxt);
 }
 
 void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()

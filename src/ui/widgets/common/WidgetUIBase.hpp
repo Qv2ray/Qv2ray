@@ -1,22 +1,30 @@
 #pragma once
 
+#include "ui/common/QvMessageBus.hpp"
+#include "ui/widgets/Qv2rayWidgetApplication.hpp"
+
 #include <QDialog>
 #include <QGraphicsEffect>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <QJsonObject>
 #include <QPainter>
+#include <QShowEvent>
 #include <QTextCursor>
 #include <QTextDocument>
 
 // GUI TOOLS
-#define RED(obj)                                                                                                                                     \
-    {                                                                                                                                                \
-        auto _temp = obj->palette();                                                                                                                 \
-        _temp.setColor(QPalette::Text, Qt::red);                                                                                                     \
-        obj->setPalette(_temp);                                                                                                                      \
-    }
+inline void RED(QWidget *obj)
+{
+    auto _temp = obj->palette();
+    _temp.setColor(QPalette::Text, Qt::red);
+    obj->setPalette(_temp);
+}
 
-#define BLACK(obj) obj->setPalette(QWidget::palette());
+inline void BLACK(QWidget *obj)
+{
+    obj->setPalette(qApp->palette());
+}
 
 constexpr auto QV2RAY_ICON_EXTENSION = ".svg";
 
@@ -26,13 +34,69 @@ constexpr auto QV2RAY_ICON_EXTENSION = ".svg";
 #define QICON_R(file) QPixmap(QV2RAY_ICON_RESOURCE(file))
 #define Q_TRAYICON(name) (QPixmap(QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTrayIcon) + name + ".png"))
 
-class QvDialog : public QDialog
+class QvStateObject
+{
+    using options_save_func_t = std::function<QJsonValue()>;
+    using options_restore_func_t = std::function<void(QJsonValue)>;
+    using options_storage_type = std::map<QString, std::pair<options_save_func_t, options_restore_func_t>>;
+
+  public:
+    explicit QvStateObject(const QString &name) : windowName(name){};
+    void SaveState()
+    {
+        QvWidgetApplication->UIStates[windowName] = saveStateImpl();
+    }
+
+    void RestoreState()
+    {
+        restoreStateImpl(QvWidgetApplication->UIStates[windowName].toObject());
+    }
+
+  protected:
+    void addStateOptions(QString name, std::pair<options_save_func_t, options_restore_func_t> funcs)
+    {
+        state_options_list[name] = funcs;
+    }
+
+  private:
+    QJsonObject saveStateImpl()
+    {
+        QJsonObject o;
+        for (const auto &[name, pair] : state_options_list)
+            o[name] = pair.first();
+        return o;
+    }
+    void restoreStateImpl(const QJsonObject &o)
+    {
+        for (const auto &[name, pair] : state_options_list)
+            if (o.contains(name))
+                pair.second(o[name]);
+    }
+    options_storage_type state_options_list;
+    const QString windowName;
+};
+
+class QvDialog
+    : public QDialog
+    , public QvStateObject
 {
     Q_OBJECT
   public:
-    explicit QvDialog(QWidget *parent) : QDialog(parent){};
+    explicit QvDialog(const QString &name, QWidget *parent) : QDialog(parent), QvStateObject(name)
+    {
+        connect(this, &QvDialog::finished, [this] { SaveState(); });
+    }
+    virtual ~QvDialog(){};
     virtual void processCommands(QString command, QStringList commands, QMap<QString, QString> args) = 0;
+
+  protected:
+    virtual QvMessageBusSlotDecl = 0;
     virtual void updateColorScheme() = 0;
+    void showEvent(QShowEvent *event) override
+    {
+        QWidget::showEvent(event);
+        RestoreState();
+    }
 };
 
 namespace Qv2ray::ui
@@ -50,6 +114,8 @@ namespace Qv2ray::ui
         res.fill(Qt::transparent);
         QPainter ptr(&res);
         scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent * 2, src.height() + extent * 2));
+        // Clean up
+        item.setGraphicsEffect(nullptr);
         return QPixmap::fromImage(res);
     }
 
@@ -67,6 +133,7 @@ namespace Qv2ray::ui
         pColor->setStrength(factor);
         return ApplyEffectToImage(pixmap, pColor, 0);
     }
+
     inline void FastAppendTextDocument(const QString &message, QTextDocument *doc)
     {
         QTextCursor cursor(doc);

@@ -35,6 +35,8 @@ class PluginManageWindow
                 tabWidget->setCurrentIndex(1);
         }
     }
+    QvMessageBusSlotDecl override;
+
   private slots:
     void on_pluginListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void on_pluginListWidget_itemClicked(QListWidgetItem *item);
@@ -46,6 +48,7 @@ class PluginManageWindow
 
   private:
     void updateColorScheme() override{};
+
     std::shared_ptr<Qv2rayPlugin::QvPluginSettingsWidget> currentSettingsWidget;
     Qv2ray::components::plugins::QvPluginInfo *currentPluginInfo;
     bool isLoading = true;

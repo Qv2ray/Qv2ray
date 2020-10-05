@@ -35,8 +35,7 @@ class GroupManager
     }
 
   private:
-    QvMessageBusSlotDecl;
-
+    QvMessageBusSlotDecl override;
   private slots:
     void on_addGroupButton_clicked();
     void on_updateButton_clicked();
