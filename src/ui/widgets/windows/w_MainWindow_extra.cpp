@@ -39,8 +39,8 @@ void MainWindow::MWHideWindow()
     ProcessSerialNumber psn = { 0, kCurrentProcess };
     TransformProcessType(&psn, kProcessTransformToUIElementApplication);
 #endif
-    this->hide();
     SaveState();
+    this->hide();
     tray_action_ToggleVisibility->setText(tr("Show"));
 }
 
