@@ -1,5 +1,11 @@
 syntax = "proto3";
 
+package v2ray.core.app.router;
+option csharp_namespace = "V2Ray.Core.App.Router";
+option go_package = "v2ray.com/core/app/router";
+option java_package = "com.v2ray.core.app.router";
+option java_multiple_files = true;
+
 // DomainObject for routing decision.
 message DomainObject {
   // Type of domain value.
@@ -33,6 +39,24 @@ message DomainObject {
   repeated Attribute attribute = 3;
 }
 
+// IP for routing decision, in CIDR form.
+message CIDR {
+  // IP address, should be either 4 or 16 bytes.
+  bytes ip = 1;
+
+  // Number of leading ones in the network mask.
+  uint32 prefix = 2;
+}
+
+message GeoIP {
+  string country_code = 1;
+  repeated CIDR cidr = 2;
+}
+
+message GeoIPList {
+  repeated GeoIP entry = 1;
+}
+
 message GeoSite {
   string country_code = 1;
   repeated DomainObject domain = 2;
@@ -41,4 +65,3 @@ message GeoSite {
 message GeoSiteList{
   repeated GeoSite entry = 1;
 }
-

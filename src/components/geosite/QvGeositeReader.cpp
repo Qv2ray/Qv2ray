@@ -33,7 +33,7 @@ namespace Qv2ray::components::geosite
             auto content = f.readAll();
             f.close();
             //
-            GeoSiteList sites;
+            v2ray::core::app::router::GeoSiteList sites;
             sites.ParseFromArray(content.data(), content.size());
 
             for (const auto &e : sites.entry())
