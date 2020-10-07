@@ -149,6 +149,8 @@ jobs:
           CC: cl.exe
           CXX: cl.exe
         run: |
+          cd libs
+          move /Y .\windows-${{ matrix.arch }}\installed\${{ matrix.arch }}-windows .\
           mkdir build
           cd build
           cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./deployment -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
