@@ -226,7 +226,9 @@ int main(int argc, char *argv[])
         }
         default: Q_UNREACHABLE();
     }
+#ifndef QV2RAY_QT6
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
     // noScaleFactors = disable HiDPI
     if (StartupOption.noScaleFactor)
     {
@@ -237,7 +239,9 @@ int main(int argc, char *argv[])
     else
     {
         DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
+#ifndef QV2RAY_QT6
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     #ifdef QV2RAY_GUI
         QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);

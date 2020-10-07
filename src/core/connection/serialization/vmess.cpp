@@ -83,9 +83,7 @@ namespace Qv2ray::core::connection
                 return default;
             }
 
-            QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
-            auto b64Str = vmessJsonB64.toString();
-
+            const auto b64Str = vmess.mid(8, vmess.length() - 8);
             if (b64Str.isEmpty())
             {
                 *errMessage = QObject::tr("VMess string should be a valid base64 string");

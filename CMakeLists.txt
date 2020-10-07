@@ -148,6 +148,7 @@ if(QV2RAY_QT6)
     set(QV_QT_MAJOR_VERSION 6)
     set(QV_QT_MINOR_VERSION 0)
     set(QV_QT_LIBNAME Qt6)
+    add_definitions(-DQV2RAY_QT6=1)
     #From: https://github.com/KDE/kwin/blob/master/cmake/modules/FindXKB.cmake#L35
     find_package(PkgConfig)
     pkg_check_modules(PKG_XKB QUIET xkbcommon)

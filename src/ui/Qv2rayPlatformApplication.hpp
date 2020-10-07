@@ -70,7 +70,9 @@ class Qv2rayPlatformApplication
 #endif
 #ifdef QV2RAY_GUI
     #ifdef Q_OS_LINUX
+        #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         setFallbackSessionManagementEnabled(false);
+        #endif
         connect(this, &QGuiApplication::commitDataRequest, [] {
             RouteManager->SaveRoutes();
             ConnectionManager->SaveConnectionConfig();

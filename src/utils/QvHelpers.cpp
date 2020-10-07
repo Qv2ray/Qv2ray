@@ -44,7 +44,7 @@ namespace Qv2ray::common
         {
             auto converter = QStringDecoder(encoding, QStringConverter::Flag::ConvertInvalidToNull);
             const auto data = converter(byteArray).data;
-            if (!data.contains("\0"))
+            if (!data.contains('\0'))
                 return data;
         }
         Q_ASSERT_X(false, Q_FUNC_INFO, "Unsupported File Encoding");
@@ -218,7 +218,7 @@ namespace Qv2ray::common
 
         while (true)
         {
-            if (!QFile(baseDir + "/" + fileName + "_" + QSTRN(i) + extension).exists())
+            if (!QFile(baseDir + "/" + *fileName + "_" + QSTRN(i) + extension).exists())
             {
                 *fileName = *fileName + "_" + QSTRN(i);
                 return;

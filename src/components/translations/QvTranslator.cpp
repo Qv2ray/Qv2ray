@@ -49,7 +49,11 @@ namespace Qv2ray::common
             {
                 DEBUG(MODULE_UI, "Found " + code + " in folder: " + path)
                 QTranslator *translatorNew = new QTranslator();
-                translatorNew->load(code + ".qm", path);
+                bool success = translatorNew->load(code + ".qm", path);
+                if (!success)
+                {
+                    LOG(MODULE_UI, "Cannot load translation: " + code)
+                }
                 if (pTranslator)
                 {
                     LOG(MODULE_UI, "Removed translations")
