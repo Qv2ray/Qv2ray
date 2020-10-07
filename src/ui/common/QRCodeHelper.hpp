@@ -1,7 +1,9 @@
 #pragma once
 
-#include <QImage>
-#include <QString>
+class QImage;
+class QSize;
+class QString;
+
 namespace Qv2ray::ui
 {
     QString DecodeQRCode(const QImage &img);
