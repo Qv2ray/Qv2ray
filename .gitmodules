@@ -28,3 +28,6 @@
 [submodule "cmake/android"]
 	path = cmake/android
 	url = https://github.com/LaurentGomila/qt-android-cmake
+[submodule "3rdparty/QCodeEditor"]
+	path = 3rdparty/QCodeEditor
+	url = https://github.com/cpeditor/QCodeEditor
