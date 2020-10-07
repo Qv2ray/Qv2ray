@@ -60,12 +60,12 @@ namespace Qv2ray::core
         //
         for (const auto &item : out["outbounds"].toArray())
         {
-            const auto outBoundRoot = OUTBOUND(item.toObject());
+            const auto outboundRoot = OUTBOUND(item.toObject());
             QString host;
             int port;
             QString outboundType = "";
 
-            if (GetOutboundInfo(outBoundRoot, &host, &port, &outboundType))
+            if (GetOutboundInfo(outboundRoot, &host, &port, &outboundType))
             {
                 if (status != nullptr)
                     *status = true;
@@ -121,8 +121,6 @@ namespace Qv2ray::core
 
         if (streamSettings.contains("network"))
             result << streamSettings["network"].toString();
-        else
-            result << "tcp";
 
         const auto security = streamSettings["security"].toString();
         if (!security.isEmpty() && security != "none")
