@@ -991,7 +991,7 @@ void MainWindow::on_newConnectionBtn_clicked()
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         const auto item = connectionTreeView->currentIndex();
-        const auto id = item.isValid() ? DefaultGroupId : GetIndexWidget(item)->Identifier().groupId;
+        const auto id = item.isValid() ? GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
         ConnectionManager->CreateConnection(root, alias, id);
     }
 }
@@ -1004,7 +1004,7 @@ void MainWindow::on_newComplexConnectionBtn_clicked()
     if (isChanged)
     {
         const auto item = connectionTreeView->currentIndex();
-        const auto id = item.isValid() ? DefaultGroupId : GetIndexWidget(item)->Identifier().groupId;
+        const auto id = item.isValid() ? GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
         ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, "outbounds", 0, "tag").toString(), id);
     }
 }
