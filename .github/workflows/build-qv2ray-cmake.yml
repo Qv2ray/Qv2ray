@@ -107,6 +107,7 @@ jobs:
         shell: bash
         if: matrix.platform == 'windows-latest'
         run: |
+          cd ./libs
           export QV2RAY_LIBS=windows
           export QV2RAY_LIBS_ARCH=${{ matrix.arch }}
           ./setup-libs.sh
