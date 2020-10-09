@@ -20,6 +20,7 @@ do
 done
 
 if [[ "$QV2RAY_LIBS" == "tools" ]]; then
+    mkdir -p ../tools
     cp -rvf ./tools ../
     rm -rvf ./tools
 else

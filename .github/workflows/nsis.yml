@@ -83,18 +83,10 @@ jobs:
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
         run: |
-          curl -o ./libs/grpc-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/grpc-${{ matrix.arch }}-windows.7z
-          curl -o ./libs/curl-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/curl-${{ matrix.arch }}-windows.7z
-      - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
-        uses: DuckSoft/extract-7z-action@v1.0
-        with:
-          pathSource: ./libs/grpc-${{ matrix.arch }}-windows.7z
-          pathTarget: ./libs
-      - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
-        uses: DuckSoft/extract-7z-action@v1.0
-        with:
-          pathSource: ./libs/curl-${{ matrix.arch }}-windows.7z
-          pathTarget: ./libs
+          cd libs
+          export QV2RAY_LIBS=windows
+          export QV2RAY_LIBS_ARCH=${{ matrix.arch }}
+          ./setup-libs.sh
       # ========================================================================================================= Generate MakeFile and Build
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
