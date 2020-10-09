@@ -1,3 +1,9 @@
+qv2ray (2.7.0~alpha2-1) unstable; urgency=medium
+
+  * New upstream release 2.7.0-alpha2
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Fri, 09 Oct 2020 10:56:01 +0800
+
 qv2ray (2.7.0~alpha1-1) unstable; urgency=medium
 
   * New upstream release 2.7.0-alpha1
