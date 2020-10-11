@@ -41,30 +41,22 @@ namespace Qv2ray::core::handler
 
     std::optional<QString> KernelInstanceHandler::CheckPort(const QMap<QString, ProtocolSettingsInfoObject> &info, int plugins)
     {
-        //
-        // Check inbound port allocation issue.
         QStringList portDetectionErrorMessage;
-        auto portDetectionMsg = tr("Another process is using the port required to start the connection:") + NEWLINE + NEWLINE;
+        auto portDetectionMsg = tr("There are other processes occupying the ports necessary to start the connection:") + NEWLINE + NEWLINE;
         for (const auto &key : info.keys())
         {
-            auto result = components::port::CheckTCPPortStatus(info[key].address, info[key].port);
+            const auto result = components::port::CheckTCPPortStatus(info[key].address, info[key].port);
             if (!result)
-            {
-                portDetectionErrorMessage << tr("Port: %1 for listening IP: %2 for inbound tag: \"%3\"") //
-                                                 .arg(info[key].port)
-                                                 .arg(info[key].address)
-                                                 .arg(key);
-            }
+                portDetectionErrorMessage << tr("Endpoint: %1:%2 for inbound: \"%3\"").arg(info[key].address).arg(info[key].port).arg(key);
         }
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
-            for (int i = 0; i < plugins; i++)
+            for (auto i = 0; i < plugins; i++)
             {
-                auto result = components::port::CheckTCPPortStatus("127.0.0.1", GlobalConfig.pluginConfig.portAllocationStart + i);
+                const auto thisPort = GlobalConfig.pluginConfig.portAllocationStart + i;
+                const auto result = components::port::CheckTCPPortStatus("127.0.0.1", thisPort);
                 if (!result)
-                {
-                    portDetectionErrorMessage << tr("Port: %1 for plugin integration.").arg(GlobalConfig.pluginConfig.portAllocationStart + i);
-                }
+                    portDetectionErrorMessage << tr("Local port: %1 for plugin integration.").arg(thisPort);
             }
         }
         if (!portDetectionErrorMessage.isEmpty())
