@@ -1,7 +1,10 @@
 #include "QvTranslator.hpp"
 
 #include "base/Qv2rayBase.hpp"
+#include "ui/widgets/common/WidgetUIBase.hpp"
 #include "utils/QvHelpers.hpp"
+
+#define QV_MODULE_NAME "Translator"
 
 using namespace Qv2ray::base;
 
@@ -38,7 +41,7 @@ namespace Qv2ray::common
         }
         std::transform(languages.begin(), languages.end(), languages.begin(), [](QString &fileName) { return fileName.replace(".qm", ""); });
         languages.removeDuplicates();
-        DEBUG(MODULE_UI, "Found translations: " + languages.join(" "))
+        DEBUG("Found translations: " + languages.join(" "));
     }
 
     bool QvTranslator::InstallTranslation(const QString &code)
@@ -47,21 +50,21 @@ namespace Qv2ray::common
         {
             if (FileExistsIn(QDir(path), code + ".qm"))
             {
-                DEBUG(MODULE_UI, "Found " + code + " in folder: " + path)
+                DEBUG("Found " + code + " in folder: " + path);
                 QTranslator *translatorNew = new QTranslator();
                 bool success = translatorNew->load(code + ".qm", path);
                 if (!success)
                 {
-                    LOG(MODULE_UI, "Cannot load translation: " + code)
+                    LOG("Cannot load translation: " + code);
                 }
                 if (pTranslator)
                 {
-                    LOG(MODULE_UI, "Removed translations")
+                    LOG("Removed translations");
                     qApp->removeTranslator(pTranslator.get());
                 }
                 this->pTranslator.reset(translatorNew);
                 qApp->installTranslator(pTranslator.get());
-                LOG(MODULE_UI, "Successfully installed a translator for " + code)
+                LOG("Successfully installed a translator for", code);
                 return true;
             }
         }

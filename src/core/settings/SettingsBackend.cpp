@@ -2,6 +2,8 @@
 
 #include "utils/QvHelpers.hpp"
 
+#define QV_MODULE_NAME "SettingsBackend"
+
 namespace Qv2ray::core::config
 {
     void SaveGlobalSettings(const Qv2rayConfigObject &conf)
@@ -43,8 +45,8 @@ namespace Qv2ray::core::config
 
             if (!testFile.open(QFile::OpenModeFlag::ReadWrite))
             {
-                LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
-                LOG(MODULE_SETTINGS, "---> Cannot create a new file or open a file for writing.")
+                LOG("Directory at: " + path + " cannot be used as a valid config file path.");
+                LOG("---> Cannot create a new file or open a file for writing.");
                 return false;
             }
 
@@ -55,8 +57,8 @@ namespace Qv2ray::core::config
             if (!testFile.remove())
             {
                 // This is rare, as we can create a file but failed to remove it.
-                LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
-                LOG(MODULE_SETTINGS, "---> Cannot remove a file.")
+                LOG("Directory at: " + path + " cannot be used as a valid config file path.");
+                LOG("---> Cannot remove a file.");
                 return false;
             }
         }
@@ -76,20 +78,20 @@ namespace Qv2ray::core::config
 
         if (!configFile.open(QIODevice::ReadWrite))
         {
-            LOG(MODULE_SETTINGS, "File: " + configFile.fileName() + " cannot be opened!")
+            LOG("File: " + configFile.fileName() + " cannot be opened!");
             return false;
         }
 
         const auto err = VerifyJsonString(StringFromFile(configFile));
         if (!err.isEmpty())
         {
-            LOG(MODULE_INIT, "Json parse returns: " + err)
+            LOG("Json parse returns: " + err);
             return false;
         }
 
         // If the file format is valid.
         const auto conf = JsonFromString(StringFromFile(configFile));
-        LOG(MODULE_SETTINGS, "Found a config file, v=" + conf["config_version"].toString() + " path=" + path)
+        LOG("Found a config file, v=" + conf["config_version"].toString() + " path=" + path);
         configFile.close();
         return true;
     }

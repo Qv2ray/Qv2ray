@@ -22,6 +22,8 @@
     #include <unistd.h>
 #endif
 
+#define QV_MODULE_NAME "Init"
+
 int globalArgc;
 char **globalArgv;
 
@@ -208,7 +210,7 @@ int main(int argc, char *argv[])
         "This is free software, and you are welcome to redistribute it" NEWLINE //
         "under certain conditions." NEWLINE NEWLINE                             //
         "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE             //
-        "Third-party libraries that have been used in Qv2ray can be found in the About page." NEWLINE)
+        "Third-party libraries that have been used in Qv2ray can be found in the About page." NEWLINE);
 
 #ifdef QT_DEBUG
     std::cerr << "WARNING: ================ This is a debug build, many features are not stable enough. ================" << std::endl;
@@ -232,13 +234,13 @@ int main(int argc, char *argv[])
     // noScaleFactors = disable HiDPI
     if (StartupOption.noScaleFactor)
     {
-        LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
-        DEBUG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
+        LOG("Force set QT_SCALE_FACTOR to 1.");
+        DEBUG("UI", "Original QT_SCALE_FACTOR was:", qEnvironmentVariable("QT_SCALE_FACTOR"));
         qputenv("QT_SCALE_FACTOR", "1");
     }
     else
     {
-        DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
+        DEBUG("High DPI scaling is enabled.");
 #ifndef QV2RAY_QT6
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -252,12 +254,12 @@ int main(int argc, char *argv[])
     // Check OpenSSL version for auto-update and subscriptions
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString();
-    LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
+    LOG("Current OpenSSL version: " + osslCurVersion);
 
     if (!QSslSocket::supportsSsl())
     {
-        LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
-        LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
+        LOG("Required OpenSSL version: " + osslReqVersion);
+        LOG("OpenSSL library MISSING, Quitting.");
         BootstrapMessageBox(QObject::tr("Dependency Missing"),
                             QObject::tr("Cannot find openssl libs") + NEWLINE +
                                 QObject::tr("This could be caused by a missing of `openssl` package in your system.") + NEWLINE +
@@ -285,7 +287,7 @@ int main(int argc, char *argv[])
     // Qv2ray Initialize, find possible config paths and verify them.
     if (!app.FindAndCreateInitialConfiguration())
     {
-        LOG(MODULE_INIT, "Cannot load or create initial configuration file.")
+        LOG("Cannot load or create initial configuration file.");
         app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Cannot load config file."));
         return QVEXIT_CONFIG_FILE_FAIL;
     }
@@ -298,7 +300,7 @@ int main(int argc, char *argv[])
     const auto rcode = app.RunQv2ray();
     if (rcode == QVEXIT_NEW_VERSION)
     {
-        LOG(MODULE_INIT, "Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath)
+        LOG("Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath);
         QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
     }
     return rcode;

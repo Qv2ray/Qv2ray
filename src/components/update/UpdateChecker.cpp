@@ -11,6 +11,7 @@ const inline QMap<int, QString> UpdateChannelLink //
         { 0, "https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest" },    //
         { 1, "https://api.github.com/repos/Qv2ray/Qv2ray/releases?per_page=1" } //
     };
+#define QV_MODULE_NAME "Update"
 
 namespace Qv2ray::components
 {
@@ -29,7 +30,7 @@ namespace Qv2ray::components
         if (QFile(QV2RAY_CONFIG_DIR + "QV2RAY_FEATURE_DISABLE_AUTO_UPDATE").exists())
             return;
         const auto &updateChannel = GlobalConfig.updateConfig.updateChannel;
-        LOG(MODULE_NETWORK, "Start checking update for channel ID: " + QSTRN(updateChannel))
+        LOG("Start checking update for channel ID: " + QSTRN(updateChannel));
         requestHelper->AsyncHttpGet(UpdateChannelLink[updateChannel], &QvUpdateChecker::VersionUpdate);
 #endif
     }
@@ -53,24 +54,24 @@ namespace Qv2ray::components
             const auto currentVersion = semver::version::from_string(currentVersionStr.toStdString());
             const auto ignoredVersion = semver::version::from_string(ignoredVersionStr.toStdString());
             //
-            LOG(MODULE_UPDATE, QString("Received update info:") + NEWLINE +         //
-                                   " --> Latest: " + newVersionStr + NEWLINE +      //
-                                   " --> Current: " + currentVersionStr + NEWLINE + //
-                                   " --> Ignored: " + ignoredVersionStr)
+            LOG(QString("Received update info:") + NEWLINE +     //
+                " --> Latest: " + newVersionStr + NEWLINE +      //
+                " --> Current: " + currentVersionStr + NEWLINE + //
+                " --> Ignored: " + ignoredVersionStr);
             // If the version is newer than us.
             // And new version is newer than the ignored version.
             hasUpdate = (newVersion > currentVersion && newVersion > ignoredVersion);
         }
         catch (...)
         {
-            LOG(MODULE_UPDATE, "Some strange exception occured, cannot check update.")
+            LOG("Some strange exception occured, cannot check update.");
         }
         if (hasUpdate)
         {
             const auto name = root["name"].toString("");
             if (name.contains("NO_RELEASE"))
             {
-                LOG(MODULE_UPDATE, "Found the recent release title with NO_RELEASE tag. Ignoring")
+                LOG("Found the recent release title with NO_RELEASE tag. Ignoring");
                 return;
             }
             const auto link = root["html_url"].toString("");
@@ -94,7 +95,7 @@ namespace Qv2ray::components
         }
         else
         {
-            LOG(MODULE_UPDATE, "No suitable updates found on channel " + QSTRN(GlobalConfig.updateConfig.updateChannel))
+            LOG("No suitable updates found on channel " + QSTRN(GlobalConfig.updateConfig.updateChannel));
         }
     }
 } // namespace Qv2ray::components

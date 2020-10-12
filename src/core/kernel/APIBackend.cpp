@@ -8,6 +8,8 @@ using grpc::ClientContext;
 using grpc::Status;
 #endif
 
+#define QV_MODULE_NAME "gRPCBackend"
+
 namespace Qv2ray::core::kernel
 {
     constexpr auto Qv2ray_GRPC_ERROR_RETCODE = -1;
@@ -33,9 +35,9 @@ namespace Qv2ray::core::kernel
     {
         workThread = new QThread();
         this->moveToThread(workThread);
-        DEBUG(MODULE_VCORE, "API Worker initialised.")
+        DEBUG("API Worker initialised.");
         connect(workThread, &QThread::started, this, &APIWorker::process);
-        connect(workThread, &QThread::finished, [] { LOG(MODULE_VCORE, "API thread stopped") });
+        connect(workThread, &QThread::finished, [] { LOG("API thread stopped"); });
         started = true;
         workThread->start();
     }
@@ -79,7 +81,7 @@ namespace Qv2ray::core::kernel
     // Start processing data.
     void APIWorker::process()
     {
-        DEBUG(MODULE_VCORE, "API Worker started.")
+        DEBUG("API Worker started.");
         while (started)
         {
             QThread::msleep(1000);
@@ -92,7 +94,7 @@ namespace Qv2ray::core::kernel
                 {
 #ifndef ANDROID
                     const auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.kernelConfig.statsPort);
-                    LOG(MODULE_VCORE, "gRPC Version: " + QString::fromStdString(grpc::Version()))
+                    LOG("gRPC Version: " + QString::fromStdString(grpc::Version()));
                     grpc_channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     v2ray::core::app::stats::command::StatsService service;
                     stats_service_stub = service.NewStub(grpc_channel);
@@ -101,7 +103,7 @@ namespace Qv2ray::core::kernel
                 }
                 if (apiFailCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
                 {
-                    LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
+                    LOG("API call failure threshold reached, cancelling further API aclls.");
                     emit OnAPIErrored(tr("Failed to get statistics data, please check if V2Ray is running properly"));
                     apiFailCounter++;
                     QThread::msleep(1000);
@@ -147,7 +149,7 @@ namespace Qv2ray::core::kernel
         const auto status = stats_service_stub->GetStats(&context, request, &response);
         if (!status.ok())
         {
-            LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
+            LOG("API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")");
             return Qv2ray_GRPC_ERROR_RETCODE;
         }
         else

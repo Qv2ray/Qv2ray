@@ -8,6 +8,8 @@
     #include <ApplicationServices/ApplicationServices.h>
 #endif
 
+#define QV_MODULE_NAME "MainWindowExtra"
+
 void MainWindow::MWToggleVisibility()
 {
     if (isHidden())
@@ -72,7 +74,7 @@ void MainWindow::MWSetSystemProxy()
         if (proxyAddress == "::")
             proxyAddress = "::1";
 
-        LOG(MODULE_UI, "ProxyAddress: " + proxyAddress);
+        LOG("ProxyAddress: " + proxyAddress);
         SetSystemProxy(proxyAddress, httpInboundInfo.port, socksInboundInfo.port);
         qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy"));
         if (!GlobalConfig.uiConfig.quietMode)
@@ -82,7 +84,7 @@ void MainWindow::MWSetSystemProxy()
     }
     else
     {
-        LOG(MODULE_PROXY, "Neither of HTTP nor SOCKS is enabled, cannot set system proxy.")
+        LOG("Neither of HTTP nor SOCKS is enabled, cannot set system proxy.");
         QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("Both HTTP and SOCKS inbounds are not enabled"));
     }
 }
@@ -130,11 +132,11 @@ void MainWindow::CheckSubscriptionsUpdate()
         {
             updateList << QPair<QString, GroupId>{ info.displayName, entry };
             updateNamesList << info.displayName;
-            LOG(MODULE_SUBSCRIPTION, QString("Subscription update \"%1\": L=%2 R=%3 I=%4")
-                                         .arg(info.displayName)
-                                         .arg(lastRenewDate.toString())
-                                         .arg(QSTRN(info.subscriptionOption.updateInterval))
-                                         .arg(renewTime.toString()))
+            LOG(QString("Subscription update \"%1\": L=%2 R=%3 I=%4")
+                    .arg(info.displayName)
+                    .arg(lastRenewDate.toString())
+                    .arg(QSTRN(info.subscriptionOption.updateInterval))
+                    .arg(renewTime.toString()));
         }
     }
 
@@ -150,12 +152,12 @@ void MainWindow::CheckSubscriptionsUpdate()
         {
             if (result == Yes)
             {
-                LOG(MODULE_UI, "Updating subscription: " + name)
+                LOG("Updating subscription: " + name);
                 ConnectionManager->UpdateSubscriptionAsync(id);
             }
             else if (result == Ignore)
             {
-                LOG(MODULE_UI, "Ignored subscription update: " + name)
+                LOG("Ignored subscription update: " + name);
                 ConnectionManager->IgnoreSubscriptionUpdate(id);
             }
         }

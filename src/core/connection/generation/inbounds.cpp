@@ -1,7 +1,9 @@
 #include "core/connection/Generation.hpp"
+
+#define QV_MODULE_NAME "InboundGenerator"
+
 namespace Qv2ray::core::connection::generation::inbounds
 {
-
     INBOUNDSETTING GenerateDokodemoIN(const QString &address, int port, const QString &network, int timeout, bool followRedirect)
     {
         INBOUNDSETTING root;
@@ -57,7 +59,7 @@ namespace Qv2ray::core::connection::generation::inbounds
                                  const QJsonObject &sniffing, const QJsonObject &allocate)
     {
         INBOUND root;
-        DEBUG(MODULE_CONNECTION, "Allocation is not used here, Not Implemented")
+        DEBUG("Allocation is not used here, Not Implemented");
         Q_UNUSED(allocate)
         JADD(listen, port, protocol, settings, tag, sniffing)
         return root;
@@ -110,7 +112,7 @@ namespace Qv2ray::core::connection::generation::inbounds
             const static QJsonObject sniffingSettings = { { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
             // tProxy IPv4 Settings
             {
-                LOG(MODULE_CONNECTION, "Processing tProxy IPv4 inbound")
+                LOG("Processing tProxy IPv4 inbound");
                 auto tProxyIn = GenerateInboundEntry("tproxy_IN", "dokodemo-door",   //
                                                      INCONF.tProxySettings.tProxyIP, //
                                                      INCONF.tProxySettings.port,     //
@@ -121,7 +123,7 @@ namespace Qv2ray::core::connection::generation::inbounds
             }
             if (!INCONF.tProxySettings.tProxyV6IP.isEmpty())
             {
-                LOG(MODULE_CONNECTION, "Processing tProxy IPv6 inbound")
+                LOG("Processing tProxy IPv6 inbound");
                 auto tProxyIn = GenerateInboundEntry("tproxy_IN_V6", "dokodemo-door",  //
                                                      INCONF.tProxySettings.tProxyV6IP, //
                                                      INCONF.tProxySettings.port,       //

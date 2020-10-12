@@ -14,7 +14,6 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) : QDialog(parent
 
     if (VerifyJsonString(jsonString).isEmpty())
     {
-        LOG(MODULE_UI, "Begin loading Json Model")
         jsonTree->setModel(&model);
         model.loadJson(QJsonDocument(rootObject).toJson());
     }
@@ -88,7 +87,6 @@ void JsonEditor::on_formatJsonBtn_clicked()
     {
         BLACK(jsonEditor);
         jsonEditor->setPlainText(JsonToString(JsonFromString(string)));
-        LOG(MODULE_UI, "Reloading JSON model")
         model.loadJson(QJsonDocument(JsonFromString(string)).toJson());
         jsonTree->setModel(&model);
         jsonTree->expandAll();

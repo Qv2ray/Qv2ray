@@ -9,6 +9,8 @@
 #include <QFile>
 #include <QIntValidator>
 
+#define QV_MODULE_NAME "OutboundEditor"
+
 OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_TAG_PROXY)
 {
     QvMessageBusConnect(OutboundEditor);
@@ -27,7 +29,7 @@ OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_
         const auto guiInterface = plugin->pluginInterface->GetGUIInterface();
 
         if (!guiInterface)
-            LOG(MODULE_PLUGINHOST, "Found a plugin with COMPONENT_GUI but returns an invalid GUI interface: " + plugin->metadata.Name)
+            LOG("Found a plugin with COMPONENT_GUI but returns an invalid GUI interface: " + plugin->metadata.Name);
 
         if (!guiInterface->GetComponents().contains(GUI_COMPONENT_OUTBOUND_EDITOR))
             continue;
@@ -140,7 +142,7 @@ void OutboundEditor::reloadGUI()
     }
     if (!processed)
     {
-        LOG(MODULE_UI, "Outbound type: " + outboundType + " is not supported.")
+        LOG("Outbound type: ", outboundType, " is not supported.");
         QvMessageBoxWarn(this, tr("Unknown outbound."),
                          tr("The specified outbound type is invalid, this may be caused by a plugin failure.") + NEWLINE +
                              tr("Please use the JsonEditor or reload the plugin."));

@@ -1,9 +1,12 @@
 #include "ConnectionItemWidget.hpp"
 
 #include "core/handler/ConfigHandler.hpp"
+#include "ui/widgets/common/WidgetUIBase.hpp"
 #include "utils/QvHelpers.hpp"
 
 #include <QStyleFactory>
+
+#define QV_MODULE_NAME "ConnectionItemWidget"
 
 ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId(NullConnectionId), groupId(NullGroupId)
 {
@@ -84,7 +87,7 @@ void ConnectionItemWidget::BeginConnection()
     }
     else
     {
-        LOG(MODULE_UI, "Trying to start a non-connection entry, this call is illegal.")
+        LOG("Trying to start a non-connection entry, this call is illegal.");
     }
 }
 
@@ -115,7 +118,7 @@ void ConnectionItemWidget::OnConnected(const ConnectionGroupPair &id)
     if (id == ConnectionGroupPair{ connectionId, groupId })
     {
         connNameLabel->setText("● " + originalItemName);
-        DEBUG(MODULE_UI, "ConnectionItemWidgetOnConnected signal received for: " + id.connectionId.toString())
+        DEBUG("ConnectionItemWidgetOnConnected signal received for: " + id.connectionId.toString());
         emit RequestWidgetFocus(this);
     }
 }

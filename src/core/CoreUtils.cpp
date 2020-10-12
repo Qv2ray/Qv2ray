@@ -4,6 +4,8 @@
 #include "core/handler/ConfigHandler.hpp"
 #include "utils/QvHelpers.hpp"
 
+#define QV_MODULE_NAME "CoreUtils"
+
 namespace Qv2ray::core
 {
     bool IsComplexConfig(const ConnectionId &id)
@@ -79,7 +81,7 @@ namespace Qv2ray::core
             }
             else
             {
-                LOG(MODULE_CORE_HANDLER, "Unknown outbound type: " + outboundType + ", cannot deduce host and port.")
+                LOG("Unknown outbound type: " + outboundType + ", cannot deduce host and port.");
             }
         }
         return { QObject::tr("N/A"), QObject::tr("N/A"), 0 };

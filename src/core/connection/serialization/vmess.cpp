@@ -3,6 +3,8 @@
 #include "core/connection/Serialization.hpp"
 #include "utils/QvHelpers.hpp"
 
+#define QV_MODULE_NAME "VMessImporter"
+
 namespace Qv2ray::core::connection
 {
     namespace serialization::vmess
@@ -70,7 +72,7 @@ namespace Qv2ray::core::connection
 
             if (vmess.trimmed() != vmess)
             {
-                LOG(MODULE_SETTINGS, "VMess string has some prefix/postfix spaces, trimming.")
+                LOG("VMess string has some prefix/postfix spaces, trimming.");
                 vmess = vmessStr.trimmed();
             }
 
@@ -135,21 +137,21 @@ namespace Qv2ray::core::connection
         else if (!val.isEmpty())                                                                                                                     \
         {                                                                                                                                            \
             key = val.first();                                                                                                                       \
-            DEBUG(MODULE_IMPORT, "Using key \"" #key "\" from the first candidate list: " + key)                                                     \
+            DEBUG("Using key \"" #key "\" from the first candidate list: " + key);                                                                   \
         }                                                                                                                                            \
         else                                                                                                                                         \
         {                                                                                                                                            \
             *errMessage = QObject::tr(#key " does not exist.");                                                                                      \
-            LOG(MODULE_IMPORT, "Cannot process \"" #key "\" since it's not included in the json object.")                                            \
-            LOG(MODULE_IMPORT, " --> values: " + val.join(";"))                                                                                      \
-            LOG(MODULE_IMPORT, " --> PS: " + ps)                                                                                                     \
+            LOG("Cannot process \"" #key "\" since it's not included in the json object.");                                                          \
+            LOG(" --> values: " + val.join(";"));                                                                                                    \
+            LOG(" --> PS: " + ps);                                                                                                                   \
         }                                                                                                                                            \
     }
 
             // vmess v1 upgrader
             if (!vmessConf.contains("v"))
             {
-                LOG(MODULE_IMPORT, "Detected deprecated vmess v1. Trying to upgrade...")
+                LOG("Detected deprecated vmess v1. Trying to upgrade...");
                 if (const auto network = vmessConf["net"].toString(); network == "ws" || network == "h2")
                 {
                     const QStringList hostComponents = vmessConf["host"].toString().replace(" ", "").split(";");
@@ -196,13 +198,13 @@ namespace Qv2ray::core::connection
             }
 
             // Repect connection type rather than obfs type
-            if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))                //
-            {                                                                               //
-                if (net != "quic" && net != "kcp")                                          //
-                {                                                                           //
-                    LOG(MODULE_CONNECTION, "Reset obfs settings from " + type + " to none") //
-                    type = "none";                                                          //
-                }                                                                           //
+            if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type)) //
+            {                                                                //
+                if (net != "quic" && net != "kcp")                           //
+                {                                                            //
+                    LOG("Reset obfs settings from " + type + " to none");    //
+                    type = "none";                                           //
+                }                                                            //
             }
 
             port = vmessConf["port"].toVariant().toInt();

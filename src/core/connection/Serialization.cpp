@@ -74,7 +74,6 @@ namespace Qv2ray::core::connection
             auto alias = GetDisplayName(identifier.connectionId);
             if (IsComplexConfig(identifier.connectionId))
             {
-                DEBUG(MODULE_CONNECTION, "Ignored an complex config: " + alias)
                 return QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER;
             }
             auto server = ConnectionManager->GetConnectionRoot(identifier.connectionId);
@@ -92,7 +91,6 @@ namespace Qv2ray::core::connection
 
             if (type.isEmpty())
             {
-                DEBUG(MODULE_CONNECTION, "WARNING: Empty outbound type.")
                 return "";
             }
 

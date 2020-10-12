@@ -4,6 +4,8 @@
 
 #include <QMetaEnum>
 
+#define QV_MODULE_NAME "MessageBus"
+
 namespace Qv2ray::ui::messaging
 {
     QvMessageBusObject::QvMessageBusObject()
@@ -13,7 +15,7 @@ namespace Qv2ray::ui::messaging
     void QvMessageBusObject::EmitGlobalSignal(const QvMBMessage &msg)
     {
         QMetaEnum metaEnum = QMetaEnum::fromType<QvMBMessage>();
-        LOG(MODULE_MESSAGING, "Emitting signal: " + QString(metaEnum.valueToKey(msg)));
+        LOG("Emitting signal: ", QString(metaEnum.valueToKey(msg)));
         emit QvSendMessage(msg);
     }
 } // namespace Qv2ray::ui::messaging

@@ -7,12 +7,14 @@
 #include "utils/HTTPRequestHelper.hpp"
 #include "utils/QvHelpers.hpp"
 
+#define QV_MODULE_NAME "ConfigHandler"
+
 namespace Qv2ray::core::handler
 {
     QvConfigHandler::QvConfigHandler(QObject *parent) : QObject(parent)
     {
         asyncRequestHelper = new NetworkRequestHelper(this);
-        DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
+        DEBUG("ConnectionHandler Constructor.");
         const auto connectionJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "connections.json"));
         const auto groupJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "groups.json"));
         //
@@ -44,16 +46,16 @@ namespace Qv2ray::core::handler
                 if (connectionFile.exists())
                 {
                     if (!connectionFile.remove())
-                        LOG(MODULE_CONNECTION, "Failed to remove connection config file")
+                        LOG("Failed to remove connection config file");
                 }
                 connections.remove(id);
-                LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
+                LOG("Dropped connection id: " + id.toString() + " since it's not in a group");
             }
             else
             {
                 const auto connectionFilePath = QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
                 connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(connectionFilePath)));
-                DEBUG(MODULE_CORE_HANDLER, "Loaded connection id: " + id.toString() + " into cache.")
+                DEBUG("Loaded connection id: " + id.toString() + " into cache.");
             }
         }
 
@@ -203,13 +205,13 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
     {
         CheckValidId(id, false);
-        LOG(MODULE_CONNECTION, "Removing connection : " + id.toString())
+        LOG("Removing connection : " + id.toString());
         if (groups[gid].connections.contains(id))
         {
             auto removedEntries = groups[gid].connections.removeAll(id);
             if (removedEntries > 1)
             {
-                LOG(MODULE_CONNECTION, "Found same connection occured multiple times in a group.")
+                LOG("Found same connection occured multiple times in a group.");
             }
             // Decrease reference count.
             connections[id].__qvConnectionRefCount -= removedEntries;
@@ -228,14 +230,14 @@ namespace Qv2ray::core::handler
         //
         if (connections[id].__qvConnectionRefCount <= 0)
         {
-            LOG(MODULE_CONNECTION, "Fully removing a connection from cache.")
+            LOG("Fully removing a connection from cache.");
             connectionRootCache.remove(id);
             //
             QFile connectionFile(QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
             if (connectionFile.exists())
             {
                 if (!connectionFile.remove())
-                    LOG(MODULE_CONNECTION, "Failed to remove connection config file")
+                    LOG("Failed to remove connection config file");
             }
             connections.remove(id);
         }
@@ -247,7 +249,7 @@ namespace Qv2ray::core::handler
         CheckValidId(id, false);
         if (groups[newGroupId].connections.contains(id))
         {
-            LOG(MODULE_CONNECTION, "Connection not linked since " + id.toString() + " is already in the group " + newGroupId.toString())
+            LOG("Connection not linked since " + id.toString() + " is already in the group " + newGroupId.toString());
             return false;
         }
         groups[newGroupId].connections.append(id);
@@ -265,12 +267,12 @@ namespace Qv2ray::core::handler
         //
         if (!groups[sourceGid].connections.contains(id))
         {
-            LOG(MODULE_CONNECTION, "Trying to move a connection away from a group it does not belong to.")
+            LOG("Trying to move a connection away from a group it does not belong to.");
             return false;
         }
         if (groups[targetGid].connections.contains(id))
         {
-            LOG(MODULE_CONNECTION, "The connection: " + id.toString() + " has already been in the target group: " + targetGid.toString())
+            LOG("The connection: " + id.toString() + " has already been in the target group: " + targetGid.toString());
             auto removedCount = groups[sourceGid].connections.removeAll(id);
             connections[id].__qvConnectionRefCount -= removedCount;
         }
@@ -345,7 +347,7 @@ namespace Qv2ray::core::handler
 
     void QvConfigHandler::OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage)
     {
-        LOG(MODULE_CORE_HANDLER, "Kernel crashed: " + errMessage)
+        LOG("Kernel crashed: " + errMessage);
         emit OnDisconnected(id);
         PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), {}, Events::Connectivity::Disconnected });
         emit OnKernelCrashed(id, errMessage);
@@ -353,7 +355,7 @@ namespace Qv2ray::core::handler
 
     QvConfigHandler::~QvConfigHandler()
     {
-        LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
+        LOG("Triggering save settings from destructor");
         delete kernelHandler;
         SaveConnectionConfig();
     }
@@ -553,13 +555,13 @@ namespace Qv2ray::core::handler
             QString __groupName = groupName;
             const auto connectionConfigMap = ConvertConfigFromString(link.trimmed(), &_alias, &errMessage, &__groupName);
             if (!errMessage.isEmpty())
-                LOG(MODULE_SUBSCRIPTION, "Error: " + errMessage)
+                LOG("Error: ", errMessage);
             _newConnections << connectionConfigMap;
         }
 
         if (_newConnections.count() < 5)
         {
-            LOG(MODULE_SUBSCRIPTION, "Found a subscription with less than 5 connections.")
+            LOG("Found a subscription with less than 5 connections.");
             if (QvMessageBoxAsk(
                     nullptr, tr("Update Subscription"),
                     tr("%n entrie(s) have been found from the subscription source, do you want to continue?", "", _newConnections.count())) != Yes)
@@ -646,7 +648,7 @@ namespace Qv2ray::core::handler
             }
         }
 
-        LOG(MODULE_SUBSCRIPTION, "Filtered out less than 5 connections.")
+        LOG("Filtered out less than 5 connections.");
         const auto useFilteredConnections =
             filteredConnections.count() > 5 ||
             QvMessageBoxAsk(nullptr, tr("Update Subscription"),
@@ -666,7 +668,7 @@ namespace Qv2ray::core::handler
             if (nameMap.contains(_alias))
             {
                 // Just go and save the connection...
-                LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
+                LOG("Reused connection id from name: " + _alias);
                 const auto _conn = nameMap.take(_alias);
                 groups[id].connections << _conn;
                 UpdateConnection(_conn, config.second, true);
@@ -676,7 +678,7 @@ namespace Qv2ray::core::handler
             }
             else if (canGetOutboundData && typeMap.contains(outboundData))
             {
-                LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
+                LOG("Reused connection id from protocol/host/port pair for connection: " + _alias);
                 const auto _conn = typeMap.take(outboundData);
                 groups[id].connections << _conn;
                 // Update Connection Properties
@@ -689,7 +691,7 @@ namespace Qv2ray::core::handler
             else
             {
                 // New connection id is required since nothing matched found...
-                LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
+                LOG("Generated new connection id for connection: " + _alias);
                 CreateConnection(config.second, _alias, id, true);
             }
             // ====================================================================================== End guessing new ConnectionId
@@ -705,10 +707,10 @@ namespace Qv2ray::core::handler
                                                     NEWLINE + GetDisplayName(id) + NEWLINE + tr("Would you like to remove them?")) == Yes;
             if (needContinue)
             {
-                LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")
+                LOG("Removed old connections not have been matched.");
                 for (const auto &conn : originalConnectionIdList)
                 {
-                    LOG(MODULE_CORE_HANDLER, "Removing connections not in the new subscription: " + conn.toString())
+                    LOG("Removing connections not in the new subscription: " + conn.toString());
                     RemoveConnectionFromGroup(conn, id);
                 }
             }
@@ -744,7 +746,7 @@ namespace Qv2ray::core::handler
     const ConnectionGroupPair QvConfigHandler::CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId,
                                                                 bool skipSaveConfig)
     {
-        LOG(MODULE_CORE_HANDLER, "Creating new connection: " + displayName)
+        LOG("Creating new connection: " + displayName);
         ConnectionId newId(GenerateUuid());
         groups[groupId].connections << newId;
         connections[newId].creationDate = system_clock::to_time_t(system_clock::now());

@@ -4,6 +4,8 @@
 #include "ui/widgets/editors/w_JsonEditor.hpp"
 #include "utils/QvHelpers.hpp"
 
+#define QV_MODULE_NAME "StreamSettingsWidget"
+
 StreamSettingsWidget::StreamSettingsWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
@@ -36,7 +38,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         if (securityIndexMap.contains(stream.security))
             securityTypeCB->setCurrentIndex(securityIndexMap[stream.security]);
         else
-            LOG(MODULE_UI, "Unsupported Security Type: " + stream.security)
+            LOG("Unsupported Security Type:", stream.security);
 
 #define tls_xtls_process(prefix)                                                                                                                     \
     {                                                                                                                                                \
@@ -135,7 +137,7 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
 
         if (!header.contains("|"))
         {
-            LOG(MODULE_UI, "Header missing '|' separator")
+            LOG("Header missing '|' separator");
             RED(wsHeadersTxt);
             return;
         }

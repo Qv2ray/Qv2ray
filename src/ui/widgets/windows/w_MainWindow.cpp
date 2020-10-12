@@ -19,6 +19,7 @@
 #include <QInputDialog>
 #include <QScrollBar>
 
+#define QV_MODULE_NAME "MainWindow"
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 
 #define CheckCurrentWidget                                                                                                                           \
@@ -370,7 +371,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == qvLogTimerId)
     {
-        auto log = readLastLog().trimmed();
+        auto log = ReadLog().trimmed();
         if (!log.isEmpty())
         {
             FastAppendTextDocument(NEWLINE + log, qvLogDocument);
@@ -543,7 +544,7 @@ void MainWindow::Action_DeleteConnections()
         }
     }
 
-    LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
+    LOG("Selected ", connlist.count(), " items");
 
     if (connlist.isEmpty())
     {
@@ -584,7 +585,7 @@ void MainWindow::Action_EditComplex()
         CONFIGROOT root = ConnectionManager->GetConnectionRoot(id.connectionId);
         bool isChanged = false;
         //
-        LOG(MODULE_UI, "INFO: Opening route editor.")
+        LOG("INFO: Opening route editor.");
         RouteEditor routeWindow(root, this);
         root = routeWindow.OpenEditor();
         isChanged = routeWindow.result() == QDialog::Accepted;
@@ -753,14 +754,14 @@ void MainWindow::OnEditRequested(const ConnectionId &id)
 
     if (IsComplexConfig(outBoundRoot))
     {
-        LOG(MODULE_UI, "INFO: Opening route editor.")
+        LOG("INFO: Opening route editor.");
         RouteEditor routeWindow(outBoundRoot, this);
         root = routeWindow.OpenEditor();
         isChanged = routeWindow.result() == QDialog::Accepted;
     }
     else
     {
-        LOG(MODULE_UI, "INFO: Opening single connection edit window.")
+        LOG("INFO: Opening single connection edit window.");
         auto out = OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject());
         OutboundEditor w(out, this);
         auto outboundEntry = w.OpenEditor();
@@ -825,7 +826,7 @@ void MainWindow::Action_DuplicateConnection()
         }
     }
 
-    LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
+    LOG("Selected ", connlist.count(), " items");
 
     const auto strDupConnTitle = tr("Duplicating Connection(s)", "", connlist.count());
     const auto strDupConnContent = tr("Are you sure to duplicate these connection(s)?", "", connlist.count());
@@ -867,15 +868,6 @@ void MainWindow::on_clearChartBtn_clicked()
 {
     speedChartWidget->Clear();
 }
-
-// void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
-//{
-//    Q_UNUSED(previous)
-//    if (current != nullptr && !isExiting)
-//    {
-//        on_connectionListWidget_itemClicked(current, 0);
-//    }
-//}
 
 void MainWindow::on_masterLogBrowser_textChanged()
 {
