@@ -5,11 +5,13 @@
 #include <QByteArray>
 #include <QNetworkProxy>
 
+#define QV_MODULE_NAME "NetworkCore"
+
 namespace Qv2ray::common::network
 {
     void NetworkRequestHelper::setHeader(QNetworkRequest &request, const QByteArray &key, const QByteArray &value)
     {
-        DEBUG(MODULE_NETWORK, "Adding HTTP request header: " + key + ":" + value)
+        DEBUG("Adding HTTP request header: " + key + ":" + value);
         request.setRawHeader(key, value);
     }
 
@@ -19,7 +21,7 @@ namespace Qv2ray::common::network
         {
             case Qv2rayConfig_Network::QVPROXY_NONE:
             {
-                DEBUG(MODULE_NETWORK, "Get without proxy.")
+                DEBUG("Get without proxy.");
                 accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
                 break;
             }
@@ -43,7 +45,7 @@ namespace Qv2ray::common::network
 
         if (accessManager.proxy().type() == QNetworkProxy::Socks5Proxy)
         {
-            DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
+            DEBUG("Adding HostNameLookupCapability to proxy.");
             accessManager.proxy().setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
         }
 
@@ -75,7 +77,7 @@ namespace Qv2ray::common::network
         }
         //
         // Data or timeout?
-        LOG(MODULE_NETWORK, _reply->errorString());
+        LOG(_reply->errorString());
         auto data = _reply->readAll();
         return data;
     }
@@ -94,10 +96,10 @@ namespace Qv2ray::common::network
                 bool h2Used = reply->attribute(QNetworkRequest::HTTP2WasUsedAttribute).toBool();
 #endif
                 if (h2Used)
-                    DEBUG(MODULE_NETWORK, "HTTP/2 was used.")
+                    DEBUG("HTTP/2 was used.");
 
                 if (reply->error() != QNetworkReply::NoError)
-                    LOG(MODULE_NETWORK, "Network error: " + QString(QMetaEnum::fromType<QNetworkReply::NetworkError>().key(reply->error())))
+                    LOG("Network error: " + QString(QMetaEnum::fromType<QNetworkReply::NetworkError>().key(reply->error())));
 
                 funcPtr(reply->readAll());
             }

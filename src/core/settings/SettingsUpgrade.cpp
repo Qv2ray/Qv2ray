@@ -6,7 +6,9 @@
 #include "base/Qv2rayBase.hpp"
 #include "utils/QvHelpers.hpp"
 
-#define UPGRADELOG(msg) LOG(MODULE_SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
+#define QV_MODULE_NAME "SettingsUpgrade"
+
+#define UPGRADELOG(msg) LOG("[" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
 
 namespace Qv2ray
 {
@@ -33,7 +35,7 @@ namespace Qv2ray
                 auto uiConfig = root["uiConfig"].toObject();
                 uiConfig["language"] = lang;
                 root["uiConfig"] = uiConfig;
-                UPGRADELOG("Changed language: " + lang)
+                UPGRADELOG("Changed language: " + lang);
                 break;
             }
 
@@ -52,19 +54,19 @@ namespace Qv2ray
                 }
 
                 QString autoStartId;
-                UPGRADELOG("Upgrading connections...")
+                UPGRADELOG("Upgrading connections...");
                 QJsonObject rootConnections;
 
                 for (auto config : root["configs"].toArray())
                 {
-                    UPGRADELOG("Migrating: " + config.toString())
+                    UPGRADELOG("Migrating: " + config.toString());
                     //
                     // MOVE FILES.
                     // OLD PATH is at QV2RAY_CONFIG_DIR
                     auto filePath = QV2RAY_CONFIG_DIR + config.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
                     auto configFile = QFile(filePath);
                     auto newUuid = GenerateUuid();
-                    DEBUG(MODULE_SETTINGS, "Generated new UUID: " + newUuid);
+                    DEBUG("Generated new UUID: " + newUuid);
 
                     // Check Autostart Id
                     if (root["autoStartConfig"].toObject()["subscriptionName"].toString().isEmpty())
@@ -83,14 +85,14 @@ namespace Qv2ray
                     }
                     else
                     {
-                        UPGRADELOG("WARNING! This file is not found, possible loss of data!")
+                        UPGRADELOG("WARNING! This file is not found, possible loss of data!");
                         continue;
                     }
 
                     QJsonObject connectionObject;
                     connectionObject["displayName"] = config.toString();
                     defaultGroupConnectionId << newUuid;
-                    DEBUG(MODULE_SETTINGS, "Pushed uuid: " + newUuid + " to default group.")
+                    DEBUG("Pushed uuid: " + newUuid + " to default group.");
                     rootConnections[newUuid] = connectionObject;
                 }
 
@@ -103,7 +105,7 @@ namespace Qv2ray
                     auto key = rootSubscriptions.keys().at(i);
                     auto value = rootSubscriptions.value(key);
                     //
-                    UPGRADELOG("Upgrading subscription: " + key)
+                    UPGRADELOG("Upgrading subscription: " + key);
                     QString subsUuid = GenerateUuid();
                     QJsonObject subs;
                     QStringList subsConnectionIds;
@@ -162,7 +164,7 @@ namespace Qv2ray
                 root["groups"] = groups;
                 root["connections"] = rootConnections;
                 root["subscriptions"] = newSubscriptions;
-                UPGRADELOG("Finished upgrading config, version 8.")
+                UPGRADELOG("Finished upgrading config, version 8.");
                 break;
             }
 
@@ -173,7 +175,7 @@ namespace Qv2ray
 #ifdef Q_OS_LINUX
     #define _VARNAME_VCOREPATH_ kernelConfig["v2CorePath_linux"]
     #define _VARNAME_VASSETSPATH_ kernelConfig["v2AssetsPath_linux"]
-                UPGRADELOG("Update kernel and assets paths for linux")
+                UPGRADELOG("Update kernel and assets paths for linux");
 #elif defined(Q_OS_MACOS)
     #define _VARNAME_VCOREPATH_ kernelConfig["v2CorePath_macx"]
     #define _VARNAME_VASSETSPATH_ kernelConfig["v2AssetsPath_macx"]
@@ -205,7 +207,7 @@ namespace Qv2ray
                 }
                 else
                 {
-                    UPGRADELOG("It's a wise choice not to use PAC.")
+                    UPGRADELOG("It's a wise choice not to use PAC.");
                 }
                 break;
             }
@@ -248,7 +250,7 @@ namespace Qv2ray
                         auto connection = root["connections"].toObject()[connectionVal].toObject();
                         connection["creationDate"] = connection.take("importDate");
                         connection["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
-                        UPGRADELOG("Migrating connection: " + connectionVal + " -- " + connection["displayName"].toString())
+                        UPGRADELOG("Migrating connection: " + connectionVal + " -- " + connection["displayName"].toString());
                         newConnectionsArray[connectionVal] = connection;
                     }
                     QJsonObject ConnectionJsonObject;
@@ -274,7 +276,7 @@ namespace Qv2ray
                         aSubscription["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
                         aSubscription["creationDate"] = (qint64) system_clock::to_time_t(system_clock::now());
                         aSubscription["subscriptionOption"] = subscriptionSettings;
-                        UPGRADELOG("Migrating subscription: " + key + " -- " + aSubscription["displayName"].toString())
+                        UPGRADELOG("Migrating subscription: " + key + " -- " + aSubscription["displayName"].toString());
                         //
                         if (autoStartIdPair.groupId != NullGroupId &&
                             aSubscription["connections"].toArray().contains(autoStartIdPair.connectionId.toString()))
@@ -305,7 +307,7 @@ namespace Qv2ray
                         auto aGroup = root["groups"].toObject()[key].toObject();
                         aGroup["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
                         aGroup["creationDate"] = (qint64) system_clock::to_time_t(system_clock::now());
-                        UPGRADELOG("Migrating group: " + key + " -- " + aGroup["displayName"].toString())
+                        UPGRADELOG("Migrating group: " + key + " -- " + aGroup["displayName"].toString());
                         //
                         if (autoStartIdPair.groupId != NullGroupId &&
                             aGroup["connections"].toArray().contains(autoStartIdPair.connectionId.toString()))
@@ -324,7 +326,7 @@ namespace Qv2ray
                     StringToFile(JsonToString(allGroupsObject), QV2RAY_CONFIG_DIR + "groups.json");
                     //
                     root.remove("groups"); //
-                    UPGRADELOG("Removing unused directory")
+                    UPGRADELOG("Removing unused directory");
                     QDir(QV2RAY_CONFIG_DIR + "subscriptions/").removeRecursively();
                     QDir(QV2RAY_CONFIG_DIR + "connections/").removeRecursively();
                     //
@@ -356,7 +358,7 @@ namespace Qv2ray
                 kernelConfig["enableAPI"] = root["apiConfig"].toObject()["enableAPI"];
                 kernelConfig["statsPort"] = root["apiConfig"].toObject()["statsPort"];
                 root["kernelConfig"] = kernelConfig;
-                UPGRADELOG("Finished upgrading config file for Qv2ray Group Routing update.")
+                UPGRADELOG("Finished upgrading config file for Qv2ray Group Routing update.");
                 break;
             }
             case 12:
@@ -423,8 +425,8 @@ namespace Qv2ray
                 QvMessageBoxWarn(nullptr, QObject::tr("Configuration Upgrade Failed"),
                                  QObject::tr("Unsupported config version number: ") + QSTRN(fromVersion) + NEWLINE + NEWLINE +
                                      QObject::tr("Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again."));
-                LOG(MODULE_SETTINGS, "The configuration version of your old Qv2ray installation is out-of-date and that"
-                                     " version is not supported anymore, please try to update to an intermediate version of Qv2ray first.");
+                LOG("The configuration version of your old Qv2ray installation is out-of-date and that"
+                    " version is not supported anymore, please try to update to an intermediate version of Qv2ray first.");
                 qApp->exit(1);
             }
         }
@@ -436,7 +438,7 @@ namespace Qv2ray
     QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, const QJsonObject &original)
     {
         auto root = original;
-        LOG(MODULE_SETTINGS, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
+        LOG("Migrating config from version ", fromVersion, "to", toVersion);
 
         for (int i = fromVersion; i < toVersion; i++)
         {

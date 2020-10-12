@@ -25,6 +25,8 @@
     #include "nodes/../../src/ConnectionPainter.hpp"
 #endif
 
+#define QV_MODULE_NAME "RouteEditor"
+
 using namespace QtNodes;
 using namespace Qv2ray::ui::nodemodels;
 
@@ -240,7 +242,7 @@ CONFIGROOT RouteEditor::OpenEditor()
         }
         else
         {
-            LOG(MODULE_UI, "Could not find rule tag: " + ruleTag)
+            LOG("Could not find rule tag:", ruleTag);
         }
     }
     //
@@ -413,7 +415,7 @@ void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1
     LOADINGCHECK
     if (defaultOutboundTag != arg1)
     {
-        LOG(MODULE_UI, "Default outbound changed: " + arg1)
+        LOG("Default outbound changed:", arg1);
         defaultOutboundTag = arg1;
     }
 }

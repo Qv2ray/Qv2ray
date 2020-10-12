@@ -36,7 +36,6 @@ QvMessageBusSlotImpl(PluginManageWindow)
 
 PluginManageWindow::~PluginManageWindow()
 {
-    DEBUG(MODULE_UI, "Plugin window destructor.")
     on_pluginListWidget_currentItemChanged(nullptr, nullptr);
 }
 

@@ -4,6 +4,8 @@
 #include <memory>
 #include <uvw.hpp>
 
+#define QV_MODULE_NAME "RealPingWorker"
+
 struct RealPingContext
 {
     std::shared_ptr<uvw::PollHandle> handle;
@@ -256,7 +258,7 @@ namespace Qv2ray::components::latency::realping
     }
     RealPing::~RealPing()
     {
-        LOG(MODULE_NETWORK, "Realping done!")
+        LOG("Realping done!");
     }
     long RealPing::getHandleTime(CURL *h)
     {

@@ -10,6 +10,7 @@
 #include "w_ScreenShot_Core.hpp"
 
 #include <QFileDialog>
+#define QV_MODULE_NAME "ImportWindow"
 
 namespace
 {
@@ -146,7 +147,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         auto str = DecodeQRCode(pix);
         if (str.trimmed().isEmpty())
         {
-            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
+            LOG("Cannot decode QR Code from an image, size:" A(pix.width()) A(pix.height()));
             QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         }
         else
@@ -171,7 +172,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, QSTRN(linkList.count()) + " string(s) found in vmess box.")
+            LOG(linkList.count(), "entries found.");
 
             while (!linkList.isEmpty())
             {

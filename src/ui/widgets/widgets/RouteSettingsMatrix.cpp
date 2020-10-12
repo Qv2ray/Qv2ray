@@ -8,6 +8,8 @@
 #include <QFileDialog>
 #include <QInputDialog>
 
+#define QV_MODULE_NAME "RouteSettingsMatrix"
+
 RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent) : QWidget(parent), assetsDirPath(assetsDirPath)
 {
     setupUi(this);
@@ -118,11 +120,11 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
         this->SetRouteConfig(static_cast<QvConfig_Route>(scheme));
 
         // done
-        LOG(MODULE_SETTINGS, "Imported route config: " + scheme.name + " by: " + scheme.author)
+        LOG("Imported route config: " + scheme.name + " by: " + scheme.author);
     }
     catch (std::exception &e)
     {
-        LOG(MODULE_UI, "Exception: " + QString(e.what()))
+        LOG("Exception: ", e.what());
         // TODO: Give some error as Notification
     }
 }

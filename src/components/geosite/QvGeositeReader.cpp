@@ -4,6 +4,8 @@
     #include "v2ray_geosite.pb.h"
 #endif
 
+#define QV_MODULE_NAME "GeositeReader"
+
 namespace Qv2ray::components::geosite
 {
     QMap<QString, QStringList> GeositeEntries;
@@ -17,7 +19,7 @@ namespace Qv2ray::components::geosite
         {
             QStringList list;
 #ifndef ANDROID
-            LOG(MODULE_FILEIO, "Reading geosites from: " + filepath)
+            LOG("Reading geosites from: " + filepath);
             //
             GOOGLE_PROTOBUF_VERIFY_VERSION;
             //
@@ -26,7 +28,7 @@ namespace Qv2ray::components::geosite
 
             if (!opened)
             {
-                LOG(MODULE_FILEIO, "File cannot be opened: " + filepath)
+                LOG("File cannot be opened: " + filepath);
                 return list;
             }
 
@@ -42,7 +44,7 @@ namespace Qv2ray::components::geosite
                 list << QString::fromStdString(e.country_code()).toLower();
             }
 
-            LOG(MODULE_FILEIO, "Loaded " + QSTRN(list.count()) + " geosite entries from data file.")
+            LOG("Loaded " + QSTRN(list.count()) + " geosite entries from data file.");
             // Optional:  Delete all global objects allocated by libprotobuf.
             google::protobuf::ShutdownProtobufLibrary();
 #endif

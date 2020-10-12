@@ -2,6 +2,7 @@
 
 #include "components/translations/QvTranslator.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/widgets/common/WidgetUIBase.hpp"
 #include "utils/QvHelpers.hpp"
 
 #ifdef QT_DEBUG
@@ -10,16 +11,18 @@ const static inline QString QV2RAY_URL_SCHEME = "qv2ray-debug";
 const static inline QString QV2RAY_URL_SCHEME = "qv2ray";
 #endif
 
+#define QV_MODULE_NAME "BaseApplication"
+
 constexpr auto QV2RAY_CONFIG_PATH_ENV_NAME = "QV2RAY_CONFIG_PATH";
 
 Qv2rayApplicationManager::Qv2rayApplicationManager()
 {
     qvApplicationInstance = this;
-    LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
-    DEBUG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
-    DEBUG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
-    DEBUG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
-    DEBUG("QV2RAY_BUILD_NUMBER", QSTRN(QV2RAY_VERSION_BUILD))
+    LOG("Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture());
+    DEBUG("Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()));
+    DEBUG(std::string{ "QV2RAY_BUILD_INFO" }, QV2RAY_BUILD_INFO);
+    DEBUG(std::string{ "QV2RAY_BUILD_EXTRA_INFO" }, QV2RAY_BUILD_EXTRA_INFO);
+    DEBUG(std::string{ "QV2RAY_BUILD_NUMBER" }, QSTRN(QV2RAY_VERSION_BUILD));
 }
 
 Qv2rayApplicationManager::~Qv2rayApplicationManager()
@@ -29,7 +32,7 @@ Qv2rayApplicationManager::~Qv2rayApplicationManager()
 
 bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
 {
-    LOG(MODULE_INIT, "Application exec path: " + qApp->applicationDirPath())
+    LOG("Application exec path: " + qApp->applicationDirPath());
     // Non-standard paths needs special handing for "_debug"
     const auto currentPathConfig = qApp->applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
     const auto homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
@@ -44,7 +47,7 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
     const auto manualConfigPath = qEnvironmentVariable(QV2RAY_CONFIG_PATH_ENV_NAME);
     if (useManualConfigPath)
     {
-        LOG(MODULE_INIT, "Using config path from env: " + manualConfigPath)
+        LOG("Using config path from env: " + manualConfigPath);
         configFilePaths << manualConfigPath;
     }
     else
@@ -69,13 +72,13 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
 
         if (isValidConfigPath)
         {
-            DEBUG(MODULE_INIT, "Path: " + path + " is valid.")
+            DEBUG("Path:", path, " is valid.");
             configPath = path;
             hasExistingConfig = true;
         }
         else
         {
-            LOG(MODULE_INIT, "Path: " + path + " does not contain a valid config file.")
+            LOG("Path:", path, "does not contain a valid config file.");
         }
     }
 
@@ -83,7 +86,7 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
     {
         // Use the config path found by the checks above
         SetConfigDirPath(configPath);
-        LOG(MODULE_INIT, "Using " + QV2RAY_CONFIG_DIR + " as the config path.")
+        LOG("Using ", QV2RAY_CONFIG_DIR, " as the config path.");
     }
     else
     {
@@ -109,8 +112,8 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
         {
             // None of the path above can be used as a dir for storing config.
             // Even the last folder failed to pass the check.
-            LOG(MODULE_INIT, "FATAL")
-            LOG(MODULE_INIT, " ---> CANNOT find a proper place to store Qv2ray config files.")
+            LOG("FATAL");
+            LOG(" ---> CANNOT find a proper place to store Qv2ray config files.");
             QvMessageBoxWarn(nullptr, QObject::tr("Cannot Start Qv2ray"),
                              QObject::tr("Cannot find a place to store config files.") + NEWLINE +                                          //
                                  QObject::tr("Qv2ray has searched these paths below:") + NEWLINE + NEWLINE +                                //
@@ -121,7 +124,7 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
         }
 
         // Found a valid config dir, with write permission, but assume no config is located in it.
-        LOG(MODULE_INIT, "Set " + configPath + " as the config path.")
+        LOG("Set " + configPath + " as the config path.");
         SetConfigDirPath(configPath);
 
         if (QFile::exists(QV2RAY_CONFIG_FILE))
@@ -135,7 +138,7 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
             //
             // Otherwise Qv2ray would have loaded this config already instead of notifying to create a new config in this folder.
             //
-            LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
+            LOG("This should not occur: Qv2ray config exists but failed to load.");
             QvMessageBoxWarn(nullptr, QObject::tr("Failed to initialise Qv2ray"),
                              QObject::tr("Failed to determine the location of config file:") + NEWLINE +                                   //
                                  QObject::tr("Qv2ray has found a config file, but it failed to be loaded due to some errors.") + NEWLINE + //
@@ -157,14 +160,14 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
 
         // Save initial config.
         SaveGlobalSettings(conf);
-        LOG(MODULE_INIT, "Created initial config file.")
+        LOG("Created initial config file.");
     }
 
     if (!QDir(QV2RAY_GENERATED_DIR).exists())
     {
         // The dir used to generate final config file, for V2Ray interaction.
         QDir().mkdir(QV2RAY_GENERATED_DIR);
-        LOG(MODULE_INIT, "Created config generation dir at: " + QV2RAY_GENERATED_DIR)
+        LOG("Created config generation dir at: " + QV2RAY_GENERATED_DIR);
     }
     //
     // BEGIN LOAD CONFIGURATIONS
@@ -209,7 +212,7 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
                 confObject.uiConfig.language = allTranslations.first();
             }
             // If configured language is not found.
-            LOG(MODULE_UI, "Fall back language setting to: " + osLanguage)
+            LOG("Fall back language setting to: " + osLanguage);
         }
 
         if (!Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
@@ -235,7 +238,7 @@ Qv2rayPreInitResult Qv2rayApplicationManager::PreInitialize(int argc, char **arg
     Qv2rayProcessArgument.version = QV2RAY_VERSION_STRING;
     Qv2rayProcessArgument.fullArgs = args;
     auto result = ParseCommandLine(&errorMessage, args);
-    LOG(MODULE_INIT, "Qv2ray PreInitialization: " + errorMessage)
+    LOG("Qv2ray PreInitialization: " + errorMessage);
     if (result != PRE_INIT_RESULT_CONTINUE)
         return result;
 #ifdef Q_OS_WIN
@@ -324,49 +327,49 @@ Qv2rayPreInitResult Qv2rayApplicationManager::ParseCommandLine(QString *errorMes
 
     if (parser.isSet(exitOption))
     {
-        DEBUG(MODULE_INIT, "disconnectOption is set.")
+        DEBUG("disconnectOption is set.");
         Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::EXIT;
     }
 
     if (parser.isSet(disconnectOption))
     {
-        DEBUG(MODULE_INIT, "disconnectOption is set.")
+        DEBUG("disconnectOption is set.");
         Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::DISCONNECT;
     }
 
     if (parser.isSet(reconnectOption))
     {
-        DEBUG(MODULE_INIT, "reconnectOption is set.")
+        DEBUG("reconnectOption is set.");
         Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::RECONNECT;
     }
 
     if (parser.isSet(noAPIOption))
     {
-        DEBUG(MODULE_INIT, "noAPIOption is set.")
+        DEBUG("noAPIOption is set.");
         StartupOption.noAPI = true;
     }
 
     if (parser.isSet(debugOption))
     {
-        DEBUG(MODULE_INIT, "debugOption is set.")
+        DEBUG("debugOption is set.");
         StartupOption.debugLog = true;
     }
 
     if (parser.isSet(noScaleFactorOption))
     {
-        DEBUG(MODULE_INIT, "noScaleFactorOption is set.")
+        DEBUG("noScaleFactorOption is set.");
         StartupOption.noScaleFactor = true;
     }
 
     if (parser.isSet(noAutoConnectionOption))
     {
-        DEBUG(MODULE_INIT, "noAutoConnectOption is set.")
+        DEBUG("noAutoConnectOption is set.");
         StartupOption.noAutoConnection = true;
     }
 
     if (parser.isSet(noPluginsOption))
     {
-        DEBUG(MODULE_INIT, "noPluginOption is set.")
+        DEBUG("noPluginOption is set.");
         StartupOption.noPlugins = true;
     }
     *errorMessage = "OK";

@@ -18,6 +18,8 @@
     #include <Winbase.h>
 #endif
 
+#define QV_MODULE_NAME "WidgetApplication"
+
 constexpr auto QV2RAY_WIDGETUI_STATE_FILENAME = "UIState.json";
 
 namespace Qv2ray
@@ -51,8 +53,8 @@ namespace Qv2ray
         if (clientId == instanceId())
             return;
         const auto msg = Qv2rayProcessArguments::fromJson(JsonFromString(_msg));
-        LOG(MODULE_INIT, "Client ID: " + QSTRN(clientId) + ", message received, version: " + msg.version)
-        DEBUG(MODULE_INIT, _msg)
+        LOG("Client ID:", clientId, ", message received, version:", msg.version);
+        DEBUG(_msg);
         //
         const auto currentVersion = semver::version::from_string(QV2RAY_VERSION_STRING);
         const auto newVersionString = msg.version.isEmpty() ? "0.0.0" : msg.version.toStdString();

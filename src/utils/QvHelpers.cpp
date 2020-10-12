@@ -7,6 +7,8 @@
     #include <QStringConverter>
 #endif
 
+#define QV_MODULE_NAME "Utils"
+
 namespace Qv2ray::common
 {
     const QString GenerateRandomString(int len)
@@ -54,7 +56,7 @@ namespace Qv2ray::common
         const QString text = codec->toUnicode(byteArray.constData(), byteArray.size(), &state);
         if (state.invalidChars > 0)
         {
-            LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source.fileName())
+            LOG("Not a valid UTF-8 sequence: " + source.fileName());
         }
         return state.invalidChars > 0 ? byteArray : text;
 #endif
@@ -101,7 +103,7 @@ namespace Qv2ray::common
         }
         else
         {
-            LOG(MODULE_UI, "WARNING: Json parse returns: " + error.errorString())
+            LOG("WARNING: Json parse returns: " + error.errorString());
             return error.errorString();
         }
     }
@@ -111,7 +113,7 @@ namespace Qv2ray::common
         auto removeComment = RemoveComment(string.trimmed()).trimmed();
         if (removeComment != string.trimmed())
         {
-            LOG(MODULE_FILEIO, "Some comments have been removed from the json.")
+            LOG("Some comments have been removed from the json.");
         }
         QJsonDocument doc = QJsonDocument::fromJson(removeComment.toUtf8());
         return doc.object();
@@ -213,7 +215,7 @@ namespace Qv2ray::common
         if (!QDir(baseDir).exists())
         {
             QDir(baseDir).mkpath(baseDir);
-            LOG(MODULE_FILEIO, "Making path: " + baseDir)
+            LOG("Making path: " + baseDir);
         }
 
         while (true)
@@ -225,7 +227,7 @@ namespace Qv2ray::common
             }
             else
             {
-                DEBUG(MODULE_FILEIO, "File with name: " + *fileName + "_" + QSTRN(i) + extension + " already exists")
+                DEBUG("File with name: " + *fileName + "_" + QSTRN(i) + extension + " already exists");
             }
 
             i++;

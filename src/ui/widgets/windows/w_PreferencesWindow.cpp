@@ -268,10 +268,7 @@ QvMessageBusSlotImpl(PreferencesWindow)
     }
 }
 
-PreferencesWindow::~PreferencesWindow()
-{
-    DEBUG(MODULE_UI, "Preference window destructor.")
-}
+PreferencesWindow::~PreferencesWindow(){};
 
 void PreferencesWindow::on_buttonBox_accepted()
 {
@@ -335,10 +332,6 @@ void PreferencesWindow::on_buttonBox_accepted()
             {
                 UIMessageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
                 QApplication::processEvents();
-            }
-            else
-            {
-                LOG(MODULE_UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language)
             }
         }
         CurrentConfig.defaultRouteConfig.routeConfig = routeSettingsWidget->GetRouteConfig();

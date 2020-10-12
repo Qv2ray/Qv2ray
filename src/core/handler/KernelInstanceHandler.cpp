@@ -4,6 +4,8 @@
 #include "core/connection/Generation.hpp"
 #include "utils/QvHelpers.hpp"
 
+#define QV_MODULE_NAME "KernelHandler"
+
 namespace Qv2ray::core::handler
 {
 #define isConnected (vCoreInstance->KernelStarted || !activeKernels.empty())
@@ -26,7 +28,7 @@ namespace Qv2ray::core::handler
             {
                 if (kernelMap.contains(protocol))
                 {
-                    LOG(MODULE_PLUGINHOST, "Found multiple kernel providers for a protocol: " + protocol)
+                    LOG("Found multiple kernel providers for a protocol: " + protocol);
                     continue;
                 }
                 kernelMap.insert(protocol, internalName);
@@ -101,24 +103,24 @@ namespace Qv2ray::core::handler
                     // Normal outbound, or the one without a plugin supported.
                     // Marked as processed.
                     processedOutbounds.push_back(outbound);
-                    LOG(MODULE_CONNECTION, "Outbound protocol " + outProtocol + " is not a registered plugin outbound.")
+                    LOG("Outbound protocol " + outProtocol + " is not a registered plugin outbound.");
                     continue;
                 }
-                LOG(MODULE_CONNECTION, "Creating kernel plugin instance for protocol" + outProtocol)
+                LOG("Creating kernel plugin instance for protocol" + outProtocol);
                 auto kernel = PluginHost->GetPlugin(kernelMap[outProtocol])->pluginInterface->GetKernel()->CreateKernel();
                 // New object does not need disconnect?
                 // disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                 //
                 QMap<KernelOptionFlags, QVariant> _inboundSettings;
 
-                LOG(MODULE_VCORE, "V2RayIntegration: " + QSTRN(pluginPort) + " = " + outProtocol)
+                LOG("V2RayIntegration: " + QSTRN(pluginPort) + " = " + outProtocol);
                 _inboundSettings[KERNEL_HTTP_ENABLED] = false;
                 _inboundSettings[KERNEL_SOCKS_ENABLED] = true;
                 _inboundSettings[KERNEL_SOCKS_PORT] = pluginPort;
                 _inboundSettings[KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
                 _inboundSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
                 _inboundSettings[KERNEL_LISTEN_ADDRESS] = "127.0.0.1";
-                LOG(MODULE_CONNECTION, "Sending connection settings to kernel.")
+                LOG("Sending connection settings to kernel.");
                 kernel->SetConnectionSettings(_inboundSettings, outbound["settings"].toObject());
                 activeKernels.push_back({ outProtocol, std::move(kernel) });
                 //
@@ -130,7 +132,7 @@ namespace Qv2ray::core::handler
                 processedOutbounds.push_back(pluginOut);
                 pluginPort++;
             }
-            LOG(MODULE_CONNECTION, "Applying new outbound settings.")
+            LOG("Applying new outbound settings.");
             fullConfig["outbounds"] = processedOutbounds;
             RemoveEmptyMuxFilter(fullConfig);
         }
@@ -142,18 +144,18 @@ namespace Qv2ray::core::handler
             const auto portResult = CheckPort(inboundInfo, activeKernels.size());
             if (portResult)
             {
-                LOG(MODULE_CONNECTION, ACCESS_OPTIONAL_VALUE(portResult))
+                LOG(ACCESS_OPTIONAL_VALUE(portResult));
                 return portResult;
             }
             auto firstOutbound = fullConfig["outbounds"].toArray().first().toObject();
             const auto firstOutboundProtocol = firstOutbound["protocol"].toString();
             if (GlobalConfig.pluginConfig.v2rayIntegration)
             {
-                LOG(MODULE_VCORE, "Starting kernels with V2RayIntegration.")
+                LOG("Starting kernels with V2RayIntegration.");
                 bool hasAllKernelStarted = true;
                 for (auto &[outboundProtocol, kernelObject] : activeKernels)
                 {
-                    LOG(MODULE_CONNECTION, "Starting kernel for protocol: " + outboundProtocol)
+                    LOG("Starting kernel for protocol: " + outboundProtocol);
                     bool status = kernelObject->StartKernel();
                     connect(kernelObject.get(), &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p,
                             Qt::QueuedConnection);
@@ -162,7 +164,7 @@ namespace Qv2ray::core::handler
                     hasAllKernelStarted = hasAllKernelStarted && status;
                     if (!status)
                     {
-                        LOG(MODULE_CONNECTION, "Plugin Kernel: " + outboundProtocol + " failed to start.")
+                        LOG("Plugin Kernel: " + outboundProtocol + " failed to start.");
                         break;
                     }
                 }
@@ -191,7 +193,7 @@ namespace Qv2ray::core::handler
             else if (kernelMap.contains(firstOutboundProtocol))
             {
                 // Connections without V2Ray Integration will have and ONLY have ONE kernel.
-                LOG(MODULE_CONNECTION, "Starting kernel " + firstOutboundProtocol + " without V2Ray Integration")
+                LOG("Starting kernel " + firstOutboundProtocol + " without V2Ray Integration");
                 {
                     auto kernel =
                         PluginHost->GetPlugin(kernelMap[firstOutbound["protocol"].toString()])->pluginInterface->GetKernel()->CreateKernel();
@@ -236,7 +238,7 @@ namespace Qv2ray::core::handler
             }
             else
             {
-                LOG(MODULE_CONNECTION, "Starting V2Ray without plugin.")
+                LOG("Starting V2Ray without plugin.");
                 currentId = id;
                 auto result = vCoreInstance->StartConnection(fullConfig);
                 if (result.has_value())
@@ -279,7 +281,7 @@ namespace Qv2ray::core::handler
             }
             for (const auto &[kernel, kernelObject] : activeKernels)
             {
-                LOG(MODULE_CONNECTION, "Stopping plugin kernel: " + kernel)
+                LOG("Stopping plugin kernel: " + kernel);
                 kernelObject->StopKernel();
             }
             emit OnDisconnected(currentId);
@@ -287,7 +289,7 @@ namespace Qv2ray::core::handler
         }
         else
         {
-            LOG(MODULE_CORE_HANDLER, "Cannot disconnect when there's nothing connected.")
+            LOG("Cannot disconnect when there's nothing connected.");
         }
         currentId.clear();
         activeKernels.clear();

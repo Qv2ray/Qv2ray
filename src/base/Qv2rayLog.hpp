@@ -1,46 +1,103 @@
 #pragma once
 
-#include <QString>
+#include "3rdparty/QJsonStruct/macroexpansion.hpp"
+#include "base/models/QvStartupConfig.hpp"
 
-/*
- * Tiny log module.
- */
+#include <QPair>
+#include <QString>
+#include <QTextStream>
+#include <iostream>
+
+#ifdef Q_OS_ANDROID
+    #include <android/log.h>
+#endif
+
+#define NEWLINE "\r\n"
+#define ___LOG_EXPAND(___x) , QPair(#___x, [&] { return ___x; }())
+#define A(...) FOREACH_CALL_FUNC(___LOG_EXPAND, __VA_ARGS__)
+
+#ifdef QT_DEBUG
+    #define QV2RAY_IS_DEBUG true
+    #define QV2RAY_LOG_PREPEND_CONTENT __FILE__ ":" QT_STRINGIFY(__LINE__), Q_FUNC_INFO,
+#else
+    #define QV2RAY_IS_DEBUG false
+    #define QV2RAY_LOG_PREPEND_CONTENT
+#endif
+
+#define _LOG_ARG_(...) QV2RAY_LOG_PREPEND_CONTENT "[" QV_MODULE_NAME "]", __VA_ARGS__
+
+#define LOG(...) Qv2ray::base::log_concat<QV2RAY_LOG_NORMAL>(_LOG_ARG_(__VA_ARGS__))
+#define DEBUG(...) Qv2ray::base::log_concat<QV2RAY_LOG_DEBUG>(_LOG_ARG_(__VA_ARGS__))
+
+enum QvLogType
+{
+    QV2RAY_LOG_NORMAL = 0,
+    QV2RAY_LOG_DEBUG = 1
+};
+
+Q_DECLARE_METATYPE(const char *)
 
 namespace Qv2ray::base
 {
-    void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log);
-    QString readLastLog();
+    inline QString logBuffer;
+    inline QString tempBuffer;
+    inline QTextStream logStream{ &logBuffer };
+    inline QTextStream tempStream{ &tempBuffer };
+
+    inline QString ReadLog()
+    {
+        return logStream.readAll();
+    }
+
+    template<QvLogType t, typename... T>
+    inline void log_concat(T... v)
+    {
+        ((logStream << v << " "), ...);
+        ((tempStream << v << " "), ...);
+#ifndef QT_DEBUG
+        // We only process DEBUG log in Release mode
+        if (t == QV2RAY_LOG_DEBUG && !StartupOption.debugLog)
+        {
+            // Discard debug log in non-debug Qv2ray version with
+            // no-debugLog mode.
+            return;
+        }
+#endif
+
+        const auto logString = tempStream.readAll();
+#ifdef Q_OS_ANDROID
+        __android_log_write(ANDROID_LOG_INFO, "Qv2ray", logString.toStdString().c_str());
+#else
+        std::cout << logString.toStdString() << std::endl;
+#endif
+    }
 } // namespace Qv2ray::base
 
-#define NEWLINE "\r\n"
+template<typename TKey, typename TVal>
+QTextStream &operator<<(QTextStream &stream, const QPair<TKey, TVal> &pair)
+{
+    return stream << pair.first << ": " << pair.second;
+}
 
-#define QV2RAY_LOG_NORMAL 0
-#define QV2RAY_LOG_DEBUG 1
+inline QTextStream &operator<<(QTextStream &stream, const std::string &ss)
+{
+    return stream << ss.data();
+}
 
-#define __LOG_IMPL(LEVEL, MODULE, MSG) ::Qv2ray::base::__QV2RAY_LOG_FUNC__(LEVEL, Q_FUNC_INFO, __LINE__, MODULE, MSG);
+template<typename TKey, typename TVal>
+QTextStream &operator<<(QTextStream &stream, const QMap<TKey, TVal> &map)
+{
+    stream << "{ ";
+    for (const auto &[k, v] : map.toStdMap())
+        stream << QPair(k, v) << "; ";
+    stream << "}";
+    return stream;
+}
 
-#define LOG(MODULE, MSG) __LOG_IMPL(QV2RAY_LOG_NORMAL, (MODULE), (MSG));
-#define DEBUG(MODULE, MSG) __LOG_IMPL(QV2RAY_LOG_DEBUG, (MODULE), (MSG));
-
-// Log modules used by Qv2ray
-const inline QString MODULE_INIT = "INIT";
-const inline QString MODULE_MESSAGING = "BASE-MESSAGING";
-const inline QString MODULE_UI = "CORE-UI";
-const inline QString MODULE_NODE = "CORE-UI-NODE";
-const inline QString MODULE_SETTINGS = "CORE-SETTINGS";
-const inline QString MODULE_VCORE = "CORE-VCORE";
-//
-const inline QString MODULE_CONNECTION = "CORE-CONNECTION";
-const inline QString MODULE_SUBSCRIPTION = "CORE-SUBSCRIPTION";
-const inline QString MODULE_IMPORT = "CORE-IMPORT";
-const inline QString MODULE_EXPORT = "CORE-EXPORT";
-//
-const inline QString MODULE_NETWORK = "COMMON-NETWORK";
-const inline QString MODULE_FILEIO = "COMMON-FILEIO";
-//
-const inline QString MODULE_PROXY = "COMPONENT-PROXY";
-const inline QString MODULE_UPDATE = "COMPONENT-UPDATE";
-const inline QString MODULE_PLUGINHOST = "COMPONENT-PLUGINHOST";
-const inline QString MODULE_PLUGINCLIENT = "PLUGIN-CLIENT";
-// ================================================================
-const inline QString MODULE_CORE_HANDLER = "QV2RAY-CORE";
+template<typename TVal>
+QTextStream &operator<<(QTextStream &stream, const std::initializer_list<TVal> &init_list)
+{
+    for (const auto &x : init_list)
+        stream << x;
+    return stream;
+}

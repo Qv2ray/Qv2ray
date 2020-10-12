@@ -277,11 +277,7 @@ QvMessageBusSlotImpl(GroupManager)
     }
 }
 
-GroupManager::~GroupManager()
-{
-    DEBUG(MODULE_UI, "Group window destructor.")
-}
-
+GroupManager::~GroupManager(){};
 void GroupManager::on_addGroupButton_clicked()
 {
     auto const key = tr("New Group") + " - " + GenerateRandomString(5);

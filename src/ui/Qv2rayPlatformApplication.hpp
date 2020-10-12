@@ -23,8 +23,12 @@
     #include <QApplication>
     #include <QFont>
     #include <QMessageBox>
-const static inline QMap<MessageOpt, QMessageBox::StandardButton> MessageBoxButtonMap = //
-    { { No, QMessageBox::No }, { OK, QMessageBox::Ok }, { Yes, QMessageBox::Yes }, { Cancel, QMessageBox::Cancel }, { Ignore, QMessageBox::Ignore } };
+const static inline QMap<MessageOpt, QMessageBox::StandardButton> MessageBoxButtonMap //
+    = { { No, QMessageBox::No },
+        { OK, QMessageBox::Ok },
+        { Yes, QMessageBox::Yes },
+        { Cancel, QMessageBox::Cancel },
+        { Ignore, QMessageBox::Ignore } };
 #else
     #include <QCoreApplication>
 #endif
@@ -78,7 +82,6 @@ class Qv2rayPlatformApplication
             ConnectionManager->SaveConnectionConfig();
             PluginHost->SavePluginSettings();
             SaveGlobalSettings();
-            LOG(MODULE_INIT, "Saving settings triggered by session manager.")
         });
     #endif
     #ifdef Q_OS_WIN
@@ -106,7 +109,6 @@ class Qv2rayPlatformApplication
 
     void QuitInternal()
     {
-        LOG(MODULE_INIT, "Terminating connections and saving data.")
         // Do not change the order.
         ConnectionManager->StopConnection();
         RouteManager->SaveRoutes();

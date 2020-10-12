@@ -1,6 +1,7 @@
 #include "StyleManager.hpp"
 
 #include "base/Qv2rayBase.hpp"
+#include "ui/widgets/common/WidgetUIBase.hpp"
 #include "utils/QvHelpers.hpp"
 
 #include <QApplication>
@@ -10,6 +11,7 @@
 #include <QStyleFactory>
 
 constexpr auto QV2RAY_BUILT_IN_DARK_MODE_NAME = "Built-in Darkmode";
+#define QV_MODULE_NAME "StyleManager"
 
 namespace Qv2ray::ui::styles
 {
@@ -24,7 +26,7 @@ namespace Qv2ray::ui::styles
         styles.insert(QV2RAY_BUILT_IN_DARK_MODE_NAME, {});
         for (const auto &key : QStyleFactory::keys())
         {
-            LOG(MODULE_UI, "Found factory style: " + key)
+            LOG("Found factory style: " + key);
             QvStyle style;
             style.Name = key;
             style.Type = QvStyle::QVSTYLE_FACTORY;
@@ -38,7 +40,7 @@ namespace Qv2ray::ui::styles
                 QFileInfo fileInfo(styleDir + "/" + file);
                 if (fileInfo.suffix() == "css" || fileInfo.suffix() == "qss" || fileInfo.suffix() == "qvstyle")
                 {
-                    LOG(MODULE_UI, "Found QSS style at: \"" + fileInfo.absoluteFilePath() + "\"")
+                    LOG("Found QSS style at: \"" + fileInfo.absoluteFilePath() + "\"");
                     QvStyle style;
                     style.Name = fileInfo.baseName();
                     style.qssPath = fileInfo.absoluteFilePath();
@@ -56,7 +58,7 @@ namespace Qv2ray::ui::styles
         qApp->setStyle("fusion");
         if (style == QV2RAY_BUILT_IN_DARK_MODE_NAME)
         {
-            LOG(MODULE_UI, "Applying built-in darkmode theme.")
+            LOG("Applying built-in darkmode theme.");
             // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
             static const QColor darkColor(45, 45, 45);
             static const QColor disabledColor(70, 70, 70);
@@ -94,14 +96,14 @@ namespace Qv2ray::ui::styles
         {
             case QvStyle::QVSTYLE_QSS:
             {
-                LOG(MODULE_UI, "Applying UI QSS style: " + s.qssPath)
+                LOG("Applying UI QSS style: " + s.qssPath);
                 const auto content = StringFromFile(s.qssPath);
                 qApp->setStyleSheet(content);
                 break;
             }
             case QvStyle::QVSTYLE_FACTORY:
             {
-                LOG(MODULE_UI, "Applying UI style: " + s.Name)
+                LOG("Applying UI style: " + s.Name);
                 const auto &_style = QStyleFactory::create(s.Name);
                 qApp->setPalette(_style->standardPalette());
                 qApp->setStyle(_style);

@@ -9,6 +9,7 @@
 
 #include <QGridLayout>
 
+#define QV_MODULE_NAME "InboundEditor"
 #define CHECKLOADING                                                                                                                                 \
     if (isLoading)                                                                                                                                   \
         return;
@@ -42,7 +43,7 @@ InboundEditor::InboundEditor(INBOUND source, QWidget *parent) : QDialog(parent),
         const auto guiInterface = plugin->pluginInterface->GetGUIInterface();
 
         if (!guiInterface)
-            LOG(MODULE_PLUGINHOST, "Found a plugin with COMPONENT_GUI but returns an invalid GUI interface: " + plugin->metadata.Name)
+            LOG("Found a plugin with COMPONENT_GUI but returns an invalid GUI interface: ", plugin->metadata.Name);
 
         if (!guiInterface->GetComponents().contains(GUI_COMPONENT_INBOUND_EDITOR))
             continue;
@@ -135,7 +136,7 @@ void InboundEditor::loadUI()
 
     if (!processed)
     {
-        LOG(MODULE_UI, "Inbound protocol: " + inboundProtocol + " is not supported.")
+        LOG("Inbound protocol: " + inboundProtocol + " is not supported.");
         QvMessageBoxWarn(this, tr("Unknown inbound."),
                          tr("The specified inbound type is invalid, this may be caused by a plugin failure.") + NEWLINE +
                              tr("Please use the JsonEditor or reload the plugin."));

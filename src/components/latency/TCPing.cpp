@@ -2,6 +2,8 @@
 
 #include "uvw.hpp"
 
+#define QV_MODULE_NAME "TCPingWorker"
+
 namespace Qv2ray::components::latency::tcping
 {
     constexpr int conn_timeout_sec = 5;
@@ -65,7 +67,7 @@ namespace Qv2ray::components::latency::tcping
             auto tcpClient = loop->resource<uvw::TCPHandle>();
             tcpClient->open(getSocket(af, SOCK_STREAM, IPPROTO_TCP));
             tcpClient->once<uvw::ErrorEvent>([ptr = shared_from_this(), this](const uvw::ErrorEvent &e, uvw::TCPHandle &h) {
-                LOG(MODULE_NETWORK, "error connecting to host: " + req.host + ":" + QSTRN(req.port) + " " + e.what())
+                LOG("error connecting to host: " + req.host + ":" + QSTRN(req.port) + " " + e.what());
                 data.failedCount += 1;
                 data.errorMessage = e.what();
                 notifyTestHost();
