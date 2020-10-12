@@ -227,11 +227,11 @@ namespace Qv2ray::components::plugins
                                                                                                  QString *aliasPrefix,     //
                                                                                                  QString *errMessage,      //
                                                                                                  QString *newGroupName,    //
-                                                                                                 bool *ok) const
+                                                                                                 bool &ok) const
     {
         Q_UNUSED(newGroupName)
         QList<std::tuple<QString, QString, QJsonObject>> data;
-        *ok = false;
+        ok = false;
         for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
@@ -256,7 +256,7 @@ namespace Qv2ray::components::plugins
                     if (errMessage->isEmpty())
                     {
                         data << std::tuple{ *aliasPrefix, protocol, outboundSettings };
-                        *ok = true;
+                        ok = true;
                     }
                     break;
                 }
@@ -265,9 +265,9 @@ namespace Qv2ray::components::plugins
         return data;
     }
 
-    const QMap<OutboundInfoFlags, QVariant> QvPluginHost::TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const
+    const OutboundInfoObject QvPluginHost::GetOutboundInfo(const QString &protocol, const QJsonObject &o, bool &status) const
     {
-        *status = false;
+        status = false;
         for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
@@ -276,14 +276,34 @@ namespace Qv2ray::components::plugins
                 if (serializer && serializer->SupportedProtocols().contains(protocol))
                 {
                     auto info = serializer->GetOutboundInfo(protocol, o);
-                    *status = true;
+                    status = true;
                     return info;
                 }
             }
         }
         return {};
     }
-    const QString QvPluginHost::SerializeOutbound(const QString &protocol, const QJsonObject &settings, const QString &name, const QString &group,
+
+    const void QvPluginHost::SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &o) const
+    {
+        for (const auto &plugin : plugins)
+        {
+            if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_OUTBOUND_HANDLER))
+            {
+                auto serializer = plugin.pluginInterface->GetOutboundHandler();
+                if (serializer && serializer->SupportedProtocols().contains(protocol))
+                {
+                    serializer->SetOutboundInfo(protocol, info, o);
+                }
+            }
+        }
+    }
+
+    const QString QvPluginHost::SerializeOutbound(const QString &protocol,           //
+                                                  const QJsonObject &out,            //
+                                                  const QJsonObject &streamSettings, //
+                                                  const QString &name,               //
+                                                  const QString &group,              //
                                                   bool *ok) const
     {
         *ok = false;
@@ -294,7 +314,7 @@ namespace Qv2ray::components::plugins
                 auto serializer = plugin.pluginInterface->GetOutboundHandler();
                 if (serializer && serializer->SupportedProtocols().contains(protocol))
                 {
-                    auto link = serializer->SerializeOutbound(protocol, name, group, settings);
+                    auto link = serializer->SerializeOutbound(protocol, name, group, out, streamSettings);
                     *ok = true;
                     return link;
                 }

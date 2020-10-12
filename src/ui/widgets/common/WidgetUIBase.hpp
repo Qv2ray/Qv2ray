@@ -63,24 +63,14 @@ class QvStateObject
     {
         QJsonObject o;
         for (const auto &[name, pair] : state_options_list)
-        {
-            const auto val = pair.first();
-            LOG(MODULE_UI, "Saving state for " + windowName + " prop: " + name + " val: " + val.toVariant().toString())
-            o[name] = val;
-        }
+            o[name] = pair.first();
         return o;
     }
     void restoreStateImpl(const QJsonObject &o)
     {
         for (const auto &[name, pair] : state_options_list)
-        {
             if (o.contains(name))
-            {
-                const auto val = o[name];
-                LOG(MODULE_UI, "Restoring state for " + windowName + " prop: " + name + " val: " + val.toVariant().toString())
-                pair.second(val);
-            }
-        }
+                pair.second(o[name]);
     }
     options_storage_type state_options_list;
     const QString windowName;

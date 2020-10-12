@@ -2,10 +2,10 @@
 namespace Qv2ray::core::connection::generation::outbounds
 {
 
-    OUTBOUNDSETTING GenerateFreedomOUT(const QString &domainStrategy, const QString &redirect, int userLevel)
+    OUTBOUNDSETTING GenerateFreedomOUT(const QString &domainStrategy, const QString &redirect)
     {
         OUTBOUNDSETTING root;
-        JADD(domainStrategy, redirect, userLevel)
+        JADD(domainStrategy, redirect)
         return root;
     }
     OUTBOUNDSETTING GenerateBlackHoleOUT(bool useHTTP)

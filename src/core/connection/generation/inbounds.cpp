@@ -2,14 +2,14 @@
 namespace Qv2ray::core::connection::generation::inbounds
 {
 
-    INBOUNDSETTING GenerateDokodemoIN(const QString &address, int port, const QString &network, int timeout, bool followRedirect, int userLevel)
+    INBOUNDSETTING GenerateDokodemoIN(const QString &address, int port, const QString &network, int timeout, bool followRedirect)
     {
         INBOUNDSETTING root;
-        JADD(address, port, network, timeout, followRedirect, userLevel)
+        JADD(address, port, network, timeout, followRedirect)
         return root;
     }
 
-    INBOUNDSETTING GenerateHTTPIN(bool enableAuth, const QList<AccountObject> &_accounts, int timeout, bool allowTransparent, int userLevel)
+    INBOUNDSETTING GenerateHTTPIN(bool enableAuth, const QList<AccountObject> &_accounts, int timeout, bool allowTransparent)
     {
         INBOUNDSETTING root;
         QJsonArray accounts;
@@ -24,11 +24,11 @@ namespace Qv2ray::core::connection::generation::inbounds
         if (enableAuth && !accounts.isEmpty())
             JADD(accounts)
 
-        JADD(timeout, allowTransparent, userLevel)
+        JADD(timeout, allowTransparent)
         return root;
     }
 
-    INBOUNDSETTING GenerateSocksIN(const QString &auth, const QList<AccountObject> &_accounts, bool udp, const QString &ip, int userLevel)
+    INBOUNDSETTING GenerateSocksIN(const QString &auth, const QList<AccountObject> &_accounts, bool udp, const QString &ip)
     {
         INBOUNDSETTING root;
         QJsonArray accounts;
@@ -44,11 +44,11 @@ namespace Qv2ray::core::connection::generation::inbounds
 
         if (udp)
         {
-            JADD(auth, udp, ip, userLevel)
+            JADD(auth, udp, ip)
         }
         else
         {
-            JADD(auth, userLevel)
+            JADD(auth)
         }
         return root;
     }
@@ -106,7 +106,7 @@ namespace Qv2ray::core::connection::generation::inbounds
             if (INCONF.tProxySettings.hasUDP)
                 networks << "udp";
             const auto tproxy_network = networks.join(",");
-            const auto tProxySettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
+            const auto tProxySettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true);
             const static QJsonObject sniffingSettings = { { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
             // tProxy IPv4 Settings
             {

@@ -48,7 +48,7 @@ namespace Qv2ray::core::connection
             else
             {
                 bool ok = false;
-                const auto configs = PluginHost->TryDeserializeShareLink(link, aliasPrefix, errMessage, newGroup, &ok);
+                const auto configs = PluginHost->TryDeserializeShareLink(link, aliasPrefix, errMessage, newGroup, ok);
                 if (ok)
                 {
                     errMessage->clear();
@@ -86,6 +86,7 @@ namespace Qv2ray::core::connection
             const auto outbound = OUTBOUND(server["outbounds"].toArray().first().toObject());
             const auto type = outbound["protocol"].toString();
             const auto settings = outbound["settings"].toObject();
+            const auto streamSettings = outbound["streamSettings"].toObject();
 
             QString sharelink;
 
@@ -98,7 +99,7 @@ namespace Qv2ray::core::connection
             if (type == "vmess")
             {
                 const auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
-                const auto transport = StreamSettingsObject::fromJson(outbound["streamSettings"].toObject());
+                const auto transport = StreamSettingsObject::fromJson(streamSettings);
                 if (GlobalConfig.uiConfig.useOldShareLinkFormat)
                     sharelink = vmess::Serialize(transport, vmessServer, alias);
                 else
@@ -112,7 +113,7 @@ namespace Qv2ray::core::connection
             else
             {
                 bool ok = false;
-                sharelink = PluginHost->SerializeOutbound(type, settings, alias, groupName, &ok);
+                sharelink = PluginHost->SerializeOutbound(type, settings, streamSettings, alias, groupName, &ok);
                 Q_UNUSED(ok)
             }
 

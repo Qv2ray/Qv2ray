@@ -51,6 +51,7 @@ namespace Qv2ray::base::objects::complex
     };
 
     constexpr auto META_OUTBOUND_KEY_NAME = "QV2RAY_OUTBOUND_METADATA";
+    constexpr auto QV2RAY_CHAINED_OUTBOUND_PORT_ALLOCATION = 15500;
 
     typedef BalancerObject ComplexBalancerObject;
 
@@ -61,6 +62,7 @@ namespace Qv2ray::base::objects::complex
         //
         ConnectionId connectionId;
         QList<QString> outboundTags;
+        int chainPortAllocation = QV2RAY_CHAINED_OUTBOUND_PORT_ALLOCATION;
         //
         safetype::OUTBOUND realOutbound;
         QString getDisplayName() const

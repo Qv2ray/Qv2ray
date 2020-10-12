@@ -31,7 +31,7 @@ namespace Qv2ray::core::handler
         CONFIGROOT GenerateFinalConfig(const ConnectionGroupPair &pair, bool hasAPI = true) const;
         CONFIGROOT GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId, bool hasAPI = true) const;
         //
-        OUTBOUNDS ExpandChainedOutbounds() const;
+        bool ExpandChainedOutbounds(CONFIGROOT &) const;
 
       private:
         QHash<GroupRoutingId, GroupRoutingConfig> configs;
