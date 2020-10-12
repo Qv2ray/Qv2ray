@@ -72,7 +72,7 @@ namespace Qv2ray::components::proxy
             LOG("InternetQueryOption failed, GLE=" + QSTRN(GetLastError()));
         }
 
-        LOG(MODULE_PROXY, "System default proxy info:")
+        LOG("System default proxy info:");
 
         if (Option[0].Value.pszValue != nullptr)
         {
@@ -220,7 +220,7 @@ namespace Qv2ray::components::proxy
         const auto scheme = (hasHTTP ? "" : "socks5://");
         QString __a = scheme + address + ":" + QSTRN(hasHTTP ? httpPort : socksPort);
 
-        LOG("Windows proxy string: " + __a)
+        LOG("Windows proxy string: " + __a);
         auto proxyStrW = new WCHAR[__a.length() + 1];
         wcscpy(proxyStrW, __a.toStdWString().c_str());
         //
@@ -353,7 +353,6 @@ namespace Qv2ray::components::proxy
         for (const auto &service : macOSgetNetworkServices())
         {
             LOG("Setting proxy for interface: " + service);
-
             if (hasHTTP)
             {
                 QProcess::execute("/usr/sbin/networksetup", { "-setwebproxystate", service, "on" });
@@ -385,7 +384,7 @@ namespace Qv2ray::components::proxy
         LOG("Clearing System Proxy");
 
 #ifdef Q_OS_WIN
-        LOG("Cleaning system proxy settings.")
+        LOG("Cleaning system proxy settings.");
         INTERNET_PER_CONN_OPTION_LIST list;
         BOOL bReturn;
         DWORD dwBufSize = sizeof(list);
