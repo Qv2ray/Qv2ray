@@ -14,11 +14,12 @@
 
 #define NEWLINE "\r\n"
 #define ___LOG_EXPAND(___x) , QPair(#___x, [&] { return ___x; }())
-#define A(...) FOREACH_CALL_FUNC(___LOG_EXPAND, __VA_ARGS__)
+// #define A(...) FOREACH_CALL_FUNC(___LOG_EXPAND, __VA_ARGS__)
 
 #ifdef QT_DEBUG
     #define QV2RAY_IS_DEBUG true
-    #define QV2RAY_LOG_PREPEND_CONTENT __FILE__ ":" QT_STRINGIFY(__LINE__), Q_FUNC_INFO,
+    // __FILE__ ":" QT_STRINGIFY(__LINE__),
+    #define QV2RAY_LOG_PREPEND_CONTENT Q_FUNC_INFO,
 #else
     #define QV2RAY_IS_DEBUG false
     #define QV2RAY_LOG_PREPEND_CONTENT

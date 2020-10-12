@@ -12,6 +12,7 @@
 #include "base/Qv2rayFeatures.hpp"
 #include "base/Qv2rayLog.hpp"
 // Code Models
+#include "base/Qv2rayBaseApplication.hpp"
 #include "base/models/CoreObjectModels.hpp"
 #include "base/models/QvConfigIdentifier.hpp"
 #include "base/models/QvRuntimeConfig.hpp"
@@ -27,17 +28,9 @@ using namespace Qv2ray::base::objects;
 using namespace Qv2ray::base::objects::protocol;
 using namespace Qv2ray::base::objects::transfer;
 
-class _qv2ray_global_config_impl_details
-{
-  public:
-    static Qv2rayConfigObject _GlobalConfig;
-    static bool _isExiting;
-    static QString _Qv2rayConfigPath;
-};
-
-#define GlobalConfig (_qv2ray_global_config_impl_details::_GlobalConfig)
-#define isExiting (_qv2ray_global_config_impl_details::_isExiting)
-#define Qv2rayConfigPath (_qv2ray_global_config_impl_details::_Qv2rayConfigPath)
+#define GlobalConfig (qvApplicationInstance->ConfigObject)
+#define isExiting (qvApplicationInstance->IsExiting)
+#define Qv2rayConfigPath (qvApplicationInstance->ConfigPath)
 
 #define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
 #define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
