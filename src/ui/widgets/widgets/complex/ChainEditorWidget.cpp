@@ -55,7 +55,7 @@ void ChainEditorWidget::OnDispatcherChainedOutboundCreated(std::shared_ptr<Outbo
 {
     outboundNodes[data->getDisplayName()] = node.id();
     const auto outboundCount = outboundNodes.count();
-    const static int offsets[]{ 0, 300, -300 };
+    const static int offsets[]{ 300, 0, -300 };
     auto pos = this->pos();
     pos.setX(pos.x() + GRAPH_GLOBAL_OFFSET_X + offsets[outboundCount % 3]);
     pos.setY(pos.y() + outboundCount * 100 + GRAPH_GLOBAL_OFFSET_Y);
@@ -148,7 +148,6 @@ std::tuple<bool, QString, QStringList> ChainEditorWidget::VerifyChainLinkedList(
             {
                 iter++;
                 NEED_ITERATE(false);
-                continue;
             }
             //
             if (resultList.isEmpty())
@@ -192,7 +191,7 @@ std::tuple<bool, QString, QStringList> ChainEditorWidget::VerifyChainLinkedList(
             return { true, tr("OK"), resultList };
         }
     }
-    return { false, ">", resultList };
+    return { false, tr("There's an error in your connection."), resultList };
 }
 
 void ChainEditorWidget::on_chainComboBox_currentIndexChanged(const QString &arg1)
@@ -239,10 +238,6 @@ void ChainEditorWidget::OnSceneConnectionRemoved(const QtNodes::Connection &c)
 void ChainEditorWidget::OnDispatcherChainedOutboundDeleted(const OutboundObjectMeta &data)
 {
     const auto displayName = data.getDisplayName();
-    if (chainedOutbounds.contains(displayName))
-    {
-        chainedOutbounds.remove(displayName);
-    }
     if (outboundNodes.contains(displayName))
     {
         scene->removeNode(*scene->node(outboundNodes[displayName]));
@@ -281,6 +276,12 @@ void ChainEditorWidget::OnDispatcherObjectTagChanged(ComplexTagNodeMode mode, co
         if (index >= 0)
         {
             chainComboBox->setItemText(index, newTag);
+        }
+
+        for (const auto &chain : chains)
+        {
+            if (chain->outboundTags.contains(originalTag))
+                chain->outboundTags.replace(chain->outboundTags.indexOf(originalTag), newTag);
         }
     }
 }
