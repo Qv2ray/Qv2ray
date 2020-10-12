@@ -1,6 +1,6 @@
 #pragma once
-#include "core/handler/ConfigHandler.hpp"
-#include "core/handler/RouteHandler.hpp"
+
+#include "base/models/QvSettingsObject.hpp"
 
 #include <QCoreApplication>
 #include <QObject>
@@ -64,6 +64,11 @@ namespace Qv2ray
     inline Qv2rayProcessArguments Qv2rayProcessArgument;
     class Qv2rayApplicationManager
     {
+      public:
+        Qv2ray::base::config::Qv2rayConfigObject ConfigObject;
+        bool IsExiting;
+        QString ConfigPath;
+
       public:
         static Qv2rayPreInitResult PreInitialize(int argc, char **argv);
         explicit Qv2rayApplicationManager();

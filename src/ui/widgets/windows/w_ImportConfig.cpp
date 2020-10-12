@@ -147,7 +147,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         auto str = DecodeQRCode(pix);
         if (str.trimmed().isEmpty())
         {
-            LOG("Cannot decode QR Code from an image, size:" A(pix.width()) A(pix.height()));
+            LOG("Cannot decode QR Code from an image, size:", pix.width(), pix.height());
             QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         }
         else

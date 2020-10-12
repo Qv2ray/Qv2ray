@@ -1,5 +1,6 @@
 #include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
+    #define QV_MODULE_NAME "ICMPingWorker"
 typedef struct _IO_STATUS_BLOCK
 {
     union
@@ -91,7 +92,7 @@ namespace Qv2ray::components::latency::icmping
             icmpReply->hIcmpFile, NULL,
             [](PVOID ctx, PIO_STATUS_BLOCK b, ULONG r) {
                 static int i = 1;
-                LOG(MODULE_NETWORK, "hit" + QSTRN(i++))
+                LOG("hit" + QSTRN(i++))
                 auto replyPtr = reinterpret_cast<ICMPReply *>(ctx);
                 auto isSuccess = (NTSTATUS(b->Status)) >= 0;
                 long res = 0;

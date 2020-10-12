@@ -47,8 +47,11 @@ namespace Qv2ray::ui::messaging
     {
         Q_OBJECT
       public:
-        explicit QvMessageBusObject();
-        void EmitGlobalSignal(const QvMBMessage &msg);
+        explicit QvMessageBusObject(){};
+        void EmitGlobalSignal(const QvMBMessage &msg)
+        {
+            emit QvSendMessage(msg);
+        }
       signals:
         void QvSendMessage(const QvMBMessage &msg);
         // private slots:

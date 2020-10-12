@@ -1,7 +1,7 @@
 #include "Serialization.hpp"
 
 #include "Generation.hpp"
-#include "components/plugins/QvPluginHost.hpp"
+#include "core/handler/ConfigHandler.hpp"
 
 namespace Qv2ray::core::connection
 {

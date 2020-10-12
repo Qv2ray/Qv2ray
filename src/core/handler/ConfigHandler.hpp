@@ -1,6 +1,5 @@
 #pragma once
 
-#include "base/Qv2rayBase.hpp"
 #include "components/latency/LatencyTest.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
