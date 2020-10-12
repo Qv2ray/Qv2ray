@@ -92,7 +92,7 @@ namespace Qv2ray::components::latency::icmping
             icmpReply->hIcmpFile, NULL,
             [](PVOID ctx, PIO_STATUS_BLOCK b, ULONG r) {
                 static int i = 1;
-                LOG("hit" + QSTRN(i++))
+                LOG("hit" + QSTRN(i++));
                 auto replyPtr = reinterpret_cast<ICMPReply *>(ctx);
                 auto isSuccess = (NTSTATUS(b->Status)) >= 0;
                 long res = 0;

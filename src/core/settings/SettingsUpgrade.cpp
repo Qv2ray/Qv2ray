@@ -179,11 +179,11 @@ namespace Qv2ray
 #elif defined(Q_OS_MACOS)
     #define _VARNAME_VCOREPATH_ kernelConfig["v2CorePath_macx"]
     #define _VARNAME_VASSETSPATH_ kernelConfig["v2AssetsPath_macx"]
-                UPGRADELOG("Update kernel and assets paths for macOS")
+                UPGRADELOG("Update kernel and assets paths for macOS");
 #elif defined(Q_OS_WIN)
     #define _VARNAME_VCOREPATH_ kernelConfig["v2CorePath_win"]
     #define _VARNAME_VASSETSPATH_ kernelConfig["v2AssetsPath_win"]
-                UPGRADELOG("Update kernel and assets paths for Windows")
+                UPGRADELOG("Update kernel and assets paths for Windows");
 #endif
                 _VARNAME_VCOREPATH_ = root["v2CorePath"].toString();
                 _VARNAME_VASSETSPATH_ = root["v2AssetsPath"].toString();
