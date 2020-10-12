@@ -59,6 +59,5 @@ class ChainEditorWidget
     //
     QMap<QString, QUuid> outboundNodes;
     std::shared_ptr<OutboundObjectMeta> currentChain;
-    QMap<QString, std::shared_ptr<OutboundObjectMeta>> chainedOutbounds;
     QMap<QString, std::shared_ptr<OutboundObjectMeta>> chains;
 };

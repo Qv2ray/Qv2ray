@@ -230,11 +230,6 @@ CONFIGROOT RouteEditor::OpenEditor()
         {
             const auto &ruleObject = rules[ruleTag];
             auto ruleJson = ruleObject.toJson();
-            // Remove some empty fields.
-            // if (ruleObject.port.isEmpty())
-            //    ruleJson.remove("port");
-            // if (ruleObject.network.isEmpty())
-            //    ruleJson.remove("network");
             JAUTOREMOVE(ruleJson, "network");
             JAUTOREMOVE(ruleJson, "port");
             if (ruleJson["outboundTag"].toString().isEmpty())
@@ -323,25 +318,25 @@ void RouteEditor::on_addDefaultBtn_clicked()
     if (inboundConfig.useHTTP)
     {
         const auto httpSettings = GenerateHTTPIN(inboundConfig.httpSettings.useAuth, { inboundConfig.httpSettings.account });
-        INBOUND httpConfig = GenerateInboundEntry("GlobalConfig-HTTP", "http",     //
-                                                  inboundConfig.listenip,          //
-                                                  inboundConfig.httpSettings.port, //
-                                                  httpSettings,                    //
-                                                  inboundConfig.httpSettings.sniffing ? sniffingOn : sniffingOff);
-        auto _ = nodeDispatcher->CreateInbound(httpConfig);
+        const auto httpConfig = GenerateInboundEntry("GlobalConfig-HTTP", "http",     //
+                                                     inboundConfig.listenip,          //
+                                                     inboundConfig.httpSettings.port, //
+                                                     httpSettings,                    //
+                                                     inboundConfig.httpSettings.sniffing ? sniffingOn : sniffingOff);
+        const auto _ = nodeDispatcher->CreateInbound(httpConfig);
     }
     if (inboundConfig.useSocks)
     {
-        auto socks = GenerateSocksIN((inboundConfig.socksSettings.useAuth ? "password" : "noauth"), //
-                                     { inboundConfig.socksSettings.account },                       //
-                                     inboundConfig.socksSettings.enableUDP,                         //
-                                     inboundConfig.socksSettings.localIP);
-        auto socksConfig = GenerateInboundEntry("GlobalConfig-Socks", "socks",    //
-                                                inboundConfig.listenip,           //
-                                                inboundConfig.socksSettings.port, //
-                                                socks,                            //
-                                                (inboundConfig.socksSettings.sniffing ? sniffingOn : sniffingOff));
-        auto _ = nodeDispatcher->CreateInbound(socksConfig);
+        const auto socks = GenerateSocksIN((inboundConfig.socksSettings.useAuth ? "password" : "noauth"), //
+                                           { inboundConfig.socksSettings.account },                       //
+                                           inboundConfig.socksSettings.enableUDP,                         //
+                                           inboundConfig.socksSettings.localIP);
+        const auto socksConfig = GenerateInboundEntry("GlobalConfig-Socks", "socks",    //
+                                                      inboundConfig.listenip,           //
+                                                      inboundConfig.socksSettings.port, //
+                                                      socks,                            //
+                                                      (inboundConfig.socksSettings.sniffing ? sniffingOn : sniffingOff));
+        const auto _ = nodeDispatcher->CreateInbound(socksConfig);
     }
 
     if (inboundConfig.useTPROXY)
