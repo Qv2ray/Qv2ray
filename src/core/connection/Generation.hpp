@@ -25,19 +25,10 @@ namespace Qv2ray::core::connection::generation
 
     namespace inbounds
     {
-        INBOUNDSETTING GenerateDokodemoIN(const QString &address, //
-                                          int port,               //
-                                          const QString &network, //
-                                          int timeout,            //
-                                          bool followRedirect,    //
-                                          int userLevel);
-        INBOUNDSETTING GenerateHTTPIN(bool auth, const QList<AccountObject> &accounts, int timeout = 300, bool allowTransparent = true,
-                                      int userLevel = 0);
-        INBOUNDSETTING GenerateSocksIN(const QString &auth,                   //
-                                       const QList<AccountObject> &_accounts, //
-                                       bool udp = false,                      //
-                                       const QString &ip = "127.0.0.1",       //
-                                       int userLevel = 0);
+        INBOUNDSETTING GenerateDokodemoIN(const QString &address, int port, const QString &network, int timeout = 0, bool followRedirect = false);
+        INBOUNDSETTING GenerateHTTPIN(bool auth, const QList<AccountObject> &accounts, int timeout = 300, bool allowTransparent = true);
+        INBOUNDSETTING GenerateSocksIN(const QString &auth, const QList<AccountObject> &_accounts, bool udp = false, const QString &ip = "127.0.0.1");
+        INBOUNDS GenerateDefaultInbounds();
         INBOUND GenerateInboundEntry(const QString &tag,               //
                                      const QString &protocol,          //
                                      const QString &listen,            //
@@ -45,25 +36,15 @@ namespace Qv2ray::core::connection::generation
                                      const INBOUNDSETTING &settings,   //
                                      const QJsonObject &sniffing = {}, //
                                      const QJsonObject &allocate = {});
-        INBOUNDS GenerateDefaultInbounds();
     } // namespace inbounds
 
     namespace outbounds
     {
-        OUTBOUNDSETTING GenerateFreedomOUT(const QString &domainStrategy, //
-                                           const QString &redirect,       //
-                                           int userLevel);
+        OUTBOUNDSETTING GenerateFreedomOUT(const QString &domainStrategy, const QString &redirect);
         OUTBOUNDSETTING GenerateBlackHoleOUT(bool useHTTP);
         OUTBOUNDSETTING GenerateShadowSocksOUT(const QList<ShadowSocksServerObject> &servers);
-        OUTBOUNDSETTING GenerateShadowSocksServerOUT(const QString &address, //
-                                                     int port,               //
-                                                     const QString &method,  //
-                                                     const QString &password);
-        OUTBOUNDSETTING GenerateHTTPSOCKSOut(const QString &address,  //
-                                             int port,                //
-                                             bool useAuth,            //
-                                             const QString &username, //
-                                             const QString &password);
+        OUTBOUNDSETTING GenerateShadowSocksServerOUT(const QString &address, int port, const QString &method, const QString &password);
+        OUTBOUNDSETTING GenerateHTTPSOCKSOut(const QString &address, int port, bool useAuth, const QString &username, const QString &password);
         OUTBOUND GenerateOutboundEntry(const QString &tag,                //
                                        const QString &protocol,           //
                                        const OUTBOUNDSETTING &settings,   //

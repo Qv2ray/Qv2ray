@@ -28,7 +28,7 @@ namespace Qv2ray::core
     {
         *protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
         bool ok;
-        const auto info = PluginHost->TryGetOutboundInfo(*protocol, out["settings"].toObject(), &ok);
+        const auto info = PluginHost->GetOutboundInfo(*protocol, out["settings"].toObject(), ok);
         if (ok)
         {
             *host = info[INFO_SERVER].toString();

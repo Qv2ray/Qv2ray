@@ -326,6 +326,7 @@ namespace Qv2ray::core::handler
             QvMessageBoxWarn(nullptr, tr("Failed to start connection"), *errMsg);
             return false;
         }
+
         GlobalConfig.lastConnectedId = identifier;
         return true;
     }

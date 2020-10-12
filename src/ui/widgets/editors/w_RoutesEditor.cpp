@@ -109,7 +109,6 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog("Ro
     }
     SETLAYOUT(ruleEditorUIWidget, ruleWidget);
     SETLAYOUT(chainEditorUIWidget, chainWidget);
-    chainWidget->setEnabled(false);
     SETLAYOUT(dnsEditorUIWidget, dnsWidget);
     //
     nodeDispatcher->LoadFullConfig(root);
@@ -304,7 +303,7 @@ void RouteEditor::on_buttonBox_accepted()
 
 void RouteEditor::on_insertDirectBtn_clicked()
 {
-    auto freedom = GenerateFreedomOUT("AsIs", "", 0);
+    auto freedom = GenerateFreedomOUT("AsIs", "");
     auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto out = GenerateOutboundEntry(tag, "freedom", freedom, {});
     // ADD NODE
@@ -354,7 +353,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
         if (ts.hasUDP)
             networks << "udp";
         const auto tproxy_network = networks.join(",");
-        auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
+        auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true);
         //
         const static QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
         const QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", ts.mode } } } };

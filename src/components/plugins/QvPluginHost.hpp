@@ -58,9 +58,16 @@ namespace Qv2ray::components::plugins
                                                                                        QString *aliasPrefix,     //
                                                                                        QString *errMessage,      //
                                                                                        QString *newGroupName,    //
-                                                                                       bool *status) const;
-        const QString SerializeOutbound(const QString &protocol, const QJsonObject &out, const QString &name, const QString &group, bool *ok) const;
-        const QMap<OutboundInfoFlags, QVariant> TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const;
+                                                                                       bool &status) const;
+        const QString SerializeOutbound(const QString &protocol,           //
+                                        const QJsonObject &out,            //
+                                        const QJsonObject &streamSettings, //
+                                        const QString &name,               //
+                                        const QString &group,              //
+                                        bool *ok) const;
+
+        const OutboundInfoObject GetOutboundInfo(const QString &protocol, const QJsonObject &o, bool &status) const;
+        const void SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &o) const;
         //
         void Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object);
         void Send_ConnectivityEvent(const Events::Connectivity::EventObject &object);
