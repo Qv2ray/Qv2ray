@@ -177,7 +177,11 @@ namespace Qv2ray::base::config
         {
             config_version = QV2RAY_CONFIG_VERSION;
         }
+#if QT_VERSION < QT_VERSION_CHECK(5, 13, 0)
+        Q_DISABLE_COPY(Qv2rayConfigObject);
+#else
         Q_DISABLE_COPY_MOVE(Qv2rayConfigObject);
+#endif
         JSONSTRUCT_REGISTER_NOCOPYMOVE(Qv2rayConfigObject,                                                                   //
                                        F(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
                                        F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //

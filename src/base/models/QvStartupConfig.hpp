@@ -21,8 +21,6 @@ namespace Qv2ray::base
 
         /// Exit existing Qv2ray instance
         bool exitQv2ray;
-
-        ///
     };
 } // namespace Qv2ray::base
 
