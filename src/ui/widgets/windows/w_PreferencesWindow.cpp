@@ -79,10 +79,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     qvBuildInfo->setText(QV2RAY_BUILD_INFO);
     qvBuildExInfo->setText(QV2RAY_BUILD_EXTRA_INFO);
     qvBuildTime->setText(__DATE__ " " __TIME__);
-    qvPluginInterfaceVersionLabel->setText(tr("Version: %1").arg(QSTRN(QV2RAY_PLUGIN_INTERFACE_VERSION)));
+    qvPluginInterfaceVersionLabel->setText(tr("Version: %1").arg(QV2RAY_PLUGIN_INTERFACE_VERSION));
     //
     // Deep copy
-    CurrentConfig = GlobalConfig;
+    CurrentConfig.loadJson(GlobalConfig.toJson());
     //
     themeCombo->setCurrentText(CurrentConfig.uiConfig.theme);
     darkThemeCB->setChecked(CurrentConfig.uiConfig.useDarkTheme);
@@ -350,7 +350,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         {
             StyleManager->ApplyStyle(CurrentConfig.uiConfig.theme);
         }
-        SaveGlobalSettings(CurrentConfig);
+        GlobalConfig.loadJson(CurrentConfig.toJson());
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
         if (NeedRestart && !KernelInstance->CurrentConnection().isEmpty())
         {

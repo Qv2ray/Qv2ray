@@ -56,7 +56,6 @@ class Qv2rayPlatformApplication
 
     void QuitApplication(int retCode = 0)
     {
-        isExiting = true;
         QCoreApplication::exit(retCode);
     }
 
@@ -95,6 +94,7 @@ class Qv2rayPlatformApplication
         setFont(font);
     #endif
 #endif
+
         // Install a default translater. From the OS/DE
         Qv2rayTranslator = std::make_unique<QvTranslator>();
         Qv2rayTranslator->InstallTranslation(QLocale::system().name());

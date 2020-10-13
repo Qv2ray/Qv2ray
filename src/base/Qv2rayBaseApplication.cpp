@@ -2,7 +2,6 @@
 
 #include "components/translations/QvTranslator.hpp"
 #include "core/settings/SettingsBackend.hpp"
-#include "ui/widgets/common/WidgetUIBase.hpp"
 #include "utils/QvHelpers.hpp"
 
 #ifdef QT_DEBUG
@@ -12,11 +11,11 @@ const static inline QString QV2RAY_URL_SCHEME = "qv2ray";
 #endif
 
 #define QV_MODULE_NAME "BaseApplication"
-
 constexpr auto QV2RAY_CONFIG_PATH_ENV_NAME = "QV2RAY_CONFIG_PATH";
 
 Qv2rayApplicationManager::Qv2rayApplicationManager()
 {
+    ConfigObject = new Qv2rayConfigObject;
     qvApplicationInstance = this;
     LOG("Qv2ray " QV2RAY_VERSION_STRING " on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture());
     DEBUG("Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()));
@@ -27,10 +26,11 @@ Qv2rayApplicationManager::Qv2rayApplicationManager()
 
 Qv2rayApplicationManager::~Qv2rayApplicationManager()
 {
+    delete ConfigObject;
     qvApplicationInstance = nullptr;
 }
 
-bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
+bool Qv2rayApplicationManager::LocateConfiguration()
 {
     LOG("Application exec path: " + qApp->applicationDirPath());
     // Non-standard paths needs special handing for "_debug"
@@ -42,9 +42,10 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
     //
     //
     // Some built-in search paths for Qv2ray to find configs. (load the first one if possible).
-    QStringList configFilePaths;
     const auto useManualConfigPath = qEnvironmentVariableIsSet(QV2RAY_CONFIG_PATH_ENV_NAME);
     const auto manualConfigPath = qEnvironmentVariable(QV2RAY_CONFIG_PATH_ENV_NAME);
+    //
+    QStringList configFilePaths;
     if (useManualConfigPath)
     {
         LOG("Using config path from env: " + manualConfigPath);
@@ -56,9 +57,9 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
         configFilePaths << configQv2ray;
         configFilePaths << homeQv2ray;
     }
+
     QString configPath = "";
     bool hasExistingConfig = false;
-
     for (const auto &path : configFilePaths)
     {
         // Verify the config path, check if the config file exists and in the
@@ -149,17 +150,16 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
             return false;
         }
 
-        Qv2rayConfigObject conf;
-        conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
-        conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
-        conf.logLevel = 3;
-        conf.uiConfig.language = QLocale::system().name();
-        conf.defaultRouteConfig.dnsConfig.servers << QvConfig_DNS::DNSServerObject{ "1.1.1.1" } //
-                                                  << QvConfig_DNS::DNSServerObject{ "8.8.8.8" } //
-                                                  << QvConfig_DNS::DNSServerObject{ "8.8.4.4" };
+        GlobalConfig.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
+        GlobalConfig.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
+        GlobalConfig.logLevel = 3;
+        GlobalConfig.uiConfig.language = QLocale::system().name();
+        GlobalConfig.defaultRouteConfig.dnsConfig.servers.append({ "1.1.1.1" });
+        GlobalConfig.defaultRouteConfig.dnsConfig.servers.append({ "8.8.8.8" });
+        GlobalConfig.defaultRouteConfig.dnsConfig.servers.append({ "8.8.4.4" });
 
         // Save initial config.
-        SaveGlobalSettings(conf);
+        SaveGlobalSettings();
         LOG("Created initial config file.");
     }
 
@@ -194,43 +194,37 @@ bool Qv2rayApplicationManager::FindAndCreateInitialConfiguration()
             conf = Qv2ray::UpgradeSettingsVersion(configVersion, QV2RAY_CONFIG_VERSION, conf);
         }
 
-        // Load config object from upgraded config QJsonObject
-        auto confObject = Qv2rayConfigObject::fromJson(conf);
-
+        // Let's save the config.
+        GlobalConfig.loadJson(conf);
         const auto allTranslations = Qv2rayTranslator->GetAvailableLanguages();
         const auto osLanguage = QLocale::system().name();
-
-        if (!allTranslations.contains(confObject.uiConfig.language))
+        if (!allTranslations.contains(GlobalConfig.uiConfig.language))
         {
             // If we need to reset the language.
             if (allTranslations.contains(osLanguage))
             {
-                confObject.uiConfig.language = osLanguage;
+                GlobalConfig.uiConfig.language = osLanguage;
             }
             else if (!allTranslations.isEmpty())
             {
-                confObject.uiConfig.language = allTranslations.first();
+                GlobalConfig.uiConfig.language = allTranslations.first();
             }
-            // If configured language is not found.
-            LOG("Fall back language setting to: " + osLanguage);
         }
 
-        if (!Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
+        if (!Qv2rayTranslator->InstallTranslation(GlobalConfig.uiConfig.language))
         {
             QvMessageBoxWarn(nullptr, "Translation Failed",
-                             "Cannot load translation for " + confObject.uiConfig.language + NEWLINE + //
-                                 "English is now used." + NEWLINE + NEWLINE +                          //
+                             "Cannot load translation for " + GlobalConfig.uiConfig.language + NEWLINE + //
+                                 "English is now used." + NEWLINE + NEWLINE +                            //
                                  "Please go to Preferences Window to change language or open an Issue");
-            confObject.uiConfig.language = "en_US";
+            GlobalConfig.uiConfig.language = "en_US";
         }
-
-        // Let's save the config.
-        SaveGlobalSettings(confObject);
+        SaveGlobalSettings();
         return true;
     }
 }
 
-Qv2rayPreInitResult Qv2rayApplicationManager::PreInitialize(int argc, char **argv)
+Qv2rayPreInitResult Qv2rayApplicationManager::StaticPreInitialize(int argc, char **argv)
 {
     QString errorMessage;
     QCoreApplication coreApp(argc, argv);
@@ -277,7 +271,7 @@ Qv2rayPreInitResult Qv2rayApplicationManager::ParseCommandLine(QString *errorMes
     QCommandLineOption noAPIOption("noAPI", QObject::tr("Disable gRPC API subsystem"));
     QCommandLineOption noPluginsOption("noPlugin", QObject::tr("Disable plugins feature"));
     QCommandLineOption noScaleFactorOption("noScaleFactor", QObject::tr("Disable Qt UI scale factor"));
-    QCommandLineOption debugOption("debug", QObject::tr("Enable debug output"));
+    QCommandLineOption debugLogOption("debug", QObject::tr("Enable debug output"));
     QCommandLineOption noAutoConnectionOption("noAutoConnection", QObject::tr("Do not automatically connect"));
     QCommandLineOption disconnectOption("disconnect", QObject::tr("Stop current connection"));
     QCommandLineOption reconnectOption("reconnect", QObject::tr("Reconnect last connection"));
@@ -289,7 +283,7 @@ Qv2rayPreInitResult Qv2rayApplicationManager::ParseCommandLine(QString *errorMes
     parser.addOption(noAPIOption);
     parser.addOption(noPluginsOption);
     parser.addOption(noScaleFactorOption);
-    parser.addOption(debugOption);
+    parser.addOption(debugLogOption);
     parser.addOption(noAutoConnectionOption);
     parser.addOption(disconnectOption);
     parser.addOption(reconnectOption);
@@ -343,35 +337,16 @@ Qv2rayPreInitResult Qv2rayApplicationManager::ParseCommandLine(QString *errorMes
         Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::RECONNECT;
     }
 
-    if (parser.isSet(noAPIOption))
-    {
-        DEBUG("noAPIOption is set.");
-        StartupOption.noAPI = true;
-    }
+#define ProcessExtraStartupOptions(option)                                                                                                           \
+    DEBUG("Startup Options:" A(parser.isSet(option##Option)));                                                                                       \
+    StartupOption.option = parser.isSet(option##Option);
 
-    if (parser.isSet(debugOption))
-    {
-        DEBUG("debugOption is set.");
-        StartupOption.debugLog = true;
-    }
+    ProcessExtraStartupOptions(noAPI);
+    ProcessExtraStartupOptions(debugLog);
+    ProcessExtraStartupOptions(noScaleFactor);
+    ProcessExtraStartupOptions(noAutoConnection);
+    ProcessExtraStartupOptions(noPlugins);
 
-    if (parser.isSet(noScaleFactorOption))
-    {
-        DEBUG("noScaleFactorOption is set.");
-        StartupOption.noScaleFactor = true;
-    }
-
-    if (parser.isSet(noAutoConnectionOption))
-    {
-        DEBUG("noAutoConnectOption is set.");
-        StartupOption.noAutoConnection = true;
-    }
-
-    if (parser.isSet(noPluginsOption))
-    {
-        DEBUG("noPluginOption is set.");
-        StartupOption.noPlugins = true;
-    }
     *errorMessage = "OK";
     return PRE_INIT_RESULT_CONTINUE;
 }

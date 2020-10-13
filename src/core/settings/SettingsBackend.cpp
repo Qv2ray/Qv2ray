@@ -6,25 +6,19 @@
 
 namespace Qv2ray::core::config
 {
-    void SaveGlobalSettings(const Qv2rayConfigObject &conf)
-    {
-        GlobalConfig = conf;
-        SaveGlobalSettings();
-    }
-
     void SaveGlobalSettings()
     {
-        QString str = JsonToString(GlobalConfig.toJson());
+        const auto str = JsonToString(GlobalConfig.toJson());
         StringToFile(str, QV2RAY_CONFIG_FILE);
     }
 
     void SetConfigDirPath(const QString &path)
     {
-        Qv2rayConfigPath = path;
+        qvApplicationInstance->ConfigPath = path;
 
         if (!path.endsWith("/"))
         {
-            Qv2rayConfigPath += "/";
+            qvApplicationInstance->ConfigPath += "/";
         }
     }
 
@@ -85,13 +79,13 @@ namespace Qv2ray::core::config
         const auto err = VerifyJsonString(StringFromFile(configFile));
         if (!err.isEmpty())
         {
-            LOG("Json parse returns: " + err);
+            LOG("Json parse returns:", err);
             return false;
         }
 
         // If the file format is valid.
         const auto conf = JsonFromString(StringFromFile(configFile));
-        LOG("Found a config file, v=" + conf["config_version"].toString() + " path=" + path);
+        LOG("Found a config file," A(conf["config_version"].toString()) A(path));
         configFile.close();
         return true;
     }
