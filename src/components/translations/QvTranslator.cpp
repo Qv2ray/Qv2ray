@@ -1,7 +1,6 @@
 #include "QvTranslator.hpp"
 
 #include "base/Qv2rayBase.hpp"
-#include "ui/widgets/common/WidgetUIBase.hpp"
 #include "utils/QvHelpers.hpp"
 
 #define QV_MODULE_NAME "Translator"

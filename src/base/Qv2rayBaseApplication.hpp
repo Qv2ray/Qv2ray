@@ -65,15 +65,14 @@ namespace Qv2ray
     class Qv2rayApplicationManager
     {
       public:
-        Qv2ray::base::config::Qv2rayConfigObject ConfigObject;
-        bool IsExiting;
+        Qv2ray::base::config::Qv2rayConfigObject *ConfigObject;
         QString ConfigPath;
 
       public:
-        static Qv2rayPreInitResult PreInitialize(int argc, char **argv);
+        static Qv2rayPreInitResult StaticPreInitialize(int argc, char **argv);
         explicit Qv2rayApplicationManager();
         ~Qv2rayApplicationManager();
-        virtual bool FindAndCreateInitialConfiguration() final;
+        virtual bool LocateConfiguration() final;
         //
         virtual Qv2raySetupStatus Initialize() = 0;
         virtual Qv2rayExitCode RunQv2ray() = 0;
@@ -87,7 +86,7 @@ namespace Qv2ray
         static Qv2rayPreInitResult ParseCommandLine(QString *errorMessage, const QStringList &_argx_);
     };
     inline Qv2rayApplicationManager *qvApplicationInstance = nullptr;
+} // namespace Qv2ray
 
 #define QvCoreApplication static_cast<Qv2rayApplicationManager *>(qvApplicationInstance)
-
-} // namespace Qv2ray
+#define GlobalConfig (*Qv2ray::qvApplicationInstance->ConfigObject)

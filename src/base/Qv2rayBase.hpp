@@ -28,10 +28,6 @@ using namespace Qv2ray::base::objects;
 using namespace Qv2ray::base::objects::protocol;
 using namespace Qv2ray::base::objects::transfer;
 
-#define GlobalConfig (qvApplicationInstance->ConfigObject)
-#define isExiting (qvApplicationInstance->IsExiting)
-#define Qv2rayConfigPath (qvApplicationInstance->ConfigPath)
-
 #define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
 #define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
 
@@ -51,7 +47,7 @@ using namespace Qv2ray::base::objects::transfer;
 #endif
 
 // Get Configured Config Dir Path
-#define QV2RAY_CONFIG_DIR (Qv2rayConfigPath)
+#define QV2RAY_CONFIG_DIR (qvApplicationInstance->ConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 //
 #define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")

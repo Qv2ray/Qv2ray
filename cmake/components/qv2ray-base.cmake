@@ -18,7 +18,6 @@ set(QV2RAY_BASE_SOURCES
     ${QV2RAY_BASEDIR_BASE}/models/QvSettingsObject.hpp
     ${QV2RAY_BASEDIR_BASE}/models/QvStartupConfig.hpp
     #
-    ${QV2RAY_BASEDIR_BASE}/Qv2rayBase.cpp
     ${QV2RAY_BASEDIR_BASE}/Qv2rayBase.hpp
     ${QV2RAY_BASEDIR_BASE}/Qv2rayFeatures.hpp
     ${QV2RAY_BASEDIR_BASE}/Qv2rayLog.hpp

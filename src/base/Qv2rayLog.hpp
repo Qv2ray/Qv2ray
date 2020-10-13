@@ -14,7 +14,7 @@
 
 #define NEWLINE "\r\n"
 #define ___LOG_EXPAND(___x) , QPair(#___x, [&] { return ___x; }())
-// #define A(...) FOREACH_CALL_FUNC(___LOG_EXPAND, __VA_ARGS__)
+#define A(...) FOREACH_CALL_FUNC(___LOG_EXPAND, __VA_ARGS__)
 
 #ifdef QT_DEBUG
     #define QV2RAY_IS_DEBUG true
@@ -55,6 +55,7 @@ namespace Qv2ray::base
     {
         ((logStream << v << " "), ...);
         ((tempStream << v << " "), ...);
+        logStream << NEWLINE;
 #ifndef QT_DEBUG
         // We only process DEBUG log in Release mode
         if (t == QV2RAY_LOG_DEBUG && !StartupOption.debugLog)

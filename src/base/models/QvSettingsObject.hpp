@@ -177,9 +177,10 @@ namespace Qv2ray::base::config
         {
             config_version = QV2RAY_CONFIG_VERSION;
         }
-        JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                   //
-                            F(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
-                            F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
-                            F(inboundConfig, outboundConfig, defaultRouteConfig))
+        Q_DISABLE_COPY_MOVE(Qv2rayConfigObject);
+        JSONSTRUCT_REGISTER_NOCOPYMOVE(Qv2rayConfigObject,                                                                   //
+                                       F(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
+                                       F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
+                                       F(inboundConfig, outboundConfig, defaultRouteConfig))
     };
 } // namespace Qv2ray::base::config

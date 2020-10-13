@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
 #endif
 
     // parse the command line before starting as a Qt application
-    switch (Qv2rayApplicationManager::PreInitialize(argc, argv))
+    switch (Qv2rayApplicationManager::StaticPreInitialize(argc, argv))
     {
         case PRE_INIT_RESULT_QUIT: return QVEXIT_NORMAL;
         case PRE_INIT_RESULT_CONTINUE: break;
@@ -285,7 +285,7 @@ int main(int argc, char *argv[])
 
     //
     // Qv2ray Initialize, find possible config paths and verify them.
-    if (!app.FindAndCreateInitialConfiguration())
+    if (!app.LocateConfiguration())
     {
         LOG("Cannot load or create initial configuration file.");
         app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Cannot load config file."));
