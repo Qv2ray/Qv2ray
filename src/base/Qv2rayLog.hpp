@@ -13,7 +13,7 @@
 #endif
 
 #define NEWLINE "\r\n"
-#define ___LOG_EXPAND(___x) , QPair(#___x, [&] { return ___x; }())
+#define ___LOG_EXPAND(___x) , QPair(std::string(#___x), [&] { return ___x; }())
 #define A(...) FOREACH_CALL_FUNC(___LOG_EXPAND, __VA_ARGS__)
 
 #ifdef QT_DEBUG
