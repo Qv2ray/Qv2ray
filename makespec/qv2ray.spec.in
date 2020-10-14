@@ -3,7 +3,7 @@
 Name:           @NAME@
 Version:        @VERSION@
 Release:        @RELEASE@
-Summary:        A Qt frontend for V2Ray, written in c++.
+Summary:        A Qt front-end for V2Ray, written in C++.
 
 License:        GPLv3
 URL:            https://github.com/Qv2ray/Qv2ray
