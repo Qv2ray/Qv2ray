@@ -66,9 +66,8 @@ export _QV2RAY_BUILD_EXTRA_INFO_="(Unofficial Build) $(uname -a | cut -d ' ' -f3
 
 # build
 # Like https://bugzilla.redhat.com/show_bug.cgi?id=1873903
-# https://src.fedoraproject.org/rpms/clementine/c/adc754c0da013db875db9d8f8934f31403cbf624
-# But can't fix with -fPIC
-# Disable LTO is the only way
+# And https://src.fedoraproject.org/rpms/clementine/c/adc754c0da013db875db9d8f8934f31403cbf624
+# But can't fix by -fPIC, so disable LTO is the only way
 %define _lto_cflags %{nil}
 
 %cmake -DQV2RAY_DEFAULT_VCORE_PATH="/usr/bin/v2ray" \
