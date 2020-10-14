@@ -25,17 +25,12 @@ Qv2rayWidgetApplication::Qv2rayWidgetApplication(int &argc, char *argv[]) : Qv2r
 {
 }
 
-bool Qv2rayWidgetApplication::Initialize()
+QStringList Qv2rayWidgetApplication::checkPrerequisitesInternal()
 {
-    const auto result = initializeInternal();
-    if (!result)
-        return false;
-    setQuitOnLastWindowClosed(false);
-    hTray = new QSystemTrayIcon();
-    return true;
+    return {};
 }
 
-void Qv2rayWidgetApplication::TerminateUI()
+void Qv2rayWidgetApplication::terminateUIInternal()
 {
     delete mainWindow;
     delete hTray;
@@ -73,7 +68,7 @@ void Qv2rayWidgetApplication::onMessageReceived(quint32 clientId, QByteArray _ms
         if (result == Yes)
         {
             StartupArguments._qvNewVersionPath = newPath;
-            QuitApplication(EXIT_NEW_VERSION_TRIGGER);
+            SetExitReason(EXIT_NEW_VERSION_TRIGGER);
         }
     }
 
@@ -83,7 +78,8 @@ void Qv2rayWidgetApplication::onMessageReceived(quint32 clientId, QByteArray _ms
         {
             case Qv2rayStartupArguments::EXIT:
             {
-                QuitApplication();
+                SetExitReason(EXIT_NORMAL);
+                quit();
                 break;
             }
             case Qv2rayStartupArguments::NORMAL:
@@ -128,9 +124,10 @@ void Qv2rayWidgetApplication::onMessageReceived(quint32 clientId, QByteArray _ms
 }
 #endif
 
-Qv2rayExitReason Qv2rayWidgetApplication::RunQv2ray()
+Qv2rayExitReason Qv2rayWidgetApplication::runQv2rayInternal()
 {
-    runInternal();
+    setQuitOnLastWindowClosed(false);
+    hTray = new QSystemTrayIcon();
     StyleManager = new QvStyleManager();
     StyleManager->ApplyStyle(GlobalConfig.uiConfig.theme);
     // Show MainWindow

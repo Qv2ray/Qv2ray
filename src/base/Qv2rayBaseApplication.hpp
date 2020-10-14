@@ -21,9 +21,8 @@ namespace Qv2ray
         EXIT_NORMAL = 0,
         EXIT_NEW_VERSION_TRIGGER = EXIT_NORMAL,
         EXIT_SECONDARY_INSTANCE = EXIT_NORMAL,
-        EXIT_PREINITIALIZATION_FAILED = -1,
+        EXIT_INITIALIZATION_FAILED = -1,
         EXIT_PRECONDITION_FAILED = -2,
-        EXIT_CRASHED = -9,
     };
 
     struct Qv2rayStartupArguments
@@ -58,7 +57,6 @@ namespace Qv2ray
       public:
         Qv2ray::base::config::Qv2rayConfigObject *ConfigObject;
         QString ConfigPath;
-        Qv2rayExitReason ExitReason;
         Qv2rayStartupArguments StartupArguments;
 
       public:
@@ -67,9 +65,6 @@ namespace Qv2ray
 
       public:
         virtual QStringList GetAssetsPaths(const QString &dirName) const final;
-        //
-        virtual bool Initialize() = 0;
-        virtual Qv2rayExitReason RunQv2ray() = 0;
         //
         virtual void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button) = 0;
         virtual void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button) = 0;

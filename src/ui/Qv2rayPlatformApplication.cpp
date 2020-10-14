@@ -1,6 +1,8 @@
 #include "Qv2rayPlatformApplication.hpp"
 
 #include "core/settings/SettingsBackend.hpp"
+
+#include <QSslSocket>
 #define QV_MODULE_NAME "PlatformApplication"
 
 #ifdef QT_DEBUG
@@ -9,13 +11,42 @@ const static inline QString QV2RAY_URL_SCHEME = "qv2ray-debug";
 const static inline QString QV2RAY_URL_SCHEME = "qv2ray";
 #endif
 
-bool Qv2rayPlatformApplication::initializeInternal()
+QStringList Qv2rayPlatformApplication::CheckPrerequisites()
+{
+    QStringList errors;
+    if (!QSslSocket::supportsSsl())
+    {
+        // Check OpenSSL version for auto-update and subscriptions
+        const auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();
+        const auto osslCurVersion = QSslSocket::sslLibraryVersionString();
+        LOG("Current OpenSSL version: " + osslCurVersion);
+        LOG("Required OpenSSL version: " + osslReqVersion);
+        errors << "Qv2ray cannot run without OpenSSL.";
+        errors << "This is usually caused by using the wrong version of OpenSSL";
+        errors << "Required=" + osslReqVersion + "Current=" + osslCurVersion;
+    }
+    return errors + checkPrerequisitesInternal();
+}
+
+bool Qv2rayPlatformApplication::Initialize()
 {
     QString errorMessage;
     bool canContinue;
-    auto hasError = parseCommandLine(&errorMessage, &canContinue);
-    if (hasError && !canContinue)
-        return false;
+    const auto hasError = parseCommandLine(&errorMessage, &canContinue);
+    if (hasError)
+    {
+        LOG("Command line:" A(errorMessage));
+        if (!canContinue)
+        {
+            LOG("Fatal, Qv2ray cannot continue.");
+            return false;
+        }
+        else
+        {
+            LOG("Non-fatal error, continue starting up.");
+        }
+    }
+
 #ifdef Q_OS_WIN
     const auto appPath = QDir::toNativeSeparators(applicationFilePath());
     const auto regPath = "HKEY_CURRENT_USER\\Software\\Classes\\" + QV2RAY_URL_SCHEME;
@@ -37,15 +68,18 @@ bool Qv2rayPlatformApplication::initializeInternal()
     if (isSecondary())
     {
         StartupArguments.version = QV2RAY_VERSION_STRING;
+        StartupArguments.buildVersion = QV2RAY_VERSION_BUILD;
         StartupArguments.fullArgs = arguments();
         if (StartupArguments.arguments.isEmpty())
             StartupArguments.arguments << Qv2rayStartupArguments::NORMAL;
         bool status = sendMessage(JsonToString(StartupArguments.toJson(), QJsonDocument::Compact).toUtf8());
         if (!status)
             LOG("Cannot send message.");
-        return true;
+        SetExitReason(EXIT_SECONDARY_INSTANCE);
+        return false;
     }
 #endif
+
 #ifdef QV2RAY_GUI
     #ifdef Q_OS_LINUX
         #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -58,6 +92,7 @@ bool Qv2rayPlatformApplication::initializeInternal()
         SaveGlobalSettings();
     });
     #endif
+
     #ifdef Q_OS_WIN
     SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
     // Set special font in Windows
@@ -71,12 +106,10 @@ bool Qv2rayPlatformApplication::initializeInternal()
     // Install a default translater. From the OS/DE
     Qv2rayTranslator = std::make_unique<QvTranslator>();
     Qv2rayTranslator->InstallTranslation(QLocale::system().name());
-    //
-    //
-    LocateConfiguration();
-    //
     const auto allTranslations = Qv2rayTranslator->GetAvailableLanguages();
     const auto osLanguage = QLocale::system().name();
+    //
+    LocateConfiguration();
     if (!allTranslations.contains(GlobalConfig.uiConfig.language))
     {
         // If we need to reset the language.
@@ -102,12 +135,12 @@ bool Qv2rayPlatformApplication::initializeInternal()
     return true;
 }
 
-bool Qv2rayPlatformApplication::runInternal()
+Qv2rayExitReason Qv2rayPlatformApplication::RunQv2ray()
 {
     PluginHost = new QvPluginHost();
     RouteManager = new RouteHandler();
     ConnectionManager = new QvConfigHandler();
-    return true;
+    return runQv2rayInternal();
 }
 
 void Qv2rayPlatformApplication::quitInternal()
@@ -118,7 +151,7 @@ void Qv2rayPlatformApplication::quitInternal()
     ConnectionManager->SaveConnectionConfig();
     PluginHost->SavePluginSettings();
     SaveGlobalSettings();
-    TerminateUI();
+    terminateUIInternal();
     delete ConnectionManager;
     delete RouteManager;
     delete PluginHost;

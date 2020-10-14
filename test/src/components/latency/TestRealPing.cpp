@@ -12,14 +12,6 @@ class QvTestApplication
 {
   public:
     explicit QvTestApplication() : QCoreApplication(fakeArgc, fakeArgv), Qv2rayApplicationInterface(){};
-    virtual bool Initialize() override
-    {
-        return true;
-    };
-    virtual Qv2rayExitReason RunQv2ray() override
-    {
-        return {};
-    };
     virtual void MessageBoxWarn(QWidget *, const QString &, const QString &, MessageOpt) override{};
     virtual void MessageBoxInfo(QWidget *, const QString &, const QString &, MessageOpt) override{};
     virtual MessageOpt MessageBoxAsk(QWidget *, const QString &, const QString &, const QList<MessageOpt> &) override

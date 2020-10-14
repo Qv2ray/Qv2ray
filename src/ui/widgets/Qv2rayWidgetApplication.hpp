@@ -13,8 +13,6 @@ namespace Qv2ray
         Q_OBJECT
       public:
         explicit Qv2rayWidgetApplication(int &argc, char *argv[]);
-        bool Initialize() override;
-        Qv2rayExitReason RunQv2ray() override;
         QJsonObject UIStates;
 
       public:
@@ -31,8 +29,10 @@ namespace Qv2ray
         }
 
       private:
+        QStringList checkPrerequisitesInternal() override;
+        Qv2rayExitReason runQv2rayInternal() override;
         bool isInitialized;
-        void TerminateUI() override;
+        void terminateUIInternal() override;
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
         void onMessageReceived(quint32 clientID, QByteArray msg) override;
 #endif

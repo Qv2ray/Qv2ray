@@ -15,7 +15,6 @@
 
 #include "utils/QvHelpers.hpp"
 
-#include <QSslSocket>
 #include <csignal>
 
 #ifndef Q_OS_WIN
@@ -180,30 +179,6 @@ LONG WINAPI TopLevelExceptionHandler(PEXCEPTION_POINTERS)
 }
 #endif
 
-void ProcessExitReason(Qv2rayExitReason reason)
-{ //                app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Qv2ray early initialization failed."));
-    //                return QVEXIT_EARLY_SETUP_FAIL;
-    switch (reason)
-    {
-        case EXIT_CRASHED:
-        {
-            break;
-        }
-        case EXIT_NORMAL:
-        {
-            break;
-        }
-        case EXIT_PREINITIALIZATION_FAILED:
-        {
-            break;
-        }
-        case EXIT_PRECONDITION_FAILED:
-        {
-            break;
-        }
-    }
-}
-
 int main(int argc, char *argv[])
 {
     globalArgc = argc;
@@ -258,31 +233,22 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 #endif
 
-    // Check OpenSSL version for auto-update and subscriptions
-    auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();
-    auto osslCurVersion = QSslSocket::sslLibraryVersionString();
-    LOG("Current OpenSSL version: " + osslCurVersion);
-
-    if (!QSslSocket::supportsSsl())
+    Qv2rayApplication app(argc, argv);
+    if (const auto list = app.CheckPrerequisites(); !list.isEmpty())
     {
-        LOG("Required OpenSSL version: " + osslReqVersion);
-        LOG("OpenSSL library MISSING, Quitting.");
-        BootstrapMessageBox(QObject::tr("Dependency Missing"),
-                            QObject::tr("Cannot find openssl libs") + NEWLINE +
-                                QObject::tr("This could be caused by a missing of `openssl` package in your system.") + NEWLINE +
-                                QObject::tr("If you are using an AppImage from Github Action, please report a bug.") + NEWLINE + //
-                                NEWLINE + QObject::tr("Technical Details") + NEWLINE +                                           //
-                                "OSsl.Rq.V=" + osslReqVersion + NEWLINE +                                                        //
-                                "OSsl.Cr.V=" + osslCurVersion);
-        BootstrapMessageBox(QObject::tr("Cannot start Qv2ray"), QObject::tr("Cannot start Qv2ray without OpenSSL"));
-        return -1;
+        BootstrapMessageBox("Qv2ray Prerequisites Check Failed", list.join(NEWLINE));
+        return Qv2rayExitReason::EXIT_PRECONDITION_FAILED;
     }
 
-    Qv2rayApplication app(argc, argv);
     if (!app.Initialize())
     {
-        LOG("Qv2ray initialization failed:", app.ExitReason);
-        ProcessExitReason(app.ExitReason);
+        const auto reason = app.GetExitReason();
+        if (reason == EXIT_INITIALIZATION_FAILED)
+        {
+            BootstrapMessageBox("Qv2ray Initialization Failed", "PreInitialization Failed." NEWLINE "For more information, please see the log.");
+            LOG("Qv2ray initialization failed:", reason);
+        }
+        return reason;
     }
 
 #ifndef Q_OS_WIN
@@ -291,10 +257,11 @@ int main(int argc, char *argv[])
 #endif
 
     app.RunQv2ray();
-    if (app.ExitReason == EXIT_NEW_VERSION_TRIGGER)
+    const auto reason = app.GetExitReason();
+    if (reason == EXIT_NEW_VERSION_TRIGGER)
     {
         LOG("Starting new version of Qv2ray: " + app.StartupArguments._qvNewVersionPath);
         QProcess::startDetached(app.StartupArguments._qvNewVersionPath, {});
     }
-    return app.ExitReason;
+    return reason;
 }

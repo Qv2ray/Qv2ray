@@ -484,7 +484,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 void MainWindow::Action_Exit()
 {
     ConnectionManager->StopConnection();
-    QvWidgetApplication->QuitApplication();
+    QvWidgetApplication->quit();
 }
 
 void MainWindow::on_preferencesBtn_clicked()
