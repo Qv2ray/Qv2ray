@@ -10,19 +10,15 @@ Source0:        @SOURCE0@
 %if 0%{?rhel}
 BuildRequires:  epel-rpm-macros
 %endif
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.10.1
+BuildRequires:  cmake(Qt5)
+BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  gcc-c++
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  protobuf-compiler
-BuildRequires:  protobuf-devel
 BuildRequires:  grpc-devel
 BuildRequires:  grpc-plugins
-BuildRequires:  libcurl-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  elfutils-devel
-BuildRequires:  binutils-devel
-BuildRequires:  libdwarf-devel
+
 Requires:       openssl
 Recommends:     QvPlugin-BuiltinProtocolSupport
 
