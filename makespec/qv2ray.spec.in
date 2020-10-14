@@ -1,3 +1,5 @@
+%bcond_with test
+
 Name:           @NAME@
 Version:        @VERSION@
 Release:        @RELEASE@
@@ -23,7 +25,7 @@ Requires:       openssl
 Recommends:     QvPlugin-BuiltinProtocolSupport
 
 %description
-Qv2ray, A Qt frontend for v2ray. Written in c++.
+Qv2ray is a cross-platform v2ray graphical front-end written in Qt.
 Features:
     * Cross-platform, multi-distribution support
     * Versatile Host Importing
@@ -34,16 +36,32 @@ Features:
     * Latency Testing (TCP)
 More detail Please check https://qv2ray.net/
 
+%description plugin-builtin-protocol-support
+Enable built-in VMess, VLESS, SOCKS, HTTP, Shadowsocks, Dokodemo-door support.
+
 %prep
 %setup -q -n @NAME_VERSION@
 
 
 %build
+# build info
+export _QV2RAY_BUILD_INFO_="Qv2ray built by Fedora Copr"
+export _QV2RAY_BUILD_EXTRA_INFO_="(Unofficial Build) $(uname -a | cut -d ' ' -f3,13), Qt $(pkg-config --modversion Qt5Core)"
+
+# build
+# Like https://bugzilla.redhat.com/show_bug.cgi?id=1873903
+# https://src.fedoraproject.org/rpms/clementine/c/adc754c0da013db875db9d8f8934f31403cbf624
+# But can't fix with -fPIC
+# Disable LTO is the only way
+%define _lto_cflags %{nil}
+
 %cmake -DQV2RAY_DEFAULT_VCORE_PATH="/usr/bin/v2ray" \
        -DQV2RAY_DEFAULT_VASSETS_PATH="/usr/share/v2ray/" \
        -DQV2RAY_DISABLE_AUTO_UPDATE=ON \
-       -DQV2RAY_ZXING_PROVIDER="module" \
-       -DCMAKE_BUILD_TYPE=Release
+       -DCMAKE_BUILD_TYPE=Release \
+%if %{with test}
+       -DBUILD_TESTING=ON
+%endif
 %cmake_build
 
 
@@ -53,23 +71,26 @@ rm -rf "$RPM_BUILD_ROOT"
 %find_lang %{name} --with-qt --all-name
 
 
+%check
+desktop-file-validate                 %{buildroot}%{_datadir}/applications/qv2ray.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/qv2ray.metainfo.xml
+%if %{with test}
+%ctest
+%endif
+
+
 %files -f %{name}.lang
 %license LICENSE
 %doc README.md
-%dir %{_datadir}/%{name}/plugins/
-%{_bindir}/%{name}
+%{_bindir}/qv2ray
+%{_datadir}/applications/qv2ray.desktop
+%{_metainfodir}/qv2ray.metainfo.xml
 %{_datadir}/icons/*
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/metainfo/%{name}.metainfo.xml
+%dir %{_datadir}/qv2ray/lang/
+%dir %{_datadir}/qv2ray/plugins/
 
-
-%package -n QvPlugin-BuiltinProtocolSupport
-Summary:        A Qt frontend for V2Ray, written in c++
-Requires:       %{name}
-%description -n QvPlugin-BuiltinProtocolSupport
-Enable built-in VMess, VLESS, SOCKS, HTTP, Shadowsocks, Dokodemo-door support.
-%files -n QvPlugin-BuiltinProtocolSupport
-%{_datadir}/%{name}/plugins/libQvPlugin-BuiltinProtocolSupport.so
+%files plugin-builtin-protocol-support
+%{_datadir}/qv2ray/plugins/libQvPlugin-BuiltinProtocolSupport.so
 
 
 %changelog
