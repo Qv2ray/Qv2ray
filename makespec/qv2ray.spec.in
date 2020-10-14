@@ -20,6 +20,8 @@ BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  gcc-c++
 BuildRequires:  grpc-devel
 BuildRequires:  grpc-plugins
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 
 Requires:       openssl
 Requires:       grpc
