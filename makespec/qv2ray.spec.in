@@ -101,6 +101,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/qv2ray.metainf
 %{_datadir}/applications/qv2ray.desktop
 %{_metainfodir}/qv2ray.metainfo.xml
 %{_datadir}/icons/*
+%dir %{_datadir}/qv2ray/
 %dir %{_datadir}/qv2ray/lang/
 %dir %{_datadir}/qv2ray/plugins/
 
