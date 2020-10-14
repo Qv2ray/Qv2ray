@@ -1,6 +1,7 @@
 #pragma once
 
 #include "3rdparty/QJsonStruct/macroexpansion.hpp"
+#include "base/Qv2rayBaseApplication.hpp"
 #include "base/models/QvStartupConfig.hpp"
 
 #include <QPair>
@@ -58,7 +59,7 @@ namespace Qv2ray::base
         logStream << NEWLINE;
 #ifndef QT_DEBUG
         // We only process DEBUG log in Release mode
-        if (t == QV2RAY_LOG_DEBUG && !StartupOption.debugLog)
+        if (t == QV2RAY_LOG_DEBUG && !Qv2ray::QvCoreApplication->StartupArguments.debugLog)
         {
             // Discard debug log in non-debug Qv2ray version with
             // no-debugLog mode.
