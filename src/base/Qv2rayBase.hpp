@@ -47,7 +47,7 @@ using namespace Qv2ray::base::objects::transfer;
 #endif
 
 // Get Configured Config Dir Path
-#define QV2RAY_CONFIG_DIR (qvApplicationInstance->ConfigPath)
+#define QV2RAY_CONFIG_DIR (QvCoreApplication->ConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 //
 #define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
@@ -67,13 +67,6 @@ using namespace Qv2ray::base::objects::transfer;
     #error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to be presented when using manually specify the paths.
 #endif
 
-#define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_SUFFIX)
-#define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_SUFFIX)
-
-constexpr auto QV2RAY_VCORE_LOG_DIRNAME = "logs/";
-constexpr auto QV2RAY_VCORE_ACCESS_LOG_FILENAME = "access.log";
-constexpr auto QV2RAY_VCORE_ERROR_LOG_FILENAME = "error.log";
-
 #ifdef Q_OS_MACOS
     #define ACCESS_OPTIONAL_VALUE(obj) (*obj)
 #else
@@ -85,49 +78,14 @@ constexpr auto QV2RAY_VCORE_ERROR_LOG_FILENAME = "error.log";
 #define OUTBOUND_TAG_BLACKHOLE "BLACKHOLE"
 #define OUTBOUND_TAG_DIRECT "DIRECT"
 #define OUTBOUND_TAG_PROXY "PROXY"
-#define OUTBOUND_TAG_FORWARD_PROXY "_QV2RAY_FORWARD_PROXY_"
+#define OUTBOUND_TAG_FORWARD_PROXY "QV2RAY_FORWARD_PROXY"
 
-#define API_TAG_DEFAULT "_QV2RAY_API_"
-#define API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
+#define API_TAG_DEFAULT "QV2RAY_API"
+#define API_TAG_INBOUND "QV2RAY_API_INBOUND"
 
 #define QV2RAY_USE_FPROXY_KEY "_QV2RAY_USE_GLOBAL_FORWARD_PROXY_"
 
 namespace Qv2ray
 {
-    inline QStringList Qv2rayAssetsPaths(const QString &dirName)
-    {
-#define makeAbs(p) QDir(p).absolutePath()
-        // Configuration Path
-        QStringList list;
-        // This is the default behavior on Windows
-        list << makeAbs(QCoreApplication::applicationDirPath() + "/" + dirName);
-        list << makeAbs(QV2RAY_CONFIG_DIR + dirName);
-        list << ":/" + dirName;
-        //
-        list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, dirName, QStandardPaths::LocateDirectory);
-        list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, dirName, QStandardPaths::LocateDirectory);
-
-#ifdef Q_OS_LINUX
-        // For AppImage?
-        if (qEnvironmentVariableIsSet("APPIMAGE"))
-            list << makeAbs(QCoreApplication::applicationDirPath() + "/../share/qv2ray/" + dirName);
-        // For Snap
-        if (qEnvironmentVariableIsSet("SNAP"))
-            list << makeAbs(qEnvironmentVariable("SNAP") + "/usr/share/qv2ray/" + dirName);
-        // Linux platform directories.
-        list << makeAbs("/usr/local/lib/qv2ray/" + dirName);
-        list << makeAbs("/usr/lib/qv2ray/" + dirName);
-        list << makeAbs("/lib/qv2ray/" + dirName);
-        //
-        list << makeAbs("/usr/local/share/qv2ray/" + dirName);
-        list << makeAbs("/usr/share/qv2ray/" + dirName);
-#elif defined(Q_OS_MAC)
-        // macOS platform directories.
-        list << QDir(QCoreApplication::applicationDirPath() + "/../Resources/" + dirName).absolutePath();
-#endif
-        list.removeDuplicates();
-        return list;
-#undef makeAbs
-    }
 
 } // namespace Qv2ray

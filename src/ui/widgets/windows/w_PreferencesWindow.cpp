@@ -296,7 +296,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         ports << CurrentConfig.inboundConfig.tProxySettings.port;
     }
 
-    if (!StartupOption.noAPI)
+    if (!QvCoreApplication->StartupArguments.noAPI)
     {
         size++;
         ports << CurrentConfig.kernelConfig.statsPort;

@@ -24,6 +24,9 @@
 
 #define QV_MODULE_NAME "Init"
 
+#define EXITCODE_ERROR 1;
+#define EXITCODE_NORMAL 0
+
 int globalArgc;
 char **globalArgv;
 
@@ -177,6 +180,30 @@ LONG WINAPI TopLevelExceptionHandler(PEXCEPTION_POINTERS)
 }
 #endif
 
+void ProcessExitReason(Qv2rayExitReason reason)
+{ //                app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Qv2ray early initialization failed."));
+    //                return QVEXIT_EARLY_SETUP_FAIL;
+    switch (reason)
+    {
+        case EXIT_CRASHED:
+        {
+            break;
+        }
+        case EXIT_NORMAL:
+        {
+            break;
+        }
+        case EXIT_PREINITIALIZATION_FAILED:
+        {
+            break;
+        }
+        case EXIT_PRECONDITION_FAILED:
+        {
+            break;
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     globalArgc = argc;
@@ -195,44 +222,20 @@ int main(int argc, char *argv[])
     // This line must be called before any other ones, since we are using these
     // values to identify instances.
     QCoreApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
-    //
 #ifdef QT_DEBUG
     QCoreApplication::setApplicationName("qv2ray_debug");
-    // QApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
 #else
     QCoreApplication::setApplicationName("qv2ray");
     #ifdef QV2RAY_GUI
     QApplication::setApplicationDisplayName("Qv2ray");
     #endif
 #endif
-    LOG("LICENCE", NEWLINE                                                      //
-        "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE               //
-        "This is free software, and you are welcome to redistribute it" NEWLINE //
-        "under certain conditions." NEWLINE NEWLINE                             //
-        "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE             //
-        "Third-party libraries that have been used in Qv2ray can be found in the About page." NEWLINE);
 
 #ifdef QT_DEBUG
     std::cerr << "WARNING: ================ This is a debug build, many features are not stable enough. ================" << std::endl;
 #endif
 
-    // parse the command line before starting as a Qt application
-    switch (Qv2rayApplicationManager::StaticPreInitialize(argc, argv))
-    {
-        case PRE_INIT_RESULT_QUIT: return QVEXIT_NORMAL;
-        case PRE_INIT_RESULT_CONTINUE: break;
-        case PRE_INIT_RESULT_ERROR:
-        {
-            BootstrapMessageBox("Cannot Start Qv2ray!", "Early initialization failed!");
-            return QVEXIT_PRE_INITIALIZE_FAIL;
-        }
-        default: Q_UNREACHABLE();
-    }
-#ifndef QV2RAY_QT6
-    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
-#endif
-    // noScaleFactors = disable HiDPI
-    if (StartupOption.noScaleFactor)
+    if (qEnvironmentVariableIsSet("QV2RAY_NO_SCALE_FACTORS"))
     {
         LOG("Force set QT_SCALE_FACTOR to 1.");
         DEBUG("UI", "Original QT_SCALE_FACTOR was:", qEnvironmentVariable("QT_SCALE_FACTOR"));
@@ -251,6 +254,10 @@ int main(int argc, char *argv[])
 #endif
     }
 
+#ifndef QV2RAY_QT6
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
+
     // Check OpenSSL version for auto-update and subscriptions
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString();
@@ -268,28 +275,14 @@ int main(int argc, char *argv[])
                                 "OSsl.Rq.V=" + osslReqVersion + NEWLINE +                                                        //
                                 "OSsl.Cr.V=" + osslCurVersion);
         BootstrapMessageBox(QObject::tr("Cannot start Qv2ray"), QObject::tr("Cannot start Qv2ray without OpenSSL"));
-        return QVEXIT_SSL_FAIL;
+        return -1;
     }
 
     Qv2rayApplication app(argc, argv);
-    switch (app.Initialize())
+    if (!app.Initialize())
     {
-        case NORMAL: break;
-        case SINGLE_APPLICATION: return QVEXIT_SECONDARY_INSTANCE;
-        case FAILED:
-        {
-            app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Qv2ray early initialization failed."));
-            return QVEXIT_EARLY_SETUP_FAIL;
-        }
-    }
-
-    //
-    // Qv2ray Initialize, find possible config paths and verify them.
-    if (!app.LocateConfiguration())
-    {
-        LOG("Cannot load or create initial configuration file.");
-        app.MessageBoxWarn(nullptr, app.tr("Cannot start Qv2ray"), app.tr("Cannot load config file."));
-        return QVEXIT_CONFIG_FILE_FAIL;
+        LOG("Qv2ray initialization failed:", app.ExitReason);
+        ProcessExitReason(app.ExitReason);
     }
 
 #ifndef Q_OS_WIN
@@ -297,11 +290,11 @@ int main(int argc, char *argv[])
     signal(SIGUSR2, [](int) { ConnectionManager->StopConnection(); });
 #endif
 
-    const auto rcode = app.RunQv2ray();
-    if (rcode == QVEXIT_NEW_VERSION)
+    app.RunQv2ray();
+    if (app.ExitReason == EXIT_NEW_VERSION_TRIGGER)
     {
-        LOG("Starting new version of Qv2ray: " + Qv2rayProcessArgument._qvNewVersionPath);
-        QProcess::startDetached(Qv2rayProcessArgument._qvNewVersionPath, {});
+        LOG("Starting new version of Qv2ray: " + app.StartupArguments._qvNewVersionPath);
+        QProcess::startDetached(app.StartupArguments._qvNewVersionPath, {});
     }
-    return rcode;
+    return app.ExitReason;
 }

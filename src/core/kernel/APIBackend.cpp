@@ -19,18 +19,6 @@ namespace Qv2ray::core::kernel
                                                          { API_OUTBOUND_DIRECT, { "freedom" } },
                                                          { API_OUTBOUND_BLACKHOLE, { "blackhole" } } };
 
-    // To all contributors:
-    //
-    // You may feel it difficult to understand this part of API backend.
-    // It's been expected that you will take hours to fully understand the tricks and hacks lying deeply in this class.
-    //
-    // The API Worker runs as a daemon together with Qv2ray, on a single thread.
-    // They use a flag, running, to indicate if the API worker should go and fetch the statistics from V2Ray Core.
-    //
-    // The flag, running, will be set to true, immediately after the V2Ray core reported that it's been started.
-    // and will be set to false right before we stopping V2Ray Core.
-    //
-
     APIWorker::APIWorker()
     {
         workThread = new QThread();

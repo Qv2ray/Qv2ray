@@ -80,7 +80,7 @@ namespace Qv2ray::base::objects::complex
             return meta;
         }
         explicit OutboundObjectMeta() : metaType(METAOUTBOUND_ORIGINAL){};
-        JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, displayName, connectionId, outboundTags))
+        JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, displayName, connectionId, outboundTags, chainPortAllocation))
     };
 
     inline OutboundObjectMeta make_chained_outbound(const QList<QString> &chain, const QString &tag)

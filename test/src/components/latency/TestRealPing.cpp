@@ -8,15 +8,15 @@ char *fakeArgv[]{};
 
 class QvTestApplication
     : public QCoreApplication
-    , public Qv2rayApplicationManager
+    , public Qv2rayApplicationInterface
 {
   public:
-    explicit QvTestApplication() : QCoreApplication(fakeArgc, fakeArgv), Qv2rayApplicationManager(){};
-    virtual Qv2raySetupStatus Initialize() override
+    explicit QvTestApplication() : QCoreApplication(fakeArgc, fakeArgv), Qv2rayApplicationInterface(){};
+    virtual bool Initialize() override
     {
-        return {};
+        return true;
     };
-    virtual Qv2rayExitCode RunQv2ray() override
+    virtual Qv2rayExitReason RunQv2ray() override
     {
         return {};
     };

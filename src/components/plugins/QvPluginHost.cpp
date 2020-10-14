@@ -12,7 +12,7 @@ namespace Qv2ray::components::plugins
 {
     QvPluginHost::QvPluginHost(QObject *parent) : QObject(parent)
     {
-        if (!StartupOption.noPlugins)
+        if (!QvCoreApplication->StartupArguments.noPlugins)
         {
             if (auto dir = QDir(QV2RAY_PLUGIN_SETTINGS_DIR); !dir.exists())
             {
@@ -30,7 +30,7 @@ namespace Qv2ray::components::plugins
     {
         clearPlugins();
         LOG("Reloading plugin list");
-        for (const auto &pluginDirPath : Qv2rayAssetsPaths("plugins"))
+        for (const auto &pluginDirPath : QvCoreApplication->GetAssetsPaths("plugins"))
         {
             const QStringList entries = QDir(pluginDirPath).entryList(QDir::Files);
             for (const auto &fileName : entries)

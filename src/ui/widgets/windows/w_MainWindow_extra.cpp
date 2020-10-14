@@ -101,7 +101,7 @@ void MainWindow::MWClearSystemProxy()
 
 bool MainWindow::StartAutoConnectionEntry()
 {
-    if (StartupOption.noAutoConnection)
+    if (QvCoreApplication->StartupArguments.noAutoConnection)
         return false;
     switch (GlobalConfig.autoStartBehavior)
     {

@@ -23,7 +23,6 @@
 
 #ifdef QV2RAY_GUI
     #include <QApplication>
-    #include <QFont>
     #include <QMessageBox>
 const static inline QMap<MessageOpt, QMessageBox::StandardButton> MessageBoxButtonMap //
     = { { No, QMessageBox::No },
@@ -37,97 +36,36 @@ const static inline QMap<MessageOpt, QMessageBox::StandardButton> MessageBoxButt
 
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
     #include <SingleApplication>
-    #define QV2RAY_BASE_APPLICATION_CLASS SingleApplication
-    #define QV2RAY_BASE_CLASS_CONSTRUCTOR_ARGS argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion
+    #define QVBASEAPPLICATION SingleApplication
+    #define QVBASEAPPLICATION_CTORARGS argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion
 #else
-    #define QV2RAY_BASE_APPLICATION_CLASS QAPPLICATION_CLASS
-    #define QV2RAY_BASE_CLASS_CONSTRUCTOR_ARGS argc, argv
+    #define QVBASEAPPLICATION QAPPLICATION_CLASS
+    #define QVBASEAPPLICATION_CTORARGS argc, argv
 #endif
 
 class Qv2rayPlatformApplication
-    : public QV2RAY_BASE_APPLICATION_CLASS
-    , public Qv2rayApplicationManager
+    : public QVBASEAPPLICATION
+    , public Qv2rayApplicationInterface
 {
     Q_OBJECT
   public:
-    Qv2rayPlatformApplication(int &argc, char *argv[])
-        : QV2RAY_BASE_APPLICATION_CLASS(QV2RAY_BASE_CLASS_CONSTRUCTOR_ARGS), Qv2rayApplicationManager(){};
+    Qv2rayPlatformApplication(int &argc, char *argv[]) : QVBASEAPPLICATION(QVBASEAPPLICATION_CTORARGS), Qv2rayApplicationInterface(){};
     virtual ~Qv2rayPlatformApplication(){};
-
-    void QuitApplication(int retCode = 0)
+    inline void QuitApplication(int retCode = 0)
     {
         QCoreApplication::exit(retCode);
     }
 
   protected:
-    Qv2raySetupStatus InitializeInternal()
-    {
-        connect(this, &Qv2rayPlatformApplication::aboutToQuit, this, &Qv2rayPlatformApplication::QuitInternal);
-#ifndef QV2RAY_NO_SINGLEAPPLICATON
-        connect(this, &SingleApplication::receivedMessage, this, &Qv2rayPlatformApplication::onMessageReceived, Qt::QueuedConnection);
-        if (isSecondary())
-        {
-            if (Qv2rayProcessArgument.arguments.isEmpty())
-                Qv2rayProcessArgument.arguments << Qv2rayProcessArguments::NORMAL;
-            sendMessage(JsonToString(Qv2rayProcessArgument.toJson(), QJsonDocument::Compact).toUtf8());
-            return SINGLE_APPLICATION;
-        }
-#endif
-#ifdef QV2RAY_GUI
-    #ifdef Q_OS_LINUX
-        #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        setFallbackSessionManagementEnabled(false);
-        #endif
-        connect(this, &QGuiApplication::commitDataRequest, [] {
-            RouteManager->SaveRoutes();
-            ConnectionManager->SaveConnectionConfig();
-            PluginHost->SavePluginSettings();
-            SaveGlobalSettings();
-        });
-    #endif
-    #ifdef Q_OS_WIN
-        SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
-        // Set special font in Windows
-        QFont font;
-        font.setPointSize(9);
-        font.setFamily("Microsoft YaHei");
-        setFont(font);
-    #endif
-#endif
-
-        // Install a default translater. From the OS/DE
-        Qv2rayTranslator = std::make_unique<QvTranslator>();
-        Qv2rayTranslator->InstallTranslation(QLocale::system().name());
-        return NORMAL;
-    }
-
-    bool RunInternal()
-    {
-        PluginHost = new QvPluginHost();
-        RouteManager = new RouteHandler();
-        ConnectionManager = new QvConfigHandler();
-        return true;
-    }
-
-    void QuitInternal()
-    {
-        // Do not change the order.
-        ConnectionManager->StopConnection();
-        RouteManager->SaveRoutes();
-        ConnectionManager->SaveConnectionConfig();
-        PluginHost->SavePluginSettings();
-        SaveGlobalSettings();
-        TerminateUI();
-        delete ConnectionManager;
-        delete RouteManager;
-        delete PluginHost;
-        ConnectionManager = nullptr;
-        RouteManager = nullptr;
-        PluginHost = nullptr;
-    }
-
+    bool initializeInternal();
+    bool runInternal();
+    void quitInternal();
     virtual void TerminateUI() = 0;
+
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
     virtual void onMessageReceived(quint32 clientId, QByteArray msg) = 0;
 #endif
+
+  private:
+    bool parseCommandLine(QString *errorMessage, bool *canContinue);
 };

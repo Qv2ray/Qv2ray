@@ -27,8 +27,8 @@
 
 #define _LOG_ARG_(...) QV2RAY_LOG_PREPEND_CONTENT "[" QV_MODULE_NAME "]", __VA_ARGS__
 
-#define LOG(...) Qv2ray::base::log_concat<QV2RAY_LOG_NORMAL>(_LOG_ARG_(__VA_ARGS__))
-#define DEBUG(...) Qv2ray::base::log_concat<QV2RAY_LOG_DEBUG>(_LOG_ARG_(__VA_ARGS__))
+#define LOG(...) Qv2ray::base::log_internal<QV2RAY_LOG_NORMAL>(_LOG_ARG_(__VA_ARGS__))
+#define DEBUG(...) Qv2ray::base::log_internal<QV2RAY_LOG_DEBUG>(_LOG_ARG_(__VA_ARGS__))
 
 enum QvLogType
 {
@@ -51,7 +51,7 @@ namespace Qv2ray::base
     }
 
     template<QvLogType t, typename... T>
-    inline void log_concat(T... v)
+    inline void log_internal(T... v)
     {
         ((logStream << v << " "), ...);
         ((tempStream << v << " "), ...);

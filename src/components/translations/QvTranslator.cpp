@@ -11,7 +11,7 @@ using namespace Qv2ray::base;
 QStringList getLanguageSearchPaths()
 {
     // Configuration Path
-    QStringList list = Qv2rayAssetsPaths("lang");
+    QStringList list = QvCoreApplication->GetAssetsPaths("lang");
 #ifdef QV2RAY_EMBED_TRANSLATIONS
     // If the translations have been embedded.
     list << QString(":/translations/");

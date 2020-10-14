@@ -33,7 +33,7 @@ namespace Qv2ray::ui::styles
             styles.insert(key, style);
         }
 
-        for (const auto &styleDir : Qv2rayAssetsPaths("uistyles"))
+        for (const auto &styleDir : QvCoreApplication->GetAssetsPaths("uistyles"))
         {
             for (const auto &file : GetFileList(QDir(styleDir)))
             {

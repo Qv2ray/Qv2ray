@@ -286,12 +286,11 @@ namespace Qv2ray::core::kernel
 
         if (ValidateConfig(filePath))
         {
-            QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+            auto env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
             vProcess->setProcessEnvironment(env);
             vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
-            DEBUG("V2Ray core started.");
             KernelStarted = true;
 
             QMap<bool, QMap<QString, QString>> tagProtocolMap;
@@ -312,7 +311,7 @@ namespace Qv2ray::core::kernel
             }
 
             apiEnabled = false;
-            if (StartupOption.noAPI)
+            if (QvCoreApplication->StartupArguments.noAPI)
             {
                 LOG("API has been disabled by the command line arguments");
             }
