@@ -1,25 +1,8 @@
+#include "Common.hpp"
 #include "src/components/latency/RealPing.hpp"
 #include "uvw.hpp"
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-
-int fakeArgc = 0;
-char *fakeArgv[]{};
-
-class QvTestApplication
-    : public QCoreApplication
-    , public Qv2rayApplicationInterface
-{
-  public:
-    explicit QvTestApplication() : QCoreApplication(fakeArgc, fakeArgv), Qv2rayApplicationInterface(){};
-    virtual void MessageBoxWarn(QWidget *, const QString &, const QString &, MessageOpt) override{};
-    virtual void MessageBoxInfo(QWidget *, const QString &, const QString &, MessageOpt) override{};
-    virtual MessageOpt MessageBoxAsk(QWidget *, const QString &, const QString &, const QList<MessageOpt> &) override
-    {
-        return {};
-    };
-    virtual void OpenURL(const QString &) override{};
-};
 
 SCENARIO("Test RealPing get proxy address", "[RealPing]")
 {

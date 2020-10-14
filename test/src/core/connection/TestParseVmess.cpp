@@ -1,10 +1,12 @@
 #include "3rdparty/QJsonStruct/QJsonIO.hpp"
+#include "Common.hpp"
 #include "src/core/connection/Serialization.hpp"
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
 SCENARIO("Test Parse VMess V2 url", "[ParseVMessV2]")
 {
+    QvTestApplication app;
     GIVEN("vmess+tcp")
     {
         QString _;
@@ -48,6 +50,7 @@ SCENARIO("Test Parse VMess V2 url", "[ParseVMessV2]")
 
 SCENARIO("Test Parse VMess V1 url", "[ParseVMessV1]")
 {
+    QvTestApplication app;
     GIVEN("vmess+ws")
     {
         QString _;
