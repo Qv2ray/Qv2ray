@@ -48,14 +48,17 @@ namespace Qv2ray::core::handler
 
       private slots:
         void OnKernelCrashed_p(const QString &msg);
-        void OnKernelLog_p(const QString &log);
+        void OnPluginKernelLog_p(const QString &log);
+        void OnV2RayKernelLog_p(const QString &log);
         void OnV2RayStatsDataRcvd_p(const QMap<StatisticsType, QvStatsSpeed> &data);
         void OnPluginStatsDataRcvd_p(const long uploadSpeed, const long downloadSpeed);
 
       private:
+        void emitLogMessage(const QString &);
         static std::optional<QString> CheckPort(const QMap<QString, ProtocolSettingsInfoObject> &info, int plugins);
 
       private:
+        int pluginLogPrefixPadding = 0;
         QMap<QString, int> GetInboundPorts() const
         {
             QMap<QString, int> result;

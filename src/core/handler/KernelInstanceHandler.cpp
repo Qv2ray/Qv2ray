@@ -14,7 +14,7 @@ namespace Qv2ray::core::handler
         KernelInstance = this;
         vCoreInstance = new V2RayKernelInstance(this);
         connect(vCoreInstance, &V2RayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnV2RayStatsDataRcvd_p);
-        connect(vCoreInstance, &V2RayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLog_p);
+        connect(vCoreInstance, &V2RayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnV2RayKernelLog_p);
         connect(vCoreInstance, &V2RayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
         //
         auto kernelList = PluginHost->UsablePlugins();
@@ -159,7 +159,7 @@ namespace Qv2ray::core::handler
                     bool status = kernelObject->StartKernel();
                     connect(kernelObject.get(), &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p,
                             Qt::QueuedConnection);
-                    connect(kernelObject.get(), &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p,
+                    connect(kernelObject.get(), &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnPluginKernelLog_p,
                             Qt::QueuedConnection);
                     hasAllKernelStarted = hasAllKernelStarted && status;
                     if (!status)
@@ -204,7 +204,7 @@ namespace Qv2ray::core::handler
                 connect(theKernel, &PluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p,
                         Qt::QueuedConnection);
                 connect(theKernel, &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
-                connect(theKernel, &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnKernelLog_p, Qt::QueuedConnection);
+                connect(theKernel, &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnPluginKernelLog_p, Qt::QueuedConnection);
                 currentId = id;
                 //
                 QMap<KernelOptionFlags, QVariant> pluginSettings;
@@ -264,9 +264,27 @@ namespace Qv2ray::core::handler
         StopConnection();
     }
 
-    void KernelInstanceHandler::OnKernelLog_p(const QString &log)
+    void KernelInstanceHandler::emitLogMessage(const QString &l)
     {
-        emit OnKernelLogAvailable(currentId, log);
+        emit OnKernelLogAvailable(currentId, l);
+    }
+
+    void KernelInstanceHandler::OnPluginKernelLog_p(const QString &log)
+    {
+        if (pluginLogPrefixPadding <= 0)
+            for (const auto &protocol : activeKernels)
+                pluginLogPrefixPadding = std::max(pluginLogPrefixPadding, protocol.second.get()->GetKernelName().length());
+
+        const auto kernel = static_cast<PluginKernel *>(sender());
+        const auto name = kernel ? kernel->GetKernelName() : "UNKNOWN";
+        for (const auto &line : SplitLines(log))
+            emitLogMessage(QString("[%1] ").arg(name, pluginLogPrefixPadding) + line.trimmed());
+    }
+
+    void KernelInstanceHandler::OnV2RayKernelLog_p(const QString &log)
+    {
+        for (const auto &line : SplitLines(log))
+            emitLogMessage(line.trimmed());
     }
 
     void KernelInstanceHandler::StopConnection()
@@ -284,6 +302,7 @@ namespace Qv2ray::core::handler
                 LOG("Stopping plugin kernel: " + kernel);
                 kernelObject->StopKernel();
             }
+            pluginLogPrefixPadding = 0;
             emit OnDisconnected(currentId);
             PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnected });
         }
