@@ -52,27 +52,25 @@ const QString SayLastWords() noexcept
     msg << "------- BEGIN QV2RAY CRASH REPORT -------";
 #ifdef QV2RAY_HAS_BACKWARD
     {
+        const static QString SourceFormat = "    ---> %1:[%2:%3]";
         backward::StackTrace st;
         backward::TraceResolver resolver;
-        st.load_here();
+        st.load_here(64);
         resolver.load_stacktrace(st);
         //
         for (size_t i = 0; i < st.size(); i++)
         {
             const auto &trace = resolver.resolve(st[i]);
-            const auto line = QString("#%1: [%2] %3 in %4")
-                                  .arg(i)
-                                  .arg(reinterpret_cast<size_t>(trace.addr))
-                                  .arg(trace.object_function.c_str())
-                                  .arg(trace.object_filename.c_str());
+            msg << QString("#%1: %2").arg(i).arg(trace.object_function.c_str());
             if (!trace.source.filename.empty())
             {
-                const auto sourceFile = QString("%0:[%1:%2]").arg(trace.source.filename.c_str()).arg(trace.source.line).arg(trace.source.col);
-                msg << line + " --> " + sourceFile;
+                msg << SourceFormat.arg(trace.source.filename.c_str()).arg(trace.source.line).arg(trace.source.col);
             }
-            else
+            for (const auto &sourceX : trace.inliners)
             {
-                msg << line;
+                auto newLine = QString("    ---> [FUNC:%1] ").arg(sourceX.function.c_str());
+                newLine += "    " + SourceFormat.arg(sourceX.filename.c_str()).arg(sourceX.line).arg(sourceX.col);
+                msg << newLine;
             }
         }
     }
@@ -107,6 +105,7 @@ const QString SayLastWords() noexcept
             msg << NEWLINE;
         }
     }
+
     if (PluginHost)
     {
         msg << "Plugins:";
@@ -124,8 +123,12 @@ const QString SayLastWords() noexcept
         msg << NEWLINE;
     }
 
-    msg << "GlobalConfig:";
-    msg << JsonToString(GlobalConfig.toJson(), QJsonDocument::Compact);
+    if (QvCoreApplication)
+    {
+        msg << "GlobalConfig:";
+        msg << JsonToString(GlobalConfig.toJson(), QJsonDocument::Compact);
+    }
+
     msg << "------- END OF QV2RAY CRASH REPORT -------";
     return msg.join(NEWLINE);
 }
@@ -149,21 +152,20 @@ void signalHandler(int signum)
     }
     std::cout << "Collecting StackTrace" << std::endl;
     const auto msg = "Signal: " + QSTRN(signum) + NEWLINE + SayLastWords();
-    const auto filePath = QV2RAY_CONFIG_DIR + "bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
+    std::cout << msg.toStdString() << std::endl;
+
+    if (qApp && QvCoreApplication)
     {
-        std::cout << msg.toStdString() << std::endl;
         QDir().mkpath(QV2RAY_CONFIG_DIR + "bugreport/");
+        const auto filePath = QV2RAY_CONFIG_DIR + "bugreport/QvBugReport_" + QSTRN(system_clock::to_time_t(system_clock::now())) + ".stacktrace";
         StringToFile(msg, filePath);
         std::cout << "Backtrace saved in: " + filePath.toStdString() << std::endl;
-    }
-    if (qApp)
-    {
-        // qApp->clipboard()->setText(filePath);
-        QString message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +                      //
-                          QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE NEWLINE + //
-                          filePath;
+        const auto message = QObject::tr("Qv2ray has encountered an uncaught exception: ") + NEWLINE +              //
+                             QObject::tr("Please report a bug via Github with the file located here: ") + NEWLINE + //
+                             NEWLINE + filePath;
         BootstrapMessageBox("UNCAUGHT EXCEPTION", message);
     }
+
 #if defined Q_OS_WIN || defined QT_DEBUG
     exit(-99);
 #else
