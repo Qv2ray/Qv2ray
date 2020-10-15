@@ -81,6 +81,7 @@ namespace Qv2ray::core::handler
             if (meta.outboundTags.isEmpty())
             {
                 LOG("Trying to expand an empty chain.");
+                continue;
             }
 
             int nextInboundPort = meta.chainPortAllocation;
