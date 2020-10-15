@@ -59,7 +59,9 @@ namespace Qv2ray::base
         logStream << NEWLINE;
 #ifndef QT_DEBUG
         // We only process DEBUG log in Release mode
-        if (t == QV2RAY_LOG_DEBUG && !Qv2ray::QvCoreApplication->StartupArguments.debugLog)
+        // Prevent QvCoreApplication nullptr
+        // TODO: Move log function inside QvCoreApplication
+        if (t == QV2RAY_LOG_DEBUG && QvCoreApplication && !QvCoreApplication->StartupArguments.debugLog)
         {
             // Discard debug log in non-debug Qv2ray version with
             // no-debugLog mode.
