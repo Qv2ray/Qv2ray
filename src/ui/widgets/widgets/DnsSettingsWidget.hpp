@@ -37,6 +37,7 @@ class DnsSettingsWidget
     void on_staticResolvedDomainsTable_cellChanged(int row, int column);
 
   private:
+    void updateColorScheme();
     void ShowCurrentDnsServerDetails();
     void ProcessDnsPortEnabledState();
     QvMessageBusSlotDecl;

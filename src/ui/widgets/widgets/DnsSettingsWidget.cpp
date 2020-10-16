@@ -25,6 +25,15 @@ using Qv2ray::common::validation::IsValidIPAddress;
     CHECK_DISABLE_MOVE_BTN
 
 #define currentServerIndex serversListbox->currentRow()
+
+void DnsSettingsWidget::updateColorScheme()
+{
+    addServerBtn->setIcon(QICON_R("add"));
+    removeServerBtn->setIcon(QICON_R("minus"));
+    moveServerUpBtn->setIcon(QICON_R("arrow-up"));
+    moveServerDownBtn->setIcon(QICON_R("arrow-down"));
+}
+
 DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
@@ -45,7 +54,8 @@ DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)
     expectedIPsLayout->addWidget(ipListTxt);
     detailsSettingsGB->setCheckable(true);
     detailsSettingsGB->setChecked(false);
-    UPDATEUI
+    UPDATEUI;
+    updateColorScheme();
 }
 
 QvMessageBusSlotImpl(DnsSettingsWidget)
@@ -54,8 +64,12 @@ QvMessageBusSlotImpl(DnsSettingsWidget)
     {
         MBRetranslateDefaultImpl;
         case HIDE_WINDOWS:
-        case SHOW_WINDOWS:
-        case UPDATE_COLORSCHEME: break;
+        case SHOW_WINDOWS: break;
+        case UPDATE_COLORSCHEME:
+        {
+            updateColorScheme();
+            break;
+        }
     }
 }
 
