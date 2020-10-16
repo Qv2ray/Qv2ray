@@ -90,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
     addStateOptions("y", { [&] { return y(); }, [&](QJsonValue val) { move(x(), val.toInt()); } });
 
+#if 0
     const auto setSplitterSize = [&](QJsonValue val) { splitter->setSizes({ val.toArray()[0].toInt(), val.toArray()[1].toInt() }); };
     addStateOptions("splitterSizes", { [&] { return QJsonArray{ splitter->sizes()[0], splitter->sizes()[1] }; }, setSplitterSize });
 
@@ -97,6 +98,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     const auto setLogWidgetVisibility = [&](QJsonValue val) { masterLogBrowser->setVisible(val.toBool()); };
     addStateOptions("speedchart.visibility", { [&] { return speedChartHolderWidget->isVisible(); }, setSpeedWidgetVisibility });
     addStateOptions("log.visibility", { [&] { return masterLogBrowser->isVisible(); }, setLogWidgetVisibility });
+#endif
 
     setupUi(this);
     QvMessageBusConnect(MainWindow);
