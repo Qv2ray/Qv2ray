@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>BalancerWidget</name>
     <message>
@@ -27,6 +29,10 @@
     <message>
         <source>Please Select a Chain</source>
         <translation>请选择一条链</translation>
+    </message>
+    <message>
+        <source>There&apos;s an error in your connection.</source>
+        <translation>你的连接出了点问题。</translation>
     </message>
 </context>
 <context>
@@ -127,7 +133,9 @@
     </message>
     <message numerus="yes">
         <source>(Ignored %n complex config(s))</source>
-        <translation><numerusform>（忽略 %n 个复杂配置）</numerusform></translation>
+        <translation>
+            <numerusform>（忽略 %n 个复杂配置）</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -262,7 +270,7 @@
         <translation>解析 IP</translation>
     </message>
     <message>
-        <source>The current system's IP address is used to notify the server of the client's location when querying DNS. 
+        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
 
 It cannot be a private address.</source>
         <translation>当前系统的 IP 地址。用作在查询 DNS 时提示服务器客户端所在的位置。
@@ -273,7 +281,7 @@ It cannot be a private address.</source>
         <translation>(V2Ray 4.13+) 除 localhost 和 DoH Local 模式之外，DNS 的查询流量都会被当作从该入站标签进入的流量参与路由。</translation>
     </message>
     <message>
-        <source>Port for DNS server. Normally it's 53.
+        <source>Port for DNS server. Normally it&apos;s 53.
 This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>DNS 服务器端口。通常为 53。
 当使用 DoH 模式时，此项无效。</translation>
@@ -549,10 +557,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Destination Override</source>
         <translation>目标覆盖</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation>端口</translation>
     </message>
     <message>
         <source>Unknown inbound.</source>
@@ -892,11 +896,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message numerus="yes">
         <source>Removing Connection(s)</source>
-        <translation><numerusform>删除连接</numerusform></translation>
+        <translation>
+            <numerusform>删除连接</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation><numerusform>您确定要删除这些项目吗？</numerusform></translation>
+        <translation>
+            <numerusform>您确定要删除这些项目吗？</numerusform>
+        </translation>
     </message>
     <message>
         <source>Disconnected from: </source>
@@ -908,11 +916,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message numerus="yes">
         <source>Duplicating Connection(s)</source>
-        <translation><numerusform>复制连接</numerusform></translation>
+        <translation>
+            <numerusform>复制连接</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation><numerusform>您确定要复制这（些）连接吗？</numerusform></translation>
+        <translation>
+            <numerusform>您确定要复制这（些）连接吗？</numerusform>
+        </translation>
     </message>
     <message>
         <source> (Copy)</source>
@@ -1563,10 +1575,6 @@ Custom DNS Settings</source>
         <translation>无效的透明代理 IPv6 监听地址。</translation>
     </message>
     <message>
-        <source>tProxy is not supported on macOS and Windows</source>
-        <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
-    </message>
-    <message>
         <source>Note</source>
         <translation>注意</translation>
     </message>
@@ -1682,7 +1690,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
-This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
         <translation>您或许要将 V2Ray 的可执行文件错误地设置成 Qv2ray 本身了，这是非常不对的。
 然而，这样做并不会触发 Fork 炸弹，因为 Qv2ray 以单例模式工作。
@@ -1780,7 +1788,7 @@ If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are
     </message>
     <message>
         <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
-The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.<byte value="xd"/>
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation>您或许要将 V2Ray 的核心可执行文件错误地设置成 V2Ray 控制文件了，这是非常不对的。
 V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。确保你作出了正确的选择。
@@ -1796,7 +1804,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
         <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you've been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
+If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
 Output: <byte value="xd"/>
 <byte value="xd"/>
 </source>
@@ -1838,6 +1846,10 @@ Output: <byte value="xd"/>
         <source>Dokodemo Door Settings</source>
         <translation>任意门设置</translation>
     </message>
+    <message>
+        <source>Disable System Root Certificates</source>
+        <translation>禁用系统根证书</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1869,20 +1881,20 @@ Output: <byte value="xd"/>
         <translation>新版本信息: </translation>
     </message>
     <message>
-        <source>Qv2ray version: %1</source>
-        <translation>Qv2ray 版本: %1</translation>
-    </message>
-    <message>
-        <source>Qv2ray path: %1</source>
-        <translation>Qv2ray 路径: %1</translation>
-    </message>
-    <message>
         <source>Do you want to exit and launch that new version?</source>
         <translation>要退出当前版本并运行新版本吗？</translation>
     </message>
     <message>
         <source>New version detected</source>
         <translation>检测到新版</translation>
+    </message>
+    <message>
+        <source>Version: %1:%2</source>
+        <translation>版本：%1:%2</translation>
+    </message>
+    <message>
+        <source>Path: %1</source>
+        <translation>路径：%1</translation>
     </message>
 </context>
 <context>
@@ -2097,7 +2109,7 @@ Output: <byte value="xd"/>
         <translation>空白方案</translation>
     </message>
     <message>
-        <source>Import scheme '%1' made by '%2'? <byte value="xd"/>
+        <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
  Description: %3</source>
         <translation>要导入 &apos;%2&apos; 的方案 &apos;%1&apos; 吗？
 描述: %3</translation>
@@ -2603,10 +2615,6 @@ Output: <byte value="xd"/>
         <source>Username</source>
         <translation>用户名</translation>
     </message>
-    <message>
-        <source>Option</source>
-        <translation>选项</translation>
-    </message>
 </context>
 <context>
     <name>httpOutEditor</name>
@@ -2645,10 +2653,6 @@ Output: <byte value="xd"/>
         <translation>窗体</translation>
     </message>
     <message>
-        <source>Enable UDP</source>
-        <translation>启用 UDP</translation>
-    </message>
-    <message>
         <source>Enabled</source>
         <translation>已启用</translation>
     </message>
@@ -2675,6 +2679,10 @@ Output: <byte value="xd"/>
     <message>
         <source>Password</source>
         <translation>密码</translation>
+    </message>
+    <message>
+        <source>UDP</source>
+        <translation>UDP</translation>
     </message>
 </context>
 <context>

@@ -30,6 +30,10 @@
         <source>Please Select a Chain</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>There&apos;s an error in your connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChainOutboundWidget</name>
@@ -551,10 +555,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Destination Override</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1568,10 +1568,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>tProxy is not supported on macOS and Windows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Note</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1831,6 +1827,10 @@ Output: <byte value="xd"/>
         <source>Dokodemo Door Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Disable System Root Certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1862,19 +1862,19 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Qv2ray version: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qv2ray path: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do you want to exit and launch that new version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>New version detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version: %1:%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2595,10 +2595,6 @@ Output: <byte value="xd"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Option</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>httpOutEditor</name>
@@ -2637,10 +2633,6 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable UDP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2666,6 +2658,10 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
