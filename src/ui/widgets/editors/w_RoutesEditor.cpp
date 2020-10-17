@@ -129,6 +129,11 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog("Ro
     {
         importGroupBtn->addItem(GetDisplayName(group), group.toString());
     }
+
+#ifndef QT_DEBUG
+    debugPainterCB->setVisible(false);
+#endif
+
     isLoading = false;
 }
 
@@ -501,9 +506,11 @@ void RouteEditor::on_addChainBtn_clicked()
 
 void RouteEditor::on_debugPainterCB_clicked(bool checked)
 {
+#ifdef QT_DEBUG
     QtNodes::ConnectionPainter::IsDebuggingEnabled = checked;
     ruleWidget->getScene()->update();
     chainWidget->getScene()->update();
+#endif
 }
 
 void RouteEditor::on_importOutboundBtn_clicked()
