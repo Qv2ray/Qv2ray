@@ -47,6 +47,8 @@ namespace
     constexpr auto LightConnectionStyle = R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
                                           "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
                                           "PointDiameter": 10.0,"UseDataDefinedColors": false}})";
+    constexpr auto IMPORT_ALL_CONNECTIONS_FAKE_ID = "__ALL_CONNECTIONS__";
+    constexpr auto IMPORT_ALL_CONNECTIONS_SEPARATOR = "_";
 
 } // namespace
 
@@ -422,11 +424,57 @@ void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1
 
 void RouteEditor::on_importExistingBtn_clicked()
 {
-    const auto connId = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
-    const auto root = ConnectionManager->GetConnectionRoot(connId);
-    auto outbound = OUTBOUND(root["outbounds"].toArray()[0].toObject());
-    outbound["tag"] = GetDisplayName(connId);
-    auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(outbound));
+    const auto ImportConnection = [this](const ConnectionId &_id) {
+        const auto root = ConnectionManager->GetConnectionRoot(_id);
+        auto outbound = OUTBOUND(root["outbounds"].toArray()[0].toObject());
+        outbound["tag"] = GetDisplayName(_id);
+        auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(outbound));
+    };
+
+    const auto cid = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
+    if (cid.toString() == IMPORT_ALL_CONNECTIONS_SEPARATOR)
+        return;
+    if (cid.toString() == IMPORT_ALL_CONNECTIONS_FAKE_ID)
+    {
+        const auto group = GroupId{ importGroupBtn->currentData(Qt::UserRole).toString() };
+        if (QvMessageBoxAsk(this, tr("Importing All Connections"), tr("Do you want to import all the connections?")) != Yes)
+            return;
+        for (const auto &connId : ConnectionManager->Connections(group))
+        {
+            ImportConnection(connId);
+        }
+        return;
+    }
+    else
+    {
+        ImportConnection(cid);
+    }
+}
+
+void RouteEditor::on_linkExistingBtn_clicked()
+{
+    const auto ImportConnection = [this](const ConnectionId &_id) {
+        auto _ = nodeDispatcher->CreateOutbound(make_external_outbound(_id, GetDisplayName(_id)));
+    };
+
+    const auto cid = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
+    if (cid.toString() == IMPORT_ALL_CONNECTIONS_SEPARATOR)
+        return;
+    if (cid.toString() == IMPORT_ALL_CONNECTIONS_FAKE_ID)
+    {
+        const auto group = GroupId{ importGroupBtn->currentData(Qt::UserRole).toString() };
+        if (QvMessageBoxAsk(this, tr("Importing All Connections"), tr("Do you want to import all the connections?")) != Yes)
+            return;
+        for (const auto &connId : ConnectionManager->Connections(group))
+        {
+            ImportConnection(connId);
+        }
+        return;
+    }
+    else
+    {
+        ImportConnection(cid);
+    }
 }
 
 void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
@@ -437,6 +485,8 @@ void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
     {
         importConnBtn->addItem(GetDisplayName(connId), connId.toString());
     }
+    importConnBtn->addItem("————————————————", IMPORT_ALL_CONNECTIONS_SEPARATOR);
+    importConnBtn->addItem(tr("(All Connections)"), IMPORT_ALL_CONNECTIONS_FAKE_ID);
 }
 
 void RouteEditor::on_addBalancerBtn_clicked()
@@ -451,17 +501,9 @@ void RouteEditor::on_addChainBtn_clicked()
 
 void RouteEditor::on_debugPainterCB_clicked(bool checked)
 {
-#ifdef QT_DEBUG
     QtNodes::ConnectionPainter::IsDebuggingEnabled = checked;
     ruleWidget->getScene()->update();
     chainWidget->getScene()->update();
-#endif
-}
-
-void RouteEditor::on_linkExistingBtn_clicked()
-{
-    const auto cid = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
-    auto _ = nodeDispatcher->CreateOutbound(make_external_outbound(cid, GetDisplayName(cid)));
 }
 
 void RouteEditor::on_importOutboundBtn_clicked()
@@ -473,14 +515,14 @@ void RouteEditor::on_importOutboundBtn_clicked()
 
     for (auto i = 0; i < configs.count(); i++)
     {
-        auto conf = configs.values()[i];
-        auto name = configs.key(conf, "");
+        const auto conf = configs.values()[i];
+        const auto name = configs.key(conf, "");
 
         if (name.isEmpty())
             continue;
 
         // conf is rootObject, needs to unwrap it.
-        auto confList = conf["outbounds"].toArray();
+        const auto confList = conf["outbounds"].toArray();
 
         for (int i = 0; i < confList.count(); i++)
         {
