@@ -9,8 +9,8 @@ class QvTestApplication
 {
   public:
     explicit QvTestApplication() : QCoreApplication(fakeArgc, fakeArgv), Qv2rayApplicationInterface(){};
-    virtual void MessageBoxWarn(QWidget *, const QString &, const QString &, MessageOpt) override{};
-    virtual void MessageBoxInfo(QWidget *, const QString &, const QString &, MessageOpt) override{};
+    virtual void MessageBoxWarn(QWidget *, const QString &, const QString &) override{};
+    virtual void MessageBoxInfo(QWidget *, const QString &, const QString &) override{};
     virtual MessageOpt MessageBoxAsk(QWidget *, const QString &, const QString &, const QList<MessageOpt> &) override
     {
         return {};

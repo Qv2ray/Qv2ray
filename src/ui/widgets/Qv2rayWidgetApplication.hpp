@@ -16,8 +16,8 @@ namespace Qv2ray
         QJsonObject UIStates;
 
       public:
-        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override;
-        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override;
+        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text) override;
+        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text) override;
         MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) override;
         void ShowTrayMessage(const QString &m, const QIcon &icon, int msecs = 10000);
         void ShowTrayMessage(const QString &m, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int msecs = 10000);

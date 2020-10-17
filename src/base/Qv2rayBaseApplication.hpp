@@ -66,8 +66,8 @@ namespace Qv2ray
       public:
         virtual QStringList GetAssetsPaths(const QString &dirName) const final;
         //
-        virtual void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button) = 0;
-        virtual void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button) = 0;
+        virtual void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text) = 0;
+        virtual void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text) = 0;
         virtual MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) = 0;
         virtual void OpenURL(const QString &url) = 0;
     };

@@ -178,14 +178,14 @@ void Qv2rayWidgetApplication::OpenURL(const QString &url)
     QDesktopServices::openUrl(url);
 }
 
-void Qv2rayWidgetApplication::MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button)
+void Qv2rayWidgetApplication::MessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
 {
-    QMessageBox::warning(parent, title, text, MessageBoxButtonMap[button]);
+    QMessageBox::warning(parent, title, text, QMessageBox::Ok);
 }
 
-void Qv2rayWidgetApplication::MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button)
+void Qv2rayWidgetApplication::MessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
 {
-    QMessageBox::information(parent, title, text, MessageBoxButtonMap[button]);
+    QMessageBox::information(parent, title, text, QMessageBox::Ok);
 }
 
 MessageOpt Qv2rayWidgetApplication::MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons)
