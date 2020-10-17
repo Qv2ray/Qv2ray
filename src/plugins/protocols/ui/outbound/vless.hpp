@@ -55,7 +55,7 @@ class VlessOutboundEditor
     VLESSServerObject vless;
 
   private slots:
-    void on_flowCombo_currentIndexChanged(const QString &arg1);
+    void on_flowCombo_currentTextChanged(const QString &arg1);
     void on_vLessIDTxt_textEdited(const QString &arg1);
     void on_vLessSecurityCombo_currentTextChanged(const QString &arg1);
 };

@@ -42,8 +42,9 @@ void VlessOutboundEditor::on_vLessSecurityCombo_currentTextChanged(const QString
     vless.users.front().encryption = arg1;
 }
 
-void VlessOutboundEditor::on_flowCombo_currentIndexChanged(const QString &arg1)
+void VlessOutboundEditor::on_flowCombo_currentTextChanged(const QString &arg1)
 {
+
     ENSURE_USERS
     PLUGIN_EDITOR_LOADING_GUARD
     vless.users.front().flow = arg1;
