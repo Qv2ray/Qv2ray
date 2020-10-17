@@ -129,37 +129,32 @@ namespace Qv2ray::common
     // backported from QvPlugin-SSR.
     QString SafeBase64Encode(const QString &string, bool trim)
     {
-        QString base64 = string.toUtf8().toBase64();
-        if (trim)
+        const auto base64 = QString(string.toUtf8().toBase64()).replace(QChar('+'), QChar('-')).replace(QChar('/'), QChar('_'));
+        if (!trim)
         {
-            auto tmp = base64.replace(QChar('+'), QChar('-')).replace(QChar('/'), QChar('_'));
-            auto crbedin = tmp.crbegin();
-            auto idx = tmp.length();
-            while (crbedin != tmp.crend() && (*crbedin) == '=')
-                idx -= 1, crbedin++;
-            return idx != tmp.length() ? tmp.remove(idx, tmp.length() - idx) : tmp;
+            return base64;
         }
-        else
-        {
-            return base64.replace(QChar('+'), QChar('-')).replace(QChar('/'), QChar('_'));
-        }
+        auto tmp = base64;
+        auto crbedin = tmp.crbegin();
+        auto idx = tmp.length();
+        while (crbedin != tmp.crend() && (*crbedin) == '=')
+            idx -= 1, crbedin++;
+        return idx != tmp.length() ? tmp.remove(idx, tmp.length() - idx) : tmp;
     }
 
     QString Base64Encode(const QString &string)
     {
-        QByteArray ba = string.toUtf8();
-        return ba.toBase64();
+        return string.toUtf8().toBase64();
     }
 
     QString Base64Decode(const QString &string)
     {
-        QByteArray ba = string.toUtf8();
-        return QString(QByteArray::fromBase64(ba));
+        return QByteArray::fromBase64(string.toUtf8());
     }
 
     QStringList SplitLines(const QString &_string)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
         return _string.split(QRegularExpression("[\r\n]"), Qt::SkipEmptyParts);
 #elif QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         return _string.split(QRegExp("[\r\n]"), Qt::SkipEmptyParts);
@@ -180,12 +175,12 @@ namespace Qv2ray::common
 
     QString FormatBytes(const int64_t b)
     {
+        const static char *sizes[5] = { "B", "KB", "MB", "GB", "TB" };
         auto _bytes = b;
         char str[64];
-        const char *sizes[5] = { "B", "KB", "MB", "GB", "TB" };
         int i;
-        double dblByte = _bytes;
 
+        double dblByte = _bytes;
         for (i = 0; i < 5 && _bytes >= 1000; i++, _bytes /= 1000)
             dblByte = _bytes / 1000.0;
 
@@ -195,16 +190,16 @@ namespace Qv2ray::common
 
     bool IsValidFileName(const QString &fileName)
     {
-        QString name = fileName;
-        return name == RemoveInvalidFileName(fileName);
+        return fileName == RemoveInvalidFileName(fileName);
     }
 
     QString RemoveInvalidFileName(const QString &fileName)
     {
-        std::string _name = fileName.toStdString();
-        std::replace_if(
-            _name.begin(), _name.end(), [](char c) { return std::string::npos != std::string(R"("/\?%&^*;:|><)").find(c); }, '_');
-        return QString::fromStdString(_name);
+        const static QString pattern = R"("/\?%&^*;:|><)";
+        const static auto find_func = [](QChar c) { return pattern.contains(c); };
+        auto s = fileName;
+        std::replace_if(s.begin(), s.end(), find_func, '_');
+        return s;
     }
 
     /// This returns a file name without extensions.
@@ -236,12 +231,12 @@ namespace Qv2ray::common
 
     void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
     {
-        QvCoreApplication->MessageBoxWarn(parent, title, text, MessageOpt::OK);
+        QvCoreApplication->MessageBoxWarn(parent, title, text);
     }
 
     void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
     {
-        QvCoreApplication->MessageBoxInfo(parent, title, text, MessageOpt::OK);
+        QvCoreApplication->MessageBoxInfo(parent, title, text);
     }
     MessageOpt QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &options)
     {
