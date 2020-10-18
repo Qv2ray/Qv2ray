@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
+    <width>1215</width>
     <height>740</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0">
    <item row="0" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,1,0">
      <item>
       <widget class="QGroupBox" name="groupBox_2">
        <property name="title">
@@ -76,6 +76,16 @@
             </property>
             <property name="text">
              <string>Import</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="popupMode">
+             <enum>QToolButton::MenuButtonPopup</enum>
             </property>
            </widget>
           </item>
@@ -152,6 +162,29 @@
            </widget>
           </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_4">
+       <property name="title">
+        <string>Connection Template</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>Inbound</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>Outbound</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -260,8 +293,15 @@
        <string>DNS Settings</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QWidget" name="dnsEditorUIWidget" native="true"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>Override global DNS settings</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -272,7 +312,7 @@
      <item>
       <widget class="QGroupBox" name="horizontalGroupBox">
        <property name="title">
-        <string>Selected Inbound / Outbound Info</string>
+        <string>Inbound / Outbound Info</string>
        </property>
        <layout class="QFormLayout" name="formLayout_2">
         <item row="0" column="0">
@@ -337,7 +377,7 @@
      <item>
       <widget class="QGroupBox" name="groupBox_3">
        <property name="title">
-        <string>Rules Order</string>
+        <string>Rules Ordering</string>
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <item row="1" column="0">
