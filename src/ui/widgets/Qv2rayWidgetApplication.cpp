@@ -69,6 +69,7 @@ void Qv2rayWidgetApplication::onMessageReceived(quint32 clientId, QByteArray _ms
         {
             StartupArguments._qvNewVersionPath = newPath;
             SetExitReason(EXIT_NEW_VERSION_TRIGGER);
+            QCoreApplication::quit();
         }
     }
 
