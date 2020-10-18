@@ -235,9 +235,9 @@ namespace Qv2ray::base::objects
             bool allowInsecure = false;
             bool allowInsecureCiphers = false;
             bool disableSessionResumption = true;
-            QList<QString> alpn = { "h2", "http/1.1" };
-            QList<CertificateObject> certificates;
             bool disableSystemRoot = false;
+            QList<QString> alpn = { "http/1.1" };
+            QList<CertificateObject> certificates;
             JSONSTRUCT_REGISTER(TLSObject,
                                 F(serverName, allowInsecure, allowInsecureCiphers, disableSessionResumption, alpn, certificates, disableSystemRoot))
         };
@@ -249,9 +249,9 @@ namespace Qv2ray::base::objects
             bool allowInsecure = false;
             bool allowInsecureCiphers = false;
             bool disableSessionResumption = true;
-            QList<QString> alpn;
+            bool disableSystemRoot = false;
+            QList<QString> alpn = { "http/1.1" };
             QList<CertificateObject> certificates;
-            bool disableSystemRoot;
             JSONSTRUCT_REGISTER(XTLSObject,
                                 F(serverName, allowInsecure, allowInsecureCiphers, disableSessionResumption, alpn, certificates, disableSystemRoot))
         };
