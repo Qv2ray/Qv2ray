@@ -94,7 +94,6 @@ jobs:
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages
         if: matrix.platform == 'macos-latest'
         run: |
-          wget https://raw.githubusercontent.com/Homebrew/homebrew-core/75db8577f9738d1e9dd0ced7bf1448d793554c6a/Formula/abseil.rb -O /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/abseil.rb
           brew install protobuf grpc ninja pkg-config openssl
       # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Setup Ninja
