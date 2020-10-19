@@ -1,3 +1,27 @@
+qv2ray (2.7.0~alpha3-1) unstable; urgency=medium
+
+  * New upstream release 2.7.0-alpha3
+    * add: added connection template settings entry
+    * fix: quit after a new version has been detected
+    * update backend.cmake
+    * 😢
+    * fallback to pkgconfig if gRPC doesn't build by cmake
+    * update build-qv2ray-cmake.yml
+    * use find_package method to find gRPC for macOS
+    * fix: remove h2 in ALPN
+    * fix: fixed build
+    * add: added importing all connections, closes #1003
+    * fix: fixed build and cleanup
+    * update: update Qv2rayApplicationInterface interface
+    * fix: use TextChanged instead of IndexChanged
+    * rebuild: trigger rebuild
+    * version: bumped version suffix
+    * updating translations!
+    * fix: fixed disableSystemRoot option
+    * fix: added updateColorScheme for DNSSettingsWidget
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Mon, 19 Oct 2020 10:08:20 +0800
+
 qv2ray (2.7.0~alpha2-1) unstable; urgency=medium
 
   * New upstream release 2.7.0-alpha2
