@@ -1820,6 +1820,36 @@ Custom DNS Settings</string>
           </spacer>
          </item>
          <item>
+          <widget class="QFrame" name="frame_2">
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_43">
+              <property name="text">
+               <string>Config Directory</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="configdirLabel">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="openConfigDirCB">
+              <property name="text">
+               <string>Open Directory</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
           <widget class="QGroupBox" name="updateSettingsGroupBox">
            <layout class="QGridLayout" name="gridLayout_8">
             <item row="1" column="0">
@@ -1944,13 +1974,26 @@ Custom DNS Settings</string>
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0">
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_56">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_69">
              <property name="text">
-              <string>Plugin Interface</string>
+              <string>Build Info</string>
              </property>
              <property name="textFormat">
               <enum>Qt::PlainText</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="qvBuildInfo">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::PlainText</enum>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
              </property>
             </widget>
            </item>
@@ -1968,57 +2011,15 @@ Custom DNS Settings</string>
              <property name="textFormat">
               <enum>Qt::RichText</enum>
              </property>
-             <property name="wordWrap">
-              <bool>false</bool>
-             </property>
              <property name="openExternalLinks">
               <bool>true</bool>
              </property>
-             <property name="textInteractionFlags">
-              <set>Qt::LinksAccessibleByMouse</set>
-             </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_70">
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_27">
              <property name="text">
-              <string>Extra Build Info</string>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::PlainText</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="qvBuildExInfo">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::PlainText</enum>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="qvBuildInfo">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::PlainText</enum>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="qvPluginInterfaceVersionLabel">
-             <property name="text">
-              <string/>
+              <string>Official Repo</string>
              </property>
              <property name="textFormat">
               <enum>Qt::PlainText</enum>
@@ -2052,6 +2053,16 @@ Custom DNS Settings</string>
              </property>
             </widget>
            </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_70">
+             <property name="text">
+              <string>Extra Build Info</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::PlainText</enum>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_26">
              <property name="text">
@@ -2062,23 +2073,36 @@ Custom DNS Settings</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_69">
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_56">
              <property name="text">
-              <string>Build Info</string>
+              <string>Plugin Interface</string>
              </property>
              <property name="textFormat">
               <enum>Qt::PlainText</enum>
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_27">
+           <item row="3" column="1">
+            <widget class="QLabel" name="qvPluginInterfaceVersionLabel">
              <property name="text">
-              <string>Official Repo</string>
+              <string/>
              </property>
              <property name="textFormat">
               <enum>Qt::PlainText</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="qvBuildExInfo">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::PlainText</enum>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
              </property>
             </widget>
            </item>

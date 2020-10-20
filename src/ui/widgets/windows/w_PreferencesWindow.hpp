@@ -126,6 +126,7 @@ class PreferencesWindow
     void on_useOldShareLinkFormatCB_stateChanged(int arg1);
     void on_bypassPrivateCb_clicked(bool checked);
     void on_disableSystemRootCB_stateChanged(int arg1);
+    void on_openConfigDirCB_clicked();
 
   private:
     //

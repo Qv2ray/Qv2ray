@@ -56,6 +56,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     QvMessageBusConnect(PreferencesWindow);
     textBrowser->setHtml(StringFromFile(":/assets/credit.html"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    configdirLabel->setText(QV2RAY_CONFIG_DIR);
 
     // We add locales
     auto langs = Qv2rayTranslator->GetAvailableLanguages();
@@ -1107,4 +1108,9 @@ void PreferencesWindow::on_disableSystemRootCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.advancedConfig.disableSystemRoot = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_openConfigDirCB_clicked()
+{
+    QvCoreApplication->OpenURL(QV2RAY_CONFIG_DIR);
 }
