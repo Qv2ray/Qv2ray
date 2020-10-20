@@ -283,8 +283,8 @@ namespace Qv2ray::core::handler
 
     void KernelInstanceHandler::OnV2RayKernelLog_p(const QString &log)
     {
-        for (const auto &line : SplitLines(log))
-            emitLogMessage(line.trimmed());
+        for (auto line : SplitLines(log))
+            emitLogMessage(line.replace(QRegularExpression{ "> v2ray\\.com\\/" }, "\r\n    > v2ray.com/").trimmed());
     }
 
     void KernelInstanceHandler::StopConnection()

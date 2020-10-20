@@ -30,7 +30,7 @@ namespace Qv2ray::ui
             ipHostFormat.setForeground(Qt::black);
             ipHostFormat.setFontWeight(QFont::Bold);
             warningFormat.setForeground(Qt::white);
-            warningFormat.setBackground(QColor(255, 128, 30));
+            warningFormat.setBackground(QColor(255, 160, 15));
         }
 
         //
@@ -89,7 +89,7 @@ namespace Qv2ray::ui
         highlightingRules.append(rule);
         //
         v2rayComponentFormat.setFontWeight(QFont::Bold);
-        v2rayComponentFormat.setForeground(darkMode ? Qt::darkGreen : Qt::darkYellow);
+        v2rayComponentFormat.setForeground(darkMode ? QColor(10, 180, 0) : Qt::darkYellow);
         rule.pattern = QRegularExpression(" v2ray.com(/(\\w*))*: ");
         rule.format = v2rayComponentFormat;
         highlightingRules.append(rule);
