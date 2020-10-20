@@ -114,6 +114,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/${{ steps.get_package.outputs.NAME }}
-          asset_name: ${{ steps.get_package.outputs.NAME }}
+          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.Windows-${{ matrix.arch }}.exe
           tag: ${{ github.ref }}
           overwrite: true
