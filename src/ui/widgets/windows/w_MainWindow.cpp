@@ -85,6 +85,7 @@ void MainWindow::OnRecentConnectionsMenuReadyToShow()
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("MainWindow")
 {
+    setupUi(this);
     addStateOptions("width", { [&] { return width(); }, [&](QJsonValue val) { resize(val.toInt(), size().height()); } });
     addStateOptions("height", { [&] { return height(); }, [&](QJsonValue val) { resize(size().width(), val.toInt()); } });
     addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
@@ -98,9 +99,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     const auto setLogWidgetVisibility = [&](QJsonValue val) { masterLogBrowser->setVisible(val.toBool()); };
     addStateOptions("speedchart.visibility", { [&] { return speedChartHolderWidget->isVisible(); }, setSpeedWidgetVisibility });
     addStateOptions("log.visibility", { [&] { return masterLogBrowser->isVisible(); }, setLogWidgetVisibility });
+#else
+    constexpr auto sizeRatioA = 0.382;
+    constexpr auto sizeRatioB = 1 - sizeRatioA;
+    splitter->setSizes({ (int) (width() * sizeRatioA), (int) (width() * sizeRatioB) });
 #endif
 
-    setupUi(this);
     QvMessageBusConnect(MainWindow);
     //
     infoWidget = new ConnectionInfoWidget(this);
