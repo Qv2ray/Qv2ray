@@ -3,6 +3,8 @@
 #include "base/models/QvConfigIdentifier.hpp"
 #include "base/models/QvSafeType.hpp"
 
+#define CurrentStatAPIType (GlobalConfig.uiConfig.graphConfig.useOutboundStats ? API_OUTBOUND_PROXY : API_INBOUND)
+
 namespace Qv2ray::core
 {
     const inline GroupId DefaultGroupId{ "000000000000" };

@@ -68,14 +68,14 @@ namespace Qv2ray::core::handler
         }
         //
         kernelHandler = new KernelInstanceHandler(this);
-        connect(kernelHandler, &KernelInstanceHandler::OnCrashed, this, &QvConfigHandler::OnKernelCrashed_p);
-        connect(kernelHandler, &KernelInstanceHandler::OnStatsDataAvailable, this, &QvConfigHandler::OnStatsDataArrived_p);
+        connect(kernelHandler, &KernelInstanceHandler::OnCrashed, this, &QvConfigHandler::p_OnKernelCrashed);
+        connect(kernelHandler, &KernelInstanceHandler::OnStatsDataAvailable, this, &QvConfigHandler::p_OnStatsDataArrived);
         connect(kernelHandler, &KernelInstanceHandler::OnKernelLogAvailable, this, &QvConfigHandler::OnKernelLogAvailable);
         connect(kernelHandler, &KernelInstanceHandler::OnConnected, this, &QvConfigHandler::OnConnected);
         connect(kernelHandler, &KernelInstanceHandler::OnDisconnected, this, &QvConfigHandler::OnDisconnected);
         //
         pingHelper = new LatencyTestHost(5, this);
-        connect(pingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
+        connect(pingHelper, &LatencyTestHost::OnLatencyTestCompleted, this, &QvConfigHandler::p_OnLatencyDataArrived);
         //
         // Save per 1 hour.
         saveTimerId = startTimer(1 * 60 * 60 * 1000);
@@ -345,7 +345,7 @@ namespace Qv2ray::core::handler
         SaveConnectionConfig();
     }
 
-    void QvConfigHandler::OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage)
+    void QvConfigHandler::p_OnKernelCrashed(const ConnectionGroupPair &id, const QString &errMessage)
     {
         LOG("Kernel crashed: " + errMessage);
         emit OnDisconnected(id);
@@ -366,7 +366,7 @@ namespace Qv2ray::core::handler
         return connectionRootCache.value(id);
     }
 
-    void QvConfigHandler::OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &result)
+    void QvConfigHandler::p_OnLatencyDataArrived(const ConnectionId &id, const LatencyTestResult &result)
     {
         CheckValidId(id, nothing);
         connections[id].latency = result.avg;
@@ -495,7 +495,7 @@ namespace Qv2ray::core::handler
         if (!groups[id].isSubscription)
             return;
         asyncRequestHelper->AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) {
-            CHUpdateSubscription_p(id, d);
+            p_CHUpdateSubscription(id, d);
             emit OnSubscriptionAsyncUpdateFinished(id);
         });
     }
@@ -505,10 +505,10 @@ namespace Qv2ray::core::handler
         if (!groups[id].isSubscription)
             return false;
         const auto data = NetworkRequestHelper::HttpGet(groups[id].subscriptionOption.address);
-        return CHUpdateSubscription_p(id, data);
+        return p_CHUpdateSubscription(id, data);
     }
 
-    bool QvConfigHandler::CHUpdateSubscription_p(const GroupId &id, const QByteArray &data)
+    bool QvConfigHandler::p_CHUpdateSubscription(const GroupId &id, const QByteArray &data)
     {
         CheckValidId(id, false);
         //
@@ -721,7 +721,7 @@ namespace Qv2ray::core::handler
         return hasErrorOccured;
     }
 
-    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data)
+    void QvConfigHandler::p_OnStatsDataArrived(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data)
     {
         if (id.isEmpty())
             return;

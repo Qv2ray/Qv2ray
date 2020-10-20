@@ -157,8 +157,6 @@ namespace Qv2ray::base
         API_OUTBOUND_BLACKHOLE = 3,
     };
 
-#define CurrentStatAPIType (GlobalConfig.uiConfig.graphConfig.useOutboundStats ? API_OUTBOUND_PROXY : API_INBOUND)
-
     typedef long qvspeed;
     typedef quint64 qvdata;
     typedef QPair<qvspeed, qvspeed> QvStatsSpeed;
@@ -192,9 +190,7 @@ namespace Qv2ray::base
         ConnectionStatsEntryObject &operator[](StatisticsType i)
         {
             while (entries.count() <= i)
-            {
                 entries.append(ConnectionStatsEntryObject{});
-            }
             return entries[i];
         }
         QJsonValue toJson() const
@@ -203,7 +199,6 @@ namespace Qv2ray::base
         }
         void loadJson(const QJsonValue &d)
         {
-            entries.clear();
             JsonStructHelper::Deserialize(entries, d);
         }
         void Clear()
@@ -239,7 +234,6 @@ namespace Qv2ray::base
               {};
         JSONSTRUCT_REGISTER(ProtocolSettingsInfoObject, F(protocol, address, port))
     };
-    //
 
     template<typename T>
     inline uint qHash(IDType<T> key)

@@ -161,15 +161,15 @@ namespace Qv2ray::core::handler
         void OnKernelCrashed(const ConnectionGroupPair &id, const QString &errMessage);
         //
       private slots:
-        void OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage);
-        void OnLatencyDataArrived_p(const ConnectionId &id, const LatencyTestResult &data);
-        void OnStatsDataArrived_p(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data);
+        void p_OnKernelCrashed(const ConnectionGroupPair &id, const QString &errMessage);
+        void p_OnLatencyDataArrived(const ConnectionId &id, const LatencyTestResult &data);
+        void p_OnStatsDataArrived(const ConnectionGroupPair &id, const QMap<StatisticsType, QvStatsSpeed> &data);
 
       protected:
         void timerEvent(QTimerEvent *event) override;
 
       private:
-        bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &data);
+        bool p_CHUpdateSubscription(const GroupId &id, const QByteArray &data);
 
       private:
         int saveTimerId;
