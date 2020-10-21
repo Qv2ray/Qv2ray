@@ -1,14 +1,20 @@
-#ifdef QV2RAY_HAS_BACKWARD
-    #include "3rdparty/backward-cpp/backward.hpp"
+#include <QtGlobal>
+
+// Backtrace Handler
+#ifndef Q_OS_WIN
+    #ifdef QV2RAY_HAS_BACKWARD
+        #include "3rdparty/backward-cpp/backward.hpp"
+    #endif
 #endif
+
 #ifdef QV2RAY_CLI
     #include "ui/cli/Qv2rayCliApplication.hpp"
-#else
-    #include <QMessageBox>
 #endif
+
 #ifdef QV2RAY_GUI_QWIDGETS
     #include "ui/widgets/Qv2rayWidgetApplication.hpp"
 #endif
+
 #ifdef QV2RAY_GUI_QML
     #include "ui/qml/Qv2rayQMLApplication.hpp"
 #endif
@@ -19,12 +25,13 @@
 
 #ifndef Q_OS_WIN
     #include <unistd.h>
+#else
+    #include <Windows.h>
+    //
+    #include <DbgHelp.h>
 #endif
 
 #define QV_MODULE_NAME "Init"
-
-#define EXITCODE_ERROR 1;
-#define EXITCODE_NORMAL 0
 
 int globalArgc;
 char **globalArgv;
@@ -50,8 +57,10 @@ const QString SayLastWords() noexcept
 {
     QStringList msg;
     msg << "------- BEGIN QV2RAY CRASH REPORT -------";
-#ifdef QV2RAY_HAS_BACKWARD
+
     {
+#ifndef Q_OS_WIN
+    #ifdef QV2RAY_HAS_BACKWARD
         const static QString SourceFormat = "    ---> %1:[%2:%3]";
         backward::StackTrace st;
         backward::TraceResolver resolver;
@@ -73,8 +82,35 @@ const QString SayLastWords() noexcept
                 msg << newLine;
             }
         }
-    }
+    #endif
+#else
+        void *stack[1024];
+        HANDLE process = GetCurrentProcess();
+        SymInitialize(process, NULL, TRUE);
+        SymSetOptions(SYMOPT_LOAD_ANYTHING);
+        WORD numberOfFrames = CaptureStackBackTrace(0, 1024, stack, NULL);
+        SYMBOL_INFO *symbol = (SYMBOL_INFO *) malloc(sizeof(SYMBOL_INFO) + (512 - 1) * sizeof(TCHAR));
+        symbol->MaxNameLen = 512;
+        symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+        DWORD displacement;
+        IMAGEHLP_LINE64 *line = (IMAGEHLP_LINE64 *) malloc(sizeof(IMAGEHLP_LINE64));
+        line->SizeOfStruct = sizeof(IMAGEHLP_LINE64);
+        //
+        for (int i = 0; i < numberOfFrames; i++)
+        {
+            const auto address = (DWORD64) stack[i];
+            SymFromAddr(process, address, NULL, symbol);
+            if (SymGetLineFromAddr64(process, address, &displacement, line))
+            {
+                msg << QString("[%1]: %2 (%3:%4)").arg(symbol->Address).arg(symbol->Name).arg(line->FileName).arg(line->LineNumber);
+            }
+            else
+            {
+                msg << QString("[%1]: %2 SymGetLineFromAddr64[%3]").arg(symbol->Address).arg(symbol->Name).arg(GetLastError());
+            }
+        }
 #endif
+    }
 
     if (KernelInstance)
     {
@@ -199,13 +235,15 @@ int main(int argc, char *argv[])
     // This line must be called before any other ones, since we are using these
     // values to identify instances.
     QCoreApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
+
 #ifdef QT_DEBUG
     QCoreApplication::setApplicationName("qv2ray_debug");
 #else
     QCoreApplication::setApplicationName("qv2ray");
-    #ifdef QV2RAY_GUI
+#endif
+
+#ifdef QV2RAY_GUI
     QApplication::setApplicationDisplayName("Qv2ray");
-    #endif
 #endif
 
 #ifdef QT_DEBUG
