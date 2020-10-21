@@ -74,7 +74,7 @@ namespace Qv2ray::ui
         };
         QVector<HighlightingRule> highlightingRules;
 
-        QTextCharFormat keywordFormat;
+        QTextCharFormat tcpudpFormat;
         QTextCharFormat dateFormat;
         QTextCharFormat acceptedFormat;
         QTextCharFormat rejectedFormat;
