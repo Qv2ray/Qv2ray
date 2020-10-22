@@ -5,6 +5,8 @@
 #include "ui/widgets/node/widgets/ChainWidget.hpp"
 #include "ui/widgets/node/widgets/InboundOutboundWidget.hpp"
 
+#define QV_MODULE_NAME "Node::OutboundNodeModel"
+
 OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::shared_ptr<node_data_t> data) : NodeDataModel()
 {
     dataptr = data;
@@ -36,16 +38,36 @@ OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher
     widget->setAttribute(Qt::WA_TranslucentBackground);
 }
 
-void OutboundNodeModel::inputConnectionCreated(const QtNodes::Connection &){};
+void OutboundNodeModel::inputConnectionCreated(const QtNodes::Connection &c){};
 void OutboundNodeModel::inputConnectionDeleted(const QtNodes::Connection &){};
 void OutboundNodeModel::outputConnectionCreated(const QtNodes::Connection &){};
 void OutboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &){};
-void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>>, PortIndex){};
-void OutboundNodeModel::onNodeHoverLeave(){};
+void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> indata, PortIndex)
+{
+    if (dispatcher->IsNodeConstructing())
+        return;
+    for (const auto d : indata)
+    {
+        if (!d)
+        {
+            LOG("Invalid inbound nodedata to rule.");
+            continue;
+        }
+        const auto rule = static_cast<RuleNodeData *>(d.get());
+        if (!rule)
+        {
+            LOG("Invalid rule nodedata to outbound.");
+            return;
+        }
+        const auto rulePtr = rule->GetData();
+        rulePtr->outboundTag = dataptr->getDisplayName();
+        DEBUG("Connecting rule:", rulePtr->QV2RAY_RULE_TAG, "to", dataptr->getDisplayName());
+    }
+}
 
+void OutboundNodeModel::onNodeHoverLeave(){};
 void OutboundNodeModel::onNodeHoverEnter()
 {
-    ProtocolSettingsInfoObject o;
     if (dataptr->metaType == METAOUTBOUND_ORIGINAL)
     {
         emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getDisplayName(), GetOutboundInfo(dataptr->realOutbound));
