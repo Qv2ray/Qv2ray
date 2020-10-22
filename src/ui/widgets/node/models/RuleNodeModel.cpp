@@ -35,7 +35,7 @@ RuleNodeModel::RuleNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher, std::s
     connect(dispatcher.get(), &NodeDispatcher::OnObjectTagChanged, renameFunc);
 }
 
-void RuleNodeModel::inputConnectionCreated(const QtNodes::Connection &c){};
+void RuleNodeModel::inputConnectionCreated(const QtNodes::Connection &){};
 void RuleNodeModel::inputConnectionDeleted(const QtNodes::Connection &c)
 {
     if (dispatcher->IsNodeConstructing())
@@ -45,7 +45,7 @@ void RuleNodeModel::inputConnectionDeleted(const QtNodes::Connection &c)
     dataptr->inboundTag.removeAll(inboundTag);
 }
 
-void RuleNodeModel::outputConnectionCreated(const QtNodes::Connection &c){};
+void RuleNodeModel::outputConnectionCreated(const QtNodes::Connection &){};
 void RuleNodeModel::outputConnectionDeleted(const QtNodes::Connection &)
 {
     if (dispatcher->IsNodeConstructing())

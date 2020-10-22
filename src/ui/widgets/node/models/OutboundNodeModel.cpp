@@ -38,7 +38,7 @@ OutboundNodeModel::OutboundNodeModel(std::shared_ptr<NodeDispatcher> _dispatcher
     widget->setAttribute(Qt::WA_TranslucentBackground);
 }
 
-void OutboundNodeModel::inputConnectionCreated(const QtNodes::Connection &c){};
+void OutboundNodeModel::inputConnectionCreated(const QtNodes::Connection &){};
 void OutboundNodeModel::inputConnectionDeleted(const QtNodes::Connection &){};
 void OutboundNodeModel::outputConnectionCreated(const QtNodes::Connection &){};
 void OutboundNodeModel::outputConnectionDeleted(const QtNodes::Connection &){};
