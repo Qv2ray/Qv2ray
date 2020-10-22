@@ -237,7 +237,6 @@ namespace Qv2ray::components::proxy
         actions << ProcessArgument{ "gsettings", { "set", "org.gnome.system.proxy", "mode", "manual" } };
         //
         bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE" || qEnvironmentVariable("XDG_SESSION_DESKTOP") == "plasma";
-        bool isDDE = !isKDE && qEnvironmentVariable("XDG_CURRENT_DESKTOP").toLower() == "deepin";
         const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 
         //
@@ -327,26 +326,6 @@ namespace Qv2ray::components::proxy
         if (results.count(true) != actions.size())
         {
             LOG("Something wrong when setting proxies.");
-        }
-
-        // Post-Actions for HTTP on Deepin Desktop Environment.
-        if (isDDE && hasHTTP)
-        {
-            if (!RuntimeConfig.deepinHorribleProxyHint)
-            {
-                RuntimeConfig.deepinHorribleProxyHint = true;
-                const auto deepinWarnTitle = QObject::tr("Deepin Detected");
-                const auto deepinWarnMessage =
-                    QObject::tr("Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.") + NEWLINE + //
-                    QObject::tr("The origin scheme http is wrongly replaced by https and ftp, causing the problem.") + NEWLINE +      //
-                    QObject::tr("Qv2ray cannot help you change them back. Please don't blame us if things go wrong.");                //
-                QvMessageBoxWarn(nullptr, deepinWarnTitle, deepinWarnMessage);
-            }
-
-            // set them back! - NOPE. setenv only works within your little program.
-            // const auto httpProxyURL = QString("http://%1:%2").arg(address, QSTRN(httpPort)).toStdString();
-            // setenv("https_proxy", httpProxyURL.c_str(), true);
-            // setenv("ftp_proxy", httpProxyURL.c_str(), true);
         }
 #else
 
