@@ -80,16 +80,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="toolButton">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::MenuButtonPopup</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="addOutboundBtn">
             <property name="text">
              <string>Editor</string>
