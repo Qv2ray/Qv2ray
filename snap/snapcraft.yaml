@@ -26,7 +26,6 @@ apps:
     command: bin/desktop-launch qv2ray
     environment:
       QT_QPA_PLATFORMTHEME: gtk3
-      DISABLE_WAYLAND: 1
     plugs:
       - home
       - x11
@@ -82,6 +81,7 @@ parts:
       - libqt5svg5
       - libglib2.0-bin
       - libcurl4
+      - qtwayland5
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
