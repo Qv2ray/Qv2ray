@@ -1,2935 +1,2936 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ja_JP">
-<context>
+<TS version="2.1" language="ja" sourcelanguage="en">
+  <context>
     <name>BalancerWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation>フォーム</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ChainEditorWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Chain Editor</source>
-        <translation>チェーンエディタ</translation>
+      <source>Chain Editor</source>
+      <translation type="unfinished">Chain Editor</translation>
     </message>
     <message>
-        <source>Could not find outbound tag: %1, The chain may be corrupted</source>
-        <translation>アウトバウンドタグ %1 が見つかりませんでした、チェーンが破損している可能性があります。</translation>
+      <source>Could not find outbound tag: %1, The chain may be corrupted</source>
+      <translation type="unfinished">Could not find outbound tag: %1, The chain may be corrupted</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>よし</translation>
+      <source>OK</source>
+      <translation type="unfinished">OK</translation>
     </message>
     <message>
-        <source>Please Select a Chain</source>
-        <translation>チェーンを選択してください</translation>
+      <source>Please Select a Chain</source>
+      <translation type="unfinished">Please Select a Chain</translation>
     </message>
     <message>
-        <source>There&apos;s an error in your connection.</source>
-        <translation>お接続に問題がある。</translation>
+      <source>There&apos;s an error in your connection.</source>
+      <translation type="unfinished">There&apos;s an error in your connection.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ChainOutboundWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ChainWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Chained</source>
-        <translation>チェイン</translation>
+      <source>Chained</source>
+      <translation type="unfinished">Chained</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ConnectionInfoWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Configuration Details</source>
-        <translation>構成の詳細</translation>
+      <source>Configuration Details</source>
+      <translation type="unfinished">Configuration Details</translation>
     </message>
     <message>
-        <source>Connect/Disconnect</source>
-        <translation>接続/切断</translation>
+      <source>Connect/Disconnect</source>
+      <translation type="unfinished">Connect/Disconnect</translation>
     </message>
     <message>
-        <source>Edit Connection</source>
-        <translation>項目を編集</translation>
+      <source>Edit Connection</source>
+      <translation type="unfinished">Edit Connection</translation>
     </message>
     <message>
-        <source>Edit Connection as JSON</source>
-        <translation>項目をJSONとして編集</translation>
+      <source>Edit Connection as JSON</source>
+      <translation type="unfinished">Edit Connection as JSON</translation>
     </message>
     <message>
-        <source>Latency Test</source>
-        <translation>遅延テスト</translation>
+      <source>Latency Test</source>
+      <translation type="unfinished">Latency Test</translation>
     </message>
     <message>
-        <source>Delete Connection</source>
-        <translation>項目を削除</translation>
+      <source>Delete Connection</source>
+      <translation type="unfinished">Delete Connection</translation>
     </message>
     <message>
-        <source>Group</source>
-        <translation>グループ</translation>
+      <source>Group</source>
+      <translation type="unfinished">Group</translation>
     </message>
     <message>
-        <source>Protocol</source>
-        <translation>プロトコル</translation>
+      <source>Protocol</source>
+      <translation type="unfinished">Protocol</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>アドレス</translation>
+      <source>Address</source>
+      <translation type="unfinished">Address</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+      <source>Port</source>
+      <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <source>Link</source>
-        <translation>リンク</translation>
+      <source>Link</source>
+      <translation type="unfinished">Link</translation>
     </message>
     <message>
-        <source>QR Code</source>
-        <translation>QRコード</translation>
+      <source>QR Code</source>
+      <translation type="unfinished">QR Code</translation>
     </message>
     <message>
-        <source>Group Name</source>
-        <translation>グループ名</translation>
+      <source>Group Name</source>
+      <translation type="unfinished">Group Name</translation>
     </message>
     <message>
-        <source>Subscription Link</source>
-        <translation>サブスクリプションリンク</translation>
+      <source>Subscription Link</source>
+      <translation type="unfinished">Subscription Link</translation>
     </message>
     <message>
-        <source>Share Link</source>
-        <translation>リンクを共有</translation>
+      <source>Share Link</source>
+      <translation type="unfinished">Share Link</translation>
     </message>
     <message>
-        <source>Not a subscription</source>
-        <translation>サブスクリプションではありません</translation>
+      <source>Not a subscription</source>
+      <translation type="unfinished">Not a subscription</translation>
     </message>
     <message>
-        <source>Delete an item</source>
-        <translation>アイテムを削除する</translation>
+      <source>Delete an item</source>
+      <translation type="unfinished">Delete an item</translation>
     </message>
     <message>
-        <source>Are you sure to delete the current item?</source>
-        <translation>現在のアイテムを削除してもよろしいですか？</translation>
+      <source>Are you sure to delete the current item?</source>
+      <translation type="unfinished">Are you sure to delete the current item?</translation>
     </message>
     <message numerus="yes">
-        <source>(Ignored %n complex config(s))</source>
-        <translation>
-            <numerusform>(無視される %n 複雑な構成)</numerusform>
-        </translation>
+      <source>(Ignored %n complex config(s))</source>
+      <translation type="unfinished">
+        <numerusform>(Ignored %n complex config(s))</numerusform>
+      </translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ConnectionItemWidget</name>
     <message>
-        <source>Not Tested</source>
-        <translation>未テスト</translation>
+      <source>Not Tested</source>
+      <translation type="unfinished">Not Tested</translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation>エラー</translation>
+      <source>Error</source>
+      <translation type="unfinished">Error</translation>
     </message>
     <message>
-        <source>connection</source>
-        <translation>つ</translation>
+      <source>connection</source>
+      <translation type="unfinished">connection</translation>
     </message>
     <message>
-        <source>connections</source>
-        <translation>つ</translation>
+      <source>connections</source>
+      <translation type="unfinished">connections</translation>
     </message>
     <message>
-        <source>Testing...</source>
-        <translation>テスト中...</translation>
+      <source>Testing...</source>
+      <translation type="unfinished">Testing...</translation>
     </message>
     <message>
-        <source>ms</source>
-        <translation>ms</translation>
+      <source>ms</source>
+      <translation type="unfinished">ms</translation>
     </message>
     <message>
-        <source>Last Connected: </source>
-        <translation>最後の接続: </translation>
+      <source>Last Connected: </source>
+      <translation type="unfinished">Last Connected: </translation>
     </message>
     <message>
-        <source>Last Updated: </source>
-        <translation>最終更新: </translation>
+      <source>Last Updated: </source>
+      <translation type="unfinished">Last Updated: </translation>
     </message>
     <message>
-        <source>Subscription</source>
-        <translation>サブスクリプション</translation>
+      <source>Subscription</source>
+      <translation type="unfinished">Subscription</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ConnectionSettingsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ConnectionWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Connection Name</source>
-        <translation>接続名</translation>
+      <source>Connection Name</source>
+      <translation type="unfinished">Connection Name</translation>
     </message>
     <message>
-        <source>500ms</source>
-        <translation>500ms</translation>
+      <source>500ms</source>
+      <translation type="unfinished">500ms</translation>
     </message>
     <message>
-        <source>0KB / 0KB</source>
-        <translation>0KB / 0KB</translation>
+      <source>0KB / 0KB</source>
+      <translation type="unfinished">0KB / 0KB</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation type="unfinished">OK</translation>
     </message>
     <message>
-        <source>VMESS + WS + TLS</source>
-        <translation>VMESS + WS + TLS</translation>
+      <source>VMESS + WS + TLS</source>
+      <translation type="unfinished">VMESS + WS + TLS</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>DnsSettingsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Client IP</source>
-        <translation>クライアントIP</translation>
+      <source>Client IP</source>
+      <translation type="unfinished">Client IP</translation>
     </message>
     <message>
-        <source>Tag</source>
-        <translation>タグ</translation>
+      <source>Tag</source>
+      <translation type="unfinished">Tag</translation>
     </message>
     <message>
-        <source>DNS Servers</source>
-        <translation>DNSサーバー</translation>
+      <source>DNS Servers</source>
+      <translation type="unfinished">DNS Servers</translation>
     </message>
     <message>
-        <source>DNS List</source>
-        <translation>DNSリスト</translation>
+      <source>DNS List</source>
+      <translation type="unfinished">DNS List</translation>
     </message>
     <message>
-        <source>DNS Server Settings</source>
-        <translation>DNSサーバーの設定</translation>
+      <source>DNS Server Settings</source>
+      <translation type="unfinished">DNS Server Settings</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>アドレス</translation>
+      <source>Address</source>
+      <translation type="unfinished">Address</translation>
     </message>
     <message>
-        <source>Detail Settings</source>
-        <translation>詳細設定</translation>
+      <source>Detail Settings</source>
+      <translation type="unfinished">Detail Settings</translation>
     </message>
     <message>
-        <source>Expectd IPs</source>
-        <translation>期待されるIP</translation>
+      <source>Expectd IPs</source>
+      <translation type="unfinished">Expectd IPs</translation>
     </message>
     <message>
-        <source>Domains</source>
-        <translation>ドメイン</translation>
+      <source>Domains</source>
+      <translation type="unfinished">Domains</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+      <source>Port</source>
+      <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <source>Statically Resolved Domains</source>
-        <translation>静的解決ドメイン</translation>
+      <source>Statically Resolved Domains</source>
+      <translation type="unfinished">Statically Resolved Domains</translation>
     </message>
     <message>
-        <source>Domain</source>
-        <translation>ドメイン</translation>
+      <source>Domain</source>
+      <translation type="unfinished">Domain</translation>
     </message>
     <message>
-        <source>Resolved IP</source>
-        <translation>解決済みIP</translation>
+      <source>Resolved IP</source>
+      <translation type="unfinished">Resolved IP</translation>
     </message>
     <message>
-        <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+      <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
 
 It cannot be a private address.</source>
-        <translation>DNS照会時にクライアントの位置をサーバに通知するために使用される現在のシステムのIPアドレス。
-プライベートアドレスにすることはできません。</translation>
+      <translation type="unfinished">The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+
+It cannot be a private address.</translation>
     </message>
     <message>
-        <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
-        <translation>(V2Ray 4.13+) このDNSによって送信される問い合わせトラフィックは、localhostとDOHLモードを除いて、この識別子を持ち、ルート内のinboundTagと照合することができます。</translation>
+      <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
+      <translation type="unfinished">(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</translation>
     </message>
     <message>
-        <source>Port for DNS server. Normally it&apos;s 53.
+      <source>Port for DNS server. Normally it&apos;s 53.
 This entry is ignored by V2Ray core when using DoH servers.</source>
-        <translation>DNSサーバーのポート。通常は53です。
-このエントリはDoHサーバを使用する場合、V2Rayコアでは無視されます。</translation>
+      <translation type="unfinished">Port for DNS server. Normally it&apos;s 53.
+This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>GroupManager</name>
     <message>
-        <source>Export Connection(s)</source>
-        <translation>項目をエクスポート</translation>
+      <source>Export Connection(s)</source>
+      <translation type="unfinished">Export Connection(s)</translation>
     </message>
     <message>
-        <source>Delete Connection(s)</source>
-        <translation>項目を削除</translation>
+      <source>Delete Connection(s)</source>
+      <translation type="unfinished">Delete Connection(s)</translation>
     </message>
     <message>
-        <source>Copy to...</source>
-        <translation>コピーして...</translation>
+      <source>Copy to...</source>
+      <translation type="unfinished">Copy to...</translation>
     </message>
     <message>
-        <source>Move to...</source>
-        <translation>移動して...</translation>
+      <source>Move to...</source>
+      <translation type="unfinished">Move to...</translation>
     </message>
     <message>
-        <source>Link to...</source>
-        <translation>リンクして...</translation>
+      <source>Link to...</source>
+      <translation type="unfinished">Link to...</translation>
     </message>
     <message>
-        <source>Connection Management</source>
-        <translation>項目管理</translation>
+      <source>Connection Management</source>
+      <translation type="unfinished">Connection Management</translation>
     </message>
     <message>
-        <source>New Group</source>
-        <translation>新しいグループ</translation>
+      <source>New Group</source>
+      <translation type="unfinished">New Group</translation>
     </message>
     <message>
-        <source>Update Subscription</source>
-        <translation>サブスクリプションを更新</translation>
+      <source>Update Subscription</source>
+      <translation type="unfinished">Update Subscription</translation>
     </message>
     <message>
-        <source>Would you like to update the subscription?</source>
-        <translation>サブスクリプションを更新しますか？</translation>
+      <source>Would you like to update the subscription?</source>
+      <translation type="unfinished">Would you like to update the subscription?</translation>
     </message>
     <message>
-        <source>All connections will be moved to default group, do you want to continue?</source>
-        <translation>すべての項目がデフォルトグループに移動します。続行しますか？</translation>
+      <source>All connections will be moved to default group, do you want to continue?</source>
+      <translation type="unfinished">All connections will be moved to default group, do you want to continue?</translation>
     </message>
     <message>
-        <source>The subscription link is empty.</source>
-        <translation>このサブスクリプションリンクが空です。</translation>
+      <source>The subscription link is empty.</source>
+      <translation type="unfinished">The subscription link is empty.</translation>
     </message>
     <message>
-        <source>The subscription link is invalid.</source>
-        <translation>このサブスクリプションリンクが無効です。</translation>
+      <source>The subscription link is invalid.</source>
+      <translation type="unfinished">The subscription link is invalid.</translation>
     </message>
     <message>
-        <source>Remove a Group</source>
-        <translation>グループを削除</translation>
+      <source>Remove a Group</source>
+      <translation type="unfinished">Remove a Group</translation>
     </message>
     <message>
-        <source>Unknown Subscription Type</source>
-        <translation>不明なサブスクリプションタイプ</translation>
+      <source>Unknown Subscription Type</source>
+      <translation type="unfinished">Unknown Subscription Type</translation>
     </message>
     <message>
-        <source>Unknown subscription type &quot;%1&quot;, a plugin may be missing.</source>
-        <translation>不明なサブスクリプションタイプ「%1」で、プラグインを失う可能性があります。</translation>
+      <source>Unknown subscription type &quot;%1&quot;, a plugin may be missing.</source>
+      <translation type="unfinished">Unknown subscription type &quot;%1&quot;, a plugin may be missing.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>HTTPInboundEditor</name>
     <message>
-        <source>Removing a user</source>
-        <translation>ユーザーを削除する</translation>
+      <source>Removing a user</source>
+      <translation type="unfinished">Removing a user</translation>
     </message>
     <message>
-        <source>You haven&apos;t selected a user yet.</source>
-        <translation>まだユーザーを選択していません。</translation>
+      <source>You haven&apos;t selected a user yet.</source>
+      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
     </message>
     <message>
-        <source>Add a user</source>
-        <translation>ユーザーを追加する</translation>
+      <source>Add a user</source>
+      <translation type="unfinished">Add a user</translation>
     </message>
     <message>
-        <source>This user exists already.</source>
-        <translation>このユーザーは既に存在します.</translation>
+      <source>This user exists already.</source>
+      <translation type="unfinished">This user exists already.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ImportConfigWindow</name>
     <message>
-        <source>Import file</source>
-        <translation>インポートファイル</translation>
+      <source>Import file</source>
+      <translation type="unfinished">Import file</translation>
     </message>
     <message>
-        <source>Name/Prefix</source>
-        <translation>名前/プレフィックス</translation>
+      <source>Name/Prefix</source>
+      <translation type="unfinished">Name/Prefix</translation>
     </message>
     <message>
-        <source>A prefix to the imported connection</source>
-        <translation>インポート接続のプレフィックス</translation>
+      <source>A prefix to the imported connection</source>
+      <translation type="unfinished">A prefix to the imported connection</translation>
     </message>
     <message>
-        <source>Import To Group</source>
-        <translation>グループにインポート</translation>
+      <source>Import To Group</source>
+      <translation type="unfinished">Import To Group</translation>
     </message>
     <message>
-        <source>Link</source>
-        <translation>リンク</translation>
+      <source>Link</source>
+      <translation type="unfinished">Link</translation>
     </message>
     <message>
-        <source>Share Link</source>
-        <translation>リンク共有</translation>
+      <source>Share Link</source>
+      <translation type="unfinished">Share Link</translation>
     </message>
     <message>
-        <source>Error List</source>
-        <translation>エラーリスト</translation>
+      <source>Error List</source>
+      <translation type="unfinished">Error List</translation>
     </message>
     <message>
-        <source>Paste share link here, one line for each.</source>
-        <translation>ここに vmess:// を1行ずつ貼り付けます。</translation>
+      <source>Paste share link here, one line for each.</source>
+      <translation type="unfinished">Paste share link here, one line for each.</translation>
     </message>
     <message>
-        <source>QR Code</source>
-        <translation>QRコード</translation>
+      <source>QR Code</source>
+      <translation type="unfinished">QR Code</translation>
     </message>
     <message>
-        <source>QRCode File</source>
-        <translation>QRコード画像ファイル</translation>
+      <source>QRCode File</source>
+      <translation type="unfinished">QRCode File</translation>
     </message>
     <message>
-        <source>Select</source>
-        <translation>選択</translation>
+      <source>Select</source>
+      <translation type="unfinished">Select</translation>
     </message>
     <message>
-        <source>Screenshot</source>
-        <translation>スクリーンショット</translation>
+      <source>Screenshot</source>
+      <translation type="unfinished">Screenshot</translation>
     </message>
     <message>
-        <source>Hide Qv2ray</source>
-        <translation>Qv2rayを非表示</translation>
+      <source>Hide Qv2ray</source>
+      <translation type="unfinished">Hide Qv2ray</translation>
     </message>
     <message>
-        <source> secs</source>
-        <translation> 秒</translation>
+      <source> secs</source>
+      <translation type="unfinished"> secs</translation>
     </message>
     <message>
-        <source>Delay</source>
-        <translation>後</translation>
+      <source>Delay</source>
+      <translation type="unfinished">Delay</translation>
     </message>
     <message>
-        <source>Go</source>
-        <translation>実行</translation>
+      <source>Go</source>
+      <translation type="unfinished">Go</translation>
     </message>
     <message>
-        <source>Detected Link</source>
-        <translation>検出リンク</translation>
+      <source>Detected Link</source>
+      <translation type="unfinished">Detected Link</translation>
     </message>
     <message>
-        <source>Advanced</source>
-        <translation>その他</translation>
+      <source>Advanced</source>
+      <translation type="unfinished">Advanced</translation>
     </message>
     <message>
-        <source>Manually Input Connections</source>
-        <translation>接続を手動で入力する</translation>
+      <source>Manually Input Connections</source>
+      <translation type="unfinished">Manually Input Connections</translation>
     </message>
     <message>
-        <source>Path</source>
-        <translation>パス</translation>
+      <source>Path</source>
+      <translation type="unfinished">Path</translation>
     </message>
     <message>
-        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-        <translation>複雑構成としてインポート（ルーティングルールとインバウンドを手動で編集）</translation>
+      <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+      <translation type="unfinished">Import as Complex Config (Manually edit route rules and inbounds)</translation>
     </message>
     <message>
-        <source>Json Editor</source>
-        <translation>JSONエディター</translation>
+      <source>Json Editor</source>
+      <translation type="unfinished">Json Editor</translation>
     </message>
     <message>
-        <source>Open JSON Editor</source>
-        <translation>JSONエディターを開く</translation>
+      <source>Open JSON Editor</source>
+      <translation type="unfinished">Open JSON Editor</translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>インポート</translation>
+      <source>Import</source>
+      <translation type="unfinished">Import</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>キャンセル</translation>
+      <source>Cancel</source>
+      <translation type="unfinished">Cancel</translation>
     </message>
     <message>
-        <source>Select file to import</source>
-        <translation>インポートするファイルを選択</translation>
+      <source>Select file to import</source>
+      <translation type="unfinished">Select file to import</translation>
     </message>
     <message>
-        <source>Capture QRCode</source>
-        <translation>QRCodeをキャプチャ</translation>
+      <source>Capture QRCode</source>
+      <translation type="unfinished">Capture QRCode</translation>
     </message>
     <message>
-        <source>Cannot find a valid QRCode from this region.</source>
-        <translation>この領域から有効なQRコードが見つかりません。</translation>
+      <source>Cannot find a valid QRCode from this region.</source>
+      <translation type="unfinished">Cannot find a valid QRCode from this region.</translation>
     </message>
     <message>
-        <source>Failed to import connection</source>
-        <translation>接続のインポート失敗</translation>
+      <source>Failed to import connection</source>
+      <translation type="unfinished">Failed to import connection</translation>
     </message>
     <message>
-        <source>Import config file</source>
-        <translation>設定ファイルをインポートする</translation>
+      <source>Import config file</source>
+      <translation type="unfinished">Import config file</translation>
     </message>
     <message>
-        <source>Failed to check the validity of the config file.</source>
-        <translation>構成ファイルの有効性を確認できませんでした。</translation>
+      <source>Failed to check the validity of the config file.</source>
+      <translation type="unfinished">Failed to check the validity of the config file.</translation>
     </message>
     <message>
-        <source>Select an image to import</source>
-        <translation>インポートする画像を選択してください</translation>
+      <source>Select an image to import</source>
+      <translation type="unfinished">Select an image to import</translation>
     </message>
     <message>
-        <source>QRCode scanning failed</source>
-        <translation>QRコードのスキャンに失敗しました</translation>
+      <source>QRCode scanning failed</source>
+      <translation type="unfinished">QRCode scanning failed</translation>
     </message>
     <message>
-        <source>Cannot find any QRCode from the image.</source>
-        <translation>画像からQRコードが見つかりません。</translation>
+      <source>Cannot find any QRCode from the image.</source>
+      <translation type="unfinished">Cannot find any QRCode from the image.</translation>
     </message>
     <message>
-        <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
-        <translation>警告：「サブスクリプションリンク」を「共有リンク」と間違えている可能性があります</translation>
+      <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
+      <translation type="unfinished">WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>InboundEditor</name>
     <message>
-        <source>Inbound Editor</source>
-        <translation>インバウンドエディター</translation>
+      <source>Inbound Editor</source>
+      <translation type="unfinished">Inbound Editor</translation>
     </message>
     <message>
-        <source>Tag</source>
-        <translation>タグ</translation>
+      <source>Tag</source>
+      <translation type="unfinished">Tag</translation>
     </message>
     <message>
-        <source>Tag of this inbound entry</source>
-        <translation>このインバウンドエントリのタグ</translation>
+      <source>Tag of this inbound entry</source>
+      <translation type="unfinished">Tag of this inbound entry</translation>
     </message>
     <message>
-        <source>Hostname or IP Address</source>
-        <translation>ホスト名またはIPアドレス</translation>
+      <source>Hostname or IP Address</source>
+      <translation type="unfinished">Hostname or IP Address</translation>
     </message>
     <message>
-        <source>Protocol</source>
-        <translation>プロトコル</translation>
+      <source>Protocol</source>
+      <translation type="unfinished">Protocol</translation>
     </message>
     <message>
-        <source>Allocation Settings</source>
-        <translation>割り当て設定</translation>
+      <source>Allocation Settings</source>
+      <translation type="unfinished">Allocation Settings</translation>
     </message>
     <message>
-        <source>Strategy</source>
-        <translation>ルール</translation>
+      <source>Strategy</source>
+      <translation type="unfinished">Strategy</translation>
     </message>
     <message>
-        <source>Refresh</source>
-        <translation>リフレッシュ</translation>
+      <source>Refresh</source>
+      <translation type="unfinished">Refresh</translation>
     </message>
     <message>
-        <source>Concurrency</source>
-        <translation>同時接続数</translation>
+      <source>Concurrency</source>
+      <translation type="unfinished">Concurrency</translation>
     </message>
     <message>
-        <source>Sniffing Settings</source>
-        <translation>フィルター設定</translation>
+      <source>Sniffing Settings</source>
+      <translation type="unfinished">Sniffing Settings</translation>
     </message>
     <message>
-        <source>Destination Override</source>
-        <translation>目標上書き</translation>
+      <source>Destination Override</source>
+      <translation type="unfinished">Destination Override</translation>
     </message>
     <message>
-        <source>Unknown inbound.</source>
-        <translation>不明なインバウンド。</translation>
+      <source>Unknown inbound.</source>
+      <translation type="unfinished">Unknown inbound.</translation>
     </message>
     <message>
-        <source>The specified inbound type is invalid, this may be caused by a plugin failure.</source>
-        <translation>指定されたインバウンドタイプが無効な場合、プラグインの障害が原因である可能性があります。</translation>
+      <source>The specified inbound type is invalid, this may be caused by a plugin failure.</source>
+      <translation type="unfinished">The specified inbound type is invalid, this may be caused by a plugin failure.</translation>
     </message>
     <message>
-        <source>Please use the JsonEditor or reload the plugin.</source>
-        <translation>JsonEditorを使用するか、プラグインをリロードしてください。</translation>
+      <source>Please use the JsonEditor or reload the plugin.</source>
+      <translation type="unfinished">Please use the JsonEditor or reload the plugin.</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>アドレス</translation>
+      <source>Address</source>
+      <translation type="unfinished">Address</translation>
     </message>
     <message>
-        <source>Inbound Settings</source>
-        <translation>インバウンド設定</translation>
+      <source>Inbound Settings</source>
+      <translation type="unfinished">Inbound Settings</translation>
     </message>
     <message>
-        <source>Stream Settings</source>
-        <translation>ストリーム設定</translation>
+      <source>Stream Settings</source>
+      <translation type="unfinished">Stream Settings</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>InboundOutboundWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>External Config</source>
-        <translation>外部構成</translation>
+      <source>External Config</source>
+      <translation type="unfinished">External Config</translation>
     </message>
     <message>
-        <source>Edit Outbound</source>
-        <translation>アウトバウンドを編集</translation>
+      <source>Edit Outbound</source>
+      <translation type="unfinished">Edit Outbound</translation>
     </message>
     <message>
-        <source>Trying to edit an Complex Config</source>
-        <translation>コンプレックスコンフィグを編集しようとする</translation>
+      <source>Trying to edit an Complex Config</source>
+      <translation type="unfinished">Trying to edit an Complex Config</translation>
     </message>
     <message>
-        <source>You are trying to edit an external connection config, is this what you want?</source>
-        <translation>外部接続設定を編集しようとしていますが、これでいいのでしょうか？</translation>
+      <source>You are trying to edit an external connection config, is this what you want?</source>
+      <translation type="unfinished">You are trying to edit an external connection config, is this what you want?</translation>
     </message>
     <message>
-        <source>You have selected an complex config as outbound.</source>
-        <translation>アウトバウンドとして複雑なコンフィグを選択しました。</translation>
+      <source>You have selected an complex config as outbound.</source>
+      <translation type="unfinished">You have selected an complex config as outbound.</translation>
     </message>
     <message>
-        <source>continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</source>
-        <translation>この設定を編集し続けると、すべてのインバウンドおよびルーティング設定が失われます。</translation>
+      <source>continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</source>
+      <translation type="unfinished">continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</translation>
     </message>
     <message>
-        <source>Is this what you want?</source>
-        <translation>これでいいんですか？</translation>
+      <source>Is this what you want?</source>
+      <translation type="unfinished">Is this what you want?</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>InboundSettingsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>JsonEditor</name>
     <message>
-        <source>JSON Editor</source>
-        <translation>JSONエディター</translation>
+      <source>JSON Editor</source>
+      <translation type="unfinished">JSON Editor</translation>
     </message>
     <message>
-        <source>Json Editor</source>
-        <translation>JSONエディター</translation>
+      <source>Json Editor</source>
+      <translation type="unfinished">Json Editor</translation>
     </message>
     <message>
-        <source>Format JSON</source>
-        <translation>JSON初期化</translation>
+      <source>Format JSON</source>
+      <translation type="unfinished">Format JSON</translation>
     </message>
     <message>
-        <source>Remove All Comments</source>
-        <translation>コメントを全削除</translation>
+      <source>Remove All Comments</source>
+      <translation type="unfinished">Remove All Comments</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation type="unfinished">OK</translation>
     </message>
     <message>
-        <source>Json Contains Syntax Errors</source>
-        <translation>JSONに構文エラーが含まれる</translation>
+      <source>Json Contains Syntax Errors</source>
+      <translation type="unfinished">Json Contains Syntax Errors</translation>
     </message>
     <message>
-        <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-        <translation>元のJSONには構文エラーが含まれる可能性があります。 JSONツリーは無効にする。</translation>
+      <source>Original Json may contain syntax errors. Json tree is disabled.</source>
+      <translation type="unfinished">Original Json may contain syntax errors. Json tree is disabled.</translation>
     </message>
     <message>
-        <source>You must correct these errors before continuing.</source>
-        <translation>続行する前にこれらのエラーを修正する必要があります。</translation>
+      <source>You must correct these errors before continuing.</source>
+      <translation type="unfinished">You must correct these errors before continuing.</translation>
     </message>
     <message>
-        <source>Syntax Errors</source>
-        <translation>構文エラー</translation>
+      <source>Syntax Errors</source>
+      <translation type="unfinished">Syntax Errors</translation>
     </message>
     <message>
-        <source>Please fix the JSON errors or remove the comments before continue</source>
-        <translation>JSONエラーを修正する、もしくはコメントを削除してから続行してください</translation>
+      <source>Please fix the JSON errors or remove the comments before continue</source>
+      <translation type="unfinished">Please fix the JSON errors or remove the comments before continue</translation>
     </message>
     <message>
-        <source>Structure Preview</source>
-        <translation>構造プレビュー</translation>
+      <source>Structure Preview</source>
+      <translation type="unfinished">Structure Preview</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>MainWindow</name>
     <message>
-        <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
+      <source>Qv2ray</source>
+      <translation type="unfinished">Qv2ray</translation>
     </message>
     <message>
-        <source>Preferences</source>
-        <translation>設定</translation>
+      <source>Preferences</source>
+      <translation type="unfinished">Preferences</translation>
     </message>
     <message>
-        <source>Plugins</source>
-        <translation>プラグイン</translation>
+      <source>Plugins</source>
+      <translation type="unfinished">Plugins</translation>
     </message>
     <message>
-        <source>Locate Current Connection</source>
-        <translation>現在の接続先を特定する</translation>
+      <source>Locate Current Connection</source>
+      <translation type="unfinished">Locate Current Connection</translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation>検索</translation>
+      <source>Search</source>
+      <translation type="unfinished">Search</translation>
     </message>
     <message>
-        <source>Sort</source>
-        <translation>並べ替え</translation>
+      <source>Sort</source>
+      <translation type="unfinished">Sort</translation>
     </message>
     <message>
-        <source>Import Connection</source>
-        <translation>項目をインポート</translation>
+      <source>Import Connection</source>
+      <translation type="unfinished">Import Connection</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation>作成</translation>
+      <source>New</source>
+      <translation type="unfinished">New</translation>
     </message>
     <message>
-        <source>Click to toggle show/hide</source>
-        <translation>クリックして表示/非表示を切り替えます</translation>
+      <source>Click to toggle show/hide</source>
+      <translation type="unfinished">Click to toggle show/hide</translation>
     </message>
     <message>
-        <source>  Speed Graph</source>
-        <translation>  転送量図</translation>
+      <source>  Speed Graph</source>
+      <translation type="unfinished">  Speed Graph</translation>
     </message>
     <message>
-        <source>Clear chart data</source>
-        <translation>チャートデータをクリア</translation>
+      <source>Clear chart data</source>
+      <translation type="unfinished">Clear chart data</translation>
     </message>
     <message>
-        <source>  Log</source>
-        <translation>  ログ</translation>
+      <source>  Log</source>
+      <translation type="unfinished">  Log</translation>
     </message>
     <message>
-        <source>Clear log</source>
-        <translation>ログをクリア</translation>
+      <source>Clear log</source>
+      <translation type="unfinished">Clear log</translation>
     </message>
     <message>
-        <source>Not Connected</source>
-        <translation>接続されていません</translation>
+      <source>Not Connected</source>
+      <translation type="unfinished">Not Connected</translation>
     </message>
     <message>
-        <source>Speed</source>
-        <translation>回線速度</translation>
+      <source>Speed</source>
+      <translation type="unfinished">Speed</translation>
     </message>
     <message>
-        <source>Upload/Download speed</source>
-        <translation>アップロード/ダウンロード速度</translation>
+      <source>Upload/Download speed</source>
+      <translation type="unfinished">Upload/Download speed</translation>
     </message>
     <message>
-        <source>0.00 B/s
+      <source>0.00 B/s
 0.00 B/s</source>
-        <translation>0.00 B/s
+      <translation type="unfinished">0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
-        <source>Data</source>
-        <translation>転送量</translation>
+      <source>Data</source>
+      <translation type="unfinished">Data</translation>
     </message>
     <message>
-        <source>Upload/Download Data</source>
-        <translation>アップロード/ダウンロード転送量</translation>
+      <source>Upload/Download Data</source>
+      <translation type="unfinished">Upload/Download Data</translation>
     </message>
     <message>
-        <source>0.00 B
+      <source>0.00 B
 0.00 B</source>
-        <translation>0.00 B
+      <translation type="unfinished">0.00 B
 0.00 B</translation>
     </message>
     <message>
-        <source>System Proxy</source>
-        <translation>システムプロキシ</translation>
+      <source>System Proxy</source>
+      <translation type="unfinished">System Proxy</translation>
     </message>
     <message>
-        <source>Recent Connections</source>
-        <translation>最近の項目</translation>
+      <source>Recent Connections</source>
+      <translation type="unfinished">Recent Connections</translation>
     </message>
     <message>
-        <source>Clear Recent Connections</source>
-        <translation>最近の項目をクリア</translation>
+      <source>Clear Recent Connections</source>
+      <translation type="unfinished">Clear Recent Connections</translation>
     </message>
     <message>
-        <source>Hide</source>
-        <translation>非表示</translation>
+      <source>Hide</source>
+      <translation type="unfinished">Hide</translation>
     </message>
     <message>
-        <source>Quit</source>
-        <translation>終了</translation>
+      <source>Quit</source>
+      <translation type="unfinished">Quit</translation>
     </message>
     <message>
-        <source>Connect</source>
-        <translation>接続</translation>
+      <source>Connect</source>
+      <translation type="unfinished">Connect</translation>
     </message>
     <message>
-        <source>Reconnect</source>
-        <translation>再接続</translation>
+      <source>Reconnect</source>
+      <translation type="unfinished">Reconnect</translation>
     </message>
     <message>
-        <source>Disconnect</source>
-        <translation>切断</translation>
+      <source>Disconnect</source>
+      <translation type="unfinished">Disconnect</translation>
     </message>
     <message>
-        <source>Enable System Proxy</source>
-        <translation>システムプロキシ有効</translation>
+      <source>Enable System Proxy</source>
+      <translation type="unfinished">Enable System Proxy</translation>
     </message>
     <message>
-        <source>Disable System Proxy</source>
-        <translation>システムプロキシ無効</translation>
+      <source>Disable System Proxy</source>
+      <translation type="unfinished">Disable System Proxy</translation>
     </message>
     <message>
-        <source>Connect to this</source>
-        <translation>これに接続</translation>
+      <source>Connect to this</source>
+      <translation type="unfinished">Connect to this</translation>
     </message>
     <message>
-        <source>Set as automatically connected</source>
-        <translation>自動接続に設定</translation>
+      <source>Set as automatically connected</source>
+      <translation type="unfinished">Set as automatically connected</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation>編集</translation>
+      <source>Edit</source>
+      <translation type="unfinished">Edit</translation>
     </message>
     <message>
-        <source>Edit as JSON</source>
-        <translation>JSONとして編集</translation>
+      <source>Edit as JSON</source>
+      <translation type="unfinished">Edit as JSON</translation>
     </message>
     <message>
-        <source>Edit as Complex Config</source>
-        <translation>複雑構成として編集</translation>
+      <source>Edit as Complex Config</source>
+      <translation type="unfinished">Edit as Complex Config</translation>
     </message>
     <message>
-        <source>Rename</source>
-        <translation>リネーム</translation>
+      <source>Rename</source>
+      <translation type="unfinished">Rename</translation>
     </message>
     <message>
-        <source>Duplicate to the Same Group</source>
-        <translation>同じグループにコピー</translation>
+      <source>Duplicate to the Same Group</source>
+      <translation type="unfinished">Duplicate to the Same Group</translation>
     </message>
     <message>
-        <source>Test Latency</source>
-        <translation>遅延テスト</translation>
+      <source>Test Latency</source>
+      <translation type="unfinished">Test Latency</translation>
     </message>
     <message>
-        <source>Clear Usage Data</source>
-        <translation>統計データをクリアする</translation>
+      <source>Clear Usage Data</source>
+      <translation type="unfinished">Clear Usage Data</translation>
     </message>
     <message>
-        <source>Delete Connection</source>
-        <translation>項目を削除</translation>
+      <source>Delete Connection</source>
+      <translation type="unfinished">Delete Connection</translation>
     </message>
     <message>
-        <source>Sort connection list.</source>
-        <translation>項目リストを並べ替えます。</translation>
+      <source>Sort connection list.</source>
+      <translation type="unfinished">Sort connection list.</translation>
     </message>
     <message>
-        <source>By connection name, A-Z</source>
-        <translation>項目名昇順、A-Z</translation>
+      <source>By connection name, A-Z</source>
+      <translation type="unfinished">By connection name, A-Z</translation>
     </message>
     <message>
-        <source>By connection name, Z-A</source>
-        <translation>項目名降順、Z-A</translation>
+      <source>By connection name, Z-A</source>
+      <translation type="unfinished">By connection name, Z-A</translation>
     </message>
     <message>
-        <source>By latency, Ascending</source>
-        <translation>遅延昇順</translation>
+      <source>By latency, Ascending</source>
+      <translation type="unfinished">By latency, Ascending</translation>
     </message>
     <message>
-        <source>By latency, Descending</source>
-        <translation>遅延降順</translation>
+      <source>By latency, Descending</source>
+      <translation type="unfinished">By latency, Descending</translation>
     </message>
     <message>
-        <source>By data, Ascending</source>
-        <translation>転送量昇順</translation>
+      <source>By data, Ascending</source>
+      <translation type="unfinished">By data, Ascending</translation>
     </message>
     <message>
-        <source>By data, Descending</source>
-        <translation>転送量降順</translation>
+      <source>By data, Descending</source>
+      <translation type="unfinished">By data, Descending</translation>
     </message>
     <message>
-        <source>Switch to Qv2ray log</source>
-        <translation>Qv2rayログに切り替える</translation>
+      <source>Switch to Qv2ray log</source>
+      <translation type="unfinished">Switch to Qv2ray log</translation>
     </message>
     <message>
-        <source>Kernel terminated.</source>
-        <translation>コアが終了しました。</translation>
+      <source>Kernel terminated.</source>
+      <translation type="unfinished">Kernel terminated.</translation>
     </message>
     <message>
-        <source>The kernel terminated unexpectedly:</source>
-        <translation>カーネルがエラー終了しました：</translation>
+      <source>The kernel terminated unexpectedly:</source>
+      <translation type="unfinished">The kernel terminated unexpectedly:</translation>
     </message>
     <message>
-        <source>To solve the problem, read the kernel log in the log text browser.</source>
-        <translation>問題を解決するには、ログテキストブラウザでカーネルログを確認しでください。</translation>
+      <source>To solve the problem, read the kernel log in the log text browser.</source>
+      <translation type="unfinished">To solve the problem, read the kernel log in the log text browser.</translation>
     </message>
     <message>
-        <source>Show</source>
-        <translation>表示</translation>
+      <source>Show</source>
+      <translation type="unfinished">Show</translation>
     </message>
     <message>
-        <source>Quit Qv2ray</source>
-        <translation>Qv2rayを終了</translation>
+      <source>Quit Qv2ray</source>
+      <translation type="unfinished">Quit Qv2ray</translation>
     </message>
     <message>
-        <source>Are you sure to exit Qv2ray?</source>
-        <translation>Qv2rayを終了してよろしいでしょうか？</translation>
+      <source>Are you sure to exit Qv2ray?</source>
+      <translation type="unfinished">Are you sure to exit Qv2ray?</translation>
     </message>
     <message numerus="yes">
-        <source>Removing Connection(s)</source>
-        <translation>
-            <numerusform>項目を削除</numerusform>
-        </translation>
+      <source>Removing Connection(s)</source>
+      <translation type="unfinished">
+        <numerusform>Removing Connection(s)</numerusform>
+      </translation>
     </message>
     <message numerus="yes">
-        <source>Are you sure to remove selected connection(s)?</source>
-        <translation>
-            <numerusform>選択した項目を削除しますか？</numerusform>
-        </translation>
+      <source>Are you sure to remove selected connection(s)?</source>
+      <translation type="unfinished">
+        <numerusform>Are you sure to remove selected connection(s)?</numerusform>
+      </translation>
     </message>
     <message>
-        <source>Disconnected from: </source>
-        <translation>接続切断されました: </translation>
+      <source>Disconnected from: </source>
+      <translation type="unfinished">Disconnected from: </translation>
     </message>
     <message>
-        <source>Connected: </source>
-        <translation>接続済み: </translation>
+      <source>Connected: </source>
+      <translation type="unfinished">Connected: </translation>
     </message>
     <message numerus="yes">
-        <source>Duplicating Connection(s)</source>
-        <translation>
-            <numerusform>項目をコピー</numerusform>
-        </translation>
+      <source>Duplicating Connection(s)</source>
+      <translation type="unfinished">
+        <numerusform>Duplicating Connection(s)</numerusform>
+      </translation>
     </message>
     <message numerus="yes">
-        <source>Are you sure to duplicate these connection(s)?</source>
-        <translation>
-            <numerusform>選択した項目をコピーしますか？</numerusform>
-        </translation>
+      <source>Are you sure to duplicate these connection(s)?</source>
+      <translation type="unfinished">
+        <numerusform>Are you sure to duplicate these connection(s)?</numerusform>
+      </translation>
     </message>
     <message>
-        <source> (Copy)</source>
-        <translation> （コピー）</translation>
+      <source> (Copy)</source>
+      <translation type="unfinished"> (Copy)</translation>
     </message>
     <message>
-        <source>System proxy configured.</source>
-        <translation>システムプロキシが設定されています。</translation>
+      <source>System proxy configured.</source>
+      <translation type="unfinished">System proxy configured.</translation>
     </message>
     <message>
-        <source>Cannot set system proxy</source>
-        <translation>Cannot set system proxy</translation>
+      <source>Cannot set system proxy</source>
+      <translation type="unfinished">Cannot set system proxy</translation>
     </message>
     <message>
-        <source>Both HTTP and SOCKS inbounds are not enabled</source>
-        <translation>HTTPインバウンドとSOCKSインバウンドの両方とも無効です</translation>
+      <source>Both HTTP and SOCKS inbounds are not enabled</source>
+      <translation type="unfinished">Both HTTP and SOCKS inbounds are not enabled</translation>
     </message>
     <message>
-        <source>System proxy removed.</source>
-        <translation>システムプロキシが削除されました。</translation>
+      <source>System proxy removed.</source>
+      <translation type="unfinished">System proxy removed.</translation>
     </message>
     <message>
-        <source>Update Subscriptions</source>
-        <translation>サブスクリプションを更新</translation>
+      <source>Update Subscriptions</source>
+      <translation type="unfinished">Update Subscriptions</translation>
     </message>
     <message>
-        <source>Update Subscription</source>
-        <translation>サブスクリプションを更新</translation>
+      <source>Update Subscription</source>
+      <translation type="unfinished">Update Subscription</translation>
     </message>
     <message>
-        <source>Subscription &quot;%1&quot; has been updated</source>
-        <translation>サブスクリプション &quot;%1&quot; が更新されました</translation>
+      <source>Subscription &quot;%1&quot; has been updated</source>
+      <translation type="unfinished">Subscription &quot;%1&quot; has been updated</translation>
     </message>
     <message>
-        <source>%1 has been set as auto connect.</source>
-        <translation>%1 が自動接続に設定されています。</translation>
+      <source>%1 has been set as auto connect.</source>
+      <translation type="unfinished">%1 has been set as auto connect.</translation>
     </message>
     <message>
-        <source>Selected group is not a subscription</source>
-        <translation>選択されたグループはサブスクリプションではありません</translation>
+      <source>Selected group is not a subscription</source>
+      <translation type="unfinished">Selected group is not a subscription</translation>
     </message>
     <message>
-        <source>Do you want to update these subscriptions?</source>
-        <translation>これらのサブスクリプションを更新しますか？</translation>
+      <source>Do you want to update these subscriptions?</source>
+      <translation type="unfinished">Do you want to update these subscriptions?</translation>
     </message>
     <message>
-        <source>Groups</source>
-        <translation>グループ</translation>
+      <source>Groups</source>
+      <translation type="unfinished">Groups</translation>
     </message>
     <message>
-        <source>Collapse all groups</source>
-        <translation>グループを折り畳む</translation>
+      <source>Collapse all groups</source>
+      <translation type="unfinished">Collapse all groups</translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>インポート</translation>
+      <source>Import</source>
+      <translation type="unfinished">Import</translation>
     </message>
     <message>
-        <source>New Complex</source>
-        <translation>新規コンプレックス設定</translation>
+      <source>New Complex</source>
+      <translation type="unfinished">New Complex</translation>
     </message>
     <message>
-        <source>Recent Connection list cleared.</source>
-        <translation>最近の接続リストをクリアしました。</translation>
+      <source>Recent Connection list cleared.</source>
+      <translation type="unfinished">Recent Connection list cleared.</translation>
     </message>
     <message>
-        <source>Copy latest logs</source>
-        <translation>最新のログをコピー</translation>
+      <source>Copy latest logs</source>
+      <translation type="unfinished">Copy latest logs</translation>
     </message>
     <message>
-        <source>Number of lines of logs to copy</source>
-        <translation>コピーするログの行数</translation>
+      <source>Number of lines of logs to copy</source>
+      <translation type="unfinished">Number of lines of logs to copy</translation>
     </message>
     <message>
-        <source>Test Real Latency</source>
-        <translation>実質レイテンシのテスト</translation>
+      <source>Test Real Latency</source>
+      <translation type="unfinished">Test Real Latency</translation>
     </message>
     <message>
-        <source>Switch to Core log</source>
-        <translation>コアログへの切り替え</translation>
+      <source>Switch to Core log</source>
+      <translation type="unfinished">Switch to Core log</translation>
     </message>
     <message>
-        <source>Copy graph as image.</source>
-        <translation>グラフを画像としてコピーします。</translation>
+      <source>Copy graph as image.</source>
+      <translation type="unfinished">Copy graph as image.</translation>
     </message>
     <message>
-        <source>Copy latest logs.</source>
-        <translation>最新のログをコピーします。</translation>
+      <source>Copy latest logs.</source>
+      <translation type="unfinished">Copy latest logs.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>OutboundEditor</name>
     <message>
-        <source>Edit Connection Settings</source>
-        <translation>接続設定の編集</translation>
+      <source>Edit Connection Settings</source>
+      <translation type="unfinished">Edit Connection Settings</translation>
     </message>
     <message>
-        <source>Stream Settings</source>
-        <translation>ストリーム設定</translation>
+      <source>Stream Settings</source>
+      <translation type="unfinished">Stream Settings</translation>
     </message>
     <message>
-        <source>Tag</source>
-        <translation>タグ</translation>
+      <source>Tag</source>
+      <translation type="unfinished">Tag</translation>
     </message>
     <message>
-        <source>Tag of this outbound setting</source>
-        <translation>このアウトバウンド設定のタグ</translation>
+      <source>Tag of this outbound setting</source>
+      <translation type="unfinished">Tag of this outbound setting</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>タイプ</translation>
+      <source>Type</source>
+      <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <source>Host</source>
-        <translation>ホスト</translation>
+      <source>Host</source>
+      <translation type="unfinished">Host</translation>
     </message>
     <message>
-        <source>Hostname or IP/IPv6 Address</source>
-        <translation>ホスト名またはIPv4 / IPv6アドレス</translation>
+      <source>Hostname or IP/IPv6 Address</source>
+      <translation type="unfinished">Hostname or IP/IPv6 Address</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+      <source>Port</source>
+      <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <source>Misc Settings</source>
-        <translation>その他の設定</translation>
+      <source>Misc Settings</source>
+      <translation type="unfinished">Misc Settings</translation>
     </message>
     <message>
-        <source>Use Mux</source>
-        <translation>Muxを使う</translation>
+      <source>Use Mux</source>
+      <translation type="unfinished">Use Mux</translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
+      <source>Enabled</source>
+      <translation type="unfinished">Enabled</translation>
     </message>
     <message>
-        <source>Mux Concurrency</source>
-        <translation>Muxの同時接続数</translation>
+      <source>Mux Concurrency</source>
+      <translation type="unfinished">Mux Concurrency</translation>
     </message>
     <message>
-        <source>Use Forward Proxy</source>
-        <translation>フォワードプロキシを使う</translation>
+      <source>Use Forward Proxy</source>
+      <translation type="unfinished">Use Forward Proxy</translation>
     </message>
     <message>
-        <source>Outbound Settings</source>
-        <translation>アウトバウンド設定</translation>
+      <source>Outbound Settings</source>
+      <translation type="unfinished">Outbound Settings</translation>
     </message>
     <message>
-        <source>Unknown outbound type.</source>
-        <translation>不明なアウトバウンドタイプ。</translation>
+      <source>Unknown outbound type.</source>
+      <translation type="unfinished">Unknown outbound type.</translation>
     </message>
     <message>
-        <source>The specified outbound type is not supported, this may happen due to a plugin failure.</source>
-        <translation>指定されたアウトバウンドがサポートされていないです、プラグインの問題の可能性があります。</translation>
+      <source>The specified outbound type is not supported, this may happen due to a plugin failure.</source>
+      <translation type="unfinished">The specified outbound type is not supported, this may happen due to a plugin failure.</translation>
     </message>
     <message>
-        <source>Forward proxy has been disabled when using plugin outbound</source>
-        <translation>プラグインのアウトバウンドを使用している場合、フォワードプロキシが無効になっています</translation>
+      <source>Forward proxy has been disabled when using plugin outbound</source>
+      <translation type="unfinished">Forward proxy has been disabled when using plugin outbound</translation>
     </message>
     <message>
-        <source>Unknown outbound.</source>
-        <translation>不明なアウトバウンド。</translation>
+      <source>Unknown outbound.</source>
+      <translation type="unfinished">Unknown outbound.</translation>
     </message>
     <message>
-        <source>The specified outbound type is invalid, this may be caused by a plugin failure.</source>
-        <translation>指定された送信アウトバウンドタイプが無効です、プラグインの問題の可能性があります。</translation>
+      <source>The specified outbound type is invalid, this may be caused by a plugin failure.</source>
+      <translation type="unfinished">The specified outbound type is invalid, this may be caused by a plugin failure.</translation>
     </message>
     <message>
-        <source>Please use the JsonEditor or reload the plugin.</source>
-        <translation>JsonEditorを使用するか、プラグインをリロードしてください。</translation>
+      <source>Please use the JsonEditor or reload the plugin.</source>
+      <translation type="unfinished">Please use the JsonEditor or reload the plugin.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PluginManageWindow</name>
     <message>
-        <source>Loaded</source>
-        <translation>有効</translation>
+      <source>Loaded</source>
+      <translation type="unfinished">Loaded</translation>
     </message>
     <message>
-        <source>Not loaded</source>
-        <translation>無効</translation>
+      <source>Not loaded</source>
+      <translation type="unfinished">Not loaded</translation>
     </message>
     <message>
-        <source>Plugin Not Loaded</source>
-        <translation>プラグインがロードされていない</translation>
+      <source>Plugin Not Loaded</source>
+      <translation type="unfinished">Plugin Not Loaded</translation>
     </message>
     <message>
-        <source>Plugin does not have settings widget.</source>
-        <translation>プラグインには設定ウィジェットがありません。</translation>
+      <source>Plugin does not have settings widget.</source>
+      <translation type="unfinished">Plugin does not have settings widget.</translation>
     </message>
     <message>
-        <source>Disabling a plugin</source>
-        <translation>プラグインを無効にする</translation>
+      <source>Disabling a plugin</source>
+      <translation type="unfinished">Disabling a plugin</translation>
     </message>
     <message>
-        <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-        <translation>このプラグインは、次回Qv2rayが起動するまでロードされたままになります。</translation>
+      <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
+      <translation type="unfinished">This plugin will keep loaded until the next time Qv2ray starts.</translation>
     </message>
     <message>
-        <source>Plugin not loaded</source>
-        <translation>プラグインがロードされていない</translation>
+      <source>Plugin not loaded</source>
+      <translation type="unfinished">Plugin not loaded</translation>
     </message>
     <message>
-        <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
-        <translation>このプラグインがロードされていません, プラグインを有効にするか、プラグインをリロードしてください.</translation>
+      <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
+      <translation type="unfinished">This plugin is not loaded, please enable or reload the plugin to continue.</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>なし</translation>
+      <source>None</source>
+      <translation type="unfinished">None</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PluginSettingsWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PreferencesWindow</name>
     <message>
-        <source>Preferences</source>
-        <translation>設定</translation>
+      <source>Preferences</source>
+      <translation type="unfinished">Preferences</translation>
     </message>
     <message>
-        <source>General Settings</source>
-        <translation>一般設定</translation>
+      <source>General Settings</source>
+      <translation type="unfinished">General Settings</translation>
     </message>
     <message>
-        <source>Appearance</source>
-        <translation>外観</translation>
+      <source>Appearance</source>
+      <translation type="unfinished">Appearance</translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
+      <source>Enabled</source>
+      <translation type="unfinished">Enabled</translation>
     </message>
     <message>
-        <source>UI Theme</source>
-        <translation>UIテーマ</translation>
+      <source>UI Theme</source>
+      <translation type="unfinished">UI Theme</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation>言語</translation>
+      <source>Language</source>
+      <translation type="unfinished">Language</translation>
     </message>
     <message>
-        <source>Maximum log lines</source>
-        <translation>最大ログ行</translation>
+      <source>Maximum log lines</source>
+      <translation type="unfinished">Maximum log lines</translation>
     </message>
     <message>
-        <source> lines</source>
-        <translation> 行</translation>
+      <source> lines</source>
+      <translation type="unfinished"> lines</translation>
     </message>
     <message>
-        <source>Recent Jumplist</source>
-        <translation>最近の項目</translation>
+      <source>Recent Jumplist</source>
+      <translation type="unfinished">Recent Jumplist</translation>
     </message>
     <message>
-        <source> Connections</source>
-        <translation> 個</translation>
+      <source> Connections</source>
+      <translation type="unfinished"> Connections</translation>
     </message>
     <message>
-        <source>Behavior</source>
-        <translation>動作</translation>
+      <source>Behavior</source>
+      <translation type="unfinished">Behavior</translation>
     </message>
     <message>
-        <source>Launch at Login</source>
-        <translation>ログイン時に起動</translation>
+      <source>Launch at Login</source>
+      <translation type="unfinished">Launch at Login</translation>
     </message>
     <message>
-        <source>Auto Connect</source>
-        <translation>自動接続</translation>
+      <source>Auto Connect</source>
+      <translation type="unfinished">Auto Connect</translation>
     </message>
     <message>
-        <source>Config</source>
-        <translation>項目</translation>
+      <source>Config</source>
+      <translation type="unfinished">Config</translation>
     </message>
     <message>
-        <source>Group</source>
-        <translation>グループ</translation>
+      <source>Group</source>
+      <translation type="unfinished">Group</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>なし</translation>
+      <source>None</source>
+      <translation type="unfinished">None</translation>
     </message>
     <message>
-        <source>Last Connected</source>
-        <translation>最後に接続された項目</translation>
+      <source>Last Connected</source>
+      <translation type="unfinished">Last Connected</translation>
     </message>
     <message>
-        <source>Fixed</source>
-        <translation>固定項目</translation>
+      <source>Fixed</source>
+      <translation type="unfinished">Fixed</translation>
     </message>
     <message>
-        <source>Quiet Mode</source>
-        <translation>サイレントモード</translation>
+      <source>Quiet Mode</source>
+      <translation type="unfinished">Quiet Mode</translation>
     </message>
     <message>
-        <source>Network Settings</source>
-        <translation>ネットワーク設定</translation>
+      <source>Network Settings</source>
+      <translation type="unfinished">Network Settings</translation>
     </message>
     <message>
-        <source>These settings are used by Qv2ray itself.
+      <source>These settings are used by Qv2ray itself.
 For example, for updating subscriptions.</source>
-        <translation>これらの設定はQv2ray自体のためのものです。
-例えば、サブスクリプションの更新などです。</translation>
+      <translation type="unfinished">These settings are used by Qv2ray itself.
+For example, for updating subscriptions.</translation>
     </message>
     <message>
-        <source>User-Agent</source>
-        <translation>ユーザーエージェント</translation>
+      <source>User-Agent</source>
+      <translation type="unfinished">User-Agent</translation>
     </message>
     <message>
-        <source>Latency Test Method</source>
-        <translation>遅延テスト方法</translation>
+      <source>Latency Test Method</source>
+      <translation type="unfinished">Latency Test Method</translation>
     </message>
     <message>
-        <source>TCPing</source>
-        <translation>TCPing</translation>
+      <source>TCPing</source>
+      <translation type="unfinished">TCPing</translation>
     </message>
     <message>
-        <source>ICMPing</source>
-        <translation>ICMPing</translation>
+      <source>ICMPing</source>
+      <translation type="unfinished">ICMPing</translation>
     </message>
     <message>
-        <source>Qv2ray Proxy</source>
-        <translation>Qv2ray プロキシ</translation>
+      <source>Qv2ray Proxy</source>
+      <translation type="unfinished">Qv2ray Proxy</translation>
     </message>
     <message>
-        <source>System Proxy</source>
-        <translation>システムプロキシを使う</translation>
+      <source>System Proxy</source>
+      <translation type="unfinished">System Proxy</translation>
     </message>
     <message>
-        <source>Custom Proxy</source>
-        <translation>カスタムプロキシを使う</translation>
+      <source>Custom Proxy</source>
+      <translation type="unfinished">Custom Proxy</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>タイプ</translation>
+      <source>Type</source>
+      <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <source>Server</source>
-        <translation>サーバー</translation>
+      <source>Server</source>
+      <translation type="unfinished">Server</translation>
     </message>
     <message>
-        <source>:</source>
-        <translation>:</translation>
+      <source>:</source>
+      <translation type="unfinished">:</translation>
     </message>
     <message>
-        <source>Advanced Behavior</source>
-        <translation>高度的な動作</translation>
+      <source>Advanced Behavior</source>
+      <translation type="unfinished">Advanced Behavior</translation>
     </message>
     <message>
-        <source>Set AllowInsecure By Default</source>
-        <translation>デフォルトで AllowInsecure を設定する</translation>
+      <source>Set AllowInsecure By Default</source>
+      <translation type="unfinished">Set AllowInsecure By Default</translation>
     </message>
     <message>
-        <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
+      <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
 This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-        <translation>インポート時にすべての項目に対して「AllowInsecure」の設定を有効にします。
-これは証明書の問題を緩和することができますが、TLS MITM 攻撃を受けるリスクが高くなります。</translation>
+      <translation type="unfinished">Enable &quot;AllowInsecure&quot; settings for all connections when importing.
+This could resolve the certificate issues, but also could let one performing TLS MITM attack.</translation>
     </message>
     <message>
-        <source>Test Latency Periodcally</source>
-        <translation>周期的の遅延テスト</translation>
+      <source>Test Latency Periodcally</source>
+      <translation type="unfinished">Test Latency Periodcally</translation>
     </message>
     <message>
-        <source>Run TCPing or ICMPing periodcally after connecting to a server.
+      <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation>サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
-有効にすると、Qv2ray はより正確なレイテンシ値が得られますが、サーバーは制限される可能性が高くなります。</translation>
+      <translation type="unfinished">Run TCPing or ICMPing periodcally after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
     </message>
     <message>
-        <source>Enable SessionResumption By Default</source>
-        <translation>デフォルトで SessionResumption を有効にする</translation>
+      <source>Enable SessionResumption By Default</source>
+      <translation type="unfinished">Enable SessionResumption By Default</translation>
     </message>
     <message>
-        <source>Kernel Settings</source>
-        <translation>カーネル設定</translation>
+      <source>Kernel Settings</source>
+      <translation type="unfinished">Kernel Settings</translation>
     </message>
     <message>
-        <source>Log Level</source>
-        <translation>ログレベル</translation>
+      <source>Log Level</source>
+      <translation type="unfinished">Log Level</translation>
     </message>
     <message>
-        <source>none</source>
-        <translation>なし</translation>
+      <source>none</source>
+      <translation type="unfinished">none</translation>
     </message>
     <message>
-        <source>debug</source>
-        <translation>デバッグ</translation>
+      <source>debug</source>
+      <translation type="unfinished">debug</translation>
     </message>
     <message>
-        <source>info</source>
-        <translation>info</translation>
+      <source>info</source>
+      <translation type="unfinished">info</translation>
     </message>
     <message>
-        <source>warning</source>
-        <translation>警告</translation>
+      <source>warning</source>
+      <translation type="unfinished">warning</translation>
     </message>
     <message>
-        <source>error</source>
-        <translation>エラー</translation>
+      <source>error</source>
+      <translation type="unfinished">error</translation>
     </message>
     <message>
-        <source>Select</source>
-        <translation>選択</translation>
+      <source>Select</source>
+      <translation type="unfinished">Select</translation>
     </message>
     <message>
-        <source>Plugin Kernel Settings</source>
-        <translation>プラグインのカーネル設定</translation>
+      <source>Plugin Kernel Settings</source>
+      <translation type="unfinished">Plugin Kernel Settings</translation>
     </message>
     <message>
-        <source>If not checked, these features will be disabled:
+      <source>If not checked, these features will be disabled:
 
 Advanced Routing Settings
 Bypass CN websites and IPs
 Direct connection of Local LAN addresses
 Custom DNS Settings</source>
-        <translation>有効にしないと、これらの機能は無効になります：
+      <translation type="unfinished">If not checked, these features will be disabled:
 
-高度なルーティング設定
-中国本土のウェブサイトおよびIPバイパス
-ローカルLANアドレスの直接接続
-カスタムDNS設定</translation>
+Advanced Routing Settings
+Bypass CN websites and IPs
+Direct connection of Local LAN addresses
+Custom DNS Settings</translation>
     </message>
     <message>
-        <source>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</source>
-        <translation>有効な場合、Qv2ray は各カーネルプラグインにそれぞれ HTTP と SOCKS 用のポートを割り当てます。</translation>
+      <source>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</source>
+      <translation type="unfinished">Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</translation>
     </message>
     <message>
-        <source>Port Allocation Start</source>
-        <translation>ポート割り当て開始</translation>
+      <source>Port Allocation Start</source>
+      <translation type="unfinished">Port Allocation Start</translation>
     </message>
     <message>
-        <source>Inbound Settings</source>
-        <translation>インバウンド設定</translation>
+      <source>Inbound Settings</source>
+      <translation type="unfinished">Inbound Settings</translation>
     </message>
     <message>
-        <source>Listening Address</source>
-        <translation>リスニングアドレス</translation>
+      <source>Listening Address</source>
+      <translation type="unfinished">Listening Address</translation>
     </message>
     <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
-        <translation>IPv4アドレス、例えば、127.0.0.1；またはIPv6アドレス、例えば、::1</translation>
+      <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
+      <translation type="unfinished">IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</translation>
     </message>
     <message>
-        <source>Set System Proxy</source>
-        <translation>システムプロキシに設定する</translation>
+      <source>Set System Proxy</source>
+      <translation type="unfinished">Set System Proxy</translation>
     </message>
     <message>
-        <source>SOCKS Settings</source>
-        <translation>SOCKS設定</translation>
+      <source>SOCKS Settings</source>
+      <translation type="unfinished">SOCKS Settings</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+      <source>Port</source>
+      <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <source>UDP Support</source>
-        <translation>UDPサポート</translation>
+      <source>UDP Support</source>
+      <translation type="unfinished">UDP Support</translation>
     </message>
     <message>
-        <source>UDP Local IP</source>
-        <translation>UDP ローカル IP</translation>
+      <source>UDP Local IP</source>
+      <translation type="unfinished">UDP Local IP</translation>
     </message>
     <message>
-        <source>Authentication</source>
-        <translation>認証</translation>
+      <source>Authentication</source>
+      <translation type="unfinished">Authentication</translation>
     </message>
     <message>
-        <source>Username</source>
-        <translation>ユーザー名</translation>
+      <source>Username</source>
+      <translation type="unfinished">Username</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
+      <source>Password</source>
+      <translation type="unfinished">Password</translation>
     </message>
     <message>
-        <source>Sniffing</source>
-        <translation>フィルター</translation>
+      <source>Sniffing</source>
+      <translation type="unfinished">Sniffing</translation>
     </message>
     <message>
-        <source>HTTP Settings</source>
-        <translation>HTTP設定</translation>
+      <source>HTTP Settings</source>
+      <translation type="unfinished">HTTP Settings</translation>
     </message>
     <message>
-        <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
-        <translation>IPv4アドレス、例えば、127.0.0.1</translation>
+      <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
+      <translation type="unfinished">IPv4 address, e.g. &apos;127.0.0.1&apos;</translation>
     </message>
     <message>
-        <source>Network Options</source>
-        <translation>ネットワーク設定</translation>
+      <source>Network Options</source>
+      <translation type="unfinished">Network Options</translation>
     </message>
     <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
+      <source>TCP</source>
+      <translation type="unfinished">TCP</translation>
     </message>
     <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
+      <source>UDP</source>
+      <translation type="unfinished">UDP</translation>
     </message>
     <message>
-        <source>DNS Intercept</source>
-        <translation>DNSインターセプト</translation>
+      <source>DNS Intercept</source>
+      <translation type="unfinished">DNS Intercept</translation>
     </message>
     <message>
-        <source>Mode</source>
-        <translation>モード</translation>
+      <source>Mode</source>
+      <translation type="unfinished">Mode</translation>
     </message>
     <message>
-        <source>Outbound Mark</source>
-        <translation>アウトバウンドマーク</translation>
+      <source>Outbound Mark</source>
+      <translation type="unfinished">Outbound Mark</translation>
     </message>
     <message>
-        <source>Listening IPv4 Address</source>
-        <translation>リスニングIPv4アドレス</translation>
+      <source>Listening IPv4 Address</source>
+      <translation type="unfinished">Listening IPv4 Address</translation>
     </message>
     <message>
-        <source>Listening IPv6 Address</source>
-        <translation>リスニングIPv6アドレス</translation>
+      <source>Listening IPv6 Address</source>
+      <translation type="unfinished">Listening IPv6 Address</translation>
     </message>
     <message>
-        <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
-        <translation>IPv6アドレス、例えば、::1。空欄のままにしておくとIPv6を無効にします。</translation>
+      <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
+      <translation type="unfinished">IPv6 address, e.g. ::1. Leave blank will disable ipv6.</translation>
     </message>
     <message>
-        <source>Connection Settings</source>
-        <translation>接続設定</translation>
+      <source>Connection Settings</source>
+      <translation type="unfinished">Connection Settings</translation>
     </message>
     <message>
-        <source>General Connection Settings</source>
-        <translation>一般接続設定</translation>
+      <source>General Connection Settings</source>
+      <translation type="unfinished">General Connection Settings</translation>
     </message>
     <message>
-        <source>Bypass CN Mainland</source>
-        <translation>中国本土をバイパス</translation>
+      <source>Bypass CN Mainland</source>
+      <translation type="unfinished">Bypass CN Mainland</translation>
     </message>
     <message>
-        <source>Bypass Bittorrent Protocol</source>
-        <translation>ビットトレントプロトコルをバイパス</translation>
+      <source>Bypass Bittorrent Protocol</source>
+      <translation type="unfinished">Bypass Bittorrent Protocol</translation>
     </message>
     <message>
-        <source>Use Local DNS</source>
-        <translation>ローカルDNSを使用する</translation>
+      <source>Use Local DNS</source>
+      <translation type="unfinished">Use Local DNS</translation>
     </message>
     <message>
-        <source>DNS Settings</source>
-        <translation>DNS設定</translation>
+      <source>DNS Settings</source>
+      <translation type="unfinished">DNS Settings</translation>
     </message>
     <message>
-        <source>Forward Proxy</source>
-        <translation>フォワードプロキシ</translation>
+      <source>Forward Proxy</source>
+      <translation type="unfinished">Forward Proxy</translation>
     </message>
     <message>
-        <source>Only simple config is supported.</source>
-        <translation>簡易構成のみがサポートされています。</translation>
+      <source>Only simple config is supported.</source>
+      <translation type="unfinished">Only simple config is supported.</translation>
     </message>
     <message>
-        <source>Host Address</source>
-        <translation>ホストアドレス</translation>
+      <source>Host Address</source>
+      <translation type="unfinished">Host Address</translation>
     </message>
     <message>
-        <source>Advanced Route Settings</source>
-        <translation>ルート詳細設定</translation>
+      <source>Advanced Route Settings</source>
+      <translation type="unfinished">Advanced Route Settings</translation>
     </message>
     <message>
-        <source>About</source>
-        <translation>このソフトについて</translation>
+      <source>About</source>
+      <translation type="unfinished">About</translation>
     </message>
     <message>
-        <source>Ignored Version</source>
-        <translation>バージョン無視</translation>
+      <source>Ignored Version</source>
+      <translation type="unfinished">Ignored Version</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>キャンセル</translation>
+      <source>Cancel</source>
+      <translation type="unfinished">Cancel</translation>
     </message>
     <message>
-        <source>Update Channel</source>
-        <translation>更新チャネル</translation>
+      <source>Update Channel</source>
+      <translation type="unfinished">Update Channel</translation>
     </message>
     <message>
-        <source>Stable Release</source>
-        <translation>安定版</translation>
+      <source>Stable Release</source>
+      <translation type="unfinished">Stable Release</translation>
     </message>
     <message>
-        <source>Testing</source>
-        <translation>テスト版</translation>
+      <source>Testing</source>
+      <translation type="unfinished">Testing</translation>
     </message>
     <message>
-        <source>Qv2ray</source>
-        <translation>Qv2ray</translation>
+      <source>Qv2ray</source>
+      <translation type="unfinished">Qv2ray</translation>
     </message>
     <message>
-        <source>Version:</source>
-        <translation>バージョン：</translation>
+      <source>Version:</source>
+      <translation type="unfinished">Version:</translation>
     </message>
     <message>
-        <source>Plugin Interface</source>
-        <translation>プラグインインタフェース</translation>
+      <source>Plugin Interface</source>
+      <translation type="unfinished">Plugin Interface</translation>
     </message>
     <message>
-        <source>Extra Build Info</source>
-        <translation>追加ビルド情報</translation>
+      <source>Extra Build Info</source>
+      <translation type="unfinished">Extra Build Info</translation>
     </message>
     <message>
-        <source>Built Time</source>
-        <translation>ビルド時間</translation>
+      <source>Built Time</source>
+      <translation type="unfinished">Built Time</translation>
     </message>
     <message>
-        <source>Build Info</source>
-        <translation>ビルド情報</translation>
+      <source>Build Info</source>
+      <translation type="unfinished">Build Info</translation>
     </message>
     <message>
-        <source>Official Repo</source>
-        <translation>公式レポ</translation>
+      <source>Official Repo</source>
+      <translation type="unfinished">Official Repo</translation>
     </message>
     <message>
-        <source>License</source>
-        <translation>ライセンス</translation>
+      <source>License</source>
+      <translation type="unfinished">License</translation>
     </message>
     <message>
-        <source>About Qt</source>
-        <translation>Qtについて</translation>
+      <source>About Qt</source>
+      <translation type="unfinished">About Qt</translation>
     </message>
     <message>
-        <source>Version: %1</source>
-        <translation>バージョン: %1</translation>
+      <source>Version: %1</source>
+      <translation type="unfinished">Version: %1</translation>
     </message>
     <message>
-        <source>Update is disabled by your vendor.</source>
-        <translation>ベンダーによって更新が無効になっています。</translation>
+      <source>Update is disabled by your vendor.</source>
+      <translation type="unfinished">Update is disabled by your vendor.</translation>
     </message>
     <message>
-        <source>Duplicated port numbers detected, please check the port number settings.</source>
-        <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください。</translation>
+      <source>Duplicated port numbers detected, please check the port number settings.</source>
+      <translation type="unfinished">Duplicated port numbers detected, please check the port number settings.</translation>
     </message>
     <message>
-        <source>Invalid inbound listening address.</source>
-        <translation>無効なインバウンドリスニングアドレス。</translation>
+      <source>Invalid inbound listening address.</source>
+      <translation type="unfinished">Invalid inbound listening address.</translation>
     </message>
     <message>
-        <source>Invalid tproxy listening ivp4 address.</source>
-        <translation>無効なtProxyリスニングIPv4アドレス。</translation>
+      <source>Invalid tproxy listening ivp4 address.</source>
+      <translation type="unfinished">Invalid tproxy listening ivp4 address.</translation>
     </message>
     <message>
-        <source>Invalid tproxy listening ipv6 address.</source>
-        <translation>無効なtProxyリスニングIPv6アドレス。</translation>
+      <source>Invalid tproxy listening ipv6 address.</source>
+      <translation type="unfinished">Invalid tproxy listening ipv6 address.</translation>
     </message>
     <message>
-        <source>Note</source>
-        <translation>ご注意</translation>
+      <source>Note</source>
+      <translation type="unfinished">Note</translation>
     </message>
     <message>
-        <source>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</source>
-        <translation>プロトコルを認識するためには、受信側のプロキシでスニッフィングオプションを有効にする必要があります。</translation>
+      <source>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</source>
+      <translation type="unfinished">To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</translation>
     </message>
     <message>
-        <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
-        <translation>tProxyインバウンドのスニッフィングはデフォルトで有効になっています。</translation>
+      <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
+      <translation type="unfinished">tproxy inbound&apos;s sniffing is enabled by default.</translation>
     </message>
     <message>
-        <source>Start with boot</source>
-        <translation>システム起動時に起動します</translation>
+      <source>Start with boot</source>
+      <translation type="unfinished">Start with boot</translation>
     </message>
     <message>
-        <source>Failed to set auto start option.</source>
-        <translation>自動起動オプションの設定に失敗しました。</translation>
+      <source>Failed to set auto start option.</source>
+      <translation type="unfinished">Failed to set auto start option.</translation>
     </message>
     <message>
-        <source>Disabling API Subsystem</source>
-        <translation>APIサブシステムを無効</translation>
+      <source>Disabling API Subsystem</source>
+      <translation type="unfinished">Disabling API Subsystem</translation>
     </message>
     <message>
-        <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
-        <translation>APIサブシステムを無効にすると、Qv2rayの統計機能も無効になります。</translation>
+      <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
+      <translation type="unfinished">Disabling API subsystem will also disable the statistics function of Qv2ray.</translation>
     </message>
     <message>
-        <source>Speed chart and traffic statistics will be disabled.</source>
-        <translation>スピードチャートや交通統計は無効になります。</translation>
+      <source>Speed chart and traffic statistics will be disabled.</source>
+      <translation type="unfinished">Speed chart and traffic statistics will be disabled.</translation>
     </message>
     <message>
-        <source>Dangerous Operation</source>
-        <translation>危険操作</translation>
+      <source>Dangerous Operation</source>
+      <translation type="unfinished">Dangerous Operation</translation>
     </message>
     <message>
-        <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-        <translation>TLSの保護を失い、MITMの攻撃を受ける可能性が高くなります。</translation>
+      <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
+      <translation type="unfinished">You will lose the advantage of TLS and make your connection under MITM attack.</translation>
     </message>
     <message>
-        <source>This will (probably) make it easy to fingerprint your connection.</source>
-        <translation>そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
+      <source>This will (probably) make it easy to fingerprint your connection.</source>
+      <translation type="unfinished">This will (probably) make it easy to fingerprint your connection.</translation>
     </message>
     <message>
-        <source>NTP Checker</source>
-        <translation>ネットワークタイムチェッカー</translation>
+      <source>NTP Checker</source>
+      <translation type="unfinished">NTP Checker</translation>
     </message>
     <message>
-        <source>Check date and time from server:</source>
-        <translation>サーバーからの日時の確認：</translation>
+      <source>Check date and time from server:</source>
+      <translation type="unfinished">Check date and time from server:</translation>
     </message>
     <message>
-        <source>Your time offset is %1 seconds, which is too high.</source>
-        <translation>あなたの時間オフセットは %1 秒ですが、これは高すぎます。</translation>
+      <source>Your time offset is %1 seconds, which is too high.</source>
+      <translation type="unfinished">Your time offset is %1 seconds, which is too high.</translation>
     </message>
     <message>
-        <source>Please synchronize your system to use V2Ray.</source>
-        <translation>V2Rayを使用するには、システムの時間を同期してください。</translation>
+      <source>Please synchronize your system to use V2Ray.</source>
+      <translation type="unfinished">Please synchronize your system to use V2Ray.</translation>
     </message>
     <message>
-        <source>Time Inaccurate</source>
-        <translation>時間不正確</translation>
+      <source>Time Inaccurate</source>
+      <translation type="unfinished">Time Inaccurate</translation>
     </message>
     <message>
-        <source>Your time offset is %1 seconds, which is a little high.</source>
-        <translation>あなたの時間オフセットは %1 秒で、少し高いです。</translation>
+      <source>Your time offset is %1 seconds, which is a little high.</source>
+      <translation type="unfinished">Your time offset is %1 seconds, which is a little high.</translation>
     </message>
     <message>
-        <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
-        <translation>V2Rayはまだ動作するかもしれませんが、システムの時間を同期させることをお勧めします。</translation>
+      <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
+      <translation type="unfinished">V2Ray may still work, but we suggest you synchronize your clock.</translation>
     </message>
     <message>
-        <source>Time Somewhat Inaccurate</source>
-        <translation>時間多少不正確</translation>
+      <source>Time Somewhat Inaccurate</source>
+      <translation type="unfinished">Time Somewhat Inaccurate</translation>
     </message>
     <message>
-        <source>Your time offset is %1 seconds, which looks good.</source>
-        <translation>あなたの時間オフセットは %1 秒ですが、これは良さそうです。</translation>
+      <source>Your time offset is %1 seconds, which looks good.</source>
+      <translation type="unfinished">Your time offset is %1 seconds, which looks good.</translation>
     </message>
     <message>
-        <source>V2Ray may not suffer from time inaccuracy.</source>
-        <translation>V2Rayが正常に動作します。</translation>
+      <source>V2Ray may not suffer from time inaccuracy.</source>
+      <translation type="unfinished">V2Ray may not suffer from time inaccuracy.</translation>
     </message>
     <message>
-        <source>Time Accurate</source>
-        <translation>時間正確</translation>
+      <source>Time Accurate</source>
+      <translation type="unfinished">Time Accurate</translation>
     </message>
     <message>
-        <source>Failed to lookup server: %1</source>
-        <translation>サーバの検索に失敗しました：%1</translation>
+      <source>Failed to lookup server: %1</source>
+      <translation type="unfinished">Failed to lookup server: %1</translation>
     </message>
     <message>
-        <source>You can configure default DNS settings for all simple connection config here.</source>
-        <translation>ここでは、すべてのシンプルな接続設定のデフォルトDNS設定を行うことができます。</translation>
+      <source>You can configure default DNS settings for all simple connection config here.</source>
+      <translation type="unfinished">You can configure default DNS settings for all simple connection config here.</translation>
     </message>
     <message>
-        <source>You can configure default routing rules for all simple connection config here.</source>
-        <translation>ここでは、すべてのシンプルな接続設定のデフォルトのルーティングルールを設定することができます。</translation>
+      <source>You can configure default routing rules for all simple connection config here.</source>
+      <translation type="unfinished">You can configure default routing rules for all simple connection config here.</translation>
     </message>
     <message>
-        <source>Invalid DNS settings.</source>
-        <translation>DNSの設定が無効です。</translation>
+      <source>Invalid DNS settings.</source>
+      <translation type="unfinished">Invalid DNS settings.</translation>
     </message>
     <message>
-        <source>These settings may be useful.
+      <source>These settings may be useful.
 But could damage your server if improperly used.</source>
-        <translation>これらの設定は役に立つかもしれません。
-しかし、不適切な使い方をするとサーバーにダメージを与える可能性があります。</translation>
+      <translation type="unfinished">These settings may be useful.
+But could damage your server if improperly used.</translation>
     </message>
     <message>
-        <source>Watch Out!</source>
-        <translation>気を付けて！</translation>
+      <source>Watch Out!</source>
+      <translation type="unfinished">Watch Out!</translation>
     </message>
     <message>
-        <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
+      <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
 This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
-        <translation>V2RayコアをQv2ray自体に誤って設定している可能性がありますが、これは絶対に正しくありません。
-しかし、Qv2rayはシングルトンモードで動作するため、フォークボムは発生しません。
-もしあなたのV2Rayコアのファイル名が&apos;qv2ray&apos;などであれば、この警告を無視して構いません。</translation>
+      <translation type="unfinished">You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.
+This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.
+If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</translation>
     </message>
     <message>
-        <source>Check System Date and Time from the Internet</source>
-        <translation>インターネットからシステムの日時を確認する</translation>
+      <source>Check System Date and Time from the Internet</source>
+      <translation type="unfinished">Check System Date and Time from the Internet</translation>
     </message>
     <message>
-        <source>Currently:
+      <source>Currently:
 - vmess/shadowsocks/socks/http will be treated as PROXY.
 - freedom will be treated as DIRECT
 - blackhole will be treated as BLOCK</source>
-        <translation>現在のところ
-- vmess/shadowsocks/socks/http は PROXY として扱われます。
-- freedom は DIRECT として扱われます。
-- ブラックホールはBLOCKとして扱われます</translation>
+      <translation type="unfinished">Currently:
+- vmess/shadowsocks/socks/http will be treated as PROXY.
+- freedom will be treated as DIRECT
+- blackhole will be treated as BLOCK</translation>
     </message>
     <message>
-        <source>Include Direct Connection</source>
-        <translation>直接接続を含む</translation>
+      <source>Include Direct Connection</source>
+      <translation type="unfinished">Include Direct Connection</translation>
     </message>
     <message>
-        <source>Old Share Link Format</source>
-        <translation>旧リンク形式</translation>
+      <source>Old Share Link Format</source>
+      <translation type="unfinished">Old Share Link Format</translation>
     </message>
     <message>
-        <source>Adapt Dark Theme</source>
-        <translation>適応ダークテーマ</translation>
+      <source>Adapt Dark Theme</source>
+      <translation type="unfinished">Adapt Dark Theme</translation>
     </message>
     <message>
-        <source>Adapt Dark Tray Theme</source>
-        <translation>適応ダークトレイのテーマ</translation>
+      <source>Adapt Dark Tray Theme</source>
+      <translation type="unfinished">Adapt Dark Tray Theme</translation>
     </message>
     <message>
-        <source>V2Ray Core Settings</source>
-        <translation>V2Rayコア設定</translation>
+      <source>V2Ray Core Settings</source>
+      <translation type="unfinished">V2Ray Core Settings</translation>
     </message>
     <message>
-        <source>V2Ray Core Executable Path</source>
-        <translation>V2Ray コアのパス</translation>
+      <source>V2Ray Core Executable Path</source>
+      <translation type="unfinished">V2Ray Core Executable Path</translation>
     </message>
     <message>
-        <source>V2Ray Assets Directory</source>
-        <translation>V2Ray アセットフォルダー</translation>
+      <source>V2Ray Assets Directory</source>
+      <translation type="unfinished">V2Ray Assets Directory</translation>
     </message>
     <message>
-        <source>Check V2Ray Core Settings</source>
-        <translation>V2Rayコア設定を確認する</translation>
+      <source>Check V2Ray Core Settings</source>
+      <translation type="unfinished">Check V2Ray Core Settings</translation>
     </message>
     <message>
-        <source>V2Ray API Subsystem</source>
-        <translation>V2Ray APIサブシステム</translation>
+      <source>V2Ray API Subsystem</source>
+      <translation type="unfinished">V2Ray API Subsystem</translation>
     </message>
     <message>
-        <source>V2Ray API Port</source>
-        <translation>V2Ray APIポート</translation>
+      <source>V2Ray API Port</source>
+      <translation type="unfinished">V2Ray API Port</translation>
     </message>
     <message>
-        <source>Outbound Statistics (V2Ray Core v4.26+)</source>
-        <translation>アウトバウンド統計（V2Rayコアv4.26以降）</translation>
+      <source>Outbound Statistics (V2Ray Core v4.26+)</source>
+      <translation type="unfinished">Outbound Statistics (V2Ray Core v4.26+)</translation>
     </message>
     <message>
-        <source>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</source>
-        <translation>V2Ray統合を有効にすると、カーネルはV2Rayルーティングエンジンの恩恵を受けることができます。</translation>
+      <source>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</source>
+      <translation type="unfinished">Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</translation>
     </message>
     <message>
-        <source>V2Ray Integration</source>
-        <translation>V2Rayの統合</translation>
+      <source>V2Ray Integration</source>
+      <translation type="unfinished">V2Ray Integration</translation>
     </message>
     <message>
-        <source>Only V2Ray Core v4.21+ is supported.</source>
-        <translation>V2Rayコアv4.21以降のみ対応しています。</translation>
+      <source>Only V2Ray Core v4.21+ is supported.</source>
+      <translation type="unfinished">Only V2Ray Core v4.21+ is supported.</translation>
     </message>
     <message>
-        <source>Use V2Ray DNS for Direct Connection</source>
-        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
+      <source>Use V2Ray DNS for Direct Connection</source>
+      <translation type="unfinished">Use V2Ray DNS for Direct Connection</translation>
     </message>
     <message>
-        <source>Open V2Ray assets folder</source>
-        <translation>V2Rayアセットフォルダーを開く</translation>
+      <source>Open V2Ray assets folder</source>
+      <translation type="unfinished">Open V2Ray assets folder</translation>
     </message>
     <message>
-        <source>Open V2Ray core file</source>
-        <translation>V2Rayコアファイルを開く</translation>
+      <source>Open V2Ray core file</source>
+      <translation type="unfinished">Open V2Ray core file</translation>
     </message>
     <message>
-        <source>V2Ray path configuration check passed.</source>
-        <translation>V2Rayパス構成チェックに通過しました。</translation>
+      <source>V2Ray path configuration check passed.</source>
+      <translation type="unfinished">V2Ray path configuration check passed.</translation>
     </message>
     <message>
-        <source>Current version of V2Ray is: </source>
-        <translation>V2Rayの現在のバージョンは次のとおりです: </translation>
+      <source>Current version of V2Ray is: </source>
+      <translation type="unfinished">Current version of V2Ray is: </translation>
     </message>
     <message>
-        <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
+      <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
 The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
-        <translation>V2RayコアをV2Ray制御実行ファイルに間違って設定している可能性がありますが、これは絶対に正しくありません。
-V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&apos;です。賢明に選択してください。
-先に進むことをお勧めする場合、サポートを提供しておりません。</translation>
+      <translation type="unfinished">You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.
+The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.
+If you insist to proceed, we&apos;re not providing with any support.</translation>
     </message>
     <message>
-        <source>This will make your TLS fingerpring different from common Golang programs.</source>
-        <translation>これにより、TLSのフィンガースプリングが一般的なGolangプログラムとは異なるものになります。</translation>
+      <source>This will make your TLS fingerpring different from common Golang programs.</source>
+      <translation type="unfinished">This will make your TLS fingerpring different from common Golang programs.</translation>
     </message>
     <message>
-        <source>Force Direct for All Connections</source>
-        <translation>すべての接続に直接を</translation>
+      <source>Force Direct for All Connections</source>
+      <translation type="unfinished">Force Direct for All Connections</translation>
     </message>
     <message>
-        <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
+      <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
 If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
 Output: <byte value="xd"/>
 <byte value="xd"/>
 </source>
-        <translation>これはV2Rayコアからの出力のようには見えません。
-プラグインコアを探している場合は、ここではなくプラグイン設定でこれを変更する必要があります。
-出力：
+      <translation type="unfinished">This does not seem like an output from V2Ray Core.
+If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.
+Output: 
 
 </translation>
     </message>
     <message>
-        <source>&apos;V2Ray Core&apos; Settings</source>
-        <translation>「V2Rayコア」設定</translation>
+      <source>&apos;V2Ray Core&apos; Settings</source>
+      <translation type="unfinished">&apos;V2Ray Core&apos; Settings</translation>
     </message>
     <message>
-        <source>RealPing Test URL</source>
-        <translation>実質レイテンシテストURL</translation>
+      <source>RealPing Test URL</source>
+      <translation type="unfinished">RealPing Test URL</translation>
     </message>
     <message>
-        <source>Bypass Private Addresses</source>
-        <translation>プライベートアドレスのバイパス</translation>
+      <source>Bypass Private Addresses</source>
+      <translation type="unfinished">Bypass Private Addresses</translation>
     </message>
     <message>
-        <source>You may need to reconnect to apply the settings now.</source>
-        <translation>今すぐ設定を適用するには、再接続が必要な場合があります。</translation>
+      <source>You may need to reconnect to apply the settings now.</source>
+      <translation type="unfinished">You may need to reconnect to apply the settings now.</translation>
     </message>
     <message>
-        <source>Otherwise they will be applied next time you connect to a server.</source>
-        <translation>そうしないと、次回サーバーに接続したときに変更が適用されます。</translation>
+      <source>Otherwise they will be applied next time you connect to a server.</source>
+      <translation type="unfinished">Otherwise they will be applied next time you connect to a server.</translation>
     </message>
     <message>
-        <source>Do you want to reconnect now?</source>
-        <translation>今すぐ再接続しますか？</translation>
+      <source>Do you want to reconnect now?</source>
+      <translation type="unfinished">Do you want to reconnect now?</translation>
     </message>
     <message>
-        <source>Reconnect Required</source>
-        <translation>再接続が必要</translation>
+      <source>Reconnect Required</source>
+      <translation type="unfinished">Reconnect Required</translation>
     </message>
     <message>
-        <source>Dokodemo Door Settings</source>
-        <translation>ドコデモドーアの設定</translation>
+      <source>Dokodemo Door Settings</source>
+      <translation type="unfinished">Dokodemo Door Settings</translation>
     </message>
     <message>
-        <source>Disable System Root Certificates</source>
-        <translation>システムルート証明書を無効にする</translation>
+      <source>Disable System Root Certificates</source>
+      <translation type="unfinished">Disable System Root Certificates</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QObject</name>
     <message>
-        <source>Out</source>
-        <translation>出す</translation>
+      <source>Out</source>
+      <translation type="unfinished">Out</translation>
     </message>
     <message>
-        <source>In</source>
-        <translation>入る</translation>
+      <source>In</source>
+      <translation type="unfinished">In</translation>
     </message>
     <message>
-        <source>Rule</source>
-        <translation>ルール</translation>
+      <source>Rule</source>
+      <translation type="unfinished">Rule</translation>
     </message>
     <message>
-        <source>Chain</source>
-        <translation>チェイン</translation>
+      <source>Chain</source>
+      <translation type="unfinished">Chain</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
     <message>
-        <source>A new version of Qv2ray is starting:</source>
-        <translation>Qv2rayの新バージョンがスタートしています。</translation>
+      <source>A new version of Qv2ray is starting:</source>
+      <translation type="unfinished">A new version of Qv2ray is starting:</translation>
     </message>
     <message>
-        <source>New version information: </source>
-        <translation>新バージョン情報です: </translation>
+      <source>New version information: </source>
+      <translation type="unfinished">New version information: </translation>
     </message>
     <message>
-        <source>Do you want to exit and launch that new version?</source>
-        <translation>現在のバージョンを終了して、新しいバージョンを起動しますか？</translation>
+      <source>Do you want to exit and launch that new version?</source>
+      <translation type="unfinished">Do you want to exit and launch that new version?</translation>
     </message>
     <message>
-        <source>New version detected</source>
-        <translation>新しいバージョンを検出</translation>
+      <source>New version detected</source>
+      <translation type="unfinished">New version detected</translation>
     </message>
     <message>
-        <source>Version: %1:%2</source>
-        <translation>バージョン: %1:%2</translation>
+      <source>Version: %1:%2</source>
+      <translation type="unfinished">Version: %1:%2</translation>
     </message>
     <message>
-        <source>Path: %1</source>
-        <translation>パス: %1</translation>
+      <source>Path: %1</source>
+      <translation type="unfinished">Path: %1</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
     <message>
-        <source>You can not input space characters here.</source>
-        <translation>ここではスペース文字を入力できません。</translation>
+      <source>You can not input space characters here.</source>
+      <translation type="unfinished">You can not input space characters here.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>RouteEditor</name>
     <message>
-        <source>Route Editor</source>
-        <translation>ルートエディター</translation>
+      <source>Route Editor</source>
+      <translation type="unfinished">Route Editor</translation>
     </message>
     <message>
-        <source>Add outbound</source>
-        <translation>アウトバウンドを追加</translation>
+      <source>Add outbound</source>
+      <translation type="unfinished">Add outbound</translation>
     </message>
     <message>
-        <source>Add default inbound from global config</source>
-        <translation>グローバル設定からデフォルトのインバウンドを追加</translation>
+      <source>Add default inbound from global config</source>
+      <translation type="unfinished">Add default inbound from global config</translation>
     </message>
     <message>
-        <source>Add blackhole outbound</source>
-        <translation>ブラックホールアウトバウンドを追加</translation>
+      <source>Add blackhole outbound</source>
+      <translation type="unfinished">Add blackhole outbound</translation>
     </message>
     <message>
-        <source>Add Freedom outbound</source>
-        <translation>フリーアウトバウンドを追加</translation>
+      <source>Add Freedom outbound</source>
+      <translation type="unfinished">Add Freedom outbound</translation>
     </message>
     <message>
-        <source>Protocol</source>
-        <translation>プロトコル</translation>
+      <source>Protocol</source>
+      <translation type="unfinished">Protocol</translation>
     </message>
     <message>
-        <source>Tag</source>
-        <translation>タグ</translation>
+      <source>Tag</source>
+      <translation type="unfinished">Tag</translation>
     </message>
     <message>
-        <source>Host</source>
-        <translation>ホスト</translation>
+      <source>Host</source>
+      <translation type="unfinished">Host</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+      <source>Port</source>
+      <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <source>Domain Strategy</source>
-        <translation>ドメインポリシー</translation>
+      <source>Domain Strategy</source>
+      <translation type="unfinished">Domain Strategy</translation>
     </message>
     <message>
-        <source>Default Outbound</source>
-        <translation>デフォルトのアウトバウンド</translation>
+      <source>Default Outbound</source>
+      <translation type="unfinished">Default Outbound</translation>
     </message>
     <message>
-        <source>Drag and drop to re-order the rules.</source>
-        <translation>ルール順番を変更するには、ドラッグアンドドロップします。</translation>
+      <source>Drag and drop to re-order the rules.</source>
+      <translation type="unfinished">Drag and drop to re-order the rules.</translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>ステータス</translation>
+      <source>Status</source>
+      <translation type="unfinished">Status</translation>
     </message>
     <message>
-        <source>Added DIRECT outbound</source>
-        <translation>DIRECTアウトバウンドを追加しました</translation>
+      <source>Added DIRECT outbound</source>
+      <translation type="unfinished">Added DIRECT outbound</translation>
     </message>
     <message>
-        <source>New Outbound</source>
-        <translation>アウトバウンドを追加</translation>
+      <source>New Outbound</source>
+      <translation type="unfinished">New Outbound</translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>インポート</translation>
+      <source>Import</source>
+      <translation type="unfinished">Import</translation>
     </message>
     <message>
-        <source>Blackhole</source>
-        <translation>ブラックホール</translation>
+      <source>Blackhole</source>
+      <translation type="unfinished">Blackhole</translation>
     </message>
     <message>
-        <source>New Inbound</source>
-        <translation>新規インバウンド</translation>
+      <source>New Inbound</source>
+      <translation type="unfinished">New Inbound</translation>
     </message>
     <message>
-        <source>Editor</source>
-        <translation>エディター</translation>
+      <source>Editor</source>
+      <translation type="unfinished">Editor</translation>
     </message>
     <message>
-        <source>Global Settings</source>
-        <translation>グローバル設定</translation>
+      <source>Global Settings</source>
+      <translation type="unfinished">Global Settings</translation>
     </message>
     <message>
-        <source>Freedom</source>
-        <translation>自由</translation>
+      <source>Freedom</source>
+      <translation type="unfinished">Freedom</translation>
     </message>
     <message>
-        <source>Balancer</source>
-        <translation>バランサー</translation>
+      <source>Balancer</source>
+      <translation type="unfinished">Balancer</translation>
     </message>
     <message>
-        <source>Chain</source>
-        <translation>チェイン</translation>
+      <source>Chain</source>
+      <translation type="unfinished">Chain</translation>
     </message>
     <message>
-        <source>Existing Connection</source>
-        <translation>既存の接続</translation>
+      <source>Existing Connection</source>
+      <translation type="unfinished">Existing Connection</translation>
     </message>
     <message>
-        <source>Copy</source>
-        <translation>コピー</translation>
+      <source>Copy</source>
+      <translation type="unfinished">Copy</translation>
     </message>
     <message>
-        <source>Reference</source>
-        <translation>リファレンス</translation>
+      <source>Reference</source>
+      <translation type="unfinished">Reference</translation>
     </message>
     <message>
-        <source>Routing Settings</source>
-        <translation>ルーティング設定</translation>
+      <source>Routing Settings</source>
+      <translation type="unfinished">Routing Settings</translation>
     </message>
     <message>
-        <source>Chain Editor</source>
-        <translation>チェーンエディタ</translation>
+      <source>Chain Editor</source>
+      <translation type="unfinished">Chain Editor</translation>
     </message>
     <message>
-        <source>DNS Settings</source>
-        <translation>DNS設定</translation>
+      <source>DNS Settings</source>
+      <translation type="unfinished">DNS Settings</translation>
     </message>
     <message>
-        <source>Selected Inbound / Outbound Info</source>
-        <translation>選択されたインバウンド/アウトバウンド情報</translation>
+      <source>Selected Inbound / Outbound Info</source>
+      <translation type="unfinished">Selected Inbound / Outbound Info</translation>
     </message>
     <message>
-        <source>Unknown</source>
-        <translation>不明</translation>
+      <source>Unknown</source>
+      <translation type="unfinished">Unknown</translation>
     </message>
     <message>
-        <source>0</source>
-        <translation>0</translation>
+      <source>0</source>
+      <translation type="unfinished">0</translation>
     </message>
     <message>
-        <source>Rules Order</source>
-        <translation>ルールの順番</translation>
+      <source>Rules Order</source>
+      <translation type="unfinished">Rules Order</translation>
     </message>
     <message>
-        <source>Debug Connection Painter</source>
-        <translation>デバッグ接続ペインター</translation>
+      <source>Debug Connection Painter</source>
+      <translation type="unfinished">Debug Connection Painter</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>RouteSettingsMatrix</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Domain Strategy</source>
-        <translation>ドメインポリシー</translation>
+      <source>Domain Strategy</source>
+      <translation type="unfinished">Domain Strategy</translation>
     </message>
     <message>
-        <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
-        <translation>「geoip:」または「geosite:」で始まる行は、geoip.datおよびgeosite.datから自動補完されます</translation>
+      <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
+      <translation type="unfinished">Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</translation>
     </message>
     <message>
-        <source>Block</source>
-        <translation>ブロック</translation>
+      <source>Block</source>
+      <translation type="unfinished">Block</translation>
     </message>
     <message>
-        <source>Direct</source>
-        <translation>直接接続</translation>
+      <source>Direct</source>
+      <translation type="unfinished">Direct</translation>
     </message>
     <message>
-        <source>Domain</source>
-        <translation>ドメイン</translation>
+      <source>Domain</source>
+      <translation type="unfinished">Domain</translation>
     </message>
     <message>
-        <source>Proxy</source>
-        <translation>プロキシで接続</translation>
+      <source>Proxy</source>
+      <translation type="unfinished">Proxy</translation>
     </message>
     <message>
-        <source>IP</source>
-        <translation>IP</translation>
+      <source>IP</source>
+      <translation type="unfinished">IP</translation>
     </message>
     <message>
-        <source>Use built-in route schemes</source>
-        <translation>プリセットルーティングスキームを使用する</translation>
+      <source>Use built-in route schemes</source>
+      <translation type="unfinished">Use built-in route schemes</translation>
     </message>
     <message>
-        <source>Built-in Schemes...</source>
-        <translation>プリセットスキーム...</translation>
+      <source>Built-in Schemes...</source>
+      <translation type="unfinished">Built-in Schemes...</translation>
     </message>
     <message>
-        <source>Import route scheme from file</source>
-        <translation>ファイルからスキームをインポートする</translation>
+      <source>Import route scheme from file</source>
+      <translation type="unfinished">Import route scheme from file</translation>
     </message>
     <message>
-        <source>Import Scheme...</source>
-        <translation>スキームをインポート...</translation>
+      <source>Import Scheme...</source>
+      <translation type="unfinished">Import Scheme...</translation>
     </message>
     <message>
-        <source>Export route scheme to file</source>
-        <translation>スキームをファイルにエクスポート</translation>
+      <source>Export route scheme to file</source>
+      <translation type="unfinished">Export route scheme to file</translation>
     </message>
     <message>
-        <source>Export Scheme...</source>
-        <translation>スキームをエクスポート...</translation>
+      <source>Export Scheme...</source>
+      <translation type="unfinished">Export Scheme...</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>RouteSettingsMatrixWidget</name>
     <message>
-        <source>empty scheme</source>
-        <translation>空スキーム</translation>
+      <source>empty scheme</source>
+      <translation type="unfinished">empty scheme</translation>
     </message>
     <message>
-        <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
+      <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
  Description: %3</source>
-        <translation>「%2」のスキーム「%1」をインポートしますか？
- 追加情報： %3</translation>
+      <translation type="unfinished">Import scheme &apos;%1&apos; made by &apos;%2&apos;? 
+ Description: %3</translation>
     </message>
     <message>
-        <source>Importing Scheme</source>
-        <translation>スキームをインポート</translation>
+      <source>Importing Scheme</source>
+      <translation type="unfinished">Importing Scheme</translation>
     </message>
     <message>
-        <source>Exporting Scheme</source>
-        <translation>スキームをエクスポート</translation>
+      <source>Exporting Scheme</source>
+      <translation type="unfinished">Exporting Scheme</translation>
     </message>
     <message>
-        <source>Scheme name:</source>
-        <translation>スキーム名：</translation>
+      <source>Scheme name:</source>
+      <translation type="unfinished">Scheme name:</translation>
     </message>
     <message>
-        <source>Unnamed Scheme</source>
-        <translation>無名スキーム</translation>
+      <source>Unnamed Scheme</source>
+      <translation type="unfinished">Unnamed Scheme</translation>
     </message>
     <message>
-        <source>Author:</source>
-        <translation>作成者：</translation>
+      <source>Author:</source>
+      <translation type="unfinished">Author:</translation>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>説明：</translation>
+      <source>Description:</source>
+      <translation type="unfinished">Description:</translation>
     </message>
     <message>
-        <source>The author is too lazy to leave a comment</source>
-        <translation>作成者は何も書いてない</translation>
+      <source>The author is too lazy to leave a comment</source>
+      <translation type="unfinished">The author is too lazy to leave a comment</translation>
     </message>
     <message>
-        <source>Your route scheme has been successfully exported!</source>
-        <translation>スキームが正常にエクスポートされました！</translation>
+      <source>Your route scheme has been successfully exported!</source>
+      <translation type="unfinished">Your route scheme has been successfully exported!</translation>
     </message>
     <message>
-        <source>QvRoute Schemes(*.json)</source>
-        <translation>QvRouteスキーム(* .json)</translation>
+      <source>QvRoute Schemes(*.json)</source>
+      <translation type="unfinished">QvRoute Schemes(*.json)</translation>
     </message>
     <message>
-        <source>empty scheme (no ads)</source>
-        <translation>空スキーム（反広告）</translation>
+      <source>empty scheme (no ads)</source>
+      <translation type="unfinished">empty scheme (no ads)</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>RoutingEditorWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-        <translation>接続ルールのないインバウンドは、接続制限のないインバウンドを意味します。</translation>
+      <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
+      <translation type="unfinished">A rule with no inbound connected means there&apos;s no inbound restriction.</translation>
     </message>
     <message>
-        <source>Add new route</source>
-        <translation>新しいルートを追加</translation>
+      <source>Add new route</source>
+      <translation type="unfinished">Add new route</translation>
     </message>
     <message>
-        <source>Add Rule</source>
-        <translation>ルールを追加</translation>
+      <source>Add Rule</source>
+      <translation type="unfinished">Add Rule</translation>
     </message>
     <message>
-        <source>Delete outbound</source>
-        <translation>アウトバウンドを削除</translation>
+      <source>Delete outbound</source>
+      <translation type="unfinished">Delete outbound</translation>
     </message>
     <message>
-        <source>Delete Selection</source>
-        <translation>選択したものを削除</translation>
+      <source>Delete Selection</source>
+      <translation type="unfinished">Delete Selection</translation>
     </message>
     <message>
-        <source>Remove Items</source>
-        <translation>アイテムを削除する</translation>
+      <source>Remove Items</source>
+      <translation type="unfinished">Remove Items</translation>
     </message>
     <message>
-        <source>Please select a node from the graph to continue.</source>
-        <translation>続行するには、グラフからノードを選択してください。</translation>
+      <source>Please select a node from the graph to continue.</source>
+      <translation type="unfinished">Please select a node from the graph to continue.</translation>
     </message>
     <message>
-        <source>Deleting a node</source>
-        <translation>ノードの削除</translation>
+      <source>Deleting a node</source>
+      <translation type="unfinished">Deleting a node</translation>
     </message>
     <message>
-        <source>You need to select a node first</source>
-        <translation>まずノードを選択する必要があります。</translation>
+      <source>You need to select a node first</source>
+      <translation type="unfinished">You need to select a node first</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>RuleWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
+      <source>Enabled</source>
+      <translation type="unfinished">Enabled</translation>
     </message>
     <message>
-        <source>Details</source>
-        <translation>詳細</translation>
+      <source>Details</source>
+      <translation type="unfinished">Details</translation>
     </message>
     <message>
-        <source>Target IP</source>
-        <translation>目標IP</translation>
+      <source>Target IP</source>
+      <translation type="unfinished">Target IP</translation>
     </message>
     <message>
-        <source>Target Domain</source>
-        <translation>目標ドメイン名</translation>
+      <source>Target Domain</source>
+      <translation type="unfinished">Target Domain</translation>
     </message>
     <message>
-        <source>Source IP</source>
-        <translation>ソースIP</translation>
+      <source>Source IP</source>
+      <translation type="unfinished">Source IP</translation>
     </message>
     <message>
-        <source>General</source>
-        <translation>一般</translation>
+      <source>General</source>
+      <translation type="unfinished">General</translation>
     </message>
     <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
+      <source>TCP</source>
+      <translation type="unfinished">TCP</translation>
     </message>
     <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
+      <source>UDP</source>
+      <translation type="unfinished">UDP</translation>
     </message>
     <message>
-        <source>HTTP</source>
-        <translation>HTTP</translation>
+      <source>HTTP</source>
+      <translation type="unfinished">HTTP</translation>
     </message>
     <message>
-        <source>TLS</source>
-        <translation>TLS</translation>
+      <source>TLS</source>
+      <translation type="unfinished">TLS</translation>
     </message>
     <message>
-        <source>Torrent</source>
-        <translation>トレント</translation>
+      <source>Torrent</source>
+      <translation type="unfinished">Torrent</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+      <source>Port</source>
+      <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <source>80, 443, 8000-8080</source>
-        <translation>80, 443, 8000-8080</translation>
+      <source>80, 443, 8000-8080</source>
+      <translation type="unfinished">80, 443, 8000-8080</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ScreenShot</name>
     <message>
-        <source>ScreenShot</source>
-        <translation>スクリーンショット</translation>
+      <source>ScreenShot</source>
+      <translation type="unfinished">ScreenShot</translation>
     </message>
     <message>
-        <source>Size</source>
-        <translation>サイズ</translation>
+      <source>Size</source>
+      <translation type="unfinished">Size</translation>
     </message>
     <message>
-        <source>Screen Shot</source>
-        <translation>スクリーンショット</translation>
+      <source>Screen Shot</source>
+      <translation type="unfinished">Screen Shot</translation>
     </message>
     <message>
-        <source>FG</source>
-        <translation>FG</translation>
+      <source>FG</source>
+      <translation type="unfinished">FG</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SocksInboundEditor</name>
     <message>
-        <source>Removing a user</source>
-        <translation>ユーザーを削除する</translation>
+      <source>Removing a user</source>
+      <translation type="unfinished">Removing a user</translation>
     </message>
     <message>
-        <source>You haven&apos;t selected a user yet.</source>
-        <translation>まだユーザーを選択していません。</translation>
+      <source>You haven&apos;t selected a user yet.</source>
+      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
     </message>
     <message>
-        <source>Add a user</source>
-        <translation>ユーザーを追加する</translation>
+      <source>Add a user</source>
+      <translation type="unfinished">Add a user</translation>
     </message>
     <message>
-        <source>This user exists already.</source>
-        <translation>このユーザーは既に存在します.</translation>
+      <source>This user exists already.</source>
+      <translation type="unfinished">This user exists already.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SpeedWidget</name>
     <message>
-        <source>Proxy ↑</source>
-        <translation>プロキシ↑</translation>
+      <source>Proxy ↑</source>
+      <translation type="unfinished">Proxy ↑</translation>
     </message>
     <message>
-        <source>Proxy ↓</source>
-        <translation>プロキシ↓</translation>
+      <source>Proxy ↓</source>
+      <translation type="unfinished">Proxy ↓</translation>
     </message>
     <message>
-        <source>Direct ↑</source>
-        <translation>直接↑</translation>
+      <source>Direct ↑</source>
+      <translation type="unfinished">Direct ↑</translation>
     </message>
     <message>
-        <source>Direct ↓</source>
-        <translation>直接↓</translation>
+      <source>Direct ↓</source>
+      <translation type="unfinished">Direct ↓</translation>
     </message>
     <message>
-        <source>Total ↑</source>
-        <translation>合計↑</translation>
+      <source>Total ↑</source>
+      <translation type="unfinished">Total ↑</translation>
     </message>
     <message>
-        <source>Total ↓</source>
-        <translation>合計↓</translation>
+      <source>Total ↓</source>
+      <translation type="unfinished">Total ↓</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>StreamSettingsWidget</name>
     <message>
-        <source>Stream Settings Widget</source>
-        <translation>ストリーム設定ウィジェット</translation>
+      <source>Stream Settings Widget</source>
+      <translation type="unfinished">Stream Settings Widget</translation>
     </message>
     <message>
-        <source>Protocol Settings</source>
-        <translation>プロトコル設定</translation>
+      <source>Protocol Settings</source>
+      <translation type="unfinished">Protocol Settings</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>タイプ</translation>
+      <source>Type</source>
+      <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation>編集</translation>
+      <source>Edit</source>
+      <translation type="unfinished">Edit</translation>
     </message>
     <message>
-        <source>Reset</source>
-        <translation>リセット</translation>
+      <source>Reset</source>
+      <translation type="unfinished">Reset</translation>
     </message>
     <message>
-        <source>Response</source>
-        <translation>レスポンス</translation>
+      <source>Response</source>
+      <translation type="unfinished">Response</translation>
     </message>
     <message>
-        <source>Request</source>
-        <translation>リクエスト</translation>
+      <source>Request</source>
+      <translation type="unfinished">Request</translation>
     </message>
     <message>
-        <source>Path</source>
-        <translation>パス</translation>
+      <source>Path</source>
+      <translation type="unfinished">Path</translation>
     </message>
     <message>
-        <source>Host</source>
-        <translation>ホスト</translation>
+      <source>Host</source>
+      <translation type="unfinished">Host</translation>
     </message>
     <message>
-        <source>Headers</source>
-        <translation>ヘッダー</translation>
+      <source>Headers</source>
+      <translation type="unfinished">Headers</translation>
     </message>
     <message>
-        <source>MTU</source>
-        <translation>MTU</translation>
+      <source>MTU</source>
+      <translation type="unfinished">MTU</translation>
     </message>
     <message>
-        <source>Congestion</source>
-        <translation>輻輳制御</translation>
+      <source>Congestion</source>
+      <translation type="unfinished">Congestion</translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
+      <source>Enabled</source>
+      <translation type="unfinished">Enabled</translation>
     </message>
     <message>
-        <source>Security</source>
-        <translation>セキュリティ</translation>
+      <source>Security</source>
+      <translation type="unfinished">Security</translation>
     </message>
     <message>
-        <source>Key</source>
-        <translation>キー</translation>
+      <source>Key</source>
+      <translation type="unfinished">Key</translation>
     </message>
     <message>
-        <source>keys</source>
-        <translation>keys</translation>
+      <source>keys</source>
+      <translation type="unfinished">keys</translation>
     </message>
     <message>
-        <source>Transport Protocol</source>
-        <translation>転送プロトコル</translation>
+      <source>Transport Protocol</source>
+      <translation type="unfinished">Transport Protocol</translation>
     </message>
     <message>
-        <source>TLS Settings</source>
-        <translation>TLS設定</translation>
+      <source>TLS Settings</source>
+      <translation type="unfinished">TLS Settings</translation>
     </message>
     <message>
-        <source>Allow Insecure Certificates</source>
-        <translation>安全でない証明書を許可する</translation>
+      <source>Allow Insecure Certificates</source>
+      <translation type="unfinished">Allow Insecure Certificates</translation>
     </message>
     <message>
-        <source>ALPN</source>
-        <translation>ALPN</translation>
+      <source>ALPN</source>
+      <translation type="unfinished">ALPN</translation>
     </message>
     <message>
-        <source>SOCK Options</source>
-        <translation>SOCKオプション</translation>
+      <source>SOCK Options</source>
+      <translation type="unfinished">SOCK Options</translation>
     </message>
     <message>
-        <source>Mark</source>
-        <translation>マーク</translation>
+      <source>Mark</source>
+      <translation type="unfinished">Mark</translation>
     </message>
     <message>
-        <source>TCP Fast Open</source>
-        <translation>TCP Fast Open</translation>
+      <source>TCP Fast Open</source>
+      <translation type="unfinished">TCP Fast Open</translation>
     </message>
     <message>
-        <source>tProxy Mode</source>
-        <translation>tProxy モード</translation>
+      <source>tProxy Mode</source>
+      <translation type="unfinished">tProxy Mode</translation>
     </message>
     <message>
-        <source>Disable Session Resumption</source>
-        <translation>セッション再開を無効にする</translation>
+      <source>Disable Session Resumption</source>
+      <translation type="unfinished">Disable Session Resumption</translation>
     </message>
     <message>
-        <source>Security Type</source>
-        <translation>セキュリティタイプ</translation>
+      <source>Security Type</source>
+      <translation type="unfinished">Security Type</translation>
     </message>
     <message>
-        <source>Header</source>
-        <translation>ヘッダー</translation>
+      <source>Header</source>
+      <translation type="unfinished">Header</translation>
     </message>
     <message>
-        <source>Seed</source>
-        <translation>種子</translation>
+      <source>Seed</source>
+      <translation type="unfinished">Seed</translation>
     </message>
     <message>
-        <source>Capacity</source>
-        <translation>容量</translation>
+      <source>Capacity</source>
+      <translation type="unfinished">Capacity</translation>
     </message>
     <message>
-        <source>Up: </source>
-        <translation>上: </translation>
+      <source>Up: </source>
+      <translation type="unfinished">Up: </translation>
     </message>
     <message>
-        <source>Down: </source>
-        <translation>下: </translation>
+      <source>Down: </source>
+      <translation type="unfinished">Down: </translation>
     </message>
     <message>
-        <source>Buffer Size</source>
-        <translation>バッファサイズ</translation>
+      <source>Buffer Size</source>
+      <translation type="unfinished">Buffer Size</translation>
     </message>
     <message>
-        <source>Write Size: </source>
-        <translation>書き込みサイズ: </translation>
+      <source>Write Size: </source>
+      <translation type="unfinished">Write Size: </translation>
     </message>
     <message>
-        <source>Read Size: </source>
-        <translation>読み取りサイズ: </translation>
+      <source>Read Size: </source>
+      <translation type="unfinished">Read Size: </translation>
     </message>
     <message>
-        <source>Options</source>
-        <translation>オプション</translation>
+      <source>Options</source>
+      <translation type="unfinished">Options</translation>
     </message>
     <message>
-        <source>TTI</source>
-        <translation>TTI</translation>
+      <source>TTI</source>
+      <translation type="unfinished">TTI</translation>
     </message>
     <message>
-        <source>Server Address (SNI)</source>
-        <translation>サーバーアドレス（SNI）</translation>
+      <source>Server Address (SNI)</source>
+      <translation type="unfinished">Server Address (SNI)</translation>
     </message>
     <message>
-        <source>Disable System Root Certificates</source>
-        <translation>システムルート証明書を無効にする</translation>
+      <source>Disable System Root Certificates</source>
+      <translation type="unfinished">Disable System Root Certificates</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>blackholeOutEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Response</source>
-        <translation>レスポンス</translation>
+      <source>Response</source>
+      <translation type="unfinished">Response</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>タイプ</translation>
+      <source>Type</source>
+      <translation type="unfinished">Type</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>dnsOutEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Network</source>
-        <translation>ネットワーク</translation>
+      <source>Network</source>
+      <translation type="unfinished">Network</translation>
     </message>
     <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
+      <source>TCP</source>
+      <translation type="unfinished">TCP</translation>
     </message>
     <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
+      <source>UDP</source>
+      <translation type="unfinished">UDP</translation>
     </message>
     <message>
-        <source>Original</source>
-        <translation>オリジナル</translation>
+      <source>Original</source>
+      <translation type="unfinished">Original</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>アドレス</translation>
+      <source>Address</source>
+      <translation type="unfinished">Address</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+      <source>Port</source>
+      <translation type="unfinished">Port</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>dokodemodoorInEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>アドレス</translation>
+      <source>Address</source>
+      <translation type="unfinished">Address</translation>
     </message>
     <message>
-        <source>Optional when using &quot;Follow Redirect&quot;</source>
-        <translation>「リダイレクトに従う」を使用している場合はオプション</translation>
+      <source>Optional when using &quot;Follow Redirect&quot;</source>
+      <translation type="unfinished">Optional when using &quot;Follow Redirect&quot;</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>ポート</translation>
+      <source>Port</source>
+      <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <source>Network</source>
-        <translation>ネットワーク</translation>
+      <source>Network</source>
+      <translation type="unfinished">Network</translation>
     </message>
     <message>
-        <source>TCP</source>
-        <translation>TCP</translation>
+      <source>TCP</source>
+      <translation type="unfinished">TCP</translation>
     </message>
     <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
+      <source>UDP</source>
+      <translation type="unfinished">UDP</translation>
     </message>
     <message>
-        <source>Timeout</source>
-        <translation>タイムアウト</translation>
+      <source>Timeout</source>
+      <translation type="unfinished">Timeout</translation>
     </message>
     <message>
-        <source>Follow Redirect</source>
-        <translation>リダイレクトに従う</translation>
+      <source>Follow Redirect</source>
+      <translation type="unfinished">Follow Redirect</translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
+      <source>Enabled</source>
+      <translation type="unfinished">Enabled</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>freedomOutEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Domain Strategy</source>
-        <translation>ドメインポリシー</translation>
+      <source>Domain Strategy</source>
+      <translation type="unfinished">Domain Strategy</translation>
     </message>
     <message>
-        <source>Redirect</source>
-        <translation>リダイレクト</translation>
+      <source>Redirect</source>
+      <translation type="unfinished">Redirect</translation>
     </message>
     <message>
-        <source>:0</source>
-        <translation>:0</translation>
+      <source>:0</source>
+      <translation type="unfinished">:0</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>httpInEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Allow Transparent</source>
-        <translation>透明を許可</translation>
+      <source>Allow Transparent</source>
+      <translation type="unfinished">Allow Transparent</translation>
     </message>
     <message>
-        <source>Timeout</source>
-        <translation>タイムアウト</translation>
+      <source>Timeout</source>
+      <translation type="unfinished">Timeout</translation>
     </message>
     <message>
-        <source>s</source>
-        <translation>秒</translation>
+      <source>s</source>
+      <translation type="unfinished">s</translation>
     </message>
     <message>
-        <source>Users</source>
-        <translation>ユーザー</translation>
+      <source>Users</source>
+      <translation type="unfinished">Users</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
+      <source>Password</source>
+      <translation type="unfinished">Password</translation>
     </message>
     <message>
-        <source>Username</source>
-        <translation>ユーザー名</translation>
+      <source>Username</source>
+      <translation type="unfinished">Username</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>httpOutEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Username</source>
-        <translation>ユーザー名</translation>
+      <source>Username</source>
+      <translation type="unfinished">Username</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
+      <source>Password</source>
+      <translation type="unfinished">Password</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>shadowsocksOutEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
+      <source>Password</source>
+      <translation type="unfinished">Password</translation>
     </message>
     <message>
-        <source>Encryption Method</source>
-        <translation>暗号化方法</translation>
+      <source>Encryption Method</source>
+      <translation type="unfinished">Encryption Method</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>socksInEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>有効</translation>
+      <source>Enabled</source>
+      <translation type="unfinished">Enabled</translation>
     </message>
     <message>
-        <source>UDP Local IP</source>
-        <translation>UDP ローカル IP</translation>
+      <source>UDP Local IP</source>
+      <translation type="unfinished">UDP Local IP</translation>
     </message>
     <message>
-        <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
+      <source>127.0.0.1</source>
+      <translation type="unfinished">127.0.0.1</translation>
     </message>
     <message>
-        <source>Auth</source>
-        <translation>認証</translation>
+      <source>Auth</source>
+      <translation type="unfinished">Auth</translation>
     </message>
     <message>
-        <source>Users</source>
-        <translation>ユーザー</translation>
+      <source>Users</source>
+      <translation type="unfinished">Users</translation>
     </message>
     <message>
-        <source>Username</source>
-        <translation>ユーザー名</translation>
+      <source>Username</source>
+      <translation type="unfinished">Username</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
+      <source>Password</source>
+      <translation type="unfinished">Password</translation>
     </message>
     <message>
-        <source>UDP</source>
-        <translation>UDP</translation>
+      <source>UDP</source>
+      <translation type="unfinished">UDP</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>socksOutEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>Username</source>
-        <translation>ユーザー名</translation>
+      <source>Username</source>
+      <translation type="unfinished">Username</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation>パスワード</translation>
+      <source>Password</source>
+      <translation type="unfinished">Password</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>vlessOutEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>UUID</source>
-        <translation>UUID</translation>
+      <source>UUID</source>
+      <translation type="unfinished">UUID</translation>
     </message>
     <message>
-        <source>Encryption</source>
-        <translation>暗号化方法</translation>
+      <source>Encryption</source>
+      <translation type="unfinished">Encryption</translation>
     </message>
     <message>
-        <source>Flow</source>
-        <translation>フロー</translation>
+      <source>Flow</source>
+      <translation type="unfinished">Flow</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>vmessOutEditor</name>
     <message>
-        <source>Form</source>
-        <translation>Form</translation>
+      <source>Form</source>
+      <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>UUID</source>
-        <translation>UUID</translation>
+      <source>UUID</source>
+      <translation type="unfinished">UUID</translation>
     </message>
     <message>
-        <source>Alter ID</source>
-        <translation>アルターID</translation>
+      <source>Alter ID</source>
+      <translation type="unfinished">Alter ID</translation>
     </message>
     <message>
-        <source>Security</source>
-        <translation>セキュリティ</translation>
+      <source>Security</source>
+      <translation type="unfinished">Security</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>w_GroupManager</name>
     <message>
-        <source>Group Editor</source>
-        <translation>グループ編集</translation>
+      <source>Group Editor</source>
+      <translation type="unfinished">Group Editor</translation>
     </message>
     <message>
-        <source>Group Info</source>
-        <translation>グループ情報</translation>
+      <source>Group Info</source>
+      <translation type="unfinished">Group Info</translation>
     </message>
     <message>
-        <source>Group Name</source>
-        <translation>グループ名</translation>
+      <source>Group Name</source>
+      <translation type="unfinished">Group Name</translation>
     </message>
     <message>
-        <source>Created At</source>
-        <translation>作成日</translation>
+      <source>Created At</source>
+      <translation type="unfinished">Created At</translation>
     </message>
     <message>
-        <source>Group List</source>
-        <translation>グループ一覧</translation>
+      <source>Group List</source>
+      <translation type="unfinished">Group List</translation>
     </message>
     <message>
-        <source>Add Subscription</source>
-        <translation>サブスクリプションを追加</translation>
+      <source>Add Subscription</source>
+      <translation type="unfinished">Add Subscription</translation>
     </message>
     <message>
-        <source>Remove Subscription</source>
-        <translation>サブスクリプションを削除</translation>
+      <source>Remove Subscription</source>
+      <translation type="unfinished">Remove Subscription</translation>
     </message>
     <message>
-        <source>Connections</source>
-        <translation>項目</translation>
+      <source>Connections</source>
+      <translation type="unfinished">Connections</translation>
     </message>
     <message>
-        <source>Delete Selection</source>
-        <translation>選択したものを削除</translation>
+      <source>Delete Selection</source>
+      <translation type="unfinished">Delete Selection</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation>名称</translation>
+      <source>Name</source>
+      <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>タイプ</translation>
+      <source>Type</source>
+      <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <source>Host / Port</source>
-        <translation>ホスト/ポート</translation>
+      <source>Host / Port</source>
+      <translation type="unfinished">Host / Port</translation>
     </message>
     <message>
-        <source>Groups</source>
-        <translation>グループ</translation>
+      <source>Groups</source>
+      <translation type="unfinished">Groups</translation>
     </message>
     <message>
-        <source>Export Selection</source>
-        <translation>選択したものをエクスポート</translation>
+      <source>Export Selection</source>
+      <translation type="unfinished">Export Selection</translation>
     </message>
     <message>
-        <source>Subscription Settings</source>
-        <translation>サブスクリプション設定</translation>
+      <source>Subscription Settings</source>
+      <translation type="unfinished">Subscription Settings</translation>
     </message>
     <message>
-        <source>This group is a subscription</source>
-        <translation>このグループはサブスクリプションです</translation>
+      <source>This group is a subscription</source>
+      <translation type="unfinished">This group is a subscription</translation>
     </message>
     <message>
-        <source>Subscription Address</source>
-        <translation>アドレス</translation>
+      <source>Subscription Address</source>
+      <translation type="unfinished">Subscription Address</translation>
     </message>
     <message>
-        <source>Last Updated</source>
-        <translation>最終更新</translation>
+      <source>Last Updated</source>
+      <translation type="unfinished">Last Updated</translation>
     </message>
     <message>
-        <source>Days</source>
-        <translation>日ごと</translation>
+      <source>Days</source>
+      <translation type="unfinished">Days</translation>
     </message>
     <message>
-        <source>Leave blank to exclude nothing</source>
-        <translation>空欄のままにして、何も除外しないようにします</translation>
+      <source>Leave blank to exclude nothing</source>
+      <translation type="unfinished">Leave blank to exclude nothing</translation>
     </message>
     <message>
-        <source>Relation</source>
-        <translation>関連</translation>
+      <source>Relation</source>
+      <translation type="unfinished">Relation</translation>
     </message>
     <message>
-        <source>Leave blank to include all</source>
-        <translation>すべてを含む場合は空白のままにしてください</translation>
+      <source>Leave blank to include all</source>
+      <translation type="unfinished">Leave blank to include all</translation>
     </message>
     <message>
-        <source>Update Subscription</source>
-        <translation>サブスクリプションを更新</translation>
+      <source>Update Subscription</source>
+      <translation type="unfinished">Update Subscription</translation>
     </message>
     <message>
-        <source>DNS Settings</source>
-        <translation>DNS設定</translation>
+      <source>DNS Settings</source>
+      <translation type="unfinished">DNS Settings</translation>
     </message>
     <message>
-        <source>Override Global DNS Settings</source>
-        <translation>グローバルDNS設定のオーバーライド</translation>
+      <source>Override Global DNS Settings</source>
+      <translation type="unfinished">Override Global DNS Settings</translation>
     </message>
     <message>
-        <source>Advanced Route Settings</source>
-        <translation>ルート詳細設定</translation>
+      <source>Advanced Route Settings</source>
+      <translation type="unfinished">Advanced Route Settings</translation>
     </message>
     <message>
-        <source>Override Global Advanced Route Settings</source>
-        <translation>グローバルルート設定のオーバーライド</translation>
+      <source>Override Global Advanced Route Settings</source>
+      <translation type="unfinished">Override Global Advanced Route Settings</translation>
     </message>
     <message>
-        <source>Subscription Type</source>
-        <translation>サブスクリプションタイプ</translation>
+      <source>Subscription Type</source>
+      <translation type="unfinished">Subscription Type</translation>
     </message>
     <message>
-        <source>Update Interval</source>
-        <translation>更新インターバル</translation>
+      <source>Update Interval</source>
+      <translation type="unfinished">Update Interval</translation>
     </message>
     <message>
-        <source>Import Include Filters</source>
-        <translation>含む条件</translation>
+      <source>Import Include Filters</source>
+      <translation type="unfinished">Import Include Filters</translation>
     </message>
     <message>
-        <source>Import Exclude Filters</source>
-        <translation>除く条件</translation>
+      <source>Import Exclude Filters</source>
+      <translation type="unfinished">Import Exclude Filters</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>w_PluginManager</name>
     <message>
-        <source>Plugin Manager</source>
-        <translation>プラグインマネージャ</translation>
+      <source>Plugin Manager</source>
+      <translation type="unfinished">Plugin Manager</translation>
     </message>
     <message>
-        <source>Plugins</source>
-        <translation>プラグイン一覧</translation>
+      <source>Plugins</source>
+      <translation type="unfinished">Plugins</translation>
     </message>
     <message>
-        <source>Open Local Plugin Folder</source>
-        <translation>ローカルプラグインフォルダを開く</translation>
+      <source>Open Local Plugin Folder</source>
+      <translation type="unfinished">Open Local Plugin Folder</translation>
     </message>
     <message>
-        <source>Online help about plugins</source>
-        <translation>プラグインに関するオンラインヘルプ</translation>
+      <source>Online help about plugins</source>
+      <translation type="unfinished">Online help about plugins</translation>
     </message>
     <message>
-        <source>?</source>
-        <translation>?</translation>
+      <source>?</source>
+      <translation type="unfinished">?</translation>
     </message>
     <message>
-        <source>Plugin Metadata</source>
-        <translation>プラグインのメタデータ</translation>
+      <source>Plugin Metadata</source>
+      <translation type="unfinished">Plugin Metadata</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation>名称</translation>
+      <source>Name</source>
+      <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <source>Author</source>
-        <translation>作成者</translation>
+      <source>Author</source>
+      <translation type="unfinished">Author</translation>
     </message>
     <message>
-        <source>Description</source>
-        <translation>説明</translation>
+      <source>Description</source>
+      <translation type="unfinished">Description</translation>
     </message>
     <message>
-        <source>Library Path</source>
-        <translation>パス</translation>
+      <source>Library Path</source>
+      <translation type="unfinished">Library Path</translation>
     </message>
     <message>
-        <source>State</source>
-        <translation>状態</translation>
+      <source>State</source>
+      <translation type="unfinished">State</translation>
     </message>
     <message>
-        <source>Plugin Settings</source>
-        <translation>プラグイン設定</translation>
+      <source>Plugin Settings</source>
+      <translation type="unfinished">Plugin Settings</translation>
     </message>
     <message>
-        <source>Plugin Not Loaded</source>
-        <translation>プラグインがロードされていない</translation>
+      <source>Plugin Not Loaded</source>
+      <translation type="unfinished">Plugin Not Loaded</translation>
     </message>
     <message>
-        <source>Manually Edit Settings</source>
-        <translation>設定を手動で編集する</translation>
+      <source>Manually Edit Settings</source>
+      <translation type="unfinished">Manually Edit Settings</translation>
     </message>
     <message>
-        <source>GUI Components</source>
-        <translation>GUIコンポーネント</translation>
+      <source>GUI Components</source>
+      <translation type="unfinished">GUI Components</translation>
     </message>
     <message>
-        <source>Components</source>
-        <translation>コンポーネント</translation>
+      <source>Components</source>
+      <translation type="unfinished">Components</translation>
     </message>
-</context>
+  </context>
 </TS>
