@@ -162,7 +162,7 @@
     </message>
     <message>
       <source>ms</source>
-      <translation>ms</translation>
+      <translation type="unfinished">ms</translation>
     </message>
     <message>
       <source>Last Connected: </source>
@@ -196,11 +196,11 @@
     </message>
     <message>
       <source>500ms</source>
-      <translation>500ms</translation>
+      <translation type="unfinished">500ms</translation>
     </message>
     <message>
       <source>0KB / 0KB</source>
-      <translation>0KB / 0KB</translation>
+      <translation type="unfinished">0KB / 0KB</translation>
     </message>
     <message>
       <source>OK</source>
@@ -208,7 +208,7 @@
     </message>
     <message>
       <source>VMESS + WS + TLS</source>
-      <translation>VMESS + WS + TLS</translation>
+      <translation type="unfinished">VMESS + WS + TLS</translation>
     </message>
   </context>
   <context>
@@ -676,7 +676,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>MainWindow</name>
     <message>
       <source>Qv2ray</source>
-      <translation>Qv2ray</translation>
+      <translation type="unfinished">Qv2ray</translation>
     </message>
     <message>
       <source>Preferences</source>
@@ -741,7 +741,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>0.00 B/s
 0.00 B/s</source>
-      <translation>0.00 B/s
+      <translation type="unfinished">0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
@@ -755,7 +755,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>0.00 B
 0.00 B</source>
-      <translation>0.00 B
+      <translation type="unfinished">0.00 B
 0.00 B</translation>
     </message>
     <message>
@@ -1242,11 +1242,11 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
       <source>TCPing</source>
-      <translation>TCPing</translation>
+      <translation type="unfinished">TCPing</translation>
     </message>
     <message>
       <source>ICMPing</source>
-      <translation>ICMPing</translation>
+      <translation type="unfinished">ICMPing</translation>
     </message>
     <message>
       <source>Qv2ray Proxy</source>
@@ -1270,7 +1270,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
       <source>:</source>
-      <translation>:</translation>
+      <translation type="unfinished">:</translation>
     </message>
     <message>
       <source>Advanced Behavior</source>
@@ -1420,11 +1420,11 @@ Custom DNS Settings</source>
     </message>
     <message>
       <source>TCP</source>
-      <translation>TCP</translation>
+      <translation type="unfinished">TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation>UDP</translation>
+      <translation type="unfinished">UDP</translation>
     </message>
     <message>
       <source>DNS Intercept</source>
@@ -1516,7 +1516,7 @@ Custom DNS Settings</source>
     </message>
     <message>
       <source>Qv2ray</source>
-      <translation>Qv2ray</translation>
+      <translation type="unfinished">Qv2ray</translation>
     </message>
     <message>
       <source>Version:</source>
@@ -2032,7 +2032,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>0</source>
-      <translation>0</translation>
+      <translation type="unfinished">0</translation>
     </message>
     <message>
       <source>Rules Order</source>
@@ -2075,7 +2075,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>IP</source>
-      <translation>IP</translation>
+      <translation type="unfinished">IP</translation>
     </message>
     <message>
       <source>Use built-in route schemes</source>
@@ -2230,19 +2230,19 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TCP</source>
-      <translation>TCP</translation>
+      <translation type="unfinished">TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation>UDP</translation>
+      <translation type="unfinished">UDP</translation>
     </message>
     <message>
       <source>HTTP</source>
-      <translation>HTTP</translation>
+      <translation type="unfinished">HTTP</translation>
     </message>
     <message>
       <source>TLS</source>
-      <translation>TLS</translation>
+      <translation type="unfinished">TLS</translation>
     </message>
     <message>
       <source>Torrent</source>
@@ -2254,7 +2254,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>80, 443, 8000-8080</source>
-      <translation>80, 443, 8000-8080</translation>
+      <translation type="unfinished">80, 443, 8000-8080</translation>
     </message>
   </context>
   <context>
@@ -2273,7 +2273,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>FG</source>
-      <translation>FG</translation>
+      <translation type="unfinished">FG</translation>
     </message>
   </context>
   <context>
@@ -2366,7 +2366,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>MTU</source>
-      <translation>MTU</translation>
+      <translation type="unfinished">MTU</translation>
     </message>
     <message>
       <source>Congestion</source>
@@ -2402,7 +2402,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>ALPN</source>
-      <translation>ALPN</translation>
+      <translation type="unfinished">ALPN</translation>
     </message>
     <message>
       <source>SOCK Options</source>
@@ -2410,7 +2410,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Mark</source>
-      <translation>Mark</translation>
+      <translation type="unfinished">Mark</translation>
     </message>
     <message>
       <source>TCP Fast Open</source>
@@ -2466,7 +2466,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TTI</source>
-      <translation>TTI</translation>
+      <translation type="unfinished">TTI</translation>
     </message>
     <message>
       <source>Server Address (SNI)</source>
@@ -2504,11 +2504,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TCP</source>
-      <translation>TCP</translation>
+      <translation type="unfinished">TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation>UDP</translation>
+      <translation type="unfinished">UDP</translation>
     </message>
     <message>
       <source>Original</source>
@@ -2547,11 +2547,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TCP</source>
-      <translation>TCP</translation>
+      <translation type="unfinished">TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation>UDP</translation>
+      <translation type="unfinished">UDP</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -2582,7 +2582,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>:0</source>
-      <translation>:0</translation>
+      <translation type="unfinished">:0</translation>
     </message>
   </context>
   <context>
@@ -2662,7 +2662,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>127.0.0.1</source>
-      <translation>127.0.0.1</translation>
+      <translation type="unfinished">127.0.0.1</translation>
     </message>
     <message>
       <source>Auth</source>
@@ -2682,7 +2682,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>UDP</source>
-      <translation>UDP</translation>
+      <translation type="unfinished">UDP</translation>
     </message>
   </context>
   <context>
@@ -2708,7 +2708,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>UUID</source>
-      <translation>UUID</translation>
+      <translation type="unfinished">UUID</translation>
     </message>
     <message>
       <source>Encryption</source>
@@ -2727,11 +2727,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>UUID</source>
-      <translation>UUID</translation>
+      <translation type="unfinished">UUID</translation>
     </message>
     <message>
       <source>Alter ID</source>
-      <translation>Alter ID</translation>
+      <translation type="unfinished">Alter ID</translation>
     </message>
     <message>
       <source>Security</source>
@@ -2885,7 +2885,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>?</source>
-      <translation>?</translation>
+      <translation type="unfinished">?</translation>
     </message>
     <message>
       <source>Plugin Metadata</source>
