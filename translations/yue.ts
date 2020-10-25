@@ -2825,11 +2825,11 @@ Output:
     </message>
     <message>
       <source>Days</source>
-      <translation type="unfinished">Days</translation>
+      <translation>日</translation>
     </message>
     <message>
       <source>Leave blank to exclude nothing</source>
-      <translation type="unfinished">Leave blank to exclude nothing</translation>
+      <translation>留空表示唔排除任何内容。</translation>
     </message>
     <message>
       <source>Relation</source>
