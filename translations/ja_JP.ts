@@ -5,14 +5,14 @@
     <name>BalancerWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
   </context>
   <context>
     <name>ChainEditorWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Chain Editor</source>
@@ -39,14 +39,14 @@
     <name>ChainOutboundWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
   </context>
   <context>
     <name>ChainWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Chained</source>
@@ -57,7 +57,7 @@
     <name>ConnectionInfoWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Configuration Details</source>
@@ -162,7 +162,7 @@
     </message>
     <message>
       <source>ms</source>
-      <translation type="unfinished">ms</translation>
+      <translation>ms</translation>
     </message>
     <message>
       <source>Last Connected: </source>
@@ -181,14 +181,14 @@
     <name>ConnectionSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
   </context>
   <context>
     <name>ConnectionWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Connection Name</source>
@@ -196,26 +196,26 @@
     </message>
     <message>
       <source>500ms</source>
-      <translation type="unfinished">500ms</translation>
+      <translation>500ms</translation>
     </message>
     <message>
       <source>0KB / 0KB</source>
-      <translation type="unfinished">0KB / 0KB</translation>
+      <translation>0KB / 0KB</translation>
     </message>
     <message>
       <source>OK</source>
-      <translation>よし</translation>
+      <translation>OK</translation>
     </message>
     <message>
       <source>VMESS + WS + TLS</source>
-      <translation type="unfinished">VMESS + WS + TLS</translation>
+      <translation>VMESS + WS + TLS</translation>
     </message>
   </context>
   <context>
     <name>DnsSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Client IP</source>
@@ -587,7 +587,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>InboundOutboundWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>External Config</source>
@@ -622,7 +622,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>InboundSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
   </context>
   <context>
@@ -645,7 +645,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>OK</source>
-      <translation>よし</translation>
+      <translation>OK</translation>
     </message>
     <message>
       <source>Json Contains Syntax Errors</source>
@@ -676,7 +676,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>MainWindow</name>
     <message>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <source>Preferences</source>
@@ -741,7 +741,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>0.00 B/s
 0.00 B/s</source>
-      <translation type="unfinished">0.00 B/s
+      <translation>0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
@@ -755,7 +755,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>0.00 B
 0.00 B</source>
-      <translation type="unfinished">0.00 B
+      <translation>0.00 B
 0.00 B</translation>
     </message>
     <message>
@@ -936,7 +936,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Cannot set system proxy</source>
-      <translation type="unfinished">Cannot set system proxy</translation>
+      <translation>Cannot set system proxy</translation>
     </message>
     <message>
       <source>Both HTTP and SOCKS inbounds are not enabled</source>
@@ -1141,7 +1141,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>PluginSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
   </context>
   <context>
@@ -1242,11 +1242,11 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
       <source>TCPing</source>
-      <translation type="unfinished">TCPing</translation>
+      <translation>TCPing</translation>
     </message>
     <message>
       <source>ICMPing</source>
-      <translation type="unfinished">ICMPing</translation>
+      <translation>ICMPing</translation>
     </message>
     <message>
       <source>Qv2ray Proxy</source>
@@ -1270,7 +1270,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
       <source>:</source>
-      <translation type="unfinished">:</translation>
+      <translation>:</translation>
     </message>
     <message>
       <source>Advanced Behavior</source>
@@ -1318,7 +1318,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     </message>
     <message>
       <source>info</source>
-      <translation type="unfinished">info</translation>
+      <translation>info</translation>
     </message>
     <message>
       <source>warning</source>
@@ -1420,11 +1420,11 @@ Custom DNS Settings</source>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>DNS Intercept</source>
@@ -1516,7 +1516,7 @@ Custom DNS Settings</source>
     </message>
     <message>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <source>Version:</source>
@@ -2032,7 +2032,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>0</source>
-      <translation type="unfinished">0</translation>
+      <translation>0</translation>
     </message>
     <message>
       <source>Rules Order</source>
@@ -2047,7 +2047,7 @@ Output: <byte value="xd"/>
     <name>RouteSettingsMatrix</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
@@ -2075,7 +2075,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>IP</source>
-      <translation type="unfinished">IP</translation>
+      <translation>IP</translation>
     </message>
     <message>
       <source>Use built-in route schemes</source>
@@ -2159,7 +2159,7 @@ Output: <byte value="xd"/>
     <name>RoutingEditorWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
@@ -2202,7 +2202,7 @@ Output: <byte value="xd"/>
     <name>RuleWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -2230,19 +2230,19 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <source>TLS</source>
-      <translation type="unfinished">TLS</translation>
+      <translation>TLS</translation>
     </message>
     <message>
       <source>Torrent</source>
@@ -2254,7 +2254,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>80, 443, 8000-8080</source>
-      <translation type="unfinished">80, 443, 8000-8080</translation>
+      <translation>80, 443, 8000-8080</translation>
     </message>
   </context>
   <context>
@@ -2273,7 +2273,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>FG</source>
-      <translation type="unfinished">FG</translation>
+      <translation>FG</translation>
     </message>
   </context>
   <context>
@@ -2366,7 +2366,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>MTU</source>
-      <translation type="unfinished">MTU</translation>
+      <translation>MTU</translation>
     </message>
     <message>
       <source>Congestion</source>
@@ -2386,7 +2386,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>keys</source>
-      <translation type="unfinished">keys</translation>
+      <translation>keys</translation>
     </message>
     <message>
       <source>Transport Protocol</source>
@@ -2402,7 +2402,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>ALPN</source>
-      <translation type="unfinished">ALPN</translation>
+      <translation>ALPN</translation>
     </message>
     <message>
       <source>SOCK Options</source>
@@ -2414,7 +2414,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TCP Fast Open</source>
-      <translation type="unfinished">TCP Fast Open</translation>
+      <translation>TCP Fast Open</translation>
     </message>
     <message>
       <source>tProxy Mode</source>
@@ -2466,7 +2466,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TTI</source>
-      <translation type="unfinished">TTI</translation>
+      <translation>TTI</translation>
     </message>
     <message>
       <source>Server Address (SNI)</source>
@@ -2481,7 +2481,7 @@ Output: <byte value="xd"/>
     <name>blackholeOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Response</source>
@@ -2496,7 +2496,7 @@ Output: <byte value="xd"/>
     <name>dnsOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Network</source>
@@ -2504,11 +2504,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>Original</source>
@@ -2527,7 +2527,7 @@ Output: <byte value="xd"/>
     <name>dokodemodoorInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Address</source>
@@ -2547,11 +2547,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -2570,7 +2570,7 @@ Output: <byte value="xd"/>
     <name>freedomOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
@@ -2582,14 +2582,14 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>:0</source>
-      <translation type="unfinished">:0</translation>
+      <translation>:0</translation>
     </message>
   </context>
   <context>
     <name>httpInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Allow Transparent</source>
@@ -2620,7 +2620,7 @@ Output: <byte value="xd"/>
     <name>httpOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Username</source>
@@ -2635,7 +2635,7 @@ Output: <byte value="xd"/>
     <name>shadowsocksOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Password</source>
@@ -2650,7 +2650,7 @@ Output: <byte value="xd"/>
     <name>socksInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -2662,7 +2662,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <source>Auth</source>
@@ -2682,14 +2682,14 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
   </context>
   <context>
     <name>socksOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>Username</source>
@@ -2704,11 +2704,11 @@ Output: <byte value="xd"/>
     <name>vlessOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Encryption</source>
@@ -2723,11 +2723,11 @@ Output: <byte value="xd"/>
     <name>vmessOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>Form</translation>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Alter ID</source>
@@ -2885,7 +2885,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>?</source>
-      <translation type="unfinished">?</translation>
+      <translation>?</translation>
     </message>
     <message>
       <source>Plugin Metadata</source>
