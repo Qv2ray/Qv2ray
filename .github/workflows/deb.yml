@@ -19,16 +19,26 @@ jobs:
           echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
           echo "::set-env name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
 
-  linux:
+  build:
     strategy:
       fail-fast: false
       matrix:
-        distro: [stable, unstable]
+        include:
+          - distro: stable
+            container: debian:stable
+          - distro: unstable
+            container: debian:unstable
+          - distro: groovy
+            container: ubuntu:groovy
+          - distro: focal
+            container: ubuntu:focal
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
-    name: Debian ${{ matrix.distro }}
+    name: Build debian package for ${{ matrix.distro }}
     runs-on: ubuntu-latest
-    container: debian:${{ matrix.distro }}
+    container: ${{ matrix.container }}
+    env:
+      DEBIAN_FRONTEND: noninteractive
 
     steps:
       - name: Install git
@@ -49,29 +59,39 @@ jobs:
       - name: Copy binary
         run: |
           cp ../qv2ray_*.deb ./
-      - name: Sleep
-        if: github.event_name == 'release' && matrix.distro == 'unstable'
-        run: |
-          sleep 120
-      - name: Setup Repository
-        if: github.event_name == 'release' && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
-        run: |
-          git clone https://github.com/Qv2ray/debian.git archive
-          echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
-          gpg --import private.key
-          cd archive
-          git config --local user.name "${{ github.actor }}"
-          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian.git
-          reprepro includedeb ${{ matrix.distro }} ../*.deb
-          git add -A
-          git commit -am 'update'
-          git push origin master
       - name: Get package name
         id: get_package
         run: echo ::set-output name=NAME::$(basename qv2ray_*.deb)
       - name: Upload artifact
-        uses: actions/upload-artifact@v2-preview
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.get_package.outputs.NAME }}
           path: ${{ steps.get_package.outputs.NAME }}
+
+  upload:
+    needs: [check_commit_msg, build]
+    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
+    name: Upload debian packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          path: packages
+      - name: Setup Repository
+        if: github.event_name == 'release' && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
+        run: |
+          git clone https://github.com/Qv2ray/debian.git
+          echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
+          gpg --import private.key
+          cd debian
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian.git
+          reprepro includedeb stable $GITHUB_WORKSPACE/packages/*stable*.deb
+          reprepro includedeb unstable $GITHUB_WORKSPACE/packages/*unstable*.deb
+          reprepro includedeb focal $GITHUB_WORKSPACE/packages/*focal*.deb
+          reprepro includedeb groovy $GITHUB_WORKSPACE/packages/*groovy*.deb
+          git add -A
+          git commit -am 'update'
+          git push origin master

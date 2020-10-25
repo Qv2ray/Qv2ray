@@ -99,7 +99,7 @@ jobs:
         run: echo ::set-output name=NAME::$(basename qv2ray*.xz)
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2-preview
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.get_package.outputs.NAME }}
           path: ${{ steps.get_package.outputs.NAME }}
