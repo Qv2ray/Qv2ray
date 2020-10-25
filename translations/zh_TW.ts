@@ -5,136 +5,136 @@
     <name>BalancerWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
   </context>
   <context>
     <name>ChainEditorWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Chain Editor</source>
-      <translation type="unfinished">Chain Editor</translation>
+      <translation>代理鏈編輯器</translation>
     </message>
     <message>
       <source>Could not find outbound tag: %1, The chain may be corrupted</source>
-      <translation type="unfinished">Could not find outbound tag: %1, The chain may be corrupted</translation>
+      <translation>無法尋得出站標籤: %1，代理鏈可能已毀損</translation>
     </message>
     <message>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>好</translation>
     </message>
     <message>
       <source>Please Select a Chain</source>
-      <translation type="unfinished">Please Select a Chain</translation>
+      <translation>請選擇代理鏈</translation>
     </message>
     <message>
       <source>There&apos;s an error in your connection.</source>
-      <translation type="unfinished">There&apos;s an error in your connection.</translation>
+      <translation>您的連接裏有錯誤。</translation>
     </message>
   </context>
   <context>
     <name>ChainOutboundWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
   </context>
   <context>
     <name>ChainWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Chained</source>
-      <translation type="unfinished">Chained</translation>
+      <translation>鏈式</translation>
     </message>
   </context>
   <context>
     <name>ConnectionInfoWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Configuration Details</source>
-      <translation type="unfinished">Configuration Details</translation>
+      <translation>配置詳情</translation>
     </message>
     <message>
       <source>Connect/Disconnect</source>
-      <translation type="unfinished">Connect/Disconnect</translation>
+      <translation>連接 / 斷開</translation>
     </message>
     <message>
       <source>Edit Connection</source>
-      <translation type="unfinished">Edit Connection</translation>
+      <translation>編輯連接</translation>
     </message>
     <message>
       <source>Edit Connection as JSON</source>
-      <translation type="unfinished">Edit Connection as JSON</translation>
+      <translation>將連接編輯為 JSON</translation>
     </message>
     <message>
       <source>Latency Test</source>
-      <translation type="unfinished">Latency Test</translation>
+      <translation>測試延遲</translation>
     </message>
     <message>
       <source>Delete Connection</source>
-      <translation type="unfinished">Delete Connection</translation>
+      <translation>刪除連接</translation>
     </message>
     <message>
       <source>Group</source>
-      <translation type="unfinished">Group</translation>
+      <translation>分組</translation>
     </message>
     <message>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>協定</translation>
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>位址</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Link</source>
-      <translation type="unfinished">Link</translation>
+      <translation>連結</translation>
     </message>
     <message>
       <source>QR Code</source>
-      <translation type="unfinished">QR Code</translation>
+      <translation>QR-Code</translation>
     </message>
     <message>
       <source>Group Name</source>
-      <translation type="unfinished">Group Name</translation>
+      <translation>分組名稱</translation>
     </message>
     <message>
       <source>Subscription Link</source>
-      <translation type="unfinished">Subscription Link</translation>
+      <translation>訂閱連結</translation>
     </message>
     <message>
       <source>Share Link</source>
-      <translation type="unfinished">Share Link</translation>
+      <translation>分享連結</translation>
     </message>
     <message>
       <source>Not a subscription</source>
-      <translation type="unfinished">Not a subscription</translation>
+      <translation>不是訂閱</translation>
     </message>
     <message>
       <source>Delete an item</source>
-      <translation type="unfinished">Delete an item</translation>
+      <translation>刪除專案</translation>
     </message>
     <message>
       <source>Are you sure to delete the current item?</source>
-      <translation type="unfinished">Are you sure to delete the current item?</translation>
+      <translation>您確定要刪除當前專案嗎？</translation>
     </message>
     <message numerus="yes">
       <source>(Ignored %n complex config(s))</source>
-      <translation type="unfinished">
-        <numerusform>(Ignored %n complex config(s))</numerusform>
+      <translation>
+        <numerusform>（忽略 %n 個複雜配置）</numerusform>
       </translation>
     </message>
   </context>
@@ -142,1200 +142,1199 @@
     <name>ConnectionItemWidget</name>
     <message>
       <source>Not Tested</source>
-      <translation type="unfinished">Not Tested</translation>
+      <translation>未測試</translation>
     </message>
     <message>
       <source>Error</source>
-      <translation type="unfinished">Error</translation>
+      <translation>錯誤</translation>
     </message>
     <message>
       <source>connection</source>
-      <translation type="unfinished">connection</translation>
+      <translation>個</translation>
     </message>
     <message>
       <source>connections</source>
-      <translation type="unfinished">connections</translation>
+      <translation>個</translation>
     </message>
     <message>
       <source>Testing...</source>
-      <translation type="unfinished">Testing...</translation>
+      <translation>正在測試…</translation>
     </message>
     <message>
       <source>ms</source>
-      <translation type="unfinished">ms</translation>
+      <translation>ms</translation>
     </message>
     <message>
       <source>Last Connected: </source>
-      <translation type="unfinished">Last Connected: </translation>
+      <translation>上次連接: </translation>
     </message>
     <message>
       <source>Last Updated: </source>
-      <translation type="unfinished">Last Updated: </translation>
+      <translation>最後更新: </translation>
     </message>
     <message>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>訂閱</translation>
     </message>
   </context>
   <context>
     <name>ConnectionSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
   </context>
   <context>
     <name>ConnectionWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Connection Name</source>
-      <translation type="unfinished">Connection Name</translation>
+      <translation>連接名稱</translation>
     </message>
     <message>
       <source>500ms</source>
-      <translation type="unfinished">500ms</translation>
+      <translation>500ms</translation>
     </message>
     <message>
       <source>0KB / 0KB</source>
-      <translation type="unfinished">0KB / 0KB</translation>
+      <translation>0KB / 0KB</translation>
     </message>
     <message>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>好</translation>
     </message>
     <message>
       <source>VMESS + WS + TLS</source>
-      <translation type="unfinished">VMESS + WS + TLS</translation>
+      <translation>VMESS + WS + TLS</translation>
     </message>
   </context>
   <context>
     <name>DnsSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Client IP</source>
-      <translation type="unfinished">Client IP</translation>
+      <translation>用戶端 IP</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>標籤</translation>
     </message>
     <message>
       <source>DNS Servers</source>
-      <translation type="unfinished">DNS Servers</translation>
+      <translation>DNS 伺服器</translation>
     </message>
     <message>
       <source>DNS List</source>
-      <translation type="unfinished">DNS List</translation>
+      <translation>DNS 列表</translation>
     </message>
     <message>
       <source>DNS Server Settings</source>
-      <translation type="unfinished">DNS Server Settings</translation>
+      <translation>DNS 伺服器設定</translation>
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>位址</translation>
     </message>
     <message>
       <source>Detail Settings</source>
-      <translation type="unfinished">Detail Settings</translation>
+      <translation>詳細設定</translation>
     </message>
     <message>
       <source>Expectd IPs</source>
-      <translation type="unfinished">Expectd IPs</translation>
+      <translation>期待 IP</translation>
     </message>
     <message>
       <source>Domains</source>
-      <translation type="unfinished">Domains</translation>
+      <translation>網域</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Statically Resolved Domains</source>
-      <translation type="unfinished">Statically Resolved Domains</translation>
+      <translation>靜態解析網域</translation>
     </message>
     <message>
       <source>Domain</source>
-      <translation type="unfinished">Domain</translation>
+      <translation>網域</translation>
     </message>
     <message>
       <source>Resolved IP</source>
-      <translation type="unfinished">Resolved IP</translation>
+      <translation>解析 IP</translation>
     </message>
     <message>
       <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
 
 It cannot be a private address.</source>
-      <translation type="unfinished">The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
-
-It cannot be a private address.</translation>
+      <translation>當前系統的 IP 位址。用作在查詢 DNS 時提示伺服器用戶端所在的位置。
+不能是私有 IP 位址。</translation>
     </message>
     <message>
       <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
-      <translation type="unfinished">(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</translation>
+      <translation>(V2Ray 4.13+) 除 localhost 和 DoH Local 模式之外，DNS 的查詢流量都會被當作從該入站標籤進入的流量參與路由。</translation>
     </message>
     <message>
       <source>Port for DNS server. Normally it&apos;s 53.
 This entry is ignored by V2Ray core when using DoH servers.</source>
-      <translation type="unfinished">Port for DNS server. Normally it&apos;s 53.
-This entry is ignored by V2Ray core when using DoH servers.</translation>
+      <translation>DNS 伺服器端口。通常為 53。
+當使用 DoH 模式時，此項無效。</translation>
     </message>
   </context>
   <context>
     <name>GroupManager</name>
     <message>
       <source>Export Connection(s)</source>
-      <translation type="unfinished">Export Connection(s)</translation>
+      <translation>匯出連接</translation>
     </message>
     <message>
       <source>Delete Connection(s)</source>
-      <translation type="unfinished">Delete Connection(s)</translation>
+      <translation>刪除連接</translation>
     </message>
     <message>
       <source>Copy to...</source>
-      <translation type="unfinished">Copy to...</translation>
+      <translation>複製到...</translation>
     </message>
     <message>
       <source>Move to...</source>
-      <translation type="unfinished">Move to...</translation>
+      <translation>移動到...</translation>
     </message>
     <message>
       <source>Link to...</source>
-      <translation type="unfinished">Link to...</translation>
+      <translation>連結到...</translation>
     </message>
     <message>
       <source>Connection Management</source>
-      <translation type="unfinished">Connection Management</translation>
+      <translation>連接管理</translation>
     </message>
     <message>
       <source>New Group</source>
-      <translation type="unfinished">New Group</translation>
+      <translation>新分組</translation>
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>Would you like to update the subscription?</source>
-      <translation type="unfinished">Would you like to update the subscription?</translation>
+      <translation>您要更新訂閱嗎？</translation>
     </message>
     <message>
       <source>All connections will be moved to default group, do you want to continue?</source>
-      <translation type="unfinished">All connections will be moved to default group, do you want to continue?</translation>
+      <translation>本訂閱中的所有連接都將移動到默認分組，您確定要繼續嗎？</translation>
     </message>
     <message>
       <source>The subscription link is empty.</source>
-      <translation type="unfinished">The subscription link is empty.</translation>
+      <translation>訂閱連結為空。</translation>
     </message>
     <message>
       <source>The subscription link is invalid.</source>
-      <translation type="unfinished">The subscription link is invalid.</translation>
+      <translation>訂閱連結無效。</translation>
     </message>
     <message>
       <source>Remove a Group</source>
-      <translation type="unfinished">Remove a Group</translation>
+      <translation>刪除分組</translation>
     </message>
     <message>
       <source>Unknown Subscription Type</source>
-      <translation type="unfinished">Unknown Subscription Type</translation>
+      <translation>未知訂閱類型</translation>
     </message>
     <message>
       <source>Unknown subscription type &quot;%1&quot;, a plugin may be missing.</source>
-      <translation type="unfinished">Unknown subscription type &quot;%1&quot;, a plugin may be missing.</translation>
+      <translation>未知訂閱類型「%1」，或因外掛程式缺失所致。</translation>
     </message>
   </context>
   <context>
     <name>HTTPInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>刪除用戶</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>您並未選擇任一用戶。</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>新增使用者</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>此用戶已存在。</translation>
     </message>
   </context>
   <context>
     <name>ImportConfigWindow</name>
     <message>
       <source>Import file</source>
-      <translation type="unfinished">Import file</translation>
+      <translation>匯入檔案</translation>
     </message>
     <message>
       <source>Name/Prefix</source>
-      <translation type="unfinished">Name/Prefix</translation>
+      <translation>名稱/前綴</translation>
     </message>
     <message>
       <source>A prefix to the imported connection</source>
-      <translation type="unfinished">A prefix to the imported connection</translation>
+      <translation>導入連接的名稱前綴</translation>
     </message>
     <message>
       <source>Import To Group</source>
-      <translation type="unfinished">Import To Group</translation>
+      <translation>匯入分組</translation>
     </message>
     <message>
       <source>Link</source>
-      <translation type="unfinished">Link</translation>
+      <translation>連結</translation>
     </message>
     <message>
       <source>Share Link</source>
-      <translation type="unfinished">Share Link</translation>
+      <translation>分享連結</translation>
     </message>
     <message>
       <source>Error List</source>
-      <translation type="unfinished">Error List</translation>
+      <translation>錯誤清單</translation>
     </message>
     <message>
       <source>Paste share link here, one line for each.</source>
-      <translation type="unfinished">Paste share link here, one line for each.</translation>
+      <translation>在此粘貼，一行一個。</translation>
     </message>
     <message>
       <source>QR Code</source>
-      <translation type="unfinished">QR Code</translation>
+      <translation>二維碼</translation>
     </message>
     <message>
       <source>QRCode File</source>
-      <translation type="unfinished">QRCode File</translation>
+      <translation>二維碼文件</translation>
     </message>
     <message>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>選擇</translation>
     </message>
     <message>
       <source>Screenshot</source>
-      <translation type="unfinished">Screenshot</translation>
+      <translation>二維碼截屏</translation>
     </message>
     <message>
       <source>Hide Qv2ray</source>
-      <translation type="unfinished">Hide Qv2ray</translation>
+      <translation>隱藏 Qv2ray</translation>
     </message>
     <message>
       <source> secs</source>
-      <translation type="unfinished"> secs</translation>
+      <translation> 秒</translation>
     </message>
     <message>
       <source>Delay</source>
-      <translation type="unfinished">Delay</translation>
+      <translation>延遲</translation>
     </message>
     <message>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>開始</translation>
     </message>
     <message>
       <source>Detected Link</source>
-      <translation type="unfinished">Detected Link</translation>
+      <translation>檢測到的連結</translation>
     </message>
     <message>
       <source>Advanced</source>
-      <translation type="unfinished">Advanced</translation>
+      <translation>高級</translation>
     </message>
     <message>
       <source>Manually Input Connections</source>
-      <translation type="unfinished">Manually Input Connections</translation>
+      <translation>手動輸入連接</translation>
     </message>
     <message>
       <source>Path</source>
-      <translation type="unfinished">Path</translation>
+      <translation>路徑</translation>
     </message>
     <message>
       <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-      <translation type="unfinished">Import as Complex Config (Manually edit route rules and inbounds)</translation>
+      <translation>作為複雜配置匯入（手動編輯路由規則與入站）</translation>
     </message>
     <message>
       <source>Json Editor</source>
-      <translation type="unfinished">Json Editor</translation>
+      <translation>Json 編輯器</translation>
     </message>
     <message>
       <source>Open JSON Editor</source>
-      <translation type="unfinished">Open JSON Editor</translation>
+      <translation>打開 Json 編輯器</translation>
     </message>
     <message>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>導入</translation>
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>取消</translation>
     </message>
     <message>
       <source>Select file to import</source>
-      <translation type="unfinished">Select file to import</translation>
+      <translation>選擇要匯入的檔案</translation>
     </message>
     <message>
       <source>Capture QRCode</source>
-      <translation type="unfinished">Capture QRCode</translation>
+      <translation>抓取二維碼</translation>
     </message>
     <message>
       <source>Cannot find a valid QRCode from this region.</source>
-      <translation type="unfinished">Cannot find a valid QRCode from this region.</translation>
+      <translation>無法從這個區域找到有效的二維碼。</translation>
     </message>
     <message>
       <source>Failed to import connection</source>
-      <translation type="unfinished">Failed to import connection</translation>
+      <translation>連接匯入失敗</translation>
     </message>
     <message>
       <source>Import config file</source>
-      <translation type="unfinished">Import config file</translation>
+      <translation>匯入配置檔案</translation>
     </message>
     <message>
       <source>Failed to check the validity of the config file.</source>
-      <translation type="unfinished">Failed to check the validity of the config file.</translation>
+      <translation>檢查設定檔有效性時失敗。</translation>
     </message>
     <message>
       <source>Select an image to import</source>
-      <translation type="unfinished">Select an image to import</translation>
+      <translation>選擇要導入的圖像</translation>
     </message>
     <message>
       <source>QRCode scanning failed</source>
-      <translation type="unfinished">QRCode scanning failed</translation>
+      <translation>二維碼掃描失敗</translation>
     </message>
     <message>
       <source>Cannot find any QRCode from the image.</source>
-      <translation type="unfinished">Cannot find any QRCode from the image.</translation>
+      <translation>無法從圖像中找到任何二維碼。</translation>
     </message>
     <message>
       <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
-      <translation type="unfinished">WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</translation>
+      <translation>警告：你有可能把「訂閱連結」當成了「分享連結」</translation>
     </message>
   </context>
   <context>
     <name>InboundEditor</name>
     <message>
       <source>Inbound Editor</source>
-      <translation type="unfinished">Inbound Editor</translation>
+      <translation>入站編輯器</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>標籤</translation>
     </message>
     <message>
       <source>Tag of this inbound entry</source>
-      <translation type="unfinished">Tag of this inbound entry</translation>
+      <translation>此入站條目的標籤</translation>
     </message>
     <message>
       <source>Hostname or IP Address</source>
-      <translation type="unfinished">Hostname or IP Address</translation>
+      <translation>主機名稱或IP位址</translation>
     </message>
     <message>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>協定</translation>
     </message>
     <message>
       <source>Allocation Settings</source>
-      <translation type="unfinished">Allocation Settings</translation>
+      <translation>分配設定</translation>
     </message>
     <message>
       <source>Strategy</source>
-      <translation type="unfinished">Strategy</translation>
+      <translation>策略</translation>
     </message>
     <message>
       <source>Refresh</source>
-      <translation type="unfinished">Refresh</translation>
+      <translation>刷新</translation>
     </message>
     <message>
       <source>Concurrency</source>
-      <translation type="unfinished">Concurrency</translation>
+      <translation>併發連接數</translation>
     </message>
     <message>
       <source>Sniffing Settings</source>
-      <translation type="unfinished">Sniffing Settings</translation>
+      <translation>篩選設定</translation>
     </message>
     <message>
       <source>Destination Override</source>
-      <translation type="unfinished">Destination Override</translation>
+      <translation>目標覆蓋</translation>
     </message>
     <message>
       <source>Unknown inbound.</source>
-      <translation type="unfinished">Unknown inbound.</translation>
+      <translation>未知入站。</translation>
     </message>
     <message>
       <source>The specified inbound type is invalid, this may be caused by a plugin failure.</source>
-      <translation type="unfinished">The specified inbound type is invalid, this may be caused by a plugin failure.</translation>
+      <translation>所指明的入站類型無效，或因外掛程式故障導致。</translation>
     </message>
     <message>
       <source>Please use the JsonEditor or reload the plugin.</source>
-      <translation type="unfinished">Please use the JsonEditor or reload the plugin.</translation>
+      <translation>請使用 JSON 編輯器，或嘗試重載外掛程式。</translation>
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>位址</translation>
     </message>
     <message>
       <source>Inbound Settings</source>
-      <translation type="unfinished">Inbound Settings</translation>
+      <translation>入站設定</translation>
     </message>
     <message>
       <source>Stream Settings</source>
-      <translation type="unfinished">Stream Settings</translation>
+      <translation>串流設定</translation>
     </message>
   </context>
   <context>
     <name>InboundOutboundWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>External Config</source>
-      <translation type="unfinished">External Config</translation>
+      <translation>外部配置</translation>
     </message>
     <message>
       <source>Edit Outbound</source>
-      <translation type="unfinished">Edit Outbound</translation>
+      <translation>編輯出站</translation>
     </message>
     <message>
       <source>Trying to edit an Complex Config</source>
-      <translation type="unfinished">Trying to edit an Complex Config</translation>
+      <translation>試圖編輯複雜配置</translation>
     </message>
     <message>
       <source>You are trying to edit an external connection config, is this what you want?</source>
-      <translation type="unfinished">You are trying to edit an external connection config, is this what you want?</translation>
+      <translation>您正試圖編輯一外部連接配置，確定嗎？</translation>
     </message>
     <message>
       <source>You have selected an complex config as outbound.</source>
-      <translation type="unfinished">You have selected an complex config as outbound.</translation>
+      <translation>您已將複雜配置選爲出站。</translation>
     </message>
     <message>
       <source>continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</source>
-      <translation type="unfinished">continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</translation>
+      <translation>繼續將導致您失去所有入站及路由設置。</translation>
     </message>
     <message>
       <source>Is this what you want?</source>
-      <translation type="unfinished">Is this what you want?</translation>
+      <translation>您希望如此嗎？</translation>
     </message>
   </context>
   <context>
     <name>InboundSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
   </context>
   <context>
     <name>JsonEditor</name>
     <message>
       <source>JSON Editor</source>
-      <translation type="unfinished">JSON Editor</translation>
+      <translation>JSON 編輯器</translation>
     </message>
     <message>
       <source>Json Editor</source>
-      <translation type="unfinished">Json Editor</translation>
+      <translation>Json 編輯器</translation>
     </message>
     <message>
       <source>Format JSON</source>
-      <translation type="unfinished">Format JSON</translation>
+      <translation>格式化 JSON</translation>
     </message>
     <message>
       <source>Remove All Comments</source>
-      <translation type="unfinished">Remove All Comments</translation>
+      <translation>移除所有注釋</translation>
     </message>
     <message>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>好</translation>
     </message>
     <message>
       <source>Json Contains Syntax Errors</source>
-      <translation type="unfinished">Json Contains Syntax Errors</translation>
+      <translation>JSON 包含語法錯誤</translation>
     </message>
     <message>
       <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-      <translation type="unfinished">Original Json may contain syntax errors. Json tree is disabled.</translation>
+      <translation>原 JSON 可能包含語法錯誤，JSON 樹被禁用。</translation>
     </message>
     <message>
       <source>You must correct these errors before continuing.</source>
-      <translation type="unfinished">You must correct these errors before continuing.</translation>
+      <translation>您必須先更正這些錯誤才能繼續。</translation>
     </message>
     <message>
       <source>Syntax Errors</source>
-      <translation type="unfinished">Syntax Errors</translation>
+      <translation>語法錯誤</translation>
     </message>
     <message>
       <source>Please fix the JSON errors or remove the comments before continue</source>
-      <translation type="unfinished">Please fix the JSON errors or remove the comments before continue</translation>
+      <translation>請先修復 JSON 錯誤或移除其中的注釋再繼續</translation>
     </message>
     <message>
       <source>Structure Preview</source>
-      <translation type="unfinished">Structure Preview</translation>
+      <translation>結構預覽</translation>
     </message>
   </context>
   <context>
     <name>MainWindow</name>
     <message>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>首選項</translation>
     </message>
     <message>
       <source>Plugins</source>
-      <translation type="unfinished">Plugins</translation>
+      <translation>外掛程式</translation>
     </message>
     <message>
       <source>Locate Current Connection</source>
-      <translation type="unfinished">Locate Current Connection</translation>
+      <translation>定位到當前連接</translation>
     </message>
     <message>
       <source>Search</source>
-      <translation type="unfinished">Search</translation>
+      <translation>搜索</translation>
     </message>
     <message>
       <source>Sort</source>
-      <translation type="unfinished">Sort</translation>
+      <translation>排序</translation>
     </message>
     <message>
       <source>Import Connection</source>
-      <translation type="unfinished">Import Connection</translation>
+      <translation>匯入連接</translation>
     </message>
     <message>
       <source>New</source>
-      <translation type="unfinished">New</translation>
+      <translation>新建</translation>
     </message>
     <message>
       <source>Click to toggle show/hide</source>
-      <translation type="unfinished">Click to toggle show/hide</translation>
+      <translation>點擊切換顯示/隱藏</translation>
     </message>
     <message>
       <source>  Speed Graph</source>
-      <translation type="unfinished">  Speed Graph</translation>
+      <translation> 速度圖像</translation>
     </message>
     <message>
       <source>Clear chart data</source>
-      <translation type="unfinished">Clear chart data</translation>
+      <translation>清除圖表資料</translation>
     </message>
     <message>
       <source>  Log</source>
-      <translation type="unfinished">  Log</translation>
+      <translation>&#xa0; 紀錄檔</translation>
     </message>
     <message>
       <source>Clear log</source>
-      <translation type="unfinished">Clear log</translation>
+      <translation>清除紀錄檔</translation>
     </message>
     <message>
       <source>Not Connected</source>
-      <translation type="unfinished">Not Connected</translation>
+      <translation>未連接</translation>
     </message>
     <message>
       <source>Speed</source>
-      <translation type="unfinished">Speed</translation>
+      <translation>速度</translation>
     </message>
     <message>
       <source>Upload/Download speed</source>
-      <translation type="unfinished">Upload/Download speed</translation>
+      <translation>上傳/下載速度</translation>
     </message>
     <message>
       <source>0.00 B/s
 0.00 B/s</source>
-      <translation type="unfinished">0.00 B/s
+      <translation>0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
       <source>Data</source>
-      <translation type="unfinished">Data</translation>
+      <translation>資料</translation>
     </message>
     <message>
       <source>Upload/Download Data</source>
-      <translation type="unfinished">Upload/Download Data</translation>
+      <translation>上傳/下載流量</translation>
     </message>
     <message>
       <source>0.00 B
 0.00 B</source>
-      <translation type="unfinished">0.00 B
+      <translation>0.00 B
 0.00 B</translation>
     </message>
     <message>
       <source>System Proxy</source>
-      <translation type="unfinished">System Proxy</translation>
+      <translation>系統代理</translation>
     </message>
     <message>
       <source>Recent Connections</source>
-      <translation type="unfinished">Recent Connections</translation>
+      <translation>最近連接</translation>
     </message>
     <message>
       <source>Clear Recent Connections</source>
-      <translation type="unfinished">Clear Recent Connections</translation>
+      <translation>清除最近連接</translation>
     </message>
     <message>
       <source>Hide</source>
-      <translation type="unfinished">Hide</translation>
+      <translation>隱藏</translation>
     </message>
     <message>
       <source>Quit</source>
-      <translation type="unfinished">Quit</translation>
+      <translation>退出</translation>
     </message>
     <message>
       <source>Connect</source>
-      <translation type="unfinished">Connect</translation>
+      <translation>連接</translation>
     </message>
     <message>
       <source>Reconnect</source>
-      <translation type="unfinished">Reconnect</translation>
+      <translation>重新連接</translation>
     </message>
     <message>
       <source>Disconnect</source>
-      <translation type="unfinished">Disconnect</translation>
+      <translation>斷開連接</translation>
     </message>
     <message>
       <source>Enable System Proxy</source>
-      <translation type="unfinished">Enable System Proxy</translation>
+      <translation>啟用系統代理</translation>
     </message>
     <message>
       <source>Disable System Proxy</source>
-      <translation type="unfinished">Disable System Proxy</translation>
+      <translation>禁用系統代理</translation>
     </message>
     <message>
       <source>Connect to this</source>
-      <translation type="unfinished">Connect to this</translation>
+      <translation>連接到此伺服器</translation>
     </message>
     <message>
       <source>Set as automatically connected</source>
-      <translation type="unfinished">Set as automatically connected</translation>
+      <translation>設置為自動連接</translation>
     </message>
     <message>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>編輯</translation>
     </message>
     <message>
       <source>Edit as JSON</source>
-      <translation type="unfinished">Edit as JSON</translation>
+      <translation>編輯為 JSON</translation>
     </message>
     <message>
       <source>Edit as Complex Config</source>
-      <translation type="unfinished">Edit as Complex Config</translation>
+      <translation>編輯為複雜配置</translation>
     </message>
     <message>
       <source>Rename</source>
-      <translation type="unfinished">Rename</translation>
+      <translation>重命名</translation>
     </message>
     <message>
       <source>Duplicate to the Same Group</source>
-      <translation type="unfinished">Duplicate to the Same Group</translation>
+      <translation>複製到同組</translation>
     </message>
     <message>
       <source>Test Latency</source>
-      <translation type="unfinished">Test Latency</translation>
+      <translation>測試延遲</translation>
     </message>
     <message>
       <source>Clear Usage Data</source>
-      <translation type="unfinished">Clear Usage Data</translation>
+      <translation>清除統計資料</translation>
     </message>
     <message>
       <source>Delete Connection</source>
-      <translation type="unfinished">Delete Connection</translation>
+      <translation>刪除連接</translation>
     </message>
     <message>
       <source>Sort connection list.</source>
-      <translation type="unfinished">Sort connection list.</translation>
+      <translation>排序連接列表。</translation>
     </message>
     <message>
       <source>By connection name, A-Z</source>
-      <translation type="unfinished">By connection name, A-Z</translation>
+      <translation>按名稱，順序</translation>
     </message>
     <message>
       <source>By connection name, Z-A</source>
-      <translation type="unfinished">By connection name, Z-A</translation>
+      <translation>按名稱，逆序</translation>
     </message>
     <message>
       <source>By latency, Ascending</source>
-      <translation type="unfinished">By latency, Ascending</translation>
+      <translation>低延遲優先</translation>
     </message>
     <message>
       <source>By latency, Descending</source>
-      <translation type="unfinished">By latency, Descending</translation>
+      <translation>高延遲優先</translation>
     </message>
     <message>
       <source>By data, Ascending</source>
-      <translation type="unfinished">By data, Ascending</translation>
+      <translation>低資料使用量優先</translation>
     </message>
     <message>
       <source>By data, Descending</source>
-      <translation type="unfinished">By data, Descending</translation>
+      <translation>高資料使用量優先</translation>
     </message>
     <message>
       <source>Switch to Qv2ray log</source>
-      <translation type="unfinished">Switch to Qv2ray log</translation>
+      <translation>切換到 Qv2ray 紀錄</translation>
     </message>
     <message>
       <source>Kernel terminated.</source>
-      <translation type="unfinished">Kernel terminated.</translation>
+      <translation>核心已終止。</translation>
     </message>
     <message>
       <source>The kernel terminated unexpectedly:</source>
-      <translation type="unfinished">The kernel terminated unexpectedly:</translation>
+      <translation>核心意外終止：</translation>
     </message>
     <message>
       <source>To solve the problem, read the kernel log in the log text browser.</source>
-      <translation type="unfinished">To solve the problem, read the kernel log in the log text browser.</translation>
+      <translation>要解決問題，請閱讀紀錄視窗中的核心紀錄檔。</translation>
     </message>
     <message>
       <source>Show</source>
-      <translation type="unfinished">Show</translation>
+      <translation>顯示</translation>
     </message>
     <message>
       <source>Quit Qv2ray</source>
-      <translation type="unfinished">Quit Qv2ray</translation>
+      <translation>退出 Qv2ray</translation>
     </message>
     <message>
       <source>Are you sure to exit Qv2ray?</source>
-      <translation type="unfinished">Are you sure to exit Qv2ray?</translation>
+      <translation>確信要退出 Qv2ray 嗎？</translation>
     </message>
     <message numerus="yes">
       <source>Removing Connection(s)</source>
-      <translation type="unfinished">
-        <numerusform>Removing Connection(s)</numerusform>
+      <translation>
+        <numerusform>刪除連接</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>Are you sure to remove selected connection(s)?</source>
-      <translation type="unfinished">
-        <numerusform>Are you sure to remove selected connection(s)?</numerusform>
+      <translation>
+        <numerusform>您確定要刪除這些連接嗎？</numerusform>
       </translation>
     </message>
     <message>
       <source>Disconnected from: </source>
-      <translation type="unfinished">Disconnected from: </translation>
+      <translation>已斷開連接: </translation>
     </message>
     <message>
       <source>Connected: </source>
-      <translation type="unfinished">Connected: </translation>
+      <translation>已連接: </translation>
     </message>
     <message numerus="yes">
       <source>Duplicating Connection(s)</source>
-      <translation type="unfinished">
-        <numerusform>Duplicating Connection(s)</numerusform>
+      <translation>
+        <numerusform>複製連接</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>Are you sure to duplicate these connection(s)?</source>
-      <translation type="unfinished">
-        <numerusform>Are you sure to duplicate these connection(s)?</numerusform>
+      <translation>
+        <numerusform>您確定要複製這（些）連接嗎？</numerusform>
       </translation>
     </message>
     <message>
       <source> (Copy)</source>
-      <translation type="unfinished"> (Copy)</translation>
+      <translation> （副本）</translation>
     </message>
     <message>
       <source>System proxy configured.</source>
-      <translation type="unfinished">System proxy configured.</translation>
+      <translation>系統代理已設置。</translation>
     </message>
     <message>
       <source>Cannot set system proxy</source>
-      <translation type="unfinished">Cannot set system proxy</translation>
+      <translation>無法設置系統代理</translation>
     </message>
     <message>
       <source>Both HTTP and SOCKS inbounds are not enabled</source>
-      <translation type="unfinished">Both HTTP and SOCKS inbounds are not enabled</translation>
+      <translation>HTTP 和 SOCKS 都沒有啟用</translation>
     </message>
     <message>
       <source>System proxy removed.</source>
-      <translation type="unfinished">System proxy removed.</translation>
+      <translation>系統代理已清除。</translation>
     </message>
     <message>
       <source>Update Subscriptions</source>
-      <translation type="unfinished">Update Subscriptions</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>Subscription &quot;%1&quot; has been updated</source>
-      <translation type="unfinished">Subscription &quot;%1&quot; has been updated</translation>
+      <translation>已更新訂閱 &quot;%1&quot;</translation>
     </message>
     <message>
       <source>%1 has been set as auto connect.</source>
-      <translation type="unfinished">%1 has been set as auto connect.</translation>
+      <translation>已將 %1 設置為自動連接。</translation>
     </message>
     <message>
       <source>Selected group is not a subscription</source>
-      <translation type="unfinished">Selected group is not a subscription</translation>
+      <translation>所選分組不是訂閱</translation>
     </message>
     <message>
       <source>Do you want to update these subscriptions?</source>
-      <translation type="unfinished">Do you want to update these subscriptions?</translation>
+      <translation>要更新這些訂閱嗎？</translation>
     </message>
     <message>
       <source>Groups</source>
-      <translation type="unfinished">Groups</translation>
+      <translation>分組</translation>
     </message>
     <message>
       <source>Collapse all groups</source>
-      <translation type="unfinished">Collapse all groups</translation>
+      <translation>收起所有分組</translation>
     </message>
     <message>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>匯入</translation>
     </message>
     <message>
       <source>New Complex</source>
-      <translation type="unfinished">New Complex</translation>
+      <translation>新複雜配置</translation>
     </message>
     <message>
       <source>Recent Connection list cleared.</source>
-      <translation type="unfinished">Recent Connection list cleared.</translation>
+      <translation>已清除最近已使用連接列表。</translation>
     </message>
     <message>
       <source>Copy latest logs</source>
-      <translation type="unfinished">Copy latest logs</translation>
+      <translation>複製最近的紀錄檔</translation>
     </message>
     <message>
       <source>Number of lines of logs to copy</source>
-      <translation type="unfinished">Number of lines of logs to copy</translation>
+      <translation>要複製的紀錄檔行數</translation>
     </message>
     <message>
       <source>Test Real Latency</source>
-      <translation type="unfinished">Test Real Latency</translation>
+      <translation>測試真實延遲</translation>
     </message>
     <message>
       <source>Switch to Core log</source>
-      <translation type="unfinished">Switch to Core log</translation>
+      <translation>轉至核心紀錄檔</translation>
     </message>
     <message>
       <source>Copy graph as image.</source>
-      <translation type="unfinished">Copy graph as image.</translation>
+      <translation>複製圖表圖像</translation>
     </message>
     <message>
       <source>Copy latest logs.</source>
-      <translation type="unfinished">Copy latest logs.</translation>
+      <translation>複製近期紀錄檔。</translation>
     </message>
   </context>
   <context>
     <name>OutboundEditor</name>
     <message>
       <source>Edit Connection Settings</source>
-      <translation type="unfinished">Edit Connection Settings</translation>
+      <translation>編輯連接設定</translation>
     </message>
     <message>
       <source>Stream Settings</source>
-      <translation type="unfinished">Stream Settings</translation>
+      <translation>串流設定</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>標籤</translation>
     </message>
     <message>
       <source>Tag of this outbound setting</source>
-      <translation type="unfinished">Tag of this outbound setting</translation>
+      <translation>此出站設定的標籤</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>類型</translation>
     </message>
     <message>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>主機</translation>
     </message>
     <message>
       <source>Hostname or IP/IPv6 Address</source>
-      <translation type="unfinished">Hostname or IP/IPv6 Address</translation>
+      <translation>主機名稱或 IP/IPv6 位址</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Misc Settings</source>
-      <translation type="unfinished">Misc Settings</translation>
+      <translation>其他</translation>
     </message>
     <message>
       <source>Use Mux</source>
-      <translation type="unfinished">Use Mux</translation>
+      <translation>使用 Mux</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已啟用</translation>
     </message>
     <message>
       <source>Mux Concurrency</source>
-      <translation type="unfinished">Mux Concurrency</translation>
+      <translation>Mux 併發</translation>
     </message>
     <message>
       <source>Use Forward Proxy</source>
-      <translation type="unfinished">Use Forward Proxy</translation>
+      <translation>使用前置代理</translation>
     </message>
     <message>
       <source>Outbound Settings</source>
-      <translation type="unfinished">Outbound Settings</translation>
+      <translation>出站設定</translation>
     </message>
     <message>
       <source>Unknown outbound type.</source>
-      <translation type="unfinished">Unknown outbound type.</translation>
+      <translation>未知的出站類型。</translation>
     </message>
     <message>
       <source>The specified outbound type is not supported, this may happen due to a plugin failure.</source>
-      <translation type="unfinished">The specified outbound type is not supported, this may happen due to a plugin failure.</translation>
+      <translation>指定的出站類型不受支援，可能是外掛程式問題。</translation>
     </message>
     <message>
       <source>Forward proxy has been disabled when using plugin outbound</source>
-      <translation type="unfinished">Forward proxy has been disabled when using plugin outbound</translation>
+      <translation>使用外掛程式出站時，前置代理已被禁用</translation>
     </message>
     <message>
       <source>Unknown outbound.</source>
-      <translation type="unfinished">Unknown outbound.</translation>
+      <translation>未知出站。</translation>
     </message>
     <message>
       <source>The specified outbound type is invalid, this may be caused by a plugin failure.</source>
-      <translation type="unfinished">The specified outbound type is invalid, this may be caused by a plugin failure.</translation>
+      <translation>指定的出站類型無效，可能是外掛程式問題。</translation>
     </message>
     <message>
       <source>Please use the JsonEditor or reload the plugin.</source>
-      <translation type="unfinished">Please use the JsonEditor or reload the plugin.</translation>
+      <translation>請使用 JSON 編輯器或重載對應外掛程式。</translation>
     </message>
   </context>
   <context>
     <name>PluginManageWindow</name>
     <message>
       <source>Loaded</source>
-      <translation type="unfinished">Loaded</translation>
+      <translation>已載入</translation>
     </message>
     <message>
       <source>Not loaded</source>
-      <translation type="unfinished">Not loaded</translation>
+      <translation>未載入</translation>
     </message>
     <message>
       <source>Plugin Not Loaded</source>
-      <translation type="unfinished">Plugin Not Loaded</translation>
+      <translation>外掛程式未載入</translation>
     </message>
     <message>
       <source>Plugin does not have settings widget.</source>
-      <translation type="unfinished">Plugin does not have settings widget.</translation>
+      <translation>該外掛程式不包含設定 Widget。</translation>
     </message>
     <message>
       <source>Disabling a plugin</source>
-      <translation type="unfinished">Disabling a plugin</translation>
+      <translation>禁用外掛程式</translation>
     </message>
     <message>
       <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation type="unfinished">This plugin will keep loaded until the next time Qv2ray starts.</translation>
+      <translation>重啟前外掛程式會保持活動。</translation>
     </message>
     <message>
       <source>Plugin not loaded</source>
-      <translation type="unfinished">Plugin not loaded</translation>
+      <translation>外掛程式未載入</translation>
     </message>
     <message>
       <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
-      <translation type="unfinished">This plugin is not loaded, please enable or reload the plugin to continue.</translation>
+      <translation>外掛程式未載入，請啟用或重載此外掛程式。</translation>
     </message>
     <message>
       <source>None</source>
-      <translation type="unfinished">None</translation>
+      <translation>無</translation>
     </message>
   </context>
   <context>
     <name>PluginSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
   </context>
   <context>
     <name>PreferencesWindow</name>
     <message>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>首選項</translation>
     </message>
     <message>
       <source>General Settings</source>
-      <translation type="unfinished">General Settings</translation>
+      <translation>通用</translation>
     </message>
     <message>
       <source>Appearance</source>
-      <translation type="unfinished">Appearance</translation>
+      <translation>外觀</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已啟用</translation>
     </message>
     <message>
       <source>UI Theme</source>
-      <translation type="unfinished">UI Theme</translation>
+      <translation>介面主題</translation>
     </message>
     <message>
       <source>Language</source>
-      <translation type="unfinished">Language</translation>
+      <translation>語言</translation>
     </message>
     <message>
       <source>Maximum log lines</source>
-      <translation type="unfinished">Maximum log lines</translation>
+      <translation>紀錄最大行數</translation>
     </message>
     <message>
       <source> lines</source>
-      <translation type="unfinished"> lines</translation>
+      <translation> 行</translation>
     </message>
     <message>
       <source>Recent Jumplist</source>
-      <translation type="unfinished">Recent Jumplist</translation>
+      <translation>最近列表</translation>
     </message>
     <message>
       <source> Connections</source>
-      <translation type="unfinished"> Connections</translation>
+      <translation> 個</translation>
     </message>
     <message>
       <source>Behavior</source>
-      <translation type="unfinished">Behavior</translation>
+      <translation>行為</translation>
     </message>
     <message>
       <source>Launch at Login</source>
-      <translation type="unfinished">Launch at Login</translation>
+      <translation>登入時啟動</translation>
     </message>
     <message>
       <source>Auto Connect</source>
-      <translation type="unfinished">Auto Connect</translation>
+      <translation>自動連接</translation>
     </message>
     <message>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>配置</translation>
     </message>
     <message>
       <source>Group</source>
-      <translation type="unfinished">Group</translation>
+      <translation>分組</translation>
     </message>
     <message>
       <source>None</source>
-      <translation type="unfinished">None</translation>
+      <translation>不使用</translation>
     </message>
     <message>
       <source>Last Connected</source>
-      <translation type="unfinished">Last Connected</translation>
+      <translation>記憶上次的連接</translation>
     </message>
     <message>
       <source>Fixed</source>
-      <translation type="unfinished">Fixed</translation>
+      <translation>固定連接</translation>
     </message>
     <message>
       <source>Quiet Mode</source>
-      <translation type="unfinished">Quiet Mode</translation>
+      <translation>安靜模式</translation>
     </message>
     <message>
       <source>Network Settings</source>
-      <translation type="unfinished">Network Settings</translation>
+      <translation>網路設定</translation>
     </message>
     <message>
       <source>These settings are used by Qv2ray itself.
 For example, for updating subscriptions.</source>
-      <translation type="unfinished">These settings are used by Qv2ray itself.
-For example, for updating subscriptions.</translation>
+      <translation>這些設定是針對 Qv2ray 本身的。
+例如，用在更新訂閱時。</translation>
     </message>
     <message>
       <source>User-Agent</source>
-      <translation type="unfinished">User-Agent</translation>
+      <translation>User Agent</translation>
     </message>
     <message>
       <source>Latency Test Method</source>
-      <translation type="unfinished">Latency Test Method</translation>
+      <translation>延遲測試方案</translation>
     </message>
     <message>
       <source>TCPing</source>
-      <translation type="unfinished">TCPing</translation>
+      <translation>TCPing</translation>
     </message>
     <message>
       <source>ICMPing</source>
-      <translation type="unfinished">ICMPing</translation>
+      <translation>ICMPing</translation>
     </message>
     <message>
       <source>Qv2ray Proxy</source>
-      <translation type="unfinished">Qv2ray Proxy</translation>
+      <translation>Qv2ray 代理</translation>
     </message>
     <message>
       <source>System Proxy</source>
-      <translation type="unfinished">System Proxy</translation>
+      <translation>使用系統代理</translation>
     </message>
     <message>
       <source>Custom Proxy</source>
-      <translation type="unfinished">Custom Proxy</translation>
+      <translation>使用自訂代理</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>類型</translation>
     </message>
     <message>
       <source>Server</source>
-      <translation type="unfinished">Server</translation>
+      <translation>伺服器</translation>
     </message>
     <message>
       <source>:</source>
-      <translation type="unfinished">:</translation>
+      <translation>:</translation>
     </message>
     <message>
       <source>Advanced Behavior</source>
-      <translation type="unfinished">Advanced Behavior</translation>
+      <translation>高級行為</translation>
     </message>
     <message>
       <source>Set AllowInsecure By Default</source>
-      <translation type="unfinished">Set AllowInsecure By Default</translation>
+      <translation>默認設置 AllowInsecure</translation>
     </message>
     <message>
       <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
 This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-      <translation type="unfinished">Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</translation>
+      <translation>匯入連結時預設啟用 &quot;AllowInsecure&quot; 選項。
+可能對部分機場 / 節點的證書問題有所幫助，但更可能會使您遭受來自第三人的 TLS MITM 攻擊。</translation>
     </message>
     <message>
       <source>Test Latency Periodcally</source>
-      <translation type="unfinished">Test Latency Periodcally</translation>
+      <translation>定時測試延遲</translation>
     </message>
     <message>
       <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation type="unfinished">Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
+      <translation>連接到節點之後，對節點進行週期性的延遲監測。
+若啟用，Qv2ray 對節點的延遲監測將會更加準確，但這也許會提升您伺服器被暴露的風險。</translation>
     </message>
     <message>
       <source>Enable SessionResumption By Default</source>
-      <translation type="unfinished">Enable SessionResumption By Default</translation>
+      <translation>默認允許 SessionResumption</translation>
     </message>
     <message>
       <source>Kernel Settings</source>
-      <translation type="unfinished">Kernel Settings</translation>
+      <translation>內核設定</translation>
     </message>
     <message>
       <source>Log Level</source>
-      <translation type="unfinished">Log Level</translation>
+      <translation>日誌等級</translation>
     </message>
     <message>
       <source>none</source>
-      <translation type="unfinished">none</translation>
+      <translation>不使用</translation>
     </message>
     <message>
       <source>debug</source>
-      <translation type="unfinished">debug</translation>
+      <translation>調試</translation>
     </message>
     <message>
       <source>info</source>
-      <translation type="unfinished">info</translation>
+      <translation>信息</translation>
     </message>
     <message>
       <source>warning</source>
-      <translation type="unfinished">warning</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <source>error</source>
-      <translation type="unfinished">error</translation>
+      <translation>錯誤</translation>
     </message>
     <message>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>選擇</translation>
     </message>
     <message>
       <source>Plugin Kernel Settings</source>
-      <translation type="unfinished">Plugin Kernel Settings</translation>
+      <translation>外掛程式內核設定</translation>
     </message>
     <message>
       <source>If not checked, these features will be disabled:
@@ -1344,464 +1343,464 @@ Advanced Routing Settings
 Bypass CN websites and IPs
 Direct connection of Local LAN addresses
 Custom DNS Settings</source>
-      <translation type="unfinished">If not checked, these features will be disabled:
+      <translation>若不勾選此選項，外掛程式的下列功能將被禁用：
 
-Advanced Routing Settings
-Bypass CN websites and IPs
-Direct connection of Local LAN addresses
-Custom DNS Settings</translation>
+高級路由設定
+繞過中國大陸
+本地位址直連
+自訂 DNS 設置</translation>
     </message>
     <message>
       <source>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</source>
-      <translation type="unfinished">Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</translation>
+      <translation>如果啟用，Qv2ray 將為每個內核外掛程式分配通訊埠，分別用於 HTTP 和 SOCKS。</translation>
     </message>
     <message>
       <source>Port Allocation Start</source>
-      <translation type="unfinished">Port Allocation Start</translation>
+      <translation>端口分配起始值</translation>
     </message>
     <message>
       <source>Inbound Settings</source>
-      <translation type="unfinished">Inbound Settings</translation>
+      <translation>入站設定</translation>
     </message>
     <message>
       <source>Listening Address</source>
-      <translation type="unfinished">Listening Address</translation>
+      <translation>監聽位址</translation>
     </message>
     <message>
       <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
-      <translation type="unfinished">IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</translation>
+      <translation>IPv4 位址，例如 127.0.0.1；或 IPv6 位址，例如 ::1</translation>
     </message>
     <message>
       <source>Set System Proxy</source>
-      <translation type="unfinished">Set System Proxy</translation>
+      <translation>設置系統代理</translation>
     </message>
     <message>
       <source>SOCKS Settings</source>
-      <translation type="unfinished">SOCKS Settings</translation>
+      <translation>SOCKS 設定</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>UDP Support</source>
-      <translation type="unfinished">UDP Support</translation>
+      <translation>支援 UDP</translation>
     </message>
     <message>
       <source>UDP Local IP</source>
-      <translation type="unfinished">UDP Local IP</translation>
+      <translation>UDP 本地IP</translation>
     </message>
     <message>
       <source>Authentication</source>
-      <translation type="unfinished">Authentication</translation>
+      <translation>身份驗證</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>用戶名</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>密碼</translation>
     </message>
     <message>
       <source>Sniffing</source>
-      <translation type="unfinished">Sniffing</translation>
+      <translation>嗅探</translation>
     </message>
     <message>
       <source>HTTP Settings</source>
-      <translation type="unfinished">HTTP Settings</translation>
+      <translation>HTTP 設定</translation>
     </message>
     <message>
       <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
-      <translation type="unfinished">IPv4 address, e.g. &apos;127.0.0.1&apos;</translation>
+      <translation>IPv4 位址，例如 127.0.0.1</translation>
     </message>
     <message>
       <source>Network Options</source>
-      <translation type="unfinished">Network Options</translation>
+      <translation>網路選項</translation>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>DNS Intercept</source>
-      <translation type="unfinished">DNS Intercept</translation>
+      <translation>DNS 攔截</translation>
     </message>
     <message>
       <source>Mode</source>
-      <translation type="unfinished">Mode</translation>
+      <translation>模式</translation>
     </message>
     <message>
       <source>Outbound Mark</source>
-      <translation type="unfinished">Outbound Mark</translation>
+      <translation>出站 Mark</translation>
     </message>
     <message>
       <source>Listening IPv4 Address</source>
-      <translation type="unfinished">Listening IPv4 Address</translation>
+      <translation>IPv4 監聽位址</translation>
     </message>
     <message>
       <source>Listening IPv6 Address</source>
-      <translation type="unfinished">Listening IPv6 Address</translation>
+      <translation>IPv6 監聽位址</translation>
     </message>
     <message>
       <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
-      <translation type="unfinished">IPv6 address, e.g. ::1. Leave blank will disable ipv6.</translation>
+      <translation>IPv6 位址，例如 ::1。留空會禁用 IPv6 透明代理。</translation>
     </message>
     <message>
       <source>Connection Settings</source>
-      <translation type="unfinished">Connection Settings</translation>
+      <translation>連接設定</translation>
     </message>
     <message>
       <source>General Connection Settings</source>
-      <translation type="unfinished">General Connection Settings</translation>
+      <translation>常規連接設置</translation>
     </message>
     <message>
       <source>Bypass CN Mainland</source>
-      <translation type="unfinished">Bypass CN Mainland</translation>
+      <translation>繞過中國大陸</translation>
     </message>
     <message>
       <source>Bypass Bittorrent Protocol</source>
-      <translation type="unfinished">Bypass Bittorrent Protocol</translation>
+      <translation>繞過 BitTorrent 協定</translation>
     </message>
     <message>
       <source>Use Local DNS</source>
-      <translation type="unfinished">Use Local DNS</translation>
+      <translation>使用本地 DNS</translation>
     </message>
     <message>
       <source>DNS Settings</source>
-      <translation type="unfinished">DNS Settings</translation>
+      <translation>DNS 設定</translation>
     </message>
     <message>
       <source>Forward Proxy</source>
-      <translation type="unfinished">Forward Proxy</translation>
+      <translation>前置代理</translation>
     </message>
     <message>
       <source>Only simple config is supported.</source>
-      <translation type="unfinished">Only simple config is supported.</translation>
+      <translation>只支援簡單配置。</translation>
     </message>
     <message>
       <source>Host Address</source>
-      <translation type="unfinished">Host Address</translation>
+      <translation>主機位址</translation>
     </message>
     <message>
       <source>Advanced Route Settings</source>
-      <translation type="unfinished">Advanced Route Settings</translation>
+      <translation>進階路由設定</translation>
     </message>
     <message>
       <source>About</source>
-      <translation type="unfinished">About</translation>
+      <translation>關於</translation>
     </message>
     <message>
       <source>Ignored Version</source>
-      <translation type="unfinished">Ignored Version</translation>
+      <translation>忽略版本</translation>
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>取消</translation>
     </message>
     <message>
       <source>Update Channel</source>
-      <translation type="unfinished">Update Channel</translation>
+      <translation>更新通道</translation>
     </message>
     <message>
       <source>Stable Release</source>
-      <translation type="unfinished">Stable Release</translation>
+      <translation>穩定通道</translation>
     </message>
     <message>
       <source>Testing</source>
-      <translation type="unfinished">Testing</translation>
+      <translation>測試通道</translation>
     </message>
     <message>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <source>Version:</source>
-      <translation type="unfinished">Version:</translation>
+      <translation>版本：</translation>
     </message>
     <message>
       <source>Plugin Interface</source>
-      <translation type="unfinished">Plugin Interface</translation>
+      <translation>外掛程式介面</translation>
     </message>
     <message>
       <source>Extra Build Info</source>
-      <translation type="unfinished">Extra Build Info</translation>
+      <translation>額外編譯資訊</translation>
     </message>
     <message>
       <source>Built Time</source>
-      <translation type="unfinished">Built Time</translation>
+      <translation>構建時間</translation>
     </message>
     <message>
       <source>Build Info</source>
-      <translation type="unfinished">Build Info</translation>
+      <translation>編譯資訊</translation>
     </message>
     <message>
       <source>Official Repo</source>
-      <translation type="unfinished">Official Repo</translation>
+      <translation>官方倉庫</translation>
     </message>
     <message>
       <source>License</source>
-      <translation type="unfinished">License</translation>
+      <translation>許可證</translation>
     </message>
     <message>
       <source>About Qt</source>
-      <translation type="unfinished">About Qt</translation>
+      <translation>關於 Qt</translation>
     </message>
     <message>
       <source>Version: %1</source>
-      <translation type="unfinished">Version: %1</translation>
+      <translation>版本：%1</translation>
     </message>
     <message>
       <source>Update is disabled by your vendor.</source>
-      <translation type="unfinished">Update is disabled by your vendor.</translation>
+      <translation>自動更新已被供應者禁用。</translation>
     </message>
     <message>
       <source>Duplicated port numbers detected, please check the port number settings.</source>
-      <translation type="unfinished">Duplicated port numbers detected, please check the port number settings.</translation>
+      <translation>檢測到重複的端口號，請檢查端口號設定。</translation>
     </message>
     <message>
       <source>Invalid inbound listening address.</source>
-      <translation type="unfinished">Invalid inbound listening address.</translation>
+      <translation>入站監聽位址不可用。</translation>
     </message>
     <message>
       <source>Invalid tproxy listening ivp4 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ivp4 address.</translation>
+      <translation>無效的透明代理 IPv4 監聽位址。</translation>
     </message>
     <message>
       <source>Invalid tproxy listening ipv6 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ipv6 address.</translation>
+      <translation>無效的透明代理 IPv6 監聽位址。</translation>
     </message>
     <message>
       <source>Note</source>
-      <translation type="unfinished">Note</translation>
+      <translation>注意</translation>
     </message>
     <message>
       <source>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</source>
-      <translation type="unfinished">To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</translation>
+      <translation>要識別網路連接的協定，必須要啟用入站代理中的嗅探選項。</translation>
     </message>
     <message>
       <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
-      <translation type="unfinished">tproxy inbound&apos;s sniffing is enabled by default.</translation>
+      <translation>tProxy 入站的嗅探選項預設開啟。</translation>
     </message>
     <message>
       <source>Start with boot</source>
-      <translation type="unfinished">Start with boot</translation>
+      <translation>開機啟動</translation>
     </message>
     <message>
       <source>Failed to set auto start option.</source>
-      <translation type="unfinished">Failed to set auto start option.</translation>
+      <translation>無法設置自動啟動選項。</translation>
     </message>
     <message>
       <source>Disabling API Subsystem</source>
-      <translation type="unfinished">Disabling API Subsystem</translation>
+      <translation>禁用 API 子系統</translation>
     </message>
     <message>
       <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
-      <translation type="unfinished">Disabling API subsystem will also disable the statistics function of Qv2ray.</translation>
+      <translation>如果禁用 API 子系統，Qv2ray 的統計功能也會被一同禁用。</translation>
     </message>
     <message>
       <source>Speed chart and traffic statistics will be disabled.</source>
-      <translation type="unfinished">Speed chart and traffic statistics will be disabled.</translation>
+      <translation>速度圖表和流量統計功能將不再可用。</translation>
     </message>
     <message>
       <source>Dangerous Operation</source>
-      <translation type="unfinished">Dangerous Operation</translation>
+      <translation>危險操作</translation>
     </message>
     <message>
       <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-      <translation type="unfinished">You will lose the advantage of TLS and make your connection under MITM attack.</translation>
+      <translation>你會失去 TLS 的保護，並可能使您的連接受害于中間人攻擊（MitM）。</translation>
     </message>
     <message>
       <source>This will (probably) make it easy to fingerprint your connection.</source>
-      <translation type="unfinished">This will (probably) make it easy to fingerprint your connection.</translation>
+      <translation>這將讓 GFW 更容易識別出您的連接。</translation>
     </message>
     <message>
       <source>NTP Checker</source>
-      <translation type="unfinished">NTP Checker</translation>
+      <translation>網路時間檢查器</translation>
     </message>
     <message>
       <source>Check date and time from server:</source>
-      <translation type="unfinished">Check date and time from server:</translation>
+      <translation>從NTP伺服器檢查日期與時間：</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which is too high.</source>
-      <translation type="unfinished">Your time offset is %1 seconds, which is too high.</translation>
+      <translation>你的時間偏差為 %1 秒，太高了。</translation>
     </message>
     <message>
       <source>Please synchronize your system to use V2Ray.</source>
-      <translation type="unfinished">Please synchronize your system to use V2Ray.</translation>
+      <translation>請同步系統時間，否則無法正常使用 V2Ray。</translation>
     </message>
     <message>
       <source>Time Inaccurate</source>
-      <translation type="unfinished">Time Inaccurate</translation>
+      <translation>時間不准</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which is a little high.</source>
-      <translation type="unfinished">Your time offset is %1 seconds, which is a little high.</translation>
+      <translation>你的時間偏差為 %1 秒，有點高。</translation>
     </message>
     <message>
       <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
-      <translation type="unfinished">V2Ray may still work, but we suggest you synchronize your clock.</translation>
+      <translation>V2Ray 可能不受影響，但我們建議同步時間。</translation>
     </message>
     <message>
       <source>Time Somewhat Inaccurate</source>
-      <translation type="unfinished">Time Somewhat Inaccurate</translation>
+      <translation>時間略有偏差</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which looks good.</source>
-      <translation type="unfinished">Your time offset is %1 seconds, which looks good.</translation>
+      <translation>你的時間偏差為 %1 秒，沒有問題。</translation>
     </message>
     <message>
       <source>V2Ray may not suffer from time inaccuracy.</source>
-      <translation type="unfinished">V2Ray may not suffer from time inaccuracy.</translation>
+      <translation>V2Ray 會正常工作。</translation>
     </message>
     <message>
       <source>Time Accurate</source>
-      <translation type="unfinished">Time Accurate</translation>
+      <translation>時間準確</translation>
     </message>
     <message>
       <source>Failed to lookup server: %1</source>
-      <translation type="unfinished">Failed to lookup server: %1</translation>
+      <translation>無法查找伺服器：%1</translation>
     </message>
     <message>
       <source>You can configure default DNS settings for all simple connection config here.</source>
-      <translation type="unfinished">You can configure default DNS settings for all simple connection config here.</translation>
+      <translation>你可在此為所有簡單連接配置 DNS 設定。</translation>
     </message>
     <message>
       <source>You can configure default routing rules for all simple connection config here.</source>
-      <translation type="unfinished">You can configure default routing rules for all simple connection config here.</translation>
+      <translation>你可在此為所有簡單連接配置預設路由規則。</translation>
     </message>
     <message>
       <source>Invalid DNS settings.</source>
-      <translation type="unfinished">Invalid DNS settings.</translation>
+      <translation>無效的 DNS 設定。</translation>
     </message>
     <message>
       <source>These settings may be useful.
 But could damage your server if improperly used.</source>
-      <translation type="unfinished">These settings may be useful.
-But could damage your server if improperly used.</translation>
+      <translation>此處的設定可能很有用。
+但若使用不當，將會造成不良後果。</translation>
     </message>
     <message>
       <source>Watch Out!</source>
-      <translation type="unfinished">Watch Out!</translation>
+      <translation>小心！</translation>
     </message>
     <message>
       <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
 This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
-      <translation type="unfinished">You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.
-This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.
-If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</translation>
+      <translation>您或許要將 V2Ray 的可執行檔錯誤地設置成 Qv2ray 本身了，這是非常不對的。
+然而，這樣做並不會觸發 Fork 炸彈，因為 Qv2ray 以單例模式工作。
+若你的 V2Ray 核心檔案名恰好是 &apos;qv2ray&apos; 什麼的，你完全可以忽略這個警告。</translation>
     </message>
     <message>
       <source>Check System Date and Time from the Internet</source>
-      <translation type="unfinished">Check System Date and Time from the Internet</translation>
+      <translation>聯網對時</translation>
     </message>
     <message>
       <source>Currently:
 - vmess/shadowsocks/socks/http will be treated as PROXY.
 - freedom will be treated as DIRECT
 - blackhole will be treated as BLOCK</source>
-      <translation type="unfinished">Currently:
-- vmess/shadowsocks/socks/http will be treated as PROXY.
-- freedom will be treated as DIRECT
-- blackhole will be treated as BLOCK</translation>
+      <translation>當前：
+- VMess/Shadowsocks/SOCKS/HTTP 將被認作代理流量；
+- 直連出站（Freedom）將被認作直連流量；
+- 黑洞出站（Blackhole）將被認作阻斷流量</translation>
     </message>
     <message>
       <source>Include Direct Connection</source>
-      <translation type="unfinished">Include Direct Connection</translation>
+      <translation>包括直連流量</translation>
     </message>
     <message>
       <source>Old Share Link Format</source>
-      <translation type="unfinished">Old Share Link Format</translation>
+      <translation>舊 VMess 連結格式</translation>
     </message>
     <message>
       <source>Adapt Dark Theme</source>
-      <translation type="unfinished">Adapt Dark Theme</translation>
+      <translation>適應暗色主題</translation>
     </message>
     <message>
       <source>Adapt Dark Tray Theme</source>
-      <translation type="unfinished">Adapt Dark Tray Theme</translation>
+      <translation>適應暗色託盤主題</translation>
     </message>
     <message>
       <source>V2Ray Core Settings</source>
-      <translation type="unfinished">V2Ray Core Settings</translation>
+      <translation>V2Ray 核心設定</translation>
     </message>
     <message>
       <source>V2Ray Core Executable Path</source>
-      <translation type="unfinished">V2Ray Core Executable Path</translation>
+      <translation>V2Ray 核心可執行檔路徑</translation>
     </message>
     <message>
       <source>V2Ray Assets Directory</source>
-      <translation type="unfinished">V2Ray Assets Directory</translation>
+      <translation>V2Ray 資產原始目錄</translation>
     </message>
     <message>
       <source>Check V2Ray Core Settings</source>
-      <translation type="unfinished">Check V2Ray Core Settings</translation>
+      <translation>檢查 V2Ray 核心設定</translation>
     </message>
     <message>
       <source>V2Ray API Subsystem</source>
-      <translation type="unfinished">V2Ray API Subsystem</translation>
+      <translation>V2Ray API 子系統</translation>
     </message>
     <message>
       <source>V2Ray API Port</source>
-      <translation type="unfinished">V2Ray API Port</translation>
+      <translation>V2Ray API 端口</translation>
     </message>
     <message>
       <source>Outbound Statistics (V2Ray Core v4.26+)</source>
-      <translation type="unfinished">Outbound Statistics (V2Ray Core v4.26+)</translation>
+      <translation>分出站統計 (V2Ray v4.26+)</translation>
     </message>
     <message>
       <source>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</source>
-      <translation type="unfinished">Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</translation>
+      <translation>啟用 V2Ray 外掛程式集成將允許核心受益於 V2Ray 的路由引擎。</translation>
     </message>
     <message>
       <source>V2Ray Integration</source>
-      <translation type="unfinished">V2Ray Integration</translation>
+      <translation>V2Ray 集成</translation>
     </message>
     <message>
       <source>Only V2Ray Core v4.21+ is supported.</source>
-      <translation type="unfinished">Only V2Ray Core v4.21+ is supported.</translation>
+      <translation>僅支援 V2Ray v4.21+。</translation>
     </message>
     <message>
       <source>Use V2Ray DNS for Direct Connection</source>
-      <translation type="unfinished">Use V2Ray DNS for Direct Connection</translation>
+      <translation>為直連使用 V2Ray DNS</translation>
     </message>
     <message>
       <source>Open V2Ray assets folder</source>
-      <translation type="unfinished">Open V2Ray assets folder</translation>
+      <translation>打開 V2Ray 資源檔夾</translation>
     </message>
     <message>
       <source>Open V2Ray core file</source>
-      <translation type="unfinished">Open V2Ray core file</translation>
+      <translation>打開 V2Ray 核心文件</translation>
     </message>
     <message>
       <source>V2Ray path configuration check passed.</source>
-      <translation type="unfinished">V2Ray path configuration check passed.</translation>
+      <translation>V2Ray 路徑配置檢查通過。</translation>
     </message>
     <message>
       <source>Current version of V2Ray is: </source>
-      <translation type="unfinished">Current version of V2Ray is: </translation>
+      <translation>V2Ray 當前版本是: </translation>
     </message>
     <message>
       <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
 The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
-      <translation type="unfinished">You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.
-The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.
-If you insist to proceed, we&apos;re not providing with any support.</translation>
+      <translation>您或許要將 V2Ray 的核心可執行檔錯誤地設置成 V2Ray 控制檔了，這是非常不對的。
+V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。確保您作出了正確的選擇。
+若您執意繼續，我們將不提供任何支援。</translation>
     </message>
     <message>
       <source>This will make your TLS fingerpring different from common Golang programs.</source>
-      <translation type="unfinished">This will make your TLS fingerpring different from common Golang programs.</translation>
+      <translation>這將使你的 TLS 指紋有異于正常的 Golang 程式。</translation>
     </message>
     <message>
       <source>Force Direct for All Connections</source>
-      <translation type="unfinished">Force Direct for All Connections</translation>
+      <translation>所有連接皆直連</translation>
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
@@ -1809,1128 +1808,1128 @@ If you&apos;ve been looking for plugin cores, you should change this in plugin s
 Output: <byte value="xd"/>
 <byte value="xd"/>
 </source>
-      <translation type="unfinished">This does not seem like an output from V2Ray Core.
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.
-Output: 
+      <translation>此輸出似乎不是來自 V2Ray 核心。
+需要在外掛程式設定中變更外掛程式核心。
+輸出：
 
 </translation>
     </message>
     <message>
       <source>&apos;V2Ray Core&apos; Settings</source>
-      <translation type="unfinished">&apos;V2Ray Core&apos; Settings</translation>
+      <translation>“V2Ray” 核心設定</translation>
     </message>
     <message>
       <source>RealPing Test URL</source>
-      <translation type="unfinished">RealPing Test URL</translation>
+      <translation>真實延遲測試連結</translation>
     </message>
     <message>
       <source>Bypass Private Addresses</source>
-      <translation type="unfinished">Bypass Private Addresses</translation>
+      <translation>略過私有位址</translation>
     </message>
     <message>
       <source>You may need to reconnect to apply the settings now.</source>
-      <translation type="unfinished">You may need to reconnect to apply the settings now.</translation>
+      <translation>要應用設定，您需要現在重新連接。</translation>
     </message>
     <message>
       <source>Otherwise they will be applied next time you connect to a server.</source>
-      <translation type="unfinished">Otherwise they will be applied next time you connect to a server.</translation>
+      <translation>或者下次連接至伺服器時生效。</translation>
     </message>
     <message>
       <source>Do you want to reconnect now?</source>
-      <translation type="unfinished">Do you want to reconnect now?</translation>
+      <translation>要現在重連嗎？</translation>
     </message>
     <message>
       <source>Reconnect Required</source>
-      <translation type="unfinished">Reconnect Required</translation>
+      <translation>需要重新連接</translation>
     </message>
     <message>
       <source>Dokodemo Door Settings</source>
-      <translation type="unfinished">Dokodemo Door Settings</translation>
+      <translation>任意門設定</translation>
     </message>
     <message>
       <source>Disable System Root Certificates</source>
-      <translation type="unfinished">Disable System Root Certificates</translation>
+      <translation>禁用系統根憑證</translation>
     </message>
   </context>
   <context>
     <name>QObject</name>
     <message>
       <source>Out</source>
-      <translation type="unfinished">Out</translation>
+      <translation>離</translation>
     </message>
     <message>
       <source>In</source>
-      <translation type="unfinished">In</translation>
+      <translation>入</translation>
     </message>
     <message>
       <source>Rule</source>
-      <translation type="unfinished">Rule</translation>
+      <translation>規則</translation>
     </message>
     <message>
       <source>Chain</source>
-      <translation type="unfinished">Chain</translation>
+      <translation>代理鏈</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
     <message>
       <source>A new version of Qv2ray is starting:</source>
-      <translation type="unfinished">A new version of Qv2ray is starting:</translation>
+      <translation>新版本 Qv2ray 正在啓動：</translation>
     </message>
     <message>
       <source>New version information: </source>
-      <translation type="unfinished">New version information: </translation>
+      <translation>新版本信息：</translation>
     </message>
     <message>
       <source>Do you want to exit and launch that new version?</source>
-      <translation type="unfinished">Do you want to exit and launch that new version?</translation>
+      <translation>要退出並啓動新版本嗎？</translation>
     </message>
     <message>
       <source>New version detected</source>
-      <translation type="unfinished">New version detected</translation>
+      <translation>檢測到新版本</translation>
     </message>
     <message>
       <source>Version: %1:%2</source>
-      <translation type="unfinished">Version: %1:%2</translation>
+      <translation>版本：%1:%2</translation>
     </message>
     <message>
       <source>Path: %1</source>
-      <translation type="unfinished">Path: %1</translation>
+      <translation>路徑：%1</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
     <message>
       <source>You can not input space characters here.</source>
-      <translation type="unfinished">You can not input space characters here.</translation>
+      <translation>此處不能輸入空格。</translation>
     </message>
   </context>
   <context>
     <name>RouteEditor</name>
     <message>
       <source>Route Editor</source>
-      <translation type="unfinished">Route Editor</translation>
+      <translation>路由編輯器</translation>
     </message>
     <message>
       <source>Add outbound</source>
-      <translation type="unfinished">Add outbound</translation>
+      <translation>添加出站</translation>
     </message>
     <message>
       <source>Add default inbound from global config</source>
-      <translation type="unfinished">Add default inbound from global config</translation>
+      <translation>從全域配置中添加預設的入站設置</translation>
     </message>
     <message>
       <source>Add blackhole outbound</source>
-      <translation type="unfinished">Add blackhole outbound</translation>
+      <translation>添加黑洞出站</translation>
     </message>
     <message>
       <source>Add Freedom outbound</source>
-      <translation type="unfinished">Add Freedom outbound</translation>
+      <translation>添加自由出站</translation>
     </message>
     <message>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>協定</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>標籤</translation>
     </message>
     <message>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>主機</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
-      <translation type="unfinished">Domain Strategy</translation>
+      <translation>網域策略</translation>
     </message>
     <message>
       <source>Default Outbound</source>
-      <translation type="unfinished">Default Outbound</translation>
+      <translation>默認出站</translation>
     </message>
     <message>
       <source>Drag and drop to re-order the rules.</source>
-      <translation type="unfinished">Drag and drop to re-order the rules.</translation>
+      <translation>拖放以重新排序規則。</translation>
     </message>
     <message>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>狀態</translation>
     </message>
     <message>
       <source>Added DIRECT outbound</source>
-      <translation type="unfinished">Added DIRECT outbound</translation>
+      <translation>已添加直連出站</translation>
     </message>
     <message>
       <source>New Outbound</source>
-      <translation type="unfinished">New Outbound</translation>
+      <translation>新建出站</translation>
     </message>
     <message>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>匯入</translation>
     </message>
     <message>
       <source>Blackhole</source>
-      <translation type="unfinished">Blackhole</translation>
+      <translation>黑洞</translation>
     </message>
     <message>
       <source>New Inbound</source>
-      <translation type="unfinished">New Inbound</translation>
+      <translation>新入埠</translation>
     </message>
     <message>
       <source>Editor</source>
-      <translation type="unfinished">Editor</translation>
+      <translation>編輯器</translation>
     </message>
     <message>
       <source>Global Settings</source>
-      <translation type="unfinished">Global Settings</translation>
+      <translation>全域設定</translation>
     </message>
     <message>
       <source>Freedom</source>
-      <translation type="unfinished">Freedom</translation>
+      <translation>自由</translation>
     </message>
     <message>
       <source>Balancer</source>
-      <translation type="unfinished">Balancer</translation>
+      <translation>均衡器</translation>
     </message>
     <message>
       <source>Chain</source>
-      <translation type="unfinished">Chain</translation>
+      <translation>代理鏈</translation>
     </message>
     <message>
       <source>Existing Connection</source>
-      <translation type="unfinished">Existing Connection</translation>
+      <translation>現存連接</translation>
     </message>
     <message>
       <source>Copy</source>
-      <translation type="unfinished">Copy</translation>
+      <translation>複製</translation>
     </message>
     <message>
       <source>Reference</source>
-      <translation type="unfinished">Reference</translation>
+      <translation>參照</translation>
     </message>
     <message>
       <source>Routing Settings</source>
-      <translation type="unfinished">Routing Settings</translation>
+      <translation>路由設定</translation>
     </message>
     <message>
       <source>Chain Editor</source>
-      <translation type="unfinished">Chain Editor</translation>
+      <translation>代理鏈編輯器</translation>
     </message>
     <message>
       <source>DNS Settings</source>
-      <translation type="unfinished">DNS Settings</translation>
+      <translation>DNS 設定</translation>
     </message>
     <message>
       <source>Selected Inbound / Outbound Info</source>
-      <translation type="unfinished">Selected Inbound / Outbound Info</translation>
+      <translation>所選入埠/離埠信息</translation>
     </message>
     <message>
       <source>Unknown</source>
-      <translation type="unfinished">Unknown</translation>
+      <translation>不明</translation>
     </message>
     <message>
       <source>0</source>
-      <translation type="unfinished">0</translation>
+      <translation>0</translation>
     </message>
     <message>
       <source>Rules Order</source>
-      <translation type="unfinished">Rules Order</translation>
+      <translation>規則順序</translation>
     </message>
     <message>
       <source>Debug Connection Painter</source>
-      <translation type="unfinished">Debug Connection Painter</translation>
+      <translation>除錯連接彩現器</translation>
     </message>
   </context>
   <context>
     <name>RouteSettingsMatrix</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
-      <translation type="unfinished">Domain Strategy</translation>
+      <translation>網域策略</translation>
     </message>
     <message>
       <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
-      <translation type="unfinished">Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</translation>
+      <translation>以“geoip:”或“geosite:”開頭的行可以自動補全</translation>
     </message>
     <message>
       <source>Block</source>
-      <translation type="unfinished">Block</translation>
+      <translation>阻斷</translation>
     </message>
     <message>
       <source>Direct</source>
-      <translation type="unfinished">Direct</translation>
+      <translation>直連</translation>
     </message>
     <message>
       <source>Domain</source>
-      <translation type="unfinished">Domain</translation>
+      <translation>網域</translation>
     </message>
     <message>
       <source>Proxy</source>
-      <translation type="unfinished">Proxy</translation>
+      <translation>代理</translation>
     </message>
     <message>
       <source>IP</source>
-      <translation type="unfinished">IP</translation>
+      <translation>IP</translation>
     </message>
     <message>
       <source>Use built-in route schemes</source>
-      <translation type="unfinished">Use built-in route schemes</translation>
+      <translation>使用預置路由方案</translation>
     </message>
     <message>
       <source>Built-in Schemes...</source>
-      <translation type="unfinished">Built-in Schemes...</translation>
+      <translation>預置方案...</translation>
     </message>
     <message>
       <source>Import route scheme from file</source>
-      <translation type="unfinished">Import route scheme from file</translation>
+      <translation>從檔案中匯入路由方案</translation>
     </message>
     <message>
       <source>Import Scheme...</source>
-      <translation type="unfinished">Import Scheme...</translation>
+      <translation>匯入方案...</translation>
     </message>
     <message>
       <source>Export route scheme to file</source>
-      <translation type="unfinished">Export route scheme to file</translation>
+      <translation>匯出方案到檔案</translation>
     </message>
     <message>
       <source>Export Scheme...</source>
-      <translation type="unfinished">Export Scheme...</translation>
+      <translation>匯出方案...</translation>
     </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
     <message>
       <source>empty scheme</source>
-      <translation type="unfinished">empty scheme</translation>
+      <translation>空白方案</translation>
     </message>
     <message>
       <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
  Description: %3</source>
-      <translation type="unfinished">Import scheme &apos;%1&apos; made by &apos;%2&apos;? 
- Description: %3</translation>
+      <translation>要匯入 &apos;%2&apos; 的方案 &apos;%1&apos; 嗎？
+描述: %3</translation>
     </message>
     <message>
       <source>Importing Scheme</source>
-      <translation type="unfinished">Importing Scheme</translation>
+      <translation>正在匯入方案</translation>
     </message>
     <message>
       <source>Exporting Scheme</source>
-      <translation type="unfinished">Exporting Scheme</translation>
+      <translation>正在匯出方案</translation>
     </message>
     <message>
       <source>Scheme name:</source>
-      <translation type="unfinished">Scheme name:</translation>
+      <translation>方案名稱：</translation>
     </message>
     <message>
       <source>Unnamed Scheme</source>
-      <translation type="unfinished">Unnamed Scheme</translation>
+      <translation>無名方案</translation>
     </message>
     <message>
       <source>Author:</source>
-      <translation type="unfinished">Author:</translation>
+      <translation>作者：</translation>
     </message>
     <message>
       <source>Description:</source>
-      <translation type="unfinished">Description:</translation>
+      <translation>描述：</translation>
     </message>
     <message>
       <source>The author is too lazy to leave a comment</source>
-      <translation type="unfinished">The author is too lazy to leave a comment</translation>
+      <translation>作者太懶，沒有寫描述</translation>
     </message>
     <message>
       <source>Your route scheme has been successfully exported!</source>
-      <translation type="unfinished">Your route scheme has been successfully exported!</translation>
+      <translation>路由方案成功匯出！</translation>
     </message>
     <message>
       <source>QvRoute Schemes(*.json)</source>
-      <translation type="unfinished">QvRoute Schemes(*.json)</translation>
+      <translation>QvRoute 方案(*.json)</translation>
     </message>
     <message>
       <source>empty scheme (no ads)</source>
-      <translation type="unfinished">empty scheme (no ads)</translation>
+      <translation>空規則（去廣告）</translation>
     </message>
   </context>
   <context>
     <name>RoutingEditorWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-      <translation type="unfinished">A rule with no inbound connected means there&apos;s no inbound restriction.</translation>
+      <translation>未連接入埠的規則無入埠之制限。</translation>
     </message>
     <message>
       <source>Add new route</source>
-      <translation type="unfinished">Add new route</translation>
+      <translation>添加路由</translation>
     </message>
     <message>
       <source>Add Rule</source>
-      <translation type="unfinished">Add Rule</translation>
+      <translation>添加規則</translation>
     </message>
     <message>
       <source>Delete outbound</source>
-      <translation type="unfinished">Delete outbound</translation>
+      <translation>刪除離埠</translation>
     </message>
     <message>
       <source>Delete Selection</source>
-      <translation type="unfinished">Delete Selection</translation>
+      <translation>刪除所選項</translation>
     </message>
     <message>
       <source>Remove Items</source>
-      <translation type="unfinished">Remove Items</translation>
+      <translation>刪除項目</translation>
     </message>
     <message>
       <source>Please select a node from the graph to continue.</source>
-      <translation type="unfinished">Please select a node from the graph to continue.</translation>
+      <translation>請從圖表中選擇要繼續的節點。</translation>
     </message>
     <message>
       <source>Deleting a node</source>
-      <translation type="unfinished">Deleting a node</translation>
+      <translation>刪除節點</translation>
     </message>
     <message>
       <source>You need to select a node first</source>
-      <translation type="unfinished">You need to select a node first</translation>
+      <translation>您並未選中任何節點</translation>
     </message>
   </context>
   <context>
     <name>RuleWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已啓用</translation>
     </message>
     <message>
       <source>Details</source>
-      <translation type="unfinished">Details</translation>
+      <translation>詳情</translation>
     </message>
     <message>
       <source>Target IP</source>
-      <translation type="unfinished">Target IP</translation>
+      <translation>目標 IP</translation>
     </message>
     <message>
       <source>Target Domain</source>
-      <translation type="unfinished">Target Domain</translation>
+      <translation>目標網域</translation>
     </message>
     <message>
       <source>Source IP</source>
-      <translation type="unfinished">Source IP</translation>
+      <translation>來源 IP</translation>
     </message>
     <message>
       <source>General</source>
-      <translation type="unfinished">General</translation>
+      <translation>通用</translation>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <source>TLS</source>
-      <translation type="unfinished">TLS</translation>
+      <translation>TLS</translation>
     </message>
     <message>
       <source>Torrent</source>
-      <translation type="unfinished">Torrent</translation>
+      <translation>Torrent</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>80, 443, 8000-8080</source>
-      <translation type="unfinished">80, 443, 8000-8080</translation>
+      <translation>80, 443, 8000-8080</translation>
     </message>
   </context>
   <context>
     <name>ScreenShot</name>
     <message>
       <source>ScreenShot</source>
-      <translation type="unfinished">ScreenShot</translation>
+      <translation>螢幕截圖</translation>
     </message>
     <message>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>大小</translation>
     </message>
     <message>
       <source>Screen Shot</source>
-      <translation type="unfinished">Screen Shot</translation>
+      <translation>截屏</translation>
     </message>
     <message>
       <source>FG</source>
-      <translation type="unfinished">FG</translation>
+      <translation>FG</translation>
     </message>
   </context>
   <context>
     <name>SocksInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>移除使用者</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>您並未選擇任一使用者。</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>新增使用者</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>使用者已存在</translation>
     </message>
   </context>
   <context>
     <name>SpeedWidget</name>
     <message>
       <source>Proxy ↑</source>
-      <translation type="unfinished">Proxy ↑</translation>
+      <translation>代理↑</translation>
     </message>
     <message>
       <source>Proxy ↓</source>
-      <translation type="unfinished">Proxy ↓</translation>
+      <translation>代理↓</translation>
     </message>
     <message>
       <source>Direct ↑</source>
-      <translation type="unfinished">Direct ↑</translation>
+      <translation>直連↑</translation>
     </message>
     <message>
       <source>Direct ↓</source>
-      <translation type="unfinished">Direct ↓</translation>
+      <translation>直連↓</translation>
     </message>
     <message>
       <source>Total ↑</source>
-      <translation type="unfinished">Total ↑</translation>
+      <translation>總計↑</translation>
     </message>
     <message>
       <source>Total ↓</source>
-      <translation type="unfinished">Total ↓</translation>
+      <translation>總計↓</translation>
     </message>
   </context>
   <context>
     <name>StreamSettingsWidget</name>
     <message>
       <source>Stream Settings Widget</source>
-      <translation type="unfinished">Stream Settings Widget</translation>
+      <translation>串流設定 Widget</translation>
     </message>
     <message>
       <source>Protocol Settings</source>
-      <translation type="unfinished">Protocol Settings</translation>
+      <translation>協定設定</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>類型</translation>
     </message>
     <message>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>編輯</translation>
     </message>
     <message>
       <source>Reset</source>
-      <translation type="unfinished">Reset</translation>
+      <translation>重置</translation>
     </message>
     <message>
       <source>Response</source>
-      <translation type="unfinished">Response</translation>
+      <translation>回應</translation>
     </message>
     <message>
       <source>Request</source>
-      <translation type="unfinished">Request</translation>
+      <translation>請求</translation>
     </message>
     <message>
       <source>Path</source>
-      <translation type="unfinished">Path</translation>
+      <translation>路徑</translation>
     </message>
     <message>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>主機</translation>
     </message>
     <message>
       <source>Headers</source>
-      <translation type="unfinished">Headers</translation>
+      <translation>請求頭</translation>
     </message>
     <message>
       <source>MTU</source>
-      <translation type="unfinished">MTU</translation>
+      <translation>MTU</translation>
     </message>
     <message>
       <source>Congestion</source>
-      <translation type="unfinished">Congestion</translation>
+      <translation>擁塞控制</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已啟用</translation>
     </message>
     <message>
       <source>Security</source>
-      <translation type="unfinished">Security</translation>
+      <translation>安全選項</translation>
     </message>
     <message>
       <source>Key</source>
-      <translation type="unfinished">Key</translation>
+      <translation>密鑰</translation>
     </message>
     <message>
       <source>keys</source>
-      <translation type="unfinished">keys</translation>
+      <translation>密鑰</translation>
     </message>
     <message>
       <source>Transport Protocol</source>
-      <translation type="unfinished">Transport Protocol</translation>
+      <translation>傳輸協議</translation>
     </message>
     <message>
       <source>TLS Settings</source>
-      <translation type="unfinished">TLS Settings</translation>
+      <translation>TLS 設定</translation>
     </message>
     <message>
       <source>Allow Insecure Certificates</source>
-      <translation type="unfinished">Allow Insecure Certificates</translation>
+      <translation>允許不安全的證書</translation>
     </message>
     <message>
       <source>ALPN</source>
-      <translation type="unfinished">ALPN</translation>
+      <translation>ALPN</translation>
     </message>
     <message>
       <source>SOCK Options</source>
-      <translation type="unfinished">SOCK Options</translation>
+      <translation>SOCK 選項</translation>
     </message>
     <message>
       <source>Mark</source>
-      <translation type="unfinished">Mark</translation>
+      <translation>Mark</translation>
     </message>
     <message>
       <source>TCP Fast Open</source>
-      <translation type="unfinished">TCP Fast Open</translation>
+      <translation>TCP 快速打開</translation>
     </message>
     <message>
       <source>tProxy Mode</source>
-      <translation type="unfinished">tProxy Mode</translation>
+      <translation>tProxy 工作模式</translation>
     </message>
     <message>
       <source>Disable Session Resumption</source>
-      <translation type="unfinished">Disable Session Resumption</translation>
+      <translation>禁用會話返回</translation>
     </message>
     <message>
       <source>Security Type</source>
-      <translation type="unfinished">Security Type</translation>
+      <translation>安全類型</translation>
     </message>
     <message>
       <source>Header</source>
-      <translation type="unfinished">Header</translation>
+      <translation>Header</translation>
     </message>
     <message>
       <source>Seed</source>
-      <translation type="unfinished">Seed</translation>
+      <translation>種子</translation>
     </message>
     <message>
       <source>Capacity</source>
-      <translation type="unfinished">Capacity</translation>
+      <translation>容量</translation>
     </message>
     <message>
       <source>Up: </source>
-      <translation type="unfinished">Up: </translation>
+      <translation>上：</translation>
     </message>
     <message>
       <source>Down: </source>
-      <translation type="unfinished">Down: </translation>
+      <translation>下：</translation>
     </message>
     <message>
       <source>Buffer Size</source>
-      <translation type="unfinished">Buffer Size</translation>
+      <translation>緩衝器尺寸：</translation>
     </message>
     <message>
       <source>Write Size: </source>
-      <translation type="unfinished">Write Size: </translation>
+      <translation>寫入：</translation>
     </message>
     <message>
       <source>Read Size: </source>
-      <translation type="unfinished">Read Size: </translation>
+      <translation>讀取：</translation>
     </message>
     <message>
       <source>Options</source>
-      <translation type="unfinished">Options</translation>
+      <translation>選項</translation>
     </message>
     <message>
       <source>TTI</source>
-      <translation type="unfinished">TTI</translation>
+      <translation>TTI</translation>
     </message>
     <message>
       <source>Server Address (SNI)</source>
-      <translation type="unfinished">Server Address (SNI)</translation>
+      <translation>伺服器名稱指示 (SNI)</translation>
     </message>
     <message>
       <source>Disable System Root Certificates</source>
-      <translation type="unfinished">Disable System Root Certificates</translation>
+      <translation>禁用系統根憑證</translation>
     </message>
   </context>
   <context>
     <name>blackholeOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Response</source>
-      <translation type="unfinished">Response</translation>
+      <translation>響應</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>類型</translation>
     </message>
   </context>
   <context>
     <name>dnsOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>網路</translation>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>Original</source>
-      <translation type="unfinished">Original</translation>
+      <translation>原始</translation>
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>位址</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
   </context>
   <context>
     <name>dokodemodoorInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>位址</translation>
     </message>
     <message>
       <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation type="unfinished">Optional when using &quot;Follow Redirect&quot;</translation>
+      <translation>使用“跟隨轉址”時可省</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>網路</translation>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>超時</translation>
     </message>
     <message>
       <source>Follow Redirect</source>
-      <translation type="unfinished">Follow Redirect</translation>
+      <translation>遵循重定向 (Redirect)</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已啓用</translation>
     </message>
   </context>
   <context>
     <name>freedomOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
-      <translation type="unfinished">Domain Strategy</translation>
+      <translation>網域策略</translation>
     </message>
     <message>
       <source>Redirect</source>
-      <translation type="unfinished">Redirect</translation>
+      <translation>重定向 (Redirect)</translation>
     </message>
     <message>
       <source>:0</source>
-      <translation type="unfinished">:0</translation>
+      <translation>:0</translation>
     </message>
   </context>
   <context>
     <name>httpInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation type="unfinished">Allow Transparent</translation>
+      <translation>允許透明</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>超時 (Timeout)</translation>
     </message>
     <message>
       <source>s</source>
-      <translation type="unfinished">s</translation>
+      <translation>秒</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>使用者</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>密碼</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>使用者名稱</translation>
     </message>
   </context>
   <context>
     <name>httpOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>使用者名稱</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>密碼</translation>
     </message>
   </context>
   <context>
     <name>shadowsocksOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>密碼</translation>
     </message>
     <message>
       <source>Encryption Method</source>
-      <translation type="unfinished">Encryption Method</translation>
+      <translation>加密方式</translation>
     </message>
   </context>
   <context>
     <name>socksInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已啓用</translation>
     </message>
     <message>
       <source>UDP Local IP</source>
-      <translation type="unfinished">UDP Local IP</translation>
+      <translation>UDP 本地 IP</translation>
     </message>
     <message>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <source>Auth</source>
-      <translation type="unfinished">Auth</translation>
+      <translation>身分驗證</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>用戶</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>用戶名</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>密碼</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
   </context>
   <context>
     <name>socksOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>用戶名</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>密碼</translation>
     </message>
   </context>
   <context>
     <name>vlessOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Encryption</source>
-      <translation type="unfinished">Encryption</translation>
+      <translation>加密</translation>
     </message>
     <message>
       <source>Flow</source>
-      <translation type="unfinished">Flow</translation>
+      <translation>流控</translation>
     </message>
   </context>
   <context>
     <name>vmessOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>視窗</translation>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Alter ID</source>
-      <translation type="unfinished">Alter ID</translation>
+      <translation>Alter ID</translation>
     </message>
     <message>
       <source>Security</source>
-      <translation type="unfinished">Security</translation>
+      <translation>安全</translation>
     </message>
   </context>
   <context>
     <name>w_GroupManager</name>
     <message>
       <source>Group Editor</source>
-      <translation type="unfinished">Group Editor</translation>
+      <translation>組編輯器</translation>
     </message>
     <message>
       <source>Group Info</source>
-      <translation type="unfinished">Group Info</translation>
+      <translation>分組資訊</translation>
     </message>
     <message>
       <source>Group Name</source>
-      <translation type="unfinished">Group Name</translation>
+      <translation>分組名稱</translation>
     </message>
     <message>
       <source>Created At</source>
-      <translation type="unfinished">Created At</translation>
+      <translation>創建於</translation>
     </message>
     <message>
       <source>Group List</source>
-      <translation type="unfinished">Group List</translation>
+      <translation>組列表</translation>
     </message>
     <message>
       <source>Add Subscription</source>
-      <translation type="unfinished">Add Subscription</translation>
+      <translation>添加訂閱</translation>
     </message>
     <message>
       <source>Remove Subscription</source>
-      <translation type="unfinished">Remove Subscription</translation>
+      <translation>刪除訂閱</translation>
     </message>
     <message>
       <source>Connections</source>
-      <translation type="unfinished">Connections</translation>
+      <translation>連接</translation>
     </message>
     <message>
       <source>Delete Selection</source>
-      <translation type="unfinished">Delete Selection</translation>
+      <translation>刪除所選項</translation>
     </message>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>名稱</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>類型</translation>
     </message>
     <message>
       <source>Host / Port</source>
-      <translation type="unfinished">Host / Port</translation>
+      <translation>Host / 端口</translation>
     </message>
     <message>
       <source>Groups</source>
-      <translation type="unfinished">Groups</translation>
+      <translation>分組</translation>
     </message>
     <message>
       <source>Export Selection</source>
-      <translation type="unfinished">Export Selection</translation>
+      <translation>匯出所選項</translation>
     </message>
     <message>
       <source>Subscription Settings</source>
-      <translation type="unfinished">Subscription Settings</translation>
+      <translation>訂閱設定</translation>
     </message>
     <message>
       <source>This group is a subscription</source>
-      <translation type="unfinished">This group is a subscription</translation>
+      <translation>此分組是一個訂閱</translation>
     </message>
     <message>
       <source>Subscription Address</source>
-      <translation type="unfinished">Subscription Address</translation>
+      <translation>訂閱位址</translation>
     </message>
     <message>
       <source>Last Updated</source>
-      <translation type="unfinished">Last Updated</translation>
+      <translation>最後更新</translation>
     </message>
     <message>
       <source>Days</source>
-      <translation type="unfinished">Days</translation>
+      <translation>天</translation>
     </message>
     <message>
       <source>Leave blank to exclude nothing</source>
-      <translation type="unfinished">Leave blank to exclude nothing</translation>
+      <translation>留空不排除</translation>
     </message>
     <message>
       <source>Relation</source>
-      <translation type="unfinished">Relation</translation>
+      <translation>關係</translation>
     </message>
     <message>
       <source>Leave blank to include all</source>
-      <translation type="unfinished">Leave blank to include all</translation>
+      <translation>留空包含全部</translation>
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>DNS Settings</source>
-      <translation type="unfinished">DNS Settings</translation>
+      <translation>DNS 設定</translation>
     </message>
     <message>
       <source>Override Global DNS Settings</source>
-      <translation type="unfinished">Override Global DNS Settings</translation>
+      <translation>覆蓋全域 DNS 設定</translation>
     </message>
     <message>
       <source>Advanced Route Settings</source>
-      <translation type="unfinished">Advanced Route Settings</translation>
+      <translation>高級路由設置</translation>
     </message>
     <message>
       <source>Override Global Advanced Route Settings</source>
-      <translation type="unfinished">Override Global Advanced Route Settings</translation>
+      <translation>覆蓋全域進階路由設定</translation>
     </message>
     <message>
       <source>Subscription Type</source>
-      <translation type="unfinished">Subscription Type</translation>
+      <translation>訂閱類型</translation>
     </message>
     <message>
       <source>Update Interval</source>
-      <translation type="unfinished">Update Interval</translation>
+      <translation>更新間隔</translation>
     </message>
     <message>
       <source>Import Include Filters</source>
-      <translation type="unfinished">Import Include Filters</translation>
+      <translation>匯入包含過濾器</translation>
     </message>
     <message>
       <source>Import Exclude Filters</source>
-      <translation type="unfinished">Import Exclude Filters</translation>
+      <translation>匯入排除過濾器</translation>
     </message>
   </context>
   <context>
     <name>w_PluginManager</name>
     <message>
       <source>Plugin Manager</source>
-      <translation type="unfinished">Plugin Manager</translation>
+      <translation>外掛程式管理器</translation>
     </message>
     <message>
       <source>Plugins</source>
-      <translation type="unfinished">Plugins</translation>
+      <translation>外掛程式列表</translation>
     </message>
     <message>
       <source>Open Local Plugin Folder</source>
-      <translation type="unfinished">Open Local Plugin Folder</translation>
+      <translation>打開本地外掛程式目錄</translation>
     </message>
     <message>
       <source>Online help about plugins</source>
-      <translation type="unfinished">Online help about plugins</translation>
+      <translation>獲取關於外掛程式的線上說明</translation>
     </message>
     <message>
       <source>?</source>
-      <translation type="unfinished">?</translation>
+      <translation>?</translation>
     </message>
     <message>
       <source>Plugin Metadata</source>
-      <translation type="unfinished">Plugin Metadata</translation>
+      <translation>元資料</translation>
     </message>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>名稱</translation>
     </message>
     <message>
       <source>Author</source>
-      <translation type="unfinished">Author</translation>
+      <translation>作者</translation>
     </message>
     <message>
       <source>Description</source>
-      <translation type="unfinished">Description</translation>
+      <translation>描述</translation>
     </message>
     <message>
       <source>Library Path</source>
-      <translation type="unfinished">Library Path</translation>
+      <translation>路徑</translation>
     </message>
     <message>
       <source>State</source>
-      <translation type="unfinished">State</translation>
+      <translation>狀態</translation>
     </message>
     <message>
       <source>Plugin Settings</source>
-      <translation type="unfinished">Plugin Settings</translation>
+      <translation>外掛程式設定</translation>
     </message>
     <message>
       <source>Plugin Not Loaded</source>
-      <translation type="unfinished">Plugin Not Loaded</translation>
+      <translation>外掛程式未載入</translation>
     </message>
     <message>
       <source>Manually Edit Settings</source>
-      <translation type="unfinished">Manually Edit Settings</translation>
+      <translation>手動編輯設定</translation>
     </message>
     <message>
       <source>GUI Components</source>
-      <translation type="unfinished">GUI Components</translation>
+      <translation>圖形元件</translation>
     </message>
     <message>
       <source>Components</source>
-      <translation type="unfinished">Components</translation>
+      <translation>元件</translation>
     </message>
   </context>
 </TS>
