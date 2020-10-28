@@ -182,7 +182,6 @@ namespace Qv2ray::core::handler
       private:
         LatencyTestHost *pingHelper;
         KernelInstanceHandler *kernelHandler;
-        Qv2ray::common::network::NetworkRequestHelper *asyncRequestHelper;
     };
 
     inline ::Qv2ray::core::handler::QvConfigHandler *ConnectionManager = nullptr;
