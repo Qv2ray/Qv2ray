@@ -361,7 +361,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>你仲唔拣用户嘅。</translation>
     </message>
     <message>
       <source>Add a user</source>
@@ -369,7 +369,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>用户一早存在。</translation>
     </message>
   </context>
   <context>
@@ -484,7 +484,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Cannot find a valid QRCode from this region.</source>
-      <translation type="unfinished">Cannot find a valid QRCode from this region.</translation>
+      <translation>唔系给定区域揾到有效嘅二维码。</translation>
     </message>
     <message>
       <source>Failed to import connection</source>
@@ -512,7 +512,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
-      <translation type="unfinished">WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</translation>
+      <translation>小贴士：你可能将订阅连结同分享连结搞捞啦。</translation>
     </message>
   </context>
   <context>
@@ -2295,7 +2295,7 @@ Output:
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>你仲唔拣用户嘅。</translation>
     </message>
     <message>
       <source>Add a user</source>
@@ -2303,7 +2303,7 @@ Output:
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>用户一早存在。</translation>
     </message>
   </context>
   <context>
