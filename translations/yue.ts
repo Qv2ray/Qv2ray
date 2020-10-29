@@ -20,96 +20,96 @@
     </message>
     <message>
       <source>Could not find outbound tag: %1, The chain may be corrupted</source>
-      <translation type="unfinished">Could not find outbound tag: %1, The chain may be corrupted</translation>
+      <translation>搵唔到出站识认: %1, 链条可能损坏喇</translation>
     </message>
     <message>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>好</translation>
     </message>
     <message>
       <source>Please Select a Chain</source>
-      <translation type="unfinished">Please Select a Chain</translation>
+      <translation>唔该选链</translation>
     </message>
     <message>
       <source>There&apos;s an error in your connection.</source>
-      <translation type="unfinished">There&apos;s an error in your connection.</translation>
+      <translation>你嘅链接中有错误。</translation>
     </message>
   </context>
   <context>
     <name>ChainOutboundWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
   </context>
   <context>
     <name>ChainWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Chained</source>
-      <translation type="unfinished">Chained</translation>
+      <translation>链式</translation>
     </message>
   </context>
   <context>
     <name>ConnectionInfoWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Configuration Details</source>
-      <translation type="unfinished">Configuration Details</translation>
+      <translation>设定详情</translation>
     </message>
     <message>
       <source>Connect/Disconnect</source>
-      <translation type="unfinished">Connect/Disconnect</translation>
+      <translation>链接/断开</translation>
     </message>
     <message>
       <source>Edit Connection</source>
-      <translation type="unfinished">Edit Connection</translation>
+      <translation>编辑链接</translation>
     </message>
     <message>
       <source>Edit Connection as JSON</source>
-      <translation type="unfinished">Edit Connection as JSON</translation>
+      <translation>以JSON编辑链接</translation>
     </message>
     <message>
       <source>Latency Test</source>
-      <translation type="unfinished">Latency Test</translation>
+      <translation>延迟测试</translation>
     </message>
     <message>
       <source>Delete Connection</source>
-      <translation type="unfinished">Delete Connection</translation>
+      <translation>删除链接</translation>
     </message>
     <message>
       <source>Group</source>
-      <translation type="unfinished">Group</translation>
+      <translation>分组</translation>
     </message>
     <message>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>协定</translation>
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Link</source>
-      <translation type="unfinished">Link</translation>
+      <translation>链接</translation>
     </message>
     <message>
       <source>QR Code</source>
-      <translation type="unfinished">QR Code</translation>
+      <translation>QR碼</translation>
     </message>
     <message>
       <source>Group Name</source>
-      <translation type="unfinished">Group Name</translation>
+      <translation>分组名</translation>
     </message>
     <message>
       <source>Subscription Link</source>
@@ -129,7 +129,7 @@
     </message>
     <message>
       <source>Are you sure to delete the current item?</source>
-      <translation type="unfinished">Are you sure to delete the current item?</translation>
+      <translation>系咪真系要删除应该项？</translation>
     </message>
     <message numerus="yes">
       <source>(Ignored %n complex config(s))</source>
@@ -206,7 +206,7 @@
     </message>
     <message>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>好</translation>
     </message>
     <message>
       <source>VMESS + WS + TLS</source>
@@ -241,7 +241,7 @@
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <source>Detail Settings</source>
@@ -257,7 +257,7 @@
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Statically Resolved Domains</source>
@@ -392,7 +392,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Link</source>
-      <translation type="unfinished">Link</translation>
+      <translation>链接</translation>
     </message>
     <message>
       <source>Share Link</source>
@@ -408,7 +408,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>QR Code</source>
-      <translation type="unfinished">QR Code</translation>
+      <translation>QR碼</translation>
     </message>
     <message>
       <source>QRCode File</source>
@@ -535,7 +535,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>协定</translation>
     </message>
     <message>
       <source>Allocation Settings</source>
@@ -575,7 +575,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <source>Inbound Settings</source>
@@ -648,7 +648,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>好</translation>
     </message>
     <message>
       <source>Json Contains Syntax Errors</source>
@@ -839,7 +839,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Delete Connection</source>
-      <translation type="unfinished">Delete Connection</translation>
+      <translation>删除链接</translation>
     </message>
     <message>
       <source>Sort connection list.</source>
@@ -1058,7 +1058,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Misc Settings</source>
@@ -1215,7 +1215,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Group</source>
-      <translation type="unfinished">Group</translation>
+      <translation>分组</translation>
     </message>
     <message>
       <source>None</source>
@@ -1391,7 +1391,7 @@ Custom DNS Settings</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>UDP Support</source>
@@ -1939,7 +1939,7 @@ Output:
     </message>
     <message>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>协定</translation>
     </message>
     <message>
       <source>Tag</source>
@@ -1951,7 +1951,7 @@ Output:
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
@@ -2261,7 +2261,7 @@ Output:
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>80, 443, 8000-8080</source>
@@ -2527,11 +2527,11 @@ Output:
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
   </context>
   <context>
@@ -2542,7 +2542,7 @@ Output:
     </message>
     <message>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <source>Optional when using &quot;Follow Redirect&quot;</source>
@@ -2550,7 +2550,7 @@ Output:
     </message>
     <message>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <source>Network</source>
@@ -2761,7 +2761,7 @@ Output:
     </message>
     <message>
       <source>Group Name</source>
-      <translation type="unfinished">Group Name</translation>
+      <translation>分组名</translation>
     </message>
     <message>
       <source>Created At</source>
