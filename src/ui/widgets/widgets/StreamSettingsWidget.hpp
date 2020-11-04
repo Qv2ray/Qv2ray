@@ -62,6 +62,8 @@ class StreamSettingsWidget
 
     void on_disableSystemRoot_stateChanged(int arg1);
 
+    void on_openCertEditorBtn_clicked();
+
   private:
     QvMessageBusSlotDecl;
     StreamSettingsObject stream;

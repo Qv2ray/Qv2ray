@@ -86,8 +86,9 @@ namespace Qv2ray::common::network
     {
         QNetworkRequest request;
         request.setUrl(url);
-        setAccessManagerAttributes(request, accessManager);
-        auto reply = accessManager.get(request);
+        auto accessManagerPtr = new QNetworkAccessManager();
+        setAccessManagerAttributes(request, *accessManagerPtr);
+        auto reply = accessManagerPtr->get(request);
         QObject::connect(reply, &QNetworkReply::finished, [=]() {
             {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
@@ -102,6 +103,7 @@ namespace Qv2ray::common::network
                     LOG("Network error: " + QString(QMetaEnum::fromType<QNetworkReply::NetworkError>().key(reply->error())));
 
                 funcPtr(reply->readAll());
+                accessManagerPtr->deleteLater();
             }
         });
     }

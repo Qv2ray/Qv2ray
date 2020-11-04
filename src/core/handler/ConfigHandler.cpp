@@ -13,7 +13,6 @@ namespace Qv2ray::core::handler
 {
     QvConfigHandler::QvConfigHandler(QObject *parent) : QObject(parent)
     {
-        asyncRequestHelper = new NetworkRequestHelper(this);
         DEBUG("ConnectionHandler Constructor.");
         const auto connectionJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "connections.json"));
         const auto groupJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "groups.json"));
@@ -494,7 +493,7 @@ namespace Qv2ray::core::handler
         CheckValidId(id, nothing);
         if (!groups[id].isSubscription)
             return;
-        asyncRequestHelper->AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) {
+        NetworkRequestHelper::AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) {
             p_CHUpdateSubscription(id, d);
             emit OnSubscriptionAsyncUpdateFinished(id);
         });

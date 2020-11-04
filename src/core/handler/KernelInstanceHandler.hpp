@@ -58,7 +58,11 @@ namespace Qv2ray::core::handler
         static std::optional<QString> CheckPort(const QMap<QString, ProtocolSettingsInfoObject> &info, int plugins);
 
       private:
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         int pluginLogPrefixPadding = 0;
+#else
+        qsizetype pluginLogPrefixPadding = 0;
+#endif
         QMap<QString, int> GetInboundPorts() const
         {
             QMap<QString, int> result;

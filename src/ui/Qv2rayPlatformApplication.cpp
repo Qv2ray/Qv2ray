@@ -2,6 +2,10 @@
 
 #include "core/settings/SettingsBackend.hpp"
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    #include <QSessionManager>
+#endif
+
 #include <QSslSocket>
 #define QV_MODULE_NAME "PlatformApplication"
 

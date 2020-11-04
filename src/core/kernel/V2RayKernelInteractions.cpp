@@ -16,9 +16,7 @@ namespace Qv2ray::core::kernel
 #ifdef Q_OS_UNIX
         // For Linux/macOS users: if they cannot execute the core,
         // then we shall grant the permission to execute it.
-
         QFile coreFile(vCorePath);
-
         if (!coreFile.permissions().testFlag(QFileDevice::ExeUser))
         {
             DEBUG("Core file not executable. Trying to enable.");
@@ -26,7 +24,7 @@ namespace Qv2ray::core::kernel
             if (!result)
             {
                 DEBUG("Failed to enable executable permission.");
-                const auto message = tr("Core file is lacking executable permission for the current user.") % //
+                const auto message = tr("Core file is lacking executable permission for the current user.") +
                                      tr("Qv2ray tried to set, but failed because permission denied.");
                 return { false, message };
             }
@@ -40,40 +38,12 @@ namespace Qv2ray::core::kernel
             DEBUG("Core file is executable.");
         }
 
-        // Also do the same thing for v2ctl.
-        // TODO: Simplify This / Extract This Creepy Thing
-        const auto coreControlFilePath =
-            QDir::cleanPath(QFileInfo(coreFile).absoluteDir().path() + QDir::separator() + "v2ctl" QV2RAY_EXECUTABLE_SUFFIX);
-
-        QFile coreControlFile(coreControlFilePath);
-        if (!coreControlFile.permissions().testFlag(QFileDevice::ExeUser))
-        {
-            DEBUG("Core control file not executable. Trying to enable.");
-            const auto result = coreControlFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
-
-            if (!result)
-            {
-                DEBUG("Failed to enable executable permission for core control.");
-                const auto message = tr("Core control file is lacking executable permission for the current user.") + //
-                                     tr("Qv2ray tried to set, but failed because permission denied.");
-                return { false, message };
-            }
-            else
-            {
-                DEBUG("Core control executable permission set.");
-            }
-        }
-        else
-        {
-            DEBUG("Core control file is executable.");
-        }
-
         return { true, std::nullopt };
-#endif
-
+#else
         // For Windows and other users: just skip this check.
         DEBUG("Skipped check and set core executable state.");
         return { true, tr("Check is skipped") };
+#endif
     }
 
     bool V2RayKernelInstance::ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message)

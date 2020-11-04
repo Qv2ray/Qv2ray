@@ -2014,6 +2014,9 @@ Custom DNS Settings</string>
              <property name="openExternalLinks">
               <bool>true</bool>
              </property>
+             <property name="textInteractionFlags">
+              <set>Qt::TextBrowserInteraction</set>
+             </property>
             </widget>
            </item>
            <item row="4" column="0">
@@ -2050,6 +2053,9 @@ Custom DNS Settings</string>
              </property>
              <property name="openExternalLinks">
               <bool>true</bool>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::TextBrowserInteraction</set>
              </property>
             </widget>
            </item>

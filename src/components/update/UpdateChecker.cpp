@@ -17,7 +17,6 @@ namespace Qv2ray::components
 {
     QvUpdateChecker::QvUpdateChecker(QObject *parent) : QObject(parent)
     {
-        requestHelper = new NetworkRequestHelper(this);
     }
 
     QvUpdateChecker::~QvUpdateChecker()
