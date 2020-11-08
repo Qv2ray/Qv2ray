@@ -65,7 +65,8 @@ namespace Qv2ray::base::config
         bool v2rayFreedomDNS = false;
         bool withLocalDNS = true;
         bool dnsIntercept = false;
-        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept))
+        bool fakeDNS = false;
+        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS))
     };
 
     struct QvConfig_SystemProxy
@@ -105,8 +106,9 @@ namespace Qv2ray::base::config
         int port = 12345;
         bool hasTCP = true;
         bool hasUDP = true;
+        bool sniffing = true;
         QString mode = "tproxy";
-        JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, mode))
+        JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, mode))
     };
 
     struct QvConfig_Inbounds

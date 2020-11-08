@@ -109,7 +109,7 @@ namespace Qv2ray::core::connection::generation::inbounds
                 networks << "udp";
             const auto tproxy_network = networks.join(",");
             const auto tProxySettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true);
-            const static QJsonObject sniffingSettings = { { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+            //const static QJsonObject sniffingSettings = { { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
             // tProxy IPv4 Settings
             {
                 LOG("Processing tProxy IPv4 inbound");
@@ -117,7 +117,7 @@ namespace Qv2ray::core::connection::generation::inbounds
                                                      INCONF.tProxySettings.tProxyIP, //
                                                      INCONF.tProxySettings.port,     //
                                                      tProxySettings,                 //
-                                                     sniffingSettings);
+                                                     { INCONF.tProxySettings.sniffing ? sniffingOn : sniffingOff });
                 tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
                 inboundsList.append(tProxyIn);
             }
@@ -128,7 +128,7 @@ namespace Qv2ray::core::connection::generation::inbounds
                                                      INCONF.tProxySettings.tProxyV6IP, //
                                                      INCONF.tProxySettings.port,       //
                                                      tProxySettings,                   //
-                                                     sniffingSettings);
+                                                     { INCONF.tProxySettings.sniffing ? sniffingOn : sniffingOff });
                 tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
                 inboundsList.append(tProxyIn);
             }

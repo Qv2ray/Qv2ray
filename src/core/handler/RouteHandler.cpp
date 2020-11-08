@@ -369,7 +369,7 @@ namespace Qv2ray::core::handler
         const auto hasDNS = root.contains("dns") && !root.value("dns").toObject().isEmpty();
         if (!hasDNS)
         {
-            root.insert("dns", GenerateDNS(connConf.withLocalDNS, dnsConf));
+            root.insert("dns", GenerateDNS(connConf.withLocalDNS, connConf.fakeDNS, dnsConf));
             LOG("Added global DNS config");
         }
 
