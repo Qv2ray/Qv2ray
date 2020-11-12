@@ -295,7 +295,7 @@ else()
     add_definitions(-DQV2RAY_NO_SINGLEAPPLICATON)
 endif()
 
-add_library(qv2ray-baselib STATIC
+add_library(qv2ray_baselib STATIC
     ${QV2RAY_BASE_SOURCES}
     ${SINGLEAPPLICATION_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
@@ -306,7 +306,7 @@ add_library(qv2ray-baselib STATIC
     ${API_PROTO_SRCS}
     )
 
-target_link_libraries(qv2ray-baselib
+target_link_libraries(qv2ray_baselib
     ${QV2RAY_QT_LIBS}
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARY}
@@ -316,7 +316,7 @@ target_link_libraries(qv2ray-baselib
     Threads::Threads
     )
 
-target_include_directories(qv2ray-baselib PUBLIC
+target_include_directories(qv2ray_baselib PUBLIC
     ${CMAKE_BINARY_DIR}
     ${QV2RAY_BASEDIR_COMPONENTS}
     ${LibUV_INCLUDE_DIR}
@@ -401,8 +401,8 @@ else()
     include(cmake/backward-cpp.cmake)
     add_definitions(-DQV2RAY_HAS_BACKWARD)
     add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
-    target_link_libraries(qv2ray-baselib Backward::Backward)
-    add_backward(qv2ray-baselib)
+    target_link_libraries(qv2ray_baselib Backward::Backward)
+    add_backward(qv2ray_baselib)
 endif()
 
 target_include_directories(qv2ray PRIVATE
@@ -414,7 +414,7 @@ target_include_directories(qv2ray PRIVATE
     ${Protobuf_INCLUDE_DIRS}
     )
 target_link_libraries(qv2ray
-    qv2ray-baselib
+    qv2ray_baselib
     ${ZXING_LIBRARY}
     ${QNODEEDITOR_LIBRARY}
     ${QV2RAY_PLATFORM_LIBS}
@@ -461,7 +461,7 @@ endif()
 # ==================================================================================
 # Print Qv2ray Build Statistics
 # ==================================================================================
-get_target_property(QV2RAY_BASE_LINK_LIBS qv2ray-baselib LINK_LIBRARIES)
+get_target_property(QV2RAY_BASE_LINK_LIBS qv2ray_baselib LINK_LIBRARIES)
 get_target_property(QV2RAY_EXEC_LINK_LIBS qv2ray LINK_LIBRARIES)
 QVLOG(QV2RAY_BUILD_VERSION)
 QVLOG(QV2RAY_VERSION_STRING)
