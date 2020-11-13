@@ -245,15 +245,15 @@
     </message>
     <message>
       <source>Detail Settings</source>
-      <translation type="unfinished">Detail Settings</translation>
+      <translation>詳細設定</translation>
     </message>
     <message>
       <source>Expectd IPs</source>
-      <translation type="unfinished">Expectd IPs</translation>
+      <translation>期望IP</translation>
     </message>
     <message>
       <source>Domains</source>
-      <translation type="unfinished">Domains</translation>
+      <translation>域名</translation>
     </message>
     <message>
       <source>Port</source>
@@ -261,103 +261,103 @@
     </message>
     <message>
       <source>Statically Resolved Domains</source>
-      <translation type="unfinished">Statically Resolved Domains</translation>
+      <translation>靜態解析域名</translation>
     </message>
     <message>
       <source>Domain</source>
-      <translation type="unfinished">Domain</translation>
+      <translation>域名</translation>
     </message>
     <message>
       <source>Resolved IP</source>
-      <translation type="unfinished">Resolved IP</translation>
+      <translation>解析IP</translation>
     </message>
     <message>
       <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
 
 It cannot be a private address.</source>
-      <translation type="unfinished">The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+      <translation>當前係統嘅IP地阯用於喺查詢DNS時通知服務器客户端嘅位置。
 
-It cannot be a private address.</translation>
+佢唔應該係私人地址。</translation>
     </message>
     <message>
       <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
-      <translation type="unfinished">(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</translation>
+      <translation>(V2Ray 4.13+) 呢個DNS發送嘅查詢流量（localhost 同 DOHL 模式除外）將攜帶呢個標識符，可以同路由中嘅入站識認匹配。</translation>
     </message>
     <message>
       <source>Port for DNS server. Normally it&apos;s 53.
 This entry is ignored by V2Ray core when using DoH servers.</source>
-      <translation type="unfinished">Port for DNS server. Normally it&apos;s 53.
-This entry is ignored by V2Ray core when using DoH servers.</translation>
+      <translation>DNS伺服器嘅端口。通常係53。
+喺使用DoH服務器嘅時候，V2Ray核心將忽略此條目。</translation>
     </message>
   </context>
   <context>
     <name>GroupManager</name>
     <message>
       <source>Export Connection(s)</source>
-      <translation type="unfinished">Export Connection(s)</translation>
+      <translation>導出鏈接</translation>
     </message>
     <message>
       <source>Delete Connection(s)</source>
-      <translation type="unfinished">Delete Connection(s)</translation>
+      <translation>刪除連結</translation>
     </message>
     <message>
       <source>Copy to...</source>
-      <translation type="unfinished">Copy to...</translation>
+      <translation>複製到...</translation>
     </message>
     <message>
       <source>Move to...</source>
-      <translation type="unfinished">Move to...</translation>
+      <translation>移動到...</translation>
     </message>
     <message>
       <source>Link to...</source>
-      <translation type="unfinished">Link to...</translation>
+      <translation>鏈接到...</translation>
     </message>
     <message>
       <source>Connection Management</source>
-      <translation type="unfinished">Connection Management</translation>
+      <translation>鏈接打理</translation>
     </message>
     <message>
       <source>New Group</source>
-      <translation type="unfinished">New Group</translation>
+      <translation>新組</translation>
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>Would you like to update the subscription?</source>
-      <translation type="unfinished">Would you like to update the subscription?</translation>
+      <translation>係咪要更新訂閲？</translation>
     </message>
     <message>
       <source>All connections will be moved to default group, do you want to continue?</source>
-      <translation type="unfinished">All connections will be moved to default group, do you want to continue?</translation>
+      <translation>所有啲鏈接都將褪到預設組，係咪繼續？</translation>
     </message>
     <message>
       <source>The subscription link is empty.</source>
-      <translation type="unfinished">The subscription link is empty.</translation>
+      <translation>你咩都冇寫。</translation>
     </message>
     <message>
       <source>The subscription link is invalid.</source>
-      <translation type="unfinished">The subscription link is invalid.</translation>
+      <translation>此訂閲連結無效。</translation>
     </message>
     <message>
       <source>Remove a Group</source>
-      <translation type="unfinished">Remove a Group</translation>
+      <translation>刪除組</translation>
     </message>
     <message>
       <source>Unknown Subscription Type</source>
-      <translation type="unfinished">Unknown Subscription Type</translation>
+      <translation>未知訂閲類型</translation>
     </message>
     <message>
       <source>Unknown subscription type &quot;%1&quot;, a plugin may be missing.</source>
-      <translation type="unfinished">Unknown subscription type &quot;%1&quot;, a plugin may be missing.</translation>
+      <translation>未知訂閲類型 "%1"，可能係缺少咗個插件。</translation>
     </message>
   </context>
   <context>
     <name>HTTPInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>删除用户</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
@@ -963,7 +963,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>Subscription &quot;%1&quot; has been updated</source>
@@ -2078,7 +2078,7 @@ Output:
     </message>
     <message>
       <source>Domain</source>
-      <translation type="unfinished">Domain</translation>
+      <translation>域名</translation>
     </message>
     <message>
       <source>Proxy</source>
@@ -2291,7 +2291,7 @@ Output:
     <name>SocksInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>删除用户</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
@@ -2841,7 +2841,7 @@ Output:
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>DNS Settings</source>
