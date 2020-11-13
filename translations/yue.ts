@@ -5,22 +5,22 @@
     <name>BalancerWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
   </context>
   <context>
     <name>ChainEditorWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Chain Editor</source>
-      <translation type="unfinished">Chain Editor</translation>
+      <translation>鏈編輯器</translation>
     </message>
     <message>
       <source>Could not find outbound tag: %1, The chain may be corrupted</source>
-      <translation>搵唔到出站识认: %1, 链条可能损坏喇</translation>
+      <translation>搵唔到出站識認: %1, 鏈條可能已經損壞。</translation>
     </message>
     <message>
       <source>OK</source>
@@ -109,32 +109,32 @@
     </message>
     <message>
       <source>Group Name</source>
-      <translation>分组名</translation>
+      <translation>組名</translation>
     </message>
     <message>
       <source>Subscription Link</source>
-      <translation type="unfinished">Subscription Link</translation>
+      <translation>訂閲連結</translation>
     </message>
     <message>
       <source>Share Link</source>
-      <translation type="unfinished">Share Link</translation>
+      <translation>共亯連結</translation>
     </message>
     <message>
       <source>Not a subscription</source>
-      <translation type="unfinished">Not a subscription</translation>
+      <translation>唔係訂閲</translation>
     </message>
     <message>
       <source>Delete an item</source>
-      <translation type="unfinished">Delete an item</translation>
+      <translation>刪除項目</translation>
     </message>
     <message>
       <source>Are you sure to delete the current item?</source>
-      <translation>系咪真系要删除应该项？</translation>
+      <translation>係咪真係要刪除此項？</translation>
     </message>
     <message numerus="yes">
       <source>(Ignored %n complex config(s))</source>
       <translation type="unfinished">
-        <numerusform>(Ignored %n complex config(s))</numerusform>
+        <numerusform>（複雜設定畀忽略）</numerusform>
         <numerusform>(Ignored %n complex config(s))</numerusform>
         <numerusform>(Ignored %n complex config(s))</numerusform>
       </translation>
@@ -144,65 +144,65 @@
     <name>ConnectionItemWidget</name>
     <message>
       <source>Not Tested</source>
-      <translation type="unfinished">Not Tested</translation>
+      <translation>未經測試</translation>
     </message>
     <message>
       <source>Error</source>
-      <translation type="unfinished">Error</translation>
+      <translation>錯誤</translation>
     </message>
     <message>
       <source>connection</source>
-      <translation type="unfinished">connection</translation>
+      <translation>連結</translation>
     </message>
     <message>
       <source>connections</source>
-      <translation type="unfinished">connections</translation>
+      <translation>連結</translation>
     </message>
     <message>
       <source>Testing...</source>
-      <translation type="unfinished">Testing...</translation>
+      <translation>正進行測試...</translation>
     </message>
     <message>
       <source>ms</source>
-      <translation type="unfinished">ms</translation>
+      <translation>毫秒</translation>
     </message>
     <message>
       <source>Last Connected: </source>
-      <translation type="unfinished">Last Connected: </translation>
+      <translation>上次鏈接: </translation>
     </message>
     <message>
       <source>Last Updated: </source>
-      <translation type="unfinished">Last Updated: </translation>
+      <translation>最後更新: </translation>
     </message>
     <message>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>訂閱</translation>
     </message>
   </context>
   <context>
     <name>ConnectionSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
   </context>
   <context>
     <name>ConnectionWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Connection Name</source>
-      <translation type="unfinished">Connection Name</translation>
+      <translation>鏈接名</translation>
     </message>
     <message>
       <source>500ms</source>
-      <translation type="unfinished">500ms</translation>
+      <translation>500毫秒</translation>
     </message>
     <message>
       <source>0KB / 0KB</source>
-      <translation type="unfinished">0KB / 0KB</translation>
+      <translation>0KB / 0KB</translation>
     </message>
     <message>
       <source>OK</source>
@@ -210,34 +210,34 @@
     </message>
     <message>
       <source>VMESS + WS + TLS</source>
-      <translation type="unfinished">VMESS + WS + TLS</translation>
+      <translation>VMESS + WS + TLS</translation>
     </message>
   </context>
   <context>
     <name>DnsSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Client IP</source>
-      <translation type="unfinished">Client IP</translation>
+      <translation>客户端IP</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>識認</translation>
     </message>
     <message>
       <source>DNS Servers</source>
-      <translation type="unfinished">DNS Servers</translation>
+      <translation>DNS伺服器</translation>
     </message>
     <message>
       <source>DNS List</source>
-      <translation type="unfinished">DNS List</translation>
+      <translation>DNS清單</translation>
     </message>
     <message>
       <source>DNS Server Settings</source>
-      <translation type="unfinished">DNS Server Settings</translation>
+      <translation>DNS伺服器設定</translation>
     </message>
     <message>
       <source>Address</source>
@@ -396,7 +396,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Share Link</source>
-      <translation type="unfinished">Share Link</translation>
+      <translation>共亯連結</translation>
     </message>
     <message>
       <source>Error List</source>
@@ -523,7 +523,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>識認</translation>
     </message>
     <message>
       <source>Tag of this inbound entry</source>
@@ -590,7 +590,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     <name>InboundOutboundWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>External Config</source>
@@ -625,7 +625,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     <name>InboundSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
   </context>
   <context>
@@ -1038,7 +1038,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>識認</translation>
     </message>
     <message>
       <source>Tag of this outbound setting</source>
@@ -1152,7 +1152,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     <name>PluginSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
   </context>
   <context>
@@ -1943,7 +1943,7 @@ Output:
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>識認</translation>
     </message>
     <message>
       <source>Host</source>
@@ -2027,7 +2027,7 @@ Output:
     </message>
     <message>
       <source>Chain Editor</source>
-      <translation type="unfinished">Chain Editor</translation>
+      <translation>鏈編輯器</translation>
     </message>
     <message>
       <source>DNS Settings</source>
@@ -2058,7 +2058,7 @@ Output:
     <name>RouteSettingsMatrix</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
@@ -2170,7 +2170,7 @@ Output:
     <name>RoutingEditorWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
@@ -2213,7 +2213,7 @@ Output:
     <name>RuleWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -2492,7 +2492,7 @@ Output:
     <name>blackholeOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Response</source>
@@ -2507,7 +2507,7 @@ Output:
     <name>dnsOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Network</source>
@@ -2538,7 +2538,7 @@ Output:
     <name>dokodemodoorInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Address</source>
@@ -2581,7 +2581,7 @@ Output:
     <name>freedomOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
@@ -2600,7 +2600,7 @@ Output:
     <name>httpInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Allow Transparent</source>
@@ -2631,7 +2631,7 @@ Output:
     <name>httpOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Username</source>
@@ -2646,7 +2646,7 @@ Output:
     <name>shadowsocksOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Password</source>
@@ -2661,7 +2661,7 @@ Output:
     <name>socksInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -2700,7 +2700,7 @@ Output:
     <name>socksOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Username</source>
@@ -2715,7 +2715,7 @@ Output:
     <name>vlessOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>UUID</source>
@@ -2734,7 +2734,7 @@ Output:
     <name>vmessOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>UUID</source>
@@ -2761,7 +2761,7 @@ Output:
     </message>
     <message>
       <source>Group Name</source>
-      <translation>分组名</translation>
+      <translation>組名</translation>
     </message>
     <message>
       <source>Created At</source>
