@@ -365,7 +365,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <source>This user exists already.</source>
@@ -376,23 +376,23 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>ImportConfigWindow</name>
     <message>
       <source>Import file</source>
-      <translation type="unfinished">Import file</translation>
+      <translation>導入文件</translation>
     </message>
     <message>
       <source>Name/Prefix</source>
-      <translation type="unfinished">Name/Prefix</translation>
+      <translation>名稱/前綴</translation>
     </message>
     <message>
       <source>A prefix to the imported connection</source>
-      <translation type="unfinished">A prefix to the imported connection</translation>
+      <translation>導入嘅鏈接嘅名前面加埋嘅內容</translation>
     </message>
     <message>
       <source>Import To Group</source>
-      <translation type="unfinished">Import To Group</translation>
+      <translation>導入組</translation>
     </message>
     <message>
       <source>Link</source>
-      <translation>链接</translation>
+      <translation>連結</translation>
     </message>
     <message>
       <source>Share Link</source>
@@ -400,11 +400,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Error List</source>
-      <translation type="unfinished">Error List</translation>
+      <translation>錯誤清單</translation>
     </message>
     <message>
       <source>Paste share link here, one line for each.</source>
-      <translation type="unfinished">Paste share link here, one line for each.</translation>
+      <translation>請喺呢度粘貼連結，每條連結一行。</translation>
     </message>
     <message>
       <source>QR Code</source>
@@ -412,15 +412,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>QRCode File</source>
-      <translation type="unfinished">QRCode File</translation>
+      <translation>QR碼檔案</translation>
     </message>
     <message>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>揀</translation>
     </message>
     <message>
       <source>Screenshot</source>
-      <translation type="unfinished">Screenshot</translation>
+      <translation>截圖</translation>
     </message>
     <message>
       <source>Hide Qv2ray</source>
@@ -1341,7 +1341,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     </message>
     <message>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>揀</translation>
     </message>
     <message>
       <source>Plugin Kernel Settings</source>
@@ -2299,7 +2299,7 @@ Output:
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <source>This user exists already.</source>
