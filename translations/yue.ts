@@ -334,7 +334,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>The subscription link is empty.</source>
-      <translation>你咩都冇寫。</translation>
+      <translation>你都係冇寫嘢嘞。</translation>
     </message>
     <message>
       <source>The subscription link is invalid.</source>
@@ -424,27 +424,27 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Hide Qv2ray</source>
-      <translation type="unfinished">Hide Qv2ray</translation>
+      <translation>藏起Qv2ray</translation>
     </message>
     <message>
       <source> secs</source>
-      <translation type="unfinished"> secs</translation>
+      <translation> 秒</translation>
     </message>
     <message>
       <source>Delay</source>
-      <translation type="unfinished">Delay</translation>
+      <translation>等</translation>
     </message>
     <message>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>行</translation>
     </message>
     <message>
       <source>Detected Link</source>
-      <translation type="unfinished">Detected Link</translation>
+      <translation>檢測到嘅連結</translation>
     </message>
     <message>
       <source>Advanced</source>
-      <translation type="unfinished">Advanced</translation>
+      <translation>高級</translation>
     </message>
     <message>
       <source>Manually Input Connections</source>
@@ -484,7 +484,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Cannot find a valid QRCode from this region.</source>
-      <translation>唔系给定区域揾到有效嘅二维码。</translation>
+      <translation>無法由該區域搵到有效的QR碼。</translation>
     </message>
     <message>
       <source>Failed to import connection</source>
