@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - run: echo ::set-env name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - run: echo "VERSION=$(echo $GITHUB_REF | cut -d / -f 3)" >> $GITHUB_ENV
         shell: bash
-      - run: echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')
+      - run: echo REPOSITORY_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}') >> $GITHUB_ENV
         shell: bash
       - name: Checking out sources
         uses: actions/checkout@v2
