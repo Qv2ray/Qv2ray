@@ -50,6 +50,8 @@ parts:
       - software-properties-common
     override-pull: |
       sudo add-apt-repository ppa:ymshenyu/libuv
+      sudo add-apt-repository ppa:ymshenyu/qv2ray-deps
+      sudo add-apt-repository ppa:ymshenyu/qt-1
       sudo apt-get update
       sudo apt-get -y dist-upgrade
 
@@ -122,8 +124,4 @@ parts:
       - locales-all
       - xdg-user-dirs
       - fcitx-frontend-qt5
-
-  qt5-gtk-platform:
-    plugin: nil
-    stage-packages:
-      - qt5-gtk-platformtheme
+      - fcitx5-frontend-qt5
