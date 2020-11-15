@@ -9,6 +9,84 @@
     </message>
   </context>
   <context>
+    <name>CertificateItemWidget</name>
+    <message>
+      <source>Certificate Item Editor</source>
+      <translation>证书项编辑器</translation>
+    </message>
+    <message>
+      <source>Usage</source>
+      <extracomment>Certificate Usage</extracomment>
+      <translation>用途</translation>
+    </message>
+    <message>
+      <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</source>
+      <translation>证书的用途。默认值是 &lt;code&gt;encipherment&lt;/code&gt;。
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: 用于 TLS 身份验证和加密。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: 用于验证远程证书。需要CA 证书。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: 用于签发其他证书。需要CA证书。&lt;/li&gt;
+&lt;/ul&gt;</translation>
+    </message>
+    <message>
+      <source>Certificate</source>
+      <extracomment>Certificate Tab</extracomment>
+      <translation>证书</translation>
+    </message>
+    <message>
+      <source>From File</source>
+      <translation>从文件</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+F</source>
+      <translation>Alt+C, Alt+F</translation>
+    </message>
+    <message>
+      <source>Drag and drop *.crt here...</source>
+      <translation>拖拽*.crt 到此处...</translation>
+    </message>
+    <message>
+      <source>Configure Manually</source>
+      <translation>手动配置</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+M</source>
+      <translation>Alt+C，Alt+M</translation>
+    </message>
+    <message>
+      <source>Certificate Key</source>
+      <extracomment>Tab Certificate Key</extracomment>
+      <translation>证书密钥</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+F</source>
+      <translation>Alt+K, Alt+F</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+M</source>
+      <translation>Alt+K, Alt+M</translation>
+    </message>
+    <message>
+      <source>-----BEGIN RSA PRIVATE KEY-----... </source>
+      <translation>-----BEGIN RSA PRIVATE Key----... </translation>
+    </message>
+    <message>
+      <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
+      <translation>如果使用率被设置为 &lt;code&gt;则证书密钥不一定被设置为&lt;/code&gt;。</translation>
+    </message>
+    <message>
+      <source>Unset</source>
+      <translation>取消设置</translation>
+    </message>
+  </context>
+  <context>
     <name>ChainEditorWidget</name>
     <message>
       <source>Form</source>
@@ -1850,6 +1928,22 @@ Output: <byte value="xd"/>
       <source>Disable System Root Certificates</source>
       <translation>禁用系统根证书</translation>
     </message>
+    <message>
+      <source>Enable Sniffing</source>
+      <translation>启用狙击手功能</translation>
+    </message>
+    <message>
+      <source>Use Fake DNS</source>
+      <translation>使用假名 DNS</translation>
+    </message>
+    <message>
+      <source>Config Directory</source>
+      <translation>配置目录</translation>
+    </message>
+    <message>
+      <source>Open Directory</source>
+      <translation>打开目录</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -2023,10 +2117,6 @@ Output: <byte value="xd"/>
       <translation>DNS 设置</translation>
     </message>
     <message>
-      <source>Selected Inbound / Outbound Info</source>
-      <translation>选定入站/出站信息</translation>
-    </message>
-    <message>
       <source>Unknown</source>
       <translation>未知</translation>
     </message>
@@ -2035,12 +2125,44 @@ Output: <byte value="xd"/>
       <translation>0</translation>
     </message>
     <message>
-      <source>Rules Order</source>
+      <source>Debug Connection Painter</source>
+      <translation>调试连接绘图</translation>
+    </message>
+    <message>
+      <source>Connection Template</source>
+      <translation>连接模板</translation>
+    </message>
+    <message>
+      <source>Inbound</source>
+      <translation>入站</translation>
+    </message>
+    <message>
+      <source>Outbound</source>
+      <translation>出站</translation>
+    </message>
+    <message>
+      <source>Override global DNS settings</source>
+      <translation>覆盖全局DNS设置</translation>
+    </message>
+    <message>
+      <source>Inbound / Outbound Info</source>
+      <translation>入站/出站信息</translation>
+    </message>
+    <message>
+      <source>Rules Ordering</source>
       <translation>规则顺序</translation>
     </message>
     <message>
-      <source>Debug Connection Painter</source>
-      <translation>调试连接绘图</translation>
+      <source>Importing All Connections</source>
+      <translation>导入所有连接</translation>
+    </message>
+    <message>
+      <source>Do you want to import all the connections?</source>
+      <translation>您想要导入所有连接吗？</translation>
+    </message>
+    <message>
+      <source>(All Connections)</source>
+      <translation>(所有连接)</translation>
     </message>
   </context>
   <context>
@@ -2475,6 +2597,14 @@ Output: <byte value="xd"/>
     <message>
       <source>Disable System Root Certificates</source>
       <translation>禁用系统根证书</translation>
+    </message>
+    <message>
+      <source>Open Certificate Editor</source>
+      <translation>打开证书编辑器</translation>
+    </message>
+    <message>
+      <source>Certificates</source>
+      <translation>证书</translation>
     </message>
   </context>
   <context>
