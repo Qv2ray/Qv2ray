@@ -58,7 +58,7 @@
     </message>
     <message>
       <source>Alt+C, Alt+M</source>
-      <translation>Alt+C，Alt+M</translation>
+      <translation>Alt+C, Alt+M</translation>
     </message>
     <message>
       <source>Certificate Key</source>
@@ -75,15 +75,15 @@
     </message>
     <message>
       <source>-----BEGIN RSA PRIVATE KEY-----... </source>
-      <translation>-----BEGIN RSA PRIVATE Key----... </translation>
+      <translation>-----BEGIN RSA PRIVATE KEY-----... </translation>
     </message>
     <message>
       <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
-      <translation>如果使用率被设置为 &lt;code&gt;则证书密钥不一定被设置为&lt;/code&gt;。</translation>
+      <translation>若证书用途设为 &lt;code&gt;verify&lt;/code&gt;，则证书密钥不一定需要设定。</translation>
     </message>
     <message>
       <source>Unset</source>
-      <translation>取消设置</translation>
+      <translation>未设定</translation>
     </message>
   </context>
   <context>
