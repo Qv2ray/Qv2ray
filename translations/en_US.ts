@@ -9,6 +9,78 @@
     </message>
 </context>
 <context>
+    <name>CertificateItemWidget</name>
+    <message>
+        <source>Certificate Item Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage</source>
+        <extracomment>Certificate Usage</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate</source>
+        <extracomment>Certificate Tab</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C, Alt+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drag and drop *.crt here...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure Manually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C, Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate Key</source>
+        <extracomment>Tab Certificate Key</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+K, Alt+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+K, Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-----BEGIN RSA PRIVATE KEY-----... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unset</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChainEditorWidget</name>
     <message>
         <source>Form</source>
@@ -1831,6 +1903,22 @@ Output: <byte value="xd"/>
         <source>Disable System Root Certificates</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enable Sniffing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Fake DNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Config Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2004,10 +2092,6 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Selected Inbound / Outbound Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2016,11 +2100,43 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rules Order</source>
+        <source>Debug Connection Painter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Debug Connection Painter</source>
+        <source>Connection Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Override global DNS settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound / Outbound Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rules Ordering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing All Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to import all the connections?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(All Connections)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2454,6 +2570,14 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Disable System Root Certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Certificate Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
