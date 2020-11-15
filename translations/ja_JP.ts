@@ -9,6 +9,84 @@
     </message>
   </context>
   <context>
+    <name>CertificateItemWidget</name>
+    <message>
+      <source>Certificate Item Editor</source>
+      <translation>証明書アイテムエディター</translation>
+    </message>
+    <message>
+      <source>Usage</source>
+      <extracomment>Certificate Usage</extracomment>
+      <translation>使用法</translation>
+    </message>
+    <message>
+      <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</source>
+      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</translation>
+    </message>
+    <message>
+      <source>Certificate</source>
+      <extracomment>Certificate Tab</extracomment>
+      <translation>証明書</translation>
+    </message>
+    <message>
+      <source>From File</source>
+      <translation>ファイルから</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+F</source>
+      <translation>Alt+C, Alt+F</translation>
+    </message>
+    <message>
+      <source>Drag and drop *.crt here...</source>
+      <translation>ここに*.crtをドラッグ＆ドロップ...</translation>
+    </message>
+    <message>
+      <source>Configure Manually</source>
+      <translation>手動で設定</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+M</source>
+      <translation>Alt+C, Alt+M</translation>
+    </message>
+    <message>
+      <source>Certificate Key</source>
+      <extracomment>Tab Certificate Key</extracomment>
+      <translation>Certificate Key</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+F</source>
+      <translation>Alt+K, Alt+F</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+M</source>
+      <translation>Alt+K, Alt+M</translation>
+    </message>
+    <message>
+      <source>-----BEGIN RSA PRIVATE KEY-----... </source>
+      <translation>------RSAプライベートキー------... </translation>
+    </message>
+    <message>
+      <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
+      <translation>usage が &lt;code&gt;verify&lt;/code&gt; に設定されている場合、証明書キーは必ずしも設定されていません。</translation>
+    </message>
+    <message>
+      <source>Unset</source>
+      <translation>未設定</translation>
+    </message>
+  </context>
+  <context>
     <name>ChainEditorWidget</name>
     <message>
       <source>Form</source>
@@ -1850,6 +1928,22 @@ Output: <byte value="xd"/>
       <source>Disable System Root Certificates</source>
       <translation>システムルート証明書を無効にする</translation>
     </message>
+    <message>
+      <source>Enable Sniffing</source>
+      <translation>スニッフィングを有効にする</translation>
+    </message>
+    <message>
+      <source>Use Fake DNS</source>
+      <translation>偽の DNS を使用</translation>
+    </message>
+    <message>
+      <source>Config Directory</source>
+      <translation>設定ディレクトリ</translation>
+    </message>
+    <message>
+      <source>Open Directory</source>
+      <translation>ディレクトリを開く</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -2023,10 +2117,6 @@ Output: <byte value="xd"/>
       <translation>DNS設定</translation>
     </message>
     <message>
-      <source>Selected Inbound / Outbound Info</source>
-      <translation>選択されたインバウンド/アウトバウンド情報</translation>
-    </message>
-    <message>
       <source>Unknown</source>
       <translation>不明</translation>
     </message>
@@ -2035,12 +2125,44 @@ Output: <byte value="xd"/>
       <translation>0</translation>
     </message>
     <message>
-      <source>Rules Order</source>
-      <translation>ルールの順番</translation>
-    </message>
-    <message>
       <source>Debug Connection Painter</source>
       <translation>デバッグ接続ペインター</translation>
+    </message>
+    <message>
+      <source>Connection Template</source>
+      <translation>接続テンプレート</translation>
+    </message>
+    <message>
+      <source>Inbound</source>
+      <translation>Inbound</translation>
+    </message>
+    <message>
+      <source>Outbound</source>
+      <translation>Outbound</translation>
+    </message>
+    <message>
+      <source>Override global DNS settings</source>
+      <translation>グローバルDNS設定を上書き</translation>
+    </message>
+    <message>
+      <source>Inbound / Outbound Info</source>
+      <translation>インバウンド/アウトバウンド情報</translation>
+    </message>
+    <message>
+      <source>Rules Ordering</source>
+      <translation>ルールの順序</translation>
+    </message>
+    <message>
+      <source>Importing All Connections</source>
+      <translation>すべての接続をインポート中</translation>
+    </message>
+    <message>
+      <source>Do you want to import all the connections?</source>
+      <translation>すべての接続をインポートしますか？</translation>
+    </message>
+    <message>
+      <source>(All Connections)</source>
+      <translation>(すべての接続)</translation>
     </message>
   </context>
   <context>
@@ -2475,6 +2597,14 @@ Output: <byte value="xd"/>
     <message>
       <source>Disable System Root Certificates</source>
       <translation>システムルート証明書を無効にする</translation>
+    </message>
+    <message>
+      <source>Open Certificate Editor</source>
+      <translation>証明書エディタを開く</translation>
+    </message>
+    <message>
+      <source>Certificates</source>
+      <translation>証明書</translation>
     </message>
   </context>
   <context>
