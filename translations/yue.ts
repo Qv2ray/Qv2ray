@@ -5,22 +5,100 @@
     <name>BalancerWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
+    </message>
+  </context>
+  <context>
+    <name>CertificateItemWidget</name>
+    <message>
+      <source>Certificate Item Editor</source>
+      <translation type="unfinished">Certificate Item Editor</translation>
+    </message>
+    <message>
+      <source>Usage</source>
+      <extracomment>Certificate Usage</extracomment>
+      <translation type="unfinished">Usage</translation>
+    </message>
+    <message>
+      <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</source>
+      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</translation>
+    </message>
+    <message>
+      <source>Certificate</source>
+      <extracomment>Certificate Tab</extracomment>
+      <translation type="unfinished">Certificate</translation>
+    </message>
+    <message>
+      <source>From File</source>
+      <translation type="unfinished">From File</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+F</source>
+      <translation type="unfinished">Alt+C, Alt+F</translation>
+    </message>
+    <message>
+      <source>Drag and drop *.crt here...</source>
+      <translation type="unfinished">Drag and drop *.crt here...</translation>
+    </message>
+    <message>
+      <source>Configure Manually</source>
+      <translation type="unfinished">Configure Manually</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+M</source>
+      <translation type="unfinished">Alt+C, Alt+M</translation>
+    </message>
+    <message>
+      <source>Certificate Key</source>
+      <extracomment>Tab Certificate Key</extracomment>
+      <translation type="unfinished">Certificate Key</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+F</source>
+      <translation type="unfinished">Alt+K, Alt+F</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+M</source>
+      <translation type="unfinished">Alt+K, Alt+M</translation>
+    </message>
+    <message>
+      <source>-----BEGIN RSA PRIVATE KEY-----... </source>
+      <translation type="unfinished">-----BEGIN RSA PRIVATE KEY-----... </translation>
+    </message>
+    <message>
+      <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
+      <translation type="unfinished">Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</translation>
+    </message>
+    <message>
+      <source>Unset</source>
+      <translation type="unfinished">Unset</translation>
     </message>
   </context>
   <context>
     <name>ChainEditorWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Chain Editor</source>
-      <translation type="unfinished">Chain Editor</translation>
+      <translation>鏈編輯器</translation>
     </message>
     <message>
       <source>Could not find outbound tag: %1, The chain may be corrupted</source>
-      <translation>搵唔到出站识认: %1, 链条可能损坏喇</translation>
+      <translation>搵唔到出站識認: %1, 鏈條可能已經損壞。</translation>
     </message>
     <message>
       <source>OK</source>
@@ -109,32 +187,32 @@
     </message>
     <message>
       <source>Group Name</source>
-      <translation>分组名</translation>
+      <translation>組名</translation>
     </message>
     <message>
       <source>Subscription Link</source>
-      <translation type="unfinished">Subscription Link</translation>
+      <translation>訂閲連結</translation>
     </message>
     <message>
       <source>Share Link</source>
-      <translation type="unfinished">Share Link</translation>
+      <translation>共亯連結</translation>
     </message>
     <message>
       <source>Not a subscription</source>
-      <translation type="unfinished">Not a subscription</translation>
+      <translation>唔係訂閲</translation>
     </message>
     <message>
       <source>Delete an item</source>
-      <translation type="unfinished">Delete an item</translation>
+      <translation>刪除項目</translation>
     </message>
     <message>
       <source>Are you sure to delete the current item?</source>
-      <translation>系咪真系要删除应该项？</translation>
+      <translation>係咪真係要刪除此項？</translation>
     </message>
     <message numerus="yes">
       <source>(Ignored %n complex config(s))</source>
       <translation type="unfinished">
-        <numerusform>(Ignored %n complex config(s))</numerusform>
+        <numerusform>（複雜設定畀忽略）</numerusform>
         <numerusform>(Ignored %n complex config(s))</numerusform>
         <numerusform>(Ignored %n complex config(s))</numerusform>
       </translation>
@@ -144,65 +222,65 @@
     <name>ConnectionItemWidget</name>
     <message>
       <source>Not Tested</source>
-      <translation type="unfinished">Not Tested</translation>
+      <translation>未經測試</translation>
     </message>
     <message>
       <source>Error</source>
-      <translation type="unfinished">Error</translation>
+      <translation>錯誤</translation>
     </message>
     <message>
       <source>connection</source>
-      <translation type="unfinished">connection</translation>
+      <translation>連結</translation>
     </message>
     <message>
       <source>connections</source>
-      <translation type="unfinished">connections</translation>
+      <translation>連結</translation>
     </message>
     <message>
       <source>Testing...</source>
-      <translation type="unfinished">Testing...</translation>
+      <translation>正進行測試...</translation>
     </message>
     <message>
       <source>ms</source>
-      <translation type="unfinished">ms</translation>
+      <translation>毫秒</translation>
     </message>
     <message>
       <source>Last Connected: </source>
-      <translation type="unfinished">Last Connected: </translation>
+      <translation>上次鏈接: </translation>
     </message>
     <message>
       <source>Last Updated: </source>
-      <translation type="unfinished">Last Updated: </translation>
+      <translation>最後更新: </translation>
     </message>
     <message>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>訂閱</translation>
     </message>
   </context>
   <context>
     <name>ConnectionSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
   </context>
   <context>
     <name>ConnectionWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Connection Name</source>
-      <translation type="unfinished">Connection Name</translation>
+      <translation>鏈接名</translation>
     </message>
     <message>
       <source>500ms</source>
-      <translation type="unfinished">500ms</translation>
+      <translation>500毫秒</translation>
     </message>
     <message>
       <source>0KB / 0KB</source>
-      <translation type="unfinished">0KB / 0KB</translation>
+      <translation>0KB / 0KB</translation>
     </message>
     <message>
       <source>OK</source>
@@ -210,34 +288,34 @@
     </message>
     <message>
       <source>VMESS + WS + TLS</source>
-      <translation type="unfinished">VMESS + WS + TLS</translation>
+      <translation>VMESS + WS + TLS</translation>
     </message>
   </context>
   <context>
     <name>DnsSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Client IP</source>
-      <translation type="unfinished">Client IP</translation>
+      <translation>客户端IP</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>識認</translation>
     </message>
     <message>
       <source>DNS Servers</source>
-      <translation type="unfinished">DNS Servers</translation>
+      <translation>DNS伺服器</translation>
     </message>
     <message>
       <source>DNS List</source>
-      <translation type="unfinished">DNS List</translation>
+      <translation>DNS清單</translation>
     </message>
     <message>
       <source>DNS Server Settings</source>
-      <translation type="unfinished">DNS Server Settings</translation>
+      <translation>DNS伺服器設定</translation>
     </message>
     <message>
       <source>Address</source>
@@ -245,15 +323,15 @@
     </message>
     <message>
       <source>Detail Settings</source>
-      <translation type="unfinished">Detail Settings</translation>
+      <translation>詳細設定</translation>
     </message>
     <message>
       <source>Expectd IPs</source>
-      <translation type="unfinished">Expectd IPs</translation>
+      <translation>期望IP</translation>
     </message>
     <message>
       <source>Domains</source>
-      <translation type="unfinished">Domains</translation>
+      <translation>域名</translation>
     </message>
     <message>
       <source>Port</source>
@@ -261,103 +339,103 @@
     </message>
     <message>
       <source>Statically Resolved Domains</source>
-      <translation type="unfinished">Statically Resolved Domains</translation>
+      <translation>靜態解析域名</translation>
     </message>
     <message>
       <source>Domain</source>
-      <translation type="unfinished">Domain</translation>
+      <translation>域名</translation>
     </message>
     <message>
       <source>Resolved IP</source>
-      <translation type="unfinished">Resolved IP</translation>
+      <translation>解析IP</translation>
     </message>
     <message>
       <source>The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
 
 It cannot be a private address.</source>
-      <translation type="unfinished">The current system&apos;s IP address is used to notify the server of the client&apos;s location when querying DNS. 
+      <translation>當前係統嘅IP地阯用於喺查詢DNS時通知服務器客户端嘅位置。
 
-It cannot be a private address.</translation>
+佢唔應該係私人地址。</translation>
     </message>
     <message>
       <source>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</source>
-      <translation type="unfinished">(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</translation>
+      <translation>(V2Ray 4.13+) 呢個DNS發送嘅查詢流量（localhost 同 DOHL 模式除外）將攜帶呢個標識符，可以同路由中嘅入站識認匹配。</translation>
     </message>
     <message>
       <source>Port for DNS server. Normally it&apos;s 53.
 This entry is ignored by V2Ray core when using DoH servers.</source>
-      <translation type="unfinished">Port for DNS server. Normally it&apos;s 53.
-This entry is ignored by V2Ray core when using DoH servers.</translation>
+      <translation>DNS伺服器嘅端口。通常係53。
+喺使用DoH服務器嘅時候，V2Ray核心將忽略此條目。</translation>
     </message>
   </context>
   <context>
     <name>GroupManager</name>
     <message>
       <source>Export Connection(s)</source>
-      <translation type="unfinished">Export Connection(s)</translation>
+      <translation>導出鏈接</translation>
     </message>
     <message>
       <source>Delete Connection(s)</source>
-      <translation type="unfinished">Delete Connection(s)</translation>
+      <translation>刪除連結</translation>
     </message>
     <message>
       <source>Copy to...</source>
-      <translation type="unfinished">Copy to...</translation>
+      <translation>複製到...</translation>
     </message>
     <message>
       <source>Move to...</source>
-      <translation type="unfinished">Move to...</translation>
+      <translation>移動到...</translation>
     </message>
     <message>
       <source>Link to...</source>
-      <translation type="unfinished">Link to...</translation>
+      <translation>鏈接到...</translation>
     </message>
     <message>
       <source>Connection Management</source>
-      <translation type="unfinished">Connection Management</translation>
+      <translation>鏈接打理</translation>
     </message>
     <message>
       <source>New Group</source>
-      <translation type="unfinished">New Group</translation>
+      <translation>新組</translation>
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>Would you like to update the subscription?</source>
-      <translation type="unfinished">Would you like to update the subscription?</translation>
+      <translation>係咪要更新訂閲？</translation>
     </message>
     <message>
       <source>All connections will be moved to default group, do you want to continue?</source>
-      <translation type="unfinished">All connections will be moved to default group, do you want to continue?</translation>
+      <translation>所有啲鏈接都將褪到預設組，係咪繼續？</translation>
     </message>
     <message>
       <source>The subscription link is empty.</source>
-      <translation type="unfinished">The subscription link is empty.</translation>
+      <translation>你都係冇寫嘢嘞。</translation>
     </message>
     <message>
       <source>The subscription link is invalid.</source>
-      <translation type="unfinished">The subscription link is invalid.</translation>
+      <translation>此訂閲連結無效。</translation>
     </message>
     <message>
       <source>Remove a Group</source>
-      <translation type="unfinished">Remove a Group</translation>
+      <translation>刪除組</translation>
     </message>
     <message>
       <source>Unknown Subscription Type</source>
-      <translation type="unfinished">Unknown Subscription Type</translation>
+      <translation>未知訂閲類型</translation>
     </message>
     <message>
       <source>Unknown subscription type &quot;%1&quot;, a plugin may be missing.</source>
-      <translation type="unfinished">Unknown subscription type &quot;%1&quot;, a plugin may be missing.</translation>
+      <translation>未知訂閲類型 "%1"，可能係缺少咗個插件。</translation>
     </message>
   </context>
   <context>
     <name>HTTPInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>删除用户</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
@@ -365,7 +443,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <source>This user exists already.</source>
@@ -376,19 +454,19 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     <name>ImportConfigWindow</name>
     <message>
       <source>Import file</source>
-      <translation type="unfinished">Import file</translation>
+      <translation>導入文件</translation>
     </message>
     <message>
       <source>Name/Prefix</source>
-      <translation type="unfinished">Name/Prefix</translation>
+      <translation>名稱/前綴</translation>
     </message>
     <message>
       <source>A prefix to the imported connection</source>
-      <translation type="unfinished">A prefix to the imported connection</translation>
+      <translation>導入嘅鏈接嘅名前面加埋嘅內容</translation>
     </message>
     <message>
       <source>Import To Group</source>
-      <translation type="unfinished">Import To Group</translation>
+      <translation>導入組</translation>
     </message>
     <message>
       <source>Link</source>
@@ -396,15 +474,15 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Share Link</source>
-      <translation type="unfinished">Share Link</translation>
+      <translation>共亯連結</translation>
     </message>
     <message>
       <source>Error List</source>
-      <translation type="unfinished">Error List</translation>
+      <translation>錯誤清單</translation>
     </message>
     <message>
       <source>Paste share link here, one line for each.</source>
-      <translation type="unfinished">Paste share link here, one line for each.</translation>
+      <translation>請喺呢度粘貼連結，每條連結一行。</translation>
     </message>
     <message>
       <source>QR Code</source>
@@ -412,39 +490,39 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>QRCode File</source>
-      <translation type="unfinished">QRCode File</translation>
+      <translation>QR碼檔案</translation>
     </message>
     <message>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>揀</translation>
     </message>
     <message>
       <source>Screenshot</source>
-      <translation type="unfinished">Screenshot</translation>
+      <translation>截圖</translation>
     </message>
     <message>
       <source>Hide Qv2ray</source>
-      <translation type="unfinished">Hide Qv2ray</translation>
+      <translation>藏起Qv2ray</translation>
     </message>
     <message>
       <source> secs</source>
-      <translation type="unfinished"> secs</translation>
+      <translation> 秒</translation>
     </message>
     <message>
       <source>Delay</source>
-      <translation type="unfinished">Delay</translation>
+      <translation>等</translation>
     </message>
     <message>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>行</translation>
     </message>
     <message>
       <source>Detected Link</source>
-      <translation type="unfinished">Detected Link</translation>
+      <translation>檢測到嘅連結</translation>
     </message>
     <message>
       <source>Advanced</source>
-      <translation type="unfinished">Advanced</translation>
+      <translation>高級</translation>
     </message>
     <message>
       <source>Manually Input Connections</source>
@@ -484,7 +562,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Cannot find a valid QRCode from this region.</source>
-      <translation>唔系给定区域揾到有效嘅二维码。</translation>
+      <translation>無法由該區域搵到有效的QR碼。</translation>
     </message>
     <message>
       <source>Failed to import connection</source>
@@ -523,7 +601,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>識認</translation>
     </message>
     <message>
       <source>Tag of this inbound entry</source>
@@ -590,7 +668,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     <name>InboundOutboundWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>External Config</source>
@@ -625,7 +703,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     <name>InboundSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
   </context>
   <context>
@@ -963,7 +1041,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>Subscription &quot;%1&quot; has been updated</source>
@@ -1038,7 +1116,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>識認</translation>
     </message>
     <message>
       <source>Tag of this outbound setting</source>
@@ -1152,7 +1230,7 @@ This entry is ignored by V2Ray core when using DoH servers.</translation>
     <name>PluginSettingsWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
   </context>
   <context>
@@ -1337,11 +1415,11 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     </message>
     <message>
       <source>error</source>
-      <translation type="unfinished">error</translation>
+      <translation>錯誤</translation>
     </message>
     <message>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>揀</translation>
     </message>
     <message>
       <source>Plugin Kernel Settings</source>
@@ -1861,6 +1939,22 @@ Output:
       <source>Disable System Root Certificates</source>
       <translation type="unfinished">Disable System Root Certificates</translation>
     </message>
+    <message>
+      <source>Enable Sniffing</source>
+      <translation type="unfinished">Enable Sniffing</translation>
+    </message>
+    <message>
+      <source>Use Fake DNS</source>
+      <translation type="unfinished">Use Fake DNS</translation>
+    </message>
+    <message>
+      <source>Config Directory</source>
+      <translation type="unfinished">Config Directory</translation>
+    </message>
+    <message>
+      <source>Open Directory</source>
+      <translation type="unfinished">Open Directory</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -1943,7 +2037,7 @@ Output:
     </message>
     <message>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>識認</translation>
     </message>
     <message>
       <source>Host</source>
@@ -2027,15 +2121,11 @@ Output:
     </message>
     <message>
       <source>Chain Editor</source>
-      <translation type="unfinished">Chain Editor</translation>
+      <translation>鏈編輯器</translation>
     </message>
     <message>
       <source>DNS Settings</source>
       <translation type="unfinished">DNS Settings</translation>
-    </message>
-    <message>
-      <source>Selected Inbound / Outbound Info</source>
-      <translation type="unfinished">Selected Inbound / Outbound Info</translation>
     </message>
     <message>
       <source>Unknown</source>
@@ -2046,19 +2136,51 @@ Output:
       <translation type="unfinished">0</translation>
     </message>
     <message>
-      <source>Rules Order</source>
-      <translation type="unfinished">Rules Order</translation>
-    </message>
-    <message>
       <source>Debug Connection Painter</source>
       <translation type="unfinished">Debug Connection Painter</translation>
+    </message>
+    <message>
+      <source>Connection Template</source>
+      <translation type="unfinished">Connection Template</translation>
+    </message>
+    <message>
+      <source>Inbound</source>
+      <translation type="unfinished">Inbound</translation>
+    </message>
+    <message>
+      <source>Outbound</source>
+      <translation type="unfinished">Outbound</translation>
+    </message>
+    <message>
+      <source>Override global DNS settings</source>
+      <translation type="unfinished">Override global DNS settings</translation>
+    </message>
+    <message>
+      <source>Inbound / Outbound Info</source>
+      <translation type="unfinished">Inbound / Outbound Info</translation>
+    </message>
+    <message>
+      <source>Rules Ordering</source>
+      <translation type="unfinished">Rules Ordering</translation>
+    </message>
+    <message>
+      <source>Importing All Connections</source>
+      <translation type="unfinished">Importing All Connections</translation>
+    </message>
+    <message>
+      <source>Do you want to import all the connections?</source>
+      <translation type="unfinished">Do you want to import all the connections?</translation>
+    </message>
+    <message>
+      <source>(All Connections)</source>
+      <translation type="unfinished">(All Connections)</translation>
     </message>
   </context>
   <context>
     <name>RouteSettingsMatrix</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
@@ -2078,7 +2200,7 @@ Output:
     </message>
     <message>
       <source>Domain</source>
-      <translation type="unfinished">Domain</translation>
+      <translation>域名</translation>
     </message>
     <message>
       <source>Proxy</source>
@@ -2170,7 +2292,7 @@ Output:
     <name>RoutingEditorWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
@@ -2213,7 +2335,7 @@ Output:
     <name>RuleWidget</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -2291,7 +2413,7 @@ Output:
     <name>SocksInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>删除用户</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
@@ -2299,7 +2421,7 @@ Output:
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <source>This user exists already.</source>
@@ -2487,12 +2609,20 @@ Output:
       <source>Disable System Root Certificates</source>
       <translation type="unfinished">Disable System Root Certificates</translation>
     </message>
+    <message>
+      <source>Open Certificate Editor</source>
+      <translation type="unfinished">Open Certificate Editor</translation>
+    </message>
+    <message>
+      <source>Certificates</source>
+      <translation type="unfinished">Certificates</translation>
+    </message>
   </context>
   <context>
     <name>blackholeOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Response</source>
@@ -2507,7 +2637,7 @@ Output:
     <name>dnsOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Network</source>
@@ -2538,7 +2668,7 @@ Output:
     <name>dokodemodoorInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Address</source>
@@ -2581,7 +2711,7 @@ Output:
     <name>freedomOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
@@ -2600,7 +2730,7 @@ Output:
     <name>httpInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Allow Transparent</source>
@@ -2631,7 +2761,7 @@ Output:
     <name>httpOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Username</source>
@@ -2646,7 +2776,7 @@ Output:
     <name>shadowsocksOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Password</source>
@@ -2661,7 +2791,7 @@ Output:
     <name>socksInEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -2700,7 +2830,7 @@ Output:
     <name>socksOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>Username</source>
@@ -2715,7 +2845,7 @@ Output:
     <name>vlessOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>UUID</source>
@@ -2734,7 +2864,7 @@ Output:
     <name>vmessOutEditor</name>
     <message>
       <source>Form</source>
-      <translation type="unfinished">Form</translation>
+      <translation>窗口</translation>
     </message>
     <message>
       <source>UUID</source>
@@ -2841,7 +2971,7 @@ Output:
     </message>
     <message>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新訂閱</translation>
     </message>
     <message>
       <source>DNS Settings</source>
