@@ -46,7 +46,7 @@ void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> indata,
 {
     if (dispatcher->IsNodeConstructing())
         return;
-    for (const auto d : indata)
+    for (const auto &d : indata)
     {
         if (!d)
         {
@@ -60,7 +60,12 @@ void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> indata,
             return;
         }
         const auto rulePtr = rule->GetData();
-        rulePtr->outboundTag = dataptr->getDisplayName();
+        //
+        if (dataptr->metaType == METAOUTBOUND_BALANCER)
+            rulePtr->balancerTag = dataptr->getDisplayName();
+        else
+            rulePtr->outboundTag = dataptr->getDisplayName();
+        //
         DEBUG("Connecting rule:", rulePtr->QV2RAY_RULE_TAG, "to", dataptr->getDisplayName());
     }
 }
