@@ -65,7 +65,7 @@ if(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "module")
     #        TARGET qv2ray
     #        OPTIONS --no-notes # Don't display a note for the headers which don't produce a moc_*.cpp
     #    )
-    set(QNODEEDITOR_LIBRARY qv2ray-nodeeditor)
+    set(QNODEEDITOR_LIBRARY qv2ray_nodeeditor)
     add_library(${QNODEEDITOR_LIBRARY} STATIC
         ${QNODEEDITOR_SOURCES}
         ${QNODEEDITOR_HEADERS}

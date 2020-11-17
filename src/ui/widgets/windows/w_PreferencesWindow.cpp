@@ -131,10 +131,13 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     tProxyPort->setValue(CurrentConfig.inboundConfig.tProxySettings.port);
     tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasTCP);
     tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasUDP);
+    tproxySniffingCB->setChecked(CurrentConfig.inboundConfig.tProxySettings.sniffing);
     tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tProxySettings.mode);
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
     //
     dnsIntercept->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
+    fakeDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.fakeDNS);
+    fakeDNSCb->setEnabled(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
     DnsFreedomCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS);
     //
     // Kernel Settings
@@ -886,6 +889,12 @@ void PreferencesWindow::on_tproxyEnableUDP_toggled(bool checked)
     CurrentConfig.inboundConfig.tProxySettings.hasUDP = checked;
 }
 
+void PreferencesWindow::on_tproxySniffingCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tProxySettings.sniffing = arg1 == Qt::Checked;
+}
+
 void PreferencesWindow::on_tproxyMode_currentTextChanged(const QString &arg1)
 {
     NEEDRESTART
@@ -937,6 +946,13 @@ void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 {
     NEEDRESTART
     CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept = checked;
+    fakeDNSCb->setEnabled(checked);
+}
+
+void PreferencesWindow::on_fakeDNSCb_toggled(bool checked)
+{
+    NEEDRESTART
+    CurrentConfig.defaultRouteConfig.connectionConfig.fakeDNS = checked;
 }
 
 void PreferencesWindow::on_qvProxyCustomProxy_clicked()

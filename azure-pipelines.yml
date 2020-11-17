@@ -35,6 +35,7 @@ steps:
     displayName: Build Qv2ray
     env:
       Qt5_DIR: $(Agent.BuildDirectory)/qt/5.15.1/clang_64/lib/cmake/Qt5
+      PKG_CONFIG_PATH: /usr/local/opt/openssl@1.1/lib/pkgconfig
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: "qv2ray-legacy.dmg"

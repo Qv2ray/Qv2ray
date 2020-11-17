@@ -24,7 +24,8 @@ Vcs-Git: https://salsa.debian.org/debian/qv2ray.git
 Package: qv2ray
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: v2ray
+Recommends: v2ray,
+            qtwayland5
 Description: Qt frontend for v2ray
  Project Qv2ray is a flexable cross platform Qt GUI client for V2ray.
  It makes everything easier by using GUI editors. It also supports

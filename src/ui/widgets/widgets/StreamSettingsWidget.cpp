@@ -297,8 +297,8 @@ void StreamSettingsWidget::on_securityTypeCB_currentIndexChanged(const QString &
 //
 void StreamSettingsWidget::on_serverNameTxt_textEdited(const QString &arg1)
 {
-    stream.tlsSettings.serverName = arg1;
-    stream.xtlsSettings.serverName = arg1;
+    stream.tlsSettings.serverName = arg1.trimmed();
+    stream.xtlsSettings.serverName = arg1.trimmed();
 }
 
 void StreamSettingsWidget::on_allowInsecureCB_stateChanged(int arg1)
@@ -328,4 +328,8 @@ void StreamSettingsWidget::on_disableSystemRoot_stateChanged(int arg1)
 {
     stream.tlsSettings.disableSystemRoot = arg1;
     stream.xtlsSettings.disableSystemRoot = arg1;
+}
+
+void StreamSettingsWidget::on_openCertEditorBtn_clicked()
+{
 }

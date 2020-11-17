@@ -88,6 +88,7 @@ set(_QV2RAY_UI_SOURCES
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/InboundSettingsWidget.hpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/DnsSettingsWidget.cpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/DnsSettingsWidget.hpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/CertificateItemWidget.ui
     # Complex Widgets
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/complex/ChainEditorWidget.cpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/complex/ChainEditorWidget.hpp

@@ -1,9 +1,11 @@
 #include "core/connection/Generation.hpp"
 namespace Qv2ray::core::connection::generation::routing
 {
-    QJsonObject GenerateDNS(bool withLocalhost, const QvConfig_DNS &dnsServer)
+    QJsonObject GenerateDNS(bool withLocalhost, bool useFakeDNS, const QvConfig_DNS &dnsServer)
     {
         QJsonObject root = dnsServer.toJson();
+        if (useFakeDNS)
+            root.insert("fake", QJsonObject());
         QJsonArray servers;
         for (const auto &serv : dnsServer.servers)
         {

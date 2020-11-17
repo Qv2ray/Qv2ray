@@ -1359,6 +1359,13 @@ Custom DNS Settings</string>
                    </widget>
                   </item>
                   <item>
+                   <widget class="QCheckBox" name="tproxySniffingCB">
+                    <property name="text">
+                     <string>Enable Sniffing</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <spacer name="horizontalSpacer_2">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
@@ -1607,6 +1614,23 @@ Custom DNS Settings</string>
            <widget class="QLabel" name="label_41">
             <property name="text">
              <string>Bypass Private Addresses</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="label_42">
+            <property name="text">
+             <string>Use Fake DNS</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QCheckBox" name="fakeDNSCb">
+            <property name="text">
+             <string>Enabled</string>
             </property>
            </widget>
           </item>

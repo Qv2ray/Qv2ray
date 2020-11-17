@@ -48,7 +48,7 @@ if(QV2RAY_ZXING_PROVIDER STREQUAL "module")
     set(ZXING_INCLUDE_PATH
         ${ZXING_DIR}/src
         )
-    set(ZXING_LIBRARY qv2ray-zxing)
+    set(ZXING_LIBRARY qv2ray_zxing)
     add_library(${ZXING_LIBRARY} STATIC
         ${ZXING_SOURCES}
         )
