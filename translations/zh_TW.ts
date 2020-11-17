@@ -7,80 +7,86 @@
         <source>Form</source>
         <translation>視窗</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>CertificateItemWidget</name>
     <message>
-        <source>Certificate Item Editor</source>
-        <translation type="unfinished"></translation>
+      <source>Certificate Item Editor</source>
+      <translation type="unfinished">Certificate Item Editor</translation>
     </message>
     <message>
-        <source>Usage</source>
-        <extracomment>Certificate Usage</extracomment>
-        <translation type="unfinished"></translation>
+      <source>Usage</source>
+      <extracomment>Certificate Usage</extracomment>
+      <translation type="unfinished">Usage</translation>
     </message>
     <message>
-        <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+      <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</translation>
     </message>
     <message>
-        <source>Certificate</source>
-        <extracomment>Certificate Tab</extracomment>
-        <translation type="unfinished"></translation>
+      <source>Certificate</source>
+      <extracomment>Certificate Tab</extracomment>
+      <translation type="unfinished">Certificate</translation>
     </message>
     <message>
-        <source>From File</source>
-        <translation type="unfinished"></translation>
+      <source>From File</source>
+      <translation type="unfinished">From File</translation>
     </message>
     <message>
-        <source>Alt+C, Alt+F</source>
-        <translation type="unfinished"></translation>
+      <source>Alt+C, Alt+F</source>
+      <translation type="unfinished">Alt+C, Alt+F</translation>
     </message>
     <message>
-        <source>Drag and drop *.crt here...</source>
-        <translation type="unfinished"></translation>
+      <source>Drag and drop *.crt here...</source>
+      <translation type="unfinished">Drag and drop *.crt here...</translation>
     </message>
     <message>
-        <source>Configure Manually</source>
-        <translation type="unfinished"></translation>
+      <source>Configure Manually</source>
+      <translation type="unfinished">Configure Manually</translation>
     </message>
     <message>
-        <source>Alt+C, Alt+M</source>
-        <translation type="unfinished"></translation>
+      <source>Alt+C, Alt+M</source>
+      <translation type="unfinished">Alt+C, Alt+M</translation>
     </message>
     <message>
-        <source>Certificate Key</source>
-        <extracomment>Tab Certificate Key</extracomment>
-        <translation type="unfinished"></translation>
+      <source>Certificate Key</source>
+      <extracomment>Tab Certificate Key</extracomment>
+      <translation type="unfinished">Certificate Key</translation>
     </message>
     <message>
-        <source>Alt+K, Alt+F</source>
-        <translation type="unfinished"></translation>
+      <source>Alt+K, Alt+F</source>
+      <translation type="unfinished">Alt+K, Alt+F</translation>
     </message>
     <message>
-        <source>Alt+K, Alt+M</source>
-        <translation type="unfinished"></translation>
+      <source>Alt+K, Alt+M</source>
+      <translation type="unfinished">Alt+K, Alt+M</translation>
     </message>
     <message>
-        <source>-----BEGIN RSA PRIVATE KEY-----... </source>
-        <translation type="unfinished"></translation>
+      <source>-----BEGIN RSA PRIVATE KEY-----... </source>
+      <translation type="unfinished">-----BEGIN RSA PRIVATE KEY-----... </translation>
     </message>
     <message>
-        <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
-        <translation type="unfinished"></translation>
+      <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
+      <translation type="unfinished">Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</translation>
     </message>
     <message>
-        <source>Unset</source>
-        <translation type="unfinished"></translation>
+      <source>Unset</source>
+      <translation type="unfinished">Unset</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ChainEditorWidget</name>
     <message>
         <source>Form</source>
@@ -1938,8 +1944,24 @@ Output: <byte value="xd"/>
         <source>Open Directory</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
+    <message>
+      <source>Enable Sniffing</source>
+      <translation type="unfinished">Enable Sniffing</translation>
+    </message>
+    <message>
+      <source>Use Fake DNS</source>
+      <translation type="unfinished">Use Fake DNS</translation>
+    </message>
+    <message>
+      <source>Config Directory</source>
+      <translation type="unfinished">Config Directory</translation>
+    </message>
+    <message>
+      <source>Open Directory</source>
+      <translation type="unfinished">Open Directory</translation>
+    </message>
+  </context>
+  <context>
     <name>QObject</name>
     <message>
         <source>Out</source>
@@ -2119,47 +2141,55 @@ Output: <byte value="xd"/>
         <translation>0</translation>
     </message>
     <message>
-        <source>Debug Connection Painter</source>
-        <translation>除錯連接彩現器</translation>
-    </message>
-    <message>
-        <source>Connection Template</source>
-        <translation type="unfinished"></translation>
+      <source>Unknown</source>
+      <translation>不明</translation>
     </message>
     <message>
         <source>Inbound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Outbound</source>
-        <translation type="unfinished"></translation>
+      <source>Debug Connection Painter</source>
+      <translation>除錯連接彩現器</translation>
     </message>
     <message>
-        <source>Override global DNS settings</source>
-        <translation type="unfinished"></translation>
+      <source>Connection Template</source>
+      <translation type="unfinished">Connection Template</translation>
     </message>
     <message>
-        <source>Inbound / Outbound Info</source>
-        <translation type="unfinished"></translation>
+      <source>Inbound</source>
+      <translation type="unfinished">Inbound</translation>
     </message>
     <message>
-        <source>Rules Ordering</source>
-        <translation type="unfinished"></translation>
+      <source>Outbound</source>
+      <translation type="unfinished">Outbound</translation>
     </message>
     <message>
-        <source>Importing All Connections</source>
-        <translation type="unfinished"></translation>
+      <source>Override global DNS settings</source>
+      <translation type="unfinished">Override global DNS settings</translation>
     </message>
     <message>
-        <source>Do you want to import all the connections?</source>
-        <translation type="unfinished"></translation>
+      <source>Inbound / Outbound Info</source>
+      <translation type="unfinished">Inbound / Outbound Info</translation>
     </message>
     <message>
-        <source>(All Connections)</source>
-        <translation type="unfinished"></translation>
+      <source>Rules Ordering</source>
+      <translation type="unfinished">Rules Ordering</translation>
     </message>
-</context>
-<context>
+    <message>
+      <source>Importing All Connections</source>
+      <translation type="unfinished">Importing All Connections</translation>
+    </message>
+    <message>
+      <source>Do you want to import all the connections?</source>
+      <translation type="unfinished">Do you want to import all the connections?</translation>
+    </message>
+    <message>
+      <source>(All Connections)</source>
+      <translation type="unfinished">(All Connections)</translation>
+    </message>
+  </context>
+  <context>
     <name>RouteSettingsMatrix</name>
     <message>
         <source>Form</source>
@@ -2600,8 +2630,16 @@ Output: <byte value="xd"/>
         <source>Certificates</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
+    <message>
+      <source>Open Certificate Editor</source>
+      <translation type="unfinished">Open Certificate Editor</translation>
+    </message>
+    <message>
+      <source>Certificates</source>
+      <translation type="unfinished">Certificates</translation>
+    </message>
+  </context>
+  <context>
     <name>blackholeOutEditor</name>
     <message>
         <source>Form</source>
