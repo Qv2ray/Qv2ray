@@ -5,6 +5,11 @@ on:
   release:
     types: [prereleased]
 
+# unsafe {
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+# }
+
 jobs:
   check_commit_msg:
     outputs:
