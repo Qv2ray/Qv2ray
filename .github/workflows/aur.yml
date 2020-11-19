@@ -11,6 +11,11 @@ on:
   schedule:
     - cron: "0 19 * * *"
 
+# unsafe {
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+# }
+
 jobs:
   check_commit_msg:
     outputs:
