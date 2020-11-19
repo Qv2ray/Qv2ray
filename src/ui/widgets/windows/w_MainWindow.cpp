@@ -619,7 +619,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
     locateBtn->setEnabled(false);
     if (!GlobalConfig.uiConfig.quietMode)
     {
-        QvWidgetApplication->ShowTrayMessage(tr("Disconnected from: ") + GetDisplayName(id.connectionId), this->windowIcon());
+        QvWidgetApplication->ShowTrayMessage(tr("Disconnected from: ") + GetDisplayName(id.connectionId));
     }
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX);
     netspeedLabel->setText("0.00 B/s" NEWLINE "0.00 B/s");
@@ -646,7 +646,7 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     auto name = GetDisplayName(id.connectionId);
     if (!GlobalConfig.uiConfig.quietMode)
     {
-        QvWidgetApplication->ShowTrayMessage(tr("Connected: ") + name, this->windowIcon());
+        QvWidgetApplication->ShowTrayMessage(tr("Connected: ") + name);
     }
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
     connetionStatusLabel->setText(tr("Connected: ") + name);

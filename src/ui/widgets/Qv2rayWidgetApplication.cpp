@@ -199,12 +199,7 @@ MessageOpt Qv2rayWidgetApplication::MessageBoxAsk(QWidget *parent, const QString
     return MessageBoxButtonMap.key(QMessageBox::question(parent, title, text, btns));
 }
 
-void Qv2rayWidgetApplication::ShowTrayMessage(const QString &m, const QIcon &icon, int msecs)
+void Qv2rayWidgetApplication::ShowTrayMessage(const QString &m, int msecs)
 {
-    hTray->showMessage("Qv2ray", m, icon, msecs);
-}
-
-void Qv2rayWidgetApplication::ShowTrayMessage(const QString &m, QSystemTrayIcon::MessageIcon icon, int msecs)
-{
-    hTray->showMessage("Qv2ray", m, icon, msecs);
+    hTray->showMessage("Qv2ray", m, QIcon(":/assets/icons/qv2ray.png"), msecs);
 }
