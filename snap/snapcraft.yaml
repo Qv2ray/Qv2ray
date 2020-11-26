@@ -51,7 +51,7 @@ parts:
     override-pull: |
       sudo add-apt-repository ppa:ymshenyu/libuv
       sudo add-apt-repository ppa:ymshenyu/qv2ray-deps
-      sudo add-apt-repository ppa:ymshenyu/qt-1
+      sudo add-apt-repository ppa:ymshenyu/qt
       sudo apt-get update
       sudo apt-get -y dist-upgrade
 
