@@ -39,6 +39,7 @@ jobs:
     env:
       _QV2RAY_BUILD_INFO_: "Qv2ray built from Github Action"
       _QV2RAY_BUILD_EXTRA_INFO_: "qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     steps:
       - name: Get the version
