@@ -1934,7 +1934,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation>使用假名 DNS</translation>
+      <translation>使用伪造 DNS</translation>
     </message>
     <message>
       <source>Config Directory</source>
