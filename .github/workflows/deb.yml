@@ -51,7 +51,7 @@ jobs:
           submodules: "recursive"
       - name: Install build dependencies
         run: |
-          apt-get install -y build-essential devscripts reprepro debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl4-openssl-dev libqt5svg5-dev
+          apt-get install -y build-essential devscripts debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl4-openssl-dev libqt5svg5-dev
       - name: Build
         run: |
           dch -l${{ matrix.distro }} -m 'Build against ${{ matrix.distro }}' -D ${{ matrix.distro }}
@@ -65,7 +65,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.get_package.outputs.NAME }}
+          name: ${{ matrix.distro }}
           path: ${{ steps.get_package.outputs.NAME }}
 
   upload:
@@ -81,6 +81,7 @@ jobs:
       - name: Setup Repository
         if: github.event_name == 'release' && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
         run: |
+          sudo apt-get install reprepro
           git clone https://github.com/Qv2ray/debian.git
           echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
           gpg --import private.key
@@ -88,10 +89,7 @@ jobs:
           git config --local user.name "${{ github.actor }}"
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
           git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian.git
-          reprepro includedeb stable $GITHUB_WORKSPACE/packages/*stable*.deb
-          reprepro includedeb unstable $GITHUB_WORKSPACE/packages/*unstable*.deb
-          reprepro includedeb focal $GITHUB_WORKSPACE/packages/*focal*.deb
-          reprepro includedeb groovy $GITHUB_WORKSPACE/packages/*groovy*.deb
+          find $GITHUB_WORKSPACE/packages -type f -name *.deb -exec bash -c 'reprepro includedeb $(echo "$1" | grep -Po "(?<=-1).*(?=1_)") "$1"' bash {} \;
           git add -A
           git commit -am 'update'
           git push origin master
