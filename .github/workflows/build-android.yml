@@ -56,7 +56,7 @@ jobs:
 
     - name: Download Dependencies
       run: |
-        apt install -y ninja-build
+        sudo apt install -y ninja-build
         cd ./libs
         export QV2RAY_LIBS=android
         export QV2RAY_LIBS_ARCH="${{ matrix.short_arch }}"
