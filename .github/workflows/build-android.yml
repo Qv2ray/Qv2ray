@@ -5,7 +5,9 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         buildtype: [Debug, Release]
         arch: [x86, x86_64, arm, arm64]
@@ -23,8 +25,6 @@ jobs:
           - arch: arm64
             long_arch: arm64_v8a
             short_arch: arm64
-
-    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -49,6 +49,11 @@ jobs:
         target: android
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
+    - uses: nttld/setup-ndk@v1
+      id: setup-ndk
+      with:
+        ndk-version: r21d
+
     - name: Download Dependencies
       run: |
         cd ./libs
@@ -61,11 +66,11 @@ jobs:
         set
         mkdir build
         cd build
-        cmake .. -GNinja \
+        cmake .. -GNinja \${{ steps.setup-ndk.outputs.ndk-path }}
          -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
          -DCMAKE_PREFIX_PATH=$Qt5_DIR \
          -DCMAKE_FIND_ROOT_PATH=$Qt5_DIR \
-         -DCMAKE_TOOLCHAIN_FILE=$ANDROID_SDK_ROOT/ndk/21.3.6528147/build/cmake/android.toolchain.cmake \
+         -DCMAKE_TOOLCHAIN_FILE=${{ steps.setup-ndk.outputs.ndk-path }}/build/cmake/android.toolchain.cmake \
          -DANDROID_NATIVE_API_LEVEL=23 \
          -DANDROID_SDK=$ANDROID_SDK_ROOT
          -DANDROID_ABI=${{ matrix.long_arch }} \
