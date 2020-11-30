@@ -115,6 +115,11 @@ set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 set(QV2RAY_AUTO_DEPLOY ON CACHE BOOL "Automatically run deploy command after build")
 set(QV2RAY_HAS_BUILT_IN_THEMES ON CACHE BOOL "Build with built-in themes")
 
+if (APPLE)
+    set(QV2RAY_DEFAULT_VASSETS_PATH "/usr/local/opt/v2ray/share/v2ray")
+    set(QV2RAY_DEFAULT_VCORE_PATH "/usr/local/opt/v2ray/bin/v2ray")
+endif()
+
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
     add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
 endif()
