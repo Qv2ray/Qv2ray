@@ -20,10 +20,10 @@ jobs:
             long_arch: x86_64
             short_arch: x64
           - arch: arm
-            long_arch: armv7
+            long_arch: armeabi-v7a
             short_arch: arm
           - arch: arm64
-            long_arch: arm64_v8a
+            long_arch: arm64-v8a
             short_arch: arm64
 
     steps:
