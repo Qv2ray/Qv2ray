@@ -55,3 +55,18 @@ jobs:
         export QV2RAY_LIBS=android
         export QV2RAY_LIBS_ARCH="${{ matrix.short_arch }}"
         ./setup-libs.sh
+        
+    - name: Build Qv2ray
+      run: |
+        set
+        mkdir build
+        cd build
+        cmake .. -GNinja \                                                                                                           1⏎ 24s[30adc489]
+         -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
+         -DCMAKE_PREFIX_PATH=$Qt5_DIR \
+         -DANDROID_NATIVE_API_LEVEL=23 \
+         -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
+         -DANDROID_ABI=${{ matrix.long_arch }} \
+         -DANDROID_STL=c++_shared \
+         -DCMAKE_FIND_ROOT_PATH=$Qt5_DIR
+          
