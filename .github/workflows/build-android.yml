@@ -1,0 +1,58 @@
+name: Build Android APK
+
+on:
+  push:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        buildtype: [Debug, Release]
+        arch: [x86, x86_64, arm, arm64]
+        qt_version: [5.15.0]
+        include:
+          - arch: x86
+            long_arch: x86
+            short_arch: x86
+          - arch: x86_64
+            long_arch: x86_64
+            short_arch: x64
+          - arch: arm
+            long_arch: armv7
+            short_arch: arm
+          - arch: arm64
+            long_arch: arm64_v8a
+            short_arch: arm64
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Display Workflow Information
+      run: |
+        echo "Build Type: ${{ matrix.buildtype }}, Architecture: ${{ matrix.long_arch }}"
+
+    - name: Cache Qt
+      id: cache-qt
+      uses: actions/cache@v1
+      with:
+        path: ../Qt
+        key: QtCache-${{ matrix.buildtype }}-${{ matrix.arch }}-${{ matrix.qt_version }}
+
+    - name: Installing Qt - ${{ matrix.arch }}
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: ${{ matrix.qt_version }}
+        target: android
+        arch: android_${{ matrix.long_arch }}
+        cached: ${{ steps.cache-qt.outputs.cache-hit }}
+
+    - name: Download Dependencies
+      run: |
+        cd ./libs
+        export QV2RAY_LIBS=android
+        export QV2RAY_LIBS_ARCH="${{ matrix.short_arch }}"
+        ./setup-libs.sh
