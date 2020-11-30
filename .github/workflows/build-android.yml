@@ -58,9 +58,8 @@ jobs:
       run: |
         sudo apt install -y ninja-build
         cd ./libs
-        export QV2RAY_LIBS=android
-        export QV2RAY_LIBS_ARCH="${{ matrix.short_arch }}"
-        ./setup-libs.sh
+        QV2RAY_LIBS=android QV2RAY_LIBS_ARCH="${{ matrix.short_arch }}" ./setup-libs.sh
+        QV2RAY_LIBS=tools ./setup-libs.sh
         
     - name: Build Qv2ray
       run: |
