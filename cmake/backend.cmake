@@ -1,6 +1,27 @@
 find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
-find_package(gRPC CONFIG REQUIRED)
-set(QV2RAY_BACKEND_LIBRARY gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts)
+
+find_package(gRPC CONFIG QUIET)
+
+# Debian, for example, cannot find gRPC in a proper way.
+# This is used as a fallback searching method
+if(NOT gRPC_FOUND)
+    if(WIN32)
+        message(FATAL_ERROR "gRPC Not Found")
+    else()
+        find_package(PkgConfig REQUIRED)
+        if(UNIX AND NOT APPLE)
+            pkg_check_modules(GRPC REQUIRED grpc++ grpc)
+            set(QV2RAY_BACKEND_LIBRARY ${GRPC_LIBRARIES})
+        else()
+            find_library(UPB_LIBRARY NAMES upb)
+            find_library(ADDRESS_SORTING NAMES address_sorting)
+            pkg_check_modules(GRPC REQUIRED grpc++ grpc gpr)
+            set(QV2RAY_BACKEND_LIBRARY ${GRPC_LINK_LIBRARIES} ${UPB_LIBRARY} ${ADDRESS_SORTING})
+        endif()
+    endif()
+else()
+    set(QV2RAY_BACKEND_LIBRARY gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts)
+endif()
 
 set(API_PROTO "${CMAKE_SOURCE_DIR}/assets/v2ray_api.proto")
 set(API_PROTO_PATH "${CMAKE_SOURCE_DIR}/assets")
