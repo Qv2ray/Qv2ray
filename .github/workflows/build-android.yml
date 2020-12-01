@@ -84,9 +84,9 @@ jobs:
     - name: Build APK
       run: |
         cd build/
-        androiddeployqt --output ./android-build/ --input ./android_deployment_settings.json 
+        androiddeployqt --output ./android-build/ --input ./android_deployment_settings.json --${{ matrix.lowercase_buildtype }}
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: Qv2ray-android-${{ matrix.long_arch }}.${{ matrix.buildtype }}.apk
-        path: build/android-build/build/outputs/apk/${{ matrix.lowercase_buildtype }}/android-build-debug.apk
+        path: build/android-build/build/outputs/apk/${{ matrix.lowercase_buildtype }}/
