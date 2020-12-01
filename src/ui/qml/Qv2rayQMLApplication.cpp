@@ -19,13 +19,13 @@ Qv2rayQMLApplication::Qv2rayQMLApplication(int &argc, char *argv[]) : Qv2rayPlat
 {
 }
 
-void Qv2rayQMLApplication::MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button)
+void Qv2rayQMLApplication::MessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
 {
-    QMessageBox::warning(parent, title, text, MessageBoxButtonMap[button]);
+    QMessageBox::warning(parent, title, text);
 }
-void Qv2rayQMLApplication::MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button)
+void Qv2rayQMLApplication::MessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
 {
-    QMessageBox::information(parent, title, text, MessageBoxButtonMap[button]);
+    QMessageBox::information(parent, title, text);
 }
 
 MessageOpt Qv2rayQMLApplication::MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &list)
@@ -38,14 +38,13 @@ MessageOpt Qv2rayQMLApplication::MessageBoxAsk(QWidget *parent, const QString &t
     return MessageBoxButtonMap.key(QMessageBox::question(parent, title, text, btns));
 }
 
-Qv2raySetupStatus Qv2rayQMLApplication::Initialize()
+QStringList Qv2rayQMLApplication::checkPrerequisitesInternal()
 {
-    return InitializeInternal();
+    return {};
 }
 
-Qv2rayExitCode Qv2rayQMLApplication::RunQv2ray()
+Qv2rayExitReason Qv2rayQMLApplication::runQv2rayInternal()
 {
-    RunInternal();
     QQuickStyle::setStyle("Material");
     QQmlApplicationEngine engine;
     const QUrl url("qrc:/forms/MainWindow.qml");
@@ -83,10 +82,10 @@ Qv2rayExitCode Qv2rayQMLApplication::RunQv2ray()
     QList<QQmlError> warnings;
     node.usePreloadedDocument(applicationDirPath() + "/forms/MainWindow.qml", window, warnings);
 #endif
-    return (Qv2rayExitCode) exec();
+    return (Qv2rayExitReason) exec();
 }
 
-void Qv2rayQMLApplication::TerminateUI()
+void Qv2rayQMLApplication::terminateUIInternal()
 {
 }
 

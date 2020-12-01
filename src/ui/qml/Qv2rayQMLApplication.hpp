@@ -11,15 +11,15 @@ namespace Qv2ray
         Q_OBJECT
       public:
         explicit Qv2rayQMLApplication(int &argc, char *argv[]);
-        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override;
-        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text, MessageOpt button = OK) override;
+        void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text) override;
+        void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text) override;
         MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) override;
-        Qv2raySetupStatus Initialize() override;
-        Qv2rayExitCode RunQv2ray() override;
+        QStringList checkPrerequisitesInternal() override;
+        Qv2rayExitReason runQv2rayInternal() override;
+        void terminateUIInternal() override;
         void OpenURL(const QString &url) override;
 
       private slots:
-        void TerminateUI() override;
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
         void onMessageReceived(quint32, QByteArray) override;
 #endif

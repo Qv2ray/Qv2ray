@@ -1,5 +1,9 @@
 find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
+
 find_package(gRPC CONFIG QUIET)
+
+# Debian, for example, cannot find gRPC in a proper way.
+# This is used as a fallback searching method
 if(NOT gRPC_FOUND)
     if(WIN32)
         message(FATAL_ERROR "gRPC Not Found")

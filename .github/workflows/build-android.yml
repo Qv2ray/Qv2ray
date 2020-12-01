@@ -1,0 +1,92 @@
+name: Build Android APK
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        buildtype: [Debug, Release]
+        arch: [x86, x86_64, arm, arm64]
+        qt_version: [5.15.0]
+        include:
+          - arch: x86
+            long_arch: x86
+            short_arch: x86
+          - arch: x86_64
+            long_arch: x86_64
+            short_arch: x64
+          - arch: arm
+            long_arch: armeabi-v7a
+            short_arch: arm
+          - arch: arm64
+            long_arch: arm64-v8a
+            short_arch: arm64
+          - buildtype: Debug
+            lowercase_buildtype: debug
+          - buildtype: Release
+            lowercase_buildtype: release
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Display Workflow Information
+      run: |
+        echo "Build Type: ${{ matrix.buildtype }}, Architecture: ${{ matrix.long_arch }}"
+
+    - name: Cache Qt
+      id: cache-qt
+      uses: actions/cache@v1
+      with:
+        path: ../Qt
+        key: QtCache-${{ matrix.buildtype }}-${{ matrix.arch }}-${{ matrix.qt_version }}
+
+    - name: Installing Qt - ${{ matrix.arch }}
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: ${{ matrix.qt_version }}
+        target: android
+        cached: ${{ steps.cache-qt.outputs.cache-hit }}
+
+    - uses: nttld/setup-ndk@v1
+      id: setup-ndk
+      with:
+        ndk-version: r21d
+
+    - name: Download Dependencies
+      run: |
+        sudo apt install -y ninja-build
+        cd ./libs
+        QV2RAY_LIBS=android QV2RAY_LIBS_ARCH="${{ matrix.short_arch }}" ./setup-libs.sh
+        QV2RAY_LIBS=tools ./setup-libs.sh
+        
+    - name: Build Qv2ray
+      run: |
+        set
+        mkdir build
+        cd build
+        cmake .. -GNinja \
+          -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
+          -DCMAKE_PREFIX_PATH=$Qt5_DIR \
+          -DCMAKE_FIND_ROOT_PATH=$Qt5_DIR \
+          -DCMAKE_TOOLCHAIN_FILE=${{ steps.setup-ndk.outputs.ndk-path }}/build/cmake/android.toolchain.cmake \
+          -DANDROID_NATIVE_API_LEVEL=23 \
+          -DANDROID_SDK=$ANDROID_SDK_ROOT \
+          -DANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }} \
+          -DANDROID_ABI=${{ matrix.long_arch }} \
+          -DANDROID_STL=c++_shared
+        cmake --build . --parallel $(nproc)
+    - name: Build APK
+      run: |
+        cd build/
+        androiddeployqt --output ./android-build/ --input ./android_deployment_settings.json --${{ matrix.lowercase_buildtype }}
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Qv2ray.${{ github.sha }}.Android-${{ matrix.long_arch }}.qt${{ matrix.qt_version }}-${{ matrix.buildtype }}.zip
+        path: build/android-build/build/outputs/apk/${{ matrix.lowercase_buildtype }}/
