@@ -28,7 +28,7 @@ jobs:
           - buildtype: Debug
             lowercase_buildtype: debug
           - buildtype: Release
-            loaercase_buildtype: release
+            lowercase_buildtype: release
 
     steps:
     - uses: actions/checkout@v2
@@ -88,5 +88,5 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: Qv2ray-android.${{ matrix.buildtype }}.apk
+        name: Qv2ray-android-${{ matrix.long_arch }}.${{ matrix.buildtype }}.apk
         path: build/android-build/build/outputs/apk/${{ matrix.lowercase_buildtype }}/android-build-debug.apk
