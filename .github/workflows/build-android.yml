@@ -88,5 +88,5 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: Qv2ray.${{ github.sha }}.Android-${{ matrix.long_arch }}.qt${{ matrix.qt_version }}-${{ matrix.buildtype }}.apk
+        name: Qv2ray.${{ github.sha }}.Android-${{ matrix.long_arch }}.qt${{ matrix.qt_version }}-${{ matrix.buildtype }}.zip
         path: build/android-build/build/outputs/apk/${{ matrix.lowercase_buildtype }}/
