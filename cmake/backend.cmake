@@ -1,5 +1,5 @@
 find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
-find_package(gRPC REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
 set(QV2RAY_BACKEND_LIBRARY gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts)
 
 set(API_PROTO "${CMAKE_SOURCE_DIR}/assets/v2ray_api.proto")
