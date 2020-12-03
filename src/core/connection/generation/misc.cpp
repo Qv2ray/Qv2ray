@@ -7,6 +7,8 @@ namespace Qv2ray::core::connection::generation::misc
         QJsonObject root;
         QJsonArray services;
 
+        services << "ReflectionService";
+
         if (withHandler)
             services << "HandlerService";
 
