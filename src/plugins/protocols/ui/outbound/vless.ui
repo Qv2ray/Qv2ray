@@ -96,6 +96,11 @@
        <string notr="true">xtls-rprx-direct-udp443</string>
       </property>
      </item>
+    <item>
+      <property name="text">
+       <string notr="true">xtls-rprx-splice</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>
