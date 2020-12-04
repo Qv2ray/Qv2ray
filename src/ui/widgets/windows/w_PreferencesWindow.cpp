@@ -96,43 +96,48 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
     //
-    bool have_http = CurrentConfig.inboundConfig.useHTTP;
-    httpGroupBox->setChecked(have_http);
-    httpPortLE->setValue(CurrentConfig.inboundConfig.httpSettings.port);
-    httpAuthCB->setChecked(CurrentConfig.inboundConfig.httpSettings.useAuth);
-    //
-    httpAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.httpSettings.useAuth);
-    httpAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.httpSettings.useAuth);
-    httpAuthUsernameTxt->setText(CurrentConfig.inboundConfig.httpSettings.account.user);
-    httpAuthPasswordTxt->setText(CurrentConfig.inboundConfig.httpSettings.account.pass);
-    httpSniffingCB->setChecked(CurrentConfig.inboundConfig.httpSettings.sniffing);
-    //
-    //
-    bool have_socks = CurrentConfig.inboundConfig.useSocks;
-    socksGroupBox->setChecked(have_socks);
-    socksPortLE->setValue(CurrentConfig.inboundConfig.socksSettings.port);
-    //
-    socksAuthCB->setChecked(CurrentConfig.inboundConfig.socksSettings.useAuth);
-    socksAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.socksSettings.useAuth);
-    socksAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.socksSettings.useAuth);
-    socksAuthUsernameTxt->setText(CurrentConfig.inboundConfig.socksSettings.account.user);
-    socksAuthPasswordTxt->setText(CurrentConfig.inboundConfig.socksSettings.account.pass);
-    // Socks UDP Options
-    socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksSettings.enableUDP);
-    socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksSettings.enableUDP);
-    socksUDPIP->setText(CurrentConfig.inboundConfig.socksSettings.localIP);
-    socksSniffingCB->setChecked(CurrentConfig.inboundConfig.socksSettings.sniffing);
-    //
-    //
-    bool have_tproxy = CurrentConfig.inboundConfig.useTPROXY;
-    tproxGroupBox->setChecked(have_tproxy);
-    tproxyListenAddr->setText(CurrentConfig.inboundConfig.tProxySettings.tProxyIP);
-    tproxyListenV6Addr->setText(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP);
-    tProxyPort->setValue(CurrentConfig.inboundConfig.tProxySettings.port);
-    tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasTCP);
-    tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasUDP);
-    tproxySniffingCB->setChecked(CurrentConfig.inboundConfig.tProxySettings.sniffing);
-    tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tProxySettings.mode);
+    {
+        const auto &httpSettings = CurrentConfig.inboundConfig.httpSettings;
+        const auto has_http = CurrentConfig.inboundConfig.useHTTP;
+        httpGroupBox->setChecked(has_http);
+        httpPortLE->setValue(httpSettings.port);
+        httpAuthCB->setChecked(httpSettings.useAuth);
+        //
+        httpAuthUsernameTxt->setEnabled(has_http && httpSettings.useAuth);
+        httpAuthPasswordTxt->setEnabled(has_http && httpSettings.useAuth);
+        httpAuthUsernameTxt->setText(httpSettings.account.user);
+        httpAuthPasswordTxt->setText(httpSettings.account.pass);
+        httpSniffingCB->setChecked(httpSettings.sniffing);
+    }
+    {
+        const auto &socksSettings = CurrentConfig.inboundConfig.socksSettings;
+        const auto has_socks = CurrentConfig.inboundConfig.useSocks;
+        socksGroupBox->setChecked(has_socks);
+        socksPortLE->setValue(socksSettings.port);
+        //
+        socksAuthCB->setChecked(socksSettings.useAuth);
+        socksAuthUsernameTxt->setEnabled(has_socks && socksSettings.useAuth);
+        socksAuthPasswordTxt->setEnabled(has_socks && socksSettings.useAuth);
+        socksAuthUsernameTxt->setText(socksSettings.account.user);
+        socksAuthPasswordTxt->setText(socksSettings.account.pass);
+        // Socks UDP Options
+        socksUDPCB->setChecked(socksSettings.enableUDP);
+        socksUDPIP->setEnabled(socksSettings.enableUDP);
+        socksUDPIP->setText(socksSettings.localIP);
+        socksSniffingCB->setChecked(socksSettings.sniffing);
+    }
+    {
+        const auto &tProxySettings = CurrentConfig.inboundConfig.tProxySettings;
+        const auto has_tproxy = CurrentConfig.inboundConfig.useTPROXY;
+        tproxGroupBox->setChecked(has_tproxy);
+        tproxyListenAddr->setText(tProxySettings.tProxyIP);
+        tproxyListenV6Addr->setText(tProxySettings.tProxyV6IP);
+        tProxyPort->setValue(tProxySettings.port);
+        tproxyEnableTCP->setChecked(tProxySettings.hasTCP);
+        tproxyEnableUDP->setChecked(tProxySettings.hasUDP);
+        tproxySniffingCB->setChecked(tProxySettings.sniffing);
+        tproxyMode->setCurrentText(tProxySettings.mode);
+    }
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
     //
     dnsIntercept->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
