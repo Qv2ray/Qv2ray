@@ -81,7 +81,6 @@ jobs:
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
-          mirror: "http://mirrors.ocf.berkeley.edu/qt/"
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
       # =========================================================================================================
       - name: Linux - ${{ matrix.qt_version }} - Build preparation - Install Packages
