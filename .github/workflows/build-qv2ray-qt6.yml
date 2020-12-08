@@ -81,8 +81,8 @@ jobs:
       - name: Linux - ${{ matrix.qt_version }} - Build preparation - Install Packages
         if: matrix.platform == 'ubuntu-20.04'
         run: |
-          sudo add-apt-repository ppa:webispy/grpc
-          sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
+          #sudo add-apt-repository ppa:webispy/grpc
+          #sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
           sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libxcb-image0-dev libxcb-icccm4-dev libssl-dev libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0
           sudo apt install -y libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc ninja-build fcitx-frontend-qt5 libcurl4-openssl-dev
