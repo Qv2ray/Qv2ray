@@ -102,23 +102,17 @@ namespace Qv2ray::core::connection
             return root;
         }
 
-        const QString Serialize(const ShadowSocksServerObject &server, const QString &alias, bool isSip002)
+        const QString Serialize(const ShadowSocksServerObject &server, const QString &alias, bool)
         {
-            auto myAlias = QUrl::toPercentEncoding(alias);
-
-            if (isSip002)
-            {
-                LOG("Converting an ss-server config to Sip002 ss:// format");
-                const auto plainUserInfo = server.method + ":" + server.password;
-                const auto userinfo = plainUserInfo.toUtf8().toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
-                return "ss://" + userinfo + "@" + server.address + ":" + QSTRN(server.port) + "/#" + myAlias;
-            }
-            else
-            {
-                LOG("Converting an ss-server config to old ss:// string format");
-                QString ssUri = server.method + ":" + server.password + "@" + server.address + ":" + QSTRN(server.port);
-                return "ss://" + ssUri.toUtf8().toBase64(QByteArray::Base64Option::OmitTrailingEquals) + "/#" + myAlias;
-            }
+            QUrl url;
+            const auto plainUserInfo = server.method + ":" + server.password;
+            const auto userinfo = plainUserInfo.toUtf8().toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
+            url.setUserInfo(userinfo);
+            url.setScheme("ss");
+            url.setHost(server.address);
+            url.setPort(server.port);
+            url.setFragment(alias);
+            return url.toString(QUrl::ComponentFormattingOption::FullyEncoded);
         }
     } // namespace serialization::ss
 } // namespace Qv2ray::core::connection
