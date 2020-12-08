@@ -10,6 +10,8 @@
 #include "core/connection/Serialization.hpp"
 #include "utils/QvHelpers.hpp"
 
+#define QV_MODULE_NAME "SSDConverter"
+
 namespace Qv2ray::core::connection::serialization
 {
 
@@ -66,6 +68,7 @@ namespace Qv2ray::core::connection::serialization
 
         QList<QPair<QString, CONFIGROOT>> Deserialize(const QString &uri, QString *groupName, QStringList *logList)
         {
+            LOG("SSD Link format is now deprecated.");
             // ssd links should begin with "ssd://"
             if (!uri.startsWith("ssd://"))
             {
