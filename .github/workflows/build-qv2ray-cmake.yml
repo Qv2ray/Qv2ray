@@ -26,6 +26,7 @@ jobs:
         qt_version: [5.15.0]
         platform: [ubuntu-16.04, macos-latest, windows-latest]
         build_type: [RelWithDebInfo, Release]
+        ui_type: [QWidget, QML, CLI]
         arch: [x86, x64]
         include:
           - platform: windows-latest
@@ -128,6 +129,7 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja \
+            -DQV2RAY_UI_TYPE=${{ matrix.ui_type }} \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 \
             -DDS_STORE_SCRIPT=ON \
@@ -147,6 +149,7 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja \
+            -DQV2RAY_UI_TYPE=${{ matrix.ui_type }} \
             -DCMAKE_INSTALL_PREFIX=./deployment \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
           cmake --build . --parallel $(nproc)
@@ -163,6 +166,7 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja \
+            -DQV2RAY_UI_TYPE=${{ matrix.ui_type }} \
             -DCMAKE_INSTALL_PREFIX=./AppDir/usr \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DQV2RAY_TRANSLATION_PATH=QApplication::applicationDirPath\(\)+"/../share/qv2ray/lang"
@@ -195,11 +199,11 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray-${{ github.sha }}.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.AppImage
+          name: Qv2ray-${{ github.sha }}.linux-${{ matrix.arch }}-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.AppImage
           path: build/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.ui_type == 'QWidget' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.AppImage
@@ -211,11 +215,11 @@ jobs:
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray-${{ github.sha }}.macOS-${{ matrix.arch }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.dmg
+          name: Qv2ray-${{ github.sha }}.macOS-${{ matrix.arch }}-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.dmg
           path: Qv2ray.dmg
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
+        if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.ui_type == 'QWidget' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: Qv2ray.dmg
@@ -233,11 +237,11 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray-${{ github.sha }}.Windows-${{ matrix.arch }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.7z
+          name: Qv2ray-${{ github.sha }}.Windows-${{ matrix.arch }}-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.7z
           path: release.7z
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
+        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.ui_type == 'QWidget' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
