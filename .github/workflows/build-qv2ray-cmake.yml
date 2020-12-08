@@ -23,11 +23,11 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_MAIN') }}
     strategy:
       matrix:
-        qt_version: [5.15.0]
+        ui_type: [QWidget, QML]
         platform: [ubuntu-16.04, macos-latest, windows-latest]
-        build_type: [RelWithDebInfo, Release]
-        ui_type: [QWidget, QML, CLI]
         arch: [x86, x64]
+        build_type: [RelWithDebInfo, Release]
+        qt_version: [5.15.0]
         include:
           - platform: windows-latest
             arch: x86
