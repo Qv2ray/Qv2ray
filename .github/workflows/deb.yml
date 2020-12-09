@@ -78,13 +78,15 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           path: packages
+      - name: Preparing
+        run: |
+          sudo apt-get install reprepro
+          echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
+          gpg --import private.key
       - name: Setup Repository
         if: github.event_name == 'release' && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
         run: |
-          sudo apt-get install reprepro
           git clone https://github.com/Qv2ray/debian.git
-          echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
-          gpg --import private.key
           cd debian
           git config --local user.name "${{ github.actor }}"
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
@@ -94,13 +96,9 @@ jobs:
           git commit -am 'update'
           git push origin master
       - name: Setup Repository (pre-release)
-        if: github.event_name == 'release'
         run: |
-          sudo apt-get install reprepro
-          git clone https://github.com/Qv2ray/debian.git
-          echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
-          gpg --import private.key
-          cd debian
+          git clone https://github.com/Qv2ray/debian-dev.git
+          cd debian-dev
           git config --local user.name "${{ github.actor }}"
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
           git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian.git
