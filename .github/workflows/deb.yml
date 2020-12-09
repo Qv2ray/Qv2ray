@@ -101,7 +101,7 @@ jobs:
           cd debian-dev
           git config --local user.name "${{ github.actor }}"
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian.git
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian-dev.git
           find $GITHUB_WORKSPACE/packages -type f -name *.deb -exec bash -c 'reprepro includedeb $(echo "$1" | grep -Po "(?<=-1).*(?=1_)") "$1"' bash {} \;
           git add -A
           git commit -am 'update'
