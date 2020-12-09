@@ -95,7 +95,7 @@
 ## Related Links
  - [Website](https://qv2ray.net/en/) and [First Time Usage](https://qv2ray.net/en/getting-started/)
  - Latest **[Release](https://github.com/Qv2ray/Qv2ray/releases/latest)**
- - Welcome to translate Qv2ray via: **[Transifex](https://www.transifex.com/qv2ray/qv2ray)**
+ - Welcome to translate Qv2ray via: **[Crowdin](https://crowdin.com/project/qv2ray)**
 
 ## Special Thanks
 - **Quality Assurance & User Experience:** [@DuckSoft](https://github.com/DuckSoft/)
