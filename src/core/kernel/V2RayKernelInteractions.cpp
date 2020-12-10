@@ -189,6 +189,7 @@ namespace Qv2ray::core::kernel
             // Append assets location env.
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", assetsPath);
+            env.insert("XRAY_LOCATION_ASSET", assetsPath);
             //
             QProcess process;
             process.setProcessEnvironment(env);
@@ -258,6 +259,7 @@ namespace Qv2ray::core::kernel
         {
             auto env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
+            env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
             vProcess->setProcessEnvironment(env);
             vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
