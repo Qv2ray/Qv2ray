@@ -16,8 +16,8 @@ jobs:
       - name: Get commit message
         id: get_message
         run: |
-          echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
-          echo "message=\"$(git log --format=%B -n 1 ${{ github.event.after }})\"" >> $GITHUB_ENV
+          echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')"
+          echo "message=\"$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')\"" >> $GITHUB_ENV
   build:
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_QT6') }}

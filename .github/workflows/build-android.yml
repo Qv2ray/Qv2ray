@@ -4,7 +4,22 @@ on:
   push:
 
 jobs:
+  check_commit_msg:
+    outputs:
+      commit_message: ${{ steps.get_message.outputs.message }}
+    name: Check if the workflow has been disabled.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get commit message
+        id: get_message
+        run: |
+          echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')"
+          echo "message=\"$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')\"" >> $GITHUB_ENV
+
   build:
+    needs: check_commit_msg
+    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_APK') }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
