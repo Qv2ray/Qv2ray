@@ -290,14 +290,6 @@ void StreamSettingsWidget::on_transportCombo_currentIndexChanged(const QString &
 void StreamSettingsWidget::on_securityTypeCB_currentIndexChanged(const QString &arg1)
 {
     stream.security = arg1.toLower();
-    if (stream.security == "xtls")
-    {
-        const auto title = tr("WARNING! Non-Upstream Feature");
-        const auto msg1 = tr("XTLS has been removed from v2ray since v4.33.0");
-        const auto msg2 = tr("You may want to use TLS.");
-        QvMessageBoxWarn(this, title, msg1);
-        QvMessageBoxWarn(this, title, msg2);
-    }
 }
 
 //

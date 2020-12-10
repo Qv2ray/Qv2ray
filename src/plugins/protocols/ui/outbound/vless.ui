@@ -76,14 +76,9 @@
        <string notr="true"/>
       </property>
      </item>
-     <item>
+    <item>
       <property name="text">
-       <string notr="true">xtls-rprx-origin</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string notr="true">xtls-rprx-origin-udp443</string>
+       <string notr="true">xtls-rprx-splice</string>
       </property>
      </item>
      <item>
@@ -93,12 +88,7 @@
      </item>
      <item>
       <property name="text">
-       <string notr="true">xtls-rprx-direct-udp443</string>
-      </property>
-     </item>
-    <item>
-      <property name="text">
-       <string notr="true">xtls-rprx-splice</string>
+       <string notr="true">xtls-rprx-origin</string>
       </property>
      </item>
     </widget>

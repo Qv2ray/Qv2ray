@@ -733,7 +733,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     {
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), result);
     }
-    else if (!result.toLower().contains("v2ray"))
+    else if (!result.toLower().contains("v2ray") && !result.toLower().contains("xray"))
     {
         const auto strWarnContent = //
             tr("This does not seem like an output from V2Ray Core.\r\n"
