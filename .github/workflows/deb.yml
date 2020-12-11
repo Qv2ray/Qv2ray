@@ -55,7 +55,7 @@ jobs:
       - name: Bump version
         if: github.event_name != 'release'
         run: |
-          dch -v "$(date +'%Y%m%d%H%M%S')-1" -D unstable
+          dch -v "$(date +'%Y%m%d%H%M%S')-1" -D unstable -m 'Automatic build'
       - name: Build
         run: |
           dch -l${{ matrix.distro }} -m 'Build against ${{ matrix.distro }}' -D ${{ matrix.distro }}
