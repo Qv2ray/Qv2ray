@@ -73,7 +73,7 @@
 
 &lt;p&gt;Some browsers like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won't benefit from XTLS at all. What's worse, QUIC over TCP will cause serious congestion control problem, downgrading your experience.&lt;/p&gt;
 
-&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods blocks UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</string>
+&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</string>
      </property>
      <property name="editable">
       <bool>true</bool>
