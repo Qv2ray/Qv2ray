@@ -2859,6 +2859,18 @@ Output:
       <source>Flow</source>
       <translation type="unfinished">Flow</translation>
     </message>
+    <message>
+      <source>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+
+&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+
+&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
+      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+
+&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+
+&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
+    </message>
   </context>
   <context>
     <name>vmessOutEditor</name>
