@@ -2854,11 +2854,11 @@ Output: <byte value="xd"/>
 &lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
 
 &lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
-      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+      <translation>&lt;h3&gt;关于 &lt;code&gt;udp443&lt;/code&gt; 流控方式&lt;/h3&gt;
 
-&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+&lt;p&gt;某些应用程序如 Google Chrome 尝试使用 QUIC 协议而不是 TLS 协议，这将导致其无法享受到 XTLS 的加成。更糟的是，QUIC over TCP 存在潜在的拥塞控制问题，可能会令你的体验降级。&lt;/p&gt;
 
-&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
+&lt;p&gt;非 &lt;code&gt;udp443&lt;/code&gt; 的流控方式会阻断 UDP 目标端口为 443 的出站流量以绕过此情形。若你确实需要放行 UDP 443，请自行斟酌。&lt;/p&gt;</translation>
     </message>
   </context>
   <context>
