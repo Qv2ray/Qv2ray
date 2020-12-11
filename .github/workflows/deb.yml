@@ -52,6 +52,10 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get install -y build-essential devscripts debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl4-openssl-dev libqt5svg5-dev
+      - name: Bump version
+        if: github.event_name != 'release'
+        run: |
+          dch -v "$(date +'%Y%m%d%H%M%S')-1" -D unstable
       - name: Build
         run: |
           dch -l${{ matrix.distro }} -m 'Build against ${{ matrix.distro }}' -D ${{ matrix.distro }}
@@ -95,7 +99,8 @@ jobs:
           git add -A
           git commit -am 'update'
           git push origin master
-      - name: Setup Repository (pre-release)
+      - name: Setup Repository (development branch)
+        if: github.event_name != 'release'
         run: |
           git clone https://github.com/Qv2ray/debian-dev.git
           cd debian-dev
