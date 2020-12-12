@@ -21,48 +21,48 @@ namespace Qv2ray::core::connection::serialization
 #define MUST_EXIST(fieldName)                                                                                                                        \
     if (!obj.contains((fieldName)) || obj[(fieldName)].isUndefined() || obj[(fieldName)].isNull())                                                   \
     {                                                                                                                                                \
-        *logList << QObject::tr("invalid ssd link: json: field %1 must exist").arg(fieldName);                                                       \
+        *logList << QObject::tr("Invalid ssd link: json: field %1 must exist").arg(fieldName);                                                       \
         return {};                                                                                                                                   \
     }
 #define MUST_PORT(fieldName)                                                                                                                         \
     MUST_EXIST(fieldName);                                                                                                                           \
     if (int value = obj[(fieldName)].toInt(-1); value < 0 || value > 65535)                                                                          \
     {                                                                                                                                                \
-        *logList << QObject::tr("invalid ssd link: json: field %1 must be valid port number");                                                       \
+        *logList << QObject::tr("Invalid ssd link: json: field %1 must be valid port number");                                                       \
         return {};                                                                                                                                   \
     }
 #define MUST_STRING(fieldName)                                                                                                                       \
     MUST_EXIST(fieldName);                                                                                                                           \
     if (!obj[(fieldName)].isString())                                                                                                                \
     {                                                                                                                                                \
-        *logList << QObject::tr("invalid ssd link: json: field %1 must be of type 'string'").arg(fieldName);                                         \
+        *logList << QObject::tr("Invalid ssd link: json: field %1 must be of type 'string'").arg(fieldName);                                         \
         return {};                                                                                                                                   \
     }
 #define MUST_ARRAY(fieldName)                                                                                                                        \
     MUST_EXIST(fieldName);                                                                                                                           \
     if (!obj[(fieldName)].isArray())                                                                                                                 \
     {                                                                                                                                                \
-        *logList << QObject::tr("invalid ssd link: json: field %1 must be an array").arg(fieldName);                                                 \
+        *logList << QObject::tr("Invalid ssd link: json: field %1 must be an array").arg(fieldName);                                                 \
         return {};                                                                                                                                   \
     }
 
 #define SERVER_SHOULD_BE_OBJECT(server)                                                                                                              \
     if (!server.isObject())                                                                                                                          \
     {                                                                                                                                                \
-        *logList << QObject::tr("skipping invalid ssd server: server must be an object");                                                            \
+        *logList << QObject::tr("Skipping invalid ssd server: server must be an object");                                                            \
         continue;                                                                                                                                    \
     }
 #define SHOULD_EXIST(fieldName)                                                                                                                      \
     if (serverObject[(fieldName)].isUndefined())                                                                                                     \
     {                                                                                                                                                \
-        *logList << QObject::tr("skipping invalid ssd server: missing required field %1").arg(fieldName);                                            \
+        *logList << QObject::tr("Skipping invalid ssd server: missing required field %1").arg(fieldName);                                            \
         continue;                                                                                                                                    \
     }
 #define SHOULD_STRING(fieldName)                                                                                                                     \
     SHOULD_EXIST(fieldName);                                                                                                                         \
     if (!serverObject[(fieldName)].isString())                                                                                                       \
     {                                                                                                                                                \
-        *logList << QObject::tr("skipping invalid ssd server: field %1 should be of type 'string'").arg(fieldName);                                  \
+        *logList << QObject::tr("Skipping invalid ssd server: field %1 should be of type 'string'").arg(fieldName);                                  \
         continue;                                                                                                                                    \
     }
 

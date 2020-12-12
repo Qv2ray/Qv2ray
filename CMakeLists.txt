@@ -446,23 +446,6 @@ if (BUILD_TESTING)
     add_subdirectory(test)
 endif()
 
-
-# ==================================================================================
-# Qv2ray Translations
-# ==================================================================================
-add_custom_target(lupdate
-    COMMAND lupdate
-    ${QV2RAY_BASE_HEADERS}
-    ${QVPLUGIN_INTERFACE_HEADERS}
-    ${QV2RAY_UI_SOURCES}
-    ${QV2RAY_UI_FORMS}
-    ${QNODEEDITOR_QRC_RESOURCES}
-    ${SINGLEAPPLICATION_SOURCES}
-    ${PLUGIN_TRANSLATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none -noobsolete
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
-
-
 # ==================================================================================
 # Platform-dependent installation process and deployment
 # ==================================================================================
