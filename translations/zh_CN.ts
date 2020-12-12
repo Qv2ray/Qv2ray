@@ -2381,16 +2381,8 @@ Output: <byte value="xd"/>
       <translation>启动连接失败</translation>
     </message>
     <message>
-      <source>Cannot update subscription</source>
-      <translation>无法更新订阅</translation>
-    </message>
-    <message>
       <source>Unknown subscription type: %1</source>
       <translation>未知订阅类型： %1</translation>
-    </message>
-    <message>
-      <source>MAybe a plugin is missing?</source>
-      <translation>Maybe插件缺失？</translation>
     </message>
     <message>
       <source>Update Subscription</source>
@@ -2417,6 +2409,14 @@ Output: <byte value="xd"/>
     <message>
       <source>Would you like to remove them?</source>
       <translation>您想要删除他们吗？</translation>
+    </message>
+    <message>
+      <source>Cannot Update Subscription</source>
+      <translation type="unfinished">Cannot Update Subscription</translation>
+    </message>
+    <message>
+      <source>A subscription plugin is missing?</source>
+      <translation type="unfinished">A subscription plugin is missing?</translation>
     </message>
   </context>
   <context>
