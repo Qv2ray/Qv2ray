@@ -2381,16 +2381,8 @@ Output: <byte value="xd"/>
       <translation type="unfinished">Failed to start connection</translation>
     </message>
     <message>
-      <source>Cannot update subscription</source>
-      <translation type="unfinished">Cannot update subscription</translation>
-    </message>
-    <message>
       <source>Unknown subscription type: %1</source>
       <translation type="unfinished">Unknown subscription type: %1</translation>
-    </message>
-    <message>
-      <source>MAybe a plugin is missing?</source>
-      <translation type="unfinished">MAybe a plugin is missing?</translation>
     </message>
     <message>
       <source>Update Subscription</source>
@@ -2417,6 +2409,14 @@ Output: <byte value="xd"/>
     <message>
       <source>Would you like to remove them?</source>
       <translation type="unfinished">Would you like to remove them?</translation>
+    </message>
+    <message>
+      <source>Cannot Update Subscription</source>
+      <translation type="unfinished">Cannot Update Subscription</translation>
+    </message>
+    <message>
+      <source>A subscription plugin is missing?</source>
+      <translation type="unfinished">A subscription plugin is missing?</translation>
     </message>
   </context>
   <context>
