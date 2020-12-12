@@ -1987,7 +1987,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>超時</translation>
     </message>
     <message>
       <source>Unknown error</source>
