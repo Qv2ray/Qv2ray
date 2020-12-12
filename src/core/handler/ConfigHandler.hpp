@@ -69,12 +69,6 @@ namespace Qv2ray::core::handler
             return kernelHandler->CurrentConnection() == id;
         }
 
-        Q_DECL_DEPRECATED_X("ConnectionId-Only has been deprecated since GroudId is also required.")
-        bool IsConnected(const ConnectionId &id) const
-        {
-            return kernelHandler->CurrentConnection().connectionId == id;
-        }
-
         inline void IgnoreSubscriptionUpdate(const GroupId &group)
         {
             CheckValidId(group, nothing);
@@ -83,8 +77,7 @@ namespace Qv2ray::core::handler
                 groups[group].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
             }
         }
-        //
-        //
+
         void SaveConnectionConfig();
         const QList<GroupId> Subscriptions() const;
         const QList<GroupId> GetGroupId(const ConnectionId &connId) const;

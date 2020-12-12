@@ -532,8 +532,8 @@ namespace Qv2ray::core::handler
 
             if (decoder == nullptr)
             {
-                QvMessageBoxWarn(nullptr, tr("Cannot update subscription"),
-                                 tr("Unknown subscription type: %1").arg(type) + NEWLINE + tr("MAybe a plugin is missing?"));
+                QvMessageBoxWarn(nullptr, tr("Cannot Update Subscription"),
+                                 tr("Unknown subscription type: %1").arg(type) + NEWLINE + tr("A subscription plugin is missing?"));
                 return false;
             }
         }

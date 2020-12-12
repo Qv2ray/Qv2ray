@@ -2356,15 +2356,7 @@ Output: <byte value="xd"/>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot update subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown subscription type: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MAybe a plugin is missing?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2394,6 +2386,14 @@ Output: <byte value="xd"/>
     </message>
     <message>
         <source>Would you like to remove them?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A subscription plugin is missing?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -22,6 +22,7 @@ if(CMAKE_BUILD_TYPE MATCHES "^[Dd][Ee][Bb][Uu][Gg]$" OR NOT DEFINED CMAKE_BUILD_
             -ts ${TRANSLATIONS_TS}
             -locations none
             -no-obsolete
+            -no-sort
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_dependencies(qv2ray_baselib lupdate)
 endif()
