@@ -1343,6 +1343,10 @@ This could resolve the certificate issues, but also could let one performing TLS
       <translation>定时测试延迟</translation>
     </message>
     <message>
+      <source>Test Latency On Connected</source>
+      <translation>连接后测试延迟</translation>
+    </message>
+    <message>
       <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
       <translation>连接到节点之后，对节点进行周期性的延迟监测。

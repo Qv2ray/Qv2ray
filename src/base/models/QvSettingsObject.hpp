@@ -118,7 +118,8 @@ namespace Qv2ray::base::config
         bool setSessionResumption = false;
         bool testLatencyPeriodcally = false;
         bool disableSystemRoot = false;
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot))
+        bool testLatencyOnConnected = false;
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected))
     };
 
     enum Qv2rayLatencyTestingMethod

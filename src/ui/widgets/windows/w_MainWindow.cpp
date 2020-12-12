@@ -657,7 +657,10 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     //
     QTimer::singleShot(1000, ConnectionManager, [id]() {
         // After the kernel initialization is complete, we can test the delay without worry
-        ConnectionManager->StartLatencyTest(id.connectionId);
+        if (GlobalConfig.advancedConfig.testLatencyOnConnected)
+        {
+            ConnectionManager->StartLatencyTest(id.connectionId);
+        }
     });
     if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
     {
