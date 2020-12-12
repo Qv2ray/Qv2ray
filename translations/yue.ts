@@ -514,10 +514,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation type="unfinished">Path</translation>
     </message>
     <message>
-      <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-      <translation type="unfinished">Import as Complex Config (Manually edit route rules and inbounds)</translation>
-    </message>
-    <message>
       <source>Json Editor</source>
       <translation type="unfinished">Json Editor</translation>
     </message>
@@ -572,6 +568,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
       <translation>小贴士：你可能将订阅连结同分享连结搞捞啦。</translation>
+    </message>
+    <message>
+      <source>Import as Complex Config</source>
+      <translation type="unfinished">Import as Complex Config</translation>
     </message>
   </context>
   <context>
