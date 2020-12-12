@@ -6,6 +6,8 @@ on:
     branches:
       - master
       - dev
+    branches-ignore:
+      - l10n_dev
     tags:
       - 'v**'
   schedule:
