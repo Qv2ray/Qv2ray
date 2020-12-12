@@ -1939,59 +1939,59 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Disable gRPC API subsystem</source>
-      <translation type="unfinished">Disable gRPC API subsystem</translation>
+      <translation>gRPC APIサブシステムを無効にする</translation>
     </message>
     <message>
       <source>Disable plugins feature</source>
-      <translation type="unfinished">Disable plugins feature</translation>
+      <translation>プラグイン機能を無効にする</translation>
     </message>
     <message>
       <source>Enable debug output</source>
-      <translation type="unfinished">Enable debug output</translation>
+      <translation>デバッグ出力を有効にする</translation>
     </message>
     <message>
       <source>Do not automatically connect</source>
-      <translation type="unfinished">Do not automatically connect</translation>
+      <translation>自動的に接続しない</translation>
     </message>
     <message>
       <source>Stop current connection</source>
-      <translation type="unfinished">Stop current connection</translation>
+      <translation>現在の接続を停止</translation>
     </message>
     <message>
       <source>Reconnect last connection</source>
-      <translation type="unfinished">Reconnect last connection</translation>
+      <translation>最後の接続に再接続</translation>
     </message>
     <message>
       <source>Exit Qv2ray</source>
-      <translation type="unfinished">Exit Qv2ray</translation>
+      <translation>Qv2ray を終了</translation>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
-      <translation type="unfinished">Qv2ray - A cross-platform Qt frontend for V2Ray.</translation>
+      <translation>Qv2ray - V2Ray用のクロスプラットフォームQtフロントエンド。</translation>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation type="unfinished">DNS not resolved</translation>
+      <translation>DNS が解決されませんでした</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
-      <translation type="unfinished">Socket creation failed</translation>
+      <translation>ソケットの作成に失敗しました</translation>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
-      <translation type="unfinished">Failed to setup TTL value</translation>
+      <translation>TTL値のセットアップに失敗しました</translation>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation type="unfinished">Destination unreachable</translation>
+      <translation>宛先に到達できません</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>タイムアウト</translation>
     </message>
     <message>
       <source>Unknown error</source>
-      <translation type="unfinished">Unknown error</translation>
+      <translation>不明なエラー</translation>
     </message>
     <message>
       <source>None</source>
@@ -1999,7 +1999,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Settings Widget</source>
-      <translation type="unfinished">Settings Widget</translation>
+      <translation>設定ウィジェット</translation>
     </message>
     <message>
       <source>Inbound Editor</source>
@@ -2007,31 +2007,31 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Outbound Editor</source>
-      <translation type="unfinished">Outbound Editor</translation>
+      <translation>アウトバウンドエディター</translation>
     </message>
     <message>
       <source>MainWindow Widget</source>
-      <translation type="unfinished">MainWindow Widget</translation>
+      <translation>MainWindowウィジェット</translation>
     </message>
     <message>
       <source>Unknown type.</source>
-      <translation type="unfinished">Unknown type.</translation>
+      <translation>不明なタイプ</translation>
     </message>
     <message>
       <source>Kernel</source>
-      <translation type="unfinished">Kernel</translation>
+      <translation>カーネル</translation>
     </message>
     <message>
       <source>Outbound Handler/Parser</source>
-      <translation type="unfinished">Outbound Handler/Parser</translation>
+      <translation>アウトバウンドハンドラ/パーサー</translation>
     </message>
     <message>
       <source>Subscription Adapter</source>
-      <translation type="unfinished">Subscription Adapter</translation>
+      <translation>サブスクリプションアダプター</translation>
     </message>
     <message>
       <source>Event Handler</source>
-      <translation type="unfinished">Event Handler</translation>
+      <translation>イベントハンドラー</translation>
     </message>
     <message>
       <source>GUI Components</source>
@@ -2039,167 +2039,167 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Unsupported share link format.</source>
-      <translation type="unfinished">Unsupported share link format.</translation>
+      <translation>サポートされていない共有リンク形式です。</translation>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation type="unfinished">SS URI is too short</translation>
+      <translation>SS URI が短すぎます。</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
-      <translation type="unfinished">Can&apos;t find the colon separator between method and password</translation>
+      <translation>&apos;t メソッドとパスワード間のコロン区切り文字を見つけることができます。</translation>
     </message>
     <message>
       <source>Can&apos;t find the at separator between password and hostname</source>
-      <translation type="unfinished">Can&apos;t find the at separator between password and hostname</translation>
+      <translation>&apos;パスワードとホスト名の区切り文字で検索できます。</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation type="unfinished">Can&apos;t find the colon separator between hostname and port</translation>
+      <translation>&apos;ホスト名とポート間のコロン区切り文字を見つけることができます。</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must exist</translation>
+      <translation>無効な ssd リンク: json: フィールド %1 が存在する必要があります</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be valid port number</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be valid port number</translation>
+      <translation>無効な ssd リンク: json: フィールド %1 は有効なポート番号でなければなりません</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be of type &apos;string&apos;</translation>
+      <translation>無効な ssd リンク: json: field %1 must be of type &apos;string&apos;</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be an array</translation>
+      <translation>無効な ssd リンク: json: フィールド %1 は配列でなければなりません</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: server must be an object</source>
-      <translation type="unfinished">Skipping invalid ssd server: server must be an object</translation>
+      <translation>無効な ssd サーバーをスキップします: サーバーはオブジェクトでなければなりません</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: missing required field %1</source>
-      <translation type="unfinished">Skipping invalid ssd server: missing required field %1</translation>
+      <translation>無効な ssd サーバーをスキップしています: 必須フィールド %1 がありません</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-      <translation type="unfinished">Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</translation>
+      <translation>無効な ssd サーバーをスキップしています: フィールド %1 はタイプ &apos;文字列でなければなりません&apos;</translation>
     </message>
     <message>
       <source>Invalid ssd link: should begin with ssd://</source>
-      <translation type="unfinished">Invalid ssd link: should begin with ssd://</translation>
+      <translation>無効な ssd リンク: ssd:// で始まる必要があります</translation>
     </message>
     <message>
       <source>Invalid ssd link: base64 parse failed</source>
-      <translation type="unfinished">Invalid ssd link: base64 parse failed</translation>
+      <translation>無効な ssd リンクです: base64 パースに失敗しました</translation>
     </message>
     <message>
       <source>Invalid ssd link: json parse failed: </source>
-      <translation type="unfinished">Invalid ssd link: json parse failed: </translation>
+      <translation>無効な ssd リンクです: json parse: </translation>
     </message>
     <message>
       <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-      <translation type="unfinished">Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</translation>
+      <translation>無効な ssd リンクです: v2ray-core では、rc4-md5 暗号化はサポートされていません</translation>
     </message>
     <message>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+      <translation>VMess string should start with &apos;vmess://&apos;</translation>
     </message>
     <message>
       <source>VMess string should be a valid base64 string</source>
-      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+      <translation>VMess string should be a valid base64 string</translation>
     </message>
     <message>
       <source>JSON should not be empty</source>
-      <translation type="unfinished">JSON should not be empty</translation>
+      <translation>JSONは空にできません</translation>
     </message>
     <message>
       <source>vmess:// url is invalid</source>
-      <translation type="unfinished">vmess:// url is invalid</translation>
+      <translation>vmess:// url は無効です</translation>
     </message>
     <message>
       <source>Invalid streamSettings protocol: </source>
-      <translation type="unfinished">Invalid streamSettings protocol: </translation>
+      <translation>無効な streamSettings プロトコル: </translation>
     </message>
     <message>
       <source>Unknown transport method: </source>
-      <translation type="unfinished">Unknown transport method: </translation>
+      <translation>不明な転送方法： </translation>
     </message>
     <message>
       <source>(Empty Users)</source>
-      <translation type="unfinished">(Empty Users)</translation>
+      <translation>(空のユーザー)</translation>
     </message>
     <message>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>該当なし</translation>
     </message>
     <message>
       <source>core executable file %1 does not exist</source>
-      <translation type="unfinished">core executable file %1 does not exist</translation>
+      <translation>コア実行ファイル %1 は存在しません</translation>
     </message>
     <message>
       <source>cannot open core executable file %1 in read-only mode</source>
-      <translation type="unfinished">cannot open core executable file %1 in read-only mode</translation>
+      <translation>読み取り専用モードでコア実行ファイル %1 を開くことができません</translation>
     </message>
     <message>
       <source>core executable file %1 is an empty file</source>
-      <translation type="unfinished">core executable file %1 is an empty file</translation>
+      <translation>コア実行ファイル %1 は空のファイルです</translation>
     </message>
     <message>
       <source>core executable file %1 is too short to be executed</source>
-      <translation type="unfinished">core executable file %1 is too short to be executed</translation>
+      <translation>コア実行ファイル %1 は短すぎます。</translation>
     </message>
     <message>
       <source>cannot deduce the type of core executable file %1</source>
-      <translation type="unfinished">cannot deduce the type of core executable file %1</translation>
+      <translation>コア実行ファイル %1の型を推論できません</translation>
     </message>
     <message>
       <source>Windows PE executable</source>
-      <translation type="unfinished">Windows PE executable</translation>
+      <translation>Windows PE 実行可能ファイル</translation>
     </message>
     <message>
       <source>macOS Mach-O executable</source>
-      <translation type="unfinished">macOS Mach-O executable</translation>
+      <translation>macOS Mach-O executable</translation>
     </message>
     <message>
       <source>ELF x86 executable</source>
-      <translation type="unfinished">ELF x86 executable</translation>
+      <translation>ELF x86実行可能ファイル</translation>
     </message>
     <message>
       <source>ELF amd64 executable</source>
-      <translation type="unfinished">ELF amd64 executable</translation>
+      <translation>ELF amd64 executable</translation>
     </message>
     <message>
       <source>ELF arm64 executable</source>
-      <translation type="unfinished">ELF arm64 executable</translation>
+      <translation>ELF arm64 executable</translation>
     </message>
     <message>
       <source>ELF arm executable</source>
-      <translation type="unfinished">ELF arm executable</translation>
+      <translation>ELF arms executable</translation>
     </message>
     <message>
       <source>other ELF executable</source>
-      <translation type="unfinished">other ELF executable</translation>
+      <translation>その他のELF実行可能ファイル</translation>
     </message>
     <message>
       <source>trusted abi</source>
-      <translation type="unfinished">trusted abi</translation>
+      <translation>信頼されている</translation>
     </message>
     <message>
       <source>unknown abi</source>
-      <translation type="unfinished">unknown abi</translation>
+      <translation>未知の abi</translation>
     </message>
     <message>
       <source>Cannot Start Qv2ray</source>
-      <translation type="unfinished">Cannot Start Qv2ray</translation>
+      <translation>Qv2rayを起動できません</translation>
     </message>
     <message>
       <source>Cannot find a place to store config files.</source>
-      <translation type="unfinished">Cannot find a place to store config files.</translation>
+      <translation>設定ファイルを保存する場所が見つかりません。</translation>
     </message>
     <message>
       <source>Qv2ray has searched these paths below:</source>
-      <translation type="unfinished">Qv2ray has searched these paths below:</translation>
+      <translation>Qv2ray が以下のパスを検索しました:</translation>
     </message>
     <message>
       <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
@@ -2207,75 +2207,75 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Qv2ray will now exit.</source>
-      <translation type="unfinished">Qv2ray will now exit.</translation>
+      <translation>Qv2rayは終了します。</translation>
     </message>
     <message>
       <source>Failed to initialise Qv2ray</source>
-      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+      <translation>Qv2ray の初期化に失敗しました</translation>
     </message>
     <message>
       <source>Failed to determine the location of config file:</source>
-      <translation type="unfinished">Failed to determine the location of config file:</translation>
+      <translation>設定ファイルの場所を特定できませんでした:</translation>
     </message>
     <message>
       <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-      <translation type="unfinished">Qv2ray has found a config file, but it failed to be loaded due to some errors.</translation>
+      <translation>Qv2rayが設定ファイルを見つけましたが、エラーが発生したため読み込めませんでした。</translation>
     </message>
     <message>
       <source>A workaround is to remove the this file and restart Qv2ray:</source>
-      <translation type="unfinished">A workaround is to remove the this file and restart Qv2ray:</translation>
+      <translation>回避策は、このファイルを削除してQv2rayを再起動することです:</translation>
     </message>
     <message>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+      <translation>&apos;バグだと思われる場合は報告してください。</translation>
     </message>
     <message>
       <source>Qv2ray Cannot Continue</source>
-      <translation type="unfinished">Qv2ray Cannot Continue</translation>
+      <translation>Qv2ray は続行できません</translation>
     </message>
     <message>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
+      <translation>現在の設定ファイルと比較して低いバージョンの Qv2ray を実行しています。</translation>
     </message>
     <message>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+      <translation>それについて説明している問題があるかどうかを確認してください&apos;s。</translation>
     </message>
     <message>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
+      <translation>または、これがエラーだと思われる場合は、新しい問題を提出してください。</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation type="unfinished">Default Group</translation>
+      <translation>デフォルトのグループ</translation>
     </message>
     <message>
       <source>Deprecated</source>
-      <translation type="unfinished">Deprecated</translation>
+      <translation>非推奨です</translation>
     </message>
     <message>
       <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-      <translation type="unfinished">PAC is now deprecated and is not encouraged to be used anymore.</translation>
+      <translation>PACは廃止予定となり、使用することは推奨されません。</translation>
     </message>
     <message>
       <source>It will be removed or be provided as a plugin in the future.</source>
-      <translation type="unfinished">It will be removed or be provided as a plugin in the future.</translation>
+      <translation>今後、削除またはプラグインとして提供される予定です。</translation>
     </message>
     <message>
       <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
-      <translation type="unfinished">PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</translation>
+      <translation>PACは現在も動作しますが、できるだけ早くV2Ray内蔵ルーティングに切り替えてください。</translation>
     </message>
     <message>
       <source>Configuration Upgrade Failed</source>
-      <translation type="unfinished">Configuration Upgrade Failed</translation>
+      <translation>設定のアップグレードに失敗しました</translation>
     </message>
     <message>
       <source>Unsupported config version number: </source>
-      <translation type="unfinished">Unsupported config version number: </translation>
+      <translation>サポートされていない設定バージョン番号: </translation>
     </message>
     <message>
       <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-      <translation type="unfinished">Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</translation>
+      <translation>Qv2ray v2.0/v2.1にアップグレードして、もう一度やり直してください。</translation>
     </message>
   </context>
   <context>
@@ -2309,45 +2309,45 @@ Output: <byte value="xd"/>
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
       <source>Qv2ray Update</source>
-      <translation type="unfinished">Qv2ray Update</translation>
+      <translation>Qv2ray アップデート</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::components::plugins::QvPluginHost</name>
     <message>
       <source>Failed to load plugin</source>
-      <translation type="unfinished">Failed to load plugin</translation>
+      <translation>プラグインの読み込みに失敗しました</translation>
     </message>
     <message>
       <source>Cannot load plugin</source>
-      <translation type="unfinished">Cannot load plugin</translation>
+      <translation>プラグインを読み込めません</translation>
     </message>
     <message>
       <source>The plugin cannot be loaded: </source>
-      <translation type="unfinished">The plugin cannot be loaded: </translation>
+      <translation>プラグインを読み込めません: </translation>
     </message>
     <message>
       <source>This plugin was built against a different version of the Plugin Interface.</source>
-      <translation type="unfinished">This plugin was built against a different version of the Plugin Interface.</translation>
+      <translation>このプラグインは、プラグインインターフェイスの別のバージョンに対して構築されました。</translation>
     </message>
     <message>
       <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-      <translation type="unfinished">Please contact the plugin provider or report the issue to Qv2ray Workgroup.</translation>
+      <translation>プラグインプロバイダに連絡するか、問題をQv2ray Workgroupに報告してください。</translation>
     </message>
     <message>
       <source>Enabling a plugin</source>
-      <translation type="unfinished">Enabling a plugin</translation>
+      <translation>プラグインを有効にする</translation>
     </message>
     <message>
       <source>The plugin will become fully functional after restarting Qv2ray.</source>
-      <translation type="unfinished">The plugin will become fully functional after restarting Qv2ray.</translation>
+      <translation>Qv2rayを再起動すると、プラグインは完全に機能します。</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::handler::KernelInstanceHandler</name>
     <message>
       <source>There are other processes occupying the ports necessary to start the connection:</source>
-      <translation type="unfinished">There are other processes occupying the ports necessary to start the connection:</translation>
+      <translation>接続を開始するために必要なポートを占有する他のプロセスがあります:</translation>
     </message>
     <message>
       <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
@@ -2355,42 +2355,42 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Local port: %1 for plugin integration.</source>
-      <translation type="unfinished">Local port: %1 for plugin integration.</translation>
+      <translation>ローカル ポート: %1 プラグインとの統合。</translation>
     </message>
     <message>
       <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-      <translation type="unfinished">A plugin kernel failed to start. Please check the outbound settings.</translation>
+      <translation>プラグインカーネルの起動に失敗しました。アウトバウンド設定を確認してください。</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
     <message>
       <source>Group: %1</source>
-      <translation type="unfinished">Group: %1</translation>
+      <translation>グループ: %1</translation>
     </message>
     <message>
       <source>Group does not exist</source>
-      <translation type="unfinished">Group does not exist</translation>
+      <translation>グループが存在しません</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation type="unfinished">Default Group</translation>
+      <translation>デフォルトのグループ</translation>
     </message>
     <message>
       <source>Failed to start connection</source>
-      <translation type="unfinished">Failed to start connection</translation>
+      <translation>接続の開始に失敗しました</translation>
     </message>
     <message>
       <source>Cannot update subscription</source>
-      <translation type="unfinished">Cannot update subscription</translation>
+      <translation>サブスクリプションを更新できません</translation>
     </message>
     <message>
       <source>Unknown subscription type: %1</source>
-      <translation type="unfinished">Unknown subscription type: %1</translation>
+      <translation>不明なサブスクリプションタイプ: %1</translation>
     </message>
     <message>
       <source>MAybe a plugin is missing?</source>
-      <translation type="unfinished">MAybe a plugin is missing?</translation>
+      <translation>プラグインが不足していますか?</translation>
     </message>
     <message>
       <source>Update Subscription</source>
@@ -2398,8 +2398,8 @@ Output: <byte value="xd"/>
     </message>
     <message numerus="yes">
       <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
-      <translation type="unfinished">
-        <numerusform>%n entrie(s) have been found from the subscription source, do you want to continue?</numerusform>
+      <translation>
+        <numerusform>サブスクリプションソースから%n 件のエントリが見つかりました。続行しますか？</numerusform>
       </translation>
     </message>
     <message numerus="yes">
@@ -2410,43 +2410,43 @@ Output: <byte value="xd"/>
     </message>
     <message numerus="yes">
       <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
-      <translation type="unfinished">
-        <numerusform>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</numerusform>
+      <translation>
+        <numerusform>そこに&apos;現在のサブスクリプションに属していないグループ内の %n 接続（これ以上）</numerusform>
       </translation>
     </message>
     <message>
       <source>Would you like to remove them?</source>
-      <translation type="unfinished">Would you like to remove them?</translation>
+      <translation>削除しますか？</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::kernel::APIWorker</name>
     <message>
       <source>Failed to get statistics data, please check if V2Ray is running properly</source>
-      <translation type="unfinished">Failed to get statistics data, please check if V2Ray is running properly</translation>
+      <translation>統計データの取得に失敗しました。V2Rayが正しく実行されているか確認してください。</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
     <message>
       <source>Core file is lacking executable permission for the current user.</source>
-      <translation type="unfinished">Core file is lacking executable permission for the current user.</translation>
+      <translation>コアファイルに現在のユーザーの実行可能権限がありません。</translation>
     </message>
     <message>
       <source>Qv2ray tried to set, but failed because permission denied.</source>
-      <translation type="unfinished">Qv2ray tried to set, but failed because permission denied.</translation>
+      <translation>Qv2ray を設定しようとしましたが、権限が拒否されたため失敗しました。</translation>
     </message>
     <message>
       <source>Check is skipped</source>
-      <translation type="unfinished">Check is skipped</translation>
+      <translation>チェックがスキップされました</translation>
     </message>
     <message>
       <source>V2Ray core executable not found.</source>
-      <translation type="unfinished">V2Ray core executable not found.</translation>
+      <translation>V2Ray コアの実行可能ファイルが見つかりません。</translation>
     </message>
     <message>
       <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-      <translation type="unfinished">V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</translation>
+      <translation>V2Ray コアファイルを開くことができません。フォルダの代わりに&apos;s ファイルを確認してください。</translation>
     </message>
     <message>
       <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
@@ -2458,47 +2458,47 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>V2Ray assets path is not valid.</source>
-      <translation type="unfinished">V2Ray assets path is not valid.</translation>
+      <translation>V2Rayアセットパスが有効ではありません。</translation>
     </message>
     <message>
       <source>No geoip.dat in assets path.</source>
-      <translation type="unfinished">No geoip.dat in assets path.</translation>
+      <translation>assetパスにgeoip.datがありません。</translation>
     </message>
     <message>
       <source>No geosite.dat in assets path.</source>
-      <translation type="unfinished">No geosite.dat in assets path.</translation>
+      <translation>資産パスにgeosite.datはありません。</translation>
     </message>
     <message>
       <source>V2Ray core failed with an exit code: </source>
-      <translation type="unfinished">V2Ray core failed with an exit code: </translation>
+      <translation>V2Ray コアの終了コードに失敗しました。 </translation>
     </message>
     <message>
       <source>V2Ray core returns empty string.</source>
-      <translation type="unfinished">V2Ray core returns empty string.</translation>
+      <translation>V2Ray コアは空の文字列を返します。</translation>
     </message>
     <message>
       <source>Configuration Error</source>
-      <translation type="unfinished">Configuration Error</translation>
+      <translation>設定エラー</translation>
     </message>
     <message>
       <source>Cannot start V2Ray</source>
-      <translation type="unfinished">Cannot start V2Ray</translation>
+      <translation>V2Rayを開始できません</translation>
     </message>
     <message>
       <source>V2Ray core settings is incorrect.</source>
-      <translation type="unfinished">V2Ray core settings is incorrect.</translation>
+      <translation>V2Rayコア設定が正しくありません。</translation>
     </message>
     <message>
       <source>The error is: </source>
-      <translation type="unfinished">The error is: </translation>
+      <translation>エラーは以下の通りです: </translation>
     </message>
     <message>
       <source>Invalid V2Ray Instance Status.</source>
-      <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
+      <translation>無効なV2Rayインスタンスステータスです。</translation>
     </message>
     <message>
       <source>V2Ray kernel failed to start.</source>
-      <translation type="unfinished">V2Ray kernel failed to start.</translation>
+      <translation>V2Ray カーネルの起動に失敗しました。</translation>
     </message>
   </context>
   <context>
