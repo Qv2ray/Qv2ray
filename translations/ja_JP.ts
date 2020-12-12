@@ -511,10 +511,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>パス</translation>
     </message>
     <message>
-      <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-      <translation>複雑構成としてインポート（ルーティングルールとインバウンドを手動で編集）</translation>
-    </message>
-    <message>
       <source>Json Editor</source>
       <translation>JSONエディター</translation>
     </message>
@@ -569,6 +565,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
       <translation>警告：「サブスクリプションリンク」を「共有リンク」と間違えている可能性があります</translation>
+    </message>
+    <message>
+      <source>Import as Complex Config</source>
+      <translation type="unfinished">Import as Complex Config</translation>
     </message>
   </context>
   <context>
