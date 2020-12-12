@@ -2381,16 +2381,8 @@ Output: <byte value="xd"/>
       <translation>接続の開始に失敗しました</translation>
     </message>
     <message>
-      <source>Cannot update subscription</source>
-      <translation>サブスクリプションを更新できません</translation>
-    </message>
-    <message>
       <source>Unknown subscription type: %1</source>
       <translation>不明なサブスクリプションタイプ: %1</translation>
-    </message>
-    <message>
-      <source>MAybe a plugin is missing?</source>
-      <translation>プラグインが不足していますか?</translation>
     </message>
     <message>
       <source>Update Subscription</source>
@@ -2417,6 +2409,14 @@ Output: <byte value="xd"/>
     <message>
       <source>Would you like to remove them?</source>
       <translation>削除しますか？</translation>
+    </message>
+    <message>
+      <source>Cannot Update Subscription</source>
+      <translation type="unfinished">Cannot Update Subscription</translation>
+    </message>
+    <message>
+      <source>A subscription plugin is missing?</source>
+      <translation type="unfinished">A subscription plugin is missing?</translation>
     </message>
   </context>
   <context>
