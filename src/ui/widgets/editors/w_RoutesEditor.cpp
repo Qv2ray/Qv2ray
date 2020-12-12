@@ -239,8 +239,6 @@ CONFIGROOT RouteEditor::OpenEditor()
         {
             const auto &ruleObject = rules[ruleTag];
             auto ruleJson = ruleObject.toJson();
-            JAUTOREMOVE(ruleJson, "network");
-            JAUTOREMOVE(ruleJson, "port");
             if (ruleJson["outboundTag"].toString().isEmpty())
                 ruleJson.remove("outboundTag");
             else

@@ -23,6 +23,10 @@ namespace Qv2ray::base::config
             this->width = w;
             this->style = s;
         };
+        friend bool operator==(const QvGraphPenConfig &one, const QvGraphPenConfig &another)
+        {
+            return one.R == another.R && one.G == another.G && one.B == another.B && one.width == another.width && one.style == another.style;
+        }
         JSONSTRUCT_REGISTER(QvGraphPenConfig, F(R, G, B, width, style))
     };
 
@@ -31,6 +35,7 @@ namespace Qv2ray::base::config
         bool useOutboundStats = true;
         bool hasDirectStats = true;
         safetype::QvEnumMap<StatisticsType, safetype::QvPair<QvGraphPenConfig>> colorConfig;
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Graph, useOutboundStats, hasDirectStats, colorConfig)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Graph, F(useOutboundStats, hasDirectStats, colorConfig))
     };
 
@@ -46,6 +51,8 @@ namespace Qv2ray::base::config
         int maximumLogLines = 500;
         int maxJumpListCount = 20;
         bool useOldShareLinkFormat = false;
+        JSONSTRUCT_COMPARE(Qv2rayConfig_UI, theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines, maxJumpListCount,
+                           recentConnections, useOldShareLinkFormat)
         JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines,
                                                maxJumpListCount, recentConnections, useOldShareLinkFormat))
     };
@@ -55,6 +62,7 @@ namespace Qv2ray::base::config
         QMap<QString, bool> pluginStates;
         bool v2rayIntegration = true;
         int portAllocationStart = 15000;
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Plugin, pluginStates, v2rayIntegration, portAllocationStart)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Plugin, F(pluginStates, v2rayIntegration, portAllocationStart))
     };
 
@@ -93,6 +101,10 @@ namespace Qv2ray::base::config
 #undef _VARNAME_VCOREPATH_
 #undef _VARNAME_VASSETSPATH_
 
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Kernel, enableAPI, statsPort, //
+                           v2CorePath_linux, v2AssetsPath_linux,      //
+                           v2CorePath_macx, v2AssetsPath_macx,        //
+                           v2CorePath_win, v2AssetsPath_win)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                     //
                             F(enableAPI, statsPort),                 //
                             F(v2CorePath_linux, v2AssetsPath_linux), //
@@ -109,6 +121,7 @@ namespace Qv2ray::base::config
         };
         UpdateChannel updateChannel = CHANNEL_STABLE;
         QString ignoredVersion;
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Update, updateChannel, ignoredVersion)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Update, F(ignoredVersion, updateChannel))
     };
 
@@ -119,7 +132,10 @@ namespace Qv2ray::base::config
         bool testLatencyPeriodcally = false;
         bool disableSystemRoot = false;
         bool testLatencyOnConnected = false;
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected))
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Advanced, setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot,
+                           testLatencyOnConnected)
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced,
+                            F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected))
     };
 
     enum Qv2rayLatencyTestingMethod
@@ -145,6 +161,7 @@ namespace Qv2ray::base::config
         QString type = "http";
         int port = 8000;
         QString userAgent = "Qv2ray/$VERSION WebRequestHelper";
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Network, latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent))
     };
 
@@ -183,9 +200,11 @@ namespace Qv2ray::base::config
 #else
         Q_DISABLE_COPY_MOVE(Qv2rayConfigObject);
 #endif
+        JSONSTRUCT_COMPARE(Qv2rayConfigObject, config_version, logLevel, autoStartId, lastConnectedId, autoStartBehavior, uiConfig, pluginConfig,
+                           kernelConfig, updateConfig, networkConfig, inboundConfig, outboundConfig, advancedConfig, defaultRouteConfig)
         JSONSTRUCT_REGISTER_NOCOPYMOVE(Qv2rayConfigObject,                                                                   //
-                                       F(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
-                                       F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
-                                       F(inboundConfig, outboundConfig, defaultRouteConfig))
+                                       A(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
+                                       A(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
+                                       A(inboundConfig, outboundConfig, defaultRouteConfig))
     };
 } // namespace Qv2ray::base::config

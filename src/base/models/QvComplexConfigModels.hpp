@@ -79,7 +79,7 @@ namespace Qv2ray::base::objects::complex
             meta.realOutbound = out;
             return meta;
         }
-        explicit OutboundObjectMeta() : metaType(METAOUTBOUND_ORIGINAL){};
+        OutboundObjectMeta() : metaType(METAOUTBOUND_ORIGINAL){};
         JSONSTRUCT_REGISTER(OutboundObjectMeta, F(metaType, displayName, connectionId, outboundTags, chainPortAllocation))
     };
 

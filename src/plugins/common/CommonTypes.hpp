@@ -1,5 +1,5 @@
 #pragma once
-#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
+#include "QJsonStruct.hpp"
 
 // GUI TOOLS
 #define RED(obj)                                                                                                                                     \
@@ -16,6 +16,7 @@ struct HTTPSOCKSUserObject
     QString user;
     QString pass;
     int level = 0;
+    JSONSTRUCT_COMPARE(HTTPSOCKSUserObject, user, pass, level)
     JSONSTRUCT_REGISTER(HTTPSOCKSUserObject, F(user, pass, level))
 };
 //
@@ -25,6 +26,7 @@ struct SocksServerObject
     QString address = "0.0.0.0";
     int port = 0;
     QList<HTTPSOCKSUserObject> users;
+    JSONSTRUCT_COMPARE(SocksServerObject, address, port, users)
     JSONSTRUCT_REGISTER(SocksServerObject, F(address, port, users))
 };
 
@@ -35,6 +37,7 @@ struct HttpServerObject
     QString address = "0.0.0.0";
     int port = 0;
     QList<HTTPSOCKSUserObject> users;
+    JSONSTRUCT_COMPARE(HttpServerObject, address, port, users)
     JSONSTRUCT_REGISTER(HttpServerObject, F(address, port, users))
 };
 
@@ -46,6 +49,7 @@ struct ShadowSocksServerObject
     QString method = "aes-256-cfb";
     QString password;
     int port = 0;
+    JSONSTRUCT_COMPARE(ShadowSocksServerObject, address, method, password)
     JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(address, port, method, password))
 };
 
@@ -58,12 +62,14 @@ struct VLESSServerObject
         QString id;
         QString encryption = "none";
         QString flow;
+        JSONSTRUCT_COMPARE(UserObject, id, encryption, flow)
         JSONSTRUCT_REGISTER(UserObject, F(id, encryption, flow))
     };
 
     QString address;
     int port = 0;
     QList<UserObject> users;
+    JSONSTRUCT_COMPARE(VLESSServerObject, address, port, users)
     JSONSTRUCT_REGISTER(VLESSServerObject, F(address, port, users))
 };
 
@@ -78,11 +84,13 @@ struct VMessServerObject
         int alterId = VMESS_USER_ALTERID_DEFAULT;
         QString security = "auto";
         int level = 0;
+        JSONSTRUCT_COMPARE(UserObject, id, alterId, security, level)
         JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level))
     };
 
     QString address;
     int port = 0;
     QList<UserObject> users;
+    JSONSTRUCT_COMPARE(VMessServerObject, address, port, users)
     JSONSTRUCT_REGISTER(VMessServerObject, F(address, port, users))
 };

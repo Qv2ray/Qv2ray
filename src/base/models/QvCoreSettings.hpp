@@ -1,5 +1,5 @@
 #pragma once
-#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
+#include "QJsonStruct.hpp"
 #include "base/models/CoreObjectModels.hpp"
 namespace Qv2ray::base::config
 {
@@ -11,28 +11,19 @@ namespace Qv2ray::base::config
             QList<QString> block;
             QList<QString> proxy;
             QvRouteConfig_Impl(){};
-            friend bool operator==(const QvRouteConfig_Impl &left, const QvRouteConfig_Impl &right)
-            {
-                return left.direct == right.direct && left.block == right.block && left.proxy == right.proxy;
-            }
             QvRouteConfig_Impl(const QList<QString> &_direct, const QList<QString> &_block, const QList<QString> &_proxy)
-                : direct(_direct), //
-                  block(_block),   //
-                  proxy(_proxy){};
+                : direct(_direct), block(_block), proxy(_proxy){};
+            JSONSTRUCT_COMPARE(QvRouteConfig_Impl, direct, block, proxy)
             JSONSTRUCT_REGISTER(QvRouteConfig_Impl, F(proxy, block, direct))
         };
+
         QString domainStrategy;
         QvRouteConfig_Impl domains;
         QvRouteConfig_Impl ips;
-        friend bool operator==(const QvConfig_Route &left, const QvConfig_Route &right)
-        {
-            return left.domainStrategy == right.domainStrategy && left.domains == right.domains && left.ips == right.ips;
-        }
         QvConfig_Route(){};
         QvConfig_Route(const QvRouteConfig_Impl &_domains, const QvRouteConfig_Impl &_ips, const QString &ds)
-            : domainStrategy(ds), //
-              domains(_domains),  //
-              ips(_ips){};
+            : domainStrategy(ds), domains(_domains), ips(_ips){};
+        JSONSTRUCT_COMPARE(QvConfig_Route, domainStrategy, domains, ips)
         JSONSTRUCT_REGISTER(QvConfig_Route, F(domainStrategy, domains, ips))
     };
 
@@ -41,6 +32,7 @@ namespace Qv2ray::base::config
     struct QvConfig_Outbounds
     {
         int mark = 255;
+        JSONSTRUCT_COMPARE(QvConfig_Outbounds, mark)
         JSONSTRUCT_REGISTER(QvConfig_Outbounds, F(mark))
     };
 
@@ -53,6 +45,7 @@ namespace Qv2ray::base::config
         bool useAuth = false;
         QString username;
         QString password;
+        JSONSTRUCT_COMPARE(QvConfig_ForwardProxy, enableForwardProxy, type, serverAddress, port, useAuth, username, password)
         JSONSTRUCT_REGISTER(QvConfig_ForwardProxy, F(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
     };
 
@@ -66,22 +59,27 @@ namespace Qv2ray::base::config
         bool withLocalDNS = true;
         bool dnsIntercept = false;
         bool fakeDNS = false;
+        JSONSTRUCT_COMPARE(QvConfig_Connection, enableProxy, //
+                           bypassCN, bypassBT, bypassLAN,    //
+                           v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS)
         JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS))
     };
 
     struct QvConfig_SystemProxy
     {
         bool setSystemProxy = true;
+        JSONSTRUCT_COMPARE(QvConfig_SystemProxy, setSystemProxy)
         JSONSTRUCT_REGISTER(QvConfig_SystemProxy, F(setSystemProxy))
     };
 
     struct __Qv2rayConfig_ProtocolInboundBase
     {
-        int port;
+        int port = 0;
         bool useAuth = false;
         bool sniffing = false;
         objects::AccountObject account;
-        __Qv2rayConfig_ProtocolInboundBase(int _port = 0) : port(_port){};
+        __Qv2rayConfig_ProtocolInboundBase(){};
+        JSONSTRUCT_COMPARE(__Qv2rayConfig_ProtocolInboundBase, port, useAuth, sniffing)
         JSONSTRUCT_REGISTER(__Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, account))
     };
 
@@ -89,13 +87,19 @@ namespace Qv2ray::base::config
     {
         bool enableUDP = true;
         QString localIP = "127.0.0.1";
-        QvConfig_SocksInbound() : __Qv2rayConfig_ProtocolInboundBase(1089){};
+        QvConfig_SocksInbound() : __Qv2rayConfig_ProtocolInboundBase()
+        {
+            port = 1089;
+        }
         JSONSTRUCT_REGISTER(QvConfig_SocksInbound, B(__Qv2rayConfig_ProtocolInboundBase), F(enableUDP, localIP))
     };
 
     struct QvConfig_HttpInbound : __Qv2rayConfig_ProtocolInboundBase
     {
-        QvConfig_HttpInbound() : __Qv2rayConfig_ProtocolInboundBase(8889){};
+        QvConfig_HttpInbound() : __Qv2rayConfig_ProtocolInboundBase()
+        {
+            port = 8889;
+        }
         JSONSTRUCT_REGISTER(QvConfig_HttpInbound, B(__Qv2rayConfig_ProtocolInboundBase))
     };
 
@@ -108,6 +112,7 @@ namespace Qv2ray::base::config
         bool hasUDP = true;
         bool sniffing = true;
         QString mode = "tproxy";
+        JSONSTRUCT_COMPARE(QvConfig_TProxy, tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, mode)
         JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, mode))
     };
 
@@ -122,6 +127,8 @@ namespace Qv2ray::base::config
         QvConfig_HttpInbound httpSettings;
         QvConfig_SocksInbound socksSettings;
         QvConfig_SystemProxy systemProxySettings;
+        JSONSTRUCT_COMPARE(QvConfig_Inbounds, listenip, useSocks, useHTTP, useTPROXY, tProxySettings, httpSettings, socksSettings,
+                           systemProxySettings)
         JSONSTRUCT_REGISTER(QvConfig_Inbounds,                         //
                             F(listenip, useSocks, useHTTP, useTPROXY), //
                             F(tProxySettings, httpSettings, socksSettings, systemProxySettings))

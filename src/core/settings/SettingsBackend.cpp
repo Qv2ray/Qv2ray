@@ -10,7 +10,9 @@ namespace Qv2ray::core::config
 {
     void SaveGlobalSettings()
     {
-        const auto str = JsonToString(GlobalConfig.toJson());
+        const auto &config = GlobalConfig;
+        const auto json = config.toJson();
+        const auto str = JsonToString(json);
         StringToFile(str, QV2RAY_CONFIG_FILE);
     }
 

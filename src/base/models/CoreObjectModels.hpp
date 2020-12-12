@@ -37,6 +37,7 @@ namespace Qv2ray::base::objects
             }
             void loadJson(const QJsonValue &___json_object_)
             {
+                DNSServerObject ___qjsonstruct_default_check;
                 // Hack to convert simple DNS settings to complex format.
                 if (___json_object_.isString())
                 {
@@ -55,6 +56,7 @@ namespace Qv2ray::base::objects
             [[nodiscard]] const QJsonObject toJson() const
             {
                 QJsonObject ___json_object_;
+                DNSServerObject ___qjsonstruct_default_check;
                 FOREACH_CALL_FUNC(___SERIALIZE_TO_JSON_EXTRACT_B_F, F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs));
                 return ___json_object_;
             }
@@ -79,7 +81,7 @@ namespace Qv2ray::base::objects
     {
         QString user;
         QString pass;
-        AccountObject(){};
+        JSONSTRUCT_COMPARE(AccountObject, user, pass)
         JSONSTRUCT_REGISTER(AccountObject, F(user, pass))
     };
     //
@@ -101,8 +103,34 @@ namespace Qv2ray::base::objects
         QString attrs;
         QString outboundTag;
         QString balancerTag;
-        JSONSTRUCT_REGISTER(RuleObject, F(QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG, type, domain, ip, port, network, source, user, inboundTag, protocol,
-                                          attrs, outboundTag, balancerTag))
+        JSONSTRUCT_COMPARE(RuleObject, QV2RAY_RULE_ENABLED, //
+                           QV2RAY_RULE_TAG,                 //
+                           type,                            //
+                           domain,                          //
+                           ip,                              //
+                           port,                            //
+                           network,                         //
+                           source,                          //
+                           user,                            //
+                           inboundTag,                      //
+                           protocol,                        //
+                           attrs,                           //
+                           outboundTag,                     //
+                           balancerTag)
+        JSONSTRUCT_REGISTER(RuleObject, F(QV2RAY_RULE_ENABLED, //
+                                          QV2RAY_RULE_TAG,     //
+                                          type,                //
+                                          domain,              //
+                                          ip,                  //
+                                          port,                //
+                                          network,             //
+                                          source,              //
+                                          user,                //
+                                          inboundTag,          //
+                                          protocol,            //
+                                          attrs,               //
+                                          outboundTag,         //
+                                          balancerTag))
     };
     //
     //
@@ -110,6 +138,7 @@ namespace Qv2ray::base::objects
     {
         QString tag;
         QList<QString> selector;
+        JSONSTRUCT_COMPARE(BalancerObject, tag, selector)
         JSONSTRUCT_REGISTER(BalancerObject, F(tag, selector))
     };
     //
@@ -122,6 +151,7 @@ namespace Qv2ray::base::objects
             QString method = "GET";
             QList<QString> path;
             QMap<QString, QList<QString>> headers;
+            JSONSTRUCT_COMPARE(HTTPRequestObject, version, method, path, headers)
             JSONSTRUCT_REGISTER(HTTPRequestObject, F(version, method, path, headers))
         };
         //
@@ -132,6 +162,7 @@ namespace Qv2ray::base::objects
             QString status = "200";
             QString reason = "OK";
             QMap<QString, QList<QString>> headers;
+            JSONSTRUCT_COMPARE(HTTPResponseObject, version, status, reason, headers)
             JSONSTRUCT_REGISTER(HTTPResponseObject, F(version, status, reason, headers))
         };
         //
@@ -141,6 +172,7 @@ namespace Qv2ray::base::objects
             QString type = "none";
             HTTPRequestObject request;
             HTTPResponseObject response;
+            JSONSTRUCT_COMPARE(TCPHeader_Internal, type, request, response)
             JSONSTRUCT_REGISTER(TCPHeader_Internal, F(type, request, response))
         };
         //
@@ -148,6 +180,7 @@ namespace Qv2ray::base::objects
         struct ObfsHeaderObject
         {
             QString type = "none";
+            JSONSTRUCT_COMPARE(ObfsHeaderObject, type)
             JSONSTRUCT_REGISTER(ObfsHeaderObject, F(type))
         };
         //
@@ -155,7 +188,7 @@ namespace Qv2ray::base::objects
         struct TCPObject
         {
             TCPHeader_Internal header;
-            TCPObject(){};
+            JSONSTRUCT_COMPARE(TCPObject, header)
             JSONSTRUCT_REGISTER(TCPObject, F(header))
         };
         //
@@ -172,6 +205,7 @@ namespace Qv2ray::base::objects
             QString seed;
             ObfsHeaderObject header;
             KCPObject(){};
+            JSONSTRUCT_COMPARE(KCPObject, mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, seed, header)
             JSONSTRUCT_REGISTER(KCPObject, F(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header, seed))
         };
         //
@@ -180,6 +214,7 @@ namespace Qv2ray::base::objects
         {
             QString path = "/";
             QMap<QString, QString> headers;
+            JSONSTRUCT_COMPARE(WebSocketObject, path, headers)
             JSONSTRUCT_REGISTER(WebSocketObject, F(path, headers))
         };
         //
@@ -188,6 +223,7 @@ namespace Qv2ray::base::objects
         {
             QList<QString> host;
             QString path = "/";
+            JSONSTRUCT_COMPARE(HttpObject, host, path)
             JSONSTRUCT_REGISTER(HttpObject, F(host, path))
         };
         //
@@ -195,6 +231,7 @@ namespace Qv2ray::base::objects
         struct DomainSocketObject
         {
             QString path = "/";
+            JSONSTRUCT_COMPARE(DomainSocketObject, path)
             JSONSTRUCT_REGISTER(DomainSocketObject, F(path))
         };
         //
@@ -204,7 +241,7 @@ namespace Qv2ray::base::objects
             QString security;
             QString key;
             ObfsHeaderObject header;
-            QuicObject(){};
+            JSONSTRUCT_COMPARE(QuicObject, security, key, header)
             JSONSTRUCT_REGISTER(QuicObject, F(security, key, header))
         };
         //
@@ -214,6 +251,7 @@ namespace Qv2ray::base::objects
             int mark = 255;
             bool tcpFastOpen = false;
             QString tproxy = "off";
+            JSONSTRUCT_COMPARE(SockoptObject, mark, tcpFastOpen, tproxy)
             JSONSTRUCT_REGISTER(SockoptObject, F(mark, tcpFastOpen, tproxy))
         };
         //
@@ -225,6 +263,7 @@ namespace Qv2ray::base::objects
             QString keyFile;
             QList<QString> certificate;
             QList<QString> key;
+            JSONSTRUCT_COMPARE(CertificateObject, usage, certificateFile, keyFile, certificate, key)
             JSONSTRUCT_REGISTER(CertificateObject, F(usage, certificateFile, keyFile, certificate, key))
         };
         //
@@ -233,13 +272,12 @@ namespace Qv2ray::base::objects
         {
             QString serverName;
             bool allowInsecure = false;
-            bool allowInsecureCiphers = false;
             bool disableSessionResumption = true;
             bool disableSystemRoot = false;
             QList<QString> alpn = { "http/1.1" };
             QList<CertificateObject> certificates;
-            JSONSTRUCT_REGISTER(TLSObject,
-                                F(serverName, allowInsecure, allowInsecureCiphers, disableSessionResumption, alpn, certificates, disableSystemRoot))
+            JSONSTRUCT_COMPARE(TLSObject, serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates)
+            JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates))
         };
         //
         //
@@ -247,13 +285,12 @@ namespace Qv2ray::base::objects
         {
             QString serverName;
             bool allowInsecure = false;
-            bool allowInsecureCiphers = false;
             bool disableSessionResumption = true;
             bool disableSystemRoot = false;
             QList<QString> alpn = { "http/1.1" };
             QList<CertificateObject> certificates;
-            JSONSTRUCT_REGISTER(XTLSObject,
-                                F(serverName, allowInsecure, allowInsecureCiphers, disableSessionResumption, alpn, certificates, disableSystemRoot))
+            JSONSTRUCT_COMPARE(XTLSObject, serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates)
+            JSONSTRUCT_REGISTER(XTLSObject, F(serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates))
         };
     } // namespace transfer
     //
@@ -271,8 +308,28 @@ namespace Qv2ray::base::objects
         transfer::HttpObject httpSettings;
         transfer::DomainSocketObject dsSettings;
         transfer::QuicObject quicSettings;
-        JSONSTRUCT_REGISTER(StreamSettingsObject, F(network, security, sockopt, tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings,
-                                                    httpSettings, dsSettings, quicSettings))
+        JSONSTRUCT_COMPARE(StreamSettingsObject, //
+                           network,              //
+                           security,             //
+                           sockopt,              //
+                           tlsSettings,          //
+                           xtlsSettings,         //
+                           tcpSettings,          //
+                           kcpSettings,          //
+                           wsSettings,           //
+                           dsSettings,           //
+                           quicSettings)
+        JSONSTRUCT_REGISTER(StreamSettingsObject, F(network,      //
+                                                    security,     //
+                                                    sockopt,      //
+                                                    tcpSettings,  //
+                                                    tlsSettings,  //
+                                                    xtlsSettings, //
+                                                    kcpSettings,  //
+                                                    wsSettings,   //
+                                                    httpSettings, //
+                                                    dsSettings,   //
+                                                    quicSettings))
     };
     //
     // Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
@@ -289,12 +346,14 @@ namespace Qv2ray::base::objects
                 int alterId = VMESS_USER_ALTERID_DEFAULT;
                 QString security = "auto";
                 int level = 0;
+                JSONSTRUCT_COMPARE(UserObject, id, alterId, security, level)
                 JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level))
             };
 
             QString address;
-            int port = 0;
+            int port;
             QList<UserObject> users;
+            JSONSTRUCT_COMPARE(VMessServerObject, address, port, users)
             JSONSTRUCT_REGISTER(VMessServerObject, F(address, port, users))
         };
         //
@@ -305,6 +364,7 @@ namespace Qv2ray::base::objects
             QString method = "aes-256-cfb";
             QString password;
             int port;
+            JSONSTRUCT_COMPARE(ShadowSocksServerObject, address, method, password)
             JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(address, port, method, password))
         };
     } // namespace protocol

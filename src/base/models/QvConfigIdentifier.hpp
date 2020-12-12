@@ -113,6 +113,11 @@ namespace Qv2ray::base
         bool overrideForwardProxyConfig = false;
         config::QvConfig_ForwardProxy forwardProxyConfig;
         //
+        JSONSTRUCT_COMPARE(GroupRoutingConfig,                         //
+                           overrideDNS, dnsConfig,                     //
+                           overrideRoute, routeConfig,                 //
+                           overrideConnectionConfig, connectionConfig, //
+                           overrideForwardProxyConfig, forwardProxyConfig)
         JSONSTRUCT_REGISTER(GroupRoutingConfig,                            //
                             F(overrideRoute, routeConfig),                 //
                             F(overrideDNS, dnsConfig),                     //
@@ -135,8 +140,10 @@ namespace Qv2ray::base
         QList<QString> ExcludeKeywords;
         SubscriptionFilterRelation IncludeRelation = RELATION_OR;
         SubscriptionFilterRelation ExcludeRelation = RELATION_AND;
-        JSONSTRUCT_REGISTER(SubscriptionConfigObject,
-                            F(updateInterval, address, type, IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
+        JSONSTRUCT_COMPARE(SubscriptionConfigObject, address, type, updateInterval, //
+                           IncludeKeywords, ExcludeKeywords, IncludeRelation, ExcludeRelation)
+        JSONSTRUCT_REGISTER(SubscriptionConfigObject, F(updateInterval, address, type),
+                            F(IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
     };
 
     struct GroupObject : __Qv2rayConfigObjectBase
@@ -146,6 +153,7 @@ namespace Qv2ray::base
         GroupRoutingId routeConfigId;
         SubscriptionConfigObject subscriptionOption;
         GroupObject() : __Qv2rayConfigObjectBase(){};
+        JSONSTRUCT_COMPARE(GroupObject, isSubscription, connections, routeConfigId, subscriptionOption)
         JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
@@ -197,6 +205,10 @@ namespace Qv2ray::base
         {
             return JsonStructHelper::Serialize(entries);
         }
+        friend bool operator==(const ConnectionStatsObject &left, const ConnectionStatsObject &right)
+        {
+            return left.toJson() == right.toJson();
+        }
         void loadJson(const QJsonValue &d)
         {
             JsonStructHelper::Deserialize(entries, d);
@@ -218,6 +230,7 @@ namespace Qv2ray::base
         ConnectionStatsObject stats;
         //
         int __qvConnectionRefCount = 0;
+        JSONSTRUCT_COMPARE(ConnectionObject, lastConnected, latency, importSource, stats, displayName, creationDate, lastUpdatedDate)
         JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
     };
 
