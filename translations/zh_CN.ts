@@ -1939,59 +1939,59 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Disable gRPC API subsystem</source>
-      <translation type="unfinished">Disable gRPC API subsystem</translation>
+      <translation>禁用 gRPC API 子系统</translation>
     </message>
     <message>
       <source>Disable plugins feature</source>
-      <translation type="unfinished">Disable plugins feature</translation>
+      <translation>禁用插件功能</translation>
     </message>
     <message>
       <source>Enable debug output</source>
-      <translation type="unfinished">Enable debug output</translation>
+      <translation>启用调试输出</translation>
     </message>
     <message>
       <source>Do not automatically connect</source>
-      <translation type="unfinished">Do not automatically connect</translation>
+      <translation>不要自动连接</translation>
     </message>
     <message>
       <source>Stop current connection</source>
-      <translation type="unfinished">Stop current connection</translation>
+      <translation>停止当前连接</translation>
     </message>
     <message>
       <source>Reconnect last connection</source>
-      <translation type="unfinished">Reconnect last connection</translation>
+      <translation>重新连接上次连接</translation>
     </message>
     <message>
       <source>Exit Qv2ray</source>
-      <translation type="unfinished">Exit Qv2ray</translation>
+      <translation>退出 Qv2ray</translation>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
-      <translation type="unfinished">Qv2ray - A cross-platform Qt frontend for V2Ray.</translation>
+      <translation>Qv2ray - V2Ray的跨平台Qt 前端。</translation>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation type="unfinished">DNS not resolved</translation>
+      <translation>DNS 未解决</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
-      <translation type="unfinished">Socket creation failed</translation>
+      <translation>Socket 创建失败</translation>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
-      <translation type="unfinished">Failed to setup TTL value</translation>
+      <translation>无法设置 TTL 值</translation>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation type="unfinished">Destination unreachable</translation>
+      <translation>无法访问目标</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>超时</translation>
     </message>
     <message>
       <source>Unknown error</source>
-      <translation type="unfinished">Unknown error</translation>
+      <translation>未知错误</translation>
     </message>
     <message>
       <source>None</source>
@@ -1999,7 +1999,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Settings Widget</source>
-      <translation type="unfinished">Settings Widget</translation>
+      <translation>设置部件</translation>
     </message>
     <message>
       <source>Inbound Editor</source>
@@ -2007,31 +2007,31 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Outbound Editor</source>
-      <translation type="unfinished">Outbound Editor</translation>
+      <translation>出站编辑器</translation>
     </message>
     <message>
       <source>MainWindow Widget</source>
-      <translation type="unfinished">MainWindow Widget</translation>
+      <translation>主窗口小部件</translation>
     </message>
     <message>
       <source>Unknown type.</source>
-      <translation type="unfinished">Unknown type.</translation>
+      <translation>未知类型。</translation>
     </message>
     <message>
       <source>Kernel</source>
-      <translation type="unfinished">Kernel</translation>
+      <translation>内核数</translation>
     </message>
     <message>
       <source>Outbound Handler/Parser</source>
-      <translation type="unfinished">Outbound Handler/Parser</translation>
+      <translation>出站处理/分析器</translation>
     </message>
     <message>
       <source>Subscription Adapter</source>
-      <translation type="unfinished">Subscription Adapter</translation>
+      <translation>订阅适配器</translation>
     </message>
     <message>
       <source>Event Handler</source>
-      <translation type="unfinished">Event Handler</translation>
+      <translation>事件处理程序</translation>
     </message>
     <message>
       <source>GUI Components</source>
@@ -2039,243 +2039,243 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Unsupported share link format.</source>
-      <translation type="unfinished">Unsupported share link format.</translation>
+      <translation>不支持的共享链接格式。</translation>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation type="unfinished">SS URI is too short</translation>
+      <translation>SS URI 太短了</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
-      <translation type="unfinished">Can&apos;t find the colon separator between method and password</translation>
+      <translation>可以&apos;t 在方法和密码之间找到颜色分隔符</translation>
     </message>
     <message>
       <source>Can&apos;t find the at separator between password and hostname</source>
-      <translation type="unfinished">Can&apos;t find the at separator between password and hostname</translation>
+      <translation>可以&apos;t 在密码和主机名之间的分隔符</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation type="unfinished">Can&apos;t find the colon separator between hostname and port</translation>
+      <translation>可以&apos;找到主机名和端口之间的颜色分隔符</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must exist</translation>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须存在</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be valid port number</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be valid port number</translation>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是有效的端口号</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be of type &apos;string&apos;</translation>
+      <translation>无效的 ssd 链接：json: 字段 %1 必须是类型 &apos;字符串&apos;</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be an array</translation>
+      <translation>无效的 ssd 链接：json: 字段 %1 必须是一个数组</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: server must be an object</source>
-      <translation type="unfinished">Skipping invalid ssd server: server must be an object</translation>
+      <translation>跳过无效的 ssd 服务器：服务器必须是对象</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: missing required field %1</source>
-      <translation type="unfinished">Skipping invalid ssd server: missing required field %1</translation>
+      <translation>跳过无效的 ssd 服务器：缺少必填字段 %1</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-      <translation type="unfinished">Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</translation>
+      <translation>跳过无效的 ssd 服务器: 字段 %1 应该是 &apos;字符串&apos;</translation>
     </message>
     <message>
       <source>Invalid ssd link: should begin with ssd://</source>
-      <translation type="unfinished">Invalid ssd link: should begin with ssd://</translation>
+      <translation>无效的 ssd 链接：应该以 ssd:// 开始</translation>
     </message>
     <message>
       <source>Invalid ssd link: base64 parse failed</source>
-      <translation type="unfinished">Invalid ssd link: base64 parse failed</translation>
+      <translation>无效的 ssd 链接：base64 解析失败</translation>
     </message>
     <message>
       <source>Invalid ssd link: json parse failed: </source>
-      <translation type="unfinished">Invalid ssd link: json parse failed: </translation>
+      <translation>无效的 ssd 链接：json 解析失败： </translation>
     </message>
     <message>
       <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-      <translation type="unfinished">Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</translation>
+      <translation>无效的 ssd 链接：rc4-md5 加密不被 v2ray-core 支持</translation>
     </message>
     <message>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+      <translation>VMess字符串应以 &apos;vmess://&apos; 开始</translation>
     </message>
     <message>
       <source>VMess string should be a valid base64 string</source>
-      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+      <translation>VMess字符串应该是一个有效的 base64 字符串</translation>
     </message>
     <message>
       <source>JSON should not be empty</source>
-      <translation type="unfinished">JSON should not be empty</translation>
+      <translation>JSON 不应该为空</translation>
     </message>
     <message>
       <source>vmess:// url is invalid</source>
-      <translation type="unfinished">vmess:// url is invalid</translation>
+      <translation>vmess:// 网址无效</translation>
     </message>
     <message>
       <source>Invalid streamSettings protocol: </source>
-      <translation type="unfinished">Invalid streamSettings protocol: </translation>
+      <translation>无效的流设置协议： </translation>
     </message>
     <message>
       <source>Unknown transport method: </source>
-      <translation type="unfinished">Unknown transport method: </translation>
+      <translation>未知的传输方式： </translation>
     </message>
     <message>
       <source>(Empty Users)</source>
-      <translation type="unfinished">(Empty Users)</translation>
+      <translation>(空用户)</translation>
     </message>
     <message>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>无</translation>
     </message>
     <message>
       <source>core executable file %1 does not exist</source>
-      <translation type="unfinished">core executable file %1 does not exist</translation>
+      <translation>核心可执行文件 %1 不存在</translation>
     </message>
     <message>
       <source>cannot open core executable file %1 in read-only mode</source>
-      <translation type="unfinished">cannot open core executable file %1 in read-only mode</translation>
+      <translation>无法以只读模式打开核心可执行文件 %1</translation>
     </message>
     <message>
       <source>core executable file %1 is an empty file</source>
-      <translation type="unfinished">core executable file %1 is an empty file</translation>
+      <translation>核心可执行文件 %1 为空文件</translation>
     </message>
     <message>
       <source>core executable file %1 is too short to be executed</source>
-      <translation type="unfinished">core executable file %1 is too short to be executed</translation>
+      <translation>核心可执行文件 %1 太短，无法执行</translation>
     </message>
     <message>
       <source>cannot deduce the type of core executable file %1</source>
-      <translation type="unfinished">cannot deduce the type of core executable file %1</translation>
+      <translation>无法生成核心可执行文件 %1 的类型</translation>
     </message>
     <message>
       <source>Windows PE executable</source>
-      <translation type="unfinished">Windows PE executable</translation>
+      <translation>Windows PE 可执行文件</translation>
     </message>
     <message>
       <source>macOS Mach-O executable</source>
-      <translation type="unfinished">macOS Mach-O executable</translation>
+      <translation>macOS 机器-O 可执行文件</translation>
     </message>
     <message>
       <source>ELF x86 executable</source>
-      <translation type="unfinished">ELF x86 executable</translation>
+      <translation>ELF x86 可执行文件</translation>
     </message>
     <message>
       <source>ELF amd64 executable</source>
-      <translation type="unfinished">ELF amd64 executable</translation>
+      <translation>ELF amd64 可执行文件</translation>
     </message>
     <message>
       <source>ELF arm64 executable</source>
-      <translation type="unfinished">ELF arm64 executable</translation>
+      <translation>ELF arm64 可执行文件</translation>
     </message>
     <message>
       <source>ELF arm executable</source>
-      <translation type="unfinished">ELF arm executable</translation>
+      <translation>ELF 臂可执行文件</translation>
     </message>
     <message>
       <source>other ELF executable</source>
-      <translation type="unfinished">other ELF executable</translation>
+      <translation>其他 ELF 可执行文件</translation>
     </message>
     <message>
       <source>trusted abi</source>
-      <translation type="unfinished">trusted abi</translation>
+      <translation>可信任的 abi</translation>
     </message>
     <message>
       <source>unknown abi</source>
-      <translation type="unfinished">unknown abi</translation>
+      <translation>未知的 abi</translation>
     </message>
     <message>
       <source>Cannot Start Qv2ray</source>
-      <translation type="unfinished">Cannot Start Qv2ray</translation>
+      <translation>无法启动 Qv2ray</translation>
     </message>
     <message>
       <source>Cannot find a place to store config files.</source>
-      <translation type="unfinished">Cannot find a place to store config files.</translation>
+      <translation>找不到保存配置文件的地方。</translation>
     </message>
     <message>
       <source>Qv2ray has searched these paths below:</source>
-      <translation type="unfinished">Qv2ray has searched these paths below:</translation>
+      <translation>Qv2ray 搜索了以下路径：</translation>
     </message>
     <message>
       <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-      <translation type="unfinished">It usually means you don&apos;t have the write permission to all of those locations.</translation>
+      <translation>这通常意味着你不知道&apos;t 拥有所有这些位置的写权限。</translation>
     </message>
     <message>
       <source>Qv2ray will now exit.</source>
-      <translation type="unfinished">Qv2ray will now exit.</translation>
+      <translation>Qv2ray 现在将退出。</translation>
     </message>
     <message>
       <source>Failed to initialise Qv2ray</source>
-      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+      <translation>初始化 Qv2ray 失败</translation>
     </message>
     <message>
       <source>Failed to determine the location of config file:</source>
-      <translation type="unfinished">Failed to determine the location of config file:</translation>
+      <translation>无法确定配置文件的位置：</translation>
     </message>
     <message>
       <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-      <translation type="unfinished">Qv2ray has found a config file, but it failed to be loaded due to some errors.</translation>
+      <translation>Qv2ray 找到了一个配置文件，但由于一些错误未能加载。</translation>
     </message>
     <message>
       <source>A workaround is to remove the this file and restart Qv2ray:</source>
-      <translation type="unfinished">A workaround is to remove the this file and restart Qv2ray:</translation>
+      <translation>解决方案是移除此文件并重新启动 Qv2ray:</translation>
     </message>
     <message>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+      <translation>如果你认为&apos;s 是一个错误，请报告。</translation>
     </message>
     <message>
       <source>Qv2ray Cannot Continue</source>
-      <translation type="unfinished">Qv2ray Cannot Continue</translation>
+      <translation>Qv2ray 无法继续</translation>
     </message>
     <message>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
+      <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray</translation>
     </message>
     <message>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+      <translation>请检查&apos;s 是否有问题解释它。</translation>
     </message>
     <message>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
+      <translation>或者如果你认为这是一个错误，提交一个新问题。</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation type="unfinished">Default Group</translation>
+      <translation>默认组</translation>
     </message>
     <message>
       <source>Deprecated</source>
-      <translation type="unfinished">Deprecated</translation>
+      <translation>已弃用</translation>
     </message>
     <message>
       <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-      <translation type="unfinished">PAC is now deprecated and is not encouraged to be used anymore.</translation>
+      <translation>PAC 现已被废弃，不再被鼓励使用。</translation>
     </message>
     <message>
       <source>It will be removed or be provided as a plugin in the future.</source>
-      <translation type="unfinished">It will be removed or be provided as a plugin in the future.</translation>
+      <translation>它将被删除或在将来作为插件提供。</translation>
     </message>
     <message>
       <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
-      <translation type="unfinished">PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</translation>
+      <translation>PAC 目前仍在运行，但请尽快切换到V2Ray内置路由。</translation>
     </message>
     <message>
       <source>Configuration Upgrade Failed</source>
-      <translation type="unfinished">Configuration Upgrade Failed</translation>
+      <translation>配置升级失败</translation>
     </message>
     <message>
       <source>Unsupported config version number: </source>
-      <translation type="unfinished">Unsupported config version number: </translation>
+      <translation>不支持的配置版本号： </translation>
     </message>
     <message>
       <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-      <translation type="unfinished">Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</translation>
+      <translation>请先升级到 Qv2ray v2.0/v2.1 然后重试。</translation>
     </message>
   </context>
   <context>
@@ -2309,88 +2309,88 @@ Output: <byte value="xd"/>
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
       <source>Qv2ray Update</source>
-      <translation type="unfinished">Qv2ray Update</translation>
+      <translation>Qv2ray 更新</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::components::plugins::QvPluginHost</name>
     <message>
       <source>Failed to load plugin</source>
-      <translation type="unfinished">Failed to load plugin</translation>
+      <translation>加载插件失败</translation>
     </message>
     <message>
       <source>Cannot load plugin</source>
-      <translation type="unfinished">Cannot load plugin</translation>
+      <translation>无法加载插件</translation>
     </message>
     <message>
       <source>The plugin cannot be loaded: </source>
-      <translation type="unfinished">The plugin cannot be loaded: </translation>
+      <translation>无法加载插件： </translation>
     </message>
     <message>
       <source>This plugin was built against a different version of the Plugin Interface.</source>
-      <translation type="unfinished">This plugin was built against a different version of the Plugin Interface.</translation>
+      <translation>此插件是在不同版本的插件接口上构建的。</translation>
     </message>
     <message>
       <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-      <translation type="unfinished">Please contact the plugin provider or report the issue to Qv2ray Workgroup.</translation>
+      <translation>请联系插件提供商或将问题报告到 Qv2ray 工作组。</translation>
     </message>
     <message>
       <source>Enabling a plugin</source>
-      <translation type="unfinished">Enabling a plugin</translation>
+      <translation>启用插件</translation>
     </message>
     <message>
       <source>The plugin will become fully functional after restarting Qv2ray.</source>
-      <translation type="unfinished">The plugin will become fully functional after restarting Qv2ray.</translation>
+      <translation>重新启动Qv2ray后插件将完全启用。</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::handler::KernelInstanceHandler</name>
     <message>
       <source>There are other processes occupying the ports necessary to start the connection:</source>
-      <translation type="unfinished">There are other processes occupying the ports necessary to start the connection:</translation>
+      <translation>其他进程占用了启动连接所需的端口：</translation>
     </message>
     <message>
       <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
-      <translation type="unfinished">Endpoint: %1:%2 for inbound: &quot;%3&quot;</translation>
+      <translation>端点: %1:%2 for inbound: &quot;%3&quot;</translation>
     </message>
     <message>
       <source>Local port: %1 for plugin integration.</source>
-      <translation type="unfinished">Local port: %1 for plugin integration.</translation>
+      <translation>本地端口： %1 用于插件集成。</translation>
     </message>
     <message>
       <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-      <translation type="unfinished">A plugin kernel failed to start. Please check the outbound settings.</translation>
+      <translation>插件内核启动失败。请检查出站设置。</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
     <message>
       <source>Group: %1</source>
-      <translation type="unfinished">Group: %1</translation>
+      <translation>组: %1</translation>
     </message>
     <message>
       <source>Group does not exist</source>
-      <translation type="unfinished">Group does not exist</translation>
+      <translation>群组不存在</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation type="unfinished">Default Group</translation>
+      <translation>默认组</translation>
     </message>
     <message>
       <source>Failed to start connection</source>
-      <translation type="unfinished">Failed to start connection</translation>
+      <translation>启动连接失败</translation>
     </message>
     <message>
       <source>Cannot update subscription</source>
-      <translation type="unfinished">Cannot update subscription</translation>
+      <translation>无法更新订阅</translation>
     </message>
     <message>
       <source>Unknown subscription type: %1</source>
-      <translation type="unfinished">Unknown subscription type: %1</translation>
+      <translation>未知订阅类型： %1</translation>
     </message>
     <message>
       <source>MAybe a plugin is missing?</source>
-      <translation type="unfinished">MAybe a plugin is missing?</translation>
+      <translation>Maybe插件缺失？</translation>
     </message>
     <message>
       <source>Update Subscription</source>
@@ -2398,107 +2398,107 @@ Output: <byte value="xd"/>
     </message>
     <message numerus="yes">
       <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
-      <translation type="unfinished">
-        <numerusform>%n entrie(s) have been found from the subscription source, do you want to continue?</numerusform>
+      <translation>
+        <numerusform>在订阅源找到了 %n 个条目，您想要继续吗？</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
-      <translation type="unfinished">
-        <numerusform>%1 out of %n entrie(s) have been filtered out, do you want to continue?</numerusform>
+      <translation>
+        <numerusform>%1 个条目中的 %n 个条目已被过滤出来，您想要继续吗？</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
-      <translation type="unfinished">
-        <numerusform>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</numerusform>
+      <translation>
+        <numerusform>在不属于当前订阅的组&apos;re %n connection(s) (更多)。</numerusform>
       </translation>
     </message>
     <message>
       <source>Would you like to remove them?</source>
-      <translation type="unfinished">Would you like to remove them?</translation>
+      <translation>您想要删除他们吗？</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::kernel::APIWorker</name>
     <message>
       <source>Failed to get statistics data, please check if V2Ray is running properly</source>
-      <translation type="unfinished">Failed to get statistics data, please check if V2Ray is running properly</translation>
+      <translation>无法获取统计数据，请检查 V2Ray 是否正常运行</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
     <message>
       <source>Core file is lacking executable permission for the current user.</source>
-      <translation type="unfinished">Core file is lacking executable permission for the current user.</translation>
+      <translation>核心文件缺少当前用户的可执行权限。</translation>
     </message>
     <message>
       <source>Qv2ray tried to set, but failed because permission denied.</source>
-      <translation type="unfinished">Qv2ray tried to set, but failed because permission denied.</translation>
+      <translation>Qv2ray 尝试设置，但由于拒绝了权限而失败。</translation>
     </message>
     <message>
       <source>Check is skipped</source>
-      <translation type="unfinished">Check is skipped</translation>
+      <translation>检查已跳过</translation>
     </message>
     <message>
       <source>V2Ray core executable not found.</source>
-      <translation type="unfinished">V2Ray core executable not found.</translation>
+      <translation>找不到 V2Ray 核心可执行文件。</translation>
     </message>
     <message>
       <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-      <translation type="unfinished">V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</translation>
+      <translation>V2Ray 核心文件无法打开，请确保&apos;s 文件而不是文件夹。</translation>
     </message>
     <message>
       <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
 Expected core ABI is %1, but got actual %2.<byte value="xd"/>
 Maybe you have downloaded the wrong core?</source>
-      <translation type="unfinished">V2Ray core is incompatible with your platform.
-Expected core ABI is %1, but got actual %2.
-Maybe you have downloaded the wrong core?</translation>
+      <translation>V2Ray 核心与您的平台不兼容。
+预期的核心ABI 是 %1, 但得到了实际的 %2
+你下载了错误的核心吗？</translation>
     </message>
     <message>
       <source>V2Ray assets path is not valid.</source>
-      <translation type="unfinished">V2Ray assets path is not valid.</translation>
+      <translation>V2Ray 资源路径无效。</translation>
     </message>
     <message>
       <source>No geoip.dat in assets path.</source>
-      <translation type="unfinished">No geoip.dat in assets path.</translation>
+      <translation>asset路径中没有 geoip.dat。</translation>
     </message>
     <message>
       <source>No geosite.dat in assets path.</source>
-      <translation type="unfinished">No geosite.dat in assets path.</translation>
+      <translation>资源路径中没有 geosite.dat。</translation>
     </message>
     <message>
       <source>V2Ray core failed with an exit code: </source>
-      <translation type="unfinished">V2Ray core failed with an exit code: </translation>
+      <translation>V2Ray 核心使用退出代码失败： </translation>
     </message>
     <message>
       <source>V2Ray core returns empty string.</source>
-      <translation type="unfinished">V2Ray core returns empty string.</translation>
+      <translation>V2Ray 核心返回空字符串。</translation>
     </message>
     <message>
       <source>Configuration Error</source>
-      <translation type="unfinished">Configuration Error</translation>
+      <translation>配置错误</translation>
     </message>
     <message>
       <source>Cannot start V2Ray</source>
-      <translation type="unfinished">Cannot start V2Ray</translation>
+      <translation>无法启动 V2Ray</translation>
     </message>
     <message>
       <source>V2Ray core settings is incorrect.</source>
-      <translation type="unfinished">V2Ray core settings is incorrect.</translation>
+      <translation>V2Ray 核心设置不正确。</translation>
     </message>
     <message>
       <source>The error is: </source>
-      <translation type="unfinished">The error is: </translation>
+      <translation>错误是： </translation>
     </message>
     <message>
       <source>Invalid V2Ray Instance Status.</source>
-      <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
+      <translation>无效的 V2Ray 实例状态。</translation>
     </message>
     <message>
       <source>V2Ray kernel failed to start.</source>
-      <translation type="unfinished">V2Ray kernel failed to start.</translation>
+      <translation>V2Ray 内核启动失败。</translation>
     </message>
   </context>
   <context>
