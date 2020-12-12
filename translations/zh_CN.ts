@@ -1344,7 +1344,7 @@ This could resolve the certificate issues, but also could let one performing TLS
     </message>
     <message>
       <source>Test Latency On Connected</source>
-      <translation type="unfinished">Test Latency On Connected</translation>
+      <translation>连接时测试延迟</translation>
     </message>
     <message>
       <source>Run TCPing or ICMPing periodcally after connecting to a server.
