@@ -19,7 +19,7 @@ if(CMAKE_BUILD_TYPE MATCHES "^[Dd][Ee][Bb][Uu][Gg]$" OR NOT DEFINED CMAKE_BUILD_
             ${QV2RAY_BASE_SOURCES}
             ${QV2RAY_UI_SOURCES}
             ${QVPLUGIN_INTERFACE_HEADERS}
-            -ts ${TRANSLATIONS_TS}
+            -ts translations/en_US.ts
             -locations none
             -no-obsolete
             -no-sort
