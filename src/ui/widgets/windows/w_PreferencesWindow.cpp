@@ -194,6 +194,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
         setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
         setSessionResumptionCB->setChecked(CurrentConfig.advancedConfig.setSessionResumption);
         setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
+        setTestLatenctOnConnectedCB->setChecked(CurrentConfig.advancedConfig.testLatencyOnConnected);
         disableSystemRootCB->setChecked(CurrentConfig.advancedConfig.disableSystemRoot);
     }
     //
@@ -852,6 +853,16 @@ void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
         QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) make it easy to fingerprint your connection."));
     }
     CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_setTestLatenctOnConnectedCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) make it easy to fingerprint your connection."));
+    }
+    CurrentConfig.advancedConfig.testLatencyOnConnected = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_setSessionResumptionCB_stateChanged(int arg1)
