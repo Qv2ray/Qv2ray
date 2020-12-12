@@ -429,25 +429,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
   </context>
   <context>
-    <name>HTTPInboundEditor</name>
-    <message>
-      <source>Removing a user</source>
-      <translation>ユーザーを削除する</translation>
-    </message>
-    <message>
-      <source>You haven&apos;t selected a user yet.</source>
-      <translation>まだユーザーを選択していません。</translation>
-    </message>
-    <message>
-      <source>Add a user</source>
-      <translation>ユーザーを追加する</translation>
-    </message>
-    <message>
-      <source>This user exists already.</source>
-      <translation>このユーザーは既に存在します.</translation>
-    </message>
-  </context>
-  <context>
     <name>ImportConfigWindow</name>
     <message>
       <source>Import file</source>
@@ -1216,13 +1197,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
   </context>
   <context>
-    <name>PluginSettingsWidget</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-  </context>
-  <context>
     <name>PreferencesWindow</name>
     <message>
       <source>Preferences</source>
@@ -1963,6 +1937,346 @@ Output: <byte value="xd"/>
       <source>Chain</source>
       <translation>チェイン</translation>
     </message>
+    <message>
+      <source>Disable gRPC API subsystem</source>
+      <translation type="unfinished">Disable gRPC API subsystem</translation>
+    </message>
+    <message>
+      <source>Disable plugins feature</source>
+      <translation type="unfinished">Disable plugins feature</translation>
+    </message>
+    <message>
+      <source>Enable debug output</source>
+      <translation type="unfinished">Enable debug output</translation>
+    </message>
+    <message>
+      <source>Do not automatically connect</source>
+      <translation type="unfinished">Do not automatically connect</translation>
+    </message>
+    <message>
+      <source>Stop current connection</source>
+      <translation type="unfinished">Stop current connection</translation>
+    </message>
+    <message>
+      <source>Reconnect last connection</source>
+      <translation type="unfinished">Reconnect last connection</translation>
+    </message>
+    <message>
+      <source>Exit Qv2ray</source>
+      <translation type="unfinished">Exit Qv2ray</translation>
+    </message>
+    <message>
+      <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
+      <translation type="unfinished">Qv2ray - A cross-platform Qt frontend for V2Ray.</translation>
+    </message>
+    <message>
+      <source>DNS not resolved</source>
+      <translation type="unfinished">DNS not resolved</translation>
+    </message>
+    <message>
+      <source>Socket creation failed</source>
+      <translation type="unfinished">Socket creation failed</translation>
+    </message>
+    <message>
+      <source>Failed to setup TTL value</source>
+      <translation type="unfinished">Failed to setup TTL value</translation>
+    </message>
+    <message>
+      <source>Destination unreachable</source>
+      <translation type="unfinished">Destination unreachable</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation type="unfinished">Timeout</translation>
+    </message>
+    <message>
+      <source>Unknown error</source>
+      <translation type="unfinished">Unknown error</translation>
+    </message>
+    <message>
+      <source>None</source>
+      <translation>なし</translation>
+    </message>
+    <message>
+      <source>Settings Widget</source>
+      <translation type="unfinished">Settings Widget</translation>
+    </message>
+    <message>
+      <source>Inbound Editor</source>
+      <translation>インバウンドエディター</translation>
+    </message>
+    <message>
+      <source>Outbound Editor</source>
+      <translation type="unfinished">Outbound Editor</translation>
+    </message>
+    <message>
+      <source>MainWindow Widget</source>
+      <translation type="unfinished">MainWindow Widget</translation>
+    </message>
+    <message>
+      <source>Unknown type.</source>
+      <translation type="unfinished">Unknown type.</translation>
+    </message>
+    <message>
+      <source>Kernel</source>
+      <translation type="unfinished">Kernel</translation>
+    </message>
+    <message>
+      <source>Outbound Handler/Parser</source>
+      <translation type="unfinished">Outbound Handler/Parser</translation>
+    </message>
+    <message>
+      <source>Subscription Adapter</source>
+      <translation type="unfinished">Subscription Adapter</translation>
+    </message>
+    <message>
+      <source>Event Handler</source>
+      <translation type="unfinished">Event Handler</translation>
+    </message>
+    <message>
+      <source>GUI Components</source>
+      <translation>GUIコンポーネント</translation>
+    </message>
+    <message>
+      <source>Unsupported share link format.</source>
+      <translation type="unfinished">Unsupported share link format.</translation>
+    </message>
+    <message>
+      <source>SS URI is too short</source>
+      <translation type="unfinished">SS URI is too short</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the colon separator between method and password</source>
+      <translation type="unfinished">Can&apos;t find the colon separator between method and password</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the at separator between password and hostname</source>
+      <translation type="unfinished">Can&apos;t find the at separator between password and hostname</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the colon separator between hostname and port</source>
+      <translation type="unfinished">Can&apos;t find the colon separator between hostname and port</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must exist</source>
+      <translation type="unfinished">Invalid ssd link: json: field %1 must exist</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be valid port number</source>
+      <translation type="unfinished">Invalid ssd link: json: field %1 must be valid port number</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
+      <translation type="unfinished">Invalid ssd link: json: field %1 must be of type &apos;string&apos;</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be an array</source>
+      <translation type="unfinished">Invalid ssd link: json: field %1 must be an array</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: server must be an object</source>
+      <translation type="unfinished">Skipping invalid ssd server: server must be an object</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: missing required field %1</source>
+      <translation type="unfinished">Skipping invalid ssd server: missing required field %1</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
+      <translation type="unfinished">Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: should begin with ssd://</source>
+      <translation type="unfinished">Invalid ssd link: should begin with ssd://</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: base64 parse failed</source>
+      <translation type="unfinished">Invalid ssd link: base64 parse failed</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json parse failed: </source>
+      <translation type="unfinished">Invalid ssd link: json parse failed: </translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
+      <translation type="unfinished">Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</translation>
+    </message>
+    <message>
+      <source>VMess string should start with &apos;vmess://&apos;</source>
+      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+    </message>
+    <message>
+      <source>VMess string should be a valid base64 string</source>
+      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+    </message>
+    <message>
+      <source>JSON should not be empty</source>
+      <translation type="unfinished">JSON should not be empty</translation>
+    </message>
+    <message>
+      <source>vmess:// url is invalid</source>
+      <translation type="unfinished">vmess:// url is invalid</translation>
+    </message>
+    <message>
+      <source>Invalid streamSettings protocol: </source>
+      <translation type="unfinished">Invalid streamSettings protocol: </translation>
+    </message>
+    <message>
+      <source>Unknown transport method: </source>
+      <translation type="unfinished">Unknown transport method: </translation>
+    </message>
+    <message>
+      <source>(Empty Users)</source>
+      <translation type="unfinished">(Empty Users)</translation>
+    </message>
+    <message>
+      <source>N/A</source>
+      <translation type="unfinished">N/A</translation>
+    </message>
+    <message>
+      <source>core executable file %1 does not exist</source>
+      <translation type="unfinished">core executable file %1 does not exist</translation>
+    </message>
+    <message>
+      <source>cannot open core executable file %1 in read-only mode</source>
+      <translation type="unfinished">cannot open core executable file %1 in read-only mode</translation>
+    </message>
+    <message>
+      <source>core executable file %1 is an empty file</source>
+      <translation type="unfinished">core executable file %1 is an empty file</translation>
+    </message>
+    <message>
+      <source>core executable file %1 is too short to be executed</source>
+      <translation type="unfinished">core executable file %1 is too short to be executed</translation>
+    </message>
+    <message>
+      <source>cannot deduce the type of core executable file %1</source>
+      <translation type="unfinished">cannot deduce the type of core executable file %1</translation>
+    </message>
+    <message>
+      <source>Windows PE executable</source>
+      <translation type="unfinished">Windows PE executable</translation>
+    </message>
+    <message>
+      <source>macOS Mach-O executable</source>
+      <translation type="unfinished">macOS Mach-O executable</translation>
+    </message>
+    <message>
+      <source>ELF x86 executable</source>
+      <translation type="unfinished">ELF x86 executable</translation>
+    </message>
+    <message>
+      <source>ELF amd64 executable</source>
+      <translation type="unfinished">ELF amd64 executable</translation>
+    </message>
+    <message>
+      <source>ELF arm64 executable</source>
+      <translation type="unfinished">ELF arm64 executable</translation>
+    </message>
+    <message>
+      <source>ELF arm executable</source>
+      <translation type="unfinished">ELF arm executable</translation>
+    </message>
+    <message>
+      <source>other ELF executable</source>
+      <translation type="unfinished">other ELF executable</translation>
+    </message>
+    <message>
+      <source>trusted abi</source>
+      <translation type="unfinished">trusted abi</translation>
+    </message>
+    <message>
+      <source>unknown abi</source>
+      <translation type="unfinished">unknown abi</translation>
+    </message>
+    <message>
+      <source>Cannot Start Qv2ray</source>
+      <translation type="unfinished">Cannot Start Qv2ray</translation>
+    </message>
+    <message>
+      <source>Cannot find a place to store config files.</source>
+      <translation type="unfinished">Cannot find a place to store config files.</translation>
+    </message>
+    <message>
+      <source>Qv2ray has searched these paths below:</source>
+      <translation type="unfinished">Qv2ray has searched these paths below:</translation>
+    </message>
+    <message>
+      <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+      <translation type="unfinished">It usually means you don&apos;t have the write permission to all of those locations.</translation>
+    </message>
+    <message>
+      <source>Qv2ray will now exit.</source>
+      <translation type="unfinished">Qv2ray will now exit.</translation>
+    </message>
+    <message>
+      <source>Failed to initialise Qv2ray</source>
+      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+    </message>
+    <message>
+      <source>Failed to determine the location of config file:</source>
+      <translation type="unfinished">Failed to determine the location of config file:</translation>
+    </message>
+    <message>
+      <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+      <translation type="unfinished">Qv2ray has found a config file, but it failed to be loaded due to some errors.</translation>
+    </message>
+    <message>
+      <source>A workaround is to remove the this file and restart Qv2ray:</source>
+      <translation type="unfinished">A workaround is to remove the this file and restart Qv2ray:</translation>
+    </message>
+    <message>
+      <source>Please report if you think it&apos;s a bug.</source>
+      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+    </message>
+    <message>
+      <source>Qv2ray Cannot Continue</source>
+      <translation type="unfinished">Qv2ray Cannot Continue</translation>
+    </message>
+    <message>
+      <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
+    </message>
+    <message>
+      <source>Please check if there&apos;s an issue explaining about it.</source>
+      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+    </message>
+    <message>
+      <source>Or submit a new issue if you think this is an error.</source>
+      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
+    </message>
+    <message>
+      <source>Default Group</source>
+      <translation type="unfinished">Default Group</translation>
+    </message>
+    <message>
+      <source>Deprecated</source>
+      <translation type="unfinished">Deprecated</translation>
+    </message>
+    <message>
+      <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
+      <translation type="unfinished">PAC is now deprecated and is not encouraged to be used anymore.</translation>
+    </message>
+    <message>
+      <source>It will be removed or be provided as a plugin in the future.</source>
+      <translation type="unfinished">It will be removed or be provided as a plugin in the future.</translation>
+    </message>
+    <message>
+      <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
+      <translation type="unfinished">PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</translation>
+    </message>
+    <message>
+      <source>Configuration Upgrade Failed</source>
+      <translation type="unfinished">Configuration Upgrade Failed</translation>
+    </message>
+    <message>
+      <source>Unsupported config version number: </source>
+      <translation type="unfinished">Unsupported config version number: </translation>
+    </message>
+    <message>
+      <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
+      <translation type="unfinished">Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</translation>
+    </message>
   </context>
   <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
@@ -1989,6 +2303,202 @@ Output: <byte value="xd"/>
     <message>
       <source>Path: %1</source>
       <translation>パス: %1</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::components::QvUpdateChecker</name>
+    <message>
+      <source>Qv2ray Update</source>
+      <translation type="unfinished">Qv2ray Update</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::components::plugins::QvPluginHost</name>
+    <message>
+      <source>Failed to load plugin</source>
+      <translation type="unfinished">Failed to load plugin</translation>
+    </message>
+    <message>
+      <source>Cannot load plugin</source>
+      <translation type="unfinished">Cannot load plugin</translation>
+    </message>
+    <message>
+      <source>The plugin cannot be loaded: </source>
+      <translation type="unfinished">The plugin cannot be loaded: </translation>
+    </message>
+    <message>
+      <source>This plugin was built against a different version of the Plugin Interface.</source>
+      <translation type="unfinished">This plugin was built against a different version of the Plugin Interface.</translation>
+    </message>
+    <message>
+      <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
+      <translation type="unfinished">Please contact the plugin provider or report the issue to Qv2ray Workgroup.</translation>
+    </message>
+    <message>
+      <source>Enabling a plugin</source>
+      <translation type="unfinished">Enabling a plugin</translation>
+    </message>
+    <message>
+      <source>The plugin will become fully functional after restarting Qv2ray.</source>
+      <translation type="unfinished">The plugin will become fully functional after restarting Qv2ray.</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::handler::KernelInstanceHandler</name>
+    <message>
+      <source>There are other processes occupying the ports necessary to start the connection:</source>
+      <translation type="unfinished">There are other processes occupying the ports necessary to start the connection:</translation>
+    </message>
+    <message>
+      <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
+      <translation type="unfinished">Endpoint: %1:%2 for inbound: &quot;%3&quot;</translation>
+    </message>
+    <message>
+      <source>Local port: %1 for plugin integration.</source>
+      <translation type="unfinished">Local port: %1 for plugin integration.</translation>
+    </message>
+    <message>
+      <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+      <translation type="unfinished">A plugin kernel failed to start. Please check the outbound settings.</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::handler::QvConfigHandler</name>
+    <message>
+      <source>Group: %1</source>
+      <translation type="unfinished">Group: %1</translation>
+    </message>
+    <message>
+      <source>Group does not exist</source>
+      <translation type="unfinished">Group does not exist</translation>
+    </message>
+    <message>
+      <source>Default Group</source>
+      <translation type="unfinished">Default Group</translation>
+    </message>
+    <message>
+      <source>Failed to start connection</source>
+      <translation type="unfinished">Failed to start connection</translation>
+    </message>
+    <message>
+      <source>Cannot update subscription</source>
+      <translation type="unfinished">Cannot update subscription</translation>
+    </message>
+    <message>
+      <source>Unknown subscription type: %1</source>
+      <translation type="unfinished">Unknown subscription type: %1</translation>
+    </message>
+    <message>
+      <source>MAybe a plugin is missing?</source>
+      <translation type="unfinished">MAybe a plugin is missing?</translation>
+    </message>
+    <message>
+      <source>Update Subscription</source>
+      <translation>サブスクリプションを更新</translation>
+    </message>
+    <message numerus="yes">
+      <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+      <translation type="unfinished">
+        <numerusform>%n entrie(s) have been found from the subscription source, do you want to continue?</numerusform>
+      </translation>
+    </message>
+    <message numerus="yes">
+      <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+      <translation type="unfinished">
+        <numerusform>%1 out of %n entrie(s) have been filtered out, do you want to continue?</numerusform>
+      </translation>
+    </message>
+    <message numerus="yes">
+      <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
+      <translation type="unfinished">
+        <numerusform>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</numerusform>
+      </translation>
+    </message>
+    <message>
+      <source>Would you like to remove them?</source>
+      <translation type="unfinished">Would you like to remove them?</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::kernel::APIWorker</name>
+    <message>
+      <source>Failed to get statistics data, please check if V2Ray is running properly</source>
+      <translation type="unfinished">Failed to get statistics data, please check if V2Ray is running properly</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
+    <message>
+      <source>Core file is lacking executable permission for the current user.</source>
+      <translation type="unfinished">Core file is lacking executable permission for the current user.</translation>
+    </message>
+    <message>
+      <source>Qv2ray tried to set, but failed because permission denied.</source>
+      <translation type="unfinished">Qv2ray tried to set, but failed because permission denied.</translation>
+    </message>
+    <message>
+      <source>Check is skipped</source>
+      <translation type="unfinished">Check is skipped</translation>
+    </message>
+    <message>
+      <source>V2Ray core executable not found.</source>
+      <translation type="unfinished">V2Ray core executable not found.</translation>
+    </message>
+    <message>
+      <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
+      <translation type="unfinished">V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</translation>
+    </message>
+    <message>
+      <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
+Expected core ABI is %1, but got actual %2.<byte value="xd"/>
+Maybe you have downloaded the wrong core?</source>
+      <translation type="unfinished">V2Ray core is incompatible with your platform.
+Expected core ABI is %1, but got actual %2.
+Maybe you have downloaded the wrong core?</translation>
+    </message>
+    <message>
+      <source>V2Ray assets path is not valid.</source>
+      <translation type="unfinished">V2Ray assets path is not valid.</translation>
+    </message>
+    <message>
+      <source>No geoip.dat in assets path.</source>
+      <translation type="unfinished">No geoip.dat in assets path.</translation>
+    </message>
+    <message>
+      <source>No geosite.dat in assets path.</source>
+      <translation type="unfinished">No geosite.dat in assets path.</translation>
+    </message>
+    <message>
+      <source>V2Ray core failed with an exit code: </source>
+      <translation type="unfinished">V2Ray core failed with an exit code: </translation>
+    </message>
+    <message>
+      <source>V2Ray core returns empty string.</source>
+      <translation type="unfinished">V2Ray core returns empty string.</translation>
+    </message>
+    <message>
+      <source>Configuration Error</source>
+      <translation type="unfinished">Configuration Error</translation>
+    </message>
+    <message>
+      <source>Cannot start V2Ray</source>
+      <translation type="unfinished">Cannot start V2Ray</translation>
+    </message>
+    <message>
+      <source>V2Ray core settings is incorrect.</source>
+      <translation type="unfinished">V2Ray core settings is incorrect.</translation>
+    </message>
+    <message>
+      <source>The error is: </source>
+      <translation type="unfinished">The error is: </translation>
+    </message>
+    <message>
+      <source>Invalid V2Ray Instance Status.</source>
+      <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start.</source>
+      <translation type="unfinished">V2Ray kernel failed to start.</translation>
     </message>
   </context>
   <context>
@@ -2399,25 +2909,6 @@ Output: <byte value="xd"/>
     </message>
   </context>
   <context>
-    <name>SocksInboundEditor</name>
-    <message>
-      <source>Removing a user</source>
-      <translation>ユーザーを削除する</translation>
-    </message>
-    <message>
-      <source>You haven&apos;t selected a user yet.</source>
-      <translation>まだユーザーを選択していません。</translation>
-    </message>
-    <message>
-      <source>Add a user</source>
-      <translation>ユーザーを追加する</translation>
-    </message>
-    <message>
-      <source>This user exists already.</source>
-      <translation>このユーザーは既に存在します.</translation>
-    </message>
-  </context>
-  <context>
     <name>SpeedWidget</name>
     <message>
       <source>Proxy ↑</source>
@@ -2605,279 +3096,6 @@ Output: <byte value="xd"/>
     <message>
       <source>Certificates</source>
       <translation>証明書</translation>
-    </message>
-  </context>
-  <context>
-    <name>blackholeOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Response</source>
-      <translation>レスポンス</translation>
-    </message>
-    <message>
-      <source>Type</source>
-      <translation>タイプ</translation>
-    </message>
-  </context>
-  <context>
-    <name>dnsOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Network</source>
-      <translation>ネットワーク</translation>
-    </message>
-    <message>
-      <source>TCP</source>
-      <translation>TCP</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-    <message>
-      <source>Original</source>
-      <translation>オリジナル</translation>
-    </message>
-    <message>
-      <source>Address</source>
-      <translation>アドレス</translation>
-    </message>
-    <message>
-      <source>Port</source>
-      <translation>ポート</translation>
-    </message>
-  </context>
-  <context>
-    <name>dokodemodoorInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Address</source>
-      <translation>アドレス</translation>
-    </message>
-    <message>
-      <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation>「リダイレクトに従う」を使用している場合はオプション</translation>
-    </message>
-    <message>
-      <source>Port</source>
-      <translation>ポート</translation>
-    </message>
-    <message>
-      <source>Network</source>
-      <translation>ネットワーク</translation>
-    </message>
-    <message>
-      <source>TCP</source>
-      <translation>TCP</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-    <message>
-      <source>Timeout</source>
-      <translation>タイムアウト</translation>
-    </message>
-    <message>
-      <source>Follow Redirect</source>
-      <translation>リダイレクトに従う</translation>
-    </message>
-    <message>
-      <source>Enabled</source>
-      <translation>有効</translation>
-    </message>
-  </context>
-  <context>
-    <name>freedomOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Domain Strategy</source>
-      <translation>ドメインポリシー</translation>
-    </message>
-    <message>
-      <source>Redirect</source>
-      <translation>リダイレクト</translation>
-    </message>
-    <message>
-      <source>:0</source>
-      <translation>:0</translation>
-    </message>
-  </context>
-  <context>
-    <name>httpInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Allow Transparent</source>
-      <translation>透明を許可</translation>
-    </message>
-    <message>
-      <source>Timeout</source>
-      <translation>タイムアウト</translation>
-    </message>
-    <message>
-      <source>s</source>
-      <translation>秒</translation>
-    </message>
-    <message>
-      <source>Users</source>
-      <translation>ユーザー</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>パスワード</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>ユーザー名</translation>
-    </message>
-  </context>
-  <context>
-    <name>httpOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>ユーザー名</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>パスワード</translation>
-    </message>
-  </context>
-  <context>
-    <name>shadowsocksOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>パスワード</translation>
-    </message>
-    <message>
-      <source>Encryption Method</source>
-      <translation>暗号化方法</translation>
-    </message>
-  </context>
-  <context>
-    <name>socksInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Enabled</source>
-      <translation>有効</translation>
-    </message>
-    <message>
-      <source>UDP Local IP</source>
-      <translation>UDP ローカル IP</translation>
-    </message>
-    <message>
-      <source>127.0.0.1</source>
-      <translation>127.0.0.1</translation>
-    </message>
-    <message>
-      <source>Auth</source>
-      <translation>認証</translation>
-    </message>
-    <message>
-      <source>Users</source>
-      <translation>ユーザー</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>ユーザー名</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>パスワード</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-  </context>
-  <context>
-    <name>socksOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>ユーザー名</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>パスワード</translation>
-    </message>
-  </context>
-  <context>
-    <name>vlessOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>UUID</source>
-      <translation>UUID</translation>
-    </message>
-    <message>
-      <source>Encryption</source>
-      <translation>暗号化方法</translation>
-    </message>
-    <message>
-      <source>Flow</source>
-      <translation>フロー</translation>
-    </message>
-    <message>
-      <source>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
-
-&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
-
-&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
-      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
-
-&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
-
-&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
-    </message>
-  </context>
-  <context>
-    <name>vmessOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>Form</translation>
-    </message>
-    <message>
-      <source>UUID</source>
-      <translation>UUID</translation>
-    </message>
-    <message>
-      <source>Alter ID</source>
-      <translation>アルターID</translation>
-    </message>
-    <message>
-      <source>Security</source>
-      <translation>セキュリティ</translation>
     </message>
   </context>
   <context>
