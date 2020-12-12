@@ -265,7 +265,7 @@
        <item row="2" column="0" colspan="2">
         <widget class="QCheckBox" name="keepImportedInboundCheckBox">
          <property name="text">
-          <string>Import as Complex Config (Manually edit route rules and inbounds)</string>
+          <string>Import as Complex Config</string>
          </property>
         </widget>
        </item>
