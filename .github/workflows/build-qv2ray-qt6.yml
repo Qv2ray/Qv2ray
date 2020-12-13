@@ -67,6 +67,11 @@ jobs:
           # 14.1 is for vs2017, 14.2 is vs2019, following the upstream vcpkg build from Qv2ray-deps repo
           toolset: 14.2
           arch: ${{ matrix.arch }}
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+          architecture: x64
       - name: Cache Qt
         id: cache-qt
         uses: actions/cache@v1
