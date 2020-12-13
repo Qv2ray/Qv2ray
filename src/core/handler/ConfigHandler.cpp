@@ -540,7 +540,7 @@ namespace Qv2ray::core::handler
 
         const auto groupName = groups[id].displayName;
         const auto result = decoder->DecodeData(data);
-        QList<QPair<QString, CONFIGROOT>> _newConnections;
+        QList<std::pair<QString, CONFIGROOT>> _newConnections;
 
         for (const auto &[name, json] : result.connections)
         {

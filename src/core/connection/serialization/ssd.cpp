@@ -66,7 +66,7 @@ namespace Qv2ray::core::connection::serialization
         continue;                                                                                                                                    \
     }
 
-        QList<QPair<QString, CONFIGROOT>> Deserialize(const QString &uri, QString *groupName, QStringList *logList)
+        QList<std::pair<QString, CONFIGROOT>> Deserialize(const QString &uri, QString *groupName, QStringList *logList)
         {
             LOG("SSD Link format is now deprecated.");
             // ssd links should begin with "ssd://"
@@ -122,7 +122,7 @@ namespace Qv2ray::core::connection::serialization
             // obj.servers
             MUST_ARRAY("servers");
             //
-            QList<QPair<QString, CONFIGROOT>> serverList;
+            QList<std::pair<QString, CONFIGROOT>> serverList;
             //
 
             // iterate through the servers
