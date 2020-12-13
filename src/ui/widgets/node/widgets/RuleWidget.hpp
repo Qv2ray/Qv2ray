@@ -27,7 +27,6 @@ class QvNodeRuleWidget
     void on_hostList_textChanged();
     void on_ipList_textChanged();
     void on_routePortTxt_textEdited(const QString &arg1);
-    void on_routeUserTxt_textEdited(const QString &arg1);
     void on_netUDPRB_clicked();
     void on_netTCPRB_clicked();
     void on_sourceIPList_textChanged();

@@ -92,24 +92,27 @@ namespace Qv2ray::base::objects
         QString QV2RAY_RULE_TAG = "New Rule";
         //
         QString type = "field";
-        QList<QString> domain;
-        QList<QString> ip;
-        QString port = "1-65535";
-        QString network;
-        QList<QString> source;
-        QList<QString> user;
         QList<QString> inboundTag;
-        QList<QString> protocol;
-        QString attrs;
         QString outboundTag;
         QString balancerTag;
+        // Addresses
+        QList<QString> source;
+        QList<QString> domain;
+        QList<QString> ip;
+        // Ports
+        QString sourcePort;
+        QString port;
+        //
+        QString network;
+        QList<QString> protocol;
+        QString attrs;
         JSONSTRUCT_COMPARE(RuleObject, type, outboundTag, balancerTag, //
                            QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG,       //
-                           domain, ip, port, network, source, user, inboundTag, protocol, attrs)
+                           domain, ip, port, sourcePort, network, source, inboundTag, protocol, attrs)
         JSONSTRUCT_REGISTER(RuleObject,                              //
                             A(type, outboundTag, balancerTag),       //
                             F(QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG), //
-                            F(domain, ip, port, network, source, user, inboundTag, protocol, attrs))
+                            F(domain, ip, port, sourcePort, network, source, inboundTag, protocol, attrs))
     };
     //
     //
@@ -128,8 +131,20 @@ namespace Qv2ray::base::objects
         {
             QString version = "1.1";
             QString method = "GET";
-            QList<QString> path;
+            QList<QString> path = { "/" };
             QMap<QString, QList<QString>> headers;
+            HTTPRequestObject()
+            {
+                headers = {
+                    { "Host", { "www.baidu.com", "www.bing.com" } },
+                    { "User-Agent",
+                      { "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
+                        "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46" } },
+                    { "Accept-Encoding", { "gzip, deflate" } },
+                    { "Connection", { "keep-alive" } },
+                    { "Pragma", { "no-cache" } }
+                };
+            }
             JSONSTRUCT_COMPARE(HTTPRequestObject, version, method, path, headers)
             JSONSTRUCT_REGISTER(HTTPRequestObject, F(version, method, path, headers))
         };
@@ -141,6 +156,13 @@ namespace Qv2ray::base::objects
             QString status = "200";
             QString reason = "OK";
             QMap<QString, QList<QString>> headers;
+            HTTPResponseObject()
+            {
+                headers = { { "Content-Type", { "application/octet-stream", "video/mpeg" } }, //
+                            { "Transfer-Encoding", { "chunked" } },                           //
+                            { "Connection", { "keep-alive" } },                               //
+                            { "Pragma", { "no-cache" } } };
+            }
             JSONSTRUCT_COMPARE(HTTPResponseObject, version, status, reason, headers)
             JSONSTRUCT_REGISTER(HTTPResponseObject, F(version, status, reason, headers))
         };
