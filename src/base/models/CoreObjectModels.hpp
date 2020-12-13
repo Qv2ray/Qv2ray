@@ -103,34 +103,13 @@ namespace Qv2ray::base::objects
         QString attrs;
         QString outboundTag;
         QString balancerTag;
-        JSONSTRUCT_COMPARE(RuleObject, QV2RAY_RULE_ENABLED, //
-                           QV2RAY_RULE_TAG,                 //
-                           type,                            //
-                           domain,                          //
-                           ip,                              //
-                           port,                            //
-                           network,                         //
-                           source,                          //
-                           user,                            //
-                           inboundTag,                      //
-                           protocol,                        //
-                           attrs,                           //
-                           outboundTag,                     //
-                           balancerTag)
-        JSONSTRUCT_REGISTER(RuleObject, F(QV2RAY_RULE_ENABLED, //
-                                          QV2RAY_RULE_TAG,     //
-                                          type,                //
-                                          domain,              //
-                                          ip,                  //
-                                          port,                //
-                                          network,             //
-                                          source,              //
-                                          user,                //
-                                          inboundTag,          //
-                                          protocol,            //
-                                          attrs,               //
-                                          outboundTag,         //
-                                          balancerTag))
+        JSONSTRUCT_COMPARE(RuleObject, type, outboundTag, balancerTag, //
+                           QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG,       //
+                           domain, ip, port, network, source, user, inboundTag, protocol, attrs)
+        JSONSTRUCT_REGISTER(RuleObject,                              //
+                            A(type, outboundTag, balancerTag),       //
+                            F(QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG), //
+                            F(domain, ip, port, network, source, user, inboundTag, protocol, attrs))
     };
     //
     //

@@ -63,7 +63,7 @@ struct VLESSServerObject
         QString encryption = "none";
         QString flow;
         JSONSTRUCT_COMPARE(UserObject, id, encryption, flow)
-        JSONSTRUCT_REGISTER(UserObject, F(id, encryption, flow))
+        JSONSTRUCT_REGISTER(UserObject, A(encryption), F(id, flow))
     };
 
     QString address;
