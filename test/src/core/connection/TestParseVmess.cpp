@@ -41,7 +41,7 @@ SCENARIO("Test Parse VMess V2 url", "[ParseVMessV2]")
             REQUIRE(portParsed == port);
             REQUIRE(idParsed.toStdString() == uuid.toStdString());
             REQUIRE(alterIdParsed == alterId);
-            REQUIRE(networkParsed.toStdString() == network.toStdString());
+            REQUIRE(networkParsed.toStdString() == "");
         }
     }
 }
@@ -86,8 +86,6 @@ SCENARIO("Test Parse VMess V1 url", "[ParseVMessV1]")
             REQUIRE(idParsed.toStdString() == uuid.toStdString());
             REQUIRE(alterIdParsed == alterId);
             REQUIRE(networkParsed.toStdString() == network.toStdString());
-            REQUIRE(typeParsed.toStdString() == "none");
-            REQUIRE(tlsParsed.toStdString() == "none");
         }
     }
 }

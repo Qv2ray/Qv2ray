@@ -287,28 +287,12 @@ namespace Qv2ray::base::objects
         transfer::HttpObject httpSettings;
         transfer::DomainSocketObject dsSettings;
         transfer::QuicObject quicSettings;
-        JSONSTRUCT_COMPARE(StreamSettingsObject, //
-                           network,              //
-                           security,             //
-                           sockopt,              //
-                           tlsSettings,          //
-                           xtlsSettings,         //
-                           tcpSettings,          //
-                           kcpSettings,          //
-                           wsSettings,           //
-                           dsSettings,           //
-                           quicSettings)
-        JSONSTRUCT_REGISTER(StreamSettingsObject, F(network,      //
-                                                    security,     //
-                                                    sockopt,      //
-                                                    tcpSettings,  //
-                                                    tlsSettings,  //
-                                                    xtlsSettings, //
-                                                    kcpSettings,  //
-                                                    wsSettings,   //
-                                                    httpSettings, //
-                                                    dsSettings,   //
-                                                    quicSettings))
+        JSONSTRUCT_COMPARE(StreamSettingsObject,       //
+                           network, security, sockopt, //
+                           tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings)
+        JSONSTRUCT_REGISTER(StreamSettingsObject, //
+                            F(network, security, sockopt),
+                            F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
     };
     //
     // Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
