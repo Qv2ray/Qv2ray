@@ -35,7 +35,6 @@ SCENARIO("Test Parse VMess V2 url", "[ParseVMessV2]")
             const auto portParsed = QJsonIO::GetValue(result, "outbounds", 0, "settings", "vnext", 0, "port").toInt();
             const auto idParsed = QJsonIO::GetValue(result, "outbounds", 0, "settings", "vnext", 0, "users", 0, "id").toString();
             const auto alterIdParsed = QJsonIO::GetValue(result, "outbounds", 0, "settings", "vnext", 0, "users", 0, "alterId").toInt();
-            const auto typeParsed = QJsonIO::GetValue(result, "outbounds", 0, "streamSettings", "tcpSettings", "header", "type").toString();
 
             REQUIRE(commentParsed.toStdString() == comment.toStdString());
             REQUIRE(addressParsed.toStdString() == address.toStdString());
@@ -43,7 +42,6 @@ SCENARIO("Test Parse VMess V2 url", "[ParseVMessV2]")
             REQUIRE(idParsed.toStdString() == uuid.toStdString());
             REQUIRE(alterIdParsed == alterId);
             REQUIRE(networkParsed.toStdString() == network.toStdString());
-            REQUIRE(typeParsed.toStdString() == "none");
         }
     }
 }
