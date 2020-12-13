@@ -35,7 +35,7 @@ jobs:
           - distro: focal
             container: ubuntu:focal
     needs: check_commit_msg
-    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
+    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!DEB') }}
     name: Build debian package for ${{ matrix.distro }}
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}

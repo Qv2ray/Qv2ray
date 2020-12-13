@@ -21,7 +21,7 @@ jobs:
 
   build:
     needs: check_commit_msg
-    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_APK') }}
+    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!APK') }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

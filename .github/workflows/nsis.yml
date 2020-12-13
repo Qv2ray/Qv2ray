@@ -22,7 +22,7 @@ jobs:
           echo "message=\"$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')\"" >> $GITHUB_ENV
   build:
     needs: check_commit_msg
-    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_NSIS') }}
+    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!NSIS') }}
     strategy:
       matrix:
         qt_version: [5.15.0]
