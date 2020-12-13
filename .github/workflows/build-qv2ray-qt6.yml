@@ -27,21 +27,11 @@ jobs:
       matrix:
         ui_type: [QWidget, QML]
         platform: [ubuntu-20.04, macos-latest, windows-latest]
-        arch: [x86, x64]
         build_type: [RelWithDebInfo, Release]
         qt_version: [6.0.0]
         include:
           - platform: windows-latest
-            arch: x86
-            qtarch: win32_msvc2019
-          - platform: windows-latest
-            arch: x64
             qtarch: win64_msvc2019_64
-        exclude:
-          - platform: ubuntu-20.04
-            arch: x86
-          - platform: macos-latest
-            arch: x86
       fail-fast: false
 
     runs-on: ${{ matrix.platform }}
@@ -66,7 +56,7 @@ jobs:
         with:
           # 14.1 is for vs2017, 14.2 is vs2019, following the upstream vcpkg build from Qv2ray-deps repo
           toolset: 14.2
-          arch: ${{ matrix.arch }}
+          arch: x64
       - name: Install Python
         uses: actions/setup-python@v1
         with:
@@ -77,8 +67,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ../Qt
-          key: QtCache-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.qt_version }}
-      - name: Installing Qt - ${{ matrix.arch }}
+          key: QtCache-${{ matrix.platform }}-${{ matrix.qt_version }}
+      - name: Installing Qt
         uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
@@ -99,19 +89,19 @@ jobs:
         run: |
           brew install protobuf grpc ninja pkg-config openssl
       # --------------------------------------------------------
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Setup Ninja
+      - name: Win - ${{ matrix.qt_version }} - Setup Ninja
         if: matrix.platform == 'windows-latest'
         uses: ashutoshvarma/setup-ninja@master
         with:
           # ninja version to download. Default: 1.10.0
           version: 1.10.0
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
+      - name: Win- - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
         if: matrix.platform == 'windows-latest'
         run: |
           cd ./libs
           export QV2RAY_LIBS=windows
-          export QV2RAY_LIBS_ARCH=${{ matrix.arch }}
+          export QV2RAY_LIBS_ARCH=x64
           ./setup-libs.sh
       # ========================================================================================================= Generate MakeFile and Build
 
@@ -200,7 +190,7 @@ jobs:
         if: matrix.platform == 'ubuntu-20.04'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray-${{ github.sha }}.linux-${{ matrix.arch }}-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.AppImage
+          name: Qv2ray-${{ github.sha }}.linux-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.AppImage
           path: build/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -208,7 +198,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.AppImage
-          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.linux-${{ matrix.arch }}.AppImage
+          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.linux.AppImage
           tag: ${{ github.ref }}
           overwrite: true
       # --------------------------------------------------------
@@ -216,7 +206,7 @@ jobs:
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray-${{ github.sha }}.macOS-${{ matrix.arch }}-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.dmg
+          name: Qv2ray-${{ github.sha }}.macOS-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.dmg
           path: Qv2ray.dmg
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -224,28 +214,28 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: Qv2ray.dmg
-          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.macOS-${{ matrix.arch }}.dmg
+          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.macOS.dmg
           tag: ${{ github.ref }}
           overwrite: true
       # --------------------------------------------------------
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Create 7z Release
+      - name: Win - ${{ matrix.qt_version }} - Create 7z Release
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/create-7z-action@v1.0
         with:
           pathSource: ./build/deployment/
           pathTarget: ./release.7z
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Uploading Artifact
+      - name: Win - ${{ matrix.qt_version }} - Uploading Artifact
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray-${{ github.sha }}.Windows-${{ matrix.arch }}-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.7z
+          name: Qv2ray-${{ github.sha }}.Windows-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.7z
           path: release.7z
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
+      - name: Win - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.ui_type == 'QWidget' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
-          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.Windows-${{ matrix.arch }}.7z
+          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.Windows.7z
           tag: ${{ github.ref }}
           overwrite: true
