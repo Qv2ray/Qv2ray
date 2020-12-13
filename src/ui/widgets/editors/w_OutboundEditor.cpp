@@ -91,8 +91,8 @@ OUTBOUND OutboundEditor::generateConnectionJson()
         {
             widget->SetHostAddress(serverAddress, serverPort);
             settings = OUTBOUNDSETTING(widget->GetContent());
-            const auto prop = widget->property("QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
-            const auto hasStreamSettings = prop.isValid() && prop.type() == QVariant::Bool && prop.toBool();
+            const auto prop = widget->property("");
+            const auto hasStreamSettings = GetProperty(widget, "QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
             if (!hasStreamSettings)
                 streaming = {};
             processed = true;
