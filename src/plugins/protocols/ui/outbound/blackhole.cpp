@@ -20,7 +20,10 @@ void BlackholeOutboundEditor::changeEvent(QEvent *e)
 void BlackholeOutboundEditor::SetContent(const QJsonObject &_content)
 {
     this->content = _content;
-    PLUGIN_EDITOR_LOADING_SCOPE({ responseTypeCB->setCurrentText(content["response"].toObject()["response"].toString()); })
+    PLUGIN_EDITOR_LOADING_SCOPE({
+        if (content.contains("response") && content["response"].toObject().contains("type"))
+            responseTypeCB->setCurrentText(content["response"].toObject()["type"].toString());
+    })
 }
 
 void BlackholeOutboundEditor::on_responseTypeCB_currentTextChanged(const QString &arg1)
