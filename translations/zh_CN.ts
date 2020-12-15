@@ -1920,7 +1920,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Test Latency On Connected</source>
-      <translation type="unfinished">Test Latency On Connected</translation>
+      <translation>连接时测试延迟</translation>
     </message>
   </context>
   <context>
@@ -2283,11 +2283,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Qv2ray has encountered an uncaught exception: </source>
-      <translation type="unfinished">Qv2ray has encountered an uncaught exception: </translation>
+      <translation>Qv2ray 遇到未知异常： </translation>
     </message>
     <message>
       <source>Please report a bug via Github with the file located here: </source>
-      <translation type="unfinished">Please report a bug via Github with the file located here: </translation>
+      <translation>请通过 Github 报告该文件的缺陷： </translation>
     </message>
   </context>
   <context>
@@ -3316,7 +3316,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation type="unfinished">Optional when using &quot;Follow Redirect&quot;</translation>
+      <translation>使用“跟随重定向”时，此项可选</translation>
     </message>
     <message>
       <source>Port</source>
@@ -3324,7 +3324,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>网络</translation>
     </message>
     <message>
       <source>TCP</source>
@@ -3340,7 +3340,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Follow Redirect</source>
-      <translation type="unfinished">Follow Redirect</translation>
+      <translation>跟随重定向</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -3355,7 +3355,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation type="unfinished">Allow Transparent</translation>
+      <translation>允许透明代理</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -3363,11 +3363,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>s</source>
-      <translation type="unfinished">s</translation>
+      <translation>秒</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>用户</translation>
     </message>
     <message>
       <source>Username</source>
@@ -3405,15 +3405,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <source>Auth</source>
-      <translation type="unfinished">Auth</translation>
+      <translation>认证</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>用户</translation>
     </message>
     <message>
       <source>Username</source>
@@ -3447,7 +3447,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>网络</translation>
     </message>
     <message>
       <source>TCP</source>
@@ -3459,7 +3459,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Original</source>
-      <translation type="unfinished">Original</translation>
+      <translation>原始</translation>
     </message>
     <message>
       <source>Address</source>
@@ -3482,11 +3482,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Redirect</source>
-      <translation type="unfinished">Redirect</translation>
+      <translation>重定向</translation>
     </message>
     <message>
       <source>:0</source>
-      <translation type="unfinished">:0</translation>
+      <translation>:0</translation>
     </message>
   </context>
   <context>
@@ -3523,7 +3523,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Encryption Method</source>
-      <translation type="unfinished">Encryption Method</translation>
+      <translation>加密方法</translation>
     </message>
   </context>
   <context>
@@ -3549,15 +3549,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Encryption</source>
-      <translation type="unfinished">Encryption</translation>
+      <translation>加密</translation>
     </message>
     <message>
       <source>Flow</source>
-      <translation type="unfinished">Flow</translation>
+      <translation>流控</translation>
     </message>
     <message>
       <source>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
@@ -3565,11 +3565,11 @@ Maybe you have downloaded the wrong core?</source>
 &lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
 
 &lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
-      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+      <translation>&lt;h3&gt;关于 &lt;code&gt;udp443&lt;/code&gt; 流控方式&lt;/h3&gt;
 
-&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+&lt;p&gt;某些应用程序如 Google Chrome 尝试使用 QUIC 协议而不是 TLS 协议，这将导致其无法享受到 XTLS 的加成。更糟的是，QUIC over TCP 存在潜在的拥塞控制问题，可能会令你的体验降级。&lt;/p&gt;
 
-&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
+&lt;p&gt;非 &lt;code&gt;udp443&lt;/code&gt; 的流控方式会阻断 UDP 目标端口为 443 的出站流量以绕过此情形。若你确实需要放行 UDP 443，请自行斟酌。&lt;/p&gt;</translation>
     </message>
   </context>
   <context>
@@ -3580,11 +3580,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Alter ID</source>
-      <translation type="unfinished">Alter ID</translation>
+      <translation>Alter ID</translation>
     </message>
     <message>
       <source>Security</source>
@@ -3609,38 +3609,38 @@ Maybe you have downloaded the wrong core?</source>
     <name>HTTPInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>移除用户</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>你尚未选择一个用户。</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>此用户已存在。</translation>
     </message>
   </context>
   <context>
     <name>SocksInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>移除用户</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>你尚未选择一个用户。</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>此用户已存在。</translation>
     </message>
   </context>
 </TS>
