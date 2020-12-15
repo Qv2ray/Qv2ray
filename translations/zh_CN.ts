@@ -511,10 +511,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>路径</translation>
     </message>
     <message>
-      <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-      <translation>作为复杂配置导入（手动编辑路由规则与入站）</translation>
-    </message>
-    <message>
       <source>Json Editor</source>
       <translation>Json 编辑器</translation>
     </message>
@@ -569,6 +565,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
       <translation>警告：你有可能把“订阅链接”当成了“分享链接”</translation>
+    </message>
+    <message>
+      <source>Import as Complex Config</source>
+      <translation>导入为复杂配置</translation>
     </message>
   </context>
   <context>
@@ -1344,7 +1344,7 @@ This could resolve the certificate issues, but also could let one performing TLS
     </message>
     <message>
       <source>Test Latency On Connected</source>
-      <translation>连接后测试延迟</translation>
+      <translation>连接时测试延迟</translation>
     </message>
     <message>
       <source>Run TCPing or ICMPing periodcally after connecting to a server.
@@ -2280,6 +2280,14 @@ Output: <byte value="xd"/>
     <message>
       <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
       <translation>请先升级到 Qv2ray v2.0/v2.1 然后重试。</translation>
+    </message>
+    <message>
+      <source>Qv2ray has encountered an uncaught exception: </source>
+      <translation type="unfinished">Qv2ray has encountered an uncaught exception: </translation>
+    </message>
+    <message>
+      <source>Please report a bug via Github with the file located here: </source>
+      <translation type="unfinished">Please report a bug via Github with the file located here: </translation>
     </message>
   </context>
   <context>
@@ -3294,6 +3302,345 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Components</source>
       <translation>组件</translation>
+    </message>
+  </context>
+  <context>
+    <name>dokodemodoorInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Address</source>
+      <translation>地址</translation>
+    </message>
+    <message>
+      <source>Optional when using &quot;Follow Redirect&quot;</source>
+      <translation type="unfinished">Optional when using &quot;Follow Redirect&quot;</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
+    </message>
+    <message>
+      <source>Network</source>
+      <translation type="unfinished">Network</translation>
+    </message>
+    <message>
+      <source>TCP</source>
+      <translation>TCP</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation>超时</translation>
+    </message>
+    <message>
+      <source>Follow Redirect</source>
+      <translation type="unfinished">Follow Redirect</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>已启用</translation>
+    </message>
+  </context>
+  <context>
+    <name>httpInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Allow Transparent</source>
+      <translation type="unfinished">Allow Transparent</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation>超时</translation>
+    </message>
+    <message>
+      <source>s</source>
+      <translation type="unfinished">s</translation>
+    </message>
+    <message>
+      <source>Users</source>
+      <translation type="unfinished">Users</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用户名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginInboundEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+  </context>
+  <context>
+    <name>socksInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>已启用</translation>
+    </message>
+    <message>
+      <source>UDP Local IP</source>
+      <translation>UDP 本地IP</translation>
+    </message>
+    <message>
+      <source>127.0.0.1</source>
+      <translation type="unfinished">127.0.0.1</translation>
+    </message>
+    <message>
+      <source>Auth</source>
+      <translation type="unfinished">Auth</translation>
+    </message>
+    <message>
+      <source>Users</source>
+      <translation type="unfinished">Users</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用户名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+  </context>
+  <context>
+    <name>blackholeOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Response</source>
+      <translation>响应</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>类型</translation>
+    </message>
+  </context>
+  <context>
+    <name>dnsOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Network</source>
+      <translation type="unfinished">Network</translation>
+    </message>
+    <message>
+      <source>TCP</source>
+      <translation>TCP</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation type="unfinished">Original</translation>
+    </message>
+    <message>
+      <source>Address</source>
+      <translation>地址</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
+    </message>
+  </context>
+  <context>
+    <name>freedomOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Domain Strategy</source>
+      <translation>域名策略</translation>
+    </message>
+    <message>
+      <source>Redirect</source>
+      <translation type="unfinished">Redirect</translation>
+    </message>
+    <message>
+      <source>:0</source>
+      <translation type="unfinished">:0</translation>
+    </message>
+  </context>
+  <context>
+    <name>httpOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用户名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginOutboundEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+  </context>
+  <context>
+    <name>shadowsocksOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+    <message>
+      <source>Encryption Method</source>
+      <translation type="unfinished">Encryption Method</translation>
+    </message>
+  </context>
+  <context>
+    <name>socksOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用户名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+  </context>
+  <context>
+    <name>vlessOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>UUID</source>
+      <translation type="unfinished">UUID</translation>
+    </message>
+    <message>
+      <source>Encryption</source>
+      <translation type="unfinished">Encryption</translation>
+    </message>
+    <message>
+      <source>Flow</source>
+      <translation type="unfinished">Flow</translation>
+    </message>
+    <message>
+      <source>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+
+&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+
+&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
+      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+
+&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+
+&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
+    </message>
+  </context>
+  <context>
+    <name>vmessOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>UUID</source>
+      <translation type="unfinished">UUID</translation>
+    </message>
+    <message>
+      <source>Alter ID</source>
+      <translation type="unfinished">Alter ID</translation>
+    </message>
+    <message>
+      <source>Security</source>
+      <translation>安全选项</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginSettingsWidget</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowForm.ui</name>
+    <message>
+      <source>Qv2ray</source>
+      <translation>Qv2ray</translation>
+    </message>
+  </context>
+  <context>
+    <name>HTTPInboundEditor</name>
+    <message>
+      <source>Removing a user</source>
+      <translation type="unfinished">Removing a user</translation>
+    </message>
+    <message>
+      <source>You haven&apos;t selected a user yet.</source>
+      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+    </message>
+    <message>
+      <source>Add a user</source>
+      <translation type="unfinished">Add a user</translation>
+    </message>
+    <message>
+      <source>This user exists already.</source>
+      <translation type="unfinished">This user exists already.</translation>
+    </message>
+  </context>
+  <context>
+    <name>SocksInboundEditor</name>
+    <message>
+      <source>Removing a user</source>
+      <translation type="unfinished">Removing a user</translation>
+    </message>
+    <message>
+      <source>You haven&apos;t selected a user yet.</source>
+      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+    </message>
+    <message>
+      <source>Add a user</source>
+      <translation type="unfinished">Add a user</translation>
+    </message>
+    <message>
+      <source>This user exists already.</source>
+      <translation type="unfinished">This user exists already.</translation>
     </message>
   </context>
 </TS>
