@@ -114,7 +114,7 @@ void OutboundEditor::reloadGUI()
     tag = originalConfig["tag"].toString();
     tagTxt->setText(tag);
     outboundType = originalConfig["protocol"].toString("vmess");
-    muxConfig = originalConfig["mux"].toObject();
+    muxConfig = originalConfig.contains("mux") ? originalConfig["mux"].toObject() : QJsonObject{};
     useForwardProxy = originalConfig[QV2RAY_USE_FPROXY_KEY].toBool(false);
     streamSettingsWidget->SetStreamObject(StreamSettingsObject::fromJson(originalConfig["streamSettings"].toObject()));
     //

@@ -42,12 +42,14 @@ namespace Qv2ray::base::safetype
     {
         T1 value1;
         T2 value2;
-        JSONSTRUCT_REGISTER(___qvpair_t, F(value1, value2))
-      private:
-        typedef QvPair<T1, T2> ___qvpair_t;
+        friend bool operator==(const QvPair<T1, T2> &one, const QvPair<T1, T2> &another)
+        {
+            return another.value1 == one.value1 && another.value2 == one.value2;
+        }
+        JSONSTRUCT_REGISTER(___qvpair_t, F(value1, value2)) private : typedef QvPair<T1, T2> ___qvpair_t;
     };
 
-    template<typename enumKey, typename TValue, typename = typename std::enable_if<std::is_enum<enumKey>::value>::type>
+    template<typename enumKey, typename TValue, typename = typename std::enable_if_t<std::is_enum_v<enumKey>>>
     struct QvEnumMap : QMap<enumKey, TValue>
     {
         // WARN: Changing this will break all existing JSON.

@@ -267,6 +267,7 @@ include(cmake/libcurl.cmake)
 include(cmake/libsemver.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/backend.cmake)
+include(3rdparty/QJsonStruct/QJsonStruct.cmake)
 
 # ==================================================================================
 # Qv2ray Base, Qt Libraries, Qv2ray GUI Libraries, libThreads

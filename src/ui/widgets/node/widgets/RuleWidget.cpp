@@ -64,7 +64,7 @@ void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
     routePortTxt->setText(rule.port);
     //
     // Users
-    const auto users = rule.user.join(NEWLINE);
+    const auto sourcePorts = rule.sourcePort;
     //
     // Incoming Sources
     const auto sources = rule.source.join(NEWLINE);
@@ -114,11 +114,6 @@ void QvNodeRuleWidget::on_routePortTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
     rule.port = arg1;
-}
-void QvNodeRuleWidget::on_routeUserTxt_textEdited(const QString &arg1)
-{
-    LOADINGCHECK
-    rule.user = SplitLines(arg1);
 }
 
 void QvNodeRuleWidget::on_netUDPRB_clicked()

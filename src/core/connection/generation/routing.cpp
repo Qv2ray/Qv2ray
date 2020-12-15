@@ -14,9 +14,9 @@ namespace Qv2ray::core::connection::generation::routing
         if (withLocalhost)
             servers.push_front("localhost");
         root["servers"] = servers;
-        JAUTOREMOVE(root, "clientIp");
-        JAUTOREMOVE(root, "hosts");
-        JAUTOREMOVE(root, "tag");
+        // JAUTOREMOVE(root, "clientIp");
+        // JAUTOREMOVE(root, "hosts");
+        // JAUTOREMOVE(root, "tag");
         return root;
     }
 

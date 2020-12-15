@@ -97,8 +97,6 @@ namespace Qv2ray::core::handler
             groupObject[key.toString()] = groups[key].toJson();
         }
         StringToFile(JsonToString(groupObject), QV2RAY_CONFIG_DIR + "groups.json");
-        RouteManager->SaveRoutes();
-        SaveGlobalSettings();
     }
 
     void QvConfigHandler::timerEvent(QTimerEvent *event)
@@ -341,7 +339,6 @@ namespace Qv2ray::core::handler
     void QvConfigHandler::StopConnection() // const ConnectionId &id
     {
         kernelHandler->StopConnection();
-        SaveConnectionConfig();
     }
 
     void QvConfigHandler::p_OnKernelCrashed(const ConnectionGroupPair &id, const QString &errMessage)
