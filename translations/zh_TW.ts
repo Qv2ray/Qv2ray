@@ -1343,10 +1343,6 @@ This could resolve the certificate issues, but also could let one performing TLS
       <translation>定時測試延遲</translation>
     </message>
     <message>
-      <source>Test Latency On Connected</source>
-      <translation type="unfinished">Test Latency On Connected</translation>
-    </message>
-    <message>
       <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
       <translation>連接到節點之後，對節點進行週期性的延遲監測。
@@ -1921,6 +1917,10 @@ Output: <byte value="xd"/>
     <message>
       <source>Open Directory</source>
       <translation type="unfinished">Open Directory</translation>
+    </message>
+    <message>
+      <source>Test Latency On Connected</source>
+      <translation type="unfinished">Test Latency On Connected</translation>
     </message>
   </context>
   <context>
