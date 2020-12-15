@@ -3316,7 +3316,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation type="unfinished">Optional when using &quot;Follow Redirect&quot;</translation>
+      <translation>使用“跟隨轉址”時可省</translation>
     </message>
     <message>
       <source>Port</source>
@@ -3324,7 +3324,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>網路</translation>
     </message>
     <message>
       <source>TCP</source>
@@ -3340,7 +3340,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Follow Redirect</source>
-      <translation type="unfinished">Follow Redirect</translation>
+      <translation>遵循重定向 (Redirect)</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -3355,7 +3355,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation type="unfinished">Allow Transparent</translation>
+      <translation>允許透明</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -3363,11 +3363,11 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>s</source>
-      <translation type="unfinished">s</translation>
+      <translation>秒</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>使用者</translation>
     </message>
     <message>
       <source>Username</source>
@@ -3405,15 +3405,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <source>Auth</source>
-      <translation type="unfinished">Auth</translation>
+      <translation>身分驗證</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>用戶</translation>
     </message>
     <message>
       <source>Username</source>
@@ -3447,7 +3447,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>網路</translation>
     </message>
     <message>
       <source>TCP</source>
@@ -3459,7 +3459,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Original</source>
-      <translation type="unfinished">Original</translation>
+      <translation>原始</translation>
     </message>
     <message>
       <source>Address</source>
@@ -3482,11 +3482,11 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Redirect</source>
-      <translation type="unfinished">Redirect</translation>
+      <translation>重定向 (Redirect)</translation>
     </message>
     <message>
       <source>:0</source>
-      <translation type="unfinished">:0</translation>
+      <translation>:0</translation>
     </message>
   </context>
   <context>
@@ -3523,7 +3523,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Encryption Method</source>
-      <translation type="unfinished">Encryption Method</translation>
+      <translation>加密方式</translation>
     </message>
   </context>
   <context>
@@ -3549,15 +3549,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Encryption</source>
-      <translation type="unfinished">Encryption</translation>
+      <translation>加密</translation>
     </message>
     <message>
       <source>Flow</source>
-      <translation type="unfinished">Flow</translation>
+      <translation>流控</translation>
     </message>
     <message>
       <source>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
@@ -3580,11 +3580,11 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Alter ID</source>
-      <translation type="unfinished">Alter ID</translation>
+      <translation>Alter ID</translation>
     </message>
     <message>
       <source>Security</source>
@@ -3609,38 +3609,38 @@ Maybe you have downloaded the wrong core?</translation>
     <name>HTTPInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>刪除用戶</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>您並未選擇任一用戶。</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>新增使用者</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>此用戶已存在。</translation>
     </message>
   </context>
   <context>
     <name>SocksInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>移除使用者</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>您並未選擇任一使用者。</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>新增使用者</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>使用者已存在</translation>
     </message>
   </context>
 </TS>
