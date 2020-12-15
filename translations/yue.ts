@@ -3626,38 +3626,38 @@ Maybe you have downloaded the wrong core?</translation>
     <name>HTTPInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>删除用户</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>你仲唔拣用户嘅。</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>用户一早存在。</translation>
     </message>
   </context>
   <context>
     <name>SocksInboundEditor</name>
     <message>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>删除用户</translation>
     </message>
     <message>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>你仲唔拣用户嘅。</translation>
     </message>
     <message>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>用户一早存在。</translation>
     </message>
   </context>
 </TS>
