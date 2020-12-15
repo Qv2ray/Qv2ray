@@ -111,7 +111,7 @@ namespace Qv2ray::base::objects
                            domain, ip, port, sourcePort, network, source, inboundTag, protocol, attrs)
         JSONSTRUCT_REGISTER(RuleObject,                              //
                             A(type, outboundTag, balancerTag),       //
-                            F(QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG), //
+                            A(QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG), //
                             F(domain, ip, port, sourcePort, network, source, inboundTag, protocol, attrs))
     };
     //
