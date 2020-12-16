@@ -642,7 +642,6 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     lastConnected = id;
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
-    speedChartWidget->Clear();
     auto name = GetDisplayName(id.connectionId);
     if (!GlobalConfig.uiConfig.quietMode)
     {
