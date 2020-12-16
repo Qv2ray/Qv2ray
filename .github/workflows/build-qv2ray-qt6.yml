@@ -47,8 +47,8 @@ jobs:
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Checking out sources
         uses: actions/checkout@v2
-      - name: Restoring submodules
-        run: git submodule update --init
+        with:
+          submodules: 'recursive'
       # =========================================================================================================
       - name: Install MSVC compiler
         if: matrix.platform == 'windows-latest'
