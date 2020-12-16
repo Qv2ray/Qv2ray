@@ -157,9 +157,6 @@ if(QV2RAY_HAS_SINGLEAPPLICATION)
     QVLOG(QV2RAY_SINGLEAPPLICATION_PROVIDER)
 endif()
 
-set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp Provider")
-QVLOG(QV2RAY_ZXING_PROVIDER)
-
 if(QV2RAY_USE_QML)
     option(QV2RAY_QML_LIVE_UPDATE "Use QMLLive for live updated QML" OFF)
     QVLOG(QV2RAY_QML_LIVE_UPDATE)
@@ -359,7 +356,7 @@ endif()
 # ==================================================================================
 if(_QV2RAY_HAS_GUI_INTERNAL_)
     add_definitions(-DQV2RAY_GUI)
-    include(cmake/zxing-cpp.cmake)
+    include(cmake/qrencode.cmake)
 
     include(cmake/components/qv2ray-ui.cmake)
     list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_COMMON_SOURCES})
@@ -428,14 +425,13 @@ target_include_directories(qv2ray PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_BINARY_DIR}
     ${QNODEEDITOR_INCLUDE_PATH}
-    ${ZXING_INCLUDE_PATH}
     ${Protobuf_INCLUDE_DIRS}
     )
 target_link_libraries(qv2ray
     qv2ray_baselib
-    ${ZXING_LIBRARY}
     ${QNODEEDITOR_LIBRARY}
     ${QV2RAY_PLATFORM_LIBS}
+    ${QV2RAY_QRENCODE_LIBRARY}
     )
 
 

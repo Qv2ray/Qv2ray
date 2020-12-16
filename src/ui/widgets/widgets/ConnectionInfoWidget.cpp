@@ -83,7 +83,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         //
         shareLinkTxt->setCursorPosition(0);
         auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
-        qrPixmap = QPixmap::fromImage(EncodeQRCode(shareLink, qrLabel->size() * devicePixelRatio()));
+        qrPixmap = QPixmap::fromImage(EncodeQRCode(shareLink, qrLabel->width() * devicePixelRatio()));
         //
         qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
         //
