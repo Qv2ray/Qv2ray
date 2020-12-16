@@ -84,7 +84,9 @@ jobs:
         
     - name: Build Qv2ray
       run: |
-        set
+        cd 3rdparty
+        git clone https://github.com/KDAB/android_openssl
+        cd ..
         mkdir build
         cd build
         cmake .. -GNinja \
