@@ -5,8 +5,10 @@
 #include "utils/QvHelpers.hpp"
 #ifdef Q_OS_WIN
     #include <Windows.h>
-    //
     #include <WinInet.h>
+    #include <ras.h>
+    #include <raserror.h>
+    #include <vector>
 #endif
 
 #define QV_MODULE_NAME "SystemProxy"
@@ -133,25 +135,40 @@ namespace Qv2ray::components::proxy
     bool __SetProxyOptions(LPWSTR proxy_full_addr, bool isPAC)
     {
         INTERNET_PER_CONN_OPTION_LIST list;
-        BOOL bReturn;
         DWORD dwBufSize = sizeof(list);
         // Fill the list structure.
         list.dwSize = sizeof(list);
         // NULL == LAN, otherwise connectoid name.
         list.pszConnection = nullptr;
 
-        if (isPAC)
+        if (nullptr == proxy_full_addr)
+        {
+            LOG("Clearing system proxy");
+            //
+            list.dwOptionCount = 1;
+            list.pOptions = new INTERNET_PER_CONN_OPTION[1];
+
+            // Ensure that the memory was allocated.
+            if (nullptr == list.pOptions)
+            {
+                // Return if the memory wasn't allocated.
+                return false;
+            }
+
+            // Set flags.
+            list.pOptions[0].dwOption = INTERNET_PER_CONN_FLAGS;
+            list.pOptions[0].Value.dwValue = PROXY_TYPE_DIRECT;
+        }
+        else if (isPAC)
         {
             LOG("Setting system proxy for PAC");
             //
             list.dwOptionCount = 2;
             list.pOptions = new INTERNET_PER_CONN_OPTION[2];
 
-            // Ensure that the memory was allocated.
             if (nullptr == list.pOptions)
             {
-                // Return FALSE if the memory wasn't allocated.
-                return FALSE;
+                return false;
             }
 
             // Set flags.
@@ -185,12 +202,44 @@ namespace Qv2ray::components::proxy
             list.pOptions[2].Value.pszValue = NO_CONST(localhost);
         }
 
-        // Set the options on the connection.
-        bReturn = InternetSetOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &list, dwBufSize);
+        // Set proxy for LAN.
+        if (!InternetSetOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &list, dwBufSize))
+        {
+            LOG("InternetSetOption failed for LAN, GLE=" + QSTRN(GetLastError()));
+        }
+
+        RASENTRYNAME entry;
+        entry.dwSize = sizeof(entry);
+        std::vector<RASENTRYNAME> entries;
+        DWORD size = sizeof(entry), count;
+        LPRASENTRYNAME entryAddr = &entry;
+        auto ret = RasEnumEntries(nullptr, nullptr, entryAddr, &size, &count);
+        if (ERROR_BUFFER_TOO_SMALL == ret)
+        {
+            entries.resize(count);
+            entries[0].dwSize = sizeof(RASENTRYNAME);
+            entryAddr = entries.data();
+            ret = RasEnumEntries(nullptr, nullptr, entryAddr, &size, &count);
+        }
+        if (ERROR_SUCCESS != ret)
+        {
+            LOG("Failed to list entry names");
+        }
+
+        // Set proxy for each connectoid.
+        for (size_t i = 0; i < count; ++i)
+        {
+            list.pszConnection = entryAddr[i].szEntryName;
+            if (!InternetSetOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &list, dwBufSize))
+            {
+                LOG("InternetSetOption failed for connectoid " + QString::fromWCharArray(list.pszConnection) + ", GLE=" + QSTRN(GetLastError()));
+            }
+        }
+
         delete[] list.pOptions;
         InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
         InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
-        return bReturn;
+        return true;
     }
 #endif
 
@@ -363,34 +412,10 @@ namespace Qv2ray::components::proxy
         LOG("Clearing System Proxy");
 
 #ifdef Q_OS_WIN
-        LOG("Cleaning system proxy settings.");
-        INTERNET_PER_CONN_OPTION_LIST list;
-        BOOL bReturn;
-        DWORD dwBufSize = sizeof(list);
-        // Fill out list struct.
-        list.dwSize = sizeof(list);
-        // nullptr == LAN, otherwise connectoid name.
-        list.pszConnection = nullptr;
-        // Set three options.
-        list.dwOptionCount = 1;
-        list.pOptions = new INTERNET_PER_CONN_OPTION[list.dwOptionCount];
-
-        // Make sure the memory was allocated.
-        if (nullptr == list.pOptions)
+        if (!__SetProxyOptions(nullptr, false))
         {
-            // Return FALSE if the memory wasn't allocated.
-            LOG("Failed to allocat memory in DisableConnectionProxy()");
+            LOG("Failed to clear proxy.");
         }
-
-        // Set flags.
-        list.pOptions[0].dwOption = INTERNET_PER_CONN_FLAGS;
-        list.pOptions[0].Value.dwValue = PROXY_TYPE_DIRECT;
-        //
-        // Set the options on the connection.
-        bReturn = InternetSetOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &list, dwBufSize);
-        delete[] list.pOptions;
-        InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
-        InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
 #elif defined(Q_OS_LINUX)
         QList<ProcessArgument> actions;
         const bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE" || qEnvironmentVariable("XDG_SESSION_DESKTOP") == "plasma";
