@@ -1075,15 +1075,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Do you want to remove this group as well?</source>
-      <translation type="unfinished">Do you want to remove this group as well?</translation>
+      <translation>您想要同时删除这个组吗？</translation>
     </message>
     <message>
       <source>Group: </source>
-      <translation type="unfinished">Group: </translation>
+      <translation>组： </translation>
     </message>
     <message>
       <source>Removing Connection</source>
-      <translation type="unfinished">Removing Connection</translation>
+      <translation>正在删除连接</translation>
     </message>
   </context>
   <context>
@@ -1920,7 +1920,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation>使用虚拟的 DNS</translation>
+      <translation>使用 Fake DNS</translation>
     </message>
     <message>
       <source>Config Directory</source>
@@ -1932,7 +1932,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Test Latency On Connected</source>
-      <translation>在连接状态下测试延迟</translation>
+      <translation>连接时测试延迟</translation>
     </message>
   </context>
   <context>
@@ -1983,23 +1983,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
-      <translation>Qv2ray —— 一个跨平台的、基于Qt技术的V2ray前端程序</translation>
+      <translation>Qv2ray - 跨平台的 V2Ray Qt 前端。</translation>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation>DNS 尚未解析</translation>
+      <translation>无法解析 DNS</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
-      <translation>Socket 创建失败</translation>
+      <translation>套接字创建失败</translation>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
-      <translation>无法设置 TTL 的数值</translation>
+      <translation>无法设置 TTL 值</translation>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation>目标无法访问</translation>
+      <translation>目标不可达</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -2015,7 +2015,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Settings Widget</source>
-      <translation>设置部件</translation>
+      <translation>设置组件</translation>
     </message>
     <message>
       <source>Inbound Editor</source>
@@ -2027,7 +2027,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>MainWindow Widget</source>
-      <translation>主窗口小部件</translation>
+      <translation>主窗口组件</translation>
     </message>
     <message>
       <source>Unknown type.</source>
@@ -2035,7 +2035,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Kernel</source>
-      <translation>内核数</translation>
+      <translation>内核</translation>
     </message>
     <message>
       <source>Outbound Handler/Parser</source>
@@ -2047,19 +2047,19 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Event Handler</source>
-      <translation>事件处理程序</translation>
+      <translation>事件处理器</translation>
     </message>
     <message>
       <source>GUI Components</source>
-      <translation>图形化界面组件</translation>
+      <translation>GUI 组件</translation>
     </message>
     <message>
       <source>Unsupported share link format.</source>
-      <translation>不支持的共享链接格式。</translation>
+      <translation>不支持的分享链接格式。</translation>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation>SS 的地址过短</translation>
+      <translation>Shadowsocks 分享链接过短</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
@@ -2071,39 +2071,39 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation>在主机名和端口之间缺少冒号分隔符</translation>
+      <translation>主机名和端口之间缺少冒号分隔符</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
-      <translation>此 ssd 链接无效 (JSON): 字段 %1 必须存在</translation>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须存在</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be valid port number</source>
-      <translation>此 ssd 链接无效 (JSON): 字段 %1 必须是有效的端口号</translation>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是有效的端口号</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation>此 ssd 链接无效 (JSON): 字段 %1 必须是类型为 &apos;的字符串&apos;</translation>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是 &apos;字符串&apos; 类型</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
-      <translation>此 ssd 链接无效 (JSON): 字段 %1 必须是一个数组</translation>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是一个数组</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: server must be an object</source>
-      <translation>无效的 ssd 服务器将会被忽略：服务器必须是一个对象</translation>
+      <translation>跳过无效的 ssd 服务器：服务器必须是对象</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: missing required field %1</source>
-      <translation>无效的 ssd 服务器将会被忽略：缺少必填字段 %1</translation>
+      <translation>跳过无效的 ssd 服务器: 缺少必填字段 %1</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-      <translation>无效的 ssd 服务器将会被忽略：字段 %1 应该是 &apos;字符串&apos;</translation>
+      <translation>跳过无效的 ssd 服务器: 字段 %1 应该是 &apos;字符串&apos; 类型</translation>
     </message>
     <message>
       <source>Invalid ssd link: should begin with ssd://</source>
-      <translation>您输入的不是正确的ssd链接：应以 ssd:// 开头</translation>
+      <translation>无效的 ssd 链接: 应以 ssd:// 开头</translation>
     </message>
     <message>
       <source>Invalid ssd link: base64 parse failed</source>
