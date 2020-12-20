@@ -48,11 +48,11 @@ namespace Qv2ray::base
     DECL_IDTYPE(GroupId);
     DECL_IDTYPE(ConnectionId);
     DECL_IDTYPE(GroupRoutingId);
-    //
+
     inline const static ConnectionId NullConnectionId;
     inline const static GroupId NullGroupId;
     inline const static GroupRoutingId NullRoutingId;
-    //
+
     class ConnectionGroupPair
     {
       public:
@@ -76,17 +76,17 @@ namespace Qv2ray::base
         {
             return groupId == NullGroupId || connectionId == NullConnectionId;
         }
-        friend bool operator==(const ConnectionGroupPair &lhs, const ConnectionGroupPair &rhs)
+        bool operator==(const ConnectionGroupPair &rhs) const
         {
-            return lhs.groupId == rhs.groupId && lhs.connectionId == rhs.connectionId;
+            return groupId == rhs.groupId && connectionId == rhs.connectionId;
         }
-        friend bool operator!=(const ConnectionGroupPair &lhs, const ConnectionGroupPair &rhs)
+        bool operator!=(const ConnectionGroupPair &rhs) const
         {
-            return !(lhs == rhs);
+            return !(*this == rhs);
         }
         JSONSTRUCT_REGISTER(ConnectionGroupPair, F(connectionId, groupId))
     };
-    //
+
     constexpr unsigned int LATENCY_TEST_VALUE_ERROR = 99999;
     constexpr unsigned int LATENCY_TEST_VALUE_NODATA = LATENCY_TEST_VALUE_ERROR - 1;
     using namespace std::chrono;
@@ -167,9 +167,9 @@ namespace Qv2ray::base
 
     typedef long qvspeed;
     typedef quint64 qvdata;
-    typedef QPair<qvspeed, qvspeed> QvStatsSpeed;
-    typedef QPair<qvdata, qvdata> QvStatsData;
-    typedef QPair<QvStatsSpeed, QvStatsData> QvStatsSpeedData;
+    typedef std::pair<qvspeed, qvspeed> QvStatsSpeed;
+    typedef std::pair<qvdata, qvdata> QvStatsData;
+    typedef std::pair<QvStatsSpeed, QvStatsData> QvStatsSpeedData;
 
     struct ConnectionStatsEntryObject
     {

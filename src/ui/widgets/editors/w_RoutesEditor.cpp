@@ -442,7 +442,7 @@ void RouteEditor::on_importExistingBtn_clicked()
         const auto group = GroupId{ importGroupBtn->currentData(Qt::UserRole).toString() };
         if (QvMessageBoxAsk(this, tr("Importing All Connections"), tr("Do you want to import all the connections?")) != Yes)
             return;
-        for (const auto &connId : ConnectionManager->Connections(group))
+        for (const auto &connId : ConnectionManager->GetConnections(group))
         {
             ImportConnection(connId);
         }
@@ -468,7 +468,7 @@ void RouteEditor::on_linkExistingBtn_clicked()
         const auto group = GroupId{ importGroupBtn->currentData(Qt::UserRole).toString() };
         if (QvMessageBoxAsk(this, tr("Importing All Connections"), tr("Do you want to import all the connections?")) != Yes)
             return;
-        for (const auto &connId : ConnectionManager->Connections(group))
+        for (const auto &connId : ConnectionManager->GetConnections(group))
         {
             ImportConnection(connId);
         }
@@ -484,7 +484,7 @@ void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
 {
     const auto group = GroupId{ importGroupBtn->currentData(Qt::UserRole).toString() };
     importConnBtn->clear();
-    for (const auto &connId : ConnectionManager->Connections(group))
+    for (const auto &connId : ConnectionManager->GetConnections(group))
     {
         importConnBtn->addItem(GetDisplayName(connId), connId.toString());
     }

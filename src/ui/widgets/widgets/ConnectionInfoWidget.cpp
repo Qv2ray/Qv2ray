@@ -98,7 +98,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         connectBtn->setIcon(QICON_R("start"));
         groupNameLabel->setText(GetDisplayName(groupId));
         QStringList shareLinks;
-        for (const auto &connection : ConnectionManager->Connections(groupId))
+        for (const auto &connection : ConnectionManager->GetConnections(groupId))
         {
             shareLinks << ConvertConfigToString({ connection, groupId }, !GlobalConfig.uiConfig.useOldShareLinkFormat);
         }

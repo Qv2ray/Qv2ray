@@ -108,7 +108,7 @@ bool ConnectionItemWidget::NameMatched(const QString &arg) const
 
 void ConnectionItemWidget::RecalculateConnectionsCount()
 {
-    auto connectionCount = ConnectionManager->Connections(groupId).count();
+    auto connectionCount = ConnectionManager->GetConnections(groupId).count();
     latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
     OnGroupItemRenamed(groupId, "", originalItemName);
 }

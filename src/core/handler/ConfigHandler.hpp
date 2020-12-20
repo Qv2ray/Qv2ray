@@ -11,10 +11,8 @@ namespace Qv2ray::common::network
 }
 
 #define CheckValidId(id, returnValue)                                                                                                                \
-    {                                                                                                                                                \
-        if (!IsValidId(id))                                                                                                                          \
-            return returnValue;                                                                                                                      \
-    }
+    if (!IsValidId(id))                                                                                                                              \
+        return returnValue;
 
 namespace Qv2ray::core::handler
 {
@@ -26,11 +24,11 @@ namespace Qv2ray::core::handler
         ~QvConfigHandler();
 
       public slots:
-        inline const QList<ConnectionId> Connections() const
+        inline const QList<ConnectionId> GetConnections() const
         {
             return connections.keys();
         }
-        inline const QList<ConnectionId> Connections(const GroupId &groupId) const
+        inline const QList<ConnectionId> GetConnections(const GroupId &groupId) const
         {
             CheckValidId(groupId, {});
             return groups[groupId].connections;
@@ -38,7 +36,10 @@ namespace Qv2ray::core::handler
         inline QList<GroupId> AllGroups() const
         {
             auto k = groups.keys();
-            std::sort(k.begin(), k.end(), [&](const auto &idA, const auto &idB) { return groups[idA].displayName < groups[idB].displayName; });
+            std::sort(k.begin(), k.end(), [&](const GroupId &idA, const GroupId &idB) {
+                const auto result = groups[idA].displayName < groups[idB].displayName;
+                return result;
+            });
             return k;
         }
         inline bool IsValidId(const ConnectionId &id) const
@@ -73,14 +74,12 @@ namespace Qv2ray::core::handler
         {
             CheckValidId(group, nothing);
             if (groups[group].isSubscription)
-            {
                 groups[group].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
-            }
         }
 
         void SaveConnectionConfig();
         const QList<GroupId> Subscriptions() const;
-        const QList<GroupId> GetGroupId(const ConnectionId &connId) const;
+        const QList<GroupId> GetConnectionContainedIn(const ConnectionId &connId) const;
         //
         // Connectivity Operationss
         bool StartConnection(const ConnectionGroupPair &identifier);

@@ -238,7 +238,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
 
         autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
-        for (const auto &conn : ConnectionManager->Connections(autoStartGroupId))
+        for (const auto &conn : ConnectionManager->GetConnections(autoStartGroupId))
             autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
 
         autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
@@ -607,7 +607,7 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
     }
     else
     {
-        auto list = ConnectionManager->Connections(GroupId(autoStartSubsCombo->currentData().toString()));
+        auto list = ConnectionManager->GetConnections(GroupId(autoStartSubsCombo->currentData().toString()));
         autoStartConnCombo->clear();
 
         for (const auto &id : list)

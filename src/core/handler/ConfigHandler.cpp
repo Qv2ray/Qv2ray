@@ -114,7 +114,7 @@ namespace Qv2ray::core::handler
             auto id = kernelHandler->CurrentConnection();
             if (!id.isEmpty() && GlobalConfig.advancedConfig.testLatencyPeriodcally)
             {
-                StartLatencyTest(id.connectionId);
+                StartLatencyTest(id.connectionId, GlobalConfig.networkConfig.latencyTestingMethod);
             }
         }
     }
@@ -147,11 +147,11 @@ namespace Qv2ray::core::handler
     {
         QList<GroupId> subsList;
 
-        for (const auto &group : groups.keys())
+        for (const auto &group : groups)
         {
-            if (groups[group].isSubscription)
+            if (group.isSubscription)
             {
-                subsList.push_back(group);
+                subsList.push_back(groups.key(group));
             }
         }
 
@@ -174,17 +174,14 @@ namespace Qv2ray::core::handler
         return;
     }
 
-    const QList<GroupId> QvConfigHandler::GetGroupId(const ConnectionId &connId) const
+    const QList<GroupId> QvConfigHandler::GetConnectionContainedIn(const ConnectionId &connId) const
     {
         CheckValidId(connId, {});
         QList<GroupId> grps;
-        for (const auto &groupId : groups.keys())
+        for (const auto &group : groups)
         {
-            const auto &group = groups[groupId];
             if (group.connections.contains(connId))
-            {
-                grps.push_back(groupId);
-            }
+                grps.push_back(groups.key(group));
         }
         return grps;
     }
@@ -218,13 +215,11 @@ namespace Qv2ray::core::handler
         {
             GlobalConfig.autoStartId.clear();
         }
-        //
+
         // Emit everything first then clear the connection map.
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::RemovedFromGroup, GetDisplayName(id), "" });
-
         emit OnConnectionRemovedFromGroup({ id, gid });
 
-        //
         if (connections[id].__qvConnectionRefCount <= 0)
         {
             LOG("Fully removing a connection from cache.");
@@ -270,13 +265,13 @@ namespace Qv2ray::core::handler
         if (groups[targetGid].connections.contains(id))
         {
             LOG("The connection: " + id.toString() + " has already been in the target group: " + targetGid.toString());
-            auto removedCount = groups[sourceGid].connections.removeAll(id);
+            const auto removedCount = groups[sourceGid].connections.removeAll(id);
             connections[id].__qvConnectionRefCount -= removedCount;
         }
         else
         {
             // If the target group does not contain this connection.
-            auto removedCount = groups[sourceGid].connections.removeAll(id);
+            const auto removedCount = groups[sourceGid].connections.removeAll(id);
             connections[id].__qvConnectionRefCount -= removedCount;
             //
             groups[targetGid].connections.append(id);
@@ -298,9 +293,9 @@ namespace Qv2ray::core::handler
         {
             MoveConnectionFromToGroup(conn, id, DefaultGroupId);
         }
-        //
+
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::FullyRemoved, groups[id].displayName, "" });
-        //
+
         groups.remove(id);
         SaveConnectionConfig();
         emit OnGroupDeleted(id, list);

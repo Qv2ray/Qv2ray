@@ -282,13 +282,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     // Find and start if there is an auto-connection
     const auto connectionStarted = StartAutoConnectionEntry();
 
-    if (!connectionStarted && !ConnectionManager->Connections().isEmpty())
+    if (!connectionStarted && !ConnectionManager->GetConnections().isEmpty())
     {
         // Select the first connection.
         const auto groups = ConnectionManager->AllGroups();
         if (!groups.isEmpty())
         {
-            const auto connections = ConnectionManager->Connections(groups.first());
+            const auto connections = ConnectionManager->GetConnections(groups.first());
             if (!connections.empty())
             {
                 const auto index = modelHelper->GetConnectionPairIndex({ connections.first(), groups.first() });
@@ -526,36 +526,32 @@ void MainWindow::on_connectionTreeView_customContextMenuRequested(const QPoint &
 void MainWindow::Action_DeleteConnections()
 {
     QList<ConnectionGroupPair> connlist;
+    QList<GroupId> groupsList;
 
     for (const auto &item : connectionTreeView->selectionModel()->selectedIndexes())
     {
-        auto widget = GetIndexWidget(item);
-        if (widget)
+        const auto widget = GetIndexWidget(item);
+        if (!widget)
+            continue;
+
+        const auto identifier = widget->Identifier();
+        if (widget->IsConnection())
         {
-            const auto identifier = widget->Identifier();
-            if (widget->IsConnection())
-            {
-                connlist.append(identifier);
-            }
-            else
-            {
-                for (const auto &conns : ConnectionManager->GetGroupMetaObject(identifier.groupId).connections)
-                {
-                    ConnectionGroupPair i;
-                    i.connectionId = conns;
-                    i.groupId = identifier.groupId;
-                    connlist.append(i);
-                }
-            }
+            // Simply add the connection id
+            connlist.append(identifier);
+            continue;
         }
-    }
 
-    LOG("Selected ", connlist.count(), " items");
+        for (const auto &conns : ConnectionManager->GetConnections(identifier.groupId))
+        {
+            connlist.append(ConnectionGroupPair{ conns, identifier.groupId });
+        }
 
-    if (connlist.isEmpty())
-    {
-        // Remove nothing means doing nothing.
-        return;
+        const auto message = tr("Do you want to remove this group as well?") + NEWLINE + tr("Group: ") + GetDisplayName(identifier.groupId);
+        if (QvMessageBoxAsk(this, tr("Removing Connection"), message) == Yes)
+        {
+            groupsList << identifier.groupId;
+        }
     }
 
     const auto strRemoveConnTitle = tr("Removing Connection(s)", "", connlist.count());
@@ -567,12 +563,12 @@ void MainWindow::Action_DeleteConnections()
 
     for (const auto &conn : connlist)
     {
-        if (ConnectionManager->IsConnected(conn))
-            ConnectionManager->StopConnection();
-        if (GlobalConfig.autoStartId == conn)
-            GlobalConfig.autoStartId.clear();
-
         ConnectionManager->RemoveConnectionFromGroup(conn.connectionId, conn.groupId);
+    }
+
+    for (const auto &group : groupsList)
+    {
+        ConnectionManager->DeleteGroup(group);
     }
 }
 

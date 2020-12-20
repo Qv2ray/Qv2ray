@@ -193,7 +193,7 @@ void GroupManager::reloadConnectionsList(const GroupId &group)
         return;
     connectionsTable->clearContents();
     connectionsTable->model()->removeRows(0, connectionsTable->rowCount());
-    const auto &connections = ConnectionManager->Connections(group);
+    const auto &connections = ConnectionManager->GetConnections(group);
     for (auto i = 0; i < connections.count(); i++)
     {
         const auto &conn = connections.at(i);
@@ -207,7 +207,7 @@ void GroupManager::reloadConnectionsList(const GroupId &group)
         auto hostPortItem = new QTableWidgetItem(host + ":" + QSTRN(port));
         //
         QStringList groupsNamesString;
-        for (const auto &group : ConnectionManager->GetGroupId(conn))
+        for (const auto &group : ConnectionManager->GetConnectionContainedIn(conn))
         {
             groupsNamesString.append(GetDisplayName(group));
         }
