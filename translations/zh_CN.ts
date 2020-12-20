@@ -1983,11 +1983,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
-      <translation>无法设置 TTL 值</translation>
+      <translation>无法设置 TTL 的数值</translation>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation>无法访问目标</translation>
+      <translation>目标无法访问</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -1999,7 +1999,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>None</source>
-      <translation>不使用</translation>
+      <translation>无</translation>
     </message>
     <message>
       <source>Settings Widget</source>
