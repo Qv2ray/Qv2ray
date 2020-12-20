@@ -1920,7 +1920,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Test Latency On Connected</source>
-      <translation>连接时测试延迟</translation>
+      <translation>在连接状态下测试延迟</translation>
     </message>
   </context>
   <context>
@@ -1971,7 +1971,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
-      <translation>Qv2ray - V2Ray的跨平台Qt 前端。</translation>
+      <translation>Qv2ray —— 一个跨平台的、基于Qt技术的V2ray前端程序</translation>
     </message>
     <message>
       <source>DNS not resolved</source>
@@ -2039,7 +2039,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>GUI Components</source>
-      <translation>GUI 组件</translation>
+      <translation>图形化界面组件</translation>
     </message>
     <message>
       <source>Unsupported share link format.</source>
@@ -2047,47 +2047,47 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation>SS URI 太短了</translation>
+      <translation>SS 的地址过短</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
-      <translation>可以&apos;t 在方法和密码之间找到颜色分隔符</translation>
+      <translation>模式和密码之间缺少冒号</translation>
     </message>
     <message>
       <source>Can&apos;t find the at separator between password and hostname</source>
-      <translation>可以&apos;t 在密码和主机名之间的分隔符</translation>
+      <translation>密码和主机名之间缺少分隔符</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation>可以&apos;找到主机名和端口之间的颜色分隔符</translation>
+      <translation>在主机名和端口之间缺少冒号分隔符</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
-      <translation>无效的 ssd 链接: json: 字段 %1 必须存在</translation>
+      <translation>此 ssd 链接无效 (JSON): 字段 %1 必须存在</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be valid port number</source>
-      <translation>无效的 ssd 链接: json: 字段 %1 必须是有效的端口号</translation>
+      <translation>此 ssd 链接无效 (JSON): 字段 %1 必须是有效的端口号</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation>无效的 ssd 链接：json: 字段 %1 必须是类型 &apos;字符串&apos;</translation>
+      <translation>此 ssd 链接无效 (JSON): 字段 %1 必须是类型为 &apos;的字符串&apos;</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
-      <translation>无效的 ssd 链接：json: 字段 %1 必须是一个数组</translation>
+      <translation>此 ssd 链接无效 (JSON): 字段 %1 必须是一个数组</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: server must be an object</source>
-      <translation>跳过无效的 ssd 服务器：服务器必须是对象</translation>
+      <translation>无效的 ssd 服务器将会被忽略：服务器必须是一个对象</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: missing required field %1</source>
-      <translation>跳过无效的 ssd 服务器：缺少必填字段 %1</translation>
+      <translation>无效的 ssd 服务器将会被忽略：缺少必填字段 %1</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-      <translation>跳过无效的 ssd 服务器: 字段 %1 应该是 &apos;字符串&apos;</translation>
+      <translation>无效的 ssd 服务器将会被忽略：字段 %1 应该是 &apos;字符串&apos;</translation>
     </message>
     <message>
       <source>Invalid ssd link: should begin with ssd://</source>
