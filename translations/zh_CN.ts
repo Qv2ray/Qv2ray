@@ -568,7 +568,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Import as Complex Config</source>
-      <translation>以 复杂配置 的格式导出</translation>
+      <translation>以 复杂配置 的格式导入</translation>
     </message>
   </context>
   <context>
