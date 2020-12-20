@@ -568,7 +568,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Import as Complex Config</source>
-      <translation>以 复杂配置 的格式导入</translation>
+      <translation>作为复杂配置导入</translation>
     </message>
   </context>
   <context>
@@ -1072,6 +1072,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Copy latest logs.</source>
       <translation>复制最近日志</translation>
+    </message>
+    <message>
+      <source>Do you want to remove this group as well?</source>
+      <translation type="unfinished">Do you want to remove this group as well?</translation>
+    </message>
+    <message>
+      <source>Group: </source>
+      <translation type="unfinished">Group: </translation>
+    </message>
+    <message>
+      <source>Removing Connection</source>
+      <translation type="unfinished">Removing Connection</translation>
     </message>
   </context>
   <context>
@@ -3523,7 +3535,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Encryption Method</source>
-      <translation>加密方法</translation>
+      <translation>加密方式</translation>
     </message>
   </context>
   <context>
