@@ -2107,23 +2107,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Invalid ssd link: base64 parse failed</source>
-      <translation>无法读取此ssd链接：base64 解析失败</translation>
+      <translation>无效的 ssd 链接: Base64 解析失败</translation>
     </message>
     <message>
       <source>Invalid ssd link: json parse failed: </source>
-      <translation>无法读取此ssd链接：json 解析失败 </translation>
+      <translation>无效的 ssd 链接: json 解析失败: </translation>
     </message>
     <message>
       <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-      <translation>此 ssd 链接无效：v2ray-core 暂时不支持rc4-md5 的加密方式</translation>
+      <translation>无效的 ssd 链接: rc4-md5 加密不被 v2ray-core 支持</translation>
     </message>
     <message>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation>VMess链接应以 &apos;vmess://&apos; 开头</translation>
+      <translation>VMess 链接应以 &apos;vmess://&apos; 开头</translation>
     </message>
     <message>
       <source>VMess string should be a valid base64 string</source>
-      <translation>VMess字符串应该是一个有效的 base64 字符串</translation>
+      <translation>VMess 字符串应该是一个有效的 Base64 字符串</translation>
     </message>
     <message>
       <source>JSON should not be empty</source>
@@ -2131,7 +2131,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>vmess:// url is invalid</source>
-      <translation>vmess:// 网址无效</translation>
+      <translation>vmess:// 链接无效</translation>
     </message>
     <message>
       <source>Invalid streamSettings protocol: </source>
@@ -2147,7 +2147,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>N/A</source>
-      <translation>无</translation>
+      <translation>不适用</translation>
     </message>
     <message>
       <source>core executable file %1 does not exist</source>
@@ -2167,7 +2167,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>cannot deduce the type of core executable file %1</source>
-      <translation>无法生成核心可执行文件 %1 的类型</translation>
+      <translation>无法推断核心可执行文件 %1 的类型</translation>
     </message>
     <message>
       <source>Windows PE executable</source>
@@ -2175,7 +2175,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>macOS Mach-O executable</source>
-      <translation>macOS 机器-O 可执行文件</translation>
+      <translation>macOS Mach-O 可执行文件</translation>
     </message>
     <message>
       <source>ELF x86 executable</source>
@@ -2191,7 +2191,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>ELF arm executable</source>
-      <translation>ELF 臂可执行文件</translation>
+      <translation>ELF arm 可执行文件</translation>
     </message>
     <message>
       <source>other ELF executable</source>
@@ -2199,7 +2199,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>trusted abi</source>
-      <translation>可信任的 abi</translation>
+      <translation>可信的 abi</translation>
     </message>
     <message>
       <source>unknown abi</source>
@@ -2219,7 +2219,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-      <translation>这通常意味着你不知道&apos;t 拥有所有这些位置的写权限。</translation>
+      <translation>这通常意味着你对所有这些地方都没有写权限。</translation>
     </message>
     <message>
       <source>Qv2ray will now exit.</source>
@@ -2243,7 +2243,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation>如果你认为&apos;s 是一个错误，请报告。</translation>
+      <translation>如果你认为有问题，请报告。</translation>
     </message>
     <message>
       <source>Qv2ray Cannot Continue</source>
@@ -2251,11 +2251,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray</translation>
+      <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray。</translation>
     </message>
     <message>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation>请检查&apos;s 是否有问题解释它。</translation>
+      <translation>请检查是否存在有关此问题的说明。</translation>
     </message>
     <message>
       <source>Or submit a new issue if you think this is an error.</source>
