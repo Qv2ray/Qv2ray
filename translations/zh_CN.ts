@@ -568,7 +568,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Import as Complex Config</source>
-      <translation>导入为复杂配置</translation>
+      <translation>以 复杂配置 的格式导出</translation>
     </message>
   </context>
   <context>
@@ -1904,11 +1904,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Enable Sniffing</source>
-      <translation>启用狙击手功能</translation>
+      <translation>启用嗅探功能</translation>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation>使用伪造 DNS</translation>
+      <translation>使用虚拟的 DNS</translation>
     </message>
     <message>
       <source>Config Directory</source>
@@ -1975,7 +1975,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation>DNS 未解决</translation>
+      <translation>DNS 尚未解析</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
@@ -2091,23 +2091,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Invalid ssd link: should begin with ssd://</source>
-      <translation>无效的 ssd 链接：应该以 ssd:// 开始</translation>
+      <translation>您输入的不是正确的ssd链接：应以 ssd:// 开头</translation>
     </message>
     <message>
       <source>Invalid ssd link: base64 parse failed</source>
-      <translation>无效的 ssd 链接：base64 解析失败</translation>
+      <translation>无法读取此ssd链接：base64 解析失败</translation>
     </message>
     <message>
       <source>Invalid ssd link: json parse failed: </source>
-      <translation>无效的 ssd 链接：json 解析失败： </translation>
+      <translation>无法读取此ssd链接：json 解析失败 </translation>
     </message>
     <message>
       <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-      <translation>无效的 ssd 链接：rc4-md5 加密不被 v2ray-core 支持</translation>
+      <translation>此 ssd 链接无效：v2ray-core 暂时不支持rc4-md5 的加密方式</translation>
     </message>
     <message>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation>VMess字符串应以 &apos;vmess://&apos; 开始</translation>
+      <translation>VMess链接应以 &apos;vmess://&apos; 开头</translation>
     </message>
     <message>
       <source>VMess string should be a valid base64 string</source>
