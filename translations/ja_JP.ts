@@ -1073,6 +1073,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Copy latest logs.</source>
       <translation>最新のログをコピーします。</translation>
     </message>
+    <message>
+      <source>Do you want to remove this group as well?</source>
+      <translation>このグループも削除しますか？</translation>
+    </message>
+    <message>
+      <source>Group: </source>
+      <translation>グループ: </translation>
+    </message>
+    <message>
+      <source>Removing Connection</source>
+      <translation>接続を削除しています</translation>
+    </message>
   </context>
   <context>
     <name>OutboundEditor</name>

@@ -568,7 +568,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Import as Complex Config</source>
-      <translation>导入为复杂配置</translation>
+      <translation>作为复杂配置导入</translation>
     </message>
   </context>
   <context>
@@ -1072,6 +1072,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Copy latest logs.</source>
       <translation>复制最近日志</translation>
+    </message>
+    <message>
+      <source>Do you want to remove this group as well?</source>
+      <translation>您想要同时删除这个组吗？</translation>
+    </message>
+    <message>
+      <source>Group: </source>
+      <translation>组： </translation>
+    </message>
+    <message>
+      <source>Removing Connection</source>
+      <translation>正在删除连接</translation>
     </message>
   </context>
   <context>
@@ -1904,11 +1916,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Enable Sniffing</source>
-      <translation>启用狙击手功能</translation>
+      <translation>启用嗅探功能</translation>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation>使用伪造 DNS</translation>
+      <translation>使用 Fake DNS</translation>
     </message>
     <message>
       <source>Config Directory</source>
@@ -1971,15 +1983,15 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
-      <translation>Qv2ray - V2Ray的跨平台Qt 前端。</translation>
+      <translation>Qv2ray - 跨平台的 V2Ray Qt 前端。</translation>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation>DNS 未解决</translation>
+      <translation>无法解析 DNS</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
-      <translation>Socket 创建失败</translation>
+      <translation>套接字创建失败</translation>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
@@ -1987,7 +1999,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation>无法访问目标</translation>
+      <translation>目标不可达</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -1999,11 +2011,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>None</source>
-      <translation>不使用</translation>
+      <translation>无</translation>
     </message>
     <message>
       <source>Settings Widget</source>
-      <translation>设置部件</translation>
+      <translation>设置组件</translation>
     </message>
     <message>
       <source>Inbound Editor</source>
@@ -2015,7 +2027,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>MainWindow Widget</source>
-      <translation>主窗口小部件</translation>
+      <translation>主窗口组件</translation>
     </message>
     <message>
       <source>Unknown type.</source>
@@ -2023,7 +2035,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Kernel</source>
-      <translation>内核数</translation>
+      <translation>内核</translation>
     </message>
     <message>
       <source>Outbound Handler/Parser</source>
@@ -2035,7 +2047,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Event Handler</source>
-      <translation>事件处理程序</translation>
+      <translation>事件处理器</translation>
     </message>
     <message>
       <source>GUI Components</source>
@@ -2043,23 +2055,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Unsupported share link format.</source>
-      <translation>不支持的共享链接格式。</translation>
+      <translation>不支持的分享链接格式。</translation>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation>SS URI 太短了</translation>
+      <translation>Shadowsocks 分享链接过短</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
-      <translation>可以&apos;t 在方法和密码之间找到颜色分隔符</translation>
+      <translation>模式和密码之间缺少冒号</translation>
     </message>
     <message>
       <source>Can&apos;t find the at separator between password and hostname</source>
-      <translation>可以&apos;t 在密码和主机名之间的分隔符</translation>
+      <translation>密码和主机名之间缺少分隔符</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation>可以&apos;找到主机名和端口之间的颜色分隔符</translation>
+      <translation>主机名和端口之间缺少冒号分隔符</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
@@ -2071,11 +2083,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation>无效的 ssd 链接：json: 字段 %1 必须是类型 &apos;字符串&apos;</translation>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是 &apos;字符串&apos; 类型</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
-      <translation>无效的 ssd 链接：json: 字段 %1 必须是一个数组</translation>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是一个数组</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: server must be an object</source>
@@ -2083,35 +2095,35 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Skipping invalid ssd server: missing required field %1</source>
-      <translation>跳过无效的 ssd 服务器：缺少必填字段 %1</translation>
+      <translation>跳过无效的 ssd 服务器: 缺少必填字段 %1</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-      <translation>跳过无效的 ssd 服务器: 字段 %1 应该是 &apos;字符串&apos;</translation>
+      <translation>跳过无效的 ssd 服务器: 字段 %1 应该是 &apos;字符串&apos; 类型</translation>
     </message>
     <message>
       <source>Invalid ssd link: should begin with ssd://</source>
-      <translation>无效的 ssd 链接：应该以 ssd:// 开始</translation>
+      <translation>无效的 ssd 链接: 应以 ssd:// 开头</translation>
     </message>
     <message>
       <source>Invalid ssd link: base64 parse failed</source>
-      <translation>无效的 ssd 链接：base64 解析失败</translation>
+      <translation>无效的 ssd 链接: Base64 解析失败</translation>
     </message>
     <message>
       <source>Invalid ssd link: json parse failed: </source>
-      <translation>无效的 ssd 链接：json 解析失败： </translation>
+      <translation>无效的 ssd 链接: json 解析失败: </translation>
     </message>
     <message>
       <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-      <translation>无效的 ssd 链接：rc4-md5 加密不被 v2ray-core 支持</translation>
+      <translation>无效的 ssd 链接: rc4-md5 加密不被 v2ray-core 支持</translation>
     </message>
     <message>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation>VMess字符串应以 &apos;vmess://&apos; 开始</translation>
+      <translation>VMess 链接应以 &apos;vmess://&apos; 开头</translation>
     </message>
     <message>
       <source>VMess string should be a valid base64 string</source>
-      <translation>VMess字符串应该是一个有效的 base64 字符串</translation>
+      <translation>VMess 字符串应该是一个有效的 Base64 字符串</translation>
     </message>
     <message>
       <source>JSON should not be empty</source>
@@ -2119,7 +2131,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>vmess:// url is invalid</source>
-      <translation>vmess:// 网址无效</translation>
+      <translation>vmess:// 链接无效</translation>
     </message>
     <message>
       <source>Invalid streamSettings protocol: </source>
@@ -2135,7 +2147,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>N/A</source>
-      <translation>无</translation>
+      <translation>不适用</translation>
     </message>
     <message>
       <source>core executable file %1 does not exist</source>
@@ -2155,7 +2167,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>cannot deduce the type of core executable file %1</source>
-      <translation>无法生成核心可执行文件 %1 的类型</translation>
+      <translation>无法推断核心可执行文件 %1 的类型</translation>
     </message>
     <message>
       <source>Windows PE executable</source>
@@ -2163,7 +2175,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>macOS Mach-O executable</source>
-      <translation>macOS 机器-O 可执行文件</translation>
+      <translation>macOS Mach-O 可执行文件</translation>
     </message>
     <message>
       <source>ELF x86 executable</source>
@@ -2179,7 +2191,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>ELF arm executable</source>
-      <translation>ELF 臂可执行文件</translation>
+      <translation>ELF arm 可执行文件</translation>
     </message>
     <message>
       <source>other ELF executable</source>
@@ -2187,7 +2199,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>trusted abi</source>
-      <translation>可信任的 abi</translation>
+      <translation>可信的 abi</translation>
     </message>
     <message>
       <source>unknown abi</source>
@@ -2207,7 +2219,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-      <translation>这通常意味着你不知道&apos;t 拥有所有这些位置的写权限。</translation>
+      <translation>这通常意味着你对所有这些地方都没有写权限。</translation>
     </message>
     <message>
       <source>Qv2ray will now exit.</source>
@@ -2231,7 +2243,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation>如果你认为&apos;s 是一个错误，请报告。</translation>
+      <translation>如果你认为有问题，请报告。</translation>
     </message>
     <message>
       <source>Qv2ray Cannot Continue</source>
@@ -2239,19 +2251,19 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray</translation>
+      <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray。</translation>
     </message>
     <message>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation>请检查&apos;s 是否有问题解释它。</translation>
+      <translation>请检查是否存在有关此问题的说明。</translation>
     </message>
     <message>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation>或者如果你认为这是一个错误，提交一个新问题。</translation>
+      <translation>或者如果你认为这是一个错误，请提交一个新 Issue。</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation>默认组</translation>
+      <translation>默认分组</translation>
     </message>
     <message>
       <source>Deprecated</source>
@@ -2287,7 +2299,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Please report a bug via Github with the file located here: </source>
-      <translation>请通过 Github 报告该文件的缺陷： </translation>
+      <translation>请通过 GitHub 报告该文件的错误信息： </translation>
     </message>
   </context>
   <context>
@@ -2344,7 +2356,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-      <translation>请联系插件提供商或将问题报告到 Qv2ray 工作组。</translation>
+      <translation>请联系插件提供者或将问题报告到 Qv2ray 工作组。</translation>
     </message>
     <message>
       <source>Enabling a plugin</source>
@@ -2352,7 +2364,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>The plugin will become fully functional after restarting Qv2ray.</source>
-      <translation>重新启动Qv2ray后插件将完全启用。</translation>
+      <translation>重新启动 Qv2ray 后插件将完全启用。</translation>
     </message>
   </context>
   <context>
@@ -2363,7 +2375,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
-      <translation>端点: %1:%2 for inbound: &quot;%3&quot;</translation>
+      <translation>端口: %1:%2 for inbound: &quot;%3&quot;</translation>
     </message>
     <message>
       <source>Local port: %1 for plugin integration.</source>
@@ -2378,15 +2390,15 @@ Output: <byte value="xd"/>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
     <message>
       <source>Group: %1</source>
-      <translation>组: %1</translation>
+      <translation>分组: %1</translation>
     </message>
     <message>
       <source>Group does not exist</source>
-      <translation>群组不存在</translation>
+      <translation>分组不存在</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation>默认组</translation>
+      <translation>默认分组</translation>
     </message>
     <message>
       <source>Failed to start connection</source>
@@ -2403,7 +2415,7 @@ Output: <byte value="xd"/>
     <message numerus="yes">
       <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
       <translation>
-        <numerusform>在订阅源找到了 %n 个条目，您想要继续吗？</numerusform>
+        <numerusform>在订阅源只找到了 %n 个条目，您想要继续吗？</numerusform>
       </translation>
     </message>
     <message numerus="yes">
@@ -2415,7 +2427,7 @@ Output: <byte value="xd"/>
     <message numerus="yes">
       <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
       <translation>
-        <numerusform>在不属于当前订阅的组&apos;re %n connection(s) (更多)。</numerusform>
+        <numerusform>有 %n 个连接已不再属于当前订阅分组。</numerusform>
       </translation>
     </message>
     <message>
@@ -2446,7 +2458,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Qv2ray tried to set, but failed because permission denied.</source>
-      <translation>Qv2ray 尝试设置，但由于拒绝了权限而失败。</translation>
+      <translation>Qv2ray 尝试设置，但由于权限不足而失败。</translation>
     </message>
     <message>
       <source>Check is skipped</source>
@@ -2458,15 +2470,15 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-      <translation>V2Ray 核心文件无法打开，请确保&apos;s 文件而不是文件夹。</translation>
+      <translation>V2Ray 核心文件无法打开，请确保路径指向文件而不是文件夹。</translation>
     </message>
     <message>
       <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
 Expected core ABI is %1, but got actual %2.<byte value="xd"/>
 Maybe you have downloaded the wrong core?</source>
       <translation>V2Ray 核心与您的平台不兼容。
-预期的核心ABI 是 %1, 但得到了实际的 %2
-你下载了错误的核心吗？</translation>
+预期的核心 ABI 是 %1，但实际上是 %2。
+你可能下载了错误的核心？</translation>
     </message>
     <message>
       <source>V2Ray assets path is not valid.</source>
@@ -2482,7 +2494,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>V2Ray core failed with an exit code: </source>
-      <translation>V2Ray 核心使用退出代码失败： </translation>
+      <translation>V2Ray 核心运行失败，退出代码： </translation>
     </message>
     <message>
       <source>V2Ray core returns empty string.</source>
@@ -3355,7 +3367,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation>允许透明代理</translation>
+      <translation>允许透明连接</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -3523,7 +3535,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Encryption Method</source>
-      <translation>加密方法</translation>
+      <translation>加密方式</translation>
     </message>
   </context>
   <context>
