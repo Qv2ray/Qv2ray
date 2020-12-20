@@ -2259,11 +2259,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation>或者如果你认为这是一个错误，提交一个新问题。</translation>
+      <translation>或者如果你认为这是一个错误，请提交一个新 Issue。</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation>默认组</translation>
+      <translation>默认分组</translation>
     </message>
     <message>
       <source>Deprecated</source>
@@ -2299,7 +2299,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Please report a bug via Github with the file located here: </source>
-      <translation>请通过 Github 报告该文件的缺陷： </translation>
+      <translation>请通过 GitHub 报告该文件的错误信息： </translation>
     </message>
   </context>
   <context>
@@ -2356,7 +2356,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-      <translation>请联系插件提供商或将问题报告到 Qv2ray 工作组。</translation>
+      <translation>请联系插件提供者或将问题报告到 Qv2ray 工作组。</translation>
     </message>
     <message>
       <source>Enabling a plugin</source>
@@ -2364,7 +2364,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>The plugin will become fully functional after restarting Qv2ray.</source>
-      <translation>重新启动Qv2ray后插件将完全启用。</translation>
+      <translation>重新启动 Qv2ray 后插件将完全启用。</translation>
     </message>
   </context>
   <context>
@@ -2375,7 +2375,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
-      <translation>端点: %1:%2 for inbound: &quot;%3&quot;</translation>
+      <translation>端口: %1:%2 for inbound: &quot;%3&quot;</translation>
     </message>
     <message>
       <source>Local port: %1 for plugin integration.</source>
@@ -2390,15 +2390,15 @@ Output: <byte value="xd"/>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
     <message>
       <source>Group: %1</source>
-      <translation>组: %1</translation>
+      <translation>分组: %1</translation>
     </message>
     <message>
       <source>Group does not exist</source>
-      <translation>群组不存在</translation>
+      <translation>分组不存在</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation>默认组</translation>
+      <translation>默认分组</translation>
     </message>
     <message>
       <source>Failed to start connection</source>
@@ -2415,7 +2415,7 @@ Output: <byte value="xd"/>
     <message numerus="yes">
       <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
       <translation>
-        <numerusform>在订阅源找到了 %n 个条目，您想要继续吗？</numerusform>
+        <numerusform>在订阅源只找到了 %n 个条目，您想要继续吗？</numerusform>
       </translation>
     </message>
     <message numerus="yes">
@@ -2427,7 +2427,7 @@ Output: <byte value="xd"/>
     <message numerus="yes">
       <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
       <translation>
-        <numerusform>在不属于当前订阅的组&apos;re %n connection(s) (更多)。</numerusform>
+        <numerusform>有 %n 个连接已不再属于当前订阅分组。</numerusform>
       </translation>
     </message>
     <message>
@@ -2458,7 +2458,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Qv2ray tried to set, but failed because permission denied.</source>
-      <translation>Qv2ray 尝试设置，但由于拒绝了权限而失败。</translation>
+      <translation>Qv2ray 尝试设置，但由于权限不足而失败。</translation>
     </message>
     <message>
       <source>Check is skipped</source>
@@ -2470,15 +2470,15 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-      <translation>V2Ray 核心文件无法打开，请确保&apos;s 文件而不是文件夹。</translation>
+      <translation>V2Ray 核心文件无法打开，请确保路径指向文件而不是文件夹。</translation>
     </message>
     <message>
       <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
 Expected core ABI is %1, but got actual %2.<byte value="xd"/>
 Maybe you have downloaded the wrong core?</source>
       <translation>V2Ray 核心与您的平台不兼容。
-预期的核心ABI 是 %1, 但得到了实际的 %2
-你下载了错误的核心吗？</translation>
+预期的核心 ABI 是 %1，但实际上是 %2。
+你可能下载了错误的核心？</translation>
     </message>
     <message>
       <source>V2Ray assets path is not valid.</source>
@@ -2494,7 +2494,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>V2Ray core failed with an exit code: </source>
-      <translation>V2Ray 核心使用退出代码失败： </translation>
+      <translation>V2Ray 核心运行失败，退出代码： </translation>
     </message>
     <message>
       <source>V2Ray core returns empty string.</source>
@@ -3367,7 +3367,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation>允许透明代理</translation>
+      <translation>允许透明连接</translation>
     </message>
     <message>
       <source>Timeout</source>
