@@ -63,7 +63,7 @@
     <message>
       <source>Certificate Key</source>
       <extracomment>Tab Certificate Key</extracomment>
-      <translation>Certificate Key</translation>
+      <translation>証明書のキー</translation>
     </message>
     <message>
       <source>Alt+K, Alt+F</source>
