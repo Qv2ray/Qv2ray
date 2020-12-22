@@ -224,10 +224,11 @@ namespace Qv2ray::components::proxy
         if (ERROR_SUCCESS != ret)
         {
             LOG("Failed to list entry names");
+            return false;
         }
 
         // Set proxy for each connectoid.
-        for (size_t i = 0; i < count; ++i)
+        for (DWORD i = 0; i < count; ++i)
         {
             list.pszConnection = entryAddr[i].szEntryName;
             if (!InternetSetOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &list, dwBufSize))
