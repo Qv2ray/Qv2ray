@@ -192,6 +192,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     //
     // Actions for right click the log text browser
     //
+    logRCM_Menu->addAction(action_RCM_CopySelected);
     logRCM_Menu->addAction(action_RCM_CopyRecentLogs);
     logRCM_Menu->addSeparator();
     logRCM_Menu->addAction(action_RCM_SwitchCoreLog);
@@ -200,6 +201,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     connect(action_RCM_SwitchCoreLog, &QAction::triggered, [this] { masterLogBrowser->setDocument(vCoreLogDocument); });
     connect(action_RCM_SwitchQv2rayLog, &QAction::triggered, [this] { masterLogBrowser->setDocument(qvLogDocument); });
     connect(action_RCM_CopyRecentLogs, &QAction::triggered, this, &MainWindow::Action_CopyRecentLogs);
+    connect(action_RCM_CopySelected, &QAction::triggered, masterLogBrowser, &QTextBrowser::copy);
     //
     speedChartWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(speedChartWidget, &QWidget::customContextMenuRequested, [this](const QPoint &) { graphWidgetMenu->popup(QCursor::pos()); });
