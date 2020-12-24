@@ -151,6 +151,7 @@ class MainWindow
     DECL_ACTION(logRCM_Menu, action_RCM_SwitchCoreLog);
     DECL_ACTION(logRCM_Menu, action_RCM_SwitchQv2rayLog);
     DECL_ACTION(logRCM_Menu, action_RCM_CopyRecentLogs);
+    DECL_ACTION(logRCM_Menu, action_RCM_CopySelected);
 #undef DECL_ACTION
 
     QTextDocument *vCoreLogDocument = new QTextDocument(this);

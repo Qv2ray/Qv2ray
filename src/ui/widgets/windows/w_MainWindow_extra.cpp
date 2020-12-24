@@ -233,4 +233,5 @@ void MainWindow::UpdateActionTranslations()
     //
     action_RCM_CopyGraph->setText(tr("Copy graph as image."));
     action_RCM_CopyRecentLogs->setText(tr("Copy latest logs."));
+    action_RCM_CopySelected->setText(tr("Copy selected."));
 }
