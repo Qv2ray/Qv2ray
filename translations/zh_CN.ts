@@ -1087,7 +1087,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Copy selected.</source>
-      <translation type="unfinished">Copy selected.</translation>
+      <translation>已选择复制</translation>
     </message>
   </context>
   <context>
