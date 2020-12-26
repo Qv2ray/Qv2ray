@@ -63,7 +63,7 @@
     <message>
       <source>Certificate Key</source>
       <extracomment>Tab Certificate Key</extracomment>
-      <translation>Certificate Key</translation>
+      <translation>証明書のキー</translation>
     </message>
     <message>
       <source>Alt+K, Alt+F</source>
@@ -1084,6 +1084,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Removing Connection</source>
       <translation>接続を削除しています</translation>
+    </message>
+    <message>
+      <source>Copy selected.</source>
+      <translation>コピーが選択されました。</translation>
     </message>
   </context>
   <context>

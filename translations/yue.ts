@@ -1096,6 +1096,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Removing Connection</source>
       <translation type="unfinished">Removing Connection</translation>
     </message>
+    <message>
+      <source>Copy selected.</source>
+      <translation type="unfinished">Copy selected.</translation>
+    </message>
   </context>
   <context>
     <name>OutboundEditor</name>
