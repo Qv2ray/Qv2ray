@@ -96,45 +96,53 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
     //
-    bool have_http = CurrentConfig.inboundConfig.useHTTP;
-    httpGroupBox->setChecked(have_http);
-    httpPortLE->setValue(CurrentConfig.inboundConfig.httpSettings.port);
-    httpAuthCB->setChecked(CurrentConfig.inboundConfig.httpSettings.useAuth);
-    //
-    httpAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.httpSettings.useAuth);
-    httpAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.httpSettings.useAuth);
-    httpAuthUsernameTxt->setText(CurrentConfig.inboundConfig.httpSettings.account.user);
-    httpAuthPasswordTxt->setText(CurrentConfig.inboundConfig.httpSettings.account.pass);
-    httpSniffingCB->setChecked(CurrentConfig.inboundConfig.httpSettings.sniffing);
-    //
-    //
-    bool have_socks = CurrentConfig.inboundConfig.useSocks;
-    socksGroupBox->setChecked(have_socks);
-    socksPortLE->setValue(CurrentConfig.inboundConfig.socksSettings.port);
-    //
-    socksAuthCB->setChecked(CurrentConfig.inboundConfig.socksSettings.useAuth);
-    socksAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.socksSettings.useAuth);
-    socksAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.socksSettings.useAuth);
-    socksAuthUsernameTxt->setText(CurrentConfig.inboundConfig.socksSettings.account.user);
-    socksAuthPasswordTxt->setText(CurrentConfig.inboundConfig.socksSettings.account.pass);
-    // Socks UDP Options
-    socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksSettings.enableUDP);
-    socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksSettings.enableUDP);
-    socksUDPIP->setText(CurrentConfig.inboundConfig.socksSettings.localIP);
-    socksSniffingCB->setChecked(CurrentConfig.inboundConfig.socksSettings.sniffing);
-    //
-    //
-    bool have_tproxy = CurrentConfig.inboundConfig.useTPROXY;
-    tproxGroupBox->setChecked(have_tproxy);
-    tproxyListenAddr->setText(CurrentConfig.inboundConfig.tProxySettings.tProxyIP);
-    tproxyListenV6Addr->setText(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP);
-    tProxyPort->setValue(CurrentConfig.inboundConfig.tProxySettings.port);
-    tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasTCP);
-    tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasUDP);
-    tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tProxySettings.mode);
+    {
+        const auto &httpSettings = CurrentConfig.inboundConfig.httpSettings;
+        const auto has_http = CurrentConfig.inboundConfig.useHTTP;
+        httpGroupBox->setChecked(has_http);
+        httpPortLE->setValue(httpSettings.port);
+        httpAuthCB->setChecked(httpSettings.useAuth);
+        //
+        httpAuthUsernameTxt->setEnabled(has_http && httpSettings.useAuth);
+        httpAuthPasswordTxt->setEnabled(has_http && httpSettings.useAuth);
+        httpAuthUsernameTxt->setText(httpSettings.account.user);
+        httpAuthPasswordTxt->setText(httpSettings.account.pass);
+        httpSniffingCB->setChecked(httpSettings.sniffing);
+    }
+    {
+        const auto &socksSettings = CurrentConfig.inboundConfig.socksSettings;
+        const auto has_socks = CurrentConfig.inboundConfig.useSocks;
+        socksGroupBox->setChecked(has_socks);
+        socksPortLE->setValue(socksSettings.port);
+        //
+        socksAuthCB->setChecked(socksSettings.useAuth);
+        socksAuthUsernameTxt->setEnabled(has_socks && socksSettings.useAuth);
+        socksAuthPasswordTxt->setEnabled(has_socks && socksSettings.useAuth);
+        socksAuthUsernameTxt->setText(socksSettings.account.user);
+        socksAuthPasswordTxt->setText(socksSettings.account.pass);
+        // Socks UDP Options
+        socksUDPCB->setChecked(socksSettings.enableUDP);
+        socksUDPIP->setEnabled(socksSettings.enableUDP);
+        socksUDPIP->setText(socksSettings.localIP);
+        socksSniffingCB->setChecked(socksSettings.sniffing);
+    }
+    {
+        const auto &tProxySettings = CurrentConfig.inboundConfig.tProxySettings;
+        const auto has_tproxy = CurrentConfig.inboundConfig.useTPROXY;
+        tproxGroupBox->setChecked(has_tproxy);
+        tproxyListenAddr->setText(tProxySettings.tProxyIP);
+        tproxyListenV6Addr->setText(tProxySettings.tProxyV6IP);
+        tProxyPort->setValue(tProxySettings.port);
+        tproxyEnableTCP->setChecked(tProxySettings.hasTCP);
+        tproxyEnableUDP->setChecked(tProxySettings.hasUDP);
+        tproxySniffingCB->setChecked(tProxySettings.sniffing);
+        tproxyMode->setCurrentText(tProxySettings.mode);
+    }
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
     //
     dnsIntercept->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
+    fakeDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.fakeDNS);
+    fakeDNSCb->setEnabled(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
     DnsFreedomCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS);
     //
     // Kernel Settings
@@ -186,6 +194,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
         setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
         setSessionResumptionCB->setChecked(CurrentConfig.advancedConfig.setSessionResumption);
         setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
+        setTestLatenctOnConnectedCB->setChecked(CurrentConfig.advancedConfig.testLatencyOnConnected);
         disableSystemRootCB->setChecked(CurrentConfig.advancedConfig.disableSystemRoot);
     }
     //
@@ -229,7 +238,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
 
         autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
-        for (const auto &conn : ConnectionManager->Connections(autoStartGroupId))
+        for (const auto &conn : ConnectionManager->GetConnections(autoStartGroupId))
             autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
 
         autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
@@ -598,7 +607,7 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
     }
     else
     {
-        auto list = ConnectionManager->Connections(GroupId(autoStartSubsCombo->currentData().toString()));
+        auto list = ConnectionManager->GetConnections(GroupId(autoStartSubsCombo->currentData().toString()));
         autoStartConnCombo->clear();
 
         for (const auto &id : list)
@@ -725,7 +734,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     {
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), result);
     }
-    else if (!result.toLower().contains("v2ray"))
+    else if (!result.toLower().contains("v2ray") && !result.toLower().contains("xray"))
     {
         const auto strWarnContent = //
             tr("This does not seem like an output from V2Ray Core.\r\n"
@@ -846,6 +855,16 @@ void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
     CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
 }
 
+void PreferencesWindow::on_setTestLatenctOnConnectedCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) make it easy to fingerprint your connection."));
+    }
+    CurrentConfig.advancedConfig.testLatencyOnConnected = arg1 == Qt::Checked;
+}
+
 void PreferencesWindow::on_setSessionResumptionCB_stateChanged(int arg1)
 {
     LOADINGCHECK
@@ -884,6 +903,12 @@ void PreferencesWindow::on_tproxyEnableUDP_toggled(bool checked)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.hasUDP = checked;
+}
+
+void PreferencesWindow::on_tproxySniffingCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tProxySettings.sniffing = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_tproxyMode_currentTextChanged(const QString &arg1)
@@ -937,6 +962,13 @@ void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 {
     NEEDRESTART
     CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept = checked;
+    fakeDNSCb->setEnabled(checked);
+}
+
+void PreferencesWindow::on_fakeDNSCb_toggled(bool checked)
+{
+    NEEDRESTART
+    CurrentConfig.defaultRouteConfig.connectionConfig.fakeDNS = checked;
 }
 
 void PreferencesWindow::on_qvProxyCustomProxy_clicked()

@@ -2,6 +2,8 @@ name: Qv2ray build arch package
 
 on:
   push:
+    branches-ignore:
+      - l10n_dev
   release:
     types: [prereleased]
 
@@ -16,11 +18,11 @@ jobs:
       - name: Get commit message
         id: get_message
         run: |
-          echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
-          echo "::set-env name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
+          echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')"
+          echo "message=\"$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')\"" >> $GITHUB_ENV
   linux:
     needs: check_commit_msg
-    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_PACMAN') }}
+    if: false #${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_PACMAN') }}
     name: Arch Linux
     runs-on: ubuntu-latest
     container: archlinux/base:latest

@@ -87,6 +87,7 @@ namespace Qv2ray::common
                    || IsIPv6Address(addr)               //
                    || addr.startsWith("https://")       //
                    || addr.startsWith("https+local://") //
+                   || addr.startsWith("quic+local://")  //
                    || addr == "localhost";
         }
     } // namespace validation

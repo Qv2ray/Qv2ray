@@ -48,7 +48,9 @@ set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.app")
 include(cmake/deployment.cmake)
 
 if(QV2RAY_AUTO_DEPLOY)
-    add_custom_command(TARGET qv2ray POST_BUILD
-        COMMAND ${Qt5_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
-        )
+    if(QV2RAY_QT6)
+        add_custom_command(TARGET qv2ray POST_BUILD COMMAND ${Qt6_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app)
+    else()
+        add_custom_command(TARGET qv2ray POST_BUILD COMMAND ${Qt5_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app)
+    endif()
 endif()

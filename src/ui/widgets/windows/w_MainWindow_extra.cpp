@@ -114,7 +114,7 @@ bool MainWindow::StartAutoConnectionEntry()
 
 void MainWindow::CheckSubscriptionsUpdate()
 {
-    QList<QPair<QString, GroupId>> updateList;
+    QList<std::pair<QString, GroupId>> updateList;
     QStringList updateNamesList;
 
     for (const auto &entry : ConnectionManager->Subscriptions())
@@ -130,7 +130,7 @@ void MainWindow::CheckSubscriptionsUpdate()
 
         if (renewTime <= QDateTime::currentDateTime())
         {
-            updateList << QPair<QString, GroupId>{ info.displayName, entry };
+            updateList << std::pair{ info.displayName, entry };
             updateNamesList << info.displayName;
             LOG(QString("Subscription update \"%1\": L=%2 R=%3 I=%4")
                     .arg(info.displayName)
@@ -233,4 +233,5 @@ void MainWindow::UpdateActionTranslations()
     //
     action_RCM_CopyGraph->setText(tr("Copy graph as image."));
     action_RCM_CopyRecentLogs->setText(tr("Copy latest logs."));
+    action_RCM_CopySelected->setText(tr("Copy selected."));
 }

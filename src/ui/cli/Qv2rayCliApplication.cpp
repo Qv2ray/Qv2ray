@@ -4,16 +4,21 @@ Qv2rayCliApplication::Qv2rayCliApplication(int &argc, char *argv[]) : Qv2rayPlat
 {
 }
 
-Qv2raySetupStatus Qv2rayCliApplication::Initialize()
+QStringList Qv2rayCliApplication::checkPrerequisitesInternal()
 {
-    return InitializeInternal();
+    return {};
 }
-Qv2rayExitCode Qv2rayCliApplication::RunQv2ray()
+Qv2rayExitReason Qv2rayCliApplication::runQv2rayInternal()
 {
-    RunInternal();
-    return Qv2rayExitCode::QVEXIT_NORMAL;
+    return (Qv2rayExitReason) exec();
 }
 
-void Qv2rayCliApplication::TerminateUI()
+void Qv2rayCliApplication::terminateUIInternal()
 {
 }
+
+#ifndef QV2RAY_NO_SINGLEAPPLICATON
+void Qv2rayCliApplication::onMessageReceived(quint32 clientID, QByteArray msg)
+{
+}
+#endif

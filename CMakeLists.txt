@@ -40,19 +40,19 @@ endif()
 if(ANDROID)
     set(ANDROID_PACKAGE_SOURCE ${CMAKE_SOURCE_DIR}/assets/android)
     set(QT_ANDROID_PACKAGE_SOURCE_DIR "\"android-package-source-directory\":\"${ANDROID_PACKAGE_SOURCE}\",")
-    message("Configuring for Android, ABI: ${ANDROID_ABI}")
+    message("Configuring for Android ABI ${CMAKE_ANDROID_ARCH}")
     if(NOT ANDROID_SDK)
         set(ANDROID_SDK $ENV{ANDROID_SDK_ROOT})
     endif()
-    include(${ANDROID_SDK}/android_openssl/CMakeLists.txt)
     set(ANDROID_LIB_ARCH ${CMAKE_ANDROID_ARCH})
     if(${ANDROID_LIB_ARCH} STREQUAL "x86_64")
         set(ANDROID_LIB_ARCH "x64")
     endif()
-    message("Android SDK: ${ANDROID_SDK}, ${CMAKE_ANDROID_ARCH}")
+    message("Android SDK: ${ANDROID_SDK}")
     set(QV2RAY_PLATFORM_LIBS_BIN_PATH_PREFIX ${CMAKE_SOURCE_DIR}/libs/tools)
     set(QV2RAY_PLATFORM_LIBS_PATH_PREFIX ${CMAKE_SOURCE_DIR}/libs/${ANDROID_LIB_ARCH}-android)
     include(cmake/platforms/prefixes.cmake)
+    include(cmake/platforms/android.cmake)
     set(APK_PACKAGE_NAME "net.qv2ray.qv2ray")
     set(APK_PACKAGE_VERSION "v${QV2RAY_VERSION_STRING}")
     set(APK_DISPLAY_NAME "Qv2ray")
@@ -123,9 +123,24 @@ if(QV2RAY_HAS_BUILTIN_PLUGINS)
 endif()
 
 option(QV2RAY_EMBED_TRANSLATIONS "Embed Translations" OFF)
-option(QV2RAY_USE_QML "Use QML as Qv2ray GUI" OFF)
 option(QV2RAY_HAS_SINGLEAPPLICATION "Build With SingleApplication" ON)
-option(QV2RAY_USE_QWIDGET "Use QWidget as Qv2ray GUI" ON)
+
+set(QV2RAY_UI_TYPE "QWidget" CACHE STRING "Qv2ray GUI Component")
+QVLOG(QV2RAY_UI_TYPE)
+
+if(QV2RAY_UI_TYPE STREQUAL "QWidget")
+    set(QV2RAY_USE_QWIDGET ON)
+    set(QV2RAY_USE_QML OFF)
+elseif(QV2RAY_UI_TYPE STREQUAL "QML")
+    set(QV2RAY_USE_QWIDGET OFF)
+    set(QV2RAY_USE_QML ON)
+elseif(QV2RAY_UI_TYPE STREQUAL "CLI")
+    set(QV2RAY_USE_QWIDGET OFF)
+    set(QV2RAY_USE_QML OFF)
+else()
+    message(FATAL_ERROR "The given QV2RAY_UI_TYPE: ${QV2RAY_UI_TYPE} is invalid, expected: QWidget, QML, CLI")
+endif()
+
 if(ANDROID)
     set(QV2RAY_EMBED_TRANSLATIONS ON)
     set(QV2RAY_USE_QML ON)
@@ -141,9 +156,6 @@ if(QV2RAY_HAS_SINGLEAPPLICATION)
     set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication Provider")
     QVLOG(QV2RAY_SINGLEAPPLICATION_PROVIDER)
 endif()
-
-set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp Provider")
-QVLOG(QV2RAY_ZXING_PROVIDER)
 
 if(QV2RAY_USE_QML)
     option(QV2RAY_QML_LIVE_UPDATE "Use QMLLive for live updated QML" OFF)
@@ -252,6 +264,7 @@ include(cmake/libcurl.cmake)
 include(cmake/libsemver.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/backend.cmake)
+include(3rdparty/QJsonStruct/QJsonStruct.cmake)
 
 # ==================================================================================
 # Qv2ray Base, Qt Libraries, Qv2ray GUI Libraries, libThreads
@@ -295,7 +308,7 @@ else()
     add_definitions(-DQV2RAY_NO_SINGLEAPPLICATON)
 endif()
 
-add_library(qv2ray-baselib STATIC
+add_library(qv2ray_baselib STATIC
     ${QV2RAY_BASE_SOURCES}
     ${SINGLEAPPLICATION_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
@@ -306,7 +319,7 @@ add_library(qv2ray-baselib STATIC
     ${API_PROTO_SRCS}
     )
 
-target_link_libraries(qv2ray-baselib
+target_link_libraries(qv2ray_baselib
     ${QV2RAY_QT_LIBS}
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARY}
@@ -316,7 +329,7 @@ target_link_libraries(qv2ray-baselib
     Threads::Threads
     )
 
-target_include_directories(qv2ray-baselib PUBLIC
+target_include_directories(qv2ray_baselib PUBLIC
     ${CMAKE_BINARY_DIR}
     ${QV2RAY_BASEDIR_COMPONENTS}
     ${LibUV_INCLUDE_DIR}
@@ -337,12 +350,13 @@ endif()
 if(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN)
     include(src/plugins/subscription-adapters/QvPlugin-BuiltinSubscriptionAdapters.cmake)
 endif()
+
 # ==================================================================================
 # Qv2ray UI Frontend
 # ==================================================================================
 if(_QV2RAY_HAS_GUI_INTERNAL_)
     add_definitions(-DQV2RAY_GUI)
-    include(cmake/zxing-cpp.cmake)
+    include(cmake/qrencode.cmake)
 
     include(cmake/components/qv2ray-ui.cmake)
     list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_COMMON_SOURCES})
@@ -396,13 +410,14 @@ QVLOG(QV2RAY_QM_FILES)
 QVLOG(QV2RAY_QRC_RESOURCES)
 
 if(ANDROID)
+    QVLOG(ANDROID_EXTRA_LIBS)
     add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
 else()
     include(cmake/backward-cpp.cmake)
     add_definitions(-DQV2RAY_HAS_BACKWARD)
     add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
-    target_link_libraries(qv2ray-baselib Backward::Backward)
-    add_backward(qv2ray-baselib)
+    target_link_libraries(qv2ray_baselib Backward::Backward)
+    add_backward(qv2ray_baselib)
 endif()
 
 target_include_directories(qv2ray PRIVATE
@@ -410,14 +425,13 @@ target_include_directories(qv2ray PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_BINARY_DIR}
     ${QNODEEDITOR_INCLUDE_PATH}
-    ${ZXING_INCLUDE_PATH}
     ${Protobuf_INCLUDE_DIRS}
     )
 target_link_libraries(qv2ray
-    qv2ray-baselib
-    ${ZXING_LIBRARY}
+    qv2ray_baselib
     ${QNODEEDITOR_LIBRARY}
     ${QV2RAY_PLATFORM_LIBS}
+    ${QV2RAY_QRENCODE_LIBRARY}
     )
 
 
@@ -428,23 +442,6 @@ if (BUILD_TESTING)
     include(CTest)
     add_subdirectory(test)
 endif()
-
-
-# ==================================================================================
-# Qv2ray Translations
-# ==================================================================================
-add_custom_target(lupdate
-    COMMAND lupdate
-    ${QV2RAY_BASE_HEADERS}
-    ${QVPLUGIN_INTERFACE_HEADERS}
-    ${QV2RAY_UI_SOURCES}
-    ${QV2RAY_UI_FORMS}
-    ${QNODEEDITOR_QRC_RESOURCES}
-    ${SINGLEAPPLICATION_SOURCES}
-    ${PLUGIN_TRANSLATION_SOURCES} -ts ${TRANSLATIONS_TS} -locations none -noobsolete
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
-
 
 # ==================================================================================
 # Platform-dependent installation process and deployment
@@ -461,7 +458,7 @@ endif()
 # ==================================================================================
 # Print Qv2ray Build Statistics
 # ==================================================================================
-get_target_property(QV2RAY_BASE_LINK_LIBS qv2ray-baselib LINK_LIBRARIES)
+get_target_property(QV2RAY_BASE_LINK_LIBS qv2ray_baselib LINK_LIBRARIES)
 get_target_property(QV2RAY_EXEC_LINK_LIBS qv2ray LINK_LIBRARIES)
 QVLOG(QV2RAY_BUILD_VERSION)
 QVLOG(QV2RAY_VERSION_STRING)

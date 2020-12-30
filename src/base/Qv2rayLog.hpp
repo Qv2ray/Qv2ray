@@ -14,7 +14,7 @@
 #endif
 
 #define NEWLINE "\r\n"
-#define ___LOG_EXPAND(___x) , QPair(std::string(#___x), [&] { return ___x; }())
+#define ___LOG_EXPAND(___x) , QPair<std::string, decltype(___x)>(std::string(#___x), [&] { return ___x; }())
 #define A(...) FOREACH_CALL_FUNC(___LOG_EXPAND, __VA_ARGS__)
 
 #ifdef QT_DEBUG
@@ -94,7 +94,7 @@ QTextStream &operator<<(QTextStream &stream, const QMap<TKey, TVal> &map)
 {
     stream << "{ ";
     for (const auto &[k, v] : map.toStdMap())
-        stream << QPair(k, v) << "; ";
+        stream << QPair<TKey, TVal>(k, v) << "; ";
     stream << "}";
     return stream;
 }

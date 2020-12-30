@@ -32,6 +32,8 @@ void DnsSettingsWidget::updateColorScheme()
     removeServerBtn->setIcon(QICON_R("minus"));
     moveServerUpBtn->setIcon(QICON_R("arrow-up"));
     moveServerDownBtn->setIcon(QICON_R("arrow-down"));
+    addStaticHostBtn->setIcon(QICON_R("add"));
+    removeStaticHostBtn->setIcon(QICON_R("minus"));
 }
 
 DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)

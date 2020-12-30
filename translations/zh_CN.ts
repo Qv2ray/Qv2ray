@@ -9,6 +9,84 @@
     </message>
   </context>
   <context>
+    <name>CertificateItemWidget</name>
+    <message>
+      <source>Certificate Item Editor</source>
+      <translation>证书项编辑器</translation>
+    </message>
+    <message>
+      <source>Usage</source>
+      <extracomment>Certificate Usage</extracomment>
+      <translation>用途</translation>
+    </message>
+    <message>
+      <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</source>
+      <translation>证书的用途。默认值是 &lt;code&gt;encipherment&lt;/code&gt;。
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: 用于 TLS 身份验证和加密。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: 用于验证远程证书。需要CA 证书。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: 用于签发其他证书。需要CA证书。&lt;/li&gt;
+&lt;/ul&gt;</translation>
+    </message>
+    <message>
+      <source>Certificate</source>
+      <extracomment>Certificate Tab</extracomment>
+      <translation>证书</translation>
+    </message>
+    <message>
+      <source>From File</source>
+      <translation>从文件</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+F</source>
+      <translation>Alt+C, Alt+F</translation>
+    </message>
+    <message>
+      <source>Drag and drop *.crt here...</source>
+      <translation>拖拽*.crt 到此处...</translation>
+    </message>
+    <message>
+      <source>Configure Manually</source>
+      <translation>手动配置</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+M</source>
+      <translation>Alt+C, Alt+M</translation>
+    </message>
+    <message>
+      <source>Certificate Key</source>
+      <extracomment>Tab Certificate Key</extracomment>
+      <translation>证书密钥</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+F</source>
+      <translation>Alt+K, Alt+F</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+M</source>
+      <translation>Alt+K, Alt+M</translation>
+    </message>
+    <message>
+      <source>-----BEGIN RSA PRIVATE KEY-----... </source>
+      <translation>-----BEGIN RSA PRIVATE KEY-----... </translation>
+    </message>
+    <message>
+      <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
+      <translation>若证书用途设为 &lt;code&gt;verify&lt;/code&gt;，则证书密钥不一定需要设定。</translation>
+    </message>
+    <message>
+      <source>Unset</source>
+      <translation>未设定</translation>
+    </message>
+  </context>
+  <context>
     <name>ChainEditorWidget</name>
     <message>
       <source>Form</source>
@@ -351,25 +429,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
   </context>
   <context>
-    <name>HTTPInboundEditor</name>
-    <message>
-      <source>Removing a user</source>
-      <translation>移除用户</translation>
-    </message>
-    <message>
-      <source>You haven&apos;t selected a user yet.</source>
-      <translation>你尚未选择一个用户。</translation>
-    </message>
-    <message>
-      <source>Add a user</source>
-      <translation>添加用户</translation>
-    </message>
-    <message>
-      <source>This user exists already.</source>
-      <translation>此用户已存在。</translation>
-    </message>
-  </context>
-  <context>
     <name>ImportConfigWindow</name>
     <message>
       <source>Import file</source>
@@ -452,10 +511,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>路径</translation>
     </message>
     <message>
-      <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-      <translation>作为复杂配置导入（手动编辑路由规则与入站）</translation>
-    </message>
-    <message>
       <source>Json Editor</source>
       <translation>Json 编辑器</translation>
     </message>
@@ -510,6 +565,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
       <translation>警告：你有可能把“订阅链接”当成了“分享链接”</translation>
+    </message>
+    <message>
+      <source>Import as Complex Config</source>
+      <translation>作为复杂配置导入</translation>
     </message>
   </context>
   <context>
@@ -1014,6 +1073,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Copy latest logs.</source>
       <translation>复制最近日志</translation>
     </message>
+    <message>
+      <source>Do you want to remove this group as well?</source>
+      <translation>您想要同时删除这个组吗？</translation>
+    </message>
+    <message>
+      <source>Group: </source>
+      <translation>组： </translation>
+    </message>
+    <message>
+      <source>Removing Connection</source>
+      <translation>正在删除连接</translation>
+    </message>
+    <message>
+      <source>Copy selected.</source>
+      <translation>复制</translation>
+    </message>
   </context>
   <context>
     <name>OutboundEditor</name>
@@ -1135,13 +1210,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>None</source>
       <translation>不使用</translation>
-    </message>
-  </context>
-  <context>
-    <name>PluginSettingsWidget</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
     </message>
   </context>
   <context>
@@ -1850,6 +1918,26 @@ Output: <byte value="xd"/>
       <source>Disable System Root Certificates</source>
       <translation>禁用系统根证书</translation>
     </message>
+    <message>
+      <source>Enable Sniffing</source>
+      <translation>启用嗅探功能</translation>
+    </message>
+    <message>
+      <source>Use Fake DNS</source>
+      <translation>使用 Fake DNS</translation>
+    </message>
+    <message>
+      <source>Config Directory</source>
+      <translation>配置目录</translation>
+    </message>
+    <message>
+      <source>Open Directory</source>
+      <translation>打开目录</translation>
+    </message>
+    <message>
+      <source>Test Latency On Connected</source>
+      <translation>连接时测试延迟</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -1868,6 +1956,354 @@ Output: <byte value="xd"/>
     <message>
       <source>Chain</source>
       <translation>链条</translation>
+    </message>
+    <message>
+      <source>Disable gRPC API subsystem</source>
+      <translation>禁用 gRPC API 子系统</translation>
+    </message>
+    <message>
+      <source>Disable plugins feature</source>
+      <translation>禁用插件功能</translation>
+    </message>
+    <message>
+      <source>Enable debug output</source>
+      <translation>启用调试输出</translation>
+    </message>
+    <message>
+      <source>Do not automatically connect</source>
+      <translation>不要自动连接</translation>
+    </message>
+    <message>
+      <source>Stop current connection</source>
+      <translation>停止当前连接</translation>
+    </message>
+    <message>
+      <source>Reconnect last connection</source>
+      <translation>重新连接上次连接</translation>
+    </message>
+    <message>
+      <source>Exit Qv2ray</source>
+      <translation>退出 Qv2ray</translation>
+    </message>
+    <message>
+      <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
+      <translation>Qv2ray - 跨平台的 V2Ray Qt 前端。</translation>
+    </message>
+    <message>
+      <source>DNS not resolved</source>
+      <translation>无法解析 DNS</translation>
+    </message>
+    <message>
+      <source>Socket creation failed</source>
+      <translation>套接字创建失败</translation>
+    </message>
+    <message>
+      <source>Failed to setup TTL value</source>
+      <translation>无法设置 TTL 值</translation>
+    </message>
+    <message>
+      <source>Destination unreachable</source>
+      <translation>目标不可达</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation>超时</translation>
+    </message>
+    <message>
+      <source>Unknown error</source>
+      <translation>未知错误</translation>
+    </message>
+    <message>
+      <source>None</source>
+      <translation>无</translation>
+    </message>
+    <message>
+      <source>Settings Widget</source>
+      <translation>设置组件</translation>
+    </message>
+    <message>
+      <source>Inbound Editor</source>
+      <translation>入站编辑器</translation>
+    </message>
+    <message>
+      <source>Outbound Editor</source>
+      <translation>出站编辑器</translation>
+    </message>
+    <message>
+      <source>MainWindow Widget</source>
+      <translation>主窗口组件</translation>
+    </message>
+    <message>
+      <source>Unknown type.</source>
+      <translation>未知类型。</translation>
+    </message>
+    <message>
+      <source>Kernel</source>
+      <translation>内核</translation>
+    </message>
+    <message>
+      <source>Outbound Handler/Parser</source>
+      <translation>出站处理/分析器</translation>
+    </message>
+    <message>
+      <source>Subscription Adapter</source>
+      <translation>订阅适配器</translation>
+    </message>
+    <message>
+      <source>Event Handler</source>
+      <translation>事件处理器</translation>
+    </message>
+    <message>
+      <source>GUI Components</source>
+      <translation>GUI 组件</translation>
+    </message>
+    <message>
+      <source>Unsupported share link format.</source>
+      <translation>不支持的分享链接格式。</translation>
+    </message>
+    <message>
+      <source>SS URI is too short</source>
+      <translation>Shadowsocks 分享链接过短</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the colon separator between method and password</source>
+      <translation>模式和密码之间缺少冒号</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the at separator between password and hostname</source>
+      <translation>密码和主机名之间缺少分隔符</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the colon separator between hostname and port</source>
+      <translation>主机名和端口之间缺少冒号分隔符</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must exist</source>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须存在</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be valid port number</source>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是有效的端口号</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是 &apos;字符串&apos; 类型</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be an array</source>
+      <translation>无效的 ssd 链接: json: 字段 %1 必须是一个数组</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: server must be an object</source>
+      <translation>跳过无效的 ssd 服务器：服务器必须是对象</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: missing required field %1</source>
+      <translation>跳过无效的 ssd 服务器: 缺少必填字段 %1</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
+      <translation>跳过无效的 ssd 服务器: 字段 %1 应该是 &apos;字符串&apos; 类型</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: should begin with ssd://</source>
+      <translation>无效的 ssd 链接: 应以 ssd:// 开头</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: base64 parse failed</source>
+      <translation>无效的 ssd 链接: Base64 解析失败</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json parse failed: </source>
+      <translation>无效的 ssd 链接: json 解析失败: </translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
+      <translation>无效的 ssd 链接: rc4-md5 加密不被 v2ray-core 支持</translation>
+    </message>
+    <message>
+      <source>VMess string should start with &apos;vmess://&apos;</source>
+      <translation>VMess 链接应以 &apos;vmess://&apos; 开头</translation>
+    </message>
+    <message>
+      <source>VMess string should be a valid base64 string</source>
+      <translation>VMess 字符串应该是一个有效的 Base64 字符串</translation>
+    </message>
+    <message>
+      <source>JSON should not be empty</source>
+      <translation>JSON 不应该为空</translation>
+    </message>
+    <message>
+      <source>vmess:// url is invalid</source>
+      <translation>vmess:// 链接无效</translation>
+    </message>
+    <message>
+      <source>Invalid streamSettings protocol: </source>
+      <translation>无效的流设置协议： </translation>
+    </message>
+    <message>
+      <source>Unknown transport method: </source>
+      <translation>未知的传输方式： </translation>
+    </message>
+    <message>
+      <source>(Empty Users)</source>
+      <translation>(空用户)</translation>
+    </message>
+    <message>
+      <source>N/A</source>
+      <translation>不适用</translation>
+    </message>
+    <message>
+      <source>core executable file %1 does not exist</source>
+      <translation>核心可执行文件 %1 不存在</translation>
+    </message>
+    <message>
+      <source>cannot open core executable file %1 in read-only mode</source>
+      <translation>无法以只读模式打开核心可执行文件 %1</translation>
+    </message>
+    <message>
+      <source>core executable file %1 is an empty file</source>
+      <translation>核心可执行文件 %1 为空文件</translation>
+    </message>
+    <message>
+      <source>core executable file %1 is too short to be executed</source>
+      <translation>核心可执行文件 %1 太短，无法执行</translation>
+    </message>
+    <message>
+      <source>cannot deduce the type of core executable file %1</source>
+      <translation>无法推断核心可执行文件 %1 的类型</translation>
+    </message>
+    <message>
+      <source>Windows PE executable</source>
+      <translation>Windows PE 可执行文件</translation>
+    </message>
+    <message>
+      <source>macOS Mach-O executable</source>
+      <translation>macOS Mach-O 可执行文件</translation>
+    </message>
+    <message>
+      <source>ELF x86 executable</source>
+      <translation>ELF x86 可执行文件</translation>
+    </message>
+    <message>
+      <source>ELF amd64 executable</source>
+      <translation>ELF amd64 可执行文件</translation>
+    </message>
+    <message>
+      <source>ELF arm64 executable</source>
+      <translation>ELF arm64 可执行文件</translation>
+    </message>
+    <message>
+      <source>ELF arm executable</source>
+      <translation>ELF arm 可执行文件</translation>
+    </message>
+    <message>
+      <source>other ELF executable</source>
+      <translation>其他 ELF 可执行文件</translation>
+    </message>
+    <message>
+      <source>trusted abi</source>
+      <translation>可信的 abi</translation>
+    </message>
+    <message>
+      <source>unknown abi</source>
+      <translation>未知的 abi</translation>
+    </message>
+    <message>
+      <source>Cannot Start Qv2ray</source>
+      <translation>无法启动 Qv2ray</translation>
+    </message>
+    <message>
+      <source>Cannot find a place to store config files.</source>
+      <translation>找不到保存配置文件的地方。</translation>
+    </message>
+    <message>
+      <source>Qv2ray has searched these paths below:</source>
+      <translation>Qv2ray 搜索了以下路径：</translation>
+    </message>
+    <message>
+      <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+      <translation>这通常意味着你对所有这些地方都没有写权限。</translation>
+    </message>
+    <message>
+      <source>Qv2ray will now exit.</source>
+      <translation>Qv2ray 现在将退出。</translation>
+    </message>
+    <message>
+      <source>Failed to initialise Qv2ray</source>
+      <translation>初始化 Qv2ray 失败</translation>
+    </message>
+    <message>
+      <source>Failed to determine the location of config file:</source>
+      <translation>无法确定配置文件的位置：</translation>
+    </message>
+    <message>
+      <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+      <translation>Qv2ray 找到了一个配置文件，但由于一些错误未能加载。</translation>
+    </message>
+    <message>
+      <source>A workaround is to remove the this file and restart Qv2ray:</source>
+      <translation>解决方案是移除此文件并重新启动 Qv2ray:</translation>
+    </message>
+    <message>
+      <source>Please report if you think it&apos;s a bug.</source>
+      <translation>如果你认为有问题，请报告。</translation>
+    </message>
+    <message>
+      <source>Qv2ray Cannot Continue</source>
+      <translation>Qv2ray 无法继续</translation>
+    </message>
+    <message>
+      <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+      <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray。</translation>
+    </message>
+    <message>
+      <source>Please check if there&apos;s an issue explaining about it.</source>
+      <translation>请检查是否存在有关此问题的说明。</translation>
+    </message>
+    <message>
+      <source>Or submit a new issue if you think this is an error.</source>
+      <translation>或者如果你认为这是一个错误，请提交一个新 Issue。</translation>
+    </message>
+    <message>
+      <source>Default Group</source>
+      <translation>默认分组</translation>
+    </message>
+    <message>
+      <source>Deprecated</source>
+      <translation>已弃用</translation>
+    </message>
+    <message>
+      <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
+      <translation>PAC 现已被废弃，不再被鼓励使用。</translation>
+    </message>
+    <message>
+      <source>It will be removed or be provided as a plugin in the future.</source>
+      <translation>它将被删除或在将来作为插件提供。</translation>
+    </message>
+    <message>
+      <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
+      <translation>PAC 目前仍在运行，但请尽快切换到V2Ray内置路由。</translation>
+    </message>
+    <message>
+      <source>Configuration Upgrade Failed</source>
+      <translation>配置升级失败</translation>
+    </message>
+    <message>
+      <source>Unsupported config version number: </source>
+      <translation>不支持的配置版本号： </translation>
+    </message>
+    <message>
+      <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
+      <translation>请先升级到 Qv2ray v2.0/v2.1 然后重试。</translation>
+    </message>
+    <message>
+      <source>Qv2ray has encountered an uncaught exception: </source>
+      <translation>Qv2ray 遇到未知异常： </translation>
+    </message>
+    <message>
+      <source>Please report a bug via Github with the file located here: </source>
+      <translation>请通过 GitHub 报告该文件的错误信息： </translation>
     </message>
   </context>
   <context>
@@ -1895,6 +2331,202 @@ Output: <byte value="xd"/>
     <message>
       <source>Path: %1</source>
       <translation>路径：%1</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::components::QvUpdateChecker</name>
+    <message>
+      <source>Qv2ray Update</source>
+      <translation>Qv2ray 更新</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::components::plugins::QvPluginHost</name>
+    <message>
+      <source>Failed to load plugin</source>
+      <translation>加载插件失败</translation>
+    </message>
+    <message>
+      <source>Cannot load plugin</source>
+      <translation>无法加载插件</translation>
+    </message>
+    <message>
+      <source>The plugin cannot be loaded: </source>
+      <translation>无法加载插件： </translation>
+    </message>
+    <message>
+      <source>This plugin was built against a different version of the Plugin Interface.</source>
+      <translation>此插件是在不同版本的插件接口上构建的。</translation>
+    </message>
+    <message>
+      <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
+      <translation>请联系插件提供者或将问题报告到 Qv2ray 工作组。</translation>
+    </message>
+    <message>
+      <source>Enabling a plugin</source>
+      <translation>启用插件</translation>
+    </message>
+    <message>
+      <source>The plugin will become fully functional after restarting Qv2ray.</source>
+      <translation>重新启动 Qv2ray 后插件将完全启用。</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::handler::KernelInstanceHandler</name>
+    <message>
+      <source>There are other processes occupying the ports necessary to start the connection:</source>
+      <translation>其他进程占用了启动连接所需的端口：</translation>
+    </message>
+    <message>
+      <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
+      <translation>端口: %1:%2 for inbound: &quot;%3&quot;</translation>
+    </message>
+    <message>
+      <source>Local port: %1 for plugin integration.</source>
+      <translation>本地端口： %1 用于插件集成。</translation>
+    </message>
+    <message>
+      <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+      <translation>插件内核启动失败。请检查出站设置。</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::handler::QvConfigHandler</name>
+    <message>
+      <source>Group: %1</source>
+      <translation>分组: %1</translation>
+    </message>
+    <message>
+      <source>Group does not exist</source>
+      <translation>分组不存在</translation>
+    </message>
+    <message>
+      <source>Default Group</source>
+      <translation>默认分组</translation>
+    </message>
+    <message>
+      <source>Failed to start connection</source>
+      <translation>启动连接失败</translation>
+    </message>
+    <message>
+      <source>Unknown subscription type: %1</source>
+      <translation>未知订阅类型： %1</translation>
+    </message>
+    <message>
+      <source>Update Subscription</source>
+      <translation>更新订阅</translation>
+    </message>
+    <message numerus="yes">
+      <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+      <translation>
+        <numerusform>在订阅源只找到了 %n 个条目，您想要继续吗？</numerusform>
+      </translation>
+    </message>
+    <message numerus="yes">
+      <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+      <translation>
+        <numerusform>%1 个条目中的 %n 个条目已被过滤出来，您想要继续吗？</numerusform>
+      </translation>
+    </message>
+    <message numerus="yes">
+      <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
+      <translation>
+        <numerusform>有 %n 个连接已不再属于当前订阅分组。</numerusform>
+      </translation>
+    </message>
+    <message>
+      <source>Would you like to remove them?</source>
+      <translation>您想要删除他们吗？</translation>
+    </message>
+    <message>
+      <source>Cannot Update Subscription</source>
+      <translation>无法更新订阅</translation>
+    </message>
+    <message>
+      <source>A subscription plugin is missing?</source>
+      <translation>缺少订阅插件？</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::kernel::APIWorker</name>
+    <message>
+      <source>Failed to get statistics data, please check if V2Ray is running properly</source>
+      <translation>无法获取统计数据，请检查 V2Ray 是否正常运行</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
+    <message>
+      <source>Core file is lacking executable permission for the current user.</source>
+      <translation>核心文件缺少当前用户的可执行权限。</translation>
+    </message>
+    <message>
+      <source>Qv2ray tried to set, but failed because permission denied.</source>
+      <translation>Qv2ray 尝试设置，但由于权限不足而失败。</translation>
+    </message>
+    <message>
+      <source>Check is skipped</source>
+      <translation>检查已跳过</translation>
+    </message>
+    <message>
+      <source>V2Ray core executable not found.</source>
+      <translation>找不到 V2Ray 核心可执行文件。</translation>
+    </message>
+    <message>
+      <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
+      <translation>V2Ray 核心文件无法打开，请确保路径指向文件而不是文件夹。</translation>
+    </message>
+    <message>
+      <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
+Expected core ABI is %1, but got actual %2.<byte value="xd"/>
+Maybe you have downloaded the wrong core?</source>
+      <translation>V2Ray 核心与您的平台不兼容。
+预期的核心 ABI 是 %1，但实际上是 %2。
+你可能下载了错误的核心？</translation>
+    </message>
+    <message>
+      <source>V2Ray assets path is not valid.</source>
+      <translation>V2Ray 资源路径无效。</translation>
+    </message>
+    <message>
+      <source>No geoip.dat in assets path.</source>
+      <translation>asset路径中没有 geoip.dat。</translation>
+    </message>
+    <message>
+      <source>No geosite.dat in assets path.</source>
+      <translation>资源路径中没有 geosite.dat。</translation>
+    </message>
+    <message>
+      <source>V2Ray core failed with an exit code: </source>
+      <translation>V2Ray 核心运行失败，退出代码： </translation>
+    </message>
+    <message>
+      <source>V2Ray core returns empty string.</source>
+      <translation>V2Ray 核心返回空字符串。</translation>
+    </message>
+    <message>
+      <source>Configuration Error</source>
+      <translation>配置错误</translation>
+    </message>
+    <message>
+      <source>Cannot start V2Ray</source>
+      <translation>无法启动 V2Ray</translation>
+    </message>
+    <message>
+      <source>V2Ray core settings is incorrect.</source>
+      <translation>V2Ray 核心设置不正确。</translation>
+    </message>
+    <message>
+      <source>The error is: </source>
+      <translation>错误是： </translation>
+    </message>
+    <message>
+      <source>Invalid V2Ray Instance Status.</source>
+      <translation>无效的 V2Ray 实例状态。</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start.</source>
+      <translation>V2Ray 内核启动失败。</translation>
     </message>
   </context>
   <context>
@@ -2023,10 +2655,6 @@ Output: <byte value="xd"/>
       <translation>DNS 设置</translation>
     </message>
     <message>
-      <source>Selected Inbound / Outbound Info</source>
-      <translation>选定入站/出站信息</translation>
-    </message>
-    <message>
       <source>Unknown</source>
       <translation>未知</translation>
     </message>
@@ -2035,12 +2663,44 @@ Output: <byte value="xd"/>
       <translation>0</translation>
     </message>
     <message>
-      <source>Rules Order</source>
+      <source>Debug Connection Painter</source>
+      <translation>调试连接绘图</translation>
+    </message>
+    <message>
+      <source>Connection Template</source>
+      <translation>连接模板</translation>
+    </message>
+    <message>
+      <source>Inbound</source>
+      <translation>入站</translation>
+    </message>
+    <message>
+      <source>Outbound</source>
+      <translation>出站</translation>
+    </message>
+    <message>
+      <source>Override global DNS settings</source>
+      <translation>覆盖全局DNS设置</translation>
+    </message>
+    <message>
+      <source>Inbound / Outbound Info</source>
+      <translation>入站/出站信息</translation>
+    </message>
+    <message>
+      <source>Rules Ordering</source>
       <translation>规则顺序</translation>
     </message>
     <message>
-      <source>Debug Connection Painter</source>
-      <translation>调试连接绘图</translation>
+      <source>Importing All Connections</source>
+      <translation>导入所有连接</translation>
+    </message>
+    <message>
+      <source>Do you want to import all the connections?</source>
+      <translation>您想要导入所有连接吗？</translation>
+    </message>
+    <message>
+      <source>(All Connections)</source>
+      <translation>(所有连接)</translation>
     </message>
   </context>
   <context>
@@ -2277,25 +2937,6 @@ Output: <byte value="xd"/>
     </message>
   </context>
   <context>
-    <name>SocksInboundEditor</name>
-    <message>
-      <source>Removing a user</source>
-      <translation>移除用户</translation>
-    </message>
-    <message>
-      <source>You haven&apos;t selected a user yet.</source>
-      <translation>你尚未选择一个用户。</translation>
-    </message>
-    <message>
-      <source>Add a user</source>
-      <translation>添加用户</translation>
-    </message>
-    <message>
-      <source>This user exists already.</source>
-      <translation>此用户已存在。</translation>
-    </message>
-  </context>
-  <context>
     <name>SpeedWidget</name>
     <message>
       <source>Proxy ↑</source>
@@ -2476,266 +3117,13 @@ Output: <byte value="xd"/>
       <source>Disable System Root Certificates</source>
       <translation>禁用系统根证书</translation>
     </message>
-  </context>
-  <context>
-    <name>blackholeOutEditor</name>
     <message>
-      <source>Form</source>
-      <translation>窗体</translation>
+      <source>Open Certificate Editor</source>
+      <translation>打开证书编辑器</translation>
     </message>
     <message>
-      <source>Response</source>
-      <translation>响应</translation>
-    </message>
-    <message>
-      <source>Type</source>
-      <translation>类型</translation>
-    </message>
-  </context>
-  <context>
-    <name>dnsOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>Network</source>
-      <translation>网络</translation>
-    </message>
-    <message>
-      <source>TCP</source>
-      <translation>TCP</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-    <message>
-      <source>Original</source>
-      <translation>原始</translation>
-    </message>
-    <message>
-      <source>Address</source>
-      <translation>地址</translation>
-    </message>
-    <message>
-      <source>Port</source>
-      <translation>端口</translation>
-    </message>
-  </context>
-  <context>
-    <name>dokodemodoorInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>Address</source>
-      <translation>地址</translation>
-    </message>
-    <message>
-      <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation>使用“跟随重定向”时，此项可选</translation>
-    </message>
-    <message>
-      <source>Port</source>
-      <translation>端口</translation>
-    </message>
-    <message>
-      <source>Network</source>
-      <translation>网络</translation>
-    </message>
-    <message>
-      <source>TCP</source>
-      <translation>TCP</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-    <message>
-      <source>Timeout</source>
-      <translation>超时</translation>
-    </message>
-    <message>
-      <source>Follow Redirect</source>
-      <translation>跟随重定向</translation>
-    </message>
-    <message>
-      <source>Enabled</source>
-      <translation>已启用</translation>
-    </message>
-  </context>
-  <context>
-    <name>freedomOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>Domain Strategy</source>
-      <translation>域名策略</translation>
-    </message>
-    <message>
-      <source>Redirect</source>
-      <translation>重定向</translation>
-    </message>
-    <message>
-      <source>:0</source>
-      <translation>:0</translation>
-    </message>
-  </context>
-  <context>
-    <name>httpInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>Allow Transparent</source>
-      <translation>允许透明代理</translation>
-    </message>
-    <message>
-      <source>Timeout</source>
-      <translation>超时</translation>
-    </message>
-    <message>
-      <source>s</source>
-      <translation>秒</translation>
-    </message>
-    <message>
-      <source>Users</source>
-      <translation>用户</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密码</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>用户名</translation>
-    </message>
-  </context>
-  <context>
-    <name>httpOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>用户名</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密码</translation>
-    </message>
-  </context>
-  <context>
-    <name>shadowsocksOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密码</translation>
-    </message>
-    <message>
-      <source>Encryption Method</source>
-      <translation>加密方法</translation>
-    </message>
-  </context>
-  <context>
-    <name>socksInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>Enabled</source>
-      <translation>已启用</translation>
-    </message>
-    <message>
-      <source>UDP Local IP</source>
-      <translation>UDP 本地 IP</translation>
-    </message>
-    <message>
-      <source>127.0.0.1</source>
-      <translation>127.0.0.1</translation>
-    </message>
-    <message>
-      <source>Auth</source>
-      <translation>认证</translation>
-    </message>
-    <message>
-      <source>Users</source>
-      <translation>用户</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>用户名</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密码</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-  </context>
-  <context>
-    <name>socksOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>用户名</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密码</translation>
-    </message>
-  </context>
-  <context>
-    <name>vlessOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>UUID</source>
-      <translation>UUID</translation>
-    </message>
-    <message>
-      <source>Encryption</source>
-      <translation>加密</translation>
-    </message>
-    <message>
-      <source>Flow</source>
-      <translation>流控</translation>
-    </message>
-  </context>
-  <context>
-    <name>vmessOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>窗体</translation>
-    </message>
-    <message>
-      <source>UUID</source>
-      <translation>UUID</translation>
-    </message>
-    <message>
-      <source>Alter ID</source>
-      <translation>Alter ID</translation>
-    </message>
-    <message>
-      <source>Security</source>
-      <translation>安全选项</translation>
+      <source>Certificates</source>
+      <translation>证书</translation>
     </message>
   </context>
   <context>
@@ -2930,6 +3318,345 @@ Output: <byte value="xd"/>
     <message>
       <source>Components</source>
       <translation>组件</translation>
+    </message>
+  </context>
+  <context>
+    <name>dokodemodoorInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Address</source>
+      <translation>地址</translation>
+    </message>
+    <message>
+      <source>Optional when using &quot;Follow Redirect&quot;</source>
+      <translation>使用“跟随重定向”时，此项可选</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
+    </message>
+    <message>
+      <source>Network</source>
+      <translation>网络</translation>
+    </message>
+    <message>
+      <source>TCP</source>
+      <translation>TCP</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation>超时</translation>
+    </message>
+    <message>
+      <source>Follow Redirect</source>
+      <translation>跟随重定向</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>已启用</translation>
+    </message>
+  </context>
+  <context>
+    <name>httpInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Allow Transparent</source>
+      <translation>允许透明连接</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation>超时</translation>
+    </message>
+    <message>
+      <source>s</source>
+      <translation>秒</translation>
+    </message>
+    <message>
+      <source>Users</source>
+      <translation>用户</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用户名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginInboundEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+  </context>
+  <context>
+    <name>socksInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>已启用</translation>
+    </message>
+    <message>
+      <source>UDP Local IP</source>
+      <translation>UDP 本地IP</translation>
+    </message>
+    <message>
+      <source>127.0.0.1</source>
+      <translation>127.0.0.1</translation>
+    </message>
+    <message>
+      <source>Auth</source>
+      <translation>认证</translation>
+    </message>
+    <message>
+      <source>Users</source>
+      <translation>用户</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用户名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+  </context>
+  <context>
+    <name>blackholeOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Response</source>
+      <translation>响应</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>类型</translation>
+    </message>
+  </context>
+  <context>
+    <name>dnsOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Network</source>
+      <translation>网络</translation>
+    </message>
+    <message>
+      <source>TCP</source>
+      <translation>TCP</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>原始</translation>
+    </message>
+    <message>
+      <source>Address</source>
+      <translation>地址</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
+    </message>
+  </context>
+  <context>
+    <name>freedomOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Domain Strategy</source>
+      <translation>域名策略</translation>
+    </message>
+    <message>
+      <source>Redirect</source>
+      <translation>重定向</translation>
+    </message>
+    <message>
+      <source>:0</source>
+      <translation>:0</translation>
+    </message>
+  </context>
+  <context>
+    <name>httpOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用户名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginOutboundEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+  </context>
+  <context>
+    <name>shadowsocksOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+    <message>
+      <source>Encryption Method</source>
+      <translation>加密方式</translation>
+    </message>
+  </context>
+  <context>
+    <name>socksOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用户名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密码</translation>
+    </message>
+  </context>
+  <context>
+    <name>vlessOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>UUID</source>
+      <translation>UUID</translation>
+    </message>
+    <message>
+      <source>Encryption</source>
+      <translation>加密</translation>
+    </message>
+    <message>
+      <source>Flow</source>
+      <translation>流控</translation>
+    </message>
+    <message>
+      <source>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+
+&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+
+&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
+      <translation>&lt;h3&gt;关于 &lt;code&gt;udp443&lt;/code&gt; 流控方式&lt;/h3&gt;
+
+&lt;p&gt;某些应用程序如 Google Chrome 尝试使用 QUIC 协议而不是 TLS 协议，这将导致其无法享受到 XTLS 的加成。更糟的是，QUIC over TCP 存在潜在的拥塞控制问题，可能会令你的体验降级。&lt;/p&gt;
+
+&lt;p&gt;非 &lt;code&gt;udp443&lt;/code&gt; 的流控方式会阻断 UDP 目标端口为 443 的出站流量以绕过此情形。若你确实需要放行 UDP 443，请自行斟酌。&lt;/p&gt;</translation>
+    </message>
+  </context>
+  <context>
+    <name>vmessOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>UUID</source>
+      <translation>UUID</translation>
+    </message>
+    <message>
+      <source>Alter ID</source>
+      <translation>Alter ID</translation>
+    </message>
+    <message>
+      <source>Security</source>
+      <translation>安全选项</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginSettingsWidget</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowForm.ui</name>
+    <message>
+      <source>Qv2ray</source>
+      <translation>Qv2ray</translation>
+    </message>
+  </context>
+  <context>
+    <name>HTTPInboundEditor</name>
+    <message>
+      <source>Removing a user</source>
+      <translation>移除用户</translation>
+    </message>
+    <message>
+      <source>You haven&apos;t selected a user yet.</source>
+      <translation>你尚未选择一个用户。</translation>
+    </message>
+    <message>
+      <source>Add a user</source>
+      <translation>添加用户</translation>
+    </message>
+    <message>
+      <source>This user exists already.</source>
+      <translation>此用户已存在。</translation>
+    </message>
+  </context>
+  <context>
+    <name>SocksInboundEditor</name>
+    <message>
+      <source>Removing a user</source>
+      <translation>移除用户</translation>
+    </message>
+    <message>
+      <source>You haven&apos;t selected a user yet.</source>
+      <translation>你尚未选择一个用户。</translation>
+    </message>
+    <message>
+      <source>Add a user</source>
+      <translation>添加用户</translation>
+    </message>
+    <message>
+      <source>This user exists already.</source>
+      <translation>此用户已存在。</translation>
     </message>
   </context>
 </TS>

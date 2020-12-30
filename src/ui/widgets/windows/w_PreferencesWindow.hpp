@@ -96,6 +96,7 @@ class PreferencesWindow
     void on_qvProxyPortCB_valueChanged(int arg1);
     void on_setAllowInsecureCB_stateChanged(int arg1);
     void on_setTestLatenctCB_stateChanged(int arg1);
+    void on_setTestLatenctOnConnectedCB_stateChanged(int arg1);
     void on_setSessionResumptionCB_stateChanged(int arg1);
     void on_quietModeCB_stateChanged(int arg1);
     void on_tproxGroupBox_toggled(bool arg1);
@@ -108,12 +109,14 @@ class PreferencesWindow
     void on_jumpListCountSB_valueChanged(int arg1);
     void on_outboundMark_valueChanged(int arg1);
     void on_dnsIntercept_toggled(bool checked);
+    void on_fakeDNSCb_toggled(bool checked);
     void on_qvProxyCustomProxy_clicked();
     void on_qvProxySystemProxy_clicked();
     void on_qvProxyNoProxy_clicked();
     void on_DnsFreedomCb_stateChanged(int arg1);
     void on_httpSniffingCB_stateChanged(int arg1);
     void on_socksSniffingCB_stateChanged(int arg1);
+    void on_tproxySniffingCB_stateChanged(int arg1);
     void on_pushButton_clicked();
     void on_noAutoConnectRB_clicked();
     void on_lastConnectedRB_clicked();

@@ -2,6 +2,8 @@ name: Qv2ray Windows Installer
 
 on:
   push:
+    branches-ignore:
+      - l10n_dev
   release:
     types: [prereleased]
 
@@ -16,11 +18,11 @@ jobs:
       - name: Get commit message
         id: get_message
         run: |
-          echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
-          echo "::set-env name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
+          echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')"
+          echo "message=\"$(git log --format=%B -n 1 ${{ github.event.after }} | tr '\n' ' ')\"" >> $GITHUB_ENV
   build:
     needs: check_commit_msg
-    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_NSIS') }}
+    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!NSIS') }}
     strategy:
       matrix:
         qt_version: [5.15.0]
@@ -39,6 +41,7 @@ jobs:
     env:
       _QV2RAY_BUILD_INFO_: "Qv2ray built from Github Action"
       _QV2RAY_BUILD_EXTRA_INFO_: "qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     steps:
       - name: Get the version
@@ -47,13 +50,13 @@ jobs:
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Checking out sources
         uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
       - name: Install Python 3.7 version
         uses: actions/setup-python@v1
         with:
           python-version: "3.7"
           architecture: ${{ matrix.arch }}
-      - name: Restoring submodules
-        run: git submodule update --init
       # =========================================================================================================
       - name: Install MSVC compiler
         uses: ilammy/msvc-dev-cmd@v1

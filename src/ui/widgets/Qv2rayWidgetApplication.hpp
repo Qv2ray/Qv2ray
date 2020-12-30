@@ -19,8 +19,7 @@ namespace Qv2ray
         void MessageBoxWarn(QWidget *parent, const QString &title, const QString &text) override;
         void MessageBoxInfo(QWidget *parent, const QString &title, const QString &text) override;
         MessageOpt MessageBoxAsk(QWidget *parent, const QString &title, const QString &text, const QList<MessageOpt> &buttons) override;
-        void ShowTrayMessage(const QString &m, const QIcon &icon, int msecs = 10000);
-        void ShowTrayMessage(const QString &m, QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information, int msecs = 10000);
+        void ShowTrayMessage(const QString &m, int msecs = 10000);
         void OpenURL(const QString &url) override;
 
         inline QSystemTrayIcon **GetTrayIcon()

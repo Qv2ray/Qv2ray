@@ -13,6 +13,9 @@ CMakeSettings.json
 
 SourceTrail/
 
+3rdparty/android_openssl
+patches/
+
 libs/gen
 libs/deps
 libs/x64-windows

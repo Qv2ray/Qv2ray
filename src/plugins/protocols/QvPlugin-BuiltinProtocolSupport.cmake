@@ -29,6 +29,7 @@ ADD_SOURCE(inbound socksin)
 
 set(BUILTIN_PROTOCOL_PLUGIN_SOURCES
     ${PLUGIN_UI_SOURCE}
+    ${CMAKE_CURRENT_LIST_DIR}/../common/CommonTypes.hpp
     ${CMAKE_CURRENT_LIST_DIR}/BuiltinProtocolPlugin.hpp
     ${CMAKE_CURRENT_LIST_DIR}/BuiltinProtocolPlugin.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/OutboundHandler.cpp

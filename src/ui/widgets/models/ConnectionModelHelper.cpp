@@ -13,13 +13,13 @@ ConnectionListHelper::ConnectionListHelper(QTreeView *view, QObject *parent) : Q
     for (const auto &group : ConnectionManager->AllGroups())
     {
         addGroupItem(group);
-        for (const auto &connection : ConnectionManager->Connections(group))
+        for (const auto &connection : ConnectionManager->GetConnections(group))
         {
             addConnectionItem({ connection, group });
         }
     }
     const auto renamedLambda = [&](const ConnectionId &id, const QString &, const QString &newName) {
-        for (const auto &gid : ConnectionManager->GetGroupId(id))
+        for (const auto &gid : ConnectionManager->GetConnectionContainedIn(id))
         {
             ConnectionGroupPair pair{ id, gid };
             if (pairs.contains(pair))
@@ -28,7 +28,7 @@ ConnectionListHelper::ConnectionListHelper(QTreeView *view, QObject *parent) : Q
     };
 
     const auto latencyLambda = [&](const ConnectionId &id, const int avg) {
-        for (const auto &gid : ConnectionManager->GetGroupId(id))
+        for (const auto &gid : ConnectionManager->GetConnectionContainedIn(id))
         {
             ConnectionGroupPair pair{ id, gid };
             if (pairs.contains(pair))
@@ -71,7 +71,7 @@ void ConnectionListHelper::Filter(const QString &key)
     {
         const auto groupItem = model->indexFromItem(groups[groupId]);
         bool isTotallyHide = true;
-        for (const auto &connectionId : ConnectionManager->Connections(groupId))
+        for (const auto &connectionId : ConnectionManager->GetConnections(groupId))
         {
             const auto connectionItem = model->indexFromItem(pairs[{ connectionId, groupId }]);
             const auto willTotallyHide = static_cast<ConnectionItemWidget *>(parentView->indexWidget(connectionItem))->NameMatched(key);

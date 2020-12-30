@@ -39,6 +39,9 @@ QStringList Qv2rayApplicationInterface::GetAssetsPaths(const QString &dirName) c
     // Configuration Path
     QStringList list;
 
+    if (qEnvironmentVariableIsSet("QV2RAY_RESOURCES_PATH"))
+        list << makeAbs(qEnvironmentVariable("QV2RAY_RESOURCES_PATH") + "/" + dirName);
+
     // Default behavior on Windows
     list << makeAbs(QCoreApplication::applicationDirPath() + "/" + dirName);
     list << makeAbs(QV2RAY_CONFIG_DIR + dirName);
@@ -53,6 +56,9 @@ QStringList Qv2rayApplicationInterface::GetAssetsPaths(const QString &dirName) c
 
     if (qEnvironmentVariableIsSet("SNAP"))
         list << makeAbs(qEnvironmentVariable("SNAP") + "/usr/share/qv2ray/" + dirName);
+
+    if (qEnvironmentVariableIsSet("XDG_DATA_DIRS"))
+        list << makeAbs(qEnvironmentVariable("XDG_DATA_DIRS") + "/" + dirName);
 
     list << makeAbs("/usr/local/share/qv2ray/" + dirName);
     list << makeAbs("/usr/local/lib/qv2ray/" + dirName);

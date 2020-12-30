@@ -7,7 +7,8 @@ namespace Qv2ray::core::connection
 {
     namespace serialization
     {
-        QList<QPair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage, QString *newGroup)
+        QList<std::pair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
+                                                                      QString *newGroup)
         {
             const auto TLSOptionsFilter = [](QJsonObject &conf) {
                 const auto allowInsecure = GlobalConfig.advancedConfig.setAllowInsecure;
@@ -21,23 +22,23 @@ namespace Qv2ray::core::connection
                 }
             };
 
-            QList<QPair<QString, CONFIGROOT>> connectionConf;
+            QList<std::pair<QString, CONFIGROOT>> connectionConf;
             if (link.startsWith("vmess://") && link.contains("@"))
             {
                 auto conf = vmess_new::Deserialize(link, aliasPrefix, errMessage);
                 TLSOptionsFilter(conf);
-                connectionConf << QPair{ *aliasPrefix, conf };
+                connectionConf << std::pair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("vmess://"))
             {
                 auto conf = vmess::Deserialize(link, aliasPrefix, errMessage);
                 TLSOptionsFilter(conf);
-                connectionConf << QPair{ *aliasPrefix, conf };
+                connectionConf << std::pair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ss://") && !link.contains("plugin="))
             {
                 auto conf = ss::Deserialize(link, aliasPrefix, errMessage);
-                connectionConf << QPair{ *aliasPrefix, conf };
+                connectionConf << std::pair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ssd://"))
             {
@@ -57,7 +58,7 @@ namespace Qv2ray::core::connection
                         CONFIGROOT root;
                         auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, _protocol, OUTBOUNDSETTING(_outbound), {});
                         QJsonIO::SetValue(root, outbound, "outbounds", 0);
-                        connectionConf << QPair{ _alias, root };
+                        connectionConf << std::pair{ _alias, root };
                     }
                 }
                 else if (errMessage->isEmpty())

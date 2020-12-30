@@ -7,9 +7,6 @@
 [submodule "3rdparty/puresource"]
 	path = 3rdparty/puresource
 	url = https://github.com/Qv2ray/PureSource
-[submodule "3rdparty/zxing-cpp"]
-	path = 3rdparty/zxing-cpp
-	url = https://github.com/nu-book/zxing-cpp
 [submodule "src/plugin-interface"]
 	path = src/plugin-interface
 	url = https://github.com/Qv2ray/QvPlugin-Interface
@@ -31,3 +28,6 @@
 [submodule "3rdparty/QCodeEditor"]
 	path = 3rdparty/QCodeEditor
 	url = https://github.com/cpeditor/QCodeEditor
+[submodule "3rdparty/qt-qrcode"]
+	path = 3rdparty/qt-qrcode
+	url = https://github.com/danielsanfr/qt-qrcode

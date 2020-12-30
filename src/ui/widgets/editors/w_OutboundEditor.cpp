@@ -91,8 +91,8 @@ OUTBOUND OutboundEditor::generateConnectionJson()
         {
             widget->SetHostAddress(serverAddress, serverPort);
             settings = OUTBOUNDSETTING(widget->GetContent());
-            const auto prop = widget->property("QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
-            const auto hasStreamSettings = prop.isValid() && prop.type() == QVariant::Bool && prop.toBool();
+            const auto prop = widget->property("");
+            const auto hasStreamSettings = GetProperty(widget, "QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
             if (!hasStreamSettings)
                 streaming = {};
             processed = true;
@@ -114,7 +114,7 @@ void OutboundEditor::reloadGUI()
     tag = originalConfig["tag"].toString();
     tagTxt->setText(tag);
     outboundType = originalConfig["protocol"].toString("vmess");
-    muxConfig = originalConfig["mux"].toObject();
+    muxConfig = originalConfig.contains("mux") ? originalConfig["mux"].toObject() : QJsonObject{};
     useForwardProxy = originalConfig[QV2RAY_USE_FPROXY_KEY].toBool(false);
     streamSettingsWidget->SetStreamObject(StreamSettingsObject::fromJson(originalConfig["streamSettings"].toObject()));
     //

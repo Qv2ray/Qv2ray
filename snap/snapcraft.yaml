@@ -50,6 +50,8 @@ parts:
       - software-properties-common
     override-pull: |
       sudo add-apt-repository ppa:ymshenyu/libuv
+      sudo add-apt-repository ppa:ymshenyu/qv2ray-deps
+      sudo add-apt-repository ppa:ymshenyu/qt
       sudo apt-get update
       sudo apt-get -y dist-upgrade
 
@@ -61,7 +63,7 @@ parts:
     build-packages:
       - build-essential
       - qttools5-dev
-      - qt5-default
+      - qtbase5-dev
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
@@ -122,8 +124,13 @@ parts:
       - locales-all
       - xdg-user-dirs
       - fcitx-frontend-qt5
+      - fcitx5-frontend-qt5
+    after:
+      - ppa
 
   qt5-gtk-platform:
     plugin: nil
     stage-packages:
       - qt5-gtk-platformtheme
+    after:
+      - ppa

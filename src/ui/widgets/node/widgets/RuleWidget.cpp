@@ -8,7 +8,15 @@
 #define LOADINGCHECK                                                                                                                                 \
     if (isLoading)                                                                                                                                   \
         return;
+
 #define rule (*(this->ruleptr))
+
+const static auto Split_RemoveDuplicate_Sort = [](const QString &in) {
+    auto entries = SplitLines(in);
+    entries.removeDuplicates();
+    entries.sort();
+    return entries;
+};
 
 QvNodeRuleWidget::QvNodeRuleWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QvNodeWidget(_dispatcher, parent)
 {
@@ -56,7 +64,7 @@ void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
     routePortTxt->setText(rule.port);
     //
     // Users
-    const auto users = rule.user.join(NEWLINE);
+    const auto sourcePorts = rule.sourcePort;
     //
     // Incoming Sources
     const auto sources = rule.source.join(NEWLINE);
@@ -93,24 +101,19 @@ void QvNodeRuleWidget::on_routeProtocolBTCB_stateChanged(int)
 void QvNodeRuleWidget::on_hostList_textChanged()
 {
     LOADINGCHECK
-    rule.domain = SplitLines(hostList->toPlainText());
+    rule.domain = Split_RemoveDuplicate_Sort(hostList->toPlainText());
 }
 
 void QvNodeRuleWidget::on_ipList_textChanged()
 {
     LOADINGCHECK
-    rule.ip = SplitLines(ipList->toPlainText());
+    rule.ip = Split_RemoveDuplicate_Sort(ipList->toPlainText());
 }
 
 void QvNodeRuleWidget::on_routePortTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
     rule.port = arg1;
-}
-void QvNodeRuleWidget::on_routeUserTxt_textEdited(const QString &arg1)
-{
-    LOADINGCHECK
-    rule.user = SplitLines(arg1);
 }
 
 void QvNodeRuleWidget::on_netUDPRB_clicked()
@@ -128,7 +131,7 @@ void QvNodeRuleWidget::on_netTCPRB_clicked()
 void QvNodeRuleWidget::on_sourceIPList_textChanged()
 {
     LOADINGCHECK
-    rule.source = SplitLines(sourceIPList->toPlainText());
+    rule.source = Split_RemoveDuplicate_Sort(sourceIPList->toPlainText());
 }
 
 void QvNodeRuleWidget::on_ruleEnableCB_stateChanged(int arg1)

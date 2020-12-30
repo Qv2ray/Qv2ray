@@ -192,6 +192,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     //
     // Actions for right click the log text browser
     //
+    logRCM_Menu->addAction(action_RCM_CopySelected);
     logRCM_Menu->addAction(action_RCM_CopyRecentLogs);
     logRCM_Menu->addSeparator();
     logRCM_Menu->addAction(action_RCM_SwitchCoreLog);
@@ -200,6 +201,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     connect(action_RCM_SwitchCoreLog, &QAction::triggered, [this] { masterLogBrowser->setDocument(vCoreLogDocument); });
     connect(action_RCM_SwitchQv2rayLog, &QAction::triggered, [this] { masterLogBrowser->setDocument(qvLogDocument); });
     connect(action_RCM_CopyRecentLogs, &QAction::triggered, this, &MainWindow::Action_CopyRecentLogs);
+    connect(action_RCM_CopySelected, &QAction::triggered, masterLogBrowser, &QTextBrowser::copy);
     //
     speedChartWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(speedChartWidget, &QWidget::customContextMenuRequested, [this](const QPoint &) { graphWidgetMenu->popup(QCursor::pos()); });
@@ -282,13 +284,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     // Find and start if there is an auto-connection
     const auto connectionStarted = StartAutoConnectionEntry();
 
-    if (!connectionStarted && !ConnectionManager->Connections().isEmpty())
+    if (!connectionStarted && !ConnectionManager->GetConnections().isEmpty())
     {
         // Select the first connection.
         const auto groups = ConnectionManager->AllGroups();
         if (!groups.isEmpty())
         {
-            const auto connections = ConnectionManager->Connections(groups.first());
+            const auto connections = ConnectionManager->GetConnections(groups.first());
             if (!connections.empty())
             {
                 const auto index = modelHelper->GetConnectionPairIndex({ connections.first(), groups.first() });
@@ -526,36 +528,32 @@ void MainWindow::on_connectionTreeView_customContextMenuRequested(const QPoint &
 void MainWindow::Action_DeleteConnections()
 {
     QList<ConnectionGroupPair> connlist;
+    QList<GroupId> groupsList;
 
     for (const auto &item : connectionTreeView->selectionModel()->selectedIndexes())
     {
-        auto widget = GetIndexWidget(item);
-        if (widget)
+        const auto widget = GetIndexWidget(item);
+        if (!widget)
+            continue;
+
+        const auto identifier = widget->Identifier();
+        if (widget->IsConnection())
         {
-            const auto identifier = widget->Identifier();
-            if (widget->IsConnection())
-            {
-                connlist.append(identifier);
-            }
-            else
-            {
-                for (const auto &conns : ConnectionManager->GetGroupMetaObject(identifier.groupId).connections)
-                {
-                    ConnectionGroupPair i;
-                    i.connectionId = conns;
-                    i.groupId = identifier.groupId;
-                    connlist.append(i);
-                }
-            }
+            // Simply add the connection id
+            connlist.append(identifier);
+            continue;
         }
-    }
 
-    LOG("Selected ", connlist.count(), " items");
+        for (const auto &conns : ConnectionManager->GetConnections(identifier.groupId))
+        {
+            connlist.append(ConnectionGroupPair{ conns, identifier.groupId });
+        }
 
-    if (connlist.isEmpty())
-    {
-        // Remove nothing means doing nothing.
-        return;
+        const auto message = tr("Do you want to remove this group as well?") + NEWLINE + tr("Group: ") + GetDisplayName(identifier.groupId);
+        if (QvMessageBoxAsk(this, tr("Removing Connection"), message) == Yes)
+        {
+            groupsList << identifier.groupId;
+        }
     }
 
     const auto strRemoveConnTitle = tr("Removing Connection(s)", "", connlist.count());
@@ -567,12 +565,12 @@ void MainWindow::Action_DeleteConnections()
 
     for (const auto &conn : connlist)
     {
-        if (ConnectionManager->IsConnected(conn))
-            ConnectionManager->StopConnection();
-        if (GlobalConfig.autoStartId == conn)
-            GlobalConfig.autoStartId.clear();
-
         ConnectionManager->RemoveConnectionFromGroup(conn.connectionId, conn.groupId);
+    }
+
+    for (const auto &group : groupsList)
+    {
+        ConnectionManager->DeleteGroup(group);
     }
 }
 
@@ -619,7 +617,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
     locateBtn->setEnabled(false);
     if (!GlobalConfig.uiConfig.quietMode)
     {
-        QvWidgetApplication->ShowTrayMessage(tr("Disconnected from: ") + GetDisplayName(id.connectionId), this->windowIcon());
+        QvWidgetApplication->ShowTrayMessage(tr("Disconnected from: ") + GetDisplayName(id.connectionId));
     }
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX);
     netspeedLabel->setText("0.00 B/s" NEWLINE "0.00 B/s");
@@ -642,11 +640,10 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     lastConnected = id;
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
-    speedChartWidget->Clear();
     auto name = GetDisplayName(id.connectionId);
     if (!GlobalConfig.uiConfig.quietMode)
     {
-        QvWidgetApplication->ShowTrayMessage(tr("Connected: ") + name, this->windowIcon());
+        QvWidgetApplication->ShowTrayMessage(tr("Connected: ") + name);
     }
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
     connetionStatusLabel->setText(tr("Connected: ") + name);
@@ -657,7 +654,10 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     //
     QTimer::singleShot(1000, ConnectionManager, [id]() {
         // After the kernel initialization is complete, we can test the delay without worry
-        ConnectionManager->StartLatencyTest(id.connectionId);
+        if (GlobalConfig.advancedConfig.testLatencyOnConnected)
+        {
+            ConnectionManager->StartLatencyTest(id.connectionId);
+        }
     });
     if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
     {

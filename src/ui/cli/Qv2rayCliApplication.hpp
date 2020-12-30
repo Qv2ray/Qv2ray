@@ -8,14 +8,14 @@ namespace Qv2ray
         Q_OBJECT
       public:
         explicit Qv2rayCliApplication(int &argc, char *argv[]);
-        Qv2raySetupStatus Initialize() override;
-        Qv2rayExitCode RunQv2ray() override;
+        QStringList checkPrerequisitesInternal() override;
+        Qv2rayExitReason runQv2rayInternal() override;
 
       public:
-        void MessageBoxWarn(QWidget *, const QString &, const QString &, MessageOpt = OK) override
+        void MessageBoxWarn(QWidget *, const QString &, const QString &) override
         {
         }
-        void MessageBoxInfo(QWidget *, const QString &, const QString &, MessageOpt = OK) override
+        void MessageBoxInfo(QWidget *, const QString &, const QString &) override
         {
         }
         MessageOpt MessageBoxAsk(QWidget *, const QString &, const QString &, const QList<MessageOpt> &) override
@@ -27,7 +27,7 @@ namespace Qv2ray
         }
 
       private:
-        void TerminateUI() override;
+        void terminateUIInternal() override;
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
         void onMessageReceived(quint32 clientID, QByteArray msg) override;
 #endif

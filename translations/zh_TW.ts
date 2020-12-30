@@ -9,6 +9,84 @@
     </message>
   </context>
   <context>
+    <name>CertificateItemWidget</name>
+    <message>
+      <source>Certificate Item Editor</source>
+      <translation type="unfinished">Certificate Item Editor</translation>
+    </message>
+    <message>
+      <source>Usage</source>
+      <extracomment>Certificate Usage</extracomment>
+      <translation type="unfinished">Usage</translation>
+    </message>
+    <message>
+      <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</source>
+      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</translation>
+    </message>
+    <message>
+      <source>Certificate</source>
+      <extracomment>Certificate Tab</extracomment>
+      <translation type="unfinished">Certificate</translation>
+    </message>
+    <message>
+      <source>From File</source>
+      <translation type="unfinished">From File</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+F</source>
+      <translation type="unfinished">Alt+C, Alt+F</translation>
+    </message>
+    <message>
+      <source>Drag and drop *.crt here...</source>
+      <translation type="unfinished">Drag and drop *.crt here...</translation>
+    </message>
+    <message>
+      <source>Configure Manually</source>
+      <translation type="unfinished">Configure Manually</translation>
+    </message>
+    <message>
+      <source>Alt+C, Alt+M</source>
+      <translation type="unfinished">Alt+C, Alt+M</translation>
+    </message>
+    <message>
+      <source>Certificate Key</source>
+      <extracomment>Tab Certificate Key</extracomment>
+      <translation type="unfinished">Certificate Key</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+F</source>
+      <translation type="unfinished">Alt+K, Alt+F</translation>
+    </message>
+    <message>
+      <source>Alt+K, Alt+M</source>
+      <translation type="unfinished">Alt+K, Alt+M</translation>
+    </message>
+    <message>
+      <source>-----BEGIN RSA PRIVATE KEY-----... </source>
+      <translation type="unfinished">-----BEGIN RSA PRIVATE KEY-----... </translation>
+    </message>
+    <message>
+      <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
+      <translation type="unfinished">Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</translation>
+    </message>
+    <message>
+      <source>Unset</source>
+      <translation type="unfinished">Unset</translation>
+    </message>
+  </context>
+  <context>
     <name>ChainEditorWidget</name>
     <message>
       <source>Form</source>
@@ -351,25 +429,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
   </context>
   <context>
-    <name>HTTPInboundEditor</name>
-    <message>
-      <source>Removing a user</source>
-      <translation>刪除用戶</translation>
-    </message>
-    <message>
-      <source>You haven&apos;t selected a user yet.</source>
-      <translation>您並未選擇任一用戶。</translation>
-    </message>
-    <message>
-      <source>Add a user</source>
-      <translation>新增使用者</translation>
-    </message>
-    <message>
-      <source>This user exists already.</source>
-      <translation>此用戶已存在。</translation>
-    </message>
-  </context>
-  <context>
     <name>ImportConfigWindow</name>
     <message>
       <source>Import file</source>
@@ -452,10 +511,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>路徑</translation>
     </message>
     <message>
-      <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-      <translation>作為複雜配置匯入（手動編輯路由規則與入站）</translation>
-    </message>
-    <message>
       <source>Json Editor</source>
       <translation>Json 編輯器</translation>
     </message>
@@ -510,6 +565,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
       <translation>警告：你有可能把「訂閱連結」當成了「分享連結」</translation>
+    </message>
+    <message>
+      <source>Import as Complex Config</source>
+      <translation type="unfinished">Import as Complex Config</translation>
     </message>
   </context>
   <context>
@@ -1014,6 +1073,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Copy latest logs.</source>
       <translation>複製近期紀錄檔。</translation>
     </message>
+    <message>
+      <source>Do you want to remove this group as well?</source>
+      <translation type="unfinished">Do you want to remove this group as well?</translation>
+    </message>
+    <message>
+      <source>Group: </source>
+      <translation type="unfinished">Group: </translation>
+    </message>
+    <message>
+      <source>Removing Connection</source>
+      <translation type="unfinished">Removing Connection</translation>
+    </message>
+    <message>
+      <source>Copy selected.</source>
+      <translation type="unfinished">Copy selected.</translation>
+    </message>
   </context>
   <context>
     <name>OutboundEditor</name>
@@ -1135,13 +1210,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>None</source>
       <translation>無</translation>
-    </message>
-  </context>
-  <context>
-    <name>PluginSettingsWidget</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
     </message>
   </context>
   <context>
@@ -1850,6 +1918,26 @@ Output: <byte value="xd"/>
       <source>Disable System Root Certificates</source>
       <translation>禁用系統根憑證</translation>
     </message>
+    <message>
+      <source>Enable Sniffing</source>
+      <translation type="unfinished">Enable Sniffing</translation>
+    </message>
+    <message>
+      <source>Use Fake DNS</source>
+      <translation type="unfinished">Use Fake DNS</translation>
+    </message>
+    <message>
+      <source>Config Directory</source>
+      <translation type="unfinished">Config Directory</translation>
+    </message>
+    <message>
+      <source>Open Directory</source>
+      <translation type="unfinished">Open Directory</translation>
+    </message>
+    <message>
+      <source>Test Latency On Connected</source>
+      <translation type="unfinished">Test Latency On Connected</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -1868,6 +1956,354 @@ Output: <byte value="xd"/>
     <message>
       <source>Chain</source>
       <translation>代理鏈</translation>
+    </message>
+    <message>
+      <source>Disable gRPC API subsystem</source>
+      <translation type="unfinished">Disable gRPC API subsystem</translation>
+    </message>
+    <message>
+      <source>Disable plugins feature</source>
+      <translation type="unfinished">Disable plugins feature</translation>
+    </message>
+    <message>
+      <source>Enable debug output</source>
+      <translation type="unfinished">Enable debug output</translation>
+    </message>
+    <message>
+      <source>Do not automatically connect</source>
+      <translation type="unfinished">Do not automatically connect</translation>
+    </message>
+    <message>
+      <source>Stop current connection</source>
+      <translation type="unfinished">Stop current connection</translation>
+    </message>
+    <message>
+      <source>Reconnect last connection</source>
+      <translation type="unfinished">Reconnect last connection</translation>
+    </message>
+    <message>
+      <source>Exit Qv2ray</source>
+      <translation type="unfinished">Exit Qv2ray</translation>
+    </message>
+    <message>
+      <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
+      <translation type="unfinished">Qv2ray - A cross-platform Qt frontend for V2Ray.</translation>
+    </message>
+    <message>
+      <source>DNS not resolved</source>
+      <translation type="unfinished">DNS not resolved</translation>
+    </message>
+    <message>
+      <source>Socket creation failed</source>
+      <translation type="unfinished">Socket creation failed</translation>
+    </message>
+    <message>
+      <source>Failed to setup TTL value</source>
+      <translation type="unfinished">Failed to setup TTL value</translation>
+    </message>
+    <message>
+      <source>Destination unreachable</source>
+      <translation type="unfinished">Destination unreachable</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation>超時</translation>
+    </message>
+    <message>
+      <source>Unknown error</source>
+      <translation type="unfinished">Unknown error</translation>
+    </message>
+    <message>
+      <source>None</source>
+      <translation>無</translation>
+    </message>
+    <message>
+      <source>Settings Widget</source>
+      <translation type="unfinished">Settings Widget</translation>
+    </message>
+    <message>
+      <source>Inbound Editor</source>
+      <translation>入站編輯器</translation>
+    </message>
+    <message>
+      <source>Outbound Editor</source>
+      <translation type="unfinished">Outbound Editor</translation>
+    </message>
+    <message>
+      <source>MainWindow Widget</source>
+      <translation type="unfinished">MainWindow Widget</translation>
+    </message>
+    <message>
+      <source>Unknown type.</source>
+      <translation type="unfinished">Unknown type.</translation>
+    </message>
+    <message>
+      <source>Kernel</source>
+      <translation type="unfinished">Kernel</translation>
+    </message>
+    <message>
+      <source>Outbound Handler/Parser</source>
+      <translation type="unfinished">Outbound Handler/Parser</translation>
+    </message>
+    <message>
+      <source>Subscription Adapter</source>
+      <translation type="unfinished">Subscription Adapter</translation>
+    </message>
+    <message>
+      <source>Event Handler</source>
+      <translation type="unfinished">Event Handler</translation>
+    </message>
+    <message>
+      <source>GUI Components</source>
+      <translation>圖形元件</translation>
+    </message>
+    <message>
+      <source>Unsupported share link format.</source>
+      <translation type="unfinished">Unsupported share link format.</translation>
+    </message>
+    <message>
+      <source>SS URI is too short</source>
+      <translation type="unfinished">SS URI is too short</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the colon separator between method and password</source>
+      <translation type="unfinished">Can&apos;t find the colon separator between method and password</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the at separator between password and hostname</source>
+      <translation type="unfinished">Can&apos;t find the at separator between password and hostname</translation>
+    </message>
+    <message>
+      <source>Can&apos;t find the colon separator between hostname and port</source>
+      <translation type="unfinished">Can&apos;t find the colon separator between hostname and port</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must exist</source>
+      <translation type="unfinished">Invalid ssd link: json: field %1 must exist</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be valid port number</source>
+      <translation type="unfinished">Invalid ssd link: json: field %1 must be valid port number</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
+      <translation type="unfinished">Invalid ssd link: json: field %1 must be of type &apos;string&apos;</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json: field %1 must be an array</source>
+      <translation type="unfinished">Invalid ssd link: json: field %1 must be an array</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: server must be an object</source>
+      <translation type="unfinished">Skipping invalid ssd server: server must be an object</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: missing required field %1</source>
+      <translation type="unfinished">Skipping invalid ssd server: missing required field %1</translation>
+    </message>
+    <message>
+      <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
+      <translation type="unfinished">Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: should begin with ssd://</source>
+      <translation type="unfinished">Invalid ssd link: should begin with ssd://</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: base64 parse failed</source>
+      <translation type="unfinished">Invalid ssd link: base64 parse failed</translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: json parse failed: </source>
+      <translation type="unfinished">Invalid ssd link: json parse failed: </translation>
+    </message>
+    <message>
+      <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
+      <translation type="unfinished">Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</translation>
+    </message>
+    <message>
+      <source>VMess string should start with &apos;vmess://&apos;</source>
+      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+    </message>
+    <message>
+      <source>VMess string should be a valid base64 string</source>
+      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+    </message>
+    <message>
+      <source>JSON should not be empty</source>
+      <translation type="unfinished">JSON should not be empty</translation>
+    </message>
+    <message>
+      <source>vmess:// url is invalid</source>
+      <translation type="unfinished">vmess:// url is invalid</translation>
+    </message>
+    <message>
+      <source>Invalid streamSettings protocol: </source>
+      <translation type="unfinished">Invalid streamSettings protocol: </translation>
+    </message>
+    <message>
+      <source>Unknown transport method: </source>
+      <translation type="unfinished">Unknown transport method: </translation>
+    </message>
+    <message>
+      <source>(Empty Users)</source>
+      <translation type="unfinished">(Empty Users)</translation>
+    </message>
+    <message>
+      <source>N/A</source>
+      <translation type="unfinished">N/A</translation>
+    </message>
+    <message>
+      <source>core executable file %1 does not exist</source>
+      <translation type="unfinished">core executable file %1 does not exist</translation>
+    </message>
+    <message>
+      <source>cannot open core executable file %1 in read-only mode</source>
+      <translation type="unfinished">cannot open core executable file %1 in read-only mode</translation>
+    </message>
+    <message>
+      <source>core executable file %1 is an empty file</source>
+      <translation type="unfinished">core executable file %1 is an empty file</translation>
+    </message>
+    <message>
+      <source>core executable file %1 is too short to be executed</source>
+      <translation type="unfinished">core executable file %1 is too short to be executed</translation>
+    </message>
+    <message>
+      <source>cannot deduce the type of core executable file %1</source>
+      <translation type="unfinished">cannot deduce the type of core executable file %1</translation>
+    </message>
+    <message>
+      <source>Windows PE executable</source>
+      <translation type="unfinished">Windows PE executable</translation>
+    </message>
+    <message>
+      <source>macOS Mach-O executable</source>
+      <translation type="unfinished">macOS Mach-O executable</translation>
+    </message>
+    <message>
+      <source>ELF x86 executable</source>
+      <translation type="unfinished">ELF x86 executable</translation>
+    </message>
+    <message>
+      <source>ELF amd64 executable</source>
+      <translation type="unfinished">ELF amd64 executable</translation>
+    </message>
+    <message>
+      <source>ELF arm64 executable</source>
+      <translation type="unfinished">ELF arm64 executable</translation>
+    </message>
+    <message>
+      <source>ELF arm executable</source>
+      <translation type="unfinished">ELF arm executable</translation>
+    </message>
+    <message>
+      <source>other ELF executable</source>
+      <translation type="unfinished">other ELF executable</translation>
+    </message>
+    <message>
+      <source>trusted abi</source>
+      <translation type="unfinished">trusted abi</translation>
+    </message>
+    <message>
+      <source>unknown abi</source>
+      <translation type="unfinished">unknown abi</translation>
+    </message>
+    <message>
+      <source>Cannot Start Qv2ray</source>
+      <translation type="unfinished">Cannot Start Qv2ray</translation>
+    </message>
+    <message>
+      <source>Cannot find a place to store config files.</source>
+      <translation type="unfinished">Cannot find a place to store config files.</translation>
+    </message>
+    <message>
+      <source>Qv2ray has searched these paths below:</source>
+      <translation type="unfinished">Qv2ray has searched these paths below:</translation>
+    </message>
+    <message>
+      <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+      <translation type="unfinished">It usually means you don&apos;t have the write permission to all of those locations.</translation>
+    </message>
+    <message>
+      <source>Qv2ray will now exit.</source>
+      <translation type="unfinished">Qv2ray will now exit.</translation>
+    </message>
+    <message>
+      <source>Failed to initialise Qv2ray</source>
+      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+    </message>
+    <message>
+      <source>Failed to determine the location of config file:</source>
+      <translation type="unfinished">Failed to determine the location of config file:</translation>
+    </message>
+    <message>
+      <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+      <translation type="unfinished">Qv2ray has found a config file, but it failed to be loaded due to some errors.</translation>
+    </message>
+    <message>
+      <source>A workaround is to remove the this file and restart Qv2ray:</source>
+      <translation type="unfinished">A workaround is to remove the this file and restart Qv2ray:</translation>
+    </message>
+    <message>
+      <source>Please report if you think it&apos;s a bug.</source>
+      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+    </message>
+    <message>
+      <source>Qv2ray Cannot Continue</source>
+      <translation type="unfinished">Qv2ray Cannot Continue</translation>
+    </message>
+    <message>
+      <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
+    </message>
+    <message>
+      <source>Please check if there&apos;s an issue explaining about it.</source>
+      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+    </message>
+    <message>
+      <source>Or submit a new issue if you think this is an error.</source>
+      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
+    </message>
+    <message>
+      <source>Default Group</source>
+      <translation type="unfinished">Default Group</translation>
+    </message>
+    <message>
+      <source>Deprecated</source>
+      <translation type="unfinished">Deprecated</translation>
+    </message>
+    <message>
+      <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
+      <translation type="unfinished">PAC is now deprecated and is not encouraged to be used anymore.</translation>
+    </message>
+    <message>
+      <source>It will be removed or be provided as a plugin in the future.</source>
+      <translation type="unfinished">It will be removed or be provided as a plugin in the future.</translation>
+    </message>
+    <message>
+      <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
+      <translation type="unfinished">PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</translation>
+    </message>
+    <message>
+      <source>Configuration Upgrade Failed</source>
+      <translation type="unfinished">Configuration Upgrade Failed</translation>
+    </message>
+    <message>
+      <source>Unsupported config version number: </source>
+      <translation type="unfinished">Unsupported config version number: </translation>
+    </message>
+    <message>
+      <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
+      <translation type="unfinished">Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</translation>
+    </message>
+    <message>
+      <source>Qv2ray has encountered an uncaught exception: </source>
+      <translation type="unfinished">Qv2ray has encountered an uncaught exception: </translation>
+    </message>
+    <message>
+      <source>Please report a bug via Github with the file located here: </source>
+      <translation type="unfinished">Please report a bug via Github with the file located here: </translation>
     </message>
   </context>
   <context>
@@ -1895,6 +2331,202 @@ Output: <byte value="xd"/>
     <message>
       <source>Path: %1</source>
       <translation>路徑：%1</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::components::QvUpdateChecker</name>
+    <message>
+      <source>Qv2ray Update</source>
+      <translation type="unfinished">Qv2ray Update</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::components::plugins::QvPluginHost</name>
+    <message>
+      <source>Failed to load plugin</source>
+      <translation type="unfinished">Failed to load plugin</translation>
+    </message>
+    <message>
+      <source>Cannot load plugin</source>
+      <translation type="unfinished">Cannot load plugin</translation>
+    </message>
+    <message>
+      <source>The plugin cannot be loaded: </source>
+      <translation type="unfinished">The plugin cannot be loaded: </translation>
+    </message>
+    <message>
+      <source>This plugin was built against a different version of the Plugin Interface.</source>
+      <translation type="unfinished">This plugin was built against a different version of the Plugin Interface.</translation>
+    </message>
+    <message>
+      <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
+      <translation type="unfinished">Please contact the plugin provider or report the issue to Qv2ray Workgroup.</translation>
+    </message>
+    <message>
+      <source>Enabling a plugin</source>
+      <translation type="unfinished">Enabling a plugin</translation>
+    </message>
+    <message>
+      <source>The plugin will become fully functional after restarting Qv2ray.</source>
+      <translation type="unfinished">The plugin will become fully functional after restarting Qv2ray.</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::handler::KernelInstanceHandler</name>
+    <message>
+      <source>There are other processes occupying the ports necessary to start the connection:</source>
+      <translation type="unfinished">There are other processes occupying the ports necessary to start the connection:</translation>
+    </message>
+    <message>
+      <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
+      <translation type="unfinished">Endpoint: %1:%2 for inbound: &quot;%3&quot;</translation>
+    </message>
+    <message>
+      <source>Local port: %1 for plugin integration.</source>
+      <translation type="unfinished">Local port: %1 for plugin integration.</translation>
+    </message>
+    <message>
+      <source>A plugin kernel failed to start. Please check the outbound settings.</source>
+      <translation type="unfinished">A plugin kernel failed to start. Please check the outbound settings.</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::handler::QvConfigHandler</name>
+    <message>
+      <source>Group: %1</source>
+      <translation type="unfinished">Group: %1</translation>
+    </message>
+    <message>
+      <source>Group does not exist</source>
+      <translation type="unfinished">Group does not exist</translation>
+    </message>
+    <message>
+      <source>Default Group</source>
+      <translation type="unfinished">Default Group</translation>
+    </message>
+    <message>
+      <source>Failed to start connection</source>
+      <translation type="unfinished">Failed to start connection</translation>
+    </message>
+    <message>
+      <source>Unknown subscription type: %1</source>
+      <translation type="unfinished">Unknown subscription type: %1</translation>
+    </message>
+    <message>
+      <source>Update Subscription</source>
+      <translation>更新訂閱</translation>
+    </message>
+    <message numerus="yes">
+      <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
+      <translation type="unfinished">
+        <numerusform>%n entrie(s) have been found from the subscription source, do you want to continue?</numerusform>
+      </translation>
+    </message>
+    <message numerus="yes">
+      <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
+      <translation type="unfinished">
+        <numerusform>%1 out of %n entrie(s) have been filtered out, do you want to continue?</numerusform>
+      </translation>
+    </message>
+    <message numerus="yes">
+      <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
+      <translation type="unfinished">
+        <numerusform>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</numerusform>
+      </translation>
+    </message>
+    <message>
+      <source>Would you like to remove them?</source>
+      <translation type="unfinished">Would you like to remove them?</translation>
+    </message>
+    <message>
+      <source>Cannot Update Subscription</source>
+      <translation type="unfinished">Cannot Update Subscription</translation>
+    </message>
+    <message>
+      <source>A subscription plugin is missing?</source>
+      <translation type="unfinished">A subscription plugin is missing?</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::kernel::APIWorker</name>
+    <message>
+      <source>Failed to get statistics data, please check if V2Ray is running properly</source>
+      <translation type="unfinished">Failed to get statistics data, please check if V2Ray is running properly</translation>
+    </message>
+  </context>
+  <context>
+    <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
+    <message>
+      <source>Core file is lacking executable permission for the current user.</source>
+      <translation type="unfinished">Core file is lacking executable permission for the current user.</translation>
+    </message>
+    <message>
+      <source>Qv2ray tried to set, but failed because permission denied.</source>
+      <translation type="unfinished">Qv2ray tried to set, but failed because permission denied.</translation>
+    </message>
+    <message>
+      <source>Check is skipped</source>
+      <translation type="unfinished">Check is skipped</translation>
+    </message>
+    <message>
+      <source>V2Ray core executable not found.</source>
+      <translation type="unfinished">V2Ray core executable not found.</translation>
+    </message>
+    <message>
+      <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
+      <translation type="unfinished">V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</translation>
+    </message>
+    <message>
+      <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
+Expected core ABI is %1, but got actual %2.<byte value="xd"/>
+Maybe you have downloaded the wrong core?</source>
+      <translation type="unfinished">V2Ray core is incompatible with your platform.
+Expected core ABI is %1, but got actual %2.
+Maybe you have downloaded the wrong core?</translation>
+    </message>
+    <message>
+      <source>V2Ray assets path is not valid.</source>
+      <translation type="unfinished">V2Ray assets path is not valid.</translation>
+    </message>
+    <message>
+      <source>No geoip.dat in assets path.</source>
+      <translation type="unfinished">No geoip.dat in assets path.</translation>
+    </message>
+    <message>
+      <source>No geosite.dat in assets path.</source>
+      <translation type="unfinished">No geosite.dat in assets path.</translation>
+    </message>
+    <message>
+      <source>V2Ray core failed with an exit code: </source>
+      <translation type="unfinished">V2Ray core failed with an exit code: </translation>
+    </message>
+    <message>
+      <source>V2Ray core returns empty string.</source>
+      <translation type="unfinished">V2Ray core returns empty string.</translation>
+    </message>
+    <message>
+      <source>Configuration Error</source>
+      <translation type="unfinished">Configuration Error</translation>
+    </message>
+    <message>
+      <source>Cannot start V2Ray</source>
+      <translation type="unfinished">Cannot start V2Ray</translation>
+    </message>
+    <message>
+      <source>V2Ray core settings is incorrect.</source>
+      <translation type="unfinished">V2Ray core settings is incorrect.</translation>
+    </message>
+    <message>
+      <source>The error is: </source>
+      <translation type="unfinished">The error is: </translation>
+    </message>
+    <message>
+      <source>Invalid V2Ray Instance Status.</source>
+      <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start.</source>
+      <translation type="unfinished">V2Ray kernel failed to start.</translation>
     </message>
   </context>
   <context>
@@ -2023,10 +2655,6 @@ Output: <byte value="xd"/>
       <translation>DNS 設定</translation>
     </message>
     <message>
-      <source>Selected Inbound / Outbound Info</source>
-      <translation>所選入埠/離埠信息</translation>
-    </message>
-    <message>
       <source>Unknown</source>
       <translation>不明</translation>
     </message>
@@ -2035,12 +2663,44 @@ Output: <byte value="xd"/>
       <translation>0</translation>
     </message>
     <message>
-      <source>Rules Order</source>
-      <translation>規則順序</translation>
-    </message>
-    <message>
       <source>Debug Connection Painter</source>
       <translation>除錯連接彩現器</translation>
+    </message>
+    <message>
+      <source>Connection Template</source>
+      <translation type="unfinished">Connection Template</translation>
+    </message>
+    <message>
+      <source>Inbound</source>
+      <translation type="unfinished">Inbound</translation>
+    </message>
+    <message>
+      <source>Outbound</source>
+      <translation type="unfinished">Outbound</translation>
+    </message>
+    <message>
+      <source>Override global DNS settings</source>
+      <translation type="unfinished">Override global DNS settings</translation>
+    </message>
+    <message>
+      <source>Inbound / Outbound Info</source>
+      <translation type="unfinished">Inbound / Outbound Info</translation>
+    </message>
+    <message>
+      <source>Rules Ordering</source>
+      <translation type="unfinished">Rules Ordering</translation>
+    </message>
+    <message>
+      <source>Importing All Connections</source>
+      <translation type="unfinished">Importing All Connections</translation>
+    </message>
+    <message>
+      <source>Do you want to import all the connections?</source>
+      <translation type="unfinished">Do you want to import all the connections?</translation>
+    </message>
+    <message>
+      <source>(All Connections)</source>
+      <translation type="unfinished">(All Connections)</translation>
     </message>
   </context>
   <context>
@@ -2277,25 +2937,6 @@ Output: <byte value="xd"/>
     </message>
   </context>
   <context>
-    <name>SocksInboundEditor</name>
-    <message>
-      <source>Removing a user</source>
-      <translation>移除使用者</translation>
-    </message>
-    <message>
-      <source>You haven&apos;t selected a user yet.</source>
-      <translation>您並未選擇任一使用者。</translation>
-    </message>
-    <message>
-      <source>Add a user</source>
-      <translation>新增使用者</translation>
-    </message>
-    <message>
-      <source>This user exists already.</source>
-      <translation>使用者已存在</translation>
-    </message>
-  </context>
-  <context>
     <name>SpeedWidget</name>
     <message>
       <source>Proxy ↑</source>
@@ -2476,266 +3117,13 @@ Output: <byte value="xd"/>
       <source>Disable System Root Certificates</source>
       <translation>禁用系統根憑證</translation>
     </message>
-  </context>
-  <context>
-    <name>blackholeOutEditor</name>
     <message>
-      <source>Form</source>
-      <translation>視窗</translation>
+      <source>Open Certificate Editor</source>
+      <translation type="unfinished">Open Certificate Editor</translation>
     </message>
     <message>
-      <source>Response</source>
-      <translation>響應</translation>
-    </message>
-    <message>
-      <source>Type</source>
-      <translation>類型</translation>
-    </message>
-  </context>
-  <context>
-    <name>dnsOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>Network</source>
-      <translation>網路</translation>
-    </message>
-    <message>
-      <source>TCP</source>
-      <translation>TCP</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-    <message>
-      <source>Original</source>
-      <translation>原始</translation>
-    </message>
-    <message>
-      <source>Address</source>
-      <translation>位址</translation>
-    </message>
-    <message>
-      <source>Port</source>
-      <translation>端口</translation>
-    </message>
-  </context>
-  <context>
-    <name>dokodemodoorInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>Address</source>
-      <translation>位址</translation>
-    </message>
-    <message>
-      <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation>使用“跟隨轉址”時可省</translation>
-    </message>
-    <message>
-      <source>Port</source>
-      <translation>端口</translation>
-    </message>
-    <message>
-      <source>Network</source>
-      <translation>網路</translation>
-    </message>
-    <message>
-      <source>TCP</source>
-      <translation>TCP</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-    <message>
-      <source>Timeout</source>
-      <translation>超時</translation>
-    </message>
-    <message>
-      <source>Follow Redirect</source>
-      <translation>遵循重定向 (Redirect)</translation>
-    </message>
-    <message>
-      <source>Enabled</source>
-      <translation>已啓用</translation>
-    </message>
-  </context>
-  <context>
-    <name>freedomOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>Domain Strategy</source>
-      <translation>網域策略</translation>
-    </message>
-    <message>
-      <source>Redirect</source>
-      <translation>重定向 (Redirect)</translation>
-    </message>
-    <message>
-      <source>:0</source>
-      <translation>:0</translation>
-    </message>
-  </context>
-  <context>
-    <name>httpInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>Allow Transparent</source>
-      <translation>允許透明</translation>
-    </message>
-    <message>
-      <source>Timeout</source>
-      <translation>超時 (Timeout)</translation>
-    </message>
-    <message>
-      <source>s</source>
-      <translation>秒</translation>
-    </message>
-    <message>
-      <source>Users</source>
-      <translation>使用者</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密碼</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>使用者名稱</translation>
-    </message>
-  </context>
-  <context>
-    <name>httpOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>使用者名稱</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密碼</translation>
-    </message>
-  </context>
-  <context>
-    <name>shadowsocksOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密碼</translation>
-    </message>
-    <message>
-      <source>Encryption Method</source>
-      <translation>加密方式</translation>
-    </message>
-  </context>
-  <context>
-    <name>socksInEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>Enabled</source>
-      <translation>已啓用</translation>
-    </message>
-    <message>
-      <source>UDP Local IP</source>
-      <translation>UDP 本地 IP</translation>
-    </message>
-    <message>
-      <source>127.0.0.1</source>
-      <translation>127.0.0.1</translation>
-    </message>
-    <message>
-      <source>Auth</source>
-      <translation>身分驗證</translation>
-    </message>
-    <message>
-      <source>Users</source>
-      <translation>用戶</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>用戶名</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密碼</translation>
-    </message>
-    <message>
-      <source>UDP</source>
-      <translation>UDP</translation>
-    </message>
-  </context>
-  <context>
-    <name>socksOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>Username</source>
-      <translation>用戶名</translation>
-    </message>
-    <message>
-      <source>Password</source>
-      <translation>密碼</translation>
-    </message>
-  </context>
-  <context>
-    <name>vlessOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>UUID</source>
-      <translation>UUID</translation>
-    </message>
-    <message>
-      <source>Encryption</source>
-      <translation>加密</translation>
-    </message>
-    <message>
-      <source>Flow</source>
-      <translation>流控</translation>
-    </message>
-  </context>
-  <context>
-    <name>vmessOutEditor</name>
-    <message>
-      <source>Form</source>
-      <translation>視窗</translation>
-    </message>
-    <message>
-      <source>UUID</source>
-      <translation>UUID</translation>
-    </message>
-    <message>
-      <source>Alter ID</source>
-      <translation>Alter ID</translation>
-    </message>
-    <message>
-      <source>Security</source>
-      <translation>安全</translation>
+      <source>Certificates</source>
+      <translation type="unfinished">Certificates</translation>
     </message>
   </context>
   <context>
@@ -2930,6 +3318,345 @@ Output: <byte value="xd"/>
     <message>
       <source>Components</source>
       <translation>元件</translation>
+    </message>
+  </context>
+  <context>
+    <name>dokodemodoorInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Address</source>
+      <translation>位址</translation>
+    </message>
+    <message>
+      <source>Optional when using &quot;Follow Redirect&quot;</source>
+      <translation>使用“跟隨轉址”時可省</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
+    </message>
+    <message>
+      <source>Network</source>
+      <translation>網路</translation>
+    </message>
+    <message>
+      <source>TCP</source>
+      <translation>TCP</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation>超時</translation>
+    </message>
+    <message>
+      <source>Follow Redirect</source>
+      <translation>遵循重定向 (Redirect)</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>已啟用</translation>
+    </message>
+  </context>
+  <context>
+    <name>httpInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Allow Transparent</source>
+      <translation>允許透明</translation>
+    </message>
+    <message>
+      <source>Timeout</source>
+      <translation>超時</translation>
+    </message>
+    <message>
+      <source>s</source>
+      <translation>秒</translation>
+    </message>
+    <message>
+      <source>Users</source>
+      <translation>使用者</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用戶名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密碼</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginInboundEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+  </context>
+  <context>
+    <name>socksInEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>已啟用</translation>
+    </message>
+    <message>
+      <source>UDP Local IP</source>
+      <translation>UDP 本地IP</translation>
+    </message>
+    <message>
+      <source>127.0.0.1</source>
+      <translation>127.0.0.1</translation>
+    </message>
+    <message>
+      <source>Auth</source>
+      <translation>身分驗證</translation>
+    </message>
+    <message>
+      <source>Users</source>
+      <translation>用戶</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用戶名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密碼</translation>
+    </message>
+  </context>
+  <context>
+    <name>blackholeOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Response</source>
+      <translation>回應</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>類型</translation>
+    </message>
+  </context>
+  <context>
+    <name>dnsOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Network</source>
+      <translation>網路</translation>
+    </message>
+    <message>
+      <source>TCP</source>
+      <translation>TCP</translation>
+    </message>
+    <message>
+      <source>UDP</source>
+      <translation>UDP</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>原始</translation>
+    </message>
+    <message>
+      <source>Address</source>
+      <translation>位址</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
+    </message>
+  </context>
+  <context>
+    <name>freedomOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Domain Strategy</source>
+      <translation>網域策略</translation>
+    </message>
+    <message>
+      <source>Redirect</source>
+      <translation>重定向 (Redirect)</translation>
+    </message>
+    <message>
+      <source>:0</source>
+      <translation>:0</translation>
+    </message>
+  </context>
+  <context>
+    <name>httpOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用戶名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密碼</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginOutboundEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+  </context>
+  <context>
+    <name>shadowsocksOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密碼</translation>
+    </message>
+    <message>
+      <source>Encryption Method</source>
+      <translation>加密方式</translation>
+    </message>
+  </context>
+  <context>
+    <name>socksOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Username</source>
+      <translation>用戶名</translation>
+    </message>
+    <message>
+      <source>Password</source>
+      <translation>密碼</translation>
+    </message>
+  </context>
+  <context>
+    <name>vlessOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>UUID</source>
+      <translation>UUID</translation>
+    </message>
+    <message>
+      <source>Encryption</source>
+      <translation>加密</translation>
+    </message>
+    <message>
+      <source>Flow</source>
+      <translation>流控</translation>
+    </message>
+    <message>
+      <source>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+
+&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+
+&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
+      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+
+&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+
+&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
+    </message>
+  </context>
+  <context>
+    <name>vmessOutEditor</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>UUID</source>
+      <translation>UUID</translation>
+    </message>
+    <message>
+      <source>Alter ID</source>
+      <translation>Alter ID</translation>
+    </message>
+    <message>
+      <source>Security</source>
+      <translation>安全選項</translation>
+    </message>
+  </context>
+  <context>
+    <name>PluginSettingsWidget</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowForm.ui</name>
+    <message>
+      <source>Qv2ray</source>
+      <translation>Qv2ray</translation>
+    </message>
+  </context>
+  <context>
+    <name>HTTPInboundEditor</name>
+    <message>
+      <source>Removing a user</source>
+      <translation>刪除用戶</translation>
+    </message>
+    <message>
+      <source>You haven&apos;t selected a user yet.</source>
+      <translation>您並未選擇任一用戶。</translation>
+    </message>
+    <message>
+      <source>Add a user</source>
+      <translation>新增使用者</translation>
+    </message>
+    <message>
+      <source>This user exists already.</source>
+      <translation>此用戶已存在。</translation>
+    </message>
+  </context>
+  <context>
+    <name>SocksInboundEditor</name>
+    <message>
+      <source>Removing a user</source>
+      <translation>移除使用者</translation>
+    </message>
+    <message>
+      <source>You haven&apos;t selected a user yet.</source>
+      <translation>您並未選擇任一使用者。</translation>
+    </message>
+    <message>
+      <source>Add a user</source>
+      <translation>新增使用者</translation>
+    </message>
+    <message>
+      <source>This user exists already.</source>
+      <translation>使用者已存在</translation>
     </message>
   </context>
 </TS>
