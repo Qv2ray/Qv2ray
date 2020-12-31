@@ -23,7 +23,7 @@ Qv2rayApplicationInterface::Qv2rayApplicationInterface()
     licenseList << "This program comes with ABSOLUTELY NO WARRANTY.";
     licenseList << "This is free software, and you are welcome to redistribute it";
     licenseList << "under certain conditions.";
-    licenseList << "Copyright (c) 2019-2020 Qv2ray Development Group.";
+    licenseList << "Copyright (c) 2019-2021 Qv2ray Development Group.";
     licenseList << "Third-party libraries that have been used in this program can be found in the About page.";
     LOG(licenseList.join(NEWLINE));
 }
