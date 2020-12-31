@@ -29,7 +29,7 @@ set_target_properties(qv2ray
     MACOSX_BUNDLE_INFO_PLIST ${MACOSX_PLIST}
     MACOSX_BUNDLE_BUNDLE_NAME "Qv2ray"
     MACOSX_BUNDLE_BUNDLE_VERSION ${QV2RAY_VERSION_STRING}
-    MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2019-2020 Qv2ray Development Group"
+    MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2019-2021 Qv2ray Development Group"
     MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.qv2ray"
     MACOSX_BUNDLE_ICON_FILE "qv2ray.icns"
     MACOSX_BUNDLE_INFO_STRING "Created by Qv2ray Workgroup"
