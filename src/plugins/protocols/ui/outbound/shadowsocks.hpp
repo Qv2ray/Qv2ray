@@ -47,7 +47,7 @@ class ShadowsocksOutboundEditor
     void changeEvent(QEvent *e) override;
 
   private slots:
-    void on_ss_encryptionMethod_currentIndexChanged(const QString &arg1);
+    void on_ss_encryptionMethod_currentTextChanged(const QString &arg1);
     void on_ss_passwordTxt_textEdited(const QString &arg1);
 
   private:
