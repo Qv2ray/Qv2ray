@@ -23,7 +23,7 @@ void ShadowsocksOutboundEditor::on_ss_passwordTxt_textEdited(const QString &arg1
     shadowsocks.password = arg1;
 }
 
-void ShadowsocksOutboundEditor::on_ss_encryptionMethod_currentIndexChanged(const QString &arg1)
+void ShadowsocksOutboundEditor::on_ss_encryptionMethod_currentTextChanged(const QString &arg1)
 {
     PLUGIN_EDITOR_LOADING_GUARD
     shadowsocks.method = arg1;
