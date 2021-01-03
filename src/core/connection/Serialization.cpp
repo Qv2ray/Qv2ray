@@ -29,6 +29,12 @@ namespace Qv2ray::core::connection
                 TLSOptionsFilter(conf);
                 connectionConf << std::pair{ *aliasPrefix, conf };
             }
+            else if (link.startsWith("vless://"))
+            {
+                auto conf = vless::Deserialize(link, aliasPrefix, errMessage);
+                TLSOptionsFilter(conf);
+                connectionConf << std::pair{ *aliasPrefix, conf };
+            }
             else if (link.startsWith("vmess://"))
             {
                 auto conf = vmess::Deserialize(link, aliasPrefix, errMessage);

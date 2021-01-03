@@ -15,7 +15,7 @@ endfunction()
 
 ADD_QV2RAY_TEST(parse_ss_url src/core/connection/TestParseSS.cpp)
 ADD_QV2RAY_TEST(parse_vmess_url src/core/connection/TestParseVmess.cpp)
+ADD_QV2RAY_TEST(parse_vless_url src/core/connection/TestParseVLESS.cpp)
 ADD_QV2RAY_TEST(generation src/core/connection/TestGeneration.cpp)
 ADD_QV2RAY_TEST(qjsonio libs/QJsonStruct/QJsonIO.cpp)
 ADD_QV2RAY_TEST(realping src/components/latency/TestRealPing.cpp)
-
