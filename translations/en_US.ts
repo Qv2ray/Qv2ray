@@ -1913,6 +1913,10 @@ Output: <byte value="xd"/>
         <source>Test Latency On Connected</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Start Minimized</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
