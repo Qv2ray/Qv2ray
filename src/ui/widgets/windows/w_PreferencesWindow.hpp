@@ -130,6 +130,7 @@ class PreferencesWindow
     void on_bypassPrivateCb_clicked(bool checked);
     void on_disableSystemRootCB_stateChanged(int arg1);
     void on_openConfigDirCB_clicked();
+    void on_startMinimizedCB_stateChanged(int arg1);
 
   private:
     //

@@ -302,7 +302,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     ReloadRecentConnectionList();
     //
     //
-    if (!connectionStarted)
+    if (!connectionStarted || !GlobalConfig.uiConfig.startMinimized)
         MWShowWindow();
     //
     CheckSubscriptionsUpdate();

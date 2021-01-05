@@ -316,6 +316,20 @@
                 </item>
                </layout>
               </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_45">
+                <property name="text">
+                 <string>Start Minimized</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QCheckBox" name="startMinimizedCB">
+                <property name="text">
+                 <string>Enabled</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
            </layout>
