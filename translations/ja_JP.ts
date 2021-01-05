@@ -1924,7 +1924,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation>偽の DNS を使用</translation>
+      <translation>偽DNSを使用</translation>
     </message>
     <message>
       <source>Config Directory</source>
@@ -1940,7 +1940,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Start Minimized</source>
-      <translation>最小化されて開始</translation>
+      <translation>最小化して起動</translation>
     </message>
   </context>
   <context>
@@ -1967,11 +1967,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Disable plugins feature</source>
-      <translation>プラグイン機能を無効にする</translation>
+      <translation>プラグイン機能を無効化</translation>
     </message>
     <message>
       <source>Enable debug output</source>
-      <translation>デバッグ出力を有効にする</translation>
+      <translation>デバッグ出力を有効化</translation>
     </message>
     <message>
       <source>Do not automatically connect</source>
@@ -1987,7 +1987,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Exit Qv2ray</source>
-      <translation>Qv2ray を終了</translation>
+      <translation>Qv2rayを終了</translation>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
@@ -1995,23 +1995,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation>DNS が解決されませんでした</translation>
+      <translation>DNSが解決されませんでした</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
-      <translation>ソケットの作成に失敗しました</translation>
+      <translation>ソケットの作成に失敗</translation>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
-      <translation>TTL値のセットアップに失敗しました</translation>
+      <translation>TTLの値の設定に失敗しました</translation>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation>宛先に到達できません</translation>
+      <translation>宛先に到達不能です</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation>タイムアウト</translation>
+      <translation>時間切れ</translation>
     </message>
     <message>
       <source>Unknown error</source>
@@ -3356,7 +3356,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Timeout</source>
-      <translation>タイムアウト</translation>
+      <translation>時間切れ</translation>
     </message>
     <message>
       <source>Follow Redirect</source>
@@ -3379,7 +3379,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Timeout</source>
-      <translation>タイムアウト</translation>
+      <translation>時間切れ</translation>
     </message>
     <message>
       <source>s</source>
