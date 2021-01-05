@@ -1940,7 +1940,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Start Minimized</source>
-      <translation type="unfinished">Start Minimized</translation>
+      <translation>最小化されて開始</translation>
     </message>
   </context>
   <context>
