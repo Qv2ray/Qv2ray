@@ -1949,6 +1949,10 @@ Output:
       <source>Test Latency On Connected</source>
       <translation type="unfinished">Test Latency On Connected</translation>
     </message>
+    <message>
+      <source>Start Minimized</source>
+      <translation type="unfinished">Start Minimized</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
