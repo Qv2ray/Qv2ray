@@ -27,12 +27,12 @@
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+      <translation>証明書の使い方。デフォルト値は&lt;code&gt;encipherment&lt;/code&gt;。
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;：TLS認証と暗号化に使用されます。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;：リモート証明書の検証に使用されます。 CA証明書が必要です。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;：別の証明書を発行するために使用されます。 CA証明書が必要です。&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -75,7 +75,7 @@
     </message>
     <message>
       <source>-----BEGIN RSA PRIVATE KEY-----... </source>
-      <translation>------RSAプライベートキー------... </translation>
+      <translation>-----BEGIN RSA PRIVATE KEY-----... </translation>
     </message>
     <message>
       <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
@@ -568,7 +568,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Import as Complex Config</source>
-      <translation>複雑な設定としてインポート</translation>
+      <translation>複雑構成としてインポートする</translation>
     </message>
   </context>
   <context>
@@ -1087,7 +1087,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Copy selected.</source>
-      <translation>コピーが選択されました。</translation>
+      <translation>選択内容のコピー</translation>
     </message>
   </context>
   <context>
@@ -1924,7 +1924,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation>偽の DNS を使用</translation>
+      <translation>偽DNSを使用</translation>
     </message>
     <message>
       <source>Config Directory</source>
@@ -1937,6 +1937,10 @@ Output: <byte value="xd"/>
     <message>
       <source>Test Latency On Connected</source>
       <translation>接続時のレイテンシーテスト</translation>
+    </message>
+    <message>
+      <source>Start Minimized</source>
+      <translation>最小化して起動</translation>
     </message>
   </context>
   <context>
@@ -1963,11 +1967,11 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Disable plugins feature</source>
-      <translation>プラグイン機能を無効にする</translation>
+      <translation>プラグイン機能を無効化</translation>
     </message>
     <message>
       <source>Enable debug output</source>
-      <translation>デバッグ出力を有効にする</translation>
+      <translation>デバッグ出力を有効化</translation>
     </message>
     <message>
       <source>Do not automatically connect</source>
@@ -1983,7 +1987,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Exit Qv2ray</source>
-      <translation>Qv2ray を終了</translation>
+      <translation>Qv2rayを終了</translation>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
@@ -1991,23 +1995,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation>DNS が解決されませんでした</translation>
+      <translation>DNSが解決されませんでした</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
-      <translation>ソケットの作成に失敗しました</translation>
+      <translation>ソケットの作成に失敗</translation>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
-      <translation>TTL値のセットアップに失敗しました</translation>
+      <translation>TTLの値の設定に失敗しました</translation>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation>宛先に到達できません</translation>
+      <translation>宛先に到達不能です</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation>タイムアウト</translation>
+      <translation>時間切れ</translation>
     </message>
     <message>
       <source>Unknown error</source>
@@ -2223,7 +2227,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-      <translation type="unfinished">It usually means you don&apos;t have the write permission to all of those locations.</translation>
+      <translation>これは通常、これらすべての場所への書き込み権限がないことを意味します。</translation>
     </message>
     <message>
       <source>Qv2ray will now exit.</source>
@@ -2379,7 +2383,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
-      <translation type="unfinished">Endpoint: %1:%2 for inbound: &quot;%3&quot;</translation>
+      <translation>インバウンド「%3」のエンドポイント「%1:%2」</translation>
     </message>
     <message>
       <source>Local port: %1 for plugin integration.</source>
@@ -2424,8 +2428,8 @@ Output: <byte value="xd"/>
     </message>
     <message numerus="yes">
       <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
-      <translation type="unfinished">
-        <numerusform>%1 out of %n entrie(s) have been filtered out, do you want to continue?</numerusform>
+      <translation>
+        <numerusform>%nつのエントリのうち%1つが選択されましたが、続行しますか？</numerusform>
       </translation>
     </message>
     <message numerus="yes">
@@ -2480,9 +2484,9 @@ Output: <byte value="xd"/>
       <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
 Expected core ABI is %1, but got actual %2.<byte value="xd"/>
 Maybe you have downloaded the wrong core?</source>
-      <translation type="unfinished">V2Ray core is incompatible with your platform.
-Expected core ABI is %1, but got actual %2.
-Maybe you have downloaded the wrong core?</translation>
+      <translation>V2Rayコアはお使いのプラットフォームと互換性がありません。
+予想されるコアABIは%1ですが、実際には%2になります。
+間違ったコアをダウンロードしたのではないでしょうか。</translation>
     </message>
     <message>
       <source>V2Ray assets path is not valid.</source>
@@ -3352,7 +3356,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation>タイムアウト</translation>
+      <translation>時間切れ</translation>
     </message>
     <message>
       <source>Follow Redirect</source>
@@ -3375,7 +3379,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation>タイムアウト</translation>
+      <translation>時間切れ</translation>
     </message>
     <message>
       <source>s</source>
@@ -3581,11 +3585,11 @@ Maybe you have downloaded the wrong core?</translation>
 &lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
 
 &lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
-      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+      <translation>&lt;h3&gt;&lt;code&gt;udp443&lt;/code&gt;メソッドに関する注記&lt;/h3&gt;
 
-&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+&lt;p&gt;Google Chromeなどの一部のアプリケーションは、TLSの代わりにQUICプロトコルを使用しようとしますが、これはXTLSの恩恵をまったく受けません。 さらに悪いことに、QUIC over TCPは潜在的な輻輳制御の問題を引き起こし、エクスペリエンスを低下させます。&lt;/p&gt;
 
-&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
+&lt;p&gt;非&lt;code&gt;udp443&lt;/code&gt;メソッドは、この状況を回避するためにUDP443アウトバウンドトラフィックをブロックします。 手放したい場合は、危険を冒して使用してください。&lt;/p&gt;</translation>
     </message>
   </context>
   <context>
