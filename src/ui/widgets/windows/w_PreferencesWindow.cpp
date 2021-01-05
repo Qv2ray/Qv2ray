@@ -44,6 +44,9 @@ using Qv2ray::common::validation::IsValidIPAddress;
     autoStartConnCombo->setEnabled(_enabled);                                                                                                        \
     autoStartSubsCombo->setEnabled(_enabled);
 
+#define SET_AUTOSTART_START_MINIMIZED_ENABLED(_enabled)                                                                                                           \
+    startMinimizedCB->setEnabled(_enabled);                                                                                                        \
+
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWindow", parent), CurrentConfig()
 {
     addStateOptions("width", { [&] { return width(); }, [&](QJsonValue val) { resize(val.toInt(), size().height()); } });
@@ -92,6 +95,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     useOldShareLinkFormatCB->setChecked(CurrentConfig.uiConfig.useOldShareLinkFormat);
+    startMinimizedCB->setChecked(CurrentConfig.uiConfig.startMinimized);
     //
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
@@ -1070,6 +1074,7 @@ void PreferencesWindow::on_noAutoConnectRB_clicked()
     LOADINGCHECK
     CurrentConfig.autoStartBehavior = AUTO_CONNECTION_NONE;
     SET_AUTOSTART_UI_ENABLED(false);
+    SET_AUTOSTART_START_MINIMIZED_ENABLED(false);
 }
 
 void PreferencesWindow::on_lastConnectedRB_clicked()
@@ -1077,6 +1082,7 @@ void PreferencesWindow::on_lastConnectedRB_clicked()
     LOADINGCHECK
     CurrentConfig.autoStartBehavior = AUTO_CONNECTION_LAST_CONNECTED;
     SET_AUTOSTART_UI_ENABLED(false);
+    SET_AUTOSTART_START_MINIMIZED_ENABLED(true);
 }
 
 void PreferencesWindow::on_fixedAutoConnectRB_clicked()
@@ -1084,6 +1090,7 @@ void PreferencesWindow::on_fixedAutoConnectRB_clicked()
     LOADINGCHECK
     CurrentConfig.autoStartBehavior = AUTO_CONNECTION_FIXED;
     SET_AUTOSTART_UI_ENABLED(true);
+    SET_AUTOSTART_START_MINIMIZED_ENABLED(true);
 }
 
 void PreferencesWindow::on_latencyTCPingRB_clicked()
@@ -1145,4 +1152,10 @@ void PreferencesWindow::on_disableSystemRootCB_stateChanged(int arg1)
 void PreferencesWindow::on_openConfigDirCB_clicked()
 {
     QvCoreApplication->OpenURL(QV2RAY_CONFIG_DIR);
+}
+
+void PreferencesWindow::on_startMinimizedCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.uiConfig.startMinimized = arg1 == Qt::Checked;
 }
