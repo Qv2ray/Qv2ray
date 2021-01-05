@@ -1087,7 +1087,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Copy selected.</source>
-      <translation>复制</translation>
+      <translation>复制所选项</translation>
     </message>
   </context>
   <context>
@@ -1940,7 +1940,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Start Minimized</source>
-      <translation>启动时最小化</translation>
+      <translation>启动后最小化</translation>
     </message>
   </context>
   <context>
