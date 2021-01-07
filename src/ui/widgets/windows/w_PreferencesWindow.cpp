@@ -601,10 +601,10 @@ void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
     CurrentConfig.inboundConfig.systemProxySettings.setSystemProxy = arg1 == Qt::Checked;
 }
 
-void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
+void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(int arg1)
 {
     LOADINGCHECK
-    if (arg1.isEmpty())
+    if (arg1 == -1)
     {
         CurrentConfig.autoStartId.clear();
         autoStartConnCombo->clear();
@@ -621,10 +621,10 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
     }
 }
 
-void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
+void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(int arg1)
 {
     LOADINGCHECK
-    if (arg1.isEmpty())
+    if (arg1 == -1)
     {
         CurrentConfig.autoStartId.clear();
     }
@@ -653,10 +653,10 @@ void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
     startWithLoginCB->setChecked(isAutoStart);
 }
 
-void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
+void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(int arg1)
 {
     LOADINGCHECK
-    CurrentConfig.defaultRouteConfig.forwardProxyConfig.type = arg1.toLower();
+    CurrentConfig.defaultRouteConfig.forwardProxyConfig.type = fpTypeCombo->itemText(arg1).toLower();
 }
 
 void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
