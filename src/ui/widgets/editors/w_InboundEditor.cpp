@@ -161,10 +161,10 @@ void InboundEditor::on_inboundTagTxt_textEdited(const QString &arg1)
     CHECKLOADING
     current["tag"] = arg1;
 }
-void InboundEditor::on_strategyCombo_currentIndexChanged(const QString &arg1)
+void InboundEditor::on_strategyCombo_currentIndexChanged(int arg1)
 {
     CHECKLOADING
-    allocateSettings["strategy"] = arg1.toLower();
+    allocateSettings["strategy"] = strategyCombo->itemText(arg1).toLower();
 }
 
 void InboundEditor::on_refreshNumberBox_valueChanged(int arg1)

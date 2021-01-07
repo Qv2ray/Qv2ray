@@ -73,9 +73,9 @@ class PreferencesWindow
     void on_darkThemeCB_stateChanged(int arg1);
     void on_darkTrayCB_stateChanged(int arg1);
     void on_setSysProxyCB_stateChanged(int arg1);
-    void on_autoStartSubsCombo_currentIndexChanged(const QString &arg1);
-    void on_autoStartConnCombo_currentIndexChanged(const QString &arg1);
-    void on_fpTypeCombo_currentIndexChanged(const QString &arg1);
+    void on_autoStartSubsCombo_currentIndexChanged(int arg1);
+    void on_autoStartConnCombo_currentIndexChanged(int arg1);
+    void on_fpTypeCombo_currentIndexChanged(int arg1);
     void on_fpAddressTx_textEdited(const QString &arg1);
     void on_fpUseAuthCB_stateChanged(int arg1);
     void on_fpUsernameTx_textEdited(const QString &arg1);

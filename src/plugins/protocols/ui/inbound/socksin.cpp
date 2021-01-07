@@ -103,8 +103,8 @@ void SocksInboundEditor::on_socksUDPIPAddrTxt_textEdited(const QString &arg1)
     content["ip"] = arg1;
 }
 
-void SocksInboundEditor::on_socksAuthCombo_currentIndexChanged(const QString &arg1)
+void SocksInboundEditor::on_socksAuthCombo_currentIndexChanged(int arg1)
 {
     PLUGIN_EDITOR_LOADING_GUARD
-    content["auth"] = arg1.toLower();
+    content["auth"] = socksAuthCombo->itemText(arg1).toLower();
 }

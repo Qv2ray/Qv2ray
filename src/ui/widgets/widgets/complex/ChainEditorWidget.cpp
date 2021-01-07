@@ -194,9 +194,9 @@ std::tuple<bool, QString, QStringList> ChainEditorWidget::VerifyChainLinkedList(
     return { false, tr("There's an error in your connection."), resultList };
 }
 
-void ChainEditorWidget::on_chainComboBox_currentIndexChanged(const QString &arg1)
+void ChainEditorWidget::on_chainComboBox_currentIndexChanged(int arg1)
 {
-    currentChain = chains[arg1];
+    currentChain = chains[chainComboBox->itemText(arg1)];
     ShowChainLinkedList();
 }
 

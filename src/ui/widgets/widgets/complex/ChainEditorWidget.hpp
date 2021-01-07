@@ -31,7 +31,7 @@ class ChainEditorWidget
     void changeEvent(QEvent *e);
 
   private slots:
-    void on_chainComboBox_currentIndexChanged(const QString &arg1);
+    void on_chainComboBox_currentIndexChanged(int arg1);
     //
     void OnDispatcherChainedOutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);
     void OnDispatcherChainedOutboundDeleted(const OutboundObjectMeta &);

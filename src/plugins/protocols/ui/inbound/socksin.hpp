@@ -36,7 +36,7 @@ class SocksInboundEditor
 
     void on_socksAddUserBtn_clicked();
 
-    void on_socksAuthCombo_currentIndexChanged(const QString &arg1);
+    void on_socksAuthCombo_currentIndexChanged(int arg1);
 
   protected:
     void changeEvent(QEvent *e) override;

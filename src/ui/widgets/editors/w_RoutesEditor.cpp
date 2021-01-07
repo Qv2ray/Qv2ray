@@ -409,10 +409,10 @@ void RouteEditor::on_addOutboundBtn_clicked()
     }
 }
 
-void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1)
+void RouteEditor::on_domainStrategyCombo_currentIndexChanged(int arg1)
 {
     LOADINGCHECK
-    domainStrategy = arg1;
+    domainStrategy = domainStrategyCombo->itemText(arg1);
 }
 
 void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1)
