@@ -518,7 +518,7 @@ void GroupManager::on_connectionsTable_customContextMenuRequested(const QPoint &
     connectionListRCMenu->popup(QCursor::pos());
 }
 
-void GroupManager::on_subscriptionTypeCB_currentIndexChanged(const QString &)
+void GroupManager::on_subscriptionTypeCB_currentIndexChanged(int)
 {
     ConnectionManager->SetSubscriptionType(currentGroupId, subscriptionTypeCB->currentData().toString());
 }

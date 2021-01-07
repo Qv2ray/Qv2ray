@@ -105,11 +105,6 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     }
 }
 
-void StreamSettingsWidget::on_transportCombo_currentIndexChanged(int index)
-{
-    v2rayStackView->setCurrentIndex(index);
-}
-
 void StreamSettingsWidget::on_httpPathTxt_textEdited(const QString &arg1)
 {
     stream.httpSettings.path = arg1;
@@ -172,14 +167,14 @@ void StreamSettingsWidget::on_tcpFastOpenCB_stateChanged(int arg1)
     stream.sockopt.tcpFastOpen = arg1 == Qt::Checked;
 }
 
-void StreamSettingsWidget::on_tProxyCB_currentIndexChanged(const QString &arg1)
+void StreamSettingsWidget::on_tProxyCB_currentIndexChanged(int arg1)
 {
-    stream.sockopt.tproxy = arg1;
+    stream.sockopt.tproxy = tProxyCB->itemText(arg1);
 }
 
-void StreamSettingsWidget::on_quicSecurityCB_currentTextChanged(const QString &arg1)
+void StreamSettingsWidget::on_quicSecurityCB_currentIndexChanged(int arg1)
 {
-    stream.quicSettings.security = arg1;
+    stream.quicSettings.security = quicSecurityCB->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_quicKeyTxt_textEdited(const QString &arg1)
@@ -187,14 +182,14 @@ void StreamSettingsWidget::on_quicKeyTxt_textEdited(const QString &arg1)
     stream.quicSettings.key = arg1;
 }
 
-void StreamSettingsWidget::on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1)
+void StreamSettingsWidget::on_quicHeaderTypeCB_currentIndexChanged(int arg1)
 {
-    stream.quicSettings.header.type = arg1;
+    stream.quicSettings.header.type = quicHeaderTypeCB->itemText(arg1);
 }
 
-void StreamSettingsWidget::on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1)
+void StreamSettingsWidget::on_tcpHeaderTypeCB_currentIndexChanged(int arg1)
 {
-    stream.tcpSettings.header.type = arg1;
+    stream.tcpSettings.header.type = tcpHeaderTypeCB->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_wsPathTxt_textEdited(const QString &arg1)
@@ -237,9 +232,9 @@ void StreamSettingsWidget::on_kcpWriteBufferSB_valueChanged(int arg1)
     stream.kcpSettings.writeBufferSize = arg1;
 }
 
-void StreamSettingsWidget::on_kcpHeaderType_currentTextChanged(const QString &arg1)
+void StreamSettingsWidget::on_kcpHeaderType_currentIndexChanged(int arg1)
 {
-    stream.kcpSettings.header.type = arg1;
+    stream.kcpSettings.header.type = kcpHeaderType->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_kcpSeedTxt_textEdited(const QString &arg1)
@@ -270,14 +265,15 @@ void StreamSettingsWidget::on_tcpResponseEditBtn_clicked()
     stream.tcpSettings.header.response = tcpRspObject;
 }
 
-void StreamSettingsWidget::on_transportCombo_currentIndexChanged(const QString &arg1)
+void StreamSettingsWidget::on_transportCombo_currentIndexChanged(int arg1)
 {
-    stream.network = arg1;
+    stream.network = transportCombo->itemText(arg1);
+    v2rayStackView->setCurrentIndex(arg1);
 }
 
-void StreamSettingsWidget::on_securityTypeCB_currentIndexChanged(const QString &arg1)
+void StreamSettingsWidget::on_securityTypeCB_currentIndexChanged(int arg1)
 {
-    stream.security = arg1.toLower();
+    stream.security = securityTypeCB->itemText(arg1).toLower();
 }
 
 //

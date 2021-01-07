@@ -51,7 +51,7 @@ class RouteEditor
     void on_buttonBox_accepted();
     void on_debugPainterCB_clicked(bool checked);
     void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
-    void on_domainStrategyCombo_currentIndexChanged(const QString &arg1);
+    void on_domainStrategyCombo_currentIndexChanged(int arg1);
     void on_importExistingBtn_clicked();
     void on_importGroupBtn_currentIndexChanged(int index);
     void on_insertBlackBtn_clicked();

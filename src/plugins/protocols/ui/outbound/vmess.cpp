@@ -34,11 +34,11 @@ void VmessOutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
     vmess.users.front().id = arg1;
 }
 
-void VmessOutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
+void VmessOutboundEditor::on_securityCombo_currentIndexChanged(int arg1)
 {
     if (vmess.users.isEmpty())
         vmess.users << VMessServerObject::UserObject{};
-    vmess.users.front().security = arg1;
+    vmess.users.front().security = securityCombo->itemText(arg1);
 }
 
 void VmessOutboundEditor::on_alterLineEdit_valueChanged(int arg1)

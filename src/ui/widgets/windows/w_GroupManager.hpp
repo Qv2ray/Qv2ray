@@ -58,7 +58,7 @@ class GroupManager
     void on_deleteSelectedConnBtn_clicked();
     void on_exportSelectedConnBtn_clicked();
     void on_connectionsTable_customContextMenuRequested(const QPoint &pos);
-    void on_subscriptionTypeCB_currentIndexChanged(const QString &arg1);
+    void on_subscriptionTypeCB_currentIndexChanged(int arg1);
 
   private:
     void updateColorScheme() override;

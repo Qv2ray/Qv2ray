@@ -28,7 +28,7 @@ class InboundEditor
 
     void on_inboundTagTxt_textEdited(const QString &arg1);
 
-    void on_strategyCombo_currentIndexChanged(const QString &arg1);
+    void on_strategyCombo_currentIndexChanged(int arg1);
 
     void on_refreshNumberBox_valueChanged(int arg1);
 
