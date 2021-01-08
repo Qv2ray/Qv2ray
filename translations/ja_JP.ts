@@ -2311,23 +2311,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>VLESS link should start with vless://</source>
-      <translation type="unfinished">VLESS link should start with vless://</translation>
+      <translation>VLESS リンクは vless:// で始まる必要があります</translation>
     </message>
     <message>
       <source>link parse failed: %1</source>
-      <translation type="unfinished">link parse failed: %1</translation>
+      <translation>リンク解析に失敗しました: %1</translation>
     </message>
     <message>
       <source>empty host</source>
-      <translation type="unfinished">empty host</translation>
+      <translation>空のホスト</translation>
     </message>
     <message>
       <source>missing port</source>
-      <translation type="unfinished">missing port</translation>
+      <translation>ポートがありません</translation>
     </message>
     <message>
       <source>missing uuid</source>
-      <translation type="unfinished">missing uuid</translation>
+      <translation>uuid がありません</translation>
     </message>
   </context>
   <context>
