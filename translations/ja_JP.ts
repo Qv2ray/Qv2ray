@@ -2035,7 +2035,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>MainWindow Widget</source>
-      <translation>MainWindowウィジェット</translation>
+      <translation>メインウィンドウウィジェット</translation>
     </message>
     <message>
       <source>Unknown type.</source>
@@ -2063,23 +2063,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Unsupported share link format.</source>
-      <translation>サポートされていない共有リンク形式です。</translation>
+      <translation>この共有リンクはサポートされていないようです。</translation>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation>SS URI が短すぎます。</translation>
+      <translation>このSSのURIがは短すぎて有効ではありません</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
-      <translation>&apos;t メソッドとパスワード間のコロン区切り文字を見つけることができます。</translation>
+      <translation>メソッドとパスワードの間にコロン区切り記号が見つかりません</translation>
     </message>
     <message>
       <source>Can&apos;t find the at separator between password and hostname</source>
-      <translation>&apos;パスワードとホスト名の区切り文字で検索できます。</translation>
+      <translation>パスワードとホスト名の間にアンペアサット区切り文字が見つかりません</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation>&apos;ホスト名とポート間のコロン区切り文字を見つけることができます。</translation>
+      <translation>ホスト名とポートの間にコロン区切り記号が見つかりません</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
