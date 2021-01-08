@@ -1975,7 +1975,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Do not automatically connect</source>
-      <translation>自動的に接続しない</translation>
+      <translation>自動的に接続を無効化</translation>
     </message>
     <message>
       <source>Stop current connection</source>
