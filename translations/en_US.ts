@@ -2284,6 +2284,26 @@ Output: <byte value="xd"/>
         <source>Please report a bug via Github with the file located here: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>VLESS link should start with vless://</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>link parse failed: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>empty host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>missing port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>missing uuid</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>

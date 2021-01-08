@@ -160,13 +160,13 @@ namespace Qv2ray::core::connection
             if (security == "xtls")
             {
                 const auto flow = query.queryItemValue("flow");
-                QJsonIO::SetValue(outbound, flow, { "vnext", 0, "users", 0, "flow" });
+                QJsonIO::SetValue(outbound, flow, { "settings", "vnext", 0, "users", 0, "flow" });
             }
 
             // assembling config
             CONFIGROOT root;
+            outbound["streamSettings"] = stream;
             root["outbounds"] = QJsonArray{ outbound };
-            root["streamSettings"] = stream;
 
             // return
             return root;
