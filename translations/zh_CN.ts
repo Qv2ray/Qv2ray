@@ -2311,23 +2311,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>VLESS link should start with vless://</source>
-      <translation type="unfinished">VLESS link should start with vless://</translation>
+      <translation>VLESS 链接应以 vless:// 开头</translation>
     </message>
     <message>
       <source>link parse failed: %1</source>
-      <translation type="unfinished">link parse failed: %1</translation>
+      <translation>链接解析失败： %1</translation>
     </message>
     <message>
       <source>empty host</source>
-      <translation type="unfinished">empty host</translation>
+      <translation>主机名为空</translation>
     </message>
     <message>
       <source>missing port</source>
-      <translation type="unfinished">missing port</translation>
+      <translation>缺失端口</translation>
     </message>
     <message>
       <source>missing uuid</source>
-      <translation type="unfinished">missing uuid</translation>
+      <translation>UUID 缺失</translation>
     </message>
   </context>
   <context>
