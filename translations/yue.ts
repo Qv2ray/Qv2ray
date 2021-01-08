@@ -2320,6 +2320,26 @@ Output:
       <source>Please report a bug via Github with the file located here: </source>
       <translation type="unfinished">Please report a bug via Github with the file located here: </translation>
     </message>
+    <message>
+      <source>VLESS link should start with vless://</source>
+      <translation type="unfinished">VLESS link should start with vless://</translation>
+    </message>
+    <message>
+      <source>link parse failed: %1</source>
+      <translation type="unfinished">link parse failed: %1</translation>
+    </message>
+    <message>
+      <source>empty host</source>
+      <translation type="unfinished">empty host</translation>
+    </message>
+    <message>
+      <source>missing port</source>
+      <translation type="unfinished">missing port</translation>
+    </message>
+    <message>
+      <source>missing uuid</source>
+      <translation type="unfinished">missing uuid</translation>
+    </message>
   </context>
   <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
