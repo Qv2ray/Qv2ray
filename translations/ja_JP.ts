@@ -2091,7 +2091,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation>無効な ssd リンク: json: field %1 must be of type &apos;string&apos;</translation>
+      <translation>無効なリンク：json：フィールド％1は「文字列」タイプである必要があります</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
