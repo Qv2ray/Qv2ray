@@ -78,16 +78,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - distro: stable
-            container: debian:stable
-          - distro: unstable
-            container: debian:unstable
+        distro: [stable, unstable]
+        arch: [arm64]
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!DEB') }}
-    name: Build debian package for ${{ matrix.distro }}
+    name: Build debian package for ${{ matrix.distro }} ${{ matrix.arch }}
     runs-on: ubuntu-latest
-    container: ${{ matrix.container }}
+    container: debian:${{ matrix.distro }}
     env:
       DEBIAN_FRONTEND: noninteractive
 
@@ -102,9 +99,9 @@ jobs:
           submodules: "recursive"
       - name: Install build dependencies
         run: |
-          dpkg --add-architecture arm64
+          dpkg --add-architecture ${{ matrix.arch }}
           apt-get update
-          apt-get install -o APT::Immediate-Configure=0 -y build-essential crossbuild-essential-arm64 devscripts debhelper ninja-build libgrpc++-dev:arm64 libprotobuf-dev:arm64 protobuf-compiler-grpc qtbase5-dev:arm64 qttools5-dev:arm64 cmake pkg-config qtdeclarative5-dev:arm64 libcurl4-openssl-dev:arm64 libqt5svg5-dev:arm64
+          apt-get install -o APT::Immediate-Configure=0 -y build-essential crossbuild-essential-${{ matrix.arch }} devscripts debhelper ninja-build libgrpc++-dev:${{ matrix.arch }} libprotobuf-dev:${{ matrix.arch }} protobuf-compiler-grpc qtbase5-dev:${{ matrix.arch }} qttools5-dev:${{ matrix.arch }} cmake pkg-config qtdeclarative5-dev:${{ matrix.arch }} libcurl4-openssl-dev:${{ matrix.arch }} libqt5svg5-dev:${{ matrix.arch }}
       - name: Bump version
         if: github.event_name != 'release'
         run: |
@@ -112,7 +109,7 @@ jobs:
       - name: Build
         run: |
           dch -l${{ matrix.distro }} -m 'Build against ${{ matrix.distro }}' -D ${{ matrix.distro }}
-          dpkg-buildpackage -aarm64 -us -uc -i -b -d
+          dpkg-buildpackage -a${{ matrix.arch }} -us -uc -i -b -d
       - name: Copy binary
         run: |
           cp ../qv2ray_*.deb ./
@@ -122,7 +119,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.distro }}-cross
+          name: ${{ matrix.distro }}-${{ matrix.arch }}
           path: ${{ steps.get_package.outputs.NAME }}
 
   upload:
