@@ -102,7 +102,7 @@ jobs:
           submodules: "recursive"
       - name: Install build dependencies
         run: |
-          dpkg --add-architecture
+          dpkg --add-architecture arm64
           apt-get update
           apt-get install -y build-essential crossbuild-essential-arm64 devscripts debhelper ninja-build libgrpc++-dev:arm64 libprotobuf-dev:arm64 protobuf-compiler-grpc qtbase5-dev:arm64 qttools5-dev:arm64 cmake pkg-config qtdeclarative5-dev:arm64 libcurl4-openssl-dev:arm64 libqt5svg5-dev:arm64
       - name: Bump version
