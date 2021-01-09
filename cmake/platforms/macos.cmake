@@ -2,7 +2,7 @@ find_package(Iconv REQUIRED)
 find_library(CARBON NAMES Carbon)
 find_library(COCOA NAMES Cocoa)
 find_library(SECURITY NAMES Security)
-target_link_libraries(qv2ray
+target_link_libraries(qv2ray PUBLIC
     Iconv::Iconv
     ${CARBON}
     ${COCOA}
