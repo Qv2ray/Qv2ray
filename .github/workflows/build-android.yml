@@ -28,7 +28,7 @@ jobs:
       matrix:
         buildtype: [Debug, Release]
         arch: [x86, x86_64, arm, arm64]
-        qt_version: [5.15.0]
+        qt_version: [6.0.0]
         include:
           - arch: x86
             long_arch: x86
@@ -89,18 +89,13 @@ jobs:
         cd ..
         mkdir build
         cd build
-        cmake .. -GNinja \
+        $Qt6_DIR/android_${{ matrix.long_arch }}/bin/qt-cmake .. -GNinja \
           -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
-          -DCMAKE_PREFIX_PATH=$Qt5_DIR \
-          -DCMAKE_FIND_ROOT_PATH=$Qt5_DIR \
-          -DCMAKE_TOOLCHAIN_FILE=${{ steps.setup-ndk.outputs.ndk-path }}/build/cmake/android.toolchain.cmake \
-          -DANDROID_NATIVE_API_LEVEL=23 \
-          -DANDROID_SDK=$ANDROID_SDK_ROOT \
-          -DANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }} \
-          -DANDROID_ABI=${{ matrix.long_arch }} \
-          -DANDROID_STL=c++_shared
-        cmake --build . --parallel $(nproc)
+          -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
+          -DANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}
+        cmake --build . --parallel $(nproc) --target apk
     - name: Build APK
+      if: false
       run: |
         cd build/
         androiddeployqt --output ./android-build/ --input ./android_deployment_settings.json --${{ matrix.lowercase_buildtype }}
