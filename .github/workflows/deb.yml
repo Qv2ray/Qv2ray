@@ -126,7 +126,7 @@ jobs:
           path: ${{ steps.get_package.outputs.NAME }}
 
   upload:
-    needs: [check_commit_msg, build]
+    needs: [check_commit_msg, build, build-cross]
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
     name: Upload debian packages
     runs-on: ubuntu-latest
