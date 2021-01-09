@@ -178,12 +178,6 @@ if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "uns
     add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
 endif()
 
-# In case QDesktopService cannot work properly.
-if(FALL_BACK_TO_XDG_OPEN)
-    QVLOG(FALL_BACK_TO_XDG_OPEN)
-    add_definitions(-DFALL_BACK_TO_XDG_OPEN)
-endif()
-
 # ==================================================================================
 # Embed Translations, Translation Search Path
 # ==================================================================================
