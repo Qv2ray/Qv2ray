@@ -19,17 +19,17 @@ list(GET VERSION_LIST 0 CMAKE_PROJECT_VERSION_MAJOR)
 list(GET VERSION_LIST 1 CMAKE_PROJECT_VERSION_MINOR)
 list(GET VERSION_LIST 2 CPACK_PACKAGE_VERSION_PATCH)
 
-# Tweaks and other defaults
-# Setting CMAKE to use loose block and search for find modules in source directory
-set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true)
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
-
 # For Windows RC file.
 add_definitions(-DQV2RAY_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR})
 add_definitions(-DQV2RAY_VERSION_MINOR=${CMAKE_PROJECT_VERSION_MINOR})
 add_definitions(-DQV2RAY_VERSION_BUGFIX=${CPACK_PACKAGE_VERSION_PATCH})
 add_definitions(-DQV2RAY_VERSION_BUILD=${QV2RAY_BUILD_VERSION})
 add_definitions(-DQV2RAY_VERSION_STRING="${QV2RAY_VERSION_STRING}")
+
+# Tweaks and other defaults
+# Setting CMAKE to use loose block and search for find modules in source directory
+set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -38,26 +38,10 @@ if(MSVC)
 endif()
 
 if(ANDROID)
-    set(ANDROID_PACKAGE_SOURCE ${CMAKE_SOURCE_DIR}/assets/android)
-    set(QT_ANDROID_PACKAGE_SOURCE_DIR "\"android-package-source-directory\":\"${ANDROID_PACKAGE_SOURCE}\",")
-    message("Configuring for Android ABI ${CMAKE_ANDROID_ARCH}")
-    if(NOT ANDROID_SDK)
-        set(ANDROID_SDK $ENV{ANDROID_SDK_ROOT})
-    endif()
-    set(ANDROID_LIB_ARCH ${CMAKE_ANDROID_ARCH})
-    if(${ANDROID_LIB_ARCH} STREQUAL "x86_64")
-        set(ANDROID_LIB_ARCH "x64")
-    endif()
+    message("Android ABI: ${CMAKE_ANDROID_ARCH}")
     message("Android SDK: ${ANDROID_SDK}")
-    set(QV2RAY_PLATFORM_LIBS_BIN_PATH_PREFIX ${CMAKE_SOURCE_DIR}/libs/tools)
-    set(QV2RAY_PLATFORM_LIBS_PATH_PREFIX ${CMAKE_SOURCE_DIR}/libs/${ANDROID_LIB_ARCH}-android)
-    include(cmake/platforms/prefixes.cmake)
     include(cmake/platforms/android.cmake)
-    set(APK_PACKAGE_NAME "net.qv2ray.qv2ray")
-    set(APK_PACKAGE_VERSION "v${QV2RAY_VERSION_STRING}")
-    set(APK_DISPLAY_NAME "Qv2ray")
-    set(APK_PACKAGE_VERSIONCODE 0)
-    configure_file(${CMAKE_SOURCE_DIR}/assets/AndroidManifest.xml.in ${CMAKE_SOURCE_DIR}/assets/android/AndroidManifest.xml @ONLY)
+    include(cmake/platforms/prefixes.cmake)
 endif()
 
 if(WIN32)
@@ -113,14 +97,10 @@ QVLOG(QV2RAY_DEFAULT_VCORE_PATH)
 option(QV2RAY_DISABLE_AUTO_UPDATE "Disable Update Checker" OFF)
 QVLOG(QV2RAY_DISABLE_AUTO_UPDATE)
 
-option(QV2RAY_HAS_BUILTIN_PLUGINS "Build With Built-in Plugins" ON)
-QVLOG(QV2RAY_HAS_BUILTIN_PLUGINS)
-if(QV2RAY_HAS_BUILTIN_PLUGINS)
-    option(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN "Build With Built-in Protocol Support Plugin" ON)
-    QVLOG(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN)
-    option(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN "Build With Built-in Subscription Plugin" ON)
-    QVLOG(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN)
-endif()
+option(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN "Build With Built-in Protocol Support Plugin" ON)
+QVLOG(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN)
+option(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN "Build With Built-in Subscription Plugin" ON)
+QVLOG(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN)
 
 option(QV2RAY_EMBED_TRANSLATIONS "Embed Translations" OFF)
 option(QV2RAY_HAS_SINGLEAPPLICATION "Build With SingleApplication" ON)
@@ -167,7 +147,13 @@ elseif(QV2RAY_USE_QWIDGET)
     QVLOG(QV2RAY_QNODEEDITOR_PROVIDER)
 endif()
 
-option(QV2RAY_QT6 "Use Qt6 for Debugging")
+option(QV2RAY_QT6 "Use Qt6" OFF)
+
+if(ANDROID)
+    set(QV2RAY_QT6 ON)
+    message("-- Use Qt6 for Android build.")
+endif()
+
 QVLOG(QV2RAY_QT6)
 if(QV2RAY_QT6)
     cmake_policy(SET CMP0072 NEW)
@@ -175,18 +161,6 @@ if(QV2RAY_QT6)
     set(QV_QT_MINOR_VERSION 0)
     set(QV_QT_LIBNAME Qt6)
     add_definitions(-DQV2RAY_QT6=1)
-    #From: https://github.com/KDE/kwin/blob/master/cmake/modules/FindXKB.cmake#L35
-    find_package(PkgConfig)
-    pkg_check_modules(PKG_XKB QUIET xkbcommon)
-    set(XKB_DEFINITIONS ${PKG_XKB_CFLAGS_OTHER})
-    find_path(XKB_INCLUDE_DIR NAMES xkbcommon/xkbcommon.h HINTS ${PKG_XKB_INCLUDE_DIRS})
-    find_library(XKB_LIBRARY NAMES xkbcommon HINTS ${PKG_XKB_LIBRARY_DIRS})
-    add_library(XKB::XKB UNKNOWN IMPORTED)
-    set_target_properties(XKB::XKB PROPERTIES
-        IMPORTED_LOCATION "${XKB_LIBRARY}"
-        INTERFACE_COMPILE_OPTIONS "${XKB_DEFINITIONS}"
-        INTERFACE_INCLUDE_DIRECTORIES "${XKB_INCLUDE_DIR}"
-        )
 else()
     set(QV_QT_MAJOR_VERSION 5)
     set(QV_QT_MINOR_VERSION 11)
@@ -409,15 +383,27 @@ set(QV2RAY_FULL_SOURCES
 QVLOG(QV2RAY_QM_FILES)
 QVLOG(QV2RAY_QRC_RESOURCES)
 
-if(ANDROID)
-    QVLOG(ANDROID_EXTRA_LIBS)
-    add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
-else()
+if(NOT ANDROID)
     include(cmake/backward-cpp.cmake)
     add_definitions(-DQV2RAY_HAS_BACKWARD)
-    add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
     target_link_libraries(qv2ray_baselib Backward::Backward)
     add_backward(qv2ray_baselib)
+endif()
+
+if(QV2RAY_QT6)
+    qt6_add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+    # For Qt5
+    # add_library(qv2ray SHARED ${QV2RAY_FULL_SOURCES})
+else()
+    add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
+endif()
+
+# set_target_properties(MAIN PROPERTIES OUTPUT_NAME "qv2ray")
+
+if(ANDROID)
+    qvlog(ANDROID_EXTRA_LIBS)
+    set_property(TARGET qv2ray PROPERTY QT_ANDROID_EXTRA_LIBS ${ANDROID_EXTRA_LIBS})
+    set_property(TARGET qv2ray PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/assets/android)
 endif()
 
 target_include_directories(qv2ray PRIVATE
@@ -427,7 +413,8 @@ target_include_directories(qv2ray PRIVATE
     ${QNODEEDITOR_INCLUDE_PATH}
     ${Protobuf_INCLUDE_DIRS}
     )
-target_link_libraries(qv2ray
+
+target_link_libraries(qv2ray PUBLIC
     qv2ray_baselib
     ${QNODEEDITOR_LIBRARY}
     ${QV2RAY_PLATFORM_LIBS}
