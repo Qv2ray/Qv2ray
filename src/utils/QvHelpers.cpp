@@ -50,6 +50,7 @@ namespace Qv2ray::common
                 return data;
         }
         Q_ASSERT_X(false, Q_FUNC_INFO, "Unsupported File Encoding");
+        return "";
 #else
         QTextCodec *codec = QTextCodec::codecForName("UTF-8");
         QTextCodec::ConverterState state;
