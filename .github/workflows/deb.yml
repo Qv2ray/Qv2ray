@@ -79,7 +79,10 @@ jobs:
       fail-fast: false
       matrix:
         distro: [stable, unstable]
-        arch: [arm64, mips64el]
+        arch: [arm64]
+        include:
+          - distro: stable
+            arch: mips64el
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!DEB') }}
     name: Build debian package for ${{ matrix.distro }} ${{ matrix.arch }}
