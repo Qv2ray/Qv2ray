@@ -355,6 +355,10 @@ namespace Qv2ray::core::handler
                 // Process mKCP seed
                 mKCPSeedFilter(root);
 
+                // Override Mux Configuration
+                if (GlobalConfig.defaultRouteConfig.connectionConfig.overrideMux)
+                    OverrideMuxFilter(root);
+
                 // Remove empty Mux object from settings
                 RemoveEmptyMuxFilter(root);
             }

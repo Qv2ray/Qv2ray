@@ -44,8 +44,15 @@ using Qv2ray::common::validation::IsValidIPAddress;
     autoStartConnCombo->setEnabled(_enabled);                                                                                                        \
     autoStartSubsCombo->setEnabled(_enabled);
 
-#define SET_AUTOSTART_START_MINIMIZED_ENABLED(_enabled)                                                                                                           \
-    startMinimizedCB->setEnabled(_enabled);                                                                                                        \
+#define SET_AUTOSTART_START_MINIMIZED_ENABLED(_enabled)                                                                                              \
+    startMinimizedCB->setEnabled(_enabled);                                                                                                          \
+
+#define SET_OVERRIDE_MUX_UI_ENABLED(_enabled)                                                                                                        \
+    muxConcurrencySpinBox->setEnabled(_enabled);                                                                                                     \
+    enableMuxCB->setEnabled(_enabled);                                                                                                               \
+    enableVmessMuxCB->setEnabled(_enabled);                                                                                                          \
+    enableVLESSMuxCB->setEnabled(_enabled);                                                                                                          \
+    enableShadowsocksMuxCB->setEnabled(_enabled);                                                                                                    \
 
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWindow", parent), CurrentConfig()
 {
@@ -148,6 +155,13 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     fakeDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.fakeDNS);
     fakeDNSCb->setEnabled(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
     DnsFreedomCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS);
+    overrideMuxCB->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.overrideMux);
+    SET_OVERRIDE_MUX_UI_ENABLED(CurrentConfig.defaultRouteConfig.connectionConfig.overrideMux);
+    muxConcurrencySpinBox->setValue(CurrentConfig.defaultRouteConfig.connectionConfig.muxConcurrency);
+    enableMuxCB->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableMux);
+    enableVmessMuxCB->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableVmessMux);
+    enableVLESSMuxCB->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableVlessMux);
+    enableShadowsocksMuxCB->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.enableShadowsocksMux);
     //
     // Kernel Settings
     {
@@ -1158,4 +1172,47 @@ void PreferencesWindow::on_startMinimizedCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.startMinimized = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_overrideMuxCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    LOADINGCHECK
+    CurrentConfig.defaultRouteConfig.connectionConfig.overrideMux = arg1 == Qt::Checked;
+    SET_OVERRIDE_MUX_UI_ENABLED(CurrentConfig.defaultRouteConfig.connectionConfig.overrideMux);
+}
+
+void PreferencesWindow::on_enableMuxCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    LOADINGCHECK
+    CurrentConfig.defaultRouteConfig.connectionConfig.enableMux = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_muxConcurrencySpinBox_valueChanged(int arg1)
+{
+    NEEDRESTART
+    LOADINGCHECK
+    CurrentConfig.defaultRouteConfig.connectionConfig.muxConcurrency = arg1;
+}
+
+void PreferencesWindow::on_enableVmessMuxCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    LOADINGCHECK
+    CurrentConfig.defaultRouteConfig.connectionConfig.enableVmessMux = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_enableVLESSMuxCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    LOADINGCHECK
+    CurrentConfig.defaultRouteConfig.connectionConfig.enableVlessMux = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_enableShadowsocksMuxCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    LOADINGCHECK
+    CurrentConfig.defaultRouteConfig.connectionConfig.enableShadowsocksMux = arg1 == Qt::Checked;
 }

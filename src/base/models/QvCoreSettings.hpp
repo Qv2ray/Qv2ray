@@ -59,10 +59,18 @@ namespace Qv2ray::base::config
         bool withLocalDNS = true;
         bool dnsIntercept = false;
         bool fakeDNS = false;
-        JSONSTRUCT_COMPARE(QvConfig_Connection, enableProxy, //
-                           bypassCN, bypassBT, bypassLAN,    //
-                           v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS)
-        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS))
+        bool overrideMux = false;
+        bool enableMux = false;
+        int muxConcurrency = 8;
+        bool enableVmessMux = false;
+        bool enableVlessMux = false;
+        bool enableShadowsocksMux = false;
+        JSONSTRUCT_COMPARE(QvConfig_Connection, enableProxy,                     //
+                           bypassCN, bypassBT, bypassLAN,                        //
+                           v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS, //
+                           overrideMux, enableMux, muxConcurrency, enableVmessMux, enableVlessMux, enableShadowsocksMux)
+        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS, //
+                                                   overrideMux, enableMux, muxConcurrency, enableVmessMux, enableVlessMux, enableShadowsocksMux))
     };
 
     struct QvConfig_SystemProxy

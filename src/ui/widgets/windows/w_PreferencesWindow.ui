@@ -1662,6 +1662,87 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
+          <item row="8" column="0">
+           <widget class="QLabel" name="label_47">
+            <property name="text">
+             <string>Override Mux Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <layout class="QFormLayout" name="formLayout_14">
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="overrideMuxCB">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_66">
+              <property name="text">
+               <string>Use Mux</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_92">
+              <property name="text">
+               <string>Apply for</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_91">
+              <property name="text">
+               <string>Mux Concurrency</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="enableMuxCB">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QSpinBox" name="muxConcurrencySpinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>1024</number>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <item>
+               <widget class="QCheckBox" name="enableVmessMuxCB">
+                <property name="text">
+                 <string>VMess</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="enableVLESSMuxCB">
+                <property name="text">
+                 <string>VLESS</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="enableShadowsocksMuxCB">
+                <property name="text">
+                 <string>Shadowdocks</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
          </layout>
         </widget>
        </item>

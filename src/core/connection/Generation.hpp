@@ -62,6 +62,7 @@ namespace Qv2ray::core::connection::generation
         void BypassBTFilter(CONFIGROOT &root);
         void mKCPSeedFilter(CONFIGROOT &root);
         void FillupTagsFilter(CONFIGROOT &root, const QString &subKey);
+        void OverrideMuxFilter(CONFIGROOT &root);
     } // namespace filters
 
 } // namespace Qv2ray::core::connection::generation

@@ -84,4 +84,19 @@ namespace Qv2ray::core::connection::generation::filters
         }
     }
 
+    void OverrideMuxFilter(CONFIGROOT &root)
+    {
+        for (auto i = 0; i < root["outbounds"].toArray().count(); i++)
+        {
+            const auto protocol = QJsonIO::GetValue(root, "outbounds", i, "protocol").toString();
+            if ((protocol == "vmess" && GlobalConfig.defaultRouteConfig.connectionConfig.enableVmessMux) ||
+                (protocol == "vless" && GlobalConfig.defaultRouteConfig.connectionConfig.enableVlessMux) ||
+                (protocol == "shadowsocks" && GlobalConfig.defaultRouteConfig.connectionConfig.enableShadowsocksMux))
+            {
+                QJsonIO::SetValue(root, GlobalConfig.defaultRouteConfig.connectionConfig.enableMux, "outbounds", i, "mux", "enabled");
+                QJsonIO::SetValue(root, GlobalConfig.defaultRouteConfig.connectionConfig.muxConcurrency, "outbounds", i, "mux", "concurrency");
+            }
+        }
+    }
+
 } // namespace Qv2ray::core::connection::generation::filters
