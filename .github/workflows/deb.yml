@@ -79,10 +79,7 @@ jobs:
       fail-fast: false
       matrix:
         distro: [stable, unstable]
-        arch: [arm64]
-        include:
-          - distro: stable
-            arch: mips64el
+        arch: [arm64, mips64el]
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!DEB') }}
     name: Build debian package for ${{ matrix.distro }} ${{ matrix.arch }}
@@ -127,7 +124,7 @@ jobs:
 
   upload:
     needs: [check_commit_msg, build, build-cross]
-    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
+    if: ${{ always() }} && ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
     name: Upload debian packages
     runs-on: ubuntu-latest
 
