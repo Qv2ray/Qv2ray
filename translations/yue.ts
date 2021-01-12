@@ -1953,6 +1953,10 @@ Output:
       <source>Start Minimized</source>
       <translation type="unfinished">Start Minimized</translation>
     </message>
+    <message>
+      <source>Adapt Glyph Tray Icon</source>
+      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
