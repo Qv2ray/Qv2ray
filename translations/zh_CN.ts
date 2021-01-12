@@ -1944,7 +1944,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Adapt Glyph Tray Icon</source>
-      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+      <translation>粒子效果托盘图标</translation>
     </message>
   </context>
   <context>
