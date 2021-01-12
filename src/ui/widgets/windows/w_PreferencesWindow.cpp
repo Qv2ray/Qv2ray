@@ -91,6 +91,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     themeCombo->setCurrentText(CurrentConfig.uiConfig.theme);
     darkThemeCB->setChecked(CurrentConfig.uiConfig.useDarkTheme);
     darkTrayCB->setChecked(CurrentConfig.uiConfig.useDarkTrayIcon);
+    glyphTrayCB->setChecked(CurrentConfig.uiConfig.useGlyphTrayIcon);
     languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
@@ -592,6 +593,12 @@ void PreferencesWindow::on_darkTrayCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_glyphTrayCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.uiConfig.useGlyphTrayIcon = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)

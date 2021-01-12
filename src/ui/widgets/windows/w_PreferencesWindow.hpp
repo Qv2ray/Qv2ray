@@ -37,8 +37,8 @@ class PreferencesWindow
             tabWidget->setCurrentIndex(indexMap[c]);
         }
     }
-
-  private:
+    
+private:
     void updateColorScheme() override{};
     QvMessageBusSlotDecl override;
 
@@ -72,6 +72,7 @@ class PreferencesWindow
     void on_themeCombo_currentTextChanged(const QString &arg1);
     void on_darkThemeCB_stateChanged(int arg1);
     void on_darkTrayCB_stateChanged(int arg1);
+    void on_glyphTrayCB_stateChanged(int arg1);
     void on_setSysProxyCB_stateChanged(int arg1);
     void on_autoStartSubsCombo_currentIndexChanged(int arg1);
     void on_autoStartConnCombo_currentIndexChanged(int arg1);

@@ -1917,6 +1917,10 @@ Output: <byte value="xd"/>
         <source>Start Minimized</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Adapt Glyph Tray Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
