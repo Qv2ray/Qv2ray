@@ -1944,7 +1944,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Adapt Glyph Tray Icon</source>
-      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+      <translation>グリフトレイアイコンを調整</translation>
     </message>
   </context>
   <context>
