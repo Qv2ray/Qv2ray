@@ -1942,6 +1942,10 @@ Output: <byte value="xd"/>
       <source>Start Minimized</source>
       <translation>最小化して起動</translation>
     </message>
+    <message>
+      <source>Adapt Glyph Tray Icon</source>
+      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
