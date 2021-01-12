@@ -25,7 +25,8 @@ namespace Qv2ray::base::config
         };
         friend bool operator==(const QvGraphPenConfig &one, const QvGraphPenConfig &another)
         {
-            return one.R == another.R && one.G == another.G && one.B == another.B && one.width == another.width && one.style == another.style;
+            return one.R == another.R && one.G == another.G && one.B == another.B
+                    && one.width == another.width && one.style == another.style;
         }
         JSONSTRUCT_REGISTER(QvGraphPenConfig, F(R, G, B, width, style))
     };
@@ -47,15 +48,18 @@ namespace Qv2ray::base::config
         Qv2rayConfig_Graph graphConfig;
         bool quietMode = false;
         bool useDarkTheme = false;
+        bool useGlyphTrayIcon = false;
         bool useDarkTrayIcon = false;
         int maximumLogLines = 500;
         int maxJumpListCount = 20;
         bool useOldShareLinkFormat = false;
         bool startMinimized = true;
-        JSONSTRUCT_COMPARE(Qv2rayConfig_UI, theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines, maxJumpListCount,
+        JSONSTRUCT_COMPARE(Qv2rayConfig_UI, theme, language, quietMode, graphConfig, useDarkTheme,
+                           useDarkTrayIcon, useGlyphTrayIcon, maximumLogLines, maxJumpListCount,
                            recentConnections, useOldShareLinkFormat, startMinimized)
-        JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, maximumLogLines,
-                                               maxJumpListCount, recentConnections, useOldShareLinkFormat, startMinimized))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme,
+                                               useDarkTrayIcon, useGlyphTrayIcon, maximumLogLines, maxJumpListCount,
+                                               recentConnections, useOldShareLinkFormat, startMinimized))
     };
 
     struct Qv2rayConfig_Plugin
@@ -133,10 +137,11 @@ namespace Qv2ray::base::config
         bool testLatencyPeriodcally = false;
         bool disableSystemRoot = false;
         bool testLatencyOnConnected = false;
-        JSONSTRUCT_COMPARE(Qv2rayConfig_Advanced, setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot,
-                           testLatencyOnConnected)
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Advanced, setAllowInsecure, setSessionResumption,
+                           testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced,
-                            F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected))
+                            F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally,
+                              disableSystemRoot, testLatencyOnConnected))
     };
 
     enum Qv2rayLatencyTestingMethod
@@ -162,8 +167,10 @@ namespace Qv2ray::base::config
         QString type = "http";
         int port = 8000;
         QString userAgent = "Qv2ray/$VERSION WebRequestHelper";
-        JSONSTRUCT_COMPARE(Qv2rayConfig_Network, latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent)
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent))
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Network, latencyTestingMethod, latencyRealPingTestURL,
+                           proxyType, type, address, port, userAgent)
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(latencyTestingMethod, latencyRealPingTestURL,
+                                                    proxyType, type, address, port, userAgent))
     };
 
     enum Qv2rayAutoConnectionBehavior
@@ -201,8 +208,10 @@ namespace Qv2ray::base::config
 #else
         Q_DISABLE_COPY_MOVE(Qv2rayConfigObject);
 #endif
-        JSONSTRUCT_COMPARE(Qv2rayConfigObject, config_version, logLevel, autoStartId, lastConnectedId, autoStartBehavior, uiConfig, pluginConfig,
-                           kernelConfig, updateConfig, networkConfig, inboundConfig, outboundConfig, advancedConfig, defaultRouteConfig)
+        JSONSTRUCT_COMPARE(Qv2rayConfigObject, config_version, logLevel, autoStartId,
+                           lastConnectedId, autoStartBehavior, uiConfig, pluginConfig,
+                           kernelConfig, updateConfig, networkConfig, inboundConfig,
+                           outboundConfig, advancedConfig, defaultRouteConfig)
         JSONSTRUCT_REGISTER_NOCOPYMOVE(Qv2rayConfigObject,                                                                   //
                                        A(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
                                        A(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //

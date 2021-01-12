@@ -54,5 +54,20 @@
         <file>assets/icons/ui_light/tray.png</file>
         <file>assets/icons/ui_dark/netspeed_arrow.svg</file>
         <file>assets/icons/ui_light/netspeed_arrow.svg</file>
+        <file>assets/icons/ui_light/glyph-tray.svg</file>
+        <file>assets/icons/ui_light/glyph-tray-systemproxy.svg</file>
+        <file>assets/icons/ui_light/glyph-tray-connected.svg</file>
+        <file>../../../Desktop/ui_light/glyph-tray.png</file>
+        <file>../../../Desktop/ui_light/glyph-tray-systemproxy.png</file>
+        <file>../../../Desktop/ui_light/glyph-tray-connected.png</file>
+        <file>assets/icons/ui_light/glyph-tray.png</file>
+        <file>assets/icons/ui_light/glyph-tray-systemproxy.png</file>
+        <file>assets/icons/ui_light/glyph-tray-connected.png</file>
+        <file>assets/icons/ui_dark/glyph-tray-connected.png</file>
+        <file>assets/icons/ui_dark/glyph-tray-systemproxy.png</file>
+        <file>assets/icons/ui_dark/glyph-tray-systemproxy.svg</file>
+        <file>assets/icons/ui_dark/glyph-tray-connected.svg</file>
+        <file>assets/icons/ui_dark/glyph-tray.png</file>
+        <file>assets/icons/ui_dark/glyph-tray.svg</file>
     </qresource>
 </RCC>
