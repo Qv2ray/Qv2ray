@@ -1921,6 +1921,18 @@ Output: <byte value="xd"/>
         <source>Adapt Glyph Tray Icon</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Destination Override</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TLS</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
