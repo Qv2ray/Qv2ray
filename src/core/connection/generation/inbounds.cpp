@@ -65,22 +65,42 @@ namespace Qv2ray::core::connection::generation::inbounds
         return root;
     }
 
+    QJsonObject GenerateSniffingObject(bool enabled, QList<QString> destOverride)
+    {
+        QJsonObject root;
+        QStringList list;
+        const auto size = destOverride.size();
+        if (enabled)
+        {
+            root.insert("enabled", QJsonValue(enabled));
+            if (!destOverride.isEmpty())
+            {
+                for (int i = 0; i < size; ++i)
+                {
+                    list << destOverride.at(i);
+                }
+                root.insert("destOverride", QJsonArray::fromStringList(list));
+            }
+        }
+        return root;
+    }
+
     INBOUNDS GenerateDefaultInbounds()
     {
 #define INCONF GlobalConfig.inboundConfig
         INBOUNDS inboundsList;
-        const static QJsonObject sniffingOff{ { "enabled", false } };
-        const static QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
 
         // HTTP Inbound
         if (GlobalConfig.inboundConfig.useHTTP)
         {
             const auto httpInSettings = GenerateHTTPIN(INCONF.httpSettings.useAuth, { INCONF.httpSettings.account });
+            const auto httpSniffingObject = GenerateSniffingObject(INCONF.httpSettings.sniffing,      //
+                                                                   INCONF.httpSettings.destOverride);
             const auto httpInboundObject = GenerateInboundEntry("http_IN", "http",        //
                                                                 INCONF.listenip,          //
                                                                 INCONF.httpSettings.port, //
                                                                 httpInSettings,           //
-                                                                { INCONF.httpSettings.sniffing ? sniffingOn : sniffingOff });
+                                                                httpSniffingObject);
             inboundsList.append(httpInboundObject);
         }
 
@@ -91,11 +111,13 @@ namespace Qv2ray::core::connection::generation::inbounds
                                                          { INCONF.socksSettings.account },                     //
                                                          INCONF.socksSettings.enableUDP,                       //
                                                          INCONF.socksSettings.localIP);
+            const auto socksSniffingObject = GenerateSniffingObject(INCONF.socksSettings.sniffing,      //
+                                                                    INCONF.socksSettings.destOverride);
             const auto socksInboundObject = GenerateInboundEntry("socks_IN", "socks",       //
                                                                  INCONF.listenip,           //
                                                                  INCONF.socksSettings.port, //
                                                                  socksInSettings,           //
-                                                                 { INCONF.socksSettings.sniffing ? sniffingOn : sniffingOff });
+                                                                 socksSniffingObject);
             inboundsList.append(socksInboundObject);
         }
 
@@ -109,7 +131,8 @@ namespace Qv2ray::core::connection::generation::inbounds
                 networks << "udp";
             const auto tproxy_network = networks.join(",");
             const auto tProxySettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true);
-            //const static QJsonObject sniffingSettings = { { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+            const auto tproxySniffingObject = GenerateSniffingObject(INCONF.tProxySettings.sniffing,      //
+                                                                     INCONF.tProxySettings.destOverride);
             // tProxy IPv4 Settings
             {
                 LOG("Processing tProxy IPv4 inbound");
@@ -117,7 +140,7 @@ namespace Qv2ray::core::connection::generation::inbounds
                                                      INCONF.tProxySettings.tProxyIP, //
                                                      INCONF.tProxySettings.port,     //
                                                      tProxySettings,                 //
-                                                     { INCONF.tProxySettings.sniffing ? sniffingOn : sniffingOff });
+                                                     tproxySniffingObject);
                 tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
                 inboundsList.append(tProxyIn);
             }
@@ -128,7 +151,7 @@ namespace Qv2ray::core::connection::generation::inbounds
                                                      INCONF.tProxySettings.tProxyV6IP, //
                                                      INCONF.tProxySettings.port,       //
                                                      tProxySettings,                   //
-                                                     { INCONF.tProxySettings.sniffing ? sniffingOn : sniffingOff });
+                                                     tproxySniffingObject);
                 tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
                 inboundsList.append(tProxyIn);
             }

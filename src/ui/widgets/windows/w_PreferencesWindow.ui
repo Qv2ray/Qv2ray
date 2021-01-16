@@ -1222,6 +1222,34 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
+                <item row="8" column="0">
+                 <widget class="QLabel" name="label_91">
+                  <property name="text">
+                   <string>Destination Override</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_12">
+                  <item>
+                   <widget class="QCheckBox" name="socksOverrideHTTPCB">
+                    <property name="text">
+                     <string>HTTP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="socksOverrideTLSCB">
+                    <property name="text">
+                     <string>TLS</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
                </layout>
               </widget>
              </item>
@@ -1328,11 +1356,39 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_92">
+                  <property name="text">
+                   <string>Destination Override</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_13">
+                  <item>
+                   <widget class="QCheckBox" name="httpOverrideHTTPCB">
+                    <property name="text">
+                     <string>HTTP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="httpOverrideTLSCB">
+                    <property name="text">
+                     <string>TLS</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
                </layout>
               </widget>
              </item>
              <item row="1" column="0" colspan="2">
-              <widget class="QGroupBox" name="tproxGroupBox">
+              <widget class="QGroupBox" name="tproxyGroupBox">
                <property name="title">
                 <string>Dokodemo Door Settings</string>
                </property>
@@ -1423,6 +1479,47 @@ Custom DNS Settings</string>
                  </layout>
                 </item>
                 <item row="3" column="0">
+                 <widget class="QLabel" name="label_93">
+                  <property name="text">
+                   <string>Destination Override</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_14">
+                  <item>
+                   <widget class="QCheckBox" name="tproxyOverrideHTTPCB">
+                    <property name="text">
+                     <string>HTTP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxyOverrideTLSCB">
+                    <property name="text">
+                     <string>TLS</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_3">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_78">
                   <property name="text">
                    <string>Mode</string>
@@ -1432,7 +1529,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <widget class="QComboBox" name="tproxyMode">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1452,7 +1549,7 @@ Custom DNS Settings</string>
                   </item>
                  </widget>
                 </item>
-                <item row="4" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="label_79">
                   <property name="text">
                    <string>Outbound Mark</string>
@@ -1462,7 +1559,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="QSpinBox" name="outboundMark">
                   <property name="minimum">
                    <number>0</number>

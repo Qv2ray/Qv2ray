@@ -100,7 +100,7 @@ private:
     void on_setTestLatenctOnConnectedCB_stateChanged(int arg1);
     void on_setSessionResumptionCB_stateChanged(int arg1);
     void on_quietModeCB_stateChanged(int arg1);
-    void on_tproxGroupBox_toggled(bool arg1);
+    void on_tproxyGroupBox_toggled(bool arg1);
     void on_tProxyPort_valueChanged(int arg1);
     void on_tproxyEnableTCP_toggled(bool checked);
     void on_tproxyEnableUDP_toggled(bool checked);
@@ -116,8 +116,14 @@ private:
     void on_qvProxyNoProxy_clicked();
     void on_DnsFreedomCb_stateChanged(int arg1);
     void on_httpSniffingCB_stateChanged(int arg1);
+    void on_httpOverrideHTTPCB_stateChanged(int arg1);
+    void on_httpOverrideTLSCB_stateChanged(int arg1);
     void on_socksSniffingCB_stateChanged(int arg1);
+    void on_socksOverrideHTTPCB_stateChanged(int arg1);
+    void on_socksOverrideTLSCB_stateChanged(int arg1);
     void on_tproxySniffingCB_stateChanged(int arg1);
+    void on_tproxyOverrideHTTPCB_stateChanged(int arg1);
+    void on_tproxyOverrideTLSCB_stateChanged(int arg1);
     void on_pushButton_clicked();
     void on_noAutoConnectRB_clicked();
     void on_lastConnectedRB_clicked();
