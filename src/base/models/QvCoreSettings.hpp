@@ -77,10 +77,11 @@ namespace Qv2ray::base::config
         int port = 0;
         bool useAuth = false;
         bool sniffing = false;
+        QList<QString> destOverride = { "http", "tls" };
         objects::AccountObject account;
         __Qv2rayConfig_ProtocolInboundBase(){};
-        JSONSTRUCT_COMPARE(__Qv2rayConfig_ProtocolInboundBase, port, useAuth, sniffing)
-        JSONSTRUCT_REGISTER(__Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, account))
+        JSONSTRUCT_COMPARE(__Qv2rayConfig_ProtocolInboundBase, port, useAuth, sniffing, destOverride)
+        JSONSTRUCT_REGISTER(__Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, destOverride, account))
     };
 
     struct QvConfig_SocksInbound : __Qv2rayConfig_ProtocolInboundBase
@@ -111,9 +112,10 @@ namespace Qv2ray::base::config
         bool hasTCP = true;
         bool hasUDP = true;
         bool sniffing = true;
+        QList<QString> destOverride = { "http", "tls" };
         QString mode = "tproxy";
-        JSONSTRUCT_COMPARE(QvConfig_TProxy, tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, mode)
-        JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, mode))
+        JSONSTRUCT_COMPARE(QvConfig_TProxy, tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, destOverride, mode)
+        JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, destOverride, mode))
     };
 
     struct QvConfig_Inbounds
