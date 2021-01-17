@@ -70,19 +70,19 @@ namespace Qv2ray::core::connection
             // parse query
             QUrlQuery query(url.query());
 
-            // handle network
-            const auto hasNetwork = query.hasQueryItem("network");
-            const auto network = hasNetwork ? query.queryItemValue("network") : "tcp";
-            if (network != "tcp")
-                QJsonIO::SetValue(stream, network, "network");
+            // handle type
+            const auto hasType = query.hasQueryItem("type");
+            const auto type = hasType ? query.queryItemValue("type") : "tcp";
+            if (type != "tcp")
+                QJsonIO::SetValue(stream, type, "network");
 
             // handle encryption
             const auto hasEncryption = query.hasQueryItem("encryption");
             const auto encryption = hasEncryption ? query.queryItemValue("encryption") : "none";
             QJsonIO::SetValue(outbound, encryption, { "settings", "vnext", 0, "users", 0, "encryption" });
 
-            // network-wise settings
-            if (network == "kcp")
+            // type-wise settings
+            if (type == "kcp")
             {
                 const auto hasSeed = query.hasQueryItem("seed");
                 if (hasSeed)
@@ -93,10 +93,10 @@ namespace Qv2ray::core::connection
                 if (headerType != "none")
                     QJsonIO::SetValue(stream, headerType, { "kcpSettings", "header", "type" });
             }
-            else if (network == "http")
+            else if (type == "http")
             {
                 const auto hasPath = query.hasQueryItem("path");
-                const auto path = hasPath ? query.queryItemValue("path") : "/";
+                const auto path = hasPath ? QUrl::fromPercentEncoding(query.queryItemValue("path").toUtf8()) : "/";
                 if (path != "/")
                     QJsonIO::SetValue(stream, path, { "httpSettings", "path" });
 
@@ -107,20 +107,20 @@ namespace Qv2ray::core::connection
                     QJsonIO::SetValue(stream, hosts, { "httpSettings", "host" });
                 }
             }
-            else if (network == "ws")
+            else if (type == "ws")
             {
                 const auto hasPath = query.hasQueryItem("path");
-                const auto path = hasPath ? query.queryItemValue("path") : "/";
+                const auto path = hasPath ? QUrl::fromPercentEncoding(query.queryItemValue("path").toUtf8()) : "/";
                 if (path != "/")
                     QJsonIO::SetValue(stream, path, { "wsSettings", "path" });
 
-                const auto hasHost = query.hasQueryItem("path");
+                const auto hasHost = query.hasQueryItem("host");
                 if (hasHost)
                 {
                     QJsonIO::SetValue(stream, query.queryItemValue("host"), { "wsSettings", "headers", "Host" });
                 }
             }
-            else if (network == "quic")
+            else if (type == "quic")
             {
                 const auto hasQuicSecurity = query.hasQueryItem("quicSecurity");
                 if (hasQuicSecurity)
