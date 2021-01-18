@@ -116,7 +116,8 @@ namespace Qv2ray::components::latency::icmping
             icmpReply, reinterpret_cast<IPAddr &>(reinterpret_cast<sockaddr_in &>(storage).sin_addr), icmpReply->payload, payload_size, NULL,
             icmpReply->reply_buf, reply_buf_size, 10000);
     }
-    bool ICMPPing::notifyTestHost(LatencyTestHost *testHost, const ConnectionId &id)
+
+    bool ICMPPing::notifyTestHost(LatencyTestHost *testHost, const ::Qv2ray::base::ConnectionId &id)
     {
         if (data.failedCount + successCount == data.totalCount)
         {
