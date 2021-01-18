@@ -17,7 +17,7 @@ if(CMAKE_BUILD_TYPE MATCHES "^[Dd][Ee][Bb][Uu][Gg]$" OR NOT DEFINED CMAKE_BUILD_
     # Only do this in Debug Build
     add_custom_target(lupdate
         COMMENT "Generating Translation Sources"
-        COMMAND lupdate
+        COMMAND Qt::lupdate
         ${CMAKE_SOURCE_DIR}/src
         -ts translations/en_US.ts
         -locations none

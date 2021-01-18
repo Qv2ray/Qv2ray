@@ -18,9 +18,13 @@ namespace Qv2ray::components::latency::tcping
         {
             return 0;
         }
+
         // Set TCP connection timeout per-socket level.
         // See [https://github.com/libuv/help/issues/54] for details.
 #if defined(_WIN32) && !defined(__SYMBIAN32__)
+#ifndef TCP_MAXRT
+    #define TCP_MAXRT 5
+#endif
         setsockopt(fd, IPPROTO_TCP, TCP_MAXRT, (char *) &conn_timeout_sec, sizeof(conn_timeout_sec));
 #elif defined(__APPLE__)
         // (billhoo) MacOS uses TCP_CONNECTIONTIMEOUT to do so.

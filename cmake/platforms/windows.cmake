@@ -15,8 +15,11 @@ include(cmake/deployment.cmake)
 
 if(QV2RAY_AUTO_DEPLOY)
     if(QV2RAY_QT6)
-        add_custom_command(TARGET qv2ray POST_BUILD COMMAND ${Qt6_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/)
+        set(QV2RAY_QtX_DIR ${Qt6_DIR})
     else()
-        add_custom_command(TARGET qv2ray POST_BUILD COMMAND ${Qt5_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/)
+        set(QV2RAY_QtX_DIR ${Qt5_DIR})
     endif()
+    add_custom_command(TARGET qv2ray
+        POST_BUILD
+        COMMAND ${QV2RAY_QtX_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/)
 endif()
