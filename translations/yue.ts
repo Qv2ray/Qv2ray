@@ -1957,6 +1957,18 @@ Output:
       <source>Adapt Glyph Tray Icon</source>
       <translation type="unfinished">Adapt Glyph Tray Icon</translation>
     </message>
+    <message>
+      <source>Destination Override</source>
+      <translation type="unfinished">Destination Override</translation>
+    </message>
+    <message>
+      <source>HTTP</source>
+      <translation type="unfinished">HTTP</translation>
+    </message>
+    <message>
+      <source>TLS</source>
+      <translation type="unfinished">TLS</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
