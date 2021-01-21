@@ -1,10 +1,9 @@
 #ifdef _WIN32
+#include <WINDOWS.H>
 
 #ifndef __GNUC__
 #include <WINGDI.H>
 #endif
-
-#include <WINDOWS.H>
 
 #ifndef __GNUC__
 #include <WINUSER.H>
