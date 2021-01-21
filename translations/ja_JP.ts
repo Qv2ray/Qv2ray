@@ -1946,6 +1946,18 @@ Output: <byte value="xd"/>
       <source>Adapt Glyph Tray Icon</source>
       <translation>グリフトレイアイコンを調整</translation>
     </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>目標上書き</translation>
+    </message>
+    <message>
+      <source>HTTP</source>
+      <translation>HTTP</translation>
+    </message>
+    <message>
+      <source>TLS</source>
+      <translation>TLS</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
