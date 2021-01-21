@@ -19,7 +19,6 @@ list(GET VERSION_LIST 0 CMAKE_PROJECT_VERSION_MAJOR)
 list(GET VERSION_LIST 1 CMAKE_PROJECT_VERSION_MINOR)
 list(GET VERSION_LIST 2 CPACK_PACKAGE_VERSION_PATCH)
 
-# For Windows RC file.
 add_definitions(-DQV2RAY_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR})
 add_definitions(-DQV2RAY_VERSION_MINOR=${CMAKE_PROJECT_VERSION_MINOR})
 add_definitions(-DQV2RAY_VERSION_BUGFIX=${CPACK_PACKAGE_VERSION_PATCH})
@@ -47,6 +46,20 @@ endif()
 option(USE_MINGW "Use MinGW on Windows" OFF)
 
 if(WIN32)
+    include(cmake/versioninfo/generate_product_version.cmake)
+    generate_product_version(
+        QV2RAY_RC
+        NAME               "Qv2ray"
+        BUNDLE             "Qv2ray Project Family"
+        ICON               "${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.ico"
+        VERSION_MAJOR      ${CMAKE_PROJECT_VERSION_MAJOR}
+        VERSION_MINOR      ${CMAKE_PROJECT_VERSION_MINOR}
+        VERSION_PATCH      ${CPACK_PACKAGE_VERSION_PATCH}
+        VERSION_REVISION   ${QV2RAY_BUILD_VERSION}
+        COMPANY_NAME       "Qv2ray Workgroup"
+        COMPANY_COPYRIGHT  "Qv2ray Workgroup 2021"
+        FILE_DESCRIPTION   "Qv2ray Main Application"
+        )
     add_definitions(-DUNICODE -D_UNICODE -DNOMINMAX)
     set(GUI_TYPE WIN32)
     if(USE_MINGW)
@@ -377,7 +390,7 @@ list(APPEND QV2RAY_QRC_RESOURCES
     )
 
 set(QV2RAY_FULL_SOURCES
-    assets/qv2ray.rc
+    ${QV2RAY_RC}
     ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
     ${QV2RAY_UI_SOURCES}
     ${QV2RAY_PLATFORM_SOURCES}
