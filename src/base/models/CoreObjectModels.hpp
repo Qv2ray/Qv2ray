@@ -174,7 +174,7 @@ namespace Qv2ray::base::objects
             HTTPRequestObject request;
             HTTPResponseObject response;
             JSONSTRUCT_COMPARE(TCPHeader_Internal, type, request, response)
-            JSONSTRUCT_REGISTER(TCPHeader_Internal, F(type, request, response))
+            JSONSTRUCT_REGISTER(TCPHeader_Internal, A(type), F(request, response))
         };
         //
         //
