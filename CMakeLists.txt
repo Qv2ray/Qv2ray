@@ -402,7 +402,7 @@ set(QV2RAY_FULL_SOURCES
 QVLOG(QV2RAY_QM_FILES)
 QVLOG(QV2RAY_QRC_RESOURCES)
 
-if(NOT ANDROID)
+if(NOT ANDROID AND NOT DEFINED DISABLE_BACKWARD_CPP)
     include(cmake/backward-cpp.cmake)
     add_definitions(-DQV2RAY_HAS_BACKWARD)
     target_link_libraries(qv2ray_baselib Backward::Backward)
