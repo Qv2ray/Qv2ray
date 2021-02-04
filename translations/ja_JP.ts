@@ -1944,15 +1944,15 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Please synchronize your system to use the VMess protocol.</source>
-      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+      <translation>VMessプロトコルを使用するには、システムを同期してください。</translation>
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+      <translation>VMess プロトコルはまだ動作するかもしれませんが、時計を同期させることをお勧めします。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
-      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
+      <translation>VMess のプロトコルは、時間の不正確さに苦しむことはありません。</translation>
     </message>
   </context>
   <context>
@@ -2550,11 +2550,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Core file not executable.</source>
-      <translation type="unfinished">Core file not executable.</translation>
+      <translation>コアファイルは実行できません。</translation>
     </message>
     <message>
       <source>V2Ray kernel failed to start: </source>
-      <translation type="unfinished">V2Ray kernel failed to start: </translation>
+      <translation>V2Ray カーネルの起動に失敗しました: </translation>
     </message>
   </context>
   <context>
