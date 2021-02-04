@@ -3,7 +3,7 @@
 #include "core/settings/SettingsBackend.hpp"
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    #include <QSessionManager>
+#include <QSessionManager>
 #endif
 
 #include <QSslSocket>
@@ -85,26 +85,26 @@ bool Qv2rayPlatformApplication::Initialize()
 #endif
 
 #ifdef QV2RAY_GUI
-    #ifdef Q_OS_LINUX
-        #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#ifdef Q_OS_LINUX
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     setFallbackSessionManagementEnabled(false);
-        #endif
+#endif
     connect(this, &QGuiApplication::commitDataRequest, [] {
         RouteManager->SaveRoutes();
         ConnectionManager->SaveConnectionConfig();
         PluginHost->SavePluginSettings();
         SaveGlobalSettings();
     });
-    #endif
+#endif
 
-    #ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
     SetCurrentDirectory(applicationDirPath().toStdWString().c_str());
     // Set special font in Windows
     QFont font;
     font.setPointSize(9);
     font.setFamily("Microsoft YaHei");
     setFont(font);
-    #endif
+#endif
 #endif
 
     // Install a default translater. From the OS/DE

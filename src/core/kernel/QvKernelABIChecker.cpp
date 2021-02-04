@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#if QV2RAY_HAS_FEATURE(kernel_check_abi)
+
 namespace Qv2ray::core::kernel::abi
 {
     QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType)
@@ -82,3 +84,5 @@ namespace Qv2ray::core::kernel::abi
         }
     }
 } // namespace Qv2ray::core::kernel::abi
+
+#endif

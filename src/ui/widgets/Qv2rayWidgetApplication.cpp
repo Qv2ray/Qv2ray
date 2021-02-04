@@ -14,7 +14,7 @@
 #include <QUrlQuery>
 
 #ifdef Q_OS_WIN
-    #include <Winbase.h>
+#include <Winbase.h>
 #endif
 
 #define QV_MODULE_NAME "WidgetApplication"

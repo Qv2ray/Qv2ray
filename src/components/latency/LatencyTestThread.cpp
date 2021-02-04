@@ -5,9 +5,9 @@
 #include "core/CoreUtils.hpp"
 
 #ifdef Q_OS_UNIX
-    #include "unix/ICMPPing.hpp"
+#include "unix/ICMPPing.hpp"
 #else
-    #include "win/ICMPPing.hpp"
+#include "win/ICMPPing.hpp"
 #endif
 #include "uvw.hpp"
 

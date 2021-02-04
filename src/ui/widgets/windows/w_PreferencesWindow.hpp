@@ -37,8 +37,8 @@ class PreferencesWindow
             tabWidget->setCurrentIndex(indexMap[c]);
         }
     }
-    
-private:
+
+  private:
     void updateColorScheme() override{};
     QvMessageBusSlotDecl override;
 

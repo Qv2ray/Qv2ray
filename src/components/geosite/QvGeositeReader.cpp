@@ -1,7 +1,7 @@
 #include "QvGeositeReader.hpp"
 
 #ifndef ANDROID
-    #include "v2ray_geosite.pb.h"
+#include "v2ray_geosite.pb.h"
 #endif
 
 #define QV_MODULE_NAME "GeositeReader"

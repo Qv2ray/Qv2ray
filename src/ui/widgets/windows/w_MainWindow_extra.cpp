@@ -5,7 +5,7 @@
 #include "w_MainWindow.hpp"
 
 #ifdef Q_OS_MAC
-    #include <ApplicationServices/ApplicationServices.h>
+#include <ApplicationServices/ApplicationServices.h>
 #endif
 
 #define QV_MODULE_NAME "MainWindowExtra"

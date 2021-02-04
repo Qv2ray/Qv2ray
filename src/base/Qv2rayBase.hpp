@@ -33,44 +33,41 @@ using namespace Qv2ray::base::objects::transfer;
 
 // Base folder suffix.
 #ifdef QT_DEBUG
-    #define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
-    #define _BOMB_ (static_cast<QObject *>(nullptr)->event(nullptr))
+#define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
+#define _BOMB_ (static_cast<QObject *>(nullptr)->event(nullptr))
 #else
-    #define _BOMB_
-    #define QV2RAY_CONFIG_DIR_SUFFIX "/"
+#define _BOMB_
+#define QV2RAY_CONFIG_DIR_SUFFIX "/"
 #endif
 
 #ifdef Q_OS_WIN
-    #define QV2RAY_EXECUTABLE_SUFFIX ".exe"
+#define QV2RAY_EXECUTABLE_SUFFIX ".exe"
 #else
-    #define QV2RAY_EXECUTABLE_SUFFIX ""
+#define QV2RAY_EXECUTABLE_SUFFIX ""
 #endif
 
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (QvCoreApplication->ConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
-//
 #define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
-//
 #define QV2RAY_PLUGIN_SETTINGS_DIR (QV2RAY_CONFIG_DIR + "plugin_settings/")
-//
 #define QV2RAY_CONFIG_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
 
 #if !defined(QV2RAY_DEFAULT_VCORE_PATH) && !defined(QV2RAY_DEFAULT_VASSETS_PATH)
-    #define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
-    #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_SUFFIX)
-    #define QV2RAY_DEFAULT_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_SUFFIX)
+#define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
+#define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray" QV2RAY_EXECUTABLE_SUFFIX)
+#define QV2RAY_DEFAULT_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl" QV2RAY_EXECUTABLE_SUFFIX)
 #elif defined(QV2RAY_DEFAULT_VCORE_PATH) && defined(QV2RAY_DEFAULT_VASSETS_PATH)
 // ---- Using user-specified VCore and VAssets path
 #else
-    #error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to be presented when using manually specify the paths.
+#error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to be presented when using manually specify the paths.
 #endif
 
 #ifdef Q_OS_MACOS
-    #define ACCESS_OPTIONAL_VALUE(obj) (*obj)
+#define ACCESS_OPTIONAL_VALUE(obj) (*obj)
 #else
-    #define ACCESS_OPTIONAL_VALUE(obj) (obj.value())
+#define ACCESS_OPTIONAL_VALUE(obj) (obj.value())
 #endif
 
 #define QSTRN(num) QString::number(num)

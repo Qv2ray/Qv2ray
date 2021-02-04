@@ -8,7 +8,7 @@
 
 namespace Qv2ray::core::handler
 {
-#define isConnected (vCoreInstance->KernelStarted || !activeKernels.empty())
+#define isConnected (vCoreInstance->IsKernelRunning() || !activeKernels.empty())
     KernelInstanceHandler::KernelInstanceHandler(QObject *parent) : QObject(parent)
     {
         KernelInstance = this;
@@ -293,7 +293,7 @@ namespace Qv2ray::core::handler
         {
             const auto inboundPorts = GetInboundPorts();
             PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnecting });
-            if (vCoreInstance->KernelStarted)
+            if (vCoreInstance->IsKernelRunning())
             {
                 vCoreInstance->StopConnection();
             }

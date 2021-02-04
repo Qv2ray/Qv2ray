@@ -6,10 +6,10 @@
 #include <QStyle>
 #ifdef Q_OS_LINUX
 #elif defined(Q_OS_WIN32)
-    #include <QSettings>
+#include <QSettings>
 #elif defined(Q_OS_MAC)
-    #include <CoreFoundation/CoreFoundation.h>
-    #include <CoreServices/CoreServices.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <CoreServices/CoreServices.h>
 #endif
 
 namespace Qv2ray::components::darkmode

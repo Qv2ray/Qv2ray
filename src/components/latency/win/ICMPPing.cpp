@@ -1,6 +1,6 @@
 #include "ICMPPing.hpp"
 #ifdef Q_OS_WIN
-    #define QV_MODULE_NAME "ICMPingWorker"
+#define QV_MODULE_NAME "ICMPingWorker"
 typedef struct _IO_STATUS_BLOCK
 {
     union
@@ -11,16 +11,16 @@ typedef struct _IO_STATUS_BLOCK
     ULONG_PTR Information;
 } IO_STATUS_BLOCK, *PIO_STATUS_BLOCK;
 typedef VOID(NTAPI *PIO_APC_ROUTINE)(IN PVOID ApcContext, IN PIO_STATUS_BLOCK IoStatusBlock, IN ULONG Reserved);
-    #define PIO_APC_ROUTINE_DEFINED
-    #include <WS2tcpip.h>
-    //
-    #include <Windows.h>
-    //
-    #include <iphlpapi.h>
-    //
-    #include <IcmpAPI.h>
-    //
-    #include <QString>
+#define PIO_APC_ROUTINE_DEFINED
+#include <WS2tcpip.h>
+//
+#include <Windows.h>
+//
+#include <iphlpapi.h>
+//
+#include <IcmpAPI.h>
+//
+#include <QString>
 
 namespace Qv2ray::components::latency::icmping
 {

@@ -29,7 +29,7 @@ namespace Qv2ray
     };
 
 #ifdef Qv2rayApplication
-    #undef Qv2rayApplication
+#undef Qv2rayApplication
 #endif
 
 #define Qv2rayApplication Qv2rayQMLApplication

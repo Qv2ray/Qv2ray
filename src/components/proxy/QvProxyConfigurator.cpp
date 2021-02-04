@@ -4,11 +4,11 @@
 #include "components/plugins/QvPluginHost.hpp"
 #include "utils/QvHelpers.hpp"
 #ifdef Q_OS_WIN
-    #include <Windows.h>
-    #include <WinInet.h>
-    #include <ras.h>
-    #include <raserror.h>
-    #include <vector>
+#include <WinInet.h>
+#include <Windows.h>
+#include <ras.h>
+#include <raserror.h>
+#include <vector>
 #endif
 
 #define QV_MODULE_NAME "SystemProxy"
@@ -46,7 +46,7 @@ namespace Qv2ray::components::proxy
     }
 #endif
 #ifdef Q_OS_WIN
-    #define NO_CONST(expr) const_cast<wchar_t *>(expr)
+#define NO_CONST(expr) const_cast<wchar_t *>(expr)
     // static auto DEFAULT_CONNECTION_NAME =
     // NO_CONST(L"DefaultConnectionSettings");
     ///

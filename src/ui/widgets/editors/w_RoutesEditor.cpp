@@ -22,7 +22,7 @@
 #include <nodes/Node>
 
 #ifdef QT_DEBUG
-    #include "nodes/../../src/ConnectionPainter.hpp"
+#include "nodes/../../src/ConnectionPainter.hpp"
 #endif
 
 #define QV_MODULE_NAME "RouteEditor"
