@@ -547,10 +547,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>匯入配置檔案</translation>
     </message>
     <message>
-      <source>Failed to check the validity of the config file.</source>
-      <translation>檢查設定檔有效性時失敗。</translation>
-    </message>
-    <message>
       <source>Select an image to import</source>
       <translation>選擇要導入的圖像</translation>
     </message>
@@ -1699,10 +1695,6 @@ Custom DNS Settings</source>
       <translation>你的時間偏差為 %1 秒，太高了。</translation>
     </message>
     <message>
-      <source>Please synchronize your system to use V2Ray.</source>
-      <translation>請同步系統時間，否則無法正常使用 V2Ray。</translation>
-    </message>
-    <message>
       <source>Time Inaccurate</source>
       <translation>時間不准</translation>
     </message>
@@ -1711,20 +1703,12 @@ Custom DNS Settings</source>
       <translation>你的時間偏差為 %1 秒，有點高。</translation>
     </message>
     <message>
-      <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
-      <translation>V2Ray 可能不受影響，但我們建議同步時間。</translation>
-    </message>
-    <message>
       <source>Time Somewhat Inaccurate</source>
       <translation>時間略有偏差</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which looks good.</source>
       <translation>你的時間偏差為 %1 秒，沒有問題。</translation>
-    </message>
-    <message>
-      <source>V2Ray may not suffer from time inaccuracy.</source>
-      <translation>V2Ray 會正常工作。</translation>
     </message>
     <message>
       <source>Time Accurate</source>
@@ -1957,6 +1941,18 @@ Output: <byte value="xd"/>
     <message>
       <source>TLS</source>
       <translation>TLS</translation>
+    </message>
+    <message>
+      <source>Please synchronize your system to use the VMess protocol.</source>
+      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
+      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may not suffer from time inaccuracy.</source>
+      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
     </message>
   </context>
   <context>
@@ -2549,24 +2545,16 @@ Maybe you have downloaded the wrong core?</translation>
       <translation type="unfinished">Configuration Error</translation>
     </message>
     <message>
-      <source>Cannot start V2Ray</source>
-      <translation type="unfinished">Cannot start V2Ray</translation>
-    </message>
-    <message>
-      <source>V2Ray core settings is incorrect.</source>
-      <translation type="unfinished">V2Ray core settings is incorrect.</translation>
-    </message>
-    <message>
-      <source>The error is: </source>
-      <translation type="unfinished">The error is: </translation>
-    </message>
-    <message>
       <source>Invalid V2Ray Instance Status.</source>
       <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
     </message>
     <message>
-      <source>V2Ray kernel failed to start.</source>
-      <translation type="unfinished">V2Ray kernel failed to start.</translation>
+      <source>Core file not executable.</source>
+      <translation type="unfinished">Core file not executable.</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start: </source>
+      <translation type="unfinished">V2Ray kernel failed to start: </translation>
     </message>
   </context>
   <context>
