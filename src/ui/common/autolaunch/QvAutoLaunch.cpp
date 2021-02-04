@@ -9,8 +9,8 @@
 #include <QTextStream>
 // macOS headers (possibly OBJ-c)
 #if defined(Q_OS_MAC)
-    #include <CoreFoundation/CoreFoundation.h>
-    #include <CoreServices/CoreServices.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <CoreServices/CoreServices.h>
 #endif
 namespace Qv2ray::components::autolaunch
 {
@@ -187,9 +187,9 @@ namespace Qv2ray::components::autolaunch
             }
 
             QTextStream ts(&iniFile);
-    #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
             ts.setCodec("UTF-8");
-    #endif
+#endif
             ts << QLatin1String("[Desktop Entry]") << NEWLINE                                 //
                << QLatin1String("Name=") << appName << NEWLINE                                //
                << QLatin1String("GenericName=") << QLatin1String("V2Ray Frontend") << NEWLINE //

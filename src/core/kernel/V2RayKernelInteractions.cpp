@@ -11,6 +11,7 @@
 
 namespace Qv2ray::core::kernel
 {
+#if QV2RAY_HAS_FEATURE(kernel_check_permission)
     std::pair<bool, std::optional<QString>> V2RayKernelInstance::CheckAndSetCoreExecutableState(const QString &vCorePath)
     {
 #ifdef Q_OS_UNIX
@@ -19,6 +20,7 @@ namespace Qv2ray::core::kernel
         QFile coreFile(vCorePath);
         if (!coreFile.permissions().testFlag(QFileDevice::ExeUser))
         {
+#if QV2RAY_HAS_FEATURE(kernel_set_permission)
             DEBUG("Core file not executable. Trying to enable.");
             const auto result = coreFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
             if (!result)
@@ -32,12 +34,14 @@ namespace Qv2ray::core::kernel
             {
                 DEBUG("Core executable permission set.");
             }
+#endif
+            LOG("Core file not executable.");
+            return { false, tr("Core file not executable.") };
         }
         else
         {
             DEBUG("Core file is executable.");
         }
-
         return { true, std::nullopt };
 #else
         // For Windows and other users: just skip this check.
@@ -45,36 +49,29 @@ namespace Qv2ray::core::kernel
         return { true, tr("Check is skipped") };
 #endif
     }
+#endif
 
-    bool V2RayKernelInstance::ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message)
+    std::pair<bool, std::optional<QString>> V2RayKernelInstance::ValidateKernel(const QString &corePath, const QString &assetsPath)
     {
-        QFile coreFile(vCorePath);
+        QFile coreFile(corePath);
 
         if (!coreFile.exists())
-        {
-            DEBUG("V2Ray core file cannot be found.");
-            *message = tr("V2Ray core executable not found.");
-            return false;
-        }
+            return { false, tr("V2Ray core executable not found.") };
 
         // Use open() here to prevent `executing` a folder, which may have the
         // same name as the V2Ray core.
         if (!coreFile.open(QFile::ReadOnly))
-        {
-            DEBUG("V2Ray core file cannot be opened, possibly be a folder?");
-            *message = tr("V2Ray core file cannot be opened, please ensure there's a file instead of a folder.");
-            return false;
-        }
+            return { false, tr("V2Ray core file cannot be opened, please ensure there's a file instead of a folder.") };
 
         coreFile.close();
 
+#if QV2RAY_HAS_FEATURE(kernel_check_abi)
         // Get Core ABI.
-        const auto [abi, err] = kernel::abi::deduceKernelABI(vCorePath);
+        const auto [abi, err] = kernel::abi::deduceKernelABI(corePath);
         if (err)
         {
             LOG("Core ABI deduction failed: " + ACCESS_OPTIONAL_VALUE(err));
-            *message = ACCESS_OPTIONAL_VALUE(err);
-            return false;
+            return { false, ACCESS_OPTIONAL_VALUE(err) };
         }
         LOG("Core ABI: " + kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)));
 
@@ -88,11 +85,11 @@ namespace Qv2ray::core::kernel
             case kernel::abi::ABI_NOPE:
             {
                 LOG("Host is incompatible with core");
-                *message = tr("V2Ray core is incompatible with your platform.\r\n" //
-                              "Expected core ABI is %1, but got actual %2.\r\n"    //
-                              "Maybe you have downloaded the wrong core?")
-                               .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)));
-                return false;
+                const auto msg = tr("V2Ray core is incompatible with your platform.\r\n"
+                                    "Expected core ABI is %1, but got actual %2.\r\n"
+                                    "Maybe you have downloaded the wrong core?")
+                                     .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)));
+                return { false, msg };
             }
             case kernel::abi::ABI_MAYBE:
             {
@@ -105,42 +102,28 @@ namespace Qv2ray::core::kernel
                 break;
             }
         }
+#endif
 
+#if QV2RAY_HAS_FEATURE(kernel_check_permission)
         // Check executable permissions.
-        const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(vCorePath);
+        const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(corePath);
         if (!isExecutableOk)
-        {
-            *message = strExecutableErr.value_or("");
-            return false;
-        }
-
+            return { false, strExecutableErr.value_or("") };
+#endif
         //
         // Check file existance.
         // From: https://www.v2fly.org/chapter_02/env.html#asset-location
-        //
-        bool hasGeoIP = FileExistsIn(QDir(vAssetsPath), "geoip.dat");
-        bool hasGeoSite = FileExistsIn(QDir(vAssetsPath), "geosite.dat");
+        bool hasGeoIP = FileExistsIn(QDir(assetsPath), "geoip.dat");
+        bool hasGeoSite = FileExistsIn(QDir(assetsPath), "geosite.dat");
 
         if (!hasGeoIP && !hasGeoSite)
-        {
-            DEBUG("V2Ray assets path contains none of those two files.");
-            *message = tr("V2Ray assets path is not valid.");
-            return false;
-        }
+            return { false, tr("V2Ray assets path is not valid.") };
 
         if (!hasGeoIP)
-        {
-            DEBUG("No geoip.dat in assets path, aborting.");
-            *message = tr("No geoip.dat in assets path.");
-            return false;
-        }
+            return { false, tr("No geoip.dat in assets path.") };
 
         if (!hasGeoSite)
-        {
-            DEBUG("No geosite.dat in assets path, aborting.");
-            *message = tr("No geosite.dat in assets path.");
-            return false;
-        }
+            return { false, tr("No geosite.dat in assets path.") };
 
         // Check if V2Ray core returns a version number correctly.
         QProcess proc;
@@ -152,40 +135,31 @@ namespace Qv2ray::core::kernel
         proc.setNativeArguments("--version");
         proc.start();
 #else
-        proc.start(vCorePath, { "--version" });
+        proc.start(corePath, { "--version" });
 #endif
         proc.waitForStarted();
         proc.waitForFinished();
         auto exitCode = proc.exitCode();
 
         if (exitCode != 0)
-        {
-            DEBUG("VCore failed with an exit code: " + QSTRN(exitCode));
-            *message = tr("V2Ray core failed with an exit code: ") + QSTRN(exitCode);
-            return false;
-        }
+            return { false, tr("V2Ray core failed with an exit code: ") + QSTRN(exitCode) };
 
         const auto output = proc.readAllStandardOutput();
         LOG("V2Ray output: " + SplitLines(output).join(";"));
 
         if (SplitLines(output).isEmpty())
-        {
-            *message = tr("V2Ray core returns empty string.");
-            return false;
-        }
+            return { false, tr("V2Ray core returns empty string.") };
 
-        *message = SplitLines(output).first();
-        return true;
+        return { true, SplitLines(output).at(0) };
     }
 
-    bool V2RayKernelInstance::ValidateConfig(const QString &path)
+    std::pair<bool, std::optional<QString>> V2RayKernelInstance::ValidateConfig(const QString &path)
     {
-        QString V2RayCheckResult;
-        auto kernelPath = GlobalConfig.kernelConfig.KernelPath();
-        auto assetsPath = GlobalConfig.kernelConfig.AssetsPath();
-        if (ValidateKernel(kernelPath, assetsPath, &V2RayCheckResult))
+        const auto &kernelPath = GlobalConfig.kernelConfig.KernelPath();
+        const auto &assetsPath = GlobalConfig.kernelConfig.AssetsPath();
+        if (const auto &[result, msg] = ValidateKernel(kernelPath, assetsPath); result)
         {
-            DEBUG("V2Ray version: " + V2RayCheckResult);
+            DEBUG("V2Ray version: " + ACCESS_OPTIONAL_VALUE(msg));
             // Append assets location env.
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", assetsPath);
@@ -201,20 +175,17 @@ namespace Qv2ray::core::kernel
             {
                 QString output = QString(process.readAllStandardOutput());
                 QvMessageBoxWarn(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
-                return false;
+                return { true, std::nullopt };
             }
             else
             {
                 DEBUG("Config file check passed.");
-                return true;
+                return { true, std::nullopt };
             }
         }
         else
         {
-            QvMessageBoxWarn(nullptr, tr("Cannot start V2Ray"),                            //
-                             tr("V2Ray core settings is incorrect.") + NEWLINE + NEWLINE + //
-                                 tr("The error is: ") + NEWLINE + V2RayCheckResult);
-            return false;
+            return { false, msg };
         }
     }
 
@@ -227,7 +198,7 @@ namespace Qv2ray::core::kernel
             DEBUG("V2Ray kernel process status changed: " + QVariant::fromValue(state).toString());
 
             // If V2Ray crashed AFTER we start it.
-            if (KernelStarted && state == QProcess::NotRunning)
+            if (kernelStarted && state == QProcess::NotRunning)
             {
                 LOG("V2Ray kernel crashed.");
                 StopConnection();
@@ -238,12 +209,12 @@ namespace Qv2ray::core::kernel
         qRegisterMetaType<StatisticsType>();
         qRegisterMetaType<QMap<StatisticsType, QvStatsSpeed>>();
         connect(apiWorker, &APIWorker::onAPIDataReady, this, &V2RayKernelInstance::OnNewStatsDataArrived);
-        KernelStarted = false;
+        kernelStarted = false;
     }
 
     std::optional<QString> V2RayKernelInstance::StartConnection(const CONFIGROOT &root)
     {
-        if (KernelStarted)
+        if (kernelStarted)
         {
             LOG("Status is invalid, expect STOPPED when calling StartConnection");
             return tr("Invalid V2Ray Instance Status.");
@@ -255,7 +226,7 @@ namespace Qv2ray::core::kernel
         //
         auto filePath = QV2RAY_GENERATED_FILE_PATH;
 
-        if (ValidateConfig(filePath))
+        if (const auto &&[result, msg] = ValidateConfig(filePath); result)
         {
             auto env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
@@ -263,7 +234,7 @@ namespace Qv2ray::core::kernel
             vProcess->setProcessEnvironment(env);
             vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
-            KernelStarted = true;
+            kernelStarted = true;
 
             QMap<bool, QMap<QString, QString>> tagProtocolMap;
             for (const auto isOutbound : { GlobalConfig.uiConfig.graphConfig.useOutboundStats, false })
@@ -306,8 +277,8 @@ namespace Qv2ray::core::kernel
         }
         else
         {
-            KernelStarted = false;
-            return tr("V2Ray kernel failed to start.");
+            kernelStarted = false;
+            return tr("V2Ray kernel failed to start: ") + ACCESS_OPTIONAL_VALUE(msg);
         }
     }
 
@@ -321,7 +292,7 @@ namespace Qv2ray::core::kernel
 
         // Set this to false BEFORE close the Process, since we need this flag
         // to capture the real kernel CRASH
-        KernelStarted = false;
+        kernelStarted = false;
         vProcess->close();
         // Block until V2Ray core exits
         // Should we use -1 instead of waiting for 30secs?
@@ -330,7 +301,7 @@ namespace Qv2ray::core::kernel
 
     V2RayKernelInstance::~V2RayKernelInstance()
     {
-        if (KernelStarted)
+        if (kernelStarted)
         {
             StopConnection();
         }

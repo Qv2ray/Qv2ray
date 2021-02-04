@@ -16,11 +16,16 @@ namespace Qv2ray::core::kernel
         //
         std::optional<QString> StartConnection(const CONFIGROOT &root);
         void StopConnection();
-        bool KernelStarted = false;
+        bool IsKernelRunning() const
+        {
+            return kernelStarted;
+        }
         //
-        static bool ValidateConfig(const QString &path);
-        static bool ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message);
+        static std::pair<bool, std::optional<QString>> ValidateConfig(const QString &path);
+        static std::pair<bool, std::optional<QString>> ValidateKernel(const QString &vCorePath, const QString &vAssetsPath);
+#if QV2RAY_HAS_FEATURE(kernel_check_permission)
         static std::pair<bool, std::optional<QString>> CheckAndSetCoreExecutableState(const QString &vCorePath);
+#endif
 
       signals:
         void OnProcessErrored(const QString &errMessage);
@@ -31,6 +36,7 @@ namespace Qv2ray::core::kernel
         APIWorker *apiWorker;
         QProcess *vProcess;
         bool apiEnabled;
+        bool kernelStarted = false;
     };
 } // namespace Qv2ray::core::kernel
 

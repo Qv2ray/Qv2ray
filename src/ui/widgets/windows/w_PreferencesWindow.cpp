@@ -44,8 +44,7 @@ using Qv2ray::common::validation::IsValidIPAddress;
     autoStartConnCombo->setEnabled(_enabled);                                                                                                        \
     autoStartSubsCombo->setEnabled(_enabled);
 
-#define SET_AUTOSTART_START_MINIMIZED_ENABLED(_enabled)                                                                                                           \
-    startMinimizedCB->setEnabled(_enabled);                                                                                                        \
+#define SET_AUTOSTART_START_MINIMIZED_ENABLED(_enabled) startMinimizedCB->setEnabled(_enabled);
 
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWindow", parent), CurrentConfig()
 {
@@ -727,8 +726,8 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
 {
     auto vcorePath = vCorePathTxt->text();
     auto vAssetsPath = vCoreAssetsPathTxt->text();
-    QString result;
 
+#if QV2RAY_HAS_FEATURE(kernel_check_filename)
     // prevent some bullshit situations.
     if (const auto vCorePathSmallCased = vcorePath.toLower(); vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
     {
@@ -756,20 +755,22 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
         if (answer == QMessageBox::StandardButton::Abort)
             return;
     }
+#endif
 
-    if (!V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result))
+    if (const auto &&[result, msg] = V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath); !result)
     {
-        QvMessageBoxWarn(this, tr("V2Ray Core Settings"), result);
+        QvMessageBoxWarn(this, tr("V2Ray Core Settings"), ACCESS_OPTIONAL_VALUE(msg));
     }
-    else if (!result.toLower().contains("v2ray") && !result.toLower().contains("xray"))
+#if QV2RAY_HAS_FEATURE(kernel_check_output)
+    else if (!msg->toLower().contains("v2ray") && !msg->toLower().contains("xray"))
     {
-        const auto strWarnContent = //
-            tr("This does not seem like an output from V2Ray Core.\r\n"
-               "If you've been looking for plugin cores, you should change this in plugin settings rather than here.\r\n"
-               "Output: \r\n\r\n") +
-            result;
+        const auto strWarnContent = tr("This does not seem like an output from V2Ray Core.\r\n"
+                                       "If you've been looking for plugin cores, you should change this in plugin settings rather than here.\r\n"
+                                       "Output: \r\n\r\n") +
+                                    result;
         QvMessageBoxWarn(this, tr("'V2Ray Core' Settings"), strWarnContent);
     }
+#endif
     else
     {
         QvMessageBoxInfo(this, tr("V2Ray Core Settings"),
@@ -956,7 +957,7 @@ void PreferencesWindow::on_tproxyOverrideHTTPCB_stateChanged(int arg1)
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.tProxySettings.destOverride.removeAll("http");
-    else if(!CurrentConfig.inboundConfig.tProxySettings.destOverride.contains("http"))
+    else if (!CurrentConfig.inboundConfig.tProxySettings.destOverride.contains("http"))
         CurrentConfig.inboundConfig.tProxySettings.destOverride.append("http");
 }
 
@@ -965,7 +966,7 @@ void PreferencesWindow::on_tproxyOverrideTLSCB_stateChanged(int arg1)
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.tProxySettings.destOverride.removeAll("tls");
-    else if(!CurrentConfig.inboundConfig.tProxySettings.destOverride.contains("tls"))
+    else if (!CurrentConfig.inboundConfig.tProxySettings.destOverride.contains("tls"))
         CurrentConfig.inboundConfig.tProxySettings.destOverride.append("tls");
 }
 
@@ -979,30 +980,20 @@ void PreferencesWindow::on_tproxyListenAddr_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.tProxyIP = arg1;
-
     if (arg1 == "" || IsIPv4Address(arg1))
-    {
         BLACK(tproxyListenAddr);
-    }
     else
-    {
         RED(tproxyListenAddr);
-    }
 }
 
 void PreferencesWindow::on_tproxyListenV6Addr_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP = arg1;
-
     if (arg1 == "" || IsIPv6Address(arg1))
-    {
         BLACK(tproxyListenV6Addr);
-    }
     else
-    {
         RED(tproxyListenV6Addr);
-    }
 }
 
 void PreferencesWindow::on_jumpListCountSB_valueChanged(int arg1)
@@ -1075,7 +1066,7 @@ void PreferencesWindow::on_httpOverrideHTTPCB_stateChanged(int arg1)
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.httpSettings.destOverride.removeAll("http");
-    else if(!CurrentConfig.inboundConfig.httpSettings.destOverride.contains("http"))
+    else if (!CurrentConfig.inboundConfig.httpSettings.destOverride.contains("http"))
         CurrentConfig.inboundConfig.httpSettings.destOverride.append("http");
 }
 
@@ -1084,7 +1075,7 @@ void PreferencesWindow::on_httpOverrideTLSCB_stateChanged(int arg1)
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.httpSettings.destOverride.removeAll("tls");
-    else if(!CurrentConfig.inboundConfig.httpSettings.destOverride.contains("tls"))
+    else if (!CurrentConfig.inboundConfig.httpSettings.destOverride.contains("tls"))
         CurrentConfig.inboundConfig.httpSettings.destOverride.append("tls");
 }
 
@@ -1101,7 +1092,7 @@ void PreferencesWindow::on_socksOverrideHTTPCB_stateChanged(int arg1)
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.socksSettings.destOverride.removeAll("http");
-    else if(!CurrentConfig.inboundConfig.socksSettings.destOverride.contains("http"))
+    else if (!CurrentConfig.inboundConfig.socksSettings.destOverride.contains("http"))
         CurrentConfig.inboundConfig.socksSettings.destOverride.append("http");
 }
 
@@ -1110,7 +1101,7 @@ void PreferencesWindow::on_socksOverrideTLSCB_stateChanged(int arg1)
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.socksSettings.destOverride.removeAll("tls");
-    else if(!CurrentConfig.inboundConfig.socksSettings.destOverride.contains("tls"))
+    else if (!CurrentConfig.inboundConfig.socksSettings.destOverride.contains("tls"))
         CurrentConfig.inboundConfig.socksSettings.destOverride.append("tls");
 }
 
@@ -1135,19 +1126,19 @@ void PreferencesWindow::on_pushButton_clicked()
         if (offsetSecTotal >= 90 || offsetSecTotal <= -90)
         {
             const auto inaccurateWarning = tr("Your time offset is %1 seconds, which is too high.") + NEWLINE + //
-                                           tr("Please synchronize your system to use V2Ray.");
+                                           tr("Please synchronize your system to use the VMess protocol.");
             QvMessageBoxWarn(this, tr("Time Inaccurate"), inaccurateWarning.arg(offsetSecTotal));
         }
         else if (offsetSecTotal > 15 || offsetSecTotal < -15)
         {
             const auto smallErrorWarning = tr("Your time offset is %1 seconds, which is a little high.") + NEWLINE + //
-                                           tr("V2Ray may still work, but we suggest you synchronize your clock.");
+                                           tr("VMess protocol may still work, but we suggest you synchronize your clock.");
             QvMessageBoxInfo(this, tr("Time Somewhat Inaccurate"), smallErrorWarning.arg(offsetSecTotal));
         }
         else
         {
             const auto accurateInfo = tr("Your time offset is %1 seconds, which looks good.") + NEWLINE + //
-                                      tr("V2Ray may not suffer from time inaccuracy.");
+                                      tr("VMess protocol may not suffer from time inaccuracy.");
             QvMessageBoxInfo(this, tr("Time Accurate"), accurateInfo.arg(offsetSecTotal));
         }
     });

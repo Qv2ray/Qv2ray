@@ -81,65 +81,83 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
         url.setScheme(protocol);
         url.setHost(QJsonIO::GetValue(obj, { "vnext", 0, "address" }).toString());
         url.setPort(QJsonIO::GetValue(obj, { "vnext", 0, "port" }).toInt());
-        url.setUserName(QJsonIO::GetValue(obj, {"vnext", 0, "users", 0, "id" }).toString());
+        url.setUserName(QJsonIO::GetValue(obj, { "vnext", 0, "users", 0, "id" }).toString());
 
         // -------- COMMON INFORMATION --------
         QUrlQuery query;
-        const auto encryption = QJsonIO::GetValue(obj, {"vnext", 0, "users", 0, "encryption"}).toString("none");
-        if (encryption != "none") query.addQueryItem("encryption", encryption);
+        const auto encryption = QJsonIO::GetValue(obj, { "vnext", 0, "users", 0, "encryption" }).toString("none");
+        if (encryption != "none")
+            query.addQueryItem("encryption", encryption);
 
         const auto network = QJsonIO::GetValue(objStream, "network").toString("tcp");
-        if (network != "tcp") query.addQueryItem("type", network);
+        if (network != "tcp")
+            query.addQueryItem("type", network);
 
         const auto security = QJsonIO::GetValue(objStream, "security").toString("none");
-        if (security != "none") query.addQueryItem("security", security);
+        if (security != "none")
+            query.addQueryItem("security", security);
 
         // -------- TRANSPORT RELATED --------
-        if (network == "kcp") {
-            const auto seed = QJsonIO::GetValue(objStream, {"kcpSettings", "seed"}).toString();
-            if (!seed.isEmpty()) query.addQueryItem("seed", QUrl::toPercentEncoding(seed));
+        if (network == "kcp")
+        {
+            const auto seed = QJsonIO::GetValue(objStream, { "kcpSettings", "seed" }).toString();
+            if (!seed.isEmpty())
+                query.addQueryItem("seed", QUrl::toPercentEncoding(seed));
 
-            const auto headerType = QJsonIO::GetValue(objStream, {"kcpSettings", "header", "type"}).toString("none");
-            if (headerType != "none") query.addQueryItem("headerType", headerType);
-        } else if (network == "http") {
-            const auto path = QJsonIO::GetValue(objStream, {"httpSettings", "path"}).toString("/");
+            const auto headerType = QJsonIO::GetValue(objStream, { "kcpSettings", "header", "type" }).toString("none");
+            if (headerType != "none")
+                query.addQueryItem("headerType", headerType);
+        }
+        else if (network == "http")
+        {
+            const auto path = QJsonIO::GetValue(objStream, { "httpSettings", "path" }).toString("/");
             query.addQueryItem("path", QUrl::toPercentEncoding(path));
 
-            const auto hosts = QJsonIO::GetValue(objStream, {"httpSetting", "host"}).toArray();
+            const auto hosts = QJsonIO::GetValue(objStream, { "httpSetting", "host" }).toArray();
             QStringList hostList;
-            for (const auto item: hosts) {
+            for (const auto item : hosts)
+            {
                 const auto host = item.toString();
-                if (!host.isEmpty()) hostList << host;
+                if (!host.isEmpty())
+                    hostList << host;
             }
             query.addQueryItem("host", QUrl::toPercentEncoding(hostList.join(",")));
-        } else if (network == "ws") {
-            const auto path = QJsonIO::GetValue(objStream, {"wsSettings", "path"}).toString("/");
+        }
+        else if (network == "ws")
+        {
+            const auto path = QJsonIO::GetValue(objStream, { "wsSettings", "path" }).toString("/");
             query.addQueryItem("path", QUrl::toPercentEncoding(path));
 
-            const auto host = QJsonIO::GetValue(objStream, {"wsSettings", "headers", "Host"}).toString();
+            const auto host = QJsonIO::GetValue(objStream, { "wsSettings", "headers", "Host" }).toString();
             query.addQueryItem("host", host);
-        } else if (network == "quic") {
-            const auto quicSecurity = QJsonIO::GetValue(objStream, {"quicSettings", "security"}).toString("none");
-            if (quicSecurity != "none") {
+        }
+        else if (network == "quic")
+        {
+            const auto quicSecurity = QJsonIO::GetValue(objStream, { "quicSettings", "security" }).toString("none");
+            if (quicSecurity != "none")
+            {
                 query.addQueryItem("quicSecurity", quicSecurity);
 
-                const auto key = QJsonIO::GetValue(objStream, {"quicSettings", "key"}).toString();
+                const auto key = QJsonIO::GetValue(objStream, { "quicSettings", "key" }).toString();
                 query.addQueryItem("key", QUrl::toPercentEncoding(key));
 
-                const auto headerType = QJsonIO::GetValue(objStream, {"quicSettings", "header", "type"}).toString("none");
-                if (headerType != "none") query.addQueryItem("headerType", headerType);
+                const auto headerType = QJsonIO::GetValue(objStream, { "quicSettings", "header", "type" }).toString("none");
+                if (headerType != "none")
+                    query.addQueryItem("headerType", headerType);
             }
         }
 
         // -------- TLS RELATED --------
         const auto tlsKey = security == "xtls" ? "xtlsSettings" : "tlsSettings";
 
-        const auto sni = QJsonIO::GetValue(objStream, {tlsKey, "serverName"}).toString();
-        if (!sni.isEmpty()) query.addQueryItem("sni", sni);
+        const auto sni = QJsonIO::GetValue(objStream, { tlsKey, "serverName" }).toString();
+        if (!sni.isEmpty())
+            query.addQueryItem("sni", sni);
         // TODO: ALPN Support
 
         // -------- XTLS Flow --------
-        if (security == "xtls") {
+        if (security == "xtls")
+        {
             const auto flow = QJsonIO::GetValue(obj, "vnext", 0, "users", 0, "flow").toString();
             query.addQueryItem("flow", flow);
         }

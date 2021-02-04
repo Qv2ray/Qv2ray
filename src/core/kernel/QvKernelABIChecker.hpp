@@ -1,5 +1,9 @@
 #pragma once
 
+#include "base/Qv2rayFeatures.hpp"
+
+#if QV2RAY_HAS_FEATURE(kernel_check_abi)
+
 #include <QDataStream>
 #include <QFile>
 #include <QString>
@@ -44,7 +48,7 @@ namespace Qv2ray::core::kernel
             QvKernelABIType::ABI_ELF_ARM;
 #else
             QvKernelABIType::ABI_TRUSTED;
-    #define QV2RAY_TRUSTED_ABI
+#define QV2RAY_TRUSTED_ABI
 #endif
 
         std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable);
@@ -52,3 +56,5 @@ namespace Qv2ray::core::kernel
         QString abiToString(QvKernelABIType abi);
     } // namespace abi
 } // namespace Qv2ray::core::kernel
+
+#endif

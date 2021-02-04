@@ -2,10 +2,10 @@
 #include <QtGlobal>
 #ifdef Q_OS_UNIX
 
-    #include "../DNSBase.hpp"
-    #include "uvw.hpp"
+#include "../DNSBase.hpp"
+#include "uvw.hpp"
 
-    #include <QString>
+#include <QString>
 namespace Qv2ray::components::latency::icmping
 {
     class ICMPPing : public DNSBase<ICMPPing>

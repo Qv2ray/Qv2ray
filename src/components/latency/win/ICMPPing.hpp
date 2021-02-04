@@ -3,9 +3,9 @@
 #include <QtGlobal>
 #ifdef Q_OS_WIN
 
-    #include "../DNSBase.hpp"
+#include "../DNSBase.hpp"
 
-    #include <memory>
+#include <memory>
 
 namespace Qv2ray::components::latency::icmping
 {

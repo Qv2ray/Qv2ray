@@ -10,9 +10,9 @@
 #include <QQuickStyle>
 
 #ifdef QV2RAY_QMLLIVE_DEBUG
-    #include <qmllive/livenodeengine.h>
-    #include <qmllive/qmllive.h>
-    #include <qmllive/remotereceiver.h>
+#include <qmllive/livenodeengine.h>
+#include <qmllive/qmllive.h>
+#include <qmllive/remotereceiver.h>
 #endif
 
 Qv2rayQMLApplication::Qv2rayQMLApplication(int &argc, char *argv[]) : Qv2rayPlatformApplication(argc, argv)

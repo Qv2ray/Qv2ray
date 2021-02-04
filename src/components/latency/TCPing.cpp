@@ -12,7 +12,7 @@ namespace Qv2ray::components::latency::tcping
     {
         uv_os_sock_t fd;
 #ifndef INVALID_SOCKET
-    #define INVALID_SOCKET -1
+#define INVALID_SOCKET -1
 #endif
         if ((fd = socket(af, socktype, proto)) == INVALID_SOCKET)
         {
@@ -23,7 +23,7 @@ namespace Qv2ray::components::latency::tcping
         // See [https://github.com/libuv/help/issues/54] for details.
 #if defined(_WIN32) && !defined(__SYMBIAN32__)
 #ifndef TCP_MAXRT
-    #define TCP_MAXRT 5
+#define TCP_MAXRT 5
 #endif
         setsockopt(fd, IPPROTO_TCP, TCP_MAXRT, (char *) &conn_timeout_sec, sizeof(conn_timeout_sec));
 #elif defined(__APPLE__)

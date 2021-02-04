@@ -2,21 +2,21 @@
 
 // Backtrace Handler
 #ifndef Q_OS_WIN
-    #ifdef QV2RAY_HAS_BACKWARD
-        #include "3rdparty/backward-cpp/backward.hpp"
-    #endif
+#ifdef QV2RAY_HAS_BACKWARD
+#include "3rdparty/backward-cpp/backward.hpp"
+#endif
 #endif
 
 #ifdef QV2RAY_CLI
-    #include "ui/cli/Qv2rayCliApplication.hpp"
+#include "ui/cli/Qv2rayCliApplication.hpp"
 #endif
 
 #ifdef QV2RAY_GUI_QWIDGETS
-    #include "ui/widgets/Qv2rayWidgetApplication.hpp"
+#include "ui/widgets/Qv2rayWidgetApplication.hpp"
 #endif
 
 #ifdef QV2RAY_GUI_QML
-    #include "ui/qml/Qv2rayQMLApplication.hpp"
+#include "ui/qml/Qv2rayQMLApplication.hpp"
 #endif
 
 #include "utils/QvHelpers.hpp"
@@ -24,11 +24,11 @@
 #include <csignal>
 
 #ifndef Q_OS_WIN
-    #include <unistd.h>
+#include <unistd.h>
 #else
-    #include <Windows.h>
-    //
-    #include <DbgHelp.h>
+#include <Windows.h>
+//
+#include <DbgHelp.h>
 #endif
 
 #define QV_MODULE_NAME "Init"
@@ -60,7 +60,7 @@ const QString SayLastWords() noexcept
 
     {
 #ifndef Q_OS_WIN
-    #ifdef QV2RAY_HAS_BACKWARD
+#ifdef QV2RAY_HAS_BACKWARD
         const static QString SourceFormat = "    ---> %1:[%2:%3]";
         backward::StackTrace st;
         backward::TraceResolver resolver;
@@ -82,7 +82,7 @@ const QString SayLastWords() noexcept
                 msg << newLine;
             }
         }
-    #endif
+#endif
 #else
         void *stack[1024];
         HANDLE process = GetCurrentProcess();
@@ -263,9 +263,9 @@ int main(int argc, char *argv[])
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    #ifdef QV2RAY_GUI
+#ifdef QV2RAY_GUI
         QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
-    #endif
+#endif
 #endif
     }
 

@@ -7,16 +7,16 @@
 
 #include <QObject>
 #ifdef Q_OS_UNIX
-    #include <netinet/in.h>
-    #include <netinet/ip.h> //macos need that
-    #include <netinet/ip_icmp.h>
-    #include <sys/socket.h>
-    #include <sys/time.h>
-    #include <unistd.h>
+#include <netinet/in.h>
+#include <netinet/ip.h> //macos need that
+#include <netinet/ip_icmp.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <unistd.h>
 
-    #ifdef Q_OS_MAC
-        #define SOL_IP 0
-    #endif
+#ifdef Q_OS_MAC
+#define SOL_IP 0
+#endif
 
 namespace Qv2ray::components::latency::icmping
 {
@@ -144,18 +144,18 @@ namespace Qv2ray::components::latency::icmping
                 } while (rlen == -1 && errno == EINTR);
 
                 // skip malformed
-    #ifdef Q_OS_MAC
+#ifdef Q_OS_MAC
                 if (rlen < sizeof(icmp) + 20)
-    #else
+#else
                 if (rlen < sizeof(icmp))
-    #endif
+#endif
                     continue;
 
-    #ifdef Q_OS_MAC
+#ifdef Q_OS_MAC
                 auto &resp = *reinterpret_cast<icmp *>(buf + 20);
-    #else
+#else
                 auto &resp = *reinterpret_cast<icmp *>(buf);
-    #endif
+#endif
                 // skip the ones we didn't send
                 auto cur_seq = resp.icmp_hun.ih_idseq.icd_seq;
                 if (cur_seq >= seq)

@@ -4,7 +4,7 @@
 #include "base/Qv2rayBase.hpp"
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    #include <QStringConverter>
+#include <QStringConverter>
 #endif
 
 #define QV_MODULE_NAME "Utils"

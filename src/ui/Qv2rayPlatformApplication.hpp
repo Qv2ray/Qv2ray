@@ -8,22 +8,22 @@
 #include "utils/QvHelpers.hpp"
 
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
-    #ifdef Q_OS_ANDROID
-        // No SingleApplication on Android platform
-        #define QV2RAY_NO_SINGLEAPPLICATON
-    #elif QV2RAY_WORKAROUND_MACOS_MEMLOCK
-        // No SingleApplication on macOS locking error
-        #define QV2RAY_NO_SINGLEAPPLICATON
-    #endif
+#ifdef Q_OS_ANDROID
+// No SingleApplication on Android platform
+#define QV2RAY_NO_SINGLEAPPLICATON
+#elif QV2RAY_WORKAROUND_MACOS_MEMLOCK
+// No SingleApplication on macOS locking error
+#define QV2RAY_NO_SINGLEAPPLICATON
+#endif
 #endif
 
 #ifdef Q_OS_WIN
-    #include <windows.h>
+#include <windows.h>
 #endif
 
 #ifdef QV2RAY_GUI
-    #include <QApplication>
-    #include <QMessageBox>
+#include <QApplication>
+#include <QMessageBox>
 const static inline QMap<MessageOpt, QMessageBox::StandardButton> MessageBoxButtonMap //
     = { { No, QMessageBox::No },
         { OK, QMessageBox::Ok },
@@ -31,16 +31,16 @@ const static inline QMap<MessageOpt, QMessageBox::StandardButton> MessageBoxButt
         { Cancel, QMessageBox::Cancel },
         { Ignore, QMessageBox::Ignore } };
 #else
-    #include <QCoreApplication>
+#include <QCoreApplication>
 #endif
 
 #ifndef QV2RAY_NO_SINGLEAPPLICATON
-    #include <SingleApplication>
-    #define QVBASEAPPLICATION SingleApplication
-    #define QVBASEAPPLICATION_CTORARGS argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion
+#include <SingleApplication>
+#define QVBASEAPPLICATION SingleApplication
+#define QVBASEAPPLICATION_CTORARGS argc, argv, true, User | ExcludeAppPath | ExcludeAppVersion
 #else
-    #define QVBASEAPPLICATION QAPPLICATION_CLASS
-    #define QVBASEAPPLICATION_CTORARGS argc, argv
+#define QVBASEAPPLICATION QAPPLICATION_CLASS
+#define QVBASEAPPLICATION_CTORARGS argc, argv
 #endif
 
 class Qv2rayPlatformApplication
