@@ -550,10 +550,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation type="unfinished">Import config file</translation>
     </message>
     <message>
-      <source>Failed to check the validity of the config file.</source>
-      <translation type="unfinished">Failed to check the validity of the config file.</translation>
-    </message>
-    <message>
       <source>Select an image to import</source>
       <translation type="unfinished">Select an image to import</translation>
     </message>
@@ -1710,10 +1706,6 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Your time offset is %1 seconds, which is too high.</translation>
     </message>
     <message>
-      <source>Please synchronize your system to use V2Ray.</source>
-      <translation type="unfinished">Please synchronize your system to use V2Ray.</translation>
-    </message>
-    <message>
       <source>Time Inaccurate</source>
       <translation type="unfinished">Time Inaccurate</translation>
     </message>
@@ -1722,20 +1714,12 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Your time offset is %1 seconds, which is a little high.</translation>
     </message>
     <message>
-      <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
-      <translation type="unfinished">V2Ray may still work, but we suggest you synchronize your clock.</translation>
-    </message>
-    <message>
       <source>Time Somewhat Inaccurate</source>
       <translation type="unfinished">Time Somewhat Inaccurate</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which looks good.</source>
       <translation type="unfinished">Your time offset is %1 seconds, which looks good.</translation>
-    </message>
-    <message>
-      <source>V2Ray may not suffer from time inaccuracy.</source>
-      <translation type="unfinished">V2Ray may not suffer from time inaccuracy.</translation>
     </message>
     <message>
       <source>Time Accurate</source>
@@ -1968,6 +1952,18 @@ Output:
     <message>
       <source>TLS</source>
       <translation type="unfinished">TLS</translation>
+    </message>
+    <message>
+      <source>Please synchronize your system to use the VMess protocol.</source>
+      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
+      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may not suffer from time inaccuracy.</source>
+      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
     </message>
   </context>
   <context>
@@ -2566,24 +2562,16 @@ Maybe you have downloaded the wrong core?</translation>
       <translation type="unfinished">Configuration Error</translation>
     </message>
     <message>
-      <source>Cannot start V2Ray</source>
-      <translation type="unfinished">Cannot start V2Ray</translation>
-    </message>
-    <message>
-      <source>V2Ray core settings is incorrect.</source>
-      <translation type="unfinished">V2Ray core settings is incorrect.</translation>
-    </message>
-    <message>
-      <source>The error is: </source>
-      <translation type="unfinished">The error is: </translation>
-    </message>
-    <message>
       <source>Invalid V2Ray Instance Status.</source>
       <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
     </message>
     <message>
-      <source>V2Ray kernel failed to start.</source>
-      <translation type="unfinished">V2Ray kernel failed to start.</translation>
+      <source>Core file not executable.</source>
+      <translation type="unfinished">Core file not executable.</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start: </source>
+      <translation type="unfinished">V2Ray kernel failed to start: </translation>
     </message>
   </context>
   <context>
