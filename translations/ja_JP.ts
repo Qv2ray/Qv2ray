@@ -547,10 +547,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>設定ファイルをインポートする</translation>
     </message>
     <message>
-      <source>Failed to check the validity of the config file.</source>
-      <translation>構成ファイルの有効性を確認できませんでした。</translation>
-    </message>
-    <message>
       <source>Select an image to import</source>
       <translation>インポートする画像を選択してください</translation>
     </message>
@@ -1699,10 +1695,6 @@ Custom DNS Settings</source>
       <translation>あなたの時間オフセットは %1 秒ですが、これは高すぎます。</translation>
     </message>
     <message>
-      <source>Please synchronize your system to use V2Ray.</source>
-      <translation>V2Rayを使用するには、システムの時間を同期してください。</translation>
-    </message>
-    <message>
       <source>Time Inaccurate</source>
       <translation>時間不正確</translation>
     </message>
@@ -1711,20 +1703,12 @@ Custom DNS Settings</source>
       <translation>あなたの時間オフセットは %1 秒で、少し高いです。</translation>
     </message>
     <message>
-      <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
-      <translation>V2Rayはまだ動作するかもしれませんが、システムの時間を同期させることをお勧めします。</translation>
-    </message>
-    <message>
       <source>Time Somewhat Inaccurate</source>
       <translation>時間多少不正確</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which looks good.</source>
       <translation>あなたの時間オフセットは %1 秒ですが、これは良さそうです。</translation>
-    </message>
-    <message>
-      <source>V2Ray may not suffer from time inaccuracy.</source>
-      <translation>V2Rayが正常に動作します。</translation>
     </message>
     <message>
       <source>Time Accurate</source>
@@ -1957,6 +1941,18 @@ Output: <byte value="xd"/>
     <message>
       <source>TLS</source>
       <translation>TLS</translation>
+    </message>
+    <message>
+      <source>Please synchronize your system to use the VMess protocol.</source>
+      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
+      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may not suffer from time inaccuracy.</source>
+      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
     </message>
   </context>
   <context>
@@ -2549,24 +2545,16 @@ Maybe you have downloaded the wrong core?</source>
       <translation>設定エラー</translation>
     </message>
     <message>
-      <source>Cannot start V2Ray</source>
-      <translation>V2Rayを開始できません</translation>
-    </message>
-    <message>
-      <source>V2Ray core settings is incorrect.</source>
-      <translation>V2Rayコア設定が正しくありません。</translation>
-    </message>
-    <message>
-      <source>The error is: </source>
-      <translation>エラーは以下の通りです: </translation>
-    </message>
-    <message>
       <source>Invalid V2Ray Instance Status.</source>
       <translation>無効なV2Rayインスタンスステータスです。</translation>
     </message>
     <message>
-      <source>V2Ray kernel failed to start.</source>
-      <translation>V2Ray カーネルの起動に失敗しました。</translation>
+      <source>Core file not executable.</source>
+      <translation type="unfinished">Core file not executable.</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start: </source>
+      <translation type="unfinished">V2Ray kernel failed to start: </translation>
     </message>
   </context>
   <context>
