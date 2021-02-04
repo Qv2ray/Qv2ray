@@ -38,6 +38,9 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog("ImportWindow
             defaultItemIndex = groupCombo->count() - 1;
     }
     groupCombo->setCurrentIndex(defaultItemIndex);
+#if !QV2RAY_FEATURE(ui_has_import_qrcode)
+    qrCodeTab->setVisible(false);
+#endif
 }
 
 void ImportConfigWindow::updateColorScheme()
@@ -118,6 +121,7 @@ int ImportConfigWindow::PerformImportConnection()
     return count;
 }
 
+#if QV2RAY_FEATURE(ui_has_import_qrcode)
 void ImportConfigWindow::on_selectFileBtn_clicked()
 {
     const auto dir = QFileDialog::getOpenFileName(this, tr("Select file to import"));
@@ -156,6 +160,35 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         }
     }
 }
+
+void ImportConfigWindow::on_selectImageBtn_clicked()
+{
+    const auto dir = QFileDialog::getOpenFileName(this, tr("Select an image to import"));
+    imageFileEdit->setText(dir);
+    //
+    QFile file(dir);
+    if (!file.exists())
+        return;
+    file.open(QFile::OpenModeFlag::ReadOnly);
+    auto buf = file.readAll();
+    file.close();
+    //
+    const auto str = DecodeQRCode(QImage::fromData(buf));
+
+    if (str.isEmpty())
+    {
+        QvMessageBoxWarn(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
+        return;
+    }
+    qrCodeLinkTxt->setText(str.trimmed());
+}
+
+void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)
+{
+    Q_UNUSED(arg1)
+    SET_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->isChecked)
+}
+#endif
 
 void ImportConfigWindow::on_beginImportBtn_clicked()
 {
@@ -265,27 +298,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
     accept();
 }
-void ImportConfigWindow::on_selectImageBtn_clicked()
-{
-    const auto dir = QFileDialog::getOpenFileName(this, tr("Select an image to import"));
-    imageFileEdit->setText(dir);
-    //
-    QFile file(dir);
-    if (!file.exists())
-        return;
-    file.open(QFile::OpenModeFlag::ReadOnly);
-    auto buf = file.readAll();
-    file.close();
-    //
-    const auto str = DecodeQRCode(QImage::fromData(buf));
 
-    if (str.isEmpty())
-    {
-        QvMessageBoxWarn(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
-        return;
-    }
-    qrCodeLinkTxt->setText(str.trimmed());
-}
 void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
@@ -330,12 +343,6 @@ void ImportConfigWindow::on_routeEditBtn_clicked()
         connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, result);
         accept();
     }
-}
-
-void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)
-{
-    Q_UNUSED(arg1)
-    SET_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->isChecked)
 }
 
 void ImportConfigWindow::on_jsonEditBtn_clicked()

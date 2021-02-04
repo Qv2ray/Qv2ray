@@ -727,7 +727,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     auto vcorePath = vCorePathTxt->text();
     auto vAssetsPath = vCoreAssetsPathTxt->text();
 
-#if QV2RAY_HAS_FEATURE(kernel_check_filename)
+#if QV2RAY_FEATURE(kernel_check_filename)
     // prevent some bullshit situations.
     if (const auto vCorePathSmallCased = vcorePath.toLower(); vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
     {
@@ -761,7 +761,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     {
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), ACCESS_OPTIONAL_VALUE(msg));
     }
-#if QV2RAY_HAS_FEATURE(kernel_check_output)
+#if QV2RAY_FEATURE(kernel_check_output)
     else if (!msg->toLower().contains("v2ray") && !msg->toLower().contains("xray"))
     {
         const auto strWarnContent = tr("This does not seem like an output from V2Ray Core.\r\n"

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#if QV2RAY_HAS_FEATURE(kernel_check_abi)
+#if QV2RAY_FEATURE(kernel_check_abi)
 
 namespace Qv2ray::core::kernel::abi
 {

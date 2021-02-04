@@ -45,20 +45,26 @@ class QvStateObject
 
   public:
     explicit QvStateObject(const QString &name) : windowName(name){};
-    void SaveState()
-    {
-        QvWidgetApplication->UIStates[windowName] = saveStateImpl();
-    }
-
-    void RestoreState()
-    {
-        restoreStateImpl(QvWidgetApplication->UIStates[windowName].toObject());
-    }
 
   protected:
     void addStateOptions(QString name, std::pair<options_save_func_t, options_restore_func_t> funcs)
     {
         state_options_list[name] = funcs;
+    }
+
+  private:
+    const QString windowName;
+    options_storage_type state_options_list;
+
+#if QV2RAY_FEATURE(ui_has_store_state)
+  public:
+    void SaveState()
+    {
+        QvWidgetApplication->UIStates[windowName] = saveStateImpl();
+    }
+    void RestoreState()
+    {
+        restoreStateImpl(QvWidgetApplication->UIStates[windowName].toObject());
     }
 
   private:
@@ -75,8 +81,7 @@ class QvStateObject
             if (o.contains(name))
                 pair.second(o[name]);
     }
-    options_storage_type state_options_list;
-    const QString windowName;
+#endif
 };
 
 class QvDialog
@@ -87,7 +92,9 @@ class QvDialog
   public:
     explicit QvDialog(const QString &name, QWidget *parent) : QDialog(parent), QvStateObject(name)
     {
+#if QV2RAY_FEATURE(ui_has_store_state)
         connect(this, &QvDialog::finished, [this] { SaveState(); });
+#endif
     }
     virtual ~QvDialog(){};
     virtual void processCommands(QString command, QStringList commands, QMap<QString, QString> args) = 0;
@@ -98,7 +105,9 @@ class QvDialog
     void showEvent(QShowEvent *event) override
     {
         QWidget::showEvent(event);
+#if QV2RAY_FEATURE(ui_has_store_state)
         RestoreState();
+#endif
     }
 };
 

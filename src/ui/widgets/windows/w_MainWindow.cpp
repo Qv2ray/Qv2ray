@@ -466,7 +466,9 @@ void MainWindow::Action_Start()
 
 MainWindow::~MainWindow()
 {
+#if QV2RAY_FEATURE(ui_has_store_state)
     SaveState();
+#endif
     delete modelHelper;
     for (auto &widget : pluginWidgets)
         widget->accept();

@@ -20,7 +20,9 @@ void MainWindow::MWToggleVisibility()
 
 void MainWindow::MWShowWindow()
 {
+#if QV2RAY_FEATURE(ui_has_store_state)
     RestoreState();
+#endif
     this->show();
 #ifdef Q_OS_WIN
     setWindowState(Qt::WindowNoState);
@@ -41,7 +43,9 @@ void MainWindow::MWHideWindow()
     ProcessSerialNumber psn = { 0, kCurrentProcess };
     TransformProcessType(&psn, kProcessTransformToUIElementApplication);
 #endif
+#if QV2RAY_FEATURE(ui_has_store_state)
     SaveState();
+#endif
     this->hide();
     tray_action_ToggleVisibility->setText(tr("Show"));
 }
