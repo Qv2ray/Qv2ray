@@ -2,7 +2,7 @@
 
 #include "base/Qv2rayFeatures.hpp"
 
-#if QV2RAY_HAS_FEATURE(kernel_check_abi)
+#if QV2RAY_FEATURE(kernel_check_abi)
 
 #include <QDataStream>
 #include <QFile>

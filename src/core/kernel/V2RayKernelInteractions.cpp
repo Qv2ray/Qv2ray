@@ -11,7 +11,7 @@
 
 namespace Qv2ray::core::kernel
 {
-#if QV2RAY_HAS_FEATURE(kernel_check_permission)
+#if QV2RAY_FEATURE(kernel_check_permission)
     std::pair<bool, std::optional<QString>> V2RayKernelInstance::CheckAndSetCoreExecutableState(const QString &vCorePath)
     {
 #ifdef Q_OS_UNIX
@@ -20,7 +20,7 @@ namespace Qv2ray::core::kernel
         QFile coreFile(vCorePath);
         if (!coreFile.permissions().testFlag(QFileDevice::ExeUser))
         {
-#if QV2RAY_HAS_FEATURE(kernel_set_permission)
+#if QV2RAY_FEATURE(kernel_set_permission)
             DEBUG("Core file not executable. Trying to enable.");
             const auto result = coreFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
             if (!result)
@@ -65,7 +65,7 @@ namespace Qv2ray::core::kernel
 
         coreFile.close();
 
-#if QV2RAY_HAS_FEATURE(kernel_check_abi)
+#if QV2RAY_FEATURE(kernel_check_abi)
         // Get Core ABI.
         const auto [abi, err] = kernel::abi::deduceKernelABI(corePath);
         if (err)
@@ -104,7 +104,7 @@ namespace Qv2ray::core::kernel
         }
 #endif
 
-#if QV2RAY_HAS_FEATURE(kernel_check_permission)
+#if QV2RAY_FEATURE(kernel_check_permission)
         // Check executable permissions.
         const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(corePath);
         if (!isExecutableOk)

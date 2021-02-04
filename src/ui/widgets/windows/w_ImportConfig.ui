@@ -96,7 +96,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="qrCodeTab">
       <attribute name="title">
        <string>QR Code</string>
       </attribute>
