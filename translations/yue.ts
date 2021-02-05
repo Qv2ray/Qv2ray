@@ -1670,18 +1670,6 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Failed to set auto start option.</translation>
     </message>
     <message>
-      <source>Disabling API Subsystem</source>
-      <translation type="unfinished">Disabling API Subsystem</translation>
-    </message>
-    <message>
-      <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
-      <translation type="unfinished">Disabling API subsystem will also disable the statistics function of Qv2ray.</translation>
-    </message>
-    <message>
-      <source>Speed chart and traffic statistics will be disabled.</source>
-      <translation type="unfinished">Speed chart and traffic statistics will be disabled.</translation>
-    </message>
-    <message>
       <source>Dangerous Operation</source>
       <translation type="unfinished">Dangerous Operation</translation>
     </message>
@@ -1866,18 +1854,6 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
       <translation type="unfinished">Force Direct for All Connections</translation>
     </message>
     <message>
-      <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
-Output: <byte value="xd"/>
-<byte value="xd"/>
-</source>
-      <translation type="unfinished">This does not seem like an output from V2Ray Core.
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.
-Output: 
-
-</translation>
-    </message>
-    <message>
       <source>&apos;V2Ray Core&apos; Settings</source>
       <translation type="unfinished">&apos;V2Ray Core&apos; Settings</translation>
     </message>
@@ -1964,6 +1940,26 @@ Output:
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
       <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
+    </message>
+    <message>
+      <source>This does not seem like an output from V2Ray Core.</source>
+      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+    </message>
+    <message>
+      <source>Output:</source>
+      <translation type="unfinished">Output:</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
+      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+    </message>
+    <message>
+      <source>No NTP Backend</source>
+      <translation type="unfinished">No NTP Backend</translation>
+    </message>
+    <message>
+      <source>Qv2ray was not built with NTP support.</source>
+      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
     </message>
   </context>
   <context>
