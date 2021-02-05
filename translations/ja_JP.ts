@@ -1659,18 +1659,6 @@ Custom DNS Settings</source>
       <translation>自動起動オプションの設定に失敗しました。</translation>
     </message>
     <message>
-      <source>Disabling API Subsystem</source>
-      <translation>APIサブシステムを無効</translation>
-    </message>
-    <message>
-      <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
-      <translation>APIサブシステムを無効にすると、Qv2rayの統計機能も無効になります。</translation>
-    </message>
-    <message>
-      <source>Speed chart and traffic statistics will be disabled.</source>
-      <translation>スピードチャートや交通統計は無効になります。</translation>
-    </message>
-    <message>
       <source>Dangerous Operation</source>
       <translation>危険操作</translation>
     </message>
@@ -1855,18 +1843,6 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>すべての接続に直接を</translation>
     </message>
     <message>
-      <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
-Output: <byte value="xd"/>
-<byte value="xd"/>
-</source>
-      <translation>これはV2Rayコアからの出力のようには見えません。
-プラグインコアを探している場合は、ここではなくプラグイン設定でこれを変更する必要があります。
-出力：
-
-</translation>
-    </message>
-    <message>
       <source>&apos;V2Ray Core&apos; Settings</source>
       <translation>「V2Rayコア」設定</translation>
     </message>
@@ -1953,6 +1929,26 @@ Output: <byte value="xd"/>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
       <translation>VMess のプロトコルは、時間の不正確さに苦しむことはありません。</translation>
+    </message>
+    <message>
+      <source>This does not seem like an output from V2Ray Core.</source>
+      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+    </message>
+    <message>
+      <source>Output:</source>
+      <translation type="unfinished">Output:</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
+      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+    </message>
+    <message>
+      <source>No NTP Backend</source>
+      <translation type="unfinished">No NTP Backend</translation>
+    </message>
+    <message>
+      <source>Qv2ray was not built with NTP support.</source>
+      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
     </message>
   </context>
   <context>
