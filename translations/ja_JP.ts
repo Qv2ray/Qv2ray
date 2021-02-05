@@ -1932,23 +1932,23 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.</source>
-      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+      <translation>これは、V2Ray Coreからの出力ではないようです。</translation>
     </message>
     <message>
       <source>Output:</source>
-      <translation type="unfinished">Output:</translation>
+      <translation>出力:</translation>
     </message>
     <message>
       <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+      <translation>プラグインの設定を探している場合は、プラグインの設定に進んでください。</translation>
     </message>
     <message>
       <source>No NTP Backend</source>
-      <translation type="unfinished">No NTP Backend</translation>
+      <translation>NTPバックエンドがありません</translation>
     </message>
     <message>
       <source>Qv2ray was not built with NTP support.</source>
-      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
+      <translation>Qv2rayはNTPサポートでは構築されませんでした。</translation>
     </message>
   </context>
   <context>
