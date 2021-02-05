@@ -1659,18 +1659,6 @@ Custom DNS Settings</source>
       <translation>无法设置自动启动选项。</translation>
     </message>
     <message>
-      <source>Disabling API Subsystem</source>
-      <translation>禁用 API 子系统</translation>
-    </message>
-    <message>
-      <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
-      <translation>如果禁用 API 子系统，Qv2ray 的统计功能也会被一同禁用。</translation>
-    </message>
-    <message>
-      <source>Speed chart and traffic statistics will be disabled.</source>
-      <translation>速度图表和流量统计功能将不再可用。</translation>
-    </message>
-    <message>
       <source>Dangerous Operation</source>
       <translation>危险操作</translation>
     </message>
@@ -1855,18 +1843,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
       <translation>强制所有连接直连</translation>
     </message>
     <message>
-      <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
-Output: <byte value="xd"/>
-<byte value="xd"/>
-</source>
-      <translation>这不像是 V2Ray 核心来的输出。
-若你在找插件核心，你应在插件设置中变更此项设定而非这里。
-输出如下: 
-
-</translation>
-    </message>
-    <message>
       <source>&apos;V2Ray Core&apos; Settings</source>
       <translation>“V2Ray 核心”设定</translation>
     </message>
@@ -1953,6 +1929,26 @@ Output: <byte value="xd"/>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
       <translation>VMess协议可能不会因时间不准确而受到影响。</translation>
+    </message>
+    <message>
+      <source>This does not seem like an output from V2Ray Core.</source>
+      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+    </message>
+    <message>
+      <source>Output:</source>
+      <translation type="unfinished">Output:</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
+      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+    </message>
+    <message>
+      <source>No NTP Backend</source>
+      <translation type="unfinished">No NTP Backend</translation>
+    </message>
+    <message>
+      <source>Qv2ray was not built with NTP support.</source>
+      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
     </message>
   </context>
   <context>
