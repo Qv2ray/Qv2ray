@@ -40,6 +40,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog("ImportWindow
     groupCombo->setCurrentIndex(defaultItemIndex);
 #if !QV2RAY_FEATURE(ui_has_import_qrcode)
     qrCodeTab->setVisible(false);
+    tabWidget->removeTab(1);
 #endif
 }
 
