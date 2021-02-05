@@ -41,13 +41,19 @@ namespace Qv2ray::base::config
 
     struct Qv2rayConfig_UI
     {
+#ifdef Q_OS_WIN
+        QString theme = "windowsvista";
+#elif defined(Q_OS_MACOS)
+        QString theme = "macintosh";
+#else
         QString theme = "Fusion";
+#endif
         QString language = "en_US";
         QList<ConnectionGroupPair> recentConnections;
         Qv2rayConfig_Graph graphConfig;
         bool quietMode = false;
         bool useDarkTheme = false;
-        bool useGlyphTrayIcon = false;
+        bool useGlyphTrayIcon = true;
         bool useDarkTrayIcon = false;
         int maximumLogLines = 500;
         int maxJumpListCount = 20;

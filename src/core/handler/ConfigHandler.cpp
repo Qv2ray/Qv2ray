@@ -419,13 +419,13 @@ namespace Qv2ray::core::handler
         CheckValidId(id, false);
 
         if (isSubscription.has_value())
-            groups[id].isSubscription = ACCESS_OPTIONAL_VALUE(isSubscription);
+            groups[id].isSubscription = *isSubscription;
 
         if (address.has_value())
-            groups[id].subscriptionOption.address = ACCESS_OPTIONAL_VALUE(address);
+            groups[id].subscriptionOption.address = *address;
 
         if (updateInterval.has_value())
-            groups[id].subscriptionOption.updateInterval = ACCESS_OPTIONAL_VALUE(updateInterval);
+            groups[id].subscriptionOption.updateInterval = *updateInterval;
 
         return true;
     }

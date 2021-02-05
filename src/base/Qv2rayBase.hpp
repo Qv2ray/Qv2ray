@@ -64,12 +64,6 @@ using namespace Qv2ray::base::objects::transfer;
 #error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to be presented when using manually specify the paths.
 #endif
 
-#ifdef Q_OS_MACOS
-#define ACCESS_OPTIONAL_VALUE(obj) (*obj)
-#else
-#define ACCESS_OPTIONAL_VALUE(obj) (obj.value())
-#endif
-
 #define QSTRN(num) QString::number(num)
 
 #define OUTBOUND_TAG_BLACKHOLE "BLACKHOLE"
@@ -81,8 +75,3 @@ using namespace Qv2ray::base::objects::transfer;
 #define API_TAG_INBOUND "QV2RAY_API_INBOUND"
 
 #define QV2RAY_USE_FPROXY_KEY "_QV2RAY_USE_GLOBAL_FORWARD_PROXY_"
-
-namespace Qv2ray
-{
-
-} // namespace Qv2ray
