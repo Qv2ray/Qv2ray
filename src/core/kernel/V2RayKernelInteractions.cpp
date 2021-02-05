@@ -70,17 +70,17 @@ namespace Qv2ray::core::kernel
         const auto [abi, err] = kernel::abi::deduceKernelABI(corePath);
         if (err)
         {
-            LOG("Core ABI deduction failed: " + ACCESS_OPTIONAL_VALUE(err));
-            return { false, ACCESS_OPTIONAL_VALUE(err) };
+            LOG("Core ABI deduction failed: " + *err);
+            return { false, *err };
         }
-        LOG("Core ABI: " + kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)));
+        LOG("Core ABI: " + kernel::abi::abiToString(*abi));
 
         // Get Compiled ABI
         auto compiledABI = kernel::abi::COMPILED_ABI_TYPE;
         LOG("Host ABI: " + kernel::abi::abiToString(compiledABI));
 
         // Check ABI Compatibility.
-        switch (kernel::abi::checkCompatibility(compiledABI, ACCESS_OPTIONAL_VALUE(abi)))
+        switch (kernel::abi::checkCompatibility(compiledABI, *abi))
         {
             case kernel::abi::ABI_NOPE:
             {
@@ -88,7 +88,7 @@ namespace Qv2ray::core::kernel
                 const auto msg = tr("V2Ray core is incompatible with your platform.\r\n"
                                     "Expected core ABI is %1, but got actual %2.\r\n"
                                     "Maybe you have downloaded the wrong core?")
-                                     .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)));
+                                     .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(*abi));
                 return { false, msg };
             }
             case kernel::abi::ABI_MAYBE:
@@ -159,7 +159,7 @@ namespace Qv2ray::core::kernel
         const auto &assetsPath = GlobalConfig.kernelConfig.AssetsPath();
         if (const auto &[result, msg] = ValidateKernel(kernelPath, assetsPath); result)
         {
-            DEBUG("V2Ray version: " + ACCESS_OPTIONAL_VALUE(msg));
+            DEBUG("V2Ray version: " + *msg);
             // Append assets location env.
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", assetsPath);
@@ -168,7 +168,7 @@ namespace Qv2ray::core::kernel
             QProcess process;
             process.setProcessEnvironment(env);
             DEBUG("Starting V2Ray core with test options");
-            process.start(kernelPath, QStringList{ "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
+            process.start(kernelPath, { "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
             process.waitForFinished();
 
             if (process.exitCode() != 0)
@@ -177,11 +177,9 @@ namespace Qv2ray::core::kernel
                 QvMessageBoxWarn(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
                 return { true, std::nullopt };
             }
-            else
-            {
-                DEBUG("Config file check passed.");
-                return { true, std::nullopt };
-            }
+
+            DEBUG("Config file check passed.");
+            return { true, std::nullopt };
         }
         else
         {
@@ -278,7 +276,7 @@ namespace Qv2ray::core::kernel
         else
         {
             kernelStarted = false;
-            return tr("V2Ray kernel failed to start: ") + ACCESS_OPTIONAL_VALUE(msg);
+            return tr("V2Ray kernel failed to start: ") + *msg;
         }
     }
 

@@ -17,6 +17,7 @@
 
 #include "QvNTPClient.hpp"
 
+#if QV2RAY_FEATURE(util_has_ntp)
 #include <cmath>
 
 namespace Qv2ray::components::ntp
@@ -214,3 +215,4 @@ namespace Qv2ray::components::ntp
     }
 
 } // namespace Qv2ray::components::ntp
+#endif

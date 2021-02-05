@@ -144,7 +144,7 @@ namespace Qv2ray::core::handler
             const auto portResult = CheckPort(inboundInfo, activeKernels.size());
             if (portResult)
             {
-                LOG(ACCESS_OPTIONAL_VALUE(portResult));
+                LOG(*portResult);
                 return portResult;
             }
             auto firstOutbound = fullConfig["outbounds"].toArray().first().toObject();

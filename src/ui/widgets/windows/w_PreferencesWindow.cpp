@@ -731,50 +731,38 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     // prevent some bullshit situations.
     if (const auto vCorePathSmallCased = vcorePath.toLower(); vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
     {
-        const auto strWarnTitle = tr("Watch Out!");
-        const auto strWarnContent = //
-            tr("You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.\r\n"
-               "This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.\r\n"
-               "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
-        const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
-                                                 QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
-                                                 QMessageBox::StandardButton::Abort);
-        if (answer == QMessageBox::StandardButton::Abort)
-            return;
+        const auto content = tr("You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.\r\n"
+                                "This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.\r\n"
+                                "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
+        QvMessageBoxWarn(this, tr("Watch Out!"), content);
     }
     else if (vCorePathSmallCased.endsWith("v2ctl") || vCorePathSmallCased.endsWith("v2ctl.exe"))
     {
-        const auto strWarnTitle = tr("Watch Out!");
-        const auto strWarnContent = //
-            tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
-               "The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.\r\n"
-               "If you insist to proceed, we're not providing with any support.");
-        const auto answer = QMessageBox::warning(this, strWarnTitle, strWarnContent,                                       //
-                                                 QMessageBox::StandardButton::Abort | QMessageBox::StandardButton::Ignore, //
-                                                 QMessageBox::StandardButton::Abort);
-        if (answer == QMessageBox::StandardButton::Abort)
-            return;
+        const auto content = tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
+                                "The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.\r\n"
+                                "If you insist to proceed, we're not providing with any support.");
+        QvMessageBoxWarn(this, tr("Watch Out!"), content);
     }
 #endif
 
     if (const auto &&[result, msg] = V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath); !result)
     {
-        QvMessageBoxWarn(this, tr("V2Ray Core Settings"), ACCESS_OPTIONAL_VALUE(msg));
+        QvMessageBoxWarn(this, tr("V2Ray Core Settings"), *msg);
     }
 #if QV2RAY_FEATURE(kernel_check_output)
     else if (!msg->toLower().contains("v2ray") && !msg->toLower().contains("xray"))
     {
-        const auto strWarnContent = tr("This does not seem like an output from V2Ray Core.\r\n"
-                                       "If you've been looking for plugin cores, you should change this in plugin settings rather than here.\r\n"
-                                       "Output: \r\n\r\n") +
-                                    result;
-        QvMessageBoxWarn(this, tr("'V2Ray Core' Settings"), strWarnContent);
+        const auto content = tr("This does not seem like an output from V2Ray Core.") + NEWLINE +                         //
+                             tr("If you are looking for plugins settings, you should go to plugin settings.") + NEWLINE + //
+                             tr("Output:") + NEWLINE +                                                                    //
+                             NEWLINE + *msg;
+        QvMessageBoxWarn(this, tr("'V2Ray Core' Settings"), content);
     }
 #endif
     else
     {
-        QvMessageBoxInfo(this, tr("V2Ray Core Settings"),
-                         tr("V2Ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2Ray is: ") + NEWLINE + result);
+        const auto content = tr("V2Ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2Ray is: ") + NEWLINE + *msg;
+        QvMessageBoxInfo(this, tr("V2Ray Core Settings"), content);
     }
 }
 
@@ -819,15 +807,7 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
 {
     LOADINGCHECK
     NEEDRESTART
-
     CurrentConfig.kernelConfig.enableAPI = arg1 == Qt::Checked;
-    if (arg1 == Qt::Unchecked)
-    {
-        const auto msgAPIDisableTitle = tr("Disabling API Subsystem");
-        const auto msgAPIDisableMsg = tr("Disabling API subsystem will also disable the statistics function of Qv2ray.") + NEWLINE + //
-                                      tr("Speed chart and traffic statistics will be disabled.");
-        QvMessageBoxWarn(this, msgAPIDisableTitle, msgAPIDisableMsg);
-    }
 }
 
 void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
@@ -1107,16 +1087,13 @@ void PreferencesWindow::on_socksOverrideTLSCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_pushButton_clicked()
 {
+#if QV2RAY_FEATURE(util_has_ntp)
     const auto ntpTitle = tr("NTP Checker");
     const auto ntpHint = tr("Check date and time from server:");
-    const static QStringList ntpServerList = { "cn.pool.ntp.org",         //
-                                               "cn.ntp.org.cn",           //
-                                               "edu.ntp.org.cn",          //
-                                               "time.pool.aliyun.com",    //
-                                               "time1.cloud.tencent.com", //
-                                               "ntp.neu.edu.cn" };
+    const static QStringList ntpServerList = { "cn.pool.ntp.org",      "cn.ntp.org.cn",           "edu.ntp.org.cn",
+                                               "time.pool.aliyun.com", "time1.cloud.tencent.com", "ntp.neu.edu.cn" };
     bool ok = false;
-    QString ntpServer = QInputDialog::getItem(this, ntpTitle, ntpHint, ntpServerList, 0, true, &ok).trimmed();
+    const auto ntpServer = QInputDialog::getItem(this, ntpTitle, ntpHint, ntpServerList, 0, true, &ok).trimmed();
     if (!ok)
         return;
 
@@ -1145,13 +1122,12 @@ void PreferencesWindow::on_pushButton_clicked()
 
     const auto hostInfo = QHostInfo::fromName(ntpServer);
     if (hostInfo.error() == QHostInfo::NoError)
-    {
         client->sendRequest(hostInfo.addresses().first(), 123);
-    }
     else
-    {
         QvMessageBoxWarn(this, ntpTitle, tr("Failed to lookup server: %1").arg(hostInfo.errorString()));
-    }
+#else
+    QvMessageBoxWarn(this, tr("No NTP Backend"), tr("Qv2ray was not built with NTP support."));
+#endif
 }
 
 void PreferencesWindow::on_noAutoConnectRB_clicked()

@@ -15,8 +15,12 @@
 namespace
 {
     constexpr auto LINK_PAGE = 0;
+#if QV2RAY_FEATURE(ui_has_import_qrcode)
     constexpr auto QRCODE_PAGE = 1;
     constexpr auto ADVANCED_PAGE = 2;
+#else
+    constexpr auto ADVANCED_PAGE = 1;
+#endif
 } // namespace
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog("ImportWindow", parent)
@@ -263,6 +267,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             break;
         }
+#if QV2RAY_FEATURE(ui_has_import_qrcode)
         case QRCODE_PAGE:
         {
             QString errorMsg;
@@ -278,15 +283,16 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             }
             break;
         }
+#endif
         case ADVANCED_PAGE:
         {
             // From File...
             bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
-            QString path = fileLineTxt->text();
+            const auto path = fileLineTxt->text();
 
             if (const auto &&[result, msg] = V2RayKernelInstance::ValidateConfig(path); !result)
             {
-                QvMessageBoxWarn(this, tr("Import config file"), ACCESS_OPTIONAL_VALUE(msg));
+                QvMessageBoxWarn(this, tr("Import config file"), *msg);
                 return;
             }
 
@@ -304,24 +310,20 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
 {
     Q_UNUSED(previous)
 
-    if (current == nullptr)
-    {
+    if (!current)
         return;
-    }
 
-    auto currentErrorText = current->text();
-    auto vmessEntry = linkErrors.key(currentErrorText);
+    const auto currentErrorText = current->text();
+    const auto vmessEntry = linkErrors.key(currentErrorText);
     //
-    auto startPos = vmessConnectionStringTxt->toPlainText().indexOf(vmessEntry);
-    auto endPos = startPos + vmessEntry.length();
+    const auto startPos = vmessConnectionStringTxt->toPlainText().indexOf(vmessEntry);
+    const auto endPos = startPos + vmessEntry.length();
 
     if (startPos < 0)
-    {
         return;
-    }
 
     // Select vmess string that is invalid.
-    QTextCursor c = vmessConnectionStringTxt->textCursor();
+    auto c = vmessConnectionStringTxt->textCursor();
     c.setPosition(startPos);
     c.setPosition(endPos, QTextCursor::KeepAnchor);
     vmessConnectionStringTxt->setTextCursor(c);
@@ -335,9 +337,9 @@ void ImportConfigWindow::on_cancelImportBtn_clicked()
 void ImportConfigWindow::on_routeEditBtn_clicked()
 {
     RouteEditor w(QJsonObject(), this);
-    auto result = w.OpenEditor();
+    const auto result = w.OpenEditor();
+    const auto alias = nameTxt->text();
     bool isChanged = w.result() == QDialog::Accepted;
-    QString alias = nameTxt->text();
 
     if (isChanged)
     {
@@ -349,9 +351,9 @@ void ImportConfigWindow::on_routeEditBtn_clicked()
 void ImportConfigWindow::on_jsonEditBtn_clicked()
 {
     JsonEditor w(QJsonObject(), this);
-    auto result = w.OpenEditor();
-    bool isChanged = w.result() == QDialog::Accepted;
-    QString alias = nameTxt->text();
+    const auto result = w.OpenEditor();
+    const auto alias = nameTxt->text();
+    const auto isChanged = w.result() == QDialog::Accepted;
 
     if (isChanged)
     {
