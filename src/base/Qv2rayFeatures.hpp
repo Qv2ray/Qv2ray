@@ -11,7 +11,7 @@
 #define QVFEATURE_kernel_set_permission          1
 
 // UI Options
-#define QVFEATURE_ui_has_import_qrcode           1
+#define QVFEATURE_ui_has_import_qrcode          -1
 #define QVFEATURE_ui_has_store_state             1
 
 // clang-format on
