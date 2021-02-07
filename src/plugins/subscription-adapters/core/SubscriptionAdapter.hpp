@@ -41,9 +41,9 @@ class BuiltinSubscriptionAdapterInterface : public SubscriptionInterface
     QList<Qv2rayPlugin::ProtocolInfoObject> SupportedSubscriptionTypes() const override
     {
         // "simple_base64" = magic value in Qv2ray main application
-        return {                                                        //
-                 ProtocolInfoObject{ "simple_base64", "Basic Base64" }, //
-                 ProtocolInfoObject{ "sip008", "SIP008" }
+        return {
+            ProtocolInfoObject{ "sip008", "SIP008" },             //
+            ProtocolInfoObject{ "simple_base64", "Basic Base64" } //
         };
     }
 
