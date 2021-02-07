@@ -547,10 +547,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>匯入配置檔案</translation>
     </message>
     <message>
-      <source>Failed to check the validity of the config file.</source>
-      <translation>檢查設定檔有效性時失敗。</translation>
-    </message>
-    <message>
       <source>Select an image to import</source>
       <translation>選擇要導入的圖像</translation>
     </message>
@@ -1663,18 +1659,6 @@ Custom DNS Settings</source>
       <translation>無法設置自動啟動選項。</translation>
     </message>
     <message>
-      <source>Disabling API Subsystem</source>
-      <translation>禁用 API 子系統</translation>
-    </message>
-    <message>
-      <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
-      <translation>如果禁用 API 子系統，Qv2ray 的統計功能也會被一同禁用。</translation>
-    </message>
-    <message>
-      <source>Speed chart and traffic statistics will be disabled.</source>
-      <translation>速度圖表和流量統計功能將不再可用。</translation>
-    </message>
-    <message>
       <source>Dangerous Operation</source>
       <translation>危險操作</translation>
     </message>
@@ -1699,10 +1683,6 @@ Custom DNS Settings</source>
       <translation>你的時間偏差為 %1 秒，太高了。</translation>
     </message>
     <message>
-      <source>Please synchronize your system to use V2Ray.</source>
-      <translation>請同步系統時間，否則無法正常使用 V2Ray。</translation>
-    </message>
-    <message>
       <source>Time Inaccurate</source>
       <translation>時間不准</translation>
     </message>
@@ -1711,20 +1691,12 @@ Custom DNS Settings</source>
       <translation>你的時間偏差為 %1 秒，有點高。</translation>
     </message>
     <message>
-      <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
-      <translation>V2Ray 可能不受影響，但我們建議同步時間。</translation>
-    </message>
-    <message>
       <source>Time Somewhat Inaccurate</source>
       <translation>時間略有偏差</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which looks good.</source>
       <translation>你的時間偏差為 %1 秒，沒有問題。</translation>
-    </message>
-    <message>
-      <source>V2Ray may not suffer from time inaccuracy.</source>
-      <translation>V2Ray 會正常工作。</translation>
     </message>
     <message>
       <source>Time Accurate</source>
@@ -1871,18 +1843,6 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
       <translation>所有連接皆直連</translation>
     </message>
     <message>
-      <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
-Output: <byte value="xd"/>
-<byte value="xd"/>
-</source>
-      <translation>此輸出似乎不是來自 V2Ray 核心。
-需要在外掛程式設定中變更外掛程式核心。
-輸出：
-
-</translation>
-    </message>
-    <message>
       <source>&apos;V2Ray Core&apos; Settings</source>
       <translation>“V2Ray” 核心設定</translation>
     </message>
@@ -1941,6 +1901,54 @@ Output: <byte value="xd"/>
     <message>
       <source>Start Minimized</source>
       <translation type="unfinished">Start Minimized</translation>
+    </message>
+    <message>
+      <source>Adapt Glyph Tray Icon</source>
+      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>目標覆蓋</translation>
+    </message>
+    <message>
+      <source>HTTP</source>
+      <translation>HTTP</translation>
+    </message>
+    <message>
+      <source>TLS</source>
+      <translation>TLS</translation>
+    </message>
+    <message>
+      <source>Please synchronize your system to use the VMess protocol.</source>
+      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
+      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may not suffer from time inaccuracy.</source>
+      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
+    </message>
+    <message>
+      <source>This does not seem like an output from V2Ray Core.</source>
+      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+    </message>
+    <message>
+      <source>Output:</source>
+      <translation type="unfinished">Output:</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
+      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+    </message>
+    <message>
+      <source>No NTP Backend</source>
+      <translation type="unfinished">No NTP Backend</translation>
+    </message>
+    <message>
+      <source>Qv2ray was not built with NTP support.</source>
+      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
     </message>
   </context>
   <context>
@@ -2309,6 +2317,26 @@ Output: <byte value="xd"/>
       <source>Please report a bug via Github with the file located here: </source>
       <translation type="unfinished">Please report a bug via Github with the file located here: </translation>
     </message>
+    <message>
+      <source>VLESS link should start with vless://</source>
+      <translation type="unfinished">VLESS link should start with vless://</translation>
+    </message>
+    <message>
+      <source>link parse failed: %1</source>
+      <translation type="unfinished">link parse failed: %1</translation>
+    </message>
+    <message>
+      <source>empty host</source>
+      <translation type="unfinished">empty host</translation>
+    </message>
+    <message>
+      <source>missing port</source>
+      <translation type="unfinished">missing port</translation>
+    </message>
+    <message>
+      <source>missing uuid</source>
+      <translation type="unfinished">missing uuid</translation>
+    </message>
   </context>
   <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
@@ -2513,24 +2541,16 @@ Maybe you have downloaded the wrong core?</translation>
       <translation type="unfinished">Configuration Error</translation>
     </message>
     <message>
-      <source>Cannot start V2Ray</source>
-      <translation type="unfinished">Cannot start V2Ray</translation>
-    </message>
-    <message>
-      <source>V2Ray core settings is incorrect.</source>
-      <translation type="unfinished">V2Ray core settings is incorrect.</translation>
-    </message>
-    <message>
-      <source>The error is: </source>
-      <translation type="unfinished">The error is: </translation>
-    </message>
-    <message>
       <source>Invalid V2Ray Instance Status.</source>
       <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
     </message>
     <message>
-      <source>V2Ray kernel failed to start.</source>
-      <translation type="unfinished">V2Ray kernel failed to start.</translation>
+      <source>Core file not executable.</source>
+      <translation type="unfinished">Core file not executable.</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start: </source>
+      <translation type="unfinished">V2Ray kernel failed to start: </translation>
     </message>
   </context>
   <context>

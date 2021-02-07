@@ -547,10 +547,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>設定ファイルをインポートする</translation>
     </message>
     <message>
-      <source>Failed to check the validity of the config file.</source>
-      <translation>構成ファイルの有効性を確認できませんでした。</translation>
-    </message>
-    <message>
       <source>Select an image to import</source>
       <translation>インポートする画像を選択してください</translation>
     </message>
@@ -1663,18 +1659,6 @@ Custom DNS Settings</source>
       <translation>自動起動オプションの設定に失敗しました。</translation>
     </message>
     <message>
-      <source>Disabling API Subsystem</source>
-      <translation>APIサブシステムを無効</translation>
-    </message>
-    <message>
-      <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
-      <translation>APIサブシステムを無効にすると、Qv2rayの統計機能も無効になります。</translation>
-    </message>
-    <message>
-      <source>Speed chart and traffic statistics will be disabled.</source>
-      <translation>スピードチャートや交通統計は無効になります。</translation>
-    </message>
-    <message>
       <source>Dangerous Operation</source>
       <translation>危険操作</translation>
     </message>
@@ -1699,10 +1683,6 @@ Custom DNS Settings</source>
       <translation>あなたの時間オフセットは %1 秒ですが、これは高すぎます。</translation>
     </message>
     <message>
-      <source>Please synchronize your system to use V2Ray.</source>
-      <translation>V2Rayを使用するには、システムの時間を同期してください。</translation>
-    </message>
-    <message>
       <source>Time Inaccurate</source>
       <translation>時間不正確</translation>
     </message>
@@ -1711,20 +1691,12 @@ Custom DNS Settings</source>
       <translation>あなたの時間オフセットは %1 秒で、少し高いです。</translation>
     </message>
     <message>
-      <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
-      <translation>V2Rayはまだ動作するかもしれませんが、システムの時間を同期させることをお勧めします。</translation>
-    </message>
-    <message>
       <source>Time Somewhat Inaccurate</source>
       <translation>時間多少不正確</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which looks good.</source>
       <translation>あなたの時間オフセットは %1 秒ですが、これは良さそうです。</translation>
-    </message>
-    <message>
-      <source>V2Ray may not suffer from time inaccuracy.</source>
-      <translation>V2Rayが正常に動作します。</translation>
     </message>
     <message>
       <source>Time Accurate</source>
@@ -1871,18 +1843,6 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>すべての接続に直接を</translation>
     </message>
     <message>
-      <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
-Output: <byte value="xd"/>
-<byte value="xd"/>
-</source>
-      <translation>これはV2Rayコアからの出力のようには見えません。
-プラグインコアを探している場合は、ここではなくプラグイン設定でこれを変更する必要があります。
-出力：
-
-</translation>
-    </message>
-    <message>
       <source>&apos;V2Ray Core&apos; Settings</source>
       <translation>「V2Rayコア」設定</translation>
     </message>
@@ -1942,6 +1902,54 @@ Output: <byte value="xd"/>
       <source>Start Minimized</source>
       <translation>最小化して起動</translation>
     </message>
+    <message>
+      <source>Adapt Glyph Tray Icon</source>
+      <translation>グリフトレイアイコンを調整</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>目標上書き</translation>
+    </message>
+    <message>
+      <source>HTTP</source>
+      <translation>HTTP</translation>
+    </message>
+    <message>
+      <source>TLS</source>
+      <translation>TLS</translation>
+    </message>
+    <message>
+      <source>Please synchronize your system to use the VMess protocol.</source>
+      <translation>VMessプロトコルを使用するには、システムを同期してください。</translation>
+    </message>
+    <message>
+      <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
+      <translation>VMess プロトコルはまだ動作するかもしれませんが、時計を同期させることをお勧めします。</translation>
+    </message>
+    <message>
+      <source>VMess protocol may not suffer from time inaccuracy.</source>
+      <translation>VMess のプロトコルは、時間の不正確さに苦しむことはありません。</translation>
+    </message>
+    <message>
+      <source>This does not seem like an output from V2Ray Core.</source>
+      <translation>これは、V2Ray Coreからの出力ではないようです。</translation>
+    </message>
+    <message>
+      <source>Output:</source>
+      <translation>出力:</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
+      <translation>プラグインの設定を探している場合は、プラグインの設定に進んでください。</translation>
+    </message>
+    <message>
+      <source>No NTP Backend</source>
+      <translation>NTPバックエンドがありません</translation>
+    </message>
+    <message>
+      <source>Qv2ray was not built with NTP support.</source>
+      <translation>Qv2rayはNTPサポートでは構築されませんでした。</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -1975,7 +1983,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Do not automatically connect</source>
-      <translation>自動的に接続しない</translation>
+      <translation>自動的に接続を無効化</translation>
     </message>
     <message>
       <source>Stop current connection</source>
@@ -2035,7 +2043,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>MainWindow Widget</source>
-      <translation>MainWindowウィジェット</translation>
+      <translation>メインウィンドウウィジェット</translation>
     </message>
     <message>
       <source>Unknown type.</source>
@@ -2063,23 +2071,23 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Unsupported share link format.</source>
-      <translation>サポートされていない共有リンク形式です。</translation>
+      <translation>この共有リンクはサポートされていないようです。</translation>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation>SS URI が短すぎます。</translation>
+      <translation>このSSのURIがは短すぎて有効ではありません</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
-      <translation>&apos;t メソッドとパスワード間のコロン区切り文字を見つけることができます。</translation>
+      <translation>メソッドとパスワードの間にコロン区切り記号が見つかりません</translation>
     </message>
     <message>
       <source>Can&apos;t find the at separator between password and hostname</source>
-      <translation>&apos;パスワードとホスト名の区切り文字で検索できます。</translation>
+      <translation>パスワードとホスト名の間にアンペアサット区切り文字が見つかりません</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation>&apos;ホスト名とポート間のコロン区切り文字を見つけることができます。</translation>
+      <translation>ホスト名とポートの間にコロン区切り記号が見つかりません</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
@@ -2091,7 +2099,7 @@ Output: <byte value="xd"/>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation>無効な ssd リンク: json: field %1 must be of type &apos;string&apos;</translation>
+      <translation>無効なリンク：json：フィールド％1は「文字列」タイプである必要があります</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
@@ -2309,6 +2317,26 @@ Output: <byte value="xd"/>
       <source>Please report a bug via Github with the file located here: </source>
       <translation>Github経由でバグを報告し、ファイルはこちらにあります： </translation>
     </message>
+    <message>
+      <source>VLESS link should start with vless://</source>
+      <translation>VLESS リンクは vless:// で始まる必要があります</translation>
+    </message>
+    <message>
+      <source>link parse failed: %1</source>
+      <translation>リンク解析に失敗しました: %1</translation>
+    </message>
+    <message>
+      <source>empty host</source>
+      <translation>空のホスト</translation>
+    </message>
+    <message>
+      <source>missing port</source>
+      <translation>ポートがありません</translation>
+    </message>
+    <message>
+      <source>missing uuid</source>
+      <translation>uuid がありません</translation>
+    </message>
   </context>
   <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
@@ -2513,24 +2541,16 @@ Maybe you have downloaded the wrong core?</source>
       <translation>設定エラー</translation>
     </message>
     <message>
-      <source>Cannot start V2Ray</source>
-      <translation>V2Rayを開始できません</translation>
-    </message>
-    <message>
-      <source>V2Ray core settings is incorrect.</source>
-      <translation>V2Rayコア設定が正しくありません。</translation>
-    </message>
-    <message>
-      <source>The error is: </source>
-      <translation>エラーは以下の通りです: </translation>
-    </message>
-    <message>
       <source>Invalid V2Ray Instance Status.</source>
       <translation>無効なV2Rayインスタンスステータスです。</translation>
     </message>
     <message>
-      <source>V2Ray kernel failed to start.</source>
-      <translation>V2Ray カーネルの起動に失敗しました。</translation>
+      <source>Core file not executable.</source>
+      <translation>コアファイルは実行できません。</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start: </source>
+      <translation>V2Ray カーネルの起動に失敗しました: </translation>
     </message>
   </context>
   <context>
