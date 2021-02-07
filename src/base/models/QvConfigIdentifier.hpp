@@ -249,11 +249,11 @@ namespace Qv2ray::base
     };
 
     template<typename T>
-    inline uint qHash(IDType<T> key)
+    inline size_t qHash(IDType<T> key)
     {
         return ::qHash(key.toString());
     }
-    inline uint qHash(const Qv2ray::base::ConnectionGroupPair &pair)
+    inline size_t qHash(const Qv2ray::base::ConnectionGroupPair &pair)
     {
         return ::qHash(pair.connectionId.toString() + pair.groupId.toString());
     }

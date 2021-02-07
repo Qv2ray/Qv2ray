@@ -21,7 +21,7 @@ namespace Qv2ray::core::handler
         {
             return currentId;
         }
-        int ActivePluginKernelsCount() const
+        size_t ActivePluginKernelsCount() const
         {
             return activeKernels.size();
         }

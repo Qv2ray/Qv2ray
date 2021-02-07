@@ -30,7 +30,7 @@ namespace Qv2ray::components::latency::icmping
     void ICMPPing::ping()
     {
         waitHandleTimer = loop->resource<uvw::TimerHandle>();
-        waitHandleTimer->on<uvw::TimerEvent>([ptr = shared_from_this(), this](auto &&, auto &&h) {
+        waitHandleTimer->on<uvw::TimerEvent>([ptr = shared_from_this(), this](auto &&, auto &&) {
             SleepEx(0, TRUE);
             if (data.failedCount + successCount == data.totalCount)
             {
