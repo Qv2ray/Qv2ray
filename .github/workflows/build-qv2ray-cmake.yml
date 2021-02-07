@@ -97,6 +97,7 @@ jobs:
           mkdir build; cd build;
           cmake .. -DCMAKE_BUILD_TYPE=Release
           cmake --build .
+          cp -v ./macdeployqt ${Qt5_DIR}/bin/macdeployqt
           ls -lah .
       # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Setup Ninja
@@ -130,6 +131,7 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja \
+            -DCMAKE_INSTALL_PREFIX=installed \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 \
             -DDS_STORE_SCRIPT=ON \
@@ -137,7 +139,6 @@ jobs:
             -DQV2RAY_DEFAULT_VCORE_PATH=/usr/local/opt/v2ray/bin/v2ray
           cmake --build . --parallel $(sysctl -n hw.logicalcpu)
           sudo cmake --install .
-          ../../macdeployqt-patched/build/macdeployqt qv2ray.app
           appdmg ../assets/package_dmg.json ../Qv2ray.dmg
       # --------------------------------------------------------
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
