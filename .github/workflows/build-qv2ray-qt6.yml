@@ -88,6 +88,11 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: |
           brew install protobuf grpc ninja pkg-config openssl
+          git clone https://github.com/Qv2ray/macdeployqt-patched
+          cd macdeployqt-patched
+          mkdir build; cd build;
+          cmake .. -DCMAKE_BUILD_TYPE=Release; cmake --build .
+          cp -v ./macdeployqt ${Qt6_DIR}/bin/macdeployqt
       # --------------------------------------------------------
       - name: Win - ${{ matrix.qt_version }} - Setup Ninja
         if: matrix.platform == 'windows-latest'
@@ -120,6 +125,7 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja \
+            -DCMAKE_INSTALL_PREFIX=installed \
             -DQV2RAY_UI_TYPE=${{ matrix.ui_type }} \
             -DQV2RAY_QT6=ON \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
