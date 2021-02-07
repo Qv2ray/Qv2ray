@@ -92,6 +92,12 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: |
           brew install protobuf grpc ninja pkg-config openssl
+          git clone https://github.com/Qv2ray/macdeployqt-patched
+          cd macdeployqt-patched
+          mkdir build; cd build;
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
+          ls -lah .
       # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Setup Ninja
         if: matrix.platform == 'windows-latest'
