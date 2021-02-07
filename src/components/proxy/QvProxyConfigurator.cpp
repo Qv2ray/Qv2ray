@@ -4,8 +4,10 @@
 #include "components/plugins/QvPluginHost.hpp"
 #include "utils/QvHelpers.hpp"
 #ifdef Q_OS_WIN
-#include <WinInet.h>
+//
 #include <Windows.h>
+//
+#include <WinInet.h>
 #include <ras.h>
 #include <raserror.h>
 #include <vector>

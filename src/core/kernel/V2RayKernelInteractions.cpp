@@ -131,7 +131,7 @@ namespace Qv2ray::core::kernel
         // nativeArguments are required for Windows platform, without a
         // reason...
         proc.setProcessChannelMode(QProcess::MergedChannels);
-        proc.setProgram(vCorePath);
+        proc.setProgram(corePath);
         proc.setNativeArguments("--version");
         proc.start();
 #else
