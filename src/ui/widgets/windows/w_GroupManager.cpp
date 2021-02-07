@@ -52,7 +52,7 @@ GroupManager::GroupManager(QWidget *parent) : QvDialog("GroupManager", parent)
         const auto types = subscriptionAdapterInterface->SupportedSubscriptionTypes();
         for (const auto &type : types)
         {
-            subscriptionTypeCB->addItem(type.displayName, type.protocol);
+            subscriptionTypeCB->addItem(pluginInfo->metadata.Name + ": " + type.displayName, type.protocol);
         }
     }
 
