@@ -26,21 +26,13 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-16.04, macos-latest, windows-latest]
-        arch: [x86, x64]
+        arch: [x64]
         build_type: [RelWithDebInfo, Release]
         qt_version: [5.15.0]
         include:
           - platform: windows-latest
-            arch: x86
-            qtarch: win32_msvc2019
-          - platform: windows-latest
             arch: x64
             qtarch: win64_msvc2019_64
-        exclude:
-          - platform: ubuntu-16.04
-            arch: x86
-          - platform: macos-latest
-            arch: x86
       fail-fast: false
 
     runs-on: ${{ matrix.platform }}
