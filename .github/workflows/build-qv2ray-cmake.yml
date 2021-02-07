@@ -137,6 +137,7 @@ jobs:
             -DQV2RAY_DEFAULT_VCORE_PATH=/usr/local/opt/v2ray/bin/v2ray
           cmake --build . --parallel $(sysctl -n hw.logicalcpu)
           sudo cmake --install .
+          ../../macdeployqt-patched/build/macdeployqt qv2ray.app
           appdmg ../assets/package_dmg.json ../Qv2ray.dmg
       # --------------------------------------------------------
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
