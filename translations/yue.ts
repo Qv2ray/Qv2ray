@@ -550,10 +550,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation type="unfinished">Import config file</translation>
     </message>
     <message>
-      <source>Failed to check the validity of the config file.</source>
-      <translation type="unfinished">Failed to check the validity of the config file.</translation>
-    </message>
-    <message>
       <source>Select an image to import</source>
       <translation type="unfinished">Select an image to import</translation>
     </message>
@@ -1674,18 +1670,6 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Failed to set auto start option.</translation>
     </message>
     <message>
-      <source>Disabling API Subsystem</source>
-      <translation type="unfinished">Disabling API Subsystem</translation>
-    </message>
-    <message>
-      <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
-      <translation type="unfinished">Disabling API subsystem will also disable the statistics function of Qv2ray.</translation>
-    </message>
-    <message>
-      <source>Speed chart and traffic statistics will be disabled.</source>
-      <translation type="unfinished">Speed chart and traffic statistics will be disabled.</translation>
-    </message>
-    <message>
       <source>Dangerous Operation</source>
       <translation type="unfinished">Dangerous Operation</translation>
     </message>
@@ -1710,10 +1694,6 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Your time offset is %1 seconds, which is too high.</translation>
     </message>
     <message>
-      <source>Please synchronize your system to use V2Ray.</source>
-      <translation type="unfinished">Please synchronize your system to use V2Ray.</translation>
-    </message>
-    <message>
       <source>Time Inaccurate</source>
       <translation type="unfinished">Time Inaccurate</translation>
     </message>
@@ -1722,20 +1702,12 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Your time offset is %1 seconds, which is a little high.</translation>
     </message>
     <message>
-      <source>V2Ray may still work, but we suggest you synchronize your clock.</source>
-      <translation type="unfinished">V2Ray may still work, but we suggest you synchronize your clock.</translation>
-    </message>
-    <message>
       <source>Time Somewhat Inaccurate</source>
       <translation type="unfinished">Time Somewhat Inaccurate</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which looks good.</source>
       <translation type="unfinished">Your time offset is %1 seconds, which looks good.</translation>
-    </message>
-    <message>
-      <source>V2Ray may not suffer from time inaccuracy.</source>
-      <translation type="unfinished">V2Ray may not suffer from time inaccuracy.</translation>
     </message>
     <message>
       <source>Time Accurate</source>
@@ -1882,18 +1854,6 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
       <translation type="unfinished">Force Direct for All Connections</translation>
     </message>
     <message>
-      <source>This does not seem like an output from V2Ray Core.<byte value="xd"/>
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.<byte value="xd"/>
-Output: <byte value="xd"/>
-<byte value="xd"/>
-</source>
-      <translation type="unfinished">This does not seem like an output from V2Ray Core.
-If you&apos;ve been looking for plugin cores, you should change this in plugin settings rather than here.
-Output: 
-
-</translation>
-    </message>
-    <message>
       <source>&apos;V2Ray Core&apos; Settings</source>
       <translation type="unfinished">&apos;V2Ray Core&apos; Settings</translation>
     </message>
@@ -1952,6 +1912,54 @@ Output:
     <message>
       <source>Start Minimized</source>
       <translation type="unfinished">Start Minimized</translation>
+    </message>
+    <message>
+      <source>Adapt Glyph Tray Icon</source>
+      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation type="unfinished">Destination Override</translation>
+    </message>
+    <message>
+      <source>HTTP</source>
+      <translation type="unfinished">HTTP</translation>
+    </message>
+    <message>
+      <source>TLS</source>
+      <translation type="unfinished">TLS</translation>
+    </message>
+    <message>
+      <source>Please synchronize your system to use the VMess protocol.</source>
+      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
+      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+    </message>
+    <message>
+      <source>VMess protocol may not suffer from time inaccuracy.</source>
+      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
+    </message>
+    <message>
+      <source>This does not seem like an output from V2Ray Core.</source>
+      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+    </message>
+    <message>
+      <source>Output:</source>
+      <translation type="unfinished">Output:</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
+      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+    </message>
+    <message>
+      <source>No NTP Backend</source>
+      <translation type="unfinished">No NTP Backend</translation>
+    </message>
+    <message>
+      <source>Qv2ray was not built with NTP support.</source>
+      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
     </message>
   </context>
   <context>
@@ -2320,6 +2328,26 @@ Output:
       <source>Please report a bug via Github with the file located here: </source>
       <translation type="unfinished">Please report a bug via Github with the file located here: </translation>
     </message>
+    <message>
+      <source>VLESS link should start with vless://</source>
+      <translation type="unfinished">VLESS link should start with vless://</translation>
+    </message>
+    <message>
+      <source>link parse failed: %1</source>
+      <translation type="unfinished">link parse failed: %1</translation>
+    </message>
+    <message>
+      <source>empty host</source>
+      <translation type="unfinished">empty host</translation>
+    </message>
+    <message>
+      <source>missing port</source>
+      <translation type="unfinished">missing port</translation>
+    </message>
+    <message>
+      <source>missing uuid</source>
+      <translation type="unfinished">missing uuid</translation>
+    </message>
   </context>
   <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
@@ -2530,24 +2558,16 @@ Maybe you have downloaded the wrong core?</translation>
       <translation type="unfinished">Configuration Error</translation>
     </message>
     <message>
-      <source>Cannot start V2Ray</source>
-      <translation type="unfinished">Cannot start V2Ray</translation>
-    </message>
-    <message>
-      <source>V2Ray core settings is incorrect.</source>
-      <translation type="unfinished">V2Ray core settings is incorrect.</translation>
-    </message>
-    <message>
-      <source>The error is: </source>
-      <translation type="unfinished">The error is: </translation>
-    </message>
-    <message>
       <source>Invalid V2Ray Instance Status.</source>
       <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
     </message>
     <message>
-      <source>V2Ray kernel failed to start.</source>
-      <translation type="unfinished">V2Ray kernel failed to start.</translation>
+      <source>Core file not executable.</source>
+      <translation type="unfinished">Core file not executable.</translation>
+    </message>
+    <message>
+      <source>V2Ray kernel failed to start: </source>
+      <translation type="unfinished">V2Ray kernel failed to start: </translation>
     </message>
   </context>
   <context>
