@@ -86,6 +86,9 @@ jobs:
         QV2RAY_LIBS=android QV2RAY_LIBS_ARCH="${{ matrix.arch }}" ./setup-libs.sh
         QV2RAY_LIBS=tools ./setup-libs.sh
 
+    - name: Debugging with tmate
+      uses: mxschmitt/action-tmate@v3.2
+
     - name: Build Qv2ray
       run: |
         cd 3rdparty
