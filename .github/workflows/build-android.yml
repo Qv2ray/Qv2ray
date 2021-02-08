@@ -65,6 +65,15 @@ jobs:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         extra: '-b http://mirrors.ocf.berkeley.edu/qt/'
 
+    - name: Installing Qt Host - ${{ matrix.qt_arch }}
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: ${{ matrix.qt_version }}
+        target: linux
+        set-env: false
+        aqtversion: '==1.0.0'
+        extra: '-b http://mirrors.ocf.berkeley.edu/qt/'
+
     - uses: nttld/setup-ndk@v1
       id: setup-ndk
       with:
@@ -76,7 +85,7 @@ jobs:
         cd ./libs
         QV2RAY_LIBS=android QV2RAY_LIBS_ARCH="${{ matrix.arch }}" ./setup-libs.sh
         QV2RAY_LIBS=tools ./setup-libs.sh
-        
+
     - name: Build Qv2ray
       run: |
         cd 3rdparty
@@ -85,6 +94,7 @@ jobs:
         mkdir build
         cd build
         $Qt6_DIR/bin/qt-cmake .. -GNinja \
+          -DQT_HOST_PATH=/home/runner/work/Qv2ray/Qt/6.0.1/gcc_64 \
           -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
           -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
           -DANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}
