@@ -88,7 +88,7 @@ jobs:
         cd ..
         mkdir build
         cd build
-        sed -i "s,/home/qt/work/install,$Qt6_DIR,g" $Qt6_DIR/lib/cmake/Qt6/qt.toolchain.cmake
+        sed -i "s,/home/qt/work/install,/home/runner/work/Qv2ray/Qt/6.0.1/gcc_64,g" $Qt6_DIR/lib/cmake/Qt6/qt.toolchain.cmake
         $Qt6_DIR/bin/qt-cmake -GNinja \
           -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
           -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
