@@ -27,12 +27,12 @@ jobs:
       fail-fast: false
       matrix:
         buildtype: [Debug, Release]
-        arch: [x86, x86_64, arm, arm64]
+        arch: [x86, x64, arm, arm64]
         qt_version: [6.0.1]
         include:
           - arch: x86
             qt_arch: android_x86
-          - arch: x86_64
+          - arch: x64
             qt_arch: android_x86_64
           - arch: arm
             qt_arch: android_armv7
