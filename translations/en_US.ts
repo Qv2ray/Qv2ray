@@ -1518,10 +1518,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use Local DNS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>

@@ -186,8 +186,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
         bypassBTCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassBT);
         proxyDefaultCb->setChecked(!CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy);
         bypassPrivateCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.bypassLAN);
-        //
-        localDNSCb->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS);
     }
     //
     //
@@ -486,12 +484,6 @@ void PreferencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.defaultRouteConfig.connectionConfig.enableProxy = !(arg1 == Qt::Checked);
-}
-
-void PreferencesWindow::on_localDNSCb_stateChanged(int arg1)
-{
-    NEEDRESTART
-    CurrentConfig.defaultRouteConfig.connectionConfig.withLocalDNS = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_selectVAssetBtn_clicked()

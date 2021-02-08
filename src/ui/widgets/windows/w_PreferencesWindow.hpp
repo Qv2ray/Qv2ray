@@ -58,7 +58,6 @@ class PreferencesWindow
     void on_socksAuthPasswordTxt_textEdited(const QString &arg1);
     void on_latencyRealPingTestURLTxt_textEdited(const QString &arg1);
     void on_proxyDefaultCb_stateChanged(int arg1);
-    void on_localDNSCb_stateChanged(int arg1);
     void on_selectVAssetBtn_clicked();
     void on_aboutQt_clicked();
     void on_cancelIgnoreVersionBtn_clicked();

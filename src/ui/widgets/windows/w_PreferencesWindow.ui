@@ -1657,6 +1657,20 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_41">
+            <property name="text">
+             <string>Bypass Private Addresses</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="bypassPrivateCb">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_17">
             <property name="text">
@@ -1709,23 +1723,6 @@ Custom DNS Settings</string>
            </widget>
           </item>
           <item row="5" column="0">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>Use Local DNS</string>
-            </property>
-            <property name="textFormat">
-             <enum>Qt::PlainText</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QCheckBox" name="localDNSCb">
-            <property name="text">
-             <string>Enabled</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
            <widget class="QLabel" name="label_39">
             <property name="text">
              <string>DNS Intercept</string>
@@ -1735,28 +1732,14 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
+          <item row="5" column="1">
            <widget class="QCheckBox" name="dnsIntercept">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QCheckBox" name="bypassPrivateCb">
-            <property name="text">
-             <string>Enabled</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_41">
-            <property name="text">
-             <string>Bypass Private Addresses</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0">
+          <item row="6" column="0">
            <widget class="QLabel" name="label_42">
             <property name="text">
              <string>Use Fake DNS</string>
@@ -1766,7 +1749,7 @@ Custom DNS Settings</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="1">
+          <item row="6" column="1">
            <widget class="QCheckBox" name="fakeDNSCb">
             <property name="text">
              <string>Enabled</string>

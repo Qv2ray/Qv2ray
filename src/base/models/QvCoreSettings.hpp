@@ -56,13 +56,12 @@ namespace Qv2ray::base::config
         bool bypassBT = false;
         bool bypassLAN = true;
         bool v2rayFreedomDNS = false;
-        bool withLocalDNS = true;
         bool dnsIntercept = false;
         bool fakeDNS = false;
         JSONSTRUCT_COMPARE(QvConfig_Connection, enableProxy, //
                            bypassCN, bypassBT, bypassLAN,    //
-                           v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS)
-        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsIntercept, fakeDNS))
+                           v2rayFreedomDNS, dnsIntercept, fakeDNS)
+        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, dnsIntercept, fakeDNS))
     };
 
     struct QvConfig_SystemProxy
