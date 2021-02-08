@@ -290,7 +290,7 @@ CONFIGROOT RouteEditor::OpenEditor()
             outboundsArray.append(outboundJsonObject);
     }
     root["outbounds"] = outboundsArray;
-    root["dns"] = GenerateDNS(false, false, dnsWidget->GetDNSObject());
+    root["dns"] = GenerateDNS(false, dnsWidget->GetDNSObject());
     return root;
 }
 

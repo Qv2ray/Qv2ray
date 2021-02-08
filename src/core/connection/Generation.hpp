@@ -14,7 +14,7 @@ namespace Qv2ray::core::connection::generation
         };
         ROUTERULE GenerateSingleRouteRule(RuleType t, const QString &str, const QString &outboundTag, const QString &type = "field");
         ROUTERULE GenerateSingleRouteRule(RuleType t, const QStringList &list, const QString &outboundTag, const QString &type = "field");
-        QJsonObject GenerateDNS(bool withLocalhost, bool useFakeDNS, const QvConfig_DNS &dnsServer);
+        QJsonObject GenerateDNS(bool useFakeDNS, const QvConfig_DNS &dnsServer);
         ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, bool bypassLAN, const QString &outboundTag, const QvConfig_Route &routeConfig);
     } // namespace routing
 

@@ -267,7 +267,6 @@ namespace Qv2ray::core::handler
         }
         else
         {
-            int x;
             LOG("Processing a simple connection config");
             if (root["outbounds"].toArray().count() != 1)
             {
@@ -369,7 +368,7 @@ namespace Qv2ray::core::handler
         const auto hasDNS = root.contains("dns") && !root.value("dns").toObject().isEmpty();
         if (!hasDNS)
         {
-            root.insert("dns", GenerateDNS(connConf.withLocalDNS, connConf.fakeDNS, dnsConf));
+            root.insert("dns", GenerateDNS(connConf.fakeDNS, dnsConf));
             LOG("Added global DNS config");
         }
 
