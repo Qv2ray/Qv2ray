@@ -22,7 +22,7 @@ jobs:
   build:
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!APK') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
