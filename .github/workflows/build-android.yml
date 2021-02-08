@@ -84,7 +84,7 @@ jobs:
         cd ..
         mkdir build
         cd build
-        $Qt6_DIR/${{ matrix.qt_arch }}/bin/qt-cmake .. -GNinja \
+        $Qt6_DIR/bin/qt-cmake .. -GNinja \
           -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
           -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
           -DANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}
