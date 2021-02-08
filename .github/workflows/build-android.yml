@@ -95,6 +95,7 @@ jobs:
         cd build
         $Qt6_DIR/bin/qt-cmake .. -GNinja \
           -DQT_HOST_PATH=/home/runner/work/Qv2ray/Qt/6.0.1/gcc_64 \
+          -DQT_HOST_PATH_CMAKE_DIR=/home/runner/work/Qv2ray/Qt/6.0.1/gcc_64/lib/cmake \
           -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
           -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
           -DANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}
