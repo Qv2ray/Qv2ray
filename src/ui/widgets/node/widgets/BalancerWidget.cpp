@@ -5,8 +5,8 @@
 BalancerWidget::BalancerWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QvNodeWidget(_dispatcher, parent)
 {
     setupUi(this);
-    balancerAddBtn->setIcon(QICON_R("add"));
-    balancerDelBtn->setIcon(QICON_R("ashbin"));
+    balancerAddBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("add")));
+    balancerDelBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ashbin")));
     connect(dispatcher.get(), &NodeDispatcher::OnOutboundCreated, this, &BalancerWidget::OutboundCreated);
     connect(dispatcher.get(), &NodeDispatcher::OnOutboundDeleted, this, &BalancerWidget::OutboundDeleted);
     connect(dispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &BalancerWidget::OnTagChanged);

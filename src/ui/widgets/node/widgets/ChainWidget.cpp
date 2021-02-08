@@ -5,7 +5,7 @@
 ChainWidget::ChainWidget(std::shared_ptr<NodeDispatcher> _dispatcher, QWidget *parent) : QvNodeWidget(_dispatcher, parent)
 {
     setupUi(this);
-    editChainBtn->setIcon(QICON_R("edit"));
+    editChainBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("edit")));
 }
 
 void ChainWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
