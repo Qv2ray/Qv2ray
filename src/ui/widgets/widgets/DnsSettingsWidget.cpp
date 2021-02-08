@@ -28,12 +28,12 @@ using Qv2ray::common::validation::IsValidIPAddress;
 
 void DnsSettingsWidget::updateColorScheme()
 {
-    addServerBtn->setIcon(QICON_R("add"));
-    removeServerBtn->setIcon(QICON_R("minus"));
-    moveServerUpBtn->setIcon(QICON_R("arrow-up"));
-    moveServerDownBtn->setIcon(QICON_R("arrow-down"));
-    addStaticHostBtn->setIcon(QICON_R("add"));
-    removeStaticHostBtn->setIcon(QICON_R("minus"));
+    addServerBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("add")));
+    removeServerBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("minus")));
+    moveServerUpBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("arrow-up")));
+    moveServerDownBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("arrow-down")));
+    addStaticHostBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("add")));
+    removeStaticHostBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("minus")));
 }
 
 DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)

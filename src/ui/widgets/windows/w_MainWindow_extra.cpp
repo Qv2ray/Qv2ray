@@ -172,28 +172,28 @@ void MainWindow::updateColorScheme()
 {
     qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
     //
-    importConfigButton->setIcon(QICON_R("add"));
-    updownImageBox->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
-    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_ICON_RESOURCE("netspeed_arrow") + ")");
+    importConfigButton->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("add")));
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_FILE("netspeed_arrow") + ")");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_FILE("netspeed_arrow") + ")");
     //
     tray_action_ToggleVisibility->setIcon(this->windowIcon());
 
-    action_RCM_Start->setIcon(QICON_R("start"));
-    action_RCM_Edit->setIcon(QICON_R("edit"));
-    action_RCM_EditJson->setIcon(QICON_R("code"));
-    action_RCM_EditComplex->setIcon(QICON_R("edit"));
-    action_RCM_DuplicateConnection->setIcon(QICON_R("copy"));
-    action_RCM_DeleteConnection->setIcon(QICON_R("ashbin"));
-    action_RCM_ResetStats->setIcon(QICON_R("ashbin"));
-    action_RCM_TestLatency->setIcon(QICON_R("ping_gauge"));
-    action_RCM_RealLatencyTest->setIcon(QICON_R("ping_gauge"));
+    action_RCM_Start->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("start")));
+    action_RCM_Edit->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("edit")));
+    action_RCM_EditJson->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("code")));
+    action_RCM_EditComplex->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("edit")));
+    action_RCM_DuplicateConnection->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("copy")));
+    action_RCM_DeleteConnection->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ashbin")));
+    action_RCM_ResetStats->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ashbin")));
+    action_RCM_TestLatency->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ping_gauge")));
+    action_RCM_RealLatencyTest->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ping_gauge")));
     //
-    clearChartBtn->setIcon(QICON_R("ashbin"));
-    clearlogButton->setIcon(QICON_R("ashbin"));
+    clearChartBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ashbin")));
+    clearlogButton->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ashbin")));
     //
-    locateBtn->setIcon(QICON_R("map"));
-    sortBtn->setIcon(QICON_R("arrow-down-filling"));
-    collapseGroupsBtn->setIcon(QICON_R("arrow-up"));
+    locateBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("map")));
+    sortBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("arrow-down-filling")));
+    collapseGroupsBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("arrow-up")));
 }
 
 void MainWindow::UpdateActionTranslations()

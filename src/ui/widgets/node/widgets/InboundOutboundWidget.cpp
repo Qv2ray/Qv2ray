@@ -11,8 +11,8 @@ InboundOutboundWidget::InboundOutboundWidget(ComplexTagNodeMode mode, std::share
 {
     workingMode = mode;
     setupUi(this);
-    editBtn->setIcon(QICON_R("edit"));
-    editJsonBtn->setIcon(QICON_R("code"));
+    editBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("edit")));
+    editJsonBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("code")));
 }
 
 void InboundOutboundWidget::setValue(std::shared_ptr<INBOUND> data)
