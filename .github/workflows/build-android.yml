@@ -69,7 +69,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       with:
         version: ${{ matrix.qt_version }}
-        target: linux
+        target: desktop
         set-env: false
         aqtversion: '==1.0.0'
         extra: '-b http://mirrors.ocf.berkeley.edu/qt/'
