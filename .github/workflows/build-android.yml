@@ -86,9 +86,6 @@ jobs:
         QV2RAY_LIBS=android QV2RAY_LIBS_ARCH="${{ matrix.arch }}" ./setup-libs.sh
         QV2RAY_LIBS=tools ./setup-libs.sh
 
-    - name: Debugging with tmate
-      uses: mxschmitt/action-tmate@v3.2
-
     - name: Build Qv2ray
       run: |
         cd 3rdparty
@@ -96,9 +93,8 @@ jobs:
         cd ..
         mkdir build
         cd build
+        sed -i "s,/home/qt/work/install,$Qt6_DIR,g" $Qt6_DIR/lib/cmake/Qt6/qt.toolchain.cmake
         $Qt6_DIR/bin/qt-cmake .. -GNinja \
-          -DQT_HOST_PATH=/home/runner/work/Qv2ray/Qt/6.0.1/gcc_64 \
-          -DQT_HOST_PATH_CMAKE_DIR=/home/runner/work/Qv2ray/Qt/6.0.1/gcc_64/lib/cmake \
           -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
           -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
           -DANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}
