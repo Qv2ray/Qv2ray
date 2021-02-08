@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        buildtype: [Debug, Release]
+        buildtype: [Debug]
         arch: [x86, x64, arm, arm64]
         qt_version: [6.0.1]
         include:
@@ -85,10 +85,6 @@ jobs:
           -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
           -DANDROID_NDK_ROOT=$ANDROID_NDK_ROOT ..
         cmake --build . --parallel $(nproc) --target apk
-    - name: Build APK
-      run: |
-        cd build/
-        androiddeployqt --output ./android-build/ --input ./android_deployment_settings.json --${{ matrix.lowercase_buildtype }}
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
