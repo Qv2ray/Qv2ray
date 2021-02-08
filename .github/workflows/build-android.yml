@@ -40,8 +40,6 @@ jobs:
             qt_arch: android_arm64_v8a
           - buildtype: Debug
             lowercase_buildtype: debug
-          - buildtype: Release
-            lowercase_buildtype: release
 
     steps:
     - uses: actions/checkout@v2
