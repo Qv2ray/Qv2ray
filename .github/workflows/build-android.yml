@@ -48,13 +48,6 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Cache Qt
-      id: cache-qt
-      uses: actions/cache@v1
-      with:
-        path: ../Qt
-        key: QtCache-${{ matrix.buildtype }}-${{ matrix.arch }}-${{ matrix.qt_version }}
-
     - name: Installing Qt - ${{ matrix.qt_arch }}
       uses: jurplel/install-qt-action@v2
       with:
@@ -62,7 +55,6 @@ jobs:
         target: android
         arch: ${{ matrix.qt_arch }}
         aqtversion: '==1.0.0'
-        cached: ${{ steps.cache-qt.outputs.cache-hit }}
         extra: '-b http://mirrors.ocf.berkeley.edu/qt/'
 
     - name: Installing Qt Host - ${{ matrix.qt_arch }}
@@ -71,7 +63,6 @@ jobs:
         version: ${{ matrix.qt_version }}
         target: desktop
         set-env: false
-        aqtversion: '==1.0.0'
         extra: '-b http://mirrors.ocf.berkeley.edu/qt/'
 
     - name: Download Dependencies
@@ -95,7 +86,6 @@ jobs:
           -DANDROID_NDK_ROOT=$ANDROID_NDK_ROOT ..
         cmake --build . --parallel $(nproc) --target apk
     - name: Build APK
-      if: false
       run: |
         cd build/
         androiddeployqt --output ./android-build/ --input ./android_deployment_settings.json --${{ matrix.lowercase_buildtype }}
