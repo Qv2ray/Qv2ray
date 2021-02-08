@@ -1531,10 +1531,6 @@ Custom DNS Settings</source>
       <translation>繞過 BitTorrent 協定</translation>
     </message>
     <message>
-      <source>Use Local DNS</source>
-      <translation>使用本地 DNS</translation>
-    </message>
-    <message>
       <source>DNS Settings</source>
       <translation>DNS 設定</translation>
     </message>

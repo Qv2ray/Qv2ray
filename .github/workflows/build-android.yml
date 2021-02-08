@@ -22,66 +22,54 @@ jobs:
   build:
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!APK') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
-        buildtype: [Debug, Release]
-        arch: [x86, x86_64, arm, arm64]
-        qt_version: [6.0.0]
+        buildtype: [Debug]
+        arch: [x86, x64, arm, arm64]
+        qt_version: [6.0.1]
         include:
           - arch: x86
-            long_arch: x86
-            short_arch: x86
-          - arch: x86_64
-            long_arch: x86_64
-            short_arch: x64
+            qt_arch: android_x86
+          - arch: x64
+            qt_arch: android_x86_64
           - arch: arm
-            long_arch: armeabi-v7a
-            short_arch: arm
+            qt_arch: android_armv7
           - arch: arm64
-            long_arch: arm64-v8a
-            short_arch: arm64
+            qt_arch: android_arm64_v8a
           - buildtype: Debug
             lowercase_buildtype: debug
-          - buildtype: Release
-            lowercase_buildtype: release
 
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: recursive
 
-    - name: Display Workflow Information
-      run: |
-        echo "Build Type: ${{ matrix.buildtype }}, Architecture: ${{ matrix.long_arch }}"
-
-    - name: Cache Qt
-      id: cache-qt
-      uses: actions/cache@v1
-      with:
-        path: ../Qt
-        key: QtCache-${{ matrix.buildtype }}-${{ matrix.arch }}-${{ matrix.qt_version }}
-
-    - name: Installing Qt - ${{ matrix.arch }}
+    - name: Installing Qt - ${{ matrix.qt_arch }}
       uses: jurplel/install-qt-action@v2
       with:
         version: ${{ matrix.qt_version }}
         target: android
-        cached: ${{ steps.cache-qt.outputs.cache-hit }}
+        arch: ${{ matrix.qt_arch }}
+        aqtversion: '==1.0.0'
+        extra: '-b http://mirrors.ocf.berkeley.edu/qt/'
 
-    - uses: nttld/setup-ndk@v1
-      id: setup-ndk
+    - name: Installing Qt Host - ${{ matrix.qt_arch }}
+      uses: jurplel/install-qt-action@v2
       with:
-        ndk-version: r21d
+        version: ${{ matrix.qt_version }}
+        target: desktop
+        set-env: false
+        extra: '-b http://mirrors.ocf.berkeley.edu/qt/'
 
     - name: Download Dependencies
       run: |
         sudo apt install -y ninja-build
         cd ./libs
-        QV2RAY_LIBS=android QV2RAY_LIBS_ARCH="${{ matrix.short_arch }}" ./setup-libs.sh
-        QV2RAY_LIBS=tools ./setup-libs.sh
-        
+        ./setup-libs.sh android ${{ matrix.arch }}
+        ./setup-libs.sh linux tools
+
     - name: Build Qv2ray
       run: |
         cd 3rdparty
@@ -89,18 +77,14 @@ jobs:
         cd ..
         mkdir build
         cd build
-        $Qt6_DIR/android_${{ matrix.long_arch }}/bin/qt-cmake .. -GNinja \
+        sed -i "s,/home/qt/work/install,/home/runner/work/Qv2ray/Qt/6.0.1/gcc_64,g" $Qt6_DIR/lib/cmake/Qt6/qt.toolchain.cmake
+        $Qt6_DIR/bin/qt-cmake -GNinja \
           -DCMAKE_BUILD_TYPE=${{ matrix.buildtype }} \
           -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
-          -DANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}
+          -DANDROID_NDK_ROOT=$ANDROID_NDK_ROOT ..
         cmake --build . --parallel $(nproc) --target apk
-    - name: Build APK
-      if: false
-      run: |
-        cd build/
-        androiddeployqt --output ./android-build/ --input ./android_deployment_settings.json --${{ matrix.lowercase_buildtype }}
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: Qv2ray.${{ github.sha }}.Android-${{ matrix.long_arch }}.qt${{ matrix.qt_version }}-${{ matrix.buildtype }}.zip
+        name: Qv2ray.${{ github.sha }}.Android-${{ matrix.arch }}.qt${{ matrix.qt_version }}-${{ matrix.buildtype }}.zip
         path: build/android-build/build/outputs/apk/${{ matrix.lowercase_buildtype }}/
