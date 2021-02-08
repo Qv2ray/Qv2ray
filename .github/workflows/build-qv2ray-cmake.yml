@@ -109,9 +109,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         run: |
           cd ./libs
-          export QV2RAY_LIBS=windows
-          export QV2RAY_LIBS_ARCH=${{ matrix.arch }}
-          ./setup-libs.sh
+          ./setup-libs.sh windows ${{ matrix.arch }}
       # ========================================================================================================= Generate MakeFile and Build
 
       - uses: actions/setup-node@v1
