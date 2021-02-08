@@ -1542,10 +1542,6 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Bypass Bittorrent Protocol</translation>
     </message>
     <message>
-      <source>Use Local DNS</source>
-      <translation type="unfinished">Use Local DNS</translation>
-    </message>
-    <message>
       <source>DNS Settings</source>
       <translation type="unfinished">DNS Settings</translation>
     </message>

@@ -84,9 +84,7 @@ jobs:
         shell: bash
         run: |
           cd libs
-          export QV2RAY_LIBS=windows
-          export QV2RAY_LIBS_ARCH=${{ matrix.arch }}
-          ./setup-libs.sh
+          ./setup-libs.sh windows ${{ matrix.arch }}
       # ========================================================================================================= Generate MakeFile and Build
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
