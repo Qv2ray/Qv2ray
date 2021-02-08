@@ -1531,10 +1531,6 @@ Custom DNS Settings</source>
       <translation>ビットトレントプロトコルをバイパス</translation>
     </message>
     <message>
-      <source>Use Local DNS</source>
-      <translation>ローカルDNSを使用する</translation>
-    </message>
-    <message>
       <source>DNS Settings</source>
       <translation>DNS設定</translation>
     </message>
