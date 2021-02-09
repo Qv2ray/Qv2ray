@@ -21,6 +21,7 @@ if(WIN32)
             ExecWait \\\"taskkill /f /im qv2ray.exe\\\"
             ExecWait \\\"taskkill /f /im v2ray.exe\\\"
             ExecWait \\\"taskkill /f /im wv2ray.exe\\\"
+            ExecWait \\\"taskkill /f /im xray.exe\\\"
             ")
         set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
             CreateShortCut \\\"$DESKTOP\\\\Qv2ray.lnk\\\" \\\"$INSTDIR\\\\qv2ray.exe\\\"
