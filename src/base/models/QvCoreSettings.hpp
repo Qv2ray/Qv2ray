@@ -131,7 +131,8 @@ namespace Qv2ray::base::config
         JSONSTRUCT_COMPARE(QvConfig_Inbounds, listenip, useSocks, useHTTP, useTPROXY, tProxySettings, httpSettings, socksSettings,
                            systemProxySettings)
         JSONSTRUCT_REGISTER(QvConfig_Inbounds,                         //
+                            A(socksSettings),                          //
                             F(listenip, useSocks, useHTTP, useTPROXY), //
-                            F(tProxySettings, httpSettings, socksSettings, systemProxySettings))
+                            F(tProxySettings, httpSettings, systemProxySettings))
     };
 } // namespace Qv2ray::base::config

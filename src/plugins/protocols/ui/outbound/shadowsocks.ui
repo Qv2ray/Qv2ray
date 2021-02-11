@@ -58,11 +58,6 @@
      </item>
      <item>
       <property name="text">
-       <string notr="true">chacha20-poly1305</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
        <string notr="true">chacha20-ietf-poly1305</string>
       </property>
      </item>
