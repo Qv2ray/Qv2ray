@@ -197,12 +197,12 @@ namespace Qv2ray::base::objects
         struct KCPObject
         {
             int mtu = 1350;
-            int tti = 20;
+            int tti = 50;
             int uplinkCapacity = 5;
             int downlinkCapacity = 20;
             bool congestion = false;
-            int readBufferSize = 1;
-            int writeBufferSize = 1;
+            int readBufferSize = 2;
+            int writeBufferSize = 2;
             QString seed;
             ObfsHeaderObject header;
             KCPObject(){};
@@ -239,7 +239,7 @@ namespace Qv2ray::base::objects
         //
         struct QuicObject
         {
-            QString security;
+            QString security = "none";
             QString key;
             ObfsHeaderObject header;
             JSONSTRUCT_COMPARE(QuicObject, security, key, header)
@@ -249,7 +249,7 @@ namespace Qv2ray::base::objects
         //
         struct SockoptObject
         {
-            int mark = 255;
+            int mark = 0;
             bool tcpFastOpen = false;
             QString tproxy = "off";
             JSONSTRUCT_COMPARE(SockoptObject, mark, tcpFastOpen, tproxy)
@@ -275,7 +275,7 @@ namespace Qv2ray::base::objects
             bool allowInsecure = false;
             bool disableSessionResumption = true;
             bool disableSystemRoot = false;
-            QList<QString> alpn = { "http/1.1" };
+            QList<QString> alpn;
             QList<CertificateObject> certificates;
             JSONSTRUCT_COMPARE(TLSObject, serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates)
             JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates))
@@ -288,7 +288,7 @@ namespace Qv2ray::base::objects
             bool allowInsecure = false;
             bool disableSessionResumption = true;
             bool disableSystemRoot = false;
-            QList<QString> alpn = { "http/1.1" };
+            QList<QString> alpn;
             QList<CertificateObject> certificates;
             JSONSTRUCT_COMPARE(XTLSObject, serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates)
             JSONSTRUCT_REGISTER(XTLSObject, F(serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates))
@@ -346,7 +346,7 @@ namespace Qv2ray::base::objects
         struct ShadowSocksServerObject
         {
             QString address;
-            QString method = "aes-256-cfb";
+            QString method;
             QString password;
             int port;
             JSONSTRUCT_COMPARE(ShadowSocksServerObject, address, method, password)

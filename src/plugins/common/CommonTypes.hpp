@@ -46,7 +46,7 @@ struct HttpServerObject
 struct ShadowSocksServerObject
 {
     QString address = "0.0.0.0";
-    QString method = "chacha20-ietf-poly1305";
+    QString method = "aes-256-gcm";
     QString password;
     int port = 0;
     JSONSTRUCT_COMPARE(ShadowSocksServerObject, address, method, password)
