@@ -5,7 +5,7 @@
 
 #include <chrono>
 
-constexpr int QV2RAY_CONFIG_VERSION = 14;
+constexpr int QV2RAY_CONFIG_VERSION = 15;
 
 namespace Qv2ray::base::config
 {
@@ -133,15 +133,6 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfig_Update, F(ignoredVersion, updateChannel))
     };
 
-    struct Qv2rayConfig_Advanced
-    {
-        bool testLatencyPeriodcally = false;
-        bool disableSystemRoot = false;
-        bool testLatencyOnConnected = false;
-        JSONSTRUCT_COMPARE(Qv2rayConfig_Advanced, testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected)
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected))
-    };
-
     enum Qv2rayLatencyTestingMethod
     {
         TCPING = 0,
@@ -192,7 +183,6 @@ namespace Qv2ray::base::config
         Qv2rayConfig_Network networkConfig;
         QvConfig_Inbounds inboundConfig;
         QvConfig_Outbounds outboundConfig;
-        Qv2rayConfig_Advanced advancedConfig;
         GroupRoutingConfig defaultRouteConfig;
 
         explicit Qv2rayConfigObject()
@@ -204,11 +194,11 @@ namespace Qv2ray::base::config
 #else
         Q_DISABLE_COPY_MOVE(Qv2rayConfigObject);
 #endif
-        JSONSTRUCT_COMPARE(Qv2rayConfigObject, config_version, logLevel, autoStartId, lastConnectedId, autoStartBehavior, uiConfig, pluginConfig,
-                           kernelConfig, updateConfig, networkConfig, inboundConfig, outboundConfig, advancedConfig, defaultRouteConfig)
-        JSONSTRUCT_REGISTER_NOCOPYMOVE(Qv2rayConfigObject,                                                                   //
-                                       A(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel),         //
-                                       A(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
+        JSONSTRUCT_COMPARE(Qv2rayConfigObject, config_version, logLevel, autoStartId, lastConnectedId, autoStartBehavior, pluginConfig, kernelConfig,
+                           updateConfig, networkConfig, inboundConfig, outboundConfig, defaultRouteConfig)
+        JSONSTRUCT_REGISTER_NOCOPYMOVE(Qv2rayConfigObject,                                                           //
+                                       A(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
+                                       A(pluginConfig, updateConfig, kernelConfig, networkConfig),                   //
                                        A(inboundConfig, outboundConfig, defaultRouteConfig))
     };
 } // namespace Qv2ray::base::config

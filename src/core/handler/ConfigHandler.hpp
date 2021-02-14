@@ -166,7 +166,6 @@ namespace Qv2ray::core::handler
       private:
         int saveTimerId;
         int pingAllTimerId;
-        int pingConnectionTimerId;
         QHash<GroupId, GroupObject> groups;
         QHash<ConnectionId, ConnectionObject> connections;
         QHash<ConnectionId, CONFIGROOT> connectionRootCache;

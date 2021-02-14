@@ -69,10 +69,10 @@ namespace Qv2ray::components::plugins
         const OutboundInfoObject GetOutboundInfo(const QString &protocol, const QJsonObject &o, bool &status) const;
         void SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &o) const;
         //
-        void Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object);
-        void Send_ConnectivityEvent(const Events::Connectivity::EventObject &object);
-        void Send_ConnectionEvent(const Events::ConnectionEntry::EventObject &object);
-        void Send_SystemProxyEvent(const Events::SystemProxy::EventObject &object);
+        void Send_ConnectionStatsEvent(const ConnectionStats::EventObject &object);
+        void Send_ConnectivityEvent(const Connectivity::EventObject &object);
+        void Send_ConnectionEvent(const ConnectionEntry::EventObject &object);
+        void Send_SystemProxyEvent(const SystemProxy::EventObject &object);
         //
       private slots:
         void QvPluginLog(const QString &log);

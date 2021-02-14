@@ -191,36 +191,36 @@ namespace Qv2ray::components::plugins
     }
 
     // ================== BEGIN SEND EVENTS ==================
-    void QvPluginHost::Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object)
+    void QvPluginHost::Send_ConnectionStatsEvent(const ConnectionStats::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
-                plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionStats(object);
+                plugin.pluginInterface->GetEventHandler()->ProcessEvent(object);
         }
     }
-    void QvPluginHost::Send_ConnectivityEvent(const Events::Connectivity::EventObject &object)
+    void QvPluginHost::Send_ConnectivityEvent(const Connectivity::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
-                plugin.pluginInterface->GetEventHandler()->ProcessEvent_Connectivity(object);
+                plugin.pluginInterface->GetEventHandler()->ProcessEvent(object);
         }
     }
-    void QvPluginHost::Send_ConnectionEvent(const Events::ConnectionEntry::EventObject &object)
+    void QvPluginHost::Send_ConnectionEvent(const ConnectionEntry::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
-                plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionEntry(object);
+                plugin.pluginInterface->GetEventHandler()->ProcessEvent(object);
         }
     }
-    void QvPluginHost::Send_SystemProxyEvent(const Events::SystemProxy::EventObject &object)
+    void QvPluginHost::Send_SystemProxyEvent(const SystemProxy::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Components.contains(COMPONENT_EVENT_HANDLER))
-                plugin.pluginInterface->GetEventHandler()->ProcessEvent_SystemProxy(object);
+                plugin.pluginInterface->GetEventHandler()->ProcessEvent(object);
         }
     }
 
@@ -246,11 +246,11 @@ namespace Qv2ray::components::plugins
                 if (thisPluginCanHandle)
                 {
                     // Populate Plugin Options
-                    {
-                        auto opt = plugin.pluginLoader->instance()->property(QV2RAY_PLUGIN_INTERNAL_PROPERTY_KEY).value<Qv2rayPluginOption>();
-                        opt[OPTION_SET_TLS_DISABLE_SYSTEM_CERTS] = GlobalConfig.advancedConfig.disableSystemRoot;
-                        plugin.pluginLoader->instance()->setProperty(QV2RAY_PLUGIN_INTERNAL_PROPERTY_KEY, QVariant::fromValue(opt));
-                    }
+                    // Currently there're no options
+                    //{
+                    //    auto opt = plugin.pluginLoader->instance()->property(QV2RAY_PLUGIN_INTERNAL_PROPERTY_KEY).value<Qv2rayPluginOption>();
+                    //    plugin.pluginLoader->instance()->setProperty(QV2RAY_PLUGIN_INTERNAL_PROPERTY_KEY, QVariant::fromValue(opt));
+                    //}
                     const auto &[protocol, outboundSettings] = serializer->DeserializeOutbound(sharelink, aliasPrefix, errMessage);
                     if (errMessage->isEmpty())
                     {

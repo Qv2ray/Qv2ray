@@ -94,8 +94,6 @@ class PreferencesWindow
     void on_qvProxyAddressTxt_textEdited(const QString &arg1);
     void on_qvProxyTypeCombo_currentTextChanged(const QString &arg1);
     void on_qvProxyPortCB_valueChanged(int arg1);
-    void on_setTestLatenctCB_stateChanged(int arg1);
-    void on_setTestLatenctOnConnectedCB_stateChanged(int arg1);
     void on_quietModeCB_stateChanged(int arg1);
     void on_tproxyGroupBox_toggled(bool arg1);
     void on_tProxyPort_valueChanged(int arg1);
@@ -132,7 +130,6 @@ class PreferencesWindow
     void on_hasDirectStatisticsCB_stateChanged(int arg1);
     void on_useOldShareLinkFormatCB_stateChanged(int arg1);
     void on_bypassPrivateCb_clicked(bool checked);
-    void on_disableSystemRootCB_stateChanged(int arg1);
     void on_openConfigDirCB_clicked();
     void on_startMinimizedCB_stateChanged(int arg1);
 
