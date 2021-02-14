@@ -207,14 +207,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     }
     //
     //
-    //
-    // Advanced config.
-    {
-        setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
-        setTestLatenctOnConnectedCB->setChecked(CurrentConfig.advancedConfig.testLatencyOnConnected);
-        disableSystemRootCB->setChecked(CurrentConfig.advancedConfig.disableSystemRoot);
-    }
-    //
     {
         dnsSettingsWidget = new DnsSettingsWidget(this);
         dnsSettingsWidget->SetDNSObject(CurrentConfig.defaultRouteConfig.dnsConfig);
@@ -843,26 +835,6 @@ void PreferencesWindow::on_qvProxyPortCB_valueChanged(int arg1)
     CurrentConfig.networkConfig.port = arg1;
 }
 
-void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    if (arg1 == Qt::Checked)
-    {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) make it easy to fingerprint your connection."));
-    }
-    CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
-}
-
-void PreferencesWindow::on_setTestLatenctOnConnectedCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    if (arg1 == Qt::Checked)
-    {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) make it easy to fingerprint your connection."));
-    }
-    CurrentConfig.advancedConfig.testLatencyOnConnected = arg1 == Qt::Checked;
-}
-
 void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
@@ -1173,12 +1145,6 @@ void PreferencesWindow::on_bypassPrivateCb_clicked(bool checked)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.defaultRouteConfig.connectionConfig.bypassLAN = checked;
-}
-
-void PreferencesWindow::on_disableSystemRootCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentConfig.advancedConfig.disableSystemRoot = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_openConfigDirCB_clicked()

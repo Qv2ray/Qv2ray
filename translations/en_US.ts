@@ -1343,19 +1343,6 @@ For example, for updating subscriptions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Advanced Behavior</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Test Latency Periodcally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Kernel Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1641,14 +1628,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dangerous Operation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will (probably) make it easy to fingerprint your connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>NTP Checker</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1694,11 +1673,6 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Invalid DNS settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>These settings may be useful.
-But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1841,10 +1815,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable System Root Certificates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable Sniffing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1858,10 +1828,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>Open Directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Test Latency On Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2252,10 +2218,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Qv2ray has encountered an uncaught exception: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2281,6 +2243,10 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>missing uuid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please go to https://github.com/Qv2ray/Qv2ray/issues to check for related announcements.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

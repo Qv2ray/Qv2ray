@@ -28,7 +28,7 @@ namespace Qv2ray
                 //
                 QvMessageBoxWarn(nullptr, QObject::tr("Configuration Upgrade Failed"),
                                  QObject::tr("Unsupported config version number: ") + QSTRN(fromVersion) + NEWLINE + NEWLINE +
-                                     QObject::tr("Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again."));
+                                     QObject::tr("Please go to https://github.com/Qv2ray/Qv2ray/issues to check for related announcements."));
                 LOG("The configuration version of your old Qv2ray installation is out-of-date and that"
                     " version is not supported anymore, please try to update to an intermediate version of Qv2ray first.");
                 qApp->exit(1);
