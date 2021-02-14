@@ -27,7 +27,7 @@ jobs:
       matrix:
         ui_type: [QWidget, QML]
         platform: [ubuntu-20.04, windows-latest]
-        build_type: [RelWithDebInfo, Release]
+        build_type: [Debug]
         qt_version: [6.0.0]
         include:
           - platform: windows-latest
