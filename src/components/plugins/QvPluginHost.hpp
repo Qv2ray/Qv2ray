@@ -67,7 +67,7 @@ namespace Qv2ray::components::plugins
                                         bool *ok) const;
 
         const OutboundInfoObject GetOutboundInfo(const QString &protocol, const QJsonObject &o, bool &status) const;
-        const void SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &o) const;
+        void SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &o) const;
         //
         void Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object);
         void Send_ConnectivityEvent(const Events::Connectivity::EventObject &object);

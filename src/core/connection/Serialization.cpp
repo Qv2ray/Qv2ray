@@ -11,15 +11,9 @@ namespace Qv2ray::core::connection
                                                                       QString *newGroup)
         {
             const auto TLSOptionsFilter = [](QJsonObject &conf) {
-                const auto allowInsecure = GlobalConfig.advancedConfig.setAllowInsecure;
-                const auto setSR = GlobalConfig.advancedConfig.setSessionResumption;
                 const auto disableSystemRoot = GlobalConfig.advancedConfig.disableSystemRoot;
                 for (const QString &prefix : { "tls", "xtls" })
-                {
-                    QJsonIO::SetValue(conf, allowInsecure, { "outbounds", 0, "streamSettings", prefix + "Settings", "allowInsecure" });
-                    QJsonIO::SetValue(conf, !setSR, { "outbounds", 0, "streamSettings", prefix + "Settings", "disableSessionResumption" });
                     QJsonIO::SetValue(conf, disableSystemRoot, { "outbounds", 0, "streamSettings", prefix + "Settings", "disableSystemRoot" });
-                }
             };
 
             QList<std::pair<QString, CONFIGROOT>> connectionConf;

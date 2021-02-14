@@ -581,48 +581,6 @@ For example, for updating subscriptions.</string>
             <string>Advanced Behavior</string>
            </property>
            <layout class="QFormLayout" name="formLayout_5">
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_82">
-              <property name="text">
-               <string>Set AllowInsecure By Default</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="setAllowInsecureCB">
-              <property name="toolTip">
-               <string>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</string>
-              </property>
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_83">
-              <property name="text">
-               <string>Test Latency Periodcally</string>
-              </property>
-              <property name="textFormat">
-               <enum>Qt::PlainText</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="setTestLatenctCB">
-              <property name="toolTip">
-               <string>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</string>
-              </property>
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="0" colspan="2">
              <widget class="QLabel" name="label_84">
               <property name="font">
@@ -644,45 +602,49 @@ But could damage your server if improperly used.</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_85">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_83">
               <property name="text">
-               <string>Enable SessionResumption By Default</string>
+               <string>Test Latency Periodcally</string>
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QCheckBox" name="setSessionResumptionCB">
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="setTestLatenctCB">
+              <property name="toolTip">
+               <string>Run TCPing or ICMPing periodcally after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</string>
+              </property>
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
+            <item row="2" column="0">
              <widget class="QLabel" name="label_7">
               <property name="text">
                <string>Disable System Root Certificates</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
+            <item row="2" column="1">
              <widget class="QCheckBox" name="disableSystemRootCB">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_44">
               <property name="text">
                <string>Test Latency On Connected</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
+            <item row="3" column="1">
              <widget class="QCheckBox" name="setTestLatenctOnConnectedCB">
               <property name="text">
                <string>Enabled</string>
@@ -1040,8 +1002,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>904</width>
-            <height>612</height>
+            <width>906</width>
+            <height>614</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">

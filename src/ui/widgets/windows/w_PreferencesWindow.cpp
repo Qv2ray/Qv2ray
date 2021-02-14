@@ -209,8 +209,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     //
     // Advanced config.
     {
-        setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
-        setSessionResumptionCB->setChecked(CurrentConfig.advancedConfig.setSessionResumption);
         setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
         setTestLatenctOnConnectedCB->setChecked(CurrentConfig.advancedConfig.testLatencyOnConnected);
         disableSystemRootCB->setChecked(CurrentConfig.advancedConfig.disableSystemRoot);
@@ -844,16 +842,6 @@ void PreferencesWindow::on_qvProxyPortCB_valueChanged(int arg1)
     CurrentConfig.networkConfig.port = arg1;
 }
 
-void PreferencesWindow::on_setAllowInsecureCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    if (arg1 == Qt::Checked)
-    {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You will lose the advantage of TLS and make your connection under MITM attack."));
-    }
-    CurrentConfig.advancedConfig.setAllowInsecure = arg1 == Qt::Checked;
-}
-
 void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
 {
     LOADINGCHECK
@@ -872,16 +860,6 @@ void PreferencesWindow::on_setTestLatenctOnConnectedCB_stateChanged(int arg1)
         QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) make it easy to fingerprint your connection."));
     }
     CurrentConfig.advancedConfig.testLatencyOnConnected = arg1 == Qt::Checked;
-}
-
-void PreferencesWindow::on_setSessionResumptionCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    if (arg1 == Qt::Checked)
-    {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will make your TLS fingerpring different from common Golang programs."));
-    }
-    CurrentConfig.advancedConfig.setSessionResumption = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)

@@ -248,8 +248,6 @@ namespace Qv2ray::components::plugins
                     // Populate Plugin Options
                     {
                         auto opt = plugin.pluginLoader->instance()->property(QV2RAY_PLUGIN_INTERNAL_PROPERTY_KEY).value<Qv2rayPluginOption>();
-                        opt[OPTION_SET_TLS_ALLOW_INSECURE] = GlobalConfig.advancedConfig.setAllowInsecure;
-                        opt[OPTION_SET_TLS_SESSION_RESUMPTION] = GlobalConfig.advancedConfig.setSessionResumption;
                         opt[OPTION_SET_TLS_DISABLE_SYSTEM_CERTS] = GlobalConfig.advancedConfig.disableSystemRoot;
                         plugin.pluginLoader->instance()->setProperty(QV2RAY_PLUGIN_INTERNAL_PROPERTY_KEY, QVariant::fromValue(opt));
                     }
@@ -285,7 +283,7 @@ namespace Qv2ray::components::plugins
         return {};
     }
 
-    const void QvPluginHost::SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &o) const
+    void QvPluginHost::SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &o) const
     {
         for (const auto &plugin : plugins)
         {

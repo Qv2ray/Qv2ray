@@ -135,15 +135,11 @@ namespace Qv2ray::base::config
 
     struct Qv2rayConfig_Advanced
     {
-        bool setAllowInsecure = false;
-        bool setSessionResumption = false;
         bool testLatencyPeriodcally = false;
         bool disableSystemRoot = false;
         bool testLatencyOnConnected = false;
-        JSONSTRUCT_COMPARE(Qv2rayConfig_Advanced, setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot,
-                           testLatencyOnConnected)
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced,
-                            F(setAllowInsecure, setSessionResumption, testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected))
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Advanced, testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected)
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected))
     };
 
     enum Qv2rayLatencyTestingMethod
