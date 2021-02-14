@@ -1341,16 +1341,6 @@ For example, for updating subscriptions.</source>
       <translation>高度的な動作</translation>
     </message>
     <message>
-      <source>Set AllowInsecure By Default</source>
-      <translation>デフォルトで AllowInsecure を設定する</translation>
-    </message>
-    <message>
-      <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-      <translation>インポート時にすべての項目に対して「AllowInsecure」の設定を有効にします。
-これは証明書の問題を緩和することができますが、TLS MITM 攻撃を受けるリスクが高くなります。</translation>
-    </message>
-    <message>
       <source>Test Latency Periodcally</source>
       <translation>周期的の遅延テスト</translation>
     </message>
@@ -1359,10 +1349,6 @@ This could resolve the certificate issues, but also could let one performing TLS
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
       <translation>サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
 有効にすると、Qv2ray はより正確なレイテンシ値が得られますが、サーバーは制限される可能性が高くなります。</translation>
-    </message>
-    <message>
-      <source>Enable SessionResumption By Default</source>
-      <translation>デフォルトで SessionResumption を有効にする</translation>
     </message>
     <message>
       <source>Kernel Settings</source>
@@ -1659,10 +1645,6 @@ Custom DNS Settings</source>
       <translation>危険操作</translation>
     </message>
     <message>
-      <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-      <translation>TLSの保護を失い、MITMの攻撃を受ける可能性が高くなります。</translation>
-    </message>
-    <message>
       <source>This will (probably) make it easy to fingerprint your connection.</source>
       <translation>そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
     </message>
@@ -1829,10 +1811,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
       <translation>V2RayコアをV2Ray制御実行ファイルに間違って設定している可能性がありますが、これは絶対に正しくありません。
 V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&apos;です。賢明に選択してください。
 先に進むことをお勧めする場合、サポートを提供しておりません。</translation>
-    </message>
-    <message>
-      <source>This will make your TLS fingerpring different from common Golang programs.</source>
-      <translation>これにより、TLSのフィンガースプリングが一般的なGolangプログラムとは異なるものになります。</translation>
     </message>
     <message>
       <source>Force Direct for All Connections</source>
