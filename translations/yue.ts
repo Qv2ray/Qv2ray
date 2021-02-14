@@ -1352,16 +1352,6 @@ For example, for updating subscriptions.</translation>
       <translation type="unfinished">Advanced Behavior</translation>
     </message>
     <message>
-      <source>Set AllowInsecure By Default</source>
-      <translation type="unfinished">Set AllowInsecure By Default</translation>
-    </message>
-    <message>
-      <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-      <translation type="unfinished">Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</translation>
-    </message>
-    <message>
       <source>Test Latency Periodcally</source>
       <translation type="unfinished">Test Latency Periodcally</translation>
     </message>
@@ -1370,10 +1360,6 @@ This could resolve the certificate issues, but also could let one performing TLS
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
       <translation type="unfinished">Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
-    </message>
-    <message>
-      <source>Enable SessionResumption By Default</source>
-      <translation type="unfinished">Enable SessionResumption By Default</translation>
     </message>
     <message>
       <source>Kernel Settings</source>
@@ -1670,10 +1656,6 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Dangerous Operation</translation>
     </message>
     <message>
-      <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-      <translation type="unfinished">You will lose the advantage of TLS and make your connection under MITM attack.</translation>
-    </message>
-    <message>
       <source>This will (probably) make it easy to fingerprint your connection.</source>
       <translation type="unfinished">This will (probably) make it easy to fingerprint your connection.</translation>
     </message>
@@ -1840,10 +1822,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
       <translation type="unfinished">You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.
 The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.
 If you insist to proceed, we&apos;re not providing with any support.</translation>
-    </message>
-    <message>
-      <source>This will make your TLS fingerpring different from common Golang programs.</source>
-      <translation type="unfinished">This will make your TLS fingerpring different from common Golang programs.</translation>
     </message>
     <message>
       <source>Force Direct for All Connections</source>
