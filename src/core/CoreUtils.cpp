@@ -12,6 +12,7 @@ namespace Qv2ray::core
     {
         return IsComplexConfig(ConnectionManager->GetConnectionRoot(id));
     }
+
     bool IsComplexConfig(const CONFIGROOT &root)
     {
         bool cRouting = root.contains("routing");

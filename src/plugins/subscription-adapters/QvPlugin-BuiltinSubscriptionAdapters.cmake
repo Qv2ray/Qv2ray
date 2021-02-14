@@ -46,6 +46,6 @@ else()
 endif()
 
 target_link_libraries(${SUBSCRIPTION_PLUGIN_TARGET}
-    ${QV_QT_LIBNAME}::Core
-    ${QV_QT_LIBNAME}::Gui
-    ${QV_QT_LIBNAME}::Widgets)
+    Qt::Core
+    Qt::Gui
+    Qt::Widgets)
