@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - l10n_dev
+      - version-v3-dev
   release:
     types: [prereleased]
 
