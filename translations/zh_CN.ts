@@ -1341,16 +1341,6 @@ For example, for updating subscriptions.</source>
       <translation>高级行为</translation>
     </message>
     <message>
-      <source>Set AllowInsecure By Default</source>
-      <translation>默认设置 AllowInsecure</translation>
-    </message>
-    <message>
-      <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-      <translation>导入链接时默认启用 &quot;AllowInsecure&quot; 选项。
-可能对部分机场/节点的证书问题有所帮助，但更可能会使您遭受来自第三人的 TLS MITM 攻击。</translation>
-    </message>
-    <message>
       <source>Test Latency Periodcally</source>
       <translation>定时测试延迟</translation>
     </message>
@@ -1359,10 +1349,6 @@ This could resolve the certificate issues, but also could let one performing TLS
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
       <translation>连接到节点之后，对节点进行周期性的延迟监测。
 若启用，Qv2ray 对节点的延迟监测将会更加准确，但这也许会提升您服务器被暴露的风险。</translation>
-    </message>
-    <message>
-      <source>Enable SessionResumption By Default</source>
-      <translation>默认允许 SessionResumption</translation>
     </message>
     <message>
       <source>Kernel Settings</source>
@@ -1659,10 +1645,6 @@ Custom DNS Settings</source>
       <translation>危险操作</translation>
     </message>
     <message>
-      <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-      <translation>你会失去 TLS 的保护，并可能使您的连接受害于中间人攻击（MitM）。</translation>
-    </message>
-    <message>
       <source>This will (probably) make it easy to fingerprint your connection.</source>
       <translation>这将让 GFW 更容易识别出您的连接。</translation>
     </message>
@@ -1829,10 +1811,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
       <translation>您或许要将 V2Ray 的核心可执行文件错误地设置成 V2Ray 控制文件了，这是非常不对的。
 V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;v2ray.exe&apos;。确保你作出了正确的选择。
 若您执意继续，我们将不提供任何支持。</translation>
-    </message>
-    <message>
-      <source>This will make your TLS fingerpring different from common Golang programs.</source>
-      <translation>这将使你的 TLS 指纹有异于正常的 Golang 程序。</translation>
     </message>
     <message>
       <source>Force Direct for All Connections</source>
