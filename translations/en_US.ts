@@ -2244,26 +2244,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deprecated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Configuration Upgrade Failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2750,6 +2730,26 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Export Scheme...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rule Detail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rule Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outbound</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

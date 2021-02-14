@@ -28,13 +28,14 @@ RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPat
     proxyIPTxt = new AutoCompleteTextEdit("geoip", sourceStringsIP, this);
     blockIPTxt = new AutoCompleteTextEdit("geoip", sourceStringsIP, this);
     //
-    directTxtLayout->addWidget(directDomainTxt, 0, 0);
-    proxyTxtLayout->addWidget(proxyDomainTxt, 0, 0);
-    blockTxtLayout->addWidget(blockDomainTxt, 0, 0);
-    //
-    directIPLayout->addWidget(directIPTxt, 0, 0);
-    proxyIPLayout->addWidget(proxyIPTxt, 0, 0);
-    blockIPLayout->addWidget(blockIPTxt, 0, 0);
+#pragma message "Not Done"
+    //    directDomainTxt->addWidget(directDomainTxt, 0);
+    //    proxyDomainLayout->addWidget(proxyDomainTxt, 0);
+    //    blockDomainLayout->addWidget(blockDomainTxt, 0);
+    //    //
+    //    directIPLayout->addWidget(directIPTxt, 0);
+    //    proxyIPLayout->addWidget(proxyIPTxt, 0);
+    //    blockIPLayout->addWidget(blockIPTxt, 0);
 }
 
 /**

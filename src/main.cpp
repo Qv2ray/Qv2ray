@@ -217,6 +217,8 @@ int main(int argc, char *argv[])
 
 #ifdef QT_DEBUG
     std::cerr << "WARNING: ================ This is a debug build, many features are not stable enough. ================" << std::endl;
+#else
+#error "Do not use Qv2ray v3.0 in Production"
 #endif
 
     if (qEnvironmentVariableIsSet("QV2RAY_NO_SCALE_FACTORS"))
@@ -228,19 +230,12 @@ int main(int argc, char *argv[])
     else
     {
         DEBUG("High DPI scaling is enabled.");
-#ifndef QV2RAY_QT6
-        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 #ifdef QV2RAY_GUI
         QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
 #endif
     }
-
-#ifndef QV2RAY_QT6
-    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
-#endif
 
     Qv2rayApplication app(argc, argv);
     if (const auto list = app.CheckPrerequisites(); !list.isEmpty())
