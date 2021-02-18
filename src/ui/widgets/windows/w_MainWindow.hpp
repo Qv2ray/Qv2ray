@@ -78,6 +78,7 @@ class MainWindow
     void Action_CopyRecentLogs();
 
   private:
+    void MWToggleVisibilitySetText();
     void MWToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
     void OnEditJsonRequested(const ConnectionId &id);
@@ -102,6 +103,7 @@ class MainWindow
     void keyPressEvent(QKeyEvent *e) override;
     void keyReleaseEvent(QKeyEvent *e) override;
     void closeEvent(QCloseEvent *) override;
+    void changeEvent(QEvent *e) override;
 
   private:
     // Charts

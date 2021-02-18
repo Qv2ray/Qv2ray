@@ -10,9 +10,17 @@
 
 #define QV_MODULE_NAME "MainWindowExtra"
 
+void MainWindow::MWToggleVisibilitySetText()
+{
+    if (isHidden() || isMinimized())
+        tray_action_ToggleVisibility->setText(tr("Show"));
+    else
+        tray_action_ToggleVisibility->setText(tr("Hide"));
+}
+
 void MainWindow::MWToggleVisibility()
 {
-    if (isHidden())
+    if (isHidden() || isMinimized())
         MWShowWindow();
     else
         MWHideWindow();
@@ -34,7 +42,7 @@ void MainWindow::MWShowWindow()
     ProcessSerialNumber psn = { 0, kCurrentProcess };
     TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 #endif
-    tray_action_ToggleVisibility->setText(tr("Hide"));
+    MWToggleVisibilitySetText();
 }
 
 void MainWindow::MWHideWindow()
@@ -47,7 +55,7 @@ void MainWindow::MWHideWindow()
     SaveState();
 #endif
     this->hide();
-    tray_action_ToggleVisibility->setText(tr("Show"));
+    MWToggleVisibilitySetText();
 }
 
 void MainWindow::MWSetSystemProxy()
