@@ -78,6 +78,7 @@ class MainWindow
     void Action_CopyRecentLogs();
 
   private:
+    void MWToggleVisibilitySetText();
     void MWToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
     void OnEditJsonRequested(const ConnectionId &id);
