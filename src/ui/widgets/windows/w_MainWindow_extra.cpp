@@ -12,7 +12,7 @@
 
 void MainWindow::MWToggleVisibility()
 {
-    if (isHidden())
+    if (isHidden() || isMinimized())
         MWShowWindow();
     else
         MWHideWindow();

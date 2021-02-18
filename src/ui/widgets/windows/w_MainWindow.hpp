@@ -102,6 +102,7 @@ class MainWindow
     void keyPressEvent(QKeyEvent *e) override;
     void keyReleaseEvent(QKeyEvent *e) override;
     void closeEvent(QCloseEvent *) override;
+    void changeEvent(QEvent *e) override;
 
   private:
     // Charts

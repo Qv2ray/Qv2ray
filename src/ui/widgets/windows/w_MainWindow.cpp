@@ -304,6 +304,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     //
     if (!connectionStarted || !GlobalConfig.uiConfig.startMinimized)
         MWShowWindow();
+    if (GlobalConfig.uiConfig.startMinimized)
+        tray_action_ToggleVisibility->setText(tr("Show"));
     //
     CheckSubscriptionsUpdate();
     qvLogTimerId = startTimer(1000);
@@ -452,6 +454,18 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
             CheckCurrentWidget;
             on_connectionTreeView_clicked(connectionTreeView->currentIndex());
         }
+    }
+}
+
+void MainWindow::changeEvent(QEvent *e)
+{
+
+    if(e->type() == QEvent::WindowStateChange)
+    {
+        if (this->windowState() == Qt::WindowMinimized)
+            tray_action_ToggleVisibility->setText(tr("Show"));
+        else
+            tray_action_ToggleVisibility->setText(tr("Hide"));
     }
 }
 
