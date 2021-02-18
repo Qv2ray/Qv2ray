@@ -96,6 +96,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     useOldShareLinkFormatCB->setChecked(CurrentConfig.uiConfig.useOldShareLinkFormat);
     startMinimizedCB->setChecked(CurrentConfig.uiConfig.startMinimized);
+    startMinimizedCB->setEnabled(CurrentConfig.autoStartBehavior != AUTO_CONNECTION_NONE);
     //
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
