@@ -169,7 +169,7 @@ jobs:
           cmake --install .
       # ========================================================================================================= Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
-        if: false #matrix.platform == 'ubuntu-20.04'
+        if: matrix.platform == 'ubuntu-20.04'
         run: |
           cd build
           cd AppDir
