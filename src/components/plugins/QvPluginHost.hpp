@@ -1,5 +1,6 @@
 #pragma once
 #include "src/plugin-interface/QvPluginInterface.hpp"
+#include "src/plugin-interface/gui/QvGUIPluginInterface.hpp"
 
 #include <QHash>
 #include <QMap>

@@ -1,7 +1,7 @@
 #include "w_OutboundEditor.hpp"
 
 #include "core/connection/Generation.hpp"
-#include "plugin-interface/QvGUIPluginInterface.hpp"
+#include "plugin-interface/gui/QvGUIPluginInterface.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
 #include "ui/widgets/editors/w_RoutesEditor.hpp"

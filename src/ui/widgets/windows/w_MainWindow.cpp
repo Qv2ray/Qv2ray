@@ -3,7 +3,7 @@
 #include "components/update/UpdateChecker.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
-#include "plugin-interface/QvGUIPluginInterface.hpp"
+#include "plugin-interface/gui/QvGUIPluginInterface.hpp"
 #include "ui/widgets/Qv2rayWidgetApplication.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"

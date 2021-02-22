@@ -2,7 +2,7 @@
 
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
-#include "plugin-interface/QvGUIPluginInterface.hpp"
+#include "plugin-interface/gui/QvGUIPluginInterface.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/widgets/StreamSettingsWidget.hpp"
 #include "utils/QvHelpers.hpp"

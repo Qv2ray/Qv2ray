@@ -334,9 +334,6 @@ if(_QV2RAY_HAS_GUI_INTERNAL_)
 
     include(cmake/components/qv2ray-ui.cmake)
     list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_COMMON_SOURCES})
-
-    include(src/plugin-interface/QvGUIPluginInterface.cmake)
-    list(APPEND QV2RAY_UI_SOURCES ${QVGUIPLUGIN_INTERFACE_HEADERS})
     
     if(QV2RAY_USE_QML)
         add_definitions(-DQV2RAY_GUI_QML)
