@@ -187,9 +187,6 @@ namespace Qv2ray::components::autolaunch
             }
 
             QTextStream ts(&iniFile);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-            ts.setCodec("UTF-8");
-#endif
             ts << QLatin1String("[Desktop Entry]") << NEWLINE                                 //
                << QLatin1String("Name=") << appName << NEWLINE                                //
                << QLatin1String("GenericName=") << QLatin1String("V2Ray Frontend") << NEWLINE //

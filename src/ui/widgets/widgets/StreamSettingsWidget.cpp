@@ -299,13 +299,8 @@ void StreamSettingsWidget::on_disableSessionResumptionCB_stateChanged(int arg1)
 
 void StreamSettingsWidget::on_alpnTxt_textEdited(const QString &arg1)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     stream.tlsSettings.alpn = arg1.split('|', Qt::SplitBehaviorFlags::SkipEmptyParts);
     stream.xtlsSettings.alpn = arg1.split('|', Qt::SplitBehaviorFlags::SkipEmptyParts);
-#else
-    stream.tlsSettings.alpn = arg1.split('|', QString::SkipEmptyParts);
-    stream.xtlsSettings.alpn = arg1.split('|', QString::SkipEmptyParts);
-#endif
 }
 
 void StreamSettingsWidget::on_disableSystemRoot_stateChanged(int arg1)
