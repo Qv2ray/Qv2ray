@@ -1894,15 +1894,15 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Please synchronize your system to use the VMess protocol.</source>
-      <translation>请同步您的系统使用VMess协议。</translation>
+      <translation>请同步系统时间，否则无法正常使用VMess协议。</translation>
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation>VMess协议可能仍然有效，但我们建议您同步您的时钟。</translation>
+      <translation>VMess协议可能不受影响，但我们建议同步时间。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
-      <translation>VMess协议可能不会因时间不准确而受到影响。</translation>
+      <translation>VMess协议可能不会受到时间误差的影响。</translation>
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.</source>
@@ -1918,7 +1918,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>No NTP Backend</source>
-      <translation>NTP 后端</translation>
+      <translation>无NTP后端</translation>
     </message>
     <message>
       <source>Qv2ray was not built with NTP support.</source>
