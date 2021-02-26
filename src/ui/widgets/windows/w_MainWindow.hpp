@@ -38,6 +38,7 @@ class MainWindow
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void on_preferencesBtn_clicked();
     void on_clearlogButton_clicked();
+    void on_locklogButton_clicked();
     void on_connectionTreeView_customContextMenuRequested(const QPoint &pos);
     void on_importConfigButton_clicked();
     void on_subsButton_clicked();

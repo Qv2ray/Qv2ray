@@ -778,6 +778,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>  日志</translation>
     </message>
     <message>
+      <source>Log locked/unlock</source>
+      <translation>日志未锁定/锁定</translation>
+    </message>
+    <message>
       <source>Clear log</source>
       <translation>清除日志</translation>
     </message>

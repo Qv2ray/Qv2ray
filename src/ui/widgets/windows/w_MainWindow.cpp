@@ -516,6 +516,13 @@ void MainWindow::on_clearlogButton_clicked()
 {
     masterLogBrowser->document()->clear();
 }
+
+void MainWindow::on_locklogButton_clicked()
+{   
+    LOG("locklogButton_clicked!");
+    //may add logic here
+}
+
 void MainWindow::on_connectionTreeView_customContextMenuRequested(const QPoint &pos)
 {
     Q_UNUSED(pos)
@@ -812,6 +819,7 @@ void MainWindow::OnLogScrollbarValueChanged(int value)
         qvLogAutoScoll = true;
     else
         qvLogAutoScoll = false;
+    locklogButton->setIcon(QIcon(qvLogAutoScoll ? QV2RAY_COLORSCHEME_FILE("unlock") : QV2RAY_COLORSCHEME_FILE("lock")));
 }
 
 void MainWindow::on_locateBtn_clicked()

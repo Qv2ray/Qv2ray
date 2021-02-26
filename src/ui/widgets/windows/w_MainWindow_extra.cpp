@@ -198,6 +198,7 @@ void MainWindow::updateColorScheme()
     //
     clearChartBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ashbin")));
     clearlogButton->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("ashbin")));
+    locklogButton->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("unlock")));
     //
     locateBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("map")));
     sortBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("arrow-down-filling")));

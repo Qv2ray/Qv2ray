@@ -8,6 +8,8 @@
         <file>assets/icons/ui_dark/arrow-right.svg</file>
         <file>assets/icons/ui_dark/arrow-up-filling.svg</file>
         <file>assets/icons/ui_dark/ashbin.svg</file>
+        <file>assets/icons/ui_dark/lock.svg</file>
+        <file>assets/icons/ui_dark/unlock.svg</file>
         <file>assets/icons/ui_dark/close.svg</file>
         <file>assets/icons/ui_dark/code.svg</file>
         <file>assets/icons/ui_dark/copy.svg</file>
@@ -29,6 +31,8 @@
         <file>assets/icons/ui_light/arrow-right.svg</file>
         <file>assets/icons/ui_light/arrow-up-filling.svg</file>
         <file>assets/icons/ui_light/ashbin.svg</file>
+        <file>assets/icons/ui_light/lock.svg</file>
+        <file>assets/icons/ui_light/unlock.svg</file>
         <file>assets/icons/ui_light/close.svg</file>
         <file>assets/icons/ui_light/code.svg</file>
         <file>assets/icons/ui_light/copy.svg</file>

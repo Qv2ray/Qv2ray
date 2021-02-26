@@ -369,6 +369,20 @@
               </widget>
              </item>
              <item>
+              <widget class="QToolButton" name="locklogButton">
+               <property name="toolTip">
+                <string>Log locked/unlock</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="../../../../resources.new.qrc">
+                 <normaloff>:/assets/icons/ui_light/unlock.svg</normaloff>:/assets/icons/ui_light/unlock.svg</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QToolButton" name="clearlogButton">
                <property name="toolTip">
                 <string>Clear log</string>

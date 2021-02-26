@@ -771,6 +771,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Log locked/unlock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Clear log</source>
         <translation type="unfinished"></translation>
     </message>
