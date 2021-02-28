@@ -3654,7 +3654,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation>このユーザーは既に存在します.</translation>
+      <translation>このユーザーは既に存在します。</translation>
     </message>
   </context>
 </TS>
