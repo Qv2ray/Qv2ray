@@ -12,12 +12,12 @@
     <name>CertificateItemWidget</name>
     <message>
       <source>Certificate Item Editor</source>
-      <translation type="unfinished">Certificate Item Editor</translation>
+      <translation>English</translation>
     </message>
     <message>
       <source>Usage</source>
       <extracomment>Certificate Usage</extracomment>
-      <translation type="unfinished">Usage</translation>
+      <translation>使用量</translation>
     </message>
     <message>
       <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
@@ -27,13 +27,7 @@
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
-&lt;/ul&gt;</translation>
+      <translation>English</translation>
     </message>
     <message>
       <source>Certificate</source>
