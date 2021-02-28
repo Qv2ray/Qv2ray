@@ -3330,7 +3330,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation>「リダイレクトに従う」を使用している場合はオプション</translation>
+      <translation>「リダイレクトに従う」を使用している場合がオプショナル</translation>
     </message>
     <message>
       <source>Port</source>
@@ -3369,7 +3369,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation>透明を許可</translation>
+      <translation>透明接続を許可します</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -3635,7 +3635,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation>このユーザーは既に存在します.</translation>
+      <translation>このユーザーは既に存在します。</translation>
     </message>
   </context>
   <context>
