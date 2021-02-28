@@ -2412,7 +2412,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Failed to start connection</source>
-      <translation>接続の開始に失敗しました</translation>
+      <translation>接続を開始できませんでした</translation>
     </message>
     <message>
       <source>Unknown subscription type: %1</source>
@@ -2437,7 +2437,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message numerus="yes">
       <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
       <translation>
-        <numerusform>そこに&apos;現在のサブスクリプションに属していないグループ内の %n 接続（これ以上）</numerusform>
+        <numerusform>現在のサブスクリプショングループに属していない接続が%n個あります。</numerusform>
       </translation>
     </message>
     <message>
@@ -2682,7 +2682,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Inbound / Outbound Info</source>
-      <translation>インバウンド/アウトバウンド情報</translation>
+      <translation>Inbound/Outbound情報</translation>
     </message>
     <message>
       <source>Rules Ordering</source>
