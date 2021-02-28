@@ -2273,7 +2273,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Configuration Upgrade Failed</source>
-      <translation>設定のアップグレードに失敗しました</translation>
+      <translation>コンフィギュレーションのアップグレードに失敗しました</translation>
     </message>
     <message>
       <source>Unsupported config version number: </source>
@@ -2512,7 +2512,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Configuration Error</source>
-      <translation>設定エラー</translation>
+      <translation>コンフィギュレーションエラー</translation>
     </message>
     <message>
       <source>Invalid V2Ray Instance Status.</source>
