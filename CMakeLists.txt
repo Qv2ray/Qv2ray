@@ -402,13 +402,6 @@ set(QV2RAY_FULL_SOURCES
 QVLOG(QV2RAY_QM_FILES)
 QVLOG(QV2RAY_QRC_RESOURCES)
 
-if(NOT ANDROID AND NOT DEFINED DISABLE_BACKWARD_CPP)
-    include(cmake/backward-cpp.cmake)
-    add_definitions(-DQV2RAY_HAS_BACKWARD)
-    target_link_libraries(qv2ray_baselib Backward::Backward)
-    add_backward(qv2ray_baselib)
-endif()
-
 if(QV2RAY_QT6)
     qt6_add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
     # For Qt5, Android
