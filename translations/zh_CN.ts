@@ -1898,7 +1898,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation>VMess协议可能不受影响，但我们建议同步时间。</translation>
+      <translation>VMess协议可能不受影响，但我们建议您同步系统时间。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
