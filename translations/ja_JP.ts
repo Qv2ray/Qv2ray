@@ -3155,6 +3155,10 @@ Maybe you have downloaded the wrong core?</source>
       <source>Certificates</source>
       <translation>証明書</translation>
     </message>
+    <message>
+      <source>AllowInsecure is insecure, do not allow insecure.</source>
+      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
@@ -3687,6 +3691,17 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>This user exists already.</source>
       <translation>このユーザーは既に存在します。</translation>
+    </message>
+  </context>
+  <context>
+    <name>VmessOutboundEditor</name>
+    <message>
+      <source>Non AEAD VMess detected</source>
+      <translation>AEAD Vimess を検出しました</translation>
+    </message>
+    <message>
+      <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+      <translation>Non-zero AlterID を持つ MD5 は推奨されません。VMessageAEAD を使用してください。</translation>
     </message>
   </context>
 </TS>
