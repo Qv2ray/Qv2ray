@@ -92,7 +92,7 @@ namespace Qv2ray::ui
         highlightingRules.append(rule);
         //
         v2rayComponentFormat.setForeground(darkMode ? darkGreenColor : Qt::darkYellow);
-        rule.pattern = QRegularExpression(" v2ray.com(/(\\w*))*: ");
+        rule.pattern = QRegularExpression(R"( (v2ray\.com|github.com\/v2fly\/v2ray-core)[\/\w*]*: )");
         rule.format = v2rayComponentFormat;
         highlightingRules.append(rule);
         //

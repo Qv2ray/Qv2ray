@@ -19,14 +19,14 @@ namespace Qv2ray::base::config
         };
 
         QString domainStrategy;
-        QString domainMatcher;
+        QString domainMatcher = "ac";
         QvRouteConfig_Impl domains;
         QvRouteConfig_Impl ips;
         QvConfig_Route(){};
         QvConfig_Route(const QvRouteConfig_Impl &_domains, const QvRouteConfig_Impl &_ips, const QString &ds)
-            : domainStrategy(ds), domainMatcher("ac"), domains(_domains), ips(_ips){};
+            : domainStrategy(ds), domains(_domains), ips(_ips){};
         JSONSTRUCT_COMPARE(QvConfig_Route, domainStrategy, domainMatcher, domains, ips)
-        JSONSTRUCT_REGISTER(QvConfig_Route, F(domainStrategy, domainMatcher, domains, ips))
+        JSONSTRUCT_REGISTER(QvConfig_Route, A(domainStrategy, domainMatcher, domains, ips))
     };
 
     using QvConfig_DNS = objects::DNSObject;
