@@ -378,7 +378,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Cache</source>
-      <translation type="unfinished">Disable Cache</translation>
+      <translation>キャッシュを無効化</translation>
     </message>
   </context>
   <context>
