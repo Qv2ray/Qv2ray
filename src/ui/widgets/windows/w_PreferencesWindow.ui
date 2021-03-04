@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>946</width>
-    <height>712</height>
+    <width>921</width>
+    <height>699</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1002,11 +1002,11 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>906</width>
-            <height>614</height>
+            <width>867</width>
+            <height>630</height>
            </rect>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+          <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1">
            <item>
             <layout class="QFormLayout" name="formLayout_4">
              <item row="0" column="0">
@@ -1058,7 +1058,7 @@ Custom DNS Settings</string>
                <property name="checked">
                 <bool>false</bool>
                </property>
-               <layout class="QFormLayout" name="formLayout_2">
+               <layout class="QFormLayout" name="formLayout_7">
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_4">
                   <property name="text">
@@ -1133,7 +1133,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_11">
                   <property name="text">
                    <string>Username</string>
@@ -1143,14 +1143,14 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
+                <item row="4" column="1">
                  <widget class="QLineEdit" name="socksAuthUsernameTxt">
                   <property name="placeholderText">
                    <string notr="true">user</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="label_12">
                   <property name="text">
                    <string>Password</string>
@@ -1160,21 +1160,14 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="5" column="1">
                  <widget class="QLineEdit" name="socksAuthPasswordTxt">
                   <property name="placeholderText">
                    <string notr="true">pass</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
-                 <widget class="QCheckBox" name="socksSniffingCB">
-                  <property name="text">
-                   <string>Enabled</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="0">
+                <item row="6" column="0">
                  <widget class="QLabel" name="label_87">
                   <property name="text">
                    <string>Sniffing</string>
@@ -1184,7 +1177,38 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="0">
+                <item row="6" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_15">
+                  <item>
+                   <widget class="QCheckBox" name="socksSniffingCB">
+                    <property name="text">
+                     <string>Enabled</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="socksSniffingMetadataOnly">
+                    <property name="text">
+                     <string>Metadata Only</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_5">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item row="7" column="0">
                  <widget class="QLabel" name="label_91">
                   <property name="text">
                    <string>Destination Override</string>
@@ -1194,7 +1218,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="1">
+                <item row="7" column="1">
                  <layout class="QHBoxLayout" name="horizontalLayout_12">
                   <item>
                    <widget class="QCheckBox" name="socksOverrideHTTPCB">
@@ -1209,6 +1233,26 @@ Custom DNS Settings</string>
                      <string>TLS</string>
                     </property>
                    </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="socksOverrideFakeDNSCB">
+                    <property name="text">
+                     <string>FakeDNS</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_6">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </item>
@@ -1226,7 +1270,7 @@ Custom DNS Settings</string>
                <property name="checked">
                 <bool>false</bool>
                </property>
-               <layout class="QFormLayout" name="formLayout_7">
+               <layout class="QFormLayout" name="formLayout_2">
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_3">
                   <property name="text">
@@ -1301,13 +1345,6 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="QCheckBox" name="httpSniffingCB">
-                  <property name="text">
-                   <string>Enabled</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="4" column="0">
                  <widget class="QLabel" name="label_88">
                   <property name="text">
@@ -1317,6 +1354,37 @@ Custom DNS Settings</string>
                    <enum>Qt::PlainText</enum>
                   </property>
                  </widget>
+                </item>
+                <item row="4" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_16">
+                  <item>
+                   <widget class="QCheckBox" name="httpSniffingCB">
+                    <property name="text">
+                     <string>Enabled</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="httpSniffingMetadataOnly">
+                    <property name="text">
+                     <string>Metadata Only</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_7">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
                 </item>
                 <item row="5" column="0">
                  <widget class="QLabel" name="label_92">
@@ -1343,6 +1411,26 @@ Custom DNS Settings</string>
                      <string>TLS</string>
                     </property>
                    </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="httpOverrideFakeDNSCB">
+                    <property name="text">
+                     <string>FakeDNS</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_8">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </item>
@@ -1419,13 +1507,6 @@ Custom DNS Settings</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="tproxySniffingCB">
-                    <property name="text">
-                     <string>Enable Sniffing</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
                    <spacer name="horizontalSpacer_2">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
@@ -1440,7 +1521,7 @@ Custom DNS Settings</string>
                   </item>
                  </layout>
                 </item>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_93">
                   <property name="text">
                    <string>Destination Override</string>
@@ -1450,7 +1531,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <layout class="QHBoxLayout" name="horizontalLayout_14">
                   <item>
                    <widget class="QCheckBox" name="tproxyOverrideHTTPCB">
@@ -1463,6 +1544,13 @@ Custom DNS Settings</string>
                    <widget class="QCheckBox" name="tproxyOverrideTLSCB">
                     <property name="text">
                      <string>TLS</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxyOverrideFakeDNSCB">
+                    <property name="text">
+                     <string>FakeDNS</string>
                     </property>
                    </widget>
                   </item>
@@ -1481,7 +1569,7 @@ Custom DNS Settings</string>
                   </item>
                  </layout>
                 </item>
-                <item row="4" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="label_78">
                   <property name="text">
                    <string>Mode</string>
@@ -1491,7 +1579,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="QComboBox" name="tproxyMode">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1511,7 +1599,7 @@ Custom DNS Settings</string>
                   </item>
                  </widget>
                 </item>
-                <item row="5" column="0">
+                <item row="6" column="0">
                  <widget class="QLabel" name="label_79">
                   <property name="text">
                    <string>Outbound Mark</string>
@@ -1521,7 +1609,7 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
+                <item row="6" column="1">
                  <widget class="QSpinBox" name="outboundMark">
                   <property name="minimum">
                    <number>0</number>
@@ -1567,23 +1655,48 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_18">
+                  <property name="text">
+                   <string>Sniffing</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_17">
+                  <item>
+                   <widget class="QCheckBox" name="tproxySniffingCB">
+                    <property name="text">
+                     <string>Enabled</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxySniffingMetadataOnlyCB">
+                    <property name="text">
+                     <string>Metadata Only</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
                </layout>
               </widget>
              </item>
             </layout>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_10">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -1678,7 +1791,7 @@ Custom DNS Settings</string>
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QCheckBox" name="DnsFreedomCb">
+           <widget class="QCheckBox" name="dnsFreedomCb">
             <property name="text">
              <string>Enabled</string>
             </property>
@@ -1696,23 +1809,6 @@ Custom DNS Settings</string>
           </item>
           <item row="5" column="1">
            <widget class="QCheckBox" name="dnsIntercept">
-            <property name="text">
-             <string>Enabled</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_42">
-            <property name="text">
-             <string>Use Fake DNS</string>
-            </property>
-            <property name="textFormat">
-             <enum>Qt::PlainText</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QCheckBox" name="fakeDNSCb">
             <property name="text">
              <string>Enabled</string>
             </property>

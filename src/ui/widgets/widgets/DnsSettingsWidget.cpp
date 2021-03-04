@@ -17,7 +17,7 @@ using Qv2ray::common::validation::IsValidIPAddress;
         moveServerDownBtn->setEnabled(false);                                                                                                        \
     }
 
-#define UPDATEUI                                                                                                                                     \
+#define UPDATE_UI_ENABLED_STATE                                                                                                                      \
     detailsSettingsGB->setEnabled(serversListbox->count() > 0);                                                                                      \
     serverAddressTxt->setEnabled(serversListbox->count() > 0);                                                                                       \
     removeServerBtn->setEnabled(serversListbox->count() > 0);                                                                                        \
@@ -56,7 +56,7 @@ DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)
     expectedIPsLayout->addWidget(ipListTxt);
     detailsSettingsGB->setCheckable(true);
     detailsSettingsGB->setChecked(false);
-    UPDATEUI;
+    UPDATE_UI_ENABLED_STATE;
     updateColorScheme();
 }
 
@@ -75,22 +75,23 @@ QvMessageBusSlotImpl(DnsSettingsWidget)
     }
 }
 
-void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns)
+void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns, const FakeDNSObject &_fakeDNS)
 {
     this->dns = _dns;
-    //
+    this->fakeDNS = _fakeDNS;
+
     dnsClientIPTxt->setText(dns.clientIp);
     dnsTagTxt->setText(dns.tag);
+
     serversListbox->clear();
-    for (const auto &server : dns.servers)
-    {
-        serversListbox->addItem(server.address);
-    }
+    std::for_each(dns.servers.begin(), dns.servers.end(), [&](const auto &dns) { serversListbox->addItem(dns.address); });
+
     if (serversListbox->count() > 0)
     {
         serversListbox->setCurrentRow(0);
         ShowCurrentDnsServerDetails();
     }
+
     staticResolvedDomainsTable->clearContents();
     for (const auto &[host, ip] : dns.hosts.toStdMap())
     {
@@ -100,7 +101,10 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns)
         staticResolvedDomainsTable->setItem(rowId, 1, new QTableWidgetItem(ip));
     }
     staticResolvedDomainsTable->resizeColumnsToContents();
-    UPDATEUI
+
+    fakeDNSIPPool->setCurrentText(fakeDNS.ipPool);
+    fakeDNSIPPoolSize->setValue(fakeDNS.poolSize);
+    UPDATE_UI_ENABLED_STATE
 }
 
 bool DnsSettingsWidget::CheckIsValidDNS() const
@@ -119,14 +123,8 @@ void DnsSettingsWidget::ProcessDnsPortEnabledState()
 {
     if (detailsSettingsGB->isChecked())
     {
-        if (const auto addr = serverAddressTxt->text(); addr.startsWith("https:") || addr.startsWith("https+"))
-        {
-            serverPortSB->setEnabled(false);
-        }
-        else
-        {
-            serverPortSB->setEnabled(true);
-        }
+        const auto isDoHDoT = serverAddressTxt->text().startsWith("https:") || serverAddressTxt->text().startsWith("https+");
+        serverPortSB->setEnabled(!isDoHDoT);
     }
 }
 
@@ -151,7 +149,7 @@ void DnsSettingsWidget::ShowCurrentDnsServerDetails()
     ProcessDnsPortEnabledState();
 }
 
-DNSObject DnsSettingsWidget::GetDNSObject()
+std::pair<DNSObject, FakeDNSObject> DnsSettingsWidget::GetDNSObject()
 {
     dns.hosts.clear();
     for (auto i = 0; i < staticResolvedDomainsTable->rowCount(); i++)
@@ -161,7 +159,7 @@ DNSObject DnsSettingsWidget::GetDNSObject()
         if (item1 && item2)
             dns.hosts[item1->text()] = item2->text();
     }
-    return dns;
+    return { dns, fakeDNS };
 }
 
 void DnsSettingsWidget::on_dnsClientIPTxt_textEdited(const QString &arg1)
@@ -181,7 +179,7 @@ void DnsSettingsWidget::on_addServerBtn_clicked()
     dns.servers.push_back(o);
     serversListbox->addItem(o.address);
     serversListbox->setCurrentRow(serversListbox->count() - 1);
-    UPDATEUI
+    UPDATE_UI_ENABLED_STATE
     ShowCurrentDnsServerDetails();
 }
 
@@ -194,7 +192,7 @@ void DnsSettingsWidget::on_removeServerBtn_clicked()
     serversListbox->removeItemWidget(item);
     delete item;
     serversListbox->blockSignals(false);
-    UPDATEUI
+    UPDATE_UI_ENABLED_STATE
 
     if (serversListbox->count() > 0)
     {
@@ -289,4 +287,14 @@ void DnsSettingsWidget::on_detailsSettingsGB_toggled(bool arg1)
     if (currentServerIndex >= 0)
         dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS = arg1;
     // detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
+}
+
+void DnsSettingsWidget::on_fakeDNSIPPool_currentTextChanged(const QString &arg1)
+{
+    fakeDNS.ipPool = arg1;
+}
+
+void DnsSettingsWidget::on_fakeDNSIPPoolSize_valueChanged(int arg1)
+{
+    fakeDNS.poolSize = arg1;
 }

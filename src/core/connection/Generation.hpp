@@ -14,7 +14,7 @@ namespace Qv2ray::core::connection::generation
         };
         ROUTERULE GenerateSingleRouteRule(RuleType t, const QString &str, const QString &outboundTag, const QString &type = "field");
         ROUTERULE GenerateSingleRouteRule(RuleType t, const QStringList &list, const QString &outboundTag, const QString &type = "field");
-        QJsonObject GenerateDNS(bool useFakeDNS, const QvConfig_DNS &dnsServer);
+        QJsonObject GenerateDNS(const QvConfig_DNS &dnsServer);
         ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, bool bypassLAN, const QString &outboundTag, const QvConfig_Route &routeConfig);
     } // namespace routing
 
@@ -29,6 +29,7 @@ namespace Qv2ray::core::connection::generation
         INBOUNDSETTING GenerateHTTPIN(bool auth, const QList<AccountObject> &accounts, int timeout = 300, bool allowTransparent = true);
         INBOUNDSETTING GenerateSocksIN(const QString &auth, const QList<AccountObject> &_accounts, bool udp = false, const QString &ip = "127.0.0.1");
         INBOUNDS GenerateDefaultInbounds();
+        QJsonObject GenerateSniffingObject(bool enabled, QList<QString> destOverride, bool metadataOnly = false);
         INBOUND GenerateInboundEntry(const QString &tag,               //
                                      const QString &protocol,          //
                                      const QString &listen,            //

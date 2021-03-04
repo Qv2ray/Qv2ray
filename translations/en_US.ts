@@ -357,6 +357,18 @@ It cannot be a private address.</source>
 This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>FakeDNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP Pool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pool Size</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GroupManager</name>
@@ -603,10 +615,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Destination Override</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown inbound.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -628,6 +636,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Stream Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FakeDNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination Override:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Metadata Only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1833,14 +1853,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Sniffing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use Fake DNS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Config Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1902,6 +1914,14 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>Qv2ray was not built with NTP support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Metadata Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FakeDNS</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -103,6 +103,7 @@ namespace Qv2ray::base
     {
         bool overrideDNS = false;
         config::QvConfig_DNS dnsConfig;
+        config::QvConfig_FakeDNS fakeDNSConfig;
         //
         bool overrideRoute = false;
         config::QvConfig_Route routeConfig;
@@ -114,13 +115,13 @@ namespace Qv2ray::base
         config::QvConfig_ForwardProxy forwardProxyConfig;
         //
         JSONSTRUCT_COMPARE(GroupRoutingConfig,                         //
-                           overrideDNS, dnsConfig,                     //
+                           overrideDNS, dnsConfig, fakeDNSConfig,      //
                            overrideRoute, routeConfig,                 //
                            overrideConnectionConfig, connectionConfig, //
                            overrideForwardProxyConfig, forwardProxyConfig)
         JSONSTRUCT_REGISTER(GroupRoutingConfig,                            //
                             F(overrideRoute, routeConfig),                 //
-                            F(overrideDNS, dnsConfig),                     //
+                            F(overrideDNS, dnsConfig, fakeDNSConfig),      //
                             F(overrideConnectionConfig, connectionConfig), //
                             F(overrideForwardProxyConfig, forwardProxyConfig))
     };

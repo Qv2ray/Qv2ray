@@ -60,6 +60,7 @@ QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv
 void RouteSettingsMatrixWidget::SetRouteConfig(const QvConfig_Route &conf)
 {
     domainStrategyCombo->setCurrentText(conf.domainStrategy);
+    domainMatcherCombo->setCurrentIndex(conf.domainMatcher == "ac" ? 1 : 0);
     //
     directDomainTxt->setPlainText(conf.domains.direct.join(NEWLINE));
     proxyDomainTxt->setPlainText(conf.domains.proxy.join(NEWLINE));

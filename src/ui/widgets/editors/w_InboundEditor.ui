@@ -103,25 +103,46 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Destination Override</string>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="2" column="0" colspan="3">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
+        <item row="1" column="2">
+         <widget class="QCheckBox" name="sniffFakeDNSCB">
+          <property name="text">
+           <string>FakeDNS</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Destination Override:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <widget class="QCheckBox" name="sniffHTTPCB">
           <property name="text">
            <string notr="true">HTTP</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" colspan="2">
+        <item row="1" column="1">
          <widget class="QCheckBox" name="sniffTLSCB">
           <property name="text">
            <string notr="true">TLS</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="3">
+         <widget class="QCheckBox" name="sniffMetaDataOnlyCB">
+          <property name="text">
+           <string>Metadata Only</string>
           </property>
          </widget>
         </item>

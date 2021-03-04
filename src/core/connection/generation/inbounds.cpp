@@ -65,22 +65,22 @@ namespace Qv2ray::core::connection::generation::inbounds
         return root;
     }
 
-    QJsonObject GenerateSniffingObject(bool enabled, QList<QString> destOverride)
+    QJsonObject GenerateSniffingObject(bool enabled, QList<QString> destOverride, bool metadataOnly)
     {
         QJsonObject root;
         QStringList list;
         const auto size = destOverride.size();
-        if (enabled)
+        if (!enabled)
+            return root;
+
+        root.insert("enabled", enabled);
+        root["metadataOnly"] = metadataOnly;
+
+        if (!destOverride.isEmpty())
         {
-            root.insert("enabled", QJsonValue(enabled));
-            if (!destOverride.isEmpty())
-            {
-                for (int i = 0; i < size; ++i)
-                {
-                    list << destOverride.at(i);
-                }
-                root.insert("destOverride", QJsonArray::fromStringList(list));
-            }
+            for (auto i = 0; i < size; ++i)
+                list << destOverride.at(i);
+            root.insert("destOverride", QJsonArray::fromStringList(list));
         }
         return root;
     }

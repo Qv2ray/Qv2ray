@@ -1,6 +1,7 @@
 #pragma once
 #include "QJsonStruct.hpp"
 #include "base/models/CoreObjectModels.hpp"
+
 namespace Qv2ray::base::config
 {
     struct QvConfig_Route
@@ -23,12 +24,13 @@ namespace Qv2ray::base::config
         QvRouteConfig_Impl ips;
         QvConfig_Route(){};
         QvConfig_Route(const QvRouteConfig_Impl &_domains, const QvRouteConfig_Impl &_ips, const QString &ds)
-            : domainStrategy(ds), domainMatcher(), domains(_domains), ips(_ips){};
+            : domainStrategy(ds), domainMatcher("ac"), domains(_domains), ips(_ips){};
         JSONSTRUCT_COMPARE(QvConfig_Route, domainStrategy, domainMatcher, domains, ips)
         JSONSTRUCT_REGISTER(QvConfig_Route, F(domainStrategy, domainMatcher, domains, ips))
     };
 
     using QvConfig_DNS = objects::DNSObject;
+    using QvConfig_FakeDNS = objects::FakeDNSObject;
 
     struct QvConfig_Outbounds
     {
@@ -58,11 +60,10 @@ namespace Qv2ray::base::config
         bool bypassLAN = true;
         bool v2rayFreedomDNS = false;
         bool dnsIntercept = false;
-        bool fakeDNS = false;
         JSONSTRUCT_COMPARE(QvConfig_Connection, enableProxy, //
                            bypassCN, bypassBT, bypassLAN,    //
-                           v2rayFreedomDNS, dnsIntercept, fakeDNS)
-        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, dnsIntercept, fakeDNS))
+                           v2rayFreedomDNS, dnsIntercept)
+        JSONSTRUCT_REGISTER(QvConfig_Connection, F(bypassCN, bypassBT, bypassLAN, enableProxy, v2rayFreedomDNS, dnsIntercept))
     };
 
     struct QvConfig_SystemProxy
@@ -79,9 +80,10 @@ namespace Qv2ray::base::config
         bool sniffing = false;
         QList<QString> destOverride = { "http", "tls" };
         objects::AccountObject account;
+        bool metadataOnly;
         __Qv2rayConfig_ProtocolInboundBase(){};
-        JSONSTRUCT_COMPARE(__Qv2rayConfig_ProtocolInboundBase, port, useAuth, sniffing, destOverride)
-        JSONSTRUCT_REGISTER(__Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, destOverride, account))
+        JSONSTRUCT_COMPARE(__Qv2rayConfig_ProtocolInboundBase, port, useAuth, sniffing, destOverride, metadataOnly)
+        JSONSTRUCT_REGISTER(__Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, destOverride, account, metadataOnly))
     };
 
     struct QvConfig_SocksInbound : __Qv2rayConfig_ProtocolInboundBase
@@ -104,18 +106,18 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(QvConfig_HttpInbound, B(__Qv2rayConfig_ProtocolInboundBase))
     };
 
-    struct QvConfig_TProxy
+    struct QvConfig_TProxy : __Qv2rayConfig_ProtocolInboundBase
     {
         QString tProxyIP = "127.0.0.1";
         QString tProxyV6IP;
-        int port = 12345;
         bool hasTCP = true;
         bool hasUDP = true;
-        bool sniffing = true;
-        QList<QString> destOverride = { "http", "tls" };
         QString mode = "tproxy";
-        JSONSTRUCT_COMPARE(QvConfig_TProxy, tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, destOverride, mode)
-        JSONSTRUCT_REGISTER(QvConfig_TProxy, F(tProxyIP, tProxyV6IP, port, hasTCP, hasUDP, sniffing, destOverride, mode))
+        QvConfig_TProxy() : __Qv2rayConfig_ProtocolInboundBase()
+        {
+            port = 12345;
+        }
+        JSONSTRUCT_REGISTER(QvConfig_TProxy, B(__Qv2rayConfig_ProtocolInboundBase), F(tProxyIP, tProxyV6IP, hasTCP, hasUDP, mode))
     };
 
     struct QvConfig_Inbounds
