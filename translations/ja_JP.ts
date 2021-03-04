@@ -366,15 +366,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>IP Pool</source>
-      <translation type="unfinished">IP Pool</translation>
+      <translation>IP プール</translation>
     </message>
     <message>
       <source>Pool Size</source>
-      <translation type="unfinished">Pool Size</translation>
+      <translation>プールサイズ</translation>
     </message>
   </context>
   <context>
@@ -647,15 +647,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>Destination Override:</source>
-      <translation type="unfinished">Destination Override:</translation>
+      <translation>目標上書き:</translation>
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>メタデータのみ</translation>
     </message>
   </context>
   <context>
@@ -1938,11 +1938,11 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>メタデータのみ</translation>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
   </context>
   <context>
