@@ -114,7 +114,7 @@ namespace Qv2ray::ui
         highlightingRules.append(rule);
         //
         qvAppDebugLogFormat.setForeground(darkMode ? Qt::yellow : Qt::darkYellow);
-        rule.pattern = QRegularExpression("\\[\\[DEBUG\\] - [A-Z]*\\]:");
+        rule.pattern = QRegularExpression(R"( \[\w+\] )");
         rule.format = qvAppDebugLogFormat;
         highlightingRules.append(rule);
     }
