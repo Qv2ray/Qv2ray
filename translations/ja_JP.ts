@@ -2761,7 +2761,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Matcher</source>
-      <translation type="unfinished">Matcher</translation>
+      <translation>Matcher</translation>
     </message>
     <message>
       <source>Original</source>
@@ -2769,7 +2769,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Hybrid AC Matcher</source>
-      <translation type="unfinished">Hybrid AC Matcher</translation>
+      <translation>Hybrid AC Matcher</translation>
     </message>
   </context>
   <context>
