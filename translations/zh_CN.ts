@@ -376,6 +376,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Pool Size</source>
       <translation>池大小</translation>
     </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation type="unfinished">Disable Cache</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -3157,7 +3161,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
+      <translation>允许不安全，不允许不安全。</translation>
     </message>
   </context>
   <context>
