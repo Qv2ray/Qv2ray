@@ -366,15 +366,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>IP Pool</source>
-      <translation type="unfinished">IP Pool</translation>
+      <translation>IP地址库</translation>
     </message>
     <message>
       <source>Pool Size</source>
-      <translation type="unfinished">Pool Size</translation>
+      <translation>池大小</translation>
     </message>
   </context>
   <context>
@@ -647,15 +647,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>Destination Override:</source>
-      <translation type="unfinished">Destination Override:</translation>
+      <translation>目标覆盖:</translation>
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>仅限元数据</translation>
     </message>
   </context>
   <context>
@@ -1938,11 +1938,11 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>仅限元数据</translation>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
   </context>
   <context>
