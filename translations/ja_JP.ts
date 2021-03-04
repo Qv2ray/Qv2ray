@@ -364,6 +364,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNSサーバーのポート。通常は53です。
 このエントリはDoHサーバを使用する場合、V2Rayコアでは無視されます。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation type="unfinished">IP Pool</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation type="unfinished">Pool Size</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -610,10 +622,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>フィルター設定</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>目標上書き</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>不明なインバウンド。</translation>
     </message>
@@ -636,6 +644,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>ストリーム設定</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation type="unfinished">Destination Override:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
     </message>
   </context>
   <context>
@@ -1853,14 +1873,6 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>システムルート証明書を無効にする</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation>スニッフィングを有効にする</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation>偽DNSを使用</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation>設定ディレクトリ</translation>
     </message>
@@ -1923,6 +1935,14 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message>
       <source>Qv2ray was not built with NTP support.</source>
       <translation>Qv2rayはNTPサポートでは構築されませんでした。</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
     </message>
   </context>
   <context>
