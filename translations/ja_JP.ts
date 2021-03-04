@@ -2759,6 +2759,18 @@ Maybe you have downloaded the wrong core?</source>
       <source>Export Scheme...</source>
       <translation>スキームをエクスポート...</translation>
     </message>
+    <message>
+      <source>Matcher</source>
+      <translation type="unfinished">Matcher</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>オリジナル</translation>
+    </message>
+    <message>
+      <source>Hybrid AC Matcher</source>
+      <translation type="unfinished">Hybrid AC Matcher</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
