@@ -358,6 +358,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNS 伺服器端口。通常為 53。
 當使用 DoH 模式時，此項無效。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation type="unfinished">IP Pool</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation type="unfinished">Pool Size</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -604,10 +616,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>篩選設定</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>目標覆蓋</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>未知入站。</translation>
     </message>
@@ -630,6 +638,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>串流設定</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation type="unfinished">Destination Override:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
     </message>
   </context>
   <context>
@@ -1847,14 +1867,6 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
       <translation>禁用系統根憑證</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation type="unfinished">Enable Sniffing</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation type="unfinished">Use Fake DNS</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation type="unfinished">Config Directory</translation>
     </message>
@@ -1917,6 +1929,14 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>Qv2ray was not built with NTP support.</source>
       <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
     </message>
   </context>
   <context>
