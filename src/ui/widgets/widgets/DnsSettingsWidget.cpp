@@ -51,7 +51,6 @@ DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)
     connect(ipListTxt, &AutoCompleteTextEdit::textChanged,
             [&]() { this->dns.servers[currentServerIndex].expectIPs = SplitLines(ipListTxt->toPlainText()); });
 
-    //
     domainsLayout->addWidget(domainListTxt);
     expectedIPsLayout->addWidget(ipListTxt);
     detailsSettingsGB->setCheckable(true);
@@ -101,6 +100,7 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns, const FakeDNSObject 
         staticResolvedDomainsTable->setItem(rowId, 1, new QTableWidgetItem(ip));
     }
     staticResolvedDomainsTable->resizeColumnsToContents();
+    dnsDisableCacheCB->setChecked(dns.disableCache);
 
     fakeDNSIPPool->setCurrentText(fakeDNS.ipPool);
     fakeDNSIPPoolSize->setValue(fakeDNS.poolSize);
@@ -297,4 +297,9 @@ void DnsSettingsWidget::on_fakeDNSIPPool_currentTextChanged(const QString &arg1)
 void DnsSettingsWidget::on_fakeDNSIPPoolSize_valueChanged(int arg1)
 {
     fakeDNS.poolSize = arg1;
+}
+
+void DnsSettingsWidget::on_dnsDisableCacheCB_stateChanged(int arg1)
+{
+    dns.disableCache = arg1 == Qt::Checked;
 }

@@ -66,7 +66,7 @@ namespace Qv2ray::base::objects
         QList<DNSServerObject> servers;
         QString clientIp;
         QString tag;
-        bool disableCache;
+        bool disableCache = false;
         friend bool operator==(const DNSObject &left, const DNSObject &right)
         {
             return left.hosts == right.hosts &&       //
@@ -323,9 +323,8 @@ namespace Qv2ray::base::objects
 
     struct FakeDNSObject
     {
-        QString ipPool;
-        int poolSize;
-        FakeDNSObject() : ipPool("240.0.0.0/8"), poolSize(65535){};
+        QString ipPool = "240.0.0.0/8";
+        int poolSize = 65535;
         JSONSTRUCT_REGISTER(FakeDNSObject, F(ipPool, poolSize))
         JSONSTRUCT_COMPARE(FakeDNSObject, ipPool, poolSize)
     };

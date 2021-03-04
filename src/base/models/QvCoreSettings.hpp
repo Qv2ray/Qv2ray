@@ -43,11 +43,11 @@ namespace Qv2ray::base::config
     {
         bool enableForwardProxy = false;
         QString type = "http";
-        QString serverAddress;
-        int port;
+        QString serverAddress = "";
+        int port = 0;
         bool useAuth = false;
-        QString username;
-        QString password;
+        QString username = "";
+        QString password = "";
         JSONSTRUCT_COMPARE(QvConfig_ForwardProxy, enableForwardProxy, type, serverAddress, port, useAuth, username, password)
         JSONSTRUCT_REGISTER(QvConfig_ForwardProxy, F(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
     };

@@ -114,12 +114,14 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
         httpAuthPasswordTxt->setText(httpSettings.account.pass);
         //
         httpSniffingCB->setChecked(httpSettings.sniffing);
+        httpSniffingMetadataOnly->setEnabled(has_http && httpSettings.sniffing);
         httpOverrideHTTPCB->setEnabled(has_http && httpSettings.sniffing);
         httpOverrideTLSCB->setEnabled(has_http && httpSettings.sniffing);
         httpOverrideFakeDNSCB->setEnabled(has_http && httpSettings.sniffing);
         httpOverrideHTTPCB->setChecked(httpSettings.destOverride.contains("http"));
         httpOverrideTLSCB->setChecked(httpSettings.destOverride.contains("tls"));
         httpOverrideFakeDNSCB->setChecked(httpSettings.destOverride.contains("fakedns"));
+        httpSniffingMetadataOnly->setChecked(httpSettings.metadataOnly);
     }
     {
         const auto &socksSettings = CurrentConfig.inboundConfig.socksSettings;
@@ -138,12 +140,14 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
         socksUDPIP->setText(socksSettings.localIP);
         //
         socksSniffingCB->setChecked(socksSettings.sniffing);
+        socksSniffingMetadataOnly->setEnabled(has_socks && socksSettings.sniffing);
         socksOverrideHTTPCB->setEnabled(has_socks && socksSettings.sniffing);
         socksOverrideTLSCB->setEnabled(has_socks && socksSettings.sniffing);
         socksOverrideFakeDNSCB->setEnabled(has_socks && socksSettings.sniffing);
         socksOverrideHTTPCB->setChecked(socksSettings.destOverride.contains("http"));
         socksOverrideTLSCB->setChecked(socksSettings.destOverride.contains("tls"));
         socksOverrideFakeDNSCB->setChecked(socksSettings.destOverride.contains("fakedns"));
+        socksSniffingMetadataOnly->setChecked(socksSettings.metadataOnly);
     }
     {
         const auto &tProxySettings = CurrentConfig.inboundConfig.tProxySettings;
@@ -156,11 +160,14 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
         tproxyEnableUDP->setChecked(tProxySettings.hasUDP);
         //
         tproxySniffingCB->setChecked(tProxySettings.sniffing);
+        tproxySniffingMetadataOnlyCB->setEnabled(has_tproxy && tProxySettings.sniffing);
         tproxyOverrideHTTPCB->setEnabled(has_tproxy && tProxySettings.sniffing);
         tproxyOverrideTLSCB->setEnabled(has_tproxy && tProxySettings.sniffing);
+        tproxyOverrideFakeDNSCB->setEnabled(has_tproxy && tProxySettings.sniffing);
         tproxyOverrideHTTPCB->setChecked(tProxySettings.destOverride.contains("http"));
         tproxyOverrideTLSCB->setChecked(tProxySettings.destOverride.contains("tls"));
         tproxyOverrideFakeDNSCB->setChecked(tProxySettings.destOverride.contains("fakedns"));
+        tproxySniffingMetadataOnlyCB->setChecked(tProxySettings.metadataOnly);
 
         tproxyMode->setCurrentText(tProxySettings.mode);
     }
@@ -907,6 +914,7 @@ void PreferencesWindow::on_tproxySniffingCB_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.sniffing = arg1 == Qt::Checked;
+    tproxySniffingMetadataOnlyCB->setEnabled(arg1 == Qt::Checked);
     tproxyOverrideHTTPCB->setEnabled(arg1 == Qt::Checked);
     tproxyOverrideTLSCB->setEnabled(arg1 == Qt::Checked);
     tproxyOverrideFakeDNSCB->setEnabled(arg1 == Qt::Checked);
@@ -1010,6 +1018,7 @@ void PreferencesWindow::on_httpSniffingCB_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.httpSettings.sniffing = arg1 == Qt::Checked;
+    httpSniffingMetadataOnly->setEnabled(arg1 == Qt::Checked);
     httpOverrideHTTPCB->setEnabled(arg1 == Qt::Checked);
     httpOverrideTLSCB->setEnabled(arg1 == Qt::Checked);
     httpOverrideFakeDNSCB->setEnabled(arg1 == Qt::Checked);
@@ -1037,6 +1046,7 @@ void PreferencesWindow::on_socksSniffingCB_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.socksSettings.sniffing = arg1 == Qt::Checked;
+    socksSniffingMetadataOnly->setEnabled(arg1 == Qt::Checked);
     socksOverrideHTTPCB->setEnabled(arg1 == Qt::Checked);
     socksOverrideTLSCB->setEnabled(arg1 == Qt::Checked);
     socksOverrideFakeDNSCB->setEnabled(arg1 == Qt::Checked);

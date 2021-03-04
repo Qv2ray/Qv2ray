@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1,0,0">
+    <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1,0,0,0">
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
@@ -43,6 +43,13 @@ It cannot be a private address.</string>
       <widget class="QLineEdit" name="dnsTagTxt">
        <property name="toolTip">
         <string>(V2Ray 4.13+) The query traffic sent by this DNS, except for localhost and DOHL modes, will carry this identifier, which can be matched with inboundTag in the route.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="dnsDisableCacheCB">
+       <property name="text">
+        <string>Disable Cache</string>
        </property>
       </widget>
      </item>

@@ -40,6 +40,8 @@ class DnsSettingsWidget
 
     void on_fakeDNSIPPoolSize_valueChanged(int arg1);
 
+    void on_dnsDisableCacheCB_stateChanged(int arg1);
+
   private:
     void updateColorScheme();
     void ShowCurrentDnsServerDetails();
