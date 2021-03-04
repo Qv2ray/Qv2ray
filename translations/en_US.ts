@@ -3665,4 +3665,15 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>VmessOutboundEditor</name>
+    <message>
+        <source>Non AEAD VMess detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
