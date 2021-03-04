@@ -2753,6 +2753,18 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Export Scheme...</source>
       <translation>匯出方案...</translation>
     </message>
+    <message>
+      <source>Matcher</source>
+      <translation type="unfinished">Matcher</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>原始</translation>
+    </message>
+    <message>
+      <source>Hybrid AC Matcher</source>
+      <translation type="unfinished">Hybrid AC Matcher</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
