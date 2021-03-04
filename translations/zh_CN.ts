@@ -364,6 +364,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNS 服务器端口。通常为 53。
 当使用 DoH 模式时，此项无效。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation type="unfinished">IP Pool</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation type="unfinished">Pool Size</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -610,10 +622,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>筛选设置</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>目标覆盖</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>未知入站。</translation>
     </message>
@@ -636,6 +644,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>流设置</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation type="unfinished">Destination Override:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
     </message>
   </context>
   <context>
@@ -1853,14 +1873,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
       <translation>禁用系统根证书</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation>启用嗅探功能</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation>使用 Fake DNS</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation>配置目录</translation>
     </message>
@@ -1923,6 +1935,14 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
       <source>Qv2ray was not built with NTP support.</source>
       <translation>Qv2ray 不是在NTP支持下构建的。</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
     </message>
   </context>
   <context>
