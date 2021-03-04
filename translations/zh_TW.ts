@@ -645,7 +645,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Destination Override:</source>
-      <translation type="unfinished">Destination Override:</translation>
+      <translation>目標覆蓋:</translation>
     </message>
     <message>
       <source>Metadata Only</source>
