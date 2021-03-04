@@ -2776,6 +2776,18 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Export Scheme...</source>
       <translation type="unfinished">Export Scheme...</translation>
     </message>
+    <message>
+      <source>Matcher</source>
+      <translation type="unfinished">Matcher</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation type="unfinished">Original</translation>
+    </message>
+    <message>
+      <source>Hybrid AC Matcher</source>
+      <translation type="unfinished">Hybrid AC Matcher</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
