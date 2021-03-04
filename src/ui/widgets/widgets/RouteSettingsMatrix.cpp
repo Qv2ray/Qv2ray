@@ -73,7 +73,10 @@ void RouteSettingsMatrixWidget::SetRouteConfig(const QvConfig_Route &conf)
 QvConfig_Route RouteSettingsMatrixWidget::GetRouteConfig() const
 {
     QvConfig_Route conf;
-    conf.domainStrategy = this->domainStrategyCombo->currentText();
+    // Workaround for translation
+    const auto index = domainMatcherCombo->currentIndex();
+    conf.domainMatcher = index == 0 ? "" : "ac";
+    conf.domainStrategy = domainStrategyCombo->currentText();
     conf.domains.block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
     conf.domains.direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
     conf.domains.proxy = SplitLines(proxyDomainTxt->toPlainText().replace(" ", ""));
