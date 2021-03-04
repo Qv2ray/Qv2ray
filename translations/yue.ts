@@ -379,6 +379,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Pool Size</source>
       <translation type="unfinished">Pool Size</translation>
     </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation type="unfinished">Disable Cache</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
