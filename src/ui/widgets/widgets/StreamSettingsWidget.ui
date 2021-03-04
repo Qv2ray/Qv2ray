@@ -679,6 +679,9 @@
          <property name="enabled">
           <bool>false</bool>
          </property>
+         <property name="toolTip">
+          <string>AllowInsecure is insecure, do not allow insecure.</string>
+         </property>
          <property name="text">
           <string>Allow Insecure Certificates</string>
          </property>

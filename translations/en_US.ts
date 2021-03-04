@@ -3135,6 +3135,10 @@ Maybe you have downloaded the wrong core?</source>
         <source>Certificates</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>AllowInsecure is insecure, do not allow insecure.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>w_GroupManager</name>
