@@ -367,6 +367,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNS伺服器嘅端口。通常係53。
 喺使用DoH服務器嘅時候，V2Ray核心將忽略此條目。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation type="unfinished">IP Pool</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation type="unfinished">Pool Size</translation>
+    </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation type="unfinished">Disable Cache</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -613,10 +629,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation type="unfinished">Sniffing Settings</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation type="unfinished">Destination Override</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation type="unfinished">Unknown inbound.</translation>
     </message>
@@ -639,6 +651,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation type="unfinished">Stream Settings</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation type="unfinished">Destination Override:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
     </message>
   </context>
   <context>
@@ -1864,14 +1888,6 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
       <translation type="unfinished">Disable System Root Certificates</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation type="unfinished">Enable Sniffing</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation type="unfinished">Use Fake DNS</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation type="unfinished">Config Directory</translation>
     </message>
@@ -1934,6 +1950,14 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
     <message>
       <source>Qv2ray was not built with NTP support.</source>
       <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
     </message>
   </context>
   <context>
@@ -2776,6 +2800,18 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Export Scheme...</source>
       <translation type="unfinished">Export Scheme...</translation>
     </message>
+    <message>
+      <source>Matcher</source>
+      <translation type="unfinished">Matcher</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation type="unfinished">Original</translation>
+    </message>
+    <message>
+      <source>Hybrid AC Matcher</source>
+      <translation type="unfinished">Hybrid AC Matcher</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
@@ -3139,6 +3175,10 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Certificates</source>
       <translation type="unfinished">Certificates</translation>
+    </message>
+    <message>
+      <source>AllowInsecure is insecure, do not allow insecure.</source>
+      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
     </message>
   </context>
   <context>
@@ -3672,6 +3712,17 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>This user exists already.</source>
       <translation>用户一早存在。</translation>
+    </message>
+  </context>
+  <context>
+    <name>VmessOutboundEditor</name>
+    <message>
+      <source>Non AEAD VMess detected</source>
+      <translation type="unfinished">Non AEAD VMess detected</translation>
+    </message>
+    <message>
+      <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+      <translation type="unfinished">VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</translation>
     </message>
   </context>
 </TS>

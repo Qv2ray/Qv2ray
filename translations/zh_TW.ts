@@ -12,12 +12,12 @@
     <name>CertificateItemWidget</name>
     <message>
       <source>Certificate Item Editor</source>
-      <translation type="unfinished">Certificate Item Editor</translation>
+      <translation>English</translation>
     </message>
     <message>
       <source>Usage</source>
       <extracomment>Certificate Usage</extracomment>
-      <translation type="unfinished">Usage</translation>
+      <translation>使用量</translation>
     </message>
     <message>
       <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
@@ -27,13 +27,7 @@
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
-&lt;/ul&gt;</translation>
+      <translation>English</translation>
     </message>
     <message>
       <source>Certificate</source>
@@ -364,6 +358,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNS 伺服器端口。通常為 53。
 當使用 DoH 模式時，此項無效。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation type="unfinished">IP Pool</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation type="unfinished">Pool Size</translation>
+    </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation type="unfinished">Disable Cache</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -610,10 +620,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>篩選設定</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>目標覆蓋</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>未知入站。</translation>
     </message>
@@ -636,6 +642,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>串流設定</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation>目標覆蓋:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
     </message>
   </context>
   <context>
@@ -1853,14 +1871,6 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
       <translation>禁用系統根憑證</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation type="unfinished">Enable Sniffing</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation type="unfinished">Use Fake DNS</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation type="unfinished">Config Directory</translation>
     </message>
@@ -1923,6 +1933,14 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>Qv2ray was not built with NTP support.</source>
       <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
     </message>
   </context>
   <context>
@@ -2759,6 +2777,18 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Export Scheme...</source>
       <translation>匯出方案...</translation>
     </message>
+    <message>
+      <source>Matcher</source>
+      <translation type="unfinished">Matcher</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>原始</translation>
+    </message>
+    <message>
+      <source>Hybrid AC Matcher</source>
+      <translation type="unfinished">Hybrid AC Matcher</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
@@ -3122,6 +3152,10 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Certificates</source>
       <translation type="unfinished">Certificates</translation>
+    </message>
+    <message>
+      <source>AllowInsecure is insecure, do not allow insecure.</source>
+      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
     </message>
   </context>
   <context>
@@ -3655,6 +3689,17 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>This user exists already.</source>
       <translation>使用者已存在</translation>
+    </message>
+  </context>
+  <context>
+    <name>VmessOutboundEditor</name>
+    <message>
+      <source>Non AEAD VMess detected</source>
+      <translation type="unfinished">Non AEAD VMess detected</translation>
+    </message>
+    <message>
+      <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+      <translation type="unfinished">VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</translation>
     </message>
   </context>
 </TS>

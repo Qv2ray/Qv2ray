@@ -364,6 +364,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNS 服务器端口。通常为 53。
 当使用 DoH 模式时，此项无效。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation>IP地址库</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation>池大小</translation>
+    </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation>禁用缓存</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -610,10 +626,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>筛选设置</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>目标覆盖</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>未知入站。</translation>
     </message>
@@ -636,6 +648,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>流设置</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation>目标覆盖:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation>仅限元数据</translation>
     </message>
   </context>
   <context>
@@ -1853,14 +1877,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
       <translation>禁用系统根证书</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation>启用嗅探功能</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation>使用 Fake DNS</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation>配置目录</translation>
     </message>
@@ -1894,15 +1910,15 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Please synchronize your system to use the VMess protocol.</source>
-      <translation>请同步您的系统使用VMess协议。</translation>
+      <translation>请同步系统时间，否则无法正常使用VMess协议。</translation>
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation>VMess协议可能仍然有效，但我们建议您同步您的时钟。</translation>
+      <translation>VMess协议可能不受影响，但我们建议您同步系统时间。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
-      <translation>VMess协议可能不会因时间不准确而受到影响。</translation>
+      <translation>VMess协议可能不会受到时间误差的影响。</translation>
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.</source>
@@ -1918,11 +1934,19 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>No NTP Backend</source>
-      <translation>NTP 后端</translation>
+      <translation>无NTP后端</translation>
     </message>
     <message>
       <source>Qv2ray was not built with NTP support.</source>
       <translation>Qv2ray 不是在NTP支持下构建的。</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation>仅限元数据</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
     </message>
   </context>
   <context>
@@ -2759,6 +2783,18 @@ Maybe you have downloaded the wrong core?</source>
       <source>Export Scheme...</source>
       <translation>导出方案...</translation>
     </message>
+    <message>
+      <source>Matcher</source>
+      <translation>匹配器</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>原始</translation>
+    </message>
+    <message>
+      <source>Hybrid AC Matcher</source>
+      <translation>Hybrid AC Matcher</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
@@ -3122,6 +3158,10 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Certificates</source>
       <translation>证书</translation>
+    </message>
+    <message>
+      <source>AllowInsecure is insecure, do not allow insecure.</source>
+      <translation>允许不安全，不允许不安全。</translation>
     </message>
   </context>
   <context>
@@ -3655,6 +3695,17 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>This user exists already.</source>
       <translation>此用户已存在。</translation>
+    </message>
+  </context>
+  <context>
+    <name>VmessOutboundEditor</name>
+    <message>
+      <source>Non AEAD VMess detected</source>
+      <translation>检测到非AEAD VMess。</translation>
+    </message>
+    <message>
+      <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+      <translation>VMessMD5使用非零变压器ID已废弃，请使用 VMessAEAD</translation>
     </message>
   </context>
 </TS>
