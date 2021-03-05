@@ -41,6 +41,8 @@ class MainWindow
   private slots:
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void on_preferencesBtn_clicked();
+    void on_setBypassCNBtn_clicked();
+    void on_clearBypassCNBtn_clicked();
     void on_clearlogButton_clicked();
     void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
     void on_importConfigButton_clicked();
@@ -119,11 +121,14 @@ class MainWindow
     // Actions in the system tray menu
     QMenu *tray_RootMenu = new QMenu(this);
     QMenu *tray_SystemProxyMenu = new QMenu(tr("System Proxy"), this);
+    QMenu *tray_BypassCNMenu = new QMenu(tr("Bypass CN Mainland"), this);
     QMenu *tray_RecentConnectionsMenu = new QMenu(tr("Recent Connections"), this);
     QAction *tray_ClearRecentConnectionsAction = new QAction(tr("Clear Recent Connections"), this);
     //
     QAction *tray_action_ToggleVisibility = new QAction(tr("Hide"), this);
     QAction *tray_action_Preferences = new QAction(tr("Preferences"), this);
+    QAction *tray_action_SetBypassCN = new QAction(tr("Enable Bypass CN Mainland"), this);
+    QAction *tray_action_ClearBypassCN = new QAction(tr("Disable Bypass CN Mainland"), this);
     QAction *tray_action_Quit = new QAction(tr("Quit"), this);
     QAction *tray_action_Start = new QAction(tr("Connect"), this);
     QAction *tray_action_Restart = new QAction(tr("Reconnect"), this);

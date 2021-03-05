@@ -881,6 +881,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation>更新订阅</translation>
     </message>
     <message>
+        <source>Bypass CN Mainland</source>
+        <translation>绕过中国大陆</translation>
+    </message>
+    <message>
         <source>System Proxy</source>
         <translation>系统代理</translation>
     </message>
@@ -955,6 +959,14 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
         <source>Disable System Proxy</source>
         <translation>禁用系统代理</translation>
+    </message>
+    <message>
+        <source>Enable Bypass CN Mainland</source>
+        <translation>启用绕过中国大陆</translation>
+    </message>
+    <message>
+        <source>Disable Bypass CN Mainland</source>
+        <translation>禁用绕过中国大陆</translation>
     </message>
     <message>
         <source>Connect to this</source>
