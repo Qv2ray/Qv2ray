@@ -206,6 +206,7 @@ void MainWindow::updateColorScheme()
 
 void MainWindow::UpdateActionTranslations()
 {
+    tray_BypassCNMenu->setTitle(tr("Bypass CN Mainland"));
     tray_SystemProxyMenu->setTitle(tr("System Proxy"));
     tray_RecentConnectionsMenu->setTitle(tr("Recent Connections"));
     tray_ClearRecentConnectionsAction->setText(tr("Clear Recent Connections"));
@@ -216,6 +217,8 @@ void MainWindow::UpdateActionTranslations()
     tray_action_Start->setText(tr("Connect"));
     tray_action_Restart->setText(tr("Reconnect"));
     tray_action_Stop->setText(tr("Disconnect"));
+    tray_action_SetBypassCN->setText(tr("Enable Bypass CN Mainland"));
+    tray_action_ClearBypassCN->setText(tr("Disable Bypass CN Mainland"));
     tray_action_SetSystemProxy->setText(tr("Enable System Proxy"));
     tray_action_ClearSystemProxy->setText(tr("Disable System Proxy"));
     //

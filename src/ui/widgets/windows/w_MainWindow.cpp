@@ -153,6 +153,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     tray_action_Stop->setEnabled(false);
     tray_action_Restart->setEnabled(false);
     //
+    tray_BypassCNMenu->setEnabled(false);
+    tray_BypassCNMenu->addAction(tray_action_SetBypassCN);
+    tray_BypassCNMenu->addAction(tray_action_ClearBypassCN);
+    //
     tray_SystemProxyMenu->setEnabled(false);
     tray_SystemProxyMenu->addAction(tray_action_SetSystemProxy);
     tray_SystemProxyMenu->addAction(tray_action_ClearSystemProxy);
@@ -160,6 +164,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     tray_RootMenu->addAction(tray_action_ToggleVisibility);
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_Preferences);
+    tray_RootMenu->addMenu(tray_BypassCNMenu);
     tray_RootMenu->addMenu(tray_SystemProxyMenu);
     //
     tray_RootMenu->addSeparator();
@@ -180,6 +185,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::Action_Exit);
+    connect(tray_action_SetBypassCN, &QAction::triggered, this, &MainWindow::on_setBypassCNBtn_clicked);
+    connect(tray_action_ClearBypassCN, &QAction::triggered, this, &MainWindow::on_clearBypassCNBtn_clicked);
     connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
     connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [this]() {
@@ -512,6 +519,29 @@ void MainWindow::on_preferencesBtn_clicked()
 {
     PreferencesWindow{ this }.exec();
 }
+
+void MainWindow::on_setBypassCNBtn_clicked()
+{
+    GlobalConfig.defaultRouteConfig.connectionConfig.bypassCN = true;
+    SaveGlobalSettings();
+    if (!KernelInstance->CurrentConnection().isEmpty())
+    {
+        qApp->processEvents();
+        ConnectionManager->RestartConnection();
+    }
+}
+
+void MainWindow::on_clearBypassCNBtn_clicked()
+{
+    GlobalConfig.defaultRouteConfig.connectionConfig.bypassCN = false;
+    SaveGlobalSettings();
+    if (!KernelInstance->CurrentConnection().isEmpty())
+    {
+        qApp->processEvents();
+        ConnectionManager->RestartConnection();
+    }
+}
+
 void MainWindow::on_clearlogButton_clicked()
 {
     masterLogBrowser->document()->clear();
@@ -625,6 +655,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
     tray_action_Start->setEnabled(true);
     tray_action_Stop->setEnabled(false);
     tray_action_Restart->setEnabled(false);
+    tray_BypassCNMenu->setEnabled(false);
     tray_SystemProxyMenu->setEnabled(false);
     lastConnected = id;
     locateBtn->setEnabled(false);
@@ -649,6 +680,7 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     tray_action_Start->setEnabled(false);
     tray_action_Stop->setEnabled(true);
     tray_action_Restart->setEnabled(true);
+    tray_BypassCNMenu->setEnabled(true);
     tray_SystemProxyMenu->setEnabled(true);
     lastConnected = id;
     locateBtn->setEnabled(true);
