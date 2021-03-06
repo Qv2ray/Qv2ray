@@ -1085,6 +1085,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Copy selected.</source>
       <translation>复制所选项</translation>
     </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation>绕过中国大陆</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation type="unfinished">Enable Bypassing CN Mainland</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation type="unfinished">Disable Bypassing CN Mainland</translation>
+    </message>
   </context>
   <context>
     <name>OutboundEditor</name>
@@ -1854,11 +1866,11 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Enable Sniffing</source>
-      <translation>启用嗅探功能</translation>
+      <translation type="unfinished">Enable Sniffing</translation>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation>使用 Fake DNS</translation>
+      <translation type="unfinished">Use Fake DNS</translation>
     </message>
     <message>
       <source>Config Directory</source>
@@ -1894,15 +1906,15 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Please synchronize your system to use the VMess protocol.</source>
-      <translation>请同步您的系统使用VMess协议。</translation>
+      <translation>请同步系统时间，否则无法正常使用VMess协议。</translation>
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation>VMess协议可能仍然有效，但我们建议您同步您的时钟。</translation>
+      <translation>VMess协议可能不受影响，但我们建议您同步系统时间。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
-      <translation>VMess协议可能不会因时间不准确而受到影响。</translation>
+      <translation>VMess协议可能不会受到时间误差的影响。</translation>
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.</source>
@@ -1918,7 +1930,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>No NTP Backend</source>
-      <translation>NTP 后端</translation>
+      <translation>无NTP后端</translation>
     </message>
     <message>
       <source>Qv2ray was not built with NTP support.</source>
