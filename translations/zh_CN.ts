@@ -1091,11 +1091,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Enable Bypassing CN Mainland</source>
-      <translation type="unfinished">Enable Bypassing CN Mainland</translation>
+      <translation>启用Bypassing CN 内地功能</translation>
     </message>
     <message>
       <source>Disable Bypassing CN Mainland</source>
-      <translation type="unfinished">Disable Bypassing CN Mainland</translation>
+      <translation>禁用Bypassing CN 内地功能</translation>
     </message>
   </context>
   <context>
@@ -1866,11 +1866,11 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Enable Sniffing</source>
-      <translation type="unfinished">Enable Sniffing</translation>
+      <translation>启用嗅探功能</translation>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation type="unfinished">Use Fake DNS</translation>
+      <translation>使用 Fake DNS</translation>
     </message>
     <message>
       <source>Config Directory</source>
