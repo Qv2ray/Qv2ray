@@ -1085,6 +1085,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Copy selected.</source>
       <translation>選択内容のコピー</translation>
     </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation>中国本土をバイパス</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation type="unfinished">Enable Bypassing CN Mainland</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation type="unfinished">Disable Bypassing CN Mainland</translation>
+    </message>
   </context>
   <context>
     <name>OutboundEditor</name>
@@ -1854,11 +1866,11 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Enable Sniffing</source>
-      <translation>スニッフィングを有効にする</translation>
+      <translation type="unfinished">Enable Sniffing</translation>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation>偽DNSを使用</translation>
+      <translation type="unfinished">Use Fake DNS</translation>
     </message>
     <message>
       <source>Config Directory</source>
@@ -2273,7 +2285,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Configuration Upgrade Failed</source>
-      <translation>設定のアップグレードに失敗しました</translation>
+      <translation>コンフィギュレーションのアップグレードに失敗しました</translation>
     </message>
     <message>
       <source>Unsupported config version number: </source>
@@ -2412,7 +2424,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Failed to start connection</source>
-      <translation>接続の開始に失敗しました</translation>
+      <translation>接続を開始できませんでした</translation>
     </message>
     <message>
       <source>Unknown subscription type: %1</source>
@@ -2437,7 +2449,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message numerus="yes">
       <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
       <translation>
-        <numerusform>そこに&apos;現在のサブスクリプションに属していないグループ内の %n 接続（これ以上）</numerusform>
+        <numerusform>現在のサブスクリプショングループに属していない接続が%n個あります。</numerusform>
       </translation>
     </message>
     <message>
@@ -2512,7 +2524,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Configuration Error</source>
-      <translation>設定エラー</translation>
+      <translation>コンフィギュレーションエラー</translation>
     </message>
     <message>
       <source>Invalid V2Ray Instance Status.</source>
@@ -2682,7 +2694,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Inbound / Outbound Info</source>
-      <translation>インバウンド/アウトバウンド情報</translation>
+      <translation>Inbound/Outbound情報</translation>
     </message>
     <message>
       <source>Rules Ordering</source>
@@ -3330,7 +3342,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation>「リダイレクトに従う」を使用している場合はオプション</translation>
+      <translation>「リダイレクトに従う」を使用している場合がオプショナル</translation>
     </message>
     <message>
       <source>Port</source>
@@ -3369,7 +3381,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation>透明を許可</translation>
+      <translation>透明接続を許可します</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -3635,7 +3647,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation>このユーザーは既に存在します.</translation>
+      <translation>このユーザーは既に存在します。</translation>
     </message>
   </context>
   <context>
@@ -3654,7 +3666,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation>このユーザーは既に存在します.</translation>
+      <translation>このユーザーは既に存在します。</translation>
     </message>
   </context>
 </TS>
