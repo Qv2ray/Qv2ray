@@ -93,6 +93,7 @@ jobs:
       - name: Install git
         run: |
           apt-get update
+          
           apt-get install -y git
       - name: Checking out sources
         uses: actions/checkout@v2
