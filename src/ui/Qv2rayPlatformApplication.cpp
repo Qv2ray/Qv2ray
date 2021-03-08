@@ -2,7 +2,10 @@
 
 #include "core/settings/SettingsBackend.hpp"
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QSessionManager>
+#endif
+
 #include <QSslSocket>
 #define QV_MODULE_NAME "PlatformApplication"
 
@@ -83,13 +86,15 @@ bool Qv2rayPlatformApplication::Initialize()
 
 #ifdef QV2RAY_GUI
 #ifdef Q_OS_LINUX
-    const auto func = [] {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    setFallbackSessionManagementEnabled(false);
+#endif
+    connect(this, &QGuiApplication::commitDataRequest, [] {
         RouteManager->SaveRoutes();
         ConnectionManager->SaveConnectionConfig();
         PluginHost->SavePluginSettings();
         SaveGlobalSettings();
-    };
-    connect(this, &QGuiApplication::commitDataRequest, this, &func, Qt::DirectConnection);
+    });
 #endif
 
 #ifdef Q_OS_WIN

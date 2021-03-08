@@ -230,8 +230,10 @@ int main(int argc, char *argv[])
     else
     {
         DEBUG("High DPI scaling is enabled.");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 #ifdef QV2RAY_GUI
         QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
 #endif
     }
 
