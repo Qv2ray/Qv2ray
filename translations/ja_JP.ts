@@ -1337,20 +1337,6 @@ For example, for updating subscriptions.</source>
       <translation>:</translation>
     </message>
     <message>
-      <source>Advanced Behavior</source>
-      <translation>高度的な動作</translation>
-    </message>
-    <message>
-      <source>Test Latency Periodcally</source>
-      <translation>周期的の遅延テスト</translation>
-    </message>
-    <message>
-      <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation>サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
-有効にすると、Qv2ray はより正確なレイテンシ値が得られますが、サーバーは制限される可能性が高くなります。</translation>
-    </message>
-    <message>
       <source>Kernel Settings</source>
       <translation>カーネル設定</translation>
     </message>
@@ -1641,14 +1627,6 @@ Custom DNS Settings</source>
       <translation>自動起動オプションの設定に失敗しました。</translation>
     </message>
     <message>
-      <source>Dangerous Operation</source>
-      <translation>危険操作</translation>
-    </message>
-    <message>
-      <source>This will (probably) make it easy to fingerprint your connection.</source>
-      <translation>そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
-    </message>
-    <message>
       <source>NTP Checker</source>
       <translation>ネットワークタイムチェッカー</translation>
     </message>
@@ -1695,12 +1673,6 @@ Custom DNS Settings</source>
     <message>
       <source>Invalid DNS settings.</source>
       <translation>DNSの設定が無効です。</translation>
-    </message>
-    <message>
-      <source>These settings may be useful.
-But could damage your server if improperly used.</source>
-      <translation>これらの設定は役に立つかもしれません。
-しかし、不適切な使い方をするとサーバーにダメージを与える可能性があります。</translation>
     </message>
     <message>
       <source>Watch Out!</source>
@@ -1849,10 +1821,6 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>ドコデモドーアの設定</translation>
     </message>
     <message>
-      <source>Disable System Root Certificates</source>
-      <translation>システムルート証明書を無効にする</translation>
-    </message>
-    <message>
       <source>Enable Sniffing</source>
       <translation>スニッフィングを有効にする</translation>
     </message>
@@ -1867,10 +1835,6 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message>
       <source>Open Directory</source>
       <translation>ディレクトリを開く</translation>
-    </message>
-    <message>
-      <source>Test Latency On Connected</source>
-      <translation>接続時のレイテンシーテスト</translation>
     </message>
     <message>
       <source>Start Minimized</source>
@@ -2252,36 +2216,12 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>または、これがエラーだと思われる場合は、新しい問題を提出してください。</translation>
     </message>
     <message>
-      <source>Default Group</source>
-      <translation>デフォルトのグループ</translation>
-    </message>
-    <message>
-      <source>Deprecated</source>
-      <translation>非推奨です</translation>
-    </message>
-    <message>
-      <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-      <translation>PACは廃止予定となり、使用することは推奨されません。</translation>
-    </message>
-    <message>
-      <source>It will be removed or be provided as a plugin in the future.</source>
-      <translation>今後、削除またはプラグインとして提供される予定です。</translation>
-    </message>
-    <message>
-      <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
-      <translation>PACは現在も動作しますが、できるだけ早くV2Ray内蔵ルーティングに切り替えてください。</translation>
-    </message>
-    <message>
       <source>Configuration Upgrade Failed</source>
       <translation>設定のアップグレードに失敗しました</translation>
     </message>
     <message>
       <source>Unsupported config version number: </source>
       <translation>サポートされていない設定バージョン番号: </translation>
-    </message>
-    <message>
-      <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-      <translation>Qv2ray v2.0/v2.1にアップグレードして、もう一度やり直してください。</translation>
     </message>
     <message>
       <source>Qv2ray has encountered an uncaught exception: </source>
@@ -2310,6 +2250,10 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message>
       <source>missing uuid</source>
       <translation>uuid がありません</translation>
+    </message>
+    <message>
+      <source>Please go to https://github.com/Qv2ray/Qv2ray/issues to check for related announcements.</source>
+      <translation>関連するお知らせを確認するには、https://github.com/Qv2ray/Qv2ray/issuesにアクセスしてください。</translation>
     </message>
   </context>
   <context>
@@ -2758,6 +2702,26 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Export Scheme...</source>
       <translation>スキームをエクスポート...</translation>
+    </message>
+    <message>
+      <source>...</source>
+      <translation>...</translation>
+    </message>
+    <message>
+      <source>Rules</source>
+      <translation>ルール</translation>
+    </message>
+    <message>
+      <source>Rule Detail</source>
+      <translation>ルールの詳細</translation>
+    </message>
+    <message>
+      <source>Rule Type</source>
+      <translation>ルールの種類</translation>
+    </message>
+    <message>
+      <source>Outbound</source>
+      <translation>Outbound</translation>
     </message>
   </context>
   <context>
