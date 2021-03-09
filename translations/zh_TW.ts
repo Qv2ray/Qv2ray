@@ -2253,7 +2253,7 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     </message>
     <message>
       <source>Please go to https://github.com/Qv2ray/Qv2ray/issues to check for related announcements.</source>
-      <translation type="unfinished">Please go to https://github.com/Qv2ray/Qv2ray/issues to check for related announcements.</translation>
+      <translation>請前往 https://github.com/Qv2ray/Qv2ray/issues 查詢相關訊息</translation>
     </message>
   </context>
   <context>
@@ -2705,19 +2705,19 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <source>Rules</source>
-      <translation type="unfinished">Rules</translation>
+      <translation>規則</translation>
     </message>
     <message>
       <source>Rule Detail</source>
-      <translation type="unfinished">Rule Detail</translation>
+      <translation>規則細節</translation>
     </message>
     <message>
       <source>Rule Type</source>
-      <translation type="unfinished">Rule Type</translation>
+      <translation>規則類型</translation>
     </message>
     <message>
       <source>Outbound</source>
