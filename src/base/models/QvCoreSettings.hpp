@@ -73,7 +73,7 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(QvConfig_SystemProxy, F(setSystemProxy))
     };
 
-    struct __Qv2rayConfig_ProtocolInboundBase
+    struct Qv2rayConfig_ProtocolInboundBase
     {
         int port = 0;
         bool useAuth = false;
@@ -81,43 +81,46 @@ namespace Qv2ray::base::config
         QList<QString> destOverride = { "http", "tls" };
         objects::AccountObject account;
         bool metadataOnly;
-        __Qv2rayConfig_ProtocolInboundBase(){};
-        JSONSTRUCT_COMPARE(__Qv2rayConfig_ProtocolInboundBase, port, useAuth, sniffing, destOverride, metadataOnly)
-        JSONSTRUCT_REGISTER(__Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, destOverride, account, metadataOnly))
+        Qv2rayConfig_ProtocolInboundBase(){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, destOverride, account, metadataOnly))
     };
 
-    struct QvConfig_SocksInbound : __Qv2rayConfig_ProtocolInboundBase
+    struct QvConfig_SocksInbound : Qv2rayConfig_ProtocolInboundBase
     {
         bool enableUDP = true;
         QString localIP = "127.0.0.1";
-        QvConfig_SocksInbound() : __Qv2rayConfig_ProtocolInboundBase()
+        QvConfig_SocksInbound() : Qv2rayConfig_ProtocolInboundBase()
         {
             port = 1089;
         }
-        JSONSTRUCT_REGISTER(QvConfig_SocksInbound, B(__Qv2rayConfig_ProtocolInboundBase), F(enableUDP, localIP))
+        JSONSTRUCT_COMPARE(QvConfig_SocksInbound, enableUDP, localIP, port, useAuth, sniffing, destOverride, metadataOnly)
+        JSONSTRUCT_REGISTER(QvConfig_SocksInbound, B(Qv2rayConfig_ProtocolInboundBase), F(enableUDP, localIP))
     };
 
-    struct QvConfig_HttpInbound : __Qv2rayConfig_ProtocolInboundBase
+    struct QvConfig_HttpInbound : Qv2rayConfig_ProtocolInboundBase
     {
-        QvConfig_HttpInbound() : __Qv2rayConfig_ProtocolInboundBase()
+        QvConfig_HttpInbound() : Qv2rayConfig_ProtocolInboundBase()
         {
             port = 8889;
         }
-        JSONSTRUCT_REGISTER(QvConfig_HttpInbound, B(__Qv2rayConfig_ProtocolInboundBase))
+        JSONSTRUCT_COMPARE(QvConfig_HttpInbound, port, useAuth, sniffing, destOverride, metadataOnly)
+        JSONSTRUCT_REGISTER(QvConfig_HttpInbound, B(Qv2rayConfig_ProtocolInboundBase))
     };
 
-    struct QvConfig_TProxy : __Qv2rayConfig_ProtocolInboundBase
+    struct QvConfig_TProxy : Qv2rayConfig_ProtocolInboundBase
     {
         QString tProxyIP = "127.0.0.1";
-        QString tProxyV6IP;
+        QString tProxyV6IP = "::1";
         bool hasTCP = true;
         bool hasUDP = true;
         QString mode = "tproxy";
-        QvConfig_TProxy() : __Qv2rayConfig_ProtocolInboundBase()
+        QvConfig_TProxy() : Qv2rayConfig_ProtocolInboundBase()
         {
             port = 12345;
+            sniffing = true;
         }
-        JSONSTRUCT_REGISTER(QvConfig_TProxy, B(__Qv2rayConfig_ProtocolInboundBase), F(tProxyIP, tProxyV6IP, hasTCP, hasUDP, mode))
+        JSONSTRUCT_COMPARE(QvConfig_TProxy, tProxyIP, tProxyV6IP, hasTCP, hasUDP, mode, port, useAuth, sniffing, destOverride, metadataOnly)
+        JSONSTRUCT_REGISTER(QvConfig_TProxy, B(Qv2rayConfig_ProtocolInboundBase), F(tProxyIP, tProxyV6IP, hasTCP, hasUDP, mode))
     };
 
     struct QvConfig_Inbounds
