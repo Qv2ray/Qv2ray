@@ -1085,6 +1085,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Copy selected.</source>
       <translation>選択内容のコピー</translation>
     </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation>中国本土をバイパス</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation>CN本土バイパスを有効にする</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation>CN本土バイパスを無効にする</translation>
+    </message>
   </context>
   <context>
     <name>OutboundEditor</name>
