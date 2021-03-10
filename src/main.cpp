@@ -1,12 +1,5 @@
 #include <QtGlobal>
 
-// Backtrace Handler
-#ifndef Q_OS_WIN
-#ifdef QV2RAY_HAS_BACKWARD
-#include "3rdparty/backward-cpp/backward.hpp"
-#endif
-#endif
-
 #ifdef QV2RAY_CLI
 #include "ui/cli/Qv2rayCliApplication.hpp"
 #endif
@@ -59,31 +52,7 @@ const QString SayLastWords() noexcept
     msg << "------- BEGIN QV2RAY CRASH REPORT -------";
 
     {
-#ifndef Q_OS_WIN
-#ifdef QV2RAY_HAS_BACKWARD
-        const static QString SourceFormat = "    ---> %1:[%2:%3]";
-        backward::StackTrace st;
-        backward::TraceResolver resolver;
-        st.load_here(64);
-        resolver.load_stacktrace(st);
-        //
-        for (size_t i = 0; i < st.size(); i++)
-        {
-            const auto &trace = resolver.resolve(st[i]);
-            msg << QString("#%1: %2").arg(i).arg(trace.object_function.c_str());
-            if (!trace.source.filename.empty())
-            {
-                msg << SourceFormat.arg(trace.source.filename.c_str()).arg(trace.source.line).arg(trace.source.col);
-            }
-            for (const auto &sourceX : trace.inliners)
-            {
-                auto newLine = QString("    ---> [FUNC:%1] ").arg(sourceX.function.c_str());
-                newLine += "    " + SourceFormat.arg(sourceX.filename.c_str()).arg(sourceX.line).arg(sourceX.col);
-                msg << newLine;
-            }
-        }
-#endif
-#else
+#ifdef Q_OS_WIN
         void *stack[1024];
         HANDLE process = GetCurrentProcess();
         SymInitialize(process, NULL, TRUE);

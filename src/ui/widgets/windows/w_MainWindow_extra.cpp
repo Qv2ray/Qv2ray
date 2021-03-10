@@ -10,9 +10,17 @@
 
 #define QV_MODULE_NAME "MainWindowExtra"
 
+void MainWindow::MWToggleVisibilitySetText()
+{
+    if (isHidden() || isMinimized())
+        tray_action_ToggleVisibility->setText(tr("Show"));
+    else
+        tray_action_ToggleVisibility->setText(tr("Hide"));
+}
+
 void MainWindow::MWToggleVisibility()
 {
-    if (isHidden())
+    if (isHidden() || isMinimized())
         MWShowWindow();
     else
         MWHideWindow();
@@ -34,7 +42,7 @@ void MainWindow::MWShowWindow()
     ProcessSerialNumber psn = { 0, kCurrentProcess };
     TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 #endif
-    tray_action_ToggleVisibility->setText(tr("Hide"));
+    MWToggleVisibilitySetText();
 }
 
 void MainWindow::MWHideWindow()
@@ -47,7 +55,7 @@ void MainWindow::MWHideWindow()
     SaveState();
 #endif
     this->hide();
-    tray_action_ToggleVisibility->setText(tr("Show"));
+    MWToggleVisibilitySetText();
 }
 
 void MainWindow::MWSetSystemProxy()
@@ -198,6 +206,7 @@ void MainWindow::updateColorScheme()
 
 void MainWindow::UpdateActionTranslations()
 {
+    tray_BypassCNMenu->setTitle(tr("Bypass CN Mainland"));
     tray_SystemProxyMenu->setTitle(tr("System Proxy"));
     tray_RecentConnectionsMenu->setTitle(tr("Recent Connections"));
     tray_ClearRecentConnectionsAction->setText(tr("Clear Recent Connections"));
@@ -208,6 +217,8 @@ void MainWindow::UpdateActionTranslations()
     tray_action_Start->setText(tr("Connect"));
     tray_action_Restart->setText(tr("Reconnect"));
     tray_action_Stop->setText(tr("Disconnect"));
+    tray_action_SetBypassCN->setText(tr("Enable Bypassing CN Mainland"));
+    tray_action_ClearBypassCN->setText(tr("Disable Bypassing CN Mainland"));
     tray_action_SetSystemProxy->setText(tr("Enable System Proxy"));
     tray_action_ClearSystemProxy->setText(tr("Disable System Proxy"));
     //

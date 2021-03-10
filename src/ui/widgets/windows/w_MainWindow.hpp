@@ -37,6 +37,8 @@ class MainWindow
   private slots:
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void on_preferencesBtn_clicked();
+    void on_setBypassCNBtn_clicked();
+    void on_clearBypassCNBtn_clicked();
     void on_clearlogButton_clicked();
     void on_connectionTreeView_customContextMenuRequested(const QPoint &pos);
     void on_importConfigButton_clicked();
@@ -78,6 +80,7 @@ class MainWindow
     void Action_CopyRecentLogs();
 
   private:
+    void MWToggleVisibilitySetText();
     void MWToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
     void OnEditJsonRequested(const ConnectionId &id);
@@ -102,6 +105,7 @@ class MainWindow
     void keyPressEvent(QKeyEvent *e) override;
     void keyReleaseEvent(QKeyEvent *e) override;
     void closeEvent(QCloseEvent *) override;
+    void changeEvent(QEvent *e) override;
 
   private:
     // Charts
@@ -112,6 +116,7 @@ class MainWindow
     // Declare Actions
 #define DECL_ACTION(parent, name) QAction *name = new QAction(parent)
     QMenu *tray_RootMenu = new QMenu(this);
+    QMenu *tray_BypassCNMenu = new QMenu(this);
     QMenu *tray_SystemProxyMenu = new QMenu(this);
     QMenu *tray_RecentConnectionsMenu = new QMenu(this);
     QMenu *sortMenu = new QMenu(this);
@@ -127,6 +132,8 @@ class MainWindow
     DECL_ACTION(tray_RootMenu, tray_action_Start);
     DECL_ACTION(tray_RootMenu, tray_action_Restart);
     DECL_ACTION(tray_RootMenu, tray_action_Stop);
+    DECL_ACTION(tray_RootMenu, tray_action_SetBypassCN);
+    DECL_ACTION(tray_RootMenu, tray_action_ClearBypassCN);
     DECL_ACTION(tray_RootMenu, tray_action_SetSystemProxy);
     DECL_ACTION(tray_RootMenu, tray_action_ClearSystemProxy);
     DECL_ACTION(connectionListRCM_Menu, action_RCM_Start);

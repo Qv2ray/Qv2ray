@@ -5,7 +5,6 @@ compile_commands.json
 *.user
 .vs/
 *.qm
-./.vscode
 
 assets/package_dmg.json
 CMakeSettings.json
@@ -13,7 +12,7 @@ CMakeSettings.json
 
 SourceTrail/
 
-3rdparty/android_openssl/
+3rdparty/android_openssl
 3rdparty/android-openssl
 patches/
 
@@ -36,3 +35,7 @@ out/
 /.idea/
 *.iml
 /cmake-build-debug
+
+#oss code
+.vscode
+.cache

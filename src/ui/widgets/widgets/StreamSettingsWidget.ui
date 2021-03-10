@@ -676,6 +676,9 @@
        </item>
        <item row="1" column="0" colspan="2">
         <widget class="QCheckBox" name="allowInsecureCB">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Allow Insecure Certificates</string>
          </property>
