@@ -12,7 +12,8 @@ CMakeSettings.json
 
 SourceTrail/
 
-3rdparty/android_openssl
+3rdparty/android-openssl/
+3rdparty/android_openssl/
 patches/
 
 libs/gen

@@ -7,7 +7,7 @@
 
 using namespace Qv2rayPlugin;
 
-const Qv2rayPlugin::OutboundInfoObject BuiltinSerializer::GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const
+const OutboundInfoObject BuiltinSerializer::GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const
 {
     OutboundInfoObject obj;
     obj[INFO_PROTOCOL] = protocol;
@@ -44,7 +44,7 @@ const Qv2rayPlugin::OutboundInfoObject BuiltinSerializer::GetOutboundInfo(const 
     return obj;
 }
 
-const void BuiltinSerializer::SetOutboundInfo(const QString &protocol, const Qv2rayPlugin::OutboundInfoObject &info, QJsonObject &outbound) const
+void BuiltinSerializer::SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &outbound) const
 {
     if ((QStringList{ "http", "socks", "shadowsocks" }).contains(protocol))
     {
@@ -171,6 +171,8 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
 
 const QPair<QString, QJsonObject> BuiltinSerializer::DeserializeOutbound(const QString &link, QString *alias, QString *errorMessage) const
 {
+    Q_UNUSED(alias);
+    Q_UNUSED(errorMessage);
     if (link.startsWith("http://") || link.startsWith("socks://"))
     {
         const QUrl url = link;

@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - l10n_dev
+      - version-v3-dev
   release:
     types: [prereleased]
 
@@ -25,7 +26,7 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!NSIS') }}
     strategy:
       matrix:
-        qt_version: [5.15.0]
+        qt_version: [6.0.1]
         platform: [windows-latest]
         arch: [x64]
         include:

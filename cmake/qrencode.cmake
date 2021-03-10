@@ -31,7 +31,7 @@ set(QT_QRENCODE_SOURCES
     ${QT_QRENCODE_BASEDIR}/qtqrcodepainter.cpp
     )
 
-find_package(${QV_QT_LIBNAME} COMPONENTS Core Gui Svg REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Svg REQUIRED)
 
 set(QV2RAY_QRENCODE_LIBRARY qv2ray_qrencode)
 add_library(qv2ray_qrencode STATIC ${QT_QRENCODE_SOURCES})
@@ -42,6 +42,6 @@ target_compile_definitions(${QV2RAY_QRENCODE_LIBRARY} PRIVATE
     -DMICRO_VERSION=0
     -DVERSION="0.0.0")
 target_link_libraries(${QV2RAY_QRENCODE_LIBRARY}
-    ${QV_QT_LIBNAME}::Core
-    ${QV_QT_LIBNAME}::Gui
-    ${QV_QT_LIBNAME}::Svg)
+    Qt::Core
+    Qt::Gui
+    Qt::Svg)

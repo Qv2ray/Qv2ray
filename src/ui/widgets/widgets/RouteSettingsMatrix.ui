@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>582</width>
-    <height>404</height>
+    <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,74 +52,137 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="0,1,1" columnstretch="0,1,1,1">
-     <item row="0" column="3">
-      <widget class="QLabel" name="label_82">
-       <property name="text">
-        <string>Block</string>
+    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,7">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Rules</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="rulesListWidget"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton">
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton_2">
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton_4">
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton_3">
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Rule Detail</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Rule Type</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="comboBox">
+          <item>
+           <property name="text">
+            <string>IP</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Domain</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Outbound</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="comboBox_2">
+          <item>
+           <property name="text">
+            <string>Proxy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Direct</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Block</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <layout class="QVBoxLayout" name="ruleTxtLayout"/>
+        </item>
+       </layout>
       </widget>
-     </item>
-     <item row="2" column="3">
-      <layout class="QGridLayout" name="blockTxtLayout"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_80">
-       <property name="text">
-        <string>Direct</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Domain</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <layout class="QGridLayout" name="directTxtLayout"/>
-     </item>
-     <item row="1" column="2">
-      <layout class="QGridLayout" name="proxyIPLayout"/>
-     </item>
-     <item row="0" column="2">
-      <widget class="QLabel" name="label_81">
-       <property name="text">
-        <string>Proxy</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <layout class="QGridLayout" name="proxyTxtLayout"/>
-     </item>
-     <item row="1" column="3">
-      <layout class="QGridLayout" name="blockIPLayout"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>IP</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <layout class="QGridLayout" name="directIPLayout"/>
      </item>
     </layout>
    </item>

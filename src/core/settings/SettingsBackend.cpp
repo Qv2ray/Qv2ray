@@ -122,7 +122,7 @@ namespace Qv2ray::core::config
 
         QString configPath = "";
         bool hasExistingConfig = false;
-        for (const auto &path : configFilePaths)
+        for (const auto &path : qAsConst(configFilePaths))
         {
             // Verify the config path, check if the config file exists and in the
             // correct JSON format. True means we check for config existence as

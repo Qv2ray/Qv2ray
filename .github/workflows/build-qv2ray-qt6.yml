@@ -26,9 +26,9 @@ jobs:
     strategy:
       matrix:
         ui_type: [QWidget, QML]
-        platform: [ubuntu-20.04, windows-latest]
-        build_type: [RelWithDebInfo, Release]
-        qt_version: [6.0.0]
+        platform: [ubuntu-20.04, macos-latest, windows-latest]
+        build_type: [Debug]
+        qt_version: [6.0.1]
         include:
           - platform: windows-latest
             qtarch: win64_msvc2019_64
@@ -169,7 +169,7 @@ jobs:
           cmake --install .
       # ========================================================================================================= Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
-        if: false #matrix.platform == 'ubuntu-20.04'
+        if: matrix.platform == 'ubuntu-20.04'
         run: |
           cd build
           cd AppDir
@@ -193,7 +193,7 @@ jobs:
             -extra-plugins=iconengines,imageformats,platforminputcontexts
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading Artifact
-        if: false #matrix.platform == 'ubuntu-20.04'
+        if: matrix.platform == 'ubuntu-20.04'
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray-${{ github.sha }}.linux-${{ matrix.ui_type }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.AppImage

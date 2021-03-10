@@ -10,29 +10,21 @@ namespace Qv2ray::core::connection
         QList<std::pair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
                                                                       QString *newGroup)
         {
-            const auto TLSOptionsFilter = [](QJsonObject &conf) {
-                const auto disableSystemRoot = GlobalConfig.advancedConfig.disableSystemRoot;
-                for (const QString &prefix : { "tls", "xtls" })
-                    QJsonIO::SetValue(conf, disableSystemRoot, { "outbounds", 0, "streamSettings", prefix + "Settings", "disableSystemRoot" });
-            };
 
             QList<std::pair<QString, CONFIGROOT>> connectionConf;
             if (link.startsWith("vmess://") && link.contains("@"))
             {
                 auto conf = vmess_new::Deserialize(link, aliasPrefix, errMessage);
-                TLSOptionsFilter(conf);
                 connectionConf << std::pair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("vless://"))
             {
                 auto conf = vless::Deserialize(link, aliasPrefix, errMessage);
-                TLSOptionsFilter(conf);
                 connectionConf << std::pair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("vmess://"))
             {
                 auto conf = vmess::Deserialize(link, aliasPrefix, errMessage);
-                TLSOptionsFilter(conf);
                 connectionConf << std::pair{ *aliasPrefix, conf };
             }
             else if (link.startsWith("ss://") && !link.contains("plugin="))

@@ -3,7 +3,7 @@
 #include "components/update/UpdateChecker.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
-#include "plugin-interface/QvGUIPluginInterface.hpp"
+#include "plugin-interface/gui/QvGUIPluginInterface.hpp"
 #include "ui/widgets/Qv2rayWidgetApplication.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
@@ -696,14 +696,6 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     GlobalConfig.uiConfig.recentConnections.removeAll(id);
     GlobalConfig.uiConfig.recentConnections.push_front(id);
     ReloadRecentConnectionList();
-    //
-    QTimer::singleShot(1000, ConnectionManager, [id]() {
-        // After the kernel initialization is complete, we can test the delay without worry
-        if (GlobalConfig.advancedConfig.testLatencyOnConnected)
-        {
-            ConnectionManager->StartLatencyTest(id.connectionId);
-        }
-    });
     if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
     {
         MWSetSystemProxy();
