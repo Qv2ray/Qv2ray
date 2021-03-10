@@ -12,12 +12,12 @@
     <name>CertificateItemWidget</name>
     <message>
       <source>Certificate Item Editor</source>
-      <translation type="unfinished">Certificate Item Editor</translation>
+      <translation>Certificate Item Editor</translation>
     </message>
     <message>
       <source>Usage</source>
       <extracomment>Certificate Usage</extracomment>
-      <translation type="unfinished">Usage</translation>
+      <translation>Usage</translation>
     </message>
     <message>
       <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
@@ -27,7 +27,7 @@
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+      <translation>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
@@ -38,52 +38,52 @@
     <message>
       <source>Certificate</source>
       <extracomment>Certificate Tab</extracomment>
-      <translation type="unfinished">Certificate</translation>
+      <translation>Certificate</translation>
     </message>
     <message>
       <source>From File</source>
-      <translation type="unfinished">From File</translation>
+      <translation>From File</translation>
     </message>
     <message>
       <source>Alt+C, Alt+F</source>
-      <translation type="unfinished">Alt+C, Alt+F</translation>
+      <translation>Alt+C, Alt+F</translation>
     </message>
     <message>
       <source>Drag and drop *.crt here...</source>
-      <translation type="unfinished">Drag and drop *.crt here...</translation>
+      <translation>Drag and drop *.crt here...</translation>
     </message>
     <message>
       <source>Configure Manually</source>
-      <translation type="unfinished">Configure Manually</translation>
+      <translation>Configure Manually</translation>
     </message>
     <message>
       <source>Alt+C, Alt+M</source>
-      <translation type="unfinished">Alt+C, Alt+M</translation>
+      <translation>Alt+C, Alt+M</translation>
     </message>
     <message>
       <source>Certificate Key</source>
       <extracomment>Tab Certificate Key</extracomment>
-      <translation type="unfinished">Certificate Key</translation>
+      <translation>Certificate Key</translation>
     </message>
     <message>
       <source>Alt+K, Alt+F</source>
-      <translation type="unfinished">Alt+K, Alt+F</translation>
+      <translation>Alt+K, Alt+F</translation>
     </message>
     <message>
       <source>Alt+K, Alt+M</source>
-      <translation type="unfinished">Alt+K, Alt+M</translation>
+      <translation>Alt+K, Alt+M</translation>
     </message>
     <message>
       <source>-----BEGIN RSA PRIVATE KEY-----... </source>
-      <translation type="unfinished">-----BEGIN RSA PRIVATE KEY-----... </translation>
+      <translation>-----BEGIN RSA PRIVATE KEY-----... </translation>
     </message>
     <message>
       <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
-      <translation type="unfinished">Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</translation>
+      <translation>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</translation>
     </message>
     <message>
       <source>Unset</source>
-      <translation type="unfinished">Unset</translation>
+      <translation>Unset</translation>
     </message>
   </context>
   <context>
@@ -211,10 +211,8 @@
     </message>
     <message numerus="yes">
       <source>(Ignored %n complex config(s))</source>
-      <translation type="unfinished">
+      <translation>
         <numerusform>（複雜設定畀忽略）</numerusform>
-        <numerusform>(Ignored %n complex config(s))</numerusform>
-        <numerusform>(Ignored %n complex config(s))</numerusform>
       </translation>
     </message>
   </context>
@@ -507,35 +505,35 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Manually Input Connections</source>
-      <translation type="unfinished">Manually Input Connections</translation>
+      <translation>Manually Input Connections</translation>
     </message>
     <message>
       <source>Path</source>
-      <translation type="unfinished">Path</translation>
+      <translation>Path</translation>
     </message>
     <message>
       <source>Json Editor</source>
-      <translation type="unfinished">Json Editor</translation>
+      <translation>Json Editor</translation>
     </message>
     <message>
       <source>Open JSON Editor</source>
-      <translation type="unfinished">Open JSON Editor</translation>
+      <translation>Open JSON Editor</translation>
     </message>
     <message>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>Import</translation>
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Cancel</translation>
     </message>
     <message>
       <source>Select file to import</source>
-      <translation type="unfinished">Select file to import</translation>
+      <translation>Select file to import</translation>
     </message>
     <message>
       <source>Capture QRCode</source>
-      <translation type="unfinished">Capture QRCode</translation>
+      <translation>Capture QRCode</translation>
     </message>
     <message>
       <source>Cannot find a valid QRCode from this region.</source>
@@ -543,23 +541,23 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Failed to import connection</source>
-      <translation type="unfinished">Failed to import connection</translation>
+      <translation>Failed to import connection</translation>
     </message>
     <message>
       <source>Import config file</source>
-      <translation type="unfinished">Import config file</translation>
+      <translation>Import config file</translation>
     </message>
     <message>
       <source>Select an image to import</source>
-      <translation type="unfinished">Select an image to import</translation>
+      <translation>Select an image to import</translation>
     </message>
     <message>
       <source>QRCode scanning failed</source>
-      <translation type="unfinished">QRCode scanning failed</translation>
+      <translation>QRCode scanning failed</translation>
     </message>
     <message>
       <source>Cannot find any QRCode from the image.</source>
-      <translation type="unfinished">Cannot find any QRCode from the image.</translation>
+      <translation>Cannot find any QRCode from the image.</translation>
     </message>
     <message>
       <source>WARNING: You may have mistaken &apos;subscription link&apos; with &apos;share link&apos;</source>
@@ -567,14 +565,14 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Import as Complex Config</source>
-      <translation type="unfinished">Import as Complex Config</translation>
+      <translation>Import as Complex Config</translation>
     </message>
   </context>
   <context>
     <name>InboundEditor</name>
     <message>
       <source>Inbound Editor</source>
-      <translation type="unfinished">Inbound Editor</translation>
+      <translation>Inbound Editor</translation>
     </message>
     <message>
       <source>Tag</source>
@@ -582,11 +580,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Tag of this inbound entry</source>
-      <translation type="unfinished">Tag of this inbound entry</translation>
+      <translation>Tag of this inbound entry</translation>
     </message>
     <message>
       <source>Hostname or IP Address</source>
-      <translation type="unfinished">Hostname or IP Address</translation>
+      <translation>Hostname or IP Address</translation>
     </message>
     <message>
       <source>Protocol</source>
@@ -594,39 +592,39 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Allocation Settings</source>
-      <translation type="unfinished">Allocation Settings</translation>
+      <translation>Allocation Settings</translation>
     </message>
     <message>
       <source>Strategy</source>
-      <translation type="unfinished">Strategy</translation>
+      <translation>Strategy</translation>
     </message>
     <message>
       <source>Refresh</source>
-      <translation type="unfinished">Refresh</translation>
+      <translation>Refresh</translation>
     </message>
     <message>
       <source>Concurrency</source>
-      <translation type="unfinished">Concurrency</translation>
+      <translation>Concurrency</translation>
     </message>
     <message>
       <source>Sniffing Settings</source>
-      <translation type="unfinished">Sniffing Settings</translation>
+      <translation>Sniffing Settings</translation>
     </message>
     <message>
       <source>Destination Override</source>
-      <translation type="unfinished">Destination Override</translation>
+      <translation>Destination Override</translation>
     </message>
     <message>
       <source>Unknown inbound.</source>
-      <translation type="unfinished">Unknown inbound.</translation>
+      <translation>Unknown inbound.</translation>
     </message>
     <message>
       <source>The specified inbound type is invalid, this may be caused by a plugin failure.</source>
-      <translation type="unfinished">The specified inbound type is invalid, this may be caused by a plugin failure.</translation>
+      <translation>The specified inbound type is invalid, this may be caused by a plugin failure.</translation>
     </message>
     <message>
       <source>Please use the JsonEditor or reload the plugin.</source>
-      <translation type="unfinished">Please use the JsonEditor or reload the plugin.</translation>
+      <translation>Please use the JsonEditor or reload the plugin.</translation>
     </message>
     <message>
       <source>Address</source>
@@ -634,11 +632,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Inbound Settings</source>
-      <translation type="unfinished">Inbound Settings</translation>
+      <translation>Inbound Settings</translation>
     </message>
     <message>
       <source>Stream Settings</source>
-      <translation type="unfinished">Stream Settings</translation>
+      <translation>Stream Settings</translation>
     </message>
   </context>
   <context>
@@ -649,31 +647,31 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>External Config</source>
-      <translation type="unfinished">External Config</translation>
+      <translation>External Config</translation>
     </message>
     <message>
       <source>Edit Outbound</source>
-      <translation type="unfinished">Edit Outbound</translation>
+      <translation>Edit Outbound</translation>
     </message>
     <message>
       <source>Trying to edit an Complex Config</source>
-      <translation type="unfinished">Trying to edit an Complex Config</translation>
+      <translation>Trying to edit an Complex Config</translation>
     </message>
     <message>
       <source>You are trying to edit an external connection config, is this what you want?</source>
-      <translation type="unfinished">You are trying to edit an external connection config, is this what you want?</translation>
+      <translation>You are trying to edit an external connection config, is this what you want?</translation>
     </message>
     <message>
       <source>You have selected an complex config as outbound.</source>
-      <translation type="unfinished">You have selected an complex config as outbound.</translation>
+      <translation>You have selected an complex config as outbound.</translation>
     </message>
     <message>
       <source>continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</source>
-      <translation type="unfinished">continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</translation>
+      <translation>continuing editing this configuration will make you LOSS ALL INBOUND AND ROUTING settings.</translation>
     </message>
     <message>
       <source>Is this what you want?</source>
-      <translation type="unfinished">Is this what you want?</translation>
+      <translation>Is this what you want?</translation>
     </message>
   </context>
   <context>
@@ -687,19 +685,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>JsonEditor</name>
     <message>
       <source>JSON Editor</source>
-      <translation type="unfinished">JSON Editor</translation>
+      <translation>JSON Editor</translation>
     </message>
     <message>
       <source>Json Editor</source>
-      <translation type="unfinished">Json Editor</translation>
+      <translation>Json Editor</translation>
     </message>
     <message>
       <source>Format JSON</source>
-      <translation type="unfinished">Format JSON</translation>
+      <translation>Format JSON</translation>
     </message>
     <message>
       <source>Remove All Comments</source>
-      <translation type="unfinished">Remove All Comments</translation>
+      <translation>Remove All Comments</translation>
     </message>
     <message>
       <source>OK</source>
@@ -707,190 +705,190 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Json Contains Syntax Errors</source>
-      <translation type="unfinished">Json Contains Syntax Errors</translation>
+      <translation>Json Contains Syntax Errors</translation>
     </message>
     <message>
       <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-      <translation type="unfinished">Original Json may contain syntax errors. Json tree is disabled.</translation>
+      <translation>Original Json may contain syntax errors. Json tree is disabled.</translation>
     </message>
     <message>
       <source>You must correct these errors before continuing.</source>
-      <translation type="unfinished">You must correct these errors before continuing.</translation>
+      <translation>You must correct these errors before continuing.</translation>
     </message>
     <message>
       <source>Syntax Errors</source>
-      <translation type="unfinished">Syntax Errors</translation>
+      <translation>Syntax Errors</translation>
     </message>
     <message>
       <source>Please fix the JSON errors or remove the comments before continue</source>
-      <translation type="unfinished">Please fix the JSON errors or remove the comments before continue</translation>
+      <translation>Please fix the JSON errors or remove the comments before continue</translation>
     </message>
     <message>
       <source>Structure Preview</source>
-      <translation type="unfinished">Structure Preview</translation>
+      <translation>Structure Preview</translation>
     </message>
   </context>
   <context>
     <name>MainWindow</name>
     <message>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>Preferences</translation>
     </message>
     <message>
       <source>Plugins</source>
-      <translation type="unfinished">Plugins</translation>
+      <translation>Plugins</translation>
     </message>
     <message>
       <source>Locate Current Connection</source>
-      <translation type="unfinished">Locate Current Connection</translation>
+      <translation>Locate Current Connection</translation>
     </message>
     <message>
       <source>Search</source>
-      <translation type="unfinished">Search</translation>
+      <translation>Search</translation>
     </message>
     <message>
       <source>Sort</source>
-      <translation type="unfinished">Sort</translation>
+      <translation>Sort</translation>
     </message>
     <message>
       <source>Import Connection</source>
-      <translation type="unfinished">Import Connection</translation>
+      <translation>Import Connection</translation>
     </message>
     <message>
       <source>New</source>
-      <translation type="unfinished">New</translation>
+      <translation>New</translation>
     </message>
     <message>
       <source>Click to toggle show/hide</source>
-      <translation type="unfinished">Click to toggle show/hide</translation>
+      <translation>Click to toggle show/hide</translation>
     </message>
     <message>
       <source>  Speed Graph</source>
-      <translation type="unfinished">  Speed Graph</translation>
+      <translation>  Speed Graph</translation>
     </message>
     <message>
       <source>Clear chart data</source>
-      <translation type="unfinished">Clear chart data</translation>
+      <translation>Clear chart data</translation>
     </message>
     <message>
       <source>  Log</source>
-      <translation type="unfinished">  Log</translation>
+      <translation>  Log</translation>
     </message>
     <message>
       <source>Clear log</source>
-      <translation type="unfinished">Clear log</translation>
+      <translation>Clear log</translation>
     </message>
     <message>
       <source>Not Connected</source>
-      <translation type="unfinished">Not Connected</translation>
+      <translation>Not Connected</translation>
     </message>
     <message>
       <source>Speed</source>
-      <translation type="unfinished">Speed</translation>
+      <translation>Speed</translation>
     </message>
     <message>
       <source>Upload/Download speed</source>
-      <translation type="unfinished">Upload/Download speed</translation>
+      <translation>Upload/Download speed</translation>
     </message>
     <message>
       <source>0.00 B/s
 0.00 B/s</source>
-      <translation type="unfinished">0.00 B/s
+      <translation>0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
       <source>Data</source>
-      <translation type="unfinished">Data</translation>
+      <translation>Data</translation>
     </message>
     <message>
       <source>Upload/Download Data</source>
-      <translation type="unfinished">Upload/Download Data</translation>
+      <translation>Upload/Download Data</translation>
     </message>
     <message>
       <source>0.00 B
 0.00 B</source>
-      <translation type="unfinished">0.00 B
+      <translation>0.00 B
 0.00 B</translation>
     </message>
     <message>
       <source>System Proxy</source>
-      <translation type="unfinished">System Proxy</translation>
+      <translation>System Proxy</translation>
     </message>
     <message>
       <source>Recent Connections</source>
-      <translation type="unfinished">Recent Connections</translation>
+      <translation>Recent Connections</translation>
     </message>
     <message>
       <source>Clear Recent Connections</source>
-      <translation type="unfinished">Clear Recent Connections</translation>
+      <translation>Clear Recent Connections</translation>
     </message>
     <message>
       <source>Hide</source>
-      <translation type="unfinished">Hide</translation>
+      <translation>Hide</translation>
     </message>
     <message>
       <source>Quit</source>
-      <translation type="unfinished">Quit</translation>
+      <translation>Quit</translation>
     </message>
     <message>
       <source>Connect</source>
-      <translation type="unfinished">Connect</translation>
+      <translation>连接</translation>
     </message>
     <message>
       <source>Reconnect</source>
-      <translation type="unfinished">Reconnect</translation>
+      <translation>重新连接</translation>
     </message>
     <message>
       <source>Disconnect</source>
-      <translation type="unfinished">Disconnect</translation>
+      <translation>断开连接</translation>
     </message>
     <message>
       <source>Enable System Proxy</source>
-      <translation type="unfinished">Enable System Proxy</translation>
+      <translation>启用系统代理</translation>
     </message>
     <message>
       <source>Disable System Proxy</source>
-      <translation type="unfinished">Disable System Proxy</translation>
+      <translation>禁用系统代理</translation>
     </message>
     <message>
       <source>Connect to this</source>
-      <translation type="unfinished">Connect to this</translation>
+      <translation>连接到此</translation>
     </message>
     <message>
       <source>Set as automatically connected</source>
-      <translation type="unfinished">Set as automatically connected</translation>
+      <translation>设置为自动连接</translation>
     </message>
     <message>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>编辑</translation>
     </message>
     <message>
       <source>Edit as JSON</source>
-      <translation type="unfinished">Edit as JSON</translation>
+      <translation>编辑为 JSON</translation>
     </message>
     <message>
       <source>Edit as Complex Config</source>
-      <translation type="unfinished">Edit as Complex Config</translation>
+      <translation>编辑为复杂配置</translation>
     </message>
     <message>
       <source>Rename</source>
-      <translation type="unfinished">Rename</translation>
+      <translation>重命名：</translation>
     </message>
     <message>
       <source>Duplicate to the Same Group</source>
-      <translation type="unfinished">Duplicate to the Same Group</translation>
+      <translation>复制到同一组</translation>
     </message>
     <message>
       <source>Test Latency</source>
-      <translation type="unfinished">Test Latency</translation>
+      <translation>测试延迟</translation>
     </message>
     <message>
       <source>Clear Usage Data</source>
-      <translation type="unfinished">Clear Usage Data</translation>
+      <translation>清除使用数据</translation>
     </message>
     <message>
       <source>Delete Connection</source>
@@ -898,123 +896,115 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Sort connection list.</source>
-      <translation type="unfinished">Sort connection list.</translation>
+      <translation>排序连接列表。</translation>
     </message>
     <message>
       <source>By connection name, A-Z</source>
-      <translation type="unfinished">By connection name, A-Z</translation>
+      <translation>按连接名, A-Z</translation>
     </message>
     <message>
       <source>By connection name, Z-A</source>
-      <translation type="unfinished">By connection name, Z-A</translation>
+      <translation>通过连接名, Z-A</translation>
     </message>
     <message>
       <source>By latency, Ascending</source>
-      <translation type="unfinished">By latency, Ascending</translation>
+      <translation>按延迟升序排序</translation>
     </message>
     <message>
       <source>By latency, Descending</source>
-      <translation type="unfinished">By latency, Descending</translation>
+      <translation>按延迟排序，降序排列</translation>
     </message>
     <message>
       <source>By data, Ascending</source>
-      <translation type="unfinished">By data, Ascending</translation>
+      <translation>按数据升序排序</translation>
     </message>
     <message>
       <source>By data, Descending</source>
-      <translation type="unfinished">By data, Descending</translation>
+      <translation>按数据，降序排序</translation>
     </message>
     <message>
       <source>Switch to Qv2ray log</source>
-      <translation type="unfinished">Switch to Qv2ray log</translation>
+      <translation>切换到 Qv2ray 日志</translation>
     </message>
     <message>
       <source>Kernel terminated.</source>
-      <translation type="unfinished">Kernel terminated.</translation>
+      <translation>内核终止。</translation>
     </message>
     <message>
       <source>The kernel terminated unexpectedly:</source>
-      <translation type="unfinished">The kernel terminated unexpectedly:</translation>
+      <translation>内核意外终止：</translation>
     </message>
     <message>
       <source>To solve the problem, read the kernel log in the log text browser.</source>
-      <translation type="unfinished">To solve the problem, read the kernel log in the log text browser.</translation>
+      <translation>要解决问题，请阅读日志文本浏览器中的内核日志。</translation>
     </message>
     <message>
       <source>Show</source>
-      <translation type="unfinished">Show</translation>
+      <translation>显示</translation>
     </message>
     <message>
       <source>Quit Qv2ray</source>
-      <translation type="unfinished">Quit Qv2ray</translation>
+      <translation>退出 Qv2ray</translation>
     </message>
     <message>
       <source>Are you sure to exit Qv2ray?</source>
-      <translation type="unfinished">Are you sure to exit Qv2ray?</translation>
+      <translation>您确定要退出 Qv2ray？</translation>
     </message>
     <message numerus="yes">
       <source>Removing Connection(s)</source>
-      <translation type="unfinished">
-        <numerusform>Removing Connection(s)</numerusform>
-        <numerusform>Removing Connection(s)</numerusform>
-        <numerusform>Removing Connection(s)</numerusform>
+      <translation>
+        <numerusform>正在删除连接(s)</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>Are you sure to remove selected connection(s)?</source>
-      <translation type="unfinished">
-        <numerusform>Are you sure to remove selected connection(s)?</numerusform>
-        <numerusform>Are you sure to remove selected connection(s)?</numerusform>
-        <numerusform>Are you sure to remove selected connection(s)?</numerusform>
+      <translation>
+        <numerusform>您确定要删除选中的连接?</numerusform>
       </translation>
     </message>
     <message>
       <source>Disconnected from: </source>
-      <translation type="unfinished">Disconnected from: </translation>
+      <translation>断开连接： </translation>
     </message>
     <message>
       <source>Connected: </source>
-      <translation type="unfinished">Connected: </translation>
+      <translation>已连接： </translation>
     </message>
     <message numerus="yes">
       <source>Duplicating Connection(s)</source>
-      <translation type="unfinished">
-        <numerusform>Duplicating Connection(s)</numerusform>
-        <numerusform>Duplicating Connection(s)</numerusform>
+      <translation>
         <numerusform>Duplicating Connection(s)</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>Are you sure to duplicate these connection(s)?</source>
-      <translation type="unfinished">
-        <numerusform>Are you sure to duplicate these connection(s)?</numerusform>
-        <numerusform>Are you sure to duplicate these connection(s)?</numerusform>
+      <translation>
         <numerusform>Are you sure to duplicate these connection(s)?</numerusform>
       </translation>
     </message>
     <message>
       <source> (Copy)</source>
-      <translation type="unfinished"> (Copy)</translation>
+      <translation> (Copy)</translation>
     </message>
     <message>
       <source>System proxy configured.</source>
-      <translation type="unfinished">System proxy configured.</translation>
+      <translation>System proxy configured.</translation>
     </message>
     <message>
       <source>Cannot set system proxy</source>
-      <translation type="unfinished">Cannot set system proxy</translation>
+      <translation>Cannot set system proxy</translation>
     </message>
     <message>
       <source>Both HTTP and SOCKS inbounds are not enabled</source>
-      <translation type="unfinished">Both HTTP and SOCKS inbounds are not enabled</translation>
+      <translation>Both HTTP and SOCKS inbounds are not enabled</translation>
     </message>
     <message>
       <source>System proxy removed.</source>
-      <translation type="unfinished">System proxy removed.</translation>
+      <translation>System proxy removed.</translation>
     </message>
     <message>
       <source>Update Subscriptions</source>
-      <translation type="unfinished">Update Subscriptions</translation>
+      <translation>Update Subscriptions</translation>
     </message>
     <message>
       <source>Update Subscription</source>
@@ -1022,90 +1012,102 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Subscription &quot;%1&quot; has been updated</source>
-      <translation type="unfinished">Subscription &quot;%1&quot; has been updated</translation>
+      <translation>Subscription &quot;%1&quot; has been updated</translation>
     </message>
     <message>
       <source>%1 has been set as auto connect.</source>
-      <translation type="unfinished">%1 has been set as auto connect.</translation>
+      <translation>%1 has been set as auto connect.</translation>
     </message>
     <message>
       <source>Selected group is not a subscription</source>
-      <translation type="unfinished">Selected group is not a subscription</translation>
+      <translation>Selected group is not a subscription</translation>
     </message>
     <message>
       <source>Do you want to update these subscriptions?</source>
-      <translation type="unfinished">Do you want to update these subscriptions?</translation>
+      <translation>Do you want to update these subscriptions?</translation>
     </message>
     <message>
       <source>Groups</source>
-      <translation type="unfinished">Groups</translation>
+      <translation>Groups</translation>
     </message>
     <message>
       <source>Collapse all groups</source>
-      <translation type="unfinished">Collapse all groups</translation>
+      <translation>Collapse all groups</translation>
     </message>
     <message>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>Import</translation>
     </message>
     <message>
       <source>New Complex</source>
-      <translation type="unfinished">New Complex</translation>
+      <translation>New Complex</translation>
     </message>
     <message>
       <source>Recent Connection list cleared.</source>
-      <translation type="unfinished">Recent Connection list cleared.</translation>
+      <translation>Recent Connection list cleared.</translation>
     </message>
     <message>
       <source>Copy latest logs</source>
-      <translation type="unfinished">Copy latest logs</translation>
+      <translation>Copy latest logs</translation>
     </message>
     <message>
       <source>Number of lines of logs to copy</source>
-      <translation type="unfinished">Number of lines of logs to copy</translation>
+      <translation>Number of lines of logs to copy</translation>
     </message>
     <message>
       <source>Test Real Latency</source>
-      <translation type="unfinished">Test Real Latency</translation>
+      <translation>Test Real Latency</translation>
     </message>
     <message>
       <source>Switch to Core log</source>
-      <translation type="unfinished">Switch to Core log</translation>
+      <translation>Switch to Core log</translation>
     </message>
     <message>
       <source>Copy graph as image.</source>
-      <translation type="unfinished">Copy graph as image.</translation>
+      <translation>Copy graph as image.</translation>
     </message>
     <message>
       <source>Copy latest logs.</source>
-      <translation type="unfinished">Copy latest logs.</translation>
+      <translation>Copy latest logs.</translation>
     </message>
     <message>
       <source>Do you want to remove this group as well?</source>
-      <translation type="unfinished">Do you want to remove this group as well?</translation>
+      <translation>Do you want to remove this group as well?</translation>
     </message>
     <message>
       <source>Group: </source>
-      <translation type="unfinished">Group: </translation>
+      <translation>Group: </translation>
     </message>
     <message>
       <source>Removing Connection</source>
-      <translation type="unfinished">Removing Connection</translation>
+      <translation>Removing Connection</translation>
     </message>
     <message>
       <source>Copy selected.</source>
-      <translation type="unfinished">Copy selected.</translation>
+      <translation>Copy selected.</translation>
+    </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation>Bypass CN Mainland</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation>启用Bypassing CN 内地功能</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation>禁用Bypassing CN 内地功能</translation>
     </message>
   </context>
   <context>
     <name>OutboundEditor</name>
     <message>
       <source>Edit Connection Settings</source>
-      <translation type="unfinished">Edit Connection Settings</translation>
+      <translation>Edit Connection Settings</translation>
     </message>
     <message>
       <source>Stream Settings</source>
-      <translation type="unfinished">Stream Settings</translation>
+      <translation>Stream Settings</translation>
     </message>
     <message>
       <source>Tag</source>
@@ -1113,19 +1115,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Tag of this outbound setting</source>
-      <translation type="unfinished">Tag of this outbound setting</translation>
+      <translation>Tag of this outbound setting</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Type</translation>
     </message>
     <message>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>Host</translation>
     </message>
     <message>
       <source>Hostname or IP/IPv6 Address</source>
-      <translation type="unfinished">Hostname or IP/IPv6 Address</translation>
+      <translation>Hostname or IP/IPv6 Address</translation>
     </message>
     <message>
       <source>Port</source>
@@ -1133,149 +1135,149 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Misc Settings</source>
-      <translation type="unfinished">Misc Settings</translation>
+      <translation>Misc Settings</translation>
     </message>
     <message>
       <source>Use Mux</source>
-      <translation type="unfinished">Use Mux</translation>
+      <translation>Use Mux</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Enabled</translation>
     </message>
     <message>
       <source>Mux Concurrency</source>
-      <translation type="unfinished">Mux Concurrency</translation>
+      <translation>Mux Concurrency</translation>
     </message>
     <message>
       <source>Use Forward Proxy</source>
-      <translation type="unfinished">Use Forward Proxy</translation>
+      <translation>Use Forward Proxy</translation>
     </message>
     <message>
       <source>Outbound Settings</source>
-      <translation type="unfinished">Outbound Settings</translation>
+      <translation>Outbound Settings</translation>
     </message>
     <message>
       <source>Unknown outbound type.</source>
-      <translation type="unfinished">Unknown outbound type.</translation>
+      <translation>Unknown outbound type.</translation>
     </message>
     <message>
       <source>The specified outbound type is not supported, this may happen due to a plugin failure.</source>
-      <translation type="unfinished">The specified outbound type is not supported, this may happen due to a plugin failure.</translation>
+      <translation>The specified outbound type is not supported, this may happen due to a plugin failure.</translation>
     </message>
     <message>
       <source>Forward proxy has been disabled when using plugin outbound</source>
-      <translation type="unfinished">Forward proxy has been disabled when using plugin outbound</translation>
+      <translation>Forward proxy has been disabled when using plugin outbound</translation>
     </message>
     <message>
       <source>Unknown outbound.</source>
-      <translation type="unfinished">Unknown outbound.</translation>
+      <translation>Unknown outbound.</translation>
     </message>
     <message>
       <source>The specified outbound type is invalid, this may be caused by a plugin failure.</source>
-      <translation type="unfinished">The specified outbound type is invalid, this may be caused by a plugin failure.</translation>
+      <translation>The specified outbound type is invalid, this may be caused by a plugin failure.</translation>
     </message>
     <message>
       <source>Please use the JsonEditor or reload the plugin.</source>
-      <translation type="unfinished">Please use the JsonEditor or reload the plugin.</translation>
+      <translation>Please use the JsonEditor or reload the plugin.</translation>
     </message>
   </context>
   <context>
     <name>PluginManageWindow</name>
     <message>
       <source>Loaded</source>
-      <translation type="unfinished">Loaded</translation>
+      <translation>Loaded</translation>
     </message>
     <message>
       <source>Not loaded</source>
-      <translation type="unfinished">Not loaded</translation>
+      <translation>Not loaded</translation>
     </message>
     <message>
       <source>Plugin Not Loaded</source>
-      <translation type="unfinished">Plugin Not Loaded</translation>
+      <translation>Plugin Not Loaded</translation>
     </message>
     <message>
       <source>Plugin does not have settings widget.</source>
-      <translation type="unfinished">Plugin does not have settings widget.</translation>
+      <translation>Plugin does not have settings widget.</translation>
     </message>
     <message>
       <source>Disabling a plugin</source>
-      <translation type="unfinished">Disabling a plugin</translation>
+      <translation>Disabling a plugin</translation>
     </message>
     <message>
       <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation type="unfinished">This plugin will keep loaded until the next time Qv2ray starts.</translation>
+      <translation>This plugin will keep loaded until the next time Qv2ray starts.</translation>
     </message>
     <message>
       <source>Plugin not loaded</source>
-      <translation type="unfinished">Plugin not loaded</translation>
+      <translation>Plugin not loaded</translation>
     </message>
     <message>
       <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
-      <translation type="unfinished">This plugin is not loaded, please enable or reload the plugin to continue.</translation>
+      <translation>This plugin is not loaded, please enable or reload the plugin to continue.</translation>
     </message>
     <message>
       <source>None</source>
-      <translation type="unfinished">None</translation>
+      <translation>None</translation>
     </message>
   </context>
   <context>
     <name>PreferencesWindow</name>
     <message>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>Preferences</translation>
     </message>
     <message>
       <source>General Settings</source>
-      <translation type="unfinished">General Settings</translation>
+      <translation>General Settings</translation>
     </message>
     <message>
       <source>Appearance</source>
-      <translation type="unfinished">Appearance</translation>
+      <translation>Appearance</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Enabled</translation>
     </message>
     <message>
       <source>UI Theme</source>
-      <translation type="unfinished">UI Theme</translation>
+      <translation>UI Theme</translation>
     </message>
     <message>
       <source>Language</source>
-      <translation type="unfinished">Language</translation>
+      <translation>Language</translation>
     </message>
     <message>
       <source>Maximum log lines</source>
-      <translation type="unfinished">Maximum log lines</translation>
+      <translation>Maximum log lines</translation>
     </message>
     <message>
       <source> lines</source>
-      <translation type="unfinished"> lines</translation>
+      <translation> lines</translation>
     </message>
     <message>
       <source>Recent Jumplist</source>
-      <translation type="unfinished">Recent Jumplist</translation>
+      <translation>Recent Jumplist</translation>
     </message>
     <message>
       <source> Connections</source>
-      <translation type="unfinished"> Connections</translation>
+      <translation> 连接</translation>
     </message>
     <message>
       <source>Behavior</source>
-      <translation type="unfinished">Behavior</translation>
+      <translation>行为</translation>
     </message>
     <message>
       <source>Launch at Login</source>
-      <translation type="unfinished">Launch at Login</translation>
+      <translation>登录时启动</translation>
     </message>
     <message>
       <source>Auto Connect</source>
-      <translation type="unfinished">Auto Connect</translation>
+      <translation>自动连接</translation>
     </message>
     <message>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>配置</translation>
     </message>
     <message>
       <source>Group</source>
@@ -1283,111 +1285,97 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>None</source>
-      <translation type="unfinished">None</translation>
+      <translation>None</translation>
     </message>
     <message>
       <source>Last Connected</source>
-      <translation type="unfinished">Last Connected</translation>
+      <translation>上次连接</translation>
     </message>
     <message>
       <source>Fixed</source>
-      <translation type="unfinished">Fixed</translation>
+      <translation>固定的</translation>
     </message>
     <message>
       <source>Quiet Mode</source>
-      <translation type="unfinished">Quiet Mode</translation>
+      <translation>安静模式</translation>
     </message>
     <message>
       <source>Network Settings</source>
-      <translation type="unfinished">Network Settings</translation>
+      <translation>网络设置</translation>
     </message>
     <message>
       <source>These settings are used by Qv2ray itself.
 For example, for updating subscriptions.</source>
-      <translation type="unfinished">These settings are used by Qv2ray itself.
-For example, for updating subscriptions.</translation>
+      <translation>这些设置被Qv2ray 本身使用。
+例如，更新订阅。</translation>
     </message>
     <message>
       <source>User-Agent</source>
-      <translation type="unfinished">User-Agent</translation>
+      <translation>用户代理</translation>
     </message>
     <message>
       <source>Latency Test Method</source>
-      <translation type="unfinished">Latency Test Method</translation>
+      <translation>延迟测试方法</translation>
     </message>
     <message>
       <source>TCPing</source>
-      <translation type="unfinished">TCPing</translation>
+      <translation>正在显示</translation>
     </message>
     <message>
       <source>ICMPing</source>
-      <translation type="unfinished">ICMPing</translation>
+      <translation>ICMPing</translation>
     </message>
     <message>
       <source>Qv2ray Proxy</source>
-      <translation type="unfinished">Qv2ray Proxy</translation>
+      <translation>Qv2ray 代理</translation>
     </message>
     <message>
       <source>System Proxy</source>
-      <translation type="unfinished">System Proxy</translation>
+      <translation>System Proxy</translation>
     </message>
     <message>
       <source>Custom Proxy</source>
-      <translation type="unfinished">Custom Proxy</translation>
+      <translation>自定义代理</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Type</translation>
     </message>
     <message>
       <source>Server</source>
-      <translation type="unfinished">Server</translation>
+      <translation>服务器</translation>
     </message>
     <message>
       <source>:</source>
-      <translation type="unfinished">:</translation>
-    </message>
-    <message>
-      <source>Advanced Behavior</source>
-      <translation type="unfinished">Advanced Behavior</translation>
-    </message>
-    <message>
-      <source>Test Latency Periodcally</source>
-      <translation type="unfinished">Test Latency Periodcally</translation>
-    </message>
-    <message>
-      <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation type="unfinished">Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
+      <translation>:</translation>
     </message>
     <message>
       <source>Kernel Settings</source>
-      <translation type="unfinished">Kernel Settings</translation>
+      <translation>内核设置</translation>
     </message>
     <message>
       <source>Log Level</source>
-      <translation type="unfinished">Log Level</translation>
+      <translation>日志级别</translation>
     </message>
     <message>
       <source>none</source>
-      <translation type="unfinished">none</translation>
+      <translation>无</translation>
     </message>
     <message>
       <source>debug</source>
-      <translation type="unfinished">debug</translation>
+      <translation>debug</translation>
     </message>
     <message>
       <source>info</source>
-      <translation type="unfinished">info</translation>
+      <translation>信息</translation>
     </message>
     <message>
       <source>warning</source>
-      <translation type="unfinished">warning</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <source>error</source>
-      <translation>錯誤</translation>
+      <translation>错误</translation>
     </message>
     <message>
       <source>Select</source>
@@ -1395,7 +1383,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     </message>
     <message>
       <source>Plugin Kernel Settings</source>
-      <translation type="unfinished">Plugin Kernel Settings</translation>
+      <translation>插件内核设置</translation>
     </message>
     <message>
       <source>If not checked, these features will be disabled:
@@ -1404,40 +1392,40 @@ Advanced Routing Settings
 Bypass CN websites and IPs
 Direct connection of Local LAN addresses
 Custom DNS Settings</source>
-      <translation type="unfinished">If not checked, these features will be disabled:
+      <translation>如果未选中， 这些功能将被禁用：
 
-Advanced Routing Settings
-Bypass CN websites and IPs
-Direct connection of Local LAN addresses
-Custom DNS Settings</translation>
+高级路由设置
+旁路CN 网站和 IP
+本地局域网地址的直接连接
+自定义DNS 设置</translation>
     </message>
     <message>
       <source>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</source>
-      <translation type="unfinished">Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</translation>
+      <translation>如果启用，Qv2ray 将为每个内核插件分别为HTTP和SOCKS分配端口。</translation>
     </message>
     <message>
       <source>Port Allocation Start</source>
-      <translation type="unfinished">Port Allocation Start</translation>
+      <translation>端口分配开始</translation>
     </message>
     <message>
       <source>Inbound Settings</source>
-      <translation type="unfinished">Inbound Settings</translation>
+      <translation>Inbound Settings</translation>
     </message>
     <message>
       <source>Listening Address</source>
-      <translation type="unfinished">Listening Address</translation>
+      <translation>监听地址</translation>
     </message>
     <message>
       <source>IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</source>
-      <translation type="unfinished">IPv4 address, e.g. &apos;127.0.0.1&apos; or IPv6 address, e.g. ::1</translation>
+      <translation>IPv4 地址，例如 &apos;127.0.0.1&apos; 或 IPv6 地址，例如::1</translation>
     </message>
     <message>
       <source>Set System Proxy</source>
-      <translation type="unfinished">Set System Proxy</translation>
+      <translation>设置系统代理</translation>
     </message>
     <message>
       <source>SOCKS Settings</source>
-      <translation type="unfinished">SOCKS Settings</translation>
+      <translation>SOCKS Settings</translation>
     </message>
     <message>
       <source>Port</source>
@@ -1445,989 +1433,947 @@ Custom DNS Settings</translation>
     </message>
     <message>
       <source>UDP Support</source>
-      <translation type="unfinished">UDP Support</translation>
+      <translation>UDP Support</translation>
     </message>
     <message>
       <source>UDP Local IP</source>
-      <translation type="unfinished">UDP Local IP</translation>
+      <translation>UDP Local IP</translation>
     </message>
     <message>
       <source>Authentication</source>
-      <translation type="unfinished">Authentication</translation>
+      <translation>Authentication</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Username</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Password</translation>
     </message>
     <message>
       <source>Sniffing</source>
-      <translation type="unfinished">Sniffing</translation>
+      <translation>Sniffing</translation>
     </message>
     <message>
       <source>HTTP Settings</source>
-      <translation type="unfinished">HTTP Settings</translation>
+      <translation>HTTP Settings</translation>
     </message>
     <message>
       <source>IPv4 address, e.g. &apos;127.0.0.1&apos;</source>
-      <translation type="unfinished">IPv4 address, e.g. &apos;127.0.0.1&apos;</translation>
+      <translation>IPv4 address, e.g. &apos;127.0.0.1&apos;</translation>
     </message>
     <message>
       <source>Network Options</source>
-      <translation type="unfinished">Network Options</translation>
+      <translation>Network Options</translation>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>DNS Intercept</source>
-      <translation type="unfinished">DNS Intercept</translation>
+      <translation>DNS Intercept</translation>
     </message>
     <message>
       <source>Mode</source>
-      <translation type="unfinished">Mode</translation>
+      <translation>Mode</translation>
     </message>
     <message>
       <source>Outbound Mark</source>
-      <translation type="unfinished">Outbound Mark</translation>
+      <translation>Outbound Mark</translation>
     </message>
     <message>
       <source>Listening IPv4 Address</source>
-      <translation type="unfinished">Listening IPv4 Address</translation>
+      <translation>Listening IPv4 Address</translation>
     </message>
     <message>
       <source>Listening IPv6 Address</source>
-      <translation type="unfinished">Listening IPv6 Address</translation>
+      <translation>Listening IPv6 Address</translation>
     </message>
     <message>
       <source>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</source>
-      <translation type="unfinished">IPv6 address, e.g. ::1. Leave blank will disable ipv6.</translation>
+      <translation>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</translation>
     </message>
     <message>
       <source>Connection Settings</source>
-      <translation type="unfinished">Connection Settings</translation>
+      <translation>Connection Settings</translation>
     </message>
     <message>
       <source>General Connection Settings</source>
-      <translation type="unfinished">General Connection Settings</translation>
+      <translation>General Connection Settings</translation>
     </message>
     <message>
       <source>Bypass CN Mainland</source>
-      <translation type="unfinished">Bypass CN Mainland</translation>
+      <translation>Bypass CN Mainland</translation>
     </message>
     <message>
       <source>Bypass Bittorrent Protocol</source>
-      <translation type="unfinished">Bypass Bittorrent Protocol</translation>
+      <translation>Bypass Bittorrent Protocol</translation>
     </message>
     <message>
       <source>DNS Settings</source>
-      <translation type="unfinished">DNS Settings</translation>
+      <translation>DNS Settings</translation>
     </message>
     <message>
       <source>Forward Proxy</source>
-      <translation type="unfinished">Forward Proxy</translation>
+      <translation>Forward Proxy</translation>
     </message>
     <message>
       <source>Only simple config is supported.</source>
-      <translation type="unfinished">Only simple config is supported.</translation>
+      <translation>Only simple config is supported.</translation>
     </message>
     <message>
       <source>Host Address</source>
-      <translation type="unfinished">Host Address</translation>
+      <translation>Host Address</translation>
     </message>
     <message>
       <source>Advanced Route Settings</source>
-      <translation type="unfinished">Advanced Route Settings</translation>
+      <translation>Advanced Route Settings</translation>
     </message>
     <message>
       <source>About</source>
-      <translation type="unfinished">About</translation>
+      <translation>About</translation>
     </message>
     <message>
       <source>Ignored Version</source>
-      <translation type="unfinished">Ignored Version</translation>
+      <translation>Ignored Version</translation>
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Cancel</translation>
     </message>
     <message>
       <source>Update Channel</source>
-      <translation type="unfinished">Update Channel</translation>
+      <translation>Update Channel</translation>
     </message>
     <message>
       <source>Stable Release</source>
-      <translation type="unfinished">Stable Release</translation>
+      <translation>Stable Release</translation>
     </message>
     <message>
       <source>Testing</source>
-      <translation type="unfinished">Testing</translation>
+      <translation>Testing</translation>
     </message>
     <message>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <source>Version:</source>
-      <translation type="unfinished">Version:</translation>
+      <translation>Version:</translation>
     </message>
     <message>
       <source>Plugin Interface</source>
-      <translation type="unfinished">Plugin Interface</translation>
+      <translation>Plugin Interface</translation>
     </message>
     <message>
       <source>Extra Build Info</source>
-      <translation type="unfinished">Extra Build Info</translation>
+      <translation>Extra Build Info</translation>
     </message>
     <message>
       <source>Built Time</source>
-      <translation type="unfinished">Built Time</translation>
+      <translation>Built Time</translation>
     </message>
     <message>
       <source>Build Info</source>
-      <translation type="unfinished">Build Info</translation>
+      <translation>Build Info</translation>
     </message>
     <message>
       <source>Official Repo</source>
-      <translation type="unfinished">Official Repo</translation>
+      <translation>Official Repo</translation>
     </message>
     <message>
       <source>License</source>
-      <translation type="unfinished">License</translation>
+      <translation>License</translation>
     </message>
     <message>
       <source>About Qt</source>
-      <translation type="unfinished">About Qt</translation>
+      <translation>About Qt</translation>
     </message>
     <message>
       <source>Version: %1</source>
-      <translation type="unfinished">Version: %1</translation>
+      <translation>Version: %1</translation>
     </message>
     <message>
       <source>Update is disabled by your vendor.</source>
-      <translation type="unfinished">Update is disabled by your vendor.</translation>
+      <translation>Update is disabled by your vendor.</translation>
     </message>
     <message>
       <source>Duplicated port numbers detected, please check the port number settings.</source>
-      <translation type="unfinished">Duplicated port numbers detected, please check the port number settings.</translation>
+      <translation>Duplicated port numbers detected, please check the port number settings.</translation>
     </message>
     <message>
       <source>Invalid inbound listening address.</source>
-      <translation type="unfinished">Invalid inbound listening address.</translation>
+      <translation>Invalid inbound listening address.</translation>
     </message>
     <message>
       <source>Invalid tproxy listening ivp4 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ivp4 address.</translation>
+      <translation>Invalid tproxy listening ivp4 address.</translation>
     </message>
     <message>
       <source>Invalid tproxy listening ipv6 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ipv6 address.</translation>
+      <translation>Invalid tproxy listening ipv6 address.</translation>
     </message>
     <message>
       <source>Note</source>
-      <translation type="unfinished">Note</translation>
+      <translation>Note</translation>
     </message>
     <message>
       <source>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</source>
-      <translation type="unfinished">To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</translation>
+      <translation>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</translation>
     </message>
     <message>
       <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
-      <translation type="unfinished">tproxy inbound&apos;s sniffing is enabled by default.</translation>
+      <translation>tproxy inbound&apos;s sniffing is enabled by default.</translation>
     </message>
     <message>
       <source>Start with boot</source>
-      <translation type="unfinished">Start with boot</translation>
+      <translation>Start with boot</translation>
     </message>
     <message>
       <source>Failed to set auto start option.</source>
-      <translation type="unfinished">Failed to set auto start option.</translation>
-    </message>
-    <message>
-      <source>Dangerous Operation</source>
-      <translation type="unfinished">Dangerous Operation</translation>
-    </message>
-    <message>
-      <source>This will (probably) make it easy to fingerprint your connection.</source>
-      <translation type="unfinished">This will (probably) make it easy to fingerprint your connection.</translation>
+      <translation>Failed to set auto start option.</translation>
     </message>
     <message>
       <source>NTP Checker</source>
-      <translation type="unfinished">NTP Checker</translation>
+      <translation>NTP Checker</translation>
     </message>
     <message>
       <source>Check date and time from server:</source>
-      <translation type="unfinished">Check date and time from server:</translation>
+      <translation>Check date and time from server:</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which is too high.</source>
-      <translation type="unfinished">Your time offset is %1 seconds, which is too high.</translation>
+      <translation>Your time offset is %1 seconds, which is too high.</translation>
     </message>
     <message>
       <source>Time Inaccurate</source>
-      <translation type="unfinished">Time Inaccurate</translation>
+      <translation>Time Inaccurate</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which is a little high.</source>
-      <translation type="unfinished">Your time offset is %1 seconds, which is a little high.</translation>
+      <translation>Your time offset is %1 seconds, which is a little high.</translation>
     </message>
     <message>
       <source>Time Somewhat Inaccurate</source>
-      <translation type="unfinished">Time Somewhat Inaccurate</translation>
+      <translation>Time Somewhat Inaccurate</translation>
     </message>
     <message>
       <source>Your time offset is %1 seconds, which looks good.</source>
-      <translation type="unfinished">Your time offset is %1 seconds, which looks good.</translation>
+      <translation>Your time offset is %1 seconds, which looks good.</translation>
     </message>
     <message>
       <source>Time Accurate</source>
-      <translation type="unfinished">Time Accurate</translation>
+      <translation>Time Accurate</translation>
     </message>
     <message>
       <source>Failed to lookup server: %1</source>
-      <translation type="unfinished">Failed to lookup server: %1</translation>
+      <translation>Failed to lookup server: %1</translation>
     </message>
     <message>
       <source>You can configure default DNS settings for all simple connection config here.</source>
-      <translation type="unfinished">You can configure default DNS settings for all simple connection config here.</translation>
+      <translation>You can configure default DNS settings for all simple connection config here.</translation>
     </message>
     <message>
       <source>You can configure default routing rules for all simple connection config here.</source>
-      <translation type="unfinished">You can configure default routing rules for all simple connection config here.</translation>
+      <translation>You can configure default routing rules for all simple connection config here.</translation>
     </message>
     <message>
       <source>Invalid DNS settings.</source>
-      <translation type="unfinished">Invalid DNS settings.</translation>
-    </message>
-    <message>
-      <source>These settings may be useful.
-But could damage your server if improperly used.</source>
-      <translation type="unfinished">These settings may be useful.
-But could damage your server if improperly used.</translation>
+      <translation>Invalid DNS settings.</translation>
     </message>
     <message>
       <source>Watch Out!</source>
-      <translation type="unfinished">Watch Out!</translation>
+      <translation>Watch Out!</translation>
     </message>
     <message>
       <source>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.<byte value="xd"/>
 This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.<byte value="xd"/>
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</source>
-      <translation type="unfinished">You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.
+      <translation>You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.
 This won&apos;t trigger a fork bomb, however, since Qv2ray works in singleton mode.
 If your V2Ray core filename happened to be &apos;qv2ray&apos;-something, you are totally free to ignore this warning.</translation>
     </message>
     <message>
       <source>Check System Date and Time from the Internet</source>
-      <translation type="unfinished">Check System Date and Time from the Internet</translation>
+      <translation>Check System Date and Time from the Internet</translation>
     </message>
     <message>
       <source>Currently:
 - vmess/shadowsocks/socks/http will be treated as PROXY.
 - freedom will be treated as DIRECT
 - blackhole will be treated as BLOCK</source>
-      <translation type="unfinished">Currently:
+      <translation>Currently:
 - vmess/shadowsocks/socks/http will be treated as PROXY.
 - freedom will be treated as DIRECT
 - blackhole will be treated as BLOCK</translation>
     </message>
     <message>
       <source>Include Direct Connection</source>
-      <translation type="unfinished">Include Direct Connection</translation>
+      <translation>Include Direct Connection</translation>
     </message>
     <message>
       <source>Old Share Link Format</source>
-      <translation type="unfinished">Old Share Link Format</translation>
+      <translation>Old Share Link Format</translation>
     </message>
     <message>
       <source>Adapt Dark Theme</source>
-      <translation type="unfinished">Adapt Dark Theme</translation>
+      <translation>Adapt Dark Theme</translation>
     </message>
     <message>
       <source>Adapt Dark Tray Theme</source>
-      <translation type="unfinished">Adapt Dark Tray Theme</translation>
+      <translation>Adapt Dark Tray Theme</translation>
     </message>
     <message>
       <source>V2Ray Core Settings</source>
-      <translation type="unfinished">V2Ray Core Settings</translation>
+      <translation>V2Ray Core Settings</translation>
     </message>
     <message>
       <source>V2Ray Core Executable Path</source>
-      <translation type="unfinished">V2Ray Core Executable Path</translation>
+      <translation>V2Ray Core Executable Path</translation>
     </message>
     <message>
       <source>V2Ray Assets Directory</source>
-      <translation type="unfinished">V2Ray Assets Directory</translation>
+      <translation>V2Ray Assets Directory</translation>
     </message>
     <message>
       <source>Check V2Ray Core Settings</source>
-      <translation type="unfinished">Check V2Ray Core Settings</translation>
+      <translation>Check V2Ray Core Settings</translation>
     </message>
     <message>
       <source>V2Ray API Subsystem</source>
-      <translation type="unfinished">V2Ray API Subsystem</translation>
+      <translation>V2Ray API Subsystem</translation>
     </message>
     <message>
       <source>V2Ray API Port</source>
-      <translation type="unfinished">V2Ray API Port</translation>
+      <translation>V2Ray API Port</translation>
     </message>
     <message>
       <source>Outbound Statistics (V2Ray Core v4.26+)</source>
-      <translation type="unfinished">Outbound Statistics (V2Ray Core v4.26+)</translation>
+      <translation>Outbound Statistics (V2Ray Core v4.26+)</translation>
     </message>
     <message>
       <source>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</source>
-      <translation type="unfinished">Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</translation>
+      <translation>Enabling V2Ray Integration will allow the kernel benefit from the V2Ray routing engine.</translation>
     </message>
     <message>
       <source>V2Ray Integration</source>
-      <translation type="unfinished">V2Ray Integration</translation>
+      <translation>V2Ray Integration</translation>
     </message>
     <message>
       <source>Only V2Ray Core v4.21+ is supported.</source>
-      <translation type="unfinished">Only V2Ray Core v4.21+ is supported.</translation>
+      <translation>Only V2Ray Core v4.21+ is supported.</translation>
     </message>
     <message>
       <source>Use V2Ray DNS for Direct Connection</source>
-      <translation type="unfinished">Use V2Ray DNS for Direct Connection</translation>
+      <translation>Use V2Ray DNS for Direct Connection</translation>
     </message>
     <message>
       <source>Open V2Ray assets folder</source>
-      <translation type="unfinished">Open V2Ray assets folder</translation>
+      <translation>Open V2Ray assets folder</translation>
     </message>
     <message>
       <source>Open V2Ray core file</source>
-      <translation type="unfinished">Open V2Ray core file</translation>
+      <translation>Open V2Ray core file</translation>
     </message>
     <message>
       <source>V2Ray path configuration check passed.</source>
-      <translation type="unfinished">V2Ray path configuration check passed.</translation>
+      <translation>V2Ray path configuration check passed.</translation>
     </message>
     <message>
       <source>Current version of V2Ray is: </source>
-      <translation type="unfinished">Current version of V2Ray is: </translation>
+      <translation>Current version of V2Ray is: </translation>
     </message>
     <message>
       <source>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.<byte value="xd"/>
 The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.<byte value="xd"/>
 If you insist to proceed, we&apos;re not providing with any support.</source>
-      <translation type="unfinished">You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.
+      <translation>You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.
 The filename of V2Ray core is usually &apos;v2ray&apos; or &apos;v2ray.exe&apos;. Make sure to choose it wisely.
 If you insist to proceed, we&apos;re not providing with any support.</translation>
     </message>
     <message>
       <source>Force Direct for All Connections</source>
-      <translation type="unfinished">Force Direct for All Connections</translation>
+      <translation>Force Direct for All Connections</translation>
     </message>
     <message>
       <source>&apos;V2Ray Core&apos; Settings</source>
-      <translation type="unfinished">&apos;V2Ray Core&apos; Settings</translation>
+      <translation>&apos;V2Ray Core&apos; Settings</translation>
     </message>
     <message>
       <source>RealPing Test URL</source>
-      <translation type="unfinished">RealPing Test URL</translation>
+      <translation>RealPing Test URL</translation>
     </message>
     <message>
       <source>Bypass Private Addresses</source>
-      <translation type="unfinished">Bypass Private Addresses</translation>
+      <translation>Bypass Private Addresses</translation>
     </message>
     <message>
       <source>You may need to reconnect to apply the settings now.</source>
-      <translation type="unfinished">You may need to reconnect to apply the settings now.</translation>
+      <translation>You may need to reconnect to apply the settings now.</translation>
     </message>
     <message>
       <source>Otherwise they will be applied next time you connect to a server.</source>
-      <translation type="unfinished">Otherwise they will be applied next time you connect to a server.</translation>
+      <translation>Otherwise they will be applied next time you connect to a server.</translation>
     </message>
     <message>
       <source>Do you want to reconnect now?</source>
-      <translation type="unfinished">Do you want to reconnect now?</translation>
+      <translation>Do you want to reconnect now?</translation>
     </message>
     <message>
       <source>Reconnect Required</source>
-      <translation type="unfinished">Reconnect Required</translation>
+      <translation>Reconnect Required</translation>
     </message>
     <message>
       <source>Dokodemo Door Settings</source>
-      <translation type="unfinished">Dokodemo Door Settings</translation>
-    </message>
-    <message>
-      <source>Disable System Root Certificates</source>
-      <translation type="unfinished">Disable System Root Certificates</translation>
+      <translation>Dokodemo Door Settings</translation>
     </message>
     <message>
       <source>Enable Sniffing</source>
-      <translation type="unfinished">Enable Sniffing</translation>
+      <translation>Enable Sniffing</translation>
     </message>
     <message>
       <source>Use Fake DNS</source>
-      <translation type="unfinished">Use Fake DNS</translation>
+      <translation>Use Fake DNS</translation>
     </message>
     <message>
       <source>Config Directory</source>
-      <translation type="unfinished">Config Directory</translation>
+      <translation>Config Directory</translation>
     </message>
     <message>
       <source>Open Directory</source>
-      <translation type="unfinished">Open Directory</translation>
-    </message>
-    <message>
-      <source>Test Latency On Connected</source>
-      <translation type="unfinished">Test Latency On Connected</translation>
+      <translation>Open Directory</translation>
     </message>
     <message>
       <source>Start Minimized</source>
-      <translation type="unfinished">Start Minimized</translation>
+      <translation>Start Minimized</translation>
     </message>
     <message>
       <source>Adapt Glyph Tray Icon</source>
-      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+      <translation>Adapt Glyph Tray Icon</translation>
     </message>
     <message>
       <source>Destination Override</source>
-      <translation type="unfinished">Destination Override</translation>
+      <translation>Destination Override</translation>
     </message>
     <message>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <source>TLS</source>
-      <translation type="unfinished">TLS</translation>
+      <translation>TLS</translation>
     </message>
     <message>
       <source>Please synchronize your system to use the VMess protocol.</source>
-      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+      <translation>请同步您的系统使用VMess协议。</translation>
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+      <translation>VMess协议可能仍然有效，但我们建议您同步您的时钟。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
-      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
+      <translation>VMess协议可能不会因时间不准确而受到影响。</translation>
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.</source>
-      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+      <translation>这似乎不是来自V2Ray Core的输出。</translation>
     </message>
     <message>
       <source>Output:</source>
-      <translation type="unfinished">Output:</translation>
+      <translation>输出：</translation>
     </message>
     <message>
       <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+      <translation>如果你正在寻找插件设置，你应该去插件设置。</translation>
     </message>
     <message>
       <source>No NTP Backend</source>
-      <translation type="unfinished">No NTP Backend</translation>
+      <translation>NTP 后端</translation>
     </message>
     <message>
       <source>Qv2ray was not built with NTP support.</source>
-      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
+      <translation>Qv2ray 不是在NTP支持下构建的。</translation>
     </message>
   </context>
   <context>
     <name>QObject</name>
     <message>
       <source>Out</source>
-      <translation type="unfinished">Out</translation>
+      <translation>出</translation>
     </message>
     <message>
       <source>In</source>
-      <translation type="unfinished">In</translation>
+      <translation>在</translation>
     </message>
     <message>
       <source>Rule</source>
-      <translation type="unfinished">Rule</translation>
+      <translation>规 则</translation>
     </message>
     <message>
       <source>Chain</source>
-      <translation type="unfinished">Chain</translation>
+      <translation>链条</translation>
     </message>
     <message>
       <source>Disable gRPC API subsystem</source>
-      <translation type="unfinished">Disable gRPC API subsystem</translation>
+      <translation>禁用 gRPC API 子系统</translation>
     </message>
     <message>
       <source>Disable plugins feature</source>
-      <translation type="unfinished">Disable plugins feature</translation>
+      <translation>禁用插件功能</translation>
     </message>
     <message>
       <source>Enable debug output</source>
-      <translation type="unfinished">Enable debug output</translation>
+      <translation>启用调试输出</translation>
     </message>
     <message>
       <source>Do not automatically connect</source>
-      <translation type="unfinished">Do not automatically connect</translation>
+      <translation>不要自动连接</translation>
     </message>
     <message>
       <source>Stop current connection</source>
-      <translation type="unfinished">Stop current connection</translation>
+      <translation>停止当前连接</translation>
     </message>
     <message>
       <source>Reconnect last connection</source>
-      <translation type="unfinished">Reconnect last connection</translation>
+      <translation>重新连接上次连接</translation>
     </message>
     <message>
       <source>Exit Qv2ray</source>
-      <translation type="unfinished">Exit Qv2ray</translation>
+      <translation>退出 Qv2ray</translation>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
-      <translation type="unfinished">Qv2ray - A cross-platform Qt frontend for V2Ray.</translation>
+      <translation>Qv2ray - V2Ray的跨平台Qt 前端。</translation>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation type="unfinished">DNS not resolved</translation>
+      <translation>DNS 未解决</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
-      <translation type="unfinished">Socket creation failed</translation>
+      <translation>Socket 创建失败</translation>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
-      <translation type="unfinished">Failed to setup TTL value</translation>
+      <translation>无法设置 TTL 值</translation>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation type="unfinished">Destination unreachable</translation>
+      <translation>无法访问目标</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>超时</translation>
     </message>
     <message>
       <source>Unknown error</source>
-      <translation type="unfinished">Unknown error</translation>
+      <translation>未知错误</translation>
     </message>
     <message>
       <source>None</source>
-      <translation type="unfinished">None</translation>
+      <translation>None</translation>
     </message>
     <message>
       <source>Settings Widget</source>
-      <translation type="unfinished">Settings Widget</translation>
+      <translation>设置部件</translation>
     </message>
     <message>
       <source>Inbound Editor</source>
-      <translation type="unfinished">Inbound Editor</translation>
+      <translation>Inbound Editor</translation>
     </message>
     <message>
       <source>Outbound Editor</source>
-      <translation type="unfinished">Outbound Editor</translation>
+      <translation>出站编辑器</translation>
     </message>
     <message>
       <source>MainWindow Widget</source>
-      <translation type="unfinished">MainWindow Widget</translation>
+      <translation>主窗口小部件</translation>
     </message>
     <message>
       <source>Unknown type.</source>
-      <translation type="unfinished">Unknown type.</translation>
+      <translation>未知类型。</translation>
     </message>
     <message>
       <source>Kernel</source>
-      <translation type="unfinished">Kernel</translation>
+      <translation>内核数</translation>
     </message>
     <message>
       <source>Outbound Handler/Parser</source>
-      <translation type="unfinished">Outbound Handler/Parser</translation>
+      <translation>Outbound Handler/Parser</translation>
     </message>
     <message>
       <source>Subscription Adapter</source>
-      <translation type="unfinished">Subscription Adapter</translation>
+      <translation>Subscription Adapter</translation>
     </message>
     <message>
       <source>Event Handler</source>
-      <translation type="unfinished">Event Handler</translation>
+      <translation>Event Handler</translation>
     </message>
     <message>
       <source>GUI Components</source>
-      <translation type="unfinished">GUI Components</translation>
+      <translation>GUI Components</translation>
     </message>
     <message>
       <source>Unsupported share link format.</source>
-      <translation type="unfinished">Unsupported share link format.</translation>
+      <translation>Unsupported share link format.</translation>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation type="unfinished">SS URI is too short</translation>
+      <translation>SS URI is too short</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
-      <translation type="unfinished">Can&apos;t find the colon separator between method and password</translation>
+      <translation>Can&apos;t find the colon separator between method and password</translation>
     </message>
     <message>
       <source>Can&apos;t find the at separator between password and hostname</source>
-      <translation type="unfinished">Can&apos;t find the at separator between password and hostname</translation>
+      <translation>Can&apos;t find the at separator between password and hostname</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation type="unfinished">Can&apos;t find the colon separator between hostname and port</translation>
+      <translation>Can&apos;t find the colon separator between hostname and port</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must exist</translation>
+      <translation>Invalid ssd link: json: field %1 must exist</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be valid port number</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be valid port number</translation>
+      <translation>Invalid ssd link: json: field %1 must be valid port number</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be of type &apos;string&apos;</translation>
+      <translation>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be an array</translation>
+      <translation>Invalid ssd link: json: field %1 must be an array</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: server must be an object</source>
-      <translation type="unfinished">Skipping invalid ssd server: server must be an object</translation>
+      <translation>Skipping invalid ssd server: server must be an object</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: missing required field %1</source>
-      <translation type="unfinished">Skipping invalid ssd server: missing required field %1</translation>
+      <translation>Skipping invalid ssd server: missing required field %1</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-      <translation type="unfinished">Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</translation>
+      <translation>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</translation>
     </message>
     <message>
       <source>Invalid ssd link: should begin with ssd://</source>
-      <translation type="unfinished">Invalid ssd link: should begin with ssd://</translation>
+      <translation>Invalid ssd link: should begin with ssd://</translation>
     </message>
     <message>
       <source>Invalid ssd link: base64 parse failed</source>
-      <translation type="unfinished">Invalid ssd link: base64 parse failed</translation>
+      <translation>Invalid ssd link: base64 parse failed</translation>
     </message>
     <message>
       <source>Invalid ssd link: json parse failed: </source>
-      <translation type="unfinished">Invalid ssd link: json parse failed: </translation>
+      <translation>Invalid ssd link: json parse failed: </translation>
     </message>
     <message>
       <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-      <translation type="unfinished">Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</translation>
+      <translation>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</translation>
     </message>
     <message>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+      <translation>VMess string should start with &apos;vmess://&apos;</translation>
     </message>
     <message>
       <source>VMess string should be a valid base64 string</source>
-      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+      <translation>VMess string should be a valid base64 string</translation>
     </message>
     <message>
       <source>JSON should not be empty</source>
-      <translation type="unfinished">JSON should not be empty</translation>
+      <translation>JSON should not be empty</translation>
     </message>
     <message>
       <source>vmess:// url is invalid</source>
-      <translation type="unfinished">vmess:// url is invalid</translation>
+      <translation>vmess:// url is invalid</translation>
     </message>
     <message>
       <source>Invalid streamSettings protocol: </source>
-      <translation type="unfinished">Invalid streamSettings protocol: </translation>
+      <translation>Invalid streamSettings protocol: </translation>
     </message>
     <message>
       <source>Unknown transport method: </source>
-      <translation type="unfinished">Unknown transport method: </translation>
+      <translation>Unknown transport method: </translation>
     </message>
     <message>
       <source>(Empty Users)</source>
-      <translation type="unfinished">(Empty Users)</translation>
+      <translation>(Empty Users)</translation>
     </message>
     <message>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>N/A</translation>
     </message>
     <message>
       <source>core executable file %1 does not exist</source>
-      <translation type="unfinished">core executable file %1 does not exist</translation>
+      <translation>core executable file %1 does not exist</translation>
     </message>
     <message>
       <source>cannot open core executable file %1 in read-only mode</source>
-      <translation type="unfinished">cannot open core executable file %1 in read-only mode</translation>
+      <translation>cannot open core executable file %1 in read-only mode</translation>
     </message>
     <message>
       <source>core executable file %1 is an empty file</source>
-      <translation type="unfinished">core executable file %1 is an empty file</translation>
+      <translation>core executable file %1 is an empty file</translation>
     </message>
     <message>
       <source>core executable file %1 is too short to be executed</source>
-      <translation type="unfinished">core executable file %1 is too short to be executed</translation>
+      <translation>core executable file %1 is too short to be executed</translation>
     </message>
     <message>
       <source>cannot deduce the type of core executable file %1</source>
-      <translation type="unfinished">cannot deduce the type of core executable file %1</translation>
+      <translation>cannot deduce the type of core executable file %1</translation>
     </message>
     <message>
       <source>Windows PE executable</source>
-      <translation type="unfinished">Windows PE executable</translation>
+      <translation>Windows PE executable</translation>
     </message>
     <message>
       <source>macOS Mach-O executable</source>
-      <translation type="unfinished">macOS Mach-O executable</translation>
+      <translation>macOS Mach-O executable</translation>
     </message>
     <message>
       <source>ELF x86 executable</source>
-      <translation type="unfinished">ELF x86 executable</translation>
+      <translation>ELF x86 executable</translation>
     </message>
     <message>
       <source>ELF amd64 executable</source>
-      <translation type="unfinished">ELF amd64 executable</translation>
+      <translation>ELF amd64 executable</translation>
     </message>
     <message>
       <source>ELF arm64 executable</source>
-      <translation type="unfinished">ELF arm64 executable</translation>
+      <translation>ELF arm64 executable</translation>
     </message>
     <message>
       <source>ELF arm executable</source>
-      <translation type="unfinished">ELF arm executable</translation>
+      <translation>ELF arm executable</translation>
     </message>
     <message>
       <source>other ELF executable</source>
-      <translation type="unfinished">other ELF executable</translation>
+      <translation>other ELF executable</translation>
     </message>
     <message>
       <source>trusted abi</source>
-      <translation type="unfinished">trusted abi</translation>
+      <translation>trusted abi</translation>
     </message>
     <message>
       <source>unknown abi</source>
-      <translation type="unfinished">unknown abi</translation>
+      <translation>unknown abi</translation>
     </message>
     <message>
       <source>Cannot Start Qv2ray</source>
-      <translation type="unfinished">Cannot Start Qv2ray</translation>
+      <translation>Cannot Start Qv2ray</translation>
     </message>
     <message>
       <source>Cannot find a place to store config files.</source>
-      <translation type="unfinished">Cannot find a place to store config files.</translation>
+      <translation>Cannot find a place to store config files.</translation>
     </message>
     <message>
       <source>Qv2ray has searched these paths below:</source>
-      <translation type="unfinished">Qv2ray has searched these paths below:</translation>
+      <translation>Qv2ray has searched these paths below:</translation>
     </message>
     <message>
       <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-      <translation type="unfinished">It usually means you don&apos;t have the write permission to all of those locations.</translation>
+      <translation>It usually means you don&apos;t have the write permission to all of those locations.</translation>
     </message>
     <message>
       <source>Qv2ray will now exit.</source>
-      <translation type="unfinished">Qv2ray will now exit.</translation>
+      <translation>Qv2ray will now exit.</translation>
     </message>
     <message>
       <source>Failed to initialise Qv2ray</source>
-      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+      <translation>Failed to initialise Qv2ray</translation>
     </message>
     <message>
       <source>Failed to determine the location of config file:</source>
-      <translation type="unfinished">Failed to determine the location of config file:</translation>
+      <translation>Failed to determine the location of config file:</translation>
     </message>
     <message>
       <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-      <translation type="unfinished">Qv2ray has found a config file, but it failed to be loaded due to some errors.</translation>
+      <translation>Qv2ray has found a config file, but it failed to be loaded due to some errors.</translation>
     </message>
     <message>
       <source>A workaround is to remove the this file and restart Qv2ray:</source>
-      <translation type="unfinished">A workaround is to remove the this file and restart Qv2ray:</translation>
+      <translation>A workaround is to remove the this file and restart Qv2ray:</translation>
     </message>
     <message>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+      <translation>Please report if you think it&apos;s a bug.</translation>
     </message>
     <message>
       <source>Qv2ray Cannot Continue</source>
-      <translation type="unfinished">Qv2ray Cannot Continue</translation>
+      <translation>Qv2ray Cannot Continue</translation>
     </message>
     <message>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
+      <translation>You are running a lower version of Qv2ray compared to the current config file.</translation>
     </message>
     <message>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+      <translation>Please check if there&apos;s an issue explaining about it.</translation>
     </message>
     <message>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
-    </message>
-    <message>
-      <source>Default Group</source>
-      <translation type="unfinished">Default Group</translation>
-    </message>
-    <message>
-      <source>Deprecated</source>
-      <translation type="unfinished">Deprecated</translation>
-    </message>
-    <message>
-      <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-      <translation type="unfinished">PAC is now deprecated and is not encouraged to be used anymore.</translation>
-    </message>
-    <message>
-      <source>It will be removed or be provided as a plugin in the future.</source>
-      <translation type="unfinished">It will be removed or be provided as a plugin in the future.</translation>
-    </message>
-    <message>
-      <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
-      <translation type="unfinished">PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</translation>
+      <translation>Or submit a new issue if you think this is an error.</translation>
     </message>
     <message>
       <source>Configuration Upgrade Failed</source>
-      <translation type="unfinished">Configuration Upgrade Failed</translation>
+      <translation>Configuration Upgrade Failed</translation>
     </message>
     <message>
       <source>Unsupported config version number: </source>
-      <translation type="unfinished">Unsupported config version number: </translation>
-    </message>
-    <message>
-      <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-      <translation type="unfinished">Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</translation>
+      <translation>Unsupported config version number: </translation>
     </message>
     <message>
       <source>Qv2ray has encountered an uncaught exception: </source>
-      <translation type="unfinished">Qv2ray has encountered an uncaught exception: </translation>
+      <translation>Qv2ray has encountered an uncaught exception: </translation>
     </message>
     <message>
       <source>Please report a bug via Github with the file located here: </source>
-      <translation type="unfinished">Please report a bug via Github with the file located here: </translation>
+      <translation>Please report a bug via Github with the file located here: </translation>
     </message>
     <message>
       <source>VLESS link should start with vless://</source>
-      <translation type="unfinished">VLESS link should start with vless://</translation>
+      <translation>VLESS link should start with vless://</translation>
     </message>
     <message>
       <source>link parse failed: %1</source>
-      <translation type="unfinished">link parse failed: %1</translation>
+      <translation>link parse failed: %1</translation>
     </message>
     <message>
       <source>empty host</source>
-      <translation type="unfinished">empty host</translation>
+      <translation>empty host</translation>
     </message>
     <message>
       <source>missing port</source>
-      <translation type="unfinished">missing port</translation>
+      <translation>missing port</translation>
     </message>
     <message>
       <source>missing uuid</source>
-      <translation type="unfinished">missing uuid</translation>
+      <translation>missing uuid</translation>
+    </message>
+    <message>
+      <source>Please go to https://github.com/Qv2ray/Qv2ray/issues to check for related announcements.</source>
+      <translation>请到 https://github.com/Qv2ray/Qv2ray/issues来检查相关通知。</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::Qv2rayWidgetApplication</name>
     <message>
       <source>A new version of Qv2ray is starting:</source>
-      <translation type="unfinished">A new version of Qv2ray is starting:</translation>
+      <translation>A new version of Qv2ray is starting:</translation>
     </message>
     <message>
       <source>New version information: </source>
-      <translation type="unfinished">New version information: </translation>
+      <translation>新版本信息： </translation>
     </message>
     <message>
       <source>Do you want to exit and launch that new version?</source>
-      <translation type="unfinished">Do you want to exit and launch that new version?</translation>
+      <translation>您想要退出并启动该新版本吗？</translation>
     </message>
     <message>
       <source>New version detected</source>
-      <translation type="unfinished">New version detected</translation>
+      <translation>检测到新版本</translation>
     </message>
     <message>
       <source>Version: %1:%2</source>
-      <translation type="unfinished">Version: %1:%2</translation>
+      <translation>版本: %1:%2</translation>
     </message>
     <message>
       <source>Path: %1</source>
-      <translation type="unfinished">Path: %1</translation>
+      <translation>路径： %1</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
       <source>Qv2ray Update</source>
-      <translation type="unfinished">Qv2ray Update</translation>
+      <translation>Qv2ray 更新</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::components::plugins::QvPluginHost</name>
     <message>
       <source>Failed to load plugin</source>
-      <translation type="unfinished">Failed to load plugin</translation>
+      <translation>加载插件失败</translation>
     </message>
     <message>
       <source>Cannot load plugin</source>
-      <translation type="unfinished">Cannot load plugin</translation>
+      <translation>无法加载插件</translation>
     </message>
     <message>
       <source>The plugin cannot be loaded: </source>
-      <translation type="unfinished">The plugin cannot be loaded: </translation>
+      <translation>无法加载插件： </translation>
     </message>
     <message>
       <source>This plugin was built against a different version of the Plugin Interface.</source>
-      <translation type="unfinished">This plugin was built against a different version of the Plugin Interface.</translation>
+      <translation>此插件是在不同版本的插件接口上构建的。</translation>
     </message>
     <message>
       <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-      <translation type="unfinished">Please contact the plugin provider or report the issue to Qv2ray Workgroup.</translation>
+      <translation>请联系插件提供商或将问题报告到 Qv2ray 工作组。</translation>
     </message>
     <message>
       <source>Enabling a plugin</source>
-      <translation type="unfinished">Enabling a plugin</translation>
+      <translation>启用插件</translation>
     </message>
     <message>
       <source>The plugin will become fully functional after restarting Qv2ray.</source>
-      <translation type="unfinished">The plugin will become fully functional after restarting Qv2ray.</translation>
+      <translation>重新启动Qv2ray后插件将完全启用。</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::handler::KernelInstanceHandler</name>
     <message>
       <source>There are other processes occupying the ports necessary to start the connection:</source>
-      <translation type="unfinished">There are other processes occupying the ports necessary to start the connection:</translation>
+      <translation>其他进程占用了启动连接所需的端口：</translation>
     </message>
     <message>
       <source>Endpoint: %1:%2 for inbound: &quot;%3&quot;</source>
-      <translation type="unfinished">Endpoint: %1:%2 for inbound: &quot;%3&quot;</translation>
+      <translation>端点: %1:%2 for inbound: &quot;%3&quot;</translation>
     </message>
     <message>
       <source>Local port: %1 for plugin integration.</source>
-      <translation type="unfinished">Local port: %1 for plugin integration.</translation>
+      <translation>本地端口： %1 用于插件集成。</translation>
     </message>
     <message>
       <source>A plugin kernel failed to start. Please check the outbound settings.</source>
-      <translation type="unfinished">A plugin kernel failed to start. Please check the outbound settings.</translation>
+      <translation>插件内核启动失败。请检查出站设置。</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::handler::QvConfigHandler</name>
     <message>
       <source>Group: %1</source>
-      <translation type="unfinished">Group: %1</translation>
+      <translation>组: %1</translation>
     </message>
     <message>
       <source>Group does not exist</source>
-      <translation type="unfinished">Group does not exist</translation>
+      <translation>群组不存在</translation>
     </message>
     <message>
       <source>Default Group</source>
-      <translation type="unfinished">Default Group</translation>
+      <translation>默认组</translation>
     </message>
     <message>
       <source>Failed to start connection</source>
-      <translation type="unfinished">Failed to start connection</translation>
+      <translation>启动连接失败</translation>
     </message>
     <message>
       <source>Unknown subscription type: %1</source>
-      <translation type="unfinished">Unknown subscription type: %1</translation>
+      <translation>未知订阅类型： %1</translation>
     </message>
     <message>
       <source>Update Subscription</source>
@@ -2435,143 +2381,137 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
     </message>
     <message numerus="yes">
       <source>%n entrie(s) have been found from the subscription source, do you want to continue?</source>
-      <translation type="unfinished">
-        <numerusform>%n entrie(s) have been found from the subscription source, do you want to continue?</numerusform>
-        <numerusform>%n entrie(s) have been found from the subscription source, do you want to continue?</numerusform>
-        <numerusform>%n entrie(s) have been found from the subscription source, do you want to continue?</numerusform>
+      <translation>
+        <numerusform>在订阅源找到了 %n 个条目，您想要继续吗？</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>%1 out of %n entrie(s) have been filtered out, do you want to continue?</source>
-      <translation type="unfinished">
-        <numerusform>%1 out of %n entrie(s) have been filtered out, do you want to continue?</numerusform>
-        <numerusform>%1 out of %n entrie(s) have been filtered out, do you want to continue?</numerusform>
-        <numerusform>%1 out of %n entrie(s) have been filtered out, do you want to continue?</numerusform>
+      <translation>
+        <numerusform>%1 个条目中的 %n 个条目已被过滤出来，您想要继续吗？</numerusform>
       </translation>
     </message>
     <message numerus="yes">
       <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
-      <translation type="unfinished">
-        <numerusform>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</numerusform>
-        <numerusform>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</numerusform>
-        <numerusform>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</numerusform>
+      <translation>
+        <numerusform>在不属于当前订阅的组&apos;re %n connection(s) (更多)。</numerusform>
       </translation>
     </message>
     <message>
       <source>Would you like to remove them?</source>
-      <translation type="unfinished">Would you like to remove them?</translation>
+      <translation>您想要删除他们吗？</translation>
     </message>
     <message>
       <source>Cannot Update Subscription</source>
-      <translation type="unfinished">Cannot Update Subscription</translation>
+      <translation>无法更新订阅</translation>
     </message>
     <message>
       <source>A subscription plugin is missing?</source>
-      <translation type="unfinished">A subscription plugin is missing?</translation>
+      <translation>缺少订阅插件？</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::kernel::APIWorker</name>
     <message>
       <source>Failed to get statistics data, please check if V2Ray is running properly</source>
-      <translation type="unfinished">Failed to get statistics data, please check if V2Ray is running properly</translation>
+      <translation>无法获取统计数据，请检查 V2Ray 是否正常运行</translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::core::kernel::V2RayKernelInstance</name>
     <message>
       <source>Core file is lacking executable permission for the current user.</source>
-      <translation type="unfinished">Core file is lacking executable permission for the current user.</translation>
+      <translation>核心文件缺少当前用户的可执行权限。</translation>
     </message>
     <message>
       <source>Qv2ray tried to set, but failed because permission denied.</source>
-      <translation type="unfinished">Qv2ray tried to set, but failed because permission denied.</translation>
+      <translation>Qv2ray 尝试设置，但由于拒绝了权限而失败。</translation>
     </message>
     <message>
       <source>Check is skipped</source>
-      <translation type="unfinished">Check is skipped</translation>
+      <translation>Check is skipped</translation>
     </message>
     <message>
       <source>V2Ray core executable not found.</source>
-      <translation type="unfinished">V2Ray core executable not found.</translation>
+      <translation>V2Ray core executable not found.</translation>
     </message>
     <message>
       <source>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-      <translation type="unfinished">V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</translation>
+      <translation>V2Ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</translation>
     </message>
     <message>
       <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
 Expected core ABI is %1, but got actual %2.<byte value="xd"/>
 Maybe you have downloaded the wrong core?</source>
-      <translation type="unfinished">V2Ray core is incompatible with your platform.
+      <translation>V2Ray core is incompatible with your platform.
 Expected core ABI is %1, but got actual %2.
 Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>V2Ray assets path is not valid.</source>
-      <translation type="unfinished">V2Ray assets path is not valid.</translation>
+      <translation>V2Ray assets path is not valid.</translation>
     </message>
     <message>
       <source>No geoip.dat in assets path.</source>
-      <translation type="unfinished">No geoip.dat in assets path.</translation>
+      <translation>No geoip.dat in assets path.</translation>
     </message>
     <message>
       <source>No geosite.dat in assets path.</source>
-      <translation type="unfinished">No geosite.dat in assets path.</translation>
+      <translation>No geosite.dat in assets path.</translation>
     </message>
     <message>
       <source>V2Ray core failed with an exit code: </source>
-      <translation type="unfinished">V2Ray core failed with an exit code: </translation>
+      <translation>V2Ray core failed with an exit code: </translation>
     </message>
     <message>
       <source>V2Ray core returns empty string.</source>
-      <translation type="unfinished">V2Ray core returns empty string.</translation>
+      <translation>V2Ray core returns empty string.</translation>
     </message>
     <message>
       <source>Configuration Error</source>
-      <translation type="unfinished">Configuration Error</translation>
+      <translation>Configuration Error</translation>
     </message>
     <message>
       <source>Invalid V2Ray Instance Status.</source>
-      <translation type="unfinished">Invalid V2Ray Instance Status.</translation>
+      <translation>Invalid V2Ray Instance Status.</translation>
     </message>
     <message>
       <source>Core file not executable.</source>
-      <translation type="unfinished">Core file not executable.</translation>
+      <translation>Core file not executable.</translation>
     </message>
     <message>
       <source>V2Ray kernel failed to start: </source>
-      <translation type="unfinished">V2Ray kernel failed to start: </translation>
+      <translation>V2Ray kernel failed to start: </translation>
     </message>
   </context>
   <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
     <message>
       <source>You can not input space characters here.</source>
-      <translation type="unfinished">You can not input space characters here.</translation>
+      <translation>You can not input space characters here.</translation>
     </message>
   </context>
   <context>
     <name>RouteEditor</name>
     <message>
       <source>Route Editor</source>
-      <translation type="unfinished">Route Editor</translation>
+      <translation>Route Editor</translation>
     </message>
     <message>
       <source>Add outbound</source>
-      <translation type="unfinished">Add outbound</translation>
+      <translation>Add outbound</translation>
     </message>
     <message>
       <source>Add default inbound from global config</source>
-      <translation type="unfinished">Add default inbound from global config</translation>
+      <translation>Add default inbound from global config</translation>
     </message>
     <message>
       <source>Add blackhole outbound</source>
-      <translation type="unfinished">Add blackhole outbound</translation>
+      <translation>Add blackhole outbound</translation>
     </message>
     <message>
       <source>Add Freedom outbound</source>
-      <translation type="unfinished">Add Freedom outbound</translation>
+      <translation>Add Freedom outbound</translation>
     </message>
     <message>
       <source>Protocol</source>
@@ -2583,7 +2523,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>Host</translation>
     </message>
     <message>
       <source>Port</source>
@@ -2591,75 +2531,75 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
-      <translation type="unfinished">Domain Strategy</translation>
+      <translation>Domain Strategy</translation>
     </message>
     <message>
       <source>Default Outbound</source>
-      <translation type="unfinished">Default Outbound</translation>
+      <translation>Default Outbound</translation>
     </message>
     <message>
       <source>Drag and drop to re-order the rules.</source>
-      <translation type="unfinished">Drag and drop to re-order the rules.</translation>
+      <translation>Drag and drop to re-order the rules.</translation>
     </message>
     <message>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>Status</translation>
     </message>
     <message>
       <source>Added DIRECT outbound</source>
-      <translation type="unfinished">Added DIRECT outbound</translation>
+      <translation>Added DIRECT outbound</translation>
     </message>
     <message>
       <source>New Outbound</source>
-      <translation type="unfinished">New Outbound</translation>
+      <translation>New Outbound</translation>
     </message>
     <message>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>Import</translation>
     </message>
     <message>
       <source>Blackhole</source>
-      <translation type="unfinished">Blackhole</translation>
+      <translation>Blackhole</translation>
     </message>
     <message>
       <source>New Inbound</source>
-      <translation type="unfinished">New Inbound</translation>
+      <translation>New Inbound</translation>
     </message>
     <message>
       <source>Editor</source>
-      <translation type="unfinished">Editor</translation>
+      <translation>Editor</translation>
     </message>
     <message>
       <source>Global Settings</source>
-      <translation type="unfinished">Global Settings</translation>
+      <translation>Global Settings</translation>
     </message>
     <message>
       <source>Freedom</source>
-      <translation type="unfinished">Freedom</translation>
+      <translation>Freedom</translation>
     </message>
     <message>
       <source>Balancer</source>
-      <translation type="unfinished">Balancer</translation>
+      <translation>Balancer</translation>
     </message>
     <message>
       <source>Chain</source>
-      <translation type="unfinished">Chain</translation>
+      <translation>Chain</translation>
     </message>
     <message>
       <source>Existing Connection</source>
-      <translation type="unfinished">Existing Connection</translation>
+      <translation>Existing Connection</translation>
     </message>
     <message>
       <source>Copy</source>
-      <translation type="unfinished">Copy</translation>
+      <translation>Copy</translation>
     </message>
     <message>
       <source>Reference</source>
-      <translation type="unfinished">Reference</translation>
+      <translation>Reference</translation>
     </message>
     <message>
       <source>Routing Settings</source>
-      <translation type="unfinished">Routing Settings</translation>
+      <translation>Routing Settings</translation>
     </message>
     <message>
       <source>Chain Editor</source>
@@ -2667,55 +2607,55 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>DNS Settings</source>
-      <translation type="unfinished">DNS Settings</translation>
+      <translation>DNS Settings</translation>
     </message>
     <message>
       <source>Unknown</source>
-      <translation type="unfinished">Unknown</translation>
+      <translation>Unknown</translation>
     </message>
     <message>
       <source>0</source>
-      <translation type="unfinished">0</translation>
+      <translation>0</translation>
     </message>
     <message>
       <source>Debug Connection Painter</source>
-      <translation type="unfinished">Debug Connection Painter</translation>
+      <translation>Debug Connection Painter</translation>
     </message>
     <message>
       <source>Connection Template</source>
-      <translation type="unfinished">Connection Template</translation>
+      <translation>Connection Template</translation>
     </message>
     <message>
       <source>Inbound</source>
-      <translation type="unfinished">Inbound</translation>
+      <translation>Inbound</translation>
     </message>
     <message>
       <source>Outbound</source>
-      <translation type="unfinished">Outbound</translation>
+      <translation>Outbound</translation>
     </message>
     <message>
       <source>Override global DNS settings</source>
-      <translation type="unfinished">Override global DNS settings</translation>
+      <translation>Override global DNS settings</translation>
     </message>
     <message>
       <source>Inbound / Outbound Info</source>
-      <translation type="unfinished">Inbound / Outbound Info</translation>
+      <translation>Inbound / Outbound Info</translation>
     </message>
     <message>
       <source>Rules Ordering</source>
-      <translation type="unfinished">Rules Ordering</translation>
+      <translation>Rules Ordering</translation>
     </message>
     <message>
       <source>Importing All Connections</source>
-      <translation type="unfinished">Importing All Connections</translation>
+      <translation>Importing All Connections</translation>
     </message>
     <message>
       <source>Do you want to import all the connections?</source>
-      <translation type="unfinished">Do you want to import all the connections?</translation>
+      <translation>Do you want to import all the connections?</translation>
     </message>
     <message>
       <source>(All Connections)</source>
-      <translation type="unfinished">(All Connections)</translation>
+      <translation>(All Connections)</translation>
     </message>
   </context>
   <context>
@@ -2726,19 +2666,19 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
-      <translation type="unfinished">Domain Strategy</translation>
+      <translation>Domain Strategy</translation>
     </message>
     <message>
       <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
-      <translation type="unfinished">Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</translation>
+      <translation>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</translation>
     </message>
     <message>
       <source>Block</source>
-      <translation type="unfinished">Block</translation>
+      <translation>Block</translation>
     </message>
     <message>
       <source>Direct</source>
-      <translation type="unfinished">Direct</translation>
+      <translation>Direct</translation>
     </message>
     <message>
       <source>Domain</source>
@@ -2746,88 +2686,108 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Proxy</source>
-      <translation type="unfinished">Proxy</translation>
+      <translation>Proxy</translation>
     </message>
     <message>
       <source>IP</source>
-      <translation type="unfinished">IP</translation>
+      <translation>IP</translation>
     </message>
     <message>
       <source>Use built-in route schemes</source>
-      <translation type="unfinished">Use built-in route schemes</translation>
+      <translation>Use built-in route schemes</translation>
     </message>
     <message>
       <source>Built-in Schemes...</source>
-      <translation type="unfinished">Built-in Schemes...</translation>
+      <translation>Built-in Schemes...</translation>
     </message>
     <message>
       <source>Import route scheme from file</source>
-      <translation type="unfinished">Import route scheme from file</translation>
+      <translation>Import route scheme from file</translation>
     </message>
     <message>
       <source>Import Scheme...</source>
-      <translation type="unfinished">Import Scheme...</translation>
+      <translation>Import Scheme...</translation>
     </message>
     <message>
       <source>Export route scheme to file</source>
-      <translation type="unfinished">Export route scheme to file</translation>
+      <translation>Export route scheme to file</translation>
     </message>
     <message>
       <source>Export Scheme...</source>
-      <translation type="unfinished">Export Scheme...</translation>
+      <translation>Export Scheme...</translation>
+    </message>
+    <message>
+      <source>...</source>
+      <translation>...</translation>
+    </message>
+    <message>
+      <source>Rules</source>
+      <translation>规则</translation>
+    </message>
+    <message>
+      <source>Rule Detail</source>
+      <translation>规则细节</translation>
+    </message>
+    <message>
+      <source>Rule Type</source>
+      <translation>规则类型</translation>
+    </message>
+    <message>
+      <source>Outbound</source>
+      <translation>Outbound</translation>
     </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
     <message>
       <source>empty scheme</source>
-      <translation type="unfinished">empty scheme</translation>
+      <translation>empty scheme</translation>
     </message>
     <message>
       <source>Import scheme &apos;%1&apos; made by &apos;%2&apos;? <byte value="xd"/>
  Description: %3</source>
-      <translation type="unfinished">Import scheme &apos;%1&apos; made by &apos;%2&apos;? 
+      <translation>Import scheme &apos;%1&apos; made by &apos;%2&apos;? 
  Description: %3</translation>
     </message>
     <message>
       <source>Importing Scheme</source>
-      <translation type="unfinished">Importing Scheme</translation>
+      <translation>Importing Scheme</translation>
     </message>
     <message>
       <source>Exporting Scheme</source>
-      <translation type="unfinished">Exporting Scheme</translation>
+      <translation>Exporting Scheme</translation>
     </message>
     <message>
       <source>Scheme name:</source>
-      <translation type="unfinished">Scheme name:</translation>
+      <translation>Scheme name:</translation>
     </message>
     <message>
       <source>Unnamed Scheme</source>
-      <translation type="unfinished">Unnamed Scheme</translation>
+      <translation>Unnamed Scheme</translation>
     </message>
     <message>
       <source>Author:</source>
-      <translation type="unfinished">Author:</translation>
+      <translation>Author:</translation>
     </message>
     <message>
       <source>Description:</source>
-      <translation type="unfinished">Description:</translation>
+      <translation>Description:</translation>
     </message>
     <message>
       <source>The author is too lazy to leave a comment</source>
-      <translation type="unfinished">The author is too lazy to leave a comment</translation>
+      <translation>The author is too lazy to leave a comment</translation>
     </message>
     <message>
       <source>Your route scheme has been successfully exported!</source>
-      <translation type="unfinished">Your route scheme has been successfully exported!</translation>
+      <translation>Your route scheme has been successfully exported!</translation>
     </message>
     <message>
       <source>QvRoute Schemes(*.json)</source>
-      <translation type="unfinished">QvRoute Schemes(*.json)</translation>
+      <translation>QvRoute Schemes(*.json)</translation>
     </message>
     <message>
       <source>empty scheme (no ads)</source>
-      <translation type="unfinished">empty scheme (no ads)</translation>
+      <translation>empty scheme (no ads)</translation>
     </message>
   </context>
   <context>
@@ -2838,39 +2798,39 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-      <translation type="unfinished">A rule with no inbound connected means there&apos;s no inbound restriction.</translation>
+      <translation>A rule with no inbound connected means there&apos;s no inbound restriction.</translation>
     </message>
     <message>
       <source>Add new route</source>
-      <translation type="unfinished">Add new route</translation>
+      <translation>Add new route</translation>
     </message>
     <message>
       <source>Add Rule</source>
-      <translation type="unfinished">Add Rule</translation>
+      <translation>Add Rule</translation>
     </message>
     <message>
       <source>Delete outbound</source>
-      <translation type="unfinished">Delete outbound</translation>
+      <translation>Delete outbound</translation>
     </message>
     <message>
       <source>Delete Selection</source>
-      <translation type="unfinished">Delete Selection</translation>
+      <translation>Delete Selection</translation>
     </message>
     <message>
       <source>Remove Items</source>
-      <translation type="unfinished">Remove Items</translation>
+      <translation>Remove Items</translation>
     </message>
     <message>
       <source>Please select a node from the graph to continue.</source>
-      <translation type="unfinished">Please select a node from the graph to continue.</translation>
+      <translation>Please select a node from the graph to continue.</translation>
     </message>
     <message>
       <source>Deleting a node</source>
-      <translation type="unfinished">Deleting a node</translation>
+      <translation>Deleting a node</translation>
     </message>
     <message>
       <source>You need to select a node first</source>
-      <translation type="unfinished">You need to select a node first</translation>
+      <translation>您需要先选择一个节点</translation>
     </message>
   </context>
   <context>
@@ -2881,47 +2841,47 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Enabled</translation>
     </message>
     <message>
       <source>Details</source>
-      <translation type="unfinished">Details</translation>
+      <translation>详细信息</translation>
     </message>
     <message>
       <source>Target IP</source>
-      <translation type="unfinished">Target IP</translation>
+      <translation>Target IP</translation>
     </message>
     <message>
       <source>Target Domain</source>
-      <translation type="unfinished">Target Domain</translation>
+      <translation>Target Domain</translation>
     </message>
     <message>
       <source>Source IP</source>
-      <translation type="unfinished">Source IP</translation>
+      <translation>源 IP</translation>
     </message>
     <message>
       <source>General</source>
-      <translation type="unfinished">General</translation>
+      <translation>A. 概况</translation>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <source>TLS</source>
-      <translation type="unfinished">TLS</translation>
+      <translation>TLS</translation>
     </message>
     <message>
       <source>Torrent</source>
-      <translation type="unfinished">Torrent</translation>
+      <translation>种子</translation>
     </message>
     <message>
       <source>Port</source>
@@ -2929,227 +2889,227 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>80, 443, 8000-8080</source>
-      <translation type="unfinished">80, 443, 8000-8080</translation>
+      <translation>80, 443, 8000-8080</translation>
     </message>
   </context>
   <context>
     <name>ScreenShot</name>
     <message>
       <source>ScreenShot</source>
-      <translation type="unfinished">ScreenShot</translation>
+      <translation>屏幕截图</translation>
     </message>
     <message>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>大小</translation>
     </message>
     <message>
       <source>Screen Shot</source>
-      <translation type="unfinished">Screen Shot</translation>
+      <translation>屏幕截图</translation>
     </message>
     <message>
       <source>FG</source>
-      <translation type="unfinished">FG</translation>
+      <translation>FG</translation>
     </message>
   </context>
   <context>
     <name>SpeedWidget</name>
     <message>
       <source>Proxy ↑</source>
-      <translation type="unfinished">Proxy ↑</translation>
+      <translation>代理服务器</translation>
     </message>
     <message>
       <source>Proxy ↓</source>
-      <translation type="unfinished">Proxy ↓</translation>
+      <translation>代理服务器 (2000)</translation>
     </message>
     <message>
       <source>Direct ↑</source>
-      <translation type="unfinished">Direct ↑</translation>
+      <translation>直接的</translation>
     </message>
     <message>
       <source>Direct ↓</source>
-      <translation type="unfinished">Direct ↓</translation>
+      <translation>直接网点</translation>
     </message>
     <message>
       <source>Total ↑</source>
-      <translation type="unfinished">Total ↑</translation>
+      <translation>总计</translation>
     </message>
     <message>
       <source>Total ↓</source>
-      <translation type="unfinished">Total ↓</translation>
+      <translation>总人数（月）</translation>
     </message>
   </context>
   <context>
     <name>StreamSettingsWidget</name>
     <message>
       <source>Stream Settings Widget</source>
-      <translation type="unfinished">Stream Settings Widget</translation>
+      <translation>流设置部件</translation>
     </message>
     <message>
       <source>Protocol Settings</source>
-      <translation type="unfinished">Protocol Settings</translation>
+      <translation>协议设置</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Type</translation>
     </message>
     <message>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>Edit</translation>
     </message>
     <message>
       <source>Reset</source>
-      <translation type="unfinished">Reset</translation>
+      <translation>Reset</translation>
     </message>
     <message>
       <source>Response</source>
-      <translation type="unfinished">Response</translation>
+      <translation>答复</translation>
     </message>
     <message>
       <source>Request</source>
-      <translation type="unfinished">Request</translation>
+      <translation>请求</translation>
     </message>
     <message>
       <source>Path</source>
-      <translation type="unfinished">Path</translation>
+      <translation>Path</translation>
     </message>
     <message>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>Host</translation>
     </message>
     <message>
       <source>Headers</source>
-      <translation type="unfinished">Headers</translation>
+      <translation>信头</translation>
     </message>
     <message>
       <source>MTU</source>
-      <translation type="unfinished">MTU</translation>
+      <translation>MTU</translation>
     </message>
     <message>
       <source>Congestion</source>
-      <translation type="unfinished">Congestion</translation>
+      <translation>拥塞模式</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Enabled</translation>
     </message>
     <message>
       <source>Security</source>
-      <translation type="unfinished">Security</translation>
+      <translation>安全</translation>
     </message>
     <message>
       <source>Key</source>
-      <translation type="unfinished">Key</translation>
+      <translation>关键字</translation>
     </message>
     <message>
       <source>keys</source>
-      <translation type="unfinished">keys</translation>
+      <translation>keys</translation>
     </message>
     <message>
       <source>Transport Protocol</source>
-      <translation type="unfinished">Transport Protocol</translation>
+      <translation>Transport Protocol</translation>
     </message>
     <message>
       <source>TLS Settings</source>
-      <translation type="unfinished">TLS Settings</translation>
+      <translation>TLS Settings</translation>
     </message>
     <message>
       <source>Allow Insecure Certificates</source>
-      <translation type="unfinished">Allow Insecure Certificates</translation>
+      <translation>Allow Insecure Certificates</translation>
     </message>
     <message>
       <source>ALPN</source>
-      <translation type="unfinished">ALPN</translation>
+      <translation>ALPN</translation>
     </message>
     <message>
       <source>SOCK Options</source>
-      <translation type="unfinished">SOCK Options</translation>
+      <translation>SOCK Options</translation>
     </message>
     <message>
       <source>Mark</source>
-      <translation type="unfinished">Mark</translation>
+      <translation>Mark</translation>
     </message>
     <message>
       <source>TCP Fast Open</source>
-      <translation type="unfinished">TCP Fast Open</translation>
+      <translation>TCP Fast Open</translation>
     </message>
     <message>
       <source>tProxy Mode</source>
-      <translation type="unfinished">tProxy Mode</translation>
+      <translation>tProxy Mode</translation>
     </message>
     <message>
       <source>Disable Session Resumption</source>
-      <translation type="unfinished">Disable Session Resumption</translation>
+      <translation>Disable Session Resumption</translation>
     </message>
     <message>
       <source>Security Type</source>
-      <translation type="unfinished">Security Type</translation>
+      <translation>Security Type</translation>
     </message>
     <message>
       <source>Header</source>
-      <translation type="unfinished">Header</translation>
+      <translation>Header</translation>
     </message>
     <message>
       <source>Seed</source>
-      <translation type="unfinished">Seed</translation>
+      <translation>Seed</translation>
     </message>
     <message>
       <source>Capacity</source>
-      <translation type="unfinished">Capacity</translation>
+      <translation>Capacity</translation>
     </message>
     <message>
       <source>Up: </source>
-      <translation type="unfinished">Up: </translation>
+      <translation>Up: </translation>
     </message>
     <message>
       <source>Down: </source>
-      <translation type="unfinished">Down: </translation>
+      <translation>Down: </translation>
     </message>
     <message>
       <source>Buffer Size</source>
-      <translation type="unfinished">Buffer Size</translation>
+      <translation>Buffer Size</translation>
     </message>
     <message>
       <source>Write Size: </source>
-      <translation type="unfinished">Write Size: </translation>
+      <translation>Write Size: </translation>
     </message>
     <message>
       <source>Read Size: </source>
-      <translation type="unfinished">Read Size: </translation>
+      <translation>Read Size: </translation>
     </message>
     <message>
       <source>Options</source>
-      <translation type="unfinished">Options</translation>
+      <translation>Options</translation>
     </message>
     <message>
       <source>TTI</source>
-      <translation type="unfinished">TTI</translation>
+      <translation>TTI</translation>
     </message>
     <message>
       <source>Server Address (SNI)</source>
-      <translation type="unfinished">Server Address (SNI)</translation>
+      <translation>Server Address (SNI)</translation>
     </message>
     <message>
       <source>Disable System Root Certificates</source>
-      <translation type="unfinished">Disable System Root Certificates</translation>
+      <translation>Disable System Root Certificates</translation>
     </message>
     <message>
       <source>Open Certificate Editor</source>
-      <translation type="unfinished">Open Certificate Editor</translation>
+      <translation>Open Certificate Editor</translation>
     </message>
     <message>
       <source>Certificates</source>
-      <translation type="unfinished">Certificates</translation>
+      <translation>Certificates</translation>
     </message>
   </context>
   <context>
     <name>w_GroupManager</name>
     <message>
       <source>Group Editor</source>
-      <translation type="unfinished">Group Editor</translation>
+      <translation>Group Editor</translation>
     </message>
     <message>
       <source>Group Info</source>
-      <translation type="unfinished">Group Info</translation>
+      <translation>Group Info</translation>
     </message>
     <message>
       <source>Group Name</source>
@@ -3157,63 +3117,63 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Created At</source>
-      <translation type="unfinished">Created At</translation>
+      <translation>Created At</translation>
     </message>
     <message>
       <source>Group List</source>
-      <translation type="unfinished">Group List</translation>
+      <translation>Group List</translation>
     </message>
     <message>
       <source>Add Subscription</source>
-      <translation type="unfinished">Add Subscription</translation>
+      <translation>Add Subscription</translation>
     </message>
     <message>
       <source>Remove Subscription</source>
-      <translation type="unfinished">Remove Subscription</translation>
+      <translation>Remove Subscription</translation>
     </message>
     <message>
       <source>Connections</source>
-      <translation type="unfinished">Connections</translation>
+      <translation>Connections</translation>
     </message>
     <message>
       <source>Delete Selection</source>
-      <translation type="unfinished">Delete Selection</translation>
+      <translation>Delete Selection</translation>
     </message>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>Name</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Type</translation>
     </message>
     <message>
       <source>Host / Port</source>
-      <translation type="unfinished">Host / Port</translation>
+      <translation>Host / Port</translation>
     </message>
     <message>
       <source>Groups</source>
-      <translation type="unfinished">Groups</translation>
+      <translation>Groups</translation>
     </message>
     <message>
       <source>Export Selection</source>
-      <translation type="unfinished">Export Selection</translation>
+      <translation>Export Selection</translation>
     </message>
     <message>
       <source>Subscription Settings</source>
-      <translation type="unfinished">Subscription Settings</translation>
+      <translation>Subscription Settings</translation>
     </message>
     <message>
       <source>This group is a subscription</source>
-      <translation type="unfinished">This group is a subscription</translation>
+      <translation>This group is a subscription</translation>
     </message>
     <message>
       <source>Subscription Address</source>
-      <translation type="unfinished">Subscription Address</translation>
+      <translation>Subscription Address</translation>
     </message>
     <message>
       <source>Last Updated</source>
-      <translation type="unfinished">Last Updated</translation>
+      <translation>Last Updated</translation>
     </message>
     <message>
       <source>Days</source>
@@ -3225,11 +3185,11 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Relation</source>
-      <translation type="unfinished">Relation</translation>
+      <translation>Relation</translation>
     </message>
     <message>
       <source>Leave blank to include all</source>
-      <translation type="unfinished">Leave blank to include all</translation>
+      <translation>Leave blank to include all</translation>
     </message>
     <message>
       <source>Update Subscription</source>
@@ -3237,102 +3197,102 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>DNS Settings</source>
-      <translation type="unfinished">DNS Settings</translation>
+      <translation>DNS Settings</translation>
     </message>
     <message>
       <source>Override Global DNS Settings</source>
-      <translation type="unfinished">Override Global DNS Settings</translation>
+      <translation>覆盖全局DNS设置</translation>
     </message>
     <message>
       <source>Advanced Route Settings</source>
-      <translation type="unfinished">Advanced Route Settings</translation>
+      <translation>Advanced Route Settings</translation>
     </message>
     <message>
       <source>Override Global Advanced Route Settings</source>
-      <translation type="unfinished">Override Global Advanced Route Settings</translation>
+      <translation>覆盖全局高级路由设置</translation>
     </message>
     <message>
       <source>Subscription Type</source>
-      <translation type="unfinished">Subscription Type</translation>
+      <translation>订阅类型</translation>
     </message>
     <message>
       <source>Update Interval</source>
-      <translation type="unfinished">Update Interval</translation>
+      <translation>更新间隔</translation>
     </message>
     <message>
       <source>Import Include Filters</source>
-      <translation type="unfinished">Import Include Filters</translation>
+      <translation>导入包含过滤器</translation>
     </message>
     <message>
       <source>Import Exclude Filters</source>
-      <translation type="unfinished">Import Exclude Filters</translation>
+      <translation>导入排除过滤器</translation>
     </message>
   </context>
   <context>
     <name>w_PluginManager</name>
     <message>
       <source>Plugin Manager</source>
-      <translation type="unfinished">Plugin Manager</translation>
+      <translation>插件管理器</translation>
     </message>
     <message>
       <source>Plugins</source>
-      <translation type="unfinished">Plugins</translation>
+      <translation>Plugins</translation>
     </message>
     <message>
       <source>Open Local Plugin Folder</source>
-      <translation type="unfinished">Open Local Plugin Folder</translation>
+      <translation>打开本地插件文件夹</translation>
     </message>
     <message>
       <source>Online help about plugins</source>
-      <translation type="unfinished">Online help about plugins</translation>
+      <translation>插件在线帮助</translation>
     </message>
     <message>
       <source>?</source>
-      <translation type="unfinished">?</translation>
+      <translation>?</translation>
     </message>
     <message>
       <source>Plugin Metadata</source>
-      <translation type="unfinished">Plugin Metadata</translation>
+      <translation>插件元数据</translation>
     </message>
     <message>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>Name</translation>
     </message>
     <message>
       <source>Author</source>
-      <translation type="unfinished">Author</translation>
+      <translation>作者</translation>
     </message>
     <message>
       <source>Description</source>
-      <translation type="unfinished">Description</translation>
+      <translation>描述</translation>
     </message>
     <message>
       <source>Library Path</source>
-      <translation type="unfinished">Library Path</translation>
+      <translation>库路径</translation>
     </message>
     <message>
       <source>State</source>
-      <translation type="unfinished">State</translation>
+      <translation>状态</translation>
     </message>
     <message>
       <source>Plugin Settings</source>
-      <translation type="unfinished">Plugin Settings</translation>
+      <translation>插件设置</translation>
     </message>
     <message>
       <source>Plugin Not Loaded</source>
-      <translation type="unfinished">Plugin Not Loaded</translation>
+      <translation>Plugin Not Loaded</translation>
     </message>
     <message>
       <source>Manually Edit Settings</source>
-      <translation type="unfinished">Manually Edit Settings</translation>
+      <translation>手动编辑设置</translation>
     </message>
     <message>
       <source>GUI Components</source>
-      <translation type="unfinished">GUI Components</translation>
+      <translation>GUI Components</translation>
     </message>
     <message>
       <source>Components</source>
-      <translation type="unfinished">Components</translation>
+      <translation>组件</translation>
     </message>
   </context>
   <context>
@@ -3347,7 +3307,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation type="unfinished">Optional when using &quot;Follow Redirect&quot;</translation>
+      <translation>使用 &quot;跟随重定向&quot; 时可选的</translation>
     </message>
     <message>
       <source>Port</source>
@@ -3355,27 +3315,27 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>网络</translation>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>Timeout</translation>
     </message>
     <message>
       <source>Follow Redirect</source>
-      <translation type="unfinished">Follow Redirect</translation>
+      <translation>跟随重定向</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Enabled</translation>
     </message>
   </context>
   <context>
@@ -3386,27 +3346,27 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation type="unfinished">Allow Transparent</translation>
+      <translation>允许透明度</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>Timeout</translation>
     </message>
     <message>
       <source>s</source>
-      <translation type="unfinished">s</translation>
+      <translation>秒</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>用户</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Username</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Password</translation>
     </message>
   </context>
   <context>
@@ -3424,35 +3384,35 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Enabled</translation>
     </message>
     <message>
       <source>UDP Local IP</source>
-      <translation type="unfinished">UDP Local IP</translation>
+      <translation>UDP Local IP</translation>
     </message>
     <message>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <source>Auth</source>
-      <translation type="unfinished">Auth</translation>
+      <translation>认证</translation>
     </message>
     <message>
       <source>Users</source>
-      <translation type="unfinished">Users</translation>
+      <translation>用户</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Username</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Password</translation>
     </message>
   </context>
   <context>
@@ -3463,11 +3423,11 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Response</source>
-      <translation type="unfinished">Response</translation>
+      <translation>Response</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Type</translation>
     </message>
   </context>
   <context>
@@ -3478,19 +3438,19 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>网络</translation>
     </message>
     <message>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <source>Original</source>
-      <translation type="unfinished">Original</translation>
+      <translation>原始文件</translation>
     </message>
     <message>
       <source>Address</source>
@@ -3509,15 +3469,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Domain Strategy</source>
-      <translation type="unfinished">Domain Strategy</translation>
+      <translation>Domain Strategy</translation>
     </message>
     <message>
       <source>Redirect</source>
-      <translation type="unfinished">Redirect</translation>
+      <translation>重定向</translation>
     </message>
     <message>
       <source>:0</source>
-      <translation type="unfinished">:0</translation>
+      <translation>:0</translation>
     </message>
   </context>
   <context>
@@ -3528,11 +3488,11 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Username</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Password</translation>
     </message>
   </context>
   <context>
@@ -3550,11 +3510,11 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Password</translation>
     </message>
     <message>
       <source>Encryption Method</source>
-      <translation type="unfinished">Encryption Method</translation>
+      <translation>加密方法</translation>
     </message>
   </context>
   <context>
@@ -3565,11 +3525,11 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Username</translation>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Password</translation>
     </message>
   </context>
   <context>
@@ -3580,15 +3540,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Encryption</source>
-      <translation type="unfinished">Encryption</translation>
+      <translation>Encryption</translation>
     </message>
     <message>
       <source>Flow</source>
-      <translation type="unfinished">Flow</translation>
+      <translation>Flow</translation>
     </message>
     <message>
       <source>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
@@ -3596,7 +3556,7 @@ Maybe you have downloaded the wrong core?</translation>
 &lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
 
 &lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
-      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+      <translation>&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
 
 &lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
 
@@ -3611,15 +3571,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <source>Alter ID</source>
-      <translation type="unfinished">Alter ID</translation>
+      <translation>Alter ID</translation>
     </message>
     <message>
       <source>Security</source>
-      <translation type="unfinished">Security</translation>
+      <translation>Security</translation>
     </message>
   </context>
   <context>
@@ -3633,7 +3593,7 @@ Maybe you have downloaded the wrong core?</translation>
     <name>MainWindowForm.ui</name>
     <message>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
   </context>
   <context>

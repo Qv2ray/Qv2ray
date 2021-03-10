@@ -1085,6 +1085,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <source>Copy selected.</source>
       <translation>复制所选项</translation>
     </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation>绕过中国大陆</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation>启用Bypassing CN 内地功能</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation>禁用Bypassing CN 内地功能</translation>
+    </message>
   </context>
   <context>
     <name>OutboundEditor</name>
@@ -1335,20 +1347,6 @@ For example, for updating subscriptions.</source>
     <message>
       <source>:</source>
       <translation>:</translation>
-    </message>
-    <message>
-      <source>Advanced Behavior</source>
-      <translation>高级行为</translation>
-    </message>
-    <message>
-      <source>Test Latency Periodcally</source>
-      <translation>定时测试延迟</translation>
-    </message>
-    <message>
-      <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation>连接到节点之后，对节点进行周期性的延迟监测。
-若启用，Qv2ray 对节点的延迟监测将会更加准确，但这也许会提升您服务器被暴露的风险。</translation>
     </message>
     <message>
       <source>Kernel Settings</source>
@@ -1641,14 +1639,6 @@ Custom DNS Settings</source>
       <translation>无法设置自动启动选项。</translation>
     </message>
     <message>
-      <source>Dangerous Operation</source>
-      <translation>危险操作</translation>
-    </message>
-    <message>
-      <source>This will (probably) make it easy to fingerprint your connection.</source>
-      <translation>这将让 GFW 更容易识别出您的连接。</translation>
-    </message>
-    <message>
       <source>NTP Checker</source>
       <translation>网络时间检查器</translation>
     </message>
@@ -1695,12 +1685,6 @@ Custom DNS Settings</source>
     <message>
       <source>Invalid DNS settings.</source>
       <translation>无效的 DNS 设置。</translation>
-    </message>
-    <message>
-      <source>These settings may be useful.
-But could damage your server if improperly used.</source>
-      <translation>此处的设定可能很有用。
-但若使用不当，将会造成不良后果。</translation>
     </message>
     <message>
       <source>Watch Out!</source>
@@ -1849,10 +1833,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
       <translation>任意门设置</translation>
     </message>
     <message>
-      <source>Disable System Root Certificates</source>
-      <translation>禁用系统根证书</translation>
-    </message>
-    <message>
       <source>Enable Sniffing</source>
       <translation>启用嗅探功能</translation>
     </message>
@@ -1867,10 +1847,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
       <source>Open Directory</source>
       <translation>打开目录</translation>
-    </message>
-    <message>
-      <source>Test Latency On Connected</source>
-      <translation>连接时测试延迟</translation>
     </message>
     <message>
       <source>Start Minimized</source>
@@ -2252,36 +2228,12 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
       <translation>或者如果你认为这是一个错误，请提交一个新 Issue。</translation>
     </message>
     <message>
-      <source>Default Group</source>
-      <translation>默认分组</translation>
-    </message>
-    <message>
-      <source>Deprecated</source>
-      <translation>已弃用</translation>
-    </message>
-    <message>
-      <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-      <translation>PAC 现已被废弃，不再被鼓励使用。</translation>
-    </message>
-    <message>
-      <source>It will be removed or be provided as a plugin in the future.</source>
-      <translation>它将被删除或在将来作为插件提供。</translation>
-    </message>
-    <message>
-      <source>PAC will still work currently, but please switch to the V2Ray built-in routing as soon as possible.</source>
-      <translation>PAC 目前仍在运行，但请尽快切换到V2Ray内置路由。</translation>
-    </message>
-    <message>
       <source>Configuration Upgrade Failed</source>
       <translation>配置升级失败</translation>
     </message>
     <message>
       <source>Unsupported config version number: </source>
       <translation>不支持的配置版本号： </translation>
-    </message>
-    <message>
-      <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-      <translation>请先升级到 Qv2ray v2.0/v2.1 然后重试。</translation>
     </message>
     <message>
       <source>Qv2ray has encountered an uncaught exception: </source>
@@ -2310,6 +2262,10 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
       <source>missing uuid</source>
       <translation>UUID 缺失</translation>
+    </message>
+    <message>
+      <source>Please go to https://github.com/Qv2ray/Qv2ray/issues to check for related announcements.</source>
+      <translation>请到 https://github.com/Qv2ray/Qv2ray/issues来检查相关通知。</translation>
     </message>
   </context>
   <context>
@@ -2758,6 +2714,26 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Export Scheme...</source>
       <translation>导出方案...</translation>
+    </message>
+    <message>
+      <source>...</source>
+      <translation>...</translation>
+    </message>
+    <message>
+      <source>Rules</source>
+      <translation>规则</translation>
+    </message>
+    <message>
+      <source>Rule Detail</source>
+      <translation>规则细节</translation>
+    </message>
+    <message>
+      <source>Rule Type</source>
+      <translation>规则类型</translation>
+    </message>
+    <message>
+      <source>Outbound</source>
+      <translation>出站</translation>
     </message>
   </context>
   <context>
