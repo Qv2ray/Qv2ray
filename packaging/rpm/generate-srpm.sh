@@ -20,7 +20,7 @@ rpm_version=${VERSION}
 if [ -n "${TAG}" ]; then
     rpm_name_version=Qv2ray-${TAG##v}
 else
-    snapinfo=.$(git log -1 --format="%cd" --date=format:"%Y%m%d")git${COMMIT:0:7}%{?dist}
+    snapinfo=.$(git log -1 --format="%cd" --date=format:"%Y%m%d")git${COMMIT:0:7}
     rpm_name_version=Qv2ray-${COMMIT}
 fi
 case "${VERSIONSUFFIX}" in
