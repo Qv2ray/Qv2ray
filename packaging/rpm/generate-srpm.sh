@@ -2,9 +2,11 @@
 
 # Specific branch, tag, or commit that you want to build
 committish=${committish:-"dev"}
+# Package release number
+pkgrel=${pkgrel:-"1"}
 # Install git-archive-all and initialize repository
 pip install git-archive-all
-git clone https://github.com/Qv2ray/Qv2ray.git
+git clone https://github.com/sixg0000d/Qv2ray.git
 pushd Qv2ray
 git checkout ${committish}
 # Get git and version specs
@@ -15,10 +17,10 @@ VERSIONSUFFIX=$(cat makespec/VERSIONSUFFIX)
 # Generate spec variables
 rpm_version=${VERSION}${VERSIONSUFFIX//"-"/"~"}
 if [ -n "${TAG}" ]; then
-    rpm_release=${pkgrel:-1}%{?dist}
+    rpm_release=${pkgrel}%{?dist}
     rpm_name_version=Qv2ray-"${TAG##v}"
 else
-    rpm_release=${pkgrel:-1}.$(git log -1 --format="%cd" --date=format:"%Y%m%d")git${COMMIT:0:7}%{?dist}
+    rpm_release=${pkgrel}.$(git log -1 --format="%cd" --date=format:"%Y%m%d")git${COMMIT:0:7}%{?dist}
     rpm_name_version=Qv2ray-"${COMMIT}"
 fi
 rpm_source0="${rpm_name_version}".tar.gz
