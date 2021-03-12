@@ -39,7 +39,7 @@ rpm_source0=${rpm_name_version}.tar.gz
 # Generate spec file
 # For early commits, the spec file template path is makespec/qv2ray.spec.in
 sed \
-    -e "s/@NAME@/${rpm_name}/g"
+    -e "s/@NAME@/${rpm_name}/g" \
     -e "s/@VERSION@/${rpm_version}/g" \
     -e "s/@RELEASE@/${rpm_release}/g" \
     -e "s/@SOURCE0@/${rpm_source0}/g" \
