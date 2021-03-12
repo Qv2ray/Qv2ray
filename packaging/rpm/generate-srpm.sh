@@ -6,7 +6,7 @@ committish=${committish:-"dev"}
 pkgrel=${pkgrel:-"1"}
 # Install git-archive-all and initialize repository
 pip install git-archive-all
-git clone https://github.com/sixg0000d/Qv2ray.git
+git clone https://github.com/Qv2ray/Qv2ray.git
 pushd Qv2ray
 git checkout ${committish}
 # Get git and version specs
