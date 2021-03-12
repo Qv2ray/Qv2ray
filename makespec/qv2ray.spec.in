@@ -1,30 +1,40 @@
-%bcond_with test
+%bcond_without  check
+%bcond_without  use_system_libuv
 
-Name:           @NAME@
+Name:           qv2ray
 Version:        @VERSION@
 Release:        @RELEASE@
-Summary:        A full-featured cross-platform GUI for V2Ray
-
+Summary:        A cross-platform V2Ray graphical front-end
 License:        GPLv3
-URL:            https://github.com/Qv2ray/Qv2ray
+URL:            https://qv2ray.net/
+
+# Source0 is created by:
+# pip install git-archive-all
+# git clone https://github.com/Qv2ray/Qv2ray.git
+# cd Qv2ray
+# git archive-all --force-submodules ../@SOURCE0@
 Source0:        @SOURCE0@
 
-%if 0%{?rhel}
-BuildRequires:  epel-rpm-macros
-%endif
-BuildRequires:  cmake >= 3.10.1
-BuildRequires:  cmake(Qt5)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  gcc-c++
-BuildRequires:  grpc-devel
-BuildRequires:  grpc-plugins
+%if %{with check}
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+%endif
 
-Requires:       openssl
-Requires:       grpc
+%if %{with use_system_libuv}
+BuildRequires:  libuv-devel >= 1.38.1
+%endif
+
+BuildRequires:  cmake >= 3.10.1
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  libcurl-devel
+BuildRequires:  protobuf-devel
+BuildRequires:  grpc-devel
+BuildRequires:  grpc-plugins
+BuildRequires:  cmake(Qt5)
+BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(Qt5LinguistTools)
+Requires:       hicolor-icon-theme
 
 Recommends:     %{name}-plugin-builtin-protocol-support%{?_isa} = %{version}-%{release}
 Recommends:     %{name}-plugin-builtin-subscription-support%{?_isa} = %{version}-%{release}
@@ -47,7 +57,7 @@ Features:
     * (Almost) Full Functionality Support
     * Real-time Speed & Data Usage Monitoring
     * Latency Testing (TCP)
-More detail Please check https://qv2ray.net/
+For more details please see %{url}
 
 %description plugin-builtin-protocol-support
 VMess, VLESS, SOCKS, HTTP, Shadowsocks, DNS, Dokodemo-door editor support.
@@ -55,52 +65,49 @@ VMess, VLESS, SOCKS, HTTP, Shadowsocks, DNS, Dokodemo-door editor support.
 %description plugin-builtin-subscription-support
 Basic subscription support for Qv2ray.
 
+
 %prep
-%setup -q -n @NAME_VERSION@
+%autosetup -n @NAME_VERSION@
 
 
 %build
-# build info
-export _QV2RAY_BUILD_INFO_="Qv2ray built by Fedora Copr"
-export _QV2RAY_BUILD_EXTRA_INFO_="(Unofficial Build) $(uname -a | cut -d ' ' -f3,13), Qt $(pkg-config --modversion Qt5Core)"
-
-# build
-# Like https://bugzilla.redhat.com/show_bug.cgi?id=1873903
-# And https://src.fedoraproject.org/rpms/clementine/c/adc754c0da013db875db9d8f8934f31403cbf624
-# But can't fix by -fPIC, so disable LTO is the only way
-%define _lto_cflags %{nil}
-
-%cmake -DQV2RAY_DEFAULT_VCORE_PATH="/usr/bin/v2ray" \
-       -DQV2RAY_DEFAULT_VASSETS_PATH="/usr/share/v2ray/" \
-       -DQV2RAY_DISABLE_AUTO_UPDATE=ON \
-       -DCMAKE_BUILD_TYPE=Release \
-%if %{with test}
-       -DBUILD_TESTING=ON
-%endif
+%cmake                    -DQV2RAY_DISABLE_AUTO_UPDATE=ON \
+%{?with_check:            -DBUILD_TESTING=ON} \
+%{?with_use_system_libuv: -DUSE_SYSTEM_LIBUV=ON} \
+                          -DQV2RAY_BUILD_INFO="Qv2ray built from rpmbuild" \
+                          -DQV2RAY_BUILD_EXTRA_INFO="$(rpmbuild --version), kernel-$(uname -r), qt-$(pkg-config --modversion Qt5Core)" \
+                          -DQV2RAY_DEFAULT_VCORE_PATH="%{_bindir}/v2ray" \
+                          -DQV2RAY_DEFAULT_VASSETS_PATH="%{_datadir}/v2ray" \
+                          -DCMAKE_BUILD_TYPE="Release"
 %cmake_build
 
 
 %install
-rm -rf "$RPM_BUILD_ROOT"
 %cmake_install
+
+# Find lang files
 %find_lang %{name} --with-qt --all-name
+# https://bugzilla.redhat.com/show_bug.cgi?id=1894854
+echo "%%lang(yue_HK) %{_datadir}/qv2ray/lang/yue.qm" >> %{name}.lang
+
+# Find icon files
+grep "%{_datadir}/icons/hicolor/.*" %{__cmake_builddir}/install_manifest.txt >> %{name}.icons
 
 
+%if %{with check}
 %check
 desktop-file-validate                 %{buildroot}%{_datadir}/applications/qv2ray.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/qv2ray.metainfo.xml
-%if %{with test}
 %ctest
 %endif
 
 
-%files -f %{name}.lang
+%files -f %{name}.lang -f %{name}.icons
 %license LICENSE
 %doc README.md
 %{_bindir}/qv2ray
-%{_datadir}/applications/qv2ray.desktop
 %{_metainfodir}/qv2ray.metainfo.xml
-%{_datadir}/icons/*
+%{_datadir}/applications/qv2ray.desktop
 %dir %{_datadir}/qv2ray/
 %dir %{_datadir}/qv2ray/lang/
 %dir %{_datadir}/qv2ray/plugins/
