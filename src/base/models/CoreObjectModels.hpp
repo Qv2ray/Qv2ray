@@ -253,6 +253,15 @@ namespace Qv2ray::base::objects
         };
         //
         //
+        struct gRPCObject
+        {
+            QString serviceName = "GunService";
+            JSONSTRUCT_COMPARE(gRPCObject, serviceName)
+            JSONSTRUCT_REGISTER(gRPCObject, F(serviceName))
+        };
+
+        //
+        //
         struct SockoptObject
         {
             int mark = 0;
@@ -315,10 +324,11 @@ namespace Qv2ray::base::objects
         transfer::HttpObject httpSettings;
         transfer::DomainSocketObject dsSettings;
         transfer::QuicObject quicSettings;
+        transfer::gRPCObject grpcSettings;
         JSONSTRUCT_COMPARE(StreamSettingsObject, network, security, sockopt, //
-                           tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings)
+                           tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings)
         JSONSTRUCT_REGISTER(StreamSettingsObject, F(network, security, sockopt),
-                            F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
+                            F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings))
     };
 
     struct FakeDNSObject

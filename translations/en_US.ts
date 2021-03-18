@@ -3143,6 +3143,14 @@ Maybe you have downloaded the wrong core?</source>
         <source>AllowInsecure is insecure, do not allow insecure.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Service Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>grpc</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>w_GroupManager</name>
@@ -3681,6 +3689,17 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>loopback</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound Tag</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

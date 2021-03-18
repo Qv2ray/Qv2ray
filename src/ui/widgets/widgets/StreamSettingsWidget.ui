@@ -594,6 +594,20 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="page">
+          <layout class="QFormLayout" name="formLayout_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Service Name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="grpcServiceNameTxt"/>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item row="0" column="0">
@@ -635,6 +649,11 @@
            <item>
             <property name="text">
              <string notr="true">quic</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>grpc</string>
             </property>
            </item>
           </widget>
