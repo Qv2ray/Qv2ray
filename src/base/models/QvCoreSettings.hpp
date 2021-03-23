@@ -19,7 +19,7 @@ namespace Qv2ray::base::config
         };
 
         QString domainStrategy;
-        QString domainMatcher = "ac";
+        QString domainMatcher = "mph";
         QvRouteConfig_Impl domains;
         QvRouteConfig_Impl ips;
         QvConfig_Route(){};

@@ -58,7 +58,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Hybrid AC Matcher</string>
+         <string>Minimal Perfect Hash Matcher</string>
         </property>
        </item>
       </widget>

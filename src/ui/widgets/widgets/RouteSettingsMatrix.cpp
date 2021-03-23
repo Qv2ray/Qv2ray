@@ -60,7 +60,7 @@ QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv
 void RouteSettingsMatrixWidget::SetRouteConfig(const QvConfig_Route &conf)
 {
     domainStrategyCombo->setCurrentText(conf.domainStrategy);
-    domainMatcherCombo->setCurrentIndex(conf.domainMatcher == "ac" ? 1 : 0);
+    domainMatcherCombo->setCurrentIndex(conf.domainMatcher == "mph" ? 1 : 0);
     //
     directDomainTxt->setPlainText(conf.domains.direct.join(NEWLINE));
     proxyDomainTxt->setPlainText(conf.domains.proxy.join(NEWLINE));
@@ -76,7 +76,7 @@ QvConfig_Route RouteSettingsMatrixWidget::GetRouteConfig() const
     QvConfig_Route conf;
     // Workaround for translation
     const auto index = domainMatcherCombo->currentIndex();
-    conf.domainMatcher = index == 0 ? "" : "ac";
+    conf.domainMatcher = index == 0 ? "" : "mph";
     conf.domainStrategy = domainStrategyCombo->currentText();
     conf.domains.block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
     conf.domains.direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));

@@ -2773,8 +2773,8 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hybrid AC Matcher</source>
-        <translation type="unfinished"></translation>
+        <source>Minimal Perfect Hash Matcher</source>
+        <translation>Minimal Perfect Hash Matcher</translation>
     </message>
 </context>
 <context>
