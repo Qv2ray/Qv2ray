@@ -1091,11 +1091,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Enable Bypassing CN Mainland</source>
-      <translation>启用Bypassing CN 内地功能</translation>
+      <translation>启用绕过中国大陆</translation>
     </message>
     <message>
       <source>Disable Bypassing CN Mainland</source>
-      <translation>禁用Bypassing CN 内地功能</translation>
+      <translation>禁用绕过中国大陆</translation>
     </message>
   </context>
   <context>
@@ -2536,7 +2536,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>V2Ray kernel failed to start: </source>
-      <translation>V2Ray 内核启动失败： </translation>
+      <translation>V2Ray 内核启动失败：</translation>
     </message>
   </context>
   <context>
