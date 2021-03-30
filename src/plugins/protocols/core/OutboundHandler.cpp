@@ -113,7 +113,7 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
             const auto path = QJsonIO::GetValue(objStream, { "httpSettings", "path" }).toString("/");
             query.addQueryItem("path", QUrl::toPercentEncoding(path));
 
-            const auto hosts = QJsonIO::GetValue(objStream, { "httpSetting", "host" }).toArray();
+            const auto hosts = QJsonIO::GetValue(objStream, { "httpSettings", "host" }).toArray();
             QStringList hostList;
             for (const auto item : hosts)
             {
