@@ -160,7 +160,7 @@ namespace Qv2ray::core::handler
         CheckValidId(id.connectionId, nothing);
         connections[id.connectionId].stats.Clear();
         emit OnStatsAvailable(id, {});
-        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id.connectionId), 0, 0, 0, 0 });
+        PluginHost->SendEvent({ GetDisplayName(id.connectionId), 0, 0, 0, 0 });
         return;
     }
 
@@ -179,8 +179,8 @@ namespace Qv2ray::core::handler
     const std::optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
     {
         CheckValidId(id, {});
-        OnConnectionRenamed(id, connections[id].displayName, newName);
-        PluginHost->Send_ConnectionEvent({ ConnectionEntry::Renamed, newName, connections[id].displayName });
+        emit OnConnectionRenamed(id, connections[id].displayName, newName);
+        PluginHost->SendEvent({ ConnectionEntry::Renamed, newName, connections[id].displayName });
         connections[id].displayName = newName;
         SaveConnectionConfig();
         return {};
@@ -207,7 +207,7 @@ namespace Qv2ray::core::handler
         }
 
         // Emit everything first then clear the connection map.
-        PluginHost->Send_ConnectionEvent({ ConnectionEntry::RemovedFromGroup, GetDisplayName(id), "" });
+        PluginHost->SendEvent({ ConnectionEntry::RemovedFromGroup, GetDisplayName(id), "" });
         emit OnConnectionRemovedFromGroup({ id, gid });
 
         if (connections[id].__qvConnectionRefCount <= 0)
@@ -236,7 +236,7 @@ namespace Qv2ray::core::handler
         }
         groups[newGroupId].connections.append(id);
         connections[id].__qvConnectionRefCount++;
-        PluginHost->Send_ConnectionEvent({ ConnectionEntry::LinkedWithGroup, connections[id].displayName, "" });
+        PluginHost->SendEvent({ ConnectionEntry::LinkedWithGroup, connections[id].displayName, "" });
         emit OnConnectionLinkedWithGroup({ id, newGroupId });
         return true;
     }
@@ -284,8 +284,7 @@ namespace Qv2ray::core::handler
             MoveConnectionFromToGroup(conn, id, DefaultGroupId);
         }
 
-        PluginHost->Send_ConnectionEvent({ ConnectionEntry::FullyRemoved, groups[id].displayName, "" });
-
+        PluginHost->SendEvent({ ConnectionEntry::FullyRemoved, groups[id].displayName, "" });
         groups.remove(id);
         SaveConnectionConfig();
         emit OnGroupDeleted(id, list);
@@ -315,13 +314,13 @@ namespace Qv2ray::core::handler
         return true;
     }
 
-    void QvConfigHandler::RestartConnection() // const ConnectionId &id
+    void QvConfigHandler::RestartConnection()
     {
         StopConnection();
         StartConnection(GlobalConfig.lastConnectedId);
     }
 
-    void QvConfigHandler::StopConnection() // const ConnectionId &id
+    void QvConfigHandler::StopConnection()
     {
         kernelHandler->StopConnection();
     }
@@ -330,7 +329,7 @@ namespace Qv2ray::core::handler
     {
         LOG("Kernel crashed: " + errMessage);
         emit OnDisconnected(id);
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), {}, Connectivity::Disconnected });
+        PluginHost->SendEvent({ GetDisplayName(id.connectionId), QMap<QString, int>{}, Connectivity::Disconnected });
         emit OnKernelCrashed(id, errMessage);
     }
 
@@ -365,10 +364,10 @@ namespace Qv2ray::core::handler
         connectionRootCache[id] = root;
         //
         emit OnConnectionModified(id);
-        PluginHost->Send_ConnectionEvent({ ConnectionEntry::Edited, connections[id].displayName, "" });
+        PluginHost->SendEvent({ ConnectionEntry::Edited, connections[id].displayName, "" });
         if (!skipRestart && kernelHandler->CurrentConnection().connectionId == id)
         {
-            emit RestartConnection();
+            RestartConnection();
         }
         return result;
     }
@@ -379,7 +378,7 @@ namespace Qv2ray::core::handler
         groups[id].displayName = displayName;
         groups[id].isSubscription = isSubscription;
         groups[id].creationDate = system_clock::to_time_t(system_clock::now());
-        PluginHost->Send_ConnectionEvent({ ConnectionEntry::Created, displayName, "" });
+        PluginHost->SendEvent({ ConnectionEntry::Created, displayName, "" });
         emit OnGroupCreated(id, displayName);
         SaveConnectionConfig();
         return id;
@@ -398,7 +397,7 @@ namespace Qv2ray::core::handler
     {
         CheckValidId(id, tr("Group does not exist"));
         OnGroupRenamed(id, groups[id].displayName, newName);
-        PluginHost->Send_ConnectionEvent({ ConnectionEntry::Renamed, newName, groups[id].displayName });
+        PluginHost->SendEvent({ ConnectionEntry::Renamed, newName, groups[id].displayName });
         groups[id].displayName = newName;
         return {};
     }
@@ -718,11 +717,11 @@ namespace Qv2ray::core::handler
         }
 
         emit OnStatsAvailable(id, result);
-        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(cid),                     //
-                                                result[CurrentStatAPIType].first.first,  //
-                                                result[CurrentStatAPIType].first.second, //
-                                                result[CurrentStatAPIType].second.first, //
-                                                result[CurrentStatAPIType].second.second });
+        PluginHost->SendEvent({ GetDisplayName(cid),                     //
+                                result[CurrentStatAPIType].first.first,  //
+                                result[CurrentStatAPIType].first.second, //
+                                result[CurrentStatAPIType].second.first, //
+                                result[CurrentStatAPIType].second.second });
     }
     const ConnectionGroupPair QvConfigHandler::CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId,
                                                                 bool skipSaveConfig)
@@ -734,7 +733,7 @@ namespace Qv2ray::core::handler
         connections[newId].displayName = displayName;
         connections[newId].__qvConnectionRefCount = 1;
         emit OnConnectionCreated({ newId, groupId }, displayName);
-        PluginHost->Send_ConnectionEvent({ ConnectionEntry::Created, displayName, "" });
+        PluginHost->SendEvent({ ConnectionEntry::Created, displayName, "" });
         UpdateConnection(newId, root);
         if (!skipSaveConfig)
         {

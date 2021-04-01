@@ -184,8 +184,8 @@ namespace Qv2ray::components::proxy
         {
             LOG("Setting system proxy for Global Proxy");
             //
-            list.dwOptionCount = 3;
-            list.pOptions = new INTERNET_PER_CONN_OPTION[3];
+            list.dwOptionCount = 2;
+            list.pOptions = new INTERNET_PER_CONN_OPTION[2];
 
             if (nullptr == list.pOptions)
             {
@@ -199,9 +199,9 @@ namespace Qv2ray::components::proxy
             list.pOptions[1].dwOption = INTERNET_PER_CONN_PROXY_SERVER;
             list.pOptions[1].Value.pszValue = proxy_full_addr;
             // Set proxy override.
-            list.pOptions[2].dwOption = INTERNET_PER_CONN_PROXY_BYPASS;
-            auto localhost = L"localhost";
-            list.pOptions[2].Value.pszValue = NO_CONST(localhost);
+            // list.pOptions[2].dwOption = INTERNET_PER_CONN_PROXY_BYPASS;
+            // auto localhost = L"localhost";
+            // list.pOptions[2].Value.pszValue = NO_CONST(localhost);
         }
 
         // Set proxy for LAN.
@@ -407,7 +407,7 @@ namespace Qv2ray::components::proxy
             portSettings.insert(SystemProxy::SystemProxyType::SystemProxy_HTTP, httpPort);
         if (hasSOCKS)
             portSettings.insert(SystemProxy::SystemProxyType::SystemProxy_SOCKS, socksPort);
-        PluginHost->Send_SystemProxyEvent({ portSettings, SystemProxy::SystemProxyStateType::SetProxy });
+        PluginHost->SendEvent({ portSettings, SystemProxy::SystemProxyStateType::SetProxy });
     }
 
     void ClearSystemProxy()
@@ -472,6 +472,6 @@ namespace Qv2ray::components::proxy
 #endif
         //
         // Trigger plugin events
-        PluginHost->Send_SystemProxyEvent(SystemProxy::EventObject{ {}, SystemProxy::SystemProxyStateType::ClearProxy });
+        PluginHost->SendEvent(SystemProxy::EventObject{ {}, SystemProxy::SystemProxyStateType::ClearProxy });
     }
 } // namespace Qv2ray::components::proxy

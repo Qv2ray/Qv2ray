@@ -34,7 +34,7 @@
         <item>
          <widget class="QPushButton" name="addInboundBtn">
           <property name="toolTip">
-           <string>Add outbound</string>
+           <string>Add Inbound</string>
           </property>
           <property name="text">
            <string>Editor</string>
@@ -44,7 +44,7 @@
         <item>
          <widget class="QPushButton" name="addDefaultBtn">
           <property name="toolTip">
-           <string>Add default inbound from global config</string>
+           <string>Add Inbound from Global Settings</string>
           </property>
           <property name="text">
            <string>Global Settings</string>
@@ -72,7 +72,7 @@
           <item>
            <widget class="QPushButton" name="importOutboundBtn">
             <property name="toolTip">
-             <string>Add outbound</string>
+             <string>Import Outbound</string>
             </property>
             <property name="text">
              <string>Import</string>
@@ -81,6 +81,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="addOutboundBtn">
+            <property name="toolTip">
+             <string>Add Outbound</string>
+            </property>
             <property name="text">
              <string>Editor</string>
             </property>
@@ -89,7 +92,7 @@
           <item>
            <widget class="QPushButton" name="insertBlackBtn">
             <property name="toolTip">
-             <string>Add blackhole outbound</string>
+             <string>Add Blackhole Outbound</string>
             </property>
             <property name="text">
              <string>Blackhole</string>
@@ -99,7 +102,7 @@
           <item>
            <widget class="QPushButton" name="insertDirectBtn">
             <property name="toolTip">
-             <string>Add Freedom outbound</string>
+             <string>Add Freedom Outbound</string>
             </property>
             <property name="text">
              <string>Freedom</string>
@@ -108,6 +111,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="addBalancerBtn">
+            <property name="toolTip">
+             <string>Add Balancer</string>
+            </property>
             <property name="text">
              <string>Balancer</string>
             </property>
@@ -115,6 +121,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="addChainBtn">
+            <property name="toolTip">
+             <string>Add Proxy Chain</string>
+            </property>
             <property name="text">
              <string>Chain</string>
             </property>
@@ -132,13 +141,24 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="importGroupBtn"/>
+           <widget class="QComboBox" name="importGroupBtn">
+            <property name="toolTip">
+             <string>Group</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="importConnBtn"/>
+           <widget class="QComboBox" name="importConnBtn">
+            <property name="toolTip">
+             <string>Connection</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="importExistingBtn">
+            <property name="toolTip">
+             <string>Copy Connection</string>
+            </property>
             <property name="text">
              <string>Copy</string>
             </property>
@@ -146,6 +166,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="linkExistingBtn">
+            <property name="toolTip">
+             <string>Reference Connection</string>
+            </property>
             <property name="text">
              <string>Reference</string>
             </property>

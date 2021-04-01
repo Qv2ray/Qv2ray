@@ -97,6 +97,10 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         quicSecurityCB->setCurrentText(stream.quicSettings.security);
         quicHeaderTypeCB->setCurrentText(stream.quicSettings.header.type);
     }
+    // gRPC
+    {
+        grpcServiceNameTxt->setText(stream.grpcSettings.serviceName);
+    }
     // SOCKOPT
     {
         tProxyCB->setCurrentText(stream.sockopt.tproxy);
@@ -316,4 +320,9 @@ void StreamSettingsWidget::on_disableSystemRoot_stateChanged(int arg1)
 
 void StreamSettingsWidget::on_openCertEditorBtn_clicked()
 {
+}
+
+void StreamSettingsWidget::on_grpcServiceNameTxt_textEdited(const QString &arg1)
+{
+    stream.grpcSettings.serviceName = arg1;
 }

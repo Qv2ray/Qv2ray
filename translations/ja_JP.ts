@@ -364,6 +364,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNSサーバーのポート。通常は53です。
 このエントリはDoHサーバを使用する場合、V2Rayコアでは無視されます。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation>IP プール</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation>プールサイズ</translation>
+    </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation>キャッシュを無効化</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -610,10 +626,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>フィルター設定</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>目標上書き</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>不明なインバウンド。</translation>
     </message>
@@ -636,6 +648,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>ストリーム設定</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation>目標上書き:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation>メタデータのみ</translation>
     </message>
   </context>
   <context>
@@ -1084,6 +1108,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Copy selected.</source>
       <translation>選択内容のコピー</translation>
+    </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation>中国本土をバイパス</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation>CN本土バイパスを有効にする</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation>CN本土バイパスを無効にする</translation>
     </message>
   </context>
   <context>
@@ -1888,6 +1924,14 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <source>Qv2ray was not built with NTP support.</source>
       <translation>Qv2rayはNTPサポートでは構築されませんでした。</translation>
     </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation>メタデータのみ</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -2217,7 +2261,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Configuration Upgrade Failed</source>
-      <translation>設定のアップグレードに失敗しました</translation>
+      <translation>コンフィギュレーションのアップグレードに失敗しました</translation>
     </message>
     <message>
       <source>Unsupported config version number: </source>
@@ -2356,7 +2400,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Failed to start connection</source>
-      <translation>接続の開始に失敗しました</translation>
+      <translation>接続を開始できませんでした</translation>
     </message>
     <message>
       <source>Unknown subscription type: %1</source>
@@ -2381,7 +2425,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message numerus="yes">
       <source>There&apos;re %n connection(s) in the group that do not belong the current subscription (any more).</source>
       <translation>
-        <numerusform>そこに&apos;現在のサブスクリプションに属していないグループ内の %n 接続（これ以上）</numerusform>
+        <numerusform>現在のサブスクリプショングループに属していない接続が%n個あります。</numerusform>
       </translation>
     </message>
     <message>
@@ -2456,7 +2500,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Configuration Error</source>
-      <translation>設定エラー</translation>
+      <translation>コンフィギュレーションエラー</translation>
     </message>
     <message>
       <source>Invalid V2Ray Instance Status.</source>
@@ -2626,7 +2670,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Inbound / Outbound Info</source>
-      <translation>インバウンド/アウトバウンド情報</translation>
+      <translation>Inbound/Outbound情報</translation>
     </message>
     <message>
       <source>Rules Ordering</source>
@@ -3087,6 +3131,18 @@ Maybe you have downloaded the wrong core?</source>
       <source>Certificates</source>
       <translation>証明書</translation>
     </message>
+    <message>
+      <source>AllowInsecure is insecure, do not allow insecure.</source>
+      <translation>AllowInsecure is insecure, do not allowed insecure.</translation>
+    </message>
+    <message>
+      <source>Service Name</source>
+      <translation>サービス名</translation>
+    </message>
+    <message>
+      <source>grpc</source>
+      <translation>grpc</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
@@ -3294,7 +3350,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Optional when using &quot;Follow Redirect&quot;</source>
-      <translation>「リダイレクトに従う」を使用している場合はオプション</translation>
+      <translation>「リダイレクトに従う」を使用している場合がオプショナル</translation>
     </message>
     <message>
       <source>Port</source>
@@ -3333,7 +3389,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Allow Transparent</source>
-      <translation>透明を許可</translation>
+      <translation>透明接続を許可します</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -3599,7 +3655,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation>このユーザーは既に存在します.</translation>
+      <translation>このユーザーは既に存在します。</translation>
     </message>
   </context>
   <context>
@@ -3618,7 +3674,29 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>This user exists already.</source>
-      <translation>このユーザーは既に存在します.</translation>
+      <translation>このユーザーは既に存在します。</translation>
+    </message>
+  </context>
+  <context>
+    <name>VmessOutboundEditor</name>
+    <message>
+      <source>Non AEAD VMess detected</source>
+      <translation>AEAD Vimess を検出しました</translation>
+    </message>
+    <message>
+      <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+      <translation>Non-zero AlterID を持つ MD5 は推奨されません。VMessageAEAD を使用してください。</translation>
+    </message>
+  </context>
+  <context>
+    <name>loopback</name>
+    <message>
+      <source>Form</source>
+      <translation>Form</translation>
+    </message>
+    <message>
+      <source>Inbound Tag</source>
+      <translation>受信タグ</translation>
     </message>
   </context>
 </TS>

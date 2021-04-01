@@ -121,10 +121,8 @@ QVLOG(QV2RAY_DEFAULT_VCORE_PATH)
 option(QV2RAY_DISABLE_AUTO_UPDATE "Disable Update Checker" OFF)
 QVLOG(QV2RAY_DISABLE_AUTO_UPDATE)
 
-option(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN "Build With Built-in Protocol Support Plugin" ON)
-QVLOG(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN)
-option(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN "Build With Built-in Subscription Plugin" ON)
-QVLOG(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN)
+option(QV2RAY_HAS_BUILTIN_PLUGINS "Build with builtin plugins" ON)
+QVLOG(QV2RAY_HAS_BUILTIN_PLUGINS)
 
 option(QV2RAY_EMBED_TRANSLATIONS "Embed Translations" OFF)
 option(QV2RAY_HAS_SINGLEAPPLICATION "Build With SingleApplication" ON)
@@ -314,15 +312,13 @@ target_include_directories(qv2ray_baselib PUBLIC
     ${Protobuf_INCLUDE_DIRS}
     )
 
-
 # ==================================================================================
 # Qv2ray Builtin Plugins
 # ==================================================================================
-if(QV2RAY_HAS_BUILTIN_PROTOCOL_PLUGIN)
+if(QV2RAY_HAS_BUILTIN_PLUGINS)
     include(src/plugins/protocols/QvPlugin-BuiltinProtocolSupport.cmake)
-endif()
-if(QV2RAY_HAS_BUILTIN_SUBSCRIPTION_PLUGIN)
     include(src/plugins/subscription-adapters/QvPlugin-BuiltinSubscriptionAdapters.cmake)
+    include(src/plugins/utils/QvPlugin-BuiltinUtils.cmake)
 endif()
 
 # ==================================================================================

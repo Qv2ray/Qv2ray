@@ -17,8 +17,8 @@ class DnsSettingsWidget
 
   public:
     explicit DnsSettingsWidget(QWidget *parent = nullptr);
-    void SetDNSObject(const DNSObject &dns);
-    DNSObject GetDNSObject();
+    void SetDNSObject(const DNSObject &dns, const FakeDNSObject &fakeDNS);
+    std::pair<DNSObject, FakeDNSObject> GetDNSObject();
     bool CheckIsValidDNS() const;
 
   private slots:
@@ -36,12 +36,19 @@ class DnsSettingsWidget
     void on_detailsSettingsGB_toggled(bool arg1);
     void on_staticResolvedDomainsTable_cellChanged(int row, int column);
 
+    void on_fakeDNSIPPool_currentTextChanged(const QString &arg1);
+
+    void on_fakeDNSIPPoolSize_valueChanged(int arg1);
+
+    void on_dnsDisableCacheCB_stateChanged(int arg1);
+
   private:
     void updateColorScheme();
     void ShowCurrentDnsServerDetails();
     void ProcessDnsPortEnabledState();
     QvMessageBusSlotDecl;
     DNSObject dns;
+    FakeDNSObject fakeDNS;
     // int currentServerIndex;
     //
     Qv2ray::ui::widgets::AutoCompleteTextEdit *domainListTxt;

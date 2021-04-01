@@ -46,6 +46,8 @@ class InboundEditor
 
     void on_stackedWidget_currentChanged(int arg1);
 
+    void on_sniffMetaDataOnlyCB_clicked(bool checked);
+
   private:
     StreamSettingsWidget *streamSettingsWidget;
     INBOUND getResult();

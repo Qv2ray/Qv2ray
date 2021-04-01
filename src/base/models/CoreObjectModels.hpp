@@ -61,19 +61,25 @@ namespace Qv2ray::base::objects
                 return ___json_object_;
             }
         };
+
         QMap<QString, QString> hosts;
         QList<DNSServerObject> servers;
         QString clientIp;
         QString tag;
+        bool disableCache = false;
         friend bool operator==(const DNSObject &left, const DNSObject &right)
         {
-            return left.hosts == right.hosts && left.servers == right.servers && left.clientIp == right.clientIp && left.tag == right.tag;
+            return left.hosts == right.hosts &&       //
+                   left.servers == right.servers &&   //
+                   left.clientIp == right.clientIp && //
+                   left.tag == right.tag &&           //
+                   left.disableCache == right.disableCache;
         }
         friend bool operator!=(const DNSObject &left, const DNSObject &right)
         {
             return !(left == right);
         }
-        JSONSTRUCT_REGISTER(DNSObject, F(hosts, servers, clientIp, tag))
+        JSONSTRUCT_REGISTER(DNSObject, F(hosts, servers, clientIp, tag, disableCache))
     };
     //
     // Used in config generation
@@ -247,6 +253,15 @@ namespace Qv2ray::base::objects
         };
         //
         //
+        struct gRPCObject
+        {
+            QString serviceName = "GunService";
+            JSONSTRUCT_COMPARE(gRPCObject, serviceName)
+            JSONSTRUCT_REGISTER(gRPCObject, F(serviceName))
+        };
+
+        //
+        //
         struct SockoptObject
         {
             int mark = 0;
@@ -309,13 +324,21 @@ namespace Qv2ray::base::objects
         transfer::HttpObject httpSettings;
         transfer::DomainSocketObject dsSettings;
         transfer::QuicObject quicSettings;
-        JSONSTRUCT_COMPARE(StreamSettingsObject,       //
-                           network, security, sockopt, //
-                           tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings)
-        JSONSTRUCT_REGISTER(StreamSettingsObject, //
-                            F(network, security, sockopt),
-                            F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
+        transfer::gRPCObject grpcSettings;
+        JSONSTRUCT_COMPARE(StreamSettingsObject, network, security, sockopt, //
+                           tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings)
+        JSONSTRUCT_REGISTER(StreamSettingsObject, F(network, security, sockopt),
+                            F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings))
     };
+
+    struct FakeDNSObject
+    {
+        QString ipPool = "240.0.0.0/8";
+        int poolSize = 65535;
+        JSONSTRUCT_REGISTER(FakeDNSObject, A(ipPool, poolSize))
+        JSONSTRUCT_COMPARE(FakeDNSObject, ipPool, poolSize)
+    };
+
     //
     // Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
     namespace protocol

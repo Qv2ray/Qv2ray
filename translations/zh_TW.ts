@@ -364,6 +364,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNS 伺服器端口。通常為 53。
 當使用 DoH 模式時，此項無效。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation type="unfinished">IP Pool</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation type="unfinished">Pool Size</translation>
+    </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation type="unfinished">Disable Cache</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -610,10 +626,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>篩選設定</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>目標覆蓋</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>未知入站。</translation>
     </message>
@@ -636,6 +648,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>串流設定</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation>目標覆蓋:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
     </message>
   </context>
   <context>
@@ -1084,6 +1108,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Copy selected.</source>
       <translation>Copy selected.</translation>
+    </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation>繞過中國大陸</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation type="unfinished">Enable Bypassing CN Mainland</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation type="unfinished">Disable Bypassing CN Mainland</translation>
     </message>
   </context>
   <context>
@@ -1887,6 +1923,14 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>Qv2ray was not built with NTP support.</source>
       <translation>Qv2ray was not built with NTP support.</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
     </message>
   </context>
   <context>
@@ -3087,6 +3131,18 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Certificates</source>
       <translation>Certificates</translation>
     </message>
+    <message>
+      <source>AllowInsecure is insecure, do not allow insecure.</source>
+      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
+    </message>
+    <message>
+      <source>Service Name</source>
+      <translation type="unfinished">Service Name</translation>
+    </message>
+    <message>
+      <source>grpc</source>
+      <translation type="unfinished">grpc</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
@@ -3619,6 +3675,28 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>This user exists already.</source>
       <translation>使用者已存在</translation>
+    </message>
+  </context>
+  <context>
+    <name>VmessOutboundEditor</name>
+    <message>
+      <source>Non AEAD VMess detected</source>
+      <translation type="unfinished">Non AEAD VMess detected</translation>
+    </message>
+    <message>
+      <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+      <translation type="unfinished">VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</translation>
+    </message>
+  </context>
+  <context>
+    <name>loopback</name>
+    <message>
+      <source>Form</source>
+      <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Inbound Tag</source>
+      <translation type="unfinished">Inbound Tag</translation>
     </message>
   </context>
 </TS>

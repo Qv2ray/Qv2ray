@@ -80,7 +80,7 @@ namespace Qv2ray::core::handler
         //
         const auto inboundPorts = GetInboundPorts();
         const auto inboundHosts = GetInboundHosts();
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connecting });
+        PluginHost->SendEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connecting });
         // QList<std::tuple<QString, int, QString>> inboundInfo;
         // for (const auto &inbound_v : fullConfig["inbounds"].toArray())
         //{
@@ -182,13 +182,13 @@ namespace Qv2ray::core::handler
                 if (result.has_value())
                 {
                     StopConnection();
-                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Disconnected });
+                    PluginHost->SendEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Disconnected });
                     return result;
                 }
                 else
                 {
                     emit OnConnected(id);
-                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connected });
+                    PluginHost->SendEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connected });
                 }
             }
             else if (kernelMap.contains(firstOutboundProtocol))
@@ -229,7 +229,7 @@ namespace Qv2ray::core::handler
                 if (kernelStarted)
                 {
                     emit OnConnected(id);
-                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connected });
+                    PluginHost->SendEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connected });
                 }
                 else
                 {
@@ -244,14 +244,14 @@ namespace Qv2ray::core::handler
                 auto result = vCoreInstance->StartConnection(fullConfig);
                 if (result.has_value())
                 {
-                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Disconnected });
+                    PluginHost->SendEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Disconnected });
                     StopConnection();
                     return result;
                 }
                 else
                 {
                     emit OnConnected(id);
-                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connected });
+                    PluginHost->SendEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connected });
                 }
             }
         }
@@ -273,8 +273,8 @@ namespace Qv2ray::core::handler
     void KernelInstanceHandler::OnPluginKernelLog_p(const QString &log)
     {
         if (pluginLogPrefixPadding <= 0)
-            for (const auto &protocol : activeKernels)
-                pluginLogPrefixPadding = std::max(pluginLogPrefixPadding, protocol.second.get()->GetKernelName().length());
+            for (const auto &[_, kernel] : activeKernels)
+                pluginLogPrefixPadding = std::max(pluginLogPrefixPadding, kernel->GetKernelName().length());
 
         const auto kernel = static_cast<PluginKernel *>(sender());
         const auto name = kernel ? kernel->GetKernelName() : "UNKNOWN";
@@ -285,7 +285,9 @@ namespace Qv2ray::core::handler
     void KernelInstanceHandler::OnV2RayKernelLog_p(const QString &log)
     {
         for (auto line : SplitLines(log))
-            emitLogMessage(line.replace(QRegularExpression{ "> v2ray\\.com\\/" }, "\r\n    > v2ray.com/").trimmed());
+            emitLogMessage(line.replace(QRegularExpression{ R"(> github.com\/v2fly\/v2ray-core)" }, "\r\n    > core::")
+                               .replace(QRegularExpression{ R"(github.com\/v2fly\/v2ray-core)" }, "core::")
+                               .trimmed());
     }
 
     void KernelInstanceHandler::StopConnection()
@@ -293,7 +295,7 @@ namespace Qv2ray::core::handler
         if (isConnected)
         {
             const auto inboundPorts = GetInboundPorts();
-            PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Connectivity::Disconnecting });
+            PluginHost->SendEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Connectivity::Disconnecting });
             if (vCoreInstance->IsKernelRunning())
             {
                 vCoreInstance->StopConnection();
@@ -305,7 +307,7 @@ namespace Qv2ray::core::handler
             }
             pluginLogPrefixPadding = 0;
             emit OnDisconnected(currentId);
-            PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Connectivity::Disconnected });
+            PluginHost->SendEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Connectivity::Disconnected });
         }
         else
         {

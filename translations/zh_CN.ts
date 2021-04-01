@@ -364,6 +364,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNS 服务器端口。通常为 53。
 当使用 DoH 模式时，此项无效。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation>IP地址库</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation>池大小</translation>
+    </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation>禁用缓存</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -610,10 +626,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>筛选设置</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>目标覆盖</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>未知入站。</translation>
     </message>
@@ -636,6 +648,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>流设置</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation>目标覆盖:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation>仅限元数据</translation>
     </message>
   </context>
   <context>
@@ -1084,6 +1108,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Copy selected.</source>
       <translation>复制所选项</translation>
+    </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation>绕过中国大陆</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation>启用绕过中国大陆</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation>禁用绕过中国大陆</translation>
     </message>
   </context>
   <context>
@@ -1858,11 +1894,11 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Please synchronize your system to use the VMess protocol.</source>
-      <translation>请同步您的系统使用VMess协议。</translation>
+      <translation>请同步系统时间，否则无法正常使用 VMess 协议。</translation>
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation>VMess协议可能仍然有效，但我们建议您同步您的时钟。</translation>
+      <translation>VMess 协议可能不受影响，但我们建议您同步系统时间。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
@@ -1870,7 +1906,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.</source>
-      <translation>这似乎不是来自V2Ray Core的输出。</translation>
+      <translation>这似乎不是来自 V2Ray Core 的输出。</translation>
     </message>
     <message>
       <source>Output:</source>
@@ -1882,11 +1918,19 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>No NTP Backend</source>
-      <translation>NTP 后端</translation>
+      <translation>无 NTP 后端</translation>
     </message>
     <message>
       <source>Qv2ray was not built with NTP support.</source>
-      <translation>Qv2ray 不是在NTP支持下构建的。</translation>
+      <translation>Qv2ray 构建时未开启 NTP 支持选项。</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation>仅限元数据</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation>FakeDNS</translation>
     </message>
   </context>
   <context>
@@ -2468,7 +2512,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>V2Ray kernel failed to start: </source>
-      <translation>V2Ray 内核启动失败： </translation>
+      <translation>V2Ray 内核启动失败：</translation>
     </message>
   </context>
   <context>
@@ -3087,6 +3131,18 @@ Maybe you have downloaded the wrong core?</source>
       <source>Certificates</source>
       <translation>证书</translation>
     </message>
+    <message>
+      <source>AllowInsecure is insecure, do not allow insecure.</source>
+      <translation>允许不安全，不允许不安全。</translation>
+    </message>
+    <message>
+      <source>Service Name</source>
+      <translation>服务名称</translation>
+    </message>
+    <message>
+      <source>grpc</source>
+      <translation>格子</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
@@ -3619,6 +3675,28 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>This user exists already.</source>
       <translation>此用户已存在。</translation>
+    </message>
+  </context>
+  <context>
+    <name>VmessOutboundEditor</name>
+    <message>
+      <source>Non AEAD VMess detected</source>
+      <translation>检测到非AEAD VMess。</translation>
+    </message>
+    <message>
+      <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+      <translation>VMessMD5使用非零变压器ID已废弃，请使用 VMessAEAD</translation>
+    </message>
+  </context>
+  <context>
+    <name>loopback</name>
+    <message>
+      <source>Form</source>
+      <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Inbound Tag</source>
+      <translation>入站标签</translation>
     </message>
   </context>
 </TS>

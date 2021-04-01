@@ -88,7 +88,8 @@ namespace Qv2ray::common
                    || addr.startsWith("https://")       //
                    || addr.startsWith("https+local://") //
                    || addr.startsWith("quic+local://")  //
-                   || addr == "localhost";
+                   || addr == "localhost"               //
+                   || addr == "fakedns";
         }
     } // namespace validation
 

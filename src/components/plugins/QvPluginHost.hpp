@@ -32,12 +32,10 @@ namespace Qv2ray::components::plugins
       public:
         explicit QvPluginHost(QObject *parent = nullptr);
         ~QvPluginHost();
-        //
         bool GetPluginEnabled(const QString &internalName) const;
         void SetPluginEnabled(const QString &internalName, bool isEnabled);
-        //
         void SavePluginSettings() const;
-        //
+
         QvPluginInfo *GetPlugin(const QString &internalName)
         {
             return plugins.contains(internalName) ? &plugins[internalName] : nullptr;
@@ -70,10 +68,10 @@ namespace Qv2ray::components::plugins
         const OutboundInfoObject GetOutboundInfo(const QString &protocol, const QJsonObject &o, bool &status) const;
         void SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &o) const;
         //
-        void Send_ConnectionStatsEvent(const ConnectionStats::EventObject &object);
-        void Send_ConnectivityEvent(const Connectivity::EventObject &object);
-        void Send_ConnectionEvent(const ConnectionEntry::EventObject &object);
-        void Send_SystemProxyEvent(const SystemProxy::EventObject &object);
+        void SendEvent(const ConnectionStats::EventObject &object);
+        void SendEvent(const Connectivity::EventObject &object);
+        void SendEvent(const ConnectionEntry::EventObject &object);
+        void SendEvent(const SystemProxy::EventObject &object);
         //
       private slots:
         void QvPluginLog(const QString &log);
@@ -88,6 +86,7 @@ namespace Qv2ray::components::plugins
         int refreshPluginList();
         bool initializePlugin(const QString &internalName);
         void clearPlugins();
+
         // Internal name, plugin info
         QHash<QString, QvPluginInfo> plugins;
     };

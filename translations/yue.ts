@@ -365,6 +365,22 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>DNS伺服器嘅端口。通常係53。
 喺使用DoH服務器嘅時候，V2Ray核心將忽略此條目。</translation>
     </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>IP Pool</source>
+      <translation type="unfinished">IP Pool</translation>
+    </message>
+    <message>
+      <source>Pool Size</source>
+      <translation type="unfinished">Pool Size</translation>
+    </message>
+    <message>
+      <source>Disable Cache</source>
+      <translation type="unfinished">Disable Cache</translation>
+    </message>
   </context>
   <context>
     <name>GroupManager</name>
@@ -637,6 +653,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Stream Settings</source>
       <translation>Stream Settings</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Destination Override:</source>
+      <translation type="unfinished">Destination Override:</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
     </message>
   </context>
   <context>
@@ -1085,6 +1113,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Copy selected.</source>
       <translation>Copy selected.</translation>
+    </message>
+    <message>
+      <source>Bypass CN Mainland</source>
+      <translation type="unfinished">Bypass CN Mainland</translation>
+    </message>
+    <message>
+      <source>Enable Bypassing CN Mainland</source>
+      <translation type="unfinished">Enable Bypassing CN Mainland</translation>
+    </message>
+    <message>
+      <source>Disable Bypassing CN Mainland</source>
+      <translation type="unfinished">Disable Bypassing CN Mainland</translation>
     </message>
   </context>
   <context>
@@ -1888,6 +1928,14 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
     <message>
       <source>Qv2ray was not built with NTP support.</source>
       <translation>Qv2ray 不是在NTP支持下构建的。</translation>
+    </message>
+    <message>
+      <source>Metadata Only</source>
+      <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS</source>
+      <translation type="unfinished">FakeDNS</translation>
     </message>
   </context>
   <context>
@@ -2724,6 +2772,18 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Outbound</source>
       <translation>Outbound</translation>
     </message>
+    <message>
+      <source>Matcher</source>
+      <translation type="unfinished">Matcher</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation type="unfinished">Original</translation>
+    </message>
+    <message>
+      <source>Minimal Perfect Hash Matcher</source>
+      <translation type="unfinished">Minimal Perfect Hash Matcher</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrixWidget</name>
@@ -3087,6 +3147,18 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Certificates</source>
       <translation>Certificates</translation>
+    </message>
+    <message>
+      <source>AllowInsecure is insecure, do not allow insecure.</source>
+      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
+    </message>
+    <message>
+      <source>Service Name</source>
+      <translation type="unfinished">Service Name</translation>
+    </message>
+    <message>
+      <source>grpc</source>
+      <translation type="unfinished">grpc</translation>
     </message>
   </context>
   <context>
@@ -3620,6 +3692,28 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>This user exists already.</source>
       <translation>用户一早存在。</translation>
+    </message>
+  </context>
+  <context>
+    <name>VmessOutboundEditor</name>
+    <message>
+      <source>Non AEAD VMess detected</source>
+      <translation type="unfinished">Non AEAD VMess detected</translation>
+    </message>
+    <message>
+      <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+      <translation type="unfinished">VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</translation>
+    </message>
+  </context>
+  <context>
+    <name>loopback</name>
+    <message>
+      <source>Form</source>
+      <translation>窗口</translation>
+    </message>
+    <message>
+      <source>Inbound Tag</source>
+      <translation type="unfinished">Inbound Tag</translation>
     </message>
   </context>
 </TS>

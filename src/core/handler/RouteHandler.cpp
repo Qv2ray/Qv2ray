@@ -34,10 +34,11 @@ namespace Qv2ray::core::handler
         StringToFile(JsonToString(routingObject), QV2RAY_CONFIG_DIR + "routes.json");
     }
 
-    bool RouteHandler::SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns)
+    bool RouteHandler::SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns, const QvConfig_FakeDNS &fakeDNS)
     {
         configs[id].overrideDNS = overrideGlobal;
         configs[id].dnsConfig = dns;
+        configs[id].fakeDNSConfig = fakeDNS;
         return true;
     }
 
@@ -209,6 +210,7 @@ namespace Qv2ray::core::handler
         //
         const auto &connConf = config.overrideConnectionConfig ? config.connectionConfig : GlobalConfig.defaultRouteConfig.connectionConfig;
         const auto &dnsConf = config.overrideDNS ? config.dnsConfig : GlobalConfig.defaultRouteConfig.dnsConfig;
+        const auto &fakeDNSConf = config.overrideDNS ? config.fakeDNSConfig : GlobalConfig.defaultRouteConfig.fakeDNSConfig;
         const auto &routeConf = config.overrideRoute ? config.routeConfig : GlobalConfig.defaultRouteConfig.routeConfig;
         const auto &fpConf = config.overrideForwardProxyConfig ? config.forwardProxyConfig : GlobalConfig.defaultRouteConfig.forwardProxyConfig;
         //
@@ -263,7 +265,7 @@ namespace Qv2ray::core::handler
             root["outbounds"] = ExpandExternalConnection(OUTBOUNDS(root["outbounds"].toArray()));
             const auto result = ExpandChainedOutbounds(root);
             if (!result)
-                ;
+                LOG("Cannot expand chained outbounds!");
         }
         else
         {
@@ -368,7 +370,8 @@ namespace Qv2ray::core::handler
         const auto hasDNS = root.contains("dns") && !root.value("dns").toObject().isEmpty();
         if (!hasDNS)
         {
-            root.insert("dns", GenerateDNS(connConf.fakeDNS, dnsConf));
+            root.insert("dns", GenerateDNS(dnsConf));
+            root.insert("fakedns", fakeDNSConf.toJson());
             LOG("Added global DNS config");
         }
 

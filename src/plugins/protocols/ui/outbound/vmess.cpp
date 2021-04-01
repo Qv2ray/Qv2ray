@@ -1,5 +1,7 @@
 #include "vmess.hpp"
 
+#include "BuiltinProtocolPlugin.hpp"
+
 VmessOutboundEditor::VmessOutboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
 {
     setupUi(this);
@@ -14,6 +16,29 @@ void VmessOutboundEditor::changeEvent(QEvent *e)
     {
         case QEvent::LanguageChange: retranslateUi(this); break;
         default: break;
+    }
+}
+
+void VmessOutboundEditor::SetContent(const QJsonObject &content)
+{
+    this->content = content;
+    PLUGIN_EDITOR_LOADING_SCOPE({
+        if (content["vnext"].toArray().isEmpty())
+            content["vnext"] = QJsonArray{ QJsonObject{} };
+        vmess = VMessServerObject::fromJson(content["vnext"].toArray().first().toObject());
+        if (vmess.users.empty())
+            vmess.users.push_back({});
+        const auto &user = vmess.users.front();
+        idLineEdit->setText(user.id);
+        alterLineEdit->setValue(user.alterId);
+
+        securityCombo->setCurrentText(user.security);
+    })
+
+    if (alterLineEdit->value() > 0)
+    {
+        const auto msg = tr("VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.");
+        InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Non AEAD VMess detected"), msg);
     }
 }
 
