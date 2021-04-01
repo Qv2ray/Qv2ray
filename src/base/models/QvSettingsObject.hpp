@@ -135,11 +135,11 @@ namespace Qv2ray::base::config
 
     struct Qv2rayConfig_Advanced
     {
-        bool testLatencyPeriodcally = false;
+        bool testLatencyPeriodically = false;
         bool disableSystemRoot = false;
         bool testLatencyOnConnected = false;
-        JSONSTRUCT_COMPARE(Qv2rayConfig_Advanced, testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected)
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(testLatencyPeriodcally, disableSystemRoot, testLatencyOnConnected))
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Advanced, testLatencyPeriodically, disableSystemRoot, testLatencyOnConnected)
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Advanced, F(testLatencyPeriodically, disableSystemRoot, testLatencyOnConnected))
     };
 
     enum Qv2rayLatencyTestingMethod

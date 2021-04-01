@@ -191,7 +191,7 @@ namespace Qv2ray::components::plugins
     }
 
     // ================== BEGIN SEND EVENTS ==================
-    void QvPluginHost::Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object)
+    void QvPluginHost::SendEvent(const Events::ConnectionStats::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
@@ -199,7 +199,7 @@ namespace Qv2ray::components::plugins
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionStats(object);
         }
     }
-    void QvPluginHost::Send_ConnectivityEvent(const Events::Connectivity::EventObject &object)
+    void QvPluginHost::SendEvent(const Events::Connectivity::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
@@ -207,7 +207,7 @@ namespace Qv2ray::components::plugins
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_Connectivity(object);
         }
     }
-    void QvPluginHost::Send_ConnectionEvent(const Events::ConnectionEntry::EventObject &object)
+    void QvPluginHost::SendEvent(const Events::ConnectionEntry::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {
@@ -215,7 +215,7 @@ namespace Qv2ray::components::plugins
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionEntry(object);
         }
     }
-    void QvPluginHost::Send_SystemProxyEvent(const Events::SystemProxy::EventObject &object)
+    void QvPluginHost::SendEvent(const Events::SystemProxy::EventObject &object)
     {
         for (const auto &plugin : plugins)
         {

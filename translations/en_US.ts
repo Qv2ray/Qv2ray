@@ -1219,14 +1219,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disabling a plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Plugin not loaded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2558,22 +2550,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add default inbound from global config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add blackhole outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add Freedom outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Protocol</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2715,6 +2691,54 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>(All Connections)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Inbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Inbound from Global Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Blackhole Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Freedom Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Balancer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Proxy Chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reference Connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

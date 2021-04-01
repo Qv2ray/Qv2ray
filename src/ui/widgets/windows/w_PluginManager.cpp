@@ -30,9 +30,7 @@ PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog("PluginManage
         on_pluginListWidget_currentItemChanged(pluginListWidget->item(0), nullptr);
 }
 
-QvMessageBusSlotImpl(PluginManageWindow)
-{
-}
+QvMessageBusSlotImpl(PluginManageWindow){ Q_UNUSED(msg) }
 
 PluginManageWindow::~PluginManageWindow()
 {
@@ -108,11 +106,6 @@ void PluginManageWindow::on_pluginListWidget_itemChanged(QListWidgetItem *item)
     PluginHost->SetPluginEnabled(pluginInternalName, isEnabled);
     const auto info = PluginHost->GetPlugin(pluginInternalName);
     item->setText(info->metadata.Name + " (" + (info->isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
-    //
-    if (!isEnabled)
-    {
-        QvMessageBoxInfo(this, tr("Disabling a plugin"), tr("This plugin will keep loaded until the next time Qv2ray starts."));
-    }
 }
 
 void PluginManageWindow::on_pluginEditSettingsJsonBtn_clicked()
@@ -152,6 +145,5 @@ void PluginManageWindow::on_openPluginFolder_clicked()
 
 void PluginManageWindow::on_toolButton_clicked()
 {
-    auto address = GlobalConfig.uiConfig.language.contains("zh") ? "https://qv2ray.net/plugins/" : "https://qv2ray.net/en/plugins/";
-    QDesktopServices::openUrl(QUrl(address));
+    QDesktopServices::openUrl(QUrl("https://qv2ray.net/plugins/"));
 }

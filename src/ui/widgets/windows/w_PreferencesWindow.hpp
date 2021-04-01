@@ -94,8 +94,8 @@ class PreferencesWindow
     void on_qvProxyAddressTxt_textEdited(const QString &arg1);
     void on_qvProxyTypeCombo_currentTextChanged(const QString &arg1);
     void on_qvProxyPortCB_valueChanged(int arg1);
-    void on_setTestLatenctCB_stateChanged(int arg1);
-    void on_setTestLatenctOnConnectedCB_stateChanged(int arg1);
+    void on_setTestlatencyCB_stateChanged(int arg1);
+    void on_setTestlatencyOnConnectedCB_stateChanged(int arg1);
     void on_quietModeCB_stateChanged(int arg1);
     void on_tproxyGroupBox_toggled(bool arg1);
     void on_tProxyPort_valueChanged(int arg1);

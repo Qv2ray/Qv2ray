@@ -407,7 +407,7 @@ namespace Qv2ray::components::proxy
             portSettings.insert(Events::SystemProxy::SystemProxyType::SystemProxy_HTTP, httpPort);
         if (hasSOCKS)
             portSettings.insert(Events::SystemProxy::SystemProxyType::SystemProxy_SOCKS, socksPort);
-        PluginHost->Send_SystemProxyEvent({ portSettings, Events::SystemProxy::SystemProxyStateType::SetProxy });
+        PluginHost->SendEvent({ portSettings, Events::SystemProxy::SystemProxyStateType::SetProxy });
     }
 
     void ClearSystemProxy()
@@ -472,6 +472,6 @@ namespace Qv2ray::components::proxy
 #endif
         //
         // Trigger plugin events
-        PluginHost->Send_SystemProxyEvent(Events::SystemProxy::EventObject{ {}, Events::SystemProxy::SystemProxyStateType::ClearProxy });
+        PluginHost->SendEvent(Events::SystemProxy::EventObject{ {}, Events::SystemProxy::SystemProxyStateType::ClearProxy });
     }
 } // namespace Qv2ray::components::proxy
