@@ -116,7 +116,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog("Ro
     SETLAYOUT(dnsEditorUIWidget, dnsWidget);
     //
     nodeDispatcher->LoadFullConfig(root);
-    dnsWidget->SetDNSObject(DNSObject::fromJson(root["dns"].toObject()));
+    dnsWidget->SetDNSObject(DNSObject::fromJson(root["dns"].toObject()), FakeDNSObject::fromJson(root["fakedns"].toObject()));
     //
     domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
     domainStrategyCombo->setCurrentText(domainStrategy);
@@ -290,7 +290,9 @@ CONFIGROOT RouteEditor::OpenEditor()
             outboundsArray.append(outboundJsonObject);
     }
     root["outbounds"] = outboundsArray;
-    root["dns"] = GenerateDNS(false, dnsWidget->GetDNSObject());
+    const auto &[dns, fakedns] = dnsWidget->GetDNSObject();
+    root["dns"] = GenerateDNS(dns);
+    root["fakedns"] = fakedns.toJson();
     return root;
 }
 

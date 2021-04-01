@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0,0">
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
@@ -38,6 +38,27 @@
        <item>
         <property name="text">
          <string notr="true">IPOnDemand</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Matcher</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="domainMatcherCombo">
+       <item>
+        <property name="text">
+         <string>Original</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Minimal Perfect Hash Matcher</string>
         </property>
        </item>
       </widget>

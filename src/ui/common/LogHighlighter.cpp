@@ -92,7 +92,7 @@ namespace Qv2ray::ui
         highlightingRules.append(rule);
         //
         v2rayComponentFormat.setForeground(darkMode ? darkGreenColor : Qt::darkYellow);
-        rule.pattern = QRegularExpression(" v2ray.com(/(\\w*))*: ");
+        rule.pattern = QRegularExpression(R"( (v2ray\.com|github.com\/v2fly\/v2ray-core)[\/\w*]*: )");
         rule.format = v2rayComponentFormat;
         highlightingRules.append(rule);
         //
@@ -114,7 +114,7 @@ namespace Qv2ray::ui
         highlightingRules.append(rule);
         //
         qvAppDebugLogFormat.setForeground(darkMode ? Qt::yellow : Qt::darkYellow);
-        rule.pattern = QRegularExpression("\\[\\[DEBUG\\] - [A-Z]*\\]:");
+        rule.pattern = QRegularExpression(R"( \[\w+\] )");
         rule.format = qvAppDebugLogFormat;
         highlightingRules.append(rule);
     }

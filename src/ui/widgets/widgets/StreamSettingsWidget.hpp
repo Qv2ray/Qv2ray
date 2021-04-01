@@ -63,6 +63,8 @@ class StreamSettingsWidget
 
     void on_openCertEditorBtn_clicked();
 
+    void on_grpcServiceNameTxt_textEdited(const QString &arg1);
+
   private:
     QvMessageBusSlotDecl;
     StreamSettingsObject stream;

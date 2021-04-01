@@ -24,21 +24,7 @@ class VmessOutboundEditor
         return { vmess.address, vmess.port };
     }
 
-    void SetContent(const QJsonObject &content) override
-    {
-        this->content = content;
-        PLUGIN_EDITOR_LOADING_SCOPE({
-            if (content["vnext"].toArray().isEmpty())
-                content["vnext"] = QJsonArray{ QJsonObject{} };
-            vmess = VMessServerObject::fromJson(content["vnext"].toArray().first().toObject());
-            if (vmess.users.empty())
-                vmess.users.push_back({});
-            const auto &user = vmess.users.front();
-            idLineEdit->setText(user.id);
-            alterLineEdit->setValue(user.alterId);
-            securityCombo->setCurrentText(user.security);
-        })
-    }
+    void SetContent(const QJsonObject &content) override;
     const QJsonObject GetContent() const override
     {
         auto result = content;

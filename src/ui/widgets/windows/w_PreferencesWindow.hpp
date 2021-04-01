@@ -107,11 +107,10 @@ class PreferencesWindow
     void on_jumpListCountSB_valueChanged(int arg1);
     void on_outboundMark_valueChanged(int arg1);
     void on_dnsIntercept_toggled(bool checked);
-    void on_fakeDNSCb_toggled(bool checked);
     void on_qvProxyCustomProxy_clicked();
     void on_qvProxySystemProxy_clicked();
     void on_qvProxyNoProxy_clicked();
-    void on_DnsFreedomCb_stateChanged(int arg1);
+    void on_dnsFreedomCb_stateChanged(int arg1);
     void on_httpSniffingCB_stateChanged(int arg1);
     void on_httpOverrideHTTPCB_stateChanged(int arg1);
     void on_httpOverrideTLSCB_stateChanged(int arg1);
@@ -135,9 +134,14 @@ class PreferencesWindow
     void on_disableSystemRootCB_stateChanged(int arg1);
     void on_openConfigDirCB_clicked();
     void on_startMinimizedCB_stateChanged(int arg1);
+    void on_httpSniffingMetadataOnly_stateChanged(int arg1);
+    void on_socksSniffingMetadataOnly_stateChanged(int arg1);
+    void on_tproxySniffingMetadataOnlyCB_stateChanged(int arg1);
+    void on_socksOverrideFakeDNSCB_stateChanged(int arg1);
+    void on_httpOverrideFakeDNSCB_stateChanged(int arg1);
+    void on_tproxyOverrideFakeDNSCB_stateChanged(int arg1);
 
   private:
-    //
     DnsSettingsWidget *dnsSettingsWidget;
     RouteSettingsMatrixWidget *routeSettingsWidget;
     void SetAutoStartButtonsState(bool isAutoStart);

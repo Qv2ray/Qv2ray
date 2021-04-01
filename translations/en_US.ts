@@ -357,6 +357,22 @@ It cannot be a private address.</source>
 This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>FakeDNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP Pool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pool Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GroupManager</name>
@@ -603,10 +619,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Destination Override</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown inbound.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -628,6 +640,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Stream Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FakeDNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination Override:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Metadata Only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1845,14 +1869,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Sniffing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use Fake DNS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Config Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1914,6 +1930,14 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>Qv2ray was not built with NTP support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Metadata Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FakeDNS</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2752,6 +2776,18 @@ Maybe you have downloaded the wrong core?</source>
         <source>Export Scheme...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Matcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal Perfect Hash Matcher</source>
+        <translation>Minimal Perfect Hash Matcher</translation>
+    </message>
 </context>
 <context>
     <name>RouteSettingsMatrixWidget</name>
@@ -3113,6 +3149,18 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AllowInsecure is insecure, do not allow insecure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Service Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>grpc</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3642,6 +3690,28 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>This user exists already.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VmessOutboundEditor</name>
+    <message>
+        <source>Non AEAD VMess detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>loopback</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inbound Tag</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

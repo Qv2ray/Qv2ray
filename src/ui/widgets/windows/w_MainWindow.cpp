@@ -467,7 +467,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
 void MainWindow::changeEvent(QEvent *e)
 {
 
-    if(e->type() == QEvent::WindowStateChange)
+    if (e->type() == QEvent::WindowStateChange)
     {
         MWToggleVisibilitySetText();
     }
@@ -1005,7 +1005,7 @@ void MainWindow::Action_TestRealLatency()
         const auto widget = GetIndexWidget(current);
         if (!widget)
             continue;
-        if (widget->IsConnection())
+        if (widget->IsConnection() && ConnectionManager->IsConnected(widget->Identifier()))
             ConnectionManager->StartLatencyTest(widget->Identifier().connectionId, REALPING);
     }
 }

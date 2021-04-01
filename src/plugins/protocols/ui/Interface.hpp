@@ -9,6 +9,7 @@
 #include "outbound/dns.hpp"
 #include "outbound/freedom.hpp"
 #include "outbound/httpout.hpp"
+#include "outbound/loopback.hpp"
 #include "outbound/shadowsocks.hpp"
 #include "outbound/socksout.hpp"
 #include "outbound/vless.hpp"
@@ -51,6 +52,7 @@ class ProtocolGUIInterface : public PluginGUIInterface
             MakeEditorInfoPair<FreedomOutboundEditor>("freedom", "Freedom"),             //
             MakeEditorInfoPair<BlackholeOutboundEditor>("blackhole", "Blackhole"),       //
             MakeEditorInfoPair<DnsOutboundEditor>("dns", "DNS"),                         //
+            MakeEditorInfoPair<LoopbackSettingsEditor>("loopback", "Loopback"),          //
         };
     }
     std::unique_ptr<QvPluginMainWindowWidget> createMainWindowWidget() const override
