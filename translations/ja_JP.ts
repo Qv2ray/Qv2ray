@@ -3739,4 +3739,11 @@ Maybe you have downloaded the wrong core?</source>
       <translation>受信タグ</translation>
     </message>
   </context>
+  <context>
+    <name>MainWindowWidget</name>
+    <message>
+      <source>Qv2ray Utilities</source>
+      <translation type="unfinished">Qv2ray Utilities</translation>
+    </message>
+  </context>
 </TS>
