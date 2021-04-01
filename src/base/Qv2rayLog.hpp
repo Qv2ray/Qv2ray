@@ -15,7 +15,7 @@
 
 #define NEWLINE "\r\n"
 #define ___LOG_EXPAND(___x) , QPair<std::string, decltype(___x)>(std::string(#___x), [&] { return ___x; }())
-#define A(...) FOREACH_CALL_FUNC(___LOG_EXPAND, __VA_ARGS__)
+#define A(...) FOR_EACH(___LOG_EXPAND, __VA_ARGS__)
 
 #ifdef QT_DEBUG
 #define QV2RAY_IS_DEBUG true

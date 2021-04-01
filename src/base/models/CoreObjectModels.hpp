@@ -8,372 +8,351 @@
 
 namespace Qv2ray::base::objects
 {
+    struct DNSServerObject
+    {
+        Q_GADGET
+        QJS_CONSTRUCTOR(DNSServerObject)
+
+        QJS_PROP_D(bool, QV2RAY_DNS_IS_COMPLEX_DNS, false)
+        QJS_PROP_D(int, port, 53)
+        QJS_PROP(QString, address)
+        QJS_PROP(QList<QString>, domains)
+        QJS_PROP(QList<QString>, expectIPs)
+
+        DNSServerObject(const QString &_address) : DNSServerObject()
+        {
+            set_address(_address);
+        }
+
+        QJS_FUNC_COMPARE(F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs))
+
+        void loadJson(const QJsonValue &___json_object_)
+        {
+            DNSServerObject ___qjsonstruct_default_check;
+            // Hack to convert simple DNS settings to complex format.
+            if (___json_object_.isString())
+            {
+                set_address(___json_object_.toString());
+                set_QV2RAY_DNS_IS_COMPLEX_DNS(false);
+                return;
+            }
+            FOR_EACH(_QJS_FROM_JSON_F, QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs);
+        }
+        [[nodiscard]] static auto fromJson(const QJsonValue &json)
+        {
+            DNSServerObject _t;
+            _t.loadJson(json);
+            return _t;
+        }
+        [[nodiscard]] const QJsonObject toJson() const
+        {
+            QJsonObject ___json_object_;
+            FOR_EACH(_QJS_TO_JSON_F, QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs);
+            return ___json_object_;
+        }
+    };
+
     struct DNSObject
     {
-        struct DNSServerObject
-        {
-            bool QV2RAY_DNS_IS_COMPLEX_DNS;
-            QString address;
-            int port;
-            QList<QString> domains;
-            QList<QString> expectIPs;
-            DNSServerObject() : QV2RAY_DNS_IS_COMPLEX_DNS(false), port(53){};
-            DNSServerObject(const QString &_address) : DNSServerObject()
-            {
-                address = _address;
-            };
+        typedef QMap<QString, QString> QStringStringMap;
 
-            friend bool operator==(const DNSServerObject &left, const DNSServerObject &right)
-            {
-                return left.QV2RAY_DNS_IS_COMPLEX_DNS == right.QV2RAY_DNS_IS_COMPLEX_DNS && //
-                       left.address == right.address &&                                     //
-                       left.port == right.port &&                                           //
-                       left.domains == right.domains &&                                     //
-                       left.expectIPs == right.expectIPs;
-            }
-            friend bool operator!=(const DNSServerObject &left, const DNSServerObject &right)
-            {
-                return !(left == right);
-            }
-            void loadJson(const QJsonValue &___json_object_)
-            {
-                DNSServerObject ___qjsonstruct_default_check;
-                // Hack to convert simple DNS settings to complex format.
-                if (___json_object_.isString())
-                {
-                    address = ___json_object_.toString();
-                    QV2RAY_DNS_IS_COMPLEX_DNS = false;
-                    return;
-                }
-                FOREACH_CALL_FUNC(___DESERIALIZE_FROM_JSON_EXTRACT_B_F, F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs));
-            }
-            [[nodiscard]] static auto fromJson(const QJsonValue &___json_object_)
-            {
-                DNSServerObject _t;
-                _t.loadJson(___json_object_);
-                return _t;
-            }
-            [[nodiscard]] const QJsonObject toJson() const
-            {
-                QJsonObject ___json_object_;
-                DNSServerObject ___qjsonstruct_default_check;
-                FOREACH_CALL_FUNC(___SERIALIZE_TO_JSON_EXTRACT_B_F, F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs));
-                return ___json_object_;
-            }
-        };
-
-        QMap<QString, QString> hosts;
-        QList<DNSServerObject> servers;
-        QString clientIp;
-        QString tag;
-        bool disableCache = false;
-        friend bool operator==(const DNSObject &left, const DNSObject &right)
-        {
-            return left.hosts == right.hosts &&       //
-                   left.servers == right.servers &&   //
-                   left.clientIp == right.clientIp && //
-                   left.tag == right.tag &&           //
-                   left.disableCache == right.disableCache;
-        }
-        friend bool operator!=(const DNSObject &left, const DNSObject &right)
-        {
-            return !(left == right);
-        }
-        JSONSTRUCT_REGISTER(DNSObject, F(hosts, servers, clientIp, tag, disableCache))
+        Q_GADGET
+        QJS_CONSTRUCTOR(DNSObject)
+        QJS_PROP(QStringStringMap, hosts)
+        QJS_PROP(QList<DNSServerObject>, servers)
+        QJS_PROP(QString, clientIp)
+        QJS_PROP(QString, tag);
+        QJS_PROP_D(bool, disableCache, false)
+        QJS_FUNCTION(F(hosts, servers, clientIp, tag, disableCache))
     };
-    //
+
     // Used in config generation
     struct AccountObject
     {
-        QString user;
-        QString pass;
-        JSONSTRUCT_COMPARE(AccountObject, user, pass)
-        JSONSTRUCT_REGISTER(AccountObject, F(user, pass))
+        Q_GADGET
+        QJS_CONSTRUCTOR(AccountObject)
+        QJS_PROP(QString, user);
+        QJS_PROP(QString, pass);
+        QJS_FUNCTION(F(user, pass))
     };
-    //
-    //
+
     struct RuleObject
     {
-        bool QV2RAY_RULE_ENABLED = true;
-        QString QV2RAY_RULE_TAG = "New Rule";
+        Q_GADGET
+        QJS_CONSTRUCTOR(RuleObject)
+        QJS_PROP_D(bool, QV2RAY_RULE_ENABLED, true, REQUIRED)
+        QJS_PROP_D(QString, QV2RAY_RULE_TAG, "New Rule", REQUIRED)
         //
-        QString type = "field";
-        QList<QString> inboundTag;
-        QString outboundTag;
-        QString balancerTag;
+        QJS_PROP_D(QString, type, "field", REQUIRED);
+        QJS_PROP(QList<QString>, inboundTag);
+        QJS_PROP(QString, outboundTag, REQUIRED);
+        QJS_PROP(QString, balancerTag, REQUIRED);
         // Addresses
-        QList<QString> source;
-        QList<QString> domain;
-        QList<QString> ip;
+        QJS_PROP(QList<QString>, source)
+        QJS_PROP(QList<QString>, domain)
+        QJS_PROP(QList<QString>, ip)
         // Ports
-        QString sourcePort;
-        QString port;
+        QJS_PROP(QString, sourcePort)
+        QJS_PROP(QString, port)
         //
-        QString network;
-        QList<QString> protocol;
-        QString attrs;
-        JSONSTRUCT_COMPARE(RuleObject, type, outboundTag, balancerTag, //
-                           QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG,       //
-                           domain, ip, port, sourcePort, network, source, inboundTag, protocol, attrs)
-        JSONSTRUCT_REGISTER(RuleObject,                              //
-                            A(type, outboundTag, balancerTag),       //
-                            A(QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG), //
-                            F(domain, ip, port, sourcePort, network, source, inboundTag, protocol, attrs))
+        QJS_PROP(QString, network)
+        QJS_PROP(QList<QString>, protocol)
+        QJS_PROP(QString, attrs)
+        QJS_FUNCTION(F(type, outboundTag, balancerTag, QV2RAY_RULE_ENABLED, QV2RAY_RULE_TAG), //
+                     F(domain, ip, port, sourcePort, network, source, inboundTag, protocol, attrs))
     };
-    //
-    //
+
     struct BalancerObject
     {
-        QString tag;
-        QList<QString> selector;
-        JSONSTRUCT_COMPARE(BalancerObject, tag, selector)
-        JSONSTRUCT_REGISTER(BalancerObject, F(tag, selector))
+        Q_GADGET
+        QJS_CONSTRUCTOR(BalancerObject)
+        QJS_PROP(QString, tag);
+        QJS_PROP(QList<QString>, selector)
+        QJS_FUNCTION(F(tag, selector))
     };
-    //
-    //
+
     namespace transfer
     {
         struct HTTPRequestObject
         {
-            QString version = "1.1";
-            QString method = "GET";
-            QList<QString> path = { "/" };
-            QMap<QString, QList<QString>> headers;
-            HTTPRequestObject()
-            {
-                headers = {
-                    { "Host", { "www.baidu.com", "www.bing.com" } },
-                    { "User-Agent",
-                      { "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
-                        "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46" } },
-                    { "Accept-Encoding", { "gzip, deflate" } },
-                    { "Connection", { "keep-alive" } },
-                    { "Pragma", { "no-cache" } }
-                };
-            }
-            JSONSTRUCT_COMPARE(HTTPRequestObject, version, method, path, headers)
-            JSONSTRUCT_REGISTER(HTTPRequestObject, F(version, method, path, headers))
-        };
-        //
-        //
-        struct HTTPResponseObject
-        {
-            QString version = "1.1";
-            QString status = "200";
-            QString reason = "OK";
-            QMap<QString, QList<QString>> headers;
-            HTTPResponseObject()
-            {
-                headers = { { "Content-Type", { "application/octet-stream", "video/mpeg" } }, //
-                            { "Transfer-Encoding", { "chunked" } },                           //
-                            { "Connection", { "keep-alive" } },                               //
-                            { "Pragma", { "no-cache" } } };
-            }
-            JSONSTRUCT_COMPARE(HTTPResponseObject, version, status, reason, headers)
-            JSONSTRUCT_REGISTER(HTTPResponseObject, F(version, status, reason, headers))
-        };
-        //
-        //
-        struct TCPHeader_Internal
-        {
-            QString type = "none";
-            HTTPRequestObject request;
-            HTTPResponseObject response;
-            JSONSTRUCT_COMPARE(TCPHeader_Internal, type, request, response)
-            JSONSTRUCT_REGISTER(TCPHeader_Internal, A(type), F(request, response))
-        };
-        //
-        //
-        struct ObfsHeaderObject
-        {
-            QString type = "none";
-            JSONSTRUCT_COMPARE(ObfsHeaderObject, type)
-            JSONSTRUCT_REGISTER(ObfsHeaderObject, F(type))
-        };
-        //
-        //
-        struct TCPObject
-        {
-            TCPHeader_Internal header;
-            JSONSTRUCT_COMPARE(TCPObject, header)
-            JSONSTRUCT_REGISTER(TCPObject, F(header))
-        };
-        //
-        //
-        struct KCPObject
-        {
-            int mtu = 1350;
-            int tti = 50;
-            int uplinkCapacity = 5;
-            int downlinkCapacity = 20;
-            bool congestion = false;
-            int readBufferSize = 2;
-            int writeBufferSize = 2;
-            QString seed;
-            ObfsHeaderObject header;
-            KCPObject(){};
-            JSONSTRUCT_COMPARE(KCPObject, mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, seed, header)
-            JSONSTRUCT_REGISTER(KCPObject, F(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header, seed))
-        };
-        //
-        //
-        struct WebSocketObject
-        {
-            QString path = "/";
-            QMap<QString, QString> headers;
-            JSONSTRUCT_COMPARE(WebSocketObject, path, headers)
-            JSONSTRUCT_REGISTER(WebSocketObject, F(path, headers))
-        };
-        //
-        //
-        struct HttpObject
-        {
-            QList<QString> host;
-            QString path = "/";
-            JSONSTRUCT_COMPARE(HttpObject, host, path)
-            JSONSTRUCT_REGISTER(HttpObject, F(host, path))
-        };
-        //
-        //
-        struct DomainSocketObject
-        {
-            QString path = "/";
-            JSONSTRUCT_COMPARE(DomainSocketObject, path)
-            JSONSTRUCT_REGISTER(DomainSocketObject, F(path))
-        };
-        //
-        //
-        struct QuicObject
-        {
-            QString security = "none";
-            QString key;
-            ObfsHeaderObject header;
-            JSONSTRUCT_COMPARE(QuicObject, security, key, header)
-            JSONSTRUCT_REGISTER(QuicObject, F(security, key, header))
-        };
-        //
-        //
-        struct gRPCObject
-        {
-            QString serviceName = "GunService";
-            JSONSTRUCT_COMPARE(gRPCObject, serviceName)
-            JSONSTRUCT_REGISTER(gRPCObject, F(serviceName))
+            Q_GADGET
+            typedef QMap<QString, QList<QString>> QString_ListString_Map;
+
+            const QString_ListString_Map headers_init = {
+                { "Host", { "www.baidu.com", "www.bing.com" } },
+                { "User-Agent",
+                  { "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
+                    "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46" } },
+                { "Accept-Encoding", { "gzip, deflate" } },
+                { "Connection", { "keep-alive" } },
+                { "Pragma", { "no-cache" } }
+            };
+
+            QJS_CONSTRUCTOR(HTTPRequestObject)
+            QJS_PROP_D(QString, version, "1.1");
+            QJS_PROP_D(QString, method, "GET");
+            QJS_PROP_D(QList<QString>, path, "/");
+            QJS_PROP_D(QString_ListString_Map, headers, headers_init);
+            QJS_FUNCTION(F(version, method, path, headers))
         };
 
-        //
-        //
+        struct HTTPResponseObject
+        {
+            Q_GADGET
+            typedef QMap<QString, QList<QString>> QString_ListString_Map;
+
+            QJS_CONSTRUCTOR(HTTPResponseObject)
+
+            QString_ListString_Map headers_init{ { "Content-Type", { "application/octet-stream", "video/mpeg" } }, //
+                                                 { "Transfer-Encoding", { "chunked" } },                           //
+                                                 { "Connection", { "keep-alive" } },                               //
+                                                 { "Pragma", { "no-cache" } } };
+            QJS_PROP_D(QString, version, "1.1")
+            QJS_PROP_D(QString, status, "200")
+            QJS_PROP_D(QString, reason, "OK")
+            QJS_PROP_D(QString_ListString_Map, headers, headers_init);
+
+            QJS_FUNCTION(F(version, status, reason, headers))
+        };
+
+        struct TCPHeader_Internal
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(TCPHeader_Internal)
+            QJS_PROP_D(QString, type, "none", REQUIRED);
+            QJS_PROP(HTTPRequestObject, request);
+            QJS_PROP(HTTPResponseObject, response);
+            QJS_FUNCTION(F(type, request, response))
+        };
+
+        struct ObfsHeaderObject
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(ObfsHeaderObject)
+            QJS_PROP_D(QString, type, "none");
+            QJS_FUNCTION(F(type))
+        };
+
+        struct TCPObject
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(TCPObject)
+            QJS_PROP(TCPHeader_Internal, header)
+            QJS_FUNCTION(F(header))
+        };
+
+        struct KCPObject
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(KCPObject)
+            QJS_PROP_D(int, mtu, 1350);
+            QJS_PROP_D(int, tti, 50);
+            QJS_PROP_D(int, uplinkCapacity, 5)
+            QJS_PROP_D(int, downlinkCapacity, 20)
+            QJS_PROP_D(bool, congestion, false)
+            QJS_PROP_D(int, readBufferSize, 2)
+            QJS_PROP_D(int, writeBufferSize, 2)
+            QJS_PROP(QString, seed)
+            QJS_PROP(ObfsHeaderObject, header)
+            QJS_FUNCTION(F(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header, seed))
+        };
+
+        struct WebSocketObject
+        {
+            Q_GADGET
+            typedef QMap<QString, QString> QStringStringMap;
+            QJS_CONSTRUCTOR(WebSocketObject)
+            QJS_PROP_D(QString, path, "/");
+            QJS_PROP(QStringStringMap, headers);
+            QJS_FUNCTION(F(path, headers))
+        };
+
+        struct HttpObject
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(HttpObject)
+            QJS_PROP(QList<QString>, host);
+            QJS_PROP_D(QString, path, "/");
+            QJS_FUNCTION(F(host, path))
+        };
+
+        struct DomainSocketObject
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(DomainSocketObject)
+            QJS_PROP_D(QString, path, "/");
+            QJS_FUNCTION(F(path))
+        };
+
+        struct QuicObject
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(QuicObject)
+            QJS_PROP_D(QString, security, "none")
+            QJS_PROP(QString, key);
+            QJS_PROP(ObfsHeaderObject, header);
+            QJS_FUNCTION(F(security, key, header))
+        };
+
+        struct gRPCObject
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(gRPCObject)
+            QJS_PROP_D(QString, serviceName, "GunService");
+            QJS_FUNCTION(F(serviceName))
+        };
+
         struct SockoptObject
         {
-            int mark = 0;
-            bool tcpFastOpen = false;
-            QString tproxy = "off";
-            JSONSTRUCT_COMPARE(SockoptObject, mark, tcpFastOpen, tproxy)
-            JSONSTRUCT_REGISTER(SockoptObject, F(mark, tcpFastOpen, tproxy))
+            Q_GADGET
+            QJS_CONSTRUCTOR(SockoptObject)
+            QJS_PROP_D(int, mark, 255)
+            QJS_PROP_D(bool, tcpFastOpen, false)
+            QJS_PROP_D(QString, tproxy, "off");
+            QJS_FUNCTION(F(mark, tcpFastOpen, tproxy))
         };
-        //
-        //
+
         struct CertificateObject
         {
-            QString usage = "encipherment";
-            QString certificateFile;
-            QString keyFile;
-            QList<QString> certificate;
-            QList<QString> key;
-            JSONSTRUCT_COMPARE(CertificateObject, usage, certificateFile, keyFile, certificate, key)
-            JSONSTRUCT_REGISTER(CertificateObject, F(usage, certificateFile, keyFile, certificate, key))
+            Q_GADGET
+            QJS_CONSTRUCTOR(CertificateObject)
+            QJS_PROP_D(QString, usage, "encipherment");
+            QJS_PROP(QString, certificateFile)
+            QJS_PROP(QString, keyFile)
+            QJS_PROP(QList<QString>, certificate)
+            QJS_PROP(QList<QString>, key)
+            QJS_FUNCTION(F(usage, certificateFile, keyFile, certificate, key))
         };
-        //
-        //
+
         struct TLSObject
         {
-            QString serverName;
-            bool allowInsecure = false;
-            bool disableSessionResumption = true;
-            bool disableSystemRoot = false;
-            QList<QString> alpn;
-            QList<CertificateObject> certificates;
-            JSONSTRUCT_COMPARE(TLSObject, serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates)
-            JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates))
+            Q_GADGET
+            QJS_CONSTRUCTOR(TLSObject)
+            QJS_PROP(QString, serverName);
+            QJS_PROP_D(bool, disableSessionResumption, true);
+            QJS_PROP_D(bool, disableSystemRoot, false);
+            QJS_PROP(QList<QString>, alpn);
+            QJS_PROP(QList<CertificateObject>, certificates);
+            QJS_FUNCTION(F(serverName, disableSessionResumption, disableSystemRoot, alpn, certificates))
         };
-        //
-        //
+
         struct XTLSObject
         {
-            QString serverName;
-            bool allowInsecure = false;
-            bool disableSessionResumption = true;
-            bool disableSystemRoot = false;
-            QList<QString> alpn;
-            QList<CertificateObject> certificates;
-            JSONSTRUCT_COMPARE(XTLSObject, serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates)
-            JSONSTRUCT_REGISTER(XTLSObject, F(serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates))
+            Q_GADGET
+            QJS_CONSTRUCTOR(XTLSObject)
+            QJS_PROP(QString, serverName);
+            QJS_PROP_D(bool, disableSessionResumption, true);
+            QJS_PROP_D(bool, disableSystemRoot, false);
+            QJS_PROP(QList<QString>, alpn);
+            QJS_PROP(QList<CertificateObject>, certificates);
+            QJS_FUNCTION(F(serverName, disableSessionResumption, disableSystemRoot, alpn, certificates))
         };
     } // namespace transfer
     //
     //
     struct StreamSettingsObject
     {
-        QString network = "tcp";
-        QString security = "none";
-        transfer::SockoptObject sockopt;
-        transfer::TLSObject tlsSettings;
-        transfer::XTLSObject xtlsSettings;
-        transfer::TCPObject tcpSettings;
-        transfer::KCPObject kcpSettings;
-        transfer::WebSocketObject wsSettings;
-        transfer::HttpObject httpSettings;
-        transfer::DomainSocketObject dsSettings;
-        transfer::QuicObject quicSettings;
-        transfer::gRPCObject grpcSettings;
-        JSONSTRUCT_COMPARE(StreamSettingsObject, network, security, sockopt, //
-                           tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings)
-        JSONSTRUCT_REGISTER(StreamSettingsObject, F(network, security, sockopt),
-                            F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings))
+        Q_GADGET
+        QJS_CONSTRUCTOR(StreamSettingsObject)
+        QJS_PROP_D(QString, network, "tcp");
+        QJS_PROP_D(QString, security, "none");
+        QJS_PROP(transfer::SockoptObject, sockopt);
+        QJS_PROP(transfer::TLSObject, tlsSettings);
+        QJS_PROP(transfer::XTLSObject, xtlsSettings);
+        QJS_PROP(transfer::TCPObject, tcpSettings);
+        QJS_PROP(transfer::KCPObject, kcpSettings);
+        QJS_PROP(transfer::WebSocketObject, wsSettings);
+        QJS_PROP(transfer::HttpObject, httpSettings);
+        QJS_PROP(transfer::DomainSocketObject, dsSettings);
+        QJS_PROP(transfer::QuicObject, quicSettings);
+        QJS_PROP(transfer::gRPCObject, grpcSettings);
+        QJS_FUNCTION(F(network, security, sockopt),
+                     F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings))
     };
 
     struct FakeDNSObject
     {
-        QString ipPool = "240.0.0.0/8";
-        int poolSize = 65535;
-        JSONSTRUCT_REGISTER(FakeDNSObject, A(ipPool, poolSize))
-        JSONSTRUCT_COMPARE(FakeDNSObject, ipPool, poolSize)
+        Q_GADGET
+        QJS_CONSTRUCTOR(FakeDNSObject)
+        QJS_PROP_D(QString, ipPool, "240.0.0.0/8");
+        QJS_PROP_D(int, poolSize, 65535);
+        QJS_FUNCTION(F(ipPool, poolSize))
     };
 
-    //
     // Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
     namespace protocol
     {
-        //
-        // VMess Server
         constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;
+        struct VMessUserObject
+        {
+            Q_GADGET
+            QJS_CONSTRUCTOR(VMessUserObject)
+            QJS_PROP_D(int, alterId, VMESS_USER_ALTERID_DEFAULT)
+            QJS_PROP_D(QString, security, "auto")
+            QJS_PROP_D(int, level, 0)
+            QJS_PROP(QString, id, REQUIRED)
+            QJS_FUNCTION(F(id, alterId, security, level))
+        };
+
         struct VMessServerObject
         {
-            struct UserObject
-            {
-                QString id;
-                int alterId = VMESS_USER_ALTERID_DEFAULT;
-                QString security = "auto";
-                int level = 0;
-                JSONSTRUCT_COMPARE(UserObject, id, alterId, security, level)
-                JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level))
-            };
-
-            QString address;
-            int port;
-            QList<UserObject> users;
-            JSONSTRUCT_COMPARE(VMessServerObject, address, port, users)
-            JSONSTRUCT_REGISTER(VMessServerObject, F(address, port, users))
+            Q_GADGET
+            QJS_CONSTRUCTOR(VMessServerObject)
+            QJS_PROP_D(QString, address, "0.0.0.0", REQUIRED)
+            QJS_PROP_D(int, port, 0, REQUIRED)
+            QJS_PROP(QList<VMessUserObject>, users)
+            QJS_FUNCTION(F(address, port, users))
         };
-        //
-        // ShadowSocks Server
+
         struct ShadowSocksServerObject
         {
-            QString address;
-            QString method;
-            QString password;
-            int port;
-            JSONSTRUCT_COMPARE(ShadowSocksServerObject, address, method, password)
-            JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(address, port, method, password))
+            Q_GADGET
+            QJS_CONSTRUCTOR(ShadowSocksServerObject)
+            QJS_PROP_D(QString, address, "0.0.0.0")
+            QJS_PROP_D(int, port, 0)
+            QJS_PROP_D(QString, method, "aes-256-gcm")
+            QJS_PROP(QString, password)
+            QJS_FUNCTION(F(address, method, password, port))
         };
     } // namespace protocol
 } // namespace Qv2ray::base::objects

@@ -46,7 +46,20 @@ namespace Qv2ray::base::safetype
         {
             return another.value1 == one.value1 && another.value2 == one.value2;
         }
-        JSONSTRUCT_REGISTER(___qvpair_t, F(value1, value2)) private : typedef QvPair<T1, T2> ___qvpair_t;
+
+        QJsonObject toJson() const
+        {
+            return QJsonObject{ { "value1", JsonStructHelper::Serialize(value1) }, { "value2", JsonStructHelper::Serialize(value2) } };
+        }
+
+        void loadJson(const QJsonValue &val)
+        {
+            JsonStructHelper::Deserialize(value1, val["value1"]);
+            JsonStructHelper::Deserialize(value2, val["value2"]);
+        }
+
+      private:
+        typedef QvPair<T1, T2> ___qvpair_t;
     };
 
     template<typename enumKey, typename TValue, typename = typename std::enable_if_t<std::is_enum_v<enumKey>>>

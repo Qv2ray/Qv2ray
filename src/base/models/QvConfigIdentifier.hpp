@@ -55,36 +55,27 @@ namespace Qv2ray::base
 
     class ConnectionGroupPair
     {
+        Q_GADGET
       public:
-        ConnectionGroupPair() : connectionId(NullConnectionId), groupId(NullGroupId){};
-        ConnectionGroupPair(const ConnectionId &conn, const GroupId &group) : connectionId(conn), groupId(group){};
-        Q_PROPERTY(ConnectionId connectionId MEMBER)
-        Q_PROPERTY(GroupId groupId MEMBER)
-        //
-        ConnectionId connectionId = NullConnectionId;
-        GroupId groupId = NullGroupId;
+        QJS_CONSTRUCTOR(ConnectionGroupPair)
+        ConnectionGroupPair(const ConnectionId &conn, const GroupId &group) : _connectionId(conn), _groupId(group){};
+
+        QJS_PROP_D(ConnectionId, connectionId, NullConnectionId)
+        QJS_PROP_D(GroupId, groupId, NullGroupId)
 
       public slots:
         void clear()
         {
-            connectionId = NullConnectionId;
-            groupId = NullGroupId;
+            reset_connectionId();
+            reset_groupId();
         }
 
       public:
         bool isEmpty() const
         {
-            return groupId == NullGroupId || connectionId == NullConnectionId;
+            return _groupId == NullGroupId || _connectionId == NullConnectionId;
         }
-        bool operator==(const ConnectionGroupPair &rhs) const
-        {
-            return groupId == rhs.groupId && connectionId == rhs.connectionId;
-        }
-        bool operator!=(const ConnectionGroupPair &rhs) const
-        {
-            return !(*this == rhs);
-        }
-        JSONSTRUCT_REGISTER(ConnectionGroupPair, F(connectionId, groupId))
+        QJS_FUNCTION(F(connectionId, groupId))
     };
 
     constexpr unsigned int LATENCY_TEST_VALUE_ERROR = 99999;
@@ -93,37 +84,37 @@ namespace Qv2ray::base
 
     struct __Qv2rayConfigObjectBase
     {
-        QString displayName;
-        qint64 creationDate = system_clock::to_time_t(system_clock::now());
-        qint64 lastUpdatedDate = system_clock::to_time_t(system_clock::now());
-        JSONSTRUCT_REGISTER(__Qv2rayConfigObjectBase, F(displayName, creationDate, lastUpdatedDate))
+        Q_GADGET
+        QJS_CONSTRUCTOR(__Qv2rayConfigObjectBase)
+        QJS_PROP(QString, displayName, REQUIRED)
+        QJS_PROP_D(qint64, creationDate, system_clock::to_time_t(system_clock::now()));
+        QJS_PROP_D(qint64, lastUpdatedDate, system_clock::to_time_t(system_clock::now()));
+        QJS_FUNCTION(F(displayName, creationDate, lastUpdatedDate))
     };
 
     struct GroupRoutingConfig : __Qv2rayConfigObjectBase
     {
-        bool overrideDNS = false;
-        config::QvConfig_DNS dnsConfig;
-        config::QvConfig_FakeDNS fakeDNSConfig;
+        Q_GADGET
+
+        QJS_CONSTRUCTOR(GroupRoutingConfig, : __Qv2rayConfigObjectBase())
+
+        QJS_PROP_D(bool, overrideDNS, false);
+        QJS_PROP(config::QvConfig_DNS, dnsConfig);
+        QJS_PROP(config::QvConfig_FakeDNS, fakeDNSConfig);
         //
-        bool overrideRoute = false;
-        config::QvConfig_Route routeConfig;
+        QJS_PROP_D(bool, overrideRoute, false);
+        QJS_PROP(config::QvConfig_Route, routeConfig);
         //
-        bool overrideConnectionConfig = false;
-        config::QvConfig_Connection connectionConfig;
+        QJS_PROP_D(bool, overrideConnectionConfig, false);
+        QJS_PROP(config::QvConfig_Connection, connectionConfig);
         //
-        bool overrideForwardProxyConfig = false;
-        config::QvConfig_ForwardProxy forwardProxyConfig;
+        QJS_PROP_D(bool, overrideForwardProxyConfig, false);
+        QJS_PROP(config::QvConfig_ForwardProxy, forwardProxyConfig);
         //
-        JSONSTRUCT_COMPARE(GroupRoutingConfig,                         //
-                           overrideDNS, dnsConfig, fakeDNSConfig,      //
-                           overrideRoute, routeConfig,                 //
-                           overrideConnectionConfig, connectionConfig, //
-                           overrideForwardProxyConfig, forwardProxyConfig)
-        JSONSTRUCT_REGISTER(GroupRoutingConfig,                            //
-                            F(overrideRoute, routeConfig),                 //
-                            F(overrideDNS, dnsConfig, fakeDNSConfig),      //
-                            F(overrideConnectionConfig, connectionConfig), //
-                            F(overrideForwardProxyConfig, forwardProxyConfig))
+        QJS_FUNCTION(F(overrideRoute, routeConfig),                 //
+                     F(overrideDNS, dnsConfig, fakeDNSConfig),      //
+                     F(overrideConnectionConfig, connectionConfig), //
+                     F(overrideForwardProxyConfig, forwardProxyConfig))
     };
 
     enum SubscriptionFilterRelation
@@ -134,28 +125,27 @@ namespace Qv2ray::base
 
     struct SubscriptionConfigObject
     {
-        QString address;
-        QString type = "sip008";
-        float updateInterval = 10;
-        QList<QString> IncludeKeywords;
-        QList<QString> ExcludeKeywords;
-        SubscriptionFilterRelation IncludeRelation = RELATION_OR;
-        SubscriptionFilterRelation ExcludeRelation = RELATION_AND;
-        JSONSTRUCT_COMPARE(SubscriptionConfigObject, address, type, updateInterval, //
-                           IncludeKeywords, ExcludeKeywords, IncludeRelation, ExcludeRelation)
-        JSONSTRUCT_REGISTER(SubscriptionConfigObject, F(updateInterval, address, type),
-                            F(IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
+        Q_GADGET
+        QJS_CONSTRUCTOR(SubscriptionConfigObject)
+        QJS_PROP(QString, address);
+        QJS_PROP_D(QString, type, "sip008");
+        QJS_PROP_D(float, updateInterval, 10);
+        QJS_PROP(QList<QString>, IncludeKeywords);
+        QJS_PROP(QList<QString>, ExcludeKeywords);
+        QJS_PROP_D(SubscriptionFilterRelation, IncludeRelation, RELATION_OR);
+        QJS_PROP_D(SubscriptionFilterRelation, ExcludeRelation, RELATION_AND);
+        QJS_FUNCTION(F(updateInterval, address, type), F(IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
     };
 
     struct GroupObject : __Qv2rayConfigObjectBase
     {
-        bool isSubscription = false;
-        QList<ConnectionId> connections;
-        GroupRoutingId routeConfigId;
-        SubscriptionConfigObject subscriptionOption;
-        GroupObject() : __Qv2rayConfigObjectBase(){};
-        JSONSTRUCT_COMPARE(GroupObject, isSubscription, connections, routeConfigId, subscriptionOption)
-        JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
+        Q_GADGET
+        QJS_CONSTRUCTOR(GroupObject, : __Qv2rayConfigObjectBase())
+        QJS_PROP_D(bool, isSubscription, false)
+        QJS_PROP(QList<ConnectionId>, connections);
+        QJS_PROP(GroupRoutingId, routeConfigId);
+        QJS_PROP(SubscriptionConfigObject, subscriptionOption);
+        QJS_FUNCTION(F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
     enum StatisticsType
@@ -174,18 +164,20 @@ namespace Qv2ray::base
 
     struct ConnectionStatsEntryObject
     {
-        qvdata upLinkData;
-        qvdata downLinkData;
+        Q_GADGET
+        QJS_CONSTRUCTOR(ConnectionStatsEntryObject)
+        QJS_PROP(qvdata, upLinkData);
+        QJS_PROP(qvdata, downLinkData);
         QvStatsData toData()
         {
-            return { upLinkData, downLinkData };
+            return { upLinkData(), downLinkData() };
         }
         void fromData(const QvStatsData &d)
         {
-            upLinkData = d.first;
-            downLinkData = d.second;
+            set_upLinkData(d.first);
+            set_downLinkData(d.second);
         }
-        JSONSTRUCT_REGISTER(ConnectionStatsEntryObject, F(upLinkData, downLinkData))
+        QJS_FUNCTION(F(upLinkData, downLinkData))
     };
 
     enum ConnectionImportSource
@@ -225,14 +217,15 @@ namespace Qv2ray::base
 
     struct ConnectionObject : __Qv2rayConfigObjectBase
     {
-        qint64 lastConnected;
-        qint64 latency = LATENCY_TEST_VALUE_NODATA;
-        ConnectionImportSource importSource = IMPORT_SOURCE_MANUAL;
-        ConnectionStatsObject stats;
+        Q_GADGET
+        QJS_CONSTRUCTOR(ConnectionObject, : __Qv2rayConfigObjectBase())
+        QJS_PROP(qint64, lastConnected);
+        QJS_PROP_D(qint64, latency, LATENCY_TEST_VALUE_NODATA);
+        QJS_PROP_D(ConnectionImportSource, importSource, IMPORT_SOURCE_MANUAL);
+        QJS_PROP(ConnectionStatsObject, stats);
         //
         int __qvConnectionRefCount = 0;
-        JSONSTRUCT_COMPARE(ConnectionObject, lastConnected, latency, importSource, stats, displayName, creationDate, lastUpdatedDate)
-        JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
+        QJS_FUNCTION(F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
     };
 
     struct ProtocolSettingsInfoObject
@@ -246,7 +239,7 @@ namespace Qv2ray::base
               address(_address),   //
               port(_port)          //
               {};
-        JSONSTRUCT_REGISTER(ProtocolSettingsInfoObject, F(protocol, address, port))
+        QJS_PLAIN_JSON(protocol, address, port)
     };
 
     template<typename T>
@@ -256,7 +249,7 @@ namespace Qv2ray::base
     }
     inline size_t qHash(const Qv2ray::base::ConnectionGroupPair &pair)
     {
-        return ::qHash(pair.connectionId.toString() + pair.groupId.toString());
+        return ::qHash(pair.connectionId().toString() + pair.groupId().toString());
     }
 } // namespace Qv2ray::base
 

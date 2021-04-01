@@ -22,53 +22,22 @@ void VmessOutboundEditor::changeEvent(QEvent *e)
 void VmessOutboundEditor::SetContent(const QJsonObject &content)
 {
     this->content = content;
-    PLUGIN_EDITOR_LOADING_SCOPE({
-        if (content["vnext"].toArray().isEmpty())
-            content["vnext"] = QJsonArray{ QJsonObject{} };
-        vmess = VMessServerObject::fromJson(content["vnext"].toArray().first().toObject());
-        if (vmess.users.empty())
-            vmess.users.push_back({});
-        const auto &user = vmess.users.front();
-        idLineEdit->setText(user.id);
-        alterLineEdit->setValue(user.alterId);
+    if (content["vnext"].toArray().isEmpty())
+        content["vnext"] = QJsonArray{ QJsonObject{} };
 
-        securityCombo->setCurrentText(user.security);
-    })
+    QJS_CLEAR_BINDINGS
+
+    vmess.loadJson(content["vnext"].toArray().first().toObject());
+    if (vmess.users().isEmpty())
+        vmess.users().push_back({});
+
+    QJS_RWBINDING(vmess.users().first(), security, securityCombo, currentText, &QComboBox::currentIndexChanged)
+    QJS_RWBINDING(vmess.users().first(), alterId, alterLineEdit, value, &QSpinBox::valueChanged)
+    QJS_RWBINDING(vmess.users().first(), id, idLineEdit, text, &QLineEdit::textEdited)
 
     if (alterLineEdit->value() > 0)
     {
         const auto msg = tr("VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.");
-        InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Non AEAD VMess detected"), msg);
+        emit InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Non AEAD VMess detected"), msg);
     }
-}
-
-void VmessOutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
-{
-    const static QRegularExpression regExpUUID("^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$", QRegularExpression::CaseInsensitiveOption);
-
-    if (!regExpUUID.match(arg1).hasMatch())
-    {
-        RED(idLineEdit)
-    }
-    else
-    {
-        BLACK(idLineEdit)
-    }
-    if (vmess.users.isEmpty())
-        vmess.users << VMessServerObject::UserObject{};
-    vmess.users.front().id = arg1;
-}
-
-void VmessOutboundEditor::on_securityCombo_currentIndexChanged(int arg1)
-{
-    if (vmess.users.isEmpty())
-        vmess.users << VMessServerObject::UserObject{};
-    vmess.users.front().security = securityCombo->itemText(arg1);
-}
-
-void VmessOutboundEditor::on_alterLineEdit_valueChanged(int arg1)
-{
-    if (vmess.users.isEmpty())
-        vmess.users << VMessServerObject::UserObject{};
-    vmess.users.front().alterId = arg1;
 }

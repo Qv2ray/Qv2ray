@@ -4,22 +4,22 @@ EventHandler::EventHandler()
 {
 }
 
-QvPlugin_EventHandler(EventHandler, ConnectionStats)
+void ProcessEvent(const ConnectionStats::EventObject &c)
 {
-    Q_UNUSED(pluginEvent);
+    Q_UNUSED(c)
 }
 
-QvPlugin_EventHandler(EventHandler, SystemProxy)
+void ProcessEvent(const Connectivity::EventObject &c)
 {
-    Q_UNUSED(pluginEvent);
+    Q_UNUSED(c)
 }
 
-QvPlugin_EventHandler(EventHandler, Connectivity)
+void ProcessEvent(const SystemProxy::EventObject &c)
 {
-    Q_UNUSED(pluginEvent);
+    Q_UNUSED(c)
 }
 
-QvPlugin_EventHandler(EventHandler, ConnectionEntry)
+void ProcessEvent(const ConnectionEntry::EventObject &c)
 {
-    Q_UNUSED(pluginEvent);
+    Q_UNUSED(c)
 }

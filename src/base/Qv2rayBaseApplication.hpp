@@ -49,7 +49,7 @@ namespace Qv2ray
         bool exitQv2ray;
         //
         QString _qvNewVersionPath;
-        JSONSTRUCT_REGISTER(Qv2rayStartupArguments, F(arguments, data, version, links, fullArgs, buildVersion))
+        QJS_PLAIN_JSON(arguments, data, version, links, fullArgs, buildVersion)
     };
 
     class Qv2rayApplicationInterface

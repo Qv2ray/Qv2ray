@@ -17,25 +17,25 @@ namespace Qv2ray::common::network
 
     void NetworkRequestHelper::setAccessManagerAttributes(QNetworkRequest &request, QNetworkAccessManager &accessManager)
     {
-        switch (GlobalConfig.networkConfig.proxyType)
+        switch (GlobalConfig.networkConfig().proxyType())
         {
-            case Qv2rayConfig_Network::QVPROXY_NONE:
+            case QVPROXY_NONE:
             {
                 DEBUG("Get without proxy.");
                 accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
                 break;
             }
-            case Qv2rayConfig_Network::QVPROXY_SYSTEM:
+            case QVPROXY_SYSTEM:
             {
                 accessManager.setProxy(QNetworkProxyFactory::systemProxyForQuery().first());
                 break;
             }
-            case Qv2rayConfig_Network::QVPROXY_CUSTOM:
+            case QVPROXY_CUSTOM:
             {
                 QNetworkProxy p{
-                    GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
-                    GlobalConfig.networkConfig.address,                                                                //
-                    quint16(GlobalConfig.networkConfig.port)                                                           //
+                    GlobalConfig.networkConfig().type() == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
+                    GlobalConfig.networkConfig().address(),                                                                //
+                    quint16(GlobalConfig.networkConfig().port())                                                           //
                 };
                 accessManager.setProxy(p);
                 break;
@@ -57,7 +57,7 @@ namespace Qv2ray::common::network
         // request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
 #endif
 
-        auto ua = GlobalConfig.networkConfig.userAgent;
+        auto ua = GlobalConfig.networkConfig().userAgent();
         ua.replace("$VERSION", QV2RAY_VERSION_STRING);
         request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, ua);
     }

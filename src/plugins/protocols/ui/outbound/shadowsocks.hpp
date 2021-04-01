@@ -15,24 +15,22 @@ class ShadowsocksOutboundEditor
 
     void SetHostAddress(const QString &addr, int port) override
     {
-        shadowsocks.address = addr;
-        shadowsocks.port = port;
+        shadowsocks.set_address(addr);
+        shadowsocks.set_port(port);
     };
     QPair<QString, int> GetHostAddress() const override
     {
-        return { shadowsocks.address, shadowsocks.port };
+        return { shadowsocks.address(), shadowsocks.port() };
     };
 
     void SetContent(const QJsonObject &content) override
     {
-        PLUGIN_EDITOR_LOADING_SCOPE({
-            if (content["servers"].toArray().isEmpty())
-                content["servers"] = QJsonArray{ QJsonObject{} };
-            // ShadowSocks Configs
-            shadowsocks = ShadowSocksServerObject::fromJson(content["servers"].toArray().first().toObject());
-            ss_passwordTxt->setText(shadowsocks.password);
-            ss_encryptionMethod->setCurrentText(shadowsocks.method);
-        })
+        if (content["servers"].toArray().isEmpty())
+            content["servers"] = QJsonArray{ QJsonObject{} };
+        QJS_CLEAR_BINDINGS
+        shadowsocks.loadJson(content["servers"].toArray().first().toObject());
+        QJS_RWBINDING(shadowsocks, method, ss_encryptionMethod, currentText, &QComboBox::currentTextChanged)
+        QJS_RWBINDING(shadowsocks, password, ss_passwordTxt, text, &QLineEdit::textEdited)
     }
     const QJsonObject GetContent() const override
     {
@@ -46,10 +44,7 @@ class ShadowsocksOutboundEditor
   protected:
     void changeEvent(QEvent *e) override;
 
-  private slots:
-    void on_ss_encryptionMethod_currentTextChanged(const QString &arg1);
-    void on_ss_passwordTxt_textEdited(const QString &arg1);
-
   private:
     ShadowSocksServerObject shadowsocks;
+    QJS_BINDING_HELPERS
 };

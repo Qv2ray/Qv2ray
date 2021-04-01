@@ -13,33 +13,38 @@ const OutboundInfoObject BuiltinSerializer::GetOutboundInfo(const QString &proto
     obj[INFO_PROTOCOL] = protocol;
     if (protocol == "http")
     {
-        const auto http = HttpServerObject::fromJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = http.address;
-        obj[INFO_PORT] = http.port;
+        HttpServerObject http;
+        http.loadJson(outbound["servers"].toArray().first());
+        obj[INFO_SERVER] = http.address();
+        obj[INFO_PORT] = http.port();
     }
     else if (protocol == "socks")
     {
-        const auto socks = SocksServerObject::fromJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = socks.address;
-        obj[INFO_PORT] = socks.port;
+        SocksServerObject socks;
+        socks.loadJson(outbound["servers"].toArray().first());
+        obj[INFO_SERVER] = socks.address();
+        obj[INFO_PORT] = socks.port();
     }
     else if (protocol == "vmess")
     {
-        const auto vmess = VMessServerObject::fromJson(outbound["vnext"].toArray().first());
-        obj[INFO_SERVER] = vmess.address;
-        obj[INFO_PORT] = vmess.port;
+        VMessServerObject vmess;
+        vmess.loadJson(outbound["vnext"].toArray().first());
+        obj[INFO_SERVER] = vmess.address();
+        obj[INFO_PORT] = vmess.port();
     }
     else if (protocol == "vless")
     {
-        const auto vless = VLESSServerObject::fromJson(outbound["vnext"].toArray().first());
-        obj[INFO_SERVER] = vless.address;
-        obj[INFO_PORT] = vless.port;
+        VLESSServerObject vless;
+        vless.loadJson(outbound["vnext"].toArray().first());
+        obj[INFO_SERVER] = vless.address();
+        obj[INFO_PORT] = vless.port();
     }
     else if (protocol == "shadowsocks")
     {
-        const auto ss = ShadowSocksServerObject::fromJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = ss.address;
-        obj[INFO_PORT] = ss.port;
+        ShadowSocksServerObject ss;
+        ss.loadJson(outbound["servers"].toArray().first());
+        obj[INFO_SERVER] = ss.address();
+        obj[INFO_PORT] = ss.port();
     }
     return obj;
 }

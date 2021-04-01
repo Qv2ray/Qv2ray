@@ -1104,6 +1104,18 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <source>Copy selected.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Bypass CN Mainland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Bypassing CN Mainland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Bypassing CN Mainland</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OutboundEditor</name>
@@ -1816,14 +1828,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>Dokodemo Door Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable Sniffing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use Fake DNS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2760,6 +2764,18 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Matcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal Perfect Hash Matcher</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

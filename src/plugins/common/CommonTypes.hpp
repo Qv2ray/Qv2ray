@@ -13,84 +13,92 @@
 
 struct HTTPSOCKSUserObject
 {
-    QString user;
-    QString pass;
-    int level = 0;
-    JSONSTRUCT_COMPARE(HTTPSOCKSUserObject, user, pass, level)
-    JSONSTRUCT_REGISTER(HTTPSOCKSUserObject, F(user, pass, level))
+    Q_GADGET
+    QJS_CONSTRUCTOR(HTTPSOCKSUserObject)
+    QJS_PROP(QString, user)
+    QJS_PROP(QString, pass)
+    QJS_PROP(int, level)
+    QJS_FUNCTION(F(user, pass, level))
 };
 //
 // Socks, OutBound
 struct SocksServerObject
 {
-    QString address = "0.0.0.0";
-    int port = 0;
-    QList<HTTPSOCKSUserObject> users;
-    JSONSTRUCT_COMPARE(SocksServerObject, address, port, users)
-    JSONSTRUCT_REGISTER(SocksServerObject, F(address, port, users))
+    Q_GADGET
+    QJS_CONSTRUCTOR(SocksServerObject)
+    QJS_PROP_D(QString, address, "0.0.0.0")
+    QJS_PROP_D(int, port, 0)
+    QJS_PROP(QList<HTTPSOCKSUserObject>, users)
+    QJS_FUNCTION(F(address, port, users))
 };
 
 //
 // Http, OutBound
 struct HttpServerObject
 {
-    QString address = "0.0.0.0";
-    int port = 0;
-    QList<HTTPSOCKSUserObject> users;
-    JSONSTRUCT_COMPARE(HttpServerObject, address, port, users)
-    JSONSTRUCT_REGISTER(HttpServerObject, F(address, port, users))
+    Q_GADGET
+    QJS_CONSTRUCTOR(HttpServerObject)
+    QJS_PROP_D(QString, address, "0.0.0.0")
+    QJS_PROP_D(int, port, 0)
+    QJS_PROP(QList<HTTPSOCKSUserObject>, users)
+    QJS_FUNCTION(F(address, port, users))
 };
 
 //
 // ShadowSocks Server
 struct ShadowSocksServerObject
 {
-    QString address = "0.0.0.0";
-    QString method = "aes-256-gcm";
-    QString password;
-    int port = 0;
-    JSONSTRUCT_COMPARE(ShadowSocksServerObject, address, method, password)
-    JSONSTRUCT_REGISTER(ShadowSocksServerObject, A(method), F(address, port, password))
+    Q_GADGET
+    QJS_CONSTRUCTOR(ShadowSocksServerObject)
+    QJS_PROP_D(QString, address, "0.0.0.0")
+    QJS_PROP_D(int, port, 0)
+    QJS_PROP_D(QString, method, "aes-256-gcm")
+    QJS_PROP(QString, password)
+    QJS_FUNCTION(F(address, method, password, port))
+};
+
+struct VLESSUserObject
+{
+    Q_GADGET
+    QJS_CONSTRUCTOR(VLESSUserObject)
+    QJS_PROP_D(QString, encryption, "none");
+    QJS_PROP(QString, id)
+    QJS_PROP(QString, flow);
+    QJS_FUNCTION(F(encryption, id, flow))
 };
 
 //
 // VLESS Server
 struct VLESSServerObject
 {
-    struct UserObject
-    {
-        QString id;
-        QString encryption = "none";
-        QString flow;
-        JSONSTRUCT_COMPARE(UserObject, id, encryption, flow)
-        JSONSTRUCT_REGISTER(UserObject, A(encryption), F(id, flow))
-    };
+    Q_GADGET
+    QJS_CONSTRUCTOR(VLESSServerObject)
+    QJS_PROP_D(QString, address, "0.0.0.0")
+    QJS_PROP_D(int, port, 0)
+    QJS_PROP(QList<VLESSUserObject>, users)
+    QJS_FUNCTION(F(address, port, users))
+};
 
-    QString address;
-    int port = 0;
-    QList<UserObject> users;
-    JSONSTRUCT_COMPARE(VLESSServerObject, address, port, users)
-    JSONSTRUCT_REGISTER(VLESSServerObject, F(address, port, users))
+constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;
+struct VMessUserObject
+{
+    Q_GADGET
+    QJS_CONSTRUCTOR(VMessUserObject)
+    QJS_PROP_D(int, alterId, VMESS_USER_ALTERID_DEFAULT)
+    QJS_PROP_D(QString, security, "auto")
+    QJS_PROP_D(int, level, 0)
+    QJS_PROP(QString, id, REQUIRED)
+    QJS_FUNCTION(F(id, alterId, security, level))
 };
 
 //
 // VMess Server
-constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;
 struct VMessServerObject
 {
-    struct UserObject
-    {
-        QString id;
-        int alterId = VMESS_USER_ALTERID_DEFAULT;
-        QString security = "auto";
-        int level = 0;
-        JSONSTRUCT_COMPARE(UserObject, id, alterId, security, level)
-        JSONSTRUCT_REGISTER(UserObject, F(id, alterId, security, level))
-    };
-
-    QString address;
-    int port = 0;
-    QList<UserObject> users;
-    JSONSTRUCT_COMPARE(VMessServerObject, address, port, users)
-    JSONSTRUCT_REGISTER(VMessServerObject, F(address, port, users))
+    Q_GADGET
+    QJS_CONSTRUCTOR(VMessServerObject)
+    QJS_PROP_D(QString, address, "0.0.0.0", REQUIRED)
+    QJS_PROP_D(int, port, 0, REQUIRED)
+    QJS_PROP(QList<VMessUserObject>, users)
+    QJS_FUNCTION(F(address, port, users))
 };

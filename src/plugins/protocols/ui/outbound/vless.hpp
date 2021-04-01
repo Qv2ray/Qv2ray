@@ -15,28 +15,26 @@ class VlessOutboundEditor
 
     void SetHostAddress(const QString &addr, int port) override
     {
-        vless.address = addr;
-        vless.port = port;
+        vless.set_address(addr);
+        vless.set_port(port);
     }
     QPair<QString, int> GetHostAddress() const override
     {
-        return { vless.address, vless.port };
+        return { vless.address(), vless.port() };
     }
 
     void SetContent(const QJsonObject &content) override
     {
         this->content = content;
-        PLUGIN_EDITOR_LOADING_SCOPE({
-            if (content["vnext"].toArray().isEmpty())
-                content["vnext"] = QJsonArray{ QJsonObject{} };
-            vless = VLESSServerObject::fromJson(content["vnext"].toArray().first().toObject());
-            if (vless.users.isEmpty())
-                vless.users.push_back({});
-            const auto &user = vless.users.front();
-            vLessIDTxt->setText(user.id);
-            vLessSecurityCombo->setCurrentText(user.encryption);
-            flowCombo->setCurrentText(user.flow);
-        })
+        if (content["vnext"].toArray().isEmpty())
+            content["vnext"] = QJsonArray{ QJsonObject{} };
+        QJS_CLEAR_BINDINGS
+        vless.loadJson(content["vnext"].toArray().first().toObject());
+        if (vless.users().isEmpty())
+            vless.users().push_back({});
+        QJS_RWBINDING(vless.users().first(), encryption, vLessSecurityCombo, currentText, &QComboBox::currentIndexChanged)
+        QJS_RWBINDING(vless.users().first(), flow, flowCombo, currentText, &QComboBox::currentIndexChanged)
+        QJS_RWBINDING(vless.users().first(), id, vLessIDTxt, text, &QLineEdit::textEdited)
     }
 
     const QJsonObject GetContent() const override
@@ -53,9 +51,5 @@ class VlessOutboundEditor
 
   private:
     VLESSServerObject vless;
-
-  private slots:
-    void on_flowCombo_currentTextChanged(const QString &arg1);
-    void on_vLessIDTxt_textEdited(const QString &arg1);
-    void on_vLessSecurityCombo_currentTextChanged(const QString &arg1);
+    QJS_BINDING_HELPERS
 };

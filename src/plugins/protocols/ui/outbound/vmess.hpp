@@ -15,13 +15,13 @@ class VmessOutboundEditor
 
     void SetHostAddress(const QString &addr, int port) override
     {
-        vmess.address = addr;
-        vmess.port = port;
+        vmess.set_address(addr);
+        vmess.set_port(port);
     }
 
     QPair<QString, int> GetHostAddress() const override
     {
-        return { vmess.address, vmess.port };
+        return { vmess.address(), vmess.port() };
     }
 
     void SetContent(const QJsonObject &content) override;
@@ -36,12 +36,8 @@ class VmessOutboundEditor
 
   private:
     VMessServerObject vmess;
+    QJS_BINDING_HELPERS
 
   protected:
     void changeEvent(QEvent *e) override;
-
-  private slots:
-    void on_idLineEdit_textEdited(const QString &arg1);
-    void on_securityCombo_currentIndexChanged(int arg1);
-    void on_alterLineEdit_valueChanged(int arg1);
 };

@@ -16,17 +16,3 @@ void SocksOutboundEditor::changeEvent(QEvent *e)
         default: break;
     }
 }
-
-void SocksOutboundEditor::on_socks_UserNameTxt_textEdited(const QString &arg1)
-{
-    if (socks.users.isEmpty())
-        socks.users << HTTPSOCKSUserObject{};
-    socks.users.front().user = arg1;
-}
-
-void SocksOutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
-{
-    if (socks.users.isEmpty())
-        socks.users << HTTPSOCKSUserObject{};
-    socks.users.front().pass = arg1;
-}
