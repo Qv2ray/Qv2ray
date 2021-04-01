@@ -390,6 +390,7 @@ void PreferencesWindow::on_buttonBox_accepted()
             StyleManager->ApplyStyle(CurrentConfig.uiConfig.theme);
         }
         GlobalConfig.loadJson(CurrentConfig.toJson());
+        SaveGlobalSettings();
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
         if (NeedRestart && !KernelInstance->CurrentConnection().isEmpty())
         {
@@ -404,7 +405,7 @@ void PreferencesWindow::on_buttonBox_accepted()
                 this->setEnabled(false);
             }
         }
-        emit accept();
+        accept();
     }
 }
 
