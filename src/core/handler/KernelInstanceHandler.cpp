@@ -272,8 +272,8 @@ namespace Qv2ray::core::handler
     void KernelInstanceHandler::OnPluginKernelLog_p(const QString &log)
     {
         if (pluginLogPrefixPadding <= 0)
-            for (const auto &protocol : activeKernels)
-                pluginLogPrefixPadding = std::max(pluginLogPrefixPadding, protocol.second.get()->GetKernelName().length());
+            for (const auto &[_, kernel] : activeKernels)
+                pluginLogPrefixPadding = std::max(pluginLogPrefixPadding, kernel->GetKernelName().length());
 
         const auto kernel = static_cast<PluginKernel *>(sender());
         const auto name = kernel ? kernel->GetKernelName() : "UNKNOWN";
@@ -284,7 +284,9 @@ namespace Qv2ray::core::handler
     void KernelInstanceHandler::OnV2RayKernelLog_p(const QString &log)
     {
         for (auto line : SplitLines(log))
-            emitLogMessage(line.replace(QRegularExpression{ "> v2ray\\.com\\/" }, "\r\n    > v2ray.com/").trimmed());
+            emitLogMessage(line.replace(QRegularExpression{ R"(> github.com\/v2fly\/v2ray-core)" }, "\r\n    > core::")
+                               .replace(QRegularExpression{ R"(github.com\/v2fly\/v2ray-core)" }, "core::")
+                               .trimmed());
     }
 
     void KernelInstanceHandler::StopConnection()
