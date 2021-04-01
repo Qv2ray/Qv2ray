@@ -135,7 +135,7 @@ namespace Qv2ray::base
     struct SubscriptionConfigObject
     {
         QString address;
-        QString type = "simple_base64";
+        QString type = "sip008";
         float updateInterval = 10;
         QList<QString> IncludeKeywords;
         QList<QString> ExcludeKeywords;
