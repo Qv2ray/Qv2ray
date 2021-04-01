@@ -2714,35 +2714,35 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Add Inbound</source>
-      <translation type="unfinished">Add Inbound</translation>
+      <translation>添加入站</translation>
     </message>
     <message>
       <source>Add Inbound from Global Settings</source>
-      <translation type="unfinished">Add Inbound from Global Settings</translation>
+      <translation>从全局设置中添加输入</translation>
     </message>
     <message>
       <source>Import Outbound</source>
-      <translation type="unfinished">Import Outbound</translation>
+      <translation>导出导出</translation>
     </message>
     <message>
       <source>Add Outbound</source>
-      <translation type="unfinished">Add Outbound</translation>
+      <translation>添加出站</translation>
     </message>
     <message>
       <source>Add Blackhole Outbound</source>
-      <translation type="unfinished">Add Blackhole Outbound</translation>
+      <translation>添加黑洞出站</translation>
     </message>
     <message>
       <source>Add Freedom Outbound</source>
-      <translation type="unfinished">Add Freedom Outbound</translation>
+      <translation>添加自由出站</translation>
     </message>
     <message>
       <source>Add Balancer</source>
-      <translation type="unfinished">Add Balancer</translation>
+      <translation>添加平衡器</translation>
     </message>
     <message>
       <source>Add Proxy Chain</source>
-      <translation type="unfinished">Add Proxy Chain</translation>
+      <translation>添加代理链接</translation>
     </message>
     <message>
       <source>Group</source>
@@ -2750,15 +2750,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Connection</source>
-      <translation type="unfinished">Connection</translation>
+      <translation>连接</translation>
     </message>
     <message>
       <source>Copy Connection</source>
-      <translation type="unfinished">Copy Connection</translation>
+      <translation>复制连接</translation>
     </message>
     <message>
       <source>Reference Connection</source>
-      <translation type="unfinished">Reference Connection</translation>
+      <translation>引用连接</translation>
     </message>
   </context>
   <context>
