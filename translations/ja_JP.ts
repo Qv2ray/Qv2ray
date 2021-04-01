@@ -3743,7 +3743,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>MainWindowWidget</name>
     <message>
       <source>Qv2ray Utilities</source>
-      <translation type="unfinished">Qv2ray Utilities</translation>
+      <translation>Qv2ray ユーティリティ</translation>
     </message>
   </context>
 </TS>
