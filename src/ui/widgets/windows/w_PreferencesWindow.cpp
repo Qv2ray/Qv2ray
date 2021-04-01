@@ -885,6 +885,7 @@ void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_tproxyGroupBox_toggled(bool arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.useTPROXY = arg1;
     tproxyOverrideHTTPCB->setEnabled(arg1 && CurrentConfig.inboundConfig.tProxySettings.sniffing);
@@ -894,24 +895,28 @@ void PreferencesWindow::on_tproxyGroupBox_toggled(bool arg1)
 
 void PreferencesWindow::on_tProxyPort_valueChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.port = arg1;
 }
 
 void PreferencesWindow::on_tproxyEnableTCP_toggled(bool checked)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.hasTCP = checked;
 }
 
 void PreferencesWindow::on_tproxyEnableUDP_toggled(bool checked)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.hasUDP = checked;
 }
 
 void PreferencesWindow::on_tproxySniffingCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.sniffing = arg1 == Qt::Checked;
     tproxySniffingMetadataOnlyCB->setEnabled(arg1 == Qt::Checked);
@@ -966,17 +971,20 @@ void PreferencesWindow::on_tproxyListenV6Addr_textEdited(const QString &arg1)
 
 void PreferencesWindow::on_jumpListCountSB_valueChanged(int arg1)
 {
+    LOADINGCHECK
     CurrentConfig.uiConfig.maxJumpListCount = arg1;
 }
 
 void PreferencesWindow::on_outboundMark_valueChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.outboundConfig.mark = arg1;
 }
 
 void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept = checked;
 }
@@ -1010,12 +1018,14 @@ void PreferencesWindow::on_qvProxyNoProxy_clicked()
 
 void PreferencesWindow::on_dnsFreedomCb_stateChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.defaultRouteConfig.connectionConfig.v2rayFreedomDNS = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_httpSniffingCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.httpSettings.sniffing = arg1 == Qt::Checked;
     httpSniffingMetadataOnly->setEnabled(arg1 == Qt::Checked);
@@ -1026,6 +1036,7 @@ void PreferencesWindow::on_httpSniffingCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_httpOverrideHTTPCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.httpSettings.destOverride.removeAll("http");
@@ -1035,6 +1046,7 @@ void PreferencesWindow::on_httpOverrideHTTPCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_httpOverrideTLSCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.httpSettings.destOverride.removeAll("tls");
@@ -1044,6 +1056,7 @@ void PreferencesWindow::on_httpOverrideTLSCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_socksSniffingCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.socksSettings.sniffing = arg1 == Qt::Checked;
     socksSniffingMetadataOnly->setEnabled(arg1 == Qt::Checked);
@@ -1054,6 +1067,7 @@ void PreferencesWindow::on_socksSniffingCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_socksOverrideHTTPCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.socksSettings.destOverride.removeAll("http");
@@ -1063,6 +1077,7 @@ void PreferencesWindow::on_socksOverrideHTTPCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_socksOverrideTLSCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     NEEDRESTART
     if (arg1 != Qt::Checked)
         CurrentConfig.inboundConfig.socksSettings.destOverride.removeAll("tls");
@@ -1209,18 +1224,21 @@ void PreferencesWindow::on_startMinimizedCB_stateChanged(int arg1)
 void PreferencesWindow::on_httpSniffingMetadataOnly_stateChanged(int arg1)
 {
     LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.inboundConfig.httpSettings.metadataOnly = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_socksSniffingMetadataOnly_stateChanged(int arg1)
 {
     LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.inboundConfig.socksSettings.metadataOnly = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_tproxySniffingMetadataOnlyCB_stateChanged(int arg1)
 {
     LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.inboundConfig.tProxySettings.metadataOnly = arg1 == Qt::Checked;
 }
 
