@@ -3756,4 +3756,11 @@ Maybe you have downloaded the wrong core?</translation>
       <translation type="unfinished">Inbound Tag</translation>
     </message>
   </context>
+  <context>
+    <name>MainWindowWidget</name>
+    <message>
+      <source>Qv2ray Utilities</source>
+      <translation type="unfinished">Qv2ray Utilities</translation>
+    </message>
+  </context>
 </TS>
