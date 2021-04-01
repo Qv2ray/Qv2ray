@@ -1224,14 +1224,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>插件无设置组件。</translation>
     </message>
     <message>
-      <source>Disabling a plugin</source>
-      <translation>禁用插件</translation>
-    </message>
-    <message>
-      <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation>重启前插件会保持活动。</translation>
-    </message>
-    <message>
       <source>Plugin not loaded</source>
       <translation>插件未加载</translation>
     </message>
@@ -2577,22 +2569,6 @@ Maybe you have downloaded the wrong core?</source>
       <translation>路由编辑器</translation>
     </message>
     <message>
-      <source>Add outbound</source>
-      <translation>添加出站</translation>
-    </message>
-    <message>
-      <source>Add default inbound from global config</source>
-      <translation>从全局配置中添加默认的入站设置</translation>
-    </message>
-    <message>
-      <source>Add blackhole outbound</source>
-      <translation>添加黑洞出站</translation>
-    </message>
-    <message>
-      <source>Add Freedom outbound</source>
-      <translation>添加自由出站</translation>
-    </message>
-    <message>
       <source>Protocol</source>
       <translation>协议</translation>
     </message>
@@ -2735,6 +2711,54 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>(All Connections)</source>
       <translation>(所有连接)</translation>
+    </message>
+    <message>
+      <source>Add Inbound</source>
+      <translation type="unfinished">Add Inbound</translation>
+    </message>
+    <message>
+      <source>Add Inbound from Global Settings</source>
+      <translation type="unfinished">Add Inbound from Global Settings</translation>
+    </message>
+    <message>
+      <source>Import Outbound</source>
+      <translation type="unfinished">Import Outbound</translation>
+    </message>
+    <message>
+      <source>Add Outbound</source>
+      <translation type="unfinished">Add Outbound</translation>
+    </message>
+    <message>
+      <source>Add Blackhole Outbound</source>
+      <translation type="unfinished">Add Blackhole Outbound</translation>
+    </message>
+    <message>
+      <source>Add Freedom Outbound</source>
+      <translation type="unfinished">Add Freedom Outbound</translation>
+    </message>
+    <message>
+      <source>Add Balancer</source>
+      <translation type="unfinished">Add Balancer</translation>
+    </message>
+    <message>
+      <source>Add Proxy Chain</source>
+      <translation type="unfinished">Add Proxy Chain</translation>
+    </message>
+    <message>
+      <source>Group</source>
+      <translation>分组</translation>
+    </message>
+    <message>
+      <source>Connection</source>
+      <translation type="unfinished">Connection</translation>
+    </message>
+    <message>
+      <source>Copy Connection</source>
+      <translation type="unfinished">Copy Connection</translation>
+    </message>
+    <message>
+      <source>Reference Connection</source>
+      <translation type="unfinished">Reference Connection</translation>
     </message>
   </context>
   <context>
