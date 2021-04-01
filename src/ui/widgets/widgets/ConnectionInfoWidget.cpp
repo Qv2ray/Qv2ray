@@ -101,7 +101,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         QStringList shareLinks;
         for (const auto &connection : ConnectionManager->GetConnections(groupId))
         {
-            shareLinks << ConvertConfigToString({ connection, groupId }, !GlobalConfig.uiConfig.useOldShareLinkFormat);
+            shareLinks << ConvertConfigToString({ connection, groupId });
         }
         //
         auto complexCount = shareLinks.removeAll(QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER);

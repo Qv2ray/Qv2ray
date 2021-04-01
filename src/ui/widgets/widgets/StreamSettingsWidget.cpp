@@ -43,7 +43,6 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
 #define tls_xtls_process(prefix)                                                                                                                     \
     {                                                                                                                                                \
         serverNameTxt->setText(stream.prefix##Settings.serverName);                                                                                  \
-        allowInsecureCB->setChecked(stream.prefix##Settings.allowInsecure);                                                                          \
         disableSessionResumptionCB->setChecked(stream.prefix##Settings.disableSessionResumption);                                                    \
         disableSystemRoot->setChecked(stream.prefix##Settings.disableSystemRoot);                                                                    \
         alpnTxt->setText(stream.prefix##Settings.alpn.join("|"));                                                                                    \
@@ -287,12 +286,6 @@ void StreamSettingsWidget::on_serverNameTxt_textEdited(const QString &arg1)
 {
     stream.tlsSettings.serverName = arg1.trimmed();
     stream.xtlsSettings.serverName = arg1.trimmed();
-}
-
-void StreamSettingsWidget::on_allowInsecureCB_stateChanged(int arg1)
-{
-    stream.tlsSettings.allowInsecure = arg1 == Qt::Checked;
-    stream.xtlsSettings.allowInsecure = arg1 == Qt::Checked;
 }
 
 void StreamSettingsWidget::on_disableSessionResumptionCB_stateChanged(int arg1)

@@ -102,7 +102,7 @@ namespace Qv2ray::core::connection
             return root;
         }
 
-        const QString Serialize(const ShadowSocksServerObject &server, const QString &alias, bool)
+        const QString Serialize(const ShadowSocksServerObject &server, const QString &alias)
         {
             QUrl url;
             const auto plainUserInfo = server.method + ":" + server.password;

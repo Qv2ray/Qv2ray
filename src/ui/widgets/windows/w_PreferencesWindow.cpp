@@ -94,7 +94,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
-    useOldShareLinkFormatCB->setChecked(CurrentConfig.uiConfig.useOldShareLinkFormat);
+    //    useOldShareLinkFormatCB->setChecked(CurrentConfig.uiConfig.useOldShareLinkFormat);
     startMinimizedCB->setChecked(CurrentConfig.uiConfig.startMinimized);
     startMinimizedCB->setEnabled(CurrentConfig.autoStartBehavior != AUTO_CONNECTION_NONE);
     //
@@ -210,10 +210,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
         qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
         qvNetworkUATxt->setEditText(CurrentConfig.networkConfig.userAgent);
         //
-        qvProxyNoProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_NONE);
-        qvProxySystemProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_SYSTEM);
-        qvProxyCustomProxy->setChecked(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_CUSTOM);
-        SET_PROXY_UI_ENABLE(CurrentConfig.networkConfig.proxyType == Qv2rayConfig_Network::QVPROXY_CUSTOM)
+        qvProxyNoProxy->setChecked(CurrentConfig.networkConfig.proxyType == QVPROXY_NONE);
+        qvProxySystemProxy->setChecked(CurrentConfig.networkConfig.proxyType == QVPROXY_SYSTEM);
+        qvProxyCustomProxy->setChecked(CurrentConfig.networkConfig.proxyType == QVPROXY_CUSTOM);
+        SET_PROXY_UI_ENABLE(CurrentConfig.networkConfig.proxyType == QVPROXY_CUSTOM)
     }
     //
     //
@@ -811,7 +811,7 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
 void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
 {
     LOADINGCHECK
-    CurrentConfig.updateConfig.updateChannel = (Qv2rayConfig_Update::UpdateChannel) index;
+    CurrentConfig.updateConfig.updateChannel = (Qv2rayUpdateChannel) index;
     CurrentConfig.updateConfig.ignoredVersion.clear();
 }
 
@@ -964,7 +964,7 @@ void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 
 void PreferencesWindow::on_qvProxyCustomProxy_clicked()
 {
-    CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_CUSTOM;
+    CurrentConfig.networkConfig.proxyType = QVPROXY_CUSTOM;
     SET_PROXY_UI_ENABLE(true);
     qvProxyNoProxy->setChecked(false);
     qvProxySystemProxy->setChecked(false);
@@ -973,7 +973,7 @@ void PreferencesWindow::on_qvProxyCustomProxy_clicked()
 
 void PreferencesWindow::on_qvProxySystemProxy_clicked()
 {
-    CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_SYSTEM;
+    CurrentConfig.networkConfig.proxyType = QVPROXY_SYSTEM;
     SET_PROXY_UI_ENABLE(false);
     qvProxyNoProxy->setChecked(false);
     qvProxyCustomProxy->setChecked(false);
@@ -982,7 +982,7 @@ void PreferencesWindow::on_qvProxySystemProxy_clicked()
 
 void PreferencesWindow::on_qvProxyNoProxy_clicked()
 {
-    CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_NONE;
+    CurrentConfig.networkConfig.proxyType = QVPROXY_NONE;
     SET_PROXY_UI_ENABLE(false);
     qvProxySystemProxy->setChecked(false);
     qvProxyCustomProxy->setChecked(false);
@@ -1167,7 +1167,7 @@ void PreferencesWindow::on_hasDirectStatisticsCB_stateChanged(int arg1)
 void PreferencesWindow::on_useOldShareLinkFormatCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    CurrentConfig.uiConfig.useOldShareLinkFormat = arg1 == Qt::Checked;
+    //    CurrentConfig.uiConfig.useOldShareLinkFormat = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_bypassPrivateCb_clicked(bool checked)

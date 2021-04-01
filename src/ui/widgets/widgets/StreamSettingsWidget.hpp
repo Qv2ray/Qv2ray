@@ -38,7 +38,6 @@ class StreamSettingsWidget
     void on_quicKeyTxt_textEdited(const QString &arg1);
     void on_quicSecurityCB_currentIndexChanged(int arg1);
 
-    void on_allowInsecureCB_stateChanged(int arg1);
     void on_alpnTxt_textEdited(const QString &arg1);
     void on_disableSessionResumptionCB_stateChanged(int arg1);
     void on_securityTypeCB_currentIndexChanged(int arg1);

@@ -14,8 +14,8 @@ namespace Qv2ray::core::connection::serialization
     const inline QString QV2RAY_SSD_DEFAULT_NAME_PATTERN = "%1 - %2 (rate %3)";
     QList<std::pair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
                                                                   QString *newGroupName = nullptr);
-    const QString ConvertConfigToString(const ConnectionGroupPair &id, bool isSip002 = true);
-    const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server, bool isSip002 = true);
+    const QString ConvertConfigToString(const ConnectionGroupPair &id);
+    const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server);
 
     namespace vmess
     {
@@ -37,7 +37,7 @@ namespace Qv2ray::core::connection::serialization
     namespace ss
     {
         CONFIGROOT Deserialize(const QString &ss, QString *alias, QString *errMessage);
-        const QString Serialize(const ShadowSocksServerObject &server, const QString &alias, bool isSip002);
+        const QString Serialize(const ShadowSocksServerObject &server, const QString &alias);
     } // namespace ss
 
     namespace ssd

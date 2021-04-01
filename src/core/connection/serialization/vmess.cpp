@@ -212,7 +212,7 @@ namespace Qv2ray::core::connection
             //
             // Apply the settings.
             // User
-            VMessServerObject::UserObject user;
+            VMessUserObject user;
             user.id = id;
             user.alterId = aid;
             //
@@ -269,7 +269,7 @@ namespace Qv2ray::core::connection
             if (tls == "tls" && host != "" && (net == "tcp" || net == "ws"))
             {
                 streaming.tlsSettings.serverName = host;
-                streaming.tlsSettings.allowInsecure = false;
+                // streaming.tlsSettings.allowInsecure = false;
             }
 
             streaming.security = tls;

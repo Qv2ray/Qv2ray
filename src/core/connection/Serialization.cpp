@@ -62,7 +62,7 @@ namespace Qv2ray::core::connection
             return connectionConf;
         }
 
-        const QString ConvertConfigToString(const ConnectionGroupPair &identifier, bool isSip002)
+        const QString ConvertConfigToString(const ConnectionGroupPair &identifier)
         {
             auto alias = GetDisplayName(identifier.connectionId);
             if (IsComplexConfig(identifier.connectionId))
@@ -70,10 +70,10 @@ namespace Qv2ray::core::connection
                 return QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER;
             }
             auto server = ConnectionManager->GetConnectionRoot(identifier.connectionId);
-            return ConvertConfigToString(alias, GetDisplayName(identifier.groupId), server, isSip002);
+            return ConvertConfigToString(alias, GetDisplayName(identifier.groupId), server);
         }
 
-        const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server, bool isSip002)
+        const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server)
         {
             const auto outbound = OUTBOUND(server["outbounds"].toArray().first().toObject());
             const auto type = outbound["protocol"].toString();
@@ -91,15 +91,12 @@ namespace Qv2ray::core::connection
             {
                 const auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
                 const auto transport = StreamSettingsObject::fromJson(streamSettings);
-                if (GlobalConfig.uiConfig.useOldShareLinkFormat)
-                    sharelink = vmess::Serialize(transport, vmessServer, alias);
-                else
-                    sharelink = vmess_new::Serialize(transport, vmessServer, alias);
+                sharelink = vmess_new::Serialize(transport, vmessServer, alias);
             }
             else if (type == "shadowsocks")
             {
                 auto ssServer = ShadowSocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
-                sharelink = ss::Serialize(ssServer, alias, isSip002);
+                sharelink = ss::Serialize(ssServer, alias);
             }
             else
             {

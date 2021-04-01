@@ -32,7 +32,7 @@ namespace Qv2ray::core::connection
             *alias = alias->isEmpty() ? name : (*alias + "_" + name);
 
             VMessServerObject server;
-            server.users << VMessServerObject::UserObject{};
+            server.users << VMessUserObject{};
 
             StreamSettingsObject stream;
             QString net;
@@ -119,7 +119,7 @@ namespace Qv2ray::core::connection
 #undef default
             if (tls)
             {
-                stream.tlsSettings.allowInsecure = !FalseTypes.contains(getQueryValue("allowInsecure", "false"));
+                // stream.tlsSettings.allowInsecure = !FalseTypes.contains(getQueryValue("allowInsecure", "false"));
                 stream.tlsSettings.serverName = getQueryValue("tlsServerName", "");
             }
             CONFIGROOT root;
@@ -183,8 +183,8 @@ namespace Qv2ray::core::connection
             auto protocol = stream.network;
             if (hasTLS)
             {
-                if (stream.tlsSettings.allowInsecure)
-                    query.addQueryItem("allowInsecure", "true");
+                // if (stream.tlsSettings.allowInsecure)
+                //    query.addQueryItem("allowInsecure", "true");
                 if (!stream.tlsSettings.serverName.isEmpty())
                     query.addQueryItem("tlsServerName", stream.tlsSettings.serverName);
                 protocol += "+tls";

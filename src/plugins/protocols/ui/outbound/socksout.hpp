@@ -21,7 +21,7 @@ class SocksOutboundEditor
 
     QPair<QString, int> GetHostAddress() const override
     {
-        return { socks.address(), socks.port() };
+        return { socks.address, socks.port };
     }
 
     void SetContent(const QJsonObject &source) override
@@ -32,14 +32,14 @@ class SocksOutboundEditor
         const auto content = servers.first().toObject();
         QJS_CLEAR_BINDINGS
         socks.loadJson(content);
-        QJS_RWBINDING(socks.users().first(), user, socks_UserNameTxt, text, &QLineEdit::textEdited)
-        QJS_RWBINDING(socks.users().first(), pass, socks_PasswordTxt, text, &QLineEdit::textEdited)
+        QJS_RWBINDING(socks.users.first(), user, socks_UserNameTxt, text, &QLineEdit::textEdited)
+        QJS_RWBINDING(socks.users.first(), pass, socks_PasswordTxt, text, &QLineEdit::textEdited)
     }
 
     const QJsonObject GetContent() const override
     {
         auto result = socks.toJson();
-        if (socks.users().isEmpty() || (socks.users().first().user().isEmpty() && socks.users().first().pass().isEmpty()))
+        if (socks.users.isEmpty() || (socks.users.first().user.isEmpty() && socks.users.first().pass.isEmpty()))
             result.remove("users");
         return QJsonObject{ { "servers", QJsonArray{ result } } };
     }

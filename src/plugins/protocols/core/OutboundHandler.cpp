@@ -15,36 +15,36 @@ const OutboundInfoObject BuiltinSerializer::GetOutboundInfo(const QString &proto
     {
         HttpServerObject http;
         http.loadJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = http.address();
-        obj[INFO_PORT] = http.port();
+        obj[INFO_SERVER] = http.address;
+        obj[INFO_PORT] = http.port;
     }
     else if (protocol == "socks")
     {
         SocksServerObject socks;
         socks.loadJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = socks.address();
-        obj[INFO_PORT] = socks.port();
+        obj[INFO_SERVER] = socks.address;
+        obj[INFO_PORT] = socks.port;
     }
     else if (protocol == "vmess")
     {
         VMessServerObject vmess;
         vmess.loadJson(outbound["vnext"].toArray().first());
-        obj[INFO_SERVER] = vmess.address();
-        obj[INFO_PORT] = vmess.port();
+        obj[INFO_SERVER] = vmess.address;
+        obj[INFO_PORT] = vmess.port;
     }
     else if (protocol == "vless")
     {
         VLESSServerObject vless;
         vless.loadJson(outbound["vnext"].toArray().first());
-        obj[INFO_SERVER] = vless.address();
-        obj[INFO_PORT] = vless.port();
+        obj[INFO_SERVER] = vless.address;
+        obj[INFO_PORT] = vless.port;
     }
     else if (protocol == "shadowsocks")
     {
         ShadowSocksServerObject ss;
         ss.loadJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = ss.address();
-        obj[INFO_PORT] = ss.port();
+        obj[INFO_SERVER] = ss.address;
+        obj[INFO_PORT] = ss.port;
     }
     return obj;
 }

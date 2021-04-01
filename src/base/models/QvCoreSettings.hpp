@@ -12,7 +12,7 @@ namespace Qv2ray::base::config
         QJS_PROP(QList<QString>, block)
         QJS_PROP(QList<QString>, proxy)
         QvRouteConfig_Impl(const QList<QString> &_direct, const QList<QString> &_block, const QList<QString> &_proxy)
-            : _direct(_direct), _block(_block), _proxy(_proxy){};
+            : direct(_direct), block(_block), proxy(_proxy){};
         QJS_FUNCTION(F(proxy, block, direct))
     };
 
@@ -25,7 +25,7 @@ namespace Qv2ray::base::config
         QJS_PROP(QvRouteConfig_Impl, domains, REQUIRED);
         QJS_PROP(QvRouteConfig_Impl, ips, REQUIRED);
         QvConfig_Route(const QvRouteConfig_Impl &_domains, const QvRouteConfig_Impl &_ips, const QString &ds)
-            : _domainStrategy(ds), _domains(_domains), _ips(_ips){};
+            : domainStrategy(ds), domains(_domains), ips(_ips){};
         QJS_FUNCTION(F(domainStrategy, domainMatcher, domains, ips))
     };
 
@@ -78,11 +78,12 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_ProtocolInboundBase
     {
         Q_GADGET
+        const QList<QString> default_destOverride{ "http", "tls" };
         QJS_CONSTRUCTOR(Qv2rayConfig_ProtocolInboundBase)
         QJS_PROP_D(int, port, 0)
         QJS_PROP_D(bool, useAuth, false);
         QJS_PROP_D(bool, sniffing, false);
-        QJS_PROP_D(QList<QString>, destOverride, QList<QString>("http", "tls"));
+        QJS_PROP_D(QList<QString>, destOverride, default_destOverride);
         QJS_PROP(objects::AccountObject, account);
         QJS_PROP(bool, metadataOnly);
         QJS_FUNCTION(F(port, useAuth, sniffing, destOverride, account, metadataOnly))

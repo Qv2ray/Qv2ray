@@ -173,7 +173,7 @@ void DnsSettingsWidget::on_dnsTagTxt_textEdited(const QString &arg1)
 }
 void DnsSettingsWidget::on_addServerBtn_clicked()
 {
-    DNSObject::DNSServerObject o;
+    DNSServerObject o;
     o.address = "1.1.1.1";
     o.port = 53;
     dns.servers.push_back(o);

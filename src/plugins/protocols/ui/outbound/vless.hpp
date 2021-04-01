@@ -20,7 +20,7 @@ class VlessOutboundEditor
     }
     QPair<QString, int> GetHostAddress() const override
     {
-        return { vless.address(), vless.port() };
+        return { vless.address, vless.port };
     }
 
     void SetContent(const QJsonObject &content) override
@@ -30,11 +30,11 @@ class VlessOutboundEditor
             content["vnext"] = QJsonArray{ QJsonObject{} };
         QJS_CLEAR_BINDINGS
         vless.loadJson(content["vnext"].toArray().first().toObject());
-        if (vless.users().isEmpty())
-            vless.users().push_back({});
-        QJS_RWBINDING(vless.users().first(), encryption, vLessSecurityCombo, currentText, &QComboBox::currentIndexChanged)
-        QJS_RWBINDING(vless.users().first(), flow, flowCombo, currentText, &QComboBox::currentIndexChanged)
-        QJS_RWBINDING(vless.users().first(), id, vLessIDTxt, text, &QLineEdit::textEdited)
+        if (vless.users.isEmpty())
+            vless.users.push_back({});
+        QJS_RWBINDING(vless.users.first(), encryption, vLessSecurityCombo, currentText, &QComboBox::currentIndexChanged)
+        QJS_RWBINDING(vless.users.first(), flow, flowCombo, currentText, &QComboBox::currentIndexChanged)
+        QJS_RWBINDING(vless.users.first(), id, vLessIDTxt, text, &QLineEdit::textEdited)
     }
 
     const QJsonObject GetContent() const override

@@ -107,7 +107,7 @@ namespace Qv2ray::base::config
         inline const QString KernelPath(const QString &path = "")
         {
             if (path.isEmpty())
-                return VARNAME_VCOREPATH();
+                return VARNAME_VCOREPATH;
 
             SET(VARNAME_VCOREPATH)(path);
             return path;
@@ -115,7 +115,7 @@ namespace Qv2ray::base::config
         inline const QString AssetsPath(const QString &path = "")
         {
             if (path.isEmpty())
-                return VARNAME_VASSETSPATH();
+                return VARNAME_VASSETSPATH;
 
             SET(VARNAME_VASSETSPATH)(path);
             return path;

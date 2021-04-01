@@ -58,7 +58,7 @@ namespace Qv2ray::base
         Q_GADGET
       public:
         QJS_CONSTRUCTOR(ConnectionGroupPair)
-        ConnectionGroupPair(const ConnectionId &conn, const GroupId &group) : _connectionId(conn), _groupId(group){};
+        ConnectionGroupPair(const ConnectionId &conn, const GroupId &group) : connectionId(conn), groupId(group){};
 
         QJS_PROP_D(ConnectionId, connectionId, NullConnectionId)
         QJS_PROP_D(GroupId, groupId, NullGroupId)
@@ -73,7 +73,7 @@ namespace Qv2ray::base
       public:
         bool isEmpty() const
         {
-            return _groupId == NullGroupId || _connectionId == NullConnectionId;
+            return groupId == NullGroupId || connectionId == NullConnectionId;
         }
         QJS_FUNCTION(F(connectionId, groupId))
     };
@@ -170,7 +170,7 @@ namespace Qv2ray::base
         QJS_PROP(qvdata, downLinkData);
         QvStatsData toData()
         {
-            return { upLinkData(), downLinkData() };
+            return { upLinkData, downLinkData };
         }
         void fromData(const QvStatsData &d)
         {
@@ -201,6 +201,10 @@ namespace Qv2ray::base
         friend bool operator==(const ConnectionStatsObject &left, const ConnectionStatsObject &right)
         {
             return left.toJson() == right.toJson();
+        }
+        friend bool operator!=(const ConnectionStatsObject &left, const ConnectionStatsObject &right)
+        {
+            return !(left == right);
         }
         void loadJson(const QJsonValue &d)
         {
@@ -249,7 +253,7 @@ namespace Qv2ray::base
     }
     inline size_t qHash(const Qv2ray::base::ConnectionGroupPair &pair)
     {
-        return ::qHash(pair.connectionId().toString() + pair.groupId().toString());
+        return ::qHash(pair.connectionId.toString() + pair.groupId.toString());
     }
 } // namespace Qv2ray::base
 

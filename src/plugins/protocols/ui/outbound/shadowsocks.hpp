@@ -20,7 +20,7 @@ class ShadowsocksOutboundEditor
     };
     QPair<QString, int> GetHostAddress() const override
     {
-        return { shadowsocks.address(), shadowsocks.port() };
+        return { shadowsocks.address, shadowsocks.port };
     };
 
     void SetContent(const QJsonObject &content) override

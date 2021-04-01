@@ -21,7 +21,7 @@ class VmessOutboundEditor
 
     QPair<QString, int> GetHostAddress() const override
     {
-        return { vmess.address(), vmess.port() };
+        return { vmess.address, vmess.port };
     }
 
     void SetContent(const QJsonObject &content) override;
