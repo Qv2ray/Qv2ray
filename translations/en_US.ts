@@ -3715,4 +3715,11 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>MainWindowWidget</name>
+    <message>
+        <source>Qv2ray Utilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
