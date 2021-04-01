@@ -2714,35 +2714,35 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Add Inbound</source>
-      <translation type="unfinished">Add Inbound</translation>
+      <translation>インバウンドを追加</translation>
     </message>
     <message>
       <source>Add Inbound from Global Settings</source>
-      <translation type="unfinished">Add Inbound from Global Settings</translation>
+      <translation>グローバル設定からインバウンドを追加</translation>
     </message>
     <message>
       <source>Import Outbound</source>
-      <translation type="unfinished">Import Outbound</translation>
+      <translation>アウトバウンドをインポート</translation>
     </message>
     <message>
       <source>Add Outbound</source>
-      <translation type="unfinished">Add Outbound</translation>
+      <translation>アウトバウンドを追加</translation>
     </message>
     <message>
       <source>Add Blackhole Outbound</source>
-      <translation type="unfinished">Add Blackhole Outbound</translation>
+      <translation>ブラックホールアウトバウンドを追加</translation>
     </message>
     <message>
       <source>Add Freedom Outbound</source>
-      <translation type="unfinished">Add Freedom Outbound</translation>
+      <translation>自由のアウトバウンドを追加</translation>
     </message>
     <message>
       <source>Add Balancer</source>
-      <translation type="unfinished">Add Balancer</translation>
+      <translation>バランサーを追加</translation>
     </message>
     <message>
       <source>Add Proxy Chain</source>
-      <translation type="unfinished">Add Proxy Chain</translation>
+      <translation>プロキシチェーンを追加</translation>
     </message>
     <message>
       <source>Group</source>
@@ -2750,15 +2750,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Connection</source>
-      <translation type="unfinished">Connection</translation>
+      <translation>接続</translation>
     </message>
     <message>
       <source>Copy Connection</source>
-      <translation type="unfinished">Copy Connection</translation>
+      <translation>接続をコピー</translation>
     </message>
     <message>
       <source>Reference Connection</source>
-      <translation type="unfinished">Reference Connection</translation>
+      <translation>参照接続</translation>
     </message>
   </context>
   <context>
