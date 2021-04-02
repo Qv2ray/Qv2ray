@@ -28,7 +28,7 @@ jobs:
         ui_type: [QWidget, QML]
         platform: [ubuntu-20.04, macos-latest, windows-latest]
         build_type: [Debug]
-        qt_version: [6.0.1]
+        qt_version: [6.1.0]
         include:
           - platform: windows-latest
             qtarch: win64_msvc2019_64
