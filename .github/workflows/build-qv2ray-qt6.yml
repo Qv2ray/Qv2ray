@@ -25,7 +25,7 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!QT6') }}
     strategy:
       matrix:
-        ui_type: [QWidget, QML]
+        ui_type: [QWidget]
         platform: [ubuntu-20.04, macos-latest, windows-latest]
         build_type: [Debug]
         qt_version: [6.1.0]
