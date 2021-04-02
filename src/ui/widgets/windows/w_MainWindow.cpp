@@ -125,6 +125,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     //
     connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [this](const ConnectionGroupPair &, const QString &reason) {
         MWShowWindow();
+        qApp->processEvents();
         QvMessageBoxWarn(this, tr("Kernel terminated."),
                          tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
                              tr("To solve the problem, read the kernel log in the log text browser."));

@@ -198,8 +198,8 @@ namespace Qv2ray::base::config
         QJS_PROP(QvConfig_Outbounds, outboundConfig, REQUIRED);
         QJS_PROP(GroupRoutingConfig, defaultRouteConfig, REQUIRED);
 
-        QJS_FUNCTION(F(config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
-                     F(pluginConfig, updateConfig, kernelConfig, networkConfig),                   //
+        QJS_FUNCTION(F(uiConfig, config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
+                     F(pluginConfig, updateConfig, kernelConfig, networkConfig),                             //
                      F(inboundConfig, outboundConfig, defaultRouteConfig))
     };
 } // namespace Qv2ray::base::config
