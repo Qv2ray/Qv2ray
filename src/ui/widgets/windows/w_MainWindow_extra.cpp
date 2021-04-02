@@ -89,7 +89,7 @@ void MainWindow::MWSetSystemProxy()
         LOG("ProxyAddress: " + proxyAddress);
         SetSystemProxy(proxyAddress, httpInboundInfo.port, socksInboundInfo.port);
         qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy"));
-        if (!GlobalConfig.uiConfig.quietMode)
+        if (!GlobalConfig.uiConfig->quietMode)
         {
             QvWidgetApplication->ShowTrayMessage(tr("System proxy configured."));
         }
@@ -105,7 +105,7 @@ void MainWindow::MWClearSystemProxy()
 {
     ClearSystemProxy();
     qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
-    if (!GlobalConfig.uiConfig.quietMode)
+    if (!GlobalConfig.uiConfig->quietMode)
     {
         QvWidgetApplication->ShowTrayMessage(tr("System proxy removed."));
     }
@@ -134,11 +134,11 @@ void MainWindow::CheckSubscriptionsUpdate()
         const auto info = ConnectionManager->GetGroupMetaObject(entry);
         //
         // The update is ignored.
-        if (info.subscriptionOption.updateInterval == 0)
+        if (info.subscriptionOption->updateInterval == 0.0f)
             continue;
         //
         const auto lastRenewDate = QDateTime::fromSecsSinceEpoch(info.lastUpdatedDate);
-        const auto renewTime = lastRenewDate.addSecs(info.subscriptionOption.updateInterval * 86400);
+        const auto renewTime = lastRenewDate.addSecs(info.subscriptionOption->updateInterval * 86400);
 
         if (renewTime <= QDateTime::currentDateTime())
         {
@@ -147,18 +147,18 @@ void MainWindow::CheckSubscriptionsUpdate()
             LOG(QString("Subscription update \"%1\": L=%2 R=%3 I=%4")
                     .arg(info.displayName)
                     .arg(lastRenewDate.toString())
-                    .arg(QSTRN(info.subscriptionOption.updateInterval))
+                    .arg(QSTRN(info.subscriptionOption->updateInterval))
                     .arg(renewTime.toString()));
         }
     }
 
     if (!updateList.isEmpty())
     {
-        const auto result = GlobalConfig.uiConfig.quietMode ? Yes :
-                                                              QvMessageBoxAsk(this, tr("Update Subscriptions"),                            //
-                                                                              tr("Do you want to update these subscriptions?") + NEWLINE + //
-                                                                                  updateNamesList.join(NEWLINE),                           //
-                                                                              { Yes, No, Ignore });
+        const auto result = GlobalConfig.uiConfig->quietMode ? Yes :
+                                                               QvMessageBoxAsk(this, tr("Update Subscriptions"),                            //
+                                                                               tr("Do you want to update these subscriptions?") + NEWLINE + //
+                                                                                   updateNamesList.join(NEWLINE),                           //
+                                                                               { Yes, No, Ignore });
 
         for (const auto &[name, id] : updateList)
         {

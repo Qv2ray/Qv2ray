@@ -21,7 +21,7 @@ namespace Qv2ray::base::objects
 
         DNSServerObject(const QString &_address) : DNSServerObject()
         {
-            set_address(_address);
+            address = _address;
         }
 
         QJS_FUNC_COMPARE(F(QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs))
@@ -32,8 +32,8 @@ namespace Qv2ray::base::objects
             // Hack to convert simple DNS settings to complex format.
             if (___json_object_.isString())
             {
-                set_address(___json_object_.toString());
-                set_QV2RAY_DNS_IS_COMPLEX_DNS(false);
+                address = ___json_object_.toString();
+                QV2RAY_DNS_IS_COMPLEX_DNS = false;
                 return;
             }
             FOR_EACH(_QJS_FROM_JSON_F, QV2RAY_DNS_IS_COMPLEX_DNS, address, port, domains, expectIPs);
@@ -118,7 +118,7 @@ namespace Qv2ray::base::objects
             Q_GADGET
             typedef QMap<QString, QList<QString>> QString_ListString_Map;
 
-            const QString_ListString_Map headers_init = {
+            QString_ListString_Map headers_init = {
                 { "Host", { "www.baidu.com", "www.bing.com" } },
                 { "User-Agent",
                   { "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
@@ -129,10 +129,10 @@ namespace Qv2ray::base::objects
             };
 
             QJS_CONSTRUCTOR(HTTPRequestObject)
-            QJS_PROP_D(QString, version, "1.1");
-            QJS_PROP_D(QString, method, "GET");
-            QJS_PROP_D(QList<QString>, path, "/");
-            QJS_PROP_D(QString_ListString_Map, headers, headers_init);
+            QJS_PROP_D(QString, version, "1.1")
+            QJS_PROP_D(QString, method, "GET")
+            QJS_PROP_D(QList<QString>, path, "/")
+            QJS_PROP_D(QString_ListString_Map, headers, headers_init)
             QJS_FUNCTION(F(version, method, path, headers))
         };
 

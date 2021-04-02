@@ -18,7 +18,7 @@ class HTTPInboundEditor
     QPair<QString, int> GetHostAddress() const override
     {
         return {};
-    };
+    }
 
     void SetContent(const QJsonObject &content) override;
     const QJsonObject GetContent() const override

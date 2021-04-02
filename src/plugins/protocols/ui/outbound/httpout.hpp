@@ -15,8 +15,8 @@ class HttpOutboundEditor
 
     void SetHostAddress(const QString &server, int port) override
     {
-        http.set_address(server);
-        http.set_port(port);
+        http.address = server;
+        http.port = port;
     }
 
     QPair<QString, int> GetHostAddress() const override
@@ -34,17 +34,17 @@ class HttpOutboundEditor
         QJS_CLEAR_BINDINGS
 
         http.loadJson(content);
-        if (http.users.isEmpty())
-            http.users.push_back({});
+        if (http.users->isEmpty())
+            http.users->push_back({});
 
-        QJS_RWBINDING(http.users.first(), user, http_UserNameTxt, text, &QLineEdit::textEdited)
-        QJS_RWBINDING(http.users.first(), pass, http_PasswordTxt, text, &QLineEdit::textEdited)
+        QJS_RWBINDING(http.users->first(), user, http_UserNameTxt, text, &QLineEdit::textEdited)
+        QJS_RWBINDING(http.users->first(), pass, http_PasswordTxt, text, &QLineEdit::textEdited)
     }
 
     const QJsonObject GetContent() const override
     {
         auto result = http.toJson();
-        if (http.users.isEmpty() || (http.users.first().user.isEmpty() && http.users.first().pass.isEmpty()))
+        if (http.users->isEmpty() || (http.users->first().user->isEmpty() && http.users->first().pass->isEmpty()))
             result.remove("users");
         return QJsonObject{ { "servers", QJsonArray{ result } } };
     }

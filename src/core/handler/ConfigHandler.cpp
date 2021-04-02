@@ -25,12 +25,12 @@ namespace Qv2ray::core::handler
         for (const auto &groupId : groupJson.keys())
         {
             auto groupObject = GroupObject::fromJson(groupJson.value(groupId).toObject());
-            if (groupObject.displayName.isEmpty())
+            if (groupObject.displayName->isEmpty())
             {
                 groupObject.displayName = tr("Group: %1").arg(GenerateRandomString(5));
             }
             groups.insert(GroupId{ groupId }, groupObject);
-            for (const auto &connId : groupObject.connections)
+            for (const auto &connId : *groupObject.connections)
             {
                 connections[connId].__qvConnectionRefCount++;
             }
@@ -115,16 +115,16 @@ namespace Qv2ray::core::handler
         {
             emit OnLatencyTestStarted(connection);
         }
-        pingHelper->TestLatency(connections.keys(), GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(connections.keys(), GlobalConfig.networkConfig->latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const GroupId &id)
     {
-        for (const auto &connection : groups[id].connections)
+        for (const auto &connection : *groups[id].connections)
         {
             emit OnLatencyTestStarted(connection);
         }
-        pingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig.latencyTestingMethod);
+        pingHelper->TestLatency(groups[id].connections, GlobalConfig.networkConfig->latencyTestingMethod);
     }
 
     void QvConfigHandler::StartLatencyTest(const ConnectionId &id, Qv2rayLatencyTestingMethod method)
@@ -150,7 +150,7 @@ namespace Qv2ray::core::handler
 
     void QvConfigHandler::ClearGroupUsage(const GroupId &id)
     {
-        for (const auto &conn : groups[id].connections)
+        for (const auto &conn : *groups[id].connections)
         {
             ClearConnectionUsage({ conn, id });
         }
@@ -158,7 +158,7 @@ namespace Qv2ray::core::handler
     void QvConfigHandler::ClearConnectionUsage(const ConnectionGroupPair &id)
     {
         CheckValidId(id.connectionId, nothing);
-        connections[id.connectionId].stats.Clear();
+        connections[id.connectionId].stats->Clear();
         emit OnStatsAvailable(id, {});
         PluginHost->SendEvent({ GetDisplayName(id.connectionId), 0, 0, 0, 0 });
         return;
@@ -170,7 +170,7 @@ namespace Qv2ray::core::handler
         QList<GroupId> grps;
         for (const auto &group : groups)
         {
-            if (group.connections.contains(connId))
+            if (group.connections->contains(connId))
                 grps.push_back(groups.key(group));
         }
         return grps;
@@ -190,9 +190,9 @@ namespace Qv2ray::core::handler
     {
         CheckValidId(id, false);
         LOG("Removing connection : " + id.toString());
-        if (groups[gid].connections.contains(id))
+        if (groups[gid].connections->contains(id))
         {
-            auto removedEntries = groups[gid].connections.removeAll(id);
+            auto removedEntries = groups[gid].connections->removeAll(id);
             if (removedEntries > 1)
             {
                 LOG("Found same connection occured multiple times in a group.");
@@ -203,7 +203,7 @@ namespace Qv2ray::core::handler
 
         if (GlobalConfig.autoStartId == ConnectionGroupPair{ id, gid })
         {
-            GlobalConfig.autoStartId.clear();
+            GlobalConfig.autoStartId->clear();
         }
 
         // Emit everything first then clear the connection map.
@@ -229,12 +229,12 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId)
     {
         CheckValidId(id, false);
-        if (groups[newGroupId].connections.contains(id))
+        if (groups[newGroupId].connections->contains(id))
         {
             LOG("Connection not linked since " + id.toString() + " is already in the group " + newGroupId.toString());
             return false;
         }
-        groups[newGroupId].connections.append(id);
+        groups[newGroupId].connections->append(id);
         connections[id].__qvConnectionRefCount++;
         PluginHost->SendEvent({ ConnectionEntry::LinkedWithGroup, connections[id].displayName, "" });
         emit OnConnectionLinkedWithGroup({ id, newGroupId });
@@ -247,24 +247,24 @@ namespace Qv2ray::core::handler
         CheckValidId(targetGid, false);
         CheckValidId(sourceGid, false);
         //
-        if (!groups[sourceGid].connections.contains(id))
+        if (!groups[sourceGid].connections->contains(id))
         {
             LOG("Trying to move a connection away from a group it does not belong to.");
             return false;
         }
-        if (groups[targetGid].connections.contains(id))
+        if (groups[targetGid].connections->contains(id))
         {
             LOG("The connection: " + id.toString() + " has already been in the target group: " + targetGid.toString());
-            const auto removedCount = groups[sourceGid].connections.removeAll(id);
+            const auto removedCount = groups[sourceGid].connections->removeAll(id);
             connections[id].__qvConnectionRefCount -= removedCount;
         }
         else
         {
             // If the target group does not contain this connection.
-            const auto removedCount = groups[sourceGid].connections.removeAll(id);
+            const auto removedCount = groups[sourceGid].connections->removeAll(id);
             connections[id].__qvConnectionRefCount -= removedCount;
             //
-            groups[targetGid].connections.append(id);
+            groups[targetGid].connections->append(id);
             connections[id].__qvConnectionRefCount++;
         }
 
@@ -278,7 +278,7 @@ namespace Qv2ray::core::handler
     {
         CheckValidId(id, tr("Group does not exist"));
         // Copy construct
-        auto list = groups[id].connections;
+        auto list = *groups[id].connections;
         for (const auto &conn : list)
         {
             MoveConnectionFromToGroup(conn, id, DefaultGroupId);
@@ -411,10 +411,10 @@ namespace Qv2ray::core::handler
             groups[id].isSubscription = *isSubscription;
 
         if (address.has_value())
-            groups[id].subscriptionOption.address = *address;
+            groups[id].subscriptionOption->address = *address;
 
         if (updateInterval.has_value())
-            groups[id].subscriptionOption.updateInterval = *updateInterval;
+            groups[id].subscriptionOption->updateInterval = *updateInterval;
 
         return true;
     }
@@ -422,20 +422,20 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionType(const GroupId &id, const QString &type)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption.type = type;
+        groups[id].subscriptionOption->type = type;
         return true;
     }
 
     bool QvConfigHandler::SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &keywords)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption.IncludeKeywords.clear();
+        groups[id].subscriptionOption->IncludeKeywords->clear();
 
         for (const auto &keyword : keywords)
         {
             if (!keyword.trimmed().isEmpty())
             {
-                groups[id].subscriptionOption.IncludeKeywords.push_back(keyword);
+                groups[id].subscriptionOption->IncludeKeywords->push_back(keyword);
             }
         }
         return true;
@@ -444,19 +444,19 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption.IncludeRelation = relation;
+        groups[id].subscriptionOption->IncludeRelation = relation;
         return true;
     }
 
     bool QvConfigHandler::SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &keywords)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption.ExcludeKeywords.clear();
+        groups[id].subscriptionOption->ExcludeKeywords->clear();
         for (const auto &keyword : keywords)
         {
             if (!keyword.trimmed().isEmpty())
             {
-                groups[id].subscriptionOption.ExcludeKeywords.push_back(keyword);
+                groups[id].subscriptionOption->ExcludeKeywords->push_back(keyword);
             }
         }
         return true;
@@ -465,7 +465,7 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption.ExcludeRelation = relation;
+        groups[id].subscriptionOption->ExcludeRelation = relation;
         return true;
     }
 
@@ -474,7 +474,7 @@ namespace Qv2ray::core::handler
         CheckValidId(id, nothing);
         if (!groups[id].isSubscription)
             return;
-        NetworkRequestHelper::AsyncHttpGet(groups[id].subscriptionOption.address, [=](const QByteArray &d) {
+        NetworkRequestHelper::AsyncHttpGet(groups[id].subscriptionOption->address, [=](const QByteArray &d) {
             p_CHUpdateSubscription(id, d);
             emit OnSubscriptionAsyncUpdateFinished(id);
         });
@@ -484,7 +484,7 @@ namespace Qv2ray::core::handler
     {
         if (!groups[id].isSubscription)
             return false;
-        const auto data = NetworkRequestHelper::HttpGet(groups[id].subscriptionOption.address);
+        const auto data = NetworkRequestHelper::HttpGet(*groups[id].subscriptionOption->address);
         return p_CHUpdateSubscription(id, data);
     }
 
@@ -496,7 +496,7 @@ namespace Qv2ray::core::handler
         std::shared_ptr<SubscriptionDecoder> decoder;
 
         {
-            const auto type = groups[id].subscriptionOption.type;
+            const auto type = groups[id].subscriptionOption->type;
             for (const auto &plugin : PluginHost->UsablePlugins())
             {
                 const auto pluginInfo = PluginHost->GetPlugin(plugin);
@@ -554,7 +554,7 @@ namespace Qv2ray::core::handler
         QMultiMap<std::tuple<QString, QString, int>, ConnectionId> typeMap;
         {
             // Store connection type metadata into map.
-            for (const auto &conn : groups[id].connections)
+            for (const auto &conn : *groups[id].connections)
             {
                 nameMap.insert(GetDisplayName(conn), conn);
                 const auto &&[protocol, host, port] = GetConnectionInfo(conn);
@@ -568,22 +568,22 @@ namespace Qv2ray::core::handler
         //
         bool hasErrorOccured = false;
         // Copy construct here.
-        auto originalConnectionIdList = groups[id].connections;
-        groups[id].connections.clear();
+        auto originalConnectionIdList = *groups[id].connections;
+        groups[id].connections->clear();
         //
         decltype(_newConnections) filteredConnections;
         //
         for (const auto &config : _newConnections)
         {
             // filter connections
-            const bool isIncludeOperationAND = groups[id].subscriptionOption.IncludeRelation == RELATION_AND;
-            const bool isExcludeOperationOR = groups[id].subscriptionOption.ExcludeRelation == RELATION_OR;
+            const bool isIncludeOperationAND = groups[id].subscriptionOption->IncludeRelation == RELATION_AND;
+            const bool isExcludeOperationOR = groups[id].subscriptionOption->ExcludeRelation == RELATION_OR;
             //
             // Initial includeConfig value
             bool includeconfig = isIncludeOperationAND;
             {
                 bool hasIncludeItemMatched = false;
-                for (const auto &key : groups[id].subscriptionOption.IncludeKeywords)
+                for (const auto &key : *groups[id].subscriptionOption->IncludeKeywords)
                 {
                     if (!key.trimmed().isEmpty())
                     {
@@ -604,7 +604,7 @@ namespace Qv2ray::core::handler
             {
                 bool hasExcludeItemMatched = false;
                 includeconfig = isExcludeOperationOR;
-                for (const auto &key : groups[id].subscriptionOption.ExcludeKeywords)
+                for (const auto &key : *groups[id].subscriptionOption->ExcludeKeywords)
                 {
                     if (!key.trimmed().isEmpty())
                     {
@@ -711,9 +711,9 @@ namespace Qv2ray::core::handler
         for (const auto t : data.keys())
         {
             const auto &stat = data[t];
-            connections[cid].stats[t].upLinkData += stat.first;
-            connections[cid].stats[t].downLinkData += stat.second;
-            result[t] = { stat, connections[cid].stats[t].toData() };
+            connections[cid].stats->get(t).upLinkData += stat.first;
+            connections[cid].stats->get(t).downLinkData += stat.second;
+            result[t] = { stat, connections[cid].stats->get(t).toData() };
         }
 
         emit OnStatsAvailable(id, result);

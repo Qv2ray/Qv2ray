@@ -66,8 +66,8 @@ namespace Qv2ray::base
       public slots:
         void clear()
         {
-            reset_connectionId();
-            reset_groupId();
+            connectionId = NullConnectionId;
+            groupId = NullGroupId;
         }
 
       public:
@@ -174,8 +174,8 @@ namespace Qv2ray::base
         }
         void fromData(const QvStatsData &d)
         {
-            set_upLinkData(d.first);
-            set_downLinkData(d.second);
+            upLinkData = d.first;
+            downLinkData = d.second;
         }
         QJS_FUNCTION(F(upLinkData, downLinkData))
     };
@@ -189,6 +189,12 @@ namespace Qv2ray::base
     struct ConnectionStatsObject
     {
         ConnectionStatsEntryObject &operator[](StatisticsType i)
+        {
+            while (entries.count() <= i)
+                entries.append(ConnectionStatsEntryObject{});
+            return entries[i];
+        }
+        ConnectionStatsEntryObject &get(StatisticsType i)
         {
             while (entries.count() <= i)
                 entries.append(ConnectionStatsEntryObject{});
@@ -253,7 +259,7 @@ namespace Qv2ray::base
     }
     inline size_t qHash(const Qv2ray::base::ConnectionGroupPair &pair)
     {
-        return ::qHash(pair.connectionId.toString() + pair.groupId.toString());
+        return ::qHash(pair.connectionId->toString() + pair.groupId->toString());
     }
 } // namespace Qv2ray::base
 

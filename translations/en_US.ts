@@ -1608,10 +1608,6 @@ Custom DNS Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Duplicated port numbers detected, please check the port number settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Invalid inbound listening address.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1685,10 +1681,6 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>You can configure default routing rules for all simple connection config here.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid DNS settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1879,10 +1871,6 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No NTP Backend</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1896,6 +1884,18 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>FakeDNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicated port numbers detected, please check the port number Settings-&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid DNS Settings-&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

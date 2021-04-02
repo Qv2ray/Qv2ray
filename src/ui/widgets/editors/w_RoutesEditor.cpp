@@ -60,10 +60,10 @@ namespace
 
 void RouteEditor::updateColorScheme()
 {
-    // Setup icons according to the theme settings.
+    // Setup icons according to the theme Settings->
     addInboundBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("add")));
     addOutboundBtn->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("add")));
-    if (GlobalConfig.uiConfig.useDarkTheme)
+    if (GlobalConfig.uiConfig->useDarkTheme)
     {
         QtNodes::NodeStyle::reset();
         QtNodes::FlowViewStyle::reset();
@@ -324,52 +324,52 @@ void RouteEditor::on_addDefaultBtn_clicked()
     const static QJsonObject sniffingOff{ { "enabled", false } };
     const static QJsonObject sniffingOn{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
     //
-    if (inboundConfig.useHTTP)
+    if (inboundConfig->useHTTP)
     {
-        const auto httpSettings = GenerateHTTPIN(inboundConfig.httpSettings.useAuth, { inboundConfig.httpSettings.account });
-        const auto httpConfig = GenerateInboundEntry("GlobalConfig-HTTP", "http",     //
-                                                     inboundConfig.listenip,          //
-                                                     inboundConfig.httpSettings.port, //
-                                                     httpSettings,                    //
-                                                     inboundConfig.httpSettings.sniffing ? sniffingOn : sniffingOff);
+        const auto httpSettings = GenerateHTTPIN(inboundConfig->httpSettings->useAuth, { inboundConfig->httpSettings->account });
+        const auto httpConfig = GenerateInboundEntry("GlobalConfig-HTTP", "http",       //
+                                                     inboundConfig->listenip,           //
+                                                     inboundConfig->httpSettings->port, //
+                                                     httpSettings,                      //
+                                                     inboundConfig->httpSettings->sniffing ? sniffingOn : sniffingOff);
         const auto _ = nodeDispatcher->CreateInbound(httpConfig);
     }
-    if (inboundConfig.useSocks)
+    if (inboundConfig->useSocks)
     {
-        const auto socks = GenerateSocksIN((inboundConfig.socksSettings.useAuth ? "password" : "noauth"), //
-                                           { inboundConfig.socksSettings.account },                       //
-                                           inboundConfig.socksSettings.enableUDP,                         //
-                                           inboundConfig.socksSettings.localIP);
-        const auto socksConfig = GenerateInboundEntry("GlobalConfig-Socks", "socks",    //
-                                                      inboundConfig.listenip,           //
-                                                      inboundConfig.socksSettings.port, //
-                                                      socks,                            //
-                                                      (inboundConfig.socksSettings.sniffing ? sniffingOn : sniffingOff));
+        const auto socks = GenerateSocksIN((inboundConfig->socksSettings->useAuth ? "password" : "noauth"), //
+                                           { inboundConfig->socksSettings->account },                       //
+                                           inboundConfig->socksSettings->enableUDP,                         //
+                                           inboundConfig->socksSettings->localIP);
+        const auto socksConfig = GenerateInboundEntry("GlobalConfig-Socks", "socks",      //
+                                                      inboundConfig->listenip,            //
+                                                      inboundConfig->socksSettings->port, //
+                                                      socks,                              //
+                                                      (inboundConfig->socksSettings->sniffing ? sniffingOn : sniffingOff));
         const auto _ = nodeDispatcher->CreateInbound(socksConfig);
     }
 
-    if (inboundConfig.useTPROXY)
+    if (inboundConfig->useTPROXY)
     {
         QList<QString> networks;
-#define ts inboundConfig.tProxySettings
-        if (ts.hasTCP)
+#define ts inboundConfig->tProxySettings
+        if (ts->hasTCP)
             networks << "tcp";
-        if (ts.hasUDP)
+        if (ts->hasUDP)
             networks << "udp";
         const auto tproxy_network = networks.join(",");
         auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true);
         //
         const static QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-        const QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", ts.mode } } } };
+        const QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", *ts->mode } } } };
         {
-            auto tProxyIn = GenerateInboundEntry("tProxy IPv4", "dokodemo-door", ts.tProxyIP, ts.port, tproxyInSettings);
+            auto tProxyIn = GenerateInboundEntry("tProxy IPv4", "dokodemo-door", ts->tProxyIP, ts->port, tproxyInSettings);
             tProxyIn.insert("sniffing", tproxy_sniff);
             tProxyIn.insert("streamSettings", tproxy_streamSettings);
             auto _ = nodeDispatcher->CreateInbound(tProxyIn);
         }
-        if (!ts.tProxyV6IP.isEmpty())
+        if (!ts->tProxyV6IP->isEmpty())
         {
-            auto tProxyV6In = GenerateInboundEntry("tProxy IPv6", "dokodemo-door", ts.tProxyV6IP, ts.port, tproxyInSettings);
+            auto tProxyV6In = GenerateInboundEntry("tProxy IPv6", "dokodemo-door", ts->tProxyV6IP, ts->port, tproxyInSettings);
             tProxyV6In.insert("sniffing", tproxy_sniff);
             tProxyV6In.insert("streamSettings", tproxy_streamSettings);
             auto _ = nodeDispatcher->CreateInbound(tProxyV6In);

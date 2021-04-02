@@ -78,7 +78,7 @@ namespace Qv2ray::core::kernel
             {
                 if (!dialed)
                 {
-                    const auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.kernelConfig.statsPort);
+                    const auto channelAddress = "127.0.0.1:" + QSTRN(GlobalConfig.kernelConfig->statsPort);
                     LOG("gRPC Version: " + QString::fromStdString(grpc::Version()));
                     grpc_channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     v2ray::core::app::stats::command::StatsService service;

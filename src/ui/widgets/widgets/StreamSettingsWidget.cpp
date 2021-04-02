@@ -42,10 +42,10 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
 
 #define tls_xtls_process(prefix)                                                                                                                     \
     {                                                                                                                                                \
-        serverNameTxt->setText(stream.prefix##Settings.serverName);                                                                                  \
-        disableSessionResumptionCB->setChecked(stream.prefix##Settings.disableSessionResumption);                                                    \
-        disableSystemRoot->setChecked(stream.prefix##Settings.disableSystemRoot);                                                                    \
-        alpnTxt->setText(stream.prefix##Settings.alpn.join("|"));                                                                                    \
+        serverNameTxt->setText(stream.prefix##Settings->serverName);                                                                                 \
+        disableSessionResumptionCB->setChecked(stream.prefix##Settings->disableSessionResumption);                                                   \
+        disableSystemRoot->setChecked(stream.prefix##Settings->disableSystemRoot);                                                                   \
+        alpnTxt->setText(stream.prefix##Settings->alpn->join("|"));                                                                                  \
     }
 
         tls_xtls_process(tls);
@@ -55,20 +55,20 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     }
     // TCP
     {
-        tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
-        tcpRequestTxt->setPlainText(JsonToString(stream.tcpSettings.header.request.toJson()));
-        tcpRespTxt->setPlainText(JsonToString(stream.tcpSettings.header.response.toJson()));
+        tcpHeaderTypeCB->setCurrentText(stream.tcpSettings->header->type);
+        tcpRequestTxt->setPlainText(JsonToString(stream.tcpSettings->header->request.toJson()));
+        tcpRespTxt->setPlainText(JsonToString(stream.tcpSettings->header->response.toJson()));
     }
     // HTTP
     {
-        httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
-        httpPathTxt->setText(stream.httpSettings.path);
+        httpHostTxt->setPlainText(stream.httpSettings->host->join(NEWLINE));
+        httpPathTxt->setText(stream.httpSettings->path);
     }
     // WS
     {
-        wsPathTxt->setText(stream.wsSettings.path);
+        wsPathTxt->setText(stream.wsSettings->path);
         QString wsHeaders;
-        for (const auto &[key, value] : stream.wsSettings.headers.toStdMap())
+        for (const auto &[key, value] : stream.wsSettings->headers->toStdMap())
         {
             wsHeaders = wsHeaders % key % "|" % value % NEWLINE;
         }
@@ -76,58 +76,58 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     }
     // mKCP
     {
-        kcpMTU->setValue(stream.kcpSettings.mtu);
-        kcpTTI->setValue(stream.kcpSettings.tti);
-        kcpHeaderType->setCurrentText(stream.kcpSettings.header.type);
-        kcpCongestionCB->setChecked(stream.kcpSettings.congestion);
-        kcpReadBufferSB->setValue(stream.kcpSettings.readBufferSize);
-        kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
-        kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
-        kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
-        kcpSeedTxt->setText(stream.kcpSettings.seed);
+        kcpMTU->setValue(stream.kcpSettings->mtu);
+        kcpTTI->setValue(stream.kcpSettings->tti);
+        kcpHeaderType->setCurrentText(stream.kcpSettings->header->type);
+        kcpCongestionCB->setChecked(stream.kcpSettings->congestion);
+        kcpReadBufferSB->setValue(stream.kcpSettings->readBufferSize);
+        kcpUploadCapacSB->setValue(stream.kcpSettings->uplinkCapacity);
+        kcpDownCapacitySB->setValue(stream.kcpSettings->downlinkCapacity);
+        kcpWriteBufferSB->setValue(stream.kcpSettings->writeBufferSize);
+        kcpSeedTxt->setText(stream.kcpSettings->seed);
     }
     // DS
     {
-        dsPathTxt->setText(stream.dsSettings.path);
+        dsPathTxt->setText(stream.dsSettings->path);
     }
     // QUIC
     {
-        quicKeyTxt->setText(stream.quicSettings.key);
-        quicSecurityCB->setCurrentText(stream.quicSettings.security);
-        quicHeaderTypeCB->setCurrentText(stream.quicSettings.header.type);
+        quicKeyTxt->setText(stream.quicSettings->key);
+        quicSecurityCB->setCurrentText(stream.quicSettings->security);
+        quicHeaderTypeCB->setCurrentText(stream.quicSettings->header->type);
     }
     // gRPC
     {
-        grpcServiceNameTxt->setText(stream.grpcSettings.serviceName);
+        grpcServiceNameTxt->setText(stream.grpcSettings->serviceName);
     }
     // SOCKOPT
     {
-        tProxyCB->setCurrentText(stream.sockopt.tproxy);
-        tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
-        soMarkSpinBox->setValue(stream.sockopt.mark);
+        tProxyCB->setCurrentText(stream.sockopt->tproxy);
+        tcpFastOpenCB->setChecked(stream.sockopt->tcpFastOpen);
+        soMarkSpinBox->setValue(stream.sockopt->mark);
     }
 }
 
 void StreamSettingsWidget::on_httpPathTxt_textEdited(const QString &arg1)
 {
-    stream.httpSettings.path = arg1;
+    stream.httpSettings->path = arg1;
 }
 
 void StreamSettingsWidget::on_httpHostTxt_textChanged()
 {
     const auto hosts = httpHostTxt->toPlainText().replace("\r", "").split("\n");
-    stream.httpSettings.host.clear();
+    stream.httpSettings->host->clear();
     for (const auto &host : hosts)
     {
         if (!host.trimmed().isEmpty())
-            stream.httpSettings.host.push_back(host.trimmed());
+            stream.httpSettings->host->push_back(host.trimmed());
     }
 }
 
 void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
 {
     const auto headers = SplitLines(wsHeadersTxt->toPlainText());
-    stream.wsSettings.headers.clear();
+    stream.wsSettings->headers->clear();
     for (const auto &header : headers)
     {
         if (header.isEmpty())
@@ -143,7 +143,7 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
         const auto index = header.indexOf("|");
         auto key = header.left(index);
         auto value = header.right(header.length() - index - 1);
-        stream.wsSettings.headers[key] = value;
+        stream.wsSettings->headers->insert(key, value);
     }
     BLACK(wsHeadersTxt);
 }
@@ -162,92 +162,92 @@ void StreamSettingsWidget::on_tcpRespDefBtn_clicked()
 
 void StreamSettingsWidget::on_soMarkSpinBox_valueChanged(int arg1)
 {
-    stream.sockopt.mark = arg1;
+    stream.sockopt->mark = arg1;
 }
 
 void StreamSettingsWidget::on_tcpFastOpenCB_stateChanged(int arg1)
 {
-    stream.sockopt.tcpFastOpen = arg1 == Qt::Checked;
+    stream.sockopt->tcpFastOpen = arg1 == Qt::Checked;
 }
 
 void StreamSettingsWidget::on_tProxyCB_currentIndexChanged(int arg1)
 {
-    stream.sockopt.tproxy = tProxyCB->itemText(arg1);
+    stream.sockopt->tproxy = tProxyCB->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_quicSecurityCB_currentIndexChanged(int arg1)
 {
-    stream.quicSettings.security = quicSecurityCB->itemText(arg1);
+    stream.quicSettings->security = quicSecurityCB->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_quicKeyTxt_textEdited(const QString &arg1)
 {
-    stream.quicSettings.key = arg1;
+    stream.quicSettings->key = arg1;
 }
 
 void StreamSettingsWidget::on_quicHeaderTypeCB_currentIndexChanged(int arg1)
 {
-    stream.quicSettings.header.type = quicHeaderTypeCB->itemText(arg1);
+    stream.quicSettings->header->type = quicHeaderTypeCB->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_tcpHeaderTypeCB_currentIndexChanged(int arg1)
 {
-    stream.tcpSettings.header.type = tcpHeaderTypeCB->itemText(arg1);
+    stream.tcpSettings->header->type = tcpHeaderTypeCB->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_wsPathTxt_textEdited(const QString &arg1)
 {
-    stream.wsSettings.path = arg1;
+    stream.wsSettings->path = arg1;
 }
 
 void StreamSettingsWidget::on_kcpMTU_valueChanged(int arg1)
 {
-    stream.kcpSettings.mtu = arg1;
+    stream.kcpSettings->mtu = arg1;
 }
 
 void StreamSettingsWidget::on_kcpTTI_valueChanged(int arg1)
 {
-    stream.kcpSettings.tti = arg1;
+    stream.kcpSettings->tti = arg1;
 }
 
 void StreamSettingsWidget::on_kcpUploadCapacSB_valueChanged(int arg1)
 {
-    stream.kcpSettings.uplinkCapacity = arg1;
+    stream.kcpSettings->uplinkCapacity = arg1;
 }
 
 void StreamSettingsWidget::on_kcpCongestionCB_stateChanged(int arg1)
 {
-    stream.kcpSettings.congestion = arg1 == Qt::Checked;
+    stream.kcpSettings->congestion = arg1 == Qt::Checked;
 }
 
 void StreamSettingsWidget::on_kcpDownCapacitySB_valueChanged(int arg1)
 {
-    stream.kcpSettings.downlinkCapacity = arg1;
+    stream.kcpSettings->downlinkCapacity = arg1;
 }
 
 void StreamSettingsWidget::on_kcpReadBufferSB_valueChanged(int arg1)
 {
-    stream.kcpSettings.readBufferSize = arg1;
+    stream.kcpSettings->readBufferSize = arg1;
 }
 
 void StreamSettingsWidget::on_kcpWriteBufferSB_valueChanged(int arg1)
 {
-    stream.kcpSettings.writeBufferSize = arg1;
+    stream.kcpSettings->writeBufferSize = arg1;
 }
 
 void StreamSettingsWidget::on_kcpHeaderType_currentIndexChanged(int arg1)
 {
-    stream.kcpSettings.header.type = kcpHeaderType->itemText(arg1);
+    stream.kcpSettings->header->type = kcpHeaderType->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_kcpSeedTxt_textEdited(const QString &arg1)
 {
-    stream.kcpSettings.seed = arg1;
+    stream.kcpSettings->seed = arg1;
 }
 
 void StreamSettingsWidget::on_dsPathTxt_textEdited(const QString &arg1)
 {
-    stream.dsSettings.path = arg1;
+    stream.dsSettings->path = arg1;
 }
 
 void StreamSettingsWidget::on_tcpRequestEditBtn_clicked()
@@ -256,7 +256,7 @@ void StreamSettingsWidget::on_tcpRequestEditBtn_clicked()
     auto rJson = w.OpenEditor();
     tcpRequestTxt->setPlainText(JsonToString(rJson));
     auto tcpReqObject = HTTPRequestObject::fromJson(rJson);
-    stream.tcpSettings.header.request = tcpReqObject;
+    stream.tcpSettings->header->request = tcpReqObject;
 }
 
 void StreamSettingsWidget::on_tcpResponseEditBtn_clicked()
@@ -265,7 +265,7 @@ void StreamSettingsWidget::on_tcpResponseEditBtn_clicked()
     auto rJson = w.OpenEditor();
     tcpRespTxt->setPlainText(JsonToString(rJson));
     auto tcpRspObject = HTTPResponseObject::fromJson(rJson);
-    stream.tcpSettings.header.response = tcpRspObject;
+    stream.tcpSettings->header->response = tcpRspObject;
 }
 
 void StreamSettingsWidget::on_transportCombo_currentIndexChanged(int arg1)
@@ -284,31 +284,31 @@ void StreamSettingsWidget::on_securityTypeCB_currentIndexChanged(int arg1)
 //
 void StreamSettingsWidget::on_serverNameTxt_textEdited(const QString &arg1)
 {
-    stream.tlsSettings.serverName = arg1.trimmed();
-    stream.xtlsSettings.serverName = arg1.trimmed();
+    stream.tlsSettings->serverName = arg1.trimmed();
+    stream.xtlsSettings->serverName = arg1.trimmed();
 }
 
 void StreamSettingsWidget::on_disableSessionResumptionCB_stateChanged(int arg1)
 {
-    stream.tlsSettings.disableSessionResumption = arg1 == Qt::Checked;
-    stream.xtlsSettings.disableSessionResumption = arg1 == Qt::Checked;
+    stream.tlsSettings->disableSessionResumption = arg1 == Qt::Checked;
+    stream.xtlsSettings->disableSessionResumption = arg1 == Qt::Checked;
 }
 
 void StreamSettingsWidget::on_alpnTxt_textEdited(const QString &arg1)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    stream.tlsSettings.alpn = arg1.split('|', Qt::SplitBehaviorFlags::SkipEmptyParts);
-    stream.xtlsSettings.alpn = arg1.split('|', Qt::SplitBehaviorFlags::SkipEmptyParts);
+    stream.tlsSettings->alpn = arg1.split('|', Qt::SplitBehaviorFlags::SkipEmptyParts);
+    stream.xtlsSettings->alpn = arg1.split('|', Qt::SplitBehaviorFlags::SkipEmptyParts);
 #else
-    stream.tlsSettings.alpn = arg1.split('|', QString::SkipEmptyParts);
-    stream.xtlsSettings.alpn = arg1.split('|', QString::SkipEmptyParts);
+    stream.tlsSettings->alpn = arg1.split('|', QString::SkipEmptyParts);
+    stream.xtlsSettings->alpn = arg1.split('|', QString::SkipEmptyParts);
 #endif
 }
 
 void StreamSettingsWidget::on_disableSystemRoot_stateChanged(int arg1)
 {
-    stream.tlsSettings.disableSystemRoot = arg1;
-    stream.xtlsSettings.disableSystemRoot = arg1;
+    stream.tlsSettings->disableSystemRoot = arg1;
+    stream.xtlsSettings->disableSystemRoot = arg1;
 }
 
 void StreamSettingsWidget::on_openCertEditorBtn_clicked()
@@ -317,5 +317,5 @@ void StreamSettingsWidget::on_openCertEditorBtn_clicked()
 
 void StreamSettingsWidget::on_grpcServiceNameTxt_textEdited(const QString &arg1)
 {
-    stream.grpcSettings.serviceName = arg1;
+    stream.grpcSettings->serviceName = arg1;
 }

@@ -15,8 +15,8 @@ class VmessOutboundEditor
 
     void SetHostAddress(const QString &addr, int port) override
     {
-        vmess.set_address(addr);
-        vmess.set_port(port);
+        vmess.address = addr;
+        vmess.port = port;
     }
 
     QPair<QString, int> GetHostAddress() const override

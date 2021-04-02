@@ -21,11 +21,11 @@ namespace Qv2ray::base::config
 
         QvGraphPenConfig(int R, int G, int B, float w, Qt::PenStyle s)
         {
-            this->set_R(R);
-            this->set_G(G);
-            this->set_B(B);
-            this->set_width(w);
-            this->set_style(s);
+            this->R = R;
+            this->G = G;
+            this->B = B;
+            this->width = w;
+            this->style = s;
         };
         QJS_FUNCTION(F(R, G, B, width, style))
     };
@@ -102,14 +102,12 @@ namespace Qv2ray::base::config
 #define VARNAME_VASSETSPATH v2AssetsPath_win
 #endif
 
-#define SET(x) CONCATENATE(set_, x)
-
         inline const QString KernelPath(const QString &path = "")
         {
             if (path.isEmpty())
                 return VARNAME_VCOREPATH;
 
-            SET(VARNAME_VCOREPATH)(path);
+            VARNAME_VCOREPATH = path;
             return path;
         }
         inline const QString AssetsPath(const QString &path = "")
@@ -117,7 +115,7 @@ namespace Qv2ray::base::config
             if (path.isEmpty())
                 return VARNAME_VASSETSPATH;
 
-            SET(VARNAME_VASSETSPATH)(path);
+            VARNAME_VASSETSPATH = path;
             return path;
         }
 

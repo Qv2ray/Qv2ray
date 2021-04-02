@@ -52,11 +52,11 @@ namespace Qv2ray::core::handler
             if (!result)
                 portDetectionErrorMessage << tr("Endpoint: %1:%2 for inbound: \"%3\"").arg(info[key].address).arg(info[key].port).arg(key);
         }
-        if (GlobalConfig.pluginConfig.v2rayIntegration)
+        if (GlobalConfig.pluginConfig->v2rayIntegration)
         {
             for (auto i = 0; i < plugins; i++)
             {
-                const auto thisPort = GlobalConfig.pluginConfig.portAllocationStart + i;
+                const auto thisPort = GlobalConfig.pluginConfig->portAllocationStart + i;
                 const auto result = components::port::CheckTCPPortStatus("127.0.0.1", thisPort);
                 if (!result)
                     portDetectionErrorMessage << tr("Local port: %1 for plugin integration.").arg(thisPort);
@@ -88,11 +88,11 @@ namespace Qv2ray::core::handler
         //    inboundInfo.push_back({ inbound["protocol"].toString(), inbound["port"].toInt(), inbound["tag"].toString() });
         //}
         //
-        if (GlobalConfig.pluginConfig.v2rayIntegration)
+        if (GlobalConfig.pluginConfig->v2rayIntegration)
         {
             // Process outbounds.
             OUTBOUNDS processedOutbounds;
-            auto pluginPort = GlobalConfig.pluginConfig.portAllocationStart;
+            auto pluginPort = *GlobalConfig.pluginConfig->portAllocationStart;
             //
             for (auto i = 0; i < fullConfig["outbounds"].toArray().count(); i++)
             {
@@ -118,8 +118,8 @@ namespace Qv2ray::core::handler
                 _inboundSettings[KERNEL_HTTP_ENABLED] = false;
                 _inboundSettings[KERNEL_SOCKS_ENABLED] = true;
                 _inboundSettings[KERNEL_SOCKS_PORT] = pluginPort;
-                _inboundSettings[KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
-                _inboundSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
+                _inboundSettings[KERNEL_SOCKS_UDP_ENABLED] = *GlobalConfig.inboundConfig->socksSettings->enableUDP;
+                _inboundSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = *GlobalConfig.inboundConfig->socksSettings->localIP;
                 _inboundSettings[KERNEL_LISTEN_ADDRESS] = "127.0.0.1";
                 LOG("Sending connection settings to kernel.");
                 kernel->SetConnectionSettings(_inboundSettings, outbound["settings"].toObject());
@@ -150,7 +150,7 @@ namespace Qv2ray::core::handler
             }
             auto firstOutbound = fullConfig["outbounds"].toArray().first().toObject();
             const auto firstOutboundProtocol = firstOutbound["protocol"].toString();
-            if (GlobalConfig.pluginConfig.v2rayIntegration)
+            if (GlobalConfig.pluginConfig->v2rayIntegration)
             {
                 LOG("Starting kernels with V2RayIntegration.");
                 bool hasAllKernelStarted = true;
@@ -219,9 +219,9 @@ namespace Qv2ray::core::handler
                     pluginSettings.insert(v.protocol.toLower() == "http" ? KERNEL_HTTP_PORT : KERNEL_SOCKS_PORT, v.port);
                 }
 
-                pluginSettings[KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
-                pluginSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
-                pluginSettings[KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
+                pluginSettings[KERNEL_SOCKS_UDP_ENABLED] = *GlobalConfig.inboundConfig->socksSettings->enableUDP;
+                pluginSettings[KERNEL_SOCKS_LOCAL_ADDRESS] = *GlobalConfig.inboundConfig->socksSettings->localIP;
+                pluginSettings[KERNEL_LISTEN_ADDRESS] = *GlobalConfig.inboundConfig->listenip;
                 //
                 theKernel->SetConnectionSettings(pluginSettings, firstOutbound["settings"].toObject());
                 bool kernelStarted = theKernel->StartKernel();

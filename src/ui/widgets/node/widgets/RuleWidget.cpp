@@ -50,15 +50,15 @@ void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
     ruleTagLineEdit->setText(rule.QV2RAY_RULE_TAG);
     isLoading = false;
     // Networks
-    auto network = rule.network.toLower();
+    auto network = rule.network->toLower();
     netUDPRB->setChecked(network.contains("udp"));
     netTCPRB->setChecked(network.contains("tcp"));
     //
     // Set protocol checkboxes.
     auto protocol = rule.protocol;
-    routeProtocolHTTPCB->setChecked(protocol.contains("http"));
-    routeProtocolTLSCB->setChecked(protocol.contains("tls"));
-    routeProtocolBTCB->setChecked(protocol.contains("bittorrent"));
+    routeProtocolHTTPCB->setChecked(protocol->contains("http"));
+    routeProtocolTLSCB->setChecked(protocol->contains("tls"));
+    routeProtocolBTCB->setChecked(protocol->contains("bittorrent"));
     //
     // Port
     routePortTxt->setText(rule.port);
@@ -67,15 +67,15 @@ void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
     const auto sourcePorts = rule.sourcePort;
     //
     // Incoming Sources
-    const auto sources = rule.source.join(NEWLINE);
+    const auto sources = rule.source->join(NEWLINE);
     sourceIPList->setPlainText(sources);
     //
     // Domains
-    QString domains = rule.domain.join(NEWLINE);
+    QString domains = rule.domain->join(NEWLINE);
     hostList->setPlainText(domains);
     //
     // Outcoming IPs
-    QString ips = rule.ip.join(NEWLINE);
+    QString ips = rule.ip->join(NEWLINE);
     ipList->setPlainText(ips);
     LOAD_FLAG_END
 }

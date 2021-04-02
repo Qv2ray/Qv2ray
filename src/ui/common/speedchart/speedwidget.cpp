@@ -161,16 +161,16 @@ QString formatLabel(const double argValue, const SizeUnit unit)
 
 void SpeedWidget::UpdateSpeedPlotSettings()
 {
-#define Graph GlobalConfig.uiConfig.graphConfig
+#define Graph GlobalConfig.uiConfig->graphConfig
 #define _X_(x, y)                                                                                                                                    \
-    if (!Graph.colorConfig.contains(x))                                                                                                              \
-        Graph.colorConfig[x] = y;
+    if (!Graph->colorConfig->contains(x))                                                                                                            \
+        Graph->colorConfig->insert(x, y);
 
     const static QvPair<QvGraphPenConfig> defaultPen{ { 134, 196, 63, 1.5f, Qt::SolidLine }, { 50, 153, 255, 1.5f, Qt::SolidLine } };
     const static QvPair<QvGraphPenConfig> directPen{ { 0, 210, 240, 1.5f, Qt::DotLine }, { 235, 220, 42, 1.5f, Qt::DotLine } };
 
     _X_(API_INBOUND, defaultPen);
-    _X_(API_OUTBOUND_PROXY, Graph.colorConfig[API_INBOUND]);
+    _X_(API_OUTBOUND_PROXY, (*Graph->colorConfig)[API_INBOUND]);
     _X_(API_OUTBOUND_DIRECT, directPen);
 
     const auto getPen = [](const QvGraphPenConfig &conf) {
@@ -181,20 +181,20 @@ void SpeedWidget::UpdateSpeedPlotSettings()
     };
 
     m_properties.clear();
-    if (Graph.useOutboundStats)
+    if (Graph->useOutboundStats)
     {
-        m_properties[OUTBOUND_PROXY_UP] = { tr("Proxy ↑"), getPen(Graph.colorConfig[API_OUTBOUND_PROXY].value1) };
-        m_properties[OUTBOUND_PROXY_DOWN] = { tr("Proxy ↓"), getPen(Graph.colorConfig[API_OUTBOUND_PROXY].value2) };
-        if (Graph.hasDirectStats)
+        m_properties[OUTBOUND_PROXY_UP] = { tr("Proxy ↑"), getPen((*Graph->colorConfig)[API_OUTBOUND_PROXY].value1) };
+        m_properties[OUTBOUND_PROXY_DOWN] = { tr("Proxy ↓"), getPen((*Graph->colorConfig)[API_OUTBOUND_PROXY].value2) };
+        if (Graph->hasDirectStats)
         {
-            m_properties[OUTBOUND_DIRECT_UP] = { tr("Direct ↑"), getPen(Graph.colorConfig[API_OUTBOUND_DIRECT].value1) };
-            m_properties[OUTBOUND_DIRECT_DOWN] = { tr("Direct ↓"), getPen(Graph.colorConfig[API_OUTBOUND_DIRECT].value2) };
+            m_properties[OUTBOUND_DIRECT_UP] = { tr("Direct ↑"), getPen((*Graph->colorConfig)[API_OUTBOUND_DIRECT].value1) };
+            m_properties[OUTBOUND_DIRECT_DOWN] = { tr("Direct ↓"), getPen((*Graph->colorConfig)[API_OUTBOUND_DIRECT].value2) };
         }
     }
     else
     {
-        m_properties[INBOUND_UP] = { tr("Total ↑"), getPen(Graph.colorConfig[API_INBOUND].value1) };
-        m_properties[INBOUND_DOWN] = { tr("Total ↓"), getPen(Graph.colorConfig[API_INBOUND].value2) };
+        m_properties[INBOUND_UP] = { tr("Total ↑"), getPen((*Graph->colorConfig)[API_INBOUND].value1) };
+        m_properties[INBOUND_DOWN] = { tr("Total ↓"), getPen((*Graph->colorConfig)[API_INBOUND].value2) };
     }
 #undef Graph
 }

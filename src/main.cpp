@@ -101,7 +101,7 @@ const QString SayLastWords() noexcept
             // Do not collect private data.
             // msg << NEWLINE;
             // msg << JsonToString(ConnectionManager->GetConnectionRoot(currentConnection.connectionId));
-            group.subscriptionOption.address = "HIDDEN";
+            group.subscriptionOption->address = "HIDDEN";
             //
             msg << JsonToString(connection.toJson(), QJsonDocument::Compact);
             msg << NEWLINE;
@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
 #ifdef QT_DEBUG
     std::cerr << "WARNING: ================ This is a debug build, many features are not stable enough. ================" << std::endl;
 #else
-#error "Do not use Qv2ray v3.0 in Production"
+// #error "Do not use Qv2ray v3.0 in Production"
 #endif
 
     if (qEnvironmentVariableIsSet("QV2RAY_NO_SCALE_FACTORS"))

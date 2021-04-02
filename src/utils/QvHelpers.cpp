@@ -78,6 +78,16 @@ namespace Qv2ray::common
         f.commit();
         return override;
     }
+
+    QString JsonToString(const QJsonValue &json, QJsonDocument::JsonFormat format)
+    {
+        if (json.isArray())
+            return JsonToString(json.toArray(), format);
+        if (json.isObject())
+            return JsonToString(json.toObject(), format);
+        return json.toVariant().toString();
+    }
+
     QString JsonToString(const QJsonObject &json, QJsonDocument::JsonFormat format)
     {
         QJsonDocument doc;

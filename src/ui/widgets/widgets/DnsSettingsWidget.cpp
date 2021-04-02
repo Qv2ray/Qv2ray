@@ -41,15 +41,15 @@ DnsSettingsWidget::DnsSettingsWidget(QWidget *parent) : QWidget(parent)
     setupUi(this);
     QvMessageBusConnect(DnsSettingsWidget);
     //
-    auto sourceStringsDomain = ReadGeoSiteFromFile(GlobalConfig.kernelConfig.AssetsPath() + "/geosite.dat");
-    auto sourceStringsIP = ReadGeoSiteFromFile(GlobalConfig.kernelConfig.AssetsPath() + "/geoip.dat");
+    auto sourceStringsDomain = ReadGeoSiteFromFile(GlobalConfig.kernelConfig->AssetsPath() + "/geosite.dat");
+    auto sourceStringsIP = ReadGeoSiteFromFile(GlobalConfig.kernelConfig->AssetsPath() + "/geoip.dat");
     //
     domainListTxt = new AutoCompleteTextEdit("geosite", sourceStringsDomain, this);
     ipListTxt = new AutoCompleteTextEdit("geoip", sourceStringsIP, this);
     connect(domainListTxt, &AutoCompleteTextEdit::textChanged,
-            [&]() { this->dns.servers[currentServerIndex].domains = SplitLines(domainListTxt->toPlainText()); });
+            [&]() { (*dns.servers)[currentServerIndex].domains = SplitLines(domainListTxt->toPlainText()); });
     connect(ipListTxt, &AutoCompleteTextEdit::textChanged,
-            [&]() { this->dns.servers[currentServerIndex].expectIPs = SplitLines(ipListTxt->toPlainText()); });
+            [&]() { (*dns.servers)[currentServerIndex].expectIPs = SplitLines(ipListTxt->toPlainText()); });
 
     domainsLayout->addWidget(domainListTxt);
     expectedIPsLayout->addWidget(ipListTxt);
@@ -83,7 +83,7 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns, const FakeDNSObject 
     dnsTagTxt->setText(dns.tag);
 
     serversListbox->clear();
-    std::for_each(dns.servers.begin(), dns.servers.end(), [&](const auto &dns) { serversListbox->addItem(dns.address); });
+    std::for_each(dns.servers->begin(), dns.servers->end(), [&](const auto &dns) { serversListbox->addItem(dns.address); });
 
     if (serversListbox->count() > 0)
     {
@@ -92,7 +92,7 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns, const FakeDNSObject 
     }
 
     staticResolvedDomainsTable->clearContents();
-    for (const auto &[host, ip] : dns.hosts.toStdMap())
+    for (const auto &[host, ip] : dns.hosts->toStdMap())
     {
         const auto rowId = staticResolvedDomainsTable->rowCount();
         staticResolvedDomainsTable->insertRow(rowId);
@@ -109,9 +109,9 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns, const FakeDNSObject 
 
 bool DnsSettingsWidget::CheckIsValidDNS() const
 {
-    if (!dns.clientIp.isEmpty() && !IsValidIPAddress(dns.clientIp))
+    if (!dns.clientIp->isEmpty() && !IsValidIPAddress(dns.clientIp))
         return false;
-    for (const auto &server : dns.servers)
+    for (const auto &server : *dns.servers)
     {
         if (!IsValidDNSServer(server.address))
             return false;
@@ -130,13 +130,13 @@ void DnsSettingsWidget::ProcessDnsPortEnabledState()
 
 void DnsSettingsWidget::ShowCurrentDnsServerDetails()
 {
-    serverAddressTxt->setText(dns.servers[currentServerIndex].address);
+    serverAddressTxt->setText((*dns.servers)[currentServerIndex].address);
     //
-    domainListTxt->setPlainText(dns.servers[currentServerIndex].domains.join(NEWLINE));
-    ipListTxt->setPlainText(dns.servers[currentServerIndex].expectIPs.join(NEWLINE));
+    domainListTxt->setPlainText((*dns.servers)[currentServerIndex].domains->join(NEWLINE));
+    ipListTxt->setPlainText((*dns.servers)[currentServerIndex].expectIPs->join(NEWLINE));
     //
-    serverPortSB->setValue(dns.servers[currentServerIndex].port);
-    detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
+    serverPortSB->setValue((*dns.servers)[currentServerIndex].port);
+    detailsSettingsGB->setChecked((*dns.servers)[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
     //
     if (serverAddressTxt->text().isEmpty() || IsValidDNSServer(serverAddressTxt->text()))
     {
@@ -151,13 +151,13 @@ void DnsSettingsWidget::ShowCurrentDnsServerDetails()
 
 std::pair<DNSObject, FakeDNSObject> DnsSettingsWidget::GetDNSObject()
 {
-    dns.hosts.clear();
+    dns.hosts->clear();
     for (auto i = 0; i < staticResolvedDomainsTable->rowCount(); i++)
     {
         const auto &item1 = staticResolvedDomainsTable->item(i, 0);
         const auto &item2 = staticResolvedDomainsTable->item(i, 1);
         if (item1 && item2)
-            dns.hosts[item1->text()] = item2->text();
+            dns.hosts->insert(item1->text(), item2->text());
     }
     return { dns, fakeDNS };
 }
@@ -176,7 +176,7 @@ void DnsSettingsWidget::on_addServerBtn_clicked()
     DNSServerObject o;
     o.address = "1.1.1.1";
     o.port = 53;
-    dns.servers.push_back(o);
+    dns.servers->push_back(o);
     serversListbox->addItem(o.address);
     serversListbox->setCurrentRow(serversListbox->count() - 1);
     UPDATE_UI_ENABLED_STATE
@@ -185,7 +185,7 @@ void DnsSettingsWidget::on_addServerBtn_clicked()
 
 void DnsSettingsWidget::on_removeServerBtn_clicked()
 {
-    dns.servers.removeAt(currentServerIndex);
+    dns.servers->removeAt(currentServerIndex);
     // Block the signals
     serversListbox->blockSignals(true);
     auto item = serversListbox->item(currentServerIndex);
@@ -223,29 +223,29 @@ void DnsSettingsWidget::on_serversListbox_currentRowChanged(int currentRow)
 
 void DnsSettingsWidget::on_moveServerUpBtn_clicked()
 {
-    auto temp = dns.servers[currentServerIndex - 1];
-    dns.servers[currentServerIndex - 1] = dns.servers[currentServerIndex];
-    dns.servers[currentServerIndex] = temp;
+    auto temp = (*dns.servers)[currentServerIndex - 1];
+    (*dns.servers)[currentServerIndex - 1] = (*dns.servers)[currentServerIndex];
+    (*dns.servers)[currentServerIndex] = temp;
 
-    serversListbox->currentItem()->setText(dns.servers[currentServerIndex].address);
+    serversListbox->currentItem()->setText((*dns.servers)[currentServerIndex].address);
     serversListbox->setCurrentRow(currentServerIndex - 1);
-    serversListbox->currentItem()->setText(dns.servers[currentServerIndex].address);
+    serversListbox->currentItem()->setText((*dns.servers)[currentServerIndex].address);
 }
 
 void DnsSettingsWidget::on_moveServerDownBtn_clicked()
 {
-    auto temp = dns.servers[currentServerIndex + 1];
-    dns.servers[currentServerIndex + 1] = dns.servers[currentServerIndex];
-    dns.servers[currentServerIndex] = temp;
+    auto temp = (*dns.servers)[currentServerIndex + 1];
+    (*dns.servers)[currentServerIndex + 1] = (*dns.servers)[currentServerIndex];
+    (*dns.servers)[currentServerIndex] = temp;
 
-    serversListbox->currentItem()->setText(dns.servers[currentServerIndex].address);
+    serversListbox->currentItem()->setText((*dns.servers)[currentServerIndex].address);
     serversListbox->setCurrentRow(currentServerIndex + 1);
-    serversListbox->currentItem()->setText(dns.servers[currentServerIndex].address);
+    serversListbox->currentItem()->setText((*dns.servers)[currentServerIndex].address);
 }
 
 void DnsSettingsWidget::on_serverAddressTxt_textEdited(const QString &arg1)
 {
-    dns.servers[currentServerIndex].address = arg1;
+    (*dns.servers)[currentServerIndex].address = arg1;
     serversListbox->currentItem()->setText(arg1);
     if (arg1.isEmpty() || IsValidDNSServer(arg1))
     {
@@ -261,7 +261,7 @@ void DnsSettingsWidget::on_serverAddressTxt_textEdited(const QString &arg1)
 
 void DnsSettingsWidget::on_serverPortSB_valueChanged(int arg1)
 {
-    dns.servers[currentServerIndex].port = arg1;
+    (*dns.servers)[currentServerIndex].port = arg1;
 }
 
 void DnsSettingsWidget::on_addStaticHostBtn_clicked()
@@ -285,7 +285,7 @@ void DnsSettingsWidget::on_staticResolvedDomainsTable_cellChanged(int, int)
 void DnsSettingsWidget::on_detailsSettingsGB_toggled(bool arg1)
 {
     if (currentServerIndex >= 0)
-        dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS = arg1;
+        (*dns.servers)[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS = arg1;
     // detailsSettingsGB->setChecked(dns.servers[currentServerIndex].QV2RAY_DNS_IS_COMPLEX_DNS);
 }
 

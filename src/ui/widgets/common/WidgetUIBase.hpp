@@ -29,11 +29,11 @@ inline void BLACK(QWidget *obj)
 #define QV2RAY_COLORSCHEME_ROOT_X(isDark) (QString(":/assets/icons/") + ((isDark) ? "ui_dark/" : "ui_light/"))
 #define QV2RAY_TRASY_ICON_STYLE_X(isGlyph) (QString("") + ((isGlyph) ? "glyph-" : ""))
 
-#define QV2RAY_COLORSCHEME_FILE(file) (QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTheme) + file + ".svg")
+#define QV2RAY_COLORSCHEME_FILE(file) (QV2RAY_COLORSCHEME_ROOT_X(*GlobalConfig.uiConfig->useDarkTheme) + file + ".svg")
 
 #define Q_TRAYICON(name)                                                                                                                             \
-    (QPixmap(QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTrayIcon) +                                                                      \
-             (QV2RAY_TRASY_ICON_STYLE_X(GlobalConfig.uiConfig.useGlyphTrayIcon)) + name + ".png"))
+    (QPixmap(QV2RAY_COLORSCHEME_ROOT_X(*GlobalConfig.uiConfig->useDarkTrayIcon) +                                                                    \
+             (QV2RAY_TRASY_ICON_STYLE_X(*GlobalConfig.uiConfig->useGlyphTrayIcon)) + name + ".png"))
 
 class QvStateObject
 {

@@ -28,7 +28,7 @@ namespace Qv2ray::components
 #ifndef DISABLE_AUTO_UPDATE
         if (QFile(QV2RAY_CONFIG_DIR + "QV2RAY_FEATURE_DISABLE_AUTO_UPDATE").exists())
             return;
-        const auto &updateChannel = GlobalConfig.updateConfig.updateChannel;
+        const auto &updateChannel = GlobalConfig.updateConfig->updateChannel;
         LOG("Start checking update for channel ID: " + QSTRN(updateChannel));
         requestHelper->AsyncHttpGet(UpdateChannelLink[updateChannel], &QvUpdateChecker::VersionUpdate);
 #endif
@@ -44,7 +44,7 @@ namespace Qv2ray::components
 
         const auto newVersionStr = root["tag_name"].toString("v").mid(1);
         const auto currentVersionStr = QString(QV2RAY_VERSION_STRING);
-        const auto ignoredVersionStr = GlobalConfig.updateConfig.ignoredVersion.isEmpty() ? "0.0.0" : GlobalConfig.updateConfig.ignoredVersion;
+        const auto ignoredVersionStr = GlobalConfig.updateConfig->ignoredVersion->isEmpty() ? "0.0.0" : *GlobalConfig.updateConfig->ignoredVersion;
         //
         bool hasUpdate = false;
         try
@@ -88,13 +88,13 @@ namespace Qv2ray::components
             else if (result == Ignore)
             {
                 // Set and save ingored version.
-                GlobalConfig.updateConfig.ignoredVersion = newVersionStr;
+                GlobalConfig.updateConfig->ignoredVersion = newVersionStr;
                 SaveGlobalSettings();
             }
         }
         else
         {
-            LOG("No suitable updates found on channel " + QSTRN(GlobalConfig.updateConfig.updateChannel));
+            LOG("No suitable updates found on channel " + QSTRN(GlobalConfig.updateConfig->updateChannel));
         }
     }
 } // namespace Qv2ray::components

@@ -78,7 +78,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
         }
         const auto ruleNodeId = ruleNodes[rule->QV2RAY_RULE_TAG];
         // Process inbounds.
-        for (const auto &inboundTag : rule->inboundTag)
+        for (const auto &inboundTag : *rule->inboundTag)
         {
             if (!inboundNodes.contains(inboundTag))
             {
@@ -89,7 +89,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
             ruleScene->createConnection(*ruleScene->node(ruleNodeId), 0, *ruleScene->node(inboundNodeId), 0);
         }
 
-        const auto &outboundTag = rule->outboundTag.isEmpty() ? rule->balancerTag : rule->outboundTag;
+        const auto &outboundTag = rule->outboundTag->isEmpty() ? rule->balancerTag : rule->outboundTag;
         if (!outboundNodes.contains(outboundTag))
         {
             LOG("Could not find outbound: ", outboundTag);

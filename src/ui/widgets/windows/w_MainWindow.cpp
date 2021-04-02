@@ -57,15 +57,15 @@ void MainWindow::SortConnectionList(ConnectionInfoRole byCol, bool asending)
 void MainWindow::ReloadRecentConnectionList()
 {
     QList<ConnectionGroupPair> newRecentConnections;
-    const auto iterateRange = std::min(GlobalConfig.uiConfig.maxJumpListCount, (int) GlobalConfig.uiConfig.recentConnections.count());
+    const auto iterateRange = std::min(*GlobalConfig.uiConfig->maxJumpListCount, (int) GlobalConfig.uiConfig->recentConnections->count());
     for (auto i = 0; i < iterateRange; i++)
     {
-        const auto &item = GlobalConfig.uiConfig.recentConnections.at(i);
+        const auto &item = GlobalConfig.uiConfig->recentConnections->at(i);
         if (newRecentConnections.contains(item) || item.isEmpty())
             continue;
         newRecentConnections << item;
     }
-    GlobalConfig.uiConfig.recentConnections = newRecentConnections;
+    GlobalConfig.uiConfig->recentConnections = newRecentConnections;
 }
 
 void MainWindow::OnRecentConnectionsMenuReadyToShow()
@@ -73,7 +73,7 @@ void MainWindow::OnRecentConnectionsMenuReadyToShow()
     tray_RecentConnectionsMenu->clear();
     tray_RecentConnectionsMenu->addAction(tray_ClearRecentConnectionsAction);
     tray_RecentConnectionsMenu->addSeparator();
-    for (const auto &conn : GlobalConfig.uiConfig.recentConnections)
+    for (const auto &conn : *GlobalConfig.uiConfig->recentConnections)
     {
         if (ConnectionManager->IsValidId(conn))
         {
@@ -111,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     connectionInfoLayout->addWidget(infoWidget);
     //
     masterLogBrowser->setDocument(vCoreLogDocument);
-    vCoreLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, masterLogBrowser->document());
+    vCoreLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig->useDarkTheme, masterLogBrowser->document());
     // For charts
     speedChartWidget = new SpeedWidget(this);
     speedChart->addWidget(speedChartWidget);
@@ -190,9 +190,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
     connect(tray_ClearRecentConnectionsAction, &QAction::triggered, [this]() {
-        GlobalConfig.uiConfig.recentConnections.clear();
+        GlobalConfig.uiConfig->recentConnections->clear();
         ReloadRecentConnectionList();
-        if (!GlobalConfig.uiConfig.quietMode)
+        if (!GlobalConfig.uiConfig->quietMode)
             QvWidgetApplication->ShowTrayMessage(tr("Recent Connection list cleared."));
     });
     connect(qvAppTrayIcon, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
@@ -309,9 +309,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     ReloadRecentConnectionList();
     //
     //
-    if (!connectionStarted || !GlobalConfig.uiConfig.startMinimized)
+    if (!connectionStarted || !GlobalConfig.uiConfig->startMinimized)
         MWShowWindow();
-    if (GlobalConfig.uiConfig.startMinimized)
+    if (GlobalConfig.uiConfig->startMinimized)
         MWToggleVisibilitySetText();
     //
     CheckSubscriptionsUpdate();
@@ -522,7 +522,7 @@ void MainWindow::on_preferencesBtn_clicked()
 
 void MainWindow::on_setBypassCNBtn_clicked()
 {
-    GlobalConfig.defaultRouteConfig.connectionConfig.bypassCN = true;
+    GlobalConfig.defaultRouteConfig->connectionConfig->bypassCN = true;
     SaveGlobalSettings();
     if (!KernelInstance->CurrentConnection().isEmpty())
     {
@@ -533,7 +533,7 @@ void MainWindow::on_setBypassCNBtn_clicked()
 
 void MainWindow::on_clearBypassCNBtn_clicked()
 {
-    GlobalConfig.defaultRouteConfig.connectionConfig.bypassCN = false;
+    GlobalConfig.defaultRouteConfig->connectionConfig->bypassCN = false;
     SaveGlobalSettings();
     if (!KernelInstance->CurrentConnection().isEmpty())
     {
@@ -659,7 +659,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
     tray_SystemProxyMenu->setEnabled(false);
     lastConnected = id;
     locateBtn->setEnabled(false);
-    if (!GlobalConfig.uiConfig.quietMode)
+    if (!GlobalConfig.uiConfig->quietMode)
     {
         QvWidgetApplication->ShowTrayMessage(tr("Disconnected from: ") + GetDisplayName(id.connectionId));
     }
@@ -667,7 +667,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
     netspeedLabel->setText("0.00 B/s" NEWLINE "0.00 B/s");
     dataamountLabel->setText("0.00 B" NEWLINE "0.00 B");
     connetionStatusLabel->setText(tr("Not Connected"));
-    if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
+    if (GlobalConfig.inboundConfig->systemProxySettings->setSystemProxy)
     {
         MWClearSystemProxy();
     }
@@ -686,17 +686,17 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
     auto name = GetDisplayName(id.connectionId);
-    if (!GlobalConfig.uiConfig.quietMode)
+    if (!GlobalConfig.uiConfig->quietMode)
     {
         QvWidgetApplication->ShowTrayMessage(tr("Connected: ") + name);
     }
     qvAppTrayIcon->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
     connetionStatusLabel->setText(tr("Connected: ") + name);
     //
-    GlobalConfig.uiConfig.recentConnections.removeAll(id);
-    GlobalConfig.uiConfig.recentConnections.push_front(id);
+    GlobalConfig.uiConfig->recentConnections->removeAll(id);
+    GlobalConfig.uiConfig->recentConnections->push_front(id);
     ReloadRecentConnectionList();
-    if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
+    if (GlobalConfig.inboundConfig->systemProxySettings->setSystemProxy)
     {
         MWSetSystemProxy();
     }
@@ -715,8 +715,8 @@ void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const QMap<Stat
     // has "any" latency. (Hope not...)
     //
     QMap<SpeedWidget::GraphType, long> pointData;
-    bool isOutbound = GlobalConfig.uiConfig.graphConfig.useOutboundStats;
-    bool hasDirect = isOutbound && GlobalConfig.uiConfig.graphConfig.hasDirectStats;
+    bool isOutbound = GlobalConfig.uiConfig->graphConfig->useOutboundStats;
+    bool hasDirect = isOutbound && GlobalConfig.uiConfig->graphConfig->hasDirectStats;
     for (const auto &[type, data] : data.toStdMap())
     {
         const auto upSpeed = data.first.first;
@@ -770,7 +770,7 @@ void MainWindow::OnVCoreLogAvailable(const ConnectionGroupPair &id, const QStrin
     FastAppendTextDocument(log.trimmed(), vCoreLogDocument);
     // vCoreLogDocument->setPlainText(vCoreLogDocument->toPlainText() + log);
     // From https://gist.github.com/jemyzhang/7130092
-    auto maxLines = GlobalConfig.uiConfig.maximumLogLines;
+    auto maxLines = GlobalConfig.uiConfig->maximumLogLines;
     auto block = vCoreLogDocument->begin();
 
     while (block.isValid())
@@ -929,7 +929,7 @@ void MainWindow::Action_SetAutoConnection()
         const auto identifier = widget->Identifier();
         GlobalConfig.autoStartId = identifier;
         GlobalConfig.autoStartBehavior = AUTO_CONNECTION_FIXED;
-        if (!GlobalConfig.uiConfig.quietMode)
+        if (!GlobalConfig.uiConfig->quietMode)
         {
             QvWidgetApplication->ShowTrayMessage(tr("%1 has been set as auto connect.").arg(GetDisplayName(identifier.connectionId)));
         }
@@ -1026,7 +1026,7 @@ void MainWindow::on_newConnectionBtn_clicked()
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         const auto item = connectionTreeView->currentIndex();
-        const auto id = item.isValid() ? GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
+        const auto id = item.isValid() ? *GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
         ConnectionManager->CreateConnection(root, alias, id);
     }
 }
@@ -1039,7 +1039,7 @@ void MainWindow::on_newComplexConnectionBtn_clicked()
     if (isChanged)
     {
         const auto item = connectionTreeView->currentIndex();
-        const auto id = item.isValid() ? GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
+        const auto id = item.isValid() ? *GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
         ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, "outbounds", 0, "tag").toString(), id);
     }
 }

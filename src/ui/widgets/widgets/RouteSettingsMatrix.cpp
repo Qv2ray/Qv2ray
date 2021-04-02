@@ -63,13 +63,13 @@ void RouteSettingsMatrixWidget::SetRouteConfig(const QvConfig_Route &conf)
     domainStrategyCombo->setCurrentText(conf.domainStrategy);
     domainMatcherCombo->setCurrentIndex(conf.domainMatcher == "mph" ? 1 : 0);
     //
-    directDomainTxt->setPlainText(conf.domains.direct.join(NEWLINE));
-    proxyDomainTxt->setPlainText(conf.domains.proxy.join(NEWLINE));
-    blockDomainTxt->setPlainText(conf.domains.block.join(NEWLINE));
+    directDomainTxt->setPlainText(conf.domains->direct->join(NEWLINE));
+    proxyDomainTxt->setPlainText(conf.domains->proxy->join(NEWLINE));
+    blockDomainTxt->setPlainText(conf.domains->block->join(NEWLINE));
     //
-    blockIPTxt->setPlainText(conf.ips.block.join(NEWLINE));
-    directIPTxt->setPlainText(conf.ips.direct.join(NEWLINE));
-    proxyIPTxt->setPlainText(conf.ips.proxy.join(NEWLINE));
+    blockIPTxt->setPlainText(conf.ips->block->join(NEWLINE));
+    directIPTxt->setPlainText(conf.ips->direct->join(NEWLINE));
+    proxyIPTxt->setPlainText(conf.ips->proxy->join(NEWLINE));
 }
 
 QvConfig_Route RouteSettingsMatrixWidget::GetRouteConfig() const
@@ -79,13 +79,13 @@ QvConfig_Route RouteSettingsMatrixWidget::GetRouteConfig() const
     const auto index = domainMatcherCombo->currentIndex();
     conf.domainMatcher = index == 0 ? "" : "mph";
     conf.domainStrategy = domainStrategyCombo->currentText();
-    conf.domains.block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
-    conf.domains.direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
-    conf.domains.proxy = SplitLines(proxyDomainTxt->toPlainText().replace(" ", ""));
+    conf.domains->block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
+    conf.domains->direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
+    conf.domains->proxy = SplitLines(proxyDomainTxt->toPlainText().replace(" ", ""));
     //
-    conf.ips.block = SplitLines(blockIPTxt->toPlainText().replace(" ", ""));
-    conf.ips.direct = SplitLines(directIPTxt->toPlainText().replace(" ", ""));
-    conf.ips.proxy = SplitLines(proxyIPTxt->toPlainText().replace(" ", ""));
+    conf.ips->block = SplitLines(blockIPTxt->toPlainText().replace(" ", ""));
+    conf.ips->direct = SplitLines(directIPTxt->toPlainText().replace(" ", ""));
+    conf.ips->proxy = SplitLines(proxyIPTxt->toPlainText().replace(" ", ""));
     return conf;
 }
 

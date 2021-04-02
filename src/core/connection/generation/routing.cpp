@@ -5,7 +5,7 @@ namespace Qv2ray::core::connection::generation::routing
     {
         QJsonObject root = dnsServer.toJson();
         QJsonArray servers;
-        for (const auto &serv : dnsServer.servers)
+        for (const auto &serv : *dnsServer.servers)
             servers << (serv.QV2RAY_DNS_IS_COMPLEX_DNS ? serv.toJson() : QJsonValue(serv.address));
         root["servers"] = servers;
         return root;
@@ -35,8 +35,8 @@ namespace Qv2ray::core::connection::generation::routing
     ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, bool bypassLAN, const QString &outTag, const QvConfig_Route &routeConfig)
     {
         ROUTING root;
-        root.insert("domainStrategy", routeConfig.domainStrategy);
-        root.insert("domainMatcher", routeConfig.domainMatcher);
+        root.insert("domainStrategy", *routeConfig.domainStrategy);
+        root.insert("domainMatcher", *routeConfig.domainMatcher);
         //
         // For Rules list
         QJsonArray rulesList;
@@ -54,22 +54,22 @@ namespace Qv2ray::core::connection::generation::routing
         {
             //
             // Blocked.
-            if (!routeConfig.ips.block.isEmpty())
-                rulesList << GenerateSingleRouteRule(RULE_IP, routeConfig.ips.block, OUTBOUND_TAG_BLACKHOLE);
-            if (!routeConfig.domains.block.isEmpty())
-                rulesList << GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.block, OUTBOUND_TAG_BLACKHOLE);
+            if (!routeConfig.ips->block->isEmpty())
+                rulesList << GenerateSingleRouteRule(RULE_IP, routeConfig.ips->block, OUTBOUND_TAG_BLACKHOLE);
+            if (!routeConfig.domains->block->isEmpty())
+                rulesList << GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains->block, OUTBOUND_TAG_BLACKHOLE);
             //
             // Proxied
-            if (!routeConfig.ips.proxy.isEmpty())
-                rulesList << GenerateSingleRouteRule(RULE_IP, routeConfig.ips.proxy, outTag);
-            if (!routeConfig.domains.proxy.isEmpty())
-                rulesList << GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.proxy, outTag);
+            if (!routeConfig.ips->proxy->isEmpty())
+                rulesList << GenerateSingleRouteRule(RULE_IP, routeConfig.ips->proxy, outTag);
+            if (!routeConfig.domains->proxy->isEmpty())
+                rulesList << GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains->proxy, outTag);
             //
             // Directed
-            if (!routeConfig.ips.direct.isEmpty())
-                rulesList << GenerateSingleRouteRule(RULE_IP, routeConfig.ips.direct, OUTBOUND_TAG_DIRECT);
-            if (!routeConfig.domains.direct.isEmpty())
-                rulesList << GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains.direct, OUTBOUND_TAG_DIRECT);
+            if (!routeConfig.ips->direct->isEmpty())
+                rulesList << GenerateSingleRouteRule(RULE_IP, routeConfig.ips->direct, OUTBOUND_TAG_DIRECT);
+            if (!routeConfig.domains->direct->isEmpty())
+                rulesList << GenerateSingleRouteRule(RULE_DOMAIN, routeConfig.domains->direct, OUTBOUND_TAG_DIRECT);
             //
             // Check if CN needs proxy, or direct.
             if (bypassCN)

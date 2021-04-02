@@ -18,7 +18,7 @@ namespace Qv2ray::core::connection::generation::inbounds
 
         for (const auto &account : _accounts)
         {
-            if (account.user.isEmpty() && account.pass.isEmpty())
+            if (account.user->isEmpty() && account.pass->isEmpty())
                 continue;
             accounts.append(account.toJson());
         }
@@ -36,7 +36,7 @@ namespace Qv2ray::core::connection::generation::inbounds
         QJsonArray accounts;
         for (const auto &acc : _accounts)
         {
-            if (acc.user.isEmpty() && acc.pass.isEmpty())
+            if (acc.user->isEmpty() && acc.pass->isEmpty())
                 continue;
             accounts.append(acc.toJson());
         }
@@ -91,68 +91,68 @@ namespace Qv2ray::core::connection::generation::inbounds
         INBOUNDS inboundsList;
 
         // HTTP Inbound
-        if (GlobalConfig.inboundConfig.useHTTP)
+        if (GlobalConfig.inboundConfig->useHTTP)
         {
-            const auto httpInSettings = GenerateHTTPIN(INCONF.httpSettings.useAuth, { INCONF.httpSettings.account });
-            const auto httpSniffingObject = GenerateSniffingObject(INCONF.httpSettings.sniffing, //
-                                                                   INCONF.httpSettings.destOverride);
-            const auto httpInboundObject = GenerateInboundEntry("http_IN", "http",        //
-                                                                INCONF.listenip,          //
-                                                                INCONF.httpSettings.port, //
-                                                                httpInSettings,           //
+            const auto httpInSettings = GenerateHTTPIN(INCONF->httpSettings->useAuth, { INCONF->httpSettings->account });
+            const auto httpSniffingObject = GenerateSniffingObject(INCONF->httpSettings->sniffing, //
+                                                                   INCONF->httpSettings->destOverride);
+            const auto httpInboundObject = GenerateInboundEntry("http_IN", "http",          //
+                                                                INCONF->listenip,           //
+                                                                INCONF->httpSettings->port, //
+                                                                httpInSettings,             //
                                                                 httpSniffingObject);
             inboundsList.append(httpInboundObject);
         }
 
         // SOCKS Inbound
-        if (INCONF.useSocks)
+        if (INCONF->useSocks)
         {
-            const auto socksInSettings = GenerateSocksIN(INCONF.socksSettings.useAuth ? "password" : "noauth", //
-                                                         { INCONF.socksSettings.account },                     //
-                                                         INCONF.socksSettings.enableUDP,                       //
-                                                         INCONF.socksSettings.localIP);
-            const auto socksSniffingObject = GenerateSniffingObject(INCONF.socksSettings.sniffing, //
-                                                                    INCONF.socksSettings.destOverride);
-            const auto socksInboundObject = GenerateInboundEntry("socks_IN", "socks",       //
-                                                                 INCONF.listenip,           //
-                                                                 INCONF.socksSettings.port, //
-                                                                 socksInSettings,           //
+            const auto socksInSettings = GenerateSocksIN(INCONF->socksSettings->useAuth ? "password" : "noauth", //
+                                                         { INCONF->socksSettings->account },                     //
+                                                         INCONF->socksSettings->enableUDP,                       //
+                                                         INCONF->socksSettings->localIP);
+            const auto socksSniffingObject = GenerateSniffingObject(INCONF->socksSettings->sniffing, //
+                                                                    INCONF->socksSettings->destOverride);
+            const auto socksInboundObject = GenerateInboundEntry("socks_IN", "socks",         //
+                                                                 INCONF->listenip,            //
+                                                                 INCONF->socksSettings->port, //
+                                                                 socksInSettings,             //
                                                                  socksSniffingObject);
             inboundsList.append(socksInboundObject);
         }
 
         // TPROXY
-        if (INCONF.useTPROXY)
+        if (INCONF->useTPROXY)
         {
             QList<QString> networks;
-            if (INCONF.tProxySettings.hasTCP)
+            if (INCONF->tProxySettings->hasTCP)
                 networks << "tcp";
-            if (INCONF.tProxySettings.hasUDP)
+            if (INCONF->tProxySettings->hasUDP)
                 networks << "udp";
             const auto tproxy_network = networks.join(",");
             const auto tProxySettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true);
-            const auto tproxySniffingObject = GenerateSniffingObject(INCONF.tProxySettings.sniffing, //
-                                                                     INCONF.tProxySettings.destOverride);
+            const auto tproxySniffingObject = GenerateSniffingObject(INCONF->tProxySettings->sniffing, //
+                                                                     INCONF->tProxySettings->destOverride);
             // tProxy IPv4 Settings
             {
                 LOG("Processing tProxy IPv4 inbound");
-                auto tProxyIn = GenerateInboundEntry("tproxy_IN", "dokodemo-door",   //
-                                                     INCONF.tProxySettings.tProxyIP, //
-                                                     INCONF.tProxySettings.port,     //
-                                                     tProxySettings,                 //
-                                                     tproxySniffingObject);
-                tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
-                inboundsList.append(tProxyIn);
-            }
-            if (!INCONF.tProxySettings.tProxyV6IP.isEmpty())
-            {
-                LOG("Processing tProxy IPv6 inbound");
-                auto tProxyIn = GenerateInboundEntry("tproxy_IN_V6", "dokodemo-door",  //
-                                                     INCONF.tProxySettings.tProxyV6IP, //
-                                                     INCONF.tProxySettings.port,       //
+                auto tProxyIn = GenerateInboundEntry("tproxy_IN", "dokodemo-door",     //
+                                                     INCONF->tProxySettings->tProxyIP, //
+                                                     INCONF->tProxySettings->port,     //
                                                      tProxySettings,                   //
                                                      tproxySniffingObject);
-                tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", INCONF.tProxySettings.mode } } } });
+                tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", *INCONF->tProxySettings->mode } } } });
+                inboundsList.append(tProxyIn);
+            }
+            if (!INCONF->tProxySettings->tProxyV6IP->isEmpty())
+            {
+                LOG("Processing tProxy IPv6 inbound");
+                auto tProxyIn = GenerateInboundEntry("tproxy_IN_V6", "dokodemo-door",    //
+                                                     INCONF->tProxySettings->tProxyV6IP, //
+                                                     INCONF->tProxySettings->port,       //
+                                                     tProxySettings,                     //
+                                                     tproxySniffingObject);
+                tProxyIn.insert("streamSettings", QJsonObject{ { "sockopt", QJsonObject{ { "tproxy", *INCONF->tProxySettings->mode } } } });
                 inboundsList.append(tProxyIn);
             }
         }

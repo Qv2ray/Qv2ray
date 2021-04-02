@@ -17,7 +17,7 @@ namespace Qv2ray::common::network
 
     void NetworkRequestHelper::setAccessManagerAttributes(QNetworkRequest &request, QNetworkAccessManager &accessManager)
     {
-        switch (GlobalConfig.networkConfig.proxyType)
+        switch (GlobalConfig.networkConfig->proxyType)
         {
             case QVPROXY_NONE:
             {
@@ -33,9 +33,9 @@ namespace Qv2ray::common::network
             case QVPROXY_CUSTOM:
             {
                 QNetworkProxy p{
-                    GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
-                    GlobalConfig.networkConfig.address,                                                                //
-                    quint16(GlobalConfig.networkConfig.port)                                                           //
+                    GlobalConfig.networkConfig->type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
+                    GlobalConfig.networkConfig->address,                                                                //
+                    quint16(GlobalConfig.networkConfig->port)                                                           //
                 };
                 accessManager.setProxy(p);
                 break;
@@ -57,9 +57,9 @@ namespace Qv2ray::common::network
         // request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
 #endif
 
-        auto ua = GlobalConfig.networkConfig.userAgent;
-        ua.replace("$VERSION", QV2RAY_VERSION_STRING);
-        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, ua);
+        auto ua = GlobalConfig.networkConfig->userAgent;
+        ua->replace("$VERSION", QV2RAY_VERSION_STRING);
+        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, *ua);
     }
 
     QByteArray NetworkRequestHelper::HttpGet(const QUrl &url)

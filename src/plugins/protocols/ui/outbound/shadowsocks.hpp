@@ -15,8 +15,8 @@ class ShadowsocksOutboundEditor
 
     void SetHostAddress(const QString &addr, int port) override
     {
-        shadowsocks.set_address(addr);
-        shadowsocks.set_port(port);
+        shadowsocks.address = addr;
+        shadowsocks.port = port;
     };
     QPair<QString, int> GetHostAddress() const override
     {

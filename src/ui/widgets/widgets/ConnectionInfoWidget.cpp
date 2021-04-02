@@ -31,7 +31,7 @@ void ConnectionInfoWidget::updateColorScheme()
     groupSubsLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +
                                     this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
     //
-    auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
+    auto isDarkTheme = *GlobalConfig.uiConfig->useDarkTheme;
     qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
     qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.png") : (isRealPixmapShown ? qrPixmap : qrPixmapBlured));
     const auto isCurrentItem = KernelInstance->CurrentConnection().connectionId == connectionId;
@@ -83,7 +83,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         portLabel->setNum(port);
         //
         shareLinkTxt->setCursorPosition(0);
-        auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
+        auto isDarkTheme = GlobalConfig.uiConfig->useDarkTheme;
         qrPixmap = QPixmap::fromImage(EncodeQRCode(shareLink, qrLabel->width() * devicePixelRatio()));
         //
         qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
@@ -113,7 +113,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));
         const auto &groupMetaData = ConnectionManager->GetGroupMetaObject(groupId);
-        groupSubsLinkTxt->setText(groupMetaData.isSubscription ? groupMetaData.subscriptionOption.address : tr("Not a subscription"));
+        groupSubsLinkTxt->setText(groupMetaData.isSubscription ? *groupMetaData.subscriptionOption->address : tr("Not a subscription"));
     }
 }
 

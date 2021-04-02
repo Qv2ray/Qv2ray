@@ -15,7 +15,7 @@ class LoopbackSettingsEditor
     QPair<QString, int> GetHostAddress() const
     {
         return {};
-    };
+    }
 
     void SetContent(const QJsonObject &content)
     {

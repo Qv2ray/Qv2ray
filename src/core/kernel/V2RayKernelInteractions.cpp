@@ -155,8 +155,8 @@ namespace Qv2ray::core::kernel
 
     std::pair<bool, std::optional<QString>> V2RayKernelInstance::ValidateConfig(const QString &path)
     {
-        const auto &kernelPath = GlobalConfig.kernelConfig.KernelPath();
-        const auto &assetsPath = GlobalConfig.kernelConfig.AssetsPath();
+        const auto kernelPath = GlobalConfig.kernelConfig->KernelPath();
+        const auto assetsPath = GlobalConfig.kernelConfig->AssetsPath();
         if (const auto &[result, msg] = ValidateKernel(kernelPath, assetsPath); result)
         {
             DEBUG("V2Ray version: " + *msg);
@@ -227,15 +227,15 @@ namespace Qv2ray::core::kernel
         if (const auto &&[result, msg] = ValidateConfig(filePath); result)
         {
             auto env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
-            env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
+            env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig->AssetsPath());
+            env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig->AssetsPath());
             vProcess->setProcessEnvironment(env);
-            vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
+            vProcess->start(GlobalConfig.kernelConfig->KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
             kernelStarted = true;
 
             QMap<bool, QMap<QString, QString>> tagProtocolMap;
-            for (const auto isOutbound : { GlobalConfig.uiConfig.graphConfig.useOutboundStats, false })
+            for (const auto isOutbound : { *GlobalConfig.uiConfig->graphConfig->useOutboundStats, false })
             {
                 for (const auto &item : root[isOutbound ? "outbounds" : "inbounds"].toArray())
                 {
@@ -256,7 +256,7 @@ namespace Qv2ray::core::kernel
             {
                 LOG("API has been disabled by the command line arguments");
             }
-            else if (!GlobalConfig.kernelConfig.enableAPI)
+            else if (!GlobalConfig.kernelConfig->enableAPI)
             {
                 LOG("API has been disabled by the global config option");
             }

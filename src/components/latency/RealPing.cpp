@@ -160,7 +160,7 @@ namespace Qv2ray::components::latency::realping
         struct sockaddr_storage addr
         {
         };
-        const auto &ip = GlobalConfig.inboundConfig.listenip.toStdString();
+        const auto &ip = GlobalConfig.inboundConfig->listenip->toStdString();
         bool is_addr_any = false;
         bool is_ipv4 = (uv_ip4_addr(ip.c_str(), 0, reinterpret_cast<sockaddr_in *>(&addr)) == 0);
         QString proxy_ip;
@@ -169,7 +169,7 @@ namespace Qv2ray::components::latency::realping
             uv_ip6_addr(ip.c_str(), 0, reinterpret_cast<sockaddr_in6 *>(&addr));
             is_addr_any = isIPv6Any(reinterpret_cast<sockaddr_in6 &>(addr).sin6_addr);
             if (!is_addr_any)
-                proxy_ip = "[" + GlobalConfig.inboundConfig.listenip + "]";
+                proxy_ip = "[" + GlobalConfig.inboundConfig->listenip + "]";
             else
                 proxy_ip = "[::1]";
         }
@@ -177,39 +177,39 @@ namespace Qv2ray::components::latency::realping
         {
             is_addr_any = isIPv4Any(reinterpret_cast<sockaddr_in &>(addr).sin_addr);
             if (!is_addr_any)
-                proxy_ip = GlobalConfig.inboundConfig.listenip;
+                proxy_ip = GlobalConfig.inboundConfig->listenip;
             else
                 proxy_ip = "127.0.0.1";
         }
         QString protocolWithUsrPwd;
         int port;
-        if (GlobalConfig.inboundConfig.useHTTP)
+        if (GlobalConfig.inboundConfig->useHTTP)
         {
             protocolWithUsrPwd = "http://";
-            if (GlobalConfig.inboundConfig.httpSettings.useAuth)
+            if (GlobalConfig.inboundConfig->httpSettings->useAuth)
                 protocolWithUsrPwd +=
-                    GlobalConfig.inboundConfig.httpSettings.account.user + ":" + GlobalConfig.inboundConfig.httpSettings.account.pass + "@";
-            port = GlobalConfig.inboundConfig.httpSettings.port;
+                    GlobalConfig.inboundConfig->httpSettings->account->user + ":" + GlobalConfig.inboundConfig->httpSettings->account->pass + "@";
+            port = GlobalConfig.inboundConfig->httpSettings->port;
         }
         else
         {
             protocolWithUsrPwd = "socks5://";
-            if (GlobalConfig.inboundConfig.socksSettings.useAuth)
+            if (GlobalConfig.inboundConfig->socksSettings->useAuth)
                 protocolWithUsrPwd +=
-                    GlobalConfig.inboundConfig.socksSettings.account.user + ":" + GlobalConfig.inboundConfig.socksSettings.account.pass + "@";
-            port = GlobalConfig.inboundConfig.socksSettings.port;
+                    GlobalConfig.inboundConfig->socksSettings->account->user + ":" + GlobalConfig.inboundConfig->socksSettings->account->pass + "@";
+            port = GlobalConfig.inboundConfig->socksSettings->port;
         }
         return (protocolWithUsrPwd + proxy_ip + ":" + QSTRN(port)).toStdString();
     }
     void RealPing::start()
     {
-        if (!GlobalConfig.inboundConfig.useSocks && !GlobalConfig.inboundConfig.useHTTP)
+        if (!GlobalConfig.inboundConfig->useSocks && !GlobalConfig.inboundConfig->useHTTP)
         {
             data.avg = LATENCY_TEST_VALUE_ERROR;
             testHost->OnLatencyTestCompleted(req.id, data);
             return;
         }
-        auto request_name = GlobalConfig.networkConfig.latencyRealPingTestURL.toStdString();
+        auto request_name = GlobalConfig.networkConfig->latencyRealPingTestURL->toStdString();
         data.totalCount = 0;
         data.failedCount = 0;
         data.worst = 0;

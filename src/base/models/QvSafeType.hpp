@@ -78,12 +78,6 @@ namespace Qv2ray::base::safetype
                 this->insert(k, data[ENUM_JSON_KEY_PREFIX + k_str]);
             }
         }
-        [[nodiscard]] static auto fromJson(const QJsonValue &json)
-        {
-            QvEnumMap t;
-            t.loadJson(json);
-            return t;
-        }
         [[nodiscard]] const QJsonObject toJson() const
         {
             QMap<QString, TValue> data;

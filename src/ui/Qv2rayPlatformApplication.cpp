@@ -114,28 +114,27 @@ bool Qv2rayPlatformApplication::Initialize()
     const auto osLanguage = QLocale::system().name();
     //
     LocateConfiguration();
-    if (!allTranslations.contains(GlobalConfig.uiConfig.language))
+    if (!allTranslations.contains(GlobalConfig.uiConfig->language))
     {
         // If we need to reset the language.
         if (allTranslations.contains(osLanguage))
         {
-            GlobalConfig.uiConfig.language = osLanguage;
+            GlobalConfig.uiConfig->language = osLanguage;
         }
         else if (!allTranslations.isEmpty())
         {
-            GlobalConfig.uiConfig.language = allTranslations.first();
+            GlobalConfig.uiConfig->language = allTranslations.first();
         }
     }
 
-    if (!Qv2rayTranslator->InstallTranslation(GlobalConfig.uiConfig.language))
+    if (!Qv2rayTranslator->InstallTranslation(GlobalConfig.uiConfig->language))
     {
         QvMessageBoxWarn(nullptr, "Translation Failed",
-                         "Cannot load translation for " + GlobalConfig.uiConfig.language + NEWLINE + //
-                             "English is now used." + NEWLINE + NEWLINE +                            //
+                         "Cannot load translation for " + GlobalConfig.uiConfig->language + NEWLINE + //
+                             "English is now used." + NEWLINE + NEWLINE +                             //
                              "Please go to Preferences Window to change language or open an Issue");
-        GlobalConfig.uiConfig.language = "en_US";
+        GlobalConfig.uiConfig->language = "en_US";
     }
-
     return true;
 }
 

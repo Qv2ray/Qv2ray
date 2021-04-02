@@ -111,13 +111,13 @@ namespace Qv2ray::components::plugins
 
     bool QvPluginHost::GetPluginEnabled(const QString &internalName) const
     {
-        return GlobalConfig.pluginConfig.pluginStates[internalName];
+        return (*GlobalConfig.pluginConfig->pluginStates)[internalName];
     }
 
     void QvPluginHost::SetPluginEnabled(const QString &internalName, bool isEnabled)
     {
         LOG("Set plugin: \"" + internalName + "\" enable state: " + (isEnabled ? "true" : "false"));
-        GlobalConfig.pluginConfig.pluginStates[internalName] = isEnabled;
+        (*GlobalConfig.pluginConfig->pluginStates)[internalName] = isEnabled;
         if (isEnabled && !plugins[internalName].isLoaded)
         {
             // Load plugin if it haven't been loaded.
@@ -153,13 +153,13 @@ namespace Qv2ray::components::plugins
             LOG("The plugin: \"" + internalName + "\" has already been loaded.");
             return true;
         }
-        if (!GlobalConfig.pluginConfig.pluginStates.contains(internalName))
+        if (!GlobalConfig.pluginConfig->pluginStates->contains(internalName))
         {
             // If not contained, default to enabled.
-            GlobalConfig.pluginConfig.pluginStates[internalName] = true;
+            (*GlobalConfig.pluginConfig->pluginStates)[internalName] = true;
         }
         // If the plugin is disabled
-        if (!GlobalConfig.pluginConfig.pluginStates[internalName])
+        if (!GlobalConfig.pluginConfig->pluginStates->value(internalName))
         {
             LOG("Cannot load a plugin that's been disabled.");
             return false;

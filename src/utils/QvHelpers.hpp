@@ -24,6 +24,7 @@ namespace Qv2ray::common
     //
     //
     QJsonObject JsonFromString(const QString &string);
+    QString JsonToString(const QJsonValue &json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
     QString JsonToString(const QJsonObject &json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
     QString JsonToString(const QJsonArray &array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
     QString VerifyJsonString(const QString &source);

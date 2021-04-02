@@ -70,9 +70,9 @@ namespace Qv2ray::core::connection
                 }
                 server.address = host;
                 server.port = port;
-                server.users.first().id = uuid;
-                server.users.first().alterId = aid;
-                server.users.first().security = "auto";
+                server.users->first().id = uuid;
+                server.users->first().alterId = aid;
+                server.users->first().security = "auto";
             }
 
             const static auto getQueryValue = [&query](const QString &key, const QString &defaultValue) {
@@ -87,28 +87,28 @@ namespace Qv2ray::core::connection
             {
                 if (net == "tcp")
                 {
-                    stream.tcpSettings.header.type = getQueryValue("type", "none");
+                    stream.tcpSettings->header->type = getQueryValue("type", "none");
                 }
                 else if (net == "http")
                 {
-                    stream.httpSettings.host.append(getQueryValue("host", ""));
-                    stream.httpSettings.path = getQueryValue("path", "/");
+                    stream.httpSettings->host->append(getQueryValue("host", ""));
+                    stream.httpSettings->path = getQueryValue("path", "/");
                 }
                 else if (net == "ws")
                 {
-                    stream.wsSettings.headers["Host"] = getQueryValue("host", "");
-                    stream.wsSettings.path = getQueryValue("path", "/");
+                    stream.wsSettings->headers->insert("Host", getQueryValue("host", ""));
+                    stream.wsSettings->path = getQueryValue("path", "/");
                 }
                 else if (net == "kcp")
                 {
-                    stream.kcpSettings.seed = getQueryValue("seed", "");
-                    stream.kcpSettings.header.type = getQueryValue("type", "none");
+                    stream.kcpSettings->seed = getQueryValue("seed", "");
+                    stream.kcpSettings->header->type = getQueryValue("type", "none");
                 }
                 else if (net == "quic")
                 {
-                    stream.quicSettings.security = getQueryValue("security", "none");
-                    stream.quicSettings.key = getQueryValue("key", "");
-                    stream.quicSettings.header.type = getQueryValue("type", "none");
+                    stream.quicSettings->security = getQueryValue("security", "none");
+                    stream.quicSettings->key = getQueryValue("key", "");
+                    stream.quicSettings->header->type = getQueryValue("type", "none");
                 }
                 else
                 {
@@ -120,7 +120,7 @@ namespace Qv2ray::core::connection
             if (tls)
             {
                 // stream.tlsSettings.allowInsecure = !FalseTypes.contains(getQueryValue("allowInsecure", "false"));
-                stream.tlsSettings.serverName = getQueryValue("tlsServerName", "");
+                stream.tlsSettings->serverName = getQueryValue("tlsServerName", "");
             }
             CONFIGROOT root;
             OUTBOUNDSETTING vConf;
@@ -135,7 +135,7 @@ namespace Qv2ray::core::connection
 
         const QString Serialize(const StreamSettingsObject &stream, const VMessServerObject &server, const QString &alias)
         {
-            if (server.users.empty())
+            if (server.users->empty())
                 return QObject::tr("(Empty Users)");
             QUrl url;
             QUrlQuery query;
@@ -143,37 +143,37 @@ namespace Qv2ray::core::connection
 
             if (stream.network == "tcp")
             {
-                if (!stream.tcpSettings.header.type.isEmpty() && stream.tcpSettings.header.type != "none")
-                    query.addQueryItem("type", stream.tcpSettings.header.type);
+                if (!stream.tcpSettings->header->type->isEmpty() && stream.tcpSettings->header->type != "none")
+                    query.addQueryItem("type", stream.tcpSettings->header->type);
             }
             else if (stream.network == "http")
             {
-                if (!stream.httpSettings.host.isEmpty())
-                    query.addQueryItem("host", stream.httpSettings.host.first());
-                query.addQueryItem("path", stream.httpSettings.path.isEmpty() ? "/" : stream.httpSettings.path);
+                if (!stream.httpSettings->host->isEmpty())
+                    query.addQueryItem("host", stream.httpSettings->host->first());
+                query.addQueryItem("path", stream.httpSettings->path->isEmpty() ? "/" : *stream.httpSettings->path);
             }
             else if (stream.network == "ws")
             {
-                if (stream.wsSettings.headers.contains("Host") && !stream.wsSettings.headers["Host"].isEmpty())
-                    query.addQueryItem("host", stream.wsSettings.headers["Host"]);
-                if (!stream.wsSettings.path.isEmpty() && stream.wsSettings.path != "/")
-                    query.addQueryItem("path", stream.wsSettings.path);
+                if (stream.wsSettings->headers->contains("Host") && !stream.wsSettings->headers->value("Host").isEmpty())
+                    query.addQueryItem("host", stream.wsSettings->headers->value("Host"));
+                if (!stream.wsSettings->path->isEmpty() && stream.wsSettings->path != "/")
+                    query.addQueryItem("path", stream.wsSettings->path);
             }
             else if (stream.network == "kcp")
             {
-                if (!stream.kcpSettings.seed.isEmpty() && stream.kcpSettings.seed != "")
-                    query.addQueryItem("seed", stream.kcpSettings.seed);
-                if (!stream.kcpSettings.header.type.isEmpty() && stream.kcpSettings.header.type != "none")
-                    query.addQueryItem("type", stream.kcpSettings.header.type);
+                if (!stream.kcpSettings->seed->isEmpty() && stream.kcpSettings->seed != "")
+                    query.addQueryItem("seed", stream.kcpSettings->seed);
+                if (!stream.kcpSettings->header->type->isEmpty() && stream.kcpSettings->header->type != "none")
+                    query.addQueryItem("type", stream.kcpSettings->header->type);
             }
             else if (stream.network == "quic")
             {
-                if (!stream.quicSettings.security.isEmpty() && stream.quicSettings.security != "none")
-                    query.addQueryItem("security", stream.quicSettings.security);
-                if (!stream.quicSettings.key.isEmpty())
-                    query.addQueryItem("key", stream.quicSettings.key);
-                if (!stream.quicSettings.header.type.isEmpty() && stream.quicSettings.header.type != "none")
-                    query.addQueryItem("headers", stream.quicSettings.header.type);
+                if (!stream.quicSettings->security->isEmpty() && stream.quicSettings->security != "none")
+                    query.addQueryItem("security", stream.quicSettings->security);
+                if (!stream.quicSettings->key->isEmpty())
+                    query.addQueryItem("key", stream.quicSettings->key);
+                if (!stream.quicSettings->header->type->isEmpty() && stream.quicSettings->header->type != "none")
+                    query.addQueryItem("headers", stream.quicSettings->header->type);
             }
             else
             {
@@ -185,13 +185,13 @@ namespace Qv2ray::core::connection
             {
                 // if (stream.tlsSettings.allowInsecure)
                 //    query.addQueryItem("allowInsecure", "true");
-                if (!stream.tlsSettings.serverName.isEmpty())
-                    query.addQueryItem("tlsServerName", stream.tlsSettings.serverName);
+                if (!stream.tlsSettings->serverName->isEmpty())
+                    query.addQueryItem("tlsServerName", stream.tlsSettings->serverName);
                 protocol += "+tls";
             }
             url.setPath("/");
             url.setScheme("vmess");
-            url.setPassword(server.users.first().id + "-" + QSTRN(server.users.first().alterId));
+            url.setPassword(server.users->first().id + "-" + QSTRN(server.users->first().alterId));
             url.setHost(server.address);
             url.setPort(server.port);
             url.setUserName(protocol);

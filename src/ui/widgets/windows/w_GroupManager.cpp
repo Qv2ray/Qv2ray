@@ -58,7 +58,7 @@ GroupManager::GroupManager(QWidget *parent) : QvDialog("GroupManager", parent)
 
     //
     dnsSettingsWidget = new DnsSettingsWidget(this);
-    routeSettingsWidget = new RouteSettingsMatrixWidget(GlobalConfig.kernelConfig.AssetsPath(), this);
+    routeSettingsWidget = new RouteSettingsMatrixWidget(GlobalConfig.kernelConfig->AssetsPath(), this);
     //
     dnsSettingsGB->setLayout(new QGridLayout(dnsSettingsGB));
     dnsSettingsGB->layout()->addWidget(dnsSettingsWidget);
@@ -365,12 +365,12 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     //
     const auto _group = ConnectionManager->GetGroupMetaObject(currentGroupId);
     groupIsSubscriptionGroup->setChecked(_group.isSubscription);
-    subAddrTxt->setText(_group.subscriptionOption.address);
+    subAddrTxt->setText(_group.subscriptionOption->address);
     lastUpdatedLabel->setText(timeToString(_group.lastUpdatedDate));
     createdAtLabel->setText(timeToString(_group.creationDate));
-    updateIntervalSB->setValue(_group.subscriptionOption.updateInterval);
+    updateIntervalSB->setValue(_group.subscriptionOption->updateInterval);
     {
-        const auto &type = _group.subscriptionOption.type;
+        const auto &type = *_group.subscriptionOption->type;
         const auto index = subscriptionTypeCB->findData(type);
         if (index < 0)
             QvMessageBoxWarn(this, tr("Unknown Subscription Type"), tr("Unknown subscription type \"%1\", a plugin may be missing.").arg(type));
@@ -380,9 +380,9 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     //
     // Import filters
     {
-        IncludeRelation->setCurrentIndex(_group.subscriptionOption.IncludeRelation);
+        IncludeRelation->setCurrentIndex(_group.subscriptionOption->IncludeRelation);
         IncludeKeywords->clear();
-        for (const auto &key : _group.subscriptionOption.IncludeKeywords)
+        for (const auto &key : *_group.subscriptionOption->IncludeKeywords)
         {
             auto str = key.trimmed();
             if (!str.isEmpty())
@@ -390,9 +390,9 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
                 IncludeKeywords->appendPlainText(str);
             }
         }
-        ExcludeRelation->setCurrentIndex(_group.subscriptionOption.ExcludeRelation);
+        ExcludeRelation->setCurrentIndex(_group.subscriptionOption->ExcludeRelation);
         ExcludeKeywords->clear();
-        for (const auto &key : _group.subscriptionOption.ExcludeKeywords)
+        for (const auto &key : *_group.subscriptionOption->ExcludeKeywords)
         {
             auto str = key.trimmed();
             if (!str.isEmpty())

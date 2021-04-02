@@ -107,7 +107,7 @@ namespace Qv2ray::base::config
         }
         QvConfig_SocksInbound() : Qv2rayConfig_ProtocolInboundBase()
         {
-            set_port(1089);
+            port = 1089;
         }
         QJS_FUNCTION(B(Qv2rayConfig_ProtocolInboundBase), F(enableUDP, localIP))
     };
@@ -119,7 +119,7 @@ namespace Qv2ray::base::config
         typedef QvConfig_HttpInbound this_type_t;
         QvConfig_HttpInbound() : Qv2rayConfig_ProtocolInboundBase()
         {
-            set_port(8889);
+            port = 8889;
         }
         QvConfig_HttpInbound(const this_type_t &another)
         {
@@ -140,8 +140,8 @@ namespace Qv2ray::base::config
       public:
         QvConfig_TProxy() : Qv2rayConfig_ProtocolInboundBase()
         {
-            set_port(12345);
-            set_sniffing(true);
+            port = 12345;
+            sniffing = true;
         }
         QvConfig_TProxy(const this_type_t &another)
         {

@@ -17,41 +17,41 @@ namespace Qv2ray::core::connection
             // Constant
             vmessUriRoot["v"] = 2;
             vmessUriRoot["ps"] = alias;
-            vmessUriRoot["add"] = server.address;
-            vmessUriRoot["port"] = server.port;
-            vmessUriRoot["id"] = server.users.front().id;
-            vmessUriRoot["aid"] = server.users.front().alterId;
-            vmessUriRoot["net"] = transfer.network == "http" ? "h2" : transfer.network;
-            vmessUriRoot["tls"] = transfer.security;
+            vmessUriRoot["add"] = *server.address;
+            vmessUriRoot["port"] = *server.port;
+            vmessUriRoot["id"] = *server.users->front().id;
+            vmessUriRoot["aid"] = *server.users->front().alterId;
+            vmessUriRoot["net"] = *transfer.network == "http" ? "h2" : *transfer.network;
+            vmessUriRoot["tls"] = *transfer.security;
 
             if (transfer.network == "tcp")
             {
-                vmessUriRoot["type"] = transfer.tcpSettings.header.type;
+                vmessUriRoot["type"] = *transfer.tcpSettings->header->type;
             }
             else if (transfer.network == "kcp")
             {
-                vmessUriRoot["type"] = transfer.kcpSettings.header.type;
+                vmessUriRoot["type"] = *transfer.kcpSettings->header->type;
             }
             else if (transfer.network == "quic")
             {
-                vmessUriRoot["type"] = transfer.quicSettings.header.type;
-                vmessUriRoot["host"] = transfer.quicSettings.security;
-                vmessUriRoot["path"] = transfer.quicSettings.key;
+                vmessUriRoot["type"] = *transfer.quicSettings->header->type;
+                vmessUriRoot["host"] = *transfer.quicSettings->security;
+                vmessUriRoot["path"] = *transfer.quicSettings->key;
             }
             else if (transfer.network == "ws")
             {
-                auto x = transfer.wsSettings.headers;
+                auto x = *transfer.wsSettings->headers;
                 auto host = x.contains("host");
                 auto CapHost = x.contains("Host");
                 auto realHost = host ? x["host"] : (CapHost ? x["Host"] : "");
                 //
                 vmessUriRoot["host"] = realHost;
-                vmessUriRoot["path"] = transfer.wsSettings.path;
+                vmessUriRoot["path"] = *transfer.wsSettings->path;
             }
             else if (transfer.network == "h2" || transfer.network == "http")
             {
-                vmessUriRoot["host"] = transfer.httpSettings.host.join(",");
-                vmessUriRoot["path"] = transfer.httpSettings.path;
+                vmessUriRoot["host"] = transfer.httpSettings->host->join(",");
+                vmessUriRoot["path"] = *transfer.httpSettings->path;
             }
 
             if (!vmessUriRoot.contains("type") || vmessUriRoot["type"].toString().isEmpty())
@@ -220,7 +220,7 @@ namespace Qv2ray::core::connection
             VMessServerObject serv;
             serv.port = port;
             serv.address = add;
-            serv.users.push_back(user);
+            serv.users->push_back(user);
             //
             //
             // Stream Settings
@@ -228,7 +228,7 @@ namespace Qv2ray::core::connection
 
             if (net == "tcp")
             {
-                streaming.tcpSettings.header.type = type;
+                streaming.tcpSettings->header->type = type;
             }
             else if (net == "http" || net == "h2")
             {
@@ -237,38 +237,38 @@ namespace Qv2ray::core::connection
                 {
                     if (!_host.isEmpty())
                     {
-                        streaming.httpSettings.host << _host.trimmed();
+                        streaming.httpSettings->host << _host.trimmed();
                     }
                 }
 
-                streaming.httpSettings.path = path;
+                streaming.httpSettings->path = path;
             }
             else if (net == "ws")
             {
                 if (!host.isEmpty())
-                    streaming.wsSettings.headers["Host"] = host;
-                streaming.wsSettings.path = path;
+                    (*streaming.wsSettings->headers)["Host"] = host;
+                streaming.wsSettings->path = path;
             }
             else if (net == "kcp")
             {
-                streaming.kcpSettings.header.type = type;
+                streaming.kcpSettings->header->type = type;
             }
             else if (net == "domainsocket")
             {
-                streaming.dsSettings.path = path;
+                streaming.dsSettings->path = path;
             }
             else if (net == "quic")
             {
-                streaming.quicSettings.security = host;
-                streaming.quicSettings.header.type = type;
-                streaming.quicSettings.key = path;
+                streaming.quicSettings->security = host;
+                streaming.quicSettings->header->type = type;
+                streaming.quicSettings->key = path;
             }
 
             // FIXME: makeshift patch for #290.
             //        to be rewritten after refactoring.
             if (tls == "tls" && host != "" && (net == "tcp" || net == "ws"))
             {
-                streaming.tlsSettings.serverName = host;
+                streaming.tlsSettings->serverName = host;
                 // streaming.tlsSettings.allowInsecure = false;
             }
 

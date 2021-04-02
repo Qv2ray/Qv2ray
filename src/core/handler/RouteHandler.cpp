@@ -206,13 +206,13 @@ namespace Qv2ray::core::handler
     // We need copy construct here
     CONFIGROOT RouteHandler::GenerateFinalConfig(CONFIGROOT root, const GroupRoutingId &routingId, bool hasAPI) const
     {
-        const auto &config = configs.contains(routingId) ? configs[routingId] : GlobalConfig.defaultRouteConfig;
+        const auto &config = configs.contains(routingId) ? configs[routingId] : *GlobalConfig.defaultRouteConfig;
         //
-        const auto &connConf = config.overrideConnectionConfig ? config.connectionConfig : GlobalConfig.defaultRouteConfig.connectionConfig;
-        const auto &dnsConf = config.overrideDNS ? config.dnsConfig : GlobalConfig.defaultRouteConfig.dnsConfig;
-        const auto &fakeDNSConf = config.overrideDNS ? config.fakeDNSConfig : GlobalConfig.defaultRouteConfig.fakeDNSConfig;
-        const auto &routeConf = config.overrideRoute ? config.routeConfig : GlobalConfig.defaultRouteConfig.routeConfig;
-        const auto &fpConf = config.overrideForwardProxyConfig ? config.forwardProxyConfig : GlobalConfig.defaultRouteConfig.forwardProxyConfig;
+        const auto connConf = *(config.overrideConnectionConfig ? config.connectionConfig : GlobalConfig.defaultRouteConfig->connectionConfig);
+        const auto dnsConf = *(config.overrideDNS ? config.dnsConfig : GlobalConfig.defaultRouteConfig->dnsConfig);
+        const auto fakeDNSConf = *(config.overrideDNS ? config.fakeDNSConfig : GlobalConfig.defaultRouteConfig->fakeDNSConfig);
+        const auto routeConf = *(config.overrideRoute ? config.routeConfig : GlobalConfig.defaultRouteConfig->routeConfig);
+        const auto fpConf = *(config.overrideForwardProxyConfig ? config.forwardProxyConfig : GlobalConfig.defaultRouteConfig->forwardProxyConfig);
         //
         //
         // Note: The part below always makes the whole functionality in
@@ -292,11 +292,11 @@ namespace Qv2ray::core::handler
             {
                 if (QJsonIO::GetValue(root, "outbounds", 0, QV2RAY_USE_FPROXY_KEY).toBool(false))
                 {
-                    if (fpConf.type.isEmpty())
+                    if (fpConf.type->isEmpty())
                     {
                         DEBUG("WARNING: Empty forward proxy type.");
                     }
-                    else if (fpConf.type.toLower() != "http" && fpConf.type.toLower() != "socks")
+                    else if (fpConf.type->toLower() != "http" && fpConf.type->toLower() != "socks")
                     {
                         DEBUG("WARNING: Unsupported forward proxy type: " + fpConf.type);
                     }
@@ -311,7 +311,7 @@ namespace Qv2ray::core::handler
                                                                                fpConf.username,      //
                                                                                fpConf.password);
                         const auto forwardProxyOutbound = GenerateOutboundEntry(OUTBOUND_TAG_FORWARD_PROXY, //
-                                                                                fpConf.type.toLower(),      //
+                                                                                fpConf.type->toLower(),     //
                                                                                 forwardProxySettings, {});
                         auto outboundArray = root["outbounds"].toArray();
                         outboundArray.push_back(forwardProxyOutbound);
@@ -338,16 +338,16 @@ namespace Qv2ray::core::handler
             //
             // Connection Filters
             {
-                if (GlobalConfig.defaultRouteConfig.connectionConfig.dnsIntercept)
+                if (GlobalConfig.defaultRouteConfig->connectionConfig->dnsIntercept)
                 {
-                    const auto hasTProxy = GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.tProxySettings.hasUDP;
-                    const auto hasIPv6 = hasTProxy && (!GlobalConfig.inboundConfig.tProxySettings.tProxyV6IP.isEmpty());
-                    const auto hasSocksUDP = GlobalConfig.inboundConfig.useSocks && GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                    const auto hasTProxy = GlobalConfig.inboundConfig->useTPROXY && GlobalConfig.inboundConfig->tProxySettings->hasUDP;
+                    const auto hasIPv6 = hasTProxy && (!GlobalConfig.inboundConfig->tProxySettings->tProxyV6IP->isEmpty());
+                    const auto hasSocksUDP = GlobalConfig.inboundConfig->useSocks && GlobalConfig.inboundConfig->socksSettings->enableUDP;
                     DNSInterceptFilter(root, hasTProxy, hasIPv6, hasSocksUDP);
                 }
 
-                if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
-                    OutboundMarkSettingFilter(root, GlobalConfig.outboundConfig.mark);
+                if (GlobalConfig.inboundConfig->useTPROXY && GlobalConfig.outboundConfig->mark > 0)
+                    OutboundMarkSettingFilter(root, GlobalConfig.outboundConfig->mark);
 
                 // Process bypass bitTorrent
                 if (connConf.bypassBT)
@@ -392,7 +392,7 @@ namespace Qv2ray::core::handler
 
         //
         // Let's process some api features.
-        if (hasAPI && GlobalConfig.kernelConfig.enableAPI)
+        if (hasAPI && GlobalConfig.kernelConfig->enableAPI)
         {
             //
             // Stats
@@ -417,9 +417,9 @@ namespace Qv2ray::core::handler
             // Inbounds
             INBOUNDS inbounds(root["inbounds"].toArray());
             static const QJsonObject fakeDocodemoDoor{ { "address", "127.0.0.1" } };
-            const auto apiInboundsRoot = GenerateInboundEntry(API_TAG_INBOUND, "dokodemo-door",    //
-                                                              "127.0.0.1",                         //
-                                                              GlobalConfig.kernelConfig.statsPort, //
+            const auto apiInboundsRoot = GenerateInboundEntry(API_TAG_INBOUND, "dokodemo-door",     //
+                                                              "127.0.0.1",                          //
+                                                              GlobalConfig.kernelConfig->statsPort, //
                                                               INBOUNDSETTING(fakeDocodemoDoor));
             inbounds.push_front(apiInboundsRoot);
             root["inbounds"] = inbounds;
