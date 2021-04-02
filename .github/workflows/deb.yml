@@ -2,9 +2,10 @@ name: Qv2ray build debian package
 
 on:
   push:
-    branches-ignore:
-      - l10n_dev
-      - version-v3-dev
+    branches:
+      - dev
+      - version-v2
+      - master
   release:
     types: [prereleased]
 
