@@ -1224,14 +1224,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>插件无设置组件。</translation>
     </message>
     <message>
-      <source>Disabling a plugin</source>
-      <translation>禁用插件</translation>
-    </message>
-    <message>
-      <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation>重启前插件会保持活动。</translation>
-    </message>
-    <message>
       <source>Plugin not loaded</source>
       <translation>插件未加载</translation>
     </message>
@@ -1627,10 +1619,6 @@ Custom DNS Settings</source>
       <translation>自动更新已被供应者禁用。</translation>
     </message>
     <message>
-      <source>Duplicated port numbers detected, please check the port number settings.</source>
-      <translation>检测到重复的端口号，请检查端口号设置。</translation>
-    </message>
-    <message>
       <source>Invalid inbound listening address.</source>
       <translation>入站监听地址不可用。</translation>
     </message>
@@ -1705,10 +1693,6 @@ Custom DNS Settings</source>
     <message>
       <source>You can configure default routing rules for all simple connection config here.</source>
       <translation>你可在此为所有简单连接配置默认路由规则。</translation>
-    </message>
-    <message>
-      <source>Invalid DNS settings.</source>
-      <translation>无效的 DNS 设置。</translation>
     </message>
     <message>
       <source>Watch Out!</source>
@@ -1857,14 +1841,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
       <translation>任意门设置</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation>启用嗅探功能</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation>使用 Fake DNS</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation>配置目录</translation>
     </message>
@@ -1913,10 +1889,6 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
       <translation>输出：</translation>
     </message>
     <message>
-      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-      <translation>如果你正在寻找插件设置，你应该去插件设置。</translation>
-    </message>
-    <message>
       <source>No NTP Backend</source>
       <translation>无 NTP 后端</translation>
     </message>
@@ -1931,6 +1903,18 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
       <source>FakeDNS</source>
       <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>Duplicated port numbers detected, please check the port number Settings-&gt;</source>
+      <translation>检测到重复的端口号。请检查端口号-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings-&gt;</source>
+      <translation>无效的DNS设置-&gt;</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
+      <translation>如果你正在寻找插件设置，你应该去插件设置-&gt;</translation>
     </message>
   </context>
   <context>
@@ -2529,22 +2513,6 @@ Maybe you have downloaded the wrong core?</source>
       <translation>路由编辑器</translation>
     </message>
     <message>
-      <source>Add outbound</source>
-      <translation>添加出站</translation>
-    </message>
-    <message>
-      <source>Add default inbound from global config</source>
-      <translation>从全局配置中添加默认的入站设置</translation>
-    </message>
-    <message>
-      <source>Add blackhole outbound</source>
-      <translation>添加黑洞出站</translation>
-    </message>
-    <message>
-      <source>Add Freedom outbound</source>
-      <translation>添加自由出站</translation>
-    </message>
-    <message>
       <source>Protocol</source>
       <translation>协议</translation>
     </message>
@@ -2688,6 +2656,54 @@ Maybe you have downloaded the wrong core?</source>
       <source>(All Connections)</source>
       <translation>(所有连接)</translation>
     </message>
+    <message>
+      <source>Add Inbound</source>
+      <translation>添加入站</translation>
+    </message>
+    <message>
+      <source>Add Inbound from Global Settings</source>
+      <translation>从全局设置中添加输入</translation>
+    </message>
+    <message>
+      <source>Import Outbound</source>
+      <translation>导出导出</translation>
+    </message>
+    <message>
+      <source>Add Outbound</source>
+      <translation>添加出站</translation>
+    </message>
+    <message>
+      <source>Add Blackhole Outbound</source>
+      <translation>添加黑洞出站</translation>
+    </message>
+    <message>
+      <source>Add Freedom Outbound</source>
+      <translation>添加自由出站</translation>
+    </message>
+    <message>
+      <source>Add Balancer</source>
+      <translation>添加平衡器</translation>
+    </message>
+    <message>
+      <source>Add Proxy Chain</source>
+      <translation>添加代理链接</translation>
+    </message>
+    <message>
+      <source>Group</source>
+      <translation>分组</translation>
+    </message>
+    <message>
+      <source>Connection</source>
+      <translation>连接</translation>
+    </message>
+    <message>
+      <source>Copy Connection</source>
+      <translation>复制连接</translation>
+    </message>
+    <message>
+      <source>Reference Connection</source>
+      <translation>引用连接</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrix</name>
@@ -2766,6 +2782,18 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Outbound</source>
       <translation>出站</translation>
+    </message>
+    <message>
+      <source>Matcher</source>
+      <translation>匹配器</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>原始</translation>
+    </message>
+    <message>
+      <source>Minimal Perfect Hash Matcher</source>
+      <translation>最少的哈希匹配器</translation>
     </message>
   </context>
   <context>
@@ -3697,6 +3725,13 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Inbound Tag</source>
       <translation>入站标签</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowWidget</name>
+    <message>
+      <source>Qv2ray Utilities</source>
+      <translation>Qv2ray 工具</translation>
     </message>
   </context>
 </TS>

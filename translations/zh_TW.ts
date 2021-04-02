@@ -1224,14 +1224,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>該外掛程式不包含設定 Widget。</translation>
     </message>
     <message>
-      <source>Disabling a plugin</source>
-      <translation>禁用外掛程式</translation>
-    </message>
-    <message>
-      <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation>重啟前外掛程式會保持活動。</translation>
-    </message>
-    <message>
       <source>Plugin not loaded</source>
       <translation>外掛程式未載入</translation>
     </message>
@@ -1627,10 +1619,6 @@ Custom DNS Settings</source>
       <translation>自動更新已被供應者禁用。</translation>
     </message>
     <message>
-      <source>Duplicated port numbers detected, please check the port number settings.</source>
-      <translation>檢測到重複的端口號，請檢查端口號設定。</translation>
-    </message>
-    <message>
       <source>Invalid inbound listening address.</source>
       <translation>入站監聽位址不可用。</translation>
     </message>
@@ -1705,10 +1693,6 @@ Custom DNS Settings</source>
     <message>
       <source>You can configure default routing rules for all simple connection config here.</source>
       <translation>你可在此為所有簡單連接配置預設路由規則。</translation>
-    </message>
-    <message>
-      <source>Invalid DNS settings.</source>
-      <translation>無效的 DNS 設定。</translation>
     </message>
     <message>
       <source>Watch Out!</source>
@@ -1857,14 +1841,6 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
       <translation>任意門設定</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation>Enable Sniffing</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation>Use Fake DNS</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation>Config Directory</translation>
     </message>
@@ -1913,10 +1889,6 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
       <translation>Output:</translation>
     </message>
     <message>
-      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-      <translation>If you are looking for plugins settings, you should go to plugin settings.</translation>
-    </message>
-    <message>
       <source>No NTP Backend</source>
       <translation>No NTP Backend</translation>
     </message>
@@ -1931,6 +1903,18 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>FakeDNS</source>
       <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Duplicated port numbers detected, please check the port number Settings-&gt;</source>
+      <translation type="unfinished">Duplicated port numbers detected, please check the port number Settings-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings-&gt;</source>
+      <translation type="unfinished">Invalid DNS Settings-&gt;</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
+      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin Settings-&gt;</translation>
     </message>
   </context>
   <context>
@@ -2529,22 +2513,6 @@ Maybe you have downloaded the wrong core?</translation>
       <translation>路由編輯器</translation>
     </message>
     <message>
-      <source>Add outbound</source>
-      <translation>添加出站</translation>
-    </message>
-    <message>
-      <source>Add default inbound from global config</source>
-      <translation>從全域配置中添加預設的入站設置</translation>
-    </message>
-    <message>
-      <source>Add blackhole outbound</source>
-      <translation>添加黑洞出站</translation>
-    </message>
-    <message>
-      <source>Add Freedom outbound</source>
-      <translation>添加自由出站</translation>
-    </message>
-    <message>
       <source>Protocol</source>
       <translation>協定</translation>
     </message>
@@ -2688,6 +2656,54 @@ Maybe you have downloaded the wrong core?</translation>
       <source>(All Connections)</source>
       <translation>(All Connections)</translation>
     </message>
+    <message>
+      <source>Add Inbound</source>
+      <translation type="unfinished">Add Inbound</translation>
+    </message>
+    <message>
+      <source>Add Inbound from Global Settings</source>
+      <translation type="unfinished">Add Inbound from Global Settings</translation>
+    </message>
+    <message>
+      <source>Import Outbound</source>
+      <translation type="unfinished">Import Outbound</translation>
+    </message>
+    <message>
+      <source>Add Outbound</source>
+      <translation type="unfinished">Add Outbound</translation>
+    </message>
+    <message>
+      <source>Add Blackhole Outbound</source>
+      <translation type="unfinished">Add Blackhole Outbound</translation>
+    </message>
+    <message>
+      <source>Add Freedom Outbound</source>
+      <translation type="unfinished">Add Freedom Outbound</translation>
+    </message>
+    <message>
+      <source>Add Balancer</source>
+      <translation type="unfinished">Add Balancer</translation>
+    </message>
+    <message>
+      <source>Add Proxy Chain</source>
+      <translation type="unfinished">Add Proxy Chain</translation>
+    </message>
+    <message>
+      <source>Group</source>
+      <translation>分組</translation>
+    </message>
+    <message>
+      <source>Connection</source>
+      <translation type="unfinished">Connection</translation>
+    </message>
+    <message>
+      <source>Copy Connection</source>
+      <translation type="unfinished">Copy Connection</translation>
+    </message>
+    <message>
+      <source>Reference Connection</source>
+      <translation type="unfinished">Reference Connection</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrix</name>
@@ -2766,6 +2782,18 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Outbound</source>
       <translation>Outbound</translation>
+    </message>
+    <message>
+      <source>Matcher</source>
+      <translation type="unfinished">Matcher</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>原始</translation>
+    </message>
+    <message>
+      <source>Minimal Perfect Hash Matcher</source>
+      <translation type="unfinished">Minimal Perfect Hash Matcher</translation>
     </message>
   </context>
   <context>
@@ -3697,6 +3725,13 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Inbound Tag</source>
       <translation type="unfinished">Inbound Tag</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowWidget</name>
+    <message>
+      <source>Qv2ray Utilities</source>
+      <translation type="unfinished">Qv2ray Utilities</translation>
     </message>
   </context>
 </TS>

@@ -367,19 +367,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>IP Pool</source>
-      <translation type="unfinished">IP Pool</translation>
+      <translation>IP地址库</translation>
     </message>
     <message>
       <source>Pool Size</source>
-      <translation type="unfinished">Pool Size</translation>
+      <translation>池大小</translation>
     </message>
     <message>
       <source>Disable Cache</source>
-      <translation type="unfinished">Disable Cache</translation>
+      <translation>禁用缓存</translation>
     </message>
   </context>
   <context>
@@ -627,10 +627,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>Sniffing Settings</translation>
     </message>
     <message>
-      <source>Destination Override</source>
-      <translation>Destination Override</translation>
-    </message>
-    <message>
       <source>Unknown inbound.</source>
       <translation>Unknown inbound.</translation>
     </message>
@@ -656,15 +652,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>Destination Override:</source>
-      <translation type="unfinished">Destination Override:</translation>
+      <translation>目标覆盖：</translation>
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>仅限元数据</translation>
     </message>
   </context>
   <context>
@@ -1116,15 +1112,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Bypass CN Mainland</source>
-      <translation type="unfinished">Bypass CN Mainland</translation>
+      <translation>Bypass CN Mainland</translation>
     </message>
     <message>
       <source>Enable Bypassing CN Mainland</source>
-      <translation type="unfinished">Enable Bypassing CN Mainland</translation>
+      <translation>启用Bypassing CN 内地功能</translation>
     </message>
     <message>
       <source>Disable Bypassing CN Mainland</source>
-      <translation type="unfinished">Disable Bypassing CN Mainland</translation>
+      <translation>禁用Bypassing CN 内地功能</translation>
     </message>
   </context>
   <context>
@@ -1227,14 +1223,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Plugin does not have settings widget.</source>
       <translation>Plugin does not have settings widget.</translation>
-    </message>
-    <message>
-      <source>Disabling a plugin</source>
-      <translation>Disabling a plugin</translation>
-    </message>
-    <message>
-      <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation>This plugin will keep loaded until the next time Qv2ray starts.</translation>
     </message>
     <message>
       <source>Plugin not loaded</source>
@@ -1632,10 +1620,6 @@ Custom DNS Settings</source>
       <translation>Update is disabled by your vendor.</translation>
     </message>
     <message>
-      <source>Duplicated port numbers detected, please check the port number settings.</source>
-      <translation>Duplicated port numbers detected, please check the port number settings.</translation>
-    </message>
-    <message>
       <source>Invalid inbound listening address.</source>
       <translation>Invalid inbound listening address.</translation>
     </message>
@@ -1710,10 +1694,6 @@ Custom DNS Settings</source>
     <message>
       <source>You can configure default routing rules for all simple connection config here.</source>
       <translation>You can configure default routing rules for all simple connection config here.</translation>
-    </message>
-    <message>
-      <source>Invalid DNS settings.</source>
-      <translation>Invalid DNS settings.</translation>
     </message>
     <message>
       <source>Watch Out!</source>
@@ -1862,14 +1842,6 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
       <translation>Dokodemo Door Settings</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation>Enable Sniffing</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation>Use Fake DNS</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation>Config Directory</translation>
     </message>
@@ -1918,10 +1890,6 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
       <translation>输出：</translation>
     </message>
     <message>
-      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-      <translation>如果你正在寻找插件设置，你应该去插件设置。</translation>
-    </message>
-    <message>
       <source>No NTP Backend</source>
       <translation>NTP 后端</translation>
     </message>
@@ -1931,11 +1899,23 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>仅限元数据</translation>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>Duplicated port numbers detected, please check the port number Settings-&gt;</source>
+      <translation>检测到重复的端口号。请检查端口号-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings-&gt;</source>
+      <translation>无效的DNS设置-&gt;</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
+      <translation>如果你正在寻找插件设置，你应该去插件设置-&gt;</translation>
     </message>
   </context>
   <context>
@@ -2534,22 +2514,6 @@ Maybe you have downloaded the wrong core?</translation>
       <translation>Route Editor</translation>
     </message>
     <message>
-      <source>Add outbound</source>
-      <translation>Add outbound</translation>
-    </message>
-    <message>
-      <source>Add default inbound from global config</source>
-      <translation>Add default inbound from global config</translation>
-    </message>
-    <message>
-      <source>Add blackhole outbound</source>
-      <translation>Add blackhole outbound</translation>
-    </message>
-    <message>
-      <source>Add Freedom outbound</source>
-      <translation>Add Freedom outbound</translation>
-    </message>
-    <message>
       <source>Protocol</source>
       <translation>协定</translation>
     </message>
@@ -2619,7 +2583,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Chain</source>
-      <translation>Chain</translation>
+      <translation>链条</translation>
     </message>
     <message>
       <source>Existing Connection</source>
@@ -2692,6 +2656,54 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>(All Connections)</source>
       <translation>(All Connections)</translation>
+    </message>
+    <message>
+      <source>Add Inbound</source>
+      <translation>添加入站</translation>
+    </message>
+    <message>
+      <source>Add Inbound from Global Settings</source>
+      <translation>从全局设置中添加输入</translation>
+    </message>
+    <message>
+      <source>Import Outbound</source>
+      <translation>导出导出</translation>
+    </message>
+    <message>
+      <source>Add Outbound</source>
+      <translation>添加出站</translation>
+    </message>
+    <message>
+      <source>Add Blackhole Outbound</source>
+      <translation>添加黑洞出站</translation>
+    </message>
+    <message>
+      <source>Add Freedom Outbound</source>
+      <translation>添加自由出站</translation>
+    </message>
+    <message>
+      <source>Add Balancer</source>
+      <translation>添加平衡器</translation>
+    </message>
+    <message>
+      <source>Add Proxy Chain</source>
+      <translation>添加代理链接</translation>
+    </message>
+    <message>
+      <source>Group</source>
+      <translation>分组</translation>
+    </message>
+    <message>
+      <source>Connection</source>
+      <translation>连接</translation>
+    </message>
+    <message>
+      <source>Copy Connection</source>
+      <translation>复制连接</translation>
+    </message>
+    <message>
+      <source>Reference Connection</source>
+      <translation>引用连接</translation>
     </message>
   </context>
   <context>
@@ -2774,15 +2786,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Matcher</source>
-      <translation type="unfinished">Matcher</translation>
+      <translation>匹配器</translation>
     </message>
     <message>
       <source>Original</source>
-      <translation type="unfinished">Original</translation>
+      <translation>Original</translation>
     </message>
     <message>
       <source>Minimal Perfect Hash Matcher</source>
-      <translation type="unfinished">Minimal Perfect Hash Matcher</translation>
+      <translation>最少的哈希匹配器</translation>
     </message>
   </context>
   <context>
@@ -3002,7 +3014,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Edit</source>
-      <translation>Edit</translation>
+      <translation>编辑</translation>
     </message>
     <message>
       <source>Reset</source>
@@ -3150,15 +3162,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
+      <translation>允许不安全，不允许不安全。</translation>
     </message>
     <message>
       <source>Service Name</source>
-      <translation type="unfinished">Service Name</translation>
+      <translation>服务名称</translation>
     </message>
     <message>
       <source>grpc</source>
-      <translation type="unfinished">grpc</translation>
+      <translation>格子</translation>
     </message>
   </context>
   <context>
@@ -3387,7 +3399,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation>Timeout</translation>
+      <translation>超时</translation>
     </message>
     <message>
       <source>Follow Redirect</source>
@@ -3410,7 +3422,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Timeout</source>
-      <translation>Timeout</translation>
+      <translation>超时</translation>
     </message>
     <message>
       <source>s</source>
@@ -3483,7 +3495,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Response</source>
-      <translation>Response</translation>
+      <translation>答复</translation>
     </message>
     <message>
       <source>Type</source>
@@ -3639,7 +3651,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Security</source>
-      <translation>Security</translation>
+      <translation>安全</translation>
     </message>
   </context>
   <context>
@@ -3698,11 +3710,11 @@ Maybe you have downloaded the wrong core?</translation>
     <name>VmessOutboundEditor</name>
     <message>
       <source>Non AEAD VMess detected</source>
-      <translation type="unfinished">Non AEAD VMess detected</translation>
+      <translation>检测到非AEAD VMess。</translation>
     </message>
     <message>
       <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
-      <translation type="unfinished">VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</translation>
+      <translation>VMessMD5使用非零变压器ID已废弃，请使用 VMessAEAD</translation>
     </message>
   </context>
   <context>
@@ -3713,7 +3725,14 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Inbound Tag</source>
-      <translation type="unfinished">Inbound Tag</translation>
+      <translation>入站标签</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowWidget</name>
+    <message>
+      <source>Qv2ray Utilities</source>
+      <translation>Qv2ray 工具</translation>
     </message>
   </context>
 </TS>
