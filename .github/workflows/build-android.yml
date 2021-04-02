@@ -28,7 +28,7 @@ jobs:
       matrix:
         buildtype: [Debug]
         arch: [x86, x64, arm, arm64]
-        qt_version: [6.0.1]
+        qt_version: [6.1.0]
         include:
           - arch: x86
             qt_arch: android_x86
