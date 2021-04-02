@@ -4,22 +4,22 @@ EventHandler::EventHandler()
 {
 }
 
-void ProcessEvent(const ConnectionStats::EventObject &c)
+void EventHandler::ProcessEvent(const ConnectionStats::EventObject &c)
 {
     Q_UNUSED(c)
 }
 
-void ProcessEvent(const Connectivity::EventObject &c)
+void EventHandler::ProcessEvent(const Connectivity::EventObject &c)
 {
     Q_UNUSED(c)
 }
 
-void ProcessEvent(const SystemProxy::EventObject &c)
+void EventHandler::ProcessEvent(const SystemProxy::EventObject &c)
 {
     Q_UNUSED(c)
 }
 
-void ProcessEvent(const ConnectionEntry::EventObject &c)
+void EventHandler::ProcessEvent(const ConnectionEntry::EventObject &c)
 {
     Q_UNUSED(c)
 }
