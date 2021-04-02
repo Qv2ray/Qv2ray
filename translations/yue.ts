@@ -1235,14 +1235,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation type="unfinished">Plugin does not have settings widget.</translation>
     </message>
     <message>
-      <source>Disabling a plugin</source>
-      <translation type="unfinished">Disabling a plugin</translation>
-    </message>
-    <message>
-      <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation type="unfinished">This plugin will keep loaded until the next time Qv2ray starts.</translation>
-    </message>
-    <message>
       <source>Plugin not loaded</source>
       <translation type="unfinished">Plugin not loaded</translation>
     </message>
@@ -2594,22 +2586,6 @@ Maybe you have downloaded the wrong core?</translation>
       <translation type="unfinished">Route Editor</translation>
     </message>
     <message>
-      <source>Add outbound</source>
-      <translation type="unfinished">Add outbound</translation>
-    </message>
-    <message>
-      <source>Add default inbound from global config</source>
-      <translation type="unfinished">Add default inbound from global config</translation>
-    </message>
-    <message>
-      <source>Add blackhole outbound</source>
-      <translation type="unfinished">Add blackhole outbound</translation>
-    </message>
-    <message>
-      <source>Add Freedom outbound</source>
-      <translation type="unfinished">Add Freedom outbound</translation>
-    </message>
-    <message>
       <source>Protocol</source>
       <translation>协定</translation>
     </message>
@@ -2752,6 +2728,54 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>(All Connections)</source>
       <translation type="unfinished">(All Connections)</translation>
+    </message>
+    <message>
+      <source>Add Inbound</source>
+      <translation type="unfinished">Add Inbound</translation>
+    </message>
+    <message>
+      <source>Add Inbound from Global Settings</source>
+      <translation type="unfinished">Add Inbound from Global Settings</translation>
+    </message>
+    <message>
+      <source>Import Outbound</source>
+      <translation type="unfinished">Import Outbound</translation>
+    </message>
+    <message>
+      <source>Add Outbound</source>
+      <translation type="unfinished">Add Outbound</translation>
+    </message>
+    <message>
+      <source>Add Blackhole Outbound</source>
+      <translation type="unfinished">Add Blackhole Outbound</translation>
+    </message>
+    <message>
+      <source>Add Freedom Outbound</source>
+      <translation type="unfinished">Add Freedom Outbound</translation>
+    </message>
+    <message>
+      <source>Add Balancer</source>
+      <translation type="unfinished">Add Balancer</translation>
+    </message>
+    <message>
+      <source>Add Proxy Chain</source>
+      <translation type="unfinished">Add Proxy Chain</translation>
+    </message>
+    <message>
+      <source>Group</source>
+      <translation>分组</translation>
+    </message>
+    <message>
+      <source>Connection</source>
+      <translation type="unfinished">Connection</translation>
+    </message>
+    <message>
+      <source>Copy Connection</source>
+      <translation type="unfinished">Copy Connection</translation>
+    </message>
+    <message>
+      <source>Reference Connection</source>
+      <translation type="unfinished">Reference Connection</translation>
     </message>
   </context>
   <context>
@@ -3754,6 +3778,13 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Inbound Tag</source>
       <translation type="unfinished">Inbound Tag</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowWidget</name>
+    <message>
+      <source>Qv2ray Utilities</source>
+      <translation type="unfinished">Qv2ray Utilities</translation>
     </message>
   </context>
 </TS>

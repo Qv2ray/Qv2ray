@@ -1224,14 +1224,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>プラグインには設定ウィジェットがありません。</translation>
     </message>
     <message>
-      <source>Disabling a plugin</source>
-      <translation>プラグインを無効にする</translation>
-    </message>
-    <message>
-      <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation>このプラグインは、次回Qv2rayが起動するまでロードされたままになります。</translation>
-    </message>
-    <message>
       <source>Plugin not loaded</source>
       <translation>プラグインがロードされていない</translation>
     </message>
@@ -2577,22 +2569,6 @@ Maybe you have downloaded the wrong core?</source>
       <translation>ルートエディター</translation>
     </message>
     <message>
-      <source>Add outbound</source>
-      <translation>アウトバウンドを追加</translation>
-    </message>
-    <message>
-      <source>Add default inbound from global config</source>
-      <translation>グローバル設定からデフォルトのインバウンドを追加</translation>
-    </message>
-    <message>
-      <source>Add blackhole outbound</source>
-      <translation>ブラックホールアウトバウンドを追加</translation>
-    </message>
-    <message>
-      <source>Add Freedom outbound</source>
-      <translation>フリーアウトバウンドを追加</translation>
-    </message>
-    <message>
       <source>Protocol</source>
       <translation>プロトコル</translation>
     </message>
@@ -2735,6 +2711,54 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>(All Connections)</source>
       <translation>(すべての接続)</translation>
+    </message>
+    <message>
+      <source>Add Inbound</source>
+      <translation>インバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Add Inbound from Global Settings</source>
+      <translation>グローバル設定からインバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Import Outbound</source>
+      <translation>アウトバウンドをインポート</translation>
+    </message>
+    <message>
+      <source>Add Outbound</source>
+      <translation>アウトバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Add Blackhole Outbound</source>
+      <translation>ブラックホールアウトバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Add Freedom Outbound</source>
+      <translation>自由のアウトバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Add Balancer</source>
+      <translation>バランサーを追加</translation>
+    </message>
+    <message>
+      <source>Add Proxy Chain</source>
+      <translation>プロキシチェーンを追加</translation>
+    </message>
+    <message>
+      <source>Group</source>
+      <translation>グループ</translation>
+    </message>
+    <message>
+      <source>Connection</source>
+      <translation>接続</translation>
+    </message>
+    <message>
+      <source>Copy Connection</source>
+      <translation>接続をコピー</translation>
+    </message>
+    <message>
+      <source>Reference Connection</source>
+      <translation>参照接続</translation>
     </message>
   </context>
   <context>
@@ -3737,6 +3761,13 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Inbound Tag</source>
       <translation>受信タグ</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowWidget</name>
+    <message>
+      <source>Qv2ray Utilities</source>
+      <translation>Qv2ray ユーティリティ</translation>
     </message>
   </context>
 </TS>
