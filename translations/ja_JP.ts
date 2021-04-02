@@ -724,7 +724,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>OK</source>
-      <translation>OK</translation>
+      <translation>よし</translation>
     </message>
     <message>
       <source>Json Contains Syntax Errors</source>
@@ -1224,14 +1224,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>プラグインには設定ウィジェットがありません。</translation>
     </message>
     <message>
-      <source>Disabling a plugin</source>
-      <translation>プラグインを無効にする</translation>
-    </message>
-    <message>
-      <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
-      <translation>このプラグインは、次回Qv2rayが起動するまでロードされたままになります。</translation>
-    </message>
-    <message>
       <source>Plugin not loaded</source>
       <translation>プラグインがロードされていない</translation>
     </message>
@@ -1627,10 +1619,6 @@ Custom DNS Settings</source>
       <translation>ベンダーによって更新が無効になっています。</translation>
     </message>
     <message>
-      <source>Duplicated port numbers detected, please check the port number settings.</source>
-      <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください。</translation>
-    </message>
-    <message>
       <source>Invalid inbound listening address.</source>
       <translation>無効なインバウンドリスニングアドレス。</translation>
     </message>
@@ -1705,10 +1693,6 @@ Custom DNS Settings</source>
     <message>
       <source>You can configure default routing rules for all simple connection config here.</source>
       <translation>ここでは、すべてのシンプルな接続設定のデフォルトのルーティングルールを設定することができます。</translation>
-    </message>
-    <message>
-      <source>Invalid DNS settings.</source>
-      <translation>DNSの設定が無効です。</translation>
     </message>
     <message>
       <source>Watch Out!</source>
@@ -1857,14 +1841,6 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>ドコデモドーアの設定</translation>
     </message>
     <message>
-      <source>Enable Sniffing</source>
-      <translation>スニッフィングを有効にする</translation>
-    </message>
-    <message>
-      <source>Use Fake DNS</source>
-      <translation>偽DNSを使用</translation>
-    </message>
-    <message>
       <source>Config Directory</source>
       <translation>設定ディレクトリ</translation>
     </message>
@@ -1913,10 +1889,6 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>出力:</translation>
     </message>
     <message>
-      <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-      <translation>プラグインの設定を探している場合は、プラグインの設定に進んでください。</translation>
-    </message>
-    <message>
       <source>No NTP Backend</source>
       <translation>NTPバックエンドがありません</translation>
     </message>
@@ -1931,6 +1903,18 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message>
       <source>FakeDNS</source>
       <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>Duplicated port numbers detected, please check the port number Settings-&gt;</source>
+      <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings-&gt;</source>
+      <translation>無効な DNS 設定-&gt;</translation>
+    </message>
+    <message>
+      <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
+      <translation>プラグインの設定を探している場合は、プラグインの設定に移動する必要があります-&gt;</translation>
     </message>
   </context>
   <context>
@@ -2529,22 +2513,6 @@ Maybe you have downloaded the wrong core?</source>
       <translation>ルートエディター</translation>
     </message>
     <message>
-      <source>Add outbound</source>
-      <translation>アウトバウンドを追加</translation>
-    </message>
-    <message>
-      <source>Add default inbound from global config</source>
-      <translation>グローバル設定からデフォルトのインバウンドを追加</translation>
-    </message>
-    <message>
-      <source>Add blackhole outbound</source>
-      <translation>ブラックホールアウトバウンドを追加</translation>
-    </message>
-    <message>
-      <source>Add Freedom outbound</source>
-      <translation>フリーアウトバウンドを追加</translation>
-    </message>
-    <message>
       <source>Protocol</source>
       <translation>プロトコル</translation>
     </message>
@@ -2688,6 +2656,54 @@ Maybe you have downloaded the wrong core?</source>
       <source>(All Connections)</source>
       <translation>(すべての接続)</translation>
     </message>
+    <message>
+      <source>Add Inbound</source>
+      <translation>インバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Add Inbound from Global Settings</source>
+      <translation>グローバル設定からインバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Import Outbound</source>
+      <translation>アウトバウンドをインポート</translation>
+    </message>
+    <message>
+      <source>Add Outbound</source>
+      <translation>アウトバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Add Blackhole Outbound</source>
+      <translation>ブラックホールアウトバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Add Freedom Outbound</source>
+      <translation>自由のアウトバウンドを追加</translation>
+    </message>
+    <message>
+      <source>Add Balancer</source>
+      <translation>バランサーを追加</translation>
+    </message>
+    <message>
+      <source>Add Proxy Chain</source>
+      <translation>プロキシチェーンを追加</translation>
+    </message>
+    <message>
+      <source>Group</source>
+      <translation>グループ</translation>
+    </message>
+    <message>
+      <source>Connection</source>
+      <translation>接続</translation>
+    </message>
+    <message>
+      <source>Copy Connection</source>
+      <translation>接続をコピー</translation>
+    </message>
+    <message>
+      <source>Reference Connection</source>
+      <translation>参照接続</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrix</name>
@@ -2766,6 +2782,18 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Outbound</source>
       <translation>Outbound</translation>
+    </message>
+    <message>
+      <source>Matcher</source>
+      <translation>Matcher</translation>
+    </message>
+    <message>
+      <source>Original</source>
+      <translation>オリジナル</translation>
+    </message>
+    <message>
+      <source>Minimal Perfect Hash Matcher</source>
+      <translation>最小限の完璧なハッシュマッチング</translation>
     </message>
   </context>
   <context>
@@ -3697,6 +3725,13 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Inbound Tag</source>
       <translation>受信タグ</translation>
+    </message>
+  </context>
+  <context>
+    <name>MainWindowWidget</name>
+    <message>
+      <source>Qv2ray Utilities</source>
+      <translation>Qv2ray ユーティリティ</translation>
     </message>
   </context>
 </TS>
