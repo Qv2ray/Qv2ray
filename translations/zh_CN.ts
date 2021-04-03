@@ -2793,7 +2793,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Minimal Perfect Hash Matcher</source>
-      <translation>最小完美散列</translation>
+      <translation>最小完美散列匹配器</translation>
     </message>
   </context>
   <context>
