@@ -146,7 +146,7 @@ parts:
       - libboost-program-options-dev
       - libssl-dev
       - qttools5-dev
-      - qt5-default
+      - qtbase5-dev
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -176,7 +176,7 @@ parts:
       - libuv1-dev
       - libssl-dev
       - qttools5-dev
-      - qt5-default
+      - qtbase5-dev
     stage-packages:
       - libgcc1
       - libstdc++6
