@@ -165,7 +165,7 @@ parts:
     after:
       - desktop-qt5
 
- qv2ray-ssr-plugin:
+  qv2ray-ssr-plugin:
     plugin: cmake
     source-type: git
     source: https://github.com/Qv2ray/QvPlugin-SSR.git
