@@ -1,9 +1,9 @@
 /*
- *  Catch v2.12.1
- *  Generated: 2020-04-21 19:29:20.964532
+ *  Catch v2.13.5
+ *  Generated: 2021-04-10 23:43:17.560525
  *  ----------------------------------------------------------
  *  This file has been merged from multiple headers. Please don't edit it directly
- *  Copyright (c) 2020 Two Blue Cubes Ltd. All rights reserved.
+ *  Copyright (c) 2021 Two Blue Cubes Ltd. All rights reserved.
  *
  *  Distributed under the Boost Software License, Version 1.0. (See accompanying
  *  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -14,8 +14,8 @@
 
 
 #define CATCH_VERSION_MAJOR 2
-#define CATCH_VERSION_MINOR 12
-#define CATCH_VERSION_PATCH 1
+#define CATCH_VERSION_MINOR 13
+#define CATCH_VERSION_PATCH 5
 
 #ifdef __clang__
 #    pragma clang system_header
@@ -66,13 +66,16 @@
 #if !defined(CATCH_CONFIG_IMPL_ONLY)
 // start catch_platform.h
 
+// See e.g.:
+// https://opensource.apple.com/source/CarbonHeaders/CarbonHeaders-18.1/TargetConditionals.h.auto.html
 #ifdef __APPLE__
-# include <TargetConditionals.h>
-# if TARGET_OS_OSX == 1
-#  define CATCH_PLATFORM_MAC
-# elif TARGET_OS_IPHONE == 1
-#  define CATCH_PLATFORM_IPHONE
-# endif
+#  include <TargetConditionals.h>
+#  if (defined(TARGET_OS_OSX) && TARGET_OS_OSX == 1) || \
+      (defined(TARGET_OS_MAC) && TARGET_OS_MAC == 1)
+#    define CATCH_PLATFORM_MAC
+#  elif (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE == 1)
+#    define CATCH_PLATFORM_IPHONE
+#  endif
 
 #elif defined(linux) || defined(__linux) || defined(__linux__)
 #  define CATCH_PLATFORM_LINUX
@@ -132,13 +135,9 @@ namespace Catch {
 
 #endif
 
-#if defined(__cpp_lib_uncaught_exceptions)
-#  define CATCH_INTERNAL_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS
-#endif
-
-// We have to avoid both ICC and Clang, because they try to mask themselves
-// as gcc, and we want only GCC in this block
-#if defined(__GNUC__) && !defined(__clang__) && !defined(__ICC)
+// Only GCC compiler should be used in this block, so other compilers trying to
+// mask themselves as GCC should be ignored.
+#if defined(__GNUC__) && !defined(__clang__) && !defined(__ICC) && !defined(__CUDACC__) && !defined(__LCC__)
 #    define CATCH_INTERNAL_START_WARNINGS_SUPPRESSION _Pragma( "GCC diagnostic push" )
 #    define CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION  _Pragma( "GCC diagnostic pop" )
 
@@ -162,8 +161,8 @@ namespace Catch {
 // ```
 //
 // Therefore, `CATCH_INTERNAL_IGNORE_BUT_WARN` is not implemented.
-#  if !defined(__ibmxl__)
-#    define CATCH_INTERNAL_IGNORE_BUT_WARN(...) (void)__builtin_constant_p(__VA_ARGS__) /* NOLINT(cppcoreguidelines-pro-type-vararg) */
+#  if !defined(__ibmxl__) && !defined(__CUDACC__)
+#    define CATCH_INTERNAL_IGNORE_BUT_WARN(...) (void)__builtin_constant_p(__VA_ARGS__) /* NOLINT(cppcoreguidelines-pro-type-vararg, hicpp-vararg) */
 #  endif
 
 #    define CATCH_INTERNAL_SUPPRESS_GLOBALS_WARNINGS \
@@ -243,10 +242,6 @@ namespace Catch {
 
 #  define CATCH_INTERNAL_START_WARNINGS_SUPPRESSION __pragma( warning(push) )
 #  define CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION  __pragma( warning(pop) )
-
-#  if _MSC_VER >= 1900 // Visual Studio 2015 or newer
-#    define CATCH_INTERNAL_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS
-#  endif
 
 // Universal Windows platform does not support SEH
 // Or console colours (or console at all...)
@@ -330,7 +325,10 @@ namespace Catch {
 
   // Check if byte is available and usable
   #  if __has_include(<cstddef>) && defined(CATCH_CPP17_OR_GREATER)
-  #    define CATCH_INTERNAL_CONFIG_CPP17_BYTE
+  #    include <cstddef>
+  #    if __cpp_lib_byte > 0
+  #      define CATCH_INTERNAL_CONFIG_CPP17_BYTE
+  #    endif
   #  endif // __has_include(<cstddef>) && defined(CATCH_CPP17_OR_GREATER)
 
   // Check if variant is available and usable
@@ -371,10 +369,6 @@ namespace Catch {
 
 #if defined(CATCH_INTERNAL_CONFIG_CPP17_OPTIONAL) && !defined(CATCH_CONFIG_NO_CPP17_OPTIONAL) && !defined(CATCH_CONFIG_CPP17_OPTIONAL)
 #  define CATCH_CONFIG_CPP17_OPTIONAL
-#endif
-
-#if defined(CATCH_INTERNAL_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS) && !defined(CATCH_CONFIG_NO_CPP17_UNCAUGHT_EXCEPTIONS) && !defined(CATCH_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS)
-#  define CATCH_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS
 #endif
 
 #if defined(CATCH_INTERNAL_CONFIG_CPP17_STRING_VIEW) && !defined(CATCH_CONFIG_NO_CPP17_STRING_VIEW) && !defined(CATCH_CONFIG_CPP17_STRING_VIEW)
@@ -775,7 +769,7 @@ constexpr auto operator "" _catch_sr( char const* rawChars, std::size_t size ) n
 #define INTERNAL_CATCH_REMOVE_PARENS_4_ARG(_0, _1, _2, _3) INTERNAL_CATCH_REMOVE_PARENS(_0), INTERNAL_CATCH_REMOVE_PARENS_3_ARG(_1, _2, _3)
 #define INTERNAL_CATCH_REMOVE_PARENS_5_ARG(_0, _1, _2, _3, _4) INTERNAL_CATCH_REMOVE_PARENS(_0), INTERNAL_CATCH_REMOVE_PARENS_4_ARG(_1, _2, _3, _4)
 #define INTERNAL_CATCH_REMOVE_PARENS_6_ARG(_0, _1, _2, _3, _4, _5) INTERNAL_CATCH_REMOVE_PARENS(_0), INTERNAL_CATCH_REMOVE_PARENS_5_ARG(_1, _2, _3, _4, _5)
-#define INTERNAL_CATCH_REMOVE_PARENS_7_ARG(_0, _1, _2, _3, _4, _5, _6) INTERNAL_CATCH_REMOVE_PARENS(_0), INTERNAL_CATCH_REMOVE_PARENS_6_ARG(_1, _2, _4, _5, _6)
+#define INTERNAL_CATCH_REMOVE_PARENS_7_ARG(_0, _1, _2, _3, _4, _5, _6) INTERNAL_CATCH_REMOVE_PARENS(_0), INTERNAL_CATCH_REMOVE_PARENS_6_ARG(_1, _2, _3, _4, _5, _6)
 #define INTERNAL_CATCH_REMOVE_PARENS_8_ARG(_0, _1, _2, _3, _4, _5, _6, _7) INTERNAL_CATCH_REMOVE_PARENS(_0), INTERNAL_CATCH_REMOVE_PARENS_7_ARG(_1, _2, _3, _4, _5, _6, _7)
 #define INTERNAL_CATCH_REMOVE_PARENS_9_ARG(_0, _1, _2, _3, _4, _5, _6, _7, _8) INTERNAL_CATCH_REMOVE_PARENS(_0), INTERNAL_CATCH_REMOVE_PARENS_8_ARG(_1, _2, _3, _4, _5, _6, _7, _8)
 #define INTERNAL_CATCH_REMOVE_PARENS_10_ARG(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9) INTERNAL_CATCH_REMOVE_PARENS(_0), INTERNAL_CATCH_REMOVE_PARENS_9_ARG(_1, _2, _3, _4, _5, _6, _7, _8, _9)
@@ -944,13 +938,13 @@ namespace Catch {
 
 #if defined(__cpp_lib_is_invocable) && __cpp_lib_is_invocable >= 201703
     // std::result_of is deprecated in C++17 and removed in C++20. Hence, it is
-    // replaced with std::invoke_result here. Also *_t format is preferred over
-    // typename *::type format.
-    template <typename Func, typename U>
-    using FunctionReturnType = std::remove_reference_t<std::remove_cv_t<std::invoke_result_t<Func, U>>>;
+    // replaced with std::invoke_result here.
+    template <typename Func, typename... U>
+    using FunctionReturnType = std::remove_reference_t<std::remove_cv_t<std::invoke_result_t<Func, U...>>>;
 #else
-    template <typename Func, typename U>
-    using FunctionReturnType = typename std::remove_reference<typename std::remove_cv<typename std::result_of<Func(U)>::type>::type>::type;
+    // Keep ::type here because we still support C++11
+    template <typename Func, typename... U>
+    using FunctionReturnType = typename std::remove_reference<typename std::remove_cv<typename std::result_of<Func(U...)>::type>::type>::type;
 #endif
 
 } // namespace Catch
@@ -1105,7 +1099,7 @@ struct AutoReg : NonCopyable {
                     int index = 0;                                    \
                     constexpr char const* tmpl_types[] = {CATCH_REC_LIST(INTERNAL_CATCH_STRINGIZE_WITHOUT_PARENS, __VA_ARGS__)};\
                     using expander = int[];\
-                    (void)expander{(reg_test(Types{}, Catch::NameAndTags{ Name " - " + std::string(tmpl_types[index]), Tags } ), index++, 0)... };/* NOLINT */ \
+                    (void)expander{(reg_test(Types{}, Catch::NameAndTags{ Name " - " + std::string(tmpl_types[index]), Tags } ), index++)... };/* NOLINT */ \
                 }\
             };\
             static int INTERNAL_CATCH_UNIQUE_NAME( globalRegistrar ) = [](){\
@@ -1151,7 +1145,7 @@ struct AutoReg : NonCopyable {
                     constexpr char const* tmpl_types[] = {CATCH_REC_LIST(INTERNAL_CATCH_STRINGIZE_WITHOUT_PARENS, INTERNAL_CATCH_REMOVE_PARENS(TmplTypes))};\
                     constexpr char const* types_list[] = {CATCH_REC_LIST(INTERNAL_CATCH_STRINGIZE_WITHOUT_PARENS, INTERNAL_CATCH_REMOVE_PARENS(TypesList))};\
                     constexpr auto num_types = sizeof(types_list) / sizeof(types_list[0]);\
-                    (void)expander{(Catch::AutoReg( Catch::makeTestInvoker( &TestFuncName<Types> ), CATCH_INTERNAL_LINEINFO, Catch::StringRef(), Catch::NameAndTags{ Name " - " + std::string(tmpl_types[index / num_types]) + "<" + std::string(types_list[index % num_types]) + ">", Tags } ), index++, 0)... };/* NOLINT */\
+                    (void)expander{(Catch::AutoReg( Catch::makeTestInvoker( &TestFuncName<Types> ), CATCH_INTERNAL_LINEINFO, Catch::StringRef(), Catch::NameAndTags{ Name " - " + std::string(tmpl_types[index / num_types]) + "<" + std::string(types_list[index % num_types]) + ">", Tags } ), index++)... };/* NOLINT */\
                 }                                                     \
             };                                                        \
             static int INTERNAL_CATCH_UNIQUE_NAME( globalRegistrar ) = [](){ \
@@ -1195,7 +1189,7 @@ struct AutoReg : NonCopyable {
             void reg_tests() {                                          \
                 int index = 0;                                    \
                 using expander = int[];                           \
-                (void)expander{(Catch::AutoReg( Catch::makeTestInvoker( &TestFunc<Types> ), CATCH_INTERNAL_LINEINFO, Catch::StringRef(), Catch::NameAndTags{ Name " - " + std::string(INTERNAL_CATCH_STRINGIZE(TmplList)) + " - " + std::to_string(index), Tags } ), index++, 0)... };/* NOLINT */\
+                (void)expander{(Catch::AutoReg( Catch::makeTestInvoker( &TestFunc<Types> ), CATCH_INTERNAL_LINEINFO, Catch::StringRef(), Catch::NameAndTags{ Name " - " + std::string(INTERNAL_CATCH_STRINGIZE(TmplList)) + " - " + std::to_string(index), Tags } ), index++)... };/* NOLINT */\
             }                                                     \
         };\
         static int INTERNAL_CATCH_UNIQUE_NAME( globalRegistrar ) = [](){ \
@@ -1229,7 +1223,7 @@ struct AutoReg : NonCopyable {
                     int index = 0;                                    \
                     constexpr char const* tmpl_types[] = {CATCH_REC_LIST(INTERNAL_CATCH_STRINGIZE_WITHOUT_PARENS, __VA_ARGS__)};\
                     using expander = int[];\
-                    (void)expander{(reg_test(Types{}, #ClassName, Catch::NameAndTags{ Name " - " + std::string(tmpl_types[index]), Tags } ), index++, 0)... };/* NOLINT */ \
+                    (void)expander{(reg_test(Types{}, #ClassName, Catch::NameAndTags{ Name " - " + std::string(tmpl_types[index]), Tags } ), index++)... };/* NOLINT */ \
                 }\
             };\
             static int INTERNAL_CATCH_UNIQUE_NAME( globalRegistrar ) = [](){\
@@ -1278,7 +1272,7 @@ struct AutoReg : NonCopyable {
                     constexpr char const* tmpl_types[] = {CATCH_REC_LIST(INTERNAL_CATCH_STRINGIZE_WITHOUT_PARENS, INTERNAL_CATCH_REMOVE_PARENS(TmplTypes))};\
                     constexpr char const* types_list[] = {CATCH_REC_LIST(INTERNAL_CATCH_STRINGIZE_WITHOUT_PARENS, INTERNAL_CATCH_REMOVE_PARENS(TypesList))};\
                     constexpr auto num_types = sizeof(types_list) / sizeof(types_list[0]);\
-                    (void)expander{(Catch::AutoReg( Catch::makeTestInvoker( &TestName<Types>::test ), CATCH_INTERNAL_LINEINFO, #ClassName, Catch::NameAndTags{ Name " - " + std::string(tmpl_types[index / num_types]) + "<" + std::string(types_list[index % num_types]) + ">", Tags } ), index++, 0)... };/* NOLINT */ \
+                    (void)expander{(Catch::AutoReg( Catch::makeTestInvoker( &TestName<Types>::test ), CATCH_INTERNAL_LINEINFO, #ClassName, Catch::NameAndTags{ Name " - " + std::string(tmpl_types[index / num_types]) + "<" + std::string(types_list[index % num_types]) + ">", Tags } ), index++)... };/* NOLINT */ \
                 }\
             };\
             static int INTERNAL_CATCH_UNIQUE_NAME( globalRegistrar ) = [](){\
@@ -1325,7 +1319,7 @@ struct AutoReg : NonCopyable {
                 void reg_tests(){\
                     int index = 0;\
                     using expander = int[];\
-                    (void)expander{(Catch::AutoReg( Catch::makeTestInvoker( &TestName<Types>::test ), CATCH_INTERNAL_LINEINFO, #ClassName, Catch::NameAndTags{ Name " - " + std::string(INTERNAL_CATCH_STRINGIZE(TmplList)) + " - " + std::to_string(index), Tags } ), index++, 0)... };/* NOLINT */ \
+                    (void)expander{(Catch::AutoReg( Catch::makeTestInvoker( &TestName<Types>::test ), CATCH_INTERNAL_LINEINFO, #ClassName, Catch::NameAndTags{ Name " - " + std::string(INTERNAL_CATCH_STRINGIZE(TmplList)) + " - " + std::to_string(index), Tags } ), index++)... };/* NOLINT */ \
                 }\
             };\
             static int INTERNAL_CATCH_UNIQUE_NAME( globalRegistrar ) = [](){\
@@ -1829,8 +1823,8 @@ namespace Catch {
 #endif
 
     namespace Detail {
-        template<typename InputIterator>
-        std::string rangeToString(InputIterator first, InputIterator last) {
+        template<typename InputIterator, typename Sentinel = InputIterator>
+        std::string rangeToString(InputIterator first, Sentinel last) {
             ReusableStringStream rss;
             rss << "{ ";
             if (first != last) {
@@ -1988,20 +1982,27 @@ namespace Catch {
 #endif // CATCH_CONFIG_ENABLE_VARIANT_STRINGMAKER
 
 namespace Catch {
-    struct not_this_one {}; // Tag type for detecting which begin/ end are being selected
-
-    // Import begin/ end from std here so they are considered alongside the fallback (...) overloads in this namespace
+    // Import begin/ end from std here
     using std::begin;
     using std::end;
 
-    not_this_one begin( ... );
-    not_this_one end( ... );
+    namespace detail {
+        template <typename...>
+        struct void_type {
+            using type = void;
+        };
+
+        template <typename T, typename = void>
+        struct is_range_impl : std::false_type {
+        };
+
+        template <typename T>
+        struct is_range_impl<T, typename void_type<decltype(begin(std::declval<T>()))>::type> : std::true_type {
+        };
+    } // namespace detail
 
     template <typename T>
-    struct is_range {
-        static const bool value =
-            !std::is_same<decltype(begin(std::declval<T>())), not_this_one>::value &&
-            !std::is_same<decltype(end(std::declval<T>())), not_this_one>::value;
+    struct is_range : detail::is_range_impl<T> {
     };
 
 #if defined(_MANAGED) // Managed types are never ranges
@@ -2461,7 +2462,7 @@ namespace Catch {
         virtual void sectionEnded( SectionEndInfo const& endInfo ) = 0;
         virtual void sectionEndedEarly( SectionEndInfo const& endInfo ) = 0;
 
-        virtual auto acquireGeneratorTracker( SourceLineInfo const& lineInfo ) -> IGeneratorTracker& = 0;
+        virtual auto acquireGeneratorTracker( StringRef generatorName, SourceLineInfo const& lineInfo ) -> IGeneratorTracker& = 0;
 
 #if defined(CATCH_CONFIG_ENABLE_BENCHMARKING)
         virtual void benchmarkPreparing( std::string const& name ) = 0;
@@ -3714,8 +3715,6 @@ namespace Matchers {
         struct UnorderedEqualsMatcher : MatcherBase<std::vector<T, AllocMatch>> {
             UnorderedEqualsMatcher(std::vector<T, AllocComp> const& target) : m_target(target) {}
             bool match(std::vector<T, AllocMatch> const& vec) const override {
-                // Note: This is a reimplementation of std::is_permutation,
-                //       because I don't want to include <algorithm> inside the common path
                 if (m_target.size() != vec.size()) {
                     return false;
                 }
@@ -4075,16 +4074,16 @@ namespace Generators {
         return makeGenerators( value( T( std::forward<U>( val ) ) ), std::forward<Gs>( moreGenerators )... );
     }
 
-    auto acquireGeneratorTracker( SourceLineInfo const& lineInfo ) -> IGeneratorTracker&;
+    auto acquireGeneratorTracker( StringRef generatorName, SourceLineInfo const& lineInfo ) -> IGeneratorTracker&;
 
     template<typename L>
     // Note: The type after -> is weird, because VS2015 cannot parse
     //       the expression used in the typedef inside, when it is in
     //       return type. Yeah.
-    auto generate( SourceLineInfo const& lineInfo, L const& generatorExpression ) -> decltype(std::declval<decltype(generatorExpression())>().get()) {
+    auto generate( StringRef generatorName, SourceLineInfo const& lineInfo, L const& generatorExpression ) -> decltype(std::declval<decltype(generatorExpression())>().get()) {
         using UnderlyingType = typename decltype(generatorExpression())::type;
 
-        IGeneratorTracker& tracker = acquireGeneratorTracker( lineInfo );
+        IGeneratorTracker& tracker = acquireGeneratorTracker( generatorName, lineInfo );
         if (!tracker.hasGenerator()) {
             tracker.setGenerator(pf::make_unique<Generators<UnderlyingType>>(generatorExpression()));
         }
@@ -4097,11 +4096,17 @@ namespace Generators {
 } // namespace Catch
 
 #define GENERATE( ... ) \
-    Catch::Generators::generate( CATCH_INTERNAL_LINEINFO, [ ]{ using namespace Catch::Generators; return makeGenerators( __VA_ARGS__ ); } ) //NOLINT(google-build-using-namespace)
+    Catch::Generators::generate( INTERNAL_CATCH_STRINGIZE(INTERNAL_CATCH_UNIQUE_NAME(generator)), \
+                                 CATCH_INTERNAL_LINEINFO, \
+                                 [ ]{ using namespace Catch::Generators; return makeGenerators( __VA_ARGS__ ); } ) //NOLINT(google-build-using-namespace)
 #define GENERATE_COPY( ... ) \
-    Catch::Generators::generate( CATCH_INTERNAL_LINEINFO, [=]{ using namespace Catch::Generators; return makeGenerators( __VA_ARGS__ ); } ) //NOLINT(google-build-using-namespace)
+    Catch::Generators::generate( INTERNAL_CATCH_STRINGIZE(INTERNAL_CATCH_UNIQUE_NAME(generator)), \
+                                 CATCH_INTERNAL_LINEINFO, \
+                                 [=]{ using namespace Catch::Generators; return makeGenerators( __VA_ARGS__ ); } ) //NOLINT(google-build-using-namespace)
 #define GENERATE_REF( ... ) \
-    Catch::Generators::generate( CATCH_INTERNAL_LINEINFO, [&]{ using namespace Catch::Generators; return makeGenerators( __VA_ARGS__ ); } ) //NOLINT(google-build-using-namespace)
+    Catch::Generators::generate( INTERNAL_CATCH_STRINGIZE(INTERNAL_CATCH_UNIQUE_NAME(generator)), \
+                                 CATCH_INTERNAL_LINEINFO, \
+                                 [&]{ using namespace Catch::Generators; return makeGenerators( __VA_ARGS__ ); } ) //NOLINT(google-build-using-namespace)
 
 // end catch_generators.hpp
 // start catch_generators_generic.hpp
@@ -4511,6 +4516,7 @@ namespace Catch {
         virtual int abortAfter() const = 0;
         virtual bool showInvisibles() const = 0;
         virtual ShowDurations::OrNot showDurations() const = 0;
+        virtual double minDuration() const = 0;
         virtual TestSpec const& testSpec() const = 0;
         virtual bool hasTestFilters() const = 0;
         virtual std::vector<std::string> const& getTestsOrTags() const = 0;
@@ -5283,6 +5289,7 @@ namespace Catch {
         Verbosity verbosity = Verbosity::Normal;
         WarnAbout::What warnings = WarnAbout::Nothing;
         ShowDurations::OrNot showDurations = ShowDurations::DefaultForReporter;
+        double minDuration = -1;
         RunTests::InWhatOrder runOrder = RunTests::InDeclarationOrder;
         UseColour::YesOrNo useColour = UseColour::Auto;
         WaitForKeypress::When waitForKeypress = WaitForKeypress::Never;
@@ -5333,6 +5340,7 @@ namespace Catch {
         bool warnAboutMissingAssertions() const override;
         bool warnAboutNoTests() const override;
         ShowDurations::OrNot showDurations() const override;
+        double minDuration() const override;
         RunTests::InWhatOrder runOrder() const override;
         unsigned int rngSeed() const override;
         UseColour::YesOrNo useColour() const override;
@@ -5709,6 +5717,9 @@ namespace Catch {
 
     // Returns double formatted as %.3f (format expected on output)
     std::string getFormattedDuration( double duration );
+
+    //! Should the reporter show
+    bool shouldShowDuration( IConfig const& config, double duration );
 
     std::string serializeFilters( std::vector<std::string> const& container );
 
@@ -6102,8 +6113,6 @@ namespace Catch {
         ~CompactReporter() override;
 
         static std::string getDescription();
-
-        ReporterPreferences getPreferences() const override;
 
         void noMatchingTestCases(std::string const& spec) override;
 
@@ -6552,20 +6561,18 @@ namespace Catch {
                     return {};
                 }
             };
-            template <typename Sig>
-            using ResultOf_t = typename std::result_of<Sig>::type;
 
             // invoke and not return void :(
             template <typename Fun, typename... Args>
-            CompleteType_t<ResultOf_t<Fun(Args...)>> complete_invoke(Fun&& fun, Args&&... args) {
-                return CompleteInvoker<ResultOf_t<Fun(Args...)>>::invoke(std::forward<Fun>(fun), std::forward<Args>(args)...);
+            CompleteType_t<FunctionReturnType<Fun, Args...>> complete_invoke(Fun&& fun, Args&&... args) {
+                return CompleteInvoker<FunctionReturnType<Fun, Args...>>::invoke(std::forward<Fun>(fun), std::forward<Args>(args)...);
             }
 
             const std::string benchmarkErrorMsg = "a benchmark failed to run successfully";
         } // namespace Detail
 
         template <typename Fun>
-        Detail::CompleteType_t<Detail::ResultOf_t<Fun()>> user_code(Fun&& fun) {
+        Detail::CompleteType_t<FunctionReturnType<Fun>> user_code(Fun&& fun) {
             CATCH_TRY{
                 return Detail::complete_invoke(std::forward<Fun>(fun));
             } CATCH_CATCH_ALL{
@@ -6810,8 +6817,8 @@ namespace Catch {
             Result result;
             int iterations;
         };
-        template <typename Clock, typename Sig>
-        using TimingOf = Timing<ClockDuration<Clock>, Detail::CompleteType_t<Detail::ResultOf_t<Sig>>>;
+        template <typename Clock, typename Func, typename... Args>
+        using TimingOf = Timing<ClockDuration<Clock>, Detail::CompleteType_t<FunctionReturnType<Func, Args...>>>;
     } // namespace Benchmark
 } // namespace Catch
 
@@ -6822,7 +6829,7 @@ namespace Catch {
     namespace Benchmark {
         namespace Detail {
             template <typename Clock, typename Fun, typename... Args>
-            TimingOf<Clock, Fun(Args...)> measure(Fun&& fun, Args&&... args) {
+            TimingOf<Clock, Fun, Args...> measure(Fun&& fun, Args&&... args) {
                 auto start = Clock::now();
                 auto&& r = Detail::complete_invoke(fun, std::forward<Args>(args)...);
                 auto end = Clock::now();
@@ -6841,11 +6848,11 @@ namespace Catch {
     namespace Benchmark {
         namespace Detail {
             template <typename Clock, typename Fun>
-            TimingOf<Clock, Fun(int)> measure_one(Fun&& fun, int iters, std::false_type) {
+            TimingOf<Clock, Fun, int> measure_one(Fun&& fun, int iters, std::false_type) {
                 return Detail::measure<Clock>(fun, iters);
             }
             template <typename Clock, typename Fun>
-            TimingOf<Clock, Fun(Chronometer)> measure_one(Fun&& fun, int iters, std::true_type) {
+            TimingOf<Clock, Fun, Chronometer> measure_one(Fun&& fun, int iters, std::true_type) {
                 Detail::ChronometerModel<Clock> meter;
                 auto&& result = Detail::complete_invoke(fun, Chronometer(meter, iters));
 
@@ -6862,7 +6869,7 @@ namespace Catch {
             };
 
             template <typename Clock, typename Fun>
-            TimingOf<Clock, Fun(run_for_at_least_argument_t<Clock, Fun>)> run_for_at_least(ClockDuration<Clock> how_long, int seed, Fun&& fun) {
+            TimingOf<Clock, Fun, run_for_at_least_argument_t<Clock, Fun>> run_for_at_least(ClockDuration<Clock> how_long, int seed, Fun&& fun) {
                 auto iters = seed;
                 while (iters < (1 << 30)) {
                     auto&& Timing = measure_one<Clock>(fun, iters, is_callable<Fun(Chronometer)>());
@@ -7050,8 +7057,8 @@ namespace Catch {
                 double b2 = bias - z1;
                 double a1 = a(b1);
                 double a2 = a(b2);
-                auto lo = std::max(cumn(a1), 0);
-                auto hi = std::min(cumn(a2), n - 1);
+                auto lo = (std::max)(cumn(a1), 0);
+                auto hi = (std::min)(cumn(a2), n - 1);
 
                 return { point, resample[lo], resample[hi], confidence_level };
             }
@@ -7120,7 +7127,9 @@ namespace Catch {
             }
             template <typename Clock>
             EnvironmentEstimate<FloatDuration<Clock>> estimate_clock_cost(FloatDuration<Clock> resolution) {
-                auto time_limit = std::min(resolution * clock_cost_estimation_tick_limit, FloatDuration<Clock>(clock_cost_estimation_time_limit));
+                auto time_limit = (std::min)(
+                    resolution * clock_cost_estimation_tick_limit,
+                    FloatDuration<Clock>(clock_cost_estimation_time_limit));
                 auto time_clock = [](int k) {
                     return Detail::measure<Clock>([k] {
                         for (int i = 0; i < k; ++i) {
@@ -7460,23 +7469,37 @@ namespace TestCaseTracking {
         SourceLineInfo location;
 
         NameAndLocation( std::string const& _name, SourceLineInfo const& _location );
+        friend bool operator==(NameAndLocation const& lhs, NameAndLocation const& rhs) {
+            return lhs.name == rhs.name
+                && lhs.location == rhs.location;
+        }
     };
 
-    struct ITracker;
+    class ITracker;
 
     using ITrackerPtr = std::shared_ptr<ITracker>;
 
-    struct ITracker {
-        virtual ~ITracker();
+    class  ITracker {
+        NameAndLocation m_nameAndLocation;
+
+    public:
+        ITracker(NameAndLocation const& nameAndLoc) :
+            m_nameAndLocation(nameAndLoc)
+        {}
 
         // static queries
-        virtual NameAndLocation const& nameAndLocation() const = 0;
+        NameAndLocation const& nameAndLocation() const {
+            return m_nameAndLocation;
+        }
+
+        virtual ~ITracker();
 
         // dynamic queries
         virtual bool isComplete() const = 0; // Successfully completed or failed
         virtual bool isSuccessfullyCompleted() const = 0;
         virtual bool isOpen() const = 0; // Started but not complete
         virtual bool hasChildren() const = 0;
+        virtual bool hasStarted() const = 0;
 
         virtual ITracker& parent() = 0;
 
@@ -7531,7 +7554,6 @@ namespace TestCaseTracking {
         };
 
         using Children = std::vector<ITrackerPtr>;
-        NameAndLocation m_nameAndLocation;
         TrackerContext& m_ctx;
         ITracker* m_parent;
         Children m_children;
@@ -7540,11 +7562,13 @@ namespace TestCaseTracking {
     public:
         TrackerBase( NameAndLocation const& nameAndLocation, TrackerContext& ctx, ITracker* parent );
 
-        NameAndLocation const& nameAndLocation() const override;
         bool isComplete() const override;
         bool isSuccessfullyCompleted() const override;
         bool isOpen() const override;
         bool hasChildren() const override;
+        bool hasStarted() const override {
+            return m_runState != NotStarted;
+        }
 
         void addChild( ITrackerPtr const& child ) override;
 
@@ -7583,6 +7607,10 @@ namespace TestCaseTracking {
 
         void addInitialFilters( std::vector<std::string> const& filters );
         void addNextFilters( std::vector<std::string> const& filters );
+        //! Returns filters active in this tracker
+        std::vector<std::string> const& getFilters() const;
+        //! Returns whitespace-trimmed name of the tracked section
+        std::string const& trimmedName() const;
     };
 
 } // namespace TestCaseTracking
@@ -7748,7 +7776,7 @@ namespace Catch {
                 double sb = stddev.point;
                 double mn = mean.point / n;
                 double mg_min = mn / 2.;
-                double sg = std::min(mg_min / 4., sb / std::sqrt(n));
+                double sg = (std::min)(mg_min / 4., sb / std::sqrt(n));
                 double sg2 = sg * sg;
                 double sb2 = sb * sb;
 
@@ -7767,7 +7795,7 @@ namespace Catch {
                     return (nc / n) * (sb2 - nc * sg2);
                 };
 
-                return std::min(var_out(1), var_out(std::min(c_max(0.), c_max(mg_min)))) / sb2;
+                return (std::min)(var_out(1), var_out((std::min)(c_max(0.), c_max(mg_min)))) / sb2;
             }
 
             bootstrap_analysis analyse_samples(double confidence_level, int n_resamples, std::vector<double>::iterator first, std::vector<double>::iterator last) {
@@ -7907,7 +7935,11 @@ namespace Catch {
 
 #ifdef CATCH_PLATFORM_MAC
 
-    #define CATCH_TRAP() __asm__("int $3\n" : : ) /* NOLINT */
+    #if defined(__i386__) || defined(__x86_64__)
+        #define CATCH_TRAP() __asm__("int $3\n" : : ) /* NOLINT */
+    #elif defined(__aarch64__)
+        #define CATCH_TRAP()  __asm__(".inst 0xd4200000")
+    #endif
 
 #elif defined(CATCH_PLATFORM_IPHONE)
 
@@ -7953,86 +7985,58 @@ namespace Catch {
 
 // start catch_fatal_condition.h
 
-// start catch_windows_h_proxy.h
-
-
-#if defined(CATCH_PLATFORM_WINDOWS)
-
-#if !defined(NOMINMAX) && !defined(CATCH_CONFIG_NO_NOMINMAX)
-#  define CATCH_DEFINED_NOMINMAX
-#  define NOMINMAX
-#endif
-#if !defined(WIN32_LEAN_AND_MEAN) && !defined(CATCH_CONFIG_NO_WIN32_LEAN_AND_MEAN)
-#  define CATCH_DEFINED_WIN32_LEAN_AND_MEAN
-#  define WIN32_LEAN_AND_MEAN
-#endif
-
-#ifdef __AFXDLL
-#include <AfxWin.h>
-#else
-#include <windows.h>
-#endif
-
-#ifdef CATCH_DEFINED_NOMINMAX
-#  undef NOMINMAX
-#endif
-#ifdef CATCH_DEFINED_WIN32_LEAN_AND_MEAN
-#  undef WIN32_LEAN_AND_MEAN
-#endif
-
-#endif // defined(CATCH_PLATFORM_WINDOWS)
-
-// end catch_windows_h_proxy.h
-#if defined( CATCH_CONFIG_WINDOWS_SEH )
+#include <cassert>
 
 namespace Catch {
 
-    struct FatalConditionHandler {
+    // Wrapper for platform-specific fatal error (signals/SEH) handlers
+    //
+    // Tries to be cooperative with other handlers, and not step over
+    // other handlers. This means that unknown structured exceptions
+    // are passed on, previous signal handlers are called, and so on.
+    //
+    // Can only be instantiated once, and assumes that once a signal
+    // is caught, the binary will end up terminating. Thus, there
+    class FatalConditionHandler {
+        bool m_started = false;
 
-        static LONG CALLBACK handleVectoredException(PEXCEPTION_POINTERS ExceptionInfo);
-        FatalConditionHandler();
-        static void reset();
-        ~FatalConditionHandler();
-
-    private:
-        static bool isSet;
-        static ULONG guaranteeSize;
-        static PVOID exceptionHandlerHandle;
-    };
-
-} // namespace Catch
-
-#elif defined ( CATCH_CONFIG_POSIX_SIGNALS )
-
-#include <signal.h>
-
-namespace Catch {
-
-    struct FatalConditionHandler {
-
-        static bool isSet;
-        static struct sigaction oldSigActions[];
-        static stack_t oldSigStack;
-        static char altStackMem[];
-
-        static void handleSignal( int sig );
-
+        // Install/disengage implementation for specific platform.
+        // Should be if-defed to work on current platform, can assume
+        // engage-disengage 1:1 pairing.
+        void engage_platform();
+        void disengage_platform();
+    public:
+        // Should also have platform-specific implementations as needed
         FatalConditionHandler();
         ~FatalConditionHandler();
-        static void reset();
+
+        void engage() {
+            assert(!m_started && "Handler cannot be installed twice.");
+            m_started = true;
+            engage_platform();
+        }
+
+        void disengage() {
+            assert(m_started && "Handler cannot be uninstalled without being installed first");
+            m_started = false;
+            disengage_platform();
+        }
     };
 
-} // namespace Catch
-
-#else
-
-namespace Catch {
-    struct FatalConditionHandler {
-        void reset();
+    //! Simple RAII guard for (dis)engaging the FatalConditionHandler
+    class FatalConditionHandlerGuard {
+        FatalConditionHandler* m_handler;
+    public:
+        FatalConditionHandlerGuard(FatalConditionHandler* handler):
+            m_handler(handler) {
+            m_handler->engage();
+        }
+        ~FatalConditionHandlerGuard() {
+            m_handler->disengage();
+        }
     };
-}
 
-#endif
+} // end namespace Catch
 
 // end catch_fatal_condition.h
 #include <string>
@@ -8092,7 +8096,7 @@ namespace Catch {
         void sectionEnded( SectionEndInfo const& endInfo ) override;
         void sectionEndedEarly( SectionEndInfo const& endInfo ) override;
 
-        auto acquireGeneratorTracker( SourceLineInfo const& lineInfo ) -> IGeneratorTracker& override;
+        auto acquireGeneratorTracker( StringRef generatorName, SourceLineInfo const& lineInfo ) -> IGeneratorTracker& override;
 
 #if defined(CATCH_CONFIG_ENABLE_BENCHMARKING)
         void benchmarkPreparing( std::string const& name ) override;
@@ -8158,6 +8162,7 @@ namespace Catch {
         std::vector<SectionEndInfo> m_unfinishedSections;
         std::vector<ITracker*> m_activeSections;
         TrackerContext m_trackerContext;
+        FatalConditionHandler m_fatalConditionhandler;
         bool m_lastAssertionPassed = false;
         bool m_shouldReportUnexpected = true;
         bool m_includeSuccessfulResults;
@@ -9068,7 +9073,7 @@ namespace detail {
     }
     inline auto convertInto( std::string const &source, bool &target ) -> ParserResult {
         std::string srcLC = source;
-        std::transform( srcLC.begin(), srcLC.end(), srcLC.begin(), []( char c ) { return static_cast<char>( std::tolower(c) ); } );
+        std::transform( srcLC.begin(), srcLC.end(), srcLC.begin(), []( unsigned char c ) { return static_cast<char>( std::tolower(c) ); } );
         if (srcLC == "y" || srcLC == "1" || srcLC == "true" || srcLC == "yes" || srcLC == "on")
             target = true;
         else if (srcLC == "n" || srcLC == "0" || srcLC == "false" || srcLC == "no" || srcLC == "off")
@@ -9837,6 +9842,9 @@ namespace Catch {
             | Opt( [&]( bool flag ) { config.showDurations = flag ? ShowDurations::Always : ShowDurations::Never; }, "yes|no" )
                 ["-d"]["--durations"]
                 ( "show test durations" )
+            | Opt( config.minDuration, "seconds" )
+                ["-D"]["--min-duration"]
+                ( "show test durations for tests taking at least the given number of seconds" )
             | Opt( loadTestNamesFromFile, "filename" )
                 ["-f"]["--input-file"]
                 ( "load test names to run from a file" )
@@ -9984,6 +9992,7 @@ namespace Catch {
     bool Config::warnAboutMissingAssertions() const    { return !!(m_data.warnings & WarnAbout::NoAssertions); }
     bool Config::warnAboutNoTests() const              { return !!(m_data.warnings & WarnAbout::NoTests); }
     ShowDurations::OrNot Config::showDurations() const { return m_data.showDurations; }
+    double Config::minDuration() const                 { return m_data.minDuration; }
     RunTests::InWhatOrder Config::runOrder() const     { return m_data.runOrder; }
     unsigned int Config::rngSeed() const               { return m_data.rngSeed; }
     UseColour::YesOrNo Config::useColour() const       { return m_data.useColour; }
@@ -10026,6 +10035,36 @@ namespace Catch {
 }
 
 // end catch_errno_guard.h
+// start catch_windows_h_proxy.h
+
+
+#if defined(CATCH_PLATFORM_WINDOWS)
+
+#if !defined(NOMINMAX) && !defined(CATCH_CONFIG_NO_NOMINMAX)
+#  define CATCH_DEFINED_NOMINMAX
+#  define NOMINMAX
+#endif
+#if !defined(WIN32_LEAN_AND_MEAN) && !defined(CATCH_CONFIG_NO_WIN32_LEAN_AND_MEAN)
+#  define CATCH_DEFINED_WIN32_LEAN_AND_MEAN
+#  define WIN32_LEAN_AND_MEAN
+#endif
+
+#ifdef __AFXDLL
+#include <AfxWin.h>
+#else
+#include <windows.h>
+#endif
+
+#ifdef CATCH_DEFINED_NOMINMAX
+#  undef NOMINMAX
+#endif
+#ifdef CATCH_DEFINED_WIN32_LEAN_AND_MEAN
+#  undef WIN32_LEAN_AND_MEAN
+#endif
+
+#endif // defined(CATCH_PLATFORM_WINDOWS)
+
+// end catch_windows_h_proxy.h
 #include <sstream>
 
 namespace Catch {
@@ -10542,7 +10581,7 @@ namespace Catch {
             // Extracts the actual name part of an enum instance
             // In other words, it returns the Blue part of Bikeshed::Colour::Blue
             StringRef extractInstanceName(StringRef enumInstance) {
-                // Find last occurence of ":"
+                // Find last occurrence of ":"
                 size_t name_start = enumInstance.size();
                 while (name_start > 0 && enumInstance[name_start - 1] != ':') {
                     --name_start;
@@ -10704,25 +10743,47 @@ namespace Catch {
 // end catch_exception_translator_registry.cpp
 // start catch_fatal_condition.cpp
 
-#if defined(__GNUC__)
-#    pragma GCC diagnostic push
-#    pragma GCC diagnostic ignored "-Wmissing-field-initializers"
-#endif
+#include <algorithm>
+
+#if !defined( CATCH_CONFIG_WINDOWS_SEH ) && !defined( CATCH_CONFIG_POSIX_SIGNALS )
+
+namespace Catch {
+
+    // If neither SEH nor signal handling is required, the handler impls
+    // do not have to do anything, and can be empty.
+    FatalConditionHandler::engage_platform() {}
+    FatalConditionHandler::disengage_platform() {}
+    FatalConditionHandler::FatalConditionHandler() = default;
+    FatalConditionHandler::~FatalConditionHandler() = default;
+
+} // end namespace Catch
+
+#endif // !CATCH_CONFIG_WINDOWS_SEH && !CATCH_CONFIG_POSIX_SIGNALS
+
+#if defined( CATCH_CONFIG_WINDOWS_SEH ) && defined( CATCH_CONFIG_POSIX_SIGNALS )
+#error "Inconsistent configuration: Windows' SEH handling and POSIX signals cannot be enabled at the same time"
+#endif // CATCH_CONFIG_WINDOWS_SEH && CATCH_CONFIG_POSIX_SIGNALS
 
 #if defined( CATCH_CONFIG_WINDOWS_SEH ) || defined( CATCH_CONFIG_POSIX_SIGNALS )
 
 namespace {
-    // Report the error condition
+    //! Signals fatal error message to the run context
     void reportFatal( char const * const message ) {
         Catch::getCurrentContext().getResultCapture()->handleFatalErrorCondition( message );
     }
-}
 
-#endif // signals/SEH handling
+    //! Minimal size Catch2 needs for its own fatal error handling.
+    //! Picked anecdotally, so it might not be sufficient on all
+    //! platforms, and for all configurations.
+    constexpr std::size_t minStackSizeForErrors = 32 * 1024;
+} // end unnamed namespace
+
+#endif // CATCH_CONFIG_WINDOWS_SEH || CATCH_CONFIG_POSIX_SIGNALS
 
 #if defined( CATCH_CONFIG_WINDOWS_SEH )
 
 namespace Catch {
+
     struct SignalDefs { DWORD id; const char* name; };
 
     // There is no 1-1 mapping between signals and windows exceptions.
@@ -10735,7 +10796,7 @@ namespace Catch {
         { static_cast<DWORD>(EXCEPTION_INT_DIVIDE_BY_ZERO), "Divide by zero error" },
     };
 
-    LONG CALLBACK FatalConditionHandler::handleVectoredException(PEXCEPTION_POINTERS ExceptionInfo) {
+    static LONG CALLBACK handleVectoredException(PEXCEPTION_POINTERS ExceptionInfo) {
         for (auto const& def : signalDefs) {
             if (ExceptionInfo->ExceptionRecord->ExceptionCode == def.id) {
                 reportFatal(def.name);
@@ -10746,38 +10807,50 @@ namespace Catch {
         return EXCEPTION_CONTINUE_SEARCH;
     }
 
-    FatalConditionHandler::FatalConditionHandler() {
-        isSet = true;
-        // 32k seems enough for Catch to handle stack overflow,
-        // but the value was found experimentally, so there is no strong guarantee
-        guaranteeSize = 32 * 1024;
-        exceptionHandlerHandle = nullptr;
-        // Register as first handler in current chain
-        exceptionHandlerHandle = AddVectoredExceptionHandler(1, handleVectoredException);
-        // Pass in guarantee size to be filled
-        SetThreadStackGuarantee(&guaranteeSize);
-    }
+    // Since we do not support multiple instantiations, we put these
+    // into global variables and rely on cleaning them up in outlined
+    // constructors/destructors
+    static PVOID exceptionHandlerHandle = nullptr;
 
-    void FatalConditionHandler::reset() {
-        if (isSet) {
-            RemoveVectoredExceptionHandler(exceptionHandlerHandle);
-            SetThreadStackGuarantee(&guaranteeSize);
-            exceptionHandlerHandle = nullptr;
-            isSet = false;
+    // For MSVC, we reserve part of the stack memory for handling
+    // memory overflow structured exception.
+    FatalConditionHandler::FatalConditionHandler() {
+        ULONG guaranteeSize = static_cast<ULONG>(minStackSizeForErrors);
+        if (!SetThreadStackGuarantee(&guaranteeSize)) {
+            // We do not want to fully error out, because needing
+            // the stack reserve should be rare enough anyway.
+            Catch::cerr()
+                << "Failed to reserve piece of stack."
+                << " Stack overflows will not be reported successfully.";
         }
     }
 
-    FatalConditionHandler::~FatalConditionHandler() {
-        reset();
+    // We do not attempt to unset the stack guarantee, because
+    // Windows does not support lowering the stack size guarantee.
+    FatalConditionHandler::~FatalConditionHandler() = default;
+
+    void FatalConditionHandler::engage_platform() {
+        // Register as first handler in current chain
+        exceptionHandlerHandle = AddVectoredExceptionHandler(1, handleVectoredException);
+        if (!exceptionHandlerHandle) {
+            CATCH_RUNTIME_ERROR("Could not register vectored exception handler");
+        }
     }
 
-bool FatalConditionHandler::isSet = false;
-ULONG FatalConditionHandler::guaranteeSize = 0;
-PVOID FatalConditionHandler::exceptionHandlerHandle = nullptr;
+    void FatalConditionHandler::disengage_platform() {
+        if (!RemoveVectoredExceptionHandler(exceptionHandlerHandle)) {
+            CATCH_RUNTIME_ERROR("Could not unregister vectored exception handler");
+        }
+        exceptionHandlerHandle = nullptr;
+    }
 
-} // namespace Catch
+} // end namespace Catch
 
-#elif defined( CATCH_CONFIG_POSIX_SIGNALS )
+#endif // CATCH_CONFIG_WINDOWS_SEH
+
+#if defined( CATCH_CONFIG_POSIX_SIGNALS )
+
+#include <signal.h>
 
 namespace Catch {
 
@@ -10785,10 +10858,6 @@ namespace Catch {
         int id;
         const char* name;
     };
-
-    // 32kb for the alternate stack seems to be sufficient. However, this value
-    // is experimentally determined, so that's not guaranteed.
-    static constexpr std::size_t sigStackSize = 32768 >= MINSIGSTKSZ ? 32768 : MINSIGSTKSZ;
 
     static SignalDefs signalDefs[] = {
         { SIGINT,  "SIGINT - Terminal interrupt signal" },
@@ -10799,7 +10868,32 @@ namespace Catch {
         { SIGABRT, "SIGABRT - Abort (abnormal termination) signal" }
     };
 
-    void FatalConditionHandler::handleSignal( int sig ) {
+// Older GCCs trigger -Wmissing-field-initializers for T foo = {}
+// which is zero initialization, but not explicit. We want to avoid
+// that.
+#if defined(__GNUC__)
+#    pragma GCC diagnostic push
+#    pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#endif
+
+    static char* altStackMem = nullptr;
+    static std::size_t altStackSize = 0;
+    static stack_t oldSigStack{};
+    static struct sigaction oldSigActions[sizeof(signalDefs) / sizeof(SignalDefs)]{};
+
+    static void restorePreviousSignalHandlers() {
+        // We set signal handlers back to the previous ones. Hopefully
+        // nobody overwrote them in the meantime, and doesn't expect
+        // their signal handlers to live past ours given that they
+        // installed them after ours..
+        for (std::size_t i = 0; i < sizeof(signalDefs) / sizeof(SignalDefs); ++i) {
+            sigaction(signalDefs[i].id, &oldSigActions[i], nullptr);
+        }
+        // Return the old stack
+        sigaltstack(&oldSigStack, nullptr);
+    }
+
+    static void handleSignal( int sig ) {
         char const * name = "<unknown signal>";
         for (auto const& def : signalDefs) {
             if (sig == def.id) {
@@ -10807,16 +10901,33 @@ namespace Catch {
                 break;
             }
         }
-        reset();
-        reportFatal(name);
+        // We need to restore previous signal handlers and let them do
+        // their thing, so that the users can have the debugger break
+        // when a signal is raised, and so on.
+        restorePreviousSignalHandlers();
+        reportFatal( name );
         raise( sig );
     }
 
     FatalConditionHandler::FatalConditionHandler() {
-        isSet = true;
+        assert(!altStackMem && "Cannot initialize POSIX signal handler when one already exists");
+        if (altStackSize == 0) {
+            altStackSize = std::max(static_cast<size_t>(SIGSTKSZ), minStackSizeForErrors);
+        }
+        altStackMem = new char[altStackSize]();
+    }
+
+    FatalConditionHandler::~FatalConditionHandler() {
+        delete[] altStackMem;
+        // We signal that another instance can be constructed by zeroing
+        // out the pointer.
+        altStackMem = nullptr;
+    }
+
+    void FatalConditionHandler::engage_platform() {
         stack_t sigStack;
         sigStack.ss_sp = altStackMem;
-        sigStack.ss_size = sigStackSize;
+        sigStack.ss_size = altStackSize;
         sigStack.ss_flags = 0;
         sigaltstack(&sigStack, &oldSigStack);
         struct sigaction sa = { };
@@ -10828,40 +10939,17 @@ namespace Catch {
         }
     }
 
-    FatalConditionHandler::~FatalConditionHandler() {
-        reset();
-    }
-
-    void FatalConditionHandler::reset() {
-        if( isSet ) {
-            // Set signals back to previous values -- hopefully nobody overwrote them in the meantime
-            for( std::size_t i = 0; i < sizeof(signalDefs)/sizeof(SignalDefs); ++i ) {
-                sigaction(signalDefs[i].id, &oldSigActions[i], nullptr);
-            }
-            // Return the old stack
-            sigaltstack(&oldSigStack, nullptr);
-            isSet = false;
-        }
-    }
-
-    bool FatalConditionHandler::isSet = false;
-    struct sigaction FatalConditionHandler::oldSigActions[sizeof(signalDefs)/sizeof(SignalDefs)] = {};
-    stack_t FatalConditionHandler::oldSigStack = {};
-    char FatalConditionHandler::altStackMem[sigStackSize] = {};
-
-} // namespace Catch
-
-#else
-
-namespace Catch {
-    void FatalConditionHandler::reset() {}
-}
-
-#endif // signals/SEH handling
-
 #if defined(__GNUC__)
 #    pragma GCC diagnostic pop
 #endif
+
+    void FatalConditionHandler::disengage_platform() {
+        restorePreviousSignalHandlers();
+    }
+
+} // end namespace Catch
+
+#endif // CATCH_CONFIG_POSIX_SIGNALS
 // end catch_fatal_condition.cpp
 // start catch_generators.cpp
 
@@ -10880,8 +10968,8 @@ namespace Generators {
 
     GeneratorUntypedBase::~GeneratorUntypedBase() {}
 
-    auto acquireGeneratorTracker( SourceLineInfo const& lineInfo ) -> IGeneratorTracker& {
-        return getResultCapture().acquireGeneratorTracker( lineInfo );
+    auto acquireGeneratorTracker( StringRef generatorName, SourceLineInfo const& lineInfo ) -> IGeneratorTracker& {
+        return getResultCapture().acquireGeneratorTracker( generatorName, lineInfo );
     }
 
 } // namespace Generators
@@ -11416,7 +11504,8 @@ namespace {
             return lhs == rhs;
         }
 
-        auto ulpDiff = std::abs(lc - rc);
+        // static cast as a workaround for IBM XLC
+        auto ulpDiff = std::abs(static_cast<FP>(lc - rc));
         return static_cast<uint64_t>(ulpDiff) <= maxUlpDiff;
     }
 
@@ -11590,7 +11679,6 @@ Floating::WithinRelMatcher WithinRel(float target) {
 
 } // namespace Matchers
 } // namespace Catch
-
 // end catch_matchers_floating.cpp
 // start catch_matchers_generic.cpp
 
@@ -11768,10 +11856,10 @@ namespace Catch {
 
     Capturer::Capturer( StringRef macroName, SourceLineInfo const& lineInfo, ResultWas::OfType resultType, StringRef names ) {
         auto trimmed = [&] (size_t start, size_t end) {
-            while (names[start] == ',' || isspace(names[start])) {
+            while (names[start] == ',' || isspace(static_cast<unsigned char>(names[start]))) {
                 ++start;
             }
-            while (names[end] == ',' || isspace(names[end])) {
+            while (names[end] == ',' || isspace(static_cast<unsigned char>(names[end]))) {
                 --end;
             }
             return names.substr(start, end - start + 1);
@@ -12006,7 +12094,7 @@ namespace Catch {
         if (tmpnam_s(m_buffer)) {
             CATCH_RUNTIME_ERROR("Could not get a temp filename");
         }
-        if (fopen_s(&m_file, m_buffer, "w")) {
+        if (fopen_s(&m_file, m_buffer, "w+")) {
             char buffer[100];
             if (strerror_s(buffer, errno)) {
                 CATCH_RUNTIME_ERROR("Could not translate errno to a string");
@@ -12301,11 +12389,13 @@ namespace Catch {
 namespace Catch {
 
     class StartupExceptionRegistry {
+#if !defined(CATCH_CONFIG_DISABLE_EXCEPTIONS)
     public:
         void add(std::exception_ptr const& exception) noexcept;
         std::vector<std::exception_ptr> const& getExceptions() const noexcept;
     private:
         std::vector<std::exception_ptr> m_exceptions;
+#endif
     };
 
 } // end namespace Catch
@@ -12388,7 +12478,11 @@ namespace Catch {
                 m_tagAliasRegistry.add( alias, tag, lineInfo );
             }
             void registerStartupException() noexcept override {
+#if !defined(CATCH_CONFIG_DISABLE_EXCEPTIONS)
                 m_exceptionRegistry.add(std::current_exception());
+#else
+                CATCH_INTERNAL_ERROR("Attempted to register active exception under CATCH_CONFIG_DISABLE_EXCEPTIONS!");
+#endif
             }
             IMutableEnumValuesRegistry& getMutableEnumValuesRegistry() override {
                 return m_enumValuesRegistry;
@@ -12492,17 +12586,32 @@ namespace Catch {
                 std::shared_ptr<GeneratorTracker> tracker;
 
                 ITracker& currentTracker = ctx.currentTracker();
-                if( TestCaseTracking::ITrackerPtr childTracker = currentTracker.findChild( nameAndLocation ) ) {
+                // Under specific circumstances, the generator we want
+                // to acquire is also the current tracker. If this is
+                // the case, we have to avoid looking through current
+                // tracker's children, and instead return the current
+                // tracker.
+                // A case where this check is important is e.g.
+                //     for (int i = 0; i < 5; ++i) {
+                //         int n = GENERATE(1, 2);
+                //     }
+                //
+                // without it, the code above creates 5 nested generators.
+                if (currentTracker.nameAndLocation() == nameAndLocation) {
+                    auto thisTracker = currentTracker.parent().findChild(nameAndLocation);
+                    assert(thisTracker);
+                    assert(thisTracker->isGeneratorTracker());
+                    tracker = std::static_pointer_cast<GeneratorTracker>(thisTracker);
+                } else if ( TestCaseTracking::ITrackerPtr childTracker = currentTracker.findChild( nameAndLocation ) ) {
                     assert( childTracker );
                     assert( childTracker->isGeneratorTracker() );
                     tracker = std::static_pointer_cast<GeneratorTracker>( childTracker );
-                }
-                else {
+                } else {
                     tracker = std::make_shared<GeneratorTracker>( nameAndLocation, ctx, &currentTracker );
                     currentTracker.addChild( tracker );
                 }
 
-                if( !ctx.completedCycle() && !tracker->isComplete() ) {
+                if( !tracker->isComplete() ) {
                     tracker->open();
                 }
 
@@ -12516,8 +12625,68 @@ namespace Catch {
             }
             void close() override {
                 TrackerBase::close();
-                // Generator interface only finds out if it has another item on atual move
-                if (m_runState == CompletedSuccessfully && m_generator->next()) {
+                // If a generator has a child (it is followed by a section)
+                // and none of its children have started, then we must wait
+                // until later to start consuming its values.
+                // This catches cases where `GENERATE` is placed between two
+                // `SECTION`s.
+                // **The check for m_children.empty cannot be removed**.
+                // doing so would break `GENERATE` _not_ followed by `SECTION`s.
+                const bool should_wait_for_child = [&]() {
+                    // No children -> nobody to wait for
+                    if ( m_children.empty() ) {
+                        return false;
+                    }
+                    // If at least one child started executing, don't wait
+                    if ( std::find_if(
+                             m_children.begin(),
+                             m_children.end(),
+                             []( TestCaseTracking::ITrackerPtr tracker ) {
+                                 return tracker->hasStarted();
+                             } ) != m_children.end() ) {
+                        return false;
+                    }
+
+                    // No children have started. We need to check if they _can_
+                    // start, and thus we should wait for them, or they cannot
+                    // start (due to filters), and we shouldn't wait for them
+                    auto* parent = m_parent;
+                    // This is safe: there is always at least one section
+                    // tracker in a test case tracking tree
+                    while ( !parent->isSectionTracker() ) {
+                        parent = &( parent->parent() );
+                    }
+                    assert( parent &&
+                            "Missing root (test case) level section" );
+
+                    auto const& parentSection =
+                        static_cast<SectionTracker&>( *parent );
+                    auto const& filters = parentSection.getFilters();
+                    // No filters -> no restrictions on running sections
+                    if ( filters.empty() ) {
+                        return true;
+                    }
+
+                    for ( auto const& child : m_children ) {
+                        if ( child->isSectionTracker() &&
+                             std::find( filters.begin(),
+                                        filters.end(),
+                                        static_cast<SectionTracker&>( *child )
+                                            .trimmedName() ) !=
+                                 filters.end() ) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }();
+
+                // This check is a bit tricky, because m_generator->next()
+                // has a side-effect, where it consumes generator's current
+                // value, but we do not want to invoke the side-effect if
+                // this generator is still waiting for any child to start.
+                if ( should_wait_for_child ||
+                     ( m_runState == CompletedSuccessfully &&
+                       m_generator->next() ) ) {
                     m_children.clear();
                     m_runState = Executing;
                 }
@@ -12653,10 +12822,10 @@ namespace Catch {
 
         return true;
     }
-    auto RunContext::acquireGeneratorTracker( SourceLineInfo const& lineInfo ) -> IGeneratorTracker& {
+    auto RunContext::acquireGeneratorTracker( StringRef generatorName, SourceLineInfo const& lineInfo ) -> IGeneratorTracker& {
         using namespace Generators;
-        GeneratorTracker& tracker = GeneratorTracker::acquire( m_trackerContext, TestCaseTracking::NameAndLocation( "generator", lineInfo ) );
-        assert( tracker.isOpen() );
+        GeneratorTracker& tracker = GeneratorTracker::acquire(m_trackerContext,
+                                                              TestCaseTracking::NameAndLocation( static_cast<std::string>(generatorName), lineInfo ) );
         m_lastAssertionInfo.lineInfo = lineInfo;
         return tracker;
     }
@@ -12699,17 +12868,17 @@ namespace Catch {
 
 #if defined(CATCH_CONFIG_ENABLE_BENCHMARKING)
     void RunContext::benchmarkPreparing(std::string const& name) {
-		m_reporter->benchmarkPreparing(name);
-	}
+        m_reporter->benchmarkPreparing(name);
+    }
     void RunContext::benchmarkStarting( BenchmarkInfo const& info ) {
         m_reporter->benchmarkStarting( info );
     }
     void RunContext::benchmarkEnded( BenchmarkStats<> const& stats ) {
         m_reporter->benchmarkEnded( stats );
     }
-	void RunContext::benchmarkFailed(std::string const & error) {
-		m_reporter->benchmarkFailed(error);
-	}
+    void RunContext::benchmarkFailed(std::string const & error) {
+        m_reporter->benchmarkFailed(error);
+    }
 #endif // CATCH_CONFIG_ENABLE_BENCHMARKING
 
     void RunContext::pushScopedMessage(MessageInfo const & message) {
@@ -12843,9 +13012,8 @@ namespace Catch {
     }
 
     void RunContext::invokeActiveTestCase() {
-        FatalConditionHandler fatalConditionHandler; // Handle signals
+        FatalConditionHandlerGuard _(&m_fatalConditionhandler);
         m_activeTestCase->invoke();
-        fatalConditionHandler.reset();
     }
 
     void RunContext::handleUnfinishedSections() {
@@ -13430,6 +13598,7 @@ namespace Catch {
 // end catch_singletons.cpp
 // start catch_startup_exception_registry.cpp
 
+#if !defined(CATCH_CONFIG_DISABLE_EXCEPTIONS)
 namespace Catch {
 void StartupExceptionRegistry::add( std::exception_ptr const& exception ) noexcept {
         CATCH_TRY {
@@ -13445,6 +13614,7 @@ void StartupExceptionRegistry::add( std::exception_ptr const& exception ) noexce
     }
 
 } // end namespace Catch
+#endif
 // end catch_startup_exception_registry.cpp
 // start catch_stream.cpp
 
@@ -13629,7 +13799,7 @@ namespace Catch {
 
     namespace {
         char toLowerCh(char c) {
-            return static_cast<char>( std::tolower( c ) );
+            return static_cast<char>( std::tolower( static_cast<unsigned char>(c) ) );
         }
     }
 
@@ -14012,24 +14182,28 @@ namespace Catch {
 
     namespace {
         struct TestHasher {
-            explicit TestHasher(Catch::SimplePcg32& rng) {
-                basis = rng();
-                basis <<= 32;
-                basis |= rng();
-            }
+            using hash_t = uint64_t;
 
-            uint64_t basis;
+            explicit TestHasher( hash_t hashSuffix ):
+                m_hashSuffix{ hashSuffix } {}
 
-            uint64_t operator()(TestCase const& t) const {
-                // Modified FNV-1a hash
-                static constexpr uint64_t prime = 1099511628211;
-                uint64_t hash = basis;
-                for (const char c : t.name) {
+            uint32_t operator()( TestCase const& t ) const {
+                // FNV-1a hash with multiplication fold.
+                const hash_t prime = 1099511628211u;
+                hash_t hash = 14695981039346656037u;
+                for ( const char c : t.name ) {
                     hash ^= c;
                     hash *= prime;
                 }
-                return hash;
+                hash ^= m_hashSuffix;
+                hash *= prime;
+                const uint32_t low{ static_cast<uint32_t>( hash ) };
+                const uint32_t high{ static_cast<uint32_t>( hash >> 32 ) };
+                return low * high;
             }
+
+        private:
+            hash_t m_hashSuffix;
         };
     } // end unnamed namespace
 
@@ -14047,9 +14221,9 @@ namespace Catch {
 
             case RunTests::InRandomOrder: {
                 seedRng( config );
-                TestHasher h( rng() );
+                TestHasher h{ config.rngSeed() };
 
-                using hashedTest = std::pair<uint64_t, TestCase const*>;
+                using hashedTest = std::pair<TestHasher::hash_t, TestCase const*>;
                 std::vector<hashedTest> indexed_tests;
                 indexed_tests.reserve( unsortedTestCases.size() );
 
@@ -14212,15 +14386,12 @@ namespace TestCaseTracking {
         m_currentTracker = tracker;
     }
 
-    TrackerBase::TrackerBase( NameAndLocation const& nameAndLocation, TrackerContext& ctx, ITracker* parent )
-    :   m_nameAndLocation( nameAndLocation ),
+    TrackerBase::TrackerBase( NameAndLocation const& nameAndLocation, TrackerContext& ctx, ITracker* parent ):
+        ITracker(nameAndLocation),
         m_ctx( ctx ),
         m_parent( parent )
     {}
 
-    NameAndLocation const& TrackerBase::nameAndLocation() const {
-        return m_nameAndLocation;
-    }
     bool TrackerBase::isComplete() const {
         return m_runState == CompletedSuccessfully || m_runState == Failed;
     }
@@ -14336,7 +14507,8 @@ namespace TestCaseTracking {
     bool SectionTracker::isComplete() const {
         bool complete = true;
 
-        if ((m_filters.empty() || m_filters[0] == "")
+        if (m_filters.empty()
+            || m_filters[0] == ""
             || std::find(m_filters.begin(), m_filters.end(), m_trimmed_name) != m_filters.end()) {
             complete = TrackerBase::isComplete();
         }
@@ -14379,6 +14551,14 @@ namespace TestCaseTracking {
     void SectionTracker::addNextFilters( std::vector<std::string> const& filters ) {
         if( filters.size() > 1 )
             m_filters.insert( m_filters.end(), filters.begin()+1, filters.end() );
+    }
+
+    std::vector<std::string> const& SectionTracker::getFilters() const {
+        return m_filters;
+    }
+
+    std::string const& SectionTracker::trimmedName() const {
+        return m_trimmed_name;
     }
 
 } // namespace TestCaseTracking
@@ -15115,11 +15295,48 @@ namespace Catch {
 // end catch_totals.cpp
 // start catch_uncaught_exceptions.cpp
 
+// start catch_config_uncaught_exceptions.hpp
+
+//              Copyright Catch2 Authors
+// Distributed under the Boost Software License, Version 1.0.
+//   (See accompanying file LICENSE_1_0.txt or copy at
+//        https://www.boost.org/LICENSE_1_0.txt)
+
+// SPDX-License-Identifier: BSL-1.0
+
+#ifndef CATCH_CONFIG_UNCAUGHT_EXCEPTIONS_HPP
+#define CATCH_CONFIG_UNCAUGHT_EXCEPTIONS_HPP
+
+#if defined(_MSC_VER)
+#  if _MSC_VER >= 1900 // Visual Studio 2015 or newer
+#    define CATCH_INTERNAL_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS
+#  endif
+#endif
+
+#include <exception>
+
+#if defined(__cpp_lib_uncaught_exceptions) \
+    && !defined(CATCH_INTERNAL_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS)
+
+#  define CATCH_INTERNAL_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS
+#endif // __cpp_lib_uncaught_exceptions
+
+#if defined(CATCH_INTERNAL_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS) \
+    && !defined(CATCH_CONFIG_NO_CPP17_UNCAUGHT_EXCEPTIONS) \
+    && !defined(CATCH_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS)
+
+#  define CATCH_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS
+#endif
+
+#endif // CATCH_CONFIG_UNCAUGHT_EXCEPTIONS_HPP
+// end catch_config_uncaught_exceptions.hpp
 #include <exception>
 
 namespace Catch {
     bool uncaught_exceptions() {
-#if defined(CATCH_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS)
+#if defined(CATCH_CONFIG_DISABLE_EXCEPTIONS)
+        return false;
+#elif defined(CATCH_CONFIG_CPP17_UNCAUGHT_EXCEPTIONS)
         return std::uncaught_exceptions() > 0;
 #else
         return std::uncaught_exception();
@@ -15159,7 +15376,7 @@ namespace Catch {
     }
 
     Version const& libraryVersion() {
-        static Version version( 2, 12, 1, "", 0 );
+        static Version version( 2, 13, 5, "", 0 );
         return version;
     }
 
@@ -15561,6 +15778,17 @@ namespace Catch {
         return std::string(buffer);
     }
 
+    bool shouldShowDuration( IConfig const& config, double duration ) {
+        if ( config.showDurations() == ShowDurations::Always ) {
+            return true;
+        }
+        if ( config.showDurations() == ShowDurations::Never ) {
+            return false;
+        }
+        const double min = config.minDuration();
+        return min >= 0 && duration >= min;
+    }
+
     std::string serializeFilters( std::vector<std::string> const& container ) {
         ReusableStringStream oss;
         bool first = true;
@@ -15827,10 +16055,6 @@ private:
             return "Reports test results on a single line, suitable for IDEs";
         }
 
-        ReporterPreferences CompactReporter::getPreferences() const {
-            return m_reporterPrefs;
-        }
-
         void CompactReporter::noMatchingTestCases( std::string const& spec ) {
             stream << "No test cases matched '" << spec << '\'' << std::endl;
         }
@@ -15857,8 +16081,9 @@ private:
         }
 
         void CompactReporter::sectionEnded(SectionStats const& _sectionStats) {
-            if (m_config->showDurations() == ShowDurations::Always) {
-                stream << getFormattedDuration(_sectionStats.durationInSeconds) << " s: " << _sectionStats.sectionInfo.name << std::endl;
+            double dur = _sectionStats.durationInSeconds;
+            if ( shouldShowDuration( *m_config, dur ) ) {
+                stream << getFormattedDuration( dur ) << " s: " << _sectionStats.sectionInfo.name << std::endl;
             }
         }
 
@@ -16278,8 +16503,9 @@ void ConsoleReporter::sectionEnded(SectionStats const& _sectionStats) {
             stream << "\nNo assertions in test case";
         stream << " '" << _sectionStats.sectionInfo.name << "'\n" << std::endl;
     }
-    if (m_config->showDurations() == ShowDurations::Always) {
-        stream << getFormattedDuration(_sectionStats.durationInSeconds) << " s: " << _sectionStats.sectionInfo.name << std::endl;
+    double dur = _sectionStats.durationInSeconds;
+    if (shouldShowDuration(*m_config, dur)) {
+        stream << getFormattedDuration(dur) << " s: " << _sectionStats.sectionInfo.name << std::endl;
     }
     if (m_headerPrinted) {
         m_headerPrinted = false;
@@ -16738,6 +16964,11 @@ namespace Catch {
                 xml.writeAttribute( "name", name );
             }
             xml.writeAttribute( "time", ::Catch::Detail::stringify( sectionNode.stats.durationInSeconds ) );
+            // This is not ideal, but it should be enough to mimic gtest's
+            // junit output.
+            // Ideally the JUnit reporter would also handle `skipTest`
+            // events and write those out appropriately.
+            xml.writeAttribute( "status", "run" );
 
             writeAssertions( sectionNode );
 
@@ -17172,6 +17403,10 @@ namespace Catch {
             .writeAttribute( "successes", testGroupStats.totals.assertions.passed )
             .writeAttribute( "failures", testGroupStats.totals.assertions.failed )
             .writeAttribute( "expectedFailures", testGroupStats.totals.assertions.failedButOk );
+        m_xml.scopedElement( "OverallResultsCases")
+            .writeAttribute( "successes", testGroupStats.totals.testCases.passed )
+            .writeAttribute( "failures", testGroupStats.totals.testCases.failed )
+            .writeAttribute( "expectedFailures", testGroupStats.totals.testCases.failedButOk );
         m_xml.endElement();
     }
 
@@ -17181,6 +17416,10 @@ namespace Catch {
             .writeAttribute( "successes", testRunStats.totals.assertions.passed )
             .writeAttribute( "failures", testRunStats.totals.assertions.failed )
             .writeAttribute( "expectedFailures", testRunStats.totals.assertions.failedButOk );
+        m_xml.scopedElement( "OverallResultsCases")
+            .writeAttribute( "successes", testRunStats.totals.testCases.passed )
+            .writeAttribute( "failures", testRunStats.totals.testCases.failed )
+            .writeAttribute( "expectedFailures", testRunStats.totals.testCases.failedButOk );
         m_xml.endElement();
     }
 
