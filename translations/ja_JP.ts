@@ -365,20 +365,32 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 このエントリはDoHサーバを使用する場合、V2Rayコアでは無視されます。</translation>
     </message>
     <message>
-      <source>FakeDNS</source>
-      <translation>FakeDNS</translation>
-    </message>
-    <message>
-      <source>IP Pool</source>
-      <translation>IP プール</translation>
-    </message>
-    <message>
-      <source>Pool Size</source>
-      <translation>プールサイズ</translation>
-    </message>
-    <message>
       <source>Disable Cache</source>
       <translation>キャッシュを無効化</translation>
+    </message>
+    <message>
+      <source>Query Strategy</source>
+      <translation>クエリ戦略</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>有効</translation>
+    </message>
+    <message>
+      <source>Disable Fallback</source>
+      <translation>フォールバックを無効化</translation>
+    </message>
+    <message>
+      <source>Miscellaneous</source>
+      <translation>その他</translation>
+    </message>
+    <message>
+      <source>Fake DNS IP Pool</source>
+      <translation>偽の DNS IP プール</translation>
+    </message>
+    <message>
+      <source>Fake DNS Pool Size</source>
+      <translation>偽の DNS プールサイズ</translation>
     </message>
   </context>
   <context>
