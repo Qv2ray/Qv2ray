@@ -378,7 +378,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Fallback</source>
-      <translation>禁用后退</translation>
+      <translation>禁用回退</translation>
     </message>
     <message>
       <source>Miscellaneous</source>
