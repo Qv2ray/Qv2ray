@@ -100,6 +100,9 @@ void DnsSettingsWidget::SetDNSObject(const DNSObject &_dns, const FakeDNSObject 
         staticResolvedDomainsTable->setItem(rowId, 1, new QTableWidgetItem(ip));
     }
     staticResolvedDomainsTable->resizeColumnsToContents();
+
+    dnsQueryStrategyCB->setCurrentText(dns.queryStrategy);
+    dnsDisableFallbackCB->setChecked(dns.disableFallback);
     dnsDisableCacheCB->setChecked(dns.disableCache);
 
     fakeDNSIPPool->setCurrentText(fakeDNS.ipPool);
@@ -302,4 +305,14 @@ void DnsSettingsWidget::on_fakeDNSIPPoolSize_valueChanged(int arg1)
 void DnsSettingsWidget::on_dnsDisableCacheCB_stateChanged(int arg1)
 {
     dns.disableCache = arg1 == Qt::Checked;
+}
+
+void DnsSettingsWidget::on_dnsDisableFallbackCB_stateChanged(int arg1)
+{
+    dns.disableFallback = arg1 == Qt::Checked;
+}
+
+void DnsSettingsWidget::on_dnsQueryStrategyCB_currentTextChanged(const QString &arg1)
+{
+    dns.queryStrategy = arg1;
 }

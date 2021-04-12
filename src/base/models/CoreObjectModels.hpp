@@ -61,9 +61,11 @@ namespace Qv2ray::base::objects
         QJS_PROP(QStringStringMap, hosts)
         QJS_PROP(QList<DNSServerObject>, servers)
         QJS_PROP(QString, clientIp)
-        QJS_PROP(QString, tag);
+        QJS_PROP(QString, tag)
         QJS_PROP_D(bool, disableCache, false)
-        QJS_FUNCTION(F(hosts, servers, clientIp, tag, disableCache))
+        QJS_PROP_D(bool, disableFallback, false)
+        QJS_PROP_D(QString, queryStrategy, "UseIP")
+        QJS_FUNCTION(F(hosts, servers, clientIp, tag, disableCache, disableFallback, queryStrategy))
     };
 
     // Used in config generation

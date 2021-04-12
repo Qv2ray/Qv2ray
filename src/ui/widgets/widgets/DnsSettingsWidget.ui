@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>533</width>
-    <height>379</height>
+    <width>682</width>
+    <height>474</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -313,31 +313,71 @@ This entry is ignored by V2Ray core when using DoH servers.</string>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>FakeDNS</string>
+       <string>Miscellaneous</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_8">
+        <widget class="QLabel" name="label_10">
          <property name="text">
-          <string>IP Pool</string>
+          <string>Query Strategy</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
+        <widget class="QComboBox" name="dnsQueryStrategyCB">
+         <item>
+          <property name="text">
+           <string notr="true">UseIP</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">UseIPv4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">UseIPv6</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Disable Fallback</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QCheckBox" name="dnsDisableFallbackCB">
+         <property name="text">
+          <string>Enabled</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Fake DNS IP Pool</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
         <widget class="QComboBox" name="fakeDNSIPPool">
          <property name="editable">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>Pool Size</string>
+          <string>Fake DNS Pool Size</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="3" column="1">
         <widget class="QSpinBox" name="fakeDNSIPPoolSize">
          <property name="minimum">
           <number>1</number>
