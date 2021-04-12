@@ -370,7 +370,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Query Strategy</source>
-      <translation type="unfinished">Query Strategy</translation>
+      <translation>クエリ戦略</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -378,19 +378,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Fallback</source>
-      <translation type="unfinished">Disable Fallback</translation>
+      <translation>フォールバックを無効化</translation>
     </message>
     <message>
       <source>Miscellaneous</source>
-      <translation type="unfinished">Miscellaneous</translation>
+      <translation>その他</translation>
     </message>
     <message>
       <source>Fake DNS IP Pool</source>
-      <translation type="unfinished">Fake DNS IP Pool</translation>
+      <translation>偽の DNS IP プール</translation>
     </message>
     <message>
       <source>Fake DNS Pool Size</source>
-      <translation type="unfinished">Fake DNS Pool Size</translation>
+      <translation>偽の DNS プールサイズ</translation>
     </message>
   </context>
   <context>
