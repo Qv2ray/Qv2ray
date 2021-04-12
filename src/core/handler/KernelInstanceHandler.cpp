@@ -285,9 +285,7 @@ namespace Qv2ray::core::handler
     void KernelInstanceHandler::OnV2RayKernelLog_p(const QString &log)
     {
         for (auto line : SplitLines(log))
-            emitLogMessage(line.replace(QRegularExpression{ R"(> github.com\/v2fly\/v2ray-core)" }, "\r\n    > core::")
-                               .replace(QRegularExpression{ R"(github.com\/v2fly\/v2ray-core)" }, "core::")
-                               .trimmed());
+            emitLogMessage(line.trimmed());
     }
 
     void KernelInstanceHandler::StopConnection()
