@@ -368,20 +368,32 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 喺使用DoH服務器嘅時候，V2Ray核心將忽略此條目。</translation>
     </message>
     <message>
-      <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
-    </message>
-    <message>
-      <source>IP Pool</source>
-      <translation type="unfinished">IP Pool</translation>
-    </message>
-    <message>
-      <source>Pool Size</source>
-      <translation type="unfinished">Pool Size</translation>
-    </message>
-    <message>
       <source>Disable Cache</source>
       <translation type="unfinished">Disable Cache</translation>
+    </message>
+    <message>
+      <source>Query Strategy</source>
+      <translation type="unfinished">Query Strategy</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation type="unfinished">Enabled</translation>
+    </message>
+    <message>
+      <source>Disable Fallback</source>
+      <translation type="unfinished">Disable Fallback</translation>
+    </message>
+    <message>
+      <source>Miscellaneous</source>
+      <translation type="unfinished">Miscellaneous</translation>
+    </message>
+    <message>
+      <source>Fake DNS IP Pool</source>
+      <translation type="unfinished">Fake DNS IP Pool</translation>
+    </message>
+    <message>
+      <source>Fake DNS Pool Size</source>
+      <translation type="unfinished">Fake DNS Pool Size</translation>
     </message>
   </context>
   <context>
