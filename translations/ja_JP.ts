@@ -3183,6 +3183,14 @@ Maybe you have downloaded the wrong core?</source>
       <source>grpc</source>
       <translation>grpc</translation>
     </message>
+    <message>
+      <source>Max Early Data</source>
+      <translation>初期データの最大数</translation>
+    </message>
+    <message>
+      <source>Browser Forwarding</source>
+      <translation>ブラウザ転送</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
