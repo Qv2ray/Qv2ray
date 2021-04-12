@@ -3236,6 +3236,14 @@ Maybe you have downloaded the wrong core?</translation>
       <source>grpc</source>
       <translation type="unfinished">grpc</translation>
     </message>
+    <message>
+      <source>Max Early Data</source>
+      <translation type="unfinished">Max Early Data</translation>
+    </message>
+    <message>
+      <source>Browser Forwarding</source>
+      <translation type="unfinished">Browser Forwarding</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
