@@ -3221,11 +3221,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Max Early Data</source>
-      <translation type="unfinished">Max Early Data</translation>
+      <translation>初期データの最大数</translation>
     </message>
     <message>
       <source>Browser Forwarding</source>
-      <translation type="unfinished">Browser Forwarding</translation>
+      <translation>ブラウザ転送</translation>
     </message>
   </context>
   <context>
