@@ -2730,7 +2730,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Add Inbound from Global Settings</source>
-      <translation>从全局设置中添加输入</translation>
+      <translation>从全局设置中添加入站</translation>
     </message>
     <message>
       <source>Import Outbound</source>
@@ -3209,7 +3209,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation>允许不安全，不允许不安全。</translation>
+      <translation>AllowInsecure 是不安全的，请勿 AllowInsecure。</translation>
     </message>
     <message>
       <source>Service Name</source>
@@ -3217,7 +3217,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>grpc</source>
-      <translation>格子</translation>
+      <translation>grpc</translation>
     </message>
     <message>
       <source>Max Early Data</source>
@@ -3769,7 +3769,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
-      <translation>VMessMD5使用非零变压器ID已废弃，请使用 VMessAEAD</translation>
+      <translation>VMess MD5 使用非零 AlterID 已废弃，请使用 VMessAEAD</translation>
     </message>
   </context>
   <context>
