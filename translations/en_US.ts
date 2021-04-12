@@ -358,19 +358,31 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>FakeDNS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>IP Pool</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pool Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disable Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Query Strategy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Fallback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miscellaneous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fake DNS IP Pool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fake DNS Pool Size</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

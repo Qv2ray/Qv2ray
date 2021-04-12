@@ -67,6 +67,8 @@ namespace Qv2ray::base::objects
         QString clientIp;
         QString tag;
         bool disableCache = false;
+        bool disableFallback = false;
+        QString queryStrategy = "";
         friend bool operator==(const DNSObject &left, const DNSObject &right)
         {
             return left.hosts == right.hosts &&       //
@@ -79,7 +81,7 @@ namespace Qv2ray::base::objects
         {
             return !(left == right);
         }
-        JSONSTRUCT_REGISTER(DNSObject, F(hosts, servers, clientIp, tag, disableCache))
+        JSONSTRUCT_REGISTER(DNSObject, F(hosts, servers, clientIp, tag, disableCache, disableFallback, queryStrategy))
     };
     //
     // Used in config generation
