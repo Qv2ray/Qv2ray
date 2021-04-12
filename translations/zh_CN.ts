@@ -365,20 +365,32 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
 当使用 DoH 模式时，此项无效。</translation>
     </message>
     <message>
-      <source>FakeDNS</source>
-      <translation>FakeDNS</translation>
-    </message>
-    <message>
-      <source>IP Pool</source>
-      <translation>IP地址库</translation>
-    </message>
-    <message>
-      <source>Pool Size</source>
-      <translation>池大小</translation>
-    </message>
-    <message>
       <source>Disable Cache</source>
       <translation>禁用缓存</translation>
+    </message>
+    <message>
+      <source>Query Strategy</source>
+      <translation type="unfinished">Query Strategy</translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>已启用</translation>
+    </message>
+    <message>
+      <source>Disable Fallback</source>
+      <translation type="unfinished">Disable Fallback</translation>
+    </message>
+    <message>
+      <source>Miscellaneous</source>
+      <translation type="unfinished">Miscellaneous</translation>
+    </message>
+    <message>
+      <source>Fake DNS IP Pool</source>
+      <translation type="unfinished">Fake DNS IP Pool</translation>
+    </message>
+    <message>
+      <source>Fake DNS Pool Size</source>
+      <translation type="unfinished">Fake DNS Pool Size</translation>
     </message>
   </context>
   <context>
