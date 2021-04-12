@@ -68,7 +68,7 @@ namespace Qv2ray::base::objects
         QString tag;
         bool disableCache = false;
         bool disableFallback = false;
-        QString queryStrategy = "";
+        QString queryStrategy = "UseIP";
         friend bool operator==(const DNSObject &left, const DNSObject &right)
         {
             return left.hosts == right.hosts &&       //
