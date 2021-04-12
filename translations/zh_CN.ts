@@ -3219,6 +3219,14 @@ Maybe you have downloaded the wrong core?</source>
       <source>grpc</source>
       <translation>格子</translation>
     </message>
+    <message>
+      <source>Max Early Data</source>
+      <translation type="unfinished">Max Early Data</translation>
+    </message>
+    <message>
+      <source>Browser Forwarding</source>
+      <translation type="unfinished">Browser Forwarding</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
