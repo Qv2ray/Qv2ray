@@ -204,17 +204,19 @@ namespace Qv2ray::base::objects
             Q_GADGET
             typedef QMap<QString, QString> QStringStringMap;
             QJS_CONSTRUCTOR(WebSocketObject)
-            QJS_PROP_D(QString, path, "/");
-            QJS_PROP(QStringStringMap, headers);
-            QJS_FUNCTION(F(path, headers))
+            QJS_PROP_D(QString, path, "/")
+            QJS_PROP(QStringStringMap, headers)
+            QJS_PROP_D(int, maxEarlyData, 1024)
+            QJS_PROP_D(bool, useBrowserForwarding, false)
+            QJS_FUNCTION(F(path, headers, maxEarlyData, useBrowserForwarding))
         };
 
         struct HttpObject
         {
             Q_GADGET
             QJS_CONSTRUCTOR(HttpObject)
-            QJS_PROP(QList<QString>, host);
-            QJS_PROP_D(QString, path, "/");
+            QJS_PROP(QList<QString>, host)
+            QJS_PROP_D(QString, path, "/")
             QJS_FUNCTION(F(host, path))
         };
 
@@ -296,18 +298,18 @@ namespace Qv2ray::base::objects
     {
         Q_GADGET
         QJS_CONSTRUCTOR(StreamSettingsObject)
-        QJS_PROP_D(QString, network, "tcp");
-        QJS_PROP_D(QString, security, "none");
-        QJS_PROP(transfer::SockoptObject, sockopt);
-        QJS_PROP(transfer::TLSObject, tlsSettings);
-        QJS_PROP(transfer::XTLSObject, xtlsSettings);
-        QJS_PROP(transfer::TCPObject, tcpSettings);
-        QJS_PROP(transfer::KCPObject, kcpSettings);
-        QJS_PROP(transfer::WebSocketObject, wsSettings);
-        QJS_PROP(transfer::HttpObject, httpSettings);
-        QJS_PROP(transfer::DomainSocketObject, dsSettings);
-        QJS_PROP(transfer::QuicObject, quicSettings);
-        QJS_PROP(transfer::gRPCObject, grpcSettings);
+        QJS_PROP_D(QString, network, "tcp")
+        QJS_PROP_D(QString, security, "none")
+        QJS_PROP(transfer::SockoptObject, sockopt)
+        QJS_PROP(transfer::TLSObject, tlsSettings)
+        QJS_PROP(transfer::XTLSObject, xtlsSettings)
+        QJS_PROP(transfer::TCPObject, tcpSettings)
+        QJS_PROP(transfer::KCPObject, kcpSettings)
+        QJS_PROP(transfer::WebSocketObject, wsSettings)
+        QJS_PROP(transfer::HttpObject, httpSettings)
+        QJS_PROP(transfer::DomainSocketObject, dsSettings)
+        QJS_PROP(transfer::QuicObject, quicSettings)
+        QJS_PROP(transfer::gRPCObject, grpcSettings)
         QJS_FUNCTION(F(network, security, sockopt),
                      F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings))
     };

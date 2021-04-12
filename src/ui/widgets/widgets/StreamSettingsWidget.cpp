@@ -73,6 +73,8 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
             wsHeaders = wsHeaders % key % "|" % value % NEWLINE;
         }
         wsHeadersTxt->setPlainText(wsHeaders);
+        wsEarlyDataSB->setValue(stream.wsSettings->maxEarlyData);
+        wsBrowserForwardCB->setChecked(stream.wsSettings->useBrowserForwarding);
     }
     // mKCP
     {
@@ -318,4 +320,14 @@ void StreamSettingsWidget::on_openCertEditorBtn_clicked()
 void StreamSettingsWidget::on_grpcServiceNameTxt_textEdited(const QString &arg1)
 {
     stream.grpcSettings->serviceName = arg1;
+}
+
+void StreamSettingsWidget::on_wsEarlyDataSB_valueChanged(int arg1)
+{
+    stream.wsSettings->maxEarlyData = arg1;
+}
+
+void StreamSettingsWidget::on_wsBrowserForwardCB_stateChanged(int arg1)
+{
+    stream.wsSettings->useBrowserForwarding = arg1 == Qt::Checked;
 }
