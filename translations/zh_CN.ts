@@ -378,19 +378,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Fallback</source>
-      <translation>禁用后退</translation>
+      <translation>禁用回退查询</translation>
     </message>
     <message>
       <source>Miscellaneous</source>
-      <translation>其他事项</translation>
+      <translation>杂项</translation>
     </message>
     <message>
       <source>Fake DNS IP Pool</source>
-      <translation>假名 DNS IP 库</translation>
+      <translation>FakeDNS IP 库</translation>
     </message>
     <message>
       <source>Fake DNS Pool Size</source>
-      <translation>假名 DNS 池大小</translation>
+      <translation>FakeDNS 池大小</translation>
     </message>
   </context>
   <context>
@@ -2734,7 +2734,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Import Outbound</source>
-      <translation>导出导出</translation>
+      <translation>导入出站</translation>
     </message>
     <message>
       <source>Add Outbound</source>
