@@ -814,10 +814,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>  日志</translation>
     </message>
     <message>
-      <source>Clear log</source>
-      <translation>清除日志</translation>
-    </message>
-    <message>
       <source>Not Connected</source>
       <translation>未连接</translation>
     </message>
