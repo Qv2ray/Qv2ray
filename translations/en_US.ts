@@ -2965,33 +2965,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>SpeedWidget</name>
-    <message>
-        <source>Proxy ↑</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Proxy ↓</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Direct ↑</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Direct ↓</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total ↑</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total ↓</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>StreamSettingsWidget</name>
     <message>
         <source>Stream Settings Widget</source>
@@ -3729,6 +3702,21 @@ Maybe you have downloaded the wrong core?</source>
     <name>MainWindowWidget</name>
     <message>
         <source>Qv2ray Utilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SpeedWidget</name>
+    <message>
+        <source>Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
