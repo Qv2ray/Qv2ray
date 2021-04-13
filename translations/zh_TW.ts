@@ -808,10 +808,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>&#xa0; 紀錄檔</translation>
     </message>
     <message>
-      <source>Clear log</source>
-      <translation>清除紀錄檔</translation>
-    </message>
-    <message>
       <source>Not Connected</source>
       <translation>未連接</translation>
     </message>
