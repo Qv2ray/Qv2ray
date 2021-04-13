@@ -814,10 +814,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>  日志</translation>
     </message>
     <message>
-      <source>Clear log</source>
-      <translation>清除日志</translation>
-    </message>
-    <message>
       <source>Not Connected</source>
       <translation>未连接</translation>
     </message>
@@ -1132,6 +1128,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Disable Bypassing CN Mainland</source>
       <translation>禁用绕过中国大陆</translation>
+    </message>
+    <message>
+      <source>Clear log</source>
+      <translation>清除日志</translation>
     </message>
   </context>
   <context>
@@ -2983,33 +2983,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
   </context>
   <context>
-    <name>SpeedWidget</name>
-    <message>
-      <source>Proxy ↑</source>
-      <translation>代理↑</translation>
-    </message>
-    <message>
-      <source>Proxy ↓</source>
-      <translation>代理↓</translation>
-    </message>
-    <message>
-      <source>Direct ↑</source>
-      <translation>直连↑</translation>
-    </message>
-    <message>
-      <source>Direct ↓</source>
-      <translation>直连↓</translation>
-    </message>
-    <message>
-      <source>Total ↑</source>
-      <translation>总计↑</translation>
-    </message>
-    <message>
-      <source>Total ↓</source>
-      <translation>总计↓</translation>
-    </message>
-  </context>
-  <context>
     <name>StreamSettingsWidget</name>
     <message>
       <source>Stream Settings Widget</source>
@@ -3752,6 +3725,21 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Qv2ray Utilities</source>
       <translation>Qv2ray 工具</translation>
+    </message>
+  </context>
+  <context>
+    <name>SpeedWidget</name>
+    <message>
+      <source>Proxy</source>
+      <translation>代理</translation>
+    </message>
+    <message>
+      <source>Direct</source>
+      <translation>直连</translation>
+    </message>
+    <message>
+      <source>Total</source>
+      <translation>总计</translation>
     </message>
   </context>
 </TS>
