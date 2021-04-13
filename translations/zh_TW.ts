@@ -1125,7 +1125,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Clear log</source>
-      <translation type="unfinished">Clear log</translation>
+      <translation>清除紀錄檔</translation>
     </message>
   </context>
   <context>
