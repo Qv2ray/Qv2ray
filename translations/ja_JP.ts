@@ -814,10 +814,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>  ログ</translation>
     </message>
     <message>
-      <source>Clear log</source>
-      <translation>ログをクリア</translation>
-    </message>
-    <message>
       <source>Not Connected</source>
       <translation>接続されていません</translation>
     </message>
@@ -1132,6 +1128,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Disable Bypassing CN Mainland</source>
       <translation>CN本土バイパスを無効にする</translation>
+    </message>
+    <message>
+      <source>Clear log</source>
+      <translation>ログをクリア</translation>
     </message>
   </context>
   <context>
@@ -2983,33 +2983,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
   </context>
   <context>
-    <name>SpeedWidget</name>
-    <message>
-      <source>Proxy ↑</source>
-      <translation>プロキシ↑</translation>
-    </message>
-    <message>
-      <source>Proxy ↓</source>
-      <translation>プロキシ↓</translation>
-    </message>
-    <message>
-      <source>Direct ↑</source>
-      <translation>直接↑</translation>
-    </message>
-    <message>
-      <source>Direct ↓</source>
-      <translation>直接↓</translation>
-    </message>
-    <message>
-      <source>Total ↑</source>
-      <translation>合計↑</translation>
-    </message>
-    <message>
-      <source>Total ↓</source>
-      <translation>合計↓</translation>
-    </message>
-  </context>
-  <context>
     <name>StreamSettingsWidget</name>
     <message>
       <source>Stream Settings Widget</source>
@@ -3752,6 +3725,21 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Qv2ray Utilities</source>
       <translation>Qv2ray ユーティリティ</translation>
+    </message>
+  </context>
+  <context>
+    <name>SpeedWidget</name>
+    <message>
+      <source>Proxy</source>
+      <translation>プロキシで接続</translation>
+    </message>
+    <message>
+      <source>Direct</source>
+      <translation>直接接続</translation>
+    </message>
+    <message>
+      <source>Total</source>
+      <translation>合計</translation>
     </message>
   </context>
 </TS>
