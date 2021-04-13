@@ -814,10 +814,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>  ログ</translation>
     </message>
     <message>
-      <source>Clear log</source>
-      <translation>ログをクリア</translation>
-    </message>
-    <message>
       <source>Not Connected</source>
       <translation>接続されていません</translation>
     </message>
