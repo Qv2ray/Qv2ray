@@ -37,6 +37,8 @@ namespace Qv2ray::base::config
         safetype::QvEnumMap<StatisticsType, safetype::QvPair<QvGraphPenConfig>> colorConfig;
         JSONSTRUCT_COMPARE(Qv2rayConfig_Graph, useOutboundStats, hasDirectStats, colorConfig)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Graph, F(useOutboundStats, hasDirectStats, colorConfig))
+        const static inline QvPair<QvGraphPenConfig> DefaultPen{ { 134, 196, 63, 1.5f, Qt::SolidLine }, { 50, 153, 255, 1.5f, Qt::SolidLine } };
+        const static inline QvPair<QvGraphPenConfig> DirectPen{ { 0, 210, 240, 1.5f, Qt::DotLine }, { 235, 220, 42, 1.5f, Qt::DotLine } };
     };
 
     struct Qv2rayConfig_UI

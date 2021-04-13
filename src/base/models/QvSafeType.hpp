@@ -86,3 +86,5 @@ namespace Qv2ray::base::safetype
     };
 
 } // namespace Qv2ray::base::safetype
+
+using namespace Qv2ray::base::safetype;
