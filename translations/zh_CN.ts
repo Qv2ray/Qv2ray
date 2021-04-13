@@ -1131,7 +1131,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Clear log</source>
-      <translation type="unfinished">Clear log</translation>
+      <translation>清除日志</translation>
     </message>
   </context>
   <context>
@@ -3775,7 +3775,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Total</source>
-      <translation type="unfinished">Total</translation>
+      <translation>总计</translation>
     </message>
   </context>
 </TS>
