@@ -59,7 +59,7 @@ class RouteEditor
     void on_linkExistingBtn_clicked();
     void on_importOutboundBtn_clicked();
 
-  private:
+  private slots:
     void OnDispatcherEditChainRequested(const QString &);
     void OnDispatcherOutboundDeleted(const complex::OutboundObjectMeta &);
     void OnDispatcherOutboundCreated(std::shared_ptr<complex::OutboundObjectMeta>, QtNodes::Node &);

@@ -21,7 +21,7 @@ namespace Qv2ray::core::kernel
             return kernelStarted;
         }
         //
-        static std::pair<bool, std::optional<QString>> ValidateConfig(const QString &path);
+        static std::optional<QString> ValidateConfig(const QString &path);
         static std::pair<bool, std::optional<QString>> ValidateKernel(const QString &vCorePath, const QString &vAssetsPath);
 #if QV2RAY_FEATURE(kernel_check_permission)
         static std::pair<bool, std::optional<QString>> CheckAndSetCoreExecutableState(const QString &vCorePath);

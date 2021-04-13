@@ -46,7 +46,6 @@ namespace Qv2ray::base::safetype
         {
             return another.value1 == one.value1 && another.value2 == one.value2;
         }
-
         QJsonObject toJson() const
         {
             return QJsonObject{ { "value1", JsonStructHelper::Serialize(value1) }, { "value2", JsonStructHelper::Serialize(value2) } };
@@ -74,7 +73,7 @@ namespace Qv2ray::base::safetype
             this->clear();
             for (QString k_str : data.keys())
             {
-                auto k = (enumKey) k_str.remove(ENUM_JSON_KEY_PREFIX).toInt();
+                enumKey k = static_cast<enumKey>(k_str.remove(ENUM_JSON_KEY_PREFIX).toInt());
                 this->insert(k, data[ENUM_JSON_KEY_PREFIX + k_str]);
             }
         }
