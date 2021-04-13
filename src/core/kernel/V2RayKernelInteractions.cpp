@@ -153,16 +153,16 @@ namespace Qv2ray::core::kernel
         return { true, SplitLines(output).at(0) };
     }
 
-    std::pair<bool, std::optional<QString>> V2RayKernelInstance::ValidateConfig(const QString &path)
+    std::optional<QString> V2RayKernelInstance::ValidateConfig(const QString &path)
     {
-        const auto &kernelPath = GlobalConfig.kernelConfig.KernelPath();
-        const auto &assetsPath = GlobalConfig.kernelConfig.AssetsPath();
+        const auto kernelPath = GlobalConfig.kernelConfig.KernelPath();
+        const auto assetsPath = GlobalConfig.kernelConfig.AssetsPath();
         if (const auto &[result, msg] = ValidateKernel(kernelPath, assetsPath); result)
         {
             DEBUG("V2Ray version: " + *msg);
             // Append assets location env.
-            QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2RAY_LOCATION_ASSET", assetsPath);
+            auto env = QProcessEnvironment::systemEnvironment();
+            env.insert("v2ray.location.asset", assetsPath);
             env.insert("XRAY_LOCATION_ASSET", assetsPath);
             //
             QProcess process;
@@ -175,15 +175,15 @@ namespace Qv2ray::core::kernel
             {
                 QString output = QString(process.readAllStandardOutput());
                 QvMessageBoxWarn(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
-                return { true, std::nullopt };
+                return std::nullopt;
             }
 
             DEBUG("Config file check passed.");
-            return { true, std::nullopt };
+            return std::nullopt;
         }
         else
         {
-            return { false, msg };
+            return msg;
         }
     }
 
@@ -218,66 +218,62 @@ namespace Qv2ray::core::kernel
             return tr("Invalid V2Ray Instance Status.");
         }
 
-        // Write the final configuration to the disk.
-        QString json = JsonToString(root);
+        const auto json = JsonToString(root);
         StringToFile(json, QV2RAY_GENERATED_FILE_PATH);
         //
         auto filePath = QV2RAY_GENERATED_FILE_PATH;
 
-        if (const auto &&[result, msg] = ValidateConfig(filePath); result)
+        if (const auto &result = ValidateConfig(filePath); result)
         {
-            auto env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
-            env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
-            vProcess->setProcessEnvironment(env);
-            vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
-            vProcess->waitForStarted();
-            kernelStarted = true;
+            kernelStarted = false;
+            return tr("V2Ray kernel failed to start: ") + *result;
+        }
+        auto env = QProcessEnvironment::systemEnvironment();
+        env.insert("v2ray.location.asset", GlobalConfig.kernelConfig.AssetsPath());
+        env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
+        vProcess->setProcessEnvironment(env);
+        vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
+        vProcess->waitForStarted();
+        kernelStarted = true;
 
-            QMap<bool, QMap<QString, QString>> tagProtocolMap;
-            for (const auto isOutbound : { GlobalConfig.uiConfig.graphConfig.useOutboundStats, false })
+        QMap<bool, QMap<QString, QString>> tagProtocolMap;
+        for (const auto isOutbound : { GlobalConfig.uiConfig.graphConfig.useOutboundStats, false })
+        {
+            for (const auto &item : root[isOutbound ? "outbounds" : "inbounds"].toArray())
             {
-                for (const auto &item : root[isOutbound ? "outbounds" : "inbounds"].toArray())
+                const auto tag = item.toObject()["tag"].toString("");
+                if (tag == API_TAG_INBOUND)
+                    continue;
+                if (tag.isEmpty())
                 {
-                    const auto tag = item.toObject()["tag"].toString("");
-                    if (tag == API_TAG_INBOUND)
-                        continue;
-                    if (tag.isEmpty())
-                    {
-                        LOG("Ignored inbound with empty tag.");
-                        continue;
-                    }
-                    tagProtocolMap[isOutbound][tag] = item.toObject()["protocol"].toString();
+                    LOG("Ignored inbound with empty tag.");
+                    continue;
                 }
+                tagProtocolMap[isOutbound][tag] = item.toObject()["protocol"].toString();
             }
+        }
 
-            apiEnabled = false;
-            if (QvCoreApplication->StartupArguments.noAPI)
-            {
-                LOG("API has been disabled by the command line arguments");
-            }
-            else if (!GlobalConfig.kernelConfig.enableAPI)
-            {
-                LOG("API has been disabled by the global config option");
-            }
-            else if (tagProtocolMap.isEmpty())
-            {
-                LOG("RARE: API is disabled since no inbound tags configured. This is usually caused by a bad complex config.");
-            }
-            else
-            {
-                DEBUG("Starting API");
-                apiWorker->StartAPI(tagProtocolMap);
-                apiEnabled = true;
-            }
-
-            return std::nullopt;
+        apiEnabled = false;
+        if (QvCoreApplication->StartupArguments.noAPI)
+        {
+            LOG("API has been disabled by the command line arguments");
+        }
+        else if (!GlobalConfig.kernelConfig.enableAPI)
+        {
+            LOG("API has been disabled by the global config option");
+        }
+        else if (tagProtocolMap.isEmpty())
+        {
+            LOG("RARE: API is disabled since no inbound tags configured. This is usually caused by a bad complex config.");
         }
         else
         {
-            kernelStarted = false;
-            return tr("V2Ray kernel failed to start: ") + *msg;
+            DEBUG("Starting API");
+            apiWorker->StartAPI(tagProtocolMap);
+            apiEnabled = true;
         }
+
+        return std::nullopt;
     }
 
     void V2RayKernelInstance::StopConnection()

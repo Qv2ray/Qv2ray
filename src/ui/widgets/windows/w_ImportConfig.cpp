@@ -254,7 +254,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             if (!linkErrors.isEmpty())
             {
-                for (const auto &item : linkErrors)
+                for (const auto &item : qAsConst(linkErrors))
                 {
                     vmessConnectionStringTxt->appendPlainText(linkErrors.key(item));
                     errorsList->addItem(item);
@@ -290,9 +290,9 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
             const auto path = fileLineTxt->text();
 
-            if (const auto &&[result, msg] = V2RayKernelInstance::ValidateConfig(path); !result)
+            if (const auto &result = V2RayKernelInstance::ValidateConfig(path); result)
             {
-                QvMessageBoxWarn(this, tr("Import config file"), *msg);
+                QvMessageBoxWarn(this, tr("Import config file"), *result);
                 return;
             }
 
