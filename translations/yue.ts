@@ -1922,12 +1922,12 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
       <translation>检测到重复的端口号。请检查端口号-&gt;</translation>
     </message>
     <message>
-      <source>Invalid DNS Settings-&gt;</source>
-      <translation>无效的DNS设置-&gt;</translation>
-    </message>
-    <message>
       <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
       <translation>如果你正在寻找插件设置，你应该去插件设置-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings.</source>
+      <translation>无效的 DNS 设置。</translation>
     </message>
   </context>
   <context>
