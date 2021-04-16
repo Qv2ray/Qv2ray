@@ -68,7 +68,7 @@ void RuleNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> indata, Por
         }
         const auto inboundTag = getTag(*static_cast<InboundNodeData *>(d.get())->GetData());
         dataptr->inboundTag->push_back(inboundTag);
-        DEBUG("Connecting inbound:", inboundTag, "to", dataptr->QV2RAY_RULE_TAG);
+        DEBUG("Connecting inbound:", inboundTag, "to", *dataptr->QV2RAY_RULE_TAG);
     }
 }
 

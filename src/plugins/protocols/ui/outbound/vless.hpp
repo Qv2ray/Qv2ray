@@ -28,13 +28,13 @@ class VlessOutboundEditor
         this->content = content;
         if (content["vnext"].toArray().isEmpty())
             content["vnext"] = QJsonArray{ QJsonObject{} };
-        QJS_CLEAR_BINDINGS
+        QJS_BINDING_CLEAR
         vless.loadJson(content["vnext"].toArray().first().toObject());
         if (vless.users->isEmpty())
             vless.users->push_back({});
-        QJS_RWBINDING(vless.users->first(), encryption, vLessSecurityCombo, currentText, &QComboBox::currentIndexChanged)
-        QJS_RWBINDING(vless.users->first(), flow, flowCombo, currentText, &QComboBox::currentIndexChanged)
-        QJS_RWBINDING(vless.users->first(), id, vLessIDTxt, text, &QLineEdit::textEdited)
+        QJS_RWBINDING(vless.users->first().encryption, vLessSecurityCombo, "currentText", &QComboBox::currentIndexChanged)
+        QJS_RWBINDING(vless.users->first().flow, flowCombo, "currentText", &QComboBox::currentIndexChanged)
+        QJS_RWBINDING(vless.users->first().id, vLessIDTxt, "text", &QLineEdit::textEdited)
     }
 
     const QJsonObject GetContent() const override

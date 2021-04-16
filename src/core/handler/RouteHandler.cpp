@@ -15,7 +15,7 @@ namespace Qv2ray::core::handler
         const auto routesJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "routes.json"));
         for (const auto &routeId : routesJson.keys())
         {
-            configs.insert(GroupRoutingId{ routeId }, GroupRoutingConfig::fromJson(routesJson.value(routeId).toObject()));
+            configs.insert(GroupRoutingId{ routeId }, GroupRoutingConfig(routesJson.value(routeId).toObject()));
         }
     }
 

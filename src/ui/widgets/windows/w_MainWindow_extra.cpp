@@ -142,7 +142,7 @@ void MainWindow::CheckSubscriptionsUpdate()
 
         if (renewTime <= QDateTime::currentDateTime())
         {
-            updateList << std::pair{ info.displayName, entry };
+            updateList << std::pair{ *info.displayName, entry };
             updateNamesList << info.displayName;
             LOG(QString("Subscription update \"%1\": L=%2 R=%3 I=%4")
                     .arg(info.displayName)

@@ -103,7 +103,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     //
     {
         const auto &httpSettings = CurrentConfig.inboundConfig->httpSettings;
-        const auto has_http = CurrentConfig.inboundConfig->useHTTP;
+        const bool has_http = CurrentConfig.inboundConfig->useHTTP;
         httpGroupBox->setChecked(has_http);
         httpPortLE->setValue(httpSettings->port);
         httpAuthCB->setChecked(httpSettings->useAuth);
@@ -125,7 +125,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     }
     {
         const auto &socksSettings = CurrentConfig.inboundConfig->socksSettings;
-        const auto has_socks = CurrentConfig.inboundConfig->useSocks;
+        const bool has_socks = CurrentConfig.inboundConfig->useSocks;
         socksGroupBox->setChecked(has_socks);
         socksPortLE->setValue(socksSettings->port);
         //
@@ -151,7 +151,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     }
     {
         const auto &tProxySettings = CurrentConfig.inboundConfig->tProxySettings;
-        const auto has_tproxy = CurrentConfig.inboundConfig->useTPROXY;
+        const bool has_tproxy = CurrentConfig.inboundConfig->useTPROXY;
         tproxyGroupBox->setChecked(has_tproxy);
         tproxyListenAddr->setText(tProxySettings->tProxyIP);
         tproxyListenV6Addr->setText(tProxySettings->tProxyV6IP);

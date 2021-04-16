@@ -31,14 +31,14 @@ class HttpOutboundEditor
             return;
         const auto content = servers.first().toObject();
 
-        QJS_CLEAR_BINDINGS
+        QJS_BINDING_CLEAR
 
         http.loadJson(content);
         if (http.users->isEmpty())
             http.users->push_back({});
 
-        QJS_RWBINDING(http.users->first(), user, http_UserNameTxt, text, &QLineEdit::textEdited)
-        QJS_RWBINDING(http.users->first(), pass, http_PasswordTxt, text, &QLineEdit::textEdited)
+        QJS_RWBINDING(http.users->first().user, http_UserNameTxt, "text", &QLineEdit::textEdited)
+        QJS_RWBINDING(http.users->first().pass, http_PasswordTxt, "text", &QLineEdit::textEdited)
     }
 
     const QJsonObject GetContent() const override

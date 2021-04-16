@@ -89,13 +89,13 @@ namespace Qv2ray::core::connection
 
             if (type == "vmess")
             {
-                const auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
-                const auto transport = StreamSettingsObject::fromJson(streamSettings);
+                const auto vmessServer = VMessServerObject(settings["vnext"].toArray().first().toObject());
+                const auto transport = StreamSettingsObject(streamSettings);
                 sharelink = vmess_new::Serialize(transport, vmessServer, alias);
             }
             else if (type == "shadowsocks")
             {
-                auto ssServer = ShadowSocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
+                auto ssServer = ShadowSocksServerObject(settings["servers"].toArray().first().toObject());
                 sharelink = ss::Serialize(ssServer, alias);
             }
             else

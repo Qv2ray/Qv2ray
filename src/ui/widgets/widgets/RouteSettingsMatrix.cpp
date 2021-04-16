@@ -110,7 +110,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
         // read the file and parse back to struct.
         // if error occurred on parsing, an exception will be thrown.
         auto content = StringFromFile(*filePath);
-        auto scheme = Qv2rayRouteScheme::fromJson(JsonFromString(content));
+        auto scheme = Qv2rayRouteScheme(JsonFromString(content));
 
         // show the information of this scheme to user,
         // and ask user if he/she wants to import and apply this.

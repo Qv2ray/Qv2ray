@@ -105,7 +105,7 @@ INBOUND InboundEditor::getResult()
 void InboundEditor::loadUI()
 {
     isLoading = true;
-    streamSettingsWidget->SetStreamObject(StreamSettingsObject::fromJson(original["streamSettings"].toObject()));
+    streamSettingsWidget->SetStreamObject(StreamSettingsObject(original["streamSettings"].toObject()));
     {
         inboundTagTxt->setText(current["tag"].toString());
         inboundHostTxt->setText(current["listen"].toString());

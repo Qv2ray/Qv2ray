@@ -54,7 +54,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
 
     for (const auto &item : root["routing"].toObject()["rules"].toArray())
     {
-        auto _ = CreateRule(RuleObject::fromJson(item.toObject()));
+        auto _ = CreateRule(RuleObject(item.toObject()));
     }
 
     for (const auto &balancer : root["routing"].toObject()["balancers"].toArray())
@@ -73,7 +73,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
     {
         if (!ruleNodes.contains(rule->QV2RAY_RULE_TAG))
         {
-            LOG("Could not find rule: ", rule->QV2RAY_RULE_TAG);
+            LOG("Could not find rule: ", *rule->QV2RAY_RULE_TAG);
             continue;
         }
         const auto ruleNodeId = ruleNodes[rule->QV2RAY_RULE_TAG];
@@ -92,7 +92,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
         const auto &outboundTag = rule->outboundTag->isEmpty() ? rule->balancerTag : rule->outboundTag;
         if (!outboundNodes.contains(outboundTag))
         {
-            LOG("Could not find outbound: ", outboundTag);
+            LOG("Could not find outbound: ", *outboundTag);
             continue;
         }
         const auto &outboundNodeId = outboundNodes[outboundTag];

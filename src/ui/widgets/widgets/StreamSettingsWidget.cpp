@@ -38,7 +38,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         if (securityIndexMap.contains(stream.security))
             securityTypeCB->setCurrentIndex(securityIndexMap[stream.security]);
         else
-            LOG("Unsupported Security Type:", stream.security);
+            LOG("Unsupported Security Type:", *stream.security);
 
 #define tls_xtls_process(prefix)                                                                                                                     \
     {                                                                                                                                                \
@@ -257,7 +257,7 @@ void StreamSettingsWidget::on_tcpRequestEditBtn_clicked()
     JsonEditor w(JsonFromString(tcpRequestTxt->toPlainText()), this);
     auto rJson = w.OpenEditor();
     tcpRequestTxt->setPlainText(JsonToString(rJson));
-    auto tcpReqObject = HTTPRequestObject::fromJson(rJson);
+    auto tcpReqObject = HTTPRequestObject(rJson);
     stream.tcpSettings->header->request = tcpReqObject;
 }
 
@@ -266,7 +266,7 @@ void StreamSettingsWidget::on_tcpResponseEditBtn_clicked()
     JsonEditor w(JsonFromString(tcpRespTxt->toPlainText()), this);
     auto rJson = w.OpenEditor();
     tcpRespTxt->setPlainText(JsonToString(rJson));
-    auto tcpRspObject = HTTPResponseObject::fromJson(rJson);
+    auto tcpRspObject = HTTPResponseObject(rJson);
     stream.tcpSettings->header->response = tcpRspObject;
 }
 

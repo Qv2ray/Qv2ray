@@ -50,21 +50,21 @@ void QvNodeRuleWidget::setValue(std::shared_ptr<RuleObject> _ruleptr)
     ruleTagLineEdit->setText(rule.QV2RAY_RULE_TAG);
     isLoading = false;
     // Networks
-    auto network = rule.network->toLower();
+    const auto network = rule.network->toLower();
     netUDPRB->setChecked(network.contains("udp"));
     netTCPRB->setChecked(network.contains("tcp"));
     //
     // Set protocol checkboxes.
-    auto protocol = rule.protocol;
-    routeProtocolHTTPCB->setChecked(protocol->contains("http"));
-    routeProtocolTLSCB->setChecked(protocol->contains("tls"));
-    routeProtocolBTCB->setChecked(protocol->contains("bittorrent"));
+    const auto protocol = *rule.protocol;
+    routeProtocolHTTPCB->setChecked(protocol.contains("http"));
+    routeProtocolTLSCB->setChecked(protocol.contains("tls"));
+    routeProtocolBTCB->setChecked(protocol.contains("bittorrent"));
     //
     // Port
     routePortTxt->setText(rule.port);
     //
     // Users
-    const auto sourcePorts = rule.sourcePort;
+    const auto sourcePorts = *rule.sourcePort;
     //
     // Incoming Sources
     const auto sources = rule.source->join(NEWLINE);
@@ -150,7 +150,7 @@ void QvNodeRuleWidget::on_toolButton_clicked()
 
 void QvNodeRuleWidget::on_ruleTagLineEdit_textEdited(const QString &arg1)
 {
-    const auto originalTag = rule.QV2RAY_RULE_TAG;
+    const auto originalTag = *rule.QV2RAY_RULE_TAG;
     if (originalTag == arg1 || dispatcher->RenameTag<NODE_RULE>(originalTag, arg1))
     {
         BLACK(ruleTagLineEdit);

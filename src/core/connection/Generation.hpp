@@ -26,7 +26,7 @@ namespace Qv2ray::core::connection::generation
     namespace inbounds
     {
         INBOUNDSETTING GenerateDokodemoIN(const QString &address, int port, const QString &network, int timeout = 0, bool followRedirect = false);
-        INBOUNDSETTING GenerateHTTPIN(bool auth, const QList<AccountObject> &accounts, int timeout = 300, bool allowTransparent = true);
+        INBOUNDSETTING GenerateHTTPIN(bool auth, const QList<AccountObject> &accounts, int timeout = 300, bool allowTransparent = false);
         INBOUNDSETTING GenerateSocksIN(const QString &auth, const QList<AccountObject> &_accounts, bool udp = false, const QString &ip = "127.0.0.1");
         INBOUNDS GenerateDefaultInbounds();
         QJsonObject GenerateSniffingObject(bool enabled, QList<QString> destOverride, bool metadataOnly = false);

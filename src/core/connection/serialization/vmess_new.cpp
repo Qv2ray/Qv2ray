@@ -180,7 +180,7 @@ namespace Qv2ray::core::connection
                 return {};
             }
             bool hasTLS = stream.security == "tls";
-            auto protocol = stream.network;
+            auto protocol = *stream.network;
             if (hasTLS)
             {
                 // if (stream.tlsSettings.allowInsecure)

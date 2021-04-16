@@ -19,12 +19,12 @@ namespace Qv2ray::core::handler
         //
         for (const auto &connectionId : connectionJson.keys())
         {
-            connections.insert(ConnectionId{ connectionId }, ConnectionObject::fromJson(connectionJson.value(connectionId).toObject()));
+            connections.insert(ConnectionId{ connectionId }, ConnectionObject(connectionJson.value(connectionId).toObject()));
         }
         //
         for (const auto &groupId : groupJson.keys())
         {
-            auto groupObject = GroupObject::fromJson(groupJson.value(groupId).toObject());
+            auto groupObject = GroupObject(groupJson.value(groupId).toObject());
             if (groupObject.displayName->isEmpty())
             {
                 groupObject.displayName = tr("Group: %1").arg(GenerateRandomString(5));
@@ -496,7 +496,7 @@ namespace Qv2ray::core::handler
         std::shared_ptr<SubscriptionDecoder> decoder;
 
         {
-            const auto type = groups[id].subscriptionOption->type;
+            const auto type = *groups[id].subscriptionOption->type;
             for (const auto &plugin : PluginHost->UsablePlugins())
             {
                 const auto pluginInfo = PluginHost->GetPlugin(plugin);
@@ -519,7 +519,7 @@ namespace Qv2ray::core::handler
             }
         }
 
-        const auto groupName = groups[id].displayName;
+        const auto groupName = *groups[id].displayName;
         const auto result = decoder->DecodeData(data);
         QList<std::pair<QString, CONFIGROOT>> _newConnections;
 

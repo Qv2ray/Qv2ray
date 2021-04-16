@@ -771,7 +771,7 @@ void MainWindow::OnVCoreLogAvailable(const ConnectionGroupPair &id, const QStrin
     FastAppendTextDocument(log.trimmed(), vCoreLogDocument);
     // vCoreLogDocument->setPlainText(vCoreLogDocument->toPlainText() + log);
     // From https://gist.github.com/jemyzhang/7130092
-    auto maxLines = GlobalConfig.uiConfig->maximumLogLines;
+    auto maxLines = *GlobalConfig.uiConfig->maximumLogLines;
     auto block = vCoreLogDocument->begin();
 
     while (block.isValid())
@@ -964,7 +964,7 @@ void MainWindow::Action_UpdateSubscription()
         {
             if (widget->IsConnection())
                 return;
-            const auto gid = widget->Identifier().groupId;
+            const auto gid = *widget->Identifier().groupId;
             if (ConnectionManager->GetGroupMetaObject(gid).isSubscription)
                 ConnectionManager->UpdateSubscriptionAsync(gid);
             else

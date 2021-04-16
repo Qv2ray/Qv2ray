@@ -1903,11 +1903,11 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid DNS Settings-&gt;</source>
+        <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
+        <source>Invalid DNS Settings.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

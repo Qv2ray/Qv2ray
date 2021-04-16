@@ -53,12 +53,15 @@ namespace Qv2ray::base
     inline const static GroupId NullGroupId;
     inline const static GroupRoutingId NullRoutingId;
 
-    class ConnectionGroupPair
+    class ConnectionGroupPair : public QObject
     {
-        Q_GADGET
+        Q_OBJECT
       public:
-        QJS_CONSTRUCTOR(ConnectionGroupPair)
-        ConnectionGroupPair(const ConnectionId &conn, const GroupId &group) : connectionId(conn), groupId(group){};
+        ConnectionGroupPair(const ConnectionId &conn, const GroupId &group)
+        {
+            connectionId = conn;
+            groupId = group;
+        }
 
         QJS_PROP_D(ConnectionId, connectionId, NullConnectionId)
         QJS_PROP_D(GroupId, groupId, NullGroupId)
@@ -75,45 +78,41 @@ namespace Qv2ray::base
         {
             return groupId == NullGroupId || connectionId == NullConnectionId;
         }
-        QJS_FUNCTION(F(connectionId, groupId))
+        QJS_FUNCTION(ConnectionGroupPair, F(connectionId, groupId))
     };
 
     constexpr unsigned int LATENCY_TEST_VALUE_ERROR = 99999;
     constexpr unsigned int LATENCY_TEST_VALUE_NODATA = LATENCY_TEST_VALUE_ERROR - 1;
     using namespace std::chrono;
 
-    struct __Qv2rayConfigObjectBase
+    struct __Qv2rayConfigObjectBase : public QObject
     {
-        Q_GADGET
-        QJS_CONSTRUCTOR(__Qv2rayConfigObjectBase)
+        Q_OBJECT
         QJS_PROP(QString, displayName, REQUIRED)
-        QJS_PROP_D(qint64, creationDate, system_clock::to_time_t(system_clock::now()));
-        QJS_PROP_D(qint64, lastUpdatedDate, system_clock::to_time_t(system_clock::now()));
-        QJS_FUNCTION(F(displayName, creationDate, lastUpdatedDate))
+        QJS_PROP_D(qint64, creationDate, system_clock::to_time_t(system_clock::now()))
+        QJS_PROP_D(qint64, lastUpdatedDate, system_clock::to_time_t(system_clock::now()))
+        QJS_FUNCTION(__Qv2rayConfigObjectBase, F(displayName, creationDate, lastUpdatedDate))
     };
 
     struct GroupRoutingConfig : __Qv2rayConfigObjectBase
     {
-        Q_GADGET
-
-        QJS_CONSTRUCTOR(GroupRoutingConfig, : __Qv2rayConfigObjectBase())
-
-        QJS_PROP_D(bool, overrideDNS, false);
-        QJS_PROP(config::QvConfig_DNS, dnsConfig);
-        QJS_PROP(config::QvConfig_FakeDNS, fakeDNSConfig);
+        Q_OBJECT
+        QJS_PROP_D(bool, overrideDNS, false)
+        QJS_PROP(config::QvConfig_DNS, dnsConfig)
+        QJS_PROP(config::QvConfig_FakeDNS, fakeDNSConfig)
         //
-        QJS_PROP_D(bool, overrideRoute, false);
-        QJS_PROP(config::QvConfig_Route, routeConfig);
+        QJS_PROP_D(bool, overrideRoute, false)
+        QJS_PROP(config::QvConfig_Route, routeConfig)
         //
-        QJS_PROP_D(bool, overrideConnectionConfig, false);
-        QJS_PROP(config::QvConfig_Connection, connectionConfig);
+        QJS_PROP_D(bool, overrideConnectionConfig, false)
+        QJS_PROP(config::QvConfig_Connection, connectionConfig)
         //
-        QJS_PROP_D(bool, overrideForwardProxyConfig, false);
-        QJS_PROP(config::QvConfig_ForwardProxy, forwardProxyConfig);
+        QJS_PROP_D(bool, overrideForwardProxyConfig, false)
+        QJS_PROP(config::QvConfig_ForwardProxy, forwardProxyConfig)
         //
-        QJS_FUNCTION(F(overrideRoute, routeConfig),                 //
-                     F(overrideDNS, dnsConfig, fakeDNSConfig),      //
-                     F(overrideConnectionConfig, connectionConfig), //
+        QJS_FUNCTION(GroupRoutingConfig, B(__Qv2rayConfigObjectBase), F(overrideRoute, routeConfig), //
+                     F(overrideDNS, dnsConfig, fakeDNSConfig),                                       //
+                     F(overrideConnectionConfig, connectionConfig),                                  //
                      F(overrideForwardProxyConfig, forwardProxyConfig))
     };
 
@@ -123,29 +122,28 @@ namespace Qv2ray::base
         RELATION_OR = 1
     };
 
-    struct SubscriptionConfigObject
+    struct SubscriptionConfigObject : public QObject
     {
-        Q_GADGET
-        QJS_CONSTRUCTOR(SubscriptionConfigObject)
-        QJS_PROP(QString, address);
-        QJS_PROP_D(QString, type, "sip008");
-        QJS_PROP_D(float, updateInterval, 10);
-        QJS_PROP(QList<QString>, IncludeKeywords);
-        QJS_PROP(QList<QString>, ExcludeKeywords);
-        QJS_PROP_D(SubscriptionFilterRelation, IncludeRelation, RELATION_OR);
-        QJS_PROP_D(SubscriptionFilterRelation, ExcludeRelation, RELATION_AND);
-        QJS_FUNCTION(F(updateInterval, address, type), F(IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
+        Q_OBJECT
+        QJS_PROP(QString, address)
+        QJS_PROP_D(QString, type, "sip008")
+        QJS_PROP_D(float, updateInterval, 10)
+        QJS_PROP(QList<QString>, IncludeKeywords)
+        QJS_PROP(QList<QString>, ExcludeKeywords)
+        QJS_PROP_D(SubscriptionFilterRelation, IncludeRelation, RELATION_OR)
+        QJS_PROP_D(SubscriptionFilterRelation, ExcludeRelation, RELATION_AND)
+        QJS_FUNCTION(SubscriptionConfigObject, F(updateInterval, address, type),
+                     F(IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
     };
 
-    struct GroupObject : __Qv2rayConfigObjectBase
+    struct GroupObject : public __Qv2rayConfigObjectBase
     {
-        Q_GADGET
-        QJS_CONSTRUCTOR(GroupObject, : __Qv2rayConfigObjectBase())
+        Q_OBJECT
         QJS_PROP_D(bool, isSubscription, false)
-        QJS_PROP(QList<ConnectionId>, connections);
-        QJS_PROP(GroupRoutingId, routeConfigId);
-        QJS_PROP(SubscriptionConfigObject, subscriptionOption);
-        QJS_FUNCTION(F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
+        QJS_PROP(QList<ConnectionId>, connections)
+        QJS_PROP(GroupRoutingId, routeConfigId)
+        QJS_PROP(SubscriptionConfigObject, subscriptionOption)
+        QJS_FUNCTION(GroupObject, F(connections, isSubscription, routeConfigId, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
     enum StatisticsType
@@ -162,12 +160,11 @@ namespace Qv2ray::base
     typedef std::pair<qvdata, qvdata> QvStatsData;
     typedef std::pair<QvStatsSpeed, QvStatsData> QvStatsSpeedData;
 
-    struct ConnectionStatsEntryObject
+    struct ConnectionStatsEntryObject : public QObject
     {
-        Q_GADGET
-        QJS_CONSTRUCTOR(ConnectionStatsEntryObject)
-        QJS_PROP(qvdata, upLinkData);
-        QJS_PROP(qvdata, downLinkData);
+        Q_OBJECT
+        QJS_PROP(qvdata, upLinkData)
+        QJS_PROP(qvdata, downLinkData)
         QvStatsData toData()
         {
             return { upLinkData, downLinkData };
@@ -177,7 +174,7 @@ namespace Qv2ray::base
             upLinkData = d.first;
             downLinkData = d.second;
         }
-        QJS_FUNCTION(F(upLinkData, downLinkData))
+        QJS_FUNCTION(ConnectionStatsEntryObject, F(upLinkData, downLinkData))
     };
 
     enum ConnectionImportSource
@@ -225,17 +222,16 @@ namespace Qv2ray::base
         QList<ConnectionStatsEntryObject> entries;
     };
 
-    struct ConnectionObject : __Qv2rayConfigObjectBase
+    struct ConnectionObject : public __Qv2rayConfigObjectBase
     {
-        Q_GADGET
-        QJS_CONSTRUCTOR(ConnectionObject, : __Qv2rayConfigObjectBase())
-        QJS_PROP(qint64, lastConnected);
-        QJS_PROP_D(qint64, latency, LATENCY_TEST_VALUE_NODATA);
-        QJS_PROP_D(ConnectionImportSource, importSource, IMPORT_SOURCE_MANUAL);
-        QJS_PROP(ConnectionStatsObject, stats);
+        Q_OBJECT
+        QJS_PROP(qint64, lastConnected)
+        QJS_PROP_D(qint64, latency, LATENCY_TEST_VALUE_NODATA)
+        QJS_PROP_D(ConnectionImportSource, importSource, IMPORT_SOURCE_MANUAL)
+        QJS_PROP(ConnectionStatsObject, stats)
         //
         int __qvConnectionRefCount = 0;
-        QJS_FUNCTION(F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
+        QJS_FUNCTION(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
     };
 
     struct ProtocolSettingsInfoObject

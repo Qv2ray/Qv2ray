@@ -66,7 +66,7 @@ void OutboundNodeModel::setInData(std::vector<std::shared_ptr<NodeData>> indata,
         else
             rulePtr->outboundTag = dataptr->getDisplayName();
         //
-        DEBUG("Connecting rule:", rulePtr->QV2RAY_RULE_TAG, "to", dataptr->getDisplayName());
+        DEBUG("Connecting rule:", *rulePtr->QV2RAY_RULE_TAG, "to", dataptr->getDisplayName());
     }
 }
 

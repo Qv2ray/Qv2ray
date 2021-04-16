@@ -57,9 +57,9 @@ namespace Qv2ray::common::network
         // request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
 #endif
 
-        auto ua = GlobalConfig.networkConfig->userAgent;
-        ua->replace("$VERSION", QV2RAY_VERSION_STRING);
-        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, *ua);
+        auto ua = *GlobalConfig.networkConfig->userAgent;
+        ua.replace("$VERSION", QV2RAY_VERSION_STRING);
+        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, ua);
     }
 
     QByteArray NetworkRequestHelper::HttpGet(const QUrl &url)

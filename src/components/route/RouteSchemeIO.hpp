@@ -11,26 +11,25 @@ namespace Qv2ray::components::route
      */
     struct Qv2rayRouteScheme : QvConfig_Route
     {
-        Q_GADGET
-        QJS_CONSTRUCTOR(Qv2rayRouteScheme)
+        Q_OBJECT
         /**
          * @brief the name of the scheme.
          * @example "Untitled Scheme"
          */
-        QJS_PROP(QString, name);
+        QJS_PROP(QString, name, REQUIRED)
         /**
          * @brief the author of the scheme.
          * @example "DuckSoft <realducksoft@gmail.com>"
          */
-        QJS_PROP(QString, author);
+        QJS_PROP(QString, author, REQUIRED)
         /**
          * @brief details of this scheme.
          * @example "A scheme to bypass China mainland, while allowing bilibili to go through proxy."
          */
-        QJS_PROP(QString, description);
+        QJS_PROP(QString, description, REQUIRED)
 
         // M: all these fields are mandatory
-        QJS_FUNCTION(F(name, author, description), B(QvConfig_Route));
+        QJS_FUNCTION(Qv2rayRouteScheme, F(name, author, description), B(QvConfig_Route))
     };
 } // namespace Qv2ray::components::route
 

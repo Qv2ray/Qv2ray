@@ -103,7 +103,7 @@ namespace Qv2ray::core
     int64_t GetConnectionLatency(const ConnectionId &id)
     {
         const auto connection = ConnectionManager->GetConnectionMetaObject(id);
-        return std::max(connection.latency, {});
+        return std::max(*connection.latency, {});
     }
 
     const QString GetConnectionProtocolString(const ConnectionId &id)
