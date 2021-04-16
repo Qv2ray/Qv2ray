@@ -1921,12 +1921,12 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
       <translation type="unfinished">Duplicated port numbers detected, please check the port number Settings-&gt;</translation>
     </message>
     <message>
-      <source>Invalid DNS Settings-&gt;</source>
-      <translation type="unfinished">Invalid DNS Settings-&gt;</translation>
-    </message>
-    <message>
       <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
       <translation type="unfinished">If you are looking for plugins settings, you should go to plugin Settings-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings.</source>
+      <translation type="unfinished">Invalid DNS Settings.</translation>
     </message>
   </context>
   <context>
