@@ -335,70 +335,89 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         // Duplicates detected.
         QvMessageBoxWarn(this, tr("Preferences"), tr("Duplicated port numbers detected, please check the port number Settings->"));
+        return;
     }
-    else if (!IsValidIPAddress(CurrentConfig.inboundConfig->listenip))
+
+    if (!IsValidIPAddress(CurrentConfig.inboundConfig->listenip))
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid inbound listening address."));
+        return;
     }
-    else if (!IsIPv4Address(CurrentConfig.inboundConfig->tProxySettings->tProxyIP))
+
+    if (CurrentConfig.inboundConfig->useTPROXY)
     {
-        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ivp4 address."));
+        if (!IsIPv4Address(CurrentConfig.inboundConfig->tProxySettings->tProxyIP))
+        {
+            QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ivp4 address."));
+            return;
+        }
+        if (CurrentConfig.inboundConfig->tProxySettings->tProxyV6IP != "" && !IsIPv6Address(CurrentConfig.inboundConfig->tProxySettings->tProxyV6IP))
+        {
+            QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ipv6 address."));
+            return;
+        }
     }
-    else if (CurrentConfig.inboundConfig->tProxySettings->tProxyV6IP != "" && !IsIPv6Address(CurrentConfig.inboundConfig->tProxySettings->tProxyV6IP))
+
+    if (!dnsSettingsWidget->CheckIsValidDNS())
     {
-        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ipv6 address."));
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid DNS Settings."));
+        return;
     }
-    else if (!dnsSettingsWidget->CheckIsValidDNS())
+
+    if (CurrentConfig.uiConfig->language != GlobalConfig.uiConfig->language)
     {
-        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid DNS Settings->"));
+        // Install translator
+        if (Qv2rayTranslator->InstallTranslation(CurrentConfig.uiConfig->language))
+        {
+            UIMessageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
+            QApplication::processEvents();
+        }
     }
-    else
+
+    CurrentConfig.defaultRouteConfig->routeConfig = routeSettingsWidget->GetRouteConfig();
+    if (!(CurrentConfig.defaultRouteConfig->routeConfig == GlobalConfig.defaultRouteConfig->routeConfig))
     {
-        if (CurrentConfig.uiConfig->language != GlobalConfig.uiConfig->language)
-        {
-            // Install translator
-            if (Qv2rayTranslator->InstallTranslation(CurrentConfig.uiConfig->language))
-            {
-                UIMessageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
-                QApplication::processEvents();
-            }
-        }
-        CurrentConfig.defaultRouteConfig->routeConfig = routeSettingsWidget->GetRouteConfig();
-        if (!(CurrentConfig.defaultRouteConfig->routeConfig == GlobalConfig.defaultRouteConfig->routeConfig))
-        {
-            NEEDRESTART
-        }
-        const auto &[dns, fakedns] = dnsSettingsWidget->GetDNSObject();
-        CurrentConfig.defaultRouteConfig->dnsConfig = dns;
-        CurrentConfig.defaultRouteConfig->fakeDNSConfig = fakedns;
-        if (!(CurrentConfig.defaultRouteConfig->dnsConfig == GlobalConfig.defaultRouteConfig->dnsConfig))
-        {
-            NEEDRESTART
-        }
-        //
-        //
-        if (CurrentConfig.uiConfig->theme != GlobalConfig.uiConfig->theme)
-        {
-            StyleManager->ApplyStyle(CurrentConfig.uiConfig->theme);
-        }
-        GlobalConfig.loadJson(CurrentConfig.toJson());
-        SaveGlobalSettings();
-        UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
-        if (NeedRestart && !KernelInstance->CurrentConnection().isEmpty())
-        {
-            const auto message = tr("You may need to reconnect to apply the settings now.") + NEWLINE +              //
-                                 tr("Otherwise they will be applied next time you connect to a server.") + NEWLINE + //
-                                 NEWLINE +                                                                           //
-                                 tr("Do you want to reconnect now?");
-            const auto askResult = QvMessageBoxAsk(this, tr("Reconnect Required"), message);
-            if (askResult == Yes)
-            {
-                ConnectionManager->RestartConnection();
-                this->setEnabled(false);
-            }
-        }
-        accept();
+        NEEDRESTART
     }
+
+    const auto &[dns, fakedns] = dnsSettingsWidget->GetDNSObject();
+    CurrentConfig.defaultRouteConfig->dnsConfig = dns;
+    CurrentConfig.defaultRouteConfig->fakeDNSConfig = fakedns;
+
+    if (!(CurrentConfig.defaultRouteConfig->dnsConfig == GlobalConfig.defaultRouteConfig->dnsConfig))
+    {
+        NEEDRESTART
+    }
+
+    if (!(CurrentConfig.defaultRouteConfig->fakeDNSConfig == GlobalConfig.defaultRouteConfig->fakeDNSConfig))
+    {
+        NEEDRESTART
+    }
+
+    if (CurrentConfig.uiConfig->theme != GlobalConfig.uiConfig->theme)
+    {
+        StyleManager->ApplyStyle(CurrentConfig.uiConfig->theme);
+    }
+
+    GlobalConfig.loadJson(CurrentConfig.toJson());
+    SaveGlobalSettings();
+
+    UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
+
+    if (NeedRestart && !KernelInstance->CurrentConnection().isEmpty())
+    {
+        const auto message = tr("You may need to reconnect to apply the settings now.") + NEWLINE +              //
+                             tr("Otherwise they will be applied next time you connect to a server.") + NEWLINE + //
+                             NEWLINE +                                                                           //
+                             tr("Do you want to reconnect now?");
+        const auto askResult = QvMessageBoxAsk(this, tr("Reconnect Required"), message);
+        if (askResult == Yes)
+        {
+            ConnectionManager->RestartConnection();
+            this->setEnabled(false);
+        }
+    }
+    accept();
 }
 
 void PreferencesWindow::on_httpAuthCB_stateChanged(int checked)
