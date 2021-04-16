@@ -366,7 +366,7 @@ void PreferencesWindow::on_buttonBox_accepted()
     }
     else if (const auto err = checkTProxySettings(); err.has_value())
     {
-        QvMessageBoxWarn(this, tr("Preferences"), err.value());
+        QvMessageBoxWarn(this, tr("Preferences"), *err);
     }
     else if (!dnsSettingsWidget->CheckIsValidDNS())
     {
