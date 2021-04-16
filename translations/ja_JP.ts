@@ -1921,12 +1921,12 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください-&gt;</translation>
     </message>
     <message>
-      <source>Invalid DNS Settings-&gt;</source>
-      <translation>無効な DNS 設定-&gt;</translation>
-    </message>
-    <message>
       <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
       <translation>プラグインの設定を探している場合は、プラグインの設定に移動する必要があります-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings.</source>
+      <translation>DNS設定が無効です。</translation>
     </message>
   </context>
   <context>
