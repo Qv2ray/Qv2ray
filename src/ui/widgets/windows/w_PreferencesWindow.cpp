@@ -307,15 +307,11 @@ QvMessageBusSlotImpl(PreferencesWindow)
 
 PreferencesWindow::~PreferencesWindow(){};
 
-std::optional<QString> PreferencesWindow::checkTProxySettings()
+std::optional<QString> PreferencesWindow::checkTProxySettings() const
 {
     if (CurrentConfig.inboundConfig.useTPROXY)
     {
-        if (!IsValidIPAddress(CurrentConfig.inboundConfig.listenip))
-        {
-            return tr("Invalid inbound listening address.");
-        }
-        else if (!IsIPv4Address(CurrentConfig.inboundConfig.tProxySettings.tProxyIP))
+        if (!IsIPv4Address(CurrentConfig.inboundConfig.tProxySettings.tProxyIP))
         {
             return tr("Invalid tproxy listening ipv4 address.");
         }
@@ -363,6 +359,10 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         // Duplicates detected.
         QvMessageBoxWarn(this, tr("Preferences"), tr("Duplicated port numbers detected, please check the port number settings."));
+    }
+    else if (!IsValidIPAddress(CurrentConfig.inboundConfig.listenip))
+    {
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid inbound listening address."));
     }
     else if (const auto err = checkTProxySettings(); err.has_value())
     {

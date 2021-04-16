@@ -151,5 +151,5 @@ class PreferencesWindow
     Qv2rayConfigObject CurrentConfig;
 
   private:
-    std::optional<QString> checkTProxySettings();
+    std::optional<QString> checkTProxySettings() const;
 };
