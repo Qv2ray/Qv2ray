@@ -1921,12 +1921,12 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
       <translation>检测到重复的端口号。请检查端口号-&gt;</translation>
     </message>
     <message>
-      <source>Invalid DNS Settings-&gt;</source>
-      <translation>无效的DNS设置-&gt;</translation>
-    </message>
-    <message>
       <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
       <translation>如果你正在寻找插件设置，你应该去插件设置-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings.</source>
+      <translation>无效的 DNS 设置。</translation>
     </message>
   </context>
   <context>
