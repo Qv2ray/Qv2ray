@@ -307,6 +307,26 @@ QvMessageBusSlotImpl(PreferencesWindow)
 
 PreferencesWindow::~PreferencesWindow(){};
 
+std::optional<QString> PreferencesWindow::checkTProxySettings()
+{
+    if (CurrentConfig.inboundConfig.useTPROXY)
+    {
+        if (!IsValidIPAddress(CurrentConfig.inboundConfig.listenip))
+        {
+            return tr("Invalid inbound listening address.");
+        }
+        else if (!IsIPv4Address(CurrentConfig.inboundConfig.tProxySettings.tProxyIP))
+        {
+            return tr("Invalid tproxy listening ipv4 address.");
+        }
+        else if (CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP != "" && !IsIPv6Address(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP))
+        {
+            return tr("Invalid tproxy listening ipv6 address.");
+        }
+    }
+    return std::nullopt;
+}
+
 void PreferencesWindow::on_buttonBox_accepted()
 {
     // Note:
@@ -344,17 +364,9 @@ void PreferencesWindow::on_buttonBox_accepted()
         // Duplicates detected.
         QvMessageBoxWarn(this, tr("Preferences"), tr("Duplicated port numbers detected, please check the port number settings."));
     }
-    else if (!IsValidIPAddress(CurrentConfig.inboundConfig.listenip))
+    else if (const auto err = checkTProxySettings(); err.has_value())
     {
-        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid inbound listening address."));
-    }
-    else if (!IsIPv4Address(CurrentConfig.inboundConfig.tProxySettings.tProxyIP))
-    {
-        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ivp4 address."));
-    }
-    else if (CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP != "" && !IsIPv6Address(CurrentConfig.inboundConfig.tProxySettings.tProxyV6IP))
-    {
-        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid tproxy listening ipv6 address."));
+        QvMessageBoxWarn(this, tr("Preferences"), err.value());
     }
     else if (!dnsSettingsWidget->CheckIsValidDNS())
     {
