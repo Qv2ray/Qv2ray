@@ -7,6 +7,18 @@
       <source>Form</source>
       <translation>Form</translation>
     </message>
+    <message>
+      <source>Show / Hide</source>
+      <translation>表示 / 非表示</translation>
+    </message>
+    <message>
+      <source>Selector</source>
+      <translation>選択</translation>
+    </message>
+    <message>
+      <source>Strategy</source>
+      <translation>ルール</translation>
+    </message>
   </context>
   <context>
     <name>CertificateItemWidget</name>
@@ -118,6 +130,10 @@
     <message>
       <source>Form</source>
       <translation>Form</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>ポート</translation>
     </message>
   </context>
   <context>
@@ -666,12 +682,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>FakeDNS</translation>
     </message>
     <message>
-      <source>Destination Override:</source>
-      <translation>目標上書き:</translation>
-    </message>
-    <message>
       <source>Metadata Only</source>
       <translation>メタデータのみ</translation>
+    </message>
+    <message>
+      <source>FakeDNS-Others</source>
+      <translation>FakeDNS-その他</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>目標上書き</translation>
     </message>
   </context>
   <context>
@@ -2715,6 +2735,30 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Reference Connection</source>
       <translation>参照接続</translation>
+    </message>
+    <message>
+      <source>Misc</source>
+      <translation>その他</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder</source>
+      <translation>ブラウザフォワーダー</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <translation>リスニングアドレス</translation>
+    </message>
+    <message>
+      <source>:Listening Port</source>
+      <translation>:リッスンポート</translation>
+    </message>
+    <message>
+      <source> Observatory</source>
+      <translation> Observatory</translation>
+    </message>
+    <message>
+      <source>Subject Selector</source>
+      <translation>件名の選択</translation>
     </message>
   </context>
   <context>
