@@ -7,6 +7,18 @@
       <source>Form</source>
       <translation>視窗</translation>
     </message>
+    <message>
+      <source>Show / Hide</source>
+      <translation type="unfinished">Show / Hide</translation>
+    </message>
+    <message>
+      <source>Selector</source>
+      <translation type="unfinished">Selector</translation>
+    </message>
+    <message>
+      <source>Strategy</source>
+      <translation>策略</translation>
+    </message>
   </context>
   <context>
     <name>CertificateItemWidget</name>
@@ -118,6 +130,10 @@
     <message>
       <source>Form</source>
       <translation>視窗</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
     </message>
   </context>
   <context>
@@ -666,12 +682,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation type="unfinished">FakeDNS</translation>
     </message>
     <message>
-      <source>Destination Override:</source>
-      <translation>目標覆蓋:</translation>
-    </message>
-    <message>
       <source>Metadata Only</source>
       <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS-Others</source>
+      <translation type="unfinished">FakeDNS-Others</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>目標覆蓋</translation>
     </message>
   </context>
   <context>
@@ -2715,6 +2735,30 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Reference Connection</source>
       <translation type="unfinished">Reference Connection</translation>
+    </message>
+    <message>
+      <source>Misc</source>
+      <translation type="unfinished">Misc</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder</source>
+      <translation type="unfinished">Browser Forwarder</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <translation>監聽位址</translation>
+    </message>
+    <message>
+      <source>:Listening Port</source>
+      <translation type="unfinished">:Listening Port</translation>
+    </message>
+    <message>
+      <source> Observatory</source>
+      <translation type="unfinished"> Observatory</translation>
+    </message>
+    <message>
+      <source>Subject Selector</source>
+      <translation type="unfinished">Subject Selector</translation>
     </message>
   </context>
   <context>
