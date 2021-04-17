@@ -339,7 +339,7 @@ namespace Qv2ray::base::objects
 
     struct FakeDNSObject
     {
-        QString ipPool = "240.0.0.0/8";
+        QString ipPool = "198.18.0.0/15";
         int poolSize = 65535;
         JSONSTRUCT_REGISTER(FakeDNSObject, A(ipPool, poolSize))
         JSONSTRUCT_COMPARE(FakeDNSObject, ipPool, poolSize)
