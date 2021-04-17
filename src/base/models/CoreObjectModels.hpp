@@ -126,12 +126,21 @@ namespace Qv2ray::base::objects
     };
     //
     //
+
+    struct StrategyObject
+    {
+        QString type;
+        JSONSTRUCT_COMPARE(StrategyObject, type)
+        JSONSTRUCT_REGISTER(StrategyObject, F(type))
+    };
+
     struct BalancerObject
     {
         QString tag;
         QList<QString> selector;
-        JSONSTRUCT_COMPARE(BalancerObject, tag, selector)
-        JSONSTRUCT_REGISTER(BalancerObject, F(tag, selector))
+        StrategyObject strategy;
+        JSONSTRUCT_COMPARE(BalancerObject, tag, selector, strategy)
+        JSONSTRUCT_REGISTER(BalancerObject, F(tag, selector, strategy))
     };
     //
     //

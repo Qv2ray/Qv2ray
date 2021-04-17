@@ -84,7 +84,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog("Ro
     //
     isLoading = true;
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
-    updateColorScheme();
+    RouteEditor::updateColorScheme();
     //
     // Do not change the order.
     nodeDispatcher = std::make_shared<NodeDispatcher>();
@@ -99,21 +99,19 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog("Ro
     connect(nodeDispatcher.get(), &NodeDispatcher::OnInboundOutboundNodeHovered, this, &RouteEditor::OnDispatcherInboundOutboundHovered);
     connect(nodeDispatcher.get(), &NodeDispatcher::RequestEditChain, this, &RouteEditor::OnDispatcherEditChainRequested);
     connect(nodeDispatcher.get(), &NodeDispatcher::OnObjectTagChanged, this, &RouteEditor::OnDispatcherObjectTagChanged);
-    //
-#define SETLAYOUT(parent, child)                                                                                                                     \
-    {                                                                                                                                                \
-        if (!parent->layout())                                                                                                                       \
-        {                                                                                                                                            \
-            parent->setLayout(new QVBoxLayout());                                                                                                    \
-        }                                                                                                                                            \
-        auto l = parent->layout();                                                                                                                   \
-        l->addWidget(child);                                                                                                                         \
-        l->setContentsMargins(0, 0, 0, 0);                                                                                                           \
-        l->setSpacing(0);                                                                                                                            \
-    }
-    SETLAYOUT(ruleEditorUIWidget, ruleWidget);
-    SETLAYOUT(chainEditorUIWidget, chainWidget);
-    SETLAYOUT(dnsEditorUIWidget, dnsWidget);
+
+    const auto SetUpLayout = [](QWidget *parent, QWidget *child) {
+        if (!parent->layout())
+            parent->setLayout(new QVBoxLayout());
+        auto l = parent->layout();
+        l->addWidget(child);
+        l->setContentsMargins(0, 0, 0, 0);
+        l->setSpacing(0);
+    };
+
+    SetUpLayout(ruleEditorUIWidget, ruleWidget);
+    SetUpLayout(chainEditorUIWidget, chainWidget);
+    SetUpLayout(dnsEditorUIWidget, dnsWidget);
     //
     nodeDispatcher->LoadFullConfig(root);
     dnsWidget->SetDNSObject(DNSObject::fromJson(root["dns"].toObject()), FakeDNSObject::fromJson(root["fakedns"].toObject()));
@@ -124,6 +122,10 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog("Ro
     // Set default outboung combo text AFTER adding all outbounds.
     defaultOutboundTag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
     defaultOutboundCombo->setCurrentText(defaultOutboundTag);
+    //
+    bfListenIPTxt->setText(root["browserForwarder"].toObject()["listenAddr"].toString());
+    bfListenPortTxt->setValue(root["browserForwarder"].toObject()["listenPort"].toInt());
+    obSubjectSelectorTxt->setPlainText(root["observatory"].toObject()["subjectSelector"].toVariant().toStringList().join(NEWLINE));
 
     for (const auto &group : ConnectionManager->AllGroups())
     {
@@ -261,6 +263,7 @@ CONFIGROOT RouteEditor::OpenEditor()
         o.tag = out.getDisplayName();
         o.selector = out.outboundTags;
         balancersArray << o.toJson();
+        o.strategy.type = out.strategyType;
     }
 
     QJsonObject routingObject;
@@ -269,7 +272,6 @@ CONFIGROOT RouteEditor::OpenEditor()
     routingObject["balancers"] = balancersArray;
     root["routing"] = routingObject;
 
-    //
     // QJsonArray Outbounds
     QJsonArray outboundsArray;
 
@@ -290,19 +292,29 @@ CONFIGROOT RouteEditor::OpenEditor()
             outboundsArray.append(outboundJsonObject);
     }
     root["outbounds"] = outboundsArray;
+    // Process DNS
     const auto &[dns, fakedns] = dnsWidget->GetDNSObject();
     root["dns"] = GenerateDNS(dns);
     root["fakedns"] = fakedns.toJson();
+    {
+        // Process Browser Forwarder
+        QJsonObject browserForwarder;
+        browserForwarder["listenAddr"] = bfListenIPTxt->text();
+        browserForwarder["listenPort"] = bfListenPortTxt->value();
+        root["browserForwarder"] = browserForwarder;
+    }
+    {
+        // Process Observatory
+        QJsonObject observatory;
+        observatory["subjectSelector"] = QJsonArray::fromStringList(SplitLines(obSubjectSelectorTxt->toPlainText()));
+        root["observatory"] = observatory;
+    }
     return root;
 }
 
 RouteEditor::~RouteEditor()
 {
     nodeDispatcher->LockOperation();
-}
-
-void RouteEditor::on_buttonBox_accepted()
-{
 }
 
 void RouteEditor::on_insertDirectBtn_clicked()
@@ -312,6 +324,7 @@ void RouteEditor::on_insertDirectBtn_clicked()
     auto out = GenerateOutboundEntry(tag, "freedom", freedom, {});
     // ADD NODE
     const auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(out));
+    Q_UNUSED(_)
     statusLabel->setText(tr("Added DIRECT outbound"));
 }
 
@@ -333,6 +346,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
                                                      httpSettings,                    //
                                                      inboundConfig.httpSettings.sniffing ? sniffingOn : sniffingOff);
         const auto _ = nodeDispatcher->CreateInbound(httpConfig);
+        Q_UNUSED(_)
     }
     if (inboundConfig.useSocks)
     {
@@ -366,6 +380,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
             tProxyIn.insert("sniffing", tproxy_sniff);
             tProxyIn.insert("streamSettings", tproxy_streamSettings);
             auto _ = nodeDispatcher->CreateInbound(tProxyIn);
+            Q_UNUSED(_)
         }
         if (!ts.tProxyV6IP.isEmpty())
         {
@@ -373,6 +388,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
             tProxyV6In.insert("sniffing", tproxy_sniff);
             tProxyV6In.insert("streamSettings", tproxy_streamSettings);
             auto _ = nodeDispatcher->CreateInbound(tProxyV6In);
+            Q_UNUSED(_)
         }
 #undef ts
     }
@@ -385,6 +401,7 @@ void RouteEditor::on_insertBlackBtn_clicked()
     auto tag = "BlackHole-" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto outbound = GenerateOutboundEntry(tag, "blackhole", blackHole, {});
     const auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(outbound));
+    Q_UNUSED(_)
 }
 
 void RouteEditor::on_addInboundBtn_clicked()
@@ -396,6 +413,7 @@ void RouteEditor::on_addInboundBtn_clicked()
     if (w.result() == QDialog::Accepted)
     {
         auto _ = nodeDispatcher->CreateInbound(_result);
+        Q_UNUSED(_)
     }
 }
 
@@ -434,6 +452,7 @@ void RouteEditor::on_importExistingBtn_clicked()
         auto outbound = OUTBOUND(root["outbounds"].toArray()[0].toObject());
         outbound["tag"] = GetDisplayName(_id);
         auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(outbound));
+        Q_UNUSED(_)
     };
 
     const auto cid = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
@@ -460,6 +479,7 @@ void RouteEditor::on_linkExistingBtn_clicked()
 {
     const auto ImportConnection = [this](const ConnectionId &_id) {
         auto _ = nodeDispatcher->CreateOutbound(make_external_outbound(_id, GetDisplayName(_id)));
+        Q_UNUSED(_)
     };
 
     const auto cid = ConnectionId{ importConnBtn->currentData(Qt::UserRole).toString() };
@@ -497,11 +517,13 @@ void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
 void RouteEditor::on_addBalancerBtn_clicked()
 {
     auto _ = nodeDispatcher->CreateOutbound(make_balancer_outbound({}, "Balancer"));
+    Q_UNUSED(_)
 }
 
 void RouteEditor::on_addChainBtn_clicked()
 {
     auto _ = nodeDispatcher->CreateOutbound(make_chained_outbound({}, "Chained Outbound"));
+    Q_UNUSED(_)
 }
 
 void RouteEditor::on_debugPainterCB_clicked(bool checked)
@@ -534,6 +556,7 @@ void RouteEditor::on_importOutboundBtn_clicked()
         for (int i = 0; i < confList.count(); i++)
         {
             auto _ = nodeDispatcher->CreateOutbound(make_normal_outbound(OUTBOUND(confList[i].toObject())));
+            Q_UNUSED(_)
         }
     }
 }

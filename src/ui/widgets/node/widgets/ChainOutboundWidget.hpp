@@ -15,4 +15,9 @@ class ChainOutboundWidget
 
   protected:
     void changeEvent(QEvent *e);
+  private slots:
+    void on_chainPortSB_valueChanged(int arg1);
+
+  private:
+    std::shared_ptr<OutboundObjectMeta> chain;
 };

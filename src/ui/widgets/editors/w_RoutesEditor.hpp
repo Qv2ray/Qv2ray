@@ -48,7 +48,6 @@ class RouteEditor
     void on_addDefaultBtn_clicked();
     void on_addInboundBtn_clicked();
     void on_addOutboundBtn_clicked();
-    void on_buttonBox_accepted();
     void on_debugPainterCB_clicked(bool checked);
     void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
     void on_domainStrategyCombo_currentIndexChanged(int arg1);
