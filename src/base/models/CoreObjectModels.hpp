@@ -312,7 +312,7 @@ namespace Qv2ray::base::objects
     {
         Q_OBJECT
       public:
-        QJS_PROP_D(QString, ipPool, "240.0.0.0/8", REQUIRED)
+        QJS_PROP_D(QString, ipPool, "198.18.0.0/15", REQUIRED)
         QJS_PROP_D(int, poolSize, 65535)
         QJS_FUNCTION(FakeDNSObject, F(ipPool, poolSize))
     };
