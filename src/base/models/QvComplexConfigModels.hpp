@@ -62,6 +62,7 @@ namespace Qv2ray::base::objects::complex
         //
         ConnectionId connectionId;
         QList<QString> outboundTags;
+        QString strategyType;
         int chainPortAllocation = QV2RAY_CHAINED_OUTBOUND_PORT_ALLOCATION;
         //
         safetype::OUTBOUND realOutbound;
@@ -80,7 +81,7 @@ namespace Qv2ray::base::objects::complex
             return meta;
         }
         OutboundObjectMeta() : metaType(METAOUTBOUND_ORIGINAL){};
-        QJS_PLAIN_JSON(metaType, displayName, connectionId, outboundTags, chainPortAllocation)
+        QJS_PLAIN_JSON(metaType, displayName, connectionId, outboundTags, chainPortAllocation, strategyType)
     };
 
     inline OutboundObjectMeta make_chained_outbound(const QList<QString> &chain, const QString &tag)

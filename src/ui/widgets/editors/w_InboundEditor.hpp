@@ -48,6 +48,10 @@ class InboundEditor
 
     void on_sniffMetaDataOnlyCB_clicked(bool checked);
 
+    void on_sniffFakeDNSOtherCB_stateChanged(int arg1);
+
+    void on_sniffFakeDNSCB_stateChanged(int arg1);
+
   private:
     StreamSettingsWidget *streamSettingsWidget;
     INBOUND getResult();

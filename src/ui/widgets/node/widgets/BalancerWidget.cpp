@@ -19,6 +19,7 @@ void BalancerWidget::setValue(std::shared_ptr<OutboundObjectMeta> data)
     balancerSelectionCombo->addItems(dispatcher->GetRealOutboundTags());
     balancerTagTxt->setText(data->getDisplayName());
     balancerList->addItems(data->outboundTags);
+    strategyCB->setCurrentText(data->strategyType);
 }
 
 void BalancerWidget::changeEvent(QEvent *e)
@@ -85,4 +86,14 @@ void BalancerWidget::on_balancerTagTxt_textEdited(const QString &arg1)
     {
         RED(balancerTagTxt);
     }
+}
+
+void BalancerWidget::on_showHideBtn_clicked()
+{
+    tabWidget->setVisible(!tabWidget->isVisible());
+}
+
+void BalancerWidget::on_strategyCB_currentIndexChanged(const QString &arg1)
+{
+    outboundData->strategyType = arg1;
 }

@@ -16,6 +16,8 @@ class BalancerWidget
     void on_balancerAddBtn_clicked();
     void on_balancerDelBtn_clicked();
     void on_balancerTagTxt_textEdited(const QString &arg1);
+    void on_showHideBtn_clicked();
+    void on_strategyCB_currentIndexChanged(const QString &arg1);
 
   private:
     void OutboundCreated(std::shared_ptr<OutboundObjectMeta>, QtNodes::Node &);

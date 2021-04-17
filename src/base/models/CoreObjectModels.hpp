@@ -99,13 +99,22 @@ namespace Qv2ray::base::objects
                      F(domain, ip, port, sourcePort, network, source, inboundTag, protocol, attrs))
     };
 
+    struct StrategyObject : public QObject
+    {
+        Q_OBJECT
+      public:
+        QJS_PROP_D(QString, type, "random")
+        QJS_FUNCTION(StrategyObject, F(type))
+    };
+
     struct BalancerObject : public QObject
     {
         Q_OBJECT
       public:
         QJS_PROP(QString, tag)
         QJS_PROP(QList<QString>, selector)
-        QJS_FUNCTION(BalancerObject, F(tag, selector))
+        QJS_PROP(StrategyObject, strategy)
+        QJS_FUNCTION(BalancerObject, F(tag, selector, strategy))
     };
 
     namespace transfer
