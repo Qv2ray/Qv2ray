@@ -7,6 +7,18 @@
       <source>Form</source>
       <translation>窗口</translation>
     </message>
+    <message>
+      <source>Show / Hide</source>
+      <translation>显示/隐藏</translation>
+    </message>
+    <message>
+      <source>Selector</source>
+      <translation>选择器</translation>
+    </message>
+    <message>
+      <source>Strategy</source>
+      <translation>Strategy</translation>
+    </message>
   </context>
   <context>
     <name>CertificateItemWidget</name>
@@ -118,6 +130,10 @@
     <message>
       <source>Form</source>
       <translation>窗口</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
     </message>
   </context>
   <context>
@@ -667,12 +683,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>FakeDNS</translation>
     </message>
     <message>
-      <source>Destination Override:</source>
-      <translation>目标覆盖：</translation>
-    </message>
-    <message>
       <source>Metadata Only</source>
       <translation>仅限元数据</translation>
+    </message>
+    <message>
+      <source>FakeDNS-Others</source>
+      <translation>FakeDNS-其他</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>Destination Override</translation>
     </message>
   </context>
   <context>
@@ -2716,6 +2736,30 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Reference Connection</source>
       <translation>引用连接</translation>
+    </message>
+    <message>
+      <source>Misc</source>
+      <translation>其他</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder</source>
+      <translation>浏览器转发器</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <translation>监听地址</translation>
+    </message>
+    <message>
+      <source>:Listening Port</source>
+      <translation>:监听端口</translation>
+    </message>
+    <message>
+      <source> Observatory</source>
+      <translation> 天文台</translation>
+    </message>
+    <message>
+      <source>Subject Selector</source>
+      <translation>主题选择器</translation>
     </message>
   </context>
   <context>
