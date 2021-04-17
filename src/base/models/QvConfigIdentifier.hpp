@@ -53,20 +53,37 @@ namespace Qv2ray::base
     inline const static GroupId NullGroupId;
     inline const static GroupRoutingId NullRoutingId;
 
-    class ConnectionGroupPair : public QObject
+    struct ConnectionGroupPair
     {
-        Q_OBJECT
       public:
+        ConnectionGroupPair(){};
+        ConnectionGroupPair(const ConnectionGroupPair &another)
+        {
+            *this = another;
+        }
+        ConnectionGroupPair &operator=(const ConnectionGroupPair &another)
+        {
+            connectionId = another.connectionId;
+            groupId = another.groupId;
+            return *this;
+        }
+        friend bool operator==(const ConnectionGroupPair &one, const ConnectionGroupPair &another)
+        {
+            return one.connectionId == another.connectionId && one.groupId == another.groupId;
+        }
+        friend bool operator!=(const ConnectionGroupPair &one, const ConnectionGroupPair &another)
+        {
+            return !(one == another);
+        }
         ConnectionGroupPair(const ConnectionId &conn, const GroupId &group)
         {
             connectionId = conn;
             groupId = group;
         }
 
-        QJS_PROP_D(ConnectionId, connectionId, NullConnectionId)
-        QJS_PROP_D(GroupId, groupId, NullGroupId)
+        ConnectionId connectionId = NullConnectionId;
+        GroupId groupId = NullGroupId;
 
-      public slots:
         void clear()
         {
             connectionId = NullConnectionId;
@@ -78,7 +95,7 @@ namespace Qv2ray::base
         {
             return groupId == NullGroupId || connectionId == NullConnectionId;
         }
-        QJS_FUNCTION(ConnectionGroupPair, F(connectionId, groupId))
+        QJS_PLAIN_JSON(connectionId, groupId)
     };
 
     constexpr unsigned int LATENCY_TEST_VALUE_ERROR = 99999;
@@ -255,7 +272,7 @@ namespace Qv2ray::base
     }
     inline size_t qHash(const Qv2ray::base::ConnectionGroupPair &pair)
     {
-        return ::qHash(pair.connectionId->toString() + pair.groupId->toString());
+        return ::qHash(pair.connectionId.toString() + pair.groupId.toString());
     }
 } // namespace Qv2ray::base
 

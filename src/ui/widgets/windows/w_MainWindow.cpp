@@ -964,7 +964,7 @@ void MainWindow::Action_UpdateSubscription()
         {
             if (widget->IsConnection())
                 return;
-            const auto gid = *widget->Identifier().groupId;
+            const auto gid = widget->Identifier().groupId;
             if (ConnectionManager->GetGroupMetaObject(gid).isSubscription)
                 ConnectionManager->UpdateSubscriptionAsync(gid);
             else
@@ -1027,7 +1027,7 @@ void MainWindow::on_newConnectionBtn_clicked()
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         const auto item = connectionTreeView->currentIndex();
-        const auto id = item.isValid() ? *GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
+        const auto id = item.isValid() ? GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
         ConnectionManager->CreateConnection(root, alias, id);
     }
 }
@@ -1040,7 +1040,7 @@ void MainWindow::on_newComplexConnectionBtn_clicked()
     if (isChanged)
     {
         const auto item = connectionTreeView->currentIndex();
-        const auto id = item.isValid() ? *GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
+        const auto id = item.isValid() ? GetIndexWidget(item)->Identifier().groupId : DefaultGroupId;
         ConnectionManager->CreateConnection(root, QJsonIO::GetValue(root, "outbounds", 0, "tag").toString(), id);
     }
 }

@@ -134,12 +134,14 @@ namespace Qv2ray::core
 
     const QString GetDisplayName(const ConnectionId &id, int limit)
     {
-        return TruncateString(ConnectionManager->GetConnectionMetaObject(id).displayName, limit);
+        const QString name = ConnectionManager->GetConnectionMetaObject(id).displayName;
+        return TruncateString(name, limit);
     }
 
     const QString GetDisplayName(const GroupId &id, int limit)
     {
-        return TruncateString(ConnectionManager->GetGroupMetaObject(id).displayName, limit);
+        const QString name = ConnectionManager->GetGroupMetaObject(id).displayName;
+        return TruncateString(name, limit);
     }
 
     bool GetInboundInfo(const INBOUND &in, QString *listen, int *port, QString *protocol)

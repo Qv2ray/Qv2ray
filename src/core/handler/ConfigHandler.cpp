@@ -35,7 +35,7 @@ namespace Qv2ray::core::handler
                 connections[connId].__qvConnectionRefCount++;
             }
         }
-        //
+
         for (const auto &id : connections.keys())
         {
             auto const &connectionObject = connections.value(id);
