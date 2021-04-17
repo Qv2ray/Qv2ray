@@ -9,11 +9,11 @@
     </message>
     <message>
       <source>Show / Hide</source>
-      <translation type="unfinished">Show / Hide</translation>
+      <translation>显示/隐藏</translation>
     </message>
     <message>
       <source>Selector</source>
-      <translation type="unfinished">Selector</translation>
+      <translation>选择器</translation>
     </message>
     <message>
       <source>Strategy</source>
@@ -687,7 +687,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS-Others</source>
-      <translation type="unfinished">FakeDNS-Others</translation>
+      <translation>FakeDNS-其他</translation>
     </message>
     <message>
       <source>Destination Override</source>
@@ -2794,11 +2794,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Misc</source>
-      <translation type="unfinished">Misc</translation>
+      <translation>其他</translation>
     </message>
     <message>
       <source>Browser Forwarder</source>
-      <translation type="unfinished">Browser Forwarder</translation>
+      <translation>浏览器转发器</translation>
     </message>
     <message>
       <source>Listening Address</source>
@@ -2806,15 +2806,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>:Listening Port</source>
-      <translation type="unfinished">:Listening Port</translation>
+      <translation>:监听端口</translation>
     </message>
     <message>
       <source> Observatory</source>
-      <translation type="unfinished"> Observatory</translation>
+      <translation> 天文台</translation>
     </message>
     <message>
       <source>Subject Selector</source>
-      <translation type="unfinished">Subject Selector</translation>
+      <translation>主题选择器</translation>
     </message>
   </context>
   <context>
