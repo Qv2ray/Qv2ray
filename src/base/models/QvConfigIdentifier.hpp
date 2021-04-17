@@ -246,9 +246,22 @@ namespace Qv2ray::base
         QJS_PROP_D(qint64, latency, LATENCY_TEST_VALUE_NODATA)
         QJS_PROP_D(ConnectionImportSource, importSource, IMPORT_SOURCE_MANUAL)
         QJS_PROP(ConnectionStatsObject, stats)
-        //
         int __qvConnectionRefCount = 0;
-        QJS_FUNCTION(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
+
+      public:
+        ConnectionObject(const ConnectionObject &another)
+        {
+            *this = another;
+        }
+        ConnectionObject &operator=(const ConnectionObject &___another___instance__)
+        {
+            FOR_EACH(_QJS_COPY_BF, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase));
+            __qvConnectionRefCount = ___another___instance__.__qvConnectionRefCount;
+            return *this;
+        }
+        QJS_FUNCTION_DEFAULT_CONSTRUCTOR(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase))
+        QJS_FUNC_JSON(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase));
+        QJS_FUNC_COMP(ConnectionObject, F(lastConnected, latency, importSource, stats), B(__Qv2rayConfigObjectBase));
     };
 
     struct ProtocolSettingsInfoObject

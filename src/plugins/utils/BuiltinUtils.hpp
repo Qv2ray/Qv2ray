@@ -19,7 +19,7 @@ class InternalUtilsPlugin
     {
         return { "Builtin Ultilities",                //
                  "Qv2ray Core Workgroup",             //
-                 "builtin_utils",                     //
+                 "qv2ray_builtin_utils",              //
                  "Some useful ultilities for Qv2ray", //
                  QV2RAY_VERSION_STRING,               //
                  "Qv2ray/Qv2ray",                     //

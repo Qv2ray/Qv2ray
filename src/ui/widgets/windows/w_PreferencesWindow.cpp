@@ -399,7 +399,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         StyleManager->ApplyStyle(CurrentConfig.uiConfig->theme);
     }
 
-    GlobalConfig.loadJson(CurrentConfig.toJson());
+    GlobalConfig = CurrentConfig;
     SaveGlobalSettings();
 
     UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
@@ -995,17 +995,17 @@ void PreferencesWindow::on_qvProxySystemProxy_clicked()
     CurrentConfig.networkConfig->proxyType = QVPROXY_SYSTEM;
     SET_PROXY_UI_ENABLE(false);
     qvProxyNoProxy->setChecked(false);
-    qvProxyCustomProxy->setChecked(false);
     qvProxySystemProxy->setChecked(true);
+    qvProxyCustomProxy->setChecked(false);
 }
 
 void PreferencesWindow::on_qvProxyNoProxy_clicked()
 {
     CurrentConfig.networkConfig->proxyType = QVPROXY_NONE;
     SET_PROXY_UI_ENABLE(false);
+    qvProxyNoProxy->setChecked(true);
     qvProxySystemProxy->setChecked(false);
     qvProxyCustomProxy->setChecked(false);
-    qvProxyNoProxy->setChecked(true);
 }
 
 void PreferencesWindow::on_dnsFreedomCb_stateChanged(int arg1)

@@ -21,7 +21,7 @@ class InternalSubscriptionSupportPlugin
     {
         return { "Builtin Subscription Support",          //
                  "Qv2ray Core Workgroup",                 //
-                 "builtin_subscription_support",          //
+                 "qv2ray_builtin_subscription",           //
                  "Basic subscription support for Qv2ray", //
                  QV2RAY_VERSION_STRING,                   //
                  "Qv2ray/Qv2ray",                         //

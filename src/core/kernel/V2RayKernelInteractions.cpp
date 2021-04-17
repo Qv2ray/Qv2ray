@@ -241,10 +241,9 @@ namespace Qv2ray::core::kernel
         QMap<bool, QMap<QString, QString>> tagProtocolMap;
         for (const auto isOutbound : { *GlobalConfig.uiConfig->graphConfig->useOutboundStats, false })
         {
-            QMap<bool, QMap<QString, QString>> tagProtocolMap;
             for (const auto &item : root[isOutbound ? "outbounds" : "inbounds"].toArray())
             {
-                const auto tag = item.toObject()["tag"].toString("");
+                const auto tag = item.toObject()["tag"].toString();
                 if (tag == API_TAG_INBOUND)
                     continue;
                 if (tag.isEmpty())

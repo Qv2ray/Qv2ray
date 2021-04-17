@@ -13,7 +13,7 @@
 
 struct HTTPSOCKSUserObject : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QJS_PROP(QString, user)
     QJS_PROP(QString, pass)
     QJS_PROP(int, level)
@@ -23,7 +23,7 @@ struct HTTPSOCKSUserObject : public QObject
 // Socks, OutBound
 struct SocksServerObject : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QJS_PROP_D(QString, address, "0.0.0.0")
     QJS_PROP_D(int, port, 0)
     QJS_PROP(QList<HTTPSOCKSUserObject>, users)
@@ -34,7 +34,7 @@ struct SocksServerObject : public QObject
 // Http, OutBound
 struct HttpServerObject : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QJS_PROP_D(QString, address, "0.0.0.0")
     QJS_PROP_D(int, port, 0)
     QJS_PROP(QList<HTTPSOCKSUserObject>, users)
@@ -45,7 +45,7 @@ struct HttpServerObject : public QObject
 // ShadowSocks Server
 struct ShadowSocksServerObject : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QJS_PROP_D(QString, address, "0.0.0.0")
     QJS_PROP_D(int, port, 0)
     QJS_PROP_D(QString, method, "aes-256-gcm")
@@ -55,7 +55,7 @@ struct ShadowSocksServerObject : public QObject
 
 struct VLESSUserObject : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QJS_PROP_D(QString, encryption, "none")
     QJS_PROP(QString, id)
     QJS_PROP(QString, flow)
@@ -66,7 +66,7 @@ struct VLESSUserObject : public QObject
 // VLESS Server
 struct VLESSServerObject : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QJS_PROP_D(QString, address, "0.0.0.0")
     QJS_PROP_D(int, port, 0)
     QJS_PROP(QList<VLESSUserObject>, users)
@@ -76,7 +76,7 @@ struct VLESSServerObject : public QObject
 constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;
 struct VMessUserObject : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QJS_PROP_D(int, alterId, VMESS_USER_ALTERID_DEFAULT)
     QJS_PROP_D(QString, security, "auto")
     QJS_PROP_D(int, level, 0)
@@ -88,7 +88,7 @@ struct VMessUserObject : public QObject
 // VMess Server
 struct VMessServerObject : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QJS_PROP_D(QString, address, "0.0.0.0", REQUIRED)
     QJS_PROP_D(int, port, 0, REQUIRED)
     QJS_PROP(QList<VMessUserObject>, users)
