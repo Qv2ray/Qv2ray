@@ -3101,10 +3101,6 @@ Maybe you have downloaded the wrong core?</source>
       <translation>TLS設定</translation>
     </message>
     <message>
-      <source>Allow Insecure Certificates</source>
-      <translation>安全でない証明書を許可する</translation>
-    </message>
-    <message>
       <source>ALPN</source>
       <translation>ALPN</translation>
     </message>
@@ -3187,10 +3183,6 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Certificates</source>
       <translation>証明書</translation>
-    </message>
-    <message>
-      <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation>AllowInsecure is insecure, do not allowed insecure.</translation>
     </message>
     <message>
       <source>Service Name</source>
