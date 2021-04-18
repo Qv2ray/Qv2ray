@@ -79,7 +79,7 @@ namespace Qv2ray::core::connection
             // Reset errMessage
             *errMessage = "";
 
-            if (!vmess.toLower().startsWith("vmess://"))
+            if (!qAsConst(vmess).toLower().startsWith("vmess://"))
             {
                 *errMessage = QObject::tr("VMess string should start with 'vmess://'");
                 return default;
@@ -128,7 +128,7 @@ namespace Qv2ray::core::connection
             //
 #define __vmess_checker__func(key, values)                                                                                                           \
     {                                                                                                                                                \
-        auto val = QStringList() values;                                                                                                             \
+        auto val = QVector<QString>() values;                                                                                                        \
         if (vmessConf.contains(#key) && !vmessConf[#key].toVariant().toString().trimmed().isEmpty() &&                                               \
             (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString())))                                                               \
         {                                                                                                                                            \
@@ -170,45 +170,41 @@ namespace Qv2ray::core::connection
             // Get Alias (AKA ps) from address and port.
             {
                 // Some idiot vmess:// links are using alterId...
-                aid = vmessConf.contains("aid") ? vmessConf.value("aid").toInt(VMESS_USER_ALTERID_DEFAULT) :
-                                                  vmessConf.value("alterId").toInt(VMESS_USER_ALTERID_DEFAULT);
-                //
-                //
-                __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString()); //
-                __vmess_checker__func(add, nothing);                                                                                    //
-                __vmess_checker__func(id, nothing);                                                                                     //
-                __vmess_checker__func(type, << "none"                                                                                   //
-                                            << "http"                                                                                   //
-                                            << "srtp"                                                                                   //
-                                            << "utp"                                                                                    //
-                                            << "wechat-video");                                                                         //
-                                                                                                                                        //
-                __vmess_checker__func(net, << "tcp"                                                                                     //
-                                           << "http"                                                                                    //
-                                           << "h2"                                                                                      //
-                                           << "ws"                                                                                      //
-                                           << "kcp"                                                                                     //
-                                           << "domainsocket"                                                                            //
-                                           << "quic");                                                                                  //
-                                                                                                                                        //
-                __vmess_checker__func(tls, << "none"                                                                                    //
-                                           << "tls");                                                                                   //
+                aid = vmessConf.value(vmessConf.contains("aid") ? "aid" : "alterId").toVariant().toInt();
+                __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString());
+                __vmess_checker__func(add, nothing);
+                __vmess_checker__func(id, nothing);
+                __vmess_checker__func(type, << "none"
+                                            << "http"
+                                            << "srtp"
+                                            << "utp"
+                                            << "wechat-video");
+
+                __vmess_checker__func(net, << "tcp"
+                                           << "http"
+                                           << "h2"
+                                           << "ws"
+                                           << "kcp"
+                                           << "domainsocket"
+                                           << "quic");
+
+                __vmess_checker__func(tls, << "none"
+                                           << "tls");
                 path = vmessConf.contains("path") ? vmessConf["path"].toVariant().toString() : (net == "quic" ? "" : "/");
                 host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "");
             }
 
             // Repect connection type rather than obfs type
-            if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type)) //
-            {                                                                //
-                if (net != "quic" && net != "kcp")                           //
-                {                                                            //
-                    LOG("Reset obfs settings from " + type + " to none");    //
-                    type = "none";                                           //
-                }                                                            //
+            if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))
+            {
+                if (net != "quic" && net != "kcp")
+                {
+                    LOG("Reset obfs settings from " + type + " to none");
+                    type = "none";
+                }
             }
 
             port = vmessConf["port"].toVariant().toInt();
-            aid = vmessConf["aid"].toVariant().toInt();
             //
             // Apply the settings.
             // User

@@ -3083,10 +3083,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Allow Insecure Certificates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ALPN</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3168,10 +3164,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Certificates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AllowInsecure is insecure, do not allow insecure.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

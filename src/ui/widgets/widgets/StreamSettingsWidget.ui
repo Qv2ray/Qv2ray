@@ -728,19 +728,6 @@
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
-        <widget class="QCheckBox" name="allowInsecureCB">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>AllowInsecure is insecure, do not allow insecure.</string>
-         </property>
-         <property name="text">
-          <string>Allow Insecure Certificates</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
         <widget class="QCheckBox" name="disableSessionResumptionCB">
          <property name="text">
           <string>Disable Session Resumption</string>
@@ -750,34 +737,41 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Server Address (SNI)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="serverNameTxt"/>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_14">
-         <property name="text">
-          <string>ALPN</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="alpnTxt"/>
-       </item>
-       <item row="3" column="0" colspan="2">
+       <item row="2" column="0" colspan="2">
         <widget class="QCheckBox" name="disableSystemRoot">
          <property name="text">
           <string>Disable System Root Certificates</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Server Address (SNI)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="serverNameTxt"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>ALPN</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="alpnTxt"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Certificates</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
         <widget class="QPushButton" name="openCertEditorBtn">
          <property name="enabled">
           <bool>false</bool>
@@ -787,13 +781,6 @@
          </property>
          <property name="text">
           <string>Open Certificate Editor</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Certificates</string>
          </property>
         </widget>
        </item>
@@ -883,7 +870,6 @@
   <tabstop>quicSecurityCB</tabstop>
   <tabstop>quicKeyTxt</tabstop>
   <tabstop>quicHeaderTypeCB</tabstop>
-  <tabstop>allowInsecureCB</tabstop>
   <tabstop>serverNameTxt</tabstop>
   <tabstop>soMarkSpinBox</tabstop>
   <tabstop>tcpFastOpenCB</tabstop>
