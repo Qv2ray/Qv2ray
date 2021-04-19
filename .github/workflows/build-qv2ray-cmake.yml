@@ -49,7 +49,7 @@ jobs:
       - name: Checking out sources
         uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       - name: Install Python 3.7 version
         uses: actions/setup-python@v1
         with:
@@ -111,7 +111,6 @@ jobs:
           cd ./libs
           ./setup-libs.sh windows ${{ matrix.arch }}
       # ========================================================================================================= Generate MakeFile and Build
-
       - uses: actions/setup-node@v1
         if: matrix.platform == 'macos-latest'
         with:
@@ -157,8 +156,8 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         shell: bash
         env:
-          CC: /usr/bin/gcc-7
-          CXX: /usr/bin/g++-7
+          CC: /usr/bin/gcc-9
+          CXX: /usr/bin/g++-9
         run: |
           mkdir build
           cd build
