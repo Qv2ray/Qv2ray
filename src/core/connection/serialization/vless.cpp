@@ -140,6 +140,28 @@ namespace Qv2ray::core::connection
                         QJsonIO::SetValue(stream, headerType, { "quicSettings", "header", "type" });
                 }
             }
+            else if (type == "grpc")
+            {
+                const auto hasServiceName = query.hasQueryItem("serviceName");
+                if (hasServiceName)
+                {
+                    const auto serviceName = QUrl::fromPercentEncoding(query.queryItemValue("serviceName").toUtf8());
+                    if (serviceName != "GunService")
+                    {
+                        QJsonIO::SetValue(stream, serviceName, { "grpcSettings", "serviceName" });
+                    }
+                }
+
+                const auto hasMode = query.hasQueryItem("mode");
+                if (hasMode)
+                {
+                    const auto mode = query.queryItemValue("mode");
+                    if (mode == "multi")
+                    {
+                        QJsonIO::SetValue(stream, true, { "grpcSettings", "multiMode" });
+                    }
+                }
+            }
 
             // tls-wise settings
             const auto hasSecurity = query.hasQueryItem("security");
