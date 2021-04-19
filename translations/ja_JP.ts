@@ -1673,10 +1673,6 @@ Custom DNS Settings</source>
       <translation>無効なインバウンドリスニングアドレス。</translation>
     </message>
     <message>
-      <source>Invalid tproxy listening ivp4 address.</source>
-      <translation>無効なtProxyリスニングIPv4アドレス。</translation>
-    </message>
-    <message>
       <source>Invalid tproxy listening ipv6 address.</source>
       <translation>無効なtProxyリスニングIPv6アドレス。</translation>
     </message>
@@ -1983,6 +1979,10 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message>
       <source>FakeDNS</source>
       <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>Invalid tproxy listening ipv4 address.</source>
+      <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
     </message>
   </context>
   <context>
