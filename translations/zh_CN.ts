@@ -7,6 +7,18 @@
       <source>Form</source>
       <translation>窗体</translation>
     </message>
+    <message>
+      <source>Show / Hide</source>
+      <translation>显示/隐藏</translation>
+    </message>
+    <message>
+      <source>Selector</source>
+      <translation>选择器</translation>
+    </message>
+    <message>
+      <source>Strategy</source>
+      <translation>策略</translation>
+    </message>
   </context>
   <context>
     <name>CertificateItemWidget</name>
@@ -118,6 +130,10 @@
     <message>
       <source>Form</source>
       <translation>窗体</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
     </message>
   </context>
   <context>
@@ -378,19 +394,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Fallback</source>
-      <translation>禁用后退</translation>
+      <translation>禁用回退查询</translation>
     </message>
     <message>
       <source>Miscellaneous</source>
-      <translation>其他事项</translation>
+      <translation>杂项</translation>
     </message>
     <message>
       <source>Fake DNS IP Pool</source>
-      <translation>假名 DNS IP 库</translation>
+      <translation>FakeDNS IP 库</translation>
     </message>
     <message>
       <source>Fake DNS Pool Size</source>
-      <translation>假名 DNS 池大小</translation>
+      <translation>FakeDNS 池大小</translation>
     </message>
   </context>
   <context>
@@ -666,12 +682,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>FakeDNS</translation>
     </message>
     <message>
-      <source>Destination Override:</source>
-      <translation>目标覆盖:</translation>
-    </message>
-    <message>
       <source>Metadata Only</source>
       <translation>仅限元数据</translation>
+    </message>
+    <message>
+      <source>FakeDNS-Others</source>
+      <translation>FakeDNS-其他</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>目标覆盖</translation>
     </message>
   </context>
   <context>
@@ -812,10 +832,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>  Log</source>
       <translation>  日志</translation>
-    </message>
-    <message>
-      <source>Clear log</source>
-      <translation>清除日志</translation>
     </message>
     <message>
       <source>Not Connected</source>
@@ -1132,6 +1148,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Disable Bypassing CN Mainland</source>
       <translation>禁用绕过中国大陆</translation>
+    </message>
+    <message>
+      <source>Clear log</source>
+      <translation>清除日志</translation>
     </message>
   </context>
   <context>
@@ -1653,10 +1673,6 @@ Custom DNS Settings</source>
       <translation>入站监听地址不可用。</translation>
     </message>
     <message>
-      <source>Invalid tproxy listening ivp4 address.</source>
-      <translation>无效的透明代理 IPv4 监听地址。</translation>
-    </message>
-    <message>
       <source>Invalid tproxy listening ipv6 address.</source>
       <translation>无效的透明代理 IPv6 监听地址。</translation>
     </message>
@@ -1963,6 +1979,10 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
       <source>FakeDNS</source>
       <translation>FakeDNS</translation>
+    </message>
+    <message>
+      <source>Invalid tproxy listening ipv4 address.</source>
+      <translation>无效的 tproxy 监听ipv4 地址。</translation>
     </message>
   </context>
   <context>
@@ -2730,11 +2750,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Add Inbound from Global Settings</source>
-      <translation>从全局设置中添加输入</translation>
+      <translation>从全局设置中添加入站</translation>
     </message>
     <message>
       <source>Import Outbound</source>
-      <translation>导出导出</translation>
+      <translation>导入出站</translation>
     </message>
     <message>
       <source>Add Outbound</source>
@@ -2771,6 +2791,30 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Reference Connection</source>
       <translation>引用连接</translation>
+    </message>
+    <message>
+      <source>Misc</source>
+      <translation>其他</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder</source>
+      <translation>浏览器转发器</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <translation>监听地址</translation>
+    </message>
+    <message>
+      <source>:Listening Port</source>
+      <translation>:监听端口</translation>
+    </message>
+    <message>
+      <source> Observatory</source>
+      <translation> 天文台</translation>
+    </message>
+    <message>
+      <source>Subject Selector</source>
+      <translation>主题选择器</translation>
     </message>
   </context>
   <context>
@@ -3019,33 +3063,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
   </context>
   <context>
-    <name>SpeedWidget</name>
-    <message>
-      <source>Proxy ↑</source>
-      <translation>代理↑</translation>
-    </message>
-    <message>
-      <source>Proxy ↓</source>
-      <translation>代理↓</translation>
-    </message>
-    <message>
-      <source>Direct ↑</source>
-      <translation>直连↑</translation>
-    </message>
-    <message>
-      <source>Direct ↓</source>
-      <translation>直连↓</translation>
-    </message>
-    <message>
-      <source>Total ↑</source>
-      <translation>总计↑</translation>
-    </message>
-    <message>
-      <source>Total ↓</source>
-      <translation>总计↓</translation>
-    </message>
-  </context>
-  <context>
     <name>StreamSettingsWidget</name>
     <message>
       <source>Stream Settings Widget</source>
@@ -3209,7 +3226,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation>允许不安全，不允许不安全。</translation>
+      <translation>AllowInsecure 是不安全的，请勿 AllowInsecure。</translation>
     </message>
     <message>
       <source>Service Name</source>
@@ -3217,7 +3234,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>grpc</source>
-      <translation>格子</translation>
+      <translation>grpc</translation>
+    </message>
+    <message>
+      <source>Max Early Data</source>
+      <translation>最大早期数据</translation>
+    </message>
+    <message>
+      <source>Browser Forwarding</source>
+      <translation>浏览器转发中</translation>
     </message>
   </context>
   <context>
@@ -3761,7 +3786,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
-      <translation>VMessMD5使用非零变压器ID已废弃，请使用 VMessAEAD</translation>
+      <translation>VMess MD5 使用非零 AlterID 已废弃，请使用 VMessAEAD</translation>
     </message>
   </context>
   <context>
@@ -3780,6 +3805,21 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Qv2ray Utilities</source>
       <translation>Qv2ray 工具</translation>
+    </message>
+  </context>
+  <context>
+    <name>SpeedWidget</name>
+    <message>
+      <source>Proxy</source>
+      <translation>代理</translation>
+    </message>
+    <message>
+      <source>Direct</source>
+      <translation>直连</translation>
+    </message>
+    <message>
+      <source>Total</source>
+      <translation>总计</translation>
     </message>
   </context>
 </TS>

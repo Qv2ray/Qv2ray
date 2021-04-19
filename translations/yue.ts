@@ -7,6 +7,18 @@
       <source>Form</source>
       <translation>窗口</translation>
     </message>
+    <message>
+      <source>Show / Hide</source>
+      <translation type="unfinished">Show / Hide</translation>
+    </message>
+    <message>
+      <source>Selector</source>
+      <translation type="unfinished">Selector</translation>
+    </message>
+    <message>
+      <source>Strategy</source>
+      <translation type="unfinished">Strategy</translation>
+    </message>
   </context>
   <context>
     <name>CertificateItemWidget</name>
@@ -118,6 +130,10 @@
     <message>
       <source>Form</source>
       <translation>窗口</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
     </message>
   </context>
   <context>
@@ -669,12 +685,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation type="unfinished">FakeDNS</translation>
     </message>
     <message>
-      <source>Destination Override:</source>
-      <translation type="unfinished">Destination Override:</translation>
-    </message>
-    <message>
       <source>Metadata Only</source>
       <translation type="unfinished">Metadata Only</translation>
+    </message>
+    <message>
+      <source>FakeDNS-Others</source>
+      <translation type="unfinished">FakeDNS-Others</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation type="unfinished">Destination Override</translation>
     </message>
   </context>
   <context>
@@ -815,10 +835,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>  Log</source>
       <translation type="unfinished">  Log</translation>
-    </message>
-    <message>
-      <source>Clear log</source>
-      <translation type="unfinished">Clear log</translation>
     </message>
     <message>
       <source>Not Connected</source>
@@ -1143,6 +1159,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Disable Bypassing CN Mainland</source>
       <translation type="unfinished">Disable Bypassing CN Mainland</translation>
+    </message>
+    <message>
+      <source>Clear log</source>
+      <translation type="unfinished">Clear log</translation>
     </message>
   </context>
   <context>
@@ -1664,10 +1684,6 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Invalid inbound listening address.</translation>
     </message>
     <message>
-      <source>Invalid tproxy listening ivp4 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ivp4 address.</translation>
-    </message>
-    <message>
       <source>Invalid tproxy listening ipv6 address.</source>
       <translation type="unfinished">Invalid tproxy listening ipv6 address.</translation>
     </message>
@@ -1974,6 +1990,10 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
     <message>
       <source>FakeDNS</source>
       <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Invalid tproxy listening ipv4 address.</source>
+      <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
     </message>
   </context>
   <context>
@@ -2789,6 +2809,30 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Reference Connection</source>
       <translation type="unfinished">Reference Connection</translation>
     </message>
+    <message>
+      <source>Misc</source>
+      <translation type="unfinished">Misc</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder</source>
+      <translation type="unfinished">Browser Forwarder</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <translation type="unfinished">Listening Address</translation>
+    </message>
+    <message>
+      <source>:Listening Port</source>
+      <translation type="unfinished">:Listening Port</translation>
+    </message>
+    <message>
+      <source> Observatory</source>
+      <translation type="unfinished"> Observatory</translation>
+    </message>
+    <message>
+      <source>Subject Selector</source>
+      <translation type="unfinished">Subject Selector</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrix</name>
@@ -3036,33 +3080,6 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
   </context>
   <context>
-    <name>SpeedWidget</name>
-    <message>
-      <source>Proxy ↑</source>
-      <translation type="unfinished">Proxy ↑</translation>
-    </message>
-    <message>
-      <source>Proxy ↓</source>
-      <translation type="unfinished">Proxy ↓</translation>
-    </message>
-    <message>
-      <source>Direct ↑</source>
-      <translation type="unfinished">Direct ↑</translation>
-    </message>
-    <message>
-      <source>Direct ↓</source>
-      <translation type="unfinished">Direct ↓</translation>
-    </message>
-    <message>
-      <source>Total ↑</source>
-      <translation type="unfinished">Total ↑</translation>
-    </message>
-    <message>
-      <source>Total ↓</source>
-      <translation type="unfinished">Total ↓</translation>
-    </message>
-  </context>
-  <context>
     <name>StreamSettingsWidget</name>
     <message>
       <source>Stream Settings Widget</source>
@@ -3235,6 +3252,14 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>grpc</source>
       <translation type="unfinished">grpc</translation>
+    </message>
+    <message>
+      <source>Max Early Data</source>
+      <translation type="unfinished">Max Early Data</translation>
+    </message>
+    <message>
+      <source>Browser Forwarding</source>
+      <translation type="unfinished">Browser Forwarding</translation>
     </message>
   </context>
   <context>
@@ -3797,6 +3822,21 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Qv2ray Utilities</source>
       <translation type="unfinished">Qv2ray Utilities</translation>
+    </message>
+  </context>
+  <context>
+    <name>SpeedWidget</name>
+    <message>
+      <source>Proxy</source>
+      <translation type="unfinished">Proxy</translation>
+    </message>
+    <message>
+      <source>Direct</source>
+      <translation type="unfinished">Direct</translation>
+    </message>
+    <message>
+      <source>Total</source>
+      <translation type="unfinished">Total</translation>
     </message>
   </context>
 </TS>
