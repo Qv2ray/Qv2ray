@@ -1982,7 +1982,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Invalid tproxy listening ipv4 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
+      <translation>無効な tproxy listening ipv4 アドレスです。</translation>
     </message>
   </context>
   <context>
