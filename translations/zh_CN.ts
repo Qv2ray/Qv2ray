@@ -1982,7 +1982,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Invalid tproxy listening ipv4 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
+      <translation>无效的 tproxy 监听ipv4 地址。</translation>
     </message>
   </context>
   <context>
