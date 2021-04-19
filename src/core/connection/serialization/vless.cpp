@@ -151,16 +151,6 @@ namespace Qv2ray::core::connection
                         QJsonIO::SetValue(stream, serviceName, { "grpcSettings", "serviceName" });
                     }
                 }
-
-                const auto hasMode = query.hasQueryItem("mode");
-                if (hasMode)
-                {
-                    const auto mode = query.queryItemValue("mode");
-                    if (mode == "multi")
-                    {
-                        QJsonIO::SetValue(stream, true, { "grpcSettings", "multiMode" });
-                    }
-                }
             }
 
             // tls-wise settings
