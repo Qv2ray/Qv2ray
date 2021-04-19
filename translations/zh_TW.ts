@@ -1667,10 +1667,6 @@ Custom DNS Settings</source>
       <translation>入站監聽位址不可用。</translation>
     </message>
     <message>
-      <source>Invalid tproxy listening ivp4 address.</source>
-      <translation>無效的透明代理 IPv4 監聽位址。</translation>
-    </message>
-    <message>
       <source>Invalid tproxy listening ipv6 address.</source>
       <translation>無效的透明代理 IPv6 監聽位址。</translation>
     </message>
@@ -1977,6 +1973,10 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>FakeDNS</source>
       <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Invalid tproxy listening ipv4 address.</source>
+      <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
     </message>
   </context>
   <context>
