@@ -158,7 +158,17 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
         const auto sni = QJsonIO::GetValue(objStream, { tlsKey, "serverName" }).toString();
         if (!sni.isEmpty())
             query.addQueryItem("sni", sni);
-        // TODO: ALPN Support
+
+        // ALPN
+        const auto alpnArray = QJsonIO::GetValue(objStream, { tlsKey, "alpn" }).toArray();
+        QStringList alpnList;
+        for (const auto v : alpnArray)
+        {
+            const auto alpn = v.toString();
+            if (!alpn.isEmpty())
+                alpnList << alpn;
+        }
+        query.addQueryItem("alpn", QUrl::toPercentEncoding(alpnList.join(",")));
 
         // -------- XTLS Flow --------
         if (security == "xtls")

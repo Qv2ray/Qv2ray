@@ -20,4 +20,33 @@ TEST_CASE("Test VLESS URL Parsing")
         REQUIRE(errMessage.isEmpty());
         REQUIRE(alias.toStdString() == "VLESSTCPXTLSSplice");
     }
+
+    SECTION("ALPN Parse Test")
+    {
+        const static auto url = "vless://24a613c1-de83-4c63-ba73-a9d08c88fec3@qv2ray.net:13432?security=xtls&alpn=h2%2Chttp%2F1.1";
+
+        const auto result = vless::Deserialize(url, &alias, &errMessage);
+
+        INFO("Parsed: " << QJsonDocument(result).toJson().toStdString());
+        REQUIRE(errMessage.isEmpty());
+
+        const auto alpnField = QJsonIO::GetValue(result, "outbounds", 0, "streamSettings", "xtlsSettings", "alpn");
+        REQUIRE(alpnField.isArray());
+
+        const auto alpnArray = alpnField.toArray();
+        REQUIRE(!alpnArray.empty());
+        REQUIRE(alpnArray.size() == 2);
+
+        const auto firstALPN = alpnArray.first();
+        REQUIRE(firstALPN.isString());
+
+        const auto firstALPNString = firstALPN.toString();
+        REQUIRE(firstALPNString.toStdString() == "h2");
+
+        const auto lastALPN = alpnArray.last();
+        REQUIRE(lastALPN.isString());
+
+        const auto lastALPNString = lastALPN.toString();
+        REQUIRE(lastALPNString.toStdString() == "http/1.1");
+    }
 }

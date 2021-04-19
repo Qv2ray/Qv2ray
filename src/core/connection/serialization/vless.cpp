@@ -156,6 +156,14 @@ namespace Qv2ray::core::connection
                 const auto sni = query.queryItemValue("sni");
                 QJsonIO::SetValue(stream, sni, { tlsKey, "serverName" });
             }
+            // alpn
+            const auto hasALPN = query.hasQueryItem("alpn");
+            if (hasALPN)
+            {
+                const auto alpnRaw = QUrl::fromPercentEncoding(query.queryItemValue("alpn").toUtf8());
+                const auto alpnArray = QJsonArray::fromStringList(alpnRaw.split(","));
+                QJsonIO::SetValue(stream, alpnArray, { tlsKey, "alpn" });
+            }
             // xtls-specific
             if (security == "xtls")
             {
