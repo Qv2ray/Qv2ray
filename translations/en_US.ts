@@ -7,6 +7,18 @@
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show / Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strategy</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CertificateItemWidget</name>
@@ -111,6 +123,10 @@
     <name>ChainOutboundWidget</name>
     <message>
         <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -659,11 +675,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Destination Override:</source>
+        <source>Metadata Only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Metadata Only</source>
+        <source>FakeDNS-Others</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination Override</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2751,6 +2771,30 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Reference Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Misc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browser Forwarder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>:Listening Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Observatory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subject Selector</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

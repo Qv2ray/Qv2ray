@@ -6,66 +6,115 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>149</width>
-    <height>150</height>
+    <width>247</width>
+    <height>261</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <widget class="QLineEdit" name="balancerTagTxt"/>
    </item>
-   <item row="1" column="0">
-    <widget class="QComboBox" name="balancerSelectionCombo">
-     <property name="editable">
-      <bool>true</bool>
+   <item>
+    <widget class="QPushButton" name="showHideBtn">
+     <property name="text">
+      <string>Show / Hide</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>1</number>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>48</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="0" rowspan="2">
-    <widget class="QListWidget" name="balancerList"/>
-   </item>
-   <item row="2" column="1">
-    <widget class="QToolButton" name="balancerDelBtn">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../../../../resources.new.qrc">
-       <normaloff>:/assets/icons/ui_dark/minus.svg</normaloff>:/assets/icons/ui_dark/minus.svg</iconset>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QToolButton" name="balancerAddBtn">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../../../../resources.new.qrc">
-       <normaloff>:/assets/icons/ui_dark/add.svg</normaloff>:/assets/icons/ui_dark/add.svg</iconset>
-     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Selector</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QComboBox" name="balancerSelectionCombo">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QToolButton" name="balancerAddBtn">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../../../resources.new.qrc">
+           <normaloff>:/assets/icons/ui_dark/add.svg</normaloff>:/assets/icons/ui_dark/add.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" rowspan="2">
+        <widget class="QListWidget" name="balancerList"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="balancerDelBtn">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../../../resources.new.qrc">
+           <normaloff>:/assets/icons/ui_dark/minus.svg</normaloff>:/assets/icons/ui_dark/minus.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>17</width>
+           <height>69</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Strategy</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Strategy</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="strategyCB">
+         <item>
+          <property name="text">
+           <string notr="true">random</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">leastPing</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <resources>
-  <include location="../../../../resources.new.qrc"/>
+  <include location="../../../../../resources.new.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -126,12 +126,21 @@ namespace Qv2ray::base::objects
     };
     //
     //
+
+    struct StrategyObject
+    {
+        QString type;
+        JSONSTRUCT_COMPARE(StrategyObject, type)
+        JSONSTRUCT_REGISTER(StrategyObject, F(type))
+    };
+
     struct BalancerObject
     {
         QString tag;
         QList<QString> selector;
-        JSONSTRUCT_COMPARE(BalancerObject, tag, selector)
-        JSONSTRUCT_REGISTER(BalancerObject, F(tag, selector))
+        StrategyObject strategy;
+        JSONSTRUCT_COMPARE(BalancerObject, tag, selector, strategy)
+        JSONSTRUCT_REGISTER(BalancerObject, F(tag, selector, strategy))
     };
     //
     //
@@ -339,7 +348,7 @@ namespace Qv2ray::base::objects
 
     struct FakeDNSObject
     {
-        QString ipPool = "240.0.0.0/8";
+        QString ipPool = "198.18.0.0/15";
         int poolSize = 65535;
         JSONSTRUCT_REGISTER(FakeDNSObject, A(ipPool, poolSize))
         JSONSTRUCT_COMPARE(FakeDNSObject, ipPool, poolSize)
