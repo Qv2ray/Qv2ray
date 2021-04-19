@@ -1684,10 +1684,6 @@ Custom DNS Settings</translation>
       <translation type="unfinished">Invalid inbound listening address.</translation>
     </message>
     <message>
-      <source>Invalid tproxy listening ivp4 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ivp4 address.</translation>
-    </message>
-    <message>
       <source>Invalid tproxy listening ipv6 address.</source>
       <translation type="unfinished">Invalid tproxy listening ipv6 address.</translation>
     </message>
@@ -1994,6 +1990,10 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
     <message>
       <source>FakeDNS</source>
       <translation type="unfinished">FakeDNS</translation>
+    </message>
+    <message>
+      <source>Invalid tproxy listening ipv4 address.</source>
+      <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
     </message>
   </context>
   <context>
