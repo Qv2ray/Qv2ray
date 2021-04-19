@@ -151,7 +151,16 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
                     query.addQueryItem("headerType", headerType);
             }
         }
+        else if (network == "grpc")
+        {
+            const auto serviceName = QJsonIO::GetValue(objStream, { "grpcSettings", "serviceName" }).toString("GunService");
+            if (serviceName != "GunService")
+                query.addQueryItem("serviceName", QUrl::toPercentEncoding(serviceName));
 
+            const auto multiMode = QJsonIO::GetValue(objStream, { "grpcSettings", "multiMode" }).toBool(false);
+            if (multiMode)
+                query.addQueryItem("mode", "multi");
+        }
         // -------- TLS RELATED --------
         const auto tlsKey = security == "xtls" ? "xtlsSettings" : "tlsSettings";
 
