@@ -687,7 +687,7 @@
            </item>
            <item>
             <property name="text">
-             <string>grpc</string>
+             <string notr="true">grpc</string>
             </property>
            </item>
           </widget>
