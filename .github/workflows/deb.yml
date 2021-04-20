@@ -54,6 +54,10 @@ jobs:
       - name: Install build dependencies
         run: |
           apt-get install -y build-essential devscripts debhelper ninja-build libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl4-openssl-dev libqt5svg5-dev
+      - name: Patching source code
+        if: matrix.distro == 'stable'
+        run: |
+          patch -p1 < debian/0001-add-missing-macro.patch
       - name: Bump version
         if: github.event_name != 'release'
         run: |
@@ -102,6 +106,10 @@ jobs:
           dpkg --add-architecture ${{ matrix.arch }}
           apt-get update
           apt-get install -o APT::Immediate-Configure=0 -y build-essential crossbuild-essential-${{ matrix.arch }} devscripts debhelper ninja-build libgrpc++-dev:${{ matrix.arch }} libprotobuf-dev:${{ matrix.arch }} protobuf-compiler-grpc qtbase5-dev:${{ matrix.arch }} qttools5-dev:${{ matrix.arch }} cmake pkg-config qtdeclarative5-dev:${{ matrix.arch }} libcurl4-openssl-dev:${{ matrix.arch }} libqt5svg5-dev:${{ matrix.arch }}
+      - name: Patching source code
+        if: matrix.distro == 'stable'
+        run: |
+          patch -p1 < debian/0001-add-missing-macro.patch
       - name: Bump version
         if: github.event_name != 'release'
         run: |
