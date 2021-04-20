@@ -3141,7 +3141,7 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disable Session Resumption</source>
+        <source>Enable Session Resumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
