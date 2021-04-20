@@ -21,8 +21,17 @@ namespace Qv2ray::core::connection
             vmessUriRoot["port"] = server.port;
             vmessUriRoot["id"] = server.users.front().id;
             vmessUriRoot["aid"] = server.users.front().alterId;
+            vmessUriRoot["scy"] = server.users.front().security;
             vmessUriRoot["net"] = transfer.network == "http" ? "h2" : transfer.network;
-            vmessUriRoot["tls"] = transfer.security;
+            vmessUriRoot["tls"] = transfer.security == "tls" || transfer.security == "xtls" ? "tls" : "none";
+            if (transfer.security == "tls")
+            {
+                vmessUriRoot["sni"] = transfer.tlsSettings.serverName;
+            }
+            else if (transfer.security == "xtls")
+            {
+                vmessUriRoot["sni"] = transfer.xtlsSettings.serverName;
+            }
 
             if (transfer.network == "tcp")
             {
@@ -52,6 +61,10 @@ namespace Qv2ray::core::connection
             {
                 vmessUriRoot["host"] = transfer.httpSettings.host.join(",");
                 vmessUriRoot["path"] = transfer.httpSettings.path;
+            }
+            else if (transfer.network == "grpc")
+            {
+                vmessUriRoot["path"] = transfer.grpcSettings.serviceName;
             }
 
             if (!vmessUriRoot.contains("type") || vmessUriRoot["type"].toString().isEmpty())
@@ -111,7 +124,7 @@ namespace Qv2ray::core::connection
 
             // --------------------------------------------------------------------------------------
             CONFIGROOT root;
-            QString ps, add, id, net, type, host, path, tls;
+            QString ps, add, id, net, type, host, path, tls, scy, sni;
             int port, aid;
             //
             // __vmess_checker__func(key, values)
@@ -177,6 +190,11 @@ namespace Qv2ray::core::connection
                 __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString()); //
                 __vmess_checker__func(add, nothing);                                                                                    //
                 __vmess_checker__func(id, nothing);                                                                                     //
+                __vmess_checker__func(scy, << "aes-128-gcm"                                                                             //
+                                           << "chacha20-poly1305"                                                                       //
+                                           << "auto"                                                                                    //
+                                           << "none"                                                                                    //
+                                           << "zero");                                                                                  //
                 __vmess_checker__func(type, << "none"                                                                                   //
                                             << "http"                                                                                   //
                                             << "srtp"                                                                                   //
@@ -188,11 +206,12 @@ namespace Qv2ray::core::connection
                                            << "h2"                                                                                      //
                                            << "ws"                                                                                      //
                                            << "kcp"                                                                                     //
-                                           << "domainsocket"                                                                            //
-                                           << "quic");                                                                                  //
+                                           << "quic"                                                                                    //
+                                           << "grpc");                                                                                  //
                                                                                                                                         //
                 __vmess_checker__func(tls, << "none"                                                                                    //
                                            << "tls");                                                                                   //
+                __vmess_checker__func(sni, nothing);                                                                                    //
                 path = vmessConf.contains("path") ? vmessConf["path"].toVariant().toString() : (net == "quic" ? "" : "/");
                 host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "");
             }
@@ -215,6 +234,7 @@ namespace Qv2ray::core::connection
             VMessServerObject::UserObject user;
             user.id = id;
             user.alterId = aid;
+            user.security = scy;
             //
             // Server
             VMessServerObject serv;
@@ -253,26 +273,23 @@ namespace Qv2ray::core::connection
             {
                 streaming.kcpSettings.header.type = type;
             }
-            else if (net == "domainsocket")
-            {
-                streaming.dsSettings.path = path;
-            }
             else if (net == "quic")
             {
                 streaming.quicSettings.security = host;
                 streaming.quicSettings.header.type = type;
                 streaming.quicSettings.key = path;
             }
-
-            // FIXME: makeshift patch for #290.
-            //        to be rewritten after refactoring.
-            if (tls == "tls" && host != "" && (net == "tcp" || net == "ws"))
+            else if (net == "grpc")
             {
-                streaming.tlsSettings.serverName = host;
-                streaming.tlsSettings.allowInsecure = false;
+                streaming.grpcSettings.serviceName = path;
             }
 
             streaming.security = tls;
+            if (tls == "tls" && !sni.isEmpty())
+            {
+                streaming.tlsSettings.serverName = sni;
+                streaming.tlsSettings.allowInsecure = false;
+            }
             //
             // Network type
             // NOTE(DuckSoft): Damn vmess:// just don't write 'http' properly
