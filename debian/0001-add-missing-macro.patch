@@ -1,7 +1,7 @@
 diff --git a/src/plugin-interface/QvPluginBase.hpp b/src/plugin-interface/QvPluginBase.hpp
 index 115ca75..4800252 100644
---- a/QvPluginBase.hpp
-+++ b/QvPluginBase.hpp
+--- a/src/plugin-interface/QvPluginBase.hpp
++++ b/src/plugin-interface/QvPluginBase.hpp
 @@ -6,6 +6,10 @@
  #include <QVariant>
  #include <memory>
