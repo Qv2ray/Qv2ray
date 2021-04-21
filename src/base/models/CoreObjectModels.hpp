@@ -270,7 +270,7 @@ namespace Qv2ray::base::objects
         //
         struct gRPCObject
         {
-            QString serviceName = "GunService";
+            QString serviceName;
             JSONSTRUCT_COMPARE(gRPCObject, serviceName)
             JSONSTRUCT_REGISTER(gRPCObject, F(serviceName))
         };

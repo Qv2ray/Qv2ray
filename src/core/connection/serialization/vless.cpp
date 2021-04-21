@@ -146,10 +146,7 @@ namespace Qv2ray::core::connection
                 if (hasServiceName)
                 {
                     const auto serviceName = QUrl::fromPercentEncoding(query.queryItemValue("serviceName").toUtf8());
-                    if (serviceName != "GunService")
-                    {
-                        QJsonIO::SetValue(stream, serviceName, { "grpcSettings", "serviceName" });
-                    }
+                    QJsonIO::SetValue(stream, serviceName, { "grpcSettings", "serviceName" });
                 }
             }
 

@@ -10,7 +10,7 @@ namespace Qv2ray::core::connection
 {
     namespace serialization::vmess_new
     {
-        const static QStringList NetworkType{ "tcp", "http", "ws", "kcp", "quic" };
+        const static QStringList NetworkType{ "tcp", "http", "ws", "kcp", "quic", "grpc" };
         const static QStringList QuicSecurityTypes{ "none", "aes-128-gcm", "chacha20-poly1305" };
         const static QStringList QuicKcpHeaderTypes{ "none", "srtp", "utp", "wechat-video", "dtls", "wireguard" };
         const static QStringList FalseTypes{ "false", "False", "No", "Off", "0" };
@@ -110,6 +110,10 @@ namespace Qv2ray::core::connection
                     stream.quicSettings.key = getQueryValue("key", "");
                     stream.quicSettings.header.type = getQueryValue("type", "none");
                 }
+                else if (net == "grpc")
+                {
+                    stream.grpcSettings.serviceName = getQueryValue("serviceName", "");
+                }
                 else
                 {
                     *errMessage = QObject::tr("Unknown transport method: ") + net;
@@ -175,19 +179,32 @@ namespace Qv2ray::core::connection
                 if (!stream.quicSettings.header.type.isEmpty() && stream.quicSettings.header.type != "none")
                     query.addQueryItem("headers", stream.quicSettings.header.type);
             }
+            else if (stream.network == "grpc")
+            {
+                if (!stream.grpcSettings.serviceName.isEmpty())
+                    query.addQueryItem("serviceName", stream.grpcSettings.serviceName);
+            }
             else
             {
                 return {};
             }
-            bool hasTLS = stream.security == "tls";
+            bool hasTLS = stream.security == "tls" || stream.security == "xtls";
             auto protocol = stream.network;
             if (hasTLS)
+                protocol += "+tls";
+            if (stream.security == "tls")
             {
                 if (stream.tlsSettings.allowInsecure)
                     query.addQueryItem("allowInsecure", "true");
                 if (!stream.tlsSettings.serverName.isEmpty())
                     query.addQueryItem("tlsServerName", stream.tlsSettings.serverName);
-                protocol += "+tls";
+            }
+            else if (stream.security == "xtls")
+            {
+                if (stream.xtlsSettings.allowInsecure)
+                    query.addQueryItem("allowInsecure", "true");
+                if (!stream.xtlsSettings.serverName.isEmpty())
+                    query.addQueryItem("tlsServerName", stream.xtlsSettings.serverName);
             }
             url.setPath("/");
             url.setScheme("vmess");

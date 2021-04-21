@@ -52,7 +52,7 @@ TEST_CASE("Test VLESS URL Parsing")
 
     SECTION("gRPC Parse Test")
     {
-        const static auto url = "vless://6d76fa31-8de2-40d4-8fee-6e61339c416f@qv2ray.net:123?type=grpc&security=tls&serviceName=FuckGFW&mode=multi";
+        const static auto url = "vless://6d76fa31-8de2-40d4-8fee-6e61339c416f@qv2ray.net:123?type=grpc&security=tls&serviceName=FuckGFW";
         const auto result = vless::Deserialize(url, &alias, &errMessage);
 
         INFO("Parsed: " << QJsonDocument(result).toJson().toStdString());
@@ -63,18 +63,11 @@ TEST_CASE("Test VLESS URL Parsing")
 
         const auto grpcSettingsObj = grpcSettings.toObject();
         REQUIRE(grpcSettingsObj.contains("serviceName"));
-        REQUIRE(grpcSettingsObj.contains("multiMode"));
 
         const auto serviceName = grpcSettingsObj["serviceName"];
         REQUIRE(serviceName.isString());
 
         const auto serviceNameString = serviceName.toString();
         REQUIRE(serviceNameString == "FuckGFW");
-
-        const auto multiMode = grpcSettingsObj["multiMode"];
-        REQUIRE(multiMode.isBool());
-
-        const auto isMultiMode = multiMode.toBool();
-        REQUIRE(isMultiMode);
     }
 }
