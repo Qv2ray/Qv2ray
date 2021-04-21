@@ -21,9 +21,10 @@ namespace Qv2ray::core::connection
             vmessUriRoot["port"] = server.port;
             vmessUriRoot["id"] = server.users.front().id;
             vmessUriRoot["aid"] = server.users.front().alterId;
-            vmessUriRoot["scy"] = server.users.front().security;
+            const auto scy = server.users.front().security;
+            vmessUriRoot["scy"] = (scy == "aes-128-gcm" || scy == "chacha20-poly1305" || scy == "none" || scy == "zero") ? scy : "auto";
             vmessUriRoot["net"] = transfer.network == "http" ? "h2" : transfer.network;
-            vmessUriRoot["tls"] = transfer.security == "tls" || transfer.security == "xtls" ? "tls" : "none";
+            vmessUriRoot["tls"] = (transfer.security == "tls" || transfer.security == "xtls") ? "tls" : "none";
             if (transfer.security == "tls")
             {
                 vmessUriRoot["sni"] = transfer.tlsSettings.serverName;
@@ -195,6 +196,7 @@ namespace Qv2ray::core::connection
                                            << "auto"                                                                                    //
                                            << "none"                                                                                    //
                                            << "zero");                                                                                  //
+                                                                                                                                        //
                 __vmess_checker__func(type, << "none"                                                                                   //
                                             << "http"                                                                                   //
                                             << "srtp"                                                                                   //
@@ -211,12 +213,13 @@ namespace Qv2ray::core::connection
                                                                                                                                         //
                 __vmess_checker__func(tls, << "none"                                                                                    //
                                            << "tls");                                                                                   //
+                                                                                                                                        //
                 __vmess_checker__func(sni, nothing);                                                                                    //
                 path = vmessConf.contains("path") ? vmessConf["path"].toVariant().toString() : (net == "quic" ? "" : "/");
                 host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "");
             }
 
-            // Repect connection type rather than obfs type
+            // Respect connection type rather than obfs type
             if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type)) //
             {                                                                //
                 if (net != "quic" && net != "kcp")                           //
