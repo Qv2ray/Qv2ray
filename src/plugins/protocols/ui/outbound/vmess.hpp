@@ -42,6 +42,6 @@ class VmessOutboundEditor
 
   private slots:
     void on_idLineEdit_textEdited(const QString &arg1);
-    void on_securityCombo_currentIndexChanged(int arg1);
+    void on_securityCombo_currentTextChanged(const QString &arg1);
     void on_alterLineEdit_valueChanged(int arg1);
 };
