@@ -3161,8 +3161,8 @@ Maybe you have downloaded the wrong core?</source>
       <translation>tProxy モード</translation>
     </message>
     <message>
-      <source>Disable Session Resumption</source>
-      <translation>セッション再開を無効にする</translation>
+      <source>Enable Session Resumption</source>
+      <translation type="unfinished">Enable Session Resumption</translation>
     </message>
     <message>
       <source>Security Type</source>
