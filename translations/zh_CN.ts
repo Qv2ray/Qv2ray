@@ -3161,8 +3161,8 @@ Maybe you have downloaded the wrong core?</source>
       <translation>tProxy 工作模式</translation>
     </message>
     <message>
-      <source>Disable Session Resumption</source>
-      <translation>禁用会话返回</translation>
+      <source>Enable Session Resumption</source>
+      <translation type="unfinished">Enable Session Resumption</translation>
     </message>
     <message>
       <source>Security Type</source>
