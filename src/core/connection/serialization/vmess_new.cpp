@@ -194,15 +194,11 @@ namespace Qv2ray::core::connection
                 protocol += "+tls";
             if (stream.security == "tls")
             {
-                if (stream.tlsSettings.allowInsecure)
-                    query.addQueryItem("allowInsecure", "true");
                 if (!stream.tlsSettings.serverName.isEmpty())
                     query.addQueryItem("tlsServerName", stream.tlsSettings.serverName);
             }
             else if (stream.security == "xtls")
             {
-                if (stream.xtlsSettings.allowInsecure)
-                    query.addQueryItem("allowInsecure", "true");
                 if (!stream.xtlsSettings.serverName.isEmpty())
                     query.addQueryItem("tlsServerName", stream.xtlsSettings.serverName);
             }
