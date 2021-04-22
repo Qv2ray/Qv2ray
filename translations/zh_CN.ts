@@ -3162,7 +3162,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Enable Session Resumption</source>
-      <translation type="unfinished">Enable Session Resumption</translation>
+      <translation>启用会话恢复</translation>
     </message>
     <message>
       <source>Security Type</source>
