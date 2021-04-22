@@ -741,9 +741,9 @@
         </widget>
        </item>
        <item row="2" column="0" colspan="2">
-        <widget class="QCheckBox" name="disableSessionResumptionCB">
+        <widget class="QCheckBox" name="enableSessionResumptionCB">
          <property name="text">
-          <string>Disable Session Resumption</string>
+          <string>Enable Session Resumption</string>
          </property>
          <property name="checked">
           <bool>false</bool>

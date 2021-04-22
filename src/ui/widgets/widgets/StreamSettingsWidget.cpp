@@ -44,7 +44,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     {                                                                                                                                                \
         serverNameTxt->setText(stream.prefix##Settings.serverName);                                                                                  \
         allowInsecureCB->setChecked(stream.prefix##Settings.allowInsecure);                                                                          \
-        disableSessionResumptionCB->setChecked(stream.prefix##Settings.disableSessionResumption);                                                    \
+        enableSessionResumptionCB->setChecked(stream.prefix##Settings.enableSessionResumption);                                                      \
         disableSystemRoot->setChecked(stream.prefix##Settings.disableSystemRoot);                                                                    \
         alpnTxt->setText(stream.prefix##Settings.alpn.join("|"));                                                                                    \
     }
@@ -297,10 +297,10 @@ void StreamSettingsWidget::on_allowInsecureCB_stateChanged(int arg1)
     stream.xtlsSettings.allowInsecure = arg1 == Qt::Checked;
 }
 
-void StreamSettingsWidget::on_disableSessionResumptionCB_stateChanged(int arg1)
+void StreamSettingsWidget::on_enableSessionResumptionCB_stateChanged(int arg1)
 {
-    stream.tlsSettings.disableSessionResumption = arg1 == Qt::Checked;
-    stream.xtlsSettings.disableSessionResumption = arg1 == Qt::Checked;
+    stream.tlsSettings.enableSessionResumption = arg1 == Qt::Checked;
+    stream.xtlsSettings.enableSessionResumption = arg1 == Qt::Checked;
 }
 
 void StreamSettingsWidget::on_alpnTxt_textEdited(const QString &arg1)

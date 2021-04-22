@@ -303,12 +303,12 @@ namespace Qv2ray::base::objects
         {
             QString serverName;
             bool allowInsecure = false;
-            bool disableSessionResumption = true;
+            bool enableSessionResumption = false;
             bool disableSystemRoot = false;
             QList<QString> alpn;
             QList<CertificateObject> certificates;
-            JSONSTRUCT_COMPARE(TLSObject, serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates)
-            JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates))
+            JSONSTRUCT_COMPARE(TLSObject, serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn, certificates)
+            JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn, certificates))
         };
         //
         //
@@ -316,12 +316,12 @@ namespace Qv2ray::base::objects
         {
             QString serverName;
             bool allowInsecure = false;
-            bool disableSessionResumption = true;
+            bool enableSessionResumption = false;
             bool disableSystemRoot = false;
             QList<QString> alpn;
             QList<CertificateObject> certificates;
-            JSONSTRUCT_COMPARE(XTLSObject, serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates)
-            JSONSTRUCT_REGISTER(XTLSObject, F(serverName, allowInsecure, disableSessionResumption, disableSystemRoot, alpn, certificates))
+            JSONSTRUCT_COMPARE(XTLSObject, serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn, certificates)
+            JSONSTRUCT_REGISTER(XTLSObject, F(serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn, certificates))
         };
     } // namespace transfer
     //
