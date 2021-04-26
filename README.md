@@ -92,6 +92,10 @@
  </tr>
 </table>
 
+## XRAY
+
+Qv2ray is a V2Ray front-end, for Xray support, please use X-flutter.
+
 ## Related Links
  - [Website](https://qv2ray.github.io/en/) and [First Time Usage](https://qv2ray.github.io/en/getting-started/)
  - Latest **[Release](https://github.com/Qv2ray/Qv2ray/releases/latest)**
