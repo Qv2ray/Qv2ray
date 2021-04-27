@@ -3233,10 +3233,6 @@ Maybe you have downloaded the wrong core?</source>
       <translation>サービス名</translation>
     </message>
     <message>
-      <source>grpc</source>
-      <translation>grpc</translation>
-    </message>
-    <message>
       <source>Max Early Data</source>
       <translation>初期データの最大数</translation>
     </message>
