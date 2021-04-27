@@ -3155,8 +3155,8 @@ Maybe you have downloaded the wrong core?</translation>
       <translation>tProxy 工作模式</translation>
     </message>
     <message>
-      <source>Disable Session Resumption</source>
-      <translation>禁用會話返回</translation>
+      <source>Enable Session Resumption</source>
+      <translation type="unfinished">Enable Session Resumption</translation>
     </message>
     <message>
       <source>Security Type</source>
@@ -3225,10 +3225,6 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Service Name</source>
       <translation type="unfinished">Service Name</translation>
-    </message>
-    <message>
-      <source>grpc</source>
-      <translation type="unfinished">grpc</translation>
     </message>
     <message>
       <source>Max Early Data</source>

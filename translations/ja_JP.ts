@@ -3161,8 +3161,8 @@ Maybe you have downloaded the wrong core?</source>
       <translation>tProxy モード</translation>
     </message>
     <message>
-      <source>Disable Session Resumption</source>
-      <translation>セッション再開を無効にする</translation>
+      <source>Enable Session Resumption</source>
+      <translation>セッション再開を有効にする</translation>
     </message>
     <message>
       <source>Security Type</source>
@@ -3231,10 +3231,6 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Service Name</source>
       <translation>サービス名</translation>
-    </message>
-    <message>
-      <source>grpc</source>
-      <translation>grpc</translation>
     </message>
     <message>
       <source>Max Early Data</source>
