@@ -766,7 +766,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), *msg);
     }
 #if QV2RAY_FEATURE(kernel_check_output)
-    else if (!msg->toLower().contains("v2ray") && !msg->toLower().contains("xray"))
+    else if (!msg->toLower().contains("v2ray"))
     {
         const auto content = tr("This does not seem like an output from V2Ray Core.") + NEWLINE +                         //
                              tr("If you are looking for plugins settings, you should go to plugin settings.") + NEWLINE + //
