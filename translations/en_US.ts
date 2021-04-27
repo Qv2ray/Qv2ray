@@ -3213,10 +3213,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>grpc</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Max Early Data</source>
         <translation type="unfinished"></translation>
     </message>

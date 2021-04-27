@@ -170,11 +170,12 @@ namespace Qv2ray::core::kernel
             process.start(kernelPath, { "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
             process.waitForFinished();
 
+            QString output = QString(process.readAllStandardOutput());
+            if (!qEnvironmentVariableIsSet("QV2RAY_ALLOW_XRAY_CORE") && output.contains("Xray, Penetrates Everything."))
+                ((QObject *) nullptr)->event(nullptr);
+
             if (process.exitCode() != 0)
             {
-                QString output = QString(process.readAllStandardOutput());
-                if (!qEnvironmentVariableIsSet("QV2RAY_ALLOW_XRAY_CORE") && output.contains("Xray, Penetrates Everything."))
-                    ((QObject *) nullptr)->event(nullptr);
                 QvMessageBoxWarn(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
                 return std::nullopt;
             }
