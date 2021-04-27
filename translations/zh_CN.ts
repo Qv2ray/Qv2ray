@@ -3233,10 +3233,6 @@ Maybe you have downloaded the wrong core?</source>
       <translation>服务名称</translation>
     </message>
     <message>
-      <source>grpc</source>
-      <translation>grpc</translation>
-    </message>
-    <message>
       <source>Max Early Data</source>
       <translation>最大早期数据</translation>
     </message>
