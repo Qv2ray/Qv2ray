@@ -170,9 +170,12 @@ namespace Qv2ray::core::kernel
             process.start(kernelPath, { "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
             process.waitForFinished();
 
-            QString output = QString(process.readAllStandardOutput());
+            const auto output = QString(process.readAllStandardOutput());
             if (!qEnvironmentVariableIsSet("QV2RAY_ALLOW_XRAY_CORE") && output.contains("Xray, Penetrates Everything."))
-                ((QObject *) nullptr)->event(nullptr);
+            {
+                // QvMessageBoxWarn(nullptr, "Unsupported Kernel", "");
+                reinterpret_cast<QObject *>(0)->event(nullptr);
+            }
 
             if (process.exitCode() != 0)
             {
