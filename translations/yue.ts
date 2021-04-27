@@ -3250,10 +3250,6 @@ Maybe you have downloaded the wrong core?</translation>
       <translation type="unfinished">Service Name</translation>
     </message>
     <message>
-      <source>grpc</source>
-      <translation type="unfinished">grpc</translation>
-    </message>
-    <message>
       <source>Max Early Data</source>
       <translation type="unfinished">Max Early Data</translation>
     </message>
