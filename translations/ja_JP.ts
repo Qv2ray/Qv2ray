@@ -7,6 +7,18 @@
       <source>Form</source>
       <translation>Form</translation>
     </message>
+    <message>
+      <source>Show / Hide</source>
+      <translation>表示 / 非表示</translation>
+    </message>
+    <message>
+      <source>Selector</source>
+      <translation>選択</translation>
+    </message>
+    <message>
+      <source>Strategy</source>
+      <translation>ルール</translation>
+    </message>
   </context>
   <context>
     <name>CertificateItemWidget</name>
@@ -118,6 +130,10 @@
     <message>
       <source>Form</source>
       <translation>Form</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>ポート</translation>
     </message>
   </context>
   <context>
@@ -666,12 +682,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>FakeDNS</translation>
     </message>
     <message>
-      <source>Destination Override:</source>
-      <translation>目標上書き:</translation>
-    </message>
-    <message>
       <source>Metadata Only</source>
       <translation>メタデータのみ</translation>
+    </message>
+    <message>
+      <source>FakeDNS-Others</source>
+      <translation>FakeDNS-その他</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>目標上書き</translation>
     </message>
   </context>
   <context>
@@ -812,10 +832,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>  Log</source>
       <translation>  ログ</translation>
-    </message>
-    <message>
-      <source>Clear log</source>
-      <translation>ログをクリア</translation>
     </message>
     <message>
       <source>Not Connected</source>
@@ -1132,6 +1148,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Disable Bypassing CN Mainland</source>
       <translation>CN本土バイパスを無効にする</translation>
+    </message>
+    <message>
+      <source>Clear log</source>
+      <translation>ログをクリア</translation>
     </message>
   </context>
   <context>
@@ -1921,12 +1941,12 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください-&gt;</translation>
     </message>
     <message>
-      <source>Invalid DNS Settings-&gt;</source>
-      <translation>無効な DNS 設定-&gt;</translation>
-    </message>
-    <message>
       <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
       <translation>プラグインの設定を探している場合は、プラグインの設定に移動する必要があります-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings.</source>
+      <translation>DNS設定が無効です。</translation>
     </message>
   </context>
   <context>
@@ -2716,6 +2736,30 @@ Maybe you have downloaded the wrong core?</source>
       <source>Reference Connection</source>
       <translation>参照接続</translation>
     </message>
+    <message>
+      <source>Misc</source>
+      <translation>その他</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder</source>
+      <translation>ブラウザフォワーダー</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <translation>リスニングアドレス</translation>
+    </message>
+    <message>
+      <source>:Listening Port</source>
+      <translation>:リッスンポート</translation>
+    </message>
+    <message>
+      <source> Observatory</source>
+      <translation> Observatory</translation>
+    </message>
+    <message>
+      <source>Subject Selector</source>
+      <translation>件名の選択</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrix</name>
@@ -2983,33 +3027,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
   </context>
   <context>
-    <name>SpeedWidget</name>
-    <message>
-      <source>Proxy ↑</source>
-      <translation>プロキシ↑</translation>
-    </message>
-    <message>
-      <source>Proxy ↓</source>
-      <translation>プロキシ↓</translation>
-    </message>
-    <message>
-      <source>Direct ↑</source>
-      <translation>直接↑</translation>
-    </message>
-    <message>
-      <source>Direct ↓</source>
-      <translation>直接↓</translation>
-    </message>
-    <message>
-      <source>Total ↑</source>
-      <translation>合計↑</translation>
-    </message>
-    <message>
-      <source>Total ↓</source>
-      <translation>合計↓</translation>
-    </message>
-  </context>
-  <context>
     <name>StreamSettingsWidget</name>
     <message>
       <source>Stream Settings Widget</source>
@@ -3082,10 +3099,6 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>TLS Settings</source>
       <translation>TLS設定</translation>
-    </message>
-    <message>
-      <source>Allow Insecure Certificates</source>
-      <translation>安全でない証明書を許可する</translation>
     </message>
     <message>
       <source>ALPN</source>
@@ -3172,16 +3185,20 @@ Maybe you have downloaded the wrong core?</source>
       <translation>証明書</translation>
     </message>
     <message>
-      <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation>AllowInsecure is insecure, do not allowed insecure.</translation>
-    </message>
-    <message>
       <source>Service Name</source>
       <translation>サービス名</translation>
     </message>
     <message>
       <source>grpc</source>
       <translation>grpc</translation>
+    </message>
+    <message>
+      <source>Max Early Data</source>
+      <translation>初期データの最大数</translation>
+    </message>
+    <message>
+      <source>Browser Forwarding</source>
+      <translation>ブラウザ転送</translation>
     </message>
   </context>
   <context>
@@ -3744,6 +3761,21 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Qv2ray Utilities</source>
       <translation>Qv2ray ユーティリティ</translation>
+    </message>
+  </context>
+  <context>
+    <name>SpeedWidget</name>
+    <message>
+      <source>Proxy</source>
+      <translation>プロキシで接続</translation>
+    </message>
+    <message>
+      <source>Direct</source>
+      <translation>直接接続</translation>
+    </message>
+    <message>
+      <source>Total</source>
+      <translation>合計</translation>
     </message>
   </context>
 </TS>

@@ -7,6 +7,18 @@
       <source>Form</source>
       <translation>窗口</translation>
     </message>
+    <message>
+      <source>Show / Hide</source>
+      <translation>显示/隐藏</translation>
+    </message>
+    <message>
+      <source>Selector</source>
+      <translation>选择器</translation>
+    </message>
+    <message>
+      <source>Strategy</source>
+      <translation>Strategy</translation>
+    </message>
   </context>
   <context>
     <name>CertificateItemWidget</name>
@@ -118,6 +130,10 @@
     <message>
       <source>Form</source>
       <translation>窗口</translation>
+    </message>
+    <message>
+      <source>Port</source>
+      <translation>端口</translation>
     </message>
   </context>
   <context>
@@ -667,12 +683,16 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
       <translation>FakeDNS</translation>
     </message>
     <message>
-      <source>Destination Override:</source>
-      <translation>目标覆盖：</translation>
-    </message>
-    <message>
       <source>Metadata Only</source>
       <translation>仅限元数据</translation>
+    </message>
+    <message>
+      <source>FakeDNS-Others</source>
+      <translation>FakeDNS-其他</translation>
+    </message>
+    <message>
+      <source>Destination Override</source>
+      <translation>Destination Override</translation>
     </message>
   </context>
   <context>
@@ -813,10 +833,6 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>  Log</source>
       <translation>  Log</translation>
-    </message>
-    <message>
-      <source>Clear log</source>
-      <translation>Clear log</translation>
     </message>
     <message>
       <source>Not Connected</source>
@@ -1133,6 +1149,10 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <message>
       <source>Disable Bypassing CN Mainland</source>
       <translation>禁用Bypassing CN 内地功能</translation>
+    </message>
+    <message>
+      <source>Clear log</source>
+      <translation>Clear log</translation>
     </message>
   </context>
   <context>
@@ -1922,12 +1942,12 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
       <translation>检测到重复的端口号。请检查端口号-&gt;</translation>
     </message>
     <message>
-      <source>Invalid DNS Settings-&gt;</source>
-      <translation>无效的DNS设置-&gt;</translation>
-    </message>
-    <message>
       <source>If you are looking for plugins settings, you should go to plugin Settings-&gt;</source>
       <translation>如果你正在寻找插件设置，你应该去插件设置-&gt;</translation>
+    </message>
+    <message>
+      <source>Invalid DNS Settings.</source>
+      <translation>无效的 DNS 设置。</translation>
     </message>
   </context>
   <context>
@@ -2717,6 +2737,30 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Reference Connection</source>
       <translation>引用连接</translation>
     </message>
+    <message>
+      <source>Misc</source>
+      <translation>其他</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder</source>
+      <translation>浏览器转发器</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <translation>监听地址</translation>
+    </message>
+    <message>
+      <source>:Listening Port</source>
+      <translation>:监听端口</translation>
+    </message>
+    <message>
+      <source> Observatory</source>
+      <translation> 天文台</translation>
+    </message>
+    <message>
+      <source>Subject Selector</source>
+      <translation>主题选择器</translation>
+    </message>
   </context>
   <context>
     <name>RouteSettingsMatrix</name>
@@ -2984,33 +3028,6 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
   </context>
   <context>
-    <name>SpeedWidget</name>
-    <message>
-      <source>Proxy ↑</source>
-      <translation>代理服务器</translation>
-    </message>
-    <message>
-      <source>Proxy ↓</source>
-      <translation>代理服务器 (2000)</translation>
-    </message>
-    <message>
-      <source>Direct ↑</source>
-      <translation>直接的</translation>
-    </message>
-    <message>
-      <source>Direct ↓</source>
-      <translation>直接网点</translation>
-    </message>
-    <message>
-      <source>Total ↑</source>
-      <translation>总计</translation>
-    </message>
-    <message>
-      <source>Total ↓</source>
-      <translation>总人数（月）</translation>
-    </message>
-  </context>
-  <context>
     <name>StreamSettingsWidget</name>
     <message>
       <source>Stream Settings Widget</source>
@@ -3083,10 +3100,6 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>TLS Settings</source>
       <translation>TLS Settings</translation>
-    </message>
-    <message>
-      <source>Allow Insecure Certificates</source>
-      <translation>Allow Insecure Certificates</translation>
     </message>
     <message>
       <source>ALPN</source>
@@ -3173,16 +3186,20 @@ Maybe you have downloaded the wrong core?</translation>
       <translation>Certificates</translation>
     </message>
     <message>
-      <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation>允许不安全，不允许不安全。</translation>
-    </message>
-    <message>
       <source>Service Name</source>
       <translation>服务名称</translation>
     </message>
     <message>
       <source>grpc</source>
       <translation>格子</translation>
+    </message>
+    <message>
+      <source>Max Early Data</source>
+      <translation>最大早期数据</translation>
+    </message>
+    <message>
+      <source>Browser Forwarding</source>
+      <translation>浏览器转发中</translation>
     </message>
   </context>
   <context>
@@ -3745,6 +3762,21 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Qv2ray Utilities</source>
       <translation>Qv2ray 工具</translation>
+    </message>
+  </context>
+  <context>
+    <name>SpeedWidget</name>
+    <message>
+      <source>Proxy</source>
+      <translation>Proxy</translation>
+    </message>
+    <message>
+      <source>Direct</source>
+      <translation>Direct</translation>
+    </message>
+    <message>
+      <source>Total</source>
+      <translation>总计</translation>
     </message>
   </context>
 </TS>
