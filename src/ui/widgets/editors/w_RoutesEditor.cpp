@@ -516,7 +516,7 @@ void RouteEditor::on_importGroupBtn_currentIndexChanged(int)
 
 void RouteEditor::on_addBalancerBtn_clicked()
 {
-    auto _ = nodeDispatcher->CreateOutbound(make_balancer_outbound({}, "Balancer"));
+    auto _ = nodeDispatcher->CreateOutbound(make_balancer_outbound({}, "random", "Balancer"));
     Q_UNUSED(_)
 }
 
