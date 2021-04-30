@@ -262,8 +262,8 @@ CONFIGROOT RouteEditor::OpenEditor()
         BalancerObject o;
         o.tag = out.getDisplayName();
         o.selector = out.outboundTags;
-        balancersArray << o.toJson();
         o.strategy.type = out.strategyType;
+        balancersArray << o.toJson();
     }
 
     QJsonObject routingObject;
