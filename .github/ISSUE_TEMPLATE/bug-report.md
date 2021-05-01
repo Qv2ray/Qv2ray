@@ -16,12 +16,20 @@ Notes for Bug Report:
 -->
 
 ### Summary
+_A clear and concise description of what the bug is._
 
 
-### Environment
+### Expected behavior
+_A clear and concise description of what you expected to happen._
 
 
 ### How to Reproduce
+_Steps to reproduce the behavior._
+
+
+### Screenshots
+_If applicable, add screenshots to help explain your problem._
 
 
 ### Additional Info
+_Add any other context about the problem here._
