@@ -65,8 +65,7 @@ void NodeDispatcher::LoadFullConfig(const CONFIGROOT &root)
         {
             selector << item.toString();
         }
-        QString strategyType = balancer.toObject()["strategy"].toObject()["type"].toString();
-        strategyType = strategyType == "" ? "random" : strategyType;
+        QString strategyType = balancer.toObject()["strategy"].toObject()["type"].toString("random");
         const auto meta = make_balancer_outbound(selector, strategyType, balancer.toObject()["tag"].toString());
         auto _ = CreateOutbound(meta);
     }
