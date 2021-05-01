@@ -214,7 +214,6 @@ namespace Qv2ray::core::connection
                 __vmess_checker__func(tls, << "none"                                                                                    //
                                            << "tls");                                                                                   //
                                                                                                                                         //
-                __vmess_checker__func(sni, nothing);                                                                                    //
                 path = vmessConf.contains("path") ? vmessConf["path"].toVariant().toString() : (net == "quic" ? "" : "/");
                 host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "");
             }
@@ -288,8 +287,10 @@ namespace Qv2ray::core::connection
             }
 
             streaming.security = tls;
-            if (tls == "tls" && !sni.isEmpty())
+            if (tls == "tls")
             {
+                if (sni.isEmpty() && !host.isEmpty())
+                    sni = host;
                 streaming.tlsSettings.serverName = sni;
                 streaming.tlsSettings.allowInsecure = false;
             }
