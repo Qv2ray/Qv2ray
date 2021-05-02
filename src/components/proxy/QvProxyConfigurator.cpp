@@ -282,7 +282,7 @@ namespace Qv2ray::components::proxy
 
 #ifdef Q_OS_WIN
         QString __a;
-        const QHostAddress ha = QHostAddress(address);
+        const QHostAddress ha(address);
         const auto type = ha.protocol();
         if (type == QAbstractSocket::IPv6Protocol)
         {

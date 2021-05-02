@@ -65,8 +65,8 @@ void MainWindow::MWSetSystemProxy()
     bool socksEnabled = false;
     int httpPort = 0;
     int socksPort = 0;
-    QString httpAddress = "";
-    QString socksAddress = "";
+    QString httpAddress;
+    QString socksAddress;
 
     for (const auto &info : inboundInfo)
     {
@@ -84,19 +84,19 @@ void MainWindow::MWSetSystemProxy()
         }
     }
 
-    QString proxyAddress = "";
+    QString proxyAddress;
     if (httpEnabled)
         proxyAddress = httpAddress;
     else if (socksEnabled)
         proxyAddress = socksAddress;
 
-    const QHostAddress ha = QHostAddress(proxyAddress);
-    if (ha.isEqual(QHostAddress::AnyIPv4)) // 0.0.0.0
+    const QHostAddress ha(proxyAddress);
+    if (ha.isEqual(QHostAddress::AnyIPv4)) // "0.0.0.0"
         proxyAddress = "127.0.0.1";
-    else if (ha.isEqual(QHostAddress::AnyIPv6)) // ::
+    else if (ha.isEqual(QHostAddress::AnyIPv6)) // "::"
         proxyAddress = "::1";
 
-    if (proxyAddress != "")
+    if (!proxyAddress.isEmpty())
     {
         LOG("ProxyAddress: " + proxyAddress);
         LOG("HTTP Port: " + QSTRN(httpPort));
