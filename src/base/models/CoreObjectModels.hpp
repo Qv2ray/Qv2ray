@@ -234,7 +234,7 @@ namespace Qv2ray::base::objects
         {
             QString path = "/";
             QMap<QString, QString> headers;
-            int maxEarlyData = 1024;
+            int maxEarlyData = 0;
             bool useBrowserForwarding = false;
             JSONSTRUCT_COMPARE(WebSocketObject, path, headers, maxEarlyData, useBrowserForwarding)
             JSONSTRUCT_REGISTER(WebSocketObject, F(path, headers, maxEarlyData, useBrowserForwarding))
