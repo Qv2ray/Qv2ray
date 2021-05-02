@@ -1,4 +1,5 @@
 #pragma once
+#include <QHostAddress>
 #include <QObject>
 #include <QString>
 //

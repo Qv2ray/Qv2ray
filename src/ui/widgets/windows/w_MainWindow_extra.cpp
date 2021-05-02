@@ -61,33 +61,47 @@ void MainWindow::MWHideWindow()
 void MainWindow::MWSetSystemProxy()
 {
     const auto inboundInfo = KernelInstance->GetCurrentConnectionInboundInfo();
-
-    ProtocolSettingsInfoObject httpInboundInfo;
-    ProtocolSettingsInfoObject socksInboundInfo;
+    bool httpEnabled = false;
+    bool socksEnabled = false;
+    int httpPort = 0;
+    int socksPort = 0;
+    QString httpAddress;
+    QString socksAddress;
 
     for (const auto &info : inboundInfo)
     {
         if (info.protocol == "http")
-            httpInboundInfo = info;
-        if (info.protocol == "socks")
-            socksInboundInfo = info;
+        {
+            httpEnabled = true;
+            httpPort = info.port;
+            httpAddress = info.address;
+        }
+        else if (info.protocol == "socks")
+        {
+            socksEnabled = true;
+            socksPort = info.port;
+            socksAddress = info.address;
+        }
     }
 
-    const bool httpEnabled = httpInboundInfo.port > 0;
-    const bool socksEnabled = socksInboundInfo.port > 0;
     QString proxyAddress;
+    if (httpEnabled)
+        proxyAddress = httpAddress;
+    else if (socksEnabled)
+        proxyAddress = socksAddress;
 
-    if (httpEnabled || socksEnabled)
+    const QHostAddress ha(proxyAddress);
+    if (ha.isEqual(QHostAddress::AnyIPv4)) // "0.0.0.0"
+        proxyAddress = "127.0.0.1";
+    else if (ha.isEqual(QHostAddress::AnyIPv6)) // "::"
+        proxyAddress = "::1";
+
+    if (!proxyAddress.isEmpty())
     {
-        proxyAddress = httpEnabled ? httpInboundInfo.address : socksInboundInfo.address;
-        if (proxyAddress == "0.0.0.0")
-            proxyAddress = "127.0.0.1";
-
-        if (proxyAddress == "::")
-            proxyAddress = "::1";
-
         LOG("ProxyAddress: " + proxyAddress);
-        SetSystemProxy(proxyAddress, httpInboundInfo.port, socksInboundInfo.port);
+        LOG("HTTP Port: " + QSTRN(httpPort));
+        LOG("SOCKS Port: " + QSTRN(socksPort));
+        SetSystemProxy(proxyAddress, httpPort, socksPort);
         qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy"));
         if (!GlobalConfig.uiConfig.quietMode)
         {

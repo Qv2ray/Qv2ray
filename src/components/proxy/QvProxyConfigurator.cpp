@@ -249,9 +249,20 @@ namespace Qv2ray::components::proxy
     void SetSystemProxy(const QString &address, int httpPort, int socksPort)
     {
         LOG("Setting up System Proxy");
-        bool hasHTTP = (httpPort > 0);
-        bool hasSOCKS = (socksPort > 0);
+        bool hasHTTP = (httpPort > 0 && httpPort < 65536);
+        bool hasSOCKS = (socksPort > 0 && socksPort < 65536);
 
+#ifdef Q_OS_WIN
+        if (!hasHTTP)
+        {
+            LOG("Nothing?");
+            return;
+        }
+        else
+        {
+            LOG("Qv2ray will set system proxy to use HTTP");
+        }
+#else
         if (!hasHTTP && !hasSOCKS)
         {
             LOG("Nothing?");
@@ -267,10 +278,22 @@ namespace Qv2ray::components::proxy
         {
             LOG("Qv2ray will set system proxy to use SOCKS");
         }
+#endif
 
 #ifdef Q_OS_WIN
-        const auto scheme = (hasHTTP ? "" : "socks5://");
-        QString __a = scheme + address + ":" + QSTRN(hasHTTP ? httpPort : socksPort);
+        QString __a;
+        const QHostAddress ha(address);
+        const auto type = ha.protocol();
+        if (type == QAbstractSocket::IPv6Protocol)
+        {
+            // many software do not recognize IPv6 proxy server string though
+            const auto str = ha.toString(); // RFC5952
+            __a = "[" + str + "]:" + QSTRN(httpPort);
+        }
+        else
+        {
+             __a = address + ":" + QSTRN(httpPort);
+        }
 
         LOG("Windows proxy string: " + __a);
         auto proxyStrW = new WCHAR[__a.length() + 1];
