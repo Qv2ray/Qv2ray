@@ -281,7 +281,19 @@ namespace Qv2ray::components::proxy
 #endif
 
 #ifdef Q_OS_WIN
-        QString __a = address + ":" + QSTRN(httpPort);
+        QString __a;
+        const QHostAddress ha = QHostAddress(address);
+        const auto type = ha.protocol();
+        if (type == QAbstractSocket::IPv6Protocol)
+        {
+            // many software do not recognize IPv6 proxy server string though
+            const auto str = ha.toString(); // RFC5952
+            __a = "[" + str + "]:" + QSTRN(httpPort);
+        }
+        else
+        {
+             __a = address + ":" + QSTRN(httpPort);
+        }
 
         LOG("Windows proxy string: " + __a);
         auto proxyStrW = new WCHAR[__a.length() + 1];
