@@ -90,9 +90,10 @@ void MainWindow::MWSetSystemProxy()
     else if (socksEnabled)
         proxyAddress = socksAddress;
 
-    if (proxyAddress == "0.0.0.0")
+    const QHostAddress ha = QHostAddress(proxyAddress);
+    if (ha.isEqual(QHostAddress::AnyIPv4)) // 0.0.0.0
         proxyAddress = "127.0.0.1";
-    else if (proxyAddress == "::")
+    else if (ha.isEqual(QHostAddress::AnyIPv6)) // ::
         proxyAddress = "::1";
 
     if (proxyAddress != "")

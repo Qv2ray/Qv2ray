@@ -8,6 +8,7 @@
 #include "ui/widgets/widgets/ConnectionItemWidget.hpp"
 #include "ui_w_MainWindow.h"
 
+#include <QHostAddress>
 #include <QMainWindow>
 #include <QMenu>
 
