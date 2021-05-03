@@ -1964,6 +1964,24 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
         <source>Invalid tproxy listening ipv4 address.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Browser Forwarder Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening Address</source>
+        <comment>Listening Address for Browser Forwarder</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listening Port</source>
+        <comment>Listening Port for Browser Forwarder</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This applies to Simple Configs with Browser Forwarder on.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>

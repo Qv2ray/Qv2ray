@@ -80,7 +80,7 @@ namespace Qv2ray::base::config
         bool sniffing = false;
         QList<QString> destOverride = { "http", "tls" };
         objects::AccountObject account;
-        bool metadataOnly;
+        bool metadataOnly = true;
         Qv2rayConfig_ProtocolInboundBase(){};
         JSONSTRUCT_REGISTER(Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, destOverride, account, metadataOnly))
     };
@@ -123,6 +123,17 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(QvConfig_TProxy, B(Qv2rayConfig_ProtocolInboundBase), F(tProxyIP, tProxyV6IP, hasTCP, hasUDP, mode))
     };
 
+    struct QvConfig_BrowserForwarder
+    {
+        QString address = "127.0.0.1";
+        int port = 8088;
+
+        QvConfig_BrowserForwarder() {}
+
+        JSONSTRUCT_COMPARE(QvConfig_BrowserForwarder, address, port)
+        JSONSTRUCT_REGISTER(QvConfig_BrowserForwarder, F(address, port))
+    };
+
     struct QvConfig_Inbounds
     {
         QString listenip = "127.0.0.1";
@@ -134,11 +145,13 @@ namespace Qv2ray::base::config
         QvConfig_HttpInbound httpSettings;
         QvConfig_SocksInbound socksSettings;
         QvConfig_SystemProxy systemProxySettings;
+        QvConfig_BrowserForwarder browserForwarderSettings;
+        //
         JSONSTRUCT_COMPARE(QvConfig_Inbounds, listenip, useSocks, useHTTP, useTPROXY, tProxySettings, httpSettings, socksSettings,
-                           systemProxySettings)
+                           systemProxySettings, browserForwarderSettings);
         JSONSTRUCT_REGISTER(QvConfig_Inbounds,                         //
                             A(socksSettings),                          //
                             F(listenip, useSocks, useHTTP, useTPROXY), //
-                            F(tProxySettings, httpSettings, systemProxySettings))
+                            F(tProxySettings, httpSettings, systemProxySettings, browserForwarderSettings));
     };
 } // namespace Qv2ray::base::config

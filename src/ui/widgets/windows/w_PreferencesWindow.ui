@@ -446,6 +446,20 @@ For example, for updating subscriptions.</string>
               </item>
              </layout>
             </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_40">
+              <property name="text">
+               <string>RealPing Test URL</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="latencyRealPingTestURLTxt">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_71">
               <property name="text">
@@ -557,20 +571,6 @@ For example, for updating subscriptions.</string>
                </layout>
               </item>
              </layout>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_40">
-              <property name="text">
-               <string>RealPing Test URL</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="latencyRealPingTestURLTxt">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>
@@ -1002,8 +1002,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>867</width>
-            <height>630</height>
+            <width>1331</width>
+            <height>894</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1">
@@ -1047,6 +1047,265 @@ Custom DNS Settings</string>
            </item>
            <item>
             <layout class="QGridLayout" name="gridLayout_11">
+             <item row="1" column="0">
+              <widget class="QGroupBox" name="tproxyGroupBox">
+               <property name="title">
+                <string>Dokodemo Door Settings</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QFormLayout" name="formLayout_11">
+                <item row="0" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                  <item>
+                   <widget class="QLineEdit" name="tproxyListenAddr">
+                    <property name="placeholderText">
+                     <string>IPv4 address, e.g. '127.0.0.1'</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_77">
+                    <property name="text">
+                     <string>Port</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="tProxyPort">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>65535</number>
+                    </property>
+                    <property name="value">
+                     <number>12345</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_72">
+                  <property name="text">
+                   <string>Network Options</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout">
+                  <item>
+                   <widget class="QCheckBox" name="tproxyEnableTCP">
+                    <property name="text">
+                     <string>TCP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxyEnableUDP">
+                    <property name="text">
+                     <string>UDP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_93">
+                  <property name="text">
+                   <string>Destination Override</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_14">
+                  <item>
+                   <widget class="QCheckBox" name="tproxyOverrideHTTPCB">
+                    <property name="text">
+                     <string>HTTP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxyOverrideTLSCB">
+                    <property name="text">
+                     <string>TLS</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxyOverrideFakeDNSCB">
+                    <property name="text">
+                     <string>FakeDNS</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_3">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_78">
+                  <property name="text">
+                   <string>Mode</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QComboBox" name="tproxyMode">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string notr="true">redirect</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">tproxy</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="label_79">
+                  <property name="text">
+                   <string>Outbound Mark</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QSpinBox" name="outboundMark">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                  <property name="value">
+                   <number>255</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_73">
+                  <property name="text">
+                   <string>Listening IPv4 Address</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_90">
+                  <property name="text">
+                   <string>Listening IPv6 Address</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::PlainText</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="tproxyListenV6Addr">
+                  <property name="toolTip">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="placeholderText">
+                   <string>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_18">
+                  <property name="text">
+                   <string>Sniffing</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_17">
+                  <item>
+                   <widget class="QCheckBox" name="tproxySniffingCB">
+                    <property name="text">
+                     <string>Enabled</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxySniffingMetadataOnlyCB">
+                    <property name="text">
+                     <string>Metadata Only</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
              <item row="0" column="0">
               <widget class="QGroupBox" name="socksGroupBox">
                <property name="title">
@@ -1437,261 +1696,63 @@ Custom DNS Settings</string>
                </layout>
               </widget>
              </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QGroupBox" name="tproxyGroupBox">
+             <item row="1" column="1">
+              <widget class="QGroupBox" name="groupBox_2">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="title">
-                <string>Dokodemo Door Settings</string>
+                <string>Browser Forwarder Settings</string>
                </property>
                <property name="checkable">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
                <property name="checked">
                 <bool>false</bool>
                </property>
-               <layout class="QFormLayout" name="formLayout_11">
-                <item row="0" column="1">
-                 <layout class="QHBoxLayout" name="horizontalLayout_8">
-                  <item>
-                   <widget class="QLineEdit" name="tproxyListenAddr">
-                    <property name="placeholderText">
-                     <string>IPv4 address, e.g. '127.0.0.1'</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_77">
-                    <property name="text">
-                     <string>Port</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="tProxyPort">
-                    <property name="minimum">
-                     <number>1</number>
-                    </property>
-                    <property name="maximum">
-                     <number>65535</number>
-                    </property>
-                    <property name="value">
-                     <number>12345</number>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_72">
-                  <property name="text">
-                   <string>Network Options</string>
-                  </property>
-                  <property name="textFormat">
-                   <enum>Qt::PlainText</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <layout class="QHBoxLayout" name="horizontalLayout">
-                  <item>
-                   <widget class="QCheckBox" name="tproxyEnableTCP">
-                    <property name="text">
-                     <string>TCP</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="tproxyEnableUDP">
-                    <property name="text">
-                     <string>UDP</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_93">
-                  <property name="text">
-                   <string>Destination Override</string>
-                  </property>
-                  <property name="textFormat">
-                   <enum>Qt::PlainText</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <layout class="QHBoxLayout" name="horizontalLayout_14">
-                  <item>
-                   <widget class="QCheckBox" name="tproxyOverrideHTTPCB">
-                    <property name="text">
-                     <string>HTTP</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="tproxyOverrideTLSCB">
-                    <property name="text">
-                     <string>TLS</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="tproxyOverrideFakeDNSCB">
-                    <property name="text">
-                     <string>FakeDNS</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_3">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_78">
-                  <property name="text">
-                   <string>Mode</string>
-                  </property>
-                  <property name="textFormat">
-                   <enum>Qt::PlainText</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QComboBox" name="tproxyMode">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string notr="true">redirect</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string notr="true">tproxy</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_79">
-                  <property name="text">
-                   <string>Outbound Mark</string>
-                  </property>
-                  <property name="textFormat">
-                   <enum>Qt::PlainText</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QSpinBox" name="outboundMark">
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>65535</number>
-                  </property>
-                  <property name="value">
-                   <number>255</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_73">
-                  <property name="text">
-                   <string>Listening IPv4 Address</string>
-                  </property>
-                  <property name="textFormat">
-                   <enum>Qt::PlainText</enum>
-                  </property>
-                 </widget>
-                </item>
+               <layout class="QFormLayout" name="formLayout_14">
                 <item row="1" column="0">
-                 <widget class="QLabel" name="label_90">
+                 <widget class="QLabel" name="label_42">
                   <property name="text">
-                   <string>Listening IPv6 Address</string>
-                  </property>
-                  <property name="textFormat">
-                   <enum>Qt::PlainText</enum>
+                   <string comment="Listening Address for Browser Forwarder">Listening Address</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QLineEdit" name="tproxyListenV6Addr">
-                  <property name="toolTip">
-                   <string/>
-                  </property>
+                 <widget class="QLineEdit" name="browserForwarderAddressTxt">
                   <property name="text">
-                   <string/>
-                  </property>
-                  <property name="placeholderText">
-                   <string>IPv6 address, e.g. ::1. Leave blank will disable ipv6.</string>
+                   <string notr="true">127.0.0.1</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_18">
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_66">
                   <property name="text">
-                   <string>Sniffing</string>
+                   <string comment="Listening Port for Browser Forwarder">Listening Port</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
-                 <layout class="QHBoxLayout" name="horizontalLayout_17">
-                  <item>
-                   <widget class="QCheckBox" name="tproxySniffingCB">
-                    <property name="text">
-                     <string>Enabled</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="tproxySniffingMetadataOnlyCB">
-                    <property name="text">
-                     <string>Metadata Only</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_4">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
+                <item row="2" column="1">
+                 <widget class="QSpinBox" name="browserForwarderPortSB">
+                  <property name="minimum">
+                   <number>8088</number>
+                  </property>
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0" colspan="2">
+                 <widget class="QLabel" name="label_82">
+                  <property name="font">
+                   <font>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>This applies to Simple Configs with Browser Forwarder on.</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
@@ -2379,12 +2440,46 @@ Custom DNS Settings</string>
   <tabstop>tabWidget</tabstop>
   <tabstop>darkThemeCB</tabstop>
   <tabstop>darkTrayCB</tabstop>
+  <tabstop>glyphTrayCB</tabstop>
   <tabstop>themeCombo</tabstop>
   <tabstop>languageComboBox</tabstop>
+  <tabstop>jumpListCountSB</tabstop>
+  <tabstop>maxLogLinesSB</tabstop>
+  <tabstop>startWithLoginCB</tabstop>
+  <tabstop>quietModeCB</tabstop>
+  <tabstop>useOldShareLinkFormatCB</tabstop>
+  <tabstop>noAutoConnectRB</tabstop>
+  <tabstop>lastConnectedRB</tabstop>
+  <tabstop>fixedAutoConnectRB</tabstop>
   <tabstop>autoStartSubsCombo</tabstop>
   <tabstop>autoStartConnCombo</tabstop>
+  <tabstop>startMinimizedCB</tabstop>
+  <tabstop>latencyTCPingRB</tabstop>
+  <tabstop>latencyICMPingRB</tabstop>
+  <tabstop>latencyRealPingTestURLTxt</tabstop>
+  <tabstop>qvNetworkUATxt</tabstop>
+  <tabstop>qvProxyNoProxy</tabstop>
+  <tabstop>qvProxySystemProxy</tabstop>
+  <tabstop>qvProxyCustomProxy</tabstop>
+  <tabstop>qvProxyTypeCombo</tabstop>
+  <tabstop>qvProxyAddressTxt</tabstop>
+  <tabstop>qvProxyPortCB</tabstop>
+  <tabstop>setTestLatencyCB</tabstop>
+  <tabstop>disableSystemRootCB</tabstop>
+  <tabstop>setTestLatencyOnConnectedCB</tabstop>
   <tabstop>logLevelComboBox</tabstop>
+  <tabstop>vCorePathTxt</tabstop>
+  <tabstop>selectVCoreBtn</tabstop>
+  <tabstop>vCoreAssetsPathTxt</tabstop>
+  <tabstop>selectVAssetBtn</tabstop>
+  <tabstop>enableAPI</tabstop>
+  <tabstop>statsPortBox</tabstop>
+  <tabstop>V2RayOutboundStatsCB</tabstop>
+  <tabstop>hasDirectStatisticsCB</tabstop>
   <tabstop>checkVCoreSettings</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pluginKernelV2RayIntegrationCB</tabstop>
+  <tabstop>pluginKernelPortAllocateCB</tabstop>
   <tabstop>scrollArea_2</tabstop>
   <tabstop>listenIPTxt</tabstop>
   <tabstop>setSysProxyCB</tabstop>
@@ -2395,19 +2490,54 @@ Custom DNS Settings</string>
   <tabstop>socksAuthCB</tabstop>
   <tabstop>socksAuthUsernameTxt</tabstop>
   <tabstop>socksAuthPasswordTxt</tabstop>
+  <tabstop>socksSniffingCB</tabstop>
+  <tabstop>socksSniffingMetadataOnly</tabstop>
+  <tabstop>socksOverrideHTTPCB</tabstop>
+  <tabstop>socksOverrideTLSCB</tabstop>
+  <tabstop>socksOverrideFakeDNSCB</tabstop>
   <tabstop>httpGroupBox</tabstop>
   <tabstop>httpPortLE</tabstop>
   <tabstop>httpAuthCB</tabstop>
   <tabstop>httpAuthUsernameTxt</tabstop>
   <tabstop>httpAuthPasswordTxt</tabstop>
+  <tabstop>httpSniffingCB</tabstop>
+  <tabstop>httpSniffingMetadataOnly</tabstop>
+  <tabstop>httpOverrideHTTPCB</tabstop>
+  <tabstop>httpOverrideTLSCB</tabstop>
+  <tabstop>httpOverrideFakeDNSCB</tabstop>
+  <tabstop>tproxyGroupBox</tabstop>
+  <tabstop>tproxyListenAddr</tabstop>
+  <tabstop>tProxyPort</tabstop>
+  <tabstop>tproxyListenV6Addr</tabstop>
+  <tabstop>tproxyEnableTCP</tabstop>
+  <tabstop>tproxyEnableUDP</tabstop>
+  <tabstop>tproxySniffingCB</tabstop>
+  <tabstop>tproxySniffingMetadataOnlyCB</tabstop>
+  <tabstop>tproxyOverrideHTTPCB</tabstop>
+  <tabstop>tproxyOverrideTLSCB</tabstop>
+  <tabstop>tproxyOverrideFakeDNSCB</tabstop>
+  <tabstop>tproxyMode</tabstop>
+  <tabstop>outboundMark</tabstop>
+  <tabstop>browserForwarderAddressTxt</tabstop>
+  <tabstop>browserForwarderPortSB</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
+  <tabstop>bypassPrivateCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
+  <tabstop>bypassBTCb</tabstop>
+  <tabstop>dnsFreedomCb</tabstop>
+  <tabstop>dnsIntercept</tabstop>
+  <tabstop>fpGroupBox</tabstop>
   <tabstop>fpTypeCombo</tabstop>
   <tabstop>fpAddressTx</tabstop>
   <tabstop>fpPortSB</tabstop>
   <tabstop>fpUseAuthCB</tabstop>
   <tabstop>fpUsernameTx</tabstop>
   <tabstop>fpPasswordTx</tabstop>
+  <tabstop>openConfigDirCB</tabstop>
+  <tabstop>updateChannelCombo</tabstop>
+  <tabstop>cancelIgnoreVersionBtn</tabstop>
+  <tabstop>textBrowser</tabstop>
+  <tabstop>aboutQt</tabstop>
  </tabstops>
  <resources/>
  <connections>
