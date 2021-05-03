@@ -300,7 +300,7 @@ CONFIGROOT RouteEditor::OpenEditor()
         // Process Browser Forwarder
         QJsonObject browserForwarder;
 		if(bfListenIPTxt->text().trimmed() == ""){
-			root["browserForwarder"] = nullptr;
+			root["browserForwarder"] = QJsonValue::Null;
 		}else{
 			browserForwarder["listenAddr"] = bfListenIPTxt->text();
             browserForwarder["listenPort"] = bfListenPortTxt->value();
