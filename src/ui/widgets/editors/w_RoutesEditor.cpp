@@ -299,9 +299,14 @@ CONFIGROOT RouteEditor::OpenEditor()
     {
         // Process Browser Forwarder
         QJsonObject browserForwarder;
-        browserForwarder["listenAddr"] = bfListenIPTxt->text();
-        browserForwarder["listenPort"] = bfListenPortTxt->value();
-        root["browserForwarder"] = browserForwarder;
+		if(bfListenIPTxt->text().trimmed() == ""){
+			root["browserForwarder"] = null;
+		}else{
+			browserForwarder["listenAddr"] = bfListenIPTxt->text();
+            browserForwarder["listenPort"] = bfListenPortTxt->value();
+            root["browserForwarder"] = browserForwarder;
+		}
+        
     }
     {
         // Process Observatory
