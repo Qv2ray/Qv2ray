@@ -24,7 +24,7 @@
     <name>CertificateItemWidget</name>
     <message>
       <source>Certificate Item Editor</source>
-      <translation>English</translation>
+      <translation type="unfinished">Certificate Item Editor</translation>
     </message>
     <message>
       <source>Usage</source>
@@ -39,7 +39,13 @@
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-      <translation>English</translation>
+      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</translation>
     </message>
     <message>
       <source>Certificate</source>
