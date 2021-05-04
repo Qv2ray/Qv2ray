@@ -80,7 +80,7 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         run: |
           sudo add-apt-repository ppa:webispy/grpc
-          sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
+          sudo add-apt-repository ppa:ondrej/nginx
           sudo apt update
           sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libxcb-image0-dev libxcb-icccm4-dev libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 \
               libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc \
