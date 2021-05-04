@@ -140,6 +140,8 @@ class PreferencesWindow
     void on_socksOverrideFakeDNSCB_stateChanged(int arg1);
     void on_httpOverrideFakeDNSCB_stateChanged(int arg1);
     void on_tproxyOverrideFakeDNSCB_stateChanged(int arg1);
+    void on_browserForwarderAddressTxt_textEdited(const QString &arg1);
+    void on_browserForwarderPortSB_valueChanged(int arg1);
 
   private:
     DnsSettingsWidget *dnsSettingsWidget;

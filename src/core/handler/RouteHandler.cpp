@@ -213,6 +213,7 @@ namespace Qv2ray::core::handler
         const auto &fakeDNSConf = config.overrideDNS ? config.fakeDNSConfig : GlobalConfig.defaultRouteConfig.fakeDNSConfig;
         const auto &routeConf = config.overrideRoute ? config.routeConfig : GlobalConfig.defaultRouteConfig.routeConfig;
         const auto &fpConf = config.overrideForwardProxyConfig ? config.forwardProxyConfig : GlobalConfig.defaultRouteConfig.forwardProxyConfig;
+        const auto &browserForwardingConf = GlobalConfig.inboundConfig.browserForwarderSettings;
         //
         //
         // Note: The part below always makes the whole functionality in
@@ -286,6 +287,14 @@ namespace Qv2ray::core::handler
             }
             root["routing"] = GenerateRoutes(connConf.enableProxy, connConf.bypassCN, connConf.bypassLAN, tag, routeConf);
 
+            // Browser Forwarding
+            if (QJsonIO::GetValue(root, "outbounds", 0, "streamSettings", "wsSettings", "useBrowserForwarding").toBool(false))
+            {
+                LOG("Applying browserForwarder configuration");
+                QJsonIO::SetValue(root, browserForwardingConf.address, "browserForwarder", "listenAddr");
+                QJsonIO::SetValue(root, browserForwardingConf.port, "browserForwarder", "listenPort");
+            }
+
             //
             // Forward proxy
             if (fpConf.enableForwardProxy)
@@ -302,7 +311,10 @@ namespace Qv2ray::core::handler
                     }
                     else
                     {
-                        const static QJsonObject proxySettings{ { "tag", OUTBOUND_TAG_FORWARD_PROXY } };
+                        const static QJsonObject proxySettings{
+                            { "tag", OUTBOUND_TAG_FORWARD_PROXY }, //
+                            { "transportLayer", true }             //
+                        };                                         //
                         LOG("Applying forward proxy to current connection.");
                         QJsonIO::SetValue(root, proxySettings, "outbounds", 0, "proxySettings");
                         const auto forwardProxySettings = GenerateHTTPSOCKSOut(fpConf.serverAddress, //

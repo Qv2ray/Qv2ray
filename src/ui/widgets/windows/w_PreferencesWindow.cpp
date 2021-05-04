@@ -171,6 +171,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
 
         tproxyMode->setCurrentText(tProxySettings.mode);
     }
+    {
+        const auto &browserForwarderSettings = CurrentConfig.inboundConfig.browserForwarderSettings;
+        browserForwarderAddressTxt->setText(browserForwarderSettings.address);
+        browserForwarderPortSB->setValue(browserForwarderSettings.port);
+    }
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
     //
     dnsIntercept->setChecked(CurrentConfig.defaultRouteConfig.connectionConfig.dnsIntercept);
@@ -1280,4 +1285,16 @@ void PreferencesWindow::on_tproxyOverrideFakeDNSCB_stateChanged(int arg1)
         CurrentConfig.inboundConfig.tProxySettings.destOverride.removeAll("fakedns");
     else if (!CurrentConfig.inboundConfig.tProxySettings.destOverride.contains("fakedns"))
         CurrentConfig.inboundConfig.tProxySettings.destOverride.append("fakedns");
+}
+
+void PreferencesWindow::on_browserForwarderAddressTxt_textEdited(const QString &arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.browserForwarderSettings.address = arg1;
+}
+
+void PreferencesWindow::on_browserForwarderPortSB_valueChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.browserForwarderSettings.port = arg1;
 }
