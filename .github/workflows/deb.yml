@@ -30,8 +30,8 @@ jobs:
             container: debian:stable
           - distro: unstable
             container: debian:unstable
-          - distro: groovy
-            container: ubuntu:groovy
+          - distro: hirsute
+            container: ubuntu:hirsute
           - distro: focal
             container: ubuntu:focal
     needs: check_commit_msg
