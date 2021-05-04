@@ -1735,7 +1735,7 @@ Custom DNS Settings</string>
                 <item row="2" column="1">
                  <widget class="QSpinBox" name="browserForwarderPortSB">
                   <property name="minimum">
-                   <number>8088</number>
+                   <number>1</number>
                   </property>
                   <property name="maximum">
                    <number>65535</number>
