@@ -298,10 +298,13 @@ CONFIGROOT RouteEditor::OpenEditor()
     root["fakedns"] = fakedns.toJson();
     {
         // Process Browser Forwarder
-        QJsonObject browserForwarder;
-        browserForwarder["listenAddr"] = bfListenIPTxt->text();
-        browserForwarder["listenPort"] = bfListenPortTxt->value();
-        root["browserForwarder"] = browserForwarder;
+        if (!bfListenIPTxt->text().trimmed().isEmpty())
+        {
+            root["browserForwarder"] = QJsonObject{
+                { "listenAddr", bfListenIPTxt->text() },
+                { "listenPort", bfListenPortTxt->value() },
+            };
+        }
     }
     {
         // Process Observatory
