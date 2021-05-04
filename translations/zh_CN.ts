@@ -1986,7 +1986,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Browser Forwarder Settings</source>
-      <translation type="unfinished">Browser Forwarder Settings</translation>
+      <translation>浏览器转发器设置</translation>
     </message>
     <message>
       <source>Listening Address</source>
@@ -2000,7 +2000,7 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
-      <translation type="unfinished">This applies to Simple Configs with Browser Forwarder on.</translation>
+      <translation>适用于启用了浏览器转发器的简单配置。</translation>
     </message>
   </context>
   <context>
@@ -3550,7 +3550,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>UDP Local IP</source>
-      <translation>UDP 本地IP</translation>
+      <translation>UDP 本地 IP</translation>
     </message>
     <message>
       <source>127.0.0.1</source>
