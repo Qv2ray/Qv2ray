@@ -1978,6 +1978,24 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
       <source>Invalid tproxy listening ipv4 address.</source>
       <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
     </message>
+    <message>
+      <source>Browser Forwarder Settings</source>
+      <translation type="unfinished">Browser Forwarder Settings</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <comment>Listening Address for Browser Forwarder</comment>
+      <translation>監聽位址</translation>
+    </message>
+    <message>
+      <source>Listening Port</source>
+      <comment>Listening Port for Browser Forwarder</comment>
+      <translation type="unfinished">Listening Port</translation>
+    </message>
+    <message>
+      <source>This applies to Simple Configs with Browser Forwarder on.</source>
+      <translation type="unfinished">This applies to Simple Configs with Browser Forwarder on.</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
