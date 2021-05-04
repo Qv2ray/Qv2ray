@@ -1986,7 +1986,7 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Browser Forwarder Settings</source>
-      <translation type="unfinished">Browser Forwarder Settings</translation>
+      <translation>ブラウザーフォワーダーの設定</translation>
     </message>
     <message>
       <source>Listening Address</source>
@@ -1996,11 +1996,11 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message>
       <source>Listening Port</source>
       <comment>Listening Port for Browser Forwarder</comment>
-      <translation type="unfinished">Listening Port</translation>
+      <translation>リスニングポート</translation>
     </message>
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
-      <translation type="unfinished">This applies to Simple Configs with Browser Forwarder on.</translation>
+      <translation>これはブラウザーフォワーダーがオンのシンプルな構成に適用されます。</translation>
     </message>
   </context>
   <context>
