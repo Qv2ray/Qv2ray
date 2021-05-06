@@ -24,7 +24,7 @@
     <name>CertificateItemWidget</name>
     <message>
       <source>Certificate Item Editor</source>
-      <translation>English</translation>
+      <translation type="unfinished">Certificate Item Editor</translation>
     </message>
     <message>
       <source>Usage</source>
@@ -39,7 +39,13 @@
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-      <translation>English</translation>
+      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</translation>
     </message>
     <message>
       <source>Certificate</source>
@@ -1977,6 +1983,24 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>Invalid tproxy listening ipv4 address.</source>
       <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder Settings</source>
+      <translation type="unfinished">Browser Forwarder Settings</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <comment>Listening Address for Browser Forwarder</comment>
+      <translation>監聽位址</translation>
+    </message>
+    <message>
+      <source>Listening Port</source>
+      <comment>Listening Port for Browser Forwarder</comment>
+      <translation type="unfinished">Listening Port</translation>
+    </message>
+    <message>
+      <source>This applies to Simple Configs with Browser Forwarder on.</source>
+      <translation type="unfinished">This applies to Simple Configs with Browser Forwarder on.</translation>
     </message>
   </context>
   <context>

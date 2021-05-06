@@ -1984,6 +1984,24 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
       <source>Invalid tproxy listening ipv4 address.</source>
       <translation>無効な tproxy listening ipv4 アドレスです。</translation>
     </message>
+    <message>
+      <source>Browser Forwarder Settings</source>
+      <translation>ブラウザーフォワーダーの設定</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <comment>Listening Address for Browser Forwarder</comment>
+      <translation>リスニングアドレス</translation>
+    </message>
+    <message>
+      <source>Listening Port</source>
+      <comment>Listening Port for Browser Forwarder</comment>
+      <translation>リスニングポート</translation>
+    </message>
+    <message>
+      <source>This applies to Simple Configs with Browser Forwarder on.</source>
+      <translation>これはブラウザーフォワーダーがオンのシンプルな構成に適用されます。</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>

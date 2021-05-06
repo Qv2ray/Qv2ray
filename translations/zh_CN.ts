@@ -394,7 +394,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Fallback</source>
-      <translation>禁用回退查询</translation>
+      <translation>禁用回退</translation>
     </message>
     <message>
       <source>Miscellaneous</source>
@@ -402,7 +402,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Fake DNS IP Pool</source>
-      <translation>FakeDNS IP 库</translation>
+      <translation>FakeDNS IP池</translation>
     </message>
     <message>
       <source>Fake DNS Pool Size</source>
@@ -1982,7 +1982,25 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     </message>
     <message>
       <source>Invalid tproxy listening ipv4 address.</source>
-      <translation>无效的 tproxy 监听ipv4 地址。</translation>
+      <translation>无效的透明代理 IPv4 监听地址。</translation>
+    </message>
+    <message>
+      <source>Browser Forwarder Settings</source>
+      <translation>浏览器转发器设置</translation>
+    </message>
+    <message>
+      <source>Listening Address</source>
+      <comment>Listening Address for Browser Forwarder</comment>
+      <translation>监听地址</translation>
+    </message>
+    <message>
+      <source>Listening Port</source>
+      <comment>Listening Port for Browser Forwarder</comment>
+      <translation>监听端口</translation>
+    </message>
+    <message>
+      <source>This applies to Simple Configs with Browser Forwarder on.</source>
+      <translation>适用于启用了浏览器转发器的简单配置。</translation>
     </message>
   </context>
   <context>
@@ -2770,11 +2788,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Add Balancer</source>
-      <translation>添加平衡器</translation>
+      <translation>添加均衡器</translation>
     </message>
     <message>
       <source>Add Proxy Chain</source>
-      <translation>添加代理链接</translation>
+      <translation>添加代理链</translation>
     </message>
     <message>
       <source>Group</source>
@@ -2810,7 +2828,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source> Observatory</source>
-      <translation> 天文台</translation>
+      <translation> 连接观测</translation>
     </message>
     <message>
       <source>Subject Selector</source>
@@ -2885,7 +2903,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Minimal Perfect Hash Matcher</source>
-      <translation>最少的哈希匹配器</translation>
+      <translation>最小完美哈希匹配器</translation>
     </message>
   </context>
   <context>
@@ -3234,11 +3252,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Max Early Data</source>
-      <translation>最大早期数据</translation>
+      <translation>最大 Early Data</translation>
     </message>
     <message>
       <source>Browser Forwarding</source>
-      <translation>浏览器转发中</translation>
+      <translation>浏览器转发</translation>
     </message>
   </context>
   <context>
@@ -3532,7 +3550,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>UDP Local IP</source>
-      <translation>UDP 本地IP</translation>
+      <translation>UDP 本地 IP</translation>
     </message>
     <message>
       <source>127.0.0.1</source>
@@ -3778,11 +3796,11 @@ Maybe you have downloaded the wrong core?</source>
     <name>VmessOutboundEditor</name>
     <message>
       <source>Non AEAD VMess detected</source>
-      <translation>检测到非AEAD VMess。</translation>
+      <translation>检测到非 AEAD 的 VMess。</translation>
     </message>
     <message>
       <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
-      <translation>VMess MD5 使用非零 AlterID 已废弃，请使用 VMessAEAD</translation>
+      <translation>VMess MD5 使用非零 AlterID 已废弃，请使用 VMessAEAD。</translation>
     </message>
   </context>
   <context>
