@@ -35,6 +35,10 @@ namespace Qv2ray::components::plugins
             const QStringList entries = QDir(pluginDirPath).entryList(QDir::Files);
             for (const auto &fileName : entries)
             {
+                if (!fileName.endsWith(QV2RAY_LIBRARY_SUFFIX))
+                {
+                    continue;
+                }
                 DEBUG("Loading plugin: " + fileName + " from: " + pluginDirPath);
                 //
                 QvPluginInfo info;
