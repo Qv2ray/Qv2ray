@@ -1,5 +1,5 @@
 ---
-name: Bug Report / 缺陷报告
+name: 缺陷报告 / Bug Report
 about: 仅用于报告缺陷，滥用将直接关闭，不予回复 / For Bug Reports Only.
 title: 'Bug Report: '
 labels: Bugs
