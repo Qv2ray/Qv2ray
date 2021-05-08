@@ -1,6 +1,6 @@
 ---
-name: Bug Report
-about: Report Qv2ray Bug
+name: Bug Report / 缺陷报告
+about: 仅用于报告缺陷，滥用将直接关闭，不予回复 / For Bug Reports Only.
 title: 'Bug Report: '
 labels: Bugs
 assignees: ''
