@@ -1395,15 +1395,6 @@ For example, for updating subscriptions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Test Latency Periodcally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Kernel Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1980,6 +1971,15 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>This applies to Simple Configs with Browser Forwarder on.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Test Latency Periodically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Run TCPing or ICMPing periodically after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
