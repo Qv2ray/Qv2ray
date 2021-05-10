@@ -209,7 +209,7 @@ namespace Qv2ray::base::objects
             typedef QMap<QString, QString> QStringStringMap;
             QJS_PROP_D(QString, path, "/")
             QJS_PROP(QStringStringMap, headers)
-            QJS_PROP_D(int, maxEarlyData, 1024)
+            QJS_PROP_D(int, maxEarlyData, 0)
             QJS_PROP_D(bool, useBrowserForwarding, false)
             QJS_FUNCTION(WebSocketObject, F(path, headers, maxEarlyData, useBrowserForwarding))
         };

@@ -275,7 +275,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="nodesTab">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabWidget_3Page1">
       <attribute name="title">
@@ -345,12 +345,22 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>:Listening Port</string>
+             <string>Listening Port</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSpinBox" name="bfListenPortTxt"/>
+           <widget class="QSpinBox" name="bfListenPortTxt">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>65535</number>
+            </property>
+            <property name="value">
+             <number>8080</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

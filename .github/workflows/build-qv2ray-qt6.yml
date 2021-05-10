@@ -26,8 +26,8 @@ jobs:
     strategy:
       matrix:
         ui_type: [QWidget]
-        platform: [ubuntu-20.04, macos-latest, windows-latest]
-        build_type: [Debug]
+        platform: [ubuntu-20.04, windows-latest]
+        build_type: [Release]
         qt_version: [6.1.0]
         include:
           - platform: windows-latest
@@ -49,6 +49,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+          token: ${{ secrets.PAT }}
       # =========================================================================================================
       - name: Install MSVC compiler
         if: matrix.platform == 'windows-latest'
@@ -124,8 +125,6 @@ jobs:
           cd build
           cmake .. -GNinja \
             -DCMAKE_INSTALL_PREFIX=installed \
-            -DQV2RAY_UI_TYPE=${{ matrix.ui_type }} \
-            -DQV2RAY_QT6=ON \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 \
             -DDS_STORE_SCRIPT=ON \
@@ -145,8 +144,6 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja \
-            -DQV2RAY_UI_TYPE=${{ matrix.ui_type }} \
-            -DQV2RAY_QT6=ON \
             -DCMAKE_INSTALL_PREFIX=./deployment \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
           cmake --build . --parallel $(nproc)
@@ -160,8 +157,6 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja \
-            -DQV2RAY_UI_TYPE=${{ matrix.ui_type }} \
-            -DQV2RAY_QT6=ON \
             -DCMAKE_INSTALL_PREFIX=./AppDir/usr \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DQV2RAY_TRANSLATION_PATH=QApplication::applicationDirPath\(\)+"/../share/qv2ray/lang"

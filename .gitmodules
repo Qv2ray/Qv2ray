@@ -3,16 +3,16 @@
 	url = https://github.com/itay-grudev/SingleApplication
 [submodule "3rdparty/QNodeEditor"]
 	path = 3rdparty/QNodeEditor
-	url = https://github.com/Qv2ray/QNodeEditor
+	url = https://github.com/Shadowsocks-NET/QNodeEditor
 [submodule "3rdparty/puresource"]
 	path = 3rdparty/puresource
 	url = https://github.com/Qv2ray/PureSource
 [submodule "src/plugin-interface"]
 	path = src/plugin-interface
-	url = https://github.com/Qv2ray/QvPlugin-Interface
+	url = https://github.com/Shadowsocks-NET/QvPlugin-Interface
 [submodule "3rdparty/QJsonStruct"]
 	path = 3rdparty/QJsonStruct
-	url = https://github.com/Qv2ray/QJsonStruct
+	url = https://github.com/Shadowsocks-NET/QJsonStruct
 [submodule "3rdparty/libuv"]
     path = 3rdparty/libuv
     url = https://github.com/libuv/libuv.git

@@ -61,6 +61,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     configdirLabel->setText(QV2RAY_CONFIG_DIR);
 
     // We add locales
+
+#if QV2RAY_FEATURE(translations)
     auto langs = Qv2rayTranslator->GetAvailableLanguages();
     if (!langs.empty())
     {
@@ -68,6 +70,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
         languageComboBox->addItems(langs);
     }
     else
+#endif
     {
         languageComboBox->setDisabled(true);
         // Since we can't have languages detected. It worths nothing to translate these.
@@ -366,12 +369,14 @@ void PreferencesWindow::on_buttonBox_accepted()
 
     if (CurrentConfig.uiConfig->language != GlobalConfig.uiConfig->language)
     {
+#if QV2RAY_FEATURE(translations)
         // Install translator
         if (Qv2rayTranslator->InstallTranslation(CurrentConfig.uiConfig->language))
         {
             UIMessageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
             QApplication::processEvents();
         }
+#endif
     }
 
     CurrentConfig.defaultRouteConfig->routeConfig = routeSettingsWidget->GetRouteConfig();

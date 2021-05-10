@@ -93,11 +93,12 @@ namespace Qv2ray::base::objects::complex
         return meta;
     }
 
-    inline OutboundObjectMeta make_balancer_outbound(const QList<QString> &outbounds, const QString &tag)
+    inline OutboundObjectMeta make_balancer_outbound(const QList<QString> &outbounds, const QString &type, const QString &tag)
     {
         OutboundObjectMeta meta;
         meta.metaType = METAOUTBOUND_BALANCER;
         meta.outboundTags = outbounds;
+        meta.strategyType = type;
         meta.displayName = tag;
         return meta;
     }

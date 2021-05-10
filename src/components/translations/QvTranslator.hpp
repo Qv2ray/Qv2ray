@@ -1,4 +1,7 @@
 #pragma once
+#include "base/Qv2rayFeatures.hpp"
+
+#if QV2RAY_FEATURE(translations)
 #include <QString>
 #include <QTranslator>
 #include <memory>
@@ -36,3 +39,4 @@ namespace Qv2ray::common
 } // namespace Qv2ray::common
 
 using namespace Qv2ray::common;
+#endif

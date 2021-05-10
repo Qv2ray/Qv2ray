@@ -17,6 +17,9 @@
 // Ultilities
 #define QVFEATURE_util_has_ntp                  -1
 
+// Translations
+#define QVFEATURE_translations                  -1
+
 // clang-format on
 
 #define QV2RAY_FEATURE(feat) ((1 / QVFEATURE_##feat) == 1)

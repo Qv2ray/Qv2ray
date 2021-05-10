@@ -1,5 +1,6 @@
 #include "QvTranslator.hpp"
 
+#if QV2RAY_FEATURE(translations)
 #include "base/Qv2rayBase.hpp"
 #include "utils/QvHelpers.hpp"
 
@@ -70,3 +71,4 @@ namespace Qv2ray::common
         return false;
     }
 } // namespace Qv2ray::common
+#endif
