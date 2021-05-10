@@ -148,6 +148,13 @@ namespace Qv2ray::core::connection
                     const auto serviceName = QUrl::fromPercentEncoding(query.queryItemValue("serviceName").toUtf8());
                     QJsonIO::SetValue(stream, serviceName, { "grpcSettings", "serviceName" });
                 }
+
+                const auto hasMode = query.hasQueryItem("mode");
+                if (hasMode)
+                {
+                    const auto mode = QUrl::fromPercentEncoding(query.queryItemValue("mode").toUtf8());
+                    QJsonIO::SetValue(stream,mode,{"grpcSettings","mode"});
+                }
             }
 
             // tls-wise settings
