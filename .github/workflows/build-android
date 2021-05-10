@@ -45,7 +45,6 @@ jobs:
     - uses: actions/checkout@v2
       with:
         submodules: recursive
-        token: ${{ secrets.PAT }}
 
     - name: Installing Qt - ${{ matrix.qt_arch }}
       uses: jurplel/install-qt-action@v2
