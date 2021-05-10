@@ -37,6 +37,7 @@ namespace Qv2ray::components::plugins
             {
                 if (!fileName.endsWith(QV2RAY_LIBRARY_SUFFIX))
                 {
+                    DEBUG("Skipping: " + fileName + " in: " + pluginDirPath);
                     continue;
                 }
                 DEBUG("Loading plugin: " + fileName + " from: " + pluginDirPath);
