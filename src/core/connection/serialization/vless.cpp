@@ -153,7 +153,7 @@ namespace Qv2ray::core::connection
                 if (hasMode)
                 {
                     const auto multiMode = QUrl::fromPercentEncoding(query.queryItemValue("mode").toUtf8()) == "multi";
-                    QJsonIO::SetValue(stream,multiMode,{"grpcSettings","multiMode"});
+                    QJsonIO::SetValue(stream, multiMode, { "grpcSettings", "multiMode" });
                 }
             }
 
