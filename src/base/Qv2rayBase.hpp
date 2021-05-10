@@ -46,6 +46,12 @@ using namespace Qv2ray::base::objects::transfer;
 #define QV2RAY_EXECUTABLE_SUFFIX ""
 #endif
 
+#ifdef Q_OS_WIN
+#define QV2RAY_LIBRARY_SUFFIX ".dll"
+#else
+#define QV2RAY_LIBRARY_SUFFIX ".so"
+#endif
+
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (QvCoreApplication->ConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
