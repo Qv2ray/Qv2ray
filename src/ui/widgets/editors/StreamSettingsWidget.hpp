@@ -71,6 +71,7 @@ class StreamSettingsWidget
 
     // gRPC
     void on_grpcServiceNameTxt_textEdited(const QString &arg1);
+    void on_grpcModeCB_currentIndexChanged(int arg1);
 
   private:
     Qv2ray::Models::StreamSettingsObject stream;
