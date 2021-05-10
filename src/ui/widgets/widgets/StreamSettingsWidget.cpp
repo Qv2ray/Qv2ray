@@ -102,7 +102,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     // gRPC
     {
         grpcServiceNameTxt->setText(stream.grpcSettings.serviceName);
-        grpcModeCB->setCurrentText(stream.grpcSettings.mode);
+        grpcModeCB->setCurrentText(stream.grpcSettings.multiMode?"multi":"gun");
     }
     // SOCKOPT
     {
@@ -332,7 +332,7 @@ void StreamSettingsWidget::on_grpcServiceNameTxt_textEdited(const QString &arg1)
 
 void StreamSettingsWidget::on_grpcModeCB_currentIndexChanged(int arg1)
 {
-    stream.grpcSettings.mode = grpcModeCB->itemText(arg1).toLower();
+    stream.grpcSettings.multiMode = grpcModeCB->itemText(arg1).toLower() == "multi";
 }
 
 void StreamSettingsWidget::on_wsEarlyDataSB_valueChanged(int arg1)
