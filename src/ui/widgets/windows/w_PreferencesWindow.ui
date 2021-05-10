@@ -605,7 +605,7 @@ But could damage your server if improperly used.</string>
             <item row="1" column="0">
              <widget class="QLabel" name="label_83">
               <property name="text">
-               <string>Test Latency Periodcally</string>
+               <string>Test Latency Periodically</string>
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
@@ -615,7 +615,7 @@ But could damage your server if improperly used.</string>
             <item row="1" column="1">
              <widget class="QCheckBox" name="setTestLatencyCB">
               <property name="toolTip">
-               <string>Run TCPing or ICMPing periodcally after connecting to a server.
+               <string>Run TCPing or ICMPing periodically after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</string>
               </property>
               <property name="text">
