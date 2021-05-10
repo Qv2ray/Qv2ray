@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
-    <height>381</height>
+    <width>459</width>
+    <height>383</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
           </size>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tcpStackPage">
           <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,1,0">
@@ -651,17 +651,12 @@
             <widget class="QComboBox" name="grpcModeCB">
              <item>
               <property name="text">
-               <string>gun</string>
+               <string notr="true">gun</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>multi</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>guna</string>
+               <string notr="true">multi</string>
               </property>
              </item>
             </widget>
