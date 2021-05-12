@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         ui_type: [QWidget]
-        platform: [ubuntu-20.04, windows-latest]
+        platform: [ubuntu-20.04, macos-latest, windows-latest]
         build_type: [Release]
         qt_version: [6.1.0]
         include:
