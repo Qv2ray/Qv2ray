@@ -127,12 +127,6 @@ int ImportConfigWindow::PerformImportConnection()
 }
 
 #if QV2RAY_FEATURE(ui_has_import_qrcode)
-void ImportConfigWindow::on_selectFileBtn_clicked()
-{
-    const auto dir = QFileDialog::getOpenFileName(this, tr("Select file to import"));
-    fileLineTxt->setText(dir);
-}
-
 void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 {
     bool hideQv2ray = hideQv2rayCB->isChecked();
@@ -360,4 +354,10 @@ void ImportConfigWindow::on_jsonEditBtn_clicked()
         connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(alias, CONFIGROOT(result));
         accept();
     }
+}
+
+void ImportConfigWindow::on_selectFileBtn_clicked()
+{
+    const auto dir = QFileDialog::getOpenFileName(this, tr("Select file to import"));
+    fileLineTxt->setText(dir);
 }
