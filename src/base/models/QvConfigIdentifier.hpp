@@ -127,9 +127,10 @@ namespace Qv2ray::base
         QJS_PROP_D(bool, overrideForwardProxyConfig, false)
         QJS_PROP(config::QvConfig_ForwardProxy, forwardProxyConfig)
         //
-        QJS_FUNCTION(GroupRoutingConfig, B(__Qv2rayConfigObjectBase), F(overrideRoute, routeConfig), //
-                     F(overrideDNS, dnsConfig, fakeDNSConfig),                                       //
-                     F(overrideConnectionConfig, connectionConfig),                                  //
+        QJS_FUNCTION(GroupRoutingConfig, B(__Qv2rayConfigObjectBase), //
+                     F(overrideRoute, routeConfig),                   //
+                     F(overrideDNS, dnsConfig, fakeDNSConfig),        //
+                     F(overrideConnectionConfig, connectionConfig),   //
                      F(overrideForwardProxyConfig, forwardProxyConfig))
     };
 
@@ -145,12 +146,12 @@ namespace Qv2ray::base
         QJS_PROP(QString, address)
         QJS_PROP_D(QString, type, "sip008")
         QJS_PROP_D(float, updateInterval, 10)
-        QJS_PROP(QList<QString>, IncludeKeywords)
-        QJS_PROP(QList<QString>, ExcludeKeywords)
-        QJS_PROP_D(SubscriptionFilterRelation, IncludeRelation, RELATION_OR)
-        QJS_PROP_D(SubscriptionFilterRelation, ExcludeRelation, RELATION_AND)
+        QJS_PROP(QList<QString>, includeKeywords)
+        QJS_PROP(QList<QString>, excludeKeywords)
+        QJS_PROP_D(SubscriptionFilterRelation, includeRelation, RELATION_OR)
+        QJS_PROP_D(SubscriptionFilterRelation, excludeRelation, RELATION_AND)
         QJS_FUNCTION(SubscriptionConfigObject, F(updateInterval, address, type),
-                     F(IncludeRelation, ExcludeRelation, IncludeKeywords, ExcludeKeywords))
+                     F(includeRelation, excludeRelation, includeKeywords, excludeKeywords))
     };
 
     struct GroupObject : public __Qv2rayConfigObjectBase

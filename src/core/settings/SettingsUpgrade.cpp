@@ -20,18 +20,12 @@ namespace Qv2ray
         {
             default:
             {
-                //
-                // Due to technical issue, we cannot maintain all of those upgrade processes anymore. Check
-                // https://github.com/Qv2ray/Qv2ray/issues/353#issuecomment-586117507
-                // https://github.com/Qv2ray/Qv2ray/issues/1284#issuecomment-778776959
-                // for more information, see commit 2f716a9a443b71ddb96aaab081de73c0095cb637
-                //
                 QvMessageBoxWarn(nullptr, QObject::tr("Configuration Upgrade Failed"),
                                  QObject::tr("Unsupported config version number: ") + QSTRN(fromVersion) + NEWLINE + NEWLINE +
                                      QObject::tr("Please go to https://github.com/Qv2ray/Qv2ray/issues to check for related announcements."));
                 LOG("The configuration version of your old Qv2ray installation is out-of-date and that"
                     " version is not supported anymore, please try to update to an intermediate version of Qv2ray first.");
-                qApp->exit(1);
+                exit(1);
             }
         }
         root["config_version"] = root["config_version"].toInt() + 1;

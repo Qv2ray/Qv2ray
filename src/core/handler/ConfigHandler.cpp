@@ -429,13 +429,13 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionIncludeKeywords(const GroupId &id, const QStringList &keywords)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption->IncludeKeywords->clear();
+        groups[id].subscriptionOption->includeKeywords->clear();
 
         for (const auto &keyword : keywords)
         {
             if (!keyword.trimmed().isEmpty())
             {
-                groups[id].subscriptionOption->IncludeKeywords->push_back(keyword);
+                groups[id].subscriptionOption->includeKeywords->push_back(keyword);
             }
         }
         return true;
@@ -444,19 +444,19 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionIncludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption->IncludeRelation = relation;
+        groups[id].subscriptionOption->includeRelation = relation;
         return true;
     }
 
     bool QvConfigHandler::SetSubscriptionExcludeKeywords(const GroupId &id, const QStringList &keywords)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption->ExcludeKeywords->clear();
+        groups[id].subscriptionOption->excludeKeywords->clear();
         for (const auto &keyword : keywords)
         {
             if (!keyword.trimmed().isEmpty())
             {
-                groups[id].subscriptionOption->ExcludeKeywords->push_back(keyword);
+                groups[id].subscriptionOption->excludeKeywords->push_back(keyword);
             }
         }
         return true;
@@ -465,7 +465,7 @@ namespace Qv2ray::core::handler
     bool QvConfigHandler::SetSubscriptionExcludeRelation(const GroupId &id, SubscriptionFilterRelation relation)
     {
         CheckValidId(id, false);
-        groups[id].subscriptionOption->ExcludeRelation = relation;
+        groups[id].subscriptionOption->excludeRelation = relation;
         return true;
     }
 
@@ -576,14 +576,14 @@ namespace Qv2ray::core::handler
         for (const auto &config : _newConnections)
         {
             // filter connections
-            const bool isIncludeOperationAND = groups[id].subscriptionOption->IncludeRelation == RELATION_AND;
-            const bool isExcludeOperationOR = groups[id].subscriptionOption->ExcludeRelation == RELATION_OR;
+            const bool isIncludeOperationAND = groups[id].subscriptionOption->includeRelation == RELATION_AND;
+            const bool isExcludeOperationOR = groups[id].subscriptionOption->excludeRelation == RELATION_OR;
             //
             // Initial includeConfig value
             bool includeconfig = isIncludeOperationAND;
             {
                 bool hasIncludeItemMatched = false;
-                for (const auto &key : *groups[id].subscriptionOption->IncludeKeywords)
+                for (const auto &key : *groups[id].subscriptionOption->includeKeywords)
                 {
                     if (!key.trimmed().isEmpty())
                     {
@@ -604,7 +604,7 @@ namespace Qv2ray::core::handler
             {
                 bool hasExcludeItemMatched = false;
                 includeconfig = isExcludeOperationOR;
-                for (const auto &key : *groups[id].subscriptionOption->ExcludeKeywords)
+                for (const auto &key : *groups[id].subscriptionOption->excludeKeywords)
                 {
                     if (!key.trimmed().isEmpty())
                     {

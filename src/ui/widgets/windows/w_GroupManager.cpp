@@ -375,9 +375,9 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     //
     // Import filters
     {
-        IncludeRelation->setCurrentIndex(_group.subscriptionOption->IncludeRelation);
+        IncludeRelation->setCurrentIndex(_group.subscriptionOption->includeRelation);
         IncludeKeywords->clear();
-        for (const auto &key : *_group.subscriptionOption->IncludeKeywords)
+        for (const auto &key : *_group.subscriptionOption->includeKeywords)
         {
             auto str = key.trimmed();
             if (!str.isEmpty())
@@ -385,9 +385,9 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
                 IncludeKeywords->appendPlainText(str);
             }
         }
-        ExcludeRelation->setCurrentIndex(_group.subscriptionOption->ExcludeRelation);
+        ExcludeRelation->setCurrentIndex(_group.subscriptionOption->excludeRelation);
         ExcludeKeywords->clear();
-        for (const auto &key : *_group.subscriptionOption->ExcludeKeywords)
+        for (const auto &key : *_group.subscriptionOption->excludeKeywords)
         {
             auto str = key.trimmed();
             if (!str.isEmpty())
