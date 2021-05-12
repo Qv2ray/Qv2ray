@@ -706,20 +706,6 @@ For example, for updating subscriptions.</string>
             </item>
            </layout>
           </item>
-          <item row="7" column="0" colspan="2">
-           <widget class="QPushButton" name="checkVCoreSettings">
-            <property name="text">
-             <string>Check V2Ray Core Settings</string>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0" colspan="2">
-           <widget class="QPushButton" name="pushButton">
-            <property name="text">
-             <string>Check System Date and Time from the Internet</string>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_68">
             <property name="text">
@@ -797,6 +783,13 @@ For example, for updating subscriptions.</string>
            <widget class="QCheckBox" name="hasDirectStatisticsCB">
             <property name="text">
              <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0" colspan="2">
+           <widget class="QPushButton" name="checkVCoreSettings">
+            <property name="text">
+             <string>Check V2Ray Core Settings</string>
             </property>
            </widget>
           </item>
@@ -923,7 +916,7 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>544</width>
+            <width>881</width>
             <height>609</height>
            </rect>
           </property>

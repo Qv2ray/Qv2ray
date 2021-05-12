@@ -1,6 +1,5 @@
 #include "Qv2rayBaseApplication.hpp"
 
-#include "components/translations/QvTranslator.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "utils/QvHelpers.hpp"
 

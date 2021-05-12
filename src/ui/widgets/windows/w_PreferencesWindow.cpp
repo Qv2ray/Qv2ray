@@ -1,7 +1,5 @@
 #include "w_PreferencesWindow.hpp"
 
-#include "components/ntp/QvNTPClient.hpp"
-#include "components/translations/QvTranslator.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/V2RayKernelInteractions.hpp"
@@ -1080,51 +1078,6 @@ void PreferencesWindow::on_socksOverrideTLSCB_stateChanged(int arg1)
         CurrentConfig.inboundConfig->socksSettings->destOverride->removeAll("tls");
     else if (!CurrentConfig.inboundConfig->socksSettings->destOverride->contains("tls"))
         CurrentConfig.inboundConfig->socksSettings->destOverride->append("tls");
-}
-
-void PreferencesWindow::on_pushButton_clicked()
-{
-#if QV2RAY_FEATURE(util_has_ntp)
-    const auto ntpTitle = tr("NTP Checker");
-    const auto ntpHint = tr("Check date and time from server:");
-    const static QStringList ntpServerList = { "cn.pool.ntp.org",      "cn.ntp.org.cn",           "edu.ntp.org.cn",
-                                               "time.pool.aliyun.com", "time1.cloud.tencent.com", "ntp.neu.edu.cn" };
-    bool ok = false;
-    const auto ntpServer = QInputDialog::getItem(this, ntpTitle, ntpHint, ntpServerList, 0, true, &ok).trimmed();
-    if (!ok)
-        return;
-
-    auto client = new ntp::NtpClient(this);
-    connect(client, &ntp::NtpClient::replyReceived, [&](const QHostAddress &, quint16, const ntp::NtpReply &reply) {
-        const int offsetSecTotal = reply.localClockOffset() / 1000;
-        if (offsetSecTotal >= 90 || offsetSecTotal <= -90)
-        {
-            const auto inaccurateWarning = tr("Your time offset is %1 seconds, which is too high.") + NEWLINE + //
-                                           tr("Please synchronize your system to use the VMess protocol.");
-            QvMessageBoxWarn(this, tr("Time Inaccurate"), inaccurateWarning.arg(offsetSecTotal));
-        }
-        else if (offsetSecTotal > 15 || offsetSecTotal < -15)
-        {
-            const auto smallErrorWarning = tr("Your time offset is %1 seconds, which is a little high.") + NEWLINE + //
-                                           tr("VMess protocol may still work, but we suggest you synchronize your clock.");
-            QvMessageBoxInfo(this, tr("Time Somewhat Inaccurate"), smallErrorWarning.arg(offsetSecTotal));
-        }
-        else
-        {
-            const auto accurateInfo = tr("Your time offset is %1 seconds, which looks good.") + NEWLINE + //
-                                      tr("VMess protocol may not suffer from time inaccuracy.");
-            QvMessageBoxInfo(this, tr("Time Accurate"), accurateInfo.arg(offsetSecTotal));
-        }
-    });
-
-    const auto hostInfo = QHostInfo::fromName(ntpServer);
-    if (hostInfo.error() == QHostInfo::NoError)
-        client->sendRequest(hostInfo.addresses().first(), 123);
-    else
-        QvMessageBoxWarn(this, ntpTitle, tr("Failed to lookup server: %1").arg(hostInfo.errorString()));
-#else
-    QvMessageBoxWarn(this, tr("No NTP Backend"), tr("Qv2ray was not built with NTP support."));
-#endif
 }
 
 void PreferencesWindow::on_noAutoConnectRB_clicked()

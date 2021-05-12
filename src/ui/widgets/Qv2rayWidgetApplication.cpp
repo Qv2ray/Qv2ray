@@ -1,7 +1,6 @@
 #include "Qv2rayWidgetApplication.hpp"
 
 #include "base/Qv2rayBase.hpp"
-#include "components/translations/QvTranslator.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "ui/widgets/styles/StyleManager.hpp"
 #include "ui/widgets/windows/w_MainWindow.hpp"
