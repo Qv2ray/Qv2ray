@@ -1,8 +1,6 @@
 #include "QvGeositeReader.hpp"
 
-#ifndef ANDROID
 #include "v2ray_geosite.pb.h"
-#endif
 
 #define QV_MODULE_NAME "GeositeReader"
 
@@ -18,7 +16,6 @@ namespace Qv2ray::components::geosite
         else
         {
             QStringList list;
-#ifndef ANDROID
             LOG("Reading geosites from: " + filepath);
             //
             GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -47,7 +44,6 @@ namespace Qv2ray::components::geosite
             LOG("Loaded " + QSTRN(list.count()) + " geosite entries from data file.");
             // Optional:  Delete all global objects allocated by libprotobuf.
             google::protobuf::ShutdownProtobufLibrary();
-#endif
             list.sort();
             GeositeEntries[filepath] = list;
             return list;

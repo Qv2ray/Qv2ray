@@ -9,10 +9,6 @@
 #include <QTextStream>
 #include <iostream>
 
-#ifdef Q_OS_ANDROID
-#include <android/log.h>
-#endif
-
 #define NEWLINE "\r\n"
 #define ___LOG_EXPAND(___x) , QPair<std::string, decltype(___x)>(std::string(#___x), [&] { return ___x; }())
 #define A(...) FOR_EACH(___LOG_EXPAND, __VA_ARGS__)
@@ -70,11 +66,7 @@ namespace Qv2ray::base
 #endif
 
         const auto logString = tempStream.readAll();
-#ifdef Q_OS_ANDROID
-        __android_log_write(ANDROID_LOG_INFO, "Qv2ray", logString.toStdString().c_str());
-#else
         std::cout << logString.toStdString() << std::endl;
-#endif
     }
 } // namespace Qv2ray::base
 

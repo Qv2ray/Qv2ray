@@ -36,13 +36,6 @@ if(MSVC)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
-if(ANDROID)
-    message("Android ABI: ${CMAKE_ANDROID_ARCH}")
-    message("Android SDK: ${ANDROID_SDK}")
-    include(cmake/platforms/android.cmake)
-    include(cmake/platforms/prefixes.cmake)
-endif()
-
 option(USE_MINGW "Use MinGW on Windows" OFF)
 
 if(WIN32)
@@ -140,13 +133,6 @@ elseif(QV2RAY_UI_TYPE STREQUAL "CLI")
     set(QV2RAY_USE_QML OFF)
 else()
     message(FATAL_ERROR "The given QV2RAY_UI_TYPE: ${QV2RAY_UI_TYPE} is invalid, expected: QWidget, QML, CLI")
-endif()
-
-if(ANDROID)
-    set(QV2RAY_USE_QML ON)
-    set(QV2RAY_USE_QWIDGET OFF)
-    set(QV2RAY_HAS_SINGLEAPPLICATION OFF)
-    message("-- Use Qt6 for Android build.")
 endif()
 
 QVLOG(QV2RAY_USE_QML)
@@ -338,9 +324,6 @@ else()
     list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_CLI_SOURCES})
 endif()
 
-# Platform Dependent Sources
-include(cmake/components/qv2ray-platform.cmake)
-
 list(APPEND QV2RAY_QRC_RESOURCES
     ${CMAKE_SOURCE_DIR}/resources.qrc
     ${CMAKE_SOURCE_DIR}/resources.new.qrc
@@ -361,12 +344,6 @@ QVLOG(QV2RAY_QRC_RESOURCES)
 qt6_add_executable(qv2ray ${GUI_TYPE} ${QV2RAY_FULL_SOURCES})
 
 # set_target_properties(MAIN PROPERTIES OUTPUT_NAME "qv2ray")
-
-if(ANDROID)
-    qvlog(ANDROID_EXTRA_LIBS)
-    set_property(TARGET qv2ray PROPERTY QT_ANDROID_EXTRA_LIBS ${ANDROID_EXTRA_LIBS})
-    set_property(TARGET qv2ray PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/assets/android)
-endif()
 
 target_include_directories(qv2ray PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
