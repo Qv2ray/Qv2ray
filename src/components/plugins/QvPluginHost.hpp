@@ -36,6 +36,13 @@ namespace Qv2ray::components::plugins
         void SetPluginEnabled(const QString &internalName, bool isEnabled);
         void SavePluginSettings() const;
 
+      public:
+        std::unique_ptr<Qv2rayPlugin::handlers::kernel::PluginKernel> CreateKernel(const QUuid &kid)
+        {
+#pragma message "TODO"
+            return nullptr;
+        }
+
         QvPluginInfo *GetPlugin(const QString &internalName)
         {
             return plugins.contains(internalName) ? &plugins[internalName] : nullptr;

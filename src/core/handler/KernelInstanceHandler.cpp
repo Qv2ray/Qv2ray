@@ -25,14 +25,17 @@ namespace Qv2ray::core::handler
             if (!info->hasComponent(COMPONENT_KERNEL))
                 continue;
             auto kernel = info->pluginInterface->GetKernel();
-            for (const auto &protocol : kernel->GetKernelProtocols())
+            for (const auto &kernel : kernel->GetKernels())
             {
-                if (kernelMap.contains(protocol))
+                for (const auto &protocol : kernel.supportedProtocols)
                 {
-                    LOG("Found multiple kernel providers for a protocol: " + protocol);
-                    continue;
+                    if (kernelMap.contains(protocol))
+                    {
+                        LOG("Found multiple kernel providers for a protocol: " + protocol);
+                        continue;
+                    }
+                    kernelMap.insert(protocol, kernel.id);
                 }
-                kernelMap.insert(protocol, internalName);
             }
         }
     }
@@ -108,7 +111,7 @@ namespace Qv2ray::core::handler
                     continue;
                 }
                 LOG("Creating kernel plugin instance for protocol" + outProtocol);
-                auto kernel = PluginHost->GetPlugin(kernelMap[outProtocol])->pluginInterface->GetKernel()->CreateKernel();
+                auto kernel = PluginHost->CreateKernel(kernelMap[outProtocol]);
                 // New object does not need disconnect?
                 // disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                 //
@@ -158,9 +161,8 @@ namespace Qv2ray::core::handler
                 {
                     LOG("Starting kernel for protocol: " + outboundProtocol);
                     bool status = kernelObject->StartKernel();
-                    connect(kernelObject.get(), &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p,
-                            Qt::QueuedConnection);
-                    connect(kernelObject.get(), &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnPluginKernelLog_p,
+                    connect(kernelObject.get(), &PluginKernel::OnCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
+                    connect(kernelObject.get(), &PluginKernel::OnLogAvailable, this, &KernelInstanceHandler::OnPluginKernelLog_p,
                             Qt::QueuedConnection);
                     hasAllKernelStarted = hasAllKernelStarted && status;
                     if (!status)
@@ -196,21 +198,19 @@ namespace Qv2ray::core::handler
                 // Connections without V2Ray Integration will have and ONLY have ONE kernel.
                 LOG("Starting kernel " + firstOutboundProtocol + " without V2Ray Integration");
                 {
-                    auto kernel =
-                        PluginHost->GetPlugin(kernelMap[firstOutbound["protocol"].toString()])->pluginInterface->GetKernel()->CreateKernel();
+                    auto kernel = PluginHost->CreateKernel(kernelMap[firstOutbound["protocol"].toString()]);
                     activeKernels.push_back({ firstOutboundProtocol, std::move(kernel) });
                 }
                 Q_ASSERT(activeKernels.size() == 1);
 #define theKernel (activeKernels.front().second.get())
-                connect(theKernel, &PluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p,
-                        Qt::QueuedConnection);
-                connect(theKernel, &PluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
-                connect(theKernel, &PluginKernel::OnKernelLogAvailable, this, &KernelInstanceHandler::OnPluginKernelLog_p, Qt::QueuedConnection);
+                connect(theKernel, &PluginKernel::OnStatsAvailable, this, &KernelInstanceHandler::OnPluginStatsDataRcvd_p, Qt::QueuedConnection);
+                connect(theKernel, &PluginKernel::OnCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p, Qt::QueuedConnection);
+                connect(theKernel, &PluginKernel::OnLogAvailable, this, &KernelInstanceHandler::OnPluginKernelLog_p, Qt::QueuedConnection);
                 currentId = id;
                 //
                 QMap<KernelOptionFlags, QVariant> pluginSettings;
 
-                for (const auto &v : inboundInfo)
+                for (const auto &v : qAsConst(inboundInfo))
                 {
                     if (v.protocol != "http" && v.protocol != "socks")
                         continue;
