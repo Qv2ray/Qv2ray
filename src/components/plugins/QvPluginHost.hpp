@@ -39,7 +39,7 @@ namespace Qv2ray::components::plugins
       public:
         std::unique_ptr<Qv2rayPlugin::handlers::kernel::PluginKernel> CreateKernel(const QUuid &kid)
         {
-#pragma message "TODO"
+#pragma message("TODO")
             return nullptr;
         }
 

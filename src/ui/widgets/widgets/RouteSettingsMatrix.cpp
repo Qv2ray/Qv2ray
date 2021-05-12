@@ -28,14 +28,13 @@ RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPat
     proxyIPTxt = new AutoCompleteTextEdit("geoip", sourceStringsIP, this);
     blockIPTxt = new AutoCompleteTextEdit("geoip", sourceStringsIP, this);
     //
-#pragma message "Not Done"
-    //    directDomainTxt->addWidget(directDomainTxt, 0);
-    //    proxyDomainLayout->addWidget(proxyDomainTxt, 0);
-    //    blockDomainLayout->addWidget(blockDomainTxt, 0);
-    //    //
-    //    directIPLayout->addWidget(directIPTxt, 0);
-    //    proxyIPLayout->addWidget(proxyIPTxt, 0);
-    //    blockIPLayout->addWidget(blockIPTxt, 0);
+    directTxtLayout->addWidget(directDomainTxt, 0, 0);
+    proxyTxtLayout->addWidget(proxyDomainTxt, 0, 0);
+    blockTxtLayout->addWidget(blockDomainTxt, 0, 0);
+    //
+    directIPLayout->addWidget(directIPTxt, 0, 0);
+    proxyIPLayout->addWidget(proxyIPTxt, 0, 0);
+    blockIPLayout->addWidget(blockIPTxt, 0, 0);
 }
 
 /**
@@ -110,7 +109,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
         // read the file and parse back to struct.
         // if error occurred on parsing, an exception will be thrown.
         auto content = StringFromFile(*filePath);
-        auto scheme = Qv2rayRouteScheme(JsonFromString(content));
+        Qv2rayRouteScheme scheme(JsonFromString(content));
 
         // show the information of this scheme to user,
         // and ask user if he/she wants to import and apply this.
