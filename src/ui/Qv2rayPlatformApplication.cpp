@@ -107,37 +107,7 @@ bool Qv2rayPlatformApplication::Initialize()
 #endif
 #endif
 
-#if QV2RAY_FEATURE(translations)
-    // Install a default translater. From the OS/DE
-    Qv2rayTranslator = std::make_unique<QvTranslator>();
-    Qv2rayTranslator->InstallTranslation(QLocale::system().name());
-    const auto allTranslations = Qv2rayTranslator->GetAvailableLanguages();
-    const auto osLanguage = QLocale::system().name();
-#endif    
     LocateConfiguration();
-#if QV2RAY_FEATURE(translations)
-    if (!allTranslations.contains(GlobalConfig.uiConfig->language))
-    {
-        // If we need to reset the language.
-        if (allTranslations.contains(osLanguage))
-        {
-            GlobalConfig.uiConfig->language = osLanguage;
-        }
-        else if (!allTranslations.isEmpty())
-        {
-            GlobalConfig.uiConfig->language = allTranslations.first();
-        }
-    }
-
-    if (!Qv2rayTranslator->InstallTranslation(GlobalConfig.uiConfig->language))
-    {
-        QvMessageBoxWarn(nullptr, "Translation Failed",
-                         "Cannot load translation for " + GlobalConfig.uiConfig->language + NEWLINE + //
-                             "English is now used." + NEWLINE + NEWLINE +                             //
-                             "Please go to Preferences Window to change language or open an Issue");
-        GlobalConfig.uiConfig->language = "en_US";
-    }
-#endif
     return true;
 }
 

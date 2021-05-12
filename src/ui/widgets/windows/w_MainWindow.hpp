@@ -18,7 +18,6 @@ namespace Qv2rayPlugin
 
 class MainWindow
     : public QMainWindow
-    , QvStateObject
     , Ui::MainWindow
 {
     Q_OBJECT

@@ -35,64 +35,12 @@ inline void BLACK(QWidget *obj)
     (QPixmap(QV2RAY_COLORSCHEME_ROOT_X(*GlobalConfig.uiConfig->useDarkTrayIcon) +                                                                    \
              (QV2RAY_TRASY_ICON_STYLE_X(*GlobalConfig.uiConfig->useGlyphTrayIcon)) + name + ".png"))
 
-class QvStateObject
-{
-    using options_save_func_t = std::function<QJsonValue()>;
-    using options_restore_func_t = std::function<void(QJsonValue)>;
-    using options_storage_type = std::map<QString, std::pair<options_save_func_t, options_restore_func_t>>;
-
-  public:
-    explicit QvStateObject(const QString &name) : windowName(name){};
-
-  protected:
-    void addStateOptions(QString name, std::pair<options_save_func_t, options_restore_func_t> funcs)
-    {
-        state_options_list[name] = funcs;
-    }
-
-  private:
-    const QString windowName;
-    options_storage_type state_options_list;
-
-#if QV2RAY_FEATURE(ui_has_store_state)
-  public:
-    void SaveState()
-    {
-        QvWidgetApplication->UIStates[windowName] = saveStateImpl();
-    }
-    void RestoreState()
-    {
-        restoreStateImpl(QvWidgetApplication->UIStates[windowName].toObject());
-    }
-
-  private:
-    QJsonObject saveStateImpl()
-    {
-        QJsonObject o;
-        for (const auto &[name, pair] : state_options_list)
-            o[name] = pair.first();
-        return o;
-    }
-    void restoreStateImpl(const QJsonObject &o)
-    {
-        for (const auto &[name, pair] : state_options_list)
-            if (o.contains(name))
-                pair.second(o[name]);
-    }
-#endif
-};
-
-class QvDialog
-    : public QDialog
-    , public QvStateObject
+class QvDialog : public QDialog
 {
     Q_OBJECT
   public:
-    explicit QvDialog(const QString &name, QWidget *parent) : QDialog(parent), QvStateObject(name)
+    explicit QvDialog(const QString &, QWidget *parent) : QDialog(parent)
     {
-#if QV2RAY_FEATURE(ui_has_store_state)
-        connect(this, &QvDialog::finished, [this] { SaveState(); });
-#endif
     }
     virtual ~QvDialog(){};
     virtual void processCommands(QString command, QStringList commands, QMap<QString, QString> args) = 0;
@@ -100,13 +48,6 @@ class QvDialog
   protected:
     virtual QvMessageBusSlotDecl = 0;
     virtual void updateColorScheme() = 0;
-    void showEvent(QShowEvent *event) override
-    {
-        QWidget::showEvent(event);
-#if QV2RAY_FEATURE(ui_has_store_state)
-        RestoreState();
-#endif
-    }
 };
 
 namespace Qv2ray::ui

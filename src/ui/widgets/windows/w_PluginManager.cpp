@@ -9,11 +9,6 @@
 
 PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog("PluginManager", parent)
 {
-    addStateOptions("width", { [&] { return width(); }, [&](QJsonValue val) { resize(val.toInt(), size().height()); } });
-    addStateOptions("height", { [&] { return height(); }, [&](QJsonValue val) { resize(size().width(), val.toInt()); } });
-    addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
-    addStateOptions("y", { [&] { return y(); }, [&](QJsonValue val) { move(x(), val.toInt()); } });
-
     setupUi(this);
     for (auto &plugin : PluginHost->AllPlugins())
     {

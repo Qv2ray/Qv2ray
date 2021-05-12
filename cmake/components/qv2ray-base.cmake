@@ -57,9 +57,6 @@ set(QV2RAY_BASE_SOURCES
     ${QV2RAY_BASEDIR_COMPONENTS}/route/RouteSchemeIO.cpp
     ${QV2RAY_BASEDIR_COMPONENTS}/route/RouteSchemeIO.hpp
     #
-    ${QV2RAY_BASEDIR_COMPONENTS}/update/UpdateChecker.cpp
-    ${QV2RAY_BASEDIR_COMPONENTS}/update/UpdateChecker.hpp
-    #
     ${QV2RAY_BASEDIR_CORE}/connection/ConnectionIO.cpp
     ${QV2RAY_BASEDIR_CORE}/connection/ConnectionIO.hpp
     ${QV2RAY_BASEDIR_CORE}/connection/Generation.hpp
@@ -89,8 +86,6 @@ set(QV2RAY_BASE_SOURCES
     #
     ${QV2RAY_BASEDIR_CORE}/kernel/APIBackend.cpp
     ${QV2RAY_BASEDIR_CORE}/kernel/APIBackend.hpp
-    ${QV2RAY_BASEDIR_CORE}/kernel/QvKernelABIChecker.cpp
-    ${QV2RAY_BASEDIR_CORE}/kernel/QvKernelABIChecker.hpp
     ${QV2RAY_BASEDIR_CORE}/kernel/V2RayKernelInteractions.cpp
     ${QV2RAY_BASEDIR_CORE}/kernel/V2RayKernelInteractions.hpp
     #

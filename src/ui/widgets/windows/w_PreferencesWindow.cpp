@@ -46,11 +46,6 @@ using Qv2ray::common::validation::IsValidIPAddress;
 
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWindow", parent), CurrentConfig()
 {
-    addStateOptions("width", { [&] { return width(); }, [&](QJsonValue val) { resize(val.toInt(), size().height()); } });
-    addStateOptions("height", { [&] { return height(); }, [&](QJsonValue val) { resize(size().width(), val.toInt()); } });
-    addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
-    addStateOptions("y", { [&] { return y(); }, [&](QJsonValue val) { move(x(), val.toInt()); } });
-
     setupUi(this);
     //
     QvMessageBusConnect(PreferencesWindow);
@@ -59,16 +54,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     configdirLabel->setText(QV2RAY_CONFIG_DIR);
 
     // We add locales
-
-#if QV2RAY_FEATURE(translations)
-    auto langs = Qv2rayTranslator->GetAvailableLanguages();
-    if (!langs.empty())
-    {
-        languageComboBox->clear();
-        languageComboBox->addItems(langs);
-    }
-    else
-#endif
     {
         languageComboBox->setDisabled(true);
         // Since we can't have languages detected. It worths nothing to translate these.
@@ -363,18 +348,6 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid DNS Settings."));
         return;
-    }
-
-    if (CurrentConfig.uiConfig->language != GlobalConfig.uiConfig->language)
-    {
-#if QV2RAY_FEATURE(translations)
-        // Install translator
-        if (Qv2rayTranslator->InstallTranslation(CurrentConfig.uiConfig->language))
-        {
-            UIMessageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
-            QApplication::processEvents();
-        }
-#endif
     }
 
     CurrentConfig.defaultRouteConfig->routeConfig = routeSettingsWidget->GetRouteConfig();
@@ -745,38 +718,10 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     auto vcorePath = vCorePathTxt->text();
     auto vAssetsPath = vCoreAssetsPathTxt->text();
 
-#if QV2RAY_FEATURE(kernel_check_filename)
-    // prevent some bullshit situations.
-    if (const auto vCorePathSmallCased = vcorePath.toLower(); vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
-    {
-        const auto content = tr("You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.\r\n"
-                                "This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.\r\n"
-                                "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
-        QvMessageBoxWarn(this, tr("Watch Out!"), content);
-    }
-    else if (vCorePathSmallCased.endsWith("v2ctl") || vCorePathSmallCased.endsWith("v2ctl.exe"))
-    {
-        const auto content = tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
-                                "The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.\r\n"
-                                "If you insist to proceed, we're not providing with any support.");
-        QvMessageBoxWarn(this, tr("Watch Out!"), content);
-    }
-#endif
-
     if (const auto &&[result, msg] = V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath); !result)
     {
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), *msg);
     }
-#if QV2RAY_FEATURE(kernel_check_output)
-    else if (!msg->toLower().contains("v2ray"))
-    {
-        const auto content = tr("This does not seem like an output from V2Ray Core.") + NEWLINE +                          //
-                             tr("If you are looking for plugins settings, you should go to plugin Settings->") + NEWLINE + //
-                             tr("Output:") + NEWLINE +                                                                     //
-                             NEWLINE + *msg;
-        QvMessageBoxWarn(this, tr("'V2Ray Core' Settings"), content);
-    }
-#endif
     else
     {
         const auto content = tr("V2Ray path configuration check passed.") + NEWLINE + NEWLINE + tr("Current version of V2Ray is: ") + NEWLINE + *msg;

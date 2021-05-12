@@ -15,21 +15,11 @@
 namespace
 {
     constexpr auto LINK_PAGE = 0;
-#if QV2RAY_FEATURE(ui_has_import_qrcode)
-    constexpr auto QRCODE_PAGE = 1;
-    constexpr auto ADVANCED_PAGE = 2;
-#else
     constexpr auto ADVANCED_PAGE = 1;
-#endif
 } // namespace
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog("ImportWindow", parent)
 {
-    addStateOptions("width", { [&] { return width(); }, [&](QJsonValue val) { resize(val.toInt(), size().height()); } });
-    addStateOptions("height", { [&] { return height(); }, [&](QJsonValue val) { resize(size().width(), val.toInt()); } });
-    addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
-    addStateOptions("y", { [&] { return y(); }, [&](QJsonValue val) { move(x(), val.toInt()); } });
-
     setupUi(this);
     QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
@@ -42,10 +32,8 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QvDialog("ImportWindow
             defaultItemIndex = groupCombo->count() - 1;
     }
     groupCombo->setCurrentIndex(defaultItemIndex);
-#if !QV2RAY_FEATURE(ui_has_import_qrcode)
     qrCodeTab->setVisible(false);
     tabWidget->removeTab(1);
-#endif
 }
 
 void ImportConfigWindow::updateColorScheme()
@@ -126,75 +114,6 @@ int ImportConfigWindow::PerformImportConnection()
     return count;
 }
 
-#if QV2RAY_FEATURE(ui_has_import_qrcode)
-void ImportConfigWindow::on_selectFileBtn_clicked()
-{
-    const auto dir = QFileDialog::getOpenFileName(this, tr("Select file to import"));
-    fileLineTxt->setText(dir);
-}
-
-void ImportConfigWindow::on_qrFromScreenBtn_clicked()
-{
-    bool hideQv2ray = hideQv2rayCB->isChecked();
-
-    if (hideQv2ray)
-    {
-        UIMessageBus.EmitGlobalSignal(QvMBMessage::HIDE_WINDOWS);
-    }
-
-    QApplication::processEvents();
-    QThread::msleep(doubleSpinBox->value() * 1000UL);
-    ScreenShotWindow w;
-    auto pix = w.DoScreenShot();
-    if (hideQv2ray)
-    {
-        UIMessageBus.EmitGlobalSignal(QvMBMessage::SHOW_WINDOWS);
-    }
-
-    if (w.result() == QDialog::Accepted)
-    {
-        auto str = DecodeQRCode(pix);
-        if (str.trimmed().isEmpty())
-        {
-            LOG("Cannot decode QR Code from an image, size:", pix.width(), pix.height());
-            QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
-        }
-        else
-        {
-            qrCodeLinkTxt->setText(str.trimmed());
-        }
-    }
-}
-
-void ImportConfigWindow::on_selectImageBtn_clicked()
-{
-    const auto dir = QFileDialog::getOpenFileName(this, tr("Select an image to import"));
-    imageFileEdit->setText(dir);
-    //
-    QFile file(dir);
-    if (!file.exists())
-        return;
-    file.open(QFile::OpenModeFlag::ReadOnly);
-    auto buf = file.readAll();
-    file.close();
-    //
-    const auto str = DecodeQRCode(QImage::fromData(buf));
-
-    if (str.isEmpty())
-    {
-        QvMessageBoxWarn(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
-        return;
-    }
-    qrCodeLinkTxt->setText(str.trimmed());
-}
-
-void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)
-{
-    Q_UNUSED(arg1)
-    SET_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->isChecked)
-}
-#endif
-
 void ImportConfigWindow::on_beginImportBtn_clicked()
 {
     QString aliasPrefix = nameTxt->text();
@@ -267,23 +186,6 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             break;
         }
-#if QV2RAY_FEATURE(ui_has_import_qrcode)
-        case QRCODE_PAGE:
-        {
-            QString errorMsg;
-            const auto root = ConvertConfigFromString(qrCodeLinkTxt->text(), &aliasPrefix, &errorMsg);
-            if (!errorMsg.isEmpty())
-            {
-                QvMessageBoxWarn(this, tr("Failed to import connection"), errorMsg);
-                break;
-            }
-            for (const auto &conf : root)
-            {
-                connectionsToExistingGroup[GroupId{ groupCombo->currentData().toString() }].insert(conf.first, conf.second);
-            }
-            break;
-        }
-#endif
         case ADVANCED_PAGE:
         {
             // From File...

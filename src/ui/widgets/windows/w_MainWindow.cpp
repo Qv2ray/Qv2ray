@@ -1,6 +1,5 @@
 #include "w_MainWindow.hpp"
 
-#include "components/update/UpdateChecker.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "plugin-interface/gui/QvGUIPluginInterface.hpp"
@@ -83,27 +82,12 @@ void MainWindow::OnRecentConnectionsMenuReadyToShow()
     }
 }
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("MainWindow")
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
-    addStateOptions("width", { [&] { return width(); }, [&](QJsonValue val) { resize(val.toInt(), size().height()); } });
-    addStateOptions("height", { [&] { return height(); }, [&](QJsonValue val) { resize(size().width(), val.toInt()); } });
-    addStateOptions("x", { [&] { return x(); }, [&](QJsonValue val) { move(val.toInt(), y()); } });
-    addStateOptions("y", { [&] { return y(); }, [&](QJsonValue val) { move(x(), val.toInt()); } });
-
-#if 0
-    const auto setSplitterSize = [&](QJsonValue val) { splitter->setSizes({ val.toArray()[0].toInt(), val.toArray()[1].toInt() }); };
-    addStateOptions("splitterSizes", { [&] { return QJsonArray{ splitter->sizes()[0], splitter->sizes()[1] }; }, setSplitterSize });
-
-    const auto setSpeedWidgetVisibility = [&](QJsonValue val) { speedChartHolderWidget->setVisible(val.toBool()); };
-    const auto setLogWidgetVisibility = [&](QJsonValue val) { masterLogBrowser->setVisible(val.toBool()); };
-    addStateOptions("speedchart.visibility", { [&] { return speedChartHolderWidget->isVisible(); }, setSpeedWidgetVisibility });
-    addStateOptions("log.visibility", { [&] { return masterLogBrowser->isVisible(); }, setLogWidgetVisibility });
-#else
     constexpr auto sizeRatioA = 0.382;
     constexpr auto sizeRatioB = 1 - sizeRatioA;
     splitter->setSizes({ (int) (width() * sizeRatioA), (int) (width() * sizeRatioB) });
-#endif
 
     QvMessageBusConnect(MainWindow);
     //
@@ -317,8 +301,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     //
     CheckSubscriptionsUpdate();
     qvLogTimerId = startTimer(1000);
-    auto checker = new QvUpdateChecker(this);
-    checker->CheckUpdate();
     //
     for (const auto &name : PluginHost->UsablePlugins())
     {
@@ -485,9 +467,6 @@ void MainWindow::Action_Start()
 
 MainWindow::~MainWindow()
 {
-#if QV2RAY_FEATURE(ui_has_store_state)
-    SaveState();
-#endif
     delete modelHelper;
     for (auto &widget : pluginWidgets)
         widget->accept();

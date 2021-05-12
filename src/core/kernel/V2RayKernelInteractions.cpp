@@ -11,46 +11,6 @@
 
 namespace Qv2ray::core::kernel
 {
-#if QV2RAY_FEATURE(kernel_check_permission)
-    std::pair<bool, std::optional<QString>> V2RayKernelInstance::CheckAndSetCoreExecutableState(const QString &vCorePath)
-    {
-#ifdef Q_OS_UNIX
-        // For Linux/macOS users: if they cannot execute the core,
-        // then we shall grant the permission to execute it.
-        QFile coreFile(vCorePath);
-        if (!coreFile.permissions().testFlag(QFileDevice::ExeUser))
-        {
-#if QV2RAY_FEATURE(kernel_set_permission)
-            DEBUG("Core file not executable. Trying to enable.");
-            const auto result = coreFile.setPermissions(coreFile.permissions().setFlag(QFileDevice::ExeUser));
-            if (!result)
-            {
-                DEBUG("Failed to enable executable permission.");
-                const auto message = tr("Core file is lacking executable permission for the current user.") +
-                                     tr("Qv2ray tried to set, but failed because permission denied.");
-                return { false, message };
-            }
-            else
-            {
-                DEBUG("Core executable permission set.");
-            }
-#endif
-            LOG("Core file not executable.");
-            return { false, tr("Core file not executable.") };
-        }
-        else
-        {
-            DEBUG("Core file is executable.");
-        }
-        return { true, std::nullopt };
-#else
-        // For Windows and other users: just skip this check.
-        DEBUG("Skipped check and set core executable state.");
-        return { true, tr("Check is skipped") };
-#endif
-    }
-#endif
-
     std::pair<bool, std::optional<QString>> V2RayKernelInstance::ValidateKernel(const QString &corePath, const QString &assetsPath)
     {
         QFile coreFile(corePath);
@@ -65,51 +25,6 @@ namespace Qv2ray::core::kernel
 
         coreFile.close();
 
-#if QV2RAY_FEATURE(kernel_check_abi)
-        // Get Core ABI.
-        const auto [abi, err] = kernel::abi::deduceKernelABI(corePath);
-        if (err)
-        {
-            LOG("Core ABI deduction failed: " + *err);
-            return { false, *err };
-        }
-        LOG("Core ABI: " + kernel::abi::abiToString(*abi));
-
-        // Get Compiled ABI
-        auto compiledABI = kernel::abi::COMPILED_ABI_TYPE;
-        LOG("Host ABI: " + kernel::abi::abiToString(compiledABI));
-
-        // Check ABI Compatibility.
-        switch (kernel::abi::checkCompatibility(compiledABI, *abi))
-        {
-            case kernel::abi::ABI_NOPE:
-            {
-                LOG("Host is incompatible with core");
-                const auto msg = tr("V2Ray core is incompatible with your platform.\r\n"
-                                    "Expected core ABI is %1, but got actual %2.\r\n"
-                                    "Maybe you have downloaded the wrong core?")
-                                     .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(*abi));
-                return { false, msg };
-            }
-            case kernel::abi::ABI_MAYBE:
-            {
-                LOG("WARNING: Host maybe incompatible with core");
-                break;
-            }
-            case kernel::abi::ABI_PERFECT:
-            {
-                LOG("Host is compatible with core");
-                break;
-            }
-        }
-#endif
-
-#if QV2RAY_FEATURE(kernel_check_permission)
-        // Check executable permissions.
-        const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(corePath);
-        if (!isExecutableOk)
-            return { false, strExecutableErr.value_or("") };
-#endif
         //
         // Check file existance.
         // From: https://www.v2fly.org/chapter_02/env.html#asset-location
