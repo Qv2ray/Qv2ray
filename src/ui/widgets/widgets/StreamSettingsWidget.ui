@@ -160,15 +160,25 @@
           </layout>
          </widget>
          <widget class="QWidget" name="httpStackPage">
-          <layout class="QGridLayout" name="gridLayout_8" rowstretch="0,0,0,1">
+          <layout class="QFormLayout" name="formLayout_8">
            <item row="0" column="0">
+            <widget class="QLabel" name="label_32">
+             <property name="text">
+              <string>Method</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="httpMethodTxt"/>
+           </item>
+           <item row="1" column="0">
             <widget class="QLabel" name="label_5">
              <property name="text">
               <string>Path</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="1" column="1">
             <widget class="QLineEdit" name="httpPathTxt">
              <property name="placeholderText">
               <string notr="true">/</string>
@@ -182,10 +192,17 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="2" column="1">
             <widget class="QPlainTextEdit" name="httpHostTxt">
              <property name="placeholderText">
               <string notr="true">myhost.mydomain.com</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QLabel" name="label_33">
+             <property name="text">
+              <string>Headers (TODO)</string>
              </property>
             </widget>
            </item>
@@ -245,6 +262,16 @@
                 <string>Enabled</string>
                </property>
               </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_30">
+               <property name="text">
+                <string>Early Data Header</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="wsEarlyDataHeaderTxt"/>
              </item>
             </layout>
            </item>
@@ -845,6 +872,16 @@
          </item>
         </widget>
        </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="tcpKeepAliveIntervalSB"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_31">
+         <property name="text">
+          <string>KeepAlive Interval</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -861,8 +898,6 @@
   <tabstop>tcpRequestDefBtn</tabstop>
   <tabstop>tcpResponseEditBtn</tabstop>
   <tabstop>tcpRespDefBtn</tabstop>
-  <tabstop>httpPathTxt</tabstop>
-  <tabstop>httpHostTxt</tabstop>
   <tabstop>wsHeadersTxt</tabstop>
   <tabstop>kcpUploadCapacSB</tabstop>
   <tabstop>kcpDownCapacitySB</tabstop>

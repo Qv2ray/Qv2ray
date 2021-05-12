@@ -211,7 +211,8 @@ namespace Qv2ray::base::objects
             QJS_PROP(QStringStringMap, headers)
             QJS_PROP_D(int, maxEarlyData, 0)
             QJS_PROP_D(bool, useBrowserForwarding, false)
-            QJS_FUNCTION(WebSocketObject, F(path, headers, maxEarlyData, useBrowserForwarding))
+            QJS_PROP(QString, earlyDataHeaderName)
+            QJS_FUNCTION(WebSocketObject, F(path, headers, maxEarlyData, useBrowserForwarding, earlyDataHeaderName))
         };
 
         struct HttpObject : public QObject
@@ -220,7 +221,8 @@ namespace Qv2ray::base::objects
           public:
             QJS_PROP(QList<QString>, host)
             QJS_PROP_D(QString, path, "/")
-            QJS_FUNCTION(HttpObject, F(host, path))
+            QJS_PROP(QString, method)
+            QJS_FUNCTION(HttpObject, F(host, path, method))
         };
 
         struct DomainSocketObject : public QObject
@@ -254,9 +256,10 @@ namespace Qv2ray::base::objects
             Q_OBJECT
           public:
             QJS_PROP_D(int, mark, 255)
+            QJS_PROP_D(int, tcpKeepAliveInterval, 0)
             QJS_PROP_D(bool, tcpFastOpen, false)
             QJS_PROP_D(QString, tproxy, "off")
-            QJS_FUNCTION(SockoptObject, F(mark, tcpFastOpen, tproxy))
+            QJS_FUNCTION(SockoptObject, F(mark, tcpFastOpen, tproxy, tcpKeepAliveInterval))
         };
 
         struct CertificateObject : public QObject

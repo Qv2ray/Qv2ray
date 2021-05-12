@@ -10,6 +10,9 @@ StreamSettingsWidget::StreamSettingsWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
     QvMessageBusConnect(StreamSettingsWidget);
+    QJS_RWBINDING(stream.wsSettings->earlyDataHeaderName, wsEarlyDataHeaderTxt, "text", &QLineEdit::textEdited);
+    QJS_RWBINDING(stream.sockopt->tcpKeepAliveInterval, tcpKeepAliveIntervalSB, "value", &QSpinBox::valueChanged);
+    QJS_RWBINDING(stream.httpSettings->method, httpMethodTxt, "text", &QLineEdit::textEdited);
 }
 
 QvMessageBusSlotImpl(StreamSettingsWidget)

@@ -73,6 +73,7 @@ class StreamSettingsWidget
     void on_grpcServiceNameTxt_textEdited(const QString &arg1);
 
   private:
+    QJS_BINDING_HELPERS
     QvMessageBusSlotDecl;
     StreamSettingsObject stream;
 };
