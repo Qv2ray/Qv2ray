@@ -36,7 +36,6 @@ class ImportConfigWindow
 
   private slots:
 #if QV2RAY_FEATURE(ui_has_import_qrcode)
-    void on_selectFileBtn_clicked();
     void on_qrFromScreenBtn_clicked();
     void on_selectImageBtn_clicked();
     void on_hideQv2rayCB_stateChanged(int arg1);
@@ -46,6 +45,7 @@ class ImportConfigWindow
     void on_cancelImportBtn_clicked();
     void on_routeEditBtn_clicked();
     void on_jsonEditBtn_clicked();
+    void on_selectFileBtn_clicked();
 
   private:
     void updateColorScheme() override;
