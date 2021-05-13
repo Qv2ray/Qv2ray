@@ -2,6 +2,15 @@ name: Build Qv2ray
 
 on:
   push:
+    branches:
+      - '**'
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
   release:
     types: [prereleased]
 
@@ -52,7 +61,6 @@ jobs:
           CC: cl.exe
           CXX: cl.exe
         run: |
-          echo $PATH
           mkdir build
           cd build
           cmake .. -GNinja \

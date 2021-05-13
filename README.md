@@ -1,23 +1,53 @@
 # <img width="32" src="assets/icons/qv2ray.png" alt="Qv2ray"/> Qv2ray - For developers. By developers.
 
+[![Qv2ray build matrix - Qt6](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml/badge.svg)](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml)
 [![GitHub Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
 
-## Availability & CI/CD Status
+Qv2ray is a cross-platform Qt frontend for V2Ray.
 
-[![Qv2ray build matrix - Qt6](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml/badge.svg)](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml)
+This is the original Qv2ray project by the author who contributed over 95% code and other contributors.
+Unlike Qv2ray/Qv2ray whose control has been forcibly taken away from the author by another organization owner.
 
-## Xray
+## Development Goal: For developers. By developers.
 
-Qv2ray is a V2Ray front-end, for Xray support, please use X-flutter.
+Further development of this project will focus on my own needs and use cases.
 
-## Special Thanks
+Feature requests from non-developers might get rejected. Code contribution is always welcome.
 
-**[JetBrains Developer Toolbox](https://www.jetbrains.com/?from=Qv2ray)**
+## Compatibility
 
--------------------------------
+This repo is developed based on the original `dev-v3` branch, so the plugins, configuration
+files will not be compatible with the original version.
 
-## Licences
+### Xray
+
+No Such Word In My Dictionary
+
+## Plugins At A Glance
+
+~~*Not All Plugins Are Available Since I'm Very Busy*~~
+
+### Built-in Plugins
+- **QvPlugin-BuiltinLatencyTest** Latency Tests Plugin (ICMP, TCP, HTTPS)
+- **QvPlugin-BuiltinProtocolSupport** Builtin Protocol Support
+- **QvPlugin-BuiltinSubscriptionSupport** Builtin Subscription Support
+- **QvPlugin-BuiltinUtils** Builtin Utilities
+
+### Utility Plugins
+- **QvPlugin-Command** Command Hook Plugin
+- **QvPlugin-RemoteCore** Remove V2Ray Core Plugin
+- **QvPlugin-WindowsToolbar** Windows Taskbar Toolbar Widget & Performance Counter Provider
+- **QvPlugin-WinNetFilter** Windows Transparent Proxy Plugin
+
+### Protocol Support
+- **QvPlugin-SSR** ShadowsocksR Plugin
+- **QvPlugin-SS** Shadowsocks Plugin
+- **QvPlugin-Trojan-Go** Trojan-Go Plugin
+- **QvPlugin-Trojan** Trojan Plugin
+- **QvPlugin-NaiveProxy** NaiveProxy Plugin
+
+## Licencing
 
 This is free software, and you are welcome to redistribute it under certain conditions.
 
