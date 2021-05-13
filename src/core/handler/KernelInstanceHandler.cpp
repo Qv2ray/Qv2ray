@@ -81,8 +81,7 @@ namespace Qv2ray::core::handler
         StopConnection();
         inboundInfo = GetInboundInfo(fullConfig);
         //
-        const auto inboundPorts = GetInboundPorts();
-        const auto inboundHosts = GetInboundHosts();
+        const auto inboundPorts = GetInboundProtocolPorts();
         PluginHost->SendEvent({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connecting });
         // QList<std::tuple<QString, int, QString>> inboundInfo;
         // for (const auto &inbound_v : fullConfig["inbounds"].toArray())
@@ -292,7 +291,7 @@ namespace Qv2ray::core::handler
     {
         if (isConnected)
         {
-            const auto inboundPorts = GetInboundPorts();
+            const auto inboundPorts = GetInboundProtocolPorts();
             PluginHost->SendEvent({ GetDisplayName(currentId.connectionId), inboundPorts, Connectivity::Disconnecting });
             if (vCoreInstance->IsKernelRunning())
             {

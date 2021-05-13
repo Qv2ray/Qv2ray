@@ -63,21 +63,12 @@ namespace Qv2ray::core::handler
 #else
         qsizetype pluginLogPrefixPadding = 0;
 #endif
-        QMap<QString, int> GetInboundPorts() const
+        QMap<QString, int> GetInboundProtocolPorts() const
         {
             QMap<QString, int> result;
             for (const auto &[tag, info] : inboundInfo.toStdMap())
             {
-                result[tag] = info.port;
-            }
-            return result;
-        }
-        QMap<QString, QString> GetInboundHosts() const
-        {
-            QMap<QString, QString> result;
-            for (const auto &[tag, info] : inboundInfo.toStdMap())
-            {
-                result[tag] = info.address;
+                result[info.protocol] = info.port;
             }
             return result;
         }
