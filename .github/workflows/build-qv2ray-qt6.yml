@@ -25,6 +25,12 @@ jobs:
         with:
           path: ../Qt
           key: QtCache-Windows-${{ env.QtVersion }}
+      - name: Install MSVC compiler
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          # 14.1 is for vs2017, 14.2 is vs2019, following the upstream vcpkg build from Qv2ray-deps repo
+          toolset: 14.2
+          arch: x64
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
@@ -46,6 +52,7 @@ jobs:
           CC: cl.exe
           CXX: cl.exe
         run: |
+          echo $PATH
           mkdir build
           cd build
           cmake .. -GNinja \
