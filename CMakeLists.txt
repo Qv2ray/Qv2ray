@@ -257,6 +257,8 @@ target_link_libraries(qv2ray_baselib
     ${CURL_LIBRARIES}
     ${SINGLEAPPLICATION_LIBRARY}
     Threads::Threads
+    OpenSSL::SSL
+    OpenSSL::Crypto
     )
 
 target_include_directories(qv2ray_baselib PUBLIC
