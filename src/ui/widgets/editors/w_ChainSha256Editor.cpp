@@ -4,9 +4,8 @@
 #include "utils/QvHelpers.hpp"
 
 #include <QDesktopServices>
-#include <utility>
 
-ChainSha256Editor::ChainSha256Editor(QWidget *parent, const QList<QString>& chain) : QDialog(parent)
+ChainSha256Editor::ChainSha256Editor(QWidget *parent, const QList<QString> &chain) : QDialog(parent)
 {
     setupUi(this);
     chainSha256Edit->setPlainText(chain.join("\r\n"));
@@ -39,7 +38,11 @@ void ChainSha256Editor::accept()
 QList<QString> ChainSha256Editor::convertFromString(const QString &&str)
 {
     const static QRegExp newLine("[\r\n]");
-    return str.split(newLine, Qt::SkipEmptyParts);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    return str.split(newLine, Qt::SplitBehaviorFlags::SkipEmptyParts);
+#else
+    return str.split(newLine, QString::SkipEmptyParts);
+#endif
 }
 
 std::optional<QString> ChainSha256Editor::validateError(const QList<QString> &newChain)

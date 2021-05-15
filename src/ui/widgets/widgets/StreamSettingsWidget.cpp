@@ -353,9 +353,4 @@ void StreamSettingsWidget::on_pinnedPeerCertificateChainSha256Btn_clicked()
     {
         stream.tlsSettings.pinnedPeerCertificateChainSha256 = QList<QString>(ed);
     }
-    //#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    //    stream.tlsSettings.pinnedPeerCertificateChainSha256 = res.split('|', Qt::SplitBehaviorFlags::SkipEmptyParts);
-    //#else
-    //    stream.tlsSettings.pinnedPeerCertificateChainSha256 = res.split('|', QString::SkipEmptyParts);
-    //#endif
 }
