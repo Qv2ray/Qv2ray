@@ -61,8 +61,8 @@ void MainWindow::MWHideWindow()
 void MainWindow::MWSetSystemProxy()
 {
     const auto inboundInfoWithExtra = KernelInstance->GetCurrentConnectionInboundInfoWithExtra();
-    bool httpEnabled = false;
-    bool socksEnabled = false;
+    bool setHttpProxy = GlobalConfig.inboundConfig.systemProxySettings.setSystemProxyForHttp;
+    bool setSocksProxy = GlobalConfig.inboundConfig.systemProxySettings.setSystemProxyForSocks;
     int httpPort = 0;
     int socksPort = 0;
     QString httpAddress;
@@ -76,54 +76,59 @@ void MainWindow::MWSetSystemProxy()
         }
         if (info.protocol == "http")
         {
-            httpEnabled = true;
             httpPort = info.port;
             httpAddress = info.address;
         }
         else if (info.protocol == "socks")
         {
-            socksEnabled = true;
             socksPort = info.port;
             socksAddress = info.address;
         }
     }
-    if (!httpEnabled)
-    {
-        QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("no HTTP inbound or HTTP inbound(s) have authentication enabled"));
-    }
-    if (!socksEnabled)
-    {
-        QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("no SOCKS inbound or SOCKS inbound(s) have authentication enabled"));
-    }
 
-    QString proxyAddress;
-    if (httpEnabled)
-        proxyAddress = httpAddress;
-    else if (socksEnabled)
-        proxyAddress = socksAddress;
+    bool hasHttp = !httpAddress.isEmpty() && httpPort > 0 && httpPort < 65536;
+    bool hasSocks = !socksAddress.isEmpty() && socksPort > 0 &&  socksPort < 65536;
 
-    const QHostAddress ha(proxyAddress);
-    if (ha.isEqual(QHostAddress::AnyIPv4)) // "0.0.0.0"
-        proxyAddress = "127.0.0.1";
-    else if (ha.isEqual(QHostAddress::AnyIPv6)) // "::"
-        proxyAddress = "::1";
+    if (!hasHttp && setHttpProxy)
+        QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("HTTP inbound does not exist or has authentication enabled"));
+    if (!hasSocks && setSocksProxy)
+        QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("SOCKS inbound does not exist or has authentication enabled"));
 
-    if (!proxyAddress.isEmpty())
+    if (hasHttp)
     {
-        LOG("ProxyAddress: " + proxyAddress);
+        const QHostAddress ha(httpAddress);
+        if (ha.isEqual(QHostAddress::AnyIPv4)) // "0.0.0.0"
+            httpAddress = "127.0.0.1";
+        else if (ha.isEqual(QHostAddress::AnyIPv6)) // "::"
+            httpAddress = "::1";
+        LOG("HTTP Address: " + httpAddress);
         LOG("HTTP Port: " + QSTRN(httpPort));
+    }
+    if (hasSocks)
+    {
+        const QHostAddress sa(socksAddress);
+        if (sa.isEqual(QHostAddress::AnyIPv4)) // "0.0.0.0"
+            socksAddress = "127.0.0.1";
+        else if (sa.isEqual(QHostAddress::AnyIPv6)) // "::"
+            socksAddress = "::1";
+        LOG("SOCKS Address: " + socksAddress);
         LOG("SOCKS Port: " + QSTRN(socksPort));
-        SetSystemProxy(proxyAddress, httpPort, socksPort);
+    }
+
+    if (hasHttp || hasSocks)
+    {
+        Qv2ray::components::proxy::ProxyOptions flags;
+        flags.setFlag(Qv2ray::components::proxy::SetHttpProxy, hasHttp && setHttpProxy);
+        flags.setFlag(Qv2ray::components::proxy::SetSocksProxy, hasSocks && setSocksProxy);
+        flags.setFlag(Qv2ray::components::proxy::AppendScheme, GlobalConfig.inboundConfig.systemProxySettings.appendScheme);
+        flags.setFlag(Qv2ray::components::proxy::OverrideProxyException, GlobalConfig.inboundConfig.systemProxySettings.overrideProxyException);
+        const QStringList proxyException = GlobalConfig.inboundConfig.systemProxySettings.proxyException;
+        SetSystemProxy(httpAddress, socksAddress, httpPort, socksPort, proxyException, flags);
         qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy"));
         if (!GlobalConfig.uiConfig.quietMode)
         {
             QvWidgetApplication->ShowTrayMessage(tr("System proxy configured."));
         }
-    }
-    else
-    {
-        LOG("Neither of HTTP nor SOCKS is enabled, cannot set system proxy.");
-        QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("Both HTTP and SOCKS inbounds are not enabled"));
     }
 }
 

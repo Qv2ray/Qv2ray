@@ -269,12 +269,12 @@
             </item>
             <item row="3" column="1">
              <widget class="QCheckBox" name="exitByCloseEventCB">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
               <property name="toolTip">
                <string>Exit instead of minimizing to tray when the close button clicked.
 This option may be useful for some desktop environments without tray support.</string>
+              </property>
+              <property name="text">
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
@@ -1808,8 +1808,8 @@ Custom DNS Settings</string>
       <attribute name="title">
        <string>Connection Settings</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,1">
-       <item>
+      <layout class="QGridLayout" name="gridLayout_12">
+       <item row="0" column="0">
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>General Connection Settings</string>
@@ -1917,7 +1917,7 @@ Custom DNS Settings</string>
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="0" column="1">
         <widget class="QGroupBox" name="fpGroupBox">
          <property name="title">
           <string>Forward Proxy</string>
@@ -2041,6 +2041,116 @@ Custom DNS Settings</string>
           </item>
           <item row="6" column="1">
            <widget class="QLineEdit" name="fpPasswordTx"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="sysProxyGroupBox">
+         <property name="title">
+          <string>System Proxy Settings</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_17">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_96">
+            <property name="text">
+             <string>Set HTTP System Proxy</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="setSysProxyForHttpCB">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_95">
+            <property name="text">
+             <string>Set SOCKS System Proxy</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="setSysProxyForSocksCB">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_97">
+            <property name="text">
+             <string>Append Scheme for HTTP</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="appendSchemeCB">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_98">
+            <property name="text">
+             <string>Override Proxy Exception List</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="overrideProxyExceptionCB">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" colspan="2">
+           <widget class="QPushButton" name="editProxyExceptionBtn">
+            <property name="text">
+             <string>Edit Proxy Exception List</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" colspan="2">
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="6" column="1">
+           <spacer name="horizontalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
@@ -2568,6 +2678,11 @@ Custom DNS Settings</string>
   <tabstop>bypassBTCb</tabstop>
   <tabstop>dnsFreedomCb</tabstop>
   <tabstop>dnsIntercept</tabstop>
+  <tabstop>setSysProxyForHttpCB</tabstop>
+  <tabstop>setSysProxyForSocksCB</tabstop>
+  <tabstop>appendSchemeCB</tabstop>
+  <tabstop>overrideProxyExceptionCB</tabstop>
+  <tabstop>editProxyExceptionBtn</tabstop>
   <tabstop>fpGroupBox</tabstop>
   <tabstop>fpTypeCombo</tabstop>
   <tabstop>fpAddressTx</tabstop>

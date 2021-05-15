@@ -69,8 +69,17 @@ namespace Qv2ray::base::config
     struct QvConfig_SystemProxy
     {
         bool setSystemProxy = true;
-        JSONSTRUCT_COMPARE(QvConfig_SystemProxy, setSystemProxy)
-        JSONSTRUCT_REGISTER(QvConfig_SystemProxy, F(setSystemProxy))
+        bool setSystemProxyForHttp = true;
+        bool setSystemProxyForSocks = false;
+        bool appendScheme = false;
+        bool overrideProxyException = false;
+        QList<QString> proxyException;
+        JSONSTRUCT_COMPARE(QvConfig_SystemProxy, setSystemProxy,          //
+                           setSystemProxyForHttp, setSystemProxyForSocks, //
+                           appendScheme, overrideProxyException, proxyException)
+        JSONSTRUCT_REGISTER(QvConfig_SystemProxy, F(setSystemProxy),          //
+                            F(setSystemProxyForHttp, setSystemProxyForSocks), //
+                            F(appendScheme, overrideProxyException, proxyException))
     };
 
     struct Qv2rayConfig_ProtocolInboundBase

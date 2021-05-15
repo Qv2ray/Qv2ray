@@ -146,6 +146,11 @@ class PreferencesWindow
     void on_tproxyOverrideFakeDNSOthersCB_stateChanged(int arg1);
     void on_browserForwarderAddressTxt_textEdited(const QString &arg1);
     void on_browserForwarderPortSB_valueChanged(int arg1);
+    void on_setSysProxyForHttpCB_stateChanged(int arg1);
+    void on_setSysProxyForSocksCB_stateChanged(int arg1);
+    void on_appendSchemeCB_stateChanged(int arg1);
+    void on_overrideProxyExceptionCB_stateChanged(int arg1);
+    void on_editProxyExceptionBtn_clicked();
 
   private:
     DnsSettingsWidget *dnsSettingsWidget;

@@ -1041,7 +1041,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Both HTTP and SOCKS inbounds are not enabled</source>
+        <source>HTTP inbound does not exist or has authentication enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SOCKS inbound does not exist or has authentication enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1993,6 +1997,33 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     <message>
         <source>Exit instead of minimizing to tray when the close button clicked.
 This option may be useful for some desktop environments without tray support.</source>
+    </message>
+    <message>
+        <source>System Proxy Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set HTTP System Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set SOCKS System Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Override Proxy Exception List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Proxy Exception List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use semicolon (;) to seperate each object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append Scheme for HTTP</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

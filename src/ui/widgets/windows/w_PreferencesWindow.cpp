@@ -302,6 +302,12 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     jumpListCountSB->setValue(CurrentConfig.uiConfig.maxJumpListCount);
     //
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.setSystemProxy);
+    setSysProxyForHttpCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.setSystemProxyForHttp);
+    setSysProxyForSocksCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.setSystemProxyForSocks);
+    appendSchemeCB->setEnabled(CurrentConfig.inboundConfig.systemProxySettings.setSystemProxyForHttp);
+    appendSchemeCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.appendScheme);
+    overrideProxyExceptionCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.overrideProxyException);
+    editProxyExceptionBtn->setEnabled(CurrentConfig.inboundConfig.systemProxySettings.overrideProxyException);
     //
     finishedLoading = true;
 }
@@ -1343,4 +1349,71 @@ void PreferencesWindow::on_browserForwarderPortSB_valueChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.browserForwarderSettings.port = arg1;
+}
+
+void PreferencesWindow::on_setSysProxyForHttpCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.systemProxySettings.setSystemProxyForHttp = arg1 == Qt::Checked;
+    appendSchemeCB->setEnabled(arg1 == Qt::Checked);
+}
+
+void PreferencesWindow::on_setSysProxyForSocksCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.systemProxySettings.setSystemProxyForSocks = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_appendSchemeCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.systemProxySettings.appendScheme = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_overrideProxyExceptionCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.systemProxySettings.overrideProxyException = arg1 == Qt::Checked;
+    editProxyExceptionBtn->setEnabled(arg1 == Qt::Checked);
+}
+
+void PreferencesWindow::on_editProxyExceptionBtn_clicked()
+{
+    LOADINGCHECK
+    QInputDialog inputDialog;
+    inputDialog.setWindowTitle(tr("Edit Proxy Exception List"));
+    inputDialog.setLabelText(tr("Use semicolon (;) to seperate each object"));
+    inputDialog.setInputMode(QInputDialog::TextInput);
+    inputDialog.setOption(QInputDialog::UsePlainTextEditForTextInput);
+
+    const auto list = CurrentConfig.inboundConfig.systemProxySettings.proxyException;
+    QString textValue;
+    if (!list.isEmpty())
+    {
+        const auto end = list.end();
+        auto it = list.begin();
+        textValue += *it;
+        while (++it != end)
+        {
+            textValue += ";";
+            textValue += *it;
+        }
+    }
+    inputDialog.setTextValue(textValue);
+
+    if (inputDialog.exec())
+    {
+        const QRegularExpression re("[\r\n\t\v\f ;,|]");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        const auto proxyException = inputDialog.textValue().split(re, Qt::SplitBehaviorFlags::SkipEmptyParts);
+#else
+        const auto proxyException = inputDialog.textValue().split(re, QString::SkipEmptyParts);
+#endif
+        CurrentConfig.inboundConfig.systemProxySettings.proxyException = proxyException;
+        NEEDRESTART
+    }
 }
