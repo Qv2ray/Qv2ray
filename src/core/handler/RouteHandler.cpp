@@ -89,7 +89,7 @@ namespace Qv2ray::core::handler
             const auto firstOutboundTag = meta.getDisplayName();
             const auto lastOutboundTag = meta.outboundTags.first();
 
-            OutboundInfoObject lastOutbound;
+            PluginOutboundData lastOutbound;
 
             const auto outbountTagCount = meta.outboundTags.count();
 
@@ -119,7 +119,7 @@ namespace Qv2ray::core::handler
                 if (!isFirstOutbound)
                 {
                     const auto inboundTag = firstOutboundTag + ":" + QSTRN(nextInboundPort) + "->" + newOutboundTag;
-                    const auto inboundSettings = GenerateDokodemoIN(lastOutbound[INFO_SERVER].toString(), lastOutbound[INFO_PORT].toInt(), "tcp,udp");
+                    const auto inboundSettings = GenerateDokodemoIN(lastOutbound[DATA_KEY_SERVER].toString(), lastOutbound[DATA_KEY_PORT].toInt(), "tcp,udp");
                     const auto newInbound = GenerateInboundEntry(inboundTag, "dokodemo-door", "127.0.0.1", nextInboundPort, inboundSettings);
                     nextInboundPort++;
                     newInbounds << newInbound;
@@ -137,23 +137,23 @@ namespace Qv2ray::core::handler
                     const auto outboundProtocol = newOutbound["protocol"].toString();
                     auto outboundSettings = newOutbound["settings"].toObject();
                     // Get Outbound Info for next Inbound
-                    bool getOutboundInfoStatus = false;
-                    lastOutbound = PluginHost->GetOutboundInfo(outboundProtocol, outboundSettings, getOutboundInfoStatus);
-                    if (!getOutboundInfoStatus)
+                    const auto info = PluginHost->Outbound_GetData(outboundProtocol, outboundSettings);
+                    if (!info)
                     {
                         LOG("Cannot get outbound info for: " + chainOutboundTag);
                         return false;
                     }
+                    lastOutbound = *info;
 
                     // Update allocated port as outbound server/port
-                    OutboundInfoObject newOutboundInfo;
-                    newOutboundInfo[INFO_SERVER] = "127.0.0.1";
-                    newOutboundInfo[INFO_PORT] = nextInboundPort;
+                    PluginOutboundData newOutboundInfo;
+                    newOutboundInfo[DATA_KEY_SERVER] = "127.0.0.1";
+                    newOutboundInfo[DATA_KEY_PORT] = nextInboundPort;
                     // For those kernels deducing SNI from the server name.
-                    if (!lastOutbound.contains(INFO_SNI) || lastOutbound[INFO_SNI].toString().trimmed().isEmpty())
-                        newOutboundInfo[INFO_SNI] = lastOutbound[INFO_SERVER];
+                    if (!lastOutbound.contains(DATA_KEY_SNI) || lastOutbound[DATA_KEY_SNI].toString().trimmed().isEmpty())
+                        newOutboundInfo[DATA_KEY_SNI] = lastOutbound[DATA_KEY_SERVER];
                     //
-                    PluginHost->SetOutboundInfo(outboundProtocol, newOutboundInfo, outboundSettings);
+                    PluginHost->Outbound_SetData(outboundProtocol, outboundSettings, newOutboundInfo);
                     newOutbound.insert("settings", outboundSettings);
 
                     // Create new outbound

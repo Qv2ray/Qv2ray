@@ -21,7 +21,7 @@ BreakBeforeBraces: Allman
 BreakBeforeTernaryOperators: false
 BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
-ColumnLimit: 150
+ColumnLimit: 170
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 Cpp11BracedListStyle: false

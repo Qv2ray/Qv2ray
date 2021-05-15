@@ -33,10 +33,11 @@ class InternalProtocolSupportPlugin
     }
 
     bool InitializePlugin(const QString &, const QJsonObject &) override;
-    //
+    void SettingsUpdated() override{};
+
   signals:
-    void PluginLog(const QString &) const override;
-    void PluginErrorMessageBox(const QString &, const QString &) const override;
+    void PluginLog(QString) const override;
+    void PluginErrorMessageBox(QString, QString) const override;
 };
 
 DECLARE_PLUGIN_INSTANCE(InternalProtocolSupportPlugin);

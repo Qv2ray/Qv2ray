@@ -1,7 +1,6 @@
 #include "w_OutboundEditor.hpp"
 
 #include "core/connection/Generation.hpp"
-#include "plugin-interface/gui/QvGUIPluginInterface.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
 #include "ui/widgets/editors/w_RoutesEditor.hpp"
@@ -15,33 +14,21 @@ OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_
 {
     QvMessageBusConnect(OutboundEditor);
     setupUi(this);
-    //
     streamSettingsWidget = new StreamSettingsWidget(this);
     streamSettingsWidget->SetStreamObject({});
     transportFrame->addWidget(streamSettingsWidget);
-    //
-    for (const auto &name : PluginHost->UsablePlugins())
+
+    for (const auto &[_, plugin] : GUIPluginHost->GUI_QueryByComponent(GUI_COMPONENT_OUTBOUND_EDITOR))
     {
-        const auto &plugin = PluginHost->GetPlugin(name);
-        if (!plugin->hasComponent(COMPONENT_GUI))
-            continue;
-
-        const auto guiInterface = plugin->pluginInterface->GetGUIInterface();
-
-        if (!guiInterface)
-            LOG("Found a plugin with COMPONENT_GUI but returns an invalid GUI interface: " + plugin->metadata.Name);
-
-        if (!guiInterface->GetComponents().contains(GUI_COMPONENT_OUTBOUND_EDITOR))
-            continue;
-
-        const auto editors = guiInterface->GetOutboundEditors();
+        const auto editors = plugin->GetOutboundEditors();
         for (const auto &editorInfo : editors)
         {
-            outBoundTypeCombo->addItem(editorInfo.first.displayName, editorInfo.first.protocol);
+            outBoundTypeCombo->addItem(editorInfo.first.DisplayName, editorInfo.first.Protocol);
             outboundTypeStackView->addWidget(editorInfo.second);
-            pluginWidgets.insert(editorInfo.first.protocol, editorInfo.second);
+            pluginWidgets.insert(editorInfo.first.Protocol, editorInfo.second);
         }
     }
+
     outBoundTypeCombo->model()->sort(0);
     useForwardProxy = false;
 }
@@ -91,7 +78,6 @@ OUTBOUND OutboundEditor::generateConnectionJson()
         {
             widget->SetHostAddress(serverAddress, serverPort);
             settings = OUTBOUNDSETTING(widget->GetContent());
-            const auto prop = widget->property("");
             const auto hasStreamSettings = GetProperty(widget, "QV2RAY_INTERNAL_HAS_STREAMSETTINGS");
             if (!hasStreamSettings)
                 streaming = {};
@@ -101,8 +87,7 @@ OUTBOUND OutboundEditor::generateConnectionJson()
     }
     if (!processed)
     {
-        QvMessageBoxWarn(this, tr("Unknown outbound type."),
-                         tr("The specified outbound type is not supported, this may happen due to a plugin failure."));
+        QvMessageBoxWarn(this, tr("Unknown outbound type."), tr("The specified outbound type is not supported, this may happen due to a plugin failure."));
     }
     auto root = GenerateOutboundEntry(tag, outboundType, settings, streaming, muxConfig);
     root[QV2RAY_USE_FPROXY_KEY] = useForwardProxy;

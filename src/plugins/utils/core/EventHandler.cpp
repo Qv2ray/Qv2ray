@@ -1,25 +1,25 @@
 #include "EventHandler.hpp"
 
-EventHandler::EventHandler()
+UtilEventHandler::UtilEventHandler()
 {
 }
 
-void EventHandler::ProcessEvent(const ConnectionStats::EventObject &c)
-{
-    Q_UNUSED(c)
-}
-
-void EventHandler::ProcessEvent(const Connectivity::EventObject &c)
+void UtilEventHandler::ProcessEvent(const ConnectionStats::EventObject &c)
 {
     Q_UNUSED(c)
 }
 
-void EventHandler::ProcessEvent(const SystemProxy::EventObject &c)
+void UtilEventHandler::ProcessEvent(const Connectivity::EventObject &c)
 {
     Q_UNUSED(c)
 }
 
-void EventHandler::ProcessEvent(const ConnectionEntry::EventObject &c)
+void UtilEventHandler::ProcessEvent(const SystemProxy::EventObject &c)
+{
+    Q_UNUSED(c)
+}
+
+void UtilEventHandler::ProcessEvent(const ConnectionEntry::EventObject &c)
 {
     Q_UNUSED(c)
 }

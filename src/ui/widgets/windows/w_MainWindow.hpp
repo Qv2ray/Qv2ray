@@ -13,7 +13,7 @@
 
 namespace Qv2rayPlugin
 {
-    class QvPluginMainWindowWidget;
+    class PluginMainWindowWidget;
 }
 
 class MainWindow
@@ -176,7 +176,7 @@ class MainWindow
     //
     void updateColorScheme();
     //
-    QList<Qv2rayPlugin::QvPluginMainWindowWidget *> pluginWidgets;
+    QList<Qv2rayPlugin::PluginMainWindowWidget *> pluginWidgets;
     //
     Qv2ray::ui::widgets::models::ConnectionListHelper *modelHelper;
 };

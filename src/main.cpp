@@ -111,23 +111,6 @@ const QString SayLastWords() noexcept
         }
     }
 
-    if (PluginHost)
-    {
-        msg << "Plugins:";
-        const auto plugins = PluginHost->AllPlugins();
-        for (const auto &plugin : plugins)
-        {
-            const auto data = PluginHost->GetPlugin(plugin)->metadata;
-            QList<QString> dataList;
-            dataList << data.Name;
-            dataList << data.Author;
-            dataList << data.InternalName;
-            dataList << data.Description;
-            msg << JsonToString(JsonStructHelper::Serialize(dataList).toArray(), QJsonDocument::Compact);
-        }
-        msg << NEWLINE;
-    }
-
     if (QvCoreApplication)
     {
         msg << "GlobalConfig:";

@@ -7,118 +7,131 @@
 
 using namespace Qv2rayPlugin;
 
-const OutboundInfoObject BuiltinSerializer::GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const
+std::optional<PluginOutboundData> BuiltinSerializer::GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const
 {
-    OutboundInfoObject obj;
-    obj[INFO_PROTOCOL] = protocol;
+    PluginOutboundData obj;
+    obj[DATA_KEY_PROTOCOL] = protocol;
     if (protocol == "http")
     {
         HttpServerObject http;
         http.loadJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = *http.address;
-        obj[INFO_PORT] = *http.port;
+        obj[DATA_KEY_SERVER] = *http.address;
+        obj[DATA_KEY_PORT] = *http.port;
+        return obj;
     }
     else if (protocol == "socks")
     {
         SocksServerObject socks;
         socks.loadJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = *socks.address;
-        obj[INFO_PORT] = *socks.port;
+        obj[DATA_KEY_SERVER] = *socks.address;
+        obj[DATA_KEY_PORT] = *socks.port;
+        return obj;
     }
     else if (protocol == "vmess")
     {
         VMessServerObject vmess;
         vmess.loadJson(outbound["vnext"].toArray().first());
-        obj[INFO_SERVER] = *vmess.address;
-        obj[INFO_PORT] = *vmess.port;
+        obj[DATA_KEY_SERVER] = *vmess.address;
+        obj[DATA_KEY_PORT] = *vmess.port;
+        return obj;
     }
     else if (protocol == "vless")
     {
         VLESSServerObject vless;
         vless.loadJson(outbound["vnext"].toArray().first());
-        obj[INFO_SERVER] = *vless.address;
-        obj[INFO_PORT] = *vless.port;
+        obj[DATA_KEY_SERVER] = *vless.address;
+        obj[DATA_KEY_PORT] = *vless.port;
+        return obj;
     }
     else if (protocol == "shadowsocks")
     {
         ShadowSocksServerObject ss;
         ss.loadJson(outbound["servers"].toArray().first());
-        obj[INFO_SERVER] = *ss.address;
-        obj[INFO_PORT] = *ss.port;
+        obj[DATA_KEY_SERVER] = *ss.address;
+        obj[DATA_KEY_PORT] = *ss.port;
+        return obj;
     }
-    return obj;
+    return std::nullopt;
 }
 
-void BuiltinSerializer::SetOutboundInfo(const QString &protocol, const OutboundInfoObject &info, QJsonObject &outbound) const
+bool BuiltinSerializer::SetOutboundInfo(const QString &protocol, QJsonObject &outbound, const PluginOutboundData &info) const
 {
     if ((QStringList{ "http", "socks", "shadowsocks" }).contains(protocol))
     {
-        QJsonIO::SetValue(outbound, info[INFO_SERVER].toString(), "servers", 0, "address");
-        QJsonIO::SetValue(outbound, info[INFO_PORT].toInt(), "servers", 0, "port");
+        QJsonIO::SetValue(outbound, info[DATA_KEY_SERVER].toString(), "servers", 0, "address");
+        QJsonIO::SetValue(outbound, info[DATA_KEY_PORT].toInt(), "servers", 0, "port");
+        return true;
     }
-    else if ((QStringList{ "vless", "vmess" }).contains(protocol))
+
+    if ((QStringList{ "vless", "vmess" }).contains(protocol))
     {
-        QJsonIO::SetValue(outbound, info[INFO_SERVER].toString(), "vnext", 0, "address");
-        QJsonIO::SetValue(outbound, info[INFO_PORT].toInt(), "vnext", 0, "port");
+        QJsonIO::SetValue(outbound, info[DATA_KEY_SERVER].toString(), "vnext", 0, "address");
+        QJsonIO::SetValue(outbound, info[DATA_KEY_PORT].toInt(), "vnext", 0, "port");
+        return true;
     }
+
+    return false;
 }
 
-const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, const QString &alias, const QString &, const QJsonObject &obj,
-                                                   const QJsonObject &objStream) const
+std::optional<QString> BuiltinSerializer::Serialize(const PluginOutboundInfo &info) const
 {
+    const auto protocol = info.Protocol;
+    const auto oubound = info.Outbound;
+    const auto stream = info.StreamSettings;
+    const auto name = info.ConnectionName;
     if (protocol == "http" || protocol == "socks")
     {
         QUrl url;
         url.setScheme(protocol);
-        url.setHost(QJsonIO::GetValue(obj, { "servers", 0, "address" }).toString());
-        url.setPort(QJsonIO::GetValue(obj, { "servers", 0, "port" }).toInt());
-        if (QJsonIO::GetValue(obj, { "servers", 0 }).toObject().contains("users"))
+        url.setHost(QJsonIO::GetValue(oubound, { "servers", 0, "address" }).toString());
+        url.setPort(QJsonIO::GetValue(oubound, { "servers", 0, "port" }).toInt());
+        if (QJsonIO::GetValue(oubound, { "servers", 0 }).toObject().contains("users"))
         {
-            url.setUserName(QJsonIO::GetValue(obj, { "servers", 0, "users", 0, "user" }).toString());
-            url.setPassword(QJsonIO::GetValue(obj, { "servers", 0, "users", 0, "pass" }).toString());
+            url.setUserName(QJsonIO::GetValue(oubound, { "servers", 0, "users", 0, "user" }).toString());
+            url.setPassword(QJsonIO::GetValue(oubound, { "servers", 0, "users", 0, "pass" }).toString());
         }
         return url.toString();
     }
     if (protocol == "vless")
     {
         QUrl url;
-        url.setFragment(QUrl::toPercentEncoding(alias));
+        url.setFragment(QUrl::toPercentEncoding(name));
         url.setScheme(protocol);
-        url.setHost(QJsonIO::GetValue(obj, { "vnext", 0, "address" }).toString());
-        url.setPort(QJsonIO::GetValue(obj, { "vnext", 0, "port" }).toInt());
-        url.setUserName(QJsonIO::GetValue(obj, { "vnext", 0, "users", 0, "id" }).toString());
+        url.setHost(QJsonIO::GetValue(oubound, { "vnext", 0, "address" }).toString());
+        url.setPort(QJsonIO::GetValue(oubound, { "vnext", 0, "port" }).toInt());
+        url.setUserName(QJsonIO::GetValue(oubound, { "vnext", 0, "users", 0, "id" }).toString());
 
         // -------- COMMON INFORMATION --------
         QUrlQuery query;
-        const auto encryption = QJsonIO::GetValue(obj, { "vnext", 0, "users", 0, "encryption" }).toString("none");
+        const auto encryption = QJsonIO::GetValue(oubound, { "vnext", 0, "users", 0, "encryption" }).toString("none");
         if (encryption != "none")
             query.addQueryItem("encryption", encryption);
 
-        const auto network = QJsonIO::GetValue(objStream, "network").toString("tcp");
+        const auto network = QJsonIO::GetValue(stream, "network").toString("tcp");
         if (network != "tcp")
             query.addQueryItem("type", network);
 
-        const auto security = QJsonIO::GetValue(objStream, "security").toString("none");
+        const auto security = QJsonIO::GetValue(stream, "security").toString("none");
         if (security != "none")
             query.addQueryItem("security", security);
 
         // -------- TRANSPORT RELATED --------
         if (network == "kcp")
         {
-            const auto seed = QJsonIO::GetValue(objStream, { "kcpSettings", "seed" }).toString();
+            const auto seed = QJsonIO::GetValue(stream, { "kcpSettings", "seed" }).toString();
             if (!seed.isEmpty())
                 query.addQueryItem("seed", QUrl::toPercentEncoding(seed));
 
-            const auto headerType = QJsonIO::GetValue(objStream, { "kcpSettings", "header", "type" }).toString("none");
+            const auto headerType = QJsonIO::GetValue(stream, { "kcpSettings", "header", "type" }).toString("none");
             if (headerType != "none")
                 query.addQueryItem("headerType", headerType);
         }
         else if (network == "http")
         {
-            const auto path = QJsonIO::GetValue(objStream, { "httpSettings", "path" }).toString("/");
+            const auto path = QJsonIO::GetValue(stream, { "httpSettings", "path" }).toString("/");
             query.addQueryItem("path", QUrl::toPercentEncoding(path));
 
-            const auto hosts = QJsonIO::GetValue(objStream, { "httpSettings", "host" }).toArray();
+            const auto hosts = QJsonIO::GetValue(stream, { "httpSettings", "host" }).toArray();
             QStringList hostList;
             for (const auto item : hosts)
             {
@@ -130,46 +143,46 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
         }
         else if (network == "ws")
         {
-            const auto path = QJsonIO::GetValue(objStream, { "wsSettings", "path" }).toString("/");
+            const auto path = QJsonIO::GetValue(stream, { "wsSettings", "path" }).toString("/");
             query.addQueryItem("path", QUrl::toPercentEncoding(path));
 
-            const auto host = QJsonIO::GetValue(objStream, { "wsSettings", "headers", "Host" }).toString();
+            const auto host = QJsonIO::GetValue(stream, { "wsSettings", "headers", "Host" }).toString();
             query.addQueryItem("host", host);
         }
         else if (network == "quic")
         {
-            const auto quicSecurity = QJsonIO::GetValue(objStream, { "quicSettings", "security" }).toString("none");
+            const auto quicSecurity = QJsonIO::GetValue(stream, { "quicSettings", "security" }).toString("none");
             if (quicSecurity != "none")
             {
                 query.addQueryItem("quicSecurity", quicSecurity);
 
-                const auto key = QJsonIO::GetValue(objStream, { "quicSettings", "key" }).toString();
+                const auto key = QJsonIO::GetValue(stream, { "quicSettings", "key" }).toString();
                 query.addQueryItem("key", QUrl::toPercentEncoding(key));
 
-                const auto headerType = QJsonIO::GetValue(objStream, { "quicSettings", "header", "type" }).toString("none");
+                const auto headerType = QJsonIO::GetValue(stream, { "quicSettings", "header", "type" }).toString("none");
                 if (headerType != "none")
                     query.addQueryItem("headerType", headerType);
             }
         }
         else if (network == "grpc")
         {
-            const auto serviceName = QJsonIO::GetValue(objStream, { "grpcSettings", "serviceName" }).toString("GunService");
+            const auto serviceName = QJsonIO::GetValue(stream, { "grpcSettings", "serviceName" }).toString("GunService");
             if (serviceName != "GunService")
                 query.addQueryItem("serviceName", QUrl::toPercentEncoding(serviceName));
 
-            const auto multiMode = QJsonIO::GetValue(objStream, { "grpcSettings", "multiMode" }).toBool(false);
+            const auto multiMode = QJsonIO::GetValue(stream, { "grpcSettings", "multiMode" }).toBool(false);
             if (multiMode)
                 query.addQueryItem("mode", "multi");
         }
         // -------- TLS RELATED --------
         const auto tlsKey = security == "xtls" ? "xtlsSettings" : "tlsSettings";
 
-        const auto sni = QJsonIO::GetValue(objStream, { tlsKey, "serverName" }).toString();
+        const auto sni = QJsonIO::GetValue(stream, { tlsKey, "serverName" }).toString();
         if (!sni.isEmpty())
             query.addQueryItem("sni", sni);
 
         // ALPN
-        const auto alpnArray = QJsonIO::GetValue(objStream, { tlsKey, "alpn" }).toArray();
+        const auto alpnArray = QJsonIO::GetValue(stream, { tlsKey, "alpn" }).toArray();
         QStringList alpnList;
         for (const auto v : alpnArray)
         {
@@ -182,7 +195,7 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
         // -------- XTLS Flow --------
         if (security == "xtls")
         {
-            const auto flow = QJsonIO::GetValue(obj, "vnext", 0, "users", 0, "flow").toString();
+            const auto flow = QJsonIO::GetValue(oubound, "vnext", 0, "users", 0, "flow").toString();
             query.addQueryItem("flow", flow);
         }
 
@@ -190,30 +203,22 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
         url.setQuery(query);
         return url.toString(QUrl::FullyEncoded);
     }
-    return "(Unsupported)";
+
+    return std::nullopt;
 }
 
-const QPair<QString, QJsonObject> BuiltinSerializer::DeserializeOutbound(const QString &link, QString *alias, QString *errorMessage) const
+std::optional<PluginOutboundInfo> BuiltinSerializer::Deserialize(const QString &link) const
 {
-    Q_UNUSED(alias);
-    Q_UNUSED(errorMessage);
     if (link.startsWith("http://") || link.startsWith("socks://"))
     {
         const QUrl url = link;
         QJsonObject root;
         QJsonIO::SetValue(root, url.host(), "servers", 0, "address");
         QJsonIO::SetValue(root, url.port(), "servers", 0, "port");
-        if (url.userName().isEmpty() && url.password().isEmpty())
-        {
-            QJsonIO::SetValue(root, url.userName(), "servers", 0, "users", 0, "user");
-            QJsonIO::SetValue(root, url.password(), "servers", 0, "users", 0, "pass");
-        }
-        return { url.scheme(), root };
+        QJsonIO::SetValue(root, url.userName(), "servers", 0, "users", 0, "user");
+        QJsonIO::SetValue(root, url.password(), "servers", 0, "users", 0, "pass");
+        return PluginOutboundInfo{ url.fragment(), url.scheme(), root, {} };
     }
-    return {};
-}
 
-const QList<QString> BuiltinSerializer::SupportedLinkPrefixes() const
-{
-    return { "http", "socks" };
+    return std::nullopt;
 }

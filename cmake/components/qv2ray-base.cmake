@@ -45,8 +45,10 @@ set(QV2RAY_BASE_SOURCES
     ${QV2RAY_BASEDIR_COMPONENTS}/latency/unix/ICMPPing.cpp
     ${QV2RAY_BASEDIR_COMPONENTS}/latency/unix/ICMPPing.hpp
     #
-    ${QV2RAY_BASEDIR_COMPONENTS}/plugins/QvPluginHost.cpp
-    ${QV2RAY_BASEDIR_COMPONENTS}/plugins/QvPluginHost.hpp
+    ${QV2RAY_BASEDIR_COMPONENTS}/plugins/PluginAPIHost.cpp
+    ${QV2RAY_BASEDIR_COMPONENTS}/plugins/PluginAPIHost.hpp
+    ${QV2RAY_BASEDIR_COMPONENTS}/plugins/PluginManagerCore.cpp
+    ${QV2RAY_BASEDIR_COMPONENTS}/plugins/PluginManagerCore.hpp
     #
     ${QV2RAY_BASEDIR_COMPONENTS}/port/QvPortDetector.cpp
     ${QV2RAY_BASEDIR_COMPONENTS}/port/QvPortDetector.hpp

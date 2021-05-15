@@ -15,7 +15,6 @@ class InternalSubscriptionSupportPlugin
     Q_PLUGIN_METADATA(IID Qv2rayInterface_IID)
     Q_OBJECT
   public:
-    //
     // Basic metainfo of this plugin
     const QvPluginMetadata GetMetadata() const override
     {
@@ -30,8 +29,9 @@ class InternalSubscriptionSupportPlugin
     }
 
     bool InitializePlugin(const QString &, const QJsonObject &) override;
-    //
+    void SettingsUpdated() override{};
+
   signals:
-    void PluginLog(const QString &) const override;
-    void PluginErrorMessageBox(const QString &, const QString &) const override;
+    void PluginLog(QString) const override;
+    void PluginErrorMessageBox(QString, QString) const override;
 };

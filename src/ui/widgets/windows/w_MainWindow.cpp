@@ -2,7 +2,7 @@
 
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
-#include "plugin-interface/gui/QvGUIPluginInterface.hpp"
+#include "ui/common/GuiPluginHost.hpp"
 #include "ui/widgets/Qv2rayWidgetApplication.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
@@ -21,9 +21,9 @@
 #define QV_MODULE_NAME "MainWindow"
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 
-#define CheckCurrentWidget                                                                                                                           \
-    auto widget = GetIndexWidget(connectionTreeView->currentIndex());                                                                                \
-    if (widget == nullptr)                                                                                                                           \
+#define CheckCurrentWidget                                                                                                                                               \
+    auto widget = GetIndexWidget(connectionTreeView->currentIndex());                                                                                                    \
+    if (widget == nullptr)                                                                                                                                               \
         return;
 
 #define GetIndexWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionTreeView->indexWidget(item)))
@@ -302,16 +302,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     CheckSubscriptionsUpdate();
     qvLogTimerId = startTimer(1000);
     //
-    for (const auto &name : PluginHost->UsablePlugins())
+
+    for (const auto &[pluginInterface, guiInterface] : GUIPluginHost->GUI_QueryByComponent(GUI_COMPONENT_MAIN_WINDOW_WIDGET))
     {
-        const auto &plugin = PluginHost->GetPlugin(name);
-        if (!plugin->hasComponent(COMPONENT_GUI))
-            continue;
-        const auto guiInterface = plugin->pluginInterface->GetGUIInterface();
-        if (!guiInterface)
-            continue;
-        if (!guiInterface->GetComponents().contains(GUI_COMPONENT_MAINWINDOW_WIDGET))
-            continue;
         auto mainWindowWidgetPtr = guiInterface->GetMainWindowWidget();
         if (!mainWindowWidgetPtr)
             continue;
@@ -321,7 +314,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             auto widget = mainWindowWidgetPtr.release();
             pluginWidgets.append(widget);
         }
-        auto btn = new QPushButton(plugin->metadata.Name, this);
+        auto btn = new QPushButton(pluginInterface->GetMetadata().Name, this);
         connect(btn, &QPushButton::clicked, this, &MainWindow::OnPluginButtonClicked);
         btn->setProperty(PLUGIN_BUTTON_PROPERTY_KEY, index);
         topButtonsLayout->addWidget(btn);
@@ -860,8 +853,7 @@ void MainWindow::Action_DuplicateConnection()
 
     for (const auto &conn : connlist)
     {
-        ConnectionManager->CreateConnection(ConnectionManager->GetConnectionRoot(conn.connectionId),
-                                            GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId);
+        ConnectionManager->CreateConnection(ConnectionManager->GetConnectionRoot(conn.connectionId), GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId);
     }
 }
 
@@ -995,7 +987,7 @@ void MainWindow::on_pluginsBtn_clicked()
 
 void MainWindow::on_newConnectionBtn_clicked()
 {
-    OutboundEditor w(OUTBOUND{}, this);
+    OutboundEditor w(this);
     auto outboundEntry = w.OpenEditor();
     bool isChanged = w.result() == QDialog::Accepted;
     if (isChanged)

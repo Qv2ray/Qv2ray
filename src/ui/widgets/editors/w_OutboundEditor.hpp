@@ -1,6 +1,6 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-#include "components/plugins/QvPluginHost.hpp"
+#include "ui/common/GuiPluginHost.hpp"
 #include "ui/common/QvMessageBus.hpp"
 #include "ui/widgets/widgets/StreamSettingsWidget.hpp"
 #include "ui_w_OutboundEditor.h"
@@ -14,13 +14,13 @@ class OutboundEditor
 {
     Q_OBJECT
   public:
+    explicit OutboundEditor(QWidget *parent = nullptr);
     explicit OutboundEditor(const OUTBOUND &outboundEntry, QWidget *parent = nullptr);
     ~OutboundEditor();
     OUTBOUND OpenEditor();
     QString GetFriendlyName();
 
   private:
-    explicit OutboundEditor(QWidget *parent = nullptr);
     QvMessageBusSlotDecl;
 
   private slots:
@@ -45,7 +45,7 @@ class OutboundEditor
     int serverPort;
     //
     // Connection Configs
-    QString outboundType;
+    QString outboundType = "vmess";
     //
     StreamSettingsWidget *streamSettingsWidget;
     //

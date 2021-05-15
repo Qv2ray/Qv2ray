@@ -1,6 +1,6 @@
 #include "PluginSettingsWidget.hpp"
 
-SimplePluginSettingsWidget::SimplePluginSettingsWidget(QWidget *parent) : Qv2rayPlugin::QvPluginSettingsWidget(parent)
+SimplePluginSettingsWidget::SimplePluginSettingsWidget(QWidget *parent) : Qv2rayPlugin::PluginSettingsWidget(parent)
 {
     setupUi(this);
 }

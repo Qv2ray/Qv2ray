@@ -7,8 +7,7 @@ namespace Qv2ray::core::connection
 {
     namespace serialization
     {
-        QList<std::pair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
-                                                                      QString *newGroup)
+        QList<std::pair<QString, CONFIGROOT>> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage, QString *newGroup)
         {
 
             QList<std::pair<QString, CONFIGROOT>> connectionConf;
@@ -40,18 +39,14 @@ namespace Qv2ray::core::connection
             }
             else
             {
-                bool ok = false;
-                const auto configs = PluginHost->TryDeserializeShareLink(link, aliasPrefix, errMessage, newGroup, ok);
-                if (ok)
+                const auto config = PluginHost->Outbound_Deserialize(link);
+                if (config)
                 {
-                    errMessage->clear();
-                    for (const auto &[_alias, _protocol, _outbound] : configs)
-                    {
-                        CONFIGROOT root;
-                        auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, _protocol, OUTBOUNDSETTING(_outbound), {});
-                        QJsonIO::SetValue(root, outbound, "outbounds", 0);
-                        connectionConf << std::pair{ _alias, root };
-                    }
+                    const auto &[_alias, _protocol, _outbound, _stream] = *config;
+                    CONFIGROOT root;
+                    const auto outbound = GenerateOutboundEntry(OUTBOUND_TAG_PROXY, _protocol, OUTBOUNDSETTING(_outbound), _stream);
+                    QJsonIO::SetValue(root, outbound, "outbounds", 0);
+                    connectionConf << std::pair{ _alias, root };
                 }
                 else if (errMessage->isEmpty())
                 {
@@ -100,9 +95,8 @@ namespace Qv2ray::core::connection
             }
             else
             {
-                bool ok = false;
-                sharelink = PluginHost->SerializeOutbound(type, settings, streamSettings, alias, groupName, &ok);
-                Q_UNUSED(ok)
+                const auto result = PluginHost->Outbound_Serialize(PluginOutboundInfo{ alias, type, settings, streamSettings });
+                return *result;
             }
 
             return sharelink;

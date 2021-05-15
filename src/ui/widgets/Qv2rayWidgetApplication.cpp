@@ -2,6 +2,7 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/common/GuiPluginHost.hpp"
 #include "ui/widgets/styles/StyleManager.hpp"
 #include "ui/widgets/windows/w_MainWindow.hpp"
 #include "utils/QvHelpers.hpp"
@@ -34,6 +35,7 @@ void Qv2rayWidgetApplication::terminateUIInternal()
     delete mainWindow;
     delete hTray;
     delete StyleManager;
+    delete GUIPluginHost;
     StringToFile(JsonToString(UIStates), QV2RAY_CONFIG_DIR + QV2RAY_WIDGETUI_STATE_FILENAME);
 }
 
@@ -115,7 +117,7 @@ void Qv2rayWidgetApplication::onMessageReceived(quint32 clientId, QByteArray _ms
                     }
                     if (command == "open")
                     {
-                        emit mainWindow->ProcessCommand(command, subcommands, args);
+                        mainWindow->ProcessCommand(command, subcommands, args);
                     }
                 }
                 break;
@@ -128,6 +130,7 @@ void Qv2rayWidgetApplication::onMessageReceived(quint32 clientId, QByteArray _ms
 Qv2rayExitReason Qv2rayWidgetApplication::runQv2rayInternal()
 {
     setQuitOnLastWindowClosed(false);
+    GUIPluginHost = new GuiPluginAPIHost(PluginHost);
     hTray = new QSystemTrayIcon();
     StyleManager = new QvStyleManager();
     StyleManager->ApplyStyle(GlobalConfig.uiConfig->theme);
@@ -149,7 +152,7 @@ Qv2rayExitReason Qv2rayWidgetApplication::runQv2rayInternal()
             }
             if (command == "open")
             {
-                emit mainWindow->ProcessCommand(command, subcommands, args);
+                mainWindow->ProcessCommand(command, subcommands, args);
             }
         }
     }

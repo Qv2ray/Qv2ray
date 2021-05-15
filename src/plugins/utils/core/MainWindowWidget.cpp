@@ -2,7 +2,7 @@
 
 #include <QFocusEvent>
 
-MainWindowWidget::MainWindowWidget(QWidget *parent) : Qv2rayPlugin::QvPluginMainWindowWidget(parent)
+MainWindowWidget::MainWindowWidget(QWidget *parent) : Qv2rayPlugin::PluginMainWindowWidget(parent)
 {
     setupUi(this);
 }

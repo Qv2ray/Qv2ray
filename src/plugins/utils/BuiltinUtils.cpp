@@ -6,7 +6,7 @@
 bool InternalUtilsPlugin::InitializePlugin(const QString &, const QJsonObject &settings)
 {
     this->settings = settings;
-    this->eventHandler = std::make_shared<EventHandler>();
+    this->eventHandler = std::make_shared<UtilEventHandler>();
     this->guiInterface = new GUIInterface;
     return true;
 }

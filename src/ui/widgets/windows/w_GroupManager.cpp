@@ -12,25 +12,25 @@
 #include <QFileDialog>
 #include <QListWidgetItem>
 
-#define SELECTED_ROWS_INDEX                                                                                                                          \
-    ([&]() {                                                                                                                                         \
-        const auto &__selection = connectionsTable->selectedItems();                                                                                 \
-        QSet<int> rows;                                                                                                                              \
-        for (const auto &selection : __selection)                                                                                                    \
-        {                                                                                                                                            \
-            rows.insert(connectionsTable->row(selection));                                                                                           \
-        }                                                                                                                                            \
-        return rows;                                                                                                                                 \
+#define SELECTED_ROWS_INDEX                                                                                                                                              \
+    ([&]() {                                                                                                                                                             \
+        const auto &__selection = connectionsTable->selectedItems();                                                                                                     \
+        QSet<int> rows;                                                                                                                                                  \
+        for (const auto &selection : __selection)                                                                                                                        \
+        {                                                                                                                                                                \
+            rows.insert(connectionsTable->row(selection));                                                                                                               \
+        }                                                                                                                                                                \
+        return rows;                                                                                                                                                     \
     }())
 
-#define GET_SELECTED_CONNECTION_IDS(connectionIdList)                                                                                                \
-    ([&]() {                                                                                                                                         \
-        QList<ConnectionId> _list;                                                                                                                   \
-        for (const auto &i : connectionIdList)                                                                                                       \
-        {                                                                                                                                            \
-            _list.push_back(ConnectionId(connectionsTable->item(i, 0)->data(Qt::UserRole).toString()));                                              \
-        }                                                                                                                                            \
-        return _list;                                                                                                                                \
+#define GET_SELECTED_CONNECTION_IDS(connectionIdList)                                                                                                                    \
+    ([&]() {                                                                                                                                                             \
+        QList<ConnectionId> _list;                                                                                                                                       \
+        for (const auto &i : connectionIdList)                                                                                                                           \
+        {                                                                                                                                                                \
+            _list.push_back(ConnectionId(connectionsTable->item(i, 0)->data(Qt::UserRole).toString()));                                                                  \
+        }                                                                                                                                                                \
+        return _list;                                                                                                                                                    \
     }())
 
 GroupManager::GroupManager(QWidget *parent) : QvDialog("GroupManager", parent)
@@ -38,17 +38,9 @@ GroupManager::GroupManager(QWidget *parent) : QvDialog("GroupManager", parent)
     setupUi(this);
     QvMessageBusConnect(GroupManager);
 
-    for (const auto &plugin : PluginHost->UsablePlugins())
+    for (const auto &[pluginInfo, type] : PluginHost->Subscription_GetAllAdapters())
     {
-        const auto pluginInfo = PluginHost->GetPlugin(plugin);
-        if (!pluginInfo->hasComponent(COMPONENT_SUBSCRIPTION_ADAPTER))
-            continue;
-        const auto subscriptionAdapterInterface = pluginInfo->pluginInterface->GetSubscriptionAdapter();
-        const auto types = subscriptionAdapterInterface->SupportedSubscriptionTypes();
-        for (const auto &type : types)
-        {
-            subscriptionTypeCB->addItem(pluginInfo->metadata.Name + ": " + type.displayName, type.protocol);
-        }
+        subscriptionTypeCB->addItem(pluginInfo->metadata().Name + ": " + type.displayName, type.type);
     }
 
     //

@@ -16,12 +16,12 @@ QList<GUIInterface::typed_plugin_editor> GUIInterface::createOutboundEditors() c
     return {};
 }
 
-std::unique_ptr<Qv2rayPlugin::QvPluginSettingsWidget> GUIInterface::createSettingsWidgets() const
+std::unique_ptr<Qv2rayPlugin::PluginSettingsWidget> GUIInterface::createSettingsWidgets() const
 {
     return nullptr;
 }
 
-std::unique_ptr<Qv2rayPlugin::QvPluginMainWindowWidget> GUIInterface::createMainWindowWidget() const
+std::unique_ptr<Qv2rayPlugin::PluginMainWindowWidget> GUIInterface::createMainWindowWidget() const
 {
     return std::make_unique<MainWindowWidget>();
 }

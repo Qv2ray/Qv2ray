@@ -5,10 +5,10 @@
 #include <QtCore/qglobal.h>
 
 using namespace Qv2rayPlugin::handlers::event;
-class EventHandler : public Qv2rayPlugin::handlers::event::PluginEventHandler
+class UtilEventHandler : public Qv2rayPlugin::handlers::event::PluginEventHandler
 {
   public:
-    EventHandler();
+    UtilEventHandler();
 
     void ProcessEvent(const ConnectionStats::EventObject &c) override;
     void ProcessEvent(const Connectivity::EventObject &c) override;

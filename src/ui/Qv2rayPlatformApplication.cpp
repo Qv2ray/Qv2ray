@@ -113,9 +113,10 @@ bool Qv2rayPlatformApplication::Initialize()
 
 Qv2rayExitReason Qv2rayPlatformApplication::RunQv2ray()
 {
-    PluginHost = new QvPluginHost();
+    PluginHost = new PluginAPIHost();
     RouteManager = new RouteHandler();
     ConnectionManager = new QvConfigHandler();
+    PluginHost->LoadPlugins();
     return runQv2rayInternal();
 }
 
@@ -125,7 +126,6 @@ void Qv2rayPlatformApplication::quitInternal()
     ConnectionManager->StopConnection();
     RouteManager->SaveRoutes();
     ConnectionManager->SaveConnectionConfig();
-    PluginHost->SavePluginSettings();
     SaveGlobalSettings();
     terminateUIInternal();
     delete ConnectionManager;
@@ -218,8 +218,8 @@ bool Qv2rayPlatformApplication::parseCommandLine(QString *errorMessage, bool *ca
         StartupArguments.arguments << Qv2rayStartupArguments::RECONNECT;
     }
 
-#define ProcessExtraStartupOptions(option)                                                                                                           \
-    DEBUG("Startup Options:" A(parser.isSet(option##Option)));                                                                                       \
+#define ProcessExtraStartupOptions(option)                                                                                                                               \
+    DEBUG("Startup Options:" A(parser.isSet(option##Option)));                                                                                                           \
     StartupArguments.option = parser.isSet(option##Option);
 
     ProcessExtraStartupOptions(noAPI);

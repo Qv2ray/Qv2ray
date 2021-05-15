@@ -30,19 +30,18 @@ namespace Qv2ray::core
     bool GetOutboundInfo(const OUTBOUND &out, QString *host, int *port, QString *protocol)
     {
         *protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
-        bool ok;
-        const auto info = PluginHost->GetOutboundInfo(*protocol, out["settings"].toObject(), ok);
-        if (ok)
+        const auto info = PluginHost->Outbound_GetData(*protocol, out["settings"].toObject());
+        if (info)
         {
-            *host = info[INFO_SERVER].toString();
-            *port = info[INFO_PORT].toInt();
+            *host = (*info)[DATA_KEY_SERVER].toString();
+            *port = (*info)[DATA_KEY_PORT].toInt();
         }
         else
         {
             *host = QObject::tr("N/A");
             *port = 0;
         }
-        return ok;
+        return info.has_value();
     }
 
     ///

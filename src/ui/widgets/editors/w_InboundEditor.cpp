@@ -2,7 +2,6 @@
 
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
-#include "plugin-interface/gui/QvGUIPluginInterface.hpp"
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "ui/widgets/widgets/StreamSettingsWidget.hpp"
 #include "utils/QvHelpers.hpp"
@@ -10,8 +9,8 @@
 #include <QGridLayout>
 
 #define QV_MODULE_NAME "InboundEditor"
-#define CHECKLOADING                                                                                                                                 \
-    if (isLoading)                                                                                                                                   \
+#define CHECKLOADING                                                                                                                                                     \
+    if (isLoading)                                                                                                                                                       \
         return;
 
 InboundEditor::InboundEditor(INBOUND source, QWidget *parent) : QDialog(parent), original(source)
@@ -34,29 +33,14 @@ InboundEditor::InboundEditor(INBOUND source, QWidget *parent) : QDialog(parent),
     sniffingSettings = current["sniffing"].toObject();
 
     isLoading = true;
-    for (const auto &name : PluginHost->UsablePlugins())
+    for (const auto &[_, plugin] : GUIPluginHost->GUI_QueryByComponent(GUI_COMPONENT_INBOUND_EDITOR))
     {
-        const auto &plugin = PluginHost->GetPlugin(name);
-        if (!plugin->hasComponent(COMPONENT_GUI))
-            continue;
-
-        const auto guiInterface = plugin->pluginInterface->GetGUIInterface();
-
-        if (!guiInterface)
-        {
-            LOG("Found a plugin with COMPONENT_GUI but returns an invalid GUI interface: ", plugin->metadata.Name);
-            continue;
-        }
-
-        if (!guiInterface->GetComponents().contains(GUI_COMPONENT_INBOUND_EDITOR))
-            continue;
-
-        const auto editors = guiInterface->GetInboundEditors();
+        const auto editors = plugin->GetInboundEditors();
         for (const auto &editorInfo : editors)
         {
-            inboundProtocolCombo->addItem(editorInfo.first.displayName, editorInfo.first.protocol);
+            inboundProtocolCombo->addItem(editorInfo.first.DisplayName, editorInfo.first.Protocol);
             stackedWidget->addWidget(editorInfo.second);
-            pluginWidgets.insert(editorInfo.first.protocol, editorInfo.second);
+            pluginWidgets.insert(editorInfo.first.Protocol, editorInfo.second);
         }
     }
     inboundProtocolCombo->model()->sort(0);
@@ -209,23 +193,23 @@ void InboundEditor::on_sniffMetaDataOnlyCB_clicked(bool checked)
     sniffingSettings["metadataOnly"] = checked;
 }
 
-#define SET_SNIFF_DEST_OVERRIDE                                                                                                                      \
-    do                                                                                                                                               \
-    {                                                                                                                                                \
-        const auto hasHTTP = sniffHTTPCB->isChecked();                                                                                               \
-        const auto hasTLS = sniffTLSCB->isChecked();                                                                                                 \
-        const auto hasFakeDNS = sniffFakeDNSCB->isChecked();                                                                                         \
-        const auto hasFakeDNSOthers = sniffFakeDNSOtherCB->isChecked();                                                                              \
-        QStringList list;                                                                                                                            \
-        if (hasHTTP)                                                                                                                                 \
-            list << "http";                                                                                                                          \
-        if (hasTLS)                                                                                                                                  \
-            list << "tls";                                                                                                                           \
-        if (hasFakeDNS)                                                                                                                              \
-            list << "fakedns";                                                                                                                       \
-        if (hasFakeDNSOthers)                                                                                                                        \
-            list << "fakedns+others";                                                                                                                \
-        sniffingSettings["destOverride"] = QJsonArray::fromStringList(list);                                                                         \
+#define SET_SNIFF_DEST_OVERRIDE                                                                                                                                          \
+    do                                                                                                                                                                   \
+    {                                                                                                                                                                    \
+        const auto hasHTTP = sniffHTTPCB->isChecked();                                                                                                                   \
+        const auto hasTLS = sniffTLSCB->isChecked();                                                                                                                     \
+        const auto hasFakeDNS = sniffFakeDNSCB->isChecked();                                                                                                             \
+        const auto hasFakeDNSOthers = sniffFakeDNSOtherCB->isChecked();                                                                                                  \
+        QStringList list;                                                                                                                                                \
+        if (hasHTTP)                                                                                                                                                     \
+            list << "http";                                                                                                                                              \
+        if (hasTLS)                                                                                                                                                      \
+            list << "tls";                                                                                                                                               \
+        if (hasFakeDNS)                                                                                                                                                  \
+            list << "fakedns";                                                                                                                                           \
+        if (hasFakeDNSOthers)                                                                                                                                            \
+            list << "fakedns+others";                                                                                                                                    \
+        sniffingSettings["destOverride"] = QJsonArray::fromStringList(list);                                                                                             \
     } while (0)
 
 void InboundEditor::on_sniffHTTPCB_stateChanged(int)

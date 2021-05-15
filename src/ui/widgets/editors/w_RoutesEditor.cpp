@@ -1,6 +1,6 @@
 #include "w_RoutesEditor.hpp"
 
-#include "components/plugins/QvPluginHost.hpp"
+#include "components/plugins/PluginAPIHost.hpp"
 #include "core/connection/Generation.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "ui/widgets/node/NodeBase.hpp"
