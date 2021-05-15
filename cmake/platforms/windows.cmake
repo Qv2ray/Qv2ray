@@ -1,4 +1,4 @@
-target_link_libraries(qv2ray_baselib wininet wsock32 ws2_32 user32 Rasapi32 Iphlpapi Dbghelp)
+target_link_libraries(qv2ray_base wininet wsock32 ws2_32 user32 Rasapi32 Iphlpapi Dbghelp)
 
 install(TARGETS qv2ray RUNTIME DESTINATION .)
 

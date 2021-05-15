@@ -84,11 +84,7 @@ bool Qv2rayPlatformApplication::Initialize()
     }
 #endif
 
-#ifdef QV2RAY_GUI
 #ifdef Q_OS_LINUX
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    setFallbackSessionManagementEnabled(false);
-#endif
     connect(this, &QGuiApplication::commitDataRequest, [] {
         RouteManager->SaveRoutes();
         ConnectionManager->SaveConnectionConfig();
@@ -104,7 +100,6 @@ bool Qv2rayPlatformApplication::Initialize()
     font.setPointSize(9);
     font.setFamily("Microsoft YaHei");
     setFont(font);
-#endif
 #endif
 
     LocateConfiguration();

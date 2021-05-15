@@ -7,7 +7,7 @@ function(ADD_QV2RAY_TEST TEST_NAME TEST_SOURCE)
     target_link_libraries(
         ${TEST_NAME}
         PRIVATE
-        $<$<TARGET_EXISTS:qv2ray_baselib>:qv2ray_baselib>
+        $<$<TARGET_EXISTS:qv2ray_base>:qv2ray_base>
         )
 
     add_test(NAME QV2RAY_TEST_${TEST_NAME} COMMAND $<TARGET_FILE:${TEST_NAME}>)

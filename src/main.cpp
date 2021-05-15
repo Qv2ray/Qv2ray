@@ -1,19 +1,7 @@
-#include <QtGlobal>
-
-#ifdef QV2RAY_CLI
-#include "ui/cli/Qv2rayCliApplication.hpp"
-#endif
-
-#ifdef QV2RAY_GUI_QWIDGETS
 #include "ui/widgets/Qv2rayWidgetApplication.hpp"
-#endif
-
-#ifdef QV2RAY_GUI_QML
-#include "ui/qml/Qv2rayQMLApplication.hpp"
-#endif
-
 #include "utils/QvHelpers.hpp"
 
+#include <QtGlobal>
 #include <csignal>
 
 #ifndef Q_OS_WIN
@@ -31,7 +19,6 @@ char **globalArgv;
 
 void BootstrapMessageBox(const QString &title, const QString &text)
 {
-#ifdef QV2RAY_GUI
     if (qApp)
     {
         QMessageBox::warning(nullptr, title, text);
@@ -41,9 +28,6 @@ void BootstrapMessageBox(const QString &title, const QString &text)
         QApplication p(globalArgc, globalArgv);
         QMessageBox::warning(nullptr, title, text);
     }
-#else
-    std::cout << title.toStdString() << NEWLINE << text.toStdString() << std::endl;
-#endif
 }
 
 const QString SayLastWords() noexcept
@@ -194,9 +178,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("qv2ray");
 #endif
 
-#ifdef QV2RAY_GUI
     QApplication::setApplicationDisplayName("Qv2ray");
-#endif
 
 #ifdef QT_DEBUG
     std::cerr << "WARNING: ================ This is a debug build, many features are not stable enough. ================" << std::endl;
@@ -214,9 +196,7 @@ int main(int argc, char *argv[])
     {
         DEBUG("High DPI scaling is enabled.");
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-#ifdef QV2RAY_GUI
         QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
-#endif
 #endif
     }
 

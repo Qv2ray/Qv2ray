@@ -51,7 +51,7 @@ if(WIN32)
         VERSION_REVISION   ${QV2RAY_BUILD_VERSION}
         COMPANY_NAME       "Qv2ray Workgroup"
         COMPANY_COPYRIGHT  "Qv2ray Workgroup 2021"
-        FILE_DESCRIPTION   "Qv2ray Main Application"
+        FILE_DESCRIPTION   "Qv2ray Application"
         )
     add_definitions(-DUNICODE -D_UNICODE -DNOMINMAX)
     set(GUI_TYPE WIN32)
@@ -75,15 +75,20 @@ message("Qv2ray Version: ${QV2RAY_VERSION_STRING}")
 message("Qv2ray Build Version: ${QV2RAY_BUILD_VERSION}")
 message("|-------------------------------------------------|")
 message("| Qv2ray, A Cross Platform v2ray Qt GUI Client.   |")
-message("| Licenced under GPLv3                            |")
+message("| Licenced under GPLv3.                           |")
 message("|                                                 |")
 message("| You may only use this program to the extent     |")
 message("| permitted by local law.                         |")
 message("|                                                 |")
 message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
 message("|-------------------------------------------------|")
-message("| Project Homepage: https://github.com/Qv2ray     |")
-message("| Welcome to contribute!                          |")
+message("| This is the original Qv2ray project by the      |")
+message("| author who contributed over 95% code and other  |")
+message("| contributors.                                   |")
+message("|-------------------------------------------------|")
+message("| Unlike Qv2ray/Qv2ray whose control has been     |")
+message("| forcibly taken away from the author by another  |")
+message("| organization owner.                             |")
 message("|-------------------------------------------------|")
 message(" ")
 
@@ -106,25 +111,6 @@ option(QV2RAY_HAS_BUILTIN_PLUGINS "Build with builtin plugins" ON)
 QVLOG(QV2RAY_HAS_BUILTIN_PLUGINS)
 
 option(QV2RAY_HAS_SINGLEAPPLICATION "Build With SingleApplication" ON)
-
-set(QV2RAY_UI_TYPE "QWidget" CACHE STRING "Qv2ray GUI Component")
-QVLOG(QV2RAY_UI_TYPE)
-
-if(QV2RAY_UI_TYPE STREQUAL "QWidget")
-    set(QV2RAY_USE_QWIDGET ON)
-    set(QV2RAY_USE_QML OFF)
-elseif(QV2RAY_UI_TYPE STREQUAL "QML")
-    set(QV2RAY_USE_QWIDGET OFF)
-    set(QV2RAY_USE_QML ON)
-elseif(QV2RAY_UI_TYPE STREQUAL "CLI")
-    set(QV2RAY_USE_QWIDGET OFF)
-    set(QV2RAY_USE_QML OFF)
-else()
-    message(FATAL_ERROR "The given QV2RAY_UI_TYPE: ${QV2RAY_UI_TYPE} is invalid, expected: QWidget, QML, CLI")
-endif()
-
-QVLOG(QV2RAY_USE_QML)
-QVLOG(QV2RAY_USE_QWIDGET)
 QVLOG(QV2RAY_HAS_SINGLEAPPLICATION)
 
 if(QV2RAY_HAS_SINGLEAPPLICATION)
@@ -132,16 +118,10 @@ if(QV2RAY_HAS_SINGLEAPPLICATION)
     QVLOG(QV2RAY_SINGLEAPPLICATION_PROVIDER)
 endif()
 
-if(QV2RAY_USE_QML)
-    message("-- Use Qt6 for QML build.")
-    option(QV2RAY_QML_LIVE_UPDATE "Use QMLLive for live updated QML" OFF)
-    QVLOG(QV2RAY_QML_LIVE_UPDATE)
-elseif(QV2RAY_USE_QWIDGET)
-    option(QV2RAY_HAS_BUILTIN_THEMES "Build with built-in themes" ON)
-    set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "QNodeEditor Provider")
-    QVLOG(QV2RAY_HAS_BUILTIN_THEMES)
-    QVLOG(QV2RAY_QNODEEDITOR_PROVIDER)
-endif()
+option(QV2RAY_HAS_BUILTIN_THEMES "Build with built-in themes" ON)
+set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "QNodeEditor Provider")
+QVLOG(QV2RAY_HAS_BUILTIN_THEMES)
+QVLOG(QV2RAY_QNODEEDITOR_PROVIDER)
 
 # ==================================================================================
 # Default Core/Assets Path
@@ -168,7 +148,7 @@ if(QV2RAY_BUILD_INFO)
 elseif(DEFINED ENV{_QV2RAY_BUILD_INFO_})
     set(_QV2RAY_BUILD_INFO_STR_ "$ENV{_QV2RAY_BUILD_INFO_}")
 else()
-    set(_QV2RAY_BUILD_INFO_STR_ "Qv2ray from manual build")
+    set(_QV2RAY_BUILD_INFO_STR_ "Qv2ray (Made By Yourself)")
 endif()
 
 if(QV2RAY_BUILD_EXTRA_INFO)
@@ -208,25 +188,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-if(QV2RAY_USE_QML)
-    find_package(Qt6 COMPONENTS Qml Quick Widgets Svg QuickControls2 Gui REQUIRED)
-    list(APPEND QV2RAY_QT_LIBS
-        Qt::Quick
-        Qt::Qml
-        Qt::Widgets
-        Qt::Svg
-        Qt::QuickControls2
-        Qt::Gui)
-    set(_QV2RAY_HAS_GUI_INTERNAL_ ON)
-elseif(QV2RAY_USE_QWIDGET)
-    find_package(Qt6 COMPONENTS Widgets Svg Gui REQUIRED)
-    list(APPEND QV2RAY_QT_LIBS
-        Qt::Widgets
-        Qt::Svg
-        Qt::Gui)
-    set(_QV2RAY_HAS_GUI_INTERNAL_ ON)
-else()
-endif()
+find_package(Qt6 COMPONENTS Widgets Svg Gui REQUIRED)
+list(APPEND QV2RAY_QT_LIBS
+    Qt::Widgets
+    Qt::Svg
+    Qt::Gui)
 
 # Qv2ray baselib sources
 include(cmake/components/qv2ray-base.cmake)
@@ -238,7 +204,7 @@ else()
     add_definitions(-DQV2RAY_NO_SINGLEAPPLICATON)
 endif()
 
-add_library(qv2ray_baselib STATIC
+add_library(qv2ray_base STATIC
     ${QV2RAY_BASE_SOURCES}
     ${SINGLEAPPLICATION_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
@@ -249,7 +215,7 @@ add_library(qv2ray_baselib STATIC
     ${API_PROTO_SRCS}
     )
 
-target_link_libraries(qv2ray_baselib
+target_link_libraries(qv2ray_base
     ${QV2RAY_QT_LIBS}
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARY}
@@ -261,7 +227,7 @@ target_link_libraries(qv2ray_baselib
     OpenSSL::Crypto
     )
 
-target_include_directories(qv2ray_baselib PUBLIC
+target_include_directories(qv2ray_base PUBLIC
     ${CMAKE_BINARY_DIR}
     ${QV2RAY_BASEDIR_COMPONENTS}
     ${LibUV_INCLUDE_DIR}
@@ -271,6 +237,7 @@ target_include_directories(qv2ray_baselib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${Protobuf_INCLUDE_DIRS}
     )
+
 
 # ==================================================================================
 # Qv2ray Builtin Plugins
@@ -284,35 +251,21 @@ endif()
 # ==================================================================================
 # Qv2ray UI Frontend
 # ==================================================================================
-if(_QV2RAY_HAS_GUI_INTERNAL_)
-    add_definitions(-DQV2RAY_GUI)
-    include(cmake/qrencode.cmake)
 
-    include(cmake/components/qv2ray-ui.cmake)
-    list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_COMMON_SOURCES})
-    
-    if(QV2RAY_USE_QML)
-        add_definitions(-DQV2RAY_GUI_QML)
-        include(cmake/components/qv2ray-ui-qml.cmake)
-        list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_QML_SOURCES})
-    elseif(QV2RAY_USE_QWIDGET)
-        add_definitions(-DQV2RAY_GUI_QWIDGETS)
-        include(cmake/components/qv2ray-ui-widget.cmake)
-        list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_WIDGET_SOURCES})
-        #
-        if (QV2RAY_HAS_BUILTIN_THEMES)
-            include(3rdparty/uistyles/uistyles.cmake)
-            list(APPEND QV2RAY_QRC_RESOURCES ${UISTYLE_QRCS})
-        endif()
-        #
-        include(cmake/qnodeeditor.cmake)
-        list(APPEND QV2RAY_QRC_RESOURCES ${QNODEEDITOR_QRC_RESOURCES})
-    endif()
-else()
-    add_definitions(-DQV2RAY_CLI)
-    include(cmake/components/qv2ray-cli.cmake)
-    list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_CLI_SOURCES})
+include(cmake/qrencode.cmake)
+
+include(cmake/components/qv2ray-ui.cmake)
+list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_COMMON_SOURCES})
+include(cmake/components/qv2ray-ui-widget.cmake)
+list(APPEND QV2RAY_UI_SOURCES ${QV2RAY_UI_WIDGET_SOURCES})
+
+if (QV2RAY_HAS_BUILTIN_THEMES)
+    include(3rdparty/uistyles/uistyles.cmake)
+    list(APPEND QV2RAY_QRC_RESOURCES ${UISTYLE_QRCS})
 endif()
+
+include(cmake/qnodeeditor.cmake)
+list(APPEND QV2RAY_QRC_RESOURCES ${QNODEEDITOR_QRC_RESOURCES})
 
 list(APPEND QV2RAY_QRC_RESOURCES
     ${CMAKE_SOURCE_DIR}/resources.qrc
@@ -344,7 +297,8 @@ target_include_directories(qv2ray PRIVATE
     )
 
 target_link_libraries(qv2ray PUBLIC
-    qv2ray_baselib
+    qv2ray_base
+    ${QV2RAY_PLATFORM_LIBRARIES}
     ${QNODEEDITOR_LIBRARY}
     ${QV2RAY_PLATFORM_LIBS}
     ${QV2RAY_QRENCODE_LIBRARY}
@@ -375,7 +329,7 @@ endif()
 # ==================================================================================
 # Print Qv2ray Build Statistics
 # ==================================================================================
-get_target_property(QV2RAY_BASE_LINK_LIBS qv2ray_baselib LINK_LIBRARIES)
+get_target_property(QV2RAY_BASE_LINK_LIBS qv2ray_base LINK_LIBRARIES)
 get_target_property(QV2RAY_EXEC_LINK_LIBS qv2ray LINK_LIBRARIES)
 QVLOG(QV2RAY_BUILD_VERSION)
 QVLOG(QV2RAY_VERSION_STRING)
