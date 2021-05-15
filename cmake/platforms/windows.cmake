@@ -1,21 +1,22 @@
-find_package(OpenSSL REQUIRED)
-target_link_libraries(qv2ray_baselib wininet wsock32 ws2_32 user32 Rasapi32 Iphlpapi OpenSSL::SSL OpenSSL::Crypto Dbghelp)
+target_link_libraries(qv2ray_baselib wininet wsock32 ws2_32 user32 Rasapi32 Iphlpapi Dbghelp)
 
 install(TARGETS qv2ray RUNTIME DESTINATION .)
 
-if(NOT QV2RAY_EMBED_TRANSLATIONS)
-    install(FILES ${QV2RAY_QM_FILES} DESTINATION lang)
+set(DIRS "${CMAKE_BINARY_DIR}")
+if(CMAKE_PREFIX_PATH)
+    foreach(dir ${CMAKE_PREFIX_PATH})
+        list(APPEND DIRS "${dir}/bin" "${dir}/lib")
+    endforeach()
 endif()
 
-install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
+list(APPEND DIRS "${Qt6Core_DIR}/../..")
 
-set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
+set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
 
-include(cmake/deployment.cmake)
-
-if(QV2RAY_AUTO_DEPLOY)
-    set(QV2RAY_QtX_DIR ${Qt6_DIR})
-    add_custom_command(TARGET qv2ray
-        POST_BUILD
-        COMMAND ${QV2RAY_QtX_DIR}/../../../bin/windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/)
-endif()
+set(APP "${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
+#include(InstallRequiredSystemLibraries)
+install(CODE "include(BundleUtilities)")
+install(CODE "fixup_bundle(\"${APP}\"   \"\"   \"${DIRS}\")")
+install(CODE "message(\"\")")
+install(CODE "execute_process(COMMAND \"${Qt6_DIR}/../../../bin/windeployqt.exe\" \"${APP}\" --no-compiler-runtime)")
+install(CODE "message(\"Completed\")")

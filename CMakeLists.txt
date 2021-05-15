@@ -59,20 +59,11 @@ if(WIN32)
         if(NOT DEFINED MinGW_ROOT)
             set(MinGW_ROOT "C:/msys64/mingw64")
         endif()
-        set(QV2RAY_PLATFORM_LIBS_BIN_PREFIX ${MinGW_ROOT}/bin)
-        set(QV2RAY_PLATFORM_LIBS_PREFIX ${MinGW_ROOT})
-        set(QV2RAY_PLATFORM_LIBS_NO_DEBUG_SUBDIR ON)
     else()
         add_compile_options("/utf-8")
         add_compile_options("/std:c++17")
         add_definitions(-D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
-        if(CMAKE_CL_64)
-            set(QV2RAY_PLATFORM_LIBS_PREFIX ${CMAKE_SOURCE_DIR}/libs/x64-windows/)
-        else()
-            set(QV2RAY_PLATFORM_LIBS_PREFIX ${CMAKE_SOURCE_DIR}/libs/x86-windows/)
-        endif()
     endif()
-    include(cmake/platforms/prefixes.cmake)
 endif()
 
 if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.17.0")
@@ -99,9 +90,6 @@ message(" ")
 # ==================================================================================
 # Qv2ray compile arguments
 # ==================================================================================
-option(QV2RAY_AUTO_DEPLOY "Automatically run deploy command after build" ON)
-QVLOG(QV2RAY_AUTO_DEPLOY)
-
 option(BUILD_TESTING "Build Tests" OFF)
 QVLOG(BUILD_TESTING)
 
@@ -358,6 +346,7 @@ target_link_libraries(qv2ray PUBLIC
     ${QNODEEDITOR_LIBRARY}
     ${QV2RAY_PLATFORM_LIBS}
     ${QV2RAY_QRENCODE_LIBRARY}
+    OpenSSL::SSL OpenSSL::Crypto
     )
 
 

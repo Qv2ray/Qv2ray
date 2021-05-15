@@ -21,9 +21,7 @@ set_source_files_properties(${QV2RAY_QM_FILES}
     MACOSX_PACKAGE_LOCATION Resources/lang
     )
 
-target_sources(qv2ray PRIVATE
-    ${MACOSX_ICON}
-    )
+target_sources(qv2ray PRIVATE ${MACOSX_ICON})
 
 set_target_properties(qv2ray
     PROPERTIES
@@ -40,15 +38,24 @@ set_target_properties(qv2ray
     RESOURCE ${MACOSX_ICON}
     )
 
-# Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
-install(TARGETS qv2ray
-    BUNDLE  DESTINATION .   COMPONENT Runtime
-    RUNTIME DESTINATION bin COMPONENT Runtime
-    )
-set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.app")
-include(cmake/deployment.cmake)
+## Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
+install(TARGETS qv2ray BUNDLE DESTINATION .)
 
-if(QV2RAY_AUTO_DEPLOY)
-    set(QV2RAY_QtX_DIR ${Qt6_DIR})
-    add_custom_command(TARGET qv2ray POST_BUILD COMMAND ${QV2RAY_QtX_DIR}/../../../bin/macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app)
+set(DIRS "${CMAKE_BINARY_DIR}")
+if(CMAKE_PREFIX_PATH)
+    foreach(dir ${CMAKE_PREFIX_PATH})
+        list(APPEND DIRS "${dir}/bin" "${dir}/lib")
+    endforeach()
 endif()
+
+list(APPEND DIRS "${Qt6Core_DIR}/../..")
+list(APPEND DIRS "/usr/lib")
+list(APPEND DIRS "/usr/local/lib")
+
+set(APP "${CMAKE_INSTALL_PREFIX}/qv2ray.app")
+install(CODE "execute_process(COMMAND \"${Qt6_DIR}/../../../bin/macdeployqt\" \"${APP}\")")
+install(CODE "include(BundleUtilities)")
+install(CODE "fixup_bundle(\"${APP}\"   \"\"   \"${DIRS}\")")
+install(CODE "message(\"Run install_name_tool\")")
+install(CODE "execute_process(COMMAND \"install_name_tool\" -add_rpath \"@executable_path/../Frameworks\" \"${APP}/Contents/MacOS/qv2ray\")")
+install(CODE "message(\"Completed\")")

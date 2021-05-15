@@ -31,9 +31,10 @@ build**/
 out/
 
 # IntelliJ-based IDE Trash
-/.idea/
+.idea/
 *.iml
-/cmake-build-debug
+cmake-build-debug/
+cmake-build-release/
 
 #oss code
 .vscode
