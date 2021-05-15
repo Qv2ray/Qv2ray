@@ -3823,11 +3823,19 @@ Maybe you have downloaded the wrong core?</source>
 <context>
     <name>ChainSha256Editor</name>
     <message>
-        <source>Dialog</source>
+        <source>pinnedPeerCertificateChainSha256 Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Split with |</source>
+        <source>Invalid Certificate Hash Chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>invalid SHA256: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

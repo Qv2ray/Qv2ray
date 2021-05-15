@@ -3,14 +3,14 @@
 #include "ui/widgets/common/WidgetUIBase.hpp"
 #include "utils/QvHelpers.hpp"
 
-ChainSha256Editor::ChainSha256Editor(QString raw, QWidget *parent) : QDialog(parent)
+#include <QDesktopServices>
+#include <utility>
+
+ChainSha256Editor::ChainSha256Editor(QWidget *parent, const QList<QString>& chain) : QDialog(parent)
 {
     setupUi(this);
+    chainSha256Edit->setPlainText(chain.join("\r\n"));
     QvMessageBusConnect(ChainSha256Editor);
-
-    original = raw;
-    final = raw;
-    chainSha256Edit->setPlainText(raw);
 }
 
 QvMessageBusSlotImpl(ChainSha256Editor)
@@ -24,17 +24,38 @@ QvMessageBusSlotImpl(ChainSha256Editor)
     }
 }
 
-QString ChainSha256Editor::OpenEditor()
+void ChainSha256Editor::accept()
 {
-    int resultCode = this->exec();
-    return resultCode == QDialog::Accepted ? final : original;
+    const auto newChain = ChainSha256Editor::convertFromString(chainSha256Edit->toPlainText());
+    if (const auto err = ChainSha256Editor::validateError(newChain); err)
+    {
+        QvMessageBoxWarn(this, tr("Invalid Certificate Hash Chain"), *err);
+        return;
+    }
+    this->chain = newChain;
+    this->QDialog::accept();
 }
 
-ChainSha256Editor::~ChainSha256Editor()
+QList<QString> ChainSha256Editor::convertFromString(const QString &&str)
 {
+    const static QRegExp newLine("[\r\n]");
+    return str.split(newLine, Qt::SkipEmptyParts);
 }
 
-void ChainSha256Editor::on_chainSha256Edit_textChanged()
+std::optional<QString> ChainSha256Editor::validateError(const QList<QString> &newChain)
 {
-    final = chainSha256Edit->toPlainText();
+    const static QRegExp sha256("[0-9a-fA-F]{64}");
+
+    for (const auto &entry : newChain)
+    {
+        if (!sha256.exactMatch(entry))
+            return tr("invalid SHA256: %1").arg(entry);
+    }
+
+    return std::nullopt;
+}
+
+void ChainSha256Editor::on_buttonBox_helpRequested()
+{
+    QDesktopServices::openUrl(QUrl("https://www.v2fly.org/config/transport.html#tlsobject"));
 }

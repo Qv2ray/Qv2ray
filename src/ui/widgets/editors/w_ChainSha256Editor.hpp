@@ -12,17 +12,26 @@ class ChainSha256Editor
 {
     Q_OBJECT
 
+  private:
+    QList<QString> chain;
+
+  private:
+    static QList<QString> convertFromString(const QString &&str);
+    static std::optional<QString> validateError(const QList<QString> &newChain);
+
   public:
-    explicit ChainSha256Editor(QString raw, QWidget *parent = nullptr);
-    ~ChainSha256Editor();
-    QString OpenEditor();
+    explicit ChainSha256Editor(QWidget *parent = nullptr, const QList<QString>& chain = QList<QString>());
+    explicit operator QList<QString>()
+    {
+        return this->chain;
+    };
+
+  private slots:
+    void on_buttonBox_helpRequested();
+
+  private:
+    void accept() override;
 
   private:
     QvMessageBusSlotDecl;
-  private slots:
-    void on_chainSha256Edit_textChanged();
-
-  private:
-    QString original;
-    QString final;
 };
