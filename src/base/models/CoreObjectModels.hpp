@@ -307,9 +307,12 @@ namespace Qv2ray::base::objects
             bool enableSessionResumption = false;
             bool disableSystemRoot = false;
             QList<QString> alpn;
+            QList<QString> pinnedPeerCertificateChainSha256;
             QList<CertificateObject> certificates;
-            JSONSTRUCT_COMPARE(TLSObject, serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn, certificates)
-            JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn, certificates))
+            JSONSTRUCT_COMPARE(TLSObject, serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn,
+                               pinnedPeerCertificateChainSha256, certificates)
+            JSONSTRUCT_REGISTER(TLSObject, F(serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn,
+                                             pinnedPeerCertificateChainSha256, certificates))
         };
         //
         //

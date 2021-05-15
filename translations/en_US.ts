@@ -3238,6 +3238,14 @@ Maybe you have downloaded the wrong core?</source>
         <source>Browser Forwarding</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open pinnedPeerCertificateChainSha256 Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>w_GroupManager</name>
@@ -3809,6 +3817,17 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChainSha256Editor</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Split with |</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

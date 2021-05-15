@@ -73,6 +73,8 @@ class StreamSettingsWidget
     // gRPC
     void on_grpcServiceNameTxt_textEdited(const QString &arg1);
     void on_grpcModeCB_currentIndexChanged(int arg1);
+    //
+    void on_pinnedPeerCertificateChainSha256Btn_clicked();
 
   private:
     QvMessageBusSlotDecl;

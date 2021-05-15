@@ -6,6 +6,7 @@ set(_QV2RAY_UI_FORMS
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_InboundEditor.ui
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_JsonEditor.ui
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_RoutesEditor.ui
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_ChainSha256Editor.ui
     #
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/StreamSettingsWidget.ui
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/widgets/ConnectionInfoWidget.ui
@@ -103,6 +104,8 @@ set(_QV2RAY_UI_SOURCES
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_OutboundEditor.hpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_RoutesEditor.hpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_RoutesEditor.cpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_ChainSha256Editor.hpp
+    ${QV2RAY_QWIDGETS_UI_BASEDIR}/editors/w_ChainSha256Editor.cpp
     # Windows
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/windows/w_ImportConfig.hpp
     ${QV2RAY_QWIDGETS_UI_BASEDIR}/windows/w_ImportConfig.cpp
