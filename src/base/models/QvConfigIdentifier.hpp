@@ -249,6 +249,22 @@ namespace Qv2ray::base
         JSONSTRUCT_REGISTER(ProtocolSettingsInfoObject, F(protocol, address, port))
     };
 
+    struct ProtocolSettingsInfoWithExtraObject
+    {
+        QString protocol;
+        QString address;
+        int port;
+        bool hasAuth;
+        ProtocolSettingsInfoWithExtraObject(){};
+        ProtocolSettingsInfoWithExtraObject(const QString &_protocol, const QString _address, int _port, bool _hasAuth)
+            : protocol(_protocol), //
+              address(_address),   //
+              port(_port),         //
+              hasAuth(_hasAuth)    //
+              {};
+        JSONSTRUCT_REGISTER(ProtocolSettingsInfoWithExtraObject, F(protocol, address, port, hasAuth))
+    };
+
     template<typename T>
     inline size_t qHash(IDType<T> key)
     {

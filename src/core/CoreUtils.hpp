@@ -60,6 +60,17 @@ namespace Qv2ray::core
 
     const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const CONFIGROOT &root);
     const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const ConnectionId &id);
+
+    bool GetInboundInfoWithExtra(const INBOUND &in, QString *listen, int *port, QString *protocol, bool *hasAuth);
+    inline ProtocolSettingsInfoWithExtraObject GetInboundInfoWithExtra(const INBOUND &in)
+    {
+        ProtocolSettingsInfoWithExtraObject o;
+        GetInboundInfoWithExtra(in, &o.address, &o.port, &o.protocol, &o.hasAuth);
+        return o;
+    }
+
+    const QMap<QString, ProtocolSettingsInfoWithExtraObject> GetInboundInfoWithExtra(const CONFIGROOT &root);
+    const QMap<QString, ProtocolSettingsInfoWithExtraObject> GetInboundInfoWithExtra(const ConnectionId &id);
 } // namespace Qv2ray::core
 
 using namespace Qv2ray::core;

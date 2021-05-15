@@ -60,7 +60,7 @@ void MainWindow::MWHideWindow()
 
 void MainWindow::MWSetSystemProxy()
 {
-    const auto inboundInfo = KernelInstance->GetCurrentConnectionInboundInfo();
+    const auto inboundInfoWithExtra = KernelInstance->GetCurrentConnectionInboundInfoWithExtra();
     bool httpEnabled = false;
     bool socksEnabled = false;
     int httpPort = 0;
@@ -68,8 +68,12 @@ void MainWindow::MWSetSystemProxy()
     QString httpAddress;
     QString socksAddress;
 
-    for (const auto &info : inboundInfo)
+    for (const auto &info : inboundInfoWithExtra)
     {
+        if (info.hasAuth)
+        {
+            continue;
+        }
         if (info.protocol == "http")
         {
             httpEnabled = true;
@@ -82,6 +86,14 @@ void MainWindow::MWSetSystemProxy()
             socksPort = info.port;
             socksAddress = info.address;
         }
+    }
+    if (!httpEnabled)
+    {
+        QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("no HTTP inbound or HTTP inbound(s) have authentication enabled"));
+    }
+    if (!socksEnabled)
+    {
+        QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("no SOCKS inbound or SOCKS inbound(s) have authentication enabled"));
     }
 
     QString proxyAddress;

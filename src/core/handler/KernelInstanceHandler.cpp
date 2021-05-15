@@ -76,6 +76,7 @@ namespace Qv2ray::core::handler
     {
         StopConnection();
         inboundInfo = GetInboundInfo(fullConfig);
+        inboundInfoWithExtra = GetInboundInfoWithExtra(fullConfig);
         //
         const auto inboundPorts = GetInboundPorts();
         const auto inboundHosts = GetInboundHosts();

@@ -167,4 +167,40 @@ namespace Qv2ray::core
     {
         return GetInboundInfo(ConnectionManager->GetConnectionRoot(id));
     }
+
+    bool GetInboundInfoWithExtra(const INBOUND &in, QString *listen, int *port, QString *protocol, bool *hasAuth)
+    {
+        *protocol = in["protocol"].toString();
+        *listen = in["listen"].toString();
+        *port = in["port"].toVariant().toInt();
+        const auto settings = in["settings"].toObject();
+        const auto accounts = settings["accounts"].toArray();
+        if (*protocol == "http")
+            *hasAuth = !accounts.isEmpty();
+        else if (*protocol == "socks")
+            *hasAuth = !accounts.isEmpty() && settings["auth"].toString() == "password";
+        else
+            *hasAuth = false;
+        return true;
+    }
+
+    const QMap<QString, ProtocolSettingsInfoWithExtraObject> GetInboundInfoWithExtra(const CONFIGROOT &root)
+    {
+        QMap<QString, ProtocolSettingsInfoWithExtraObject> inboundPorts;
+        for (const auto &inboundVal : root["inbounds"].toArray())
+        {
+            INBOUND in{ inboundVal.toObject() };
+            QString host, protocol;
+            int port;
+            bool hasAuth;
+            if (GetInboundInfoWithExtra(in, &host, &port, &protocol, &hasAuth))
+                inboundPorts[getTag(in)] = { protocol, host, port, hasAuth };
+        }
+        return inboundPorts;
+    }
+
+    const QMap<QString, ProtocolSettingsInfoWithExtraObject> GetInboundInfoWithExtra(const ConnectionId &id)
+    {
+        return GetInboundInfoWithExtra(ConnectionManager->GetConnectionRoot(id));
+    }
 } // namespace Qv2ray::core

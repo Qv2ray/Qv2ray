@@ -29,6 +29,10 @@ namespace Qv2ray::core::handler
         {
             return inboundInfo;
         }
+        const QMap<QString, ProtocolSettingsInfoWithExtraObject> GetCurrentConnectionInboundInfoWithExtra() const
+        {
+            return inboundInfoWithExtra;
+        }
         const QStringList GetActiveKernelProtocols() const
         {
             QStringList list;
@@ -86,6 +90,7 @@ namespace Qv2ray::core::handler
         // Since QMap does not support std::unique_ptr, we use std::map<>
         std::list<std::pair<QString, std::unique_ptr<PluginKernel>>> activeKernels;
         QMap<QString, ProtocolSettingsInfoObject> inboundInfo;
+        QMap<QString, ProtocolSettingsInfoWithExtraObject> inboundInfoWithExtra;
         V2RayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
     };
