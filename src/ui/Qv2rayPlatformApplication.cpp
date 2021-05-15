@@ -88,7 +88,6 @@ bool Qv2rayPlatformApplication::Initialize()
     connect(this, &QGuiApplication::commitDataRequest, [] {
         RouteManager->SaveRoutes();
         ConnectionManager->SaveConnectionConfig();
-        PluginHost->SavePluginSettings();
         SaveGlobalSettings();
     });
 #endif

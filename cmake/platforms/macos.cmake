@@ -15,6 +15,7 @@ target_include_directories(qv2ray PRIVATE
 
 set(MACOSX_ICON "${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns")
 set(MACOSX_PLIST "${CMAKE_SOURCE_DIR}/assets/MacOSXBundleInfo.plist.in")
+configure_file("${CMAKE_SOURCE_DIR}/assets/package_dmg.json.in" "${CMAKE_SOURCE_DIR}/assets/package_dmg.json" @ONLY)
 
 set_source_files_properties(${QV2RAY_QM_FILES}
     PROPERTIES

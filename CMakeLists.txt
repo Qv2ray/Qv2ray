@@ -220,7 +220,7 @@ target_link_libraries(qv2ray_base
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARY}
     ${LibUV_LIBRARIES}
-    ${CURL_LIBRARIES}
+    CURL::libcurl
     ${SINGLEAPPLICATION_LIBRARY}
     Threads::Threads
     OpenSSL::SSL
