@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>467</width>
-    <height>404</height>
+    <width>469</width>
+    <height>406</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -240,6 +240,9 @@
            </item>
            <item row="1" column="1">
             <widget class="QComboBox" name="httpMethodCB">
+             <property name="editable">
+              <bool>true</bool>
+             </property>
              <item>
               <property name="text">
                <string notr="true">PUT</string>
@@ -962,7 +965,11 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QSpinBox" name="tcpKeepAliveIntervalSpinBox"/>
+        <widget class="QSpinBox" name="tcpKeepAliveIntervalSpinBox">
+         <property name="maximum">
+          <number>2147483647</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
