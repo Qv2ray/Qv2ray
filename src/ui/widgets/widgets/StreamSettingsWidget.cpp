@@ -1,6 +1,7 @@
 #include "StreamSettingsWidget.hpp"
 
 #include "ui/widgets/common/WidgetUIBase.hpp"
+#include "ui/widgets/editors/w_ChainSha256Editor.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
 #include "utils/QvHelpers.hpp"
 
@@ -343,4 +344,13 @@ void StreamSettingsWidget::on_wsEarlyDataSB_valueChanged(int arg1)
 void StreamSettingsWidget::on_wsBrowserForwardCB_stateChanged(int arg1)
 {
     stream.wsSettings.useBrowserForwarding = arg1 == Qt::Checked;
+}
+
+void StreamSettingsWidget::on_pinnedPeerCertificateChainSha256Btn_clicked()
+{
+    ChainSha256Editor ed(this, stream.tlsSettings.pinnedPeerCertificateChainSha256);
+    if (ed.exec() == QDialog::Accepted)
+    {
+        stream.tlsSettings.pinnedPeerCertificateChainSha256 = QList<QString>(ed);
+    }
 }
