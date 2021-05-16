@@ -3259,7 +3259,7 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TCP Keep Alive Interval</source>
+        <source>TCP Keepalive Interval</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
