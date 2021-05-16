@@ -1994,13 +1994,13 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     </message>
     <message>
       <source>Test Latency Periodically</source>
-      <translation type="unfinished">Test Latency Periodically</translation>
+      <translation>定期的にテスト遅延</translation>
     </message>
     <message>
       <source>Run TCPing or ICMPing periodically after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation type="unfinished">Run TCPing or ICMPing periodically after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
+      <translation>サーバに接続した後は、定期的にTCPまたはICMPingを実行します。
+有効にするとQv2rayはより正確なレイテンシー値を与えますが、接続の指紋化は容易になります。</translation>
     </message>
   </context>
   <context>
@@ -3264,7 +3264,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Open pinnedPeerCertificateChainSha256 Editor</source>
-      <translation type="unfinished">Open pinnedPeerCertificateChainSha256 Editor</translation>
+      <translation>pinnedPeerCertificateChainSha256 エディタを開く</translation>
     </message>
   </context>
   <context>
@@ -3848,19 +3848,19 @@ Maybe you have downloaded the wrong core?</source>
     <name>ChainSha256Editor</name>
     <message>
       <source>pinnedPeerCertificateChainSha256 Editor</source>
-      <translation type="unfinished">pinnedPeerCertificateChainSha256 Editor</translation>
+      <translation>pinnedPeerCertificateChainSha256 エディター</translation>
     </message>
     <message>
       <source>Invalid Certificate Hash Chain</source>
-      <translation type="unfinished">Invalid Certificate Hash Chain</translation>
+      <translation>無効な証明書ハッシュチェーン</translation>
     </message>
     <message>
       <source>invalid SHA256: %1</source>
-      <translation type="unfinished">invalid SHA256: %1</translation>
+      <translation>invalid SHA256: %1</translation>
     </message>
     <message>
       <source>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </source>
-      <translation type="unfinished">One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
+      <translation>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
     </message>
   </context>
 </TS>
