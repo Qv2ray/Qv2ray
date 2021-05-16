@@ -1412,16 +1412,6 @@ For example, for updating subscriptions.</translation>
       <translation type="unfinished">Advanced Behavior</translation>
     </message>
     <message>
-      <source>Test Latency Periodcally</source>
-      <translation type="unfinished">Test Latency Periodcally</translation>
-    </message>
-    <message>
-      <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation type="unfinished">Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
-    </message>
-    <message>
       <source>Kernel Settings</source>
       <translation type="unfinished">Kernel Settings</translation>
     </message>
@@ -2012,6 +2002,16 @@ If you insist to proceed, we&apos;re not providing with any support.</translatio
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
       <translation type="unfinished">This applies to Simple Configs with Browser Forwarder on.</translation>
+    </message>
+    <message>
+      <source>Test Latency Periodically</source>
+      <translation type="unfinished">Test Latency Periodically</translation>
+    </message>
+    <message>
+      <source>Run TCPing or ICMPing periodically after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
+      <translation type="unfinished">Run TCPing or ICMPing periodically after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
     </message>
   </context>
   <context>
@@ -3275,6 +3275,14 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Browser Forwarding</source>
       <translation type="unfinished">Browser Forwarding</translation>
     </message>
+    <message>
+      <source>Mode</source>
+      <translation type="unfinished">Mode</translation>
+    </message>
+    <message>
+      <source>Open pinnedPeerCertificateChainSha256 Editor</source>
+      <translation type="unfinished">Open pinnedPeerCertificateChainSha256 Editor</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
@@ -3851,6 +3859,25 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Total</source>
       <translation type="unfinished">Total</translation>
+    </message>
+  </context>
+  <context>
+    <name>ChainSha256Editor</name>
+    <message>
+      <source>pinnedPeerCertificateChainSha256 Editor</source>
+      <translation type="unfinished">pinnedPeerCertificateChainSha256 Editor</translation>
+    </message>
+    <message>
+      <source>Invalid Certificate Hash Chain</source>
+      <translation type="unfinished">Invalid Certificate Hash Chain</translation>
+    </message>
+    <message>
+      <source>invalid SHA256: %1</source>
+      <translation type="unfinished">invalid SHA256: %1</translation>
+    </message>
+    <message>
+      <source>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </source>
+      <translation type="unfinished">One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
     </message>
   </context>
 </TS>
