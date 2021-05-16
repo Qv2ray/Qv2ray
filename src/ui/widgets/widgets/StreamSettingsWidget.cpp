@@ -65,6 +65,8 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     {
         httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
         httpPathTxt->setText(stream.httpSettings.path);
+        httpMethodTxt->setText(stream.httpSettings.method);
+        httpHeadersTxt->setPlainText(JsonToString(stream.httpSettings.toJson()["headers"].toObject()));
     }
     // WS
     {
@@ -77,6 +79,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         wsHeadersTxt->setPlainText(wsHeaders);
         wsEarlyDataSB->setValue(stream.wsSettings.maxEarlyData);
         wsBrowserForwardCB->setChecked(stream.wsSettings.useBrowserForwarding);
+        wsEarlyDataHeaderNameCB->setCurrentText(stream.wsSettings.earlyDataHeaderName == "Sec-WebSocket-Protocol" ? "Sec-WebSocket-Protocol" : "");
     }
     // mKCP
     {
@@ -110,6 +113,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         tProxyCB->setCurrentText(stream.sockopt.tproxy);
         tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
         soMarkSpinBox->setValue(stream.sockopt.mark);
+        tcpKeepAliveIntervalSpinBox->setValue(stream.sockopt.tcpKeepAliveInterval);
     }
 }
 
@@ -156,13 +160,15 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
 void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
 {
     tcpRequestTxt->clear();
-    tcpRequestTxt->setPlainText(JsonToString(transfer::HTTPRequestObject().toJson()["headers"].toObject()));
+    tcpRequestTxt->setPlainText(JsonToString(HTTPRequestObject().toJson()));
+    stream.tcpSettings.header.request = HTTPRequestObject::fromJson(HTTPRequestObject().toJson());
 }
 
 void StreamSettingsWidget::on_tcpRespDefBtn_clicked()
 {
     tcpRespTxt->clear();
-    tcpRespTxt->setPlainText(JsonToString(transfer::HTTPResponseObject().toJson()["headers"].toObject()));
+    tcpRespTxt->setPlainText(JsonToString(HTTPResponseObject().toJson()));
+    stream.tcpSettings.header.response = HTTPResponseObject::fromJson(HTTPResponseObject().toJson());
 }
 
 void StreamSettingsWidget::on_soMarkSpinBox_valueChanged(int arg1)
@@ -353,4 +359,40 @@ void StreamSettingsWidget::on_pinnedPeerCertificateChainSha256Btn_clicked()
     {
         stream.tlsSettings.pinnedPeerCertificateChainSha256 = QList<QString>(ed);
     }
+}
+
+void StreamSettingsWidget::on_wsEarlyDataHeaderNameCB_currentIndexChanged(int arg1)
+{
+    stream.wsSettings.earlyDataHeaderName = wsEarlyDataHeaderNameCB->currentText() == "Sec-WebSocket-Protocol" ? "Sec-WebSocket-Protocol" : "";
+}
+
+void StreamSettingsWidget::on_httpMethodTxt_textEdited(const QString &arg1)
+{
+    stream.httpSettings.method = arg1;
+}
+
+void StreamSettingsWidget::on_tcpKeepAliveIntervalSpinBox_valueChanged(int arg1)
+{
+    stream.sockopt.tcpKeepAliveInterval = arg1;
+}
+
+void StreamSettingsWidget::on_httpHeadersDefBtn_clicked()
+{
+    httpHeadersTxt->clear();
+    httpHeadersTxt->setPlainText(JsonToString(HttpObject().toJson()["headers"].toObject()));
+
+    auto h2Obj = HttpObject::fromJson(JsonToString(HttpObject().toJson()));
+    stream.httpSettings.headers = h2Obj.headers;
+}
+
+void StreamSettingsWidget::on_httpHeadersEditBtn_clicked()
+{
+    JsonEditor w(JsonFromString(httpHeadersTxt->toPlainText()), this);
+    auto rJson = w.OpenEditor();
+    httpHeadersTxt->setPlainText(JsonToString(rJson));
+
+    auto h2Set = HttpObject().toJson();
+    h2Set["headers"] = rJson;
+    auto h2Obj = HttpObject::fromJson(h2Set);
+    stream.httpSettings.headers = h2Obj.headers;
 }
