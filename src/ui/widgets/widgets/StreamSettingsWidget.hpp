@@ -26,6 +26,7 @@ class StreamSettingsWidget
     // HTTP
     void on_httpHostTxt_textChanged();
     void on_httpPathTxt_textEdited(const QString &arg1);
+    void on_httpMethodCB_currentIndexChanged(int arg1);
 
     // KCP
     void on_kcpCongestionCB_stateChanged(int arg1);

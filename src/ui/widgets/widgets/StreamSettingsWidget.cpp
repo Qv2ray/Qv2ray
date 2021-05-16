@@ -65,6 +65,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     {
         httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
         httpPathTxt->setText(stream.httpSettings.path);
+        httpMethodCB->setCurrentText(stream.httpSettings.method);
     }
     // WS
     {
@@ -127,6 +128,11 @@ void StreamSettingsWidget::on_httpHostTxt_textChanged()
         if (!host.trimmed().isEmpty())
             stream.httpSettings.host.push_back(host.trimmed());
     }
+}
+
+void StreamSettingsWidget::on_httpMethodCB_currentIndexChanged(int arg1)
+{
+    stream.httpSettings.method = httpMethodCB->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_wsHeadersTxt_textChanged()

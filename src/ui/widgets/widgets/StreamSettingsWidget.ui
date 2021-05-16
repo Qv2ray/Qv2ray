@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
-    <height>402</height>
+    <width>467</width>
+    <height>404</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,6 +24,56 @@
        <string>Protocol Settings</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+         <item>
+          <widget class="QLabel" name="transportLabel">
+           <property name="text">
+            <string>Transport Protocol</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="transportCombo">
+           <item>
+            <property name="text">
+             <string notr="true">tcp</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">http</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">ws</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">kcp</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">domainsocket</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">quic</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">grpc</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
        <item row="1" column="0">
         <widget class="QStackedWidget" name="v2rayStackView">
          <property name="sizePolicy">
@@ -160,7 +210,7 @@
           </layout>
          </widget>
          <widget class="QWidget" name="httpStackPage">
-          <layout class="QGridLayout" name="gridLayout_8" rowstretch="0,0,0,1">
+          <layout class="QGridLayout" name="gridLayout_8" rowstretch="0,0,0,0">
            <item row="0" column="0">
             <widget class="QLabel" name="label_5">
              <property name="text">
@@ -170,6 +220,12 @@
            </item>
            <item row="1" column="0">
             <widget class="QLineEdit" name="httpPathTxt">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="placeholderText">
               <string notr="true">/</string>
              </property>
@@ -182,10 +238,72 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="1" column="1">
+            <widget class="QComboBox" name="httpMethodCB">
+             <item>
+              <property name="text">
+               <string notr="true">PUT</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string notr="true">GET</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string notr="true">POST</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string notr="true">DELETE</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string notr="true">CONNECT</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string notr="true">HEAD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string notr="true">OPTIONS</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string notr="true">PATCH</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string notr="true">TRACE</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
             <widget class="QPlainTextEdit" name="httpHostTxt">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="placeholderText">
               <string notr="true">myhost.mydomain.com</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Method</string>
              </property>
             </widget>
            </item>
@@ -664,56 +782,6 @@
           </layout>
          </widget>
         </widget>
-       </item>
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
-         <item>
-          <widget class="QLabel" name="transportLabel">
-           <property name="text">
-            <string>Transport Protocol</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="transportCombo">
-           <item>
-            <property name="text">
-             <string notr="true">tcp</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">http</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">ws</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">kcp</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">domainsocket</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">quic</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">grpc</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-        </layout>
        </item>
       </layout>
      </widget>

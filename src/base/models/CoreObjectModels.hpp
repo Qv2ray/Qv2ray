@@ -245,8 +245,9 @@ namespace Qv2ray::base::objects
         {
             QList<QString> host;
             QString path = "/";
-            JSONSTRUCT_COMPARE(HttpObject, host, path)
-            JSONSTRUCT_REGISTER(HttpObject, F(host, path))
+            QString method = "PUT";
+            JSONSTRUCT_COMPARE(HttpObject, host, path, method)
+            JSONSTRUCT_REGISTER(HttpObject, F(host, path, method))
         };
         //
         //
