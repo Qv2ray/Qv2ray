@@ -26,7 +26,7 @@ class StreamSettingsWidget
     // HTTP
     void on_httpHostTxt_textChanged();
     void on_httpPathTxt_textEdited(const QString &arg1);
-    void on_httpMethodTxt_textEdited(const QString &arg1);
+    void on_httpMethodCB_currentTextChanged(const QString &arg1);
     void on_httpHeadersEditBtn_clicked();
     void on_httpHeadersDefBtn_clicked();
 

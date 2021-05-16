@@ -65,7 +65,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     {
         httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
         httpPathTxt->setText(stream.httpSettings.path);
-        httpMethodTxt->setText(stream.httpSettings.method);
+        httpMethodCB->setCurrentText(stream.httpSettings.method);
         httpHeadersTxt->setPlainText(JsonToString(stream.httpSettings.toJson()["headers"].toObject()));
     }
     // WS
@@ -366,7 +366,7 @@ void StreamSettingsWidget::on_wsEarlyDataHeaderNameCB_currentIndexChanged(int ar
     stream.wsSettings.earlyDataHeaderName = wsEarlyDataHeaderNameCB->currentText() == "Sec-WebSocket-Protocol" ? "Sec-WebSocket-Protocol" : "";
 }
 
-void StreamSettingsWidget::on_httpMethodTxt_textEdited(const QString &arg1)
+void StreamSettingsWidget::on_httpMethodCB_currentTextChanged(const QString &arg1)
 {
     stream.httpSettings.method = arg1;
 }

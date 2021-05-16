@@ -185,10 +185,55 @@
               </widget>
              </item>
              <item row="1" column="1" colspan="2">
-              <widget class="QLineEdit" name="httpMethodTxt">
-               <property name="placeholderText">
-                <string notr="true">PUT</string>
+              <widget class="QComboBox" name="httpMethodCB">
+               <property name="editable">
+                <bool>true</bool>
                </property>
+               <item>
+                <property name="text">
+                 <string notr="true">PUT</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">GET</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">POST</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">DELETE</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">CONNECT</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">HEAD</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">OPTIONS</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">PATCH</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">TRACE</string>
+                </property>
+               </item>
               </widget>
              </item>
             </layout>
