@@ -1401,16 +1401,6 @@ For example, for updating subscriptions.</source>
       <translation>高級行為</translation>
     </message>
     <message>
-      <source>Test Latency Periodcally</source>
-      <translation>定時測試延遲</translation>
-    </message>
-    <message>
-      <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation>連接到節點之後，對節點進行週期性的延遲監測。
-若啟用，Qv2ray 對節點的延遲監測將會更加準確，但這也許會提升您伺服器被暴露的風險。</translation>
-    </message>
-    <message>
       <source>Kernel Settings</source>
       <translation>內核設定</translation>
     </message>
@@ -2001,6 +1991,16 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
       <translation type="unfinished">This applies to Simple Configs with Browser Forwarder on.</translation>
+    </message>
+    <message>
+      <source>Test Latency Periodically</source>
+      <translation type="unfinished">Test Latency Periodically</translation>
+    </message>
+    <message>
+      <source>Run TCPing or ICMPing periodically after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
+      <translation type="unfinished">Run TCPing or ICMPing periodically after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
     </message>
   </context>
   <context>
@@ -3258,6 +3258,14 @@ Maybe you have downloaded the wrong core?</translation>
       <source>Browser Forwarding</source>
       <translation type="unfinished">Browser Forwarding</translation>
     </message>
+    <message>
+      <source>Mode</source>
+      <translation>模式</translation>
+    </message>
+    <message>
+      <source>Open pinnedPeerCertificateChainSha256 Editor</source>
+      <translation type="unfinished">Open pinnedPeerCertificateChainSha256 Editor</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
@@ -3834,6 +3842,25 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Total</source>
       <translation type="unfinished">Total</translation>
+    </message>
+  </context>
+  <context>
+    <name>ChainSha256Editor</name>
+    <message>
+      <source>pinnedPeerCertificateChainSha256 Editor</source>
+      <translation type="unfinished">pinnedPeerCertificateChainSha256 Editor</translation>
+    </message>
+    <message>
+      <source>Invalid Certificate Hash Chain</source>
+      <translation type="unfinished">Invalid Certificate Hash Chain</translation>
+    </message>
+    <message>
+      <source>invalid SHA256: %1</source>
+      <translation type="unfinished">invalid SHA256: %1</translation>
+    </message>
+    <message>
+      <source>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </source>
+      <translation type="unfinished">One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
     </message>
   </context>
 </TS>
