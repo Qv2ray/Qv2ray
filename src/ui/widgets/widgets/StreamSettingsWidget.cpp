@@ -79,7 +79,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         wsHeadersTxt->setPlainText(wsHeaders);
         wsEarlyDataSB->setValue(stream.wsSettings.maxEarlyData);
         wsBrowserForwardCB->setChecked(stream.wsSettings.useBrowserForwarding);
-        wsEarlyDataHeaderNameCB->setCurrentText(stream.wsSettings.earlyDataHeaderName == "Sec-WebSocket-Protocol" ? "Sec-WebSocket-Protocol" : "");
+        wsEarlyDataHeaderNameCB->setCurrentText(stream.wsSettings.earlyDataHeaderName);
     }
     // mKCP
     {
@@ -363,7 +363,7 @@ void StreamSettingsWidget::on_pinnedPeerCertificateChainSha256Btn_clicked()
 
 void StreamSettingsWidget::on_wsEarlyDataHeaderNameCB_currentIndexChanged(int arg1)
 {
-    stream.wsSettings.earlyDataHeaderName = wsEarlyDataHeaderNameCB->currentText() == "Sec-WebSocket-Protocol" ? "Sec-WebSocket-Protocol" : "";
+    stream.wsSettings.earlyDataHeaderName = wsEarlyDataHeaderNameCB->itemText(arg1);
 }
 
 void StreamSettingsWidget::on_httpMethodCB_currentTextChanged(const QString &arg1)
