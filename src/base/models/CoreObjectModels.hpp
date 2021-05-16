@@ -284,8 +284,9 @@ namespace Qv2ray::base::objects
             int mark = 0;
             bool tcpFastOpen = false;
             QString tproxy = "off";
-            JSONSTRUCT_COMPARE(SockoptObject, mark, tcpFastOpen, tproxy)
-            JSONSTRUCT_REGISTER(SockoptObject, F(mark, tcpFastOpen, tproxy))
+            int tcpKeepAliveInterval = 0;
+            JSONSTRUCT_COMPARE(SockoptObject, mark, tcpFastOpen, tproxy, tcpKeepAliveInterval)
+            JSONSTRUCT_REGISTER(SockoptObject, F(mark, tcpFastOpen, tproxy, tcpKeepAliveInterval))
         };
         //
         //

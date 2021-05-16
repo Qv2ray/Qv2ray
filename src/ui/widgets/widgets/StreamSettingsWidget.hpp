@@ -64,6 +64,7 @@ class StreamSettingsWidget
     // SOCKOPT
     void on_tProxyCB_currentIndexChanged(int arg1);
     void on_soMarkSpinBox_valueChanged(int arg1);
+    void on_tcpKeepAliveIntervalSpinBox_valueChanged(int arg1);
 
     // WebSocket
     void on_wsHeadersTxt_textChanged();

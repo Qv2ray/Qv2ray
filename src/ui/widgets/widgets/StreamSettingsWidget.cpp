@@ -111,6 +111,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         tProxyCB->setCurrentText(stream.sockopt.tproxy);
         tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
         soMarkSpinBox->setValue(stream.sockopt.mark);
+        tcpKeepAliveIntervalSpinBox->setValue(stream.sockopt.tcpKeepAliveInterval);
     }
 }
 
@@ -184,6 +185,11 @@ void StreamSettingsWidget::on_tcpFastOpenCB_stateChanged(int arg1)
 void StreamSettingsWidget::on_tProxyCB_currentIndexChanged(int arg1)
 {
     stream.sockopt.tproxy = tProxyCB->itemText(arg1);
+}
+
+void StreamSettingsWidget::on_tcpKeepAliveIntervalSpinBox_valueChanged(int arg1)
+{
+    stream.sockopt.tcpKeepAliveInterval = arg1;
 }
 
 void StreamSettingsWidget::on_quicSecurityCB_currentIndexChanged(int arg1)
