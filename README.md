@@ -37,14 +37,14 @@ No Such Word In My Dictionary
 ### Utility Plugins
 - **QvPlugin-Command** Command Hook Plugin
 - **QvPlugin-RemoteCore** Remove V2Ray Core Plugin
-- **QvPlugin-WindowsToolbar** Windows Taskbar Toolbar Widget & Performance Counter Provider
+- **QvPlugin-WindowsToolbar** Windows Taskband & Performance Counter Provider
 - **QvPlugin-WinNetFilter** Windows Transparent Proxy Plugin
 
 ### Protocol Support
-- **QvPlugin-SSR** ShadowsocksR Plugin
-- **QvPlugin-SS** Shadowsocks Plugin
+- ~~**QvPlugin-SSR** ShadowsocksR Plugin~~ Removed, see [Shadowsocks-NET/QvPlugins-v4](https://github.com/Shadowsocks-NET/QvPlugins-v4)
+- ~~**QvPlugin-SS** Shadowsocks Plugin~~ Removed, see [Shadowsocks-NET/QvPlugins-v4](https://github.com/Shadowsocks-NET/QvPlugins-v4)
 - **QvPlugin-Trojan-Go** Trojan-Go Plugin
-- **QvPlugin-Trojan** Trojan Plugin
+- ~~**QvPlugin-Trojan** Trojan Plugin~~ Removed, please use V2Ray instead, see [Shadowsocks-NET/QvPlugins-v4](https://github.com/Shadowsocks-NET/QvPlugins-v4)
 - **QvPlugin-NaiveProxy** NaiveProxy Plugin
 
 ## Licencing
