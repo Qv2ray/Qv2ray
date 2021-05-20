@@ -2002,6 +2002,10 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
       <translation>サーバに接続した後は、定期的にTCPまたはICMPingを実行します。
 有効にするとQv2rayはより正確なレイテンシー値を与えますが、接続の指紋化は容易になります。</translation>
     </message>
+    <message>
+      <source>FakeDNS+Others</source>
+      <translation type="unfinished">FakeDNS+Others</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -3265,6 +3269,18 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Open pinnedPeerCertificateChainSha256 Editor</source>
       <translation>pinnedPeerCertificateChainSha256 エディタを開く</translation>
+    </message>
+    <message>
+      <source>Method</source>
+      <translation type="unfinished">Method</translation>
+    </message>
+    <message>
+      <source>Early Data Header Name</source>
+      <translation type="unfinished">Early Data Header Name</translation>
+    </message>
+    <message>
+      <source>TCP Keepalive Interval</source>
+      <translation type="unfinished">TCP Keepalive Interval</translation>
     </message>
   </context>
   <context>
