@@ -2013,6 +2013,10 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
       <translation type="unfinished">Run TCPing or ICMPing periodically after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
     </message>
+    <message>
+      <source>FakeDNS+Others</source>
+      <translation type="unfinished">FakeDNS+Others</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
@@ -3282,6 +3286,18 @@ Maybe you have downloaded the wrong core?</translation>
     <message>
       <source>Open pinnedPeerCertificateChainSha256 Editor</source>
       <translation type="unfinished">Open pinnedPeerCertificateChainSha256 Editor</translation>
+    </message>
+    <message>
+      <source>Method</source>
+      <translation type="unfinished">Method</translation>
+    </message>
+    <message>
+      <source>Early Data Header Name</source>
+      <translation type="unfinished">Early Data Header Name</translation>
+    </message>
+    <message>
+      <source>TCP Keepalive Interval</source>
+      <translation type="unfinished">TCP Keepalive Interval</translation>
     </message>
   </context>
   <context>
