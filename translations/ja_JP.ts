@@ -2004,7 +2004,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     </message>
     <message>
       <source>FakeDNS+Others</source>
-      <translation type="unfinished">FakeDNS+Others</translation>
+      <translation>FakeDNS+その他</translation>
     </message>
   </context>
   <context>
@@ -3272,15 +3272,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Method</source>
-      <translation type="unfinished">Method</translation>
+      <translation>方法</translation>
     </message>
     <message>
       <source>Early Data Header Name</source>
-      <translation type="unfinished">Early Data Header Name</translation>
+      <translation>アーリーデータヘッダ名</translation>
     </message>
     <message>
       <source>TCP Keepalive Interval</source>
-      <translation type="unfinished">TCP Keepalive Interval</translation>
+      <translation>TCPキープアライブ間隔</translation>
     </message>
   </context>
   <context>
