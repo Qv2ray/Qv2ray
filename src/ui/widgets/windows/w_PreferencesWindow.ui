@@ -1165,6 +1165,13 @@ Custom DNS Settings</string>
                    </widget>
                   </item>
                   <item>
+                   <widget class="QCheckBox" name="tproxyOverrideFakeDNSOthersCB">
+                    <property name="text">
+                     <string>FakeDNS+Others</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <spacer name="horizontalSpacer_3">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
@@ -1501,6 +1508,13 @@ Custom DNS Settings</string>
                    </widget>
                   </item>
                   <item>
+                   <widget class="QCheckBox" name="socksOverrideFakeDNSOthersCB">
+                    <property name="text">
+                     <string>FakeDNS+Others</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <spacer name="horizontalSpacer_6">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
@@ -1675,6 +1689,13 @@ Custom DNS Settings</string>
                    <widget class="QCheckBox" name="httpOverrideFakeDNSCB">
                     <property name="text">
                      <string>FakeDNS</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="httpOverrideFakeDNSOthersCB">
+                    <property name="text">
+                     <string>FakeDNS+Others</string>
                     </property>
                    </widget>
                   </item>
@@ -2495,6 +2516,7 @@ Custom DNS Settings</string>
   <tabstop>socksOverrideHTTPCB</tabstop>
   <tabstop>socksOverrideTLSCB</tabstop>
   <tabstop>socksOverrideFakeDNSCB</tabstop>
+  <tabstop>socksOverrideFakeDNSOthersCB</tabstop>
   <tabstop>httpGroupBox</tabstop>
   <tabstop>httpPortLE</tabstop>
   <tabstop>httpAuthCB</tabstop>
@@ -2505,6 +2527,7 @@ Custom DNS Settings</string>
   <tabstop>httpOverrideHTTPCB</tabstop>
   <tabstop>httpOverrideTLSCB</tabstop>
   <tabstop>httpOverrideFakeDNSCB</tabstop>
+  <tabstop>httpOverrideFakeDNSOthersCB</tabstop>
   <tabstop>tproxyGroupBox</tabstop>
   <tabstop>tproxyListenAddr</tabstop>
   <tabstop>tProxyPort</tabstop>
@@ -2516,6 +2539,7 @@ Custom DNS Settings</string>
   <tabstop>tproxyOverrideHTTPCB</tabstop>
   <tabstop>tproxyOverrideTLSCB</tabstop>
   <tabstop>tproxyOverrideFakeDNSCB</tabstop>
+  <tabstop>tproxyOverrideFakeDNSOthersCB</tabstop>
   <tabstop>tproxyMode</tabstop>
   <tabstop>outboundMark</tabstop>
   <tabstop>browserForwarderAddressTxt</tabstop>

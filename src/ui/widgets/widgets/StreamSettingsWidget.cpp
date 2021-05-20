@@ -65,6 +65,8 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     {
         httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
         httpPathTxt->setText(stream.httpSettings.path);
+        httpMethodCB->setCurrentText(stream.httpSettings.method);
+        httpHeadersTxt->setPlainText(JsonToString(stream.httpSettings.toJson()["headers"].toObject()));
     }
     // WS
     {
@@ -77,6 +79,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         wsHeadersTxt->setPlainText(wsHeaders);
         wsEarlyDataSB->setValue(stream.wsSettings.maxEarlyData);
         wsBrowserForwardCB->setChecked(stream.wsSettings.useBrowserForwarding);
+        wsEarlyDataHeaderNameCB->setCurrentText(stream.wsSettings.earlyDataHeaderName);
     }
     // mKCP
     {
@@ -110,6 +113,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
         tProxyCB->setCurrentText(stream.sockopt.tproxy);
         tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
         soMarkSpinBox->setValue(stream.sockopt.mark);
+        tcpKeepAliveIntervalSpinBox->setValue(stream.sockopt.tcpKeepAliveInterval);
     }
 }
 
@@ -156,13 +160,15 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
 void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
 {
     tcpRequestTxt->clear();
-    tcpRequestTxt->setPlainText(JsonToString(transfer::HTTPRequestObject().toJson()["headers"].toObject()));
+    tcpRequestTxt->setPlainText(JsonToString(HTTPRequestObject().toJson()));
+    stream.tcpSettings.header.request = HTTPRequestObject();
 }
 
 void StreamSettingsWidget::on_tcpRespDefBtn_clicked()
 {
     tcpRespTxt->clear();
-    tcpRespTxt->setPlainText(JsonToString(transfer::HTTPResponseObject().toJson()["headers"].toObject()));
+    tcpRespTxt->setPlainText(JsonToString(HTTPResponseObject().toJson()));
+    stream.tcpSettings.header.response = HTTPResponseObject();
 }
 
 void StreamSettingsWidget::on_soMarkSpinBox_valueChanged(int arg1)
@@ -353,4 +359,37 @@ void StreamSettingsWidget::on_pinnedPeerCertificateChainSha256Btn_clicked()
     {
         stream.tlsSettings.pinnedPeerCertificateChainSha256 = QList<QString>(ed);
     }
+}
+
+void StreamSettingsWidget::on_wsEarlyDataHeaderNameCB_currentIndexChanged(int arg1)
+{
+    stream.wsSettings.earlyDataHeaderName = wsEarlyDataHeaderNameCB->itemText(arg1);
+}
+
+void StreamSettingsWidget::on_httpMethodCB_currentTextChanged(const QString &arg1)
+{
+    stream.httpSettings.method = arg1;
+}
+
+void StreamSettingsWidget::on_tcpKeepAliveIntervalSpinBox_valueChanged(int arg1)
+{
+    stream.sockopt.tcpKeepAliveInterval = arg1;
+}
+
+void StreamSettingsWidget::on_httpHeadersDefBtn_clicked()
+{
+    httpHeadersTxt->clear();
+    httpHeadersTxt->setPlainText(JsonToString(HttpObject().toJson()["headers"].toObject()));
+    stream.httpSettings.headers = HttpObject().headers;
+}
+
+void StreamSettingsWidget::on_httpHeadersEditBtn_clicked()
+{
+    JsonEditor w(JsonFromString(httpHeadersTxt->toPlainText()), this);
+    auto rJson = w.OpenEditor();
+    httpHeadersTxt->setPlainText(JsonToString(rJson));
+
+    auto json = HttpObject().toJson();
+    json["headers"] = rJson;
+    stream.httpSettings.headers = HttpObject::fromJson(json).headers;
 }

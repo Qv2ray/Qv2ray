@@ -236,8 +236,9 @@ namespace Qv2ray::base::objects
             QMap<QString, QString> headers;
             int maxEarlyData = 0;
             bool useBrowserForwarding = false;
-            JSONSTRUCT_COMPARE(WebSocketObject, path, headers, maxEarlyData, useBrowserForwarding)
-            JSONSTRUCT_REGISTER(WebSocketObject, F(path, headers, maxEarlyData, useBrowserForwarding))
+            QString earlyDataHeaderName;
+            JSONSTRUCT_COMPARE(WebSocketObject, path, headers, maxEarlyData, useBrowserForwarding, earlyDataHeaderName)
+            JSONSTRUCT_REGISTER(WebSocketObject, F(path, headers, maxEarlyData, useBrowserForwarding, earlyDataHeaderName))
         };
         //
         //
@@ -245,8 +246,10 @@ namespace Qv2ray::base::objects
         {
             QList<QString> host;
             QString path = "/";
-            JSONSTRUCT_COMPARE(HttpObject, host, path)
-            JSONSTRUCT_REGISTER(HttpObject, F(host, path))
+            QString method = "PUT";
+            QMap<QString, QList<QString>> headers;
+            JSONSTRUCT_COMPARE(HttpObject, host, path, method, headers)
+            JSONSTRUCT_REGISTER(HttpObject, F(host, path, method, headers))
         };
         //
         //
@@ -283,8 +286,9 @@ namespace Qv2ray::base::objects
             int mark = 0;
             bool tcpFastOpen = false;
             QString tproxy = "off";
-            JSONSTRUCT_COMPARE(SockoptObject, mark, tcpFastOpen, tproxy)
-            JSONSTRUCT_REGISTER(SockoptObject, F(mark, tcpFastOpen, tproxy))
+            int tcpKeepAliveInterval = 0;
+            JSONSTRUCT_COMPARE(SockoptObject, mark, tcpFastOpen, tproxy, tcpKeepAliveInterval)
+            JSONSTRUCT_REGISTER(SockoptObject, F(mark, tcpFastOpen, tproxy, tcpKeepAliveInterval))
         };
         //
         //

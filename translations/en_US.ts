@@ -1982,6 +1982,10 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>FakeDNS+Others</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -3244,6 +3248,18 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Open pinnedPeerCertificateChainSha256 Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Early Data Header Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TCP Keepalive Interval</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
