@@ -161,14 +161,14 @@ void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
 {
     tcpRequestTxt->clear();
     tcpRequestTxt->setPlainText(JsonToString(HTTPRequestObject().toJson()));
-    stream.tcpSettings.header.request = HTTPRequestObject::fromJson(HTTPRequestObject().toJson());
+    stream.tcpSettings.header.request = HTTPRequestObject();
 }
 
 void StreamSettingsWidget::on_tcpRespDefBtn_clicked()
 {
     tcpRespTxt->clear();
     tcpRespTxt->setPlainText(JsonToString(HTTPResponseObject().toJson()));
-    stream.tcpSettings.header.response = HTTPResponseObject::fromJson(HTTPResponseObject().toJson());
+    stream.tcpSettings.header.response = HTTPResponseObject();
 }
 
 void StreamSettingsWidget::on_soMarkSpinBox_valueChanged(int arg1)
@@ -380,9 +380,7 @@ void StreamSettingsWidget::on_httpHeadersDefBtn_clicked()
 {
     httpHeadersTxt->clear();
     httpHeadersTxt->setPlainText(JsonToString(HttpObject().toJson()["headers"].toObject()));
-
-    auto h2Obj = HttpObject::fromJson(JsonToString(HttpObject().toJson()));
-    stream.httpSettings.headers = h2Obj.headers;
+    stream.httpSettings.headers = HttpObject().headers;
 }
 
 void StreamSettingsWidget::on_httpHeadersEditBtn_clicked()
@@ -391,8 +389,7 @@ void StreamSettingsWidget::on_httpHeadersEditBtn_clicked()
     auto rJson = w.OpenEditor();
     httpHeadersTxt->setPlainText(JsonToString(rJson));
 
-    auto h2Set = HttpObject().toJson();
-    h2Set["headers"] = rJson;
-    auto h2Obj = HttpObject::fromJson(h2Set);
-    stream.httpSettings.headers = h2Obj.headers;
+    auto json = HttpObject().toJson();
+    json["headers"] = rJson;
+    stream.httpSettings.headers = HttpObject::fromJson(json).headers;
 }
