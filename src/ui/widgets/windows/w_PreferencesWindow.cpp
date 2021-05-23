@@ -97,6 +97,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     useOldShareLinkFormatCB->setChecked(CurrentConfig.uiConfig.useOldShareLinkFormat);
     startMinimizedCB->setChecked(CurrentConfig.uiConfig.startMinimized);
     startMinimizedCB->setEnabled(CurrentConfig.autoStartBehavior != AUTO_CONNECTION_NONE);
+    exitByCloseEventCB->setChecked(CurrentConfig.uiConfig.exitByCloseEvent);
     //
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
@@ -1249,6 +1250,12 @@ void PreferencesWindow::on_startMinimizedCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.startMinimized = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_exitByCloseEventCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.uiConfig.exitByCloseEvent = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_httpSniffingMetadataOnly_stateChanged(int arg1)

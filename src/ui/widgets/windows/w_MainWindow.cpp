@@ -494,8 +494,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    MWHideWindow();
-    event->ignore();
+    if (GlobalConfig.uiConfig.exitByCloseEvent)
+    {
+        Action_Exit();
+    }
+    else
+    {
+        MWHideWindow();
+        event->ignore();
+    }
 }
 
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
