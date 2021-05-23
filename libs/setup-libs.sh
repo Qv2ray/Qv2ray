@@ -7,8 +7,6 @@ DEPS_CATEGORY=$2
 
 _JSON=$(curl -s https://api.github.com/repos/Qv2ray/Qv2ray-deps/releases/latest | jq ".assets[] | {browser_download_url, name}" -c | grep "$DEPS_CATEGORY-$DEPS_OS")
 
-echo $_JSON
-
 for data in $(echo $_JSON)
 do
     NAME=$(echo $data | jq ".name" -r)
@@ -25,13 +23,13 @@ done
 
 if [[ "$DEPS_CATEGORY" == "tools" ]]; then
     mkdir -p ../tools
-    cp -rvf ./tools ../
-    rm -rvf ./tools
+    cp -rf ./tools ../
+    rm -rf ./tools
 else
     echo "Cleaning up $DEPS_CATEGORY-$DEPS_OS"
-    rm -rvf ../$DEPS_CATEGORY-$DEPS_OS/*
+    rm -rf ../$DEPS_CATEGORY-$DEPS_OS/*
     mkdir -p ../$DEPS_CATEGORY-$DEPS_OS
-    cp -rvf ./$DEPS_OS-$DEPS_CATEGORY/installed/$DEPS_CATEGORY-$DEPS_OS/* ../$DEPS_CATEGORY-$DEPS_OS
-    rm -rvf ./$DEPS_OS-$DEPS_CATEGORY/
+    cp -rf ./$DEPS_OS-$DEPS_CATEGORY/installed/$DEPS_CATEGORY-$DEPS_OS/* ../$DEPS_CATEGORY-$DEPS_OS
+    rm -rf ./$DEPS_OS-$DEPS_CATEGORY/
     cd ..
 fi
