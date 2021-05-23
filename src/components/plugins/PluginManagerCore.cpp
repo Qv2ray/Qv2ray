@@ -10,7 +10,7 @@ using namespace Qv2rayPlugin;
 
 bool QvPluginInfo::isEnabled() const
 {
-    return GlobalConfig.pluginConfig->pluginStates->value(pinterface->GetMetadata().InternalName);
+    return GlobalConfig.pluginConfig->pluginStates->value(pinterface->GetMetadata().InternalName, true);
 }
 
 void QvPluginInfo::setEnabled(bool enabled) const
