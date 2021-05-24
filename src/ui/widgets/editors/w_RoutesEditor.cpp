@@ -42,8 +42,7 @@ namespace
                                     "GradientColor3": "mintcream","ShadowColor": [200, 200, 200],"FontColor": [10, 10, 10],
                                     "FontColorFaded": [100, 100, 100],"ConnectionPointColor": "white","PenWidth": 2.0,"HoveredPenWidth": 2.5,
                                     "ConnectionPointDiameter": 10.0,"Opacity": 1.0}})";
-    constexpr auto LightViewStyle =
-        R"({"FlowViewStyle": {"BackgroundColor": [255, 255, 240],"FineGridColor": [245, 245, 230],"CoarseGridColor": [235, 235, 220]}})";
+    constexpr auto LightViewStyle = R"({"FlowViewStyle": {"BackgroundColor": [255, 255, 240],"FineGridColor": [245, 245, 230],"CoarseGridColor": [235, 235, 220]}})";
     constexpr auto LightConnectionStyle = R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
                                           "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,"ConstructionLineWidth": 2.0,
                                           "PointDiameter": 10.0,"UseDataDefinedColors": false}})";
@@ -52,8 +51,8 @@ namespace
 
 } // namespace
 
-#define LOADINGCHECK                                                                                                                                 \
-    if (isLoading)                                                                                                                                   \
+#define LOADINGCHECK                                                                                                                                                     \
+    if (isLoading)                                                                                                                                                       \
         return;
 #define LOAD_FLAG_BEGIN isLoading = true;
 #define LOAD_FLAG_END isLoading = false;
@@ -303,8 +302,10 @@ CONFIGROOT RouteEditor::OpenEditor()
         browserForwarder["listenPort"] = bfListenPortTxt->value();
         root["browserForwarder"] = browserForwarder;
     }
+
+    // Process Observatory
+    if (!obSubjectSelectorTxt->toPlainText().isEmpty())
     {
-        // Process Observatory
         QJsonObject observatory;
         observatory["subjectSelector"] = QJsonArray::fromStringList(SplitLines(obSubjectSelectorTxt->toPlainText()));
         root["observatory"] = observatory;
