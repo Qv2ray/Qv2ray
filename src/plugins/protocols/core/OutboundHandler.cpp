@@ -196,9 +196,12 @@ const QPair<QString, QJsonObject> BuiltinSerializer::DeserializeOutbound(const Q
         QJsonObject root;
         QJsonIO::SetValue(root, url.host(), "servers", 0, "address");
         QJsonIO::SetValue(root, url.port(), "servers", 0, "port");
-        if (url.userName().isEmpty() && url.password().isEmpty())
+        if (!url.userName().isEmpty())
         {
             QJsonIO::SetValue(root, url.userName(), "servers", 0, "users", 0, "user");
+        }
+        if (!url.password().isEmpty())
+        {
             QJsonIO::SetValue(root, url.password(), "servers", 0, "users", 0, "pass");
         }
         return { url.scheme(), root };
