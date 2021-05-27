@@ -2006,6 +2006,16 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
       <source>FakeDNS+Others</source>
       <translation type="unfinished">FakeDNS+Others</translation>
     </message>
+    <message>
+      <source>Click Close Button to Exit</source>
+      <translation type="unfinished">Click Close Button to Exit</translation>
+    </message>
+    <message>
+      <source>Exit instead of minimizing to tray when the close button clicked.
+This option may be useful for some desktop environments without tray support.</source>
+      <translation type="unfinished">Exit instead of minimizing to tray when the close button clicked.
+This option may be useful for some desktop environments without tray support.</translation>
+    </message>
   </context>
   <context>
     <name>QObject</name>
