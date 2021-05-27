@@ -2008,13 +2008,13 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     </message>
     <message>
       <source>Click Close Button to Exit</source>
-      <translation type="unfinished">Click Close Button to Exit</translation>
+      <translation>閉じるボタンをクリックして終了</translation>
     </message>
     <message>
       <source>Exit instead of minimizing to tray when the close button clicked.
 This option may be useful for some desktop environments without tray support.</source>
-      <translation type="unfinished">Exit instead of minimizing to tray when the close button clicked.
-This option may be useful for some desktop environments without tray support.</translation>
+      <translation>閉じるボタンがクリックされたときにトレイに最小化する代わりに終了します。
+トレイサポートがないデスクトップ環境の場合に便利です。</translation>
     </message>
   </context>
   <context>
