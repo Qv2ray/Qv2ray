@@ -134,6 +134,7 @@ class PreferencesWindow
     void on_disableSystemRootCB_stateChanged(int arg1);
     void on_openConfigDirCB_clicked();
     void on_startMinimizedCB_stateChanged(int arg1);
+    void on_exitByCloseEventCB_stateChanged(int arg1);
     void on_httpSniffingMetadataOnly_stateChanged(int arg1);
     void on_socksSniffingMetadataOnly_stateChanged(int arg1);
     void on_tproxySniffingMetadataOnlyCB_stateChanged(int arg1);

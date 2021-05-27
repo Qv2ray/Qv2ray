@@ -61,10 +61,11 @@ namespace Qv2ray::base::config
         int maxJumpListCount = 20;
         bool useOldShareLinkFormat = false;
         bool startMinimized = true;
+        bool exitByCloseEvent = false;
         JSONSTRUCT_COMPARE(Qv2rayConfig_UI, theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, useGlyphTrayIcon, maximumLogLines,
-                           maxJumpListCount, recentConnections, useOldShareLinkFormat, startMinimized)
+                           maxJumpListCount, recentConnections, useOldShareLinkFormat, startMinimized, exitByCloseEvent)
         JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, useGlyphTrayIcon,
-                                               maximumLogLines, maxJumpListCount, recentConnections, useOldShareLinkFormat, startMinimized))
+                                               maximumLogLines, maxJumpListCount, recentConnections, useOldShareLinkFormat, startMinimized, exitByCloseEvent))
     };
 
     struct Qv2rayConfig_Plugin
