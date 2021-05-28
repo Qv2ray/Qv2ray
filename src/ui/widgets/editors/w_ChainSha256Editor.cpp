@@ -37,11 +37,7 @@ void ChainSha256Editor::accept()
 
 QList<QString> ChainSha256Editor::convertFromString(const QString &&str)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
     return str.split(QRegularExpression("[\r\n]"), Qt::SkipEmptyParts);
-#else
-    return str.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
-#endif
 }
 
 std::optional<QString> ChainSha256Editor::validateError(const QList<QString> &newChain)

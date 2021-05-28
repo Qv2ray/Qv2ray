@@ -6,11 +6,7 @@ using namespace Qv2rayPlugin;
 
 const inline QStringList SplitLines(const QString &_string)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
     return _string.split(QRegularExpression("[\r\n]"), Qt::SkipEmptyParts);
-#else
-    return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
-#endif
 }
 
 class SimpleBase64Decoder : public Qv2rayPlugin::SubscriptionDecoder
