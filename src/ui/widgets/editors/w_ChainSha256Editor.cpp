@@ -43,7 +43,7 @@ QList<QString> ChainSha256Editor::convertFromString(const QString &&str)
 std::optional<QString> ChainSha256Editor::validateError(const QList<QString> &newChain)
 {
     #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        const static sha256 = QRegularExpression::anchoredPattern("[0-9a-fA-F]{64}");
+        const static QString sha256 = QRegularExpression::anchoredPattern("[0-9a-fA-F]{64}");
     #else
         const static QRegExp sha256("[0-9a-fA-F]{64}");
     #endif
