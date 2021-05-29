@@ -37,23 +37,24 @@ void ChainSha256Editor::accept()
 
 QList<QString> ChainSha256Editor::convertFromString(const QString &&str)
 {
-    return str.split(QRegularExpression("[\r\n]"), Qt::SkipEmptyParts);
+    const static QRegularExpression newLine("[\r\n]");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    return str.split(newLine, Qt::SplitBehaviorFlags::SkipEmptyParts);
+#else
+    return str.split(newLine, QString::SkipEmptyParts);
+#endif
 }
 
 std::optional<QString> ChainSha256Editor::validateError(const QList<QString> &newChain)
 {
-    #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        const static QString sha256 = QRegularExpression::anchoredPattern("[0-9a-fA-F]{64}");
-    #else
-        const static QRegExp sha256("[0-9a-fA-F]{64}");
-    #endif
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+    const static QRegularExpression sha256(QRegularExpression::anchoredPattern("[0-9a-fA-F]{64}"));
+#else
+    const static QRegularExpression sha256("^[0-9a-fA-F]{64}$");
+#endif
     for (const auto &entry : newChain)
     {
-    #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        if(!QRegularExpression(sha256).match(entry).hasMatch())
-    #else
-        if (!sha256.exactMatch(entry))
-    #endif
+        if(!sha256.match(entry).hasMatch())
             return tr("invalid SHA256: %1").arg(entry);
     }
 
