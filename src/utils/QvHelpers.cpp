@@ -155,12 +155,10 @@ namespace Qv2ray::common
 
     QStringList SplitLines(const QString &_string)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-        return _string.split(QRegularExpression("[\r\n]"), Qt::SkipEmptyParts);
-#elif QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-        return _string.split(QRegExp("[\r\n]"), Qt::SkipEmptyParts);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        return _string.split(QRegularExpression("[\r\n]"), Qt::SplitBehaviorFlags::SkipEmptyParts);
 #else
-        return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+        return _string.split(QRegularExpression("[\r\n]"), QString::SkipEmptyParts);
 #endif
     }
 
