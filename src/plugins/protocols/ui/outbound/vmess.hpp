@@ -36,7 +36,6 @@ class VmessOutboundEditor
 
   private:
     VMessServerObject vmess;
-    QJS_BINDING_HELPERS
 
   protected:
     void changeEvent(QEvent *e) override;

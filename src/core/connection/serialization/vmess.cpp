@@ -126,26 +126,26 @@ namespace Qv2ray::core::connection
             //   - Else if it contains many things,  when the key IS in the JSON but not within the THINGS, use the first in the THINGS
             //   - Else -------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  use the JSON value
             //
-#define __vmess_checker__func(key, values)                                                                                                           \
-    {                                                                                                                                                \
-        auto val = QVector<QString>() values;                                                                                                        \
-        if (vmessConf.contains(#key) && !vmessConf[#key].toVariant().toString().trimmed().isEmpty() &&                                               \
-            (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString())))                                                               \
-        {                                                                                                                                            \
-            key = vmessConf[#key].toVariant().toString();                                                                                            \
-        }                                                                                                                                            \
-        else if (!val.isEmpty())                                                                                                                     \
-        {                                                                                                                                            \
-            key = val.first();                                                                                                                       \
-            DEBUG("Using key \"" #key "\" from the first candidate list: " + key);                                                                   \
-        }                                                                                                                                            \
-        else                                                                                                                                         \
-        {                                                                                                                                            \
-            *errMessage = QObject::tr(#key " does not exist.");                                                                                      \
-            LOG("Cannot process \"" #key "\" since it's not included in the json object.");                                                          \
-            LOG(" --> values: " + val.join(";"));                                                                                                    \
-            LOG(" --> PS: " + ps);                                                                                                                   \
-        }                                                                                                                                            \
+#define __vmess_checker__func(key, values)                                                                                                                               \
+    {                                                                                                                                                                    \
+        auto val = QVector<QString>() values;                                                                                                                            \
+        if (vmessConf.contains(#key) && !vmessConf[#key].toVariant().toString().trimmed().isEmpty() &&                                                                   \
+            (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString())))                                                                                   \
+        {                                                                                                                                                                \
+            key = vmessConf[#key].toVariant().toString();                                                                                                                \
+        }                                                                                                                                                                \
+        else if (!val.isEmpty())                                                                                                                                         \
+        {                                                                                                                                                                \
+            key = val.first();                                                                                                                                           \
+            DEBUG("Using key \"" #key "\" from the first candidate list: " + key);                                                                                       \
+        }                                                                                                                                                                \
+        else                                                                                                                                                             \
+        {                                                                                                                                                                \
+            *errMessage = QObject::tr(#key " does not exist.");                                                                                                          \
+            LOG("Cannot process \"" #key "\" since it's not included in the json object.");                                                                              \
+            LOG(" --> values: " + val.join(";"));                                                                                                                        \
+            LOG(" --> PS: " + ps);                                                                                                                                       \
+        }                                                                                                                                                                \
     }
 
             // vmess v1 upgrader
@@ -169,6 +169,7 @@ namespace Qv2ray::core::connection
             //
             // Get Alias (AKA ps) from address and port.
             {
+#define nothing
                 // Some idiot vmess:// links are using alterId...
                 aid = vmessConf.value(vmessConf.contains("aid") ? "aid" : "alterId").toVariant().toInt();
                 __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString());
@@ -192,6 +193,7 @@ namespace Qv2ray::core::connection
                                            << "tls");
                 path = vmessConf.contains("path") ? vmessConf["path"].toVariant().toString() : (net == "quic" ? "" : "/");
                 host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "");
+#undef nothing
             }
 
             // Repect connection type rather than obfs type

@@ -14,7 +14,6 @@
 // Code Models
 #include "base/Qv2rayBaseApplication.hpp"
 #include "base/models/CoreObjectModels.hpp"
-#include "base/models/QvConfigIdentifier.hpp"
 #include "base/models/QvRuntimeConfig.hpp"
 #include "base/models/QvSafeType.hpp"
 #include "base/models/QvSettingsObject.hpp"
@@ -50,7 +49,6 @@ using namespace Qv2ray::base::objects::transfer;
 #define QV2RAY_CONFIG_DIR (QvCoreApplication->ConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 #define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
-#define QV2RAY_PLUGIN_SETTINGS_DIR (QV2RAY_CONFIG_DIR + "plugin_settings/")
 #define QV2RAY_CONFIG_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
 

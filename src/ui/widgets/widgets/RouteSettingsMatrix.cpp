@@ -49,7 +49,7 @@ QList<QAction *> RouteSettingsMatrixWidget::getBuiltInSchemes()
     return list;
 }
 
-QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const QvConfig_Route &scheme)
+QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const RouteConfig &scheme)
 {
     QAction *action = new QAction(this);
     action->setText(name);
@@ -57,7 +57,7 @@ QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv
     return action;
 }
 
-void RouteSettingsMatrixWidget::SetRouteConfig(const QvConfig_Route &conf)
+void RouteSettingsMatrixWidget::SetRouteConfig(const RouteConfig &conf)
 {
     domainStrategyCombo->setCurrentText(conf.domainStrategy);
     domainMatcherCombo->setCurrentIndex(conf.domainMatcher == "mph" ? 1 : 0);
@@ -71,9 +71,9 @@ void RouteSettingsMatrixWidget::SetRouteConfig(const QvConfig_Route &conf)
     proxyIPTxt->setPlainText(conf.ips->proxy->join(NEWLINE));
 }
 
-QvConfig_Route RouteSettingsMatrixWidget::GetRouteConfig() const
+RouteConfig RouteSettingsMatrixWidget::GetRouteConfig() const
 {
-    QvConfig_Route conf;
+    RouteConfig conf;
     // Workaround for translation
     const auto index = domainMatcherCombo->currentIndex();
     conf.domainMatcher = index == 0 ? "" : "mph";
@@ -121,7 +121,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
             return;
 
         // write the scheme onto the window
-        this->SetRouteConfig(static_cast<QvConfig_Route>(scheme));
+        this->SetRouteConfig(static_cast<RouteConfig>(scheme));
 
         // done
         LOG("Imported route config: " + scheme.name + " by: " + scheme.author);

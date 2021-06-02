@@ -15,15 +15,15 @@ class RouteSettingsMatrixWidget
 
   public:
     RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent = nullptr);
-    void SetRouteConfig(const QvConfig_Route &conf);
-    QvConfig_Route GetRouteConfig() const;
+    void SetRouteConfig(const RouteConfig &conf);
+    RouteConfig GetRouteConfig() const;
     ~RouteSettingsMatrixWidget();
 
   private:
     std::optional<QString> openFileDialog();
     std::optional<QString> saveFileDialog();
     QList<QAction *> getBuiltInSchemes();
-    QAction *schemeToAction(const QString &name, const QvConfig_Route &scheme);
+    QAction *schemeToAction(const QString &name, const RouteConfig &scheme);
 
   private:
     QMenu *builtInSchemesMenu;

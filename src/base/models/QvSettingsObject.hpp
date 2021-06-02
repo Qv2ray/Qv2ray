@@ -1,7 +1,7 @@
 #pragma once
-#include "base/models/QvConfigIdentifier.hpp"
 #include "base/models/QvCoreSettings.hpp"
 #include "base/models/QvSafeType.hpp"
+#include "plugin-interface/connections/ConnectionsBaseTypes.hpp"
 
 #include <chrono>
 
@@ -12,6 +12,7 @@ namespace Qv2ray::base::config
     struct QvGraphPenConfig : public QObject
     {
         Q_OBJECT
+        QJS_FUNCTION(QvGraphPenConfig, F(R, G, B, width, style))
         QJS_PROP_D(int, R, 150)
         QJS_PROP_D(int, G, 150)
         QJS_PROP_D(int, B, 150)
@@ -26,17 +27,16 @@ namespace Qv2ray::base::config
             this->width = w;
             this->style = s;
         };
-        QJS_FUNCTION(QvGraphPenConfig, F(R, G, B, width, style))
     };
 
     struct Qv2rayConfig_Graph : public QObject
     {
         typedef safetype::QvEnumMap<StatisticsType, safetype::QvPair<QvGraphPenConfig>> colorconfig_t;
         Q_OBJECT
+        QJS_FUNCTION(Qv2rayConfig_Graph, F(useOutboundStats, hasDirectStats, colorConfig))
         QJS_PROP_D(bool, useOutboundStats, true)
         QJS_PROP_D(bool, hasDirectStats, true)
         QJS_PROP(colorconfig_t, colorConfig)
-        QJS_FUNCTION(Qv2rayConfig_Graph, F(useOutboundStats, hasDirectStats, colorConfig))
         const static inline QvPair<QvGraphPenConfig> DefaultPen{ { 134, 196, 63, 1.5f, Qt::SolidLine }, { 50, 153, 255, 1.5f, Qt::SolidLine } };
         const static inline QvPair<QvGraphPenConfig> DirectPen{ { 0, 210, 240, 1.5f, Qt::DotLine }, { 235, 220, 42, 1.5f, Qt::DotLine } };
     };
@@ -44,6 +44,8 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_UI : public QObject
     {
         Q_OBJECT
+        QJS_FUNCTION(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, useGlyphTrayIcon, maximumLogLines, maxJumpListCount,
+                                        recentConnections, startMinimized))
 #ifdef Q_OS_WIN
         QJS_PROP_D(QString, theme, "windowsvista")
 #elif defined(Q_OS_MACOS)
@@ -61,23 +63,27 @@ namespace Qv2ray::base::config
         QJS_PROP_D(bool, startMinimized, true)
         QJS_PROP_D(int, maximumLogLines, 500)
         QJS_PROP_D(int, maxJumpListCount, 20)
-        QJS_FUNCTION(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, useGlyphTrayIcon, maximumLogLines,
-                                        maxJumpListCount, recentConnections, startMinimized))
     };
 
     struct Qv2rayConfig_Plugin : public QObject
     {
         typedef QMap<QString, bool> plugin_states_t;
         Q_OBJECT
+        QJS_FUNCTION(Qv2rayConfig_Plugin, F(pluginStates, v2rayIntegration, portAllocationStart))
         QJS_PROP(plugin_states_t, pluginStates)
         QJS_PROP_D(bool, v2rayIntegration, true)
         QJS_PROP_D(int, portAllocationStart, 15000)
-        QJS_FUNCTION(Qv2rayConfig_Plugin, F(pluginStates, v2rayIntegration, portAllocationStart))
     };
 
     struct Qv2rayConfig_Kernel : public QObject
     {
         Q_OBJECT
+
+        QJS_FUNCTION(Qv2rayConfig_Kernel,                     //
+                     F(enableAPI, statsPort),                 //
+                     F(v2CorePath_linux, v2AssetsPath_linux), //
+                     F(v2CorePath_macx, v2AssetsPath_macx),   //
+                     F(v2CorePath_win, v2AssetsPath_win))
         QJS_PROP_D(bool, enableAPI, true)
         QJS_PROP_D(int, statsPort, 15490)
         //
@@ -118,12 +124,6 @@ namespace Qv2ray::base::config
 
 #undef VARNAME_VCOREPATH
 #undef VARNAME_VASSETSPATH
-
-        QJS_FUNCTION(Qv2rayConfig_Kernel,                     //
-                     F(enableAPI, statsPort),                 //
-                     F(v2CorePath_linux, v2AssetsPath_linux), //
-                     F(v2CorePath_macx, v2AssetsPath_macx),   //
-                     F(v2CorePath_win, v2AssetsPath_win))
     };
 
     enum Qv2rayUpdateChannel
@@ -135,9 +135,9 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_Update : public QObject
     {
         Q_OBJECT
+        QJS_FUNCTION(Qv2rayConfig_Update, F(ignoredVersion, updateChannel))
         QJS_PROP_D(Qv2rayUpdateChannel, updateChannel, CHANNEL_STABLE)
         QJS_PROP(QString, ignoredVersion)
-        QJS_FUNCTION(Qv2rayConfig_Update, F(ignoredVersion, updateChannel))
     };
 
     enum Qv2rayLatencyTestingMethod
@@ -157,6 +157,7 @@ namespace Qv2ray::base::config
     struct Qv2rayConfig_Network : public QObject
     {
         Q_OBJECT
+        QJS_FUNCTION(Qv2rayConfig_Network, F(latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent))
         QJS_PROP_D(Qv2rayLatencyTestingMethod, latencyTestingMethod, TCPING)
         QJS_PROP_D(QString, latencyRealPingTestURL, "https://www.google.com")
         QJS_PROP_D(Qv2rayProxyType, proxyType, QVPROXY_NONE)
@@ -164,7 +165,6 @@ namespace Qv2ray::base::config
         QJS_PROP_D(QString, type, "http")
         QJS_PROP_D(int, port, 8000)
         QJS_PROP_D(QString, userAgent, "Qv2ray/$VERSION WebRequestHelper")
-        QJS_FUNCTION(Qv2rayConfig_Network, F(latencyTestingMethod, latencyRealPingTestURL, proxyType, type, address, port, userAgent))
     };
 
     enum Qv2rayAutoConnectionBehavior
@@ -177,6 +177,10 @@ namespace Qv2ray::base::config
     struct Qv2rayConfigObject : public QObject
     {
         Q_OBJECT
+
+        QJS_FUNCTION(Qv2rayConfigObject, F(uiConfig, config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
+                     F(pluginConfig, updateConfig, kernelConfig, networkConfig),                                                 //
+                     F(inboundConfig, outboundConfig, defaultRouteConfig))
         QJS_PROP_D(int, config_version, QV2RAY_CONFIG_VERSION, REQUIRED)
         QJS_PROP_D(int, logLevel, 0, REQUIRED)
         //
@@ -192,9 +196,5 @@ namespace Qv2ray::base::config
         QJS_PROP(QvConfig_Inbounds, inboundConfig, REQUIRED)
         QJS_PROP(QvConfig_Outbounds, outboundConfig, REQUIRED)
         QJS_PROP(GroupRoutingConfig, defaultRouteConfig, REQUIRED)
-
-        QJS_FUNCTION(Qv2rayConfigObject, F(uiConfig, config_version, autoStartId, lastConnectedId, autoStartBehavior, logLevel), //
-                     F(pluginConfig, updateConfig, kernelConfig, networkConfig),                                                 //
-                     F(inboundConfig, outboundConfig, defaultRouteConfig))
     };
 } // namespace Qv2ray::base::config

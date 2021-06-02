@@ -15,6 +15,7 @@ class InternalSubscriptionSupportPlugin
     Q_PLUGIN_METADATA(IID Qv2rayInterface_IID)
     Q_OBJECT
   public:
+    InternalSubscriptionSupportPlugin() = default;
     // Basic metainfo of this plugin
     const QvPluginMetadata GetMetadata() const override
     {
@@ -22,13 +23,11 @@ class InternalSubscriptionSupportPlugin
                  "Qv2ray Core Workgroup",                 //
                  "qv2ray_builtin_subscription",           //
                  "Basic subscription support for Qv2ray", //
-                 QV2RAY_VERSION_STRING,                   //
-                 "Qv2ray/Qv2ray",                         //
-                 { COMPONENT_SUBSCRIPTION_ADAPTER },
-                 UPDATE_NONE };
+                 "Qv2ray Repository",                     //
+                 { COMPONENT_SUBSCRIPTION_ADAPTER } };
     }
 
-    bool InitializePlugin(const QString &, const QJsonObject &) override;
+    bool InitializePlugin() override;
     void SettingsUpdated() override{};
 
   signals:

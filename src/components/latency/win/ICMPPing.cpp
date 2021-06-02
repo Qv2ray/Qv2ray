@@ -65,7 +65,8 @@ namespace Qv2ray::components::latency::icmping
                     IcmpCloseHandle(hIcmpFile);
             }
         };
-        auto icmpReply = new ICMPReply{ [this, id = req.id](bool isSuccess, long res, const QString &message, HANDLE h) {
+
+        auto icmpReply = new ICMPReply{ [this, id = req.id](bool isSuccess, long res, const QString &message, HANDLE) {
             if (!isSuccess)
             {
                 data.errorMessage = message;
@@ -80,6 +81,7 @@ namespace Qv2ray::components::latency::icmping
             }
             notifyTestHost(testHost, id);
         } };
+
         if (icmpReply->hIcmpFile == INVALID_HANDLE_VALUE)
         {
             data.errorMessage = "IcmpCreateFile failed";
@@ -117,7 +119,7 @@ namespace Qv2ray::components::latency::icmping
             icmpReply->reply_buf, reply_buf_size, 10000);
     }
 
-    bool ICMPPing::notifyTestHost(LatencyTestHost *testHost, const ::Qv2ray::base::ConnectionId &id)
+    bool ICMPPing::notifyTestHost(LatencyTestHost *testHost, const ConnectionId &id)
     {
         if (data.failedCount + successCount == data.totalCount)
         {

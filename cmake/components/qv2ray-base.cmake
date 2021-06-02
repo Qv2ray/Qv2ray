@@ -12,7 +12,6 @@ set(QV2RAY_BASE_SOURCES
     ${QV2RAY_BASEDIR_BASE}/JsonHelpers.hpp
     ${QV2RAY_BASEDIR_BASE}/models/CoreObjectModels.hpp
     ${QV2RAY_BASEDIR_BASE}/models/QvComplexConfigModels.hpp
-    ${QV2RAY_BASEDIR_BASE}/models/QvConfigIdentifier.hpp
     ${QV2RAY_BASEDIR_BASE}/models/QvCoreSettings.hpp
     ${QV2RAY_BASEDIR_BASE}/models/QvRuntimeConfig.hpp
     ${QV2RAY_BASEDIR_BASE}/models/QvSafeType.hpp

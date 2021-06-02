@@ -1,8 +1,8 @@
 #pragma once
 
-#include "3rdparty/QJsonStruct/macroexpansion.hpp"
 #include "base/Qv2rayBaseApplication.hpp"
 #include "base/models/QvStartupConfig.hpp"
+#include "macroexpansion.hpp"
 
 #include <QPair>
 #include <QString>

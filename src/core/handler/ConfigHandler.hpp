@@ -13,10 +13,13 @@ namespace Qv2ray::common::network
 #define CheckValidId(id, returnValue)                                                                                                                \
     if (!IsValidId(id))                                                                                                                              \
         return returnValue;
+#define nothing
 
 namespace Qv2ray::core::handler
 {
-    class QvConfigHandler : public QObject
+    class QvConfigHandler
+        : public QObject
+        , public Qv2rayPlugin::connections::IConnectionManager
     {
         Q_OBJECT
       public:
@@ -24,16 +27,16 @@ namespace Qv2ray::core::handler
         ~QvConfigHandler();
 
       public slots:
-        inline const QList<ConnectionId> GetConnections() const
+        inline const QList<ConnectionId> GetConnections() const override
         {
             return connections.keys();
         }
-        inline const QList<ConnectionId> GetConnections(const GroupId &groupId) const
+        inline const QList<ConnectionId> GetConnections(const GroupId &groupId) const override
         {
             CheckValidId(groupId, {});
             return groups[groupId].connections;
         }
-        inline QList<GroupId> AllGroups() const
+        inline const QList<GroupId> AllGroups() const override
         {
             auto k = groups.keys();
             std::sort(k.begin(), k.end(), [&](const GroupId &idA, const GroupId &idB) {
@@ -65,7 +68,7 @@ namespace Qv2ray::core::handler
             return groups[id];
         }
 
-        bool IsConnected(const ConnectionGroupPair &id) const
+        bool IsConnected(const ConnectionGroupPair &id) const override
         {
             return kernelHandler->CurrentConnection() == id;
         }
@@ -78,30 +81,30 @@ namespace Qv2ray::core::handler
         }
 
         void SaveConnectionConfig();
-        const QList<GroupId> Subscriptions() const;
-        const QList<GroupId> GetConnectionContainedIn(const ConnectionId &connId) const;
+        const QList<GroupId> Subscriptions() const override;
+        const QList<GroupId> GetConnectionContainedIn(const ConnectionId &connId) const override;
         //
         // Connectivity Operationss
-        bool StartConnection(const ConnectionGroupPair &identifier);
-        void StopConnection();
-        void RestartConnection();
+        bool StartConnection(const ConnectionGroupPair &identifier) override;
+        void StopConnection() override;
+        void RestartConnection() override;
         //
         // Connection Operations.
-        void ClearGroupUsage(const GroupId &id);
-        void ClearConnectionUsage(const ConnectionGroupPair &id);
+        void ClearGroupUsage(const GroupId &id) override;
+        void ClearConnectionUsage(const ConnectionGroupPair &id) override;
         //
         const ConnectionGroupPair CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId = DefaultGroupId,
-                                                   bool skipSaveConfig = false);
-        bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
-        const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
+                                                   bool skipSaveConfig = false) override;
+        bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false) override;
+        const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName) override;
         //
         // Connection - Group binding
-        bool RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
-        bool MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid);
-        bool LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId);
+        bool RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid) override;
+        bool MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid) override;
+        bool LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId) override;
         //
         // Get Conncetion Property
-        const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
+        const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const override;
         //
         // Misc Connection Operations
         void StartLatencyTest();
@@ -109,11 +112,10 @@ namespace Qv2ray::core::handler
         void StartLatencyTest(const ConnectionId &id, Qv2rayLatencyTestingMethod method = GlobalConfig.networkConfig->latencyTestingMethod);
         //
         // Group Operations
-        const GroupId CreateGroup(const QString &displayName, bool isSubscription);
-        const std::optional<QString> DeleteGroup(const GroupId &id);
-        const std::optional<QString> RenameGroup(const GroupId &id, const QString &newName);
-        const GroupRoutingId GetGroupRoutingId(const GroupId &id);
-        // const optional<QString> DuplicateGroup(const GroupId &id);
+        const GroupId CreateGroup(const QString &displayName, bool isSubscription) override;
+        const std::optional<QString> DeleteGroup(const GroupId &id) override;
+        const std::optional<QString> RenameGroup(const GroupId &id, const QString &newName) override;
+        const GroupRoutingId GetGroupRoutingId(const GroupId &id) override;
         //
         // Subscriptions
         void UpdateSubscriptionAsync(const GroupId &id);

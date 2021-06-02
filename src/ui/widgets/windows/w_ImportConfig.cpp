@@ -87,7 +87,7 @@ int ImportConfigWindow::PerformImportConnection()
         {
             auto connName = groupObject.key(connConf);
 
-            auto [protocol, host, port] = GetConnectionInfo(connConf);
+            auto [protocol, host, port] = GetOutboundInfoTuple(GetConnectionPart<OUTBOUND>(connConf, 0));
             if (connName.isEmpty())
             {
                 connName = protocol + "/" + host + ":" + QSTRN(port) + "-" + GenerateRandomString(5);
@@ -102,7 +102,7 @@ int ImportConfigWindow::PerformImportConnection()
         for (const auto &connConf : groupObject)
         {
             auto connName = groupObject.key(connConf);
-            auto [protocol, host, port] = GetConnectionInfo(connConf);
+            auto [protocol, host, port] = GetOutboundInfoTuple(GetConnectionPart<OUTBOUND>(connConf, 0));
             if (connName.isEmpty())
             {
                 connName = protocol + "/" + host + ":" + QSTRN(port) + "-" + GenerateRandomString(5);

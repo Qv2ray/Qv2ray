@@ -176,7 +176,7 @@ void GroupManager::reloadGroupRCMActions()
 
 void GroupManager::reloadConnectionsList(const GroupId &group)
 {
-    if (group == NullGroupId)
+    if (group.isEmpty())
         return;
     connectionsTable->clearContents();
     connectionsTable->model()->removeRows(0, connectionsTable->rowCount());
@@ -188,9 +188,9 @@ void GroupManager::reloadConnectionsList(const GroupId &group)
         //
         auto displayNameItem = new QTableWidgetItem(GetDisplayName(conn));
         displayNameItem->setData(Qt::UserRole, conn.toString());
-        auto typeItem = new QTableWidgetItem(GetConnectionProtocolString(conn));
+        auto typeItem = new QTableWidgetItem(GetConnectionProtocolDescription(conn));
         //
-        const auto [type, host, port] = GetConnectionInfo(conn);
+        const auto [type, host, port] = GetOutboundInfoTuple(GetConnectionPart<OUTBOUND>(ConnectionManager->GetConnectionRoot(conn), 0));
         auto hostPortItem = new QTableWidgetItem(host + ":" + QSTRN(port));
         //
         QStringList groupsNamesString;
@@ -325,7 +325,7 @@ void GroupManager::on_removeGroupButton_clicked()
 
 void GroupManager::on_buttonBox_accepted()
 {
-    if (currentGroupId != NullGroupId)
+    if (!currentGroupId.isEmpty())
     {
         const auto routeId = ConnectionManager->GetGroupRoutingId(currentGroupId);
         const auto &[dns, fakedns] = dnsSettingsWidget->GetDNSObject();

@@ -174,7 +174,6 @@ include(cmake/libcurl.cmake)
 include(cmake/libsemver.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/backend.cmake)
-include(3rdparty/QJsonStruct/QJsonStruct.cmake)
 
 # ==================================================================================
 # Qv2ray Base, Qt Libraries, Qv2ray GUI Libraries, libThreads
@@ -245,7 +244,6 @@ target_include_directories(qv2ray_base PUBLIC
 if(QV2RAY_HAS_BUILTIN_PLUGINS)
     include(src/plugins/protocols/QvPlugin-BuiltinProtocolSupport.cmake)
     include(src/plugins/subscription-adapters/QvPlugin-BuiltinSubscriptionAdapters.cmake)
-    include(src/plugins/utils/QvPlugin-BuiltinUtils.cmake)
 endif()
 
 # ==================================================================================

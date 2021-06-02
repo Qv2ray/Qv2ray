@@ -64,17 +64,17 @@ void MainWindow::MWSetSystemProxy()
 
     for (const auto &info : inboundInfo)
     {
-        if (info.protocol == "http")
+        if (info[IOBOUND::PROTOCOL] == "http")
         {
             httpEnabled = true;
-            httpPort = info.port;
-            httpAddress = info.address;
+            httpPort = info[IOBOUND::PORT].toInt();
+            httpAddress = info[IOBOUND::ADDRESS].toString();
         }
-        else if (info.protocol == "socks")
+        else if (info[IOBOUND::PROTOCOL] == "socks")
         {
             socksEnabled = true;
-            socksPort = info.port;
-            socksAddress = info.address;
+            socksPort = info[IOBOUND::PORT].toInt();
+            socksAddress = info[IOBOUND::ADDRESS].toString();
         }
     }
 

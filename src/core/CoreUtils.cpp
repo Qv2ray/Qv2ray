@@ -15,76 +15,19 @@ namespace Qv2ray::core
 
     bool IsComplexConfig(const CONFIGROOT &root)
     {
+        // If has routing, and there're rules exist.
         bool cRouting = root.contains("routing");
         bool cRule = cRouting && root["routing"].toObject().contains("rules");
         bool cRules = cRule && root["routing"].toObject()["rules"].toArray().count() > 0;
-        //
+
+        // If has inbounds, and there're inbounds exist.
         bool cInbounds = root.contains("inbounds");
         bool cInboundCount = cInbounds && root["inbounds"].toArray().count() > 0;
-        //
+
+        // If has outbounds, and there're more than 1 outbounds.
         bool cOutbounds = root.contains("outbounds");
         bool cOutboundCount = cOutbounds && root["outbounds"].toArray().count() > 1;
         return cRules || cInboundCount || cOutboundCount;
-    }
-
-    bool GetOutboundInfo(const OUTBOUND &out, QString *host, int *port, QString *protocol)
-    {
-        *protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
-        const auto info = PluginHost->Outbound_GetData(*protocol, out["settings"].toObject());
-        if (info)
-        {
-            *host = (*info)[DATA_KEY_SERVER].toString();
-            *port = (*info)[DATA_KEY_PORT].toInt();
-        }
-        else
-        {
-            *host = QObject::tr("N/A");
-            *port = 0;
-        }
-        return info.has_value();
-    }
-
-    ///
-    /// [Protocol, Host, Port]
-    const ProtocolSettingsInfoObject GetConnectionInfo(const ConnectionId &id, bool *status)
-    {
-        if (status != nullptr)
-            *status = false;
-        const auto root = ConnectionManager->GetConnectionRoot(id);
-        return GetConnectionInfo(root, status);
-    }
-
-    const ProtocolSettingsInfoObject GetConnectionInfo(const CONFIGROOT &out, bool *status)
-    {
-        if (status != nullptr)
-            *status = false;
-        //
-        //
-        for (const auto &item : out["outbounds"].toArray())
-        {
-            const auto outboundRoot = OUTBOUND(item.toObject());
-            QString host;
-            int port;
-            QString outboundType = "";
-
-            if (GetOutboundInfo(outboundRoot, &host, &port, &outboundType))
-            {
-                if (status != nullptr)
-                    *status = true;
-                // These lines will mess up the detection of protocols in subscription update.
-                // if (IsComplexConfig(out))
-                //{
-                //    outboundType += " " + QObject::tr("(Guessed)");
-                //    host += " " + QObject::tr("(Guessed)");
-                //}
-                return ProtocolSettingsInfoObject{ outboundType, host, port };
-            }
-            else
-            {
-                LOG("Unknown outbound type: " + outboundType + ", cannot deduce host and port.");
-            }
-        }
-        return { QObject::tr("N/A"), QObject::tr("N/A"), 0 };
     }
 
     const std::tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id)
@@ -105,7 +48,7 @@ namespace Qv2ray::core
         return std::max(*connection.latency, {});
     }
 
-    const QString GetConnectionProtocolString(const ConnectionId &id)
+    const QString GetConnectionProtocolDescription(const ConnectionId &id)
     {
         // Don't bother with the complex connection configs.
         if (IsComplexConfig(id))
@@ -131,42 +74,81 @@ namespace Qv2ray::core
         return result.join("+");
     }
 
-    const QString GetDisplayName(const ConnectionId &id, int limit)
+    QString GetDisplayName(const ConnectionId &id, int limit)
     {
         const QString name = ConnectionManager->GetConnectionMetaObject(id).displayName;
         return TruncateString(name, limit);
     }
 
-    const QString GetDisplayName(const GroupId &id, int limit)
+    QString GetDisplayName(const GroupId &id, int limit)
     {
         const QString name = ConnectionManager->GetGroupMetaObject(id).displayName;
         return TruncateString(name, limit);
     }
 
-    bool GetInboundInfo(const INBOUND &in, QString *listen, int *port, QString *protocol)
+    std::tuple<QString, QString, int> GetOutboundInfoTuple(const OUTBOUND &out)
     {
-        *protocol = in["protocol"].toString();
-        *listen = in["listen"].toString();
-        *port = in["port"].toVariant().toInt();
-        return true;
-    }
-
-    const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const CONFIGROOT &root)
-    {
-        QMap<QString, ProtocolSettingsInfoObject> inboundPorts;
-        for (const auto &inboundVal : root["inbounds"].toArray())
+        const auto protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
+        const auto info = PluginHost->Outbound_GetData(protocol, out["settings"].toObject());
+        if (info)
         {
-            INBOUND in{ inboundVal.toObject() };
-            QString host, protocol;
-            int port;
-            if (GetInboundInfo(in, &host, &port, &protocol))
-                inboundPorts[getTag(in)] = { protocol, host, port };
+            const auto val = info.value();
+            return { val[IOBOUND::PROTOCOL].toString(), val[IOBOUND::ADDRESS].toString(), val[IOBOUND::PORT].toInt() };
         }
-        return inboundPorts;
+        return { protocol, QObject::tr("N/A"), 0 };
     }
 
-    const QMap<QString, ProtocolSettingsInfoObject> GetInboundInfo(const ConnectionId &id)
+    QMap<QString, PluginIOBoundData> GetOutboundsInfo(const ConnectionId &id)
     {
-        return GetInboundInfo(ConnectionManager->GetConnectionRoot(id));
+        const auto root = ConnectionManager->GetConnectionRoot(id);
+        return GetOutboundsInfo(root);
     }
+
+    QMap<QString, PluginIOBoundData> GetOutboundsInfo(const CONFIGROOT &out)
+    {
+        QMap<QString, PluginIOBoundData> result;
+        for (const auto &item : out["outbounds"].toArray())
+        {
+            const auto outboundRoot = OUTBOUND(item.toObject());
+            result[getTag(outboundRoot)] = GetOutboundInfo(outboundRoot);
+        }
+        return result;
+    }
+
+    std::tuple<QString, QString, int> GetInboundInfoTuple(const INBOUND &in)
+    {
+        return { in["protocol"].toString(), in["listen"].toString(), in["port"].toVariant().toInt() };
+    }
+
+    QMap<QString, PluginIOBoundData> GetInboundsInfo(const ConnectionId &id)
+    {
+        return GetInboundsInfo(ConnectionManager->GetConnectionRoot(id));
+    }
+
+    QMap<QString, PluginIOBoundData> GetInboundsInfo(const CONFIGROOT &root)
+    {
+        QMap<QString, PluginIOBoundData> infomap;
+        for (const auto &inRef : root["inbounds"].toArray())
+        {
+            const auto in = inRef.toObject();
+            infomap[in["tag"].toString()] = GetInboundInfo(INBOUND(in));
+        }
+        return infomap;
+    }
+
+    PluginIOBoundData GetInboundInfo(const INBOUND &in)
+    {
+        return PluginIOBoundData{ { IOBOUND::PROTOCOL, in["protocol"].toString() },
+                                  { IOBOUND::ADDRESS, in["listen"].toString() },
+                                  { IOBOUND::PORT, in["port"].toInt() } };
+    }
+
+    PluginIOBoundData GetOutboundInfo(const OUTBOUND &out)
+    {
+        const auto data = PluginHost->Outbound_GetData(out["protocol"].toString(), out["settings"].toObject());
+        if (data)
+            return *data;
+        return {};
+    }
+
 } // namespace Qv2ray::core

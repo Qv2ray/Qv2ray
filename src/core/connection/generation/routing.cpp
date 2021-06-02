@@ -1,7 +1,7 @@
 #include "core/connection/Generation.hpp"
 namespace Qv2ray::core::connection::generation::routing
 {
-    QJsonObject GenerateDNS(const QvConfig_DNS &dnsServer)
+    QJsonObject GenerateDNS(const DNSConfig &dnsServer)
     {
         QJsonObject root = dnsServer.toJson();
         QJsonArray servers;
@@ -32,7 +32,7 @@ namespace Qv2ray::core::connection::generation::routing
     }
 
     // -------------------------- BEGIN CONFIG GENERATIONS
-    ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, bool bypassLAN, const QString &outTag, const QvConfig_Route &routeConfig)
+    ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, bool bypassLAN, const QString &outTag, const RouteConfig &routeConfig)
     {
         ROUTING root;
         root.insert("domainStrategy", *routeConfig.domainStrategy);

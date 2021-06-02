@@ -80,6 +80,6 @@ class GroupManager
     QMenu *connectionListRCMenu_MoveToMenu = new QMenu(tr("Move to..."));
     QMenu *connectionListRCMenu_LinkToMenu = new QMenu(tr("Link to..."));
     bool isUpdateInProgress = false;
-    GroupId currentGroupId = NullGroupId;
-    ConnectionId currentConnectionId = NullConnectionId;
+    GroupId currentGroupId;
+    ConnectionId currentConnectionId;
 };

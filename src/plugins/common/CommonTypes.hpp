@@ -14,20 +14,20 @@
 struct HTTPSOCKSUserObject : public QObject
 {
     Q_OBJECT
+    QJS_FUNCTION(HTTPSOCKSUserObject, F(user, pass, level))
     QJS_PROP(QString, user)
     QJS_PROP(QString, pass)
     QJS_PROP(int, level)
-    QJS_FUNCTION(HTTPSOCKSUserObject, F(user, pass, level))
 };
 //
 // Socks, OutBound
 struct SocksServerObject : public QObject
 {
     Q_OBJECT
+    QJS_FUNCTION(SocksServerObject, F(address, port, users))
     QJS_PROP_D(QString, address, "0.0.0.0")
     QJS_PROP_D(int, port, 0)
     QJS_PROP(QList<HTTPSOCKSUserObject>, users)
-    QJS_FUNCTION(SocksServerObject, F(address, port, users))
 };
 
 //
@@ -35,10 +35,10 @@ struct SocksServerObject : public QObject
 struct HttpServerObject : public QObject
 {
     Q_OBJECT
+    QJS_FUNCTION(HttpServerObject, F(address, port, users))
     QJS_PROP_D(QString, address, "0.0.0.0")
     QJS_PROP_D(int, port, 0)
     QJS_PROP(QList<HTTPSOCKSUserObject>, users)
-    QJS_FUNCTION(HttpServerObject, F(address, port, users))
 };
 
 //
@@ -46,20 +46,20 @@ struct HttpServerObject : public QObject
 struct ShadowSocksServerObject : public QObject
 {
     Q_OBJECT
+    QJS_FUNCTION(ShadowSocksServerObject, F(address, method, password, port))
     QJS_PROP_D(QString, address, "0.0.0.0")
     QJS_PROP_D(int, port, 0)
     QJS_PROP_D(QString, method, "aes-256-gcm")
     QJS_PROP(QString, password)
-    QJS_FUNCTION(ShadowSocksServerObject, F(address, method, password, port))
 };
 
 struct VLESSUserObject : public QObject
 {
     Q_OBJECT
+    QJS_FUNCTION(VLESSUserObject, F(encryption, id, flow))
     QJS_PROP_D(QString, encryption, "none")
     QJS_PROP(QString, id)
     QJS_PROP(QString, flow)
-    QJS_FUNCTION(VLESSUserObject, F(encryption, id, flow))
 };
 
 //
@@ -67,21 +67,21 @@ struct VLESSUserObject : public QObject
 struct VLESSServerObject : public QObject
 {
     Q_OBJECT
+    QJS_FUNCTION(VLESSServerObject, F(address, port, users))
     QJS_PROP_D(QString, address, "0.0.0.0")
     QJS_PROP_D(int, port, 0)
     QJS_PROP(QList<VLESSUserObject>, users)
-    QJS_FUNCTION(VLESSServerObject, F(address, port, users))
 };
 
 constexpr auto VMESS_USER_ALTERID_DEFAULT = 0;
 struct VMessUserObject : public QObject
 {
     Q_OBJECT
+    QJS_FUNCTION(VMessUserObject, F(id, alterId, security, level))
     QJS_PROP_D(int, alterId, VMESS_USER_ALTERID_DEFAULT)
     QJS_PROP_D(QString, security, "auto")
     QJS_PROP_D(int, level, 0)
     QJS_PROP(QString, id, REQUIRED)
-    QJS_FUNCTION(VMessUserObject, F(id, alterId, security, level))
 };
 
 //
@@ -89,8 +89,8 @@ struct VMessUserObject : public QObject
 struct VMessServerObject : public QObject
 {
     Q_OBJECT
+    QJS_FUNCTION(VMessServerObject, F(address, port, users))
     QJS_PROP_D(QString, address, "0.0.0.0", REQUIRED)
     QJS_PROP_D(int, port, 0, REQUIRED)
     QJS_PROP(QList<VMessUserObject>, users)
-    QJS_FUNCTION(VMessServerObject, F(address, port, users))
 };

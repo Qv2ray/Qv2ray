@@ -1,79 +1,79 @@
 #include "OutboundHandler.hpp"
 
-#include "3rdparty/QJsonStruct/QJsonIO.hpp"
+#include "QJsonIO.hpp"
 
 #include <QUrl>
 #include <QUrlQuery>
 
 using namespace Qv2rayPlugin;
 
-std::optional<PluginOutboundData> BuiltinSerializer::GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const
+std::optional<PluginIOBoundData> BuiltinSerializer::GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const
 {
-    PluginOutboundData obj;
-    obj[DATA_KEY_PROTOCOL] = protocol;
+    PluginIOBoundData obj;
+    obj[IOBOUND::PROTOCOL] = protocol;
     if (protocol == "http")
     {
         HttpServerObject http;
         http.loadJson(outbound["servers"].toArray().first());
-        obj[DATA_KEY_SERVER] = *http.address;
-        obj[DATA_KEY_PORT] = *http.port;
+        obj[IOBOUND::ADDRESS] = *http.address;
+        obj[IOBOUND::PORT] = *http.port;
         return obj;
     }
     else if (protocol == "socks")
     {
         SocksServerObject socks;
         socks.loadJson(outbound["servers"].toArray().first());
-        obj[DATA_KEY_SERVER] = *socks.address;
-        obj[DATA_KEY_PORT] = *socks.port;
+        obj[IOBOUND::ADDRESS] = *socks.address;
+        obj[IOBOUND::PORT] = *socks.port;
         return obj;
     }
     else if (protocol == "vmess")
     {
         VMessServerObject vmess;
         vmess.loadJson(outbound["vnext"].toArray().first());
-        obj[DATA_KEY_SERVER] = *vmess.address;
-        obj[DATA_KEY_PORT] = *vmess.port;
+        obj[IOBOUND::ADDRESS] = *vmess.address;
+        obj[IOBOUND::PORT] = *vmess.port;
         return obj;
     }
     else if (protocol == "vless")
     {
         VLESSServerObject vless;
         vless.loadJson(outbound["vnext"].toArray().first());
-        obj[DATA_KEY_SERVER] = *vless.address;
-        obj[DATA_KEY_PORT] = *vless.port;
+        obj[IOBOUND::ADDRESS] = *vless.address;
+        obj[IOBOUND::PORT] = *vless.port;
         return obj;
     }
     else if (protocol == "shadowsocks")
     {
         ShadowSocksServerObject ss;
         ss.loadJson(outbound["servers"].toArray().first());
-        obj[DATA_KEY_SERVER] = *ss.address;
-        obj[DATA_KEY_PORT] = *ss.port;
+        obj[IOBOUND::ADDRESS] = *ss.address;
+        obj[IOBOUND::PORT] = *ss.port;
         return obj;
     }
     return std::nullopt;
 }
 
-bool BuiltinSerializer::SetOutboundInfo(const QString &protocol, QJsonObject &outbound, const PluginOutboundData &info) const
+bool BuiltinSerializer::SetOutboundInfo(const QString &protocol, QJsonObject &outbound, const PluginIOBoundData &info) const
 {
     if ((QStringList{ "http", "socks", "shadowsocks" }).contains(protocol))
     {
-        QJsonIO::SetValue(outbound, info[DATA_KEY_SERVER].toString(), "servers", 0, "address");
-        QJsonIO::SetValue(outbound, info[DATA_KEY_PORT].toInt(), "servers", 0, "port");
+        QJsonIO::SetValue(outbound, info[IOBOUND::ADDRESS].toString(), "servers", 0, "address");
+        QJsonIO::SetValue(outbound, info[IOBOUND::PORT].toInt(), "servers", 0, "port");
         return true;
     }
 
     if ((QStringList{ "vless", "vmess" }).contains(protocol))
     {
-        QJsonIO::SetValue(outbound, info[DATA_KEY_SERVER].toString(), "vnext", 0, "address");
-        QJsonIO::SetValue(outbound, info[DATA_KEY_PORT].toInt(), "vnext", 0, "port");
+        QJsonIO::SetValue(outbound, info[IOBOUND::ADDRESS].toString(), "vnext", 0, "address");
+        QJsonIO::SetValue(outbound, info[IOBOUND::PORT].toInt(), "vnext", 0, "port");
         return true;
     }
 
     return false;
 }
 
-std::optional<QString> BuiltinSerializer::Serialize(const PluginOutboundInfo &info) const
+std::optional<QString> BuiltinSerializer::Serialize(const PluginOutboundDescriptor &info) const
 {
     const auto protocol = info.Protocol;
     const auto oubound = info.Outbound;
@@ -207,7 +207,7 @@ std::optional<QString> BuiltinSerializer::Serialize(const PluginOutboundInfo &in
     return std::nullopt;
 }
 
-std::optional<PluginOutboundInfo> BuiltinSerializer::Deserialize(const QString &link) const
+std::optional<PluginOutboundDescriptor> BuiltinSerializer::Deserialize(const QString &link) const
 {
     if (link.startsWith("http://") || link.startsWith("socks://"))
     {
@@ -217,7 +217,7 @@ std::optional<PluginOutboundInfo> BuiltinSerializer::Deserialize(const QString &
         QJsonIO::SetValue(root, url.port(), "servers", 0, "port");
         QJsonIO::SetValue(root, url.userName(), "servers", 0, "users", 0, "user");
         QJsonIO::SetValue(root, url.password(), "servers", 0, "users", 0, "pass");
-        return PluginOutboundInfo{ url.fragment(), url.scheme(), root, {} };
+        return PluginOutboundDescriptor{ url.fragment(), url.scheme(), root, {} };
     }
 
     return std::nullopt;

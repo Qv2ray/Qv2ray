@@ -40,8 +40,8 @@ class ConnectionInfoWidget
   private:
     void updateColorScheme();
     QvMessageBusSlotDecl;
-    ConnectionId connectionId = NullConnectionId;
-    GroupId groupId = NullGroupId;
+    ConnectionId connectionId;
+    GroupId groupId;
     //
     bool isRealPixmapShown;
     QPixmap qrPixmap;

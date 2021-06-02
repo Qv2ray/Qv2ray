@@ -4,7 +4,7 @@
 
 namespace Qv2ray::core::connection::serialization
 {
-    const inline QString QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER = "(N/A)";
+    const inline auto QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER = "(N/A)";
     /**
      * pattern for the nodes in ssd links.
      * %1: airport name

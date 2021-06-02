@@ -23,21 +23,17 @@ class InternalProtocolSupportPlugin
                  "Qv2ray Core Workgroup",                                                     //
                  "qv2ray_builtin_protocol",                                                   //
                  "VMess, VLESS, SOCKS, HTTP, Shadowsocks, DNS, Dokodemo-door editor support", //
-                 QV2RAY_VERSION_STRING,                                                       //
-                 "Qv2ray/Qv2ray",                                                             //
+                 "Qv2ray Repository",                                                         //
                  {
                      COMPONENT_OUTBOUND_HANDLER, //
                      COMPONENT_GUI               //
-                 },
-                 UPDATE_NONE };
+                 } };
     }
 
-    bool InitializePlugin(const QString &, const QJsonObject &) override;
+    bool InitializePlugin() override;
     void SettingsUpdated() override{};
 
   signals:
     void PluginLog(QString) const override;
     void PluginErrorMessageBox(QString, QString) const override;
 };
-
-DECLARE_PLUGIN_INSTANCE(InternalProtocolSupportPlugin);

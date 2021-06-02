@@ -43,10 +43,10 @@ namespace Qv2ray::components::plugins
         }
 
         // Outbound API
-        std::optional<PluginOutboundInfo> Outbound_Deserialize(const QString &link) const;
-        std::optional<QString> Outbound_Serialize(const PluginOutboundInfo &outbound) const;
-        std::optional<PluginOutboundData> Outbound_GetData(const QString &protocol, const QJsonObject &o) const;
-        bool Outbound_SetData(const QString &protocol, QJsonObject &o, const PluginOutboundData &info) const;
+        std::optional<PluginOutboundDescriptor> Outbound_Deserialize(const QString &link) const;
+        std::optional<QString> Outbound_Serialize(const PluginOutboundDescriptor &outbound) const;
+        std::optional<PluginIOBoundData> Outbound_GetData(const QString &protocol, const QJsonObject &o) const;
+        bool Outbound_SetData(const QString &protocol, QJsonObject &o, const PluginIOBoundData &info) const;
 
         // Subscription Adapter API
         std::optional<std::shared_ptr<SubscriptionDecoder>> Subscription_QueryType(const QString &type) const;

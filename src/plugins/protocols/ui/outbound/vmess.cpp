@@ -25,19 +25,17 @@ void VmessOutboundEditor::SetContent(const QJsonObject &content)
     if (content["vnext"].toArray().isEmpty())
         content["vnext"] = QJsonArray{ QJsonObject{} };
 
-    QJS_BINDING_CLEAR
-
     vmess.loadJson(content["vnext"].toArray().first().toObject());
     if (vmess.users->isEmpty())
         vmess.users->push_back({});
 
-    QJS_RWBINDING(vmess.users->first().security, securityCombo, "currentText", &QComboBox::currentIndexChanged)
-    QJS_RWBINDING(vmess.users->first().alterId, alterLineEdit, "value", &QSpinBox::valueChanged)
-    QJS_RWBINDING(vmess.users->first().id, idLineEdit, "text", &QLineEdit::textEdited)
+    vmess.users->first().security.ReadWriteBind(securityCombo, "currentText", &QComboBox::currentIndexChanged);
+    vmess.users->first().alterId.ReadWriteBind(alterLineEdit, "value", &QSpinBox::valueChanged);
+    vmess.users->first().id.ReadWriteBind(idLineEdit, "text", &QLineEdit::textEdited);
 
     if (alterLineEdit->value() > 0)
     {
         const auto msg = tr("VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.");
-        emit InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Non AEAD VMess detected"), msg);
+        emit PluginInstance->PluginErrorMessageBox(tr("Non AEAD VMess detected"), msg);
     }
 }

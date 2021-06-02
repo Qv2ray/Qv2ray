@@ -3,6 +3,7 @@
 #include "RealPing.hpp"
 #include "TCPing.hpp"
 #include "core/CoreUtils.hpp"
+#include "core/handler/ConfigHandler.hpp"
 
 #ifdef Q_OS_UNIX
 #include "unix/ICMPPing.hpp"
@@ -23,7 +24,7 @@ namespace Qv2ray::components::latency
         if (isStop)
             return;
         std::unique_lock<std::mutex> lockGuard{ m };
-        const auto &[protocol, host, port] = GetConnectionInfo(id);
+        const auto &[protocol, host, port] = GetOutboundInfoTuple(GetConnectionPart<OUTBOUND>(ConnectionManager->GetConnectionRoot(id), 0));
         requests.emplace_back(LatencyTestRequest{ id, host, port, totalTestCount, method });
     }
 
@@ -98,7 +99,7 @@ namespace Qv2ray::components::latency
         std::unique_lock<std::mutex> lockGuard{ m };
         for (const auto &id : ids)
         {
-            const auto &[protocol, host, port] = GetConnectionInfo(id);
+            const auto &[protocol, host, port] = GetOutboundInfoTuple(GetConnectionPart<OUTBOUND>(ConnectionManager->GetConnectionRoot(id), 0));
             requests.emplace_back(LatencyTestRequest{ id, host, port, totalTestCount, method });
         }
     }

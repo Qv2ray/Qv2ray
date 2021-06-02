@@ -63,7 +63,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
 {
     this->groupId = _identifier.groupId;
     this->connectionId = _identifier.connectionId;
-    bool isConnection = connectionId != NullConnectionId;
+    bool isConnection = !connectionId.isEmpty();
     //
     editBtn->setEnabled(isConnection);
     editJsonBtn->setEnabled(isConnection);
@@ -74,10 +74,10 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         auto shareLink = ConvertConfigToString(_identifier);
         //
         shareLinkTxt->setText(shareLink);
-        protocolLabel->setText(GetConnectionProtocolString(connectionId));
+        protocolLabel->setText(GetConnectionProtocolDescription(connectionId));
         //
         groupLabel->setText(GetDisplayName(groupId, 175));
-        auto [protocol, host, port] = GetConnectionInfo(connectionId);
+        auto [protocol, host, port] = GetOutboundInfoTuple(GetConnectionPart<OUTBOUND>(ConnectionManager->GetConnectionRoot(connectionId), 0));
         Q_UNUSED(protocol)
         addressLabel->setText(host);
         portLabel->setNum(port);
@@ -168,7 +168,7 @@ void ConnectionInfoWidget::on_deleteBtn_clicked()
 {
     if (QvMessageBoxAsk(this, tr("Delete an item"), tr("Are you sure to delete the current item?")) == Yes)
     {
-        if (connectionId != NullConnectionId)
+        if (!connectionId.isEmpty())
         {
             ConnectionManager->RemoveConnectionFromGroup(connectionId, groupId);
         }
@@ -218,7 +218,7 @@ void ConnectionInfoWidget::OnDisConnected(const ConnectionGroupPair &id)
 
 void ConnectionInfoWidget::on_latencyBtn_clicked()
 {
-    if (connectionId != NullConnectionId)
+    if (!connectionId.isEmpty())
     {
         ConnectionManager->StartLatencyTest(connectionId);
     }

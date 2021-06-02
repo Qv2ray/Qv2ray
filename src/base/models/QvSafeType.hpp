@@ -1,42 +1,10 @@
 #pragma once
-#include "3rdparty/QJsonStruct/QJsonStruct.hpp"
+#include "QJsonStruct.hpp"
 
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QMap>
 
-template<typename placeholder, typename BASETYPE_T>
-class SAFETYPE_IMPL : public BASETYPE_T
-{
-  public:
-    template<class... Args>
-    explicit SAFETYPE_IMPL(Args... args) : BASETYPE_T(args...){};
-    const BASETYPE_T &raw() const
-    {
-        return *this;
-    }
-};
-
-#define SAFE_TYPEDEF(BASE, CLASS)                                                                                                                    \
-    class __##CLASS##__;                                                                                                                             \
-    typedef SAFETYPE_IMPL<__##CLASS##__, BASE> CLASS;
-
-#define nothing
 namespace Qv2ray::base::safetype
 {
-    // To prevent anonying QJsonObject misuse
-    SAFE_TYPEDEF(QJsonObject, INBOUNDSETTING);
-    SAFE_TYPEDEF(QJsonObject, OUTBOUNDSETTING);
-    SAFE_TYPEDEF(QJsonObject, INBOUND);
-    SAFE_TYPEDEF(QJsonObject, OUTBOUND);
-    SAFE_TYPEDEF(QJsonObject, CONFIGROOT);
-    SAFE_TYPEDEF(QJsonObject, ROUTING);
-    SAFE_TYPEDEF(QJsonObject, ROUTERULE);
-    //
-    SAFE_TYPEDEF(QJsonArray, OUTBOUNDS);
-    SAFE_TYPEDEF(QJsonArray, INBOUNDS);
-
     template<typename T1, typename T2 = T1>
     struct QvPair
     {

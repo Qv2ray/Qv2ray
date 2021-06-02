@@ -384,7 +384,7 @@ namespace Qv2ray::core::handler
 
     const GroupRoutingId QvConfigHandler::GetGroupRoutingId(const GroupId &id)
     {
-        if (groups[id].routeConfigId == NullRoutingId)
+        if (groups[id].routeConfigId->isEmpty())
         {
             groups[id].routeConfigId = GroupRoutingId{ GenerateRandomString() };
         }
@@ -394,7 +394,7 @@ namespace Qv2ray::core::handler
     const std::optional<QString> QvConfigHandler::RenameGroup(const GroupId &id, const QString &newName)
     {
         CheckValidId(id, tr("Group does not exist"));
-        OnGroupRenamed(id, groups[id].displayName, newName);
+        emit OnGroupRenamed(id, groups[id].displayName, newName);
         PluginHost->Event_Send<ConnectionEntry>({ ConnectionEntry::Renamed, newName, groups[id].displayName });
         groups[id].displayName = newName;
         return {};
@@ -543,7 +543,7 @@ namespace Qv2ray::core::handler
             for (const auto &conn : *groups[id].connections)
             {
                 nameMap.insert(GetDisplayName(conn), conn);
-                const auto &&[protocol, host, port] = GetConnectionInfo(conn);
+                const auto &&[protocol, host, port] = GetOutboundInfoTuple(OUTBOUND{ connectionRootCache[conn]["outbounds"].toArray()[0].toObject() });
                 if (port != 0)
                 {
                     typeMap.insert({ protocol, host, port }, conn);
@@ -625,8 +625,7 @@ namespace Qv2ray::core::handler
         {
             const auto &_alias = config.first;
             // Should not have complex connection we assume.
-            bool canGetOutboundData = false;
-            const auto &&[protocol, host, port] = GetConnectionInfo(config.second, &canGetOutboundData);
+            const auto &&[protocol, host, port] = GetOutboundInfoTuple(OUTBOUND{ config.second["outbounds"].toArray()[0].toObject() });
             const auto outboundData = std::make_tuple(protocol, host, port);
             //
             // ====================================================================================== Begin guessing new ConnectionId
@@ -641,7 +640,7 @@ namespace Qv2ray::core::handler
                 originalConnectionIdList.removeAll(_conn);
                 typeMap.remove(typeMap.key(_conn));
             }
-            else if (canGetOutboundData && typeMap.contains(outboundData))
+            else if (typeMap.contains(outboundData))
             {
                 LOG("Reused connection id from protocol/host/port pair for connection: " + _alias);
                 const auto _conn = typeMap.take(outboundData);

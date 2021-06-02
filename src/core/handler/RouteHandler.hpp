@@ -12,17 +12,17 @@ namespace Qv2ray::core::handler
         ~RouteHandler();
         void SaveRoutes() const;
         //
-        std::tuple<bool, QvConfig_DNS, QvConfig_FakeDNS> GetDNSSettings(const GroupRoutingId &id) const
+        std::tuple<bool, DNSConfig, FakeDNSConfig> GetDNSSettings(const GroupRoutingId &id) const
         {
             return { configs[id].overrideDNS, configs[id].dnsConfig, configs[id].fakeDNSConfig };
         }
-        std::pair<bool, QvConfig_Route> GetAdvancedRoutingSettings(const GroupRoutingId &id) const
+        std::pair<bool, RouteConfig> GetAdvancedRoutingSettings(const GroupRoutingId &id) const
         {
             return { configs[id].overrideRoute, configs[id].routeConfig };
         }
         //
-        bool SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns, const QvConfig_FakeDNS &fakeDNS);
-        bool SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_Route &dns);
+        bool SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const DNSConfig &dns, const FakeDNSConfig &fakeDNS);
+        bool SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const RouteConfig &dns);
         //
         OUTBOUNDS ExpandExternalConnection(const OUTBOUNDS &outbounds) const;
         //

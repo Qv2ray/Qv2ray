@@ -1,6 +1,7 @@
 #pragma once
 
-#include "base/models/QvConfigIdentifier.hpp"
+#include "base/Qv2rayBase.hpp"
+#include "plugin-interface/connections/ConnectionsBaseTypes.hpp"
 #include "ui_ConnectionItemWidget.h"
 
 #include <QWidget>
@@ -30,7 +31,7 @@ class ConnectionItemWidget
     }
     inline bool IsConnection() const
     {
-        return connectionId != NullConnectionId;
+        return !connectionId.isEmpty();
     }
   signals:
     void RequestWidgetFocus(const ConnectionItemWidget *me);

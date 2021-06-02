@@ -58,7 +58,7 @@ void SocksInboundEditor::on_socksRemoveUserBtn_clicked()
     }
     else
     {
-        InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
+        PluginInstance->PluginErrorMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
     }
 }
 
@@ -76,7 +76,7 @@ void SocksInboundEditor::on_socksAddUserBtn_clicked()
 
         if (_user["user"].toString() == user)
         {
-            InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Add a user"), tr("This user exists already."));
+            PluginInstance->PluginErrorMessageBox(tr("Add a user"), tr("This user exists already."));
             return;
         }
     }

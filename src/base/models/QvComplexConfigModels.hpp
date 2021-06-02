@@ -1,8 +1,8 @@
 #pragma once
 
 #include "CoreObjectModels.hpp"
-#include "QvConfigIdentifier.hpp"
 #include "QvSafeType.hpp"
+#include "plugin-interface/connections/ConnectionsBaseTypes.hpp"
 
 namespace Qv2ray::base::objects::complex
 {
@@ -65,7 +65,7 @@ namespace Qv2ray::base::objects::complex
         QString strategyType;
         int chainPortAllocation = QV2RAY_CHAINED_OUTBOUND_PORT_ALLOCATION;
         //
-        safetype::OUTBOUND realOutbound;
+        OUTBOUND realOutbound;
         QString getDisplayName() const
         {
             if (metaType == METAOUTBOUND_ORIGINAL)
@@ -73,7 +73,7 @@ namespace Qv2ray::base::objects::complex
             else
                 return displayName;
         }
-        static OutboundObjectMeta loadFromOutbound(const safetype::OUTBOUND &out)
+        static OutboundObjectMeta loadFromOutbound(const OUTBOUND &out)
         {
             OutboundObjectMeta meta;
             meta.loadJson(out[META_OUTBOUND_KEY_NAME].toObject());
@@ -112,7 +112,7 @@ namespace Qv2ray::base::objects::complex
         return meta;
     }
 
-    inline OutboundObjectMeta make_normal_outbound(const safetype::OUTBOUND &outbound)
+    inline OutboundObjectMeta make_normal_outbound(const OUTBOUND &outbound)
     {
         OutboundObjectMeta meta;
         meta.metaType = METAOUTBOUND_ORIGINAL;

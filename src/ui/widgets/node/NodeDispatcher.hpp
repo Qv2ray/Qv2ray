@@ -127,7 +127,7 @@ class NodeDispatcher
     void OnObjectTagChanged(ComplexTagNodeMode, const QString originalTag, const QString newTag);
 
   signals:
-    void OnInboundOutboundNodeHovered(const QString &tag, const ProtocolSettingsInfoObject &);
+    void OnInboundOutboundNodeHovered(const QString &tag, const PluginIOBoundData &);
 
   private:
     QString defaultOutbound;

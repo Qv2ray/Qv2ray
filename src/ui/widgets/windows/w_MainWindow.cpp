@@ -303,7 +303,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     qvLogTimerId = startTimer(1000);
     //
 
-    for (const auto &[pluginInterface, guiInterface] : GUIPluginHost->GUI_QueryByComponent(GUI_COMPONENT_MAIN_WINDOW_WIDGET))
+    for (const auto &[pluginInterface, guiInterface] : GUIPluginHost->GUI_QueryByComponent(GUI_COMPONENT_MAIN_WINDOW_ACTIONS))
     {
         auto mainWindowWidgetPtr = guiInterface->GetMainWindowWidget();
         if (!mainWindowWidgetPtr)

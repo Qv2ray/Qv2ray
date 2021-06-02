@@ -10,9 +10,6 @@
 [submodule "src/plugin-interface"]
 	path = src/plugin-interface
 	url = https://github.com/Shadowsocks-NET/QvPlugin-Interface
-[submodule "3rdparty/QJsonStruct"]
-	path = 3rdparty/QJsonStruct
-	url = https://github.com/Shadowsocks-NET/QJsonStruct
 [submodule "3rdparty/libuv"]
     path = 3rdparty/libuv
     url = https://github.com/libuv/libuv.git

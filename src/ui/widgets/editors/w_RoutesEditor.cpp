@@ -149,12 +149,12 @@ QvMessageBusSlotImpl(RouteEditor)
     }
 }
 
-void RouteEditor::OnDispatcherInboundOutboundHovered(const QString &tag, const ProtocolSettingsInfoObject &info)
+void RouteEditor::OnDispatcherInboundOutboundHovered(const QString &tag, const PluginIOBoundData &info)
 {
     tagLabel->setText(tag);
-    hostLabel->setText(info.address);
-    portLabel->setNum(info.port);
-    protocolLabel->setText(info.protocol);
+    hostLabel->setText(info[IOBOUND::ADDRESS].toString());
+    portLabel->setNum(info[IOBOUND::PORT].toInt());
+    protocolLabel->setText(info[IOBOUND::PROTOCOL].toString());
 }
 
 void RouteEditor::OnDispatcherOutboundCreated(std::shared_ptr<OutboundObjectMeta> out, QtNodes::Node &)
@@ -545,7 +545,7 @@ void RouteEditor::on_importOutboundBtn_clicked()
 
     for (auto i = 0; i < configs.count(); i++)
     {
-        const auto conf = configs.values()[i];
+        const auto conf = configs.values().value(i);
         const auto name = configs.key(conf, "");
 
         if (name.isEmpty())

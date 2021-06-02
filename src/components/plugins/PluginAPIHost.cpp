@@ -12,7 +12,6 @@
 PluginAPIHost::PluginAPIHost()
 {
     core = new PluginManagerCore;
-    core->LoadPlugins();
 }
 
 void PluginAPIHost::LoadPlugins()
@@ -44,7 +43,7 @@ QUuid PluginAPIHost::Kernel_QueryProtocol(const QString &protocol) const
 void PluginAPIHost::SetPluginSettings(const QString &pid, const QJsonObject &settings)
 {
     const auto plugin = core->GetPlugin(pid);
-    plugin->pinterface->settings = settings;
+    plugin->pinterface->m_Settings = settings;
     if (plugin->isEnabled())
         plugin->pinterface->SettingsUpdated();
 }
@@ -59,7 +58,7 @@ PluginAPIHost::~PluginAPIHost()
     delete core;
 }
 
-std::optional<PluginOutboundData> PluginAPIHost::Outbound_GetData(const QString &protocol, const QJsonObject &o) const
+std::optional<PluginIOBoundData> PluginAPIHost::Outbound_GetData(const QString &protocol, const QJsonObject &o) const
 {
     for (const auto &plugin : core->GetPlugins(COMPONENT_OUTBOUND_HANDLER))
     {
@@ -74,7 +73,7 @@ std::optional<PluginOutboundData> PluginAPIHost::Outbound_GetData(const QString 
     return std::nullopt;
 }
 
-bool PluginAPIHost::Outbound_SetData(const QString &protocol, QJsonObject &o, const PluginOutboundData &info) const
+bool PluginAPIHost::Outbound_SetData(const QString &protocol, QJsonObject &o, const PluginIOBoundData &info) const
 {
     for (const auto &plugin : core->GetPlugins(COMPONENT_OUTBOUND_HANDLER))
     {
@@ -115,7 +114,7 @@ QList<std::pair<const QvPluginInfo *, SubscriptionInfoObject>> PluginAPIHost::Su
     return list;
 }
 
-std::optional<QString> PluginAPIHost::Outbound_Serialize(const PluginOutboundInfo &info) const
+std::optional<QString> PluginAPIHost::Outbound_Serialize(const PluginOutboundDescriptor &info) const
 {
     for (const auto &plugin : core->GetPlugins(COMPONENT_OUTBOUND_HANDLER))
     {
@@ -130,7 +129,7 @@ std::optional<QString> PluginAPIHost::Outbound_Serialize(const PluginOutboundInf
     return std::nullopt;
 }
 
-std::optional<PluginOutboundInfo> PluginAPIHost::Outbound_Deserialize(const QString &link) const
+std::optional<PluginOutboundDescriptor> PluginAPIHost::Outbound_Deserialize(const QString &link) const
 {
     for (const auto &plugin : core->GetPlugins(COMPONENT_OUTBOUND_HANDLER))
     {
@@ -155,14 +154,14 @@ namespace Qv2ray::components::plugins
         QStringList typesList;
         if (types.isEmpty())
             typesList << QObject::tr("None");
-        for (auto type : types)
+        for (const auto &type : types)
         {
             switch (type)
             {
                 case GUI_COMPONENT_SETTINGS: typesList << QObject::tr("Settings Widget"); break;
                 case GUI_COMPONENT_INBOUND_EDITOR: typesList << QObject::tr("Inbound Editor"); break;
                 case GUI_COMPONENT_OUTBOUND_EDITOR: typesList << QObject::tr("Outbound Editor"); break;
-                case GUI_COMPONENT_MAIN_WINDOW_WIDGET: typesList << QObject::tr("MainWindow Widget"); break;
+                case GUI_COMPONENT_MAIN_WINDOW_ACTIONS: typesList << QObject::tr("MainWindow Actions"); break;
                 case GUI_COMPONENT_TRAY_MENUS: typesList << QObject::tr("Tray Menu"); break;
             }
         }
@@ -174,7 +173,7 @@ namespace Qv2ray::components::plugins
         QStringList typesList;
         if (types.isEmpty())
             typesList << QObject::tr("None");
-        for (auto type : types)
+        for (const auto &type : types)
         {
             switch (type)
             {

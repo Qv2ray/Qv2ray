@@ -24,15 +24,17 @@ namespace Qv2ray::core::handler
         StopConnection();
     }
 
-    std::optional<QString> KernelInstanceHandler::CheckPort(const QMap<QString, ProtocolSettingsInfoObject> &info, int plugins)
+    std::optional<QString> KernelInstanceHandler::CheckPort(const QMap<QString, PluginIOBoundData> &info, int plugins)
     {
         QStringList portDetectionErrorMessage;
         auto portDetectionMsg = tr("There are other processes occupying the ports necessary to start the connection:") + NEWLINE + NEWLINE;
-        for (const auto &key : info.keys())
+        for (const auto &[key, value] : info.toStdMap())
         {
-            const auto result = components::port::CheckTCPPortStatus(info[key].address, info[key].port);
+            const auto address = value[IOBOUND::ADDRESS].toString();
+            const auto port = value[IOBOUND::PORT].toInt();
+            const auto result = components::port::CheckTCPPortStatus(address, port);
             if (!result)
-                portDetectionErrorMessage << tr("Endpoint: %1:%2 for inbound: \"%3\"").arg(info[key].address).arg(info[key].port).arg(key);
+                portDetectionErrorMessage << tr("Endpoint: %1:%2 for inbound: \"%3\"").arg(address).arg(port).arg(key);
         }
         if (GlobalConfig.pluginConfig->v2rayIntegration)
         {
@@ -58,7 +60,7 @@ namespace Qv2ray::core::handler
     std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionGroupPair &id, CONFIGROOT fullConfig)
     {
         StopConnection();
-        inboundInfo = GetInboundInfo(fullConfig);
+        inboundInfo = GetInboundsInfo(fullConfig);
         //
         const auto inboundPorts = GetInboundProtocolPorts();
         PluginHost->Event_Send<Connectivity>({ GetDisplayName(id.connectionId), inboundPorts, Connectivity::Connecting });
@@ -189,11 +191,14 @@ namespace Qv2ray::core::handler
 
                 for (const auto &v : qAsConst(inboundInfo))
                 {
-                    if (v.protocol != "http" && v.protocol != "socks")
+                    const auto protocol = v[IOBOUND::PROTOCOL].toString();
+                    const auto port = v[IOBOUND::PORT].toInt();
+
+                    if (protocol != "http" && protocol != "socks")
                         continue;
-                    pluginSettings[KERNEL_HTTP_ENABLED] = pluginSettings[KERNEL_HTTP_ENABLED].toBool() || v.protocol == "http";
-                    pluginSettings[KERNEL_SOCKS_ENABLED] = pluginSettings[KERNEL_SOCKS_ENABLED].toBool() || v.protocol == "socks";
-                    pluginSettings.insert(v.protocol.toLower() == "http" ? KERNEL_HTTP_PORT : KERNEL_SOCKS_PORT, v.port);
+                    pluginSettings[KERNEL_HTTP_ENABLED] = pluginSettings[KERNEL_HTTP_ENABLED].toBool() || protocol == "http";
+                    pluginSettings[KERNEL_SOCKS_ENABLED] = pluginSettings[KERNEL_SOCKS_ENABLED].toBool() || protocol == "socks";
+                    pluginSettings.insert(protocol.toLower() == "http" ? KERNEL_HTTP_PORT : KERNEL_SOCKS_PORT, port);
                 }
 
                 pluginSettings[KERNEL_SOCKS_UDP_ENABLED] = *GlobalConfig.inboundConfig->socksSettings->enableUDP;

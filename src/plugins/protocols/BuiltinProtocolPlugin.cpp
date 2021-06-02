@@ -3,11 +3,9 @@
 #include "core/OutboundHandler.hpp"
 #include "ui/Interface.hpp"
 
-bool InternalProtocolSupportPlugin::InitializePlugin(const QString &, const QJsonObject &settings)
+bool InternalProtocolSupportPlugin::InitializePlugin()
 {
-    this->settings = settings;
-    InternalProtocolSupportPluginInstance = this;
-    outboundHandler = std::make_shared<BuiltinSerializer>();
-    guiInterface = new ProtocolGUIInterface();
+    m_OutboundHandler = std::make_shared<BuiltinSerializer>();
+    m_GUIInterface = new ProtocolGUIInterface();
     return true;
 }

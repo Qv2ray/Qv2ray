@@ -79,6 +79,7 @@ void OutboundNodeModel::onNodeHoverEnter()
     }
     else if (dataptr->metaType == METAOUTBOUND_EXTERNAL)
     {
-        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getDisplayName(), GetConnectionInfo(dataptr->connectionId));
+        const auto root = ConnectionManager->GetConnectionRoot(dataptr->connectionId);
+        emit dispatcher->OnInboundOutboundNodeHovered(dataptr->getDisplayName(), GetOutboundInfo(GetConnectionPart<OUTBOUND>(root, 0)));
     }
 }

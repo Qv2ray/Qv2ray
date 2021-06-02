@@ -34,7 +34,7 @@ namespace Qv2ray::core::handler
         StringToFile(JsonToString(routingObject), QV2RAY_CONFIG_DIR + "routes.json");
     }
 
-    bool RouteHandler::SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_DNS &dns, const QvConfig_FakeDNS &fakeDNS)
+    bool RouteHandler::SetDNSSettings(const GroupRoutingId &id, bool overrideGlobal, const DNSConfig &dns, const FakeDNSConfig &fakeDNS)
     {
         configs[id].overrideDNS = overrideGlobal;
         configs[id].dnsConfig = dns;
@@ -42,7 +42,7 @@ namespace Qv2ray::core::handler
         return true;
     }
 
-    bool RouteHandler::SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const QvConfig_Route &route)
+    bool RouteHandler::SetAdvancedRouteSettings(const GroupRoutingId &id, bool overrideGlobal, const RouteConfig &route)
     {
         configs[id].overrideRoute = overrideGlobal;
         configs[id].routeConfig = route;
@@ -89,7 +89,7 @@ namespace Qv2ray::core::handler
             const auto firstOutboundTag = meta.getDisplayName();
             const auto lastOutboundTag = meta.outboundTags.first();
 
-            PluginOutboundData lastOutbound;
+            PluginIOBoundData lastOutbound;
 
             const auto outbountTagCount = meta.outboundTags.count();
 
@@ -119,7 +119,7 @@ namespace Qv2ray::core::handler
                 if (!isFirstOutbound)
                 {
                     const auto inboundTag = firstOutboundTag + ":" + QSTRN(nextInboundPort) + "->" + newOutboundTag;
-                    const auto inboundSettings = GenerateDokodemoIN(lastOutbound[DATA_KEY_SERVER].toString(), lastOutbound[DATA_KEY_PORT].toInt(), "tcp,udp");
+                    const auto inboundSettings = GenerateDokodemoIN(lastOutbound[IOBOUND::ADDRESS].toString(), lastOutbound[IOBOUND::PORT].toInt(), "tcp,udp");
                     const auto newInbound = GenerateInboundEntry(inboundTag, "dokodemo-door", "127.0.0.1", nextInboundPort, inboundSettings);
                     nextInboundPort++;
                     newInbounds << newInbound;
@@ -146,12 +146,12 @@ namespace Qv2ray::core::handler
                     lastOutbound = *info;
 
                     // Update allocated port as outbound server/port
-                    PluginOutboundData newOutboundInfo;
-                    newOutboundInfo[DATA_KEY_SERVER] = "127.0.0.1";
-                    newOutboundInfo[DATA_KEY_PORT] = nextInboundPort;
+                    PluginIOBoundData newOutboundInfo;
+                    newOutboundInfo[IOBOUND::ADDRESS] = "127.0.0.1";
+                    newOutboundInfo[IOBOUND::PORT] = nextInboundPort;
                     // For those kernels deducing SNI from the server name.
-                    if (!lastOutbound.contains(DATA_KEY_SNI) || lastOutbound[DATA_KEY_SNI].toString().trimmed().isEmpty())
-                        newOutboundInfo[DATA_KEY_SNI] = lastOutbound[DATA_KEY_SERVER];
+                    if (!lastOutbound.contains(IOBOUND::SNI) || lastOutbound[IOBOUND::SNI].toString().trimmed().isEmpty())
+                        newOutboundInfo[IOBOUND::SNI] = lastOutbound[IOBOUND::ADDRESS];
                     //
                     PluginHost->Outbound_SetData(outboundProtocol, outboundSettings, newOutboundInfo);
                     newOutbound.insert("settings", outboundSettings);

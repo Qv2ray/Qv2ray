@@ -95,7 +95,7 @@ namespace Qv2ray::core::connection
             }
             else
             {
-                const auto result = PluginHost->Outbound_Serialize(PluginOutboundInfo{ alias, type, settings, streamSettings });
+                const auto result = PluginHost->Outbound_Serialize(PluginOutboundDescriptor{ alias, type, settings, streamSettings });
                 return *result;
             }
 

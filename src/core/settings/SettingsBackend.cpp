@@ -237,7 +237,7 @@ namespace Qv2ray::core::config
         {
             // Load the config for upgrade, but do not parse it to the struct.
             auto conf = JsonFromString(StringFromFile(QV2RAY_CONFIG_FILE));
-            const auto configVersion = conf["config_version"].toInt();
+            const auto configVersion = conf["config_version"].toInt(QV2RAY_CONFIG_VERSION);
 
             if (configVersion > QV2RAY_CONFIG_VERSION)
             {

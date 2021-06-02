@@ -25,7 +25,7 @@ namespace Qv2ray::core::handler
         {
             return activeKernels.size();
         }
-        const QMap<QString, ProtocolSettingsInfoObject> GetCurrentConnectionInboundInfo() const
+        const QMap<QString, PluginIOBoundData> GetCurrentConnectionInboundInfo() const
         {
             return inboundInfo;
         }
@@ -55,7 +55,7 @@ namespace Qv2ray::core::handler
 
       private:
         void emitLogMessage(const QString &);
-        static std::optional<QString> CheckPort(const QMap<QString, ProtocolSettingsInfoObject> &info, int plugins);
+        static std::optional<QString> CheckPort(const QMap<QString, PluginIOBoundData> &info, int plugins);
 
       private:
         qsizetype pluginLogPrefixPadding = 0;
@@ -64,14 +64,14 @@ namespace Qv2ray::core::handler
             QMap<QString, int> result;
             for (const auto &[tag, info] : inboundInfo.toStdMap())
             {
-                result[info.protocol] = info.port;
+                result[info[IOBOUND::PROTOCOL].toString()] = info[IOBOUND::PORT].toInt();
             }
             return result;
         }
 
         // Since QMap does not support std::unique_ptr, we use std::map<>
         std::list<std::pair<QString, std::unique_ptr<PluginKernel>>> activeKernels;
-        QMap<QString, ProtocolSettingsInfoObject> inboundInfo;
+        QMap<QString, PluginIOBoundData> inboundInfo;
         V2RayKernelInstance *vCoreInstance = nullptr;
         ConnectionGroupPair currentId = {};
     };

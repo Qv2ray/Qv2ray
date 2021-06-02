@@ -8,7 +8,7 @@
 
 #define QV_MODULE_NAME "ConnectionItemWidget"
 
-ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId(NullConnectionId), groupId(NullGroupId)
+ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
@@ -33,7 +33,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionGroupPair &id, QWidge
                                    tr("Error") :                     //
                                    (QSTRN(latency) + " ms")));       //
     //
-    connTypeLabel->setText(GetConnectionProtocolString(id.connectionId).toUpper());
+    connTypeLabel->setText(GetConnectionProtocolDescription(id.connectionId).toUpper());
     auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     //
@@ -142,7 +142,7 @@ void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionGroupPair &i
 void ConnectionItemWidget::OnConnectionModified(const ConnectionId &id)
 {
     if (connectionId == id)
-        connTypeLabel->setText(GetConnectionProtocolString(id).toUpper());
+        connTypeLabel->setText(GetConnectionProtocolDescription(id).toUpper());
 }
 
 void ConnectionItemWidget::OnLatencyTestStart(const ConnectionId &id)
@@ -185,7 +185,7 @@ void ConnectionItemWidget::on_doRenameBtn_clicked()
 {
     if (renameTxt->text().isEmpty())
         return;
-    if (connectionId == NullConnectionId)
+    if (connectionId.isEmpty())
         ConnectionManager->RenameGroup(groupId, renameTxt->text());
     else
         ConnectionManager->RenameConnection(connectionId, renameTxt->text());

@@ -27,10 +27,10 @@ class ShadowsocksOutboundEditor
     {
         if (content["servers"].toArray().isEmpty())
             content["servers"] = QJsonArray{ QJsonObject{} };
-        QJS_BINDING_CLEAR
+
         shadowsocks.loadJson(content["servers"].toArray().first().toObject());
-        QJS_RWBINDING(shadowsocks.method, ss_encryptionMethod, "currentText", &QComboBox::currentTextChanged)
-        QJS_RWBINDING(shadowsocks.password, ss_passwordTxt, "text", &QLineEdit::textEdited)
+        shadowsocks.method.ReadWriteBind(ss_encryptionMethod, "currentText", &QComboBox::currentTextChanged);
+        shadowsocks.password.ReadWriteBind(ss_passwordTxt, "text", &QLineEdit::textEdited);
     }
     const QJsonObject GetContent() const override
     {
@@ -46,5 +46,4 @@ class ShadowsocksOutboundEditor
 
   private:
     ShadowSocksServerObject shadowsocks;
-    QJS_BINDING_HELPERS
 };

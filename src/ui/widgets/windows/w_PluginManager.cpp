@@ -2,6 +2,7 @@
 
 #include "components/plugins/PluginAPIHost.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/common/GuiPluginHost.hpp"
 #include "ui/widgets/editors/w_JsonEditor.hpp"
 #include "utils/QvHelpers.hpp"
 
@@ -12,10 +13,10 @@ PluginManageWindow::PluginManageWindow(QWidget *parent) : QvDialog("PluginManage
     setupUi(this);
     for (const auto &plugin : PluginHost->AllPlugins())
     {
-        plugins[plugin->metadata().InternalName] = plugin;
+        plugins[plugin->metadata().InternalID] = plugin;
         auto item = new QListWidgetItem(pluginListWidget);
         item->setCheckState(plugin->isEnabled() ? Qt::Checked : Qt::Unchecked);
-        item->setData(Qt::UserRole, plugin->metadata().InternalName);
+        item->setData(Qt::UserRole, plugin->metadata().InternalID);
         item->setText(plugin->metadata().Name);
         pluginListWidget->addItem(item);
     }
@@ -37,7 +38,7 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
     Q_UNUSED(previous)
     if (currentPluginInfo && currentSettingsWidget)
     {
-        PluginHost->SetPluginSettings(currentPluginInfo->metadata().InternalName, currentSettingsWidget->GetSettings());
+        PluginHost->SetPluginSettings(currentPluginInfo->metadata().InternalID, currentSettingsWidget->GetSettings());
         pluginSettingsLayout->removeWidget(currentSettingsWidget.get());
         currentSettingsWidget.reset();
     }

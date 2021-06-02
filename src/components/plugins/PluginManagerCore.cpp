@@ -2,7 +2,10 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "base/Qv2rayBaseApplication.hpp"
+#include "core/handler/ConfigHandler.hpp"
 #include "utils/QvHelpers.hpp"
+
+#define QV2RAY_PLUGIN_SETTINGS_DIR (QV2RAY_CONFIG_DIR + "plugin_settings/")
 
 using namespace Qv2rayPlugin;
 
@@ -10,12 +13,12 @@ using namespace Qv2rayPlugin;
 
 bool QvPluginInfo::isEnabled() const
 {
-    return GlobalConfig.pluginConfig->pluginStates->value(pinterface->GetMetadata().InternalName, true);
+    return GlobalConfig.pluginConfig->pluginStates->value(pinterface->GetMetadata().InternalID, true);
 }
 
 void QvPluginInfo::setEnabled(bool enabled) const
 {
-    GlobalConfig.pluginConfig->pluginStates->insert(metadata().InternalName, enabled);
+    GlobalConfig.pluginConfig->pluginStates->insert(metadata().InternalID, enabled);
 }
 
 PluginManagerCore::PluginManagerCore(QObject *parent) : QObject(parent)
@@ -56,7 +59,10 @@ void PluginManagerCore::LoadPlugins()
         for (auto &plugin : plugins.keys())
         {
             auto conf = JsonFromString(StringFromFile(QV2RAY_PLUGIN_SETTINGS_DIR + plugin + ".conf"));
-            plugins[plugin].pinterface->InitializePlugin(QV2RAY_PLUGIN_SETTINGS_DIR + plugin + "/", conf);
+            plugins[plugin].pinterface->m_Settings = conf;
+            plugins[plugin].pinterface->m_WorkingDirectory = QV2RAY_PLUGIN_SETTINGS_DIR + plugin + "/";
+            plugins[plugin].pinterface->m_ConnectionManager = ConnectionManager;
+            plugins[plugin].pinterface->InitializePlugin();
         }
     }
     else
@@ -86,6 +92,12 @@ const QList<const QvPluginInfo *> PluginManagerCore::AllPlugins() const
 
 bool PluginManagerCore::tryLoadPlugin(const QString &pluginFullPath)
 {
+    if (!pluginFullPath.endsWith(".dll") && !pluginFullPath.endsWith(".so") && !pluginFullPath.endsWith(".dylib"))
+        return false;
+
+    if (pluginFullPath.isEmpty())
+        return false;
+
     QvPluginInfo info;
     info.libraryPath = pluginFullPath;
     info.loader = new QPluginLoader(pluginFullPath, this);
@@ -119,9 +131,9 @@ bool PluginManagerCore::tryLoadPlugin(const QString &pluginFullPath)
         return false;
     }
 
-    if (plugins.contains(info.metadata().InternalName))
+    if (plugins.contains(info.metadata().InternalID))
     {
-        LOG("Found another plugin with the same internal name: " + info.metadata().InternalName + ". Skipped");
+        LOG("Found another plugin with the same internal name: " + info.metadata().InternalID + ". Skipped");
         return false;
     }
 
@@ -132,7 +144,7 @@ bool PluginManagerCore::tryLoadPlugin(const QString &pluginFullPath)
     // clang-format on
 
     LOG("Loaded plugin: \"" + info.metadata().Name + "\" made by: \"" + info.metadata().Author + "\"");
-    plugins.insert(info.metadata().InternalName, info);
+    plugins.insert(info.metadata().InternalID, info);
     return true;
 }
 
@@ -140,7 +152,7 @@ void PluginManagerCore::QvPluginLog(QString log)
 {
     if (auto _interface = qobject_cast<Qv2rayInterface *>(sender()); _interface)
     {
-        LOG(_interface->GetMetadata().InternalName, log);
+        LOG(_interface->GetMetadata().InternalID, log);
     }
     else
     {
@@ -172,7 +184,7 @@ void PluginManagerCore::SavePluginSettings() const
     for (const auto &name : plugins.keys())
     {
         LOG("Saving plugin settings for: \"" + name + "\"");
-        auto conf = plugins[name].pinterface->settings;
+        auto conf = plugins[name].pinterface->m_Settings;
         StringToFile(JsonToString(conf), QV2RAY_PLUGIN_SETTINGS_DIR + name + ".conf");
     }
 }

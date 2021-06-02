@@ -30,10 +30,9 @@ class SocksOutboundEditor
         if (servers.isEmpty())
             return;
         const auto content = servers.first().toObject();
-        QJS_BINDING_CLEAR
         socks.loadJson(content);
-        QJS_RWBINDING(socks.users->first().user, socks_UserNameTxt, "text", &QLineEdit::textEdited)
-        QJS_RWBINDING(socks.users->first().pass, socks_PasswordTxt, "text", &QLineEdit::textEdited)
+        socks.users->first().user.ReadWriteBind(socks_UserNameTxt, "text", &QLineEdit::textEdited);
+        socks.users->first().pass.ReadWriteBind(socks_PasswordTxt, "text", &QLineEdit::textEdited);
     }
 
     const QJsonObject GetContent() const override
@@ -49,5 +48,4 @@ class SocksOutboundEditor
 
   private:
     SocksServerObject socks;
-    QJS_BINDING_HELPERS
 };

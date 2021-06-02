@@ -2,16 +2,19 @@
 #include "base/Qv2rayBase.hpp"
 namespace Qv2ray::components::route
 {
-    const inline QvConfig_Route emptyScheme;
-    const inline QvConfig_Route noAdsScheme({ {}, { "geosite:category-ads-all" }, {} }, { {}, {}, {} }, "AsIs");
+    const inline RouteConfig emptyScheme;
+    const inline RouteConfig noAdsScheme({ {}, { "geosite:category-ads-all" }, {} }, { {}, {}, {} }, "AsIs");
 
     /**
      * @brief The Qv2rayRouteScheme struct
      * @author DuckSoft <realducksoft@gmail.com>
      */
-    struct Qv2rayRouteScheme : QvConfig_Route
+    struct Qv2rayRouteScheme : RouteConfig
     {
         Q_OBJECT
+
+        // M: all these fields are mandatory
+        QJS_FUNCTION(Qv2rayRouteScheme, F(name, author, description), B(RouteConfig))
         /**
          * @brief the name of the scheme.
          * @example "Untitled Scheme"
@@ -27,9 +30,6 @@ namespace Qv2ray::components::route
          * @example "A scheme to bypass China mainland, while allowing bilibili to go through proxy."
          */
         QJS_PROP(QString, description, REQUIRED)
-
-        // M: all these fields are mandatory
-        QJS_FUNCTION(Qv2rayRouteScheme, F(name, author, description), B(QvConfig_Route))
     };
 } // namespace Qv2ray::components::route
 
