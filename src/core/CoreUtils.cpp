@@ -92,7 +92,7 @@ namespace Qv2ray::core
         const auto info = PluginHost->Outbound_GetData(protocol, out["settings"].toObject());
         if (info)
         {
-            const auto val = info.value();
+            const auto val = *info;
             return { val[IOBOUND::PROTOCOL].toString(), val[IOBOUND::ADDRESS].toString(), val[IOBOUND::PORT].toInt() };
         }
         return { protocol, QObject::tr("N/A"), 0 };
