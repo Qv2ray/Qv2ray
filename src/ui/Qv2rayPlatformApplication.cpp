@@ -90,6 +90,9 @@ bool Qv2rayPlatformApplication::Initialize()
     setFallbackSessionManagementEnabled(false);
 #endif
     connect(this, &QGuiApplication::commitDataRequest, [] {
+#ifdef Q_OS_WIN
+        ConnectionManager->StopConnection();
+#endif
         RouteManager->SaveRoutes();
         ConnectionManager->SaveConnectionConfig();
         PluginHost->SavePluginSettings();
