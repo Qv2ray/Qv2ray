@@ -81,6 +81,7 @@ namespace Qv2ray::base::config
     {
         bool enableAPI = true;
         int statsPort = 15490;
+        bool useMemConservativeGeoLoader = false;
         //
         QString v2CorePath_linux;
         QString v2AssetsPath_linux;
@@ -113,11 +114,13 @@ namespace Qv2ray::base::config
 #undef _VARNAME_VASSETSPATH_
 
         JSONSTRUCT_COMPARE(Qv2rayConfig_Kernel, enableAPI, statsPort, //
+                           useMemConservativeGeoLoader,               //
                            v2CorePath_linux, v2AssetsPath_linux,      //
                            v2CorePath_macx, v2AssetsPath_macx,        //
                            v2CorePath_win, v2AssetsPath_win)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                     //
                             F(enableAPI, statsPort),                 //
+                            F(useMemConservativeGeoLoader),          //
                             F(v2CorePath_linux, v2AssetsPath_linux), //
                             F(v2CorePath_macx, v2AssetsPath_macx),   //
                             F(v2CorePath_win, v2AssetsPath_win))

@@ -192,6 +192,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     {
         vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
         vCoreAssetsPathTxt->setText(CurrentConfig.kernelConfig.AssetsPath());
+        useMemConservativeGeoLoaderCB->setChecked(CurrentConfig.kernelConfig.useMemConservativeGeoLoader);
         enableAPI->setChecked(CurrentConfig.kernelConfig.enableAPI);
         statsPortBox->setValue(CurrentConfig.kernelConfig.statsPort);
         //
@@ -467,6 +468,12 @@ void PreferencesWindow::on_vCoreAssetsPathTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.kernelConfig.AssetsPath(arg1);
+}
+
+void PreferencesWindow::on_useMemConservativeGeoLoaderCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.kernelConfig.useMemConservativeGeoLoader = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)

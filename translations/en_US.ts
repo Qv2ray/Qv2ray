@@ -1995,6 +1995,10 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
 This option may be useful for some desktop environments without tray support.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Memory Conservative GeoLoader</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>

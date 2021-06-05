@@ -49,6 +49,7 @@ class PreferencesWindow
     void on_languageComboBox_currentTextChanged(const QString &arg1);
     void on_logLevelComboBox_currentIndexChanged(int index);
     void on_vCoreAssetsPathTxt_textEdited(const QString &arg1);
+    void on_useMemConservativeGeoLoaderCB_stateChanged(int arg1);
     void on_listenIPTxt_textEdited(const QString &arg1);
     void on_socksPortLE_valueChanged(int arg1);
     void on_httpPortLE_valueChanged(int arg1);

@@ -164,6 +164,10 @@ namespace Qv2ray::core::kernel
             auto env = QProcessEnvironment::systemEnvironment();
             env.insert("v2ray.location.asset", assetsPath);
             env.insert("XRAY_LOCATION_ASSET", assetsPath);
+            if (GlobalConfig.kernelConfig.useMemConservativeGeoLoader)
+            {
+                env.insert("v2ray.conf.geoloader", "memconservative");
+            }
             //
             QProcess process;
             process.setProcessEnvironment(env);
@@ -231,6 +235,10 @@ namespace Qv2ray::core::kernel
         auto env = QProcessEnvironment::systemEnvironment();
         env.insert("v2ray.location.asset", GlobalConfig.kernelConfig.AssetsPath());
         env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
+        if (GlobalConfig.kernelConfig.useMemConservativeGeoLoader)
+        {
+            env.insert("v2ray.conf.geoloader", "memconservative");
+        }
         vProcess->setProcessEnvironment(env);
         vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
         vProcess->waitForStarted();
