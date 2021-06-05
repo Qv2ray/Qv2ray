@@ -2828,6 +2828,18 @@ Maybe you have downloaded the wrong core?</source>
         <source>Subject Selector</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Matcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal Perfect Hash Matcher</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RouteSettingsMatrix</name>

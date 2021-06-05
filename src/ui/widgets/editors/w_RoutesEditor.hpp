@@ -51,6 +51,7 @@ class RouteEditor
     void on_debugPainterCB_clicked(bool checked);
     void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
     void on_domainStrategyCombo_currentIndexChanged(int arg1);
+    void on_domainMatcherCombo_currentIndexChanged(int arg1);
     void on_importExistingBtn_clicked();
     void on_importGroupBtn_currentIndexChanged(int index);
     void on_insertBlackBtn_clicked();
@@ -76,6 +77,7 @@ class RouteEditor
     //
     bool isLoading = false;
     QString domainStrategy;
+    QString domainMatcher;
     //
     CONFIGROOT root;
     CONFIGROOT original;

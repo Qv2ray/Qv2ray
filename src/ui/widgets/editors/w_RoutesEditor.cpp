@@ -119,6 +119,9 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QvDialog("Ro
     domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
     domainStrategyCombo->setCurrentText(domainStrategy);
     //
+    domainMatcher = root["routing"].toObject()["domainMatcher"].toString();
+    domainMatcherCombo->setCurrentIndex(domainMatcher == "mph" ? 1 : 0);
+    //
     // Set default outboung combo text AFTER adding all outbounds.
     defaultOutboundTag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
     defaultOutboundCombo->setCurrentText(defaultOutboundTag);
@@ -268,6 +271,7 @@ CONFIGROOT RouteEditor::OpenEditor()
 
     QJsonObject routingObject;
     routingObject["domainStrategy"] = domainStrategy;
+    routingObject["domainMatcher"] = domainMatcher;
     routingObject["rules"] = rulesJsonArray;
     routingObject["balancers"] = balancersArray;
     root["routing"] = routingObject;
@@ -437,6 +441,12 @@ void RouteEditor::on_domainStrategyCombo_currentIndexChanged(int arg1)
 {
     LOADINGCHECK
     domainStrategy = domainStrategyCombo->itemText(arg1);
+}
+
+void RouteEditor::on_domainMatcherCombo_currentIndexChanged(int arg1)
+{
+    LOADINGCHECK
+    domainMatcher = arg1 == 0 ? "" : "mph";
 }
 
 void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1)
