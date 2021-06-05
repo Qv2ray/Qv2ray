@@ -296,18 +296,19 @@ CONFIGROOT RouteEditor::OpenEditor()
     const auto &[dns, fakedns] = dnsWidget->GetDNSObject();
     root["dns"] = GenerateDNS(dns);
     root["fakedns"] = fakedns.toJson();
+
+    // Process Browser Forwarder
+    if (!bfListenIPTxt->text().trimmed().isEmpty())
     {
-        // Process Browser Forwarder
-        if (!bfListenIPTxt->text().trimmed().isEmpty())
-        {
-            root["browserForwarder"] = QJsonObject{
-                { "listenAddr", bfListenIPTxt->text() },
-                { "listenPort", bfListenPortTxt->value() },
-            };
-        }
+        root["browserForwarder"] = QJsonObject{
+            { "listenAddr", bfListenIPTxt->text() },
+            { "listenPort", bfListenPortTxt->value() },
+        };
     }
+
+    // Process Observatory
+    if (!obSubjectSelectorTxt->toPlainText().isEmpty())
     {
-        // Process Observatory
         QJsonObject observatory;
         observatory["subjectSelector"] = QJsonArray::fromStringList(SplitLines(obSubjectSelectorTxt->toPlainText()));
         root["observatory"] = observatory;
