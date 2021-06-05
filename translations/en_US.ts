@@ -2817,7 +2817,7 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>:Listening Port</source>
+        <source>Listening Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
