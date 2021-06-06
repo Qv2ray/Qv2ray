@@ -270,6 +270,26 @@ namespace Qv2ray::components::proxy
                 }
             }
         }
+        else
+        {
+            for (const auto &protocol : QStringList{ "http", "ftp", "https" })
+            {
+                // for GNOME:
+                {
+                    actions << ProcessArgument{ "gsettings", { "set", "org.gnome.system.proxy." + protocol, "host", "" } };
+                    actions << ProcessArgument{ "gsettings", { "set", "org.gnome.system.proxy." + protocol, "port", "" } };
+                }
+
+                // for KDE:
+                if (isKDE)
+                {
+                    actions << ProcessArgument{ "kwriteconfig5",
+                                                { "--file", configPath + "/kioslaverc", //
+                                                  "--group", "Proxy Settings",          //
+                                                  "--key", protocol + "Proxy", "" } };
+                }
+            }
+        }
 
         // Configure SOCKS5 Proxies
         if (hasSOCKS)
@@ -288,6 +308,22 @@ namespace Qv2ray::components::proxy
                                                   "--key", "socksProxy",                //
                                                   "socks://" + socksAddress + " " + QSTRN(socksPort) } };
                 }
+            }
+        }
+        else
+        {
+            // for GNOME:
+            {
+                actions << ProcessArgument{ "gsettings", { "set", "org.gnome.system.proxy.socks", "host", "" } };
+                actions << ProcessArgument{ "gsettings", { "set", "org.gnome.system.proxy.socks", "port", "" } };
+            }
+            // for KDE:
+            if (isKDE)
+            {
+                actions << ProcessArgument{ "kwriteconfig5",
+                                            { "--file", configPath + "/kioslaverc", //
+                                              "--group", "Proxy Settings",          //
+                                              "--key", "socksProxy", "" } };
             }
         }
 
