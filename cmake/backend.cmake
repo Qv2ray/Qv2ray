@@ -1,3 +1,7 @@
+if(QV2RAY_AVOID_GRPC)
+    add_compile_definitions(QV2RAY_NO_GRPC)
+else()
+
 find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
 
 find_package(gRPC CONFIG QUIET)
@@ -39,3 +43,5 @@ add_custom_command(
     "${API_PROTO}"
     DEPENDS "${API_PROTO}"
     )
+
+endif()

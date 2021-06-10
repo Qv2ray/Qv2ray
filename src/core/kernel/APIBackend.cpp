@@ -1,10 +1,13 @@
 #include "APIBackend.hpp"
 
+#ifndef QV2RAY_NO_GRPC
 #include "v2ray_api.pb.h"
 using namespace v2ray::core::app::stats::command;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
+
+#endif
 
 #define QV_MODULE_NAME "gRPCBackend"
 
@@ -78,12 +81,14 @@ namespace Qv2ray::core::kernel
             {
                 if (!dialed)
                 {
+#ifndef QV2RAY_NO_GRPC
                     const auto channelAddress = "127.0.0.1:" + QSTRN(GlobalConfig.kernelConfig->statsPort);
                     LOG("gRPC Version: " + QString::fromStdString(grpc::Version()));
                     grpc_channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     v2ray::core::app::stats::command::StatsService service;
                     stats_service_stub = service.NewStub(grpc_channel);
                     dialed = true;
+#endif
                 }
                 if (apiFailCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
                 {
@@ -123,6 +128,7 @@ namespace Qv2ray::core::kernel
 
     qint64 APIWorker::CallStatsAPIByName(const QString &name)
     {
+#ifndef QV2RAY_NO_GRPC
         ClientContext context;
         GetStatsRequest request;
         GetStatsResponse response;
@@ -139,5 +145,8 @@ namespace Qv2ray::core::kernel
         {
             return response.stat().value();
         }
+#else
+      return 0;
+#endif
     }
 } // namespace Qv2ray::core::kernel

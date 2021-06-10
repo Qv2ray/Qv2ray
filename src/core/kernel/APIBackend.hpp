@@ -1,8 +1,12 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
+
+#ifndef QV2RAY_NO_GRPC
 #include "v2ray_api.grpc.pb.h"
 
 #include <grpc++/grpc++.h>
+
+#endif
 
 // Check 10 times before telling user that API has failed.
 constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 30;
@@ -42,8 +46,10 @@ namespace Qv2ray::core::kernel
         //
         bool started = false;
         bool running = false;
+#ifndef QV2RAY_NO_GRPC
         std::shared_ptr<::grpc::Channel> grpc_channel;
         std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> stats_service_stub;
+#endif
     };
 } // namespace Qv2ray::core::kernel
 
