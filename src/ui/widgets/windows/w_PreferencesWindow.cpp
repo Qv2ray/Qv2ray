@@ -641,12 +641,14 @@ void PreferencesWindow::on_darkThemeCB_stateChanged(int arg1)
 void PreferencesWindow::on_darkTrayCB_stateChanged(int arg1)
 {
     LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_glyphTrayCB_stateChanged(int arg1)
 {
     LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.uiConfig.useGlyphTrayIcon = arg1 == Qt::Checked;
 }
 

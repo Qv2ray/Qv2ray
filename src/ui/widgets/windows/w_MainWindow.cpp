@@ -119,6 +119,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     modelHelper = new ConnectionListHelper(connectionTreeView);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
+    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
     updateColorScheme();
     UpdateActionTranslations();
     //

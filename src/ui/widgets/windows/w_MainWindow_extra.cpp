@@ -209,7 +209,7 @@ void MainWindow::CheckSubscriptionsUpdate()
 
 void MainWindow::updateColorScheme()
 {
-    qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
+    // qvAppTrayIcon->setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray") : Q_TRAYICON("tray-connected"));
     //
     importConfigButton->setIcon(QIcon(QV2RAY_COLORSCHEME_FILE("add")));
     updownImageBox->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_FILE("netspeed_arrow") + ")");
