@@ -243,7 +243,7 @@ namespace Qv2ray::components::proxy
 #elif defined(Q_OS_LINUX)
         QList<ProcessArgument> actions;
         //
-        bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE" || qEnvironmentVariable("XDG_SESSION_DESKTOP") == "plasma";
+        bool isKDE = qEnvironmentVariable("XDG_CURRENT_DESKTOP") == "KDE" && qEnvironmentVariable("KDE_SESSION_VERSION") == "5";
         const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 
         //
@@ -447,7 +447,7 @@ namespace Qv2ray::components::proxy
         // }
 #elif defined(Q_OS_LINUX)
         QList<ProcessArgument> actions;
-        const bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE" || qEnvironmentVariable("XDG_SESSION_DESKTOP") == "plasma";
+        const bool isKDE = qEnvironmentVariable("XDG_CURRENT_DESKTOP") == "KDE" && qEnvironmentVariable("KDE_SESSION_VERSION") == "5";
         const auto configRoot = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 
         // Setting System Proxy Mode to: None
