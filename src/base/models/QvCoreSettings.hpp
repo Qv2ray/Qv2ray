@@ -80,8 +80,9 @@ namespace Qv2ray::base::config
         bool sniffing = false;
         QList<QString> destOverride = { "http", "tls" };
         objects::AccountObject account;
-        bool metadataOnly = true;
+        bool metadataOnly = false;
         Qv2rayConfig_ProtocolInboundBase(){};
+        JSONSTRUCT_COMPARE(Qv2rayConfig_ProtocolInboundBase, port, useAuth, sniffing, destOverride, account, metadataOnly)
         JSONSTRUCT_REGISTER(Qv2rayConfig_ProtocolInboundBase, F(port, useAuth, sniffing, destOverride, account, metadataOnly))
     };
 
@@ -150,8 +151,7 @@ namespace Qv2ray::base::config
         JSONSTRUCT_COMPARE(QvConfig_Inbounds, listenip, useSocks, useHTTP, useTPROXY, tProxySettings, httpSettings, socksSettings,
                            systemProxySettings, browserForwarderSettings);
         JSONSTRUCT_REGISTER(QvConfig_Inbounds,                         //
-                            A(socksSettings),                          //
                             F(listenip, useSocks, useHTTP, useTPROXY), //
-                            F(tProxySettings, httpSettings, systemProxySettings, browserForwarderSettings));
+                            F(tProxySettings, httpSettings, socksSettings, systemProxySettings, browserForwarderSettings));
     };
 } // namespace Qv2ray::base::config

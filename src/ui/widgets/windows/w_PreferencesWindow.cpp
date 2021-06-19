@@ -801,6 +801,7 @@ void PreferencesWindow::on_httpGroupBox_clicked(bool checked)
     CurrentConfig.inboundConfig.useHTTP = checked;
     httpAuthUsernameTxt->setEnabled(checked && CurrentConfig.inboundConfig.httpSettings.useAuth);
     httpAuthPasswordTxt->setEnabled(checked && CurrentConfig.inboundConfig.httpSettings.useAuth);
+    httpSniffingMetadataOnly->setEnabled(checked && CurrentConfig.inboundConfig.httpSettings.sniffing);
     httpOverrideHTTPCB->setEnabled(checked && CurrentConfig.inboundConfig.httpSettings.sniffing);
     httpOverrideTLSCB->setEnabled(checked && CurrentConfig.inboundConfig.httpSettings.sniffing);
     httpOverrideFakeDNSCB->setEnabled(checked && CurrentConfig.inboundConfig.httpSettings.sniffing);
@@ -815,6 +816,7 @@ void PreferencesWindow::on_socksGroupBox_clicked(bool checked)
     socksUDPIP->setEnabled(checked && CurrentConfig.inboundConfig.socksSettings.enableUDP);
     socksAuthUsernameTxt->setEnabled(checked && CurrentConfig.inboundConfig.socksSettings.useAuth);
     socksAuthPasswordTxt->setEnabled(checked && CurrentConfig.inboundConfig.socksSettings.useAuth);
+    socksSniffingMetadataOnly->setEnabled(checked && CurrentConfig.inboundConfig.socksSettings.sniffing);
     socksOverrideHTTPCB->setEnabled(checked && CurrentConfig.inboundConfig.socksSettings.sniffing);
     socksOverrideTLSCB->setEnabled(checked && CurrentConfig.inboundConfig.socksSettings.sniffing);
     socksOverrideFakeDNSCB->setEnabled(checked && CurrentConfig.inboundConfig.socksSettings.sniffing);
@@ -915,6 +917,7 @@ void PreferencesWindow::on_tproxyGroupBox_toggled(bool arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.useTPROXY = arg1;
+    tproxySniffingMetadataOnlyCB->setEnabled(arg1 && CurrentConfig.inboundConfig.tProxySettings.sniffing);
     tproxyOverrideHTTPCB->setEnabled(arg1 && CurrentConfig.inboundConfig.tProxySettings.sniffing);
     tproxyOverrideTLSCB->setEnabled(arg1 && CurrentConfig.inboundConfig.tProxySettings.sniffing);
     tproxyOverrideFakeDNSCB->setEnabled(arg1 && CurrentConfig.inboundConfig.tProxySettings.sniffing);
