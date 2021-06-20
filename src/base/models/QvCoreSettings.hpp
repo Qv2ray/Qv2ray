@@ -149,9 +149,9 @@ namespace Qv2ray::base::config
         QvConfig_BrowserForwarder browserForwarderSettings;
         //
         JSONSTRUCT_COMPARE(QvConfig_Inbounds, listenip, useSocks, useHTTP, useTPROXY, tProxySettings, httpSettings, socksSettings,
-                           systemProxySettings, browserForwarderSettings);
+                           systemProxySettings, browserForwarderSettings)
         JSONSTRUCT_REGISTER(QvConfig_Inbounds,                         //
                             F(listenip, useSocks, useHTTP, useTPROXY), //
-                            F(tProxySettings, httpSettings, socksSettings, systemProxySettings, browserForwarderSettings));
+                            F(tProxySettings, httpSettings, socksSettings, systemProxySettings, browserForwarderSettings))
     };
 } // namespace Qv2ray::base::config
