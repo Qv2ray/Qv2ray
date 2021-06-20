@@ -312,7 +312,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), QvStateObject("Ma
     if (!connectionStarted || !GlobalConfig.uiConfig.startMinimized)
         MWShowWindow();
     if (GlobalConfig.uiConfig.startMinimized)
+    {
+#ifdef Q_OS_MAC
+        this->showMinimized();
+        MWHideWindow();
+#else
         MWToggleVisibilitySetText();
+#endif
+    }
     //
     CheckSubscriptionsUpdate();
     qvLogTimerId = startTimer(1000);

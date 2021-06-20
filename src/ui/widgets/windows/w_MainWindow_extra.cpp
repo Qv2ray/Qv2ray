@@ -31,7 +31,11 @@ void MainWindow::MWShowWindow()
 #if QV2RAY_FEATURE(ui_has_store_state)
     RestoreState();
 #endif
+#ifdef Q_OS_MAC
+    this->showNormal();
+#else
     this->show();
+#endif
 #ifdef Q_OS_WIN
     setWindowState(Qt::WindowNoState);
     SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
