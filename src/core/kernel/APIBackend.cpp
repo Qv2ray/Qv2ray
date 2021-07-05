@@ -126,17 +126,20 @@ namespace Qv2ray::core::kernel
         ClientContext context;
         GetStatsRequest request;
         GetStatsResponse response;
+
         request.set_name(name.toStdString());
         request.set_reset(true);
 
         const auto status = stats_service_stub->GetStats(&context, request, &response);
         if (!status.ok())
         {
+            LOG(name%" fuck");
             LOG("API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")");
             return Qv2ray_GRPC_ERROR_RETCODE;
         }
         else
         {
+            LOG(name%" ok");
             return response.stat().value();
         }
     }

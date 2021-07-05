@@ -28,6 +28,13 @@ set(QV2RAY_BASE_SOURCES
     ${CMAKE_SOURCE_DIR}/src/utils/QvHelpers.cpp
     ${CMAKE_SOURCE_DIR}/src/utils/QvHelpers.hpp
     #
+    ${QV2RAY_BASEDIR_COMPONENTS}/geosite/pb_common.c
+    ${QV2RAY_BASEDIR_COMPONENTS}/geosite/pb_common.h
+    ${QV2RAY_BASEDIR_COMPONENTS}/geosite/pb_decode.h
+    ${QV2RAY_BASEDIR_COMPONENTS}/geosite/pb_decode.c
+    ${QV2RAY_BASEDIR_COMPONENTS}/geosite/v2ray_geosite.pb.c
+    ${QV2RAY_BASEDIR_COMPONENTS}/geosite/v2ray_geosite.pb.h
+    ${QV2RAY_BASEDIR_COMPONENTS}/geosite/pb.h
     ${QV2RAY_BASEDIR_COMPONENTS}/geosite/QvGeositeReader.cpp
     ${QV2RAY_BASEDIR_COMPONENTS}/geosite/QvGeositeReader.hpp
     #
