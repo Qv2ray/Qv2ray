@@ -327,7 +327,7 @@ namespace Qv2ray::base::objects
       public:
         QJS_FUNCTION(FakeDNSObject, F(ipPool, poolSize))
         QJS_PROP_D(QString, ipPool, "198.18.0.0/15", REQUIRED)
-        QJS_PROP_D(int, poolSize, 65535)
+        QJS_PROP_D(int, poolSize, 65535, REQUIRED)
     };
 
     // Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
