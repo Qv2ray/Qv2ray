@@ -1,3 +1,5 @@
+
+**This repository has been archived. Development moved to [moodyhunter/QvPersonal](https://github.com/moodyhunter/QvPersonal)!**
 # <img width="32" src="assets/icons/qv2ray.png" alt="Qv2ray"/> Qv2ray - For developers. By developers.
 
 [![Qv2ray build matrix - Qt6](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml/badge.svg)](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml)
