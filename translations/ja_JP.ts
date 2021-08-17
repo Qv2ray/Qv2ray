@@ -1401,16 +1401,6 @@ For example, for updating subscriptions.</source>
       <translation>高度的な動作</translation>
     </message>
     <message>
-      <source>Test Latency Periodcally</source>
-      <translation>周期的の遅延テスト</translation>
-    </message>
-    <message>
-      <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation>サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
-有効にすると、Qv2ray はより正確なレイテンシ値が得られますが、サーバーは制限される可能性が高くなります。</translation>
-    </message>
-    <message>
       <source>Kernel Settings</source>
       <translation>カーネル設定</translation>
     </message>
@@ -2001,6 +1991,30 @@ V2Rayコアのファイル名は通常&apos;v2ray&apos;または&apos;v2ray.exe&
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
       <translation>これはブラウザーフォワーダーがオンのシンプルな構成に適用されます。</translation>
+    </message>
+    <message>
+      <source>Test Latency Periodically</source>
+      <translation>定期的にテスト遅延</translation>
+    </message>
+    <message>
+      <source>Run TCPing or ICMPing periodically after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
+      <translation>サーバに接続した後は、定期的にTCPまたはICMPingを実行します。
+有効にするとQv2rayはより正確なレイテンシー値を与えますが、接続の指紋化は容易になります。</translation>
+    </message>
+    <message>
+      <source>FakeDNS+Others</source>
+      <translation>FakeDNS+その他</translation>
+    </message>
+    <message>
+      <source>Click Close Button to Exit</source>
+      <translation>閉じるボタンをクリックして終了</translation>
+    </message>
+    <message>
+      <source>Exit instead of minimizing to tray when the close button clicked.
+This option may be useful for some desktop environments without tray support.</source>
+      <translation>閉じるボタンがクリックされたときにトレイに最小化する代わりに終了します。
+トレイサポートがないデスクトップ環境の場合に便利です。</translation>
     </message>
   </context>
   <context>
@@ -3258,6 +3272,26 @@ Maybe you have downloaded the wrong core?</source>
       <source>Browser Forwarding</source>
       <translation>ブラウザ転送</translation>
     </message>
+    <message>
+      <source>Mode</source>
+      <translation>モード</translation>
+    </message>
+    <message>
+      <source>Open pinnedPeerCertificateChainSha256 Editor</source>
+      <translation>pinnedPeerCertificateChainSha256 エディタを開く</translation>
+    </message>
+    <message>
+      <source>Method</source>
+      <translation>方法</translation>
+    </message>
+    <message>
+      <source>Early Data Header Name</source>
+      <translation>アーリーデータヘッダ名</translation>
+    </message>
+    <message>
+      <source>TCP Keepalive Interval</source>
+      <translation>TCPキープアライブ間隔</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
@@ -3834,6 +3868,25 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Total</source>
       <translation>合計</translation>
+    </message>
+  </context>
+  <context>
+    <name>ChainSha256Editor</name>
+    <message>
+      <source>pinnedPeerCertificateChainSha256 Editor</source>
+      <translation>pinnedPeerCertificateChainSha256 エディター</translation>
+    </message>
+    <message>
+      <source>Invalid Certificate Hash Chain</source>
+      <translation>無効な証明書ハッシュチェーン</translation>
+    </message>
+    <message>
+      <source>invalid SHA256: %1</source>
+      <translation>invalid SHA256: %1</translation>
+    </message>
+    <message>
+      <source>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </source>
+      <translation>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
     </message>
   </context>
 </TS>

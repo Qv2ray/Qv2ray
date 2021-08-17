@@ -1401,16 +1401,6 @@ For example, for updating subscriptions.</source>
       <translation>高级行为</translation>
     </message>
     <message>
-      <source>Test Latency Periodcally</source>
-      <translation>定时测试延迟</translation>
-    </message>
-    <message>
-      <source>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation>连接到节点之后，对节点进行周期性的延迟监测。
-若启用，Qv2ray 对节点的延迟监测将会更加准确，但这也许会提升您服务器被暴露的风险。</translation>
-    </message>
-    <message>
       <source>Kernel Settings</source>
       <translation>内核设置</translation>
     </message>
@@ -2001,6 +1991,30 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
       <translation>适用于启用了浏览器转发器的简单配置。</translation>
+    </message>
+    <message>
+      <source>Test Latency Periodically</source>
+      <translation>定期测试延迟</translation>
+    </message>
+    <message>
+      <source>Run TCPing or ICMPing periodically after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
+      <translation>连接到服务器后定期运行TCPing 或 ICMPing。
+如果启用，Qv2ray 会给出更准确的延迟值，但是它很容易指纹连接。</translation>
+    </message>
+    <message>
+      <source>FakeDNS+Others</source>
+      <translation>FakeDNS+其他</translation>
+    </message>
+    <message>
+      <source>Click Close Button to Exit</source>
+      <translation>点击关闭按钮退出</translation>
+    </message>
+    <message>
+      <source>Exit instead of minimizing to tray when the close button clicked.
+This option may be useful for some desktop environments without tray support.</source>
+      <translation>关闭按钮点击时退出而不是最小化到托盘。
+此选项可能对某些桌面环境有用，而无需托盘支持。</translation>
     </message>
   </context>
   <context>
@@ -3258,6 +3272,26 @@ Maybe you have downloaded the wrong core?</source>
       <source>Browser Forwarding</source>
       <translation>浏览器转发</translation>
     </message>
+    <message>
+      <source>Mode</source>
+      <translation>模式</translation>
+    </message>
+    <message>
+      <source>Open pinnedPeerCertificateChainSha256 Editor</source>
+      <translation>打开 pinnedPeerCerCercatateChainSha256 编辑器</translation>
+    </message>
+    <message>
+      <source>Method</source>
+      <translation>方法</translation>
+    </message>
+    <message>
+      <source>Early Data Header Name</source>
+      <translation>早期数据头名称</translation>
+    </message>
+    <message>
+      <source>TCP Keepalive Interval</source>
+      <translation>TCP保留存活间隔</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
@@ -3834,6 +3868,25 @@ Maybe you have downloaded the wrong core?</source>
     <message>
       <source>Total</source>
       <translation>总计</translation>
+    </message>
+  </context>
+  <context>
+    <name>ChainSha256Editor</name>
+    <message>
+      <source>pinnedPeerCertificateChainSha256 Editor</source>
+      <translation>PinnedPeerCerCercatateChainSha256编辑器</translation>
+    </message>
+    <message>
+      <source>Invalid Certificate Hash Chain</source>
+      <translation>证书哈希链无效</translation>
+    </message>
+    <message>
+      <source>invalid SHA256: %1</source>
+      <translation>invalid SHA256: %1</translation>
+    </message>
+    <message>
+      <source>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </source>
+      <translation>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
     </message>
   </context>
 </TS>
