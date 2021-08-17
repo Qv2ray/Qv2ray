@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 使用疑问 / Usage Inquiry
+    url: https://github.com/Qv2ray/Qv2ray/discussions
+    about: 使用疑问请前往讨论区 / Please go to Discussion for that.
+  - name: 功能请求 / Feature Request
+    url: https://github.com/Qv2ray/Qv2ray/discussions
+    about: 功能请求请前往讨论区 / Please go to Discussion for that.
+  - name: 加入 Telegram 群组 / Telegram Group
+    url: https://t.me/qv2ray
+    about: 点击加入 Telegram 群组 / Click to join our Telegram chat.

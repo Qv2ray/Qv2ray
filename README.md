@@ -11,7 +11,7 @@
 [![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Qv2ray/Qv2ray/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Qv2ray/Qv2ray/releases)
 
-## Availability & Status
+## Availability & CI/CD Status
 
 [![Snap Status](https://img.shields.io/travis/com/Qv2ray/Qv2ray?label=snapcraft-travis&logo=github)](https://travis-ci.com/Qv2ray/Qv2ray)
 [![Qv2ray AUR Build](https://github.com/Qv2ray/Qv2ray/workflows/Build%20Qv2ray%20AUR/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Build+Qv2ray+AUR%22)
@@ -56,7 +56,6 @@
   </td>
  </tr>
 
-
  <tr>
   <td>Flathub</td>
   <td><a href="https://flathub.org/apps/details/com.github.Qv2ray"><img alt="flathub" src="https://img.shields.io/badge/flathub-available-success" /></a></td>
@@ -92,25 +91,20 @@
  </tr>
 </table>
 
-## Related Links
- - [Website](https://qv2ray.github.io/en/) and [First Time Usage](https://qv2ray.github.io/en/getting-started/)
- - Latest **[Release](https://github.com/Qv2ray/Qv2ray/releases/latest)**
- - Welcome to translate Qv2ray via: **[Transifex](https://www.transifex.com/qv2ray/qv2ray)**
+Translation Platform: **[Crowdin](https://crowdin.com/project/qv2ray)**
 
 ## Special Thanks
-- **Quality Assurance & User Experience:** [@DuckSoft](https://github.com/DuckSoft/)
-- **Debian-based distro Packager:** [@ymshenyu](https://github.com/ymshenyu)
-- [**JetBrains Developer Toolbox**](https://www.jetbrains.com/?from=Qv2ray)
+
+**[JetBrains Developer Toolbox](https://www.jetbrains.com/?from=Qv2ray)**
+
 -------------------------------
 
-## Copyright
-### This is free software, and you are welcome to redistribute it under certain conditions
-- ALL credit goes to **Qv2ray User Group** and **Qv2ray Development Group**
-
-### Libraries that have been used in Qv2ray are listed below (Sorted by date added)
-- Please see: [assets/credit.html](assets/credit.html)
-
 ## Licences
+
+This is free software, and you are welcome to redistribute it under certain conditions.
+
+### Third-party Libraries and Resources
+See: [assets/credit.html](assets/credit.html)
 
 Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -130,11 +124,6 @@ Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/Licens
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
+## Star History
 
-***注意：Qv2ray 仅能用于 Qt/C++/Linux/CI/自动化 等相关技术的学习和在法律允许范围内的使用，任何个人或集体不得使用 Qv2ray 进行任何违反相关法律法规的活动。***
-
-> Note: Qv2ray can **ONLY** be used for learning related technologies such as Qt/C++/Linux/CI/automation and use within the scope permitted by law. Any individual or group **MAY NOT** use Qv2ray for any violation of relevant laws and regulations.
-
-*任何尝试下载或下载 Qv2ray 任意分支或发行版即代表您同意本项目作者及贡献者不承担任何由于您违反以上准则所带来的任何法律责任。*
-
-> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author and the contributor of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.
+![stars](https://starchart.cc/Qv2ray/Qv2ray.svg)
