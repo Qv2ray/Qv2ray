@@ -1,4 +1,4 @@
-set(QT_QRENCODE_BASEDIR ${CMAKE_SOURCE_DIR}/3rdparty/qt-qrcode/lib)
+set(QT_QRENCODE_BASEDIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/qt-qrcode/lib)
 
 include_directories(${QT_QRENCODE_BASEDIR})
 
@@ -33,15 +33,19 @@ set(QT_QRENCODE_SOURCES
 
 find_package(Qt6 COMPONENTS Core Gui Svg REQUIRED)
 
-set(QV2RAY_QRENCODE_LIBRARY qv2ray_qrencode)
 add_library(qv2ray_qrencode STATIC ${QT_QRENCODE_SOURCES})
-target_compile_definitions(${QV2RAY_QRENCODE_LIBRARY} PRIVATE
+
+target_compile_definitions(qv2ray_qrencode PRIVATE
+    -DSTATIC_IN_RELEASE=static
     -D__STATIC=static
     -DMAJOR_VERSION=3
     -DMINOR_VERSION=9
     -DMICRO_VERSION=0
     -DVERSION="0.0.0")
-target_link_libraries(${QV2RAY_QRENCODE_LIBRARY}
+
+target_link_libraries(qv2ray_qrencode
     Qt::Core
     Qt::Gui
     Qt::Svg)
+
+add_library(Qv2ray::QREncode ALIAS qv2ray_qrencode)

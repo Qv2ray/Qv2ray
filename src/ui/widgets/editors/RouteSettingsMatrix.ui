@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RouteSettingsMatrix</class>
+ <widget class="QWidget" name="RouteSettingsMatrix">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>582</width>
+    <height>404</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0,0">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Domain Strategy</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="domainStrategyCombo">
+       <item>
+        <property name="text">
+         <string notr="true">AsIs</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">IPIfNonMatch</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">IPOnDemand</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Matcher</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="domainMatcherCombo">
+       <item>
+        <property name="text">
+         <string>Original</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Minimal Perfect Hash Matcher</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout" rowstretch="0,1,1" columnstretch="0,1,1,1">
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_82">
+       <property name="text">
+        <string>Block</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <layout class="QGridLayout" name="blockTxtLayout"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_80">
+       <property name="text">
+        <string>Direct</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Domain</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <layout class="QGridLayout" name="directTxtLayout"/>
+     </item>
+     <item row="1" column="2">
+      <layout class="QGridLayout" name="proxyIPLayout"/>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_81">
+       <property name="text">
+        <string>Proxy</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <layout class="QGridLayout" name="proxyTxtLayout"/>
+     </item>
+     <item row="1" column="3">
+      <layout class="QGridLayout" name="blockIPLayout"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>IP</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <layout class="QGridLayout" name="directIPLayout"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QToolButton" name="builtInSchemeBtn">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
+       <property name="toolTip">
+        <string>Use built-in route schemes</string>
+       </property>
+       <property name="text">
+        <string>Built-in Schemes...</string>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+       <property name="arrowType">
+        <enum>Qt::NoArrow</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="importSchemeBtn">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="toolTip">
+        <string>Import route scheme from file</string>
+       </property>
+       <property name="text">
+        <string>Import Scheme...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="exportSchemeBtn">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="toolTip">
+        <string>Export route scheme to file</string>
+       </property>
+       <property name="text">
+        <string>Export Scheme...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>domainStrategyCombo</tabstop>
+  <tabstop>builtInSchemeBtn</tabstop>
+  <tabstop>importSchemeBtn</tabstop>
+  <tabstop>exportSchemeBtn</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

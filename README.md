@@ -1,5 +1,3 @@
-
-**This repository has been archived. Development moved to [moodyhunter/QvPersonal](https://github.com/moodyhunter/QvPersonal)!**
 # <img width="32" src="assets/icons/qv2ray.png" alt="Qv2ray"/> Qv2ray - For developers. By developers.
 
 [![Qv2ray build matrix - Qt6](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml/badge.svg)](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml)
@@ -17,6 +15,25 @@ Further development of this project will focus on my own needs and use cases.
 
 Feature requests from non-developers might get rejected. Code contribution is always welcome.
 
+## Compile Dependencies
+
+- Qt 6.2
+- CMake 3.20.0 (`cmake_path` command for Windows plugin deployment)
+- gRPC, Protobuf (used by `V2RayCorePlugin`, can be omitted if not used)
+- OpenSSL (for OpenSSL QtNetwork TLS backend plugin)
+
+## OS Support Status:
+
+- ArchLinux: **Tested and Working**
+- Windows 10/11: **Tested and Working**, build system.
+- macOS 12 Beta: **Tested and Working**
+- macOS 11: **Tested and Working**.
+- macOS 10.15: **Tested and Working**, build system.
+- Ubuntu 20.04: **Untested**, build system.
+- Others: **Untested**
+
+> *build system: the CI is done under that OS, although it "should" work there's no runtime guarantee.*
+
 ## Compatibility
 
 This repo is developed based on the original `dev-v3` branch, so the plugins, configuration
@@ -31,22 +48,20 @@ No Such Word In My Dictionary
 ~~*Not All Plugins Are Available Since I'm Very Busy*~~
 
 ### Built-in Plugins
-- **QvPlugin-BuiltinLatencyTest** Latency Tests Plugin (ICMP, TCP, HTTPS)
+
 - **QvPlugin-BuiltinProtocolSupport** Builtin Protocol Support
 - **QvPlugin-BuiltinSubscriptionSupport** Builtin Subscription Support
 - **QvPlugin-BuiltinUtils** Builtin Utilities
 
 ### Utility Plugins
+
 - **QvPlugin-Command** Command Hook Plugin
-- **QvPlugin-RemoteCore** Remove V2Ray Core Plugin
-- **QvPlugin-WindowsToolbar** Windows Taskband & Performance Counter Provider
-- **QvPlugin-WinNetFilter** Windows Transparent Proxy Plugin
+- **QvPlugin-LatencyTest** Latency Tests Plugin (ICMP, TCP, HTTPS)
+- **QvPlugin-Netfilter** Windows Transparent Proxy Plugin
 
 ### Protocol Support
-- ~~**QvPlugin-SSR** ShadowsocksR Plugin~~ Removed, see [Shadowsocks-NET/QvPlugins-v4](https://github.com/Shadowsocks-NET/QvPlugins-v4)
-- ~~**QvPlugin-SS** Shadowsocks Plugin~~ Removed, see [Shadowsocks-NET/QvPlugins-v4](https://github.com/Shadowsocks-NET/QvPlugins-v4)
+
 - **QvPlugin-Trojan-Go** Trojan-Go Plugin
-- ~~**QvPlugin-Trojan** Trojan Plugin~~ Removed, please use V2Ray instead, see [Shadowsocks-NET/QvPlugins-v4](https://github.com/Shadowsocks-NET/QvPlugins-v4)
 - **QvPlugin-NaiveProxy** NaiveProxy Plugin
 
 ## Licencing

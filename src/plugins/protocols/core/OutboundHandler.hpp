@@ -1,25 +1,25 @@
 #pragma once
-#include "CommonTypes.hpp"
-#include "QvPluginInterface.hpp"
 
-class BuiltinSerializer : public PluginOutboundHandler
+#include "QvPlugin/Handlers/OutboundHandler.hpp"
+
+class BuiltinSerializer : public Qv2rayPlugin::Outbound::IOutboundProcessor
 {
   public:
-    explicit BuiltinSerializer() : PluginOutboundHandler(){};
+    explicit BuiltinSerializer() : Qv2rayPlugin::Outbound::IOutboundProcessor(){};
 
-    std::optional<QString> Serialize(const PluginOutboundDescriptor &info) const override;
-    std::optional<PluginOutboundDescriptor> Deserialize(const QString &link) const override;
+    virtual std::optional<QString> Serialize(const QString &name, const IOConnectionSettings &outbound) const override;
+    virtual std::optional<std::pair<QString, IOConnectionSettings>> Deserialize(const QString &link) const override;
 
-    std::optional<PluginIOBoundData> GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const override;
-    bool SetOutboundInfo(const QString &protocol, QJsonObject &outbound, const PluginIOBoundData &info) const override;
+    virtual std::optional<PluginIOBoundData> GetOutboundInfo(const IOConnectionSettings &) const override;
+    virtual bool SetOutboundInfo(IOConnectionSettings &, const PluginIOBoundData &) const override;
 
     QList<QString> SupportedLinkPrefixes() const override
     {
-        return { "http", "socks" };
+        return { "http", "socks", "vmess", "vless", "ss", "trojan" };
     }
 
     QList<QString> SupportedProtocols() const override
     {
-        return { "http", "socks", "shadowsocks", "vmess", "vless" };
+        return { "http", "socks", "shadowsocks", "vmess", "vless", "trojan" };
     }
 };

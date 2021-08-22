@@ -1,6 +1,6 @@
 #pragma once
 
-#include "QvPluginInterface.hpp"
+#include "QvPlugin/PluginInterface.hpp"
 
 #include <QObject>
 #include <QtPlugin>
@@ -9,11 +9,11 @@ using namespace Qv2rayPlugin;
 
 class InternalProtocolSupportPlugin
     : public QObject
-    , public Qv2rayInterface
+    , public Qv2rayInterface<InternalProtocolSupportPlugin>
 {
-    Q_INTERFACES(Qv2rayPlugin::Qv2rayInterface)
-    Q_PLUGIN_METADATA(IID Qv2rayInterface_IID)
     Q_OBJECT
+    QV2RAY_PLUGIN(InternalProtocolSupportPlugin)
+
   public:
     //
     // Basic metainfo of this plugin
@@ -21,9 +21,9 @@ class InternalProtocolSupportPlugin
     {
         return { "Builtin Protocol Support",                                                  //
                  "Qv2ray Core Workgroup",                                                     //
-                 "qv2ray_builtin_protocol",                                                   //
+                 PluginId("qv2ray_builtin_protocol"),                                         //
                  "VMess, VLESS, SOCKS, HTTP, Shadowsocks, DNS, Dokodemo-door editor support", //
-                 "Qv2ray Repository",                                                         //
+                 QUrl{ "Qv2ray Repository" },                                                 //
                  {
                      COMPONENT_OUTBOUND_HANDLER, //
                      COMPONENT_GUI               //
@@ -32,8 +32,4 @@ class InternalProtocolSupportPlugin
 
     bool InitializePlugin() override;
     void SettingsUpdated() override{};
-
-  signals:
-    void PluginLog(QString) const override;
-    void PluginErrorMessageBox(QString, QString) const override;
 };

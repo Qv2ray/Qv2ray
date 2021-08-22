@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CertificateItemWidget</class>
+ <widget class="QWidget" name="CertificateItemWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>384</width>
+    <height>382</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Certificate Item Editor</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="certificateUsageLabel">
+     <property name="text">
+      <string extracomment="Certificate Usage">Usage</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="certificateUsageCombo">
+     <property name="toolTip">
+      <string>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;/ul&gt;</string>
+     </property>
+     <property name="currentText">
+      <string notr="true">encipherment</string>
+     </property>
+     <item>
+      <property name="text">
+       <string notr="true" extracomment="Certificate Usage / encipherment">encipherment</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true" extracomment="Certificate Usage / verify">verify</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true" extracomment="Certificate Usage / issue">issue</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QTabWidget" name="certificateTabs">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabCertificate">
+      <attribute name="title">
+       <string extracomment="Certificate Tab">Certificate</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout_2">
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="certificateUseFileRB">
+         <property name="text">
+          <string>From File</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+C, Alt+F</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="certificateFilePathLE">
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string>Drag and drop *.crt here...</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QRadioButton" name="certificateUseContentRB">
+         <property name="text">
+          <string>Configure Manually</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+C, Alt+M</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QPlainTextEdit" name="certificateContentPTE">
+         <property name="font">
+          <font>
+           <family>Monospace</family>
+          </font>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOn</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOn</enum>
+         </property>
+         <property name="lineWrapMode">
+          <enum>QPlainTextEdit::NoWrap</enum>
+         </property>
+         <property name="placeholderText">
+          <string notr="true">-----BEGIN CERTIFICATE-----...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabCertificateKey">
+      <attribute name="title">
+       <string extracomment="Tab Certificate Key">Certificate Key</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout_3">
+       <item row="1" column="0">
+        <widget class="QRadioButton" name="certificateKeyUseFileRB">
+         <property name="text">
+          <string>From File</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+K, Alt+F</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="certificateKeyFilePathLE">
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string notr="true">Drag and drop *.key here...</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QRadioButton" name="certificateKeyUseContentRB">
+         <property name="text">
+          <string>Configure Manually</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+K, Alt+M</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QPlainTextEdit" name="certificateKeyContentPTE">
+         <property name="font">
+          <font>
+           <family>Monospace</family>
+          </font>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOn</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOn</enum>
+         </property>
+         <property name="lineWrapMode">
+          <enum>QPlainTextEdit::NoWrap</enum>
+         </property>
+         <property name="placeholderText">
+          <string>-----BEGIN RSA PRIVATE KEY-----... </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QRadioButton" name="certificateKeyUseNothingRB">
+         <property name="toolTip">
+          <string>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</string>
+         </property>
+         <property name="text">
+          <string>Unset</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

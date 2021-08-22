@@ -1,6 +1,6 @@
 #include "loopback.hpp"
 
-LoopbackSettingsEditor::LoopbackSettingsEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
+LoopbackSettingsEditor::LoopbackSettingsEditor(QWidget *parent) : Qv2rayPlugin::Gui::PluginProtocolEditor(parent)
 {
     setupUi(this);
 }
@@ -17,5 +17,5 @@ void LoopbackSettingsEditor::changeEvent(QEvent *e)
 
 void LoopbackSettingsEditor::on_inboundTagTxt_textEdited(const QString &arg1)
 {
-    loopbackSettings["inboundTag"] = arg1;
+    settings["inboundTag"] = arg1;
 }

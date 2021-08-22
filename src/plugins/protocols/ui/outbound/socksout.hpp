@@ -1,11 +1,11 @@
 #pragma once
 
-#include "CommonTypes.hpp"
-#include "QvGUIPluginInterface.hpp"
+#include "QvPlugin/Gui/QvGUIPluginInterface.hpp"
+#include "V2RayModels.hpp"
 #include "ui_socksout.h"
 
 class SocksOutboundEditor
-    : public Qv2rayPlugin::QvPluginEditor
+    : public Qv2rayPlugin::Gui::PluginProtocolEditor
     , private Ui::socksOutEditor
 {
     Q_OBJECT
@@ -13,39 +13,21 @@ class SocksOutboundEditor
   public:
     explicit SocksOutboundEditor(QWidget *parent = nullptr);
 
-    void SetHostAddress(const QString &server, int port) override
+    virtual void Load() override
     {
-        socks.address = server;
-        socks.port = port;
+        socks.loadJson(settings);
+        socks.user.ReadWriteBind(socks_UserNameTxt, "text", &QLineEdit::textEdited);
+        socks.pass.ReadWriteBind(socks_PasswordTxt, "text", &QLineEdit::textEdited);
     }
 
-    QPair<QString, int> GetHostAddress() const override
+    virtual void Store() override
     {
-        return { (QString) socks.address, (int) socks.port };
-    }
-
-    void SetContent(const QJsonObject &source) override
-    {
-        auto servers = source["servers"].toArray();
-        if (servers.isEmpty())
-            return;
-        const auto content = servers.first().toObject();
-        socks.loadJson(content);
-        socks.users->first().user.ReadWriteBind(socks_UserNameTxt, "text", &QLineEdit::textEdited);
-        socks.users->first().pass.ReadWriteBind(socks_PasswordTxt, "text", &QLineEdit::textEdited);
-    }
-
-    const QJsonObject GetContent() const override
-    {
-        auto result = socks.toJson();
-        if (socks.users->isEmpty() || (socks.users->first().user->isEmpty() && socks.users->first().pass->isEmpty()))
-            result.remove("users");
-        return QJsonObject{ { "servers", QJsonArray{ result } } };
+        settings = IOProtocolSettings{ socks.toJson() };
     }
 
   protected:
     void changeEvent(QEvent *e) override;
 
   private:
-    SocksServerObject socks;
+    Qv2ray::Models::HTTPSOCKSObject socks;
 };
