@@ -122,11 +122,11 @@ void RoutingAEditor::on_routingAText_textChanged()
         int outbounds = 0;
         for (const auto &def : defines)
         {
-            if (def.Name == u"inbound"_qs)
+            if (def.type == u"inbound"_qs)
                 inbounds++;
-            if (def.Name == u"outbound"_qs)
+            if (def.type == u"outbound"_qs)
                 outbounds++;
-            if (def.Name == u"default"_qs)
+            if (def.type == u"default"_qs)
                 defaultOutboundLabel->setText(def.value);
         }
         inboundCLabel->setText(QString::number(inbounds));
