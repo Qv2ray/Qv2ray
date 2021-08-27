@@ -1,10 +1,12 @@
 # <img width="32" src="assets/icons/qv2ray.png" alt="Qv2ray"/> Qv2ray - For developers. By developers.
 
-[![Qv2ray build matrix - Qt6](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml/badge.svg)](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build-qv2ray-qt6.yml)
+[![Build for Desktop](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build.yml/badge.svg)](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build.yml)
 [![GitHub Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
 
-Qv2ray is a cross-platform Qt frontend for V2Ray.
+[![AUR badge for qv2ray-static-bin-nightly](https://img.shields.io/aur/version/qv2ray-static-bin-nightly?label=qv2ray-static-bin-nightly)](https://aur.archlinux.org/packages/qv2ray-static-bin-nightly/)
+
+Qv2ray is a cross-platform connection manager for V2Ray and other backends.
 
 This is the original Qv2ray project by the author who contributed over 95% code and other contributors.
 Unlike Qv2ray/Qv2ray whose control has been forcibly taken away from the author by another organization owner.
