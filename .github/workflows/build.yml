@@ -70,10 +70,6 @@ jobs:
         arch: ${{ matrix.config.arch }}
         aqtversion: ==1.2.2
 
-    - name: Install Vulkan SDK
-      if: matrix.config.os != 'macos-latest'
-      uses: humbletim/setup-vulkan-sdk@v1.0.2
-
     - name: run-vcpkg
       uses: lukka/run-vcpkg@v7.3
       with:
