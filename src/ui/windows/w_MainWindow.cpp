@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         speedChart->addWidget(speedChartWidget);
         graphAction_CopyGraph = new QAction(speedChartWidget);
         speedChartWidget->addAction(graphAction_CopyGraph);
+        speedChartWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
         connect(graphAction_CopyGraph, &QAction::triggered, this, &MainWindow::Action_CopyGraphAsImage);
     }
 
