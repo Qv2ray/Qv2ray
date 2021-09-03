@@ -80,7 +80,7 @@ endforeach()
 set_source_files_properties(FILES ${PROTO_HEADERS} ${PROTO_SOURCES} PROPERTIES SKIP_AUTOGEN TRUE)
 
 qv2ray_add_plugin(QvPlugin-BuiltinV2RaySupport Widgets
-    INSTALL_PREFIX_MACOS "$<TARGET_BUNDLE_DIR:qv2ray>/Contents/Resources/plugins"
+    INSTALL_PREFIX_MACOS "${CMAKE_INSTALL_PREFIX}/qv2ray.app/Contents/Resources/plugins"
     CLASS_NAME "BuiltinV2RayCorePlugin")
 
 target_sources(QvPlugin-BuiltinV2RaySupport PRIVATE

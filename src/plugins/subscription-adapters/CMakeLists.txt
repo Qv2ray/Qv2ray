@@ -1,5 +1,5 @@
 qv2ray_add_plugin(QvPlugin-BuiltinSubscriptionSupport Widgets
-    INSTALL_PREFIX_MACOS "$<TARGET_BUNDLE_DIR:qv2ray>/Contents/Resources/plugins"
+    INSTALL_PREFIX_MACOS "${CMAKE_INSTALL_PREFIX}/qv2ray.app/Contents/Resources/plugins"
     CLASS_NAME "InternalSubscriptionSupportPlugin")
 
 target_sources(QvPlugin-BuiltinSubscriptionSupport PRIVATE
