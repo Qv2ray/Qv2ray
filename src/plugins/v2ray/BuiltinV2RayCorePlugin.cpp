@@ -1,8 +1,56 @@
 #include "BuiltinV2RayCorePlugin.hpp"
 
 #include "QvPlugin/Gui/QvGUIPluginInterface.hpp"
+#include "core/V2RayGoKernel.hpp"
 #include "core/V2RayKernel.hpp"
 #include "ui/w_V2RayKernelSettings.hpp"
+
+class V2RayKernelInterface : public Qv2rayPlugin::Kernel::IKernelHandler
+{
+  public:
+    V2RayKernelInterface() : Qv2rayPlugin::Kernel::IKernelHandler(){};
+    virtual QList<Qv2rayPlugin::Kernel::KernelFactory> PluginKernels() const override
+    {
+        QList<Qv2rayPlugin::Kernel::KernelFactory> factories;
+        {
+            Qv2rayPlugin::Kernel::KernelFactory v2ray;
+            v2ray.Capabilities.setFlag(Qv2rayPlugin::Kernel::KERNELCAP_ROUTER);
+            v2ray.Id = v2ray_kernel_id;
+            v2ray.Name = u"V2Ray"_qs;
+            v2ray.Create = std::function{ []() { return std::make_unique<V2RayKernel>(); } };
+            v2ray.SupportedProtocols << u"blackhole"_qs   //
+                                     << u"dns"_qs         //
+                                     << u"freedom"_qs     //
+                                     << u"http"_qs        //
+                                     << u"loopback"_qs    //
+                                     << u"shadowsocks"_qs //
+                                     << u"socks"_qs       //
+                                     << u"trojan"_qs      //
+                                     << u"vless"_qs       //
+                                     << u"vmess"_qs;
+            factories << v2ray;
+        }
+        {
+            Qv2rayPlugin::Kernel::KernelFactory v2raygo;
+            v2raygo.Capabilities.setFlag(Qv2rayPlugin::Kernel::KERNELCAP_ROUTER);
+            v2raygo.Id = v2ray_go_kernel_id;
+            v2raygo.Name = u"V2Ray Go"_qs;
+            v2raygo.Create = std::function{ []() { return std::make_unique<V2RayGoKernel>(); } };
+            v2raygo.SupportedProtocols << u"blackhole"_qs   //
+                                       << u"dns"_qs         //
+                                       << u"freedom"_qs     //
+                                       << u"http"_qs        //
+                                       << u"loopback"_qs    //
+                                       << u"shadowsocks"_qs //
+                                       << u"socks"_qs       //
+                                       << u"trojan"_qs      //
+                                       << u"vless"_qs       //
+                                       << u"vmess"_qs;
+            factories << v2raygo;
+        }
+        return factories;
+    }
+};
 
 class GuiInterface : public Qv2rayPlugin::Gui::Qv2rayGUIInterface
 {

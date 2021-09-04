@@ -97,8 +97,12 @@ target_sources(QvPlugin-BuiltinV2RaySupport PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/core/V2RayAPIStats.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/V2RayKernel.hpp
     ${CMAKE_CURRENT_LIST_DIR}/core/V2RayKernel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayGoKernel.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayGoKernel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/V2RayProfileGenerator.hpp
     ${CMAKE_CURRENT_LIST_DIR}/core/V2RayProfileGenerator.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayGoProfileGenerator.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayGoProfileGenerator.cpp
     )
 
 if(QV2RAY_V2RAY_PLUGIN_USE_PROTOBUF)

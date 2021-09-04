@@ -5,14 +5,13 @@
 class QProcess;
 class APIWorker;
 
-const inline KernelId v2ray_kernel_id{ u"v2ray_kernel"_qs };
-
-class V2RayKernel : public Qv2rayPlugin::Kernel::PluginKernel
+const inline KernelId v2ray_go_kernel_id{ u"v2ray_kernel"_qs };
+class V2RayGoKernel : public Qv2rayPlugin::Kernel::PluginKernel
 {
     Q_OBJECT
   public:
-    V2RayKernel();
-    ~V2RayKernel();
+    V2RayGoKernel();
+    ~V2RayGoKernel();
 
   public:
     virtual void SetConnectionSettings(const QMap<Qv2rayPlugin::Kernel::KernelOptionFlags, QVariant> &, const IOConnectionSettings &) override{};
@@ -22,7 +21,7 @@ class V2RayKernel : public Qv2rayPlugin::Kernel::PluginKernel
     virtual bool Stop() override;
     virtual KernelId GetKernelId() const override
     {
-        return v2ray_kernel_id;
+        return v2ray_go_kernel_id;
     }
 
   signals:
