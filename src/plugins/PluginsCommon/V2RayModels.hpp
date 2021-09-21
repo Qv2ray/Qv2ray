@@ -297,14 +297,6 @@ namespace Qv2ray::Models
         QJS_JSON(P(method, password))
     };
 
-    // VLESS Server
-    struct VLESSClientObject
-    {
-        Bindable<QString> id;
-        Bindable<QString> encryption{ u"none"_qs };
-        QJS_JSON(P(id, encryption))
-    };
-
     // VMess Server
     struct VMessClientObject
     {

@@ -281,22 +281,6 @@ void V2RayGoProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
         root[u"settings"_qs] = QJsonObject{ { u"vnext"_qs, QJsonArray{ singleServer } } };
     }
 
-    if (out.outboundSettings.protocol == u"vless"_qs)
-    {
-        Qv2ray::Models::VLESSClientObject serv;
-        serv.loadJson(out.outboundSettings.protocolSettings);
-        QJsonObject singleServer{
-            { u"address"_qs, out.outboundSettings.address },
-            { u"port"_qs, out.outboundSettings.port.from },
-            { u"users"_qs, QJsonArray{ QJsonObject{
-                               { u"id"_qs, *serv.id },
-                               { u"encryption"_qs, *serv.encryption },
-                           } } },
-        };
-
-        root[u"settings"_qs] = QJsonObject{ { u"vnext"_qs, QJsonArray{ singleServer } } };
-    }
-
     if (out.outboundSettings.protocol == u"shadowsocks"_qs)
     {
         Qv2ray::Models::ShadowSocksClientObject ss;
