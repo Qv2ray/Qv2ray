@@ -25,10 +25,6 @@ foreach(d ${DIRS})
 endforeach()
 set(DIRS ${NEW_DIRS})
 
-# Qt network backend.
-install(DIRECTORY "${Qt6Core_DIR}/../../../plugins/tls/" DESTINATION "${CMAKE_INSTALL_PREFIX}/tls/"
-    PATTERN "*.pdb" EXCLUDE)
-
 set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
 
 set(APP "${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
