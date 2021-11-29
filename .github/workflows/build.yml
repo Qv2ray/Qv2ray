@@ -64,7 +64,7 @@ jobs:
       uses: ilammy/msvc-dev-cmd@v1
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v2.14.0
+      uses: jurplel/install-qt-action@v2
       with:
         version: 6.2.1
         arch: ${{ matrix.config.arch }}
