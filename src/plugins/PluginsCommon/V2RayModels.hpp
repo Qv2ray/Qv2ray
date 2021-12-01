@@ -170,8 +170,8 @@ namespace Qv2ray::Models
             Bindable<int> writeBufferSize{ 2 };
             Bindable<QString> seed;
             Bindable<ObfsHeaderObject> header;
-            QJS_COMPARE(KCPObject, mtu, tti, uplinkCapacity, congestion, readBufferSize, writeBufferSize, seed, header);
-            QJS_JSON(P(mtu, tti, uplinkCapacity, congestion, readBufferSize, writeBufferSize, seed, header))
+            QJS_COMPARE(KCPObject, mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, seed, header);
+            QJS_JSON(P(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, seed, header))
         };
 
         struct WebSocketObject
