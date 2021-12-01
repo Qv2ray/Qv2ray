@@ -64,6 +64,10 @@ jobs:
     - name: Install MSVC compiler
       if: matrix.config.has_msvc
       uses: ilammy/msvc-dev-cmd@v1
+      
+    - name: test
+      run: |
+        pip install aqtinstall
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.14.0
