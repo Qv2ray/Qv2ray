@@ -67,8 +67,8 @@ jobs:
       uses: jurplel/install-qt-action@v2.14.0
       with:
         version: 6.2.1
-        py7zrversion: '==latest'
-        aqtversion: '==latest'
+        py7zrversion: ' '
+        aqtversion: ' '
 
     - name: run-vcpkg
       uses: lukka/run-vcpkg@v7.3
