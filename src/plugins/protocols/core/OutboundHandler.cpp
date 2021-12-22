@@ -186,6 +186,16 @@ QString SerializeTrojan(const QString &name, const IOConnectionSettings &connect
     url.setHost(connection.address);
     url.setPort(connection.port.from);
     url.setUserInfo(connection.protocolSettings[u"password"_qs].toString());
+
+    Qv2ray::Models::StreamSettingsObject stream;
+    stream.loadJson(connection.streamSettings);
+    if (stream.security == u"tls"_qs && !stream.tlsSettings->serverName->isEmpty())
+    {
+        QUrlQuery q{ url.query() };
+        q.addQueryItem(u"sni"_qs, stream.tlsSettings->serverName);
+        url.setQuery(q);
+    }
+
     url.setFragment(name);
     return url.toString();
 }
@@ -198,7 +208,17 @@ std::optional<std::pair<QString, IOConnectionSettings>> DeserializeTrojan(const 
     conn.port = url.port();
     conn.protocol = u"trojan"_qs;
     conn.protocolSettings.insert(u"password"_qs, url.userInfo());
-    return std::make_pair(QUrlQuery{ url.query() }.queryItemValue(u"password"_qs), conn);
+
+    QUrlQuery q{ url.query() };
+    if (q.hasQueryItem(u"sni"_qs))
+    {
+        Qv2ray::Models::StreamSettingsObject stream;
+        stream.security = u"tls"_qs;
+        stream.tlsSettings->serverName = q.queryItemValue(u"sni"_qs);
+        conn.streamSettings = stream;
+    }
+
+    return std::make_pair(url.fragment(), conn);
 }
 
 const static QStringList NetworkType{ "tcp", "http", "ws", "kcp", "quic" };
