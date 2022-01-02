@@ -69,6 +69,7 @@ jobs:
         version: 6.2.2
         py7zrversion: ' '
         aqtversion: ' '
+        setup-python: false
 
     - name: run-vcpkg
       uses: lukka/run-vcpkg@v7.3
