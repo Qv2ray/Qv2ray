@@ -31,7 +31,7 @@ if(WIN32)
         VERSION_PATCH      ${CMAKE_PROJECT_VERSION_PATCH}
         VERSION_REVISION   "0"
         COMPANY_NAME       "Moody"
-        COMPANY_COPYRIGHT  "Qv2ray Workgroup 2021, Moodyhunter 2021"
+        COMPANY_COPYRIGHT  "Qv2ray Workgroup 2021, Shadowsocks-NET 2021, Moody 2022"
         FILE_DESCRIPTION   "Qv2ray 3.0"
         )
     add_definitions(-DUNICODE -D_UNICODE -DNOMINMAX)
@@ -186,7 +186,7 @@ target_link_libraries(qv2ray PRIVATE
     Qv2ray::AllPlugins
     OpenSSL::SSL
     OpenSSL::Crypto
-    SingleApplication
+    SingleApplication::SingleApplication
     )
 
 # BEGIN SPECIAL CASE

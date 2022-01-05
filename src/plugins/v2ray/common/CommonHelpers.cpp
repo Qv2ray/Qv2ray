@@ -5,7 +5,7 @@
 #include <QProcess>
 #include <QRegularExpression>
 
-std::pair<bool, std::optional<QString>> ValidateKernel(const QString &corePath, const QString &assetsPath)
+std::pair<bool, std::optional<QString>> ValidateKernel(const QString &corePath, const QString &assetsPath, const QStringList &arguments)
 {
     QFile coreFile(corePath);
 
@@ -36,15 +36,15 @@ std::pair<bool, std::optional<QString>> ValidateKernel(const QString &corePath, 
 
     // Check if V2Ray core returns a version number correctly.
     QProcess proc;
-#ifdef Q_OS_WIN32
-    // nativeArguments are required for Windows platform, without a reason...
-    proc.setProcessChannelMode(QProcess::MergedChannels);
-    proc.setProgram(corePath);
-    proc.setNativeArguments(u"--version"_qs);
-    proc.start();
-#else
-    proc.start(corePath, { u"--version"_qs });
-#endif
+    //#ifdef Q_OS_WIN32
+    //    // nativeArguments are required for Windows platform, without a reason...
+    //    proc.setProcessChannelMode(QProcess::MergedChannels);
+    //    proc.setProgram(corePath);
+    //    proc.setNativeArguments(u"--version"_qs);
+    //    proc.start();
+    //#else
+    proc.start(corePath, arguments);
+    //#endif
     proc.waitForStarted();
     proc.waitForFinished();
     auto exitCode = proc.exitCode();

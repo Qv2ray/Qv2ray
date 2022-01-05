@@ -441,6 +441,16 @@
             <item row="1" column="1">
              <widget class="QComboBox" name="defaultLatencyTesterCB"/>
             </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Default Kernel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="defaultKernelCB"/>
+            </item>
            </layout>
           </widget>
          </item>
@@ -480,7 +490,7 @@
             <x>0</x>
             <y>0</y>
             <width>858</width>
-            <height>545</height>
+            <height>548</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout" rowstretch="0,1">

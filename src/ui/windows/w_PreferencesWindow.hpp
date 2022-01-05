@@ -74,6 +74,8 @@ class PreferencesWindow
 
     void on_defaultLatencyTesterCB_currentIndexChanged(int index);
 
+    void on_defaultKernelCB_currentIndexChanged(int index);
+
   private:
     DnsSettingsWidget *dnsSettingsWidget;
     RouteSettingsMatrixWidget *routeSettingsWidget;

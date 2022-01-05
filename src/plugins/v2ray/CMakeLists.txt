@@ -95,14 +95,21 @@ target_sources(QvPlugin-BuiltinV2RaySupport PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/BuiltinV2RayCorePlugin.cpp
     ${CMAKE_CURRENT_LIST_DIR}/core/V2RayAPIStats.hpp
     ${CMAKE_CURRENT_LIST_DIR}/core/V2RayAPIStats.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayKernel.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayKernel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayGoKernel.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayGoKernel.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayProfileGenerator.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayProfileGenerator.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayGoProfileGenerator.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/core/V2RayGoProfileGenerator.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray/V2Ray.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray/V2Ray.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray/V2RayProfileGenerator.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray/V2RayProfileGenerator.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray-go/V2RayGo.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray-go/V2RayGo.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray-go/V2RayGoProfileGenerator.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray-go/V2RayGoProfileGenerator.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray-v5/V2Ray5.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray-v5/V2Ray5.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray-v5/V2Ray5ProfileGenerator.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/core/v2ray-v5/V2Ray5ProfileGenerator.cpp
     )
 
 if(QV2RAY_V2RAY_PLUGIN_USE_PROTOBUF)

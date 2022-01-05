@@ -211,6 +211,27 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(u"PreferenceWin
             GlobalConfig->behaviorConfig->DefaultLatencyTestEngine = AppConfig.behaviorConfig->DefaultLatencyTestEngine;
         }
     }
+
+    {
+        defaultKernelCB->blockSignals(true);
+
+        int index = -1;
+        for (const auto &kernel : QvPluginAPIHost->Kernel_GetAllKernels())
+        {
+            if (kernel.Id == AppConfig.behaviorConfig->DefaultKernelId)
+                index = defaultKernelCB->count();
+            defaultKernelCB->addItem(kernel.Name, kernel.Id.toString());
+        }
+        if (index >= 0)
+            defaultKernelCB->setCurrentIndex(index);
+        else if (defaultKernelCB->count() > 0)
+        {
+            AppConfig.behaviorConfig->DefaultKernelId = KernelId{ defaultKernelCB->itemData(0).toString() };
+            GlobalConfig->behaviorConfig->DefaultKernelId = AppConfig.behaviorConfig->DefaultKernelId;
+        }
+
+        defaultKernelCB->blockSignals(false);
+    }
 }
 
 QvMessageBusSlotImpl(PreferencesWindow)
@@ -497,4 +518,9 @@ void PreferencesWindow::on_qvProxyTypeCombo_currentIndexChanged(int index)
 void PreferencesWindow::on_defaultLatencyTesterCB_currentIndexChanged(int)
 {
     AppConfig.behaviorConfig->DefaultLatencyTestEngine = LatencyTestEngineId{ defaultLatencyTesterCB->currentData().toString() };
+}
+
+void PreferencesWindow::on_defaultKernelCB_currentIndexChanged(int)
+{
+    AppConfig.behaviorConfig->DefaultKernelId = KernelId{ defaultKernelCB->currentData().toString() };
 }

@@ -1,9 +1,9 @@
-#include "V2RayKernel.hpp"
+#include "V2Ray.hpp"
 
 #include "BuiltinV2RayCorePlugin.hpp"
-#include "V2RayAPIStats.hpp"
 #include "V2RayProfileGenerator.hpp"
 #include "common/CommonHelpers.hpp"
+#include "core/V2RayAPIStats.hpp"
 
 #include <QJsonDocument>
 #include <QProcess>
@@ -129,7 +129,7 @@ bool V2RayKernel::Stop()
 std::optional<QString> V2RayKernel::ValidateConfig(const QString &path)
 {
     const auto settings = BuiltinV2RayCorePlugin::PluginInstance->settings;
-    if (const auto &[result, msg] = ValidateKernel(settings.CorePath, settings.AssetsPath); result)
+    if (const auto &[result, msg] = ValidateKernel(settings.CorePath, settings.AssetsPath, { u"--version"_qs }); result)
     {
         BuiltinV2RayCorePlugin::Log(u"V2Ray version: "_qs + *msg);
         // Append assets location env.
