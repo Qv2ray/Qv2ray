@@ -93,7 +93,6 @@ set(QAPPLICATION_CLASS "QApplication")
 set(QT_DEFAULT_MAJOR_VERSION 6)
 
 if(QV2RAY_QV2RAYBASE_PROVIDER STREQUAL "package")
-    find_package(QvPluginInterface REQUIRED)
     find_package(Qv2rayBase REQUIRED)
 else()
     add_subdirectory(src/Qv2rayBase)

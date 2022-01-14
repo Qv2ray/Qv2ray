@@ -4,6 +4,7 @@
 [![GitHub Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
 
+[![AUR badge for qv2ray-git](https://img.shields.io/aur/version/qv2ray-git?label=qv2ray-git)](https://aur.archlinux.org/packages/qv2ray-git/)
 [![AUR badge for qv2ray-static-bin-nightly](https://img.shields.io/aur/version/qv2ray-static-bin-nightly?label=qv2ray-static-bin-nightly)](https://aur.archlinux.org/packages/qv2ray-static-bin-nightly/)
 
 Qv2ray is a cross-platform connection manager for V2Ray and other backends.
