@@ -139,8 +139,8 @@ QByteArray V2RayGoProfileGenerator::Generate()
     if (!profile.routing.dns.isEmpty())
         rootconf[u"dns"_qs] = profile.routing.dns;
 
-    if (!profile.routing.fakedns.isEmpty())
-        rootconf[u"fakedns"_qs] = profile.routing.fakedns;
+    if (!profile.routing.fakedns[u"pools"_qs].toArray().isEmpty())
+        rootconf[u"fakedns"_qs] = profile.routing.fakedns[u"pools"_qs];
 
     OutboundMarkSettingFilter(rootconf, settings.OutboundMark);
 

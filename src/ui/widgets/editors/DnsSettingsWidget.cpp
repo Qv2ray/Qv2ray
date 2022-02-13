@@ -64,7 +64,7 @@ QvMessageBusSlotImpl(DnsSettingsWidget)
     }
 }
 
-void DnsSettingsWidget::SetDNSObject(const Qv2ray::Models::V2RayDNSObject &_dns, const Qv2ray::Models::V2RayFakeDNSObject &_fakeDNS)
+void DnsSettingsWidget::SetDNSObject(const Qv2ray::Models::V2RayDNSObject &_dns, const QList<Qv2ray::Models::V2RayFakeDNSObject> &_fakeDNS)
 {
     this->dns = _dns;
 
@@ -95,14 +95,14 @@ void DnsSettingsWidget::SetDNSObject(const Qv2ray::Models::V2RayDNSObject &_dns,
     dnsDisableCacheCB->setChecked(dns.disableCache);
 
     // WARNING TODO: BAD HACK need list model
-    if (!_fakeDNS.pools->isEmpty())
+    if (!_fakeDNS.isEmpty())
     {
-        fakeDNSIPPool->setCurrentText(_fakeDNS.pools->first().ipPool);
-        fakeDNSIPPoolSize->setValue(_fakeDNS.pools->first().poolSize);
-        if (_fakeDNS.pools->size() > 1)
+        fakeDNSIPPool->setCurrentText(_fakeDNS.first().ipPool);
+        fakeDNSIPPoolSize->setValue(_fakeDNS.first().poolSize);
+        if (_fakeDNS.size() > 1)
         {
-            fakeDNSIPv6Pool->setCurrentText(_fakeDNS.pools->at(1).ipPool);
-            fakeDNSIPv6PoolSize->setValue(_fakeDNS.pools->at(1).poolSize);
+            fakeDNSIPv6Pool->setCurrentText(_fakeDNS.at(1).ipPool);
+            fakeDNSIPv6PoolSize->setValue(_fakeDNS.at(1).poolSize);
         }
     }
     UPDATE_UI_ENABLED_STATE
@@ -150,7 +150,7 @@ void DnsSettingsWidget::ShowCurrentDnsServerDetails()
     ProcessDnsPortEnabledState();
 }
 
-std::pair<Qv2ray::Models::V2RayDNSObject, Qv2ray::Models::V2RayFakeDNSObject> DnsSettingsWidget::GetDNSObject()
+std::pair<Qv2ray::Models::V2RayDNSObject, QList<Qv2ray::Models::V2RayFakeDNSObject>> DnsSettingsWidget::GetDNSObject()
 {
     dns.hosts.clear();
     for (auto i = 0; i < staticResolvedDomainsTable->rowCount(); i++)
@@ -161,11 +161,11 @@ std::pair<Qv2ray::Models::V2RayDNSObject, Qv2ray::Models::V2RayFakeDNSObject> Dn
             dns.hosts.insert(item1->text(), item2->text());
     }
 
-    Qv2ray::Models::V2RayFakeDNSObject fakeDNS;
+    QList<Qv2ray::Models::V2RayFakeDNSObject> fakeDNS;
     if (!fakeDNSIPPool->currentText().isEmpty())
-        fakeDNS.pools->append(V2RayFakeDNSObject::PoolObject{ { fakeDNSIPPool->currentText() }, fakeDNSIPPoolSize->value() });
+        fakeDNS.append(V2RayFakeDNSObject{ { fakeDNSIPPool->currentText() }, fakeDNSIPPoolSize->value() });
     if (!fakeDNSIPv6Pool->currentText().isEmpty())
-        fakeDNS.pools->append(V2RayFakeDNSObject::PoolObject{ { fakeDNSIPv6Pool->currentText() }, fakeDNSIPv6PoolSize->value() });
+        fakeDNS.append(V2RayFakeDNSObject{ { fakeDNSIPv6Pool->currentText() }, fakeDNSIPv6PoolSize->value() });
     return { dns, fakeDNS };
 }
 

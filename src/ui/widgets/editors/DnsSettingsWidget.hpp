@@ -17,8 +17,8 @@ class DnsSettingsWidget
 
   public:
     explicit DnsSettingsWidget(QWidget *parent = nullptr);
-    void SetDNSObject(const Qv2ray::Models::V2RayDNSObject &dns, const Qv2ray::Models::V2RayFakeDNSObject &fakeDNS);
-    std::pair<Qv2ray::Models::V2RayDNSObject, Qv2ray::Models::V2RayFakeDNSObject> GetDNSObject();
+    void SetDNSObject(const Qv2ray::Models::V2RayDNSObject &dns, const QList<Qv2ray::Models::V2RayFakeDNSObject> &fakeDNS);
+    std::pair<Qv2ray::Models::V2RayDNSObject, QList<Qv2ray::Models::V2RayFakeDNSObject>> GetDNSObject();
     bool CheckIsValidDNS() const;
 
   private slots:
