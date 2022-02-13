@@ -54,19 +54,25 @@ void V2RayKernelSettings::on_selectVAssetBtn_clicked()
 
 void V2RayKernelSettings::on_checkVCoreSettings_clicked()
 {
-    //    if (const auto &[result, msg] = ValidateKernel(settingsObject.CorePath, settingsObject.AssetsPath); !result)
-    //    {
-    //        V2RayCorePluginClass::ShowMessageBox(tr("V2Ray Core Settings"), *msg);
-    //    }
-    //    else
-    //    {
-    //        const auto content = tr("V2Ray path configuration check passed.") + //
-    //                             u"\n\n"_qs +                                   //
-    //                             tr("Kernel Output: ") +                        //
-    //                             u"\n"_qs +                                     //
-    //                             *msg;
-    //        V2RayCorePluginClass::ShowMessageBox(tr("V2Ray Core Settings"), content);
-    //    }
+#if V2RayCoreType == CORETYPE_V2Ray5
+    const auto &[result, msg] = ValidateKernel(settingsObject.CorePath, settingsObject.AssetsPath, { u"version"_qs });
+#else
+    const auto &[result, msg] = ValidateKernel(settingsObject.CorePath, settingsObject.AssetsPath, { u"--version"_qs });
+#endif
+
+    if (!result)
+    {
+        V2RayCorePluginClass::ShowMessageBox(tr("V2Ray Core Settings"), *msg);
+    }
+    else
+    {
+        const auto content = tr("V2Ray path configuration check passed.") + //
+                             u"\n\n"_qs +                                   //
+                             tr("Kernel Output: ") +                        //
+                             u"\n"_qs +                                     //
+                             *msg;
+        V2RayCorePluginClass::ShowMessageBox(tr("V2Ray Core Settings"), content);
+    }
 }
 
 void V2RayKernelSettings::on_detectCoreBtn_clicked()

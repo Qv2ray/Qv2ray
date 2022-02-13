@@ -15,7 +15,7 @@ V2Ray5Kernel::V2Ray5Kernel()
 {
     vProcess = new QProcess();
     connect(vProcess, &QProcess::readyReadStandardOutput, this, [&]() { emit OnLog(QString::fromUtf8(vProcess->readAllStandardOutput().trimmed())); });
-    connect(vProcess, &QProcess::stateChanged,
+    connect(vProcess, &QProcess::stateChanged, vProcess,
             [this](QProcess::ProcessState state)
             {
                 if (kernelStarted && state == QProcess::NotRunning)
