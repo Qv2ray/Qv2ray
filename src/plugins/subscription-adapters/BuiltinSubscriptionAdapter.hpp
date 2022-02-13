@@ -18,12 +18,16 @@ class InternalSubscriptionSupportPlugin
     // Basic metainfo of this plugin
     const QvPluginMetadata GetMetadata() const override
     {
-        return QvPluginMetadata{ "Builtin Subscription Support",          //
-                                 "Qv2ray Core Workgroup",                 //
-                                 PluginId{ "builtin_subscription" },      //
-                                 "Basic subscription support for Qv2ray", //
-                                 QUrl{ "Qv2ray Repository" },             //
-                                 { COMPONENT_SUBSCRIPTION_ADAPTER } };
+        return QvPluginMetadata{
+            "Builtin Subscription Support",
+            "Qv2ray Core Workgroup",
+            PluginId{ "builtin_subscription" },
+            "Basic subscription support for Qv2ray",
+            QUrl{},
+            {
+                COMPONENT_SUBSCRIPTION_ADAPTER,
+            },
+        };
     }
 
     bool InitializePlugin() override;

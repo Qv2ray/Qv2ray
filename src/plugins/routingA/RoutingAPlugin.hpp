@@ -17,12 +17,14 @@ class RoutingAPlugin
     const QvPluginMetadata GetMetadata() const override
     {
         return {
-            "RoutingA Editor Plugin",                                   //
-            "Moody",                                                    //
-            PluginId("RoutingA_Plugin"),                                //
-            "Allowing edit complex configurations in RoutingA syntax.", //
-            QUrl{},                                                     //
-            { COMPONENT_GUI },
+            "RoutingA Editor Plugin",
+            "Moody",
+            PluginId("RoutingA_Plugin"),
+            "Allowing edit complex configurations in RoutingA syntax.",
+            QUrl{},
+            {
+                COMPONENT_GUI,
+            },
         };
     }
 
