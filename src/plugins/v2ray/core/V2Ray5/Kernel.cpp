@@ -142,7 +142,7 @@ std::optional<QString> V2Ray5Kernel::ValidateConfig(const QString &path)
         process.setProcessEnvironment(env);
         process.setProcessChannelMode(QProcess::MergedChannels);
         V2RayCorePluginClass::Log(u"Starting V2Ray core with test options"_qs);
-        process.start(settings.CorePath, { u"-test"_qs, u"-config"_qs, path }, QIODevice::ReadWrite | QIODevice::Text);
+        process.start(settings.CorePath, { u"test"_qs, u"-config"_qs, path }, QIODevice::ReadWrite | QIODevice::Text);
         process.waitForFinished();
 
         if (process.exitCode() != 0)
