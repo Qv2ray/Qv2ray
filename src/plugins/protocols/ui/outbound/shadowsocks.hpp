@@ -16,8 +16,6 @@ class ShadowsocksOutboundEditor
     void Load() override
     {
         shadowsocks.loadJson(settings);
-        shadowsocks.method.ReadWriteBind(ss_encryptionMethod, "currentText", &QComboBox::currentTextChanged);
-        shadowsocks.password.ReadWriteBind(ss_passwordTxt, "text", &QLineEdit::textEdited);
     }
 
     void Store() override
