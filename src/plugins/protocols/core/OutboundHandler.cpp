@@ -16,12 +16,10 @@ static QString SafeBase64Decode(QString string)
 using namespace Qv2rayPlugin;
 using namespace Qv2ray::Models;
 
-QString SerializeVLESS(const QString &name, const IOConnectionSettings &connection);
 QString SerializeVMess(const QString &name, const IOConnectionSettings &connection);
 QString SerializeSS(const QString &name, const IOConnectionSettings &connection);
 QString SerializeTrojan(const QString &name, const IOConnectionSettings &connection);
 
-std::optional<std::pair<QString, IOConnectionSettings>> DeserializeVLESS(const QString &link);
 std::optional<std::pair<QString, IOConnectionSettings>> DeserializeVMess(const QString &link);
 std::optional<std::pair<QString, IOConnectionSettings>> DeserializeSS(const QString &link);
 std::optional<std::pair<QString, IOConnectionSettings>> DeserializeOldVMess(const QString &link);

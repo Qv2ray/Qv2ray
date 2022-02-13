@@ -19,9 +19,6 @@ ADD_SOURCE(outbound trojan)
 ADD_SOURCE(inbound dokodemo-door)
 ADD_SOURCE(inbound httpin)
 ADD_SOURCE(inbound socksin)
-#ADD_SOURCE(inbound shadowsocks)
-#ADD_SOURCE(inbound vless)
-#ADD_SOURCE(inbound vmess)
 
 qv2ray_add_plugin(${PROTOCOL_PLUGIN_TARGET} Widgets
     INSTALL_PREFIX_MACOS "${CMAKE_INSTALL_PREFIX}/qv2ray.app/Contents/Resources/plugins"

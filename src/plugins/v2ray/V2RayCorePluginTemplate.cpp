@@ -72,8 +72,7 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
     v2ray.Create = std::function{ []() { return std::make_unique<V2RayKernel>(); } };
     v2ray.SupportedProtocols << u"blackhole"_qs << u"dns"_qs << u"freedom"_qs     //
                              << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
-                             << u"socks"_qs << u"trojan"_qs << u"vless"_qs        //
-                             << u"vmess"_qs;
+                             << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
     factories << v2ray;
 #endif
 
@@ -85,8 +84,7 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
     v2raygo.Create = std::function{ []() { return std::make_unique<V2RayGoKernel>(); } };
     v2raygo.SupportedProtocols << u"blackhole"_qs << u"dns"_qs << u"freedom"_qs     //
                                << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
-                               << u"socks"_qs << u"trojan"_qs << u"vless"_qs        //
-                               << u"vmess"_qs;
+                               << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
     factories << v2raygo;
 #endif
 
@@ -98,8 +96,7 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
     v2ray5.Create = std::function{ []() { return std::make_unique<V2Ray5Kernel>(); } };
     v2ray5.SupportedProtocols << u"blackhole"_qs << u"dns"_qs << u"freedom"_qs     //
                               << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
-                              << u"socks"_qs << u"trojan"_qs << u"vless"_qs        //
-                              << u"vmess"_qs;
+                              << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
     factories << v2ray5;
 #endif
     return factories;

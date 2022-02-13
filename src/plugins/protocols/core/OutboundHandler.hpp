@@ -15,11 +15,11 @@ class BuiltinSerializer : public Qv2rayPlugin::Outbound::IOutboundProcessor
 
     QList<QString> SupportedLinkPrefixes() const override
     {
-        return { "http", "socks", "vmess", "vless", "ss", "trojan" };
+        return { "http", "socks", "vmess", "ss", "trojan" };
     }
 
     QList<QString> SupportedProtocols() const override
     {
-        return { "http", "socks", "shadowsocks", "vmess", "vless", "trojan" };
+        return { "http", "socks", "shadowsocks", "vmess", "trojan" };
     }
 };
