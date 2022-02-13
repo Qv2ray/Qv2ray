@@ -1,6 +1,6 @@
 #include "w_V2RayKernelSettings.hpp"
 
-#include "BuiltinV2RayCorePlugin.hpp"
+#include "V2RayCorePluginTemplate.hpp"
 #include "common/CommonHelpers.hpp"
 
 #include <QFileDialog>
@@ -56,7 +56,7 @@ void V2RayKernelSettings::on_checkVCoreSettings_clicked()
 {
     //    if (const auto &[result, msg] = ValidateKernel(settingsObject.CorePath, settingsObject.AssetsPath); !result)
     //    {
-    //        BuiltinV2RayCorePlugin::ShowMessageBox(tr("V2Ray Core Settings"), *msg);
+    //        V2RayCorePluginClass::ShowMessageBox(tr("V2Ray Core Settings"), *msg);
     //    }
     //    else
     //    {
@@ -65,7 +65,7 @@ void V2RayKernelSettings::on_checkVCoreSettings_clicked()
     //                             tr("Kernel Output: ") +                        //
     //                             u"\n"_qs +                                     //
     //                             *msg;
-    //        BuiltinV2RayCorePlugin::ShowMessageBox(tr("V2Ray Core Settings"), content);
+    //        V2RayCorePluginClass::ShowMessageBox(tr("V2Ray Core Settings"), content);
     //    }
 }
 
@@ -159,7 +159,7 @@ void V2RayKernelSettings::on_detectCoreBtn_clicked()
     messages << (coreFound ? u"Found v2ray core at: "_qs + corePath : u"Cannot find v2ray core."_qs);
     messages << (assetsFound ? u"Found v2ray assets at: "_qs + assetsPath : u"Cannot find v2ray assets."_qs);
 
-    BuiltinV2RayCorePlugin::ShowMessageBox(u"V2Ray Core Detection"_qs, messages.join(QChar::fromLatin1('\n')));
+    V2RayCorePluginClass::ShowMessageBox(u"V2Ray Core Detection"_qs, messages.join(QChar::fromLatin1('\n')));
 
     settingsObject.CorePath = corePath;
     settingsObject.AssetsPath = assetsPath;

@@ -3,13 +3,10 @@
 #include "QvPlugin/Common/CommonTypes.hpp"
 
 #ifndef QV2RAY_NO_GRPC
-#include "v2ray/app/stats/command/command.grpc.pb.h"
+#include V2RayCoreStatsHeaderName
 
 #include <grpc++/grpc++.h>
 #endif
-
-#include <QString>
-#include <map>
 
 // Check 10 times before telling user that API has failed.
 constexpr auto QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD = 30;

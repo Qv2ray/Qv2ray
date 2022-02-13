@@ -90,15 +90,18 @@ void ProcessRoutes(RoutingObject &root, bool ForceDirectConnection, bool bypassC
     root.rules = newRulesList;
 }
 
-ProfileContent InternalProfilePreprocessor::PreprocessProfile(const ProfileContent &p)
+ProfileContent InternalProfilePreprocessor::PreprocessProfile(const ProfileContent &_p)
 {
+    auto result = _p;
+    if (result.defaultKernel.isNull())
+        result.defaultKernel = GlobalConfig->behaviorConfig->DefaultKernelId;
+
     // For "complex" profiles.
-    const auto needGeneration = p.inbounds.isEmpty() && p.routing.rules.isEmpty() && p.outbounds.size() == 1;
+    const auto needGeneration = result.inbounds.isEmpty() && result.routing.rules.isEmpty() && result.outbounds.size() == 1;
 
     if (!needGeneration)
-        return p;
+        return result;
 
-    auto result = p;
     if (result.outbounds.first().name.isEmpty())
         result.outbounds.first().name = u"Default"_qs;
 
@@ -144,7 +147,7 @@ ProfileContent InternalProfilePreprocessor::PreprocessProfile(const ProfileConte
     AddInbound(SOCKS, "socks", {});
     AddInbound(DokodemoDoor, "dokodemo-door", in.inboundSettings.streamSettings[u"sockopt"_qs] = QJsonObject{ { u"tproxy"_qs, dokoMode } });
 
-    const auto routeMatrixConfig = RouteMatrixConfig::fromJson(p.routing.extraOptions[RouteMatrixConfig::EXTRA_OPTIONS_ID].toObject());
+    const auto routeMatrixConfig = RouteMatrixConfig::fromJson(result.routing.extraOptions[RouteMatrixConfig::EXTRA_OPTIONS_ID].toObject());
 
     ProcessRoutes(result.routing,                                        //
                   GlobalConfig->connectionConfig->ForceDirectConnection, //

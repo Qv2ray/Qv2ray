@@ -1,6 +1,6 @@
 #include "V2RayAPIStats.hpp"
 
-#include "BuiltinV2RayCorePlugin.hpp"
+#include "V2RayCorePluginTemplate.hpp"
 
 #include <QStringBuilder>
 #include <QThread>
@@ -13,29 +13,30 @@ using grpc::Status;
 #endif
 
 constexpr auto Qv2ray_GRPC_ERROR_RETCODE = -1;
-const std::map<StatisticsObject::StatisticsType, QStringList> DefaultOutboundAPIConfig //
-    { { StatisticsObject::PROXY,
-        {
-            u"http"_qs,        //
-            u"shadowsocks"_qs, //
-            u"socks"_qs,       //
-            u"vmess"_qs,       //
-            u"vless"_qs,       //
-            u"trojan"_qs       //
-        } },
-      { StatisticsObject::DIRECT,
-        {
-            u"freedom"_qs, //
-            u"dns"_qs,     //
-        } } };
+const std::map<StatisticsObject::StatisticsType, QStringList> DefaultOutboundAPIConfig{
+    { StatisticsObject::PROXY,
+      {
+          u"http"_qs,
+          u"shadowsocks"_qs,
+          u"socks"_qs,
+          u"vmess"_qs,
+          u"vless"_qs,
+          u"trojan"_qs,
+      } },
+    { StatisticsObject::DIRECT,
+      {
+          u"freedom"_qs,
+          u"dns"_qs,
+      } },
+};
 
 APIWorker::APIWorker()
 {
     workThread = new QThread();
     this->moveToThread(workThread);
-    BuiltinV2RayCorePlugin::Log(u"API Worker initialised."_qs);
+    V2RayCorePluginClass::Log(u"API Worker initialised."_qs);
     connect(workThread, &QThread::started, this, &APIWorker::process);
-    connect(workThread, &QThread::finished, [] { BuiltinV2RayCorePlugin::Log(u"API thread stopped"_qs); });
+    connect(workThread, &QThread::finished, [] { V2RayCorePluginClass::Log(u"API thread stopped"_qs); });
     started = true;
     workThread->start();
 }
@@ -63,7 +64,6 @@ void APIWorker::StopAPI()
     running = false;
 }
 
-// --- DESTRUCTOR ---
 APIWorker::~APIWorker()
 {
     StopAPI();
@@ -77,7 +77,7 @@ APIWorker::~APIWorker()
 // Start processing data.
 void APIWorker::process()
 {
-    BuiltinV2RayCorePlugin::Log(u"API Worker started."_qs);
+    V2RayCorePluginClass::Log(u"API Worker started."_qs);
     while (started)
     {
         QThread::msleep(1000);
@@ -89,8 +89,8 @@ void APIWorker::process()
             if (!dialed)
             {
 #ifndef QV2RAY_NO_GRPC
-                const QString channelAddress = u"127.0.0.1:"_qs + QString::number(BuiltinV2RayCorePlugin::PluginInstance->settings.APIPort);
-                BuiltinV2RayCorePlugin::Log(u"gRPC Version: "_qs + QString::fromStdString(grpc::Version()));
+                const auto channelAddress = u"127.0.0.1:"_qs + QString::number(V2RayCorePluginClass::PluginInstance->settings.APIPort);
+                V2RayCorePluginClass::Log(u"gRPC Version: "_qs + QString::fromStdString(grpc::Version()));
                 grpc_channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                 stats_service_stub = v2ray::core::app::stats::command::StatsService::NewStub(grpc_channel);
                 dialed = true;
@@ -98,7 +98,7 @@ void APIWorker::process()
             }
             if (apiFailCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD)
             {
-                BuiltinV2RayCorePlugin::Log(u"API call failure threshold reached, cancelling further API aclls."_qs);
+                V2RayCorePluginClass::Log(u"API call failure threshold reached, cancelling further API aclls."_qs);
                 emit OnAPIErrored(tr("Failed to get statistics data, please check if V2Ray is running properly"));
                 apiFailCounter++;
                 QThread::msleep(1000);
@@ -151,7 +151,7 @@ qint64 APIWorker::CallStatsAPIByName(const QString &name)
     const auto status = stats_service_stub->GetStats(&context, request, &response);
     if (!status.ok())
     {
-        BuiltinV2RayCorePlugin::Log(u"API call returns:"_qs + QString::number(status.error_code()) + u":"_qs + QString::fromStdString(status.error_message()));
+        V2RayCorePluginClass::Log(u"API call returns:"_qs + QString::number(status.error_code()) + u":"_qs + QString::fromStdString(status.error_message()));
         return Qv2ray_GRPC_ERROR_RETCODE;
     }
     else

@@ -84,6 +84,12 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+option(QV2RAY_CHECK_DEPRECATED OFF)
+
+if (QV2RAY_CHECK_DEPRECATED)
+    add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x070000)
+endif()
+
 find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)
 
