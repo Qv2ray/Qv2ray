@@ -7,6 +7,8 @@
 #include <QProcessEnvironment>
 #include <QStandardPaths>
 
+using namespace V2RayPluginNamespace;
+
 V2RayKernelSettings::V2RayKernelSettings(QWidget *parent) : Qv2rayPlugin::Gui::PluginSettingsWidget(parent)
 {
     setupUi(this);

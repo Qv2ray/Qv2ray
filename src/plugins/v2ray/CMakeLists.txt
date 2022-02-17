@@ -89,6 +89,7 @@ function(qv2ray_internal_add_v2ray_plugin name classname classprefix)
 
     target_compile_definitions(${name} PRIVATE QT_NO_CAST_FROM_ASCII)
     target_compile_definitions(${name} PRIVATE V2RayCorePluginClass=${classname})
+    target_compile_definitions(${name} PRIVATE V2RayPluginNamespace=${classprefix})
     target_compile_definitions(${name} PRIVATE V2RayCoreType=CORETYPE_${classprefix})
     target_compile_definitions(${name} PRIVATE V2RayCoreStatsHeaderName="${classprefix}-Stats.grpc.pb.h")
 

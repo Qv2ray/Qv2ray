@@ -11,6 +11,8 @@
 constexpr auto GENERATED_V2RAY_CONFIGURATION_NAME = "config.json";
 constexpr auto V2RAYPLUGIN_NO_API_ENV = "V2RAYPLUGIN_NO_API";
 
+using namespace V2RayPluginNamespace;
+
 V2Ray5Kernel::V2Ray5Kernel()
 {
     vProcess = new QProcess();

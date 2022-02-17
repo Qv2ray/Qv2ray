@@ -12,6 +12,8 @@ using grpc::ClientContext;
 using grpc::Status;
 #endif
 
+using namespace V2RayPluginNamespace;
+
 constexpr auto Qv2ray_GRPC_ERROR_RETCODE = -1;
 const std::map<StatisticsObject::StatisticsType, QStringList> DefaultOutboundAPIConfig{
     { StatisticsObject::PROXY,

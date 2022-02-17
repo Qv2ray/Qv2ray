@@ -3,7 +3,11 @@
 #include "QvPlugin/Handlers/KernelHandler.hpp"
 
 class QProcess;
-class APIWorker;
+
+namespace V2RayPluginNamespace
+{
+    class APIWorker;
+}
 
 const inline KernelId v2ray_kernel_id{ u"v2ray_kernel"_qs };
 
@@ -35,7 +39,7 @@ class V2RayKernel : public Qv2rayPlugin::Kernel::PluginKernel
 
   private:
     ProfileContent profile;
-    APIWorker *apiWorker;
+    V2RayPluginNamespace::APIWorker *apiWorker;
     QProcess *vProcess;
     bool apiEnabled;
     bool kernelStarted = false;
