@@ -20,19 +20,21 @@ QString RemoveInvalidFileName(QString fileName)
 };
 
 #define SELECTED_ROWS_INDEX                                                                                                                                              \
-    [&]() {                                                                                                                                                              \
-        const auto &__selection = connectionsTable->selectedItems();                                                                                                     \
+    [&]()                                                                                                                                                                \
+    {                                                                                                                                                                    \
+        const auto &__selection = this->connectionsTable->selectedItems();                                                                                               \
         QSet<int> rows;                                                                                                                                                  \
         for (const auto &selection : __selection)                                                                                                                        \
-            rows.insert(connectionsTable->row(selection));                                                                                                               \
+            rows.insert(this->connectionsTable->row(selection));                                                                                                         \
         return rows;                                                                                                                                                     \
     }()
 
 #define GET_SELECTED_CONNECTION_IDS(connectionIdList)                                                                                                                    \
-    [&]() {                                                                                                                                                              \
+    [&]()                                                                                                                                                                \
+    {                                                                                                                                                                    \
         QList<ConnectionId> _list;                                                                                                                                       \
         for (const auto &i : connectionIdList)                                                                                                                           \
-            _list.push_back(ConnectionId(connectionsTable->item(i, 0)->data(Qt::UserRole).toString()));                                                                  \
+            _list.push_back(ConnectionId(this->connectionsTable->item(i, 0)->data(Qt::UserRole).toString()));                                                            \
         return _list;                                                                                                                                                    \
     }()
 
@@ -283,9 +285,7 @@ QvMessageBusSlotImpl(GroupManager)
 {
     switch (msg)
     {
-       
-        
-        
+
         MBUpdateColorSchemeDefaultImpl
     }
 }
