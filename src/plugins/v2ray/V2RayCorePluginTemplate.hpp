@@ -11,6 +11,7 @@ using namespace Qv2rayPlugin;
 #define CORETYPE_V2Ray 0x01
 #define CORETYPE_V2RayGo 0x02
 #define CORETYPE_V2Ray5 0x03
+#define CORETYPE_V2RayRust 0x04
 
 #if !defined(V2RayCorePluginClass) || !defined(V2RayCoreType)
 #error either V2RayCorePluginClass or V2RayCoreType is not defined.

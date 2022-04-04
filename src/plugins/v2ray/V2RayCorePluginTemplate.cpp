@@ -14,6 +14,8 @@ const QvPluginMetadata V2RayCorePluginClass::GetMetadata() const
         u"V2Ray v5 Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2ray5_support"_qs }, u"V2Ray v5 kernel support"_qs,
 #elif V2RayCoreType == CORETYPE_V2RayGo
         u"V2Ray-Go Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2raygo_support"_qs }, u"V2Ray-Go kernel support"_qs,
+#elif V2RayCoreType == CORETYPE_V2RayRust
+        u"V2Ray-Rust Support"_qs, u"darsvador"_qs, PluginId{ u"builtin_v2rayrust_support"_qs }, u"V2Ray-Rust kernel support"_qs,
 #else
 #error Unexpected
 #endif
@@ -36,6 +38,17 @@ void V2RayCorePluginClass::SettingsUpdated()
 QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
 {
     QList<Qv2rayPlugin::Kernel::KernelFactory> factories;
+#if V2RayCoreType == CORETYPE_V2RayRust
+    Qv2rayPlugin::Kernel::KernelFactory v2ray;
+    v2ray.Capabilities.setFlag(Qv2rayPlugin::Kernel::KERNELCAP_ROUTER);
+    v2ray.Id = v2ray_kernel_id;
+    v2ray.Name = u"V2Ray Rust"_qs;
+    v2ray.Create = std::function{ []() { return std::make_unique<V2RayRustKernel>(); } };
+    v2ray.SupportedProtocols << u"blackhole"_qs << u"freedom"_qs     //
+                             << u"http"_qs << u"shadowsocks"_qs //
+                             << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
+    factories << v2ray;
+#endif
 
 #if V2RayCoreType == CORETYPE_V2Ray
     Qv2rayPlugin::Kernel::KernelFactory v2ray;
