@@ -23,6 +23,8 @@ jobs:
     env:
       CC: ${{ matrix.config.cc }}
       CXX: ${{ matrix.config.cxx }}
+      VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.vcpkgTriplet }}
+      VCPKG_INSTALLED_DIR: ${{ github.workspace }}/vcpkg_installed/
     name: '${{ matrix.config.name }}'
     runs-on: ${{ matrix.config.os }}
     strategy:
@@ -72,11 +74,11 @@ jobs:
         setup-python: false
 
     - name: run-vcpkg
-      uses: lukka/run-vcpkg@v7.3
+      uses: lukka/run-vcpkg@v10
       with:
-        vcpkgArguments: protobuf openssl grpc libuv uvw
-        vcpkgGitCommitId: c69096659f49e2b1aca532ea5c2f8c135182519b
-        vcpkgTriplet: ${{ matrix.config.vcpkgTriplet }}
+        vcpkgGitCommitId: "cc2dd8fed39acc588c9a9a04b1ea4d04ce5308f0"
+        vcpkgJsonGlob: '**/vcpkg.json'
+        runVcpkgInstall: true
   
     - name: Build
       run: |
