@@ -70,24 +70,12 @@ void V2RayRustKernel::Start()
     env.insert(u"v2ray.location.asset"_qs, settings.AssetsPath);
     switch (settings.LogLevel)
     {
-        case V2RayCorePluginSettings::None:
-            env.insert(u"RUST_LOG"_qs,u"off"_qs);
-            break;
-        case V2RayCorePluginSettings::Error:
-            env.insert(u"RUST_LOG"_qs,u"info,v2ray_rust=error"_qs);
-            break;
-        case V2RayCorePluginSettings::Warning:
-            env.insert(u"RUST_LOG"_qs,u"info,v2ray_rust=warn"_qs);
-            break;
-        case V2RayCorePluginSettings::Info:
-            env.insert(u"RUST_LOG"_qs,u"info"_qs);
-            break;
-        case V2RayCorePluginSettings::Debug:
-            env.insert(u"RUST_LOG"_qs,u"info,v2ray_rust=debug"_qs);
-            break;
-        default:
-            env.insert(u"RUST_LOG"_qs,u"info,v2ray_rust=warn"_qs);
-            break;
+        case V2RayCorePluginSettings::None: env.insert(u"RUST_LOG"_qs, u"off"_qs); break;
+        case V2RayCorePluginSettings::Error: env.insert(u"RUST_LOG"_qs, u"info,v2ray_rust=error"_qs); break;
+        case V2RayCorePluginSettings::Warning: env.insert(u"RUST_LOG"_qs, u"info,v2ray_rust=warn"_qs); break;
+        case V2RayCorePluginSettings::Info: env.insert(u"RUST_LOG"_qs, u"info"_qs); break;
+        case V2RayCorePluginSettings::Debug: env.insert(u"RUST_LOG"_qs, u"info,v2ray_rust=debug"_qs); break;
+        default: env.insert(u"RUST_LOG"_qs, u"info,v2ray_rust=warn"_qs); break;
     }
     vProcess->setProcessEnvironment(env);
     vProcess->setProcessChannelMode(QProcess::MergedChannels);

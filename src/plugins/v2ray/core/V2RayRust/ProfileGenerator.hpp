@@ -20,7 +20,7 @@ FORWARD_DECLARE_V2RAY_OBJECTS(v2ray::core::transport::internet, StreamConfig)
 class V2RayRustProfileGenerator
 {
   public:
-    static QByteArray GenerateConfiguration(const ProfileContent &p, QMap<QString, QString>& tagProtocolMap);
+    static QByteArray GenerateConfiguration(const ProfileContent &p, QMap<QString, QString> &tagProtocolMap);
 
   private:
     QByteArray Generate();
@@ -37,11 +37,11 @@ class V2RayRustProfileGenerator
     void ProcessOutboundConfig(const OutboundObject &);
     void ProcessBalancerConfig(const OutboundObject &);
     QJsonObject GenerateStreamSettings(const IOStreamSettings &);
-    void SwapTagProtocolMap(QMap<QString,QString>& inmap);
+    void SwapTagProtocolMap(QMap<QString, QString> &inmap);
 #endif
 
   private:
-    void InsertTagProtocolMap(const QString& tag,const QString& protocol);
+    void InsertTagProtocolMap(const QString &tag, const QString &protocol);
     const OutboundObject findOutbound(const QString &name)
     {
         for (const auto &out : profile.outbounds)
@@ -64,7 +64,7 @@ class V2RayRustProfileGenerator
     toml::array direct;
     toml::array blackhole;
     toml::array outbounds;
-    QMap<QString,QString> tagProtocolMap;
+    QMap<QString, QString> tagProtocolMap;
 };
 
 #ifdef QV2RAY_V2RAY_PLUGIN_USE_PROTOBUF

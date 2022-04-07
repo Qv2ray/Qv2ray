@@ -7,7 +7,8 @@ using namespace V2RayPluginNamespace;
 
 const QvPluginMetadata V2RayCorePluginClass::GetMetadata() const
 {
-    return {
+    return
+    {
 #if V2RayCoreType == CORETYPE_V2Ray
         u"V2Ray v4 Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2ray_support"_qs }, u"V2Ray kernel support"_qs,
 #elif V2RayCoreType == CORETYPE_V2Ray5
@@ -44,8 +45,8 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
     v2ray.Id = v2ray_kernel_id;
     v2ray.Name = u"V2Ray Rust"_qs;
     v2ray.Create = std::function{ []() { return std::make_unique<V2RayRustKernel>(); } };
-    v2ray.SupportedProtocols << u"blackhole"_qs << u"freedom"_qs     //
-                             << u"http"_qs << u"shadowsocks"_qs //
+    v2ray.SupportedProtocols << u"blackhole"_qs << u"freedom"_qs //
+                             << u"http"_qs << u"shadowsocks"_qs  //
                              << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
     factories << v2ray;
 #endif
