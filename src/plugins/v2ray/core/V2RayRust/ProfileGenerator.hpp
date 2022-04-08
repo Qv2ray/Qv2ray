@@ -64,6 +64,7 @@ class V2RayRustProfileGenerator
     toml::array direct;
     toml::array blackhole;
     toml::array outbounds;
+	toml::array dokodemo;
     QMap<QString, QString> tagProtocolMap;
 };
 

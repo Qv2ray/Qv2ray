@@ -107,6 +107,7 @@ QByteArray V2RayRustProfileGenerator::Generate()
     AddToRootTable(blackhole);
     AddToRootTable(outbounds);
     AddToRootTable(inbounds);
+    AddToRootTable(dokodemo);
     AddToRootTable(domain_routing_rules);
     AddToRootTable(ip_routing_rules);
     AddToRootTable(geosite_rules);
@@ -263,9 +264,9 @@ void V2RayRustProfileGenerator::ProcessInboundConfig(const InboundObject &in)
             {
                 toml::table table;
                 table.emplace<std::string>("tag", in.name.toStdString());
-                table.emplace<std::string>("addr", (in.inboundSettings.address + u":"_qs + QString::number(in.inboundSettings.port.from)).toStdString());
-                table.emplace<bool>("tporxy", true);
-                inbounds.emplace_back<toml::table>(table);
+				table.emplace<std::string>("addr", (in.inboundSettings.address + u":"_qs + QString::number(in.inboundSettings.port.from)).toStdString());
+                table.emplace<bool>("tproxy", true);
+                dokodemo.emplace_back<toml::table>(table);
             }
         }
     }
