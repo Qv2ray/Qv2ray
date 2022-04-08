@@ -9,7 +9,7 @@ namespace V2RayPluginNamespace
     class APIWorker;
 }
 
-const inline KernelId v2ray_kernel_id{ u"v2ray_rust_kernel"_qs };
+const inline KernelId v2ray_rust_kernel_id{ u"v2ray_rust_kernel"_qs };
 
 class V2RayRustKernel : public Qv2rayPlugin::Kernel::PluginKernel
 {
@@ -26,7 +26,7 @@ class V2RayRustKernel : public Qv2rayPlugin::Kernel::PluginKernel
     virtual bool Stop() override;
     virtual KernelId GetKernelId() const override
     {
-        return v2ray_kernel_id;
+        return v2ray_rust_kernel_id;
     }
 
   signals:

@@ -8,7 +8,7 @@
 #include <QJsonDocument>
 #include <QProcess>
 
-constexpr auto GENERATED_V2RAY_CONFIGURATION_NAME = "config.json";
+constexpr auto GENERATED_V2RAY_CONFIGURATION_NAME = "config.toml";
 constexpr auto V2RAYPLUGIN_NO_API_ENV = "V2RAYPLUGIN_NO_API";
 
 using namespace V2RayPluginNamespace;

@@ -42,7 +42,7 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
 #if V2RayCoreType == CORETYPE_V2RayRust
     Qv2rayPlugin::Kernel::KernelFactory v2ray;
     v2ray.Capabilities.setFlag(Qv2rayPlugin::Kernel::KERNELCAP_ROUTER);
-    v2ray.Id = v2ray_kernel_id;
+    v2ray.Id = v2ray_rust_kernel_id;
     v2ray.Name = u"V2Ray Rust"_qs;
     v2ray.Create = std::function{ []() { return std::make_unique<V2RayRustKernel>(); } };
     v2ray.SupportedProtocols << u"blackhole"_qs << u"freedom"_qs //
