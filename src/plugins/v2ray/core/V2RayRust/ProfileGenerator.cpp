@@ -14,6 +14,19 @@ constexpr auto DEFAULT_API_IN_TAG = "qv2ray-api-in";
 
 namespace
 {
+    QString ToHost(const QString &addr, int port)
+    {
+        if (addr.contains(QChar::fromLatin1(':')))
+        {
+            // ipv6
+            return u"["_qs + addr + u"]:"_qs + QString::number(port);
+        }
+        else
+        {
+            return addr + u":"_qs + QString::number(port);
+        }
+    }
+
     class QByteArrayAppender
         : public std::ostream
         , public std::streambuf
@@ -52,6 +65,7 @@ namespace
         if (!a.empty())
             tbl.emplace<toml::array>(name, a);
     }
+
     void AddToTable(toml::table &tbl, const char *name, toml::table &a)
     {
         if (!a.empty())
@@ -247,7 +261,7 @@ void V2RayRustProfileGenerator::ProcessInboundConfig(const InboundObject &in)
     {
         toml::table table;
         table.emplace<std::string>("tag", in.name.toStdString());
-        table.emplace<std::string>("addr", (in.inboundSettings.address + u":"_qs + QString::number(in.inboundSettings.port.from)).toStdString());
+        table.emplace<std::string>("addr", ToHost(in.inboundSettings.address, in.inboundSettings.port.from).toStdString());
         QJsonObject settings = in.inboundSettings.protocolSettings[u"settings"_qs].toObject();
         if (settings.contains(u"udp"_qs))
         {
@@ -264,7 +278,7 @@ void V2RayRustProfileGenerator::ProcessInboundConfig(const InboundObject &in)
             {
                 toml::table table;
                 table.emplace<std::string>("tag", in.name.toStdString());
-				table.emplace<std::string>("addr", (in.inboundSettings.address + u":"_qs + QString::number(in.inboundSettings.port.from)).toStdString());
+                table.emplace<std::string>("addr", ToHost(in.inboundSettings.address, in.inboundSettings.port.from).toStdString());
                 table.emplace<bool>("tproxy", true);
                 dokodemo.emplace_back<toml::table>(table);
             }
@@ -315,7 +329,7 @@ void V2RayRustProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
         trojanClientObject.loadJson(out.outboundSettings.protocolSettings);
         toml::table tbl;
         tbl.emplace<std::string>("tag", protocol_random_tag);
-        tbl.emplace<std::string>("addr", (out.outboundSettings.address + u":"_qs + QString::number(out.outboundSettings.port.from)).toStdString());
+        tbl.emplace<std::string>("addr", ToHost(out.outboundSettings.address, out.outboundSettings.port.from).toStdString());
         tbl.emplace<std::string>("password", trojanClientObject.password->toStdString());
         trojan.push_back(std::move(tbl));
     }
@@ -328,7 +342,7 @@ void V2RayRustProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
         serv.loadJson(out.outboundSettings.protocolSettings);
         toml::table tbl;
         tbl.emplace<std::string>("tag", protocol_random_tag);
-        tbl.emplace<std::string>("addr", (out.outboundSettings.address + u":"_qs + QString::number(out.outboundSettings.port.from)).toStdString());
+        tbl.emplace<std::string>("addr", ToHost(out.outboundSettings.address, out.outboundSettings.port.from).toStdString());
         tbl.emplace<std::string>("method", serv.security->toStdString());
         tbl.emplace<std::string>("uuid", serv.id->toStdString());
         vmess.push_back(std::move(tbl));
@@ -342,7 +356,7 @@ void V2RayRustProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
         ss.loadJson(out.outboundSettings.protocolSettings);
         toml::table tbl;
         tbl.emplace<std::string>("tag", protocol_random_tag);
-        tbl.emplace<std::string>("addr", (out.outboundSettings.address + u":"_qs + QString::number(out.outboundSettings.port.from)).toStdString());
+        tbl.emplace<std::string>("addr", ToHost(out.outboundSettings.address, out.outboundSettings.port.from).toStdString());
         tbl.emplace<std::string>("method", ss.method->toStdString());
         tbl.emplace<std::string>("password", ss.password->toStdString());
         shadowsocks.push_back(std::move(tbl));
@@ -393,8 +407,7 @@ void V2RayRustProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
         websocket_random_tag = GetRandomString();
         tbl.emplace<std::string>("tag", websocket_random_tag);
         tbl.emplace<std::string>(
-            "uri", (u"ws://"_qs + out.outboundSettings.address + u":"_qs + QString::number(out.outboundSettings.port.from) + streamSettingsObject.wsSettings->path)
-                       .toStdString());
+            "uri", (u"ws://"_qs + ToHost(out.outboundSettings.address, out.outboundSettings.port.from) + streamSettingsObject.wsSettings->path).toStdString());
         if (!streamSettingsObject.wsSettings->headers->isEmpty())
         {
             toml::table headers;
