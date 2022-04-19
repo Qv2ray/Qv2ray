@@ -240,7 +240,7 @@ void V2RayRustProfileGenerator::ProcessRoutingRule(const RuleObject &r)
             tbl.emplace<toml::array>("rules", std::move(geosite_str));
             geosite_rules.emplace_back<toml::table>(std::move(tbl));
         }
-        if (!full_rules.empty() && !substr_rules.empty() && !regex_rules.empty() && !domain_rules.empty())
+        if (!full_rules.empty() || !substr_rules.empty() || !regex_rules.empty() || !domain_rules.empty())
         {
             toml::table tbl;
             tbl.emplace<std::string>("tag", r.outboundTag.toStdString());
