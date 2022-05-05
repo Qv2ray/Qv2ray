@@ -39,7 +39,7 @@ namespace
         {
         }
 
-        int overflow(int c)
+        int overflow(int c) override
         {
             m_byteArray.append(static_cast<char>(c));
             return 0;
@@ -117,6 +117,8 @@ QByteArray V2RayRustProfileGenerator::Generate()
     AddToRootTable(vmess);
     AddToRootTable(tls);
     AddToTable(root_table, "ws", websocket);
+    AddToRootTable(h2);
+    AddToRootTable(grpc);
     AddToRootTable(direct);
     AddToRootTable(blackhole);
     AddToRootTable(outbounds);
@@ -301,6 +303,7 @@ void V2RayRustProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
     std::string tls_random_tag;
     std::string websocket_random_tag;
     std::string h2_random_tag;
+    std::string grpc_random_tag;
 
     if (out.outboundSettings.protocol == u"freedom"_qs)
     {
@@ -398,6 +401,17 @@ void V2RayRustProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
         {
             tbl.emplace<std::string>("method", streamSettingsObject.httpSettings->method->toStdString());
         }
+        h2.emplace_back<toml::table>(std::move(tbl));
+    }
+
+    if (streamSettingsObject.network == u"grpc"_qs)
+    {
+        toml::table tbl;
+        grpc_random_tag = GetRandomString();
+        tbl.emplace<std::string>("tag", grpc_random_tag);
+        tbl.emplace<std::string>("host", ToHost(out.outboundSettings.address, out.outboundSettings.port.from).toStdString());
+        tbl.emplace<std::string>("service_name", streamSettingsObject.grpcSettings->serviceName->toStdString());
+        grpc.emplace_back<toml::table>(std::move(tbl));
     }
 
     if (streamSettingsObject.network == u"ws"_qs)
@@ -442,6 +456,10 @@ void V2RayRustProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
         if (!h2_random_tag.empty())
         {
             chain.emplace_back<std::string>(std::move(h2_random_tag));
+        }
+        if (!grpc_random_tag.empty())
+        {
+            chain.emplace_back<std::string>(std::move(grpc_random_tag));
         }
         if (!websocket_random_tag.empty())
         {

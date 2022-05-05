@@ -59,12 +59,14 @@ class V2RayRustProfileGenerator
     toml::array shadowsocks;
     toml::array trojan;
     toml::array vmess;
+    toml::array h2;
+    toml::array grpc;
     toml::array tls;
     toml::array websocket;
     toml::array direct;
     toml::array blackhole;
     toml::array outbounds;
-	toml::array dokodemo;
+    toml::array dokodemo;
     QMap<QString, QString> tagProtocolMap;
 };
 
