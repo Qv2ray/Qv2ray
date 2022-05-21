@@ -15,14 +15,14 @@ inline void OutboundMarkSettingFilter(QJsonObject &root, int mark)
         QJsonIO::SetValue(root, mark, u"outbounds"_qs, i, u"streamSettings"_qs, u"sockopt"_qs, u"mark"_qs);
 }
 
-V2RayGoProfileGenerator::V2RayGoProfileGenerator(const ProfileContent &profile) : profile(profile){};
+V2RaySNProfileGenerator::V2RaySNProfileGenerator(const ProfileContent &profile) : profile(profile){};
 
-QByteArray V2RayGoProfileGenerator::GenerateConfiguration(const ProfileContent &p)
+QByteArray V2RaySNProfileGenerator::GenerateConfiguration(const ProfileContent &p)
 {
-    return V2RayGoProfileGenerator(p).Generate();
+    return V2RaySNProfileGenerator(p).Generate();
 }
 
-QByteArray V2RayGoProfileGenerator::Generate()
+QByteArray V2RaySNProfileGenerator::Generate()
 {
     QJsonObject rootconf;
     JsonStructHelper::MergeJson(rootconf, profile.extraOptions);
@@ -147,7 +147,7 @@ QByteArray V2RayGoProfileGenerator::Generate()
     return QJsonDocument(rootconf).toJson(QJsonDocument::Indented);
 }
 
-void V2RayGoProfileGenerator::ProcessRoutingRule(const RuleObject &r)
+void V2RaySNProfileGenerator::ProcessRoutingRule(const RuleObject &r)
 {
     QJsonObject rule;
     rule[u"type"_qs] = u"field"_qs;
@@ -183,7 +183,7 @@ void V2RayGoProfileGenerator::ProcessRoutingRule(const RuleObject &r)
     rules << rule;
 }
 
-void V2RayGoProfileGenerator::ProcessInboundConfig(const InboundObject &in)
+void V2RaySNProfileGenerator::ProcessInboundConfig(const InboundObject &in)
 {
     QJsonObject root;
     root[u"tag"_qs] = in.name;
@@ -216,7 +216,7 @@ void V2RayGoProfileGenerator::ProcessInboundConfig(const InboundObject &in)
     inbounds << root;
 }
 
-void V2RayGoProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
+void V2RaySNProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
 {
     assert(out.objectType == OutboundObject::ORIGINAL);
 
@@ -299,7 +299,7 @@ void V2RayGoProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
     outbounds << root;
 }
 
-void V2RayGoProfileGenerator::ProcessBalancerConfig(const OutboundObject &out)
+void V2RaySNProfileGenerator::ProcessBalancerConfig(const OutboundObject &out)
 {
     assert(out.objectType == OutboundObject::BALANCER);
     QJsonObject root;
@@ -309,7 +309,7 @@ void V2RayGoProfileGenerator::ProcessBalancerConfig(const OutboundObject &out)
     balancers << root;
 }
 
-QJsonObject V2RayGoProfileGenerator::GenerateStreamSettings(const IOStreamSettings &stream)
+QJsonObject V2RaySNProfileGenerator::GenerateStreamSettings(const IOStreamSettings &stream)
 {
     return stream;
 }

@@ -16,14 +16,14 @@ FORWARD_DECLARE_V2RAY_OBJECTS(google::protobuf, Any)
 FORWARD_DECLARE_V2RAY_OBJECTS(v2ray::core::transport::internet, StreamConfig)
 #endif
 
-class V2RayGoProfileGenerator
+class V2RaySNProfileGenerator
 {
   public:
     static QByteArray GenerateConfiguration(const ProfileContent &);
 
   private:
     QByteArray Generate();
-    explicit V2RayGoProfileGenerator(const ProfileContent &);
+    explicit V2RaySNProfileGenerator(const ProfileContent &);
 
 #ifdef QV2RAY_V2RAY_PLUGIN_USE_PROTOBUF
     static void GenerateDNSConfig(const QJsonObject &, ::google::protobuf::Any *);

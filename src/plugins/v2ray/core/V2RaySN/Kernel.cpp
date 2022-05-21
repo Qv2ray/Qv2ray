@@ -13,7 +13,7 @@ constexpr auto V2RAYPLUGIN_NO_API_ENV = "V2RAYPLUGIN_NO_API";
 
 using namespace V2RayPluginNamespace;
 
-V2RayGoKernel::V2RayGoKernel()
+V2RaySNKernel::V2RaySNKernel()
 {
     vProcess = new QProcess();
     connect(vProcess, &QProcess::readyReadStandardOutput, this, [&]() { emit OnLog(QString::fromUtf8(vProcess->readAllStandardOutput().trimmed())); });
@@ -21,29 +21,29 @@ V2RayGoKernel::V2RayGoKernel()
             [this](QProcess::ProcessState state)
             {
                 if (kernelStarted && state == QProcess::NotRunning)
-                    emit OnCrashed(u"V2Ray Go crashed."_qs);
+                    emit OnCrashed(u"V2Ray crashed."_qs);
             });
     apiWorker = new APIWorker();
     qRegisterMetaType<StatisticsObject::StatisticsType>();
     qRegisterMetaType<QMap<StatisticsObject::StatisticsType, long>>();
-    connect(apiWorker, &APIWorker::OnAPIDataReady, this, &V2RayGoKernel::OnStatsAvailable);
+    connect(apiWorker, &APIWorker::OnAPIDataReady, this, &V2RaySNKernel::OnStatsAvailable);
     kernelStarted = false;
 }
 
-V2RayGoKernel::~V2RayGoKernel()
+V2RaySNKernel::~V2RaySNKernel()
 {
     delete apiWorker;
     delete vProcess;
 }
 
-void V2RayGoKernel::SetProfileContent(const ProfileContent &content)
+void V2RaySNKernel::SetProfileContent(const ProfileContent &content)
 {
     profile = content;
 }
 
-bool V2RayGoKernel::PrepareConfigurations()
+bool V2RaySNKernel::PrepareConfigurations()
 {
-    const auto config = V2RayGoProfileGenerator::GenerateConfiguration(profile);
+    const auto config = V2RaySNProfileGenerator::GenerateConfiguration(profile);
     configFilePath = V2RayCorePluginClass::PluginInstance->WorkingDirectory().filePath(QString::fromUtf8(GENERATED_V2RAY_CONFIGURATION_NAME));
     QFile v2rayConfigFile(configFilePath);
 
@@ -73,7 +73,7 @@ bool V2RayGoKernel::PrepareConfigurations()
     return true;
 }
 
-void V2RayGoKernel::Start()
+void V2RaySNKernel::Start()
 {
     Q_ASSERT_X(!kernelStarted, Q_FUNC_INFO, "Kernel state mismatch.");
 
@@ -83,7 +83,7 @@ void V2RayGoKernel::Start()
     env.insert(u"v2ray.location.asset"_qs, settings.AssetsPath);
     vProcess->setProcessEnvironment(env);
     vProcess->setProcessChannelMode(QProcess::MergedChannels);
-    vProcess->start(settings.CorePath, { u"-config"_qs, configFilePath }, QIODevice::ReadWrite | QIODevice::Text);
+    vProcess->start(settings.CorePath, { u"run"_qs, u"-c"_qs, configFilePath }, QIODevice::ReadWrite | QIODevice::Text);
     vProcess->waitForStarted();
     kernelStarted = true;
 
@@ -108,7 +108,7 @@ void V2RayGoKernel::Start()
     }
 }
 
-bool V2RayGoKernel::Stop()
+bool V2RaySNKernel::Stop()
 {
     if (apiEnabled)
     {
@@ -128,7 +128,7 @@ bool V2RayGoKernel::Stop()
     return true;
 }
 
-std::optional<QString> V2RayGoKernel::ValidateConfig(const QString &path)
+std::optional<QString> V2RaySNKernel::ValidateConfig(const QString &path)
 {
     const auto settings = V2RayCorePluginClass::PluginInstance->settings;
     if (const auto &[result, msg] = ValidateKernel(settings.CorePath, settings.AssetsPath, { u"--version"_qs }); result)
@@ -142,7 +142,7 @@ std::optional<QString> V2RayGoKernel::ValidateConfig(const QString &path)
         process.setProcessEnvironment(env);
         process.setProcessChannelMode(QProcess::MergedChannels);
         V2RayCorePluginClass::Log(u"Starting V2Ray core with test options"_qs);
-        process.start(settings.CorePath, { u"-test"_qs, u"-config"_qs, path }, QIODevice::ReadWrite | QIODevice::Text);
+        process.start(settings.CorePath, { u"test"_qs, u"-config"_qs, path }, QIODevice::ReadWrite | QIODevice::Text);
         process.waitForFinished();
 
         if (process.exitCode() != 0)

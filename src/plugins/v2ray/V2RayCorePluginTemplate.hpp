@@ -9,7 +9,7 @@
 using namespace Qv2rayPlugin;
 
 #define CORETYPE_V2Ray 0x01
-#define CORETYPE_V2RayGo 0x02
+#define CORETYPE_V2RaySN 0x02
 #define CORETYPE_V2Ray5 0x03
 #define CORETYPE_V2RayRust 0x04
 

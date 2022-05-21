@@ -13,8 +13,8 @@ const QvPluginMetadata V2RayCorePluginClass::GetMetadata() const
         u"V2Ray v4 Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2ray_support"_qs }, u"V2Ray kernel support"_qs,
 #elif V2RayCoreType == CORETYPE_V2Ray5
         u"V2Ray v5 Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2ray5_support"_qs }, u"V2Ray v5 kernel support"_qs,
-#elif V2RayCoreType == CORETYPE_V2RayGo
-        u"V2Ray-Go Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2raygo_support"_qs }, u"V2Ray-Go kernel support"_qs,
+#elif V2RayCoreType == CORETYPE_V2RaySN
+        u"V2Ray-SN Support"_qs, u"Moody"_qs, PluginId{ u"builtin_v2raysn_support"_qs }, u"V2Ray-SN kernel support"_qs,
 #elif V2RayCoreType == CORETYPE_V2RayRust
         u"V2Ray-Rust Support"_qs, u"darsvador"_qs, PluginId{ u"builtin_v2rayrust_support"_qs }, u"V2Ray-Rust kernel support"_qs,
 #else
@@ -63,12 +63,12 @@ QList<KernelFactory> V2RayKernelInterface::PluginKernels() const
     factories << v2ray;
 #endif
 
-#if V2RayCoreType == CORETYPE_V2RayGo
+#if V2RayCoreType == CORETYPE_V2RaySN
     Qv2rayPlugin::Kernel::KernelFactory v2raygo;
     v2raygo.Capabilities.setFlag(Qv2rayPlugin::Kernel::KERNELCAP_ROUTER);
-    v2raygo.Id = v2ray_go_kernel_id;
-    v2raygo.Name = u"V2Ray Go"_qs;
-    v2raygo.Create = std::function{ []() { return std::make_unique<V2RayGoKernel>(); } };
+    v2raygo.Id = v2ray_sn_kernel_id;
+    v2raygo.Name = u"V2Ray SagerNet"_qs;
+    v2raygo.Create = std::function{ []() { return std::make_unique<V2RaySNKernel>(); } };
     v2raygo.SupportedProtocols << u"blackhole"_qs << u"dns"_qs << u"freedom"_qs     //
                                << u"http"_qs << u"loopback"_qs << u"shadowsocks"_qs //
                                << u"socks"_qs << u"trojan"_qs << u"vmess"_qs;
