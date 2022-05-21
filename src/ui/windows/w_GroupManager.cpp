@@ -19,24 +19,18 @@ QString RemoveInvalidFileName(QString fileName)
     return fileName;
 };
 
-#define SELECTED_ROWS_INDEX                                                                                                                                              \
-    [&]()                                                                                                                                                                \
-    {                                                                                                                                                                    \
-        const auto &__selection = this->connectionsTable->selectedItems();                                                                                               \
-        QSet<int> rows;                                                                                                                                                  \
-        for (const auto &selection : __selection)                                                                                                                        \
-            rows.insert(this->connectionsTable->row(selection));                                                                                                         \
-        return rows;                                                                                                                                                     \
-    }()
+static QList<ConnectionId> getSelectedConnectionIds(QTableWidget *table)
+{
+    QSet<int> rows;
+    for (const auto &selection : table->selectedItems())
+        rows.insert(table->row(selection));
 
-#define GET_SELECTED_CONNECTION_IDS(connectionIdList)                                                                                                                    \
-    [&]()                                                                                                                                                                \
-    {                                                                                                                                                                    \
-        QList<ConnectionId> _list;                                                                                                                                       \
-        for (const auto &i : connectionIdList)                                                                                                                           \
-            _list.push_back(ConnectionId(this->connectionsTable->item(i, 0)->data(Qt::UserRole).toString()));                                                            \
-        return _list;                                                                                                                                                    \
-    }()
+    QList<ConnectionId> result;
+    const auto input = rows;
+    for (const auto &i : input)
+        result.push_back(ConnectionId(table->item(i, 0)->data(Qt::UserRole).toString()));
+    return result;
+}
 
 GroupManager::GroupManager(QWidget *parent) : QvDialog("GroupManager", parent)
 {
@@ -94,7 +88,7 @@ GroupManager::GroupManager(QWidget *parent) : QvDialog("GroupManager", parent)
 
 void GroupManager::onRCMDeleteConnectionTriggered()
 {
-    const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
+    const auto list = getSelectedConnectionIds(connectionsTable);
     for (const auto &item : list)
         QvProfileManager->RemoveFromGroup(ConnectionId(item), currentGroupId);
     reloadConnectionsList(currentGroupId);
@@ -240,7 +234,7 @@ void GroupManager::onRCMActionTriggered_Copy()
     const auto _sender = qobject_cast<QAction *>(sender());
     const GroupId groupId{ _sender->data().toString() };
     //
-    const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
+    const auto list = getSelectedConnectionIds(connectionsTable);
     for (const auto &connId : list)
     {
         const auto &connectionId = ConnectionId(connId);
@@ -254,7 +248,7 @@ void GroupManager::onRCMActionTriggered_Link()
     const auto _sender = qobject_cast<QAction *>(sender());
     const GroupId groupId{ _sender->data().toString() };
     //
-    const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
+    const auto list = getSelectedConnectionIds(connectionsTable);
     for (const auto &connId : list)
     {
         QvProfileManager->LinkWithGroup(ConnectionId(connId), groupId);
@@ -267,7 +261,7 @@ void GroupManager::onRCMActionTriggered_Move()
     const auto _sender = qobject_cast<QAction *>(sender());
     const GroupId groupId{ _sender->data().toString() };
     //
-    const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
+    const auto list = getSelectedConnectionIds(connectionsTable);
     for (const auto &connId : list)
     {
         QvProfileManager->MoveToGroup(ConnectionId(connId), currentGroupId, groupId);
