@@ -23,7 +23,7 @@ class OOCProvider : public SubscriptionProvider
     SubscriptionResult FetchDecodeSubscription(const SubscriptionProviderOptions &) const override;
 };
 
-class BuiltinSubscriptionAdapterInterface : public IPluginSubscriptionInterface
+class BuiltinSubscriptionAdapterInterface final : public IPluginSubscriptionInterface
 {
 
   public:

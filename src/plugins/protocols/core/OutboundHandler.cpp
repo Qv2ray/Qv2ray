@@ -257,7 +257,7 @@ std::optional<std::pair<QString, IOConnectionSettings>> DeserializeOldVMess(cons
         // LOG("Detected deprecated vmess v1. Trying to upgrade...");
         if (const auto network = vmessConf[u"net"_qs].toString(); network == u"ws"_qs || network == u"h2"_qs)
         {
-            const QStringList hostComponents = vmessConf[u"host"_qs].toString().replace(' ', '\0').split(';');
+            const QStringList hostComponents = vmessConf[u"host"_qs].toString().remove(' ').split(';');
             if (const auto nParts = hostComponents.length(); nParts == 1)
                 vmessConf[u"path"_qs] = hostComponents[0], vmessConf[u"host"_qs] = u""_qs;
             else if (nParts == 2)
