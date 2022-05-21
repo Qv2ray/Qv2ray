@@ -167,10 +167,9 @@ QString SerializeSS(const QString &name, const IOConnectionSettings &connection)
     Qv2ray::Models::ShadowSocksClientObject server;
     server.loadJson(connection.protocolSettings);
     QUrl url;
-    const auto plainUserInfo = server.method + ":" + server.password;
-    const auto userinfo = plainUserInfo.toUtf8().toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
-    url.setUserInfo(userinfo);
     url.setScheme(u"ss"_qs);
+    url.setUserName(server.method);
+    url.setPassword(server.password);
     url.setHost(connection.address);
     url.setPort(connection.port.from);
     url.setFragment(name);
@@ -524,79 +523,37 @@ std::optional<std::pair<QString, IOConnectionSettings>> DeserializeSS(const QStr
     ShadowSocksClientObject server;
     QString d_name;
 
-    auto uri = link.mid(5);
-    auto hashPos = uri.lastIndexOf('#');
-    //    DEBUG("Hash sign position: " + QSTRN(hashPos));
+    const QUrl ssUrl{ link };
 
-    if (hashPos >= 0)
+    const auto userinfo = ssUrl.userInfo();
+
+    conn.address = ssUrl.host();
+    conn.port = ssUrl.port();
+    conn.protocol = u"shadowsocks"_qs;
+
+    // why fromPercentEncoding
+    d_name = QUrl::fromPercentEncoding(ssUrl.fragment(QUrl::FullyDecoded).trimmed().toUtf8());
+
+    // We now don't support the old old old format: base64(url)
+    if (userinfo.contains(u':'))
     {
-        // Get the name/remark
-        d_name = uri.mid(uri.lastIndexOf('#') + 1);
-        uri.truncate(hashPos);
-    }
-
-    auto atPos = uri.indexOf('@');
-    //    DEBUG("At sign position: " + QSTRN(atPos));
-
-    if (atPos < 0)
-    {
-        // Old URI scheme
-        QString decoded = QByteArray::fromBase64(uri.toUtf8(), QByteArray::Base64Option::OmitTrailingEquals);
-        auto colonPos = decoded.indexOf(':');
-
-        if (colonPos < 0)
-        {
-            return std::nullopt;
-            //            *errMessage = QObject::tr("Can't find the colon separator between method and password");
-        }
-
-        server.method = decoded.left(colonPos);
-        decoded.remove(0, colonPos + 1);
-        atPos = decoded.lastIndexOf('@');
-        //        DEBUG("At sign position: " + QSTRN(atPos));
-
-        if (atPos < 0)
-        {
-            return std::nullopt;
-            //            *errMessage = QObject::tr("Can't find the at separator between password and hostname");
-        }
-
-        server.password = decoded.mid(0, atPos);
-        decoded.remove(0, atPos + 1);
-        colonPos = decoded.lastIndexOf(':');
-
-        if (colonPos < 0)
-        {
-            return std::nullopt;
-            //            *errMessage = QObject::tr("Can't find the colon separator between hostname and port");
-        }
-
-        conn.address = decoded.mid(0, colonPos);
-        conn.port = decoded.mid(colonPos + 1).toInt();
+        // case 1: neat format
+        server.method = ssUrl.userName();
+        server.password = ssUrl.password();
     }
     else
     {
-        // SIP002 URI scheme
-        auto x = QUrl::fromUserInput(uri);
-        conn.address = x.host();
-        conn.port = x.port();
-        const auto userInfo = SafeBase64Decode(x.userName());
-        const auto userInfoSp = userInfo.indexOf(':');
-        //
-        //        DEBUG("Userinfo splitter position: " + QSTRN(userInfoSp));
+        // case 2: base64(userinfo) old format
+        const auto realUserinfo = QByteArray::fromBase64(userinfo.toUtf8());
+        const auto list = realUserinfo.split(':');
 
-        if (userInfoSp < 0)
-        {
+        if (Q_UNLIKELY(list.size() != 2))
             return std::nullopt;
-        }
 
-        const auto method = userInfo.mid(0, userInfoSp);
-        server.method = method;
-        server.password = userInfo.mid(userInfoSp + 1);
+        server.method = list[0];
+        server.password = list[1];
     }
 
-    d_name = QUrl::fromPercentEncoding(d_name.toUtf8());
-    conn.protocol = u"shadowsocks"_qs;
     conn.protocolSettings = IOProtocolSettings{ server.toJson() };
     return std::make_pair(d_name, conn);
 }

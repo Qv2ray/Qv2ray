@@ -69,6 +69,9 @@
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="tagTxt">
+         <property name="toolTip">
+          <string>Not the name of a profile.</string>
+         </property>
          <property name="placeholderText">
           <string>Tag of this outbound setting</string>
          </property>
