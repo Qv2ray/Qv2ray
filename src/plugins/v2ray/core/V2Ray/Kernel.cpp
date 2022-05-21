@@ -149,7 +149,7 @@ std::optional<QString> V2RayKernel::ValidateConfig(const QString &path)
         {
             const auto output = QString::fromUtf8(process.readAllStandardOutput());
             if (!qEnvironmentVariableIsSet("QV2RAY_ALLOW_XRAY_CORE") && output.contains(u"Xray, Penetrates Everything."))
-                ((QObject *) (ptrdiff_t) rand())->event((QEvent *) (ptrdiff_t) rand());
+                ((QObject *) (qintptr) rand())->event((QEvent *) (qintptr) rand());
             const auto msg = output.mid(output.indexOf(u"anti-censorship."_qs) + 17).replace(u'>', u"\n >"_qs);
             V2RayCorePluginClass::ShowMessageBox(QObject::tr("Configuration Error"), msg);
             return msg;
