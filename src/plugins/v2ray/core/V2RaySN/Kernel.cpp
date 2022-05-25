@@ -131,7 +131,7 @@ bool V2RaySNKernel::Stop()
 std::optional<QString> V2RaySNKernel::ValidateConfig(const QString &path)
 {
     const auto settings = V2RayCorePluginClass::PluginInstance->settings;
-    if (const auto &[result, msg] = ValidateKernel(settings.CorePath, settings.AssetsPath, { u"--version"_qs }); result)
+    if (const auto &[result, msg] = ValidateKernel(settings.CorePath, settings.AssetsPath, { u"version"_qs }); result)
     {
         V2RayCorePluginClass::Log(u"V2Ray version: "_qs + *msg);
         // Append assets location env.
