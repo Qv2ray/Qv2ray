@@ -1,4 +1,4 @@
-# <img width="32" src="assets/icons/qv2ray.png" alt="Qv2ray"/> Qv2ray - For developers. By developers.
+# <img width="32" src="assets/icons/qv2ray.png" alt="Qv2ray"/> Qv2ray - For developers. By developers
 
 [![Build for Desktop](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build.yml/badge.svg)](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build.yml)
 [![GitHub Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
@@ -12,7 +12,7 @@ Qv2ray is a cross-platform connection manager for V2Ray and other backends.
 This is the original Qv2ray project by the author who contributed over 95% code and other contributors.
 Unlike Qv2ray/Qv2ray whose control has been forcibly taken away from the author by another organization owner.
 
-## Development Goal: For developers. By developers.
+## Development Goal: For developers. By developers
 
 Further development of this project will focus on my own needs and use cases.
 
@@ -25,7 +25,7 @@ Feature requests from non-developers might get rejected. Code contribution is al
 - gRPC, Protobuf (used by `V2RayCorePlugin`, can be omitted if not used)
 - OpenSSL (for OpenSSL QtNetwork TLS backend plugin)
 
-## OS Support Status:
+## OS Support Status
 
 - ArchLinux: **Tested and Working**
 - Windows 10/11: **Tested and Working**, build system.
@@ -35,7 +35,7 @@ Feature requests from non-developers might get rejected. Code contribution is al
 - Ubuntu 20.04: **Untested**, build system.
 - Others: **Untested**
 
-> *build system: the CI is done under that OS, although it "should" work there's no runtime guarantee.*
+> _build system: the CI is done under that OS, although it "should" work there's no runtime guarantee._
 
 ## Compatibility
 
@@ -48,7 +48,7 @@ No Such Word In My Dictionary
 
 ## Plugins At A Glance
 
-~~*Not All Plugins Are Available Since I'm Very Busy*~~
+~~_Not All Plugins Are Available Since I'm Very Busy_~~
 
 ### Built-in Plugins
 
@@ -72,6 +72,7 @@ No Such Word In My Dictionary
 This is free software, and you are welcome to redistribute it under certain conditions.
 
 ### Third-party Libraries and Resources
+
 See: [assets/credit.html](assets/credit.html)
 
 Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -92,6 +93,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
+
 ## Star History
 
 ![stars](https://starchart.cc/Shadowsocks-NET/Qv2ray.svg)
