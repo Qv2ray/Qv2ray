@@ -264,8 +264,7 @@ void V2RayRustProfileGenerator::ProcessInboundConfig(const InboundObject &in)
         toml::table table;
         table.emplace<std::string>("tag", in.name.toStdString());
         table.emplace<std::string>("addr", ToHost(in.inboundSettings.address, in.inboundSettings.port.from).toStdString());
-        QJsonObject settings = in.inboundSettings.protocolSettings[u"settings"_qs].toObject();
-        if (settings.contains(u"udp"_qs))
+        if (in.inboundSettings.protocolSettings.contains(u"udp"_qs) && in.inboundSettings.protocolSettings[u"udp"_qs].toBool())
         {
             table.emplace<bool>("enable_udp", true);
         }
