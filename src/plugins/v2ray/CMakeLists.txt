@@ -5,6 +5,17 @@ add_library(V2RayPlugin::BackendDeps ALIAS V2RayStatsBackendAPI)
 
 if(QV2RAY_AVOID_GRPC)
     add_compile_definitions(QV2RAY_NO_GRPC)
+    set(NANO_PB
+            ${CMAKE_CURRENT_LIST_DIR}/core/pb_common.c
+            ${CMAKE_CURRENT_LIST_DIR}/core/pb_common.h
+            ${CMAKE_CURRENT_LIST_DIR}/core/pb_decode.h
+            ${CMAKE_CURRENT_LIST_DIR}/core/pb_decode.c
+            ${CMAKE_CURRENT_LIST_DIR}/core/pb_encode.c
+            ${CMAKE_CURRENT_LIST_DIR}/core/pb_encode.h
+            ${CMAKE_CURRENT_LIST_DIR}/core/pb.h
+            ${CMAKE_CURRENT_LIST_DIR}/core/api.pb.h
+            ${CMAKE_CURRENT_LIST_DIR}/core/api.pb.c
+            )
 else()
     find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
     find_package(gRPC QUIET)
@@ -57,13 +68,16 @@ function(qv2ray_internal_add_v2ray_plugin name classname classprefix)
     set(PROTO_GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/${classprefix}")
     set(PROTO_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/assets")
     make_directory(${PROTO_GENERATED_DIR})
+	if(NOT QV2RAY_AVOID_GRPC)
     generate_v2ray_grpc_source("${CMAKE_CURRENT_LIST_DIR}/assets/${classprefix}-Stats.proto")
+    endif()
 
     qv2ray_add_plugin(${name} Widgets
         INSTALL_PREFIX_MACOS "${CMAKE_INSTALL_PREFIX}/qv2ray.app/Contents/Resources/plugins"
         CLASS_NAME ${classname})
 
     target_sources(${name} PRIVATE
+        ${NANO_PB}
         ${PROTO_SOURCES} ${PROTO_HEADERS}
         ${CMAKE_CURRENT_LIST_DIR}/ui/w_V2RayKernelSettings.hpp
         ${CMAKE_CURRENT_LIST_DIR}/ui/w_V2RayKernelSettings.cpp

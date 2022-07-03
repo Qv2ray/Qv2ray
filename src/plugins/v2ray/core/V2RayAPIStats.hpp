@@ -15,6 +15,9 @@ typedef std::map<QString, StatisticsObject::StatisticsType> QvAPITagProtocolConf
 
 namespace V2RayPluginNamespace
 {
+#ifdef QV2RAY_NO_GRPC
+    struct Http2GrpcChannelPrivate;
+#endif
     class APIWorker : public QObject
     {
         Q_OBJECT
@@ -41,6 +44,8 @@ namespace V2RayPluginNamespace
 #ifndef QV2RAY_NO_GRPC
         std::shared_ptr<::grpc::Channel> grpc_channel;
         std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> stats_service_stub;
+#else
+        std::unique_ptr<Http2GrpcChannelPrivate> grpc_channel;
 #endif
     };
 } // namespace V2RayPluginNamespace
