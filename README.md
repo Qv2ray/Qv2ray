@@ -46,6 +46,8 @@ files will not be compatible with the original version.
 
 No Such Word In My Dictionary
 
+- 2022-07-19 update: Okay it's now officially a corpse :)
+
 ## Plugins At A Glance
 
 ~~_Not All Plugins Are Available Since I'm Very Busy_~~
