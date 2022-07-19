@@ -773,7 +773,7 @@
        <item row="1" column="0" colspan="2">
         <widget class="QCheckBox" name="disableSessionResumptionCB">
          <property name="text">
-          <string>Disable Session Resumption</string>
+          <string>Enable Session Resumption</string>
          </property>
          <property name="checked">
           <bool>false</bool>
@@ -783,7 +783,7 @@
        <item row="2" column="0" colspan="2">
         <widget class="QCheckBox" name="disableSystemRoot">
          <property name="text">
-          <string>Disable System Root Certificates</string>
+          <string>Certificates</string>
          </property>
         </widget>
        </item>

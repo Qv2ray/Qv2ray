@@ -1,8 +1,8 @@
 # <img width="32" src="assets/icons/qv2ray.png" alt="Qv2ray"/> Qv2ray - For developers. By developers
 
-[![Build for Desktop](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build.yml/badge.svg)](https://github.com/Shadowsocks-NET/Qv2ray/actions/workflows/build.yml)
-[![GitHub Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
-[![GitHub All Releases](https://img.shields.io/github/downloads/Shadowsocks-NET/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Shadowsocks-NET/Qv2ray/releases)
+[![Build for Desktop](https://github.com/Qv2ray/Qv2ray/actions/workflows/build.yml/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions/workflows/build.yml)
+[![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Qv2ray/Qv2ray/releases)
+[![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Qv2ray/Qv2ray/releases)
 
 [![AUR badge for qv2ray-git](https://img.shields.io/aur/version/qv2ray-git?label=qv2ray-git)](https://aur.archlinux.org/packages/qv2ray-git/)
 [![AUR badge for qv2ray-static-bin-nightly](https://img.shields.io/aur/version/qv2ray-static-bin-nightly?label=qv2ray-static-bin-nightly)](https://aur.archlinux.org/packages/qv2ray-static-bin-nightly/)
@@ -98,4 +98,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ## Star History
 
-![stars](https://starchart.cc/Shadowsocks-NET/Qv2ray.svg)
+![stars](https://starchart.cc/Qv2ray/Qv2ray.svg)
