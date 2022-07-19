@@ -477,7 +477,7 @@ void MainWindow::OnConnected(const ProfileId &id)
 
 void MainWindow::on_connectionFilterTxt_textEdited(const QString &arg1)
 {
-    if (arg1.startsWith('>'))
+    if (arg1.startsWith('?'))
     {
         try
         {
