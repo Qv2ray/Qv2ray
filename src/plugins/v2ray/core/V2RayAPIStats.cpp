@@ -2,7 +2,6 @@
 
 #include "V2RayCorePluginTemplate.hpp"
 
-#include <QStringBuilder>
 #include <QThread>
 
 #ifndef QV2RAY_NO_GRPC

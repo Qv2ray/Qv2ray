@@ -4,8 +4,6 @@
 #include "ui/WidgetUIBase.hpp"
 #include "ui/windows/editors/w_JsonEditor.hpp"
 
-#include <QStringBuilder>
-
 StreamSettingsWidget::StreamSettingsWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
@@ -55,7 +53,7 @@ void StreamSettingsWidget::SetStreamObject(const Qv2ray::Models::StreamSettingsO
         QString wsHeaders;
         for (const auto &[key, value] : stream.wsSettings->headers->toStdMap())
         {
-            wsHeaders = wsHeaders % key % "|" % value % NEWLINE;
+            wsHeaders = wsHeaders + key + "|" + value + NEWLINE;
         }
         wsHeadersTxt->setPlainText(wsHeaders);
         wsEarlyDataSB->setValue(stream.wsSettings->maxEarlyData);
