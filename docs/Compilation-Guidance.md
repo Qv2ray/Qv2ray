@@ -2,7 +2,7 @@
 
 :warning: **Please read [Platform-specific Compilation Notices](Platform-specific-Compilation-Notices) before trying to build.**
 
-# Dependencies
+## Dependencies
 
 - Qt 6.2
 - OpenSSL
@@ -12,9 +12,9 @@
 - Qv2rayBase / Qv2rayBase-PluginInterface
 - A working C++ compiler with C++17 support
 
-# Compilation Steps
+## Compilation Steps
 
-## 1. Obtaining dependencies
+### 1. Obtaining dependencies
 
 - Qt
   - May be installed via Qt Online Installer, distribution packages or [`aqtinstall`](https://github.com/miurahr/aqtinstall/)
@@ -26,7 +26,7 @@
   - Installing from Linux distribution packages (if exist) is suggested.
   - Otherwise, the git submodule works fine.
 
-## 2. Configuring QvPersonal with CMake
+### 2. Configuring QvPersonal with CMake
 
 Suppose that:
 
@@ -49,13 +49,13 @@ Then:
 5. If you are using `Ninja`
    - append `-GNinja`
 
-## 3. Starting the build
+### 3. Starting the build
 
 Run: `cmake --build .` in the build directory
 
 - If you want to speed up the compilation using multiple cores,
   - Add `--parallel CORES` (_where `CORES` is the number of your CPU cores (or `$(nproc)`)_)
 
-## 4. Installing (deployment)
+### 4. Installing (deployment)
 
 - Simply run `cmake --install .` in the build directory.

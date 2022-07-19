@@ -4,7 +4,7 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/assets/icons/qv2ray.svg DESTINATION sh
 
 if(BUILD_SHARED_LIBS)
     if(QV2RAY_QV2RAYBASE_PROVIDER STREQUAL "module")
-        install(TARGETS Qv2rayBase)
+        # install(TARGETS Qv2rayBase)
     endif()
 endif()
 
