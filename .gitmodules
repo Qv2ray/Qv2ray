@@ -15,7 +15,7 @@
 	url = https://github.com/moodyhunter/libRoutingA.git
 [submodule "src/Qv2rayBase/src/PluginInterface"]
     path = src/Qv2rayBase/src/PluginInterface
-    url = https://github.com/Shadowsocks-NET/Qv2rayBase-PluginInterface
+    url = https://github.com/Qv2ray/QvPlugin-Interface
 [submodule "src/Qv2rayBase/3rdparty/uvw"]
     path = src/Qv2rayBase/3rdparty/uvw
     url = https://github.com/skypjack/uvw
