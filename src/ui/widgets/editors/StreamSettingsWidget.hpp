@@ -26,9 +26,6 @@ class StreamSettingsWidget
     // HTTP
     void on_httpHostTxt_textChanged();
     void on_httpPathTxt_textEdited(const QString &arg1);
-    void on_httpMethodCB_currentTextChanged(const QString &arg1);
-    void on_httpHeadersEditBtn_clicked();
-    void on_httpHeadersDefBtn_clicked();
 
     // KCP
     void on_kcpCongestionCB_stateChanged(int arg1);
@@ -48,7 +45,7 @@ class StreamSettingsWidget
 
     // TLS/XTLS
     void on_alpnTxt_textEdited(const QString &arg1);
-    void on_enableSessionResumptionCB_stateChanged(int arg1);
+    void on_disableSessionResumptionCB_stateChanged(int arg1);
     void on_securityTypeCB_currentIndexChanged(int arg1);
     void on_serverNameTxt_textEdited(const QString &arg1);
     void on_disableSystemRoot_stateChanged(int arg1);
@@ -65,20 +62,15 @@ class StreamSettingsWidget
     // SOCKOPT
     void on_tProxyCB_currentIndexChanged(int arg1);
     void on_soMarkSpinBox_valueChanged(int arg1);
-    void on_tcpKeepAliveIntervalSpinBox_valueChanged(int arg1);
 
     // WebSocket
     void on_wsHeadersTxt_textChanged();
     void on_wsPathTxt_textEdited(const QString &arg1);
     void on_wsEarlyDataSB_valueChanged(int arg1);
     void on_wsBrowserForwardCB_stateChanged(int arg1);
-    void on_wsEarlyDataHeaderNameCB_currentIndexChanged(int arg1);
 
     // gRPC
     void on_grpcServiceNameTxt_textEdited(const QString &arg1);
-    void on_grpcModeCB_currentIndexChanged(int arg1);
-    //
-    void on_pinnedPeerCertificateChainSha256Btn_clicked();
 
   private:
     Qv2ray::Models::StreamSettingsObject stream;
