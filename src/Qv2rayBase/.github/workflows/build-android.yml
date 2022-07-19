@@ -1,0 +1,67 @@
+name: Build for Android
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Android ${{ matrix.arch }}, ${{ fromJSON('["Static", "Shared"]')[matrix.build_shared=='ON'] }}
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86, x86_64, armv7, arm64_v8a]
+        build_shared: [ON, OFF]
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - name: Install ninja-build tool
+      uses: seanmiddleditch/gha-setup-ninja@v3
+
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2.14.0
+      with:
+        version: 6.3.0
+        py7zrversion: ' '
+        aqtversion: ' '
+        setup-python: false
+        target: android
+        arch: android_${{ matrix.arch }}
+
+    - name: Install Qt Host
+      uses: jurplel/install-qt-action@v2.14.0
+      with:
+        version: 6.3.0
+        py7zrversion: ' '
+        aqtversion: ' '
+        setup-python: false
+        target: desktop
+        set-env: false
+
+    - name: Build
+      run: |
+        sed -i "s,/home/qt/work/install,/home/runner/work/Qv2rayBase/Qt/6.3.0/gcc_64,g" $Qt6_DIR/lib/cmake/Qt6/qt.toolchain.cmake
+        mkdir build; cd build
+        $Qt6_DIR/bin/qt-cmake .. -GNinja \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DBUILD_TESTING=OFF \
+          -DBUILD_SHARED_LIBS=${{ matrix.build_shared }} \
+          -DCMAKE_INSTALL_PREFIX=installed \
+          -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT \
+          -DANDROID_NDK_ROOT=$ANDROID_NDK_ROOT
+        cmake --build . --parallel $(nproc)
+
+    - name: Install
+      run: |
+        cd build
+        cmake --install . --config Release --component development
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: Qv2rayBase-Android_${{ matrix.arch }}-${{ fromJSON('["Static", "Shared"]')[matrix.build_shared=='ON'] }}
+        path: build/installed

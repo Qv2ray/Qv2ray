@@ -1,0 +1,106 @@
+name: Build for Desktop
+
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    env:
+      CC: ${{ matrix.config.cc }}
+      CXX: ${{ matrix.config.cxx }}
+    name: ${{ matrix.config.name }}, ${{ fromJSON('["Static", "Shared"]')[matrix.build_shared=='ON'] }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        build_shared: [ON, OFF]
+        config:
+        - {
+            name: "Windows MSVC", artifact: "Windows-MSVC",
+            os: windows-latest,
+            cc: "cl.exe", cxx: "cl.exe",
+            arch: "win64_msvc2019_64",
+            has_msvc: true,
+            extra_cmake_args: '-DCMAKE_CONFIGURATION_TYPES="Release;Debug"',
+            generator: "\"Ninja Multi-Config\"",
+          }
+        - {
+            name: "Windows MinGW", artifact: "Windows-MinGW",
+            os: windows-latest,
+            cc: "gcc", cxx: "g++",
+            arch: "win64_mingw81",
+            generator: "\"MinGW Makefiles\""
+          }
+        - {
+            name: "Ubuntu", artifact: "Linux",
+            os: ubuntu-latest,
+            generator: "Ninja"
+          }
+        - {
+            name: "macOS", artifact: "macOS",
+            os: macos-latest,
+            generator: "Ninja"
+          }
+ 
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - name: Install ninja-build tool
+      uses: seanmiddleditch/gha-setup-ninja@v3
+
+    - name: Install MSVC compiler
+      if: matrix.config.has_msvc
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2.14.0
+      with:
+        version: 6.3.0
+        py7zrversion: ' '
+        aqtversion: ' '
+        setup-python: false
+
+    - name: Build
+      run: |
+        mkdir build; cd build
+        cmake .. \
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+          -DCMAKE_INSTALL_PREFIX=installed \
+          -DBUILD_SHARED_LIBS=${{ matrix.build_shared }} \
+          -DBUILD_TESTING=ON \
+          -G${{ matrix.config.generator }} \
+          ${{ matrix.config.extra_cmake_args }}
+        cmake --build . --config Release --parallel
+
+    - name: Extra build step for MSVC
+      if: matrix.config.has_msvc
+      run: |
+        cd build
+        cmake --build . --config Debug --parallel
+        cmake --install . --config Debug --component development
+
+    - name: Run tests
+      run: |
+        cd build
+        export PATH=$PATH:$Qt6_DIR/bin:$(pwd):$(pwd)/Release
+        ctest . -V -C Release
+
+    - name: Install
+      run: |
+        cd build
+        cmake --install . --config Release --component development
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: Qv2rayBase-${{ matrix.config.artifact }}-${{ fromJSON('["Static", "Shared"]')[matrix.build_shared=='ON'] }}
+        path: build/installed

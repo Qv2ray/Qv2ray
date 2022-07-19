@@ -1,0 +1,5 @@
+*.hpp                                licensefile=.githooks/license-maintainer/LICENSE-qt-cpp
+include/Qv2rayBase/private/**/*.hpp  licensefile=.githooks/license-maintainer/LICENSE-private-header
+*.cpp                                licensefile=.githooks/license-maintainer/LICENSE-qt-cpp
+*.sh                                 licensefile=.githooks/license-maintainer/LICENSE-hash
+/install                             licensefile=.githooks/license-maintainer/LICENSE-hash

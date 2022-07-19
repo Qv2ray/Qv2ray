@@ -57,7 +57,6 @@ cmake_policy(SET CMP0087 NEW)
 set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "Default V2Ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH   "unset" CACHE STRING "Default V2Ray core path")
 
-set(QV2RAY_QV2RAYBASE_PROVIDER        "module" CACHE STRING "Qv2rayBase Provider")
 set(QV2RAY_SINGLEAPPLICATION_PROVIDER "module" CACHE STRING "SingleApplication Provider")
 
 option(QV2RAY_HAS_BUILTIN_THEMES    "Build with builtin themes" ON)
@@ -98,11 +97,7 @@ find_package(Qt6 6.2 COMPONENTS Core Widgets Gui Network REQUIRED)
 set(QAPPLICATION_CLASS "QApplication")
 set(QT_DEFAULT_MAJOR_VERSION 6)
 
-if(QV2RAY_QV2RAYBASE_PROVIDER STREQUAL "package")
-    find_package(Qv2rayBase REQUIRED)
-else()
-    add_subdirectory(src/Qv2rayBase)
-endif()
+add_subdirectory(src/Qv2rayBase)
 
 if(QV2RAY_SINGLEAPPLICATION_PROVIDER STREQUAL "package")
     find_library(SINGLEAPPLICATION_LIBRARY NAMES SingleApplication)
