@@ -1,30 +1,21 @@
 [submodule "3rdparty/SingleApplication"]
 	path = 3rdparty/SingleApplication
 	url = https://github.com/itay-grudev/SingleApplication
-[submodule "3rdparty/QNodeEditor"]
-	path = 3rdparty/QNodeEditor
-	url = https://github.com/Qv2ray/QNodeEditor
-[submodule "3rdparty/puresource"]
-	path = 3rdparty/puresource
-	url = https://github.com/Qv2ray/PureSource
-[submodule "src/plugin-interface"]
-	path = src/plugin-interface
-	url = https://github.com/Qv2ray/QvPlugin-Interface
-[submodule "3rdparty/QJsonStruct"]
-	path = 3rdparty/QJsonStruct
-	url = https://github.com/Qv2ray/QJsonStruct
-[submodule "3rdparty/libuv"]
-    path = 3rdparty/libuv
-    url = https://github.com/libuv/libuv.git
-[submodule "3rdparty/uvw"]
-	path = 3rdparty/uvw
-	url = https://github.com/skypjack/uvw.git
-[submodule "cmake/android"]
-	path = cmake/android
-	url = https://github.com/LaurentGomila/qt-android-cmake
 [submodule "3rdparty/QCodeEditor"]
 	path = 3rdparty/QCodeEditor
 	url = https://github.com/cpeditor/QCodeEditor
 [submodule "3rdparty/qt-qrcode"]
 	path = 3rdparty/qt-qrcode
 	url = https://github.com/danielsanfr/qt-qrcode
+[submodule "src/Qv2rayBase"]
+	path = src/Qv2rayBase
+	url = https://github.com/Shadowsocks-NET/Qv2rayBase.git
+[submodule "src/plugins/routingA/core"]
+	path = src/plugins/routingA/core
+	url = https://github.com/moodyhunter/libRoutingA.git
+[submodule "src/Qv2rayBase/src/PluginInterface"]
+    path = src/Qv2rayBase/src/PluginInterface
+    url = https://github.com/Qv2ray/QvPlugin-Interface
+[submodule "src/Qv2rayBase/3rdparty/uvw"]
+    path = src/Qv2rayBase/3rdparty/uvw
+    url = https://github.com/skypjack/uvw

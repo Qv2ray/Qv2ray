@@ -1,10 +1,11 @@
 #include "shadowsocks.hpp"
 
-ShadowsocksOutboundEditor::ShadowsocksOutboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
+ShadowsocksOutboundEditor::ShadowsocksOutboundEditor(QWidget *parent) : Qv2rayPlugin::Gui::PluginProtocolEditor(parent)
 {
     setupUi(this);
     setProperty("QV2RAY_INTERNAL_HAS_STREAMSETTINGS", true);
-    setProperty("QV2RAY_INTERNAL_HAS_FORWARD_PROXY", true);
+    shadowsocks.method.ReadWriteBind(ss_encryptionMethod, "currentText", &QComboBox::currentTextChanged);
+    shadowsocks.password.ReadWriteBind(ss_passwordTxt, "text", &QLineEdit::textEdited);
 }
 
 void ShadowsocksOutboundEditor::changeEvent(QEvent *e)
@@ -15,16 +16,4 @@ void ShadowsocksOutboundEditor::changeEvent(QEvent *e)
         case QEvent::LanguageChange: retranslateUi(this); break;
         default: break;
     }
-}
-
-void ShadowsocksOutboundEditor::on_ss_passwordTxt_textEdited(const QString &arg1)
-{
-    PLUGIN_EDITOR_LOADING_GUARD
-    shadowsocks.password = arg1;
-}
-
-void ShadowsocksOutboundEditor::on_ss_encryptionMethod_currentTextChanged(const QString &arg1)
-{
-    PLUGIN_EDITOR_LOADING_GUARD
-    shadowsocks.method = arg1;
 }

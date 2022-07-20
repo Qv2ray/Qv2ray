@@ -1,0 +1,4 @@
+*             -licensefile
+/license.pm   licensefile=.githooks/license-maintainer/LICENSE-hash
+/pre-commit   licensefile=.githooks/license-maintainer/LICENSE-hash
+/install      licensefile=.githooks/license-maintainer/LICENSE-hash

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# Copyright 2015, 2021 Nitor Creations Oy, Moody
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -e
+
+if [ "$#" -gt 0 ]; then
+   echo "usage: $0"
+   echo
+   echo "Installs the git hooks in this directory into .git/hooks/"
+   echo "Any existing destination file is backed up first if necessary."
+   exit 1
+fi
+
+cd "$(dirname "$0")/../.."
+
+linkcmd="ln -snv"
+
+if [[ $OSTYPE != "darwin"* ]] ; then
+    linkcmd="$linkcmd --backup=numbered"
+fi
+
+for i in pre-commit ; do
+    oldlink="$(readlink .git/hooks/${i} ||:)"
+    newlink="../../.githooks/license-maintainer/${i}"
+    if [ "$newlink" != "$oldlink" ]; then
+	$linkcmd "${newlink}" .git/hooks/
+    fi
+done

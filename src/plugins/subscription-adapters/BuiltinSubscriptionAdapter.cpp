@@ -2,9 +2,8 @@
 
 #include "core/SubscriptionAdapter.hpp"
 
-bool InternalSubscriptionSupportPlugin::InitializePlugin(const QString &, const QJsonObject &settings)
+bool InternalSubscriptionSupportPlugin::InitializePlugin()
 {
-    this->settings = settings;
-    subscriptionAdapter = std::make_shared<BuiltinSubscriptionAdapterInterface>();
+    m_SubscriptionInterface = std::make_shared<BuiltinSubscriptionAdapterInterface>();
     return true;
 }

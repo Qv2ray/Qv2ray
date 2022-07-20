@@ -2,7 +2,7 @@
 
 #include "BuiltinProtocolPlugin.hpp"
 
-SocksInboundEditor::SocksInboundEditor(QWidget *parent) : Qv2rayPlugin::QvPluginEditor(parent)
+SocksInboundEditor::SocksInboundEditor(QWidget *parent) : Qv2rayPlugin::Gui::PluginProtocolEditor(parent)
 {
     setupUi(this);
     setProperty("QV2RAY_INTERNAL_HAS_STREAMSETTINGS", true);
@@ -18,29 +18,29 @@ void SocksInboundEditor::changeEvent(QEvent *e)
     }
 }
 
-void SocksInboundEditor::SetContent(const QJsonObject &content)
+void SocksInboundEditor::Load()
 {
-    PLUGIN_EDITOR_LOADING_SCOPE({
-        this->content = content;
-        // SOCKS
-        socksAuthCombo->setCurrentText(content["auth"].toString());
-        socksUDPCB->setChecked(content["udp"].toBool());
-        socksUDPIPAddrTxt->setText(content["ip"].toString());
+    isLoading = true;
+    // SOCKS
+    socksAuthCombo->setCurrentText(settings["auth"].toString());
+    socksUDPCB->setChecked(settings["udp"].toBool());
+    socksUDPIPAddrTxt->setText(settings["ip"].toString());
 
-        for (auto user : content["accounts"].toArray())
-        {
-            socksAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
-        }
-    })
+    for (auto user : settings["accounts"].toArray())
+    {
+        socksAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
+    }
+    isLoading = false;
 }
 
 void SocksInboundEditor::on_socksRemoveUserBtn_clicked()
 {
-    PLUGIN_EDITOR_LOADING_GUARD
+    if (isLoading)
+        return;
     if (socksAccountListBox->currentRow() != -1)
     {
         auto item = socksAccountListBox->currentItem();
-        auto list = content["accounts"].toArray();
+        auto list = settings["accounts"].toArray();
 
         for (int i = 0; i < list.count(); i++)
         {
@@ -50,7 +50,7 @@ void SocksInboundEditor::on_socksRemoveUserBtn_clicked()
             if (entry == item->text().trimmed())
             {
                 list.removeAt(i);
-                content["accounts"] = list;
+                settings["accounts"] = list;
                 socksAccountListBox->takeItem(socksAccountListBox->currentRow());
                 return;
             }
@@ -58,17 +58,18 @@ void SocksInboundEditor::on_socksRemoveUserBtn_clicked()
     }
     else
     {
-        InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
+        InternalProtocolSupportPlugin::ShowMessageBox(tr("Removing a user"), tr("You haven't selected a user yet."));
     }
 }
 
 void SocksInboundEditor::on_socksAddUserBtn_clicked()
 {
-    PLUGIN_EDITOR_LOADING_GUARD
+    if (isLoading)
+        return;
     auto user = socksAddUserTxt->text();
     auto pass = socksAddPasswordTxt->text();
     //
-    auto list = content["accounts"].toArray();
+    auto list = settings["accounts"].toArray();
 
     for (int i = 0; i < list.count(); i++)
     {
@@ -76,7 +77,7 @@ void SocksInboundEditor::on_socksAddUserBtn_clicked()
 
         if (_user["user"].toString() == user)
         {
-            InternalProtocolSupportPluginInstance->PluginErrorMessageBox(tr("Add a user"), tr("This user exists already."));
+            InternalProtocolSupportPlugin::ShowMessageBox(tr("Add a user"), tr("This user exists already."));
             return;
         }
     }
@@ -88,23 +89,26 @@ void SocksInboundEditor::on_socksAddUserBtn_clicked()
     entry["pass"] = pass;
     list.append(entry);
     socksAccountListBox->addItem(user + ":" + pass);
-    content["accounts"] = list;
+    settings["accounts"] = list;
 }
 
 void SocksInboundEditor::on_socksUDPCB_stateChanged(int arg1)
 {
-    PLUGIN_EDITOR_LOADING_GUARD
-    content["udp"] = arg1 == Qt::Checked;
+    if (isLoading)
+        return;
+    settings["udp"] = arg1 == Qt::Checked;
 }
 
 void SocksInboundEditor::on_socksUDPIPAddrTxt_textEdited(const QString &arg1)
 {
-    PLUGIN_EDITOR_LOADING_GUARD
-    content["ip"] = arg1;
+    if (isLoading)
+        return;
+    settings["ip"] = arg1;
 }
 
 void SocksInboundEditor::on_socksAuthCombo_currentIndexChanged(int arg1)
 {
-    PLUGIN_EDITOR_LOADING_GUARD
-    content["auth"] = socksAuthCombo->itemText(arg1).toLower();
+    if (isLoading)
+        return;
+    settings["auth"] = socksAuthCombo->itemText(arg1).toLower();
 }

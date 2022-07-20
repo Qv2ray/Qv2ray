@@ -1,0 +1,123 @@
+name: Build for Desktop
+
+on:
+  push:
+    branches:
+      - '**'
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+  release:
+    types: [prereleased]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    env:
+      CC: ${{ matrix.config.cc }}
+      CXX: ${{ matrix.config.cxx }}
+      VCPKG_DEFAULT_TRIPLET: ${{ matrix.config.vcpkgTriplet }}
+      VCPKG_INSTALLED_DIR: ${{ github.workspace }}/vcpkg_installed/
+    name: '${{ matrix.config.name }}'
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: "Windows MSVC", artifact: "Windows",
+            os: windows-latest,
+            cc: "cl.exe", cxx: "cl.exe",
+            arch: "win64_msvc2019_64",
+            has_msvc: true,
+            has_release: true,
+            vcpkgTriplet: x64-windows
+          }
+        - {
+            name: "Ubuntu", artifact: "Linux",
+            os: ubuntu-latest,
+            has_release: false,
+            vcpkgTriplet: x64-linux
+          }
+        - {
+            name: "macOS", artifact: "macOS",
+            os: macos-latest,
+            has_release: true,
+            vcpkgTriplet: x64-osx
+          }
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+
+    - name: Install ninja-build tool
+      uses: seanmiddleditch/gha-setup-ninja@v3
+
+    - name: Install MSVC compiler
+      if: matrix.config.has_msvc
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2.14.0
+      with:
+        version: 6.2.2
+        py7zrversion: ' '
+        aqtversion: ' '
+        setup-python: false
+
+    - name: run-vcpkg
+      uses: lukka/run-vcpkg@v10
+      with:
+        vcpkgGitCommitId: "cc2dd8fed39acc588c9a9a04b1ea4d04ce5308f0"
+        vcpkgJsonGlob: '**/vcpkg.json'
+        runVcpkgInstall: true
+  
+    - name: Build
+      run: |
+        mkdir build; cd build
+        cmake .. \
+          -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX=Qv2ray \
+          -DBUILD_TESTING=OFF \
+          -DUSE_SYSTEM_LIBUV=OFF \
+          -DUSE_SYSTEM_UVW=OFF \
+          -GNinja
+        cmake --build . --parallel
+
+    - name: Install
+      run: |
+        cd build
+        cmake --install .
+
+    - name: Generate 7zip
+      run: cd build && 7z a ../Qv2ray.7z -- ./Qv2ray
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Qv2ray-${{ github.sha }}-${{ matrix.config.artifact }}.7z
+        path: Qv2ray.7z
+
+    - name: Get the version
+      if: github.event_name == 'release' && matrix.config.has_release
+      id: get_version
+      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+
+    - name: Upload to GitHub Release
+      uses: svenstaro/upload-release-action@v2
+      if: github.event_name == 'release' && matrix.config.has_release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Qv2ray.7z
+        asset_name: Qv2ray-${{ steps.get_version.outputs.VERSION }}-${{ matrix.config.artifact }}.7z
+        tag: ${{ github.ref }}
+        overwrite: true

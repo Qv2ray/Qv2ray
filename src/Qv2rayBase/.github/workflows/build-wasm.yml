@@ -1,0 +1,93 @@
+name: Build for WASM
+
+on:
+  push:
+
+env:
+  EMSDK_PATH: "/home/runner/work/Qv2rayBase/emsdk"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          submodules: "recursive"
+
+      - name: restore ccache
+        id: ccache
+        uses: actions/cache@v2
+        with:
+          path: ${{ runner.temp }}/ccache
+          # "github.run_id" is unique, which causes the cache to always get
+          # saved at the end of a successful run.
+          key: ccache-qv2raybase-${{ github.ref }}-${{ github.run_id }}
+          # As the unique "key" above will never be found in the cache when the
+          # job starts, we need these broader "restore-keys" in order to match
+          # and restore the most recent cache.
+          restore-keys: |
+            ccache-qv2raybase-${{ github.ref }}-
+            ccache-qv2raybase-
+
+      - name: configure ccache
+        run: |
+          sudo apt update
+          sudo apt install -y ccache ninja-build
+          ccache --set-config sloppiness=file_macro,time_macros
+          ccache --set-config cache_dir='${{ runner.temp }}'/ccache
+          ccache --set-config compression=true
+          ccache --set-config max_size=1G
+          ccache -s
+
+      - name: Install Host Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: 6.3.0
+          set-env: false
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: 6.3.0
+          arch: wasm_32
+          set-env: true
+
+      - name: Setup emscripten
+        run: |
+          git clone https://github.com/emscripten-core/emsdk --recursive $EMSDK_PATH
+          $EMSDK_PATH/emsdk install 3.1.6
+          $EMSDK_PATH/emsdk activate 3.1.6 --permanent
+
+      - name: Build Panel
+        run: |
+          # Fixup Qt Installation paths
+
+          export Qt6_DIR=$(realpath $Qt6_DIR/../wasm_32)
+          export QT_PLUGIN_PATH=$(realpath $Qt6_DIR/plugins)
+          export QML2_IMPORT_PATH=$(realpath $Qt6_DIR/qml)
+          sed -i "s,/home/qt/work/install,/home/runner/work/Qv2rayBase/Qt/6.3.0/gcc_64,g" $Qt6_DIR/lib/cmake/Qt6/qt.toolchain.cmake
+
+          source $EMSDK_PATH/emsdk_env.sh
+          mkdir build && cd build
+          $Qt6_DIR/bin/qt-cmake .. -GNinja \
+            -DQT_CHAINLOAD_TOOLCHAIN_FILE=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
+            -DCMAKE_INSTALL_PREFIX=installed \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build . --parallel $(nproc)
+
+      - name: ccache Statistics
+        run: ccache -s
+
+      - name: Install
+        run: |
+          cd build
+          cmake --install . --config Release --component development
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: Qv2rayBase-WASM
+          path: build/installed

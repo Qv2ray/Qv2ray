@@ -1,0 +1,11 @@
+{
+	"name": "qv2ray",
+	"version-string":  "0.0.1",
+	"dependencies": [
+		"openssl",
+		"protobuf",
+		"grpc",
+		"libuv",
+		"uvw"
+	]
+}

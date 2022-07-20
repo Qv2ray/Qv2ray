@@ -1,61 +1,52 @@
 #pragma once
-#include "CommonTypes.hpp"
-#include "QvPluginProcessor.hpp"
 
-#include <QRegularExpression>
+#include "QvPlugin/PluginInterface.hpp"
 
 using namespace Qv2rayPlugin;
+using namespace Qv2rayPlugin::Common::EditorCreator;
 
-const inline QStringList SplitLines(const QString &_string)
+class SIP008Decoder : public SubscriptionProvider
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    return _string.split(QRegularExpression("[\r\n]"), Qt::SplitBehaviorFlags::SkipEmptyParts);
+  public:
+    SubscriptionResult DecodeSubscription(const QByteArray &data) const override;
+};
+
+class SimpleBase64Decoder : public SubscriptionProvider
+{
+  public:
+    SubscriptionResult DecodeSubscription(const QByteArray &data) const override;
+};
+
+class OOCProvider : public SubscriptionProvider
+{
+  public:
+    SubscriptionResult FetchDecodeSubscription(const SubscriptionProviderOptions &) const override;
+};
+
+class BuiltinSubscriptionAdapterInterface final : public IPluginSubscriptionInterface
+{
+
+  public:
+    explicit BuiltinSubscriptionAdapterInterface() = default;
+
+    const static inline Qv2rayPlugin::Common::EditorCreator::EditorInfoList oocv1_options{
+#ifdef OOCv1_DETAIL_CONFIGURATION
+        EditorInfo::Create<ElementType::Integer>("version", "OOC version"),
+        EditorInfo::Create<ElementType::String>("baseUrl", "Base URL"),
+        EditorInfo::Create<ElementType::String>("secret", "Secret"),
+        EditorInfo::Create<ElementType::String>("userId", "User ID"),
+        EditorInfo::Create<ElementType::String>("certSha256", "Certification SHA256"),
 #else
-    return _string.split(QRegularExpression("[\r\n]"), QString::SkipEmptyParts);
+        EditorInfo::Create<ElementType::String>("token", "Token/URL"),
 #endif
-}
+    };
 
-class SimpleBase64Decoder : public Qv2rayPlugin::SubscriptionDecoder
-{
-  public:
-    explicit SimpleBase64Decoder() : SubscriptionDecoder(){};
-    SubscriptionDecodeResult DecodeData(const QByteArray &data) const override;
-};
-
-class SIP008Decoder : public Qv2rayPlugin::SubscriptionDecoder
-{
-  public:
-    explicit SIP008Decoder() : SubscriptionDecoder(){};
-    SubscriptionDecodeResult DecodeData(const QByteArray &data) const override;
-};
-
-class BuiltinSubscriptionAdapterInterface : public SubscriptionInterface
-{
-  public:
-    explicit BuiltinSubscriptionAdapterInterface() : SubscriptionInterface()
+    QList<SubscriptionProviderInfo> GetInfo() const override
     {
-        simple_base64 = std::make_shared<SimpleBase64Decoder>();
-        sip008 = std::make_shared<SIP008Decoder>();
-    }
-
-    QList<Qv2rayPlugin::ProtocolInfoObject> SupportedSubscriptionTypes() const override
-    {
-        // "simple_base64" = magic value in Qv2ray main application
         return {
-            ProtocolInfoObject{ "sip008", "SIP008" },             //
-            ProtocolInfoObject{ "simple_base64", "Basic Base64" } //
+            SubscriptionProviderInfo::CreateDecoder<SIP008Decoder>(SubscriptionProviderId{ "sip008" }, "SIP008"),
+            SubscriptionProviderInfo::CreateDecoder<SimpleBase64Decoder>(SubscriptionProviderId{ "simple_base64" }, "Base64 Links"),
+            SubscriptionProviderInfo::CreateFetcherDecoder<OOCProvider>(SubscriptionProviderId{ "ooc" }, "Open Online Config", oocv1_options),
         };
     }
-
-    std::shared_ptr<Qv2rayPlugin::SubscriptionDecoder> GetSubscriptionDecoder(const QString &type) const override
-    {
-        if (type == "simple_base64")
-            return simple_base64;
-        if (type == "sip008")
-            return sip008;
-        return nullptr;
-    }
-
-    std::shared_ptr<SubscriptionDecoder> simple_base64;
-    std::shared_ptr<SubscriptionDecoder> sip008;
 };

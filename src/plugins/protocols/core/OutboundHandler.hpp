@@ -1,19 +1,25 @@
 #pragma once
-#include "CommonTypes.hpp"
-#include "QvPluginProcessor.hpp"
 
-class BuiltinSerializer : public Qv2rayPlugin::PluginOutboundHandler
+#include "QvPlugin/Handlers/OutboundHandler.hpp"
+
+class BuiltinSerializer : public Qv2rayPlugin::Outbound::IOutboundProcessor
 {
   public:
-    explicit BuiltinSerializer() : Qv2rayPlugin::PluginOutboundHandler(){};
-    const QString SerializeOutbound(const QString &protocol, const QString &name, const QString &group, const QJsonObject &obj,
-                                    const QJsonObject &stream) const override;
-    const QPair<QString, QJsonObject> DeserializeOutbound(const QString &link, QString *alias, QString *errorMessage) const override;
-    const Qv2rayPlugin::OutboundInfoObject GetOutboundInfo(const QString &protocol, const QJsonObject &outbound) const override;
-    const void SetOutboundInfo(const QString &protocol, const Qv2rayPlugin::OutboundInfoObject &info, QJsonObject &outbound) const override;
-    const QList<QString> SupportedLinkPrefixes() const override;
-    const QList<QString> SupportedProtocols() const override
+    explicit BuiltinSerializer() : Qv2rayPlugin::Outbound::IOutboundProcessor(){};
+
+    virtual std::optional<QString> Serialize(const QString &name, const IOConnectionSettings &outbound) const override;
+    virtual std::optional<std::pair<QString, IOConnectionSettings>> Deserialize(const QString &link) const override;
+
+    virtual std::optional<PluginIOBoundData> GetOutboundInfo(const IOConnectionSettings &) const override;
+    virtual bool SetOutboundInfo(IOConnectionSettings &, const PluginIOBoundData &) const override;
+
+    QList<QString> SupportedLinkPrefixes() const override
     {
-        return { "http", "socks", "shadowsocks", "vmess", "vless" };
+        return { "http", "socks", "vmess", "ss", "trojan" };
+    }
+
+    QList<QString> SupportedProtocols() const override
+    {
+        return { "http", "socks", "shadowsocks", "vmess", "trojan" };
     }
 };

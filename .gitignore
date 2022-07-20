@@ -1,39 +1,26 @@
-# Some files 
+# Compilation Database
 compile_commands.json
+
+# macOS
 .DS_Store
-*.pro.user
+
+# Qt / Qt Creator
 *.user
-.vs/
 *.qm
 
-assets/package_dmg.json
+# Visual Studio
+.vs/
 CMakeSettings.json
-
-SourceTrail/
-
-3rdparty/android_openssl
-patches/
-
-libs/gen
-libs/deps
-libs/x64-windows
-libs/x86-windows
-libs/x86-android
-libs/x64-android
-libs/arm-android
-libs/arm64-android
-libs/tools
-libs/libqvb-*
-
-assets/android/AndroidManifest*
-build**/
 out/
+build**/
+*build/
 
 # IntelliJ-based IDE Trash
-/.idea/
+.idea/
 *.iml
-/cmake-build-debug
+cmake-build-debug/
+cmake-build-release/
 
-#oss code
-.vscode
+# OSS VSCode
+.vscode/
 .cache

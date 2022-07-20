@@ -1,3 +1,0 @@
-files:
-  - source: /translations/en_US.ts
-    translation: /translations/%locale_with_underscore%.ts
