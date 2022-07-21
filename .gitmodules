@@ -7,9 +7,6 @@
 [submodule "3rdparty/qt-qrcode"]
 	path = 3rdparty/qt-qrcode
 	url = https://github.com/danielsanfr/qt-qrcode
-[submodule "src/Qv2rayBase"]
-	path = src/Qv2rayBase
-	url = https://github.com/Shadowsocks-NET/Qv2rayBase.git
 [submodule "src/plugins/routingA/core"]
 	path = src/plugins/routingA/core
 	url = https://github.com/moodyhunter/libRoutingA.git
