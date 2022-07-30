@@ -257,8 +257,27 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog(u"PreferenceWin
             defaultKernelCB->setCurrentIndex(index);
         else if (defaultKernelCB->count() > 0)
         {
-            AppConfig.behaviorConfig->DefaultKernelId = KernelId{ defaultKernelCB->itemData(0).toString() };
-            GlobalConfig->behaviorConfig->DefaultKernelId = AppConfig.behaviorConfig->DefaultKernelId;
+            // Try using these kernels by default, if they present, in order of preference.
+            // Otherwise, use the first one available.
+            static QStringList defaultKernelOrder{ "v2ray5_kernel", "v2ray_kernel" };
+            bool defaultKernelDeduced = false;
+            for (const auto k : defaultKernelOrder)
+            {
+                if (const auto kindex = defaultKernelCB->findData(k); kindex > 0)
+                {
+                    defaultKernelDeduced = true;
+                    defaultKernelCB->setCurrentIndex(kindex);
+                    AppConfig.behaviorConfig->DefaultKernelId = KernelId{ k };
+                    GlobalConfig->behaviorConfig->DefaultKernelId = AppConfig.behaviorConfig->DefaultKernelId;
+                    break;
+                }
+            }
+
+            if (!defaultKernelDeduced)
+            {
+                AppConfig.behaviorConfig->DefaultKernelId = KernelId{ defaultKernelCB->itemData(0).toString() };
+                GlobalConfig->behaviorConfig->DefaultKernelId = AppConfig.behaviorConfig->DefaultKernelId;
+            }
         }
 
         defaultKernelCB->blockSignals(false);

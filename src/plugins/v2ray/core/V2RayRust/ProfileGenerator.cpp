@@ -109,8 +109,6 @@ QByteArray V2RayRustProfileGenerator::Generate()
     for (const auto &rule : profile.routing.rules)
         ProcessRoutingRule(rule);
 
-    // Override log level
-    const auto settings = V2RayCorePluginClass::PluginInstance->settings;
 #define AddToRootTable(name) AddToTable(root_table, #name, name)
     AddToRootTable(trojan);
     AddToTable(root_table, "ss", shadowsocks);
@@ -128,7 +126,10 @@ QByteArray V2RayRustProfileGenerator::Generate()
     AddToRootTable(ip_routing_rules);
     AddToRootTable(geosite_rules);
     AddToRootTable(geoip_rules);
+#undef AddToRootTable
 
+    // Override log level
+    const auto settings = V2RayCorePluginClass::PluginInstance->settings;
     if (settings.APIEnabled)
     {
         root_table.emplace<bool>("enable_api_server", true);
@@ -474,7 +475,7 @@ void V2RayRustProfileGenerator::ProcessOutboundConfig(const OutboundObject &out)
 
 void V2RayRustProfileGenerator::ProcessBalancerConfig(const OutboundObject &out)
 {
-    // not support
+    // not supported
 }
 
 QJsonObject V2RayRustProfileGenerator::GenerateStreamSettings(const IOStreamSettings &stream)

@@ -59,7 +59,7 @@ namespace Qv2rayBase::Profile
     {
         Q_D(KernelManager);
         StopConnection();
-        Q_ASSERT_X(d->kernels.empty(), Q_FUNC_INFO, "Kernel list isn't empty.");
+        Q_ASSERT_X(d->kernels.empty(), Q_FUNC_INFO, "Trying to start connection with no kernels");
 
         auto fullProfile = _root;
         //
@@ -74,13 +74,13 @@ namespace Qv2rayBase::Profile
             if (rule.name.isEmpty())
                 rule.name = GenerateRandomString();
 
-        // In case of the configuration did not specify a kernel explicitly
-        // find a kernel with router, and with as many protocols supported as possible.
-        auto defaultKid = fullProfile.defaultKernel.isNull() ? Qv2rayBaseLibrary::PluginAPIHost()->Kernel_GetDefaultKernel() : fullProfile.defaultKernel;
-        const auto defaultKernelInfo = Qv2rayBaseLibrary::PluginAPIHost()->Kernel_GetInfo(defaultKid);
+        if (fullProfile.defaultKernel.isNull())
+            return QObject::tr("The connection did not specify a main kernel.");
+
+        const auto mainKernelInfo = Qv2rayBaseLibrary::PluginAPIHost()->Kernel_GetInfo(fullProfile.defaultKernel);
 
         // Leave, nothing can be found.
-        if (defaultKernelInfo.Name.isEmpty())
+        if (mainKernelInfo.Name.isEmpty())
             return QObject::tr("Cannot find the specified kernel: ").append(fullProfile.defaultKernel.toString());
 
         QSet<QString> protocols;
@@ -92,7 +92,7 @@ namespace Qv2rayBase::Profile
         }
 
         // Remove protocols which are already supported by the main kernel
-        protocols -= defaultKernelInfo.SupportedProtocols;
+        protocols -= mainKernelInfo.SupportedProtocols;
 
         // Process outbounds.
         QList<OutboundObject> processedOutbounds;
@@ -100,7 +100,7 @@ namespace Qv2rayBase::Profile
         for (const auto &_out : fullProfile.outbounds)
         {
             auto outbound = _out;
-            if (defaultKernelInfo.SupportedProtocols.contains(outbound.outboundSettings.protocol))
+            if (mainKernelInfo.SupportedProtocols.contains(outbound.outboundSettings.protocol))
             {
                 // Use the default kernel
                 processedOutbounds << outbound;
@@ -157,7 +157,7 @@ namespace Qv2rayBase::Profile
         // Start the default kernel
         if (hasAllKernelPrepared)
         {
-            auto defaultKernel = defaultKernelInfo.Create();
+            auto defaultKernel = mainKernelInfo.Create();
             defaultKernel->SetProfileContent(fullProfile);
             hasAllKernelPrepared &= defaultKernel->PrepareConfigurations();
             d->kernels.push_back({ d->QV2RAYBASE_DEFAULT_KERNEL_PLACEHOLDER, std::move(defaultKernel) });

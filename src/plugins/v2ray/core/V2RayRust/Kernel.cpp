@@ -139,7 +139,7 @@ std::optional<QString> V2RayRustKernel::ValidateConfig(const QString &path)
         QProcess process;
         process.setProcessEnvironment(env);
         process.setProcessChannelMode(QProcess::MergedChannels);
-        V2RayCorePluginClass::Log(u"Starting V2Ray core with test options"_qs);
+        V2RayCorePluginClass::Log(u"Starting V2Ray Rust with test options"_qs);
         process.start(settings.CorePath, { u"--test"_qs, u"--config"_qs, path }, QIODevice::ReadWrite | QIODevice::Text);
         process.waitForFinished();
 
