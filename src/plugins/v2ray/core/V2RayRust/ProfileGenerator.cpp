@@ -137,7 +137,6 @@ QByteArray V2RayRustProfileGenerator::Generate()
     QByteArray byteArray;
     QByteArrayAppender appender{ byteArray };
     appender << root_table;
-    V2RayCorePluginClass::Log(u"v2ray-rust root_table: "_qs + QString::fromUtf8(byteArray));
     return byteArray;
 }
 
