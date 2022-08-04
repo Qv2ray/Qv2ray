@@ -35,8 +35,8 @@ jobs:
             container: debian:stable
           - distro: unstable
             container: debian:unstable
-          - distro: hirsute
-            container: ubuntu:hirsute
+          - distro: jammy
+            container: ubuntu:jammy
           - distro: focal
             container: ubuntu:focal
     needs: check_commit_msg
