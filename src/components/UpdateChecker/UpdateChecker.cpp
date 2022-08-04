@@ -8,8 +8,8 @@
 #include <QJsonDocument>
 
 const inline QStringList UpdateChannelLink{
-    /*{ 0, "https://api.github.com/repos/moodyhunter/QvPersonal/releases/latest" },*/
-    "https://api.github.com/repos/moodyhunter/QvPersonal/releases?per_page=1",
+    "https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest",
+    "https://api.github.com/repos/Qv2ray/Qv2ray/releases?per_page=1",
 };
 
 using namespace Qv2rayBase;

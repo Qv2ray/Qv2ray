@@ -19,7 +19,6 @@ std::pair<bool, std::optional<QString>> ValidateKernel(const QString &corePath, 
 
     coreFile.close();
 
-    //
     // Check file existance.
     // From: https://www.v2fly.org/chapter_02/env.html#asset-location
     bool hasGeoIP = QDir(assetsPath).entryList().contains(u"geoip.dat"_qs);
@@ -36,15 +35,7 @@ std::pair<bool, std::optional<QString>> ValidateKernel(const QString &corePath, 
 
     // Check if V2Ray core returns a version number correctly.
     QProcess proc;
-    //#ifdef Q_OS_WIN32
-    //    // nativeArguments are required for Windows platform, without a reason...
-    //    proc.setProcessChannelMode(QProcess::MergedChannels);
-    //    proc.setProgram(corePath);
-    //    proc.setNativeArguments(u"--version"_qs);
-    //    proc.start();
-    //#else
     proc.start(corePath, arguments);
-    //#endif
     proc.waitForStarted();
     proc.waitForFinished();
     auto exitCode = proc.exitCode();

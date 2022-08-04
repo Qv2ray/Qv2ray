@@ -42,7 +42,7 @@ namespace Qv2ray::Models
             AUTOCONNECT_LAST_CONNECTED = 2
         };
         Bindable<LatencyTestEngineId> DefaultLatencyTestEngine;
-        Bindable<KernelId> DefaultKernelId;
+        Bindable<KernelId> DefaultKernelId = KernelId{ "v2ray5_kernel" };
         Bindable<AutoConnectBehavior> AutoConnectBehavior{ AUTOCONNECT_LAST_CONNECTED };
         Bindable<bool> QuietMode{ false };
         Bindable<ProfileId> AutoConnectProfileId;
