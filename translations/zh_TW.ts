@@ -2830,7 +2830,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Browser Forwarder</source>
-      <translation type="unfinished">Browser Forwarder</translation>
+      <translation>瀏覽器轉發器</translation>
     </message>
     <message>
       <source>Listening Address</source>
@@ -2838,15 +2838,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>:Listening Port</source>
-      <translation type="unfinished">:Listening Port</translation>
+      <translation>:監聽端口</translation>
     </message>
     <message>
       <source> Observatory</source>
-      <translation type="unfinished"> Observatory</translation>
+      <translation> 連接觀測</translation>
     </message>
     <message>
       <source>Subject Selector</source>
-      <translation type="unfinished">Subject Selector</translation>
+      <translation>主題選擇器</translation>
     </message>
   </context>
   <context>
@@ -2909,7 +2909,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Matcher</source>
-      <translation type="unfinished">Matcher</translation>
+      <translation>匹配器</translation>
     </message>
     <message>
       <source>Original</source>
@@ -2917,7 +2917,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Minimal Perfect Hash Matcher</source>
-      <translation type="unfinished">Minimal Perfect Hash Matcher</translation>
+      <translation>最小完美雜湊匹配器</translation>
     </message>
   </context>
   <context>
@@ -3194,7 +3194,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Enable Session Resumption</source>
-      <translation type="unfinished">Enable Session Resumption</translation>
+      <translation>啟用會話恢復</translation>
     </message>
     <message>
       <source>Security Type</source>
@@ -3250,27 +3250,27 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Open Certificate Editor</source>
-      <translation type="unfinished">Open Certificate Editor</translation>
+      <translation>開啟證書編輯器</translation>
     </message>
     <message>
       <source>Certificates</source>
-      <translation type="unfinished">Certificates</translation>
+      <translation>證書</translation>
     </message>
     <message>
       <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
+      <translation>AllowInsecure 是不安全的，请勿 AllowInsecure。</translation>
     </message>
     <message>
       <source>Service Name</source>
-      <translation type="unfinished">Service Name</translation>
+      <translation>服務名稱</translation>
     </message>
     <message>
       <source>Max Early Data</source>
-      <translation type="unfinished">Max Early Data</translation>
+      <translation>最大 Early Data</translation>
     </message>
     <message>
       <source>Browser Forwarding</source>
-      <translation type="unfinished">Browser Forwarding</translation>
+      <translation>瀏覽器轉發</translation>
     </message>
     <message>
       <source>Mode</source>
@@ -3278,19 +3278,19 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Open pinnedPeerCertificateChainSha256 Editor</source>
-      <translation type="unfinished">Open pinnedPeerCertificateChainSha256 Editor</translation>
+      <translation>打開 pinnedPeerCerCercatateChainSha256 編輯器</translation>
     </message>
     <message>
       <source>Method</source>
-      <translation type="unfinished">Method</translation>
+      <translation>方法</translation>
     </message>
     <message>
       <source>Early Data Header Name</source>
-      <translation type="unfinished">Early Data Header Name</translation>
+      <translation>早期數據頭名稱</translation>
     </message>
     <message>
       <source>TCP Keepalive Interval</source>
-      <translation type="unfinished">TCP Keepalive Interval</translation>
+      <translation>TCP 保留存活時間</translation>
     </message>
   </context>
   <context>
@@ -3748,11 +3748,11 @@ Maybe you have downloaded the wrong core?</translation>
 &lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
 
 &lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
-      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+      <translation>&lt;h3&gt;關於 &lt;code&gt;udp443&lt;/code&gt; 流控方式&lt;/h3&gt;
 
-&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+&lt;p&gt;某些應用程序如 Google Chrome 嘗試使用 QUIC 協議而不是 TLS 協議，這將導致其無法享受到 XTLS 的加成。更糟的是，QUIC over TCP 存在潛在的擁塞控制問題，可能會令你的體驗降級。 &lt;/p&gt;
 
-&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
+&lt;p&gt;非 &lt;code&gt;udp443&lt;/code&gt; 的流控方式會阻斷 UDP 目標端口為 443 的出站流量以繞過此情形。若你確實需要放行 UDP 443，請自行斟酌。 &lt;/p&gt;</translation>
     </message>
   </context>
   <context>
@@ -3830,11 +3830,11 @@ Maybe you have downloaded the wrong core?</translation>
     <name>VmessOutboundEditor</name>
     <message>
       <source>Non AEAD VMess detected</source>
-      <translation type="unfinished">Non AEAD VMess detected</translation>
+      <translation>檢測到非 AEAD 的 VMess。</translation>
     </message>
     <message>
       <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
-      <translation type="unfinished">VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</translation>
+      <translation>VMess MD5 使用非零 AlterID 已廢棄，請使用 VMessAEAD。</translation>
     </message>
   </context>
   <context>
@@ -3845,14 +3845,14 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Inbound Tag</source>
-      <translation type="unfinished">Inbound Tag</translation>
+      <translation>入站標籤</translation>
     </message>
   </context>
   <context>
     <name>MainWindowWidget</name>
     <message>
       <source>Qv2ray Utilities</source>
-      <translation type="unfinished">Qv2ray Utilities</translation>
+      <translation>Qv2ray 工具</translation>
     </message>
   </context>
   <context>
@@ -3867,26 +3867,26 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Total</source>
-      <translation type="unfinished">Total</translation>
+      <translation>總計</translation>
     </message>
   </context>
   <context>
     <name>ChainSha256Editor</name>
     <message>
       <source>pinnedPeerCertificateChainSha256 Editor</source>
-      <translation type="unfinished">pinnedPeerCertificateChainSha256 Editor</translation>
+      <translation>pinnedPeerCerCercatateChainSha256 編輯器</translation>
     </message>
     <message>
       <source>Invalid Certificate Hash Chain</source>
-      <translation type="unfinished">Invalid Certificate Hash Chain</translation>
+      <translation>證書雜湊鏈無效</translation>
     </message>
     <message>
       <source>invalid SHA256: %1</source>
-      <translation type="unfinished">invalid SHA256: %1</translation>
+      <translation>無效 SHA256: %1</translation>
     </message>
     <message>
       <source>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </source>
-      <translation type="unfinished">One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
+      <translation>每行一個 SHA-256 ，例如: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
     </message>
   </context>
 </TS>
