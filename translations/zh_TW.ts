@@ -2814,19 +2814,19 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Connection</source>
-      <translation type="unfinished">Connection</translation>
+      <translation>連線</translation>
     </message>
     <message>
       <source>Copy Connection</source>
-      <translation type="unfinished">Copy Connection</translation>
+      <translation>複製連接</translation>
     </message>
     <message>
       <source>Reference Connection</source>
-      <translation type="unfinished">Reference Connection</translation>
+      <translation>引用連接</translation>
     </message>
     <message>
       <source>Misc</source>
-      <translation type="unfinished">Misc</translation>
+      <translation>其它</translation>
     </message>
     <message>
       <source>Browser Forwarder</source>
