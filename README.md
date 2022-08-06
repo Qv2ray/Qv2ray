@@ -135,4 +135,4 @@ Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/Licens
 ```
 ## Star History
 
-![stars](https://starchart.cc/Qv2ray/Qv2ray.svg)
+![Star](https://api.star-history.com/svg?repos=Qv2ray/Qv2ray&type=Date)
