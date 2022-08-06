@@ -16,8 +16,6 @@ Qv2ray v3.0 维护计划
 * Support TUN Mode
 * 支持 [V5](https://www.v2fly.org/v5/config/overview.html) 和 [Rust](https://github.com/Qv2ray/v2ray-rust) 内核
 * 自动检查并更新 Core 文件
-* 支持此 [V2ray 路由规则集](https://github.com/Loyalsoldier/v2ray-rules-dat)的自动更新
-
 
 -----
 
