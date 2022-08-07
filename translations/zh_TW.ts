@@ -683,11 +683,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>僅限元資料</translation>
     </message>
     <message>
       <source>FakeDNS-Others</source>
-      <translation type="unfinished">FakeDNS-Others</translation>
+      <translation>FakeDNS-其他</translation>
     </message>
     <message>
       <source>Destination Override</source>
@@ -1123,19 +1123,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Do you want to remove this group as well?</source>
-      <translation type="unfinished">Do you want to remove this group as well?</translation>
+      <translation>您要同時移除此群組嗎？</translation>
     </message>
     <message>
       <source>Group: </source>
-      <translation type="unfinished">Group: </translation>
+      <translation>群組：</translation>
     </message>
     <message>
       <source>Removing Connection</source>
-      <translation type="unfinished">Removing Connection</translation>
+      <translation>刪除連接</translation>
     </message>
     <message>
       <source>Copy selected.</source>
-      <translation type="unfinished">Copy selected.</translation>
+      <translation>复制所选项</translation>
     </message>
     <message>
       <source>Bypass CN Mainland</source>
@@ -1143,11 +1143,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Enable Bypassing CN Mainland</source>
-      <translation type="unfinished">Enable Bypassing CN Mainland</translation>
+      <translation>啟用繞過中國大陸</translation>
     </message>
     <message>
       <source>Disable Bypassing CN Mainland</source>
-      <translation type="unfinished">Disable Bypassing CN Mainland</translation>
+      <translation>停用繞過中國大陸</translation>
     </message>
     <message>
       <source>Clear log</source>
@@ -1900,23 +1900,23 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     </message>
     <message>
       <source>Config Directory</source>
-      <translation type="unfinished">Config Directory</translation>
+      <translation>設定檔目錄</translation>
     </message>
     <message>
       <source>Open Directory</source>
-      <translation type="unfinished">Open Directory</translation>
+      <translation>開啟目錄</translation>
     </message>
     <message>
       <source>Test Latency On Connected</source>
-      <translation type="unfinished">Test Latency On Connected</translation>
+      <translation>連接實測試延遲</translation>
     </message>
     <message>
       <source>Start Minimized</source>
-      <translation type="unfinished">Start Minimized</translation>
+      <translation>啟動時最小化</translation>
     </message>
     <message>
       <source>Adapt Glyph Tray Icon</source>
-      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+      <translation>粒子效果托盤圖示</translation>
     </message>
     <message>
       <source>Destination Override</source>
@@ -1932,39 +1932,39 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     </message>
     <message>
       <source>Please synchronize your system to use the VMess protocol.</source>
-      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+      <translation>請同步系統時間，否則無法正常使用 VMess協議。</translation>
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+      <translation>VMess協議運作可能不受影響，但我們建議同步時間。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
-      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
+      <translation>VMess協議會正常運作。</translation>
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.</source>
-      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+      <translation>這似乎不是來自 V2Ray Core 的輸出。</translation>
     </message>
     <message>
       <source>Output:</source>
-      <translation type="unfinished">Output:</translation>
+      <translation>輸出：</translation>
     </message>
     <message>
       <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+      <translation>如果你正在尋找插件設定，你應該去插件設定。</translation>
     </message>
     <message>
       <source>No NTP Backend</source>
-      <translation type="unfinished">No NTP Backend</translation>
+      <translation>無 NTP 後端</translation>
     </message>
     <message>
       <source>Qv2ray was not built with NTP support.</source>
-      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
+      <translation>Qv2ray 構建時未開啟 NTP 支援選項。</translation>
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>僅限元資料</translation>
     </message>
     <message>
       <source>FakeDNS</source>
@@ -1972,11 +1972,11 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     </message>
     <message>
       <source>Invalid tproxy listening ipv4 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
+      <translation>無效的透明代理 IPv4 監聽位址。</translation>
     </message>
     <message>
       <source>Browser Forwarder Settings</source>
-      <translation type="unfinished">Browser Forwarder Settings</translation>
+      <translation>瀏覽器轉發器設定</translation>
     </message>
     <message>
       <source>Listening Address</source>
@@ -1986,7 +1986,7 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>Listening Port</source>
       <comment>Listening Port for Browser Forwarder</comment>
-      <translation type="unfinished">Listening Port</translation>
+      <translation>監聽端口</translation>
     </message>
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
