@@ -9,11 +9,11 @@
     </message>
     <message>
       <source>Show / Hide</source>
-      <translation type="unfinished">Show / Hide</translation>
+      <translation>顯示/隱藏</translation>
     </message>
     <message>
       <source>Selector</source>
-      <translation type="unfinished">Selector</translation>
+      <translation>選擇器</translation>
     </message>
     <message>
       <source>Strategy</source>
@@ -24,7 +24,7 @@
     <name>CertificateItemWidget</name>
     <message>
       <source>Certificate Item Editor</source>
-      <translation type="unfinished">Certificate Item Editor</translation>
+      <translation>證書項編輯器</translation>
     </message>
     <message>
       <source>Usage</source>
@@ -39,63 +39,63 @@
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+      <translation>證書的用途。預設值是 &lt;code&gt;encipherment&lt;/code&gt;。
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: 用於 TLS 身份驗證和加密。 &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: 用於驗證遠程證書。需要CA證書。 &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: 用於簽發其他證書。需要CA證書。 &lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
       <source>Certificate</source>
       <extracomment>Certificate Tab</extracomment>
-      <translation type="unfinished">Certificate</translation>
+      <translation>證書</translation>
     </message>
     <message>
       <source>From File</source>
-      <translation type="unfinished">From File</translation>
+      <translation>從檔案</translation>
     </message>
     <message>
       <source>Alt+C, Alt+F</source>
-      <translation type="unfinished">Alt+C, Alt+F</translation>
+      <translation>Alt+C, Alt+F</translation>
     </message>
     <message>
       <source>Drag and drop *.crt here...</source>
-      <translation type="unfinished">Drag and drop *.crt here...</translation>
+      <translation>拖拽*.crt 至此處...</translation>
     </message>
     <message>
       <source>Configure Manually</source>
-      <translation type="unfinished">Configure Manually</translation>
+      <translation>手動設定...</translation>
     </message>
     <message>
       <source>Alt+C, Alt+M</source>
-      <translation type="unfinished">Alt+C, Alt+M</translation>
+      <translation>Alt+C, Alt+M</translation>
     </message>
     <message>
       <source>Certificate Key</source>
       <extracomment>Tab Certificate Key</extracomment>
-      <translation type="unfinished">Certificate Key</translation>
+      <translation>證書金鑰</translation>
     </message>
     <message>
       <source>Alt+K, Alt+F</source>
-      <translation type="unfinished">Alt+K, Alt+F</translation>
+      <translation>Alt+K, Alt+F</translation>
     </message>
     <message>
       <source>Alt+K, Alt+M</source>
-      <translation type="unfinished">Alt+K, Alt+M</translation>
+      <translation>Alt+K, Alt+M</translation>
     </message>
     <message>
       <source>-----BEGIN RSA PRIVATE KEY-----... </source>
-      <translation type="unfinished">-----BEGIN RSA PRIVATE KEY-----... </translation>
+      <translation>-----BEGIN RSA PRIVATE KEY-----... </translation>
     </message>
     <message>
       <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
-      <translation type="unfinished">Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</translation>
+      <translation>若證書用途設為 &lt;code&gt;verify&lt;/code&gt;，則證書金鑰不一定需要設定。</translation>
     </message>
     <message>
       <source>Unset</source>
-      <translation type="unfinished">Unset</translation>
+      <translation>未設置</translation>
     </message>
   </context>
   <context>
@@ -382,11 +382,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Cache</source>
-      <translation type="unfinished">Disable Cache</translation>
+      <translation>停用快取</translation>
     </message>
     <message>
       <source>Query Strategy</source>
-      <translation type="unfinished">Query Strategy</translation>
+      <translation>查詢策略</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -394,19 +394,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Fallback</source>
-      <translation type="unfinished">Disable Fallback</translation>
+      <translation>停用回退</translation>
     </message>
     <message>
       <source>Miscellaneous</source>
-      <translation type="unfinished">Miscellaneous</translation>
+      <translation>雜項</translation>
     </message>
     <message>
       <source>Fake DNS IP Pool</source>
-      <translation type="unfinished">Fake DNS IP Pool</translation>
+      <translation>Fake DNS IP 池</translation>
     </message>
     <message>
       <source>Fake DNS Pool Size</source>
-      <translation type="unfinished">Fake DNS Pool Size</translation>
+      <translation>Fake DNS IP 池大小</translation>
     </message>
   </context>
   <context>
@@ -608,7 +608,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Import as Complex Config</source>
-      <translation type="unfinished">Import as Complex Config</translation>
+      <translation>導入為複雜配置</translation>
     </message>
   </context>
   <context>
@@ -679,7 +679,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>Metadata Only</source>
@@ -1968,7 +1968,7 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>Invalid tproxy listening ipv4 address.</source>
@@ -2462,7 +2462,7 @@ This option may be useful for some desktop environments without tray support.</t
     </message>
     <message>
       <source>Enabling a plugin</source>
-      <translation type="unfinished">Enabling a plugin</translation>
+      <translation>啟用外掛程式</translation>
     </message>
     <message>
       <source>The plugin will become fully functional after restarting Qv2ray.</source>
