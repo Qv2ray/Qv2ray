@@ -9,11 +9,11 @@
     </message>
     <message>
       <source>Show / Hide</source>
-      <translation type="unfinished">Show / Hide</translation>
+      <translation>顯示/隱藏</translation>
     </message>
     <message>
       <source>Selector</source>
-      <translation type="unfinished">Selector</translation>
+      <translation>選擇器</translation>
     </message>
     <message>
       <source>Strategy</source>
@@ -24,7 +24,7 @@
     <name>CertificateItemWidget</name>
     <message>
       <source>Certificate Item Editor</source>
-      <translation type="unfinished">Certificate Item Editor</translation>
+      <translation>證書項編輯器</translation>
     </message>
     <message>
       <source>Usage</source>
@@ -39,63 +39,63 @@
 &lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
 &lt;/ul&gt;</source>
-      <translation type="unfinished">Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
+      <translation>證書的用途。預設值是 &lt;code&gt;encipherment&lt;/code&gt;。
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: Used for TLS authentication and encipherment.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: Used for verification of remote ceritificate. CA certificates are required.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: Used to issue other certificates. CA certificates are required.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;encipherment&lt;/code&gt;: 用於 TLS 身份驗證和加密。 &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verify&lt;/code&gt;: 用於驗證遠程證書。需要CA證書。 &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;issue&lt;/code&gt;: 用於簽發其他證書。需要CA證書。 &lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
       <source>Certificate</source>
       <extracomment>Certificate Tab</extracomment>
-      <translation type="unfinished">Certificate</translation>
+      <translation>證書</translation>
     </message>
     <message>
       <source>From File</source>
-      <translation type="unfinished">From File</translation>
+      <translation>從檔案</translation>
     </message>
     <message>
       <source>Alt+C, Alt+F</source>
-      <translation type="unfinished">Alt+C, Alt+F</translation>
+      <translation>Alt+C, Alt+F</translation>
     </message>
     <message>
       <source>Drag and drop *.crt here...</source>
-      <translation type="unfinished">Drag and drop *.crt here...</translation>
+      <translation>拖拽*.crt 至此處...</translation>
     </message>
     <message>
       <source>Configure Manually</source>
-      <translation type="unfinished">Configure Manually</translation>
+      <translation>手動設定...</translation>
     </message>
     <message>
       <source>Alt+C, Alt+M</source>
-      <translation type="unfinished">Alt+C, Alt+M</translation>
+      <translation>Alt+C, Alt+M</translation>
     </message>
     <message>
       <source>Certificate Key</source>
       <extracomment>Tab Certificate Key</extracomment>
-      <translation type="unfinished">Certificate Key</translation>
+      <translation>證書金鑰</translation>
     </message>
     <message>
       <source>Alt+K, Alt+F</source>
-      <translation type="unfinished">Alt+K, Alt+F</translation>
+      <translation>Alt+K, Alt+F</translation>
     </message>
     <message>
       <source>Alt+K, Alt+M</source>
-      <translation type="unfinished">Alt+K, Alt+M</translation>
+      <translation>Alt+K, Alt+M</translation>
     </message>
     <message>
       <source>-----BEGIN RSA PRIVATE KEY-----... </source>
-      <translation type="unfinished">-----BEGIN RSA PRIVATE KEY-----... </translation>
+      <translation>-----BEGIN RSA PRIVATE KEY-----... </translation>
     </message>
     <message>
       <source>Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</source>
-      <translation type="unfinished">Certificate Key is not necessarily set if usage is set to &lt;code&gt;verify&lt;/code&gt;.</translation>
+      <translation>若證書用途設為 &lt;code&gt;verify&lt;/code&gt;，則證書金鑰不一定需要設定。</translation>
     </message>
     <message>
       <source>Unset</source>
-      <translation type="unfinished">Unset</translation>
+      <translation>未設置</translation>
     </message>
   </context>
   <context>
@@ -382,11 +382,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Cache</source>
-      <translation type="unfinished">Disable Cache</translation>
+      <translation>停用快取</translation>
     </message>
     <message>
       <source>Query Strategy</source>
-      <translation type="unfinished">Query Strategy</translation>
+      <translation>查詢策略</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -394,19 +394,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Disable Fallback</source>
-      <translation type="unfinished">Disable Fallback</translation>
+      <translation>停用回退</translation>
     </message>
     <message>
       <source>Miscellaneous</source>
-      <translation type="unfinished">Miscellaneous</translation>
+      <translation>雜項</translation>
     </message>
     <message>
       <source>Fake DNS IP Pool</source>
-      <translation type="unfinished">Fake DNS IP Pool</translation>
+      <translation>Fake DNS IP 池</translation>
     </message>
     <message>
       <source>Fake DNS Pool Size</source>
-      <translation type="unfinished">Fake DNS Pool Size</translation>
+      <translation>Fake DNS IP 池大小</translation>
     </message>
   </context>
   <context>
@@ -608,7 +608,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Import as Complex Config</source>
-      <translation type="unfinished">Import as Complex Config</translation>
+      <translation>導入為複雜配置</translation>
     </message>
   </context>
   <context>
@@ -679,15 +679,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>僅限元資料</translation>
     </message>
     <message>
       <source>FakeDNS-Others</source>
-      <translation type="unfinished">FakeDNS-Others</translation>
+      <translation>FakeDNS-其他</translation>
     </message>
     <message>
       <source>Destination Override</source>
@@ -1123,19 +1123,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Do you want to remove this group as well?</source>
-      <translation type="unfinished">Do you want to remove this group as well?</translation>
+      <translation>您要同時移除此群組嗎？</translation>
     </message>
     <message>
       <source>Group: </source>
-      <translation type="unfinished">Group: </translation>
+      <translation>群組：</translation>
     </message>
     <message>
       <source>Removing Connection</source>
-      <translation type="unfinished">Removing Connection</translation>
+      <translation>刪除連接</translation>
     </message>
     <message>
       <source>Copy selected.</source>
-      <translation type="unfinished">Copy selected.</translation>
+      <translation>复制所选项</translation>
     </message>
     <message>
       <source>Bypass CN Mainland</source>
@@ -1143,11 +1143,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
       <source>Enable Bypassing CN Mainland</source>
-      <translation type="unfinished">Enable Bypassing CN Mainland</translation>
+      <translation>啟用繞過中國大陸</translation>
     </message>
     <message>
       <source>Disable Bypassing CN Mainland</source>
-      <translation type="unfinished">Disable Bypassing CN Mainland</translation>
+      <translation>停用繞過中國大陸</translation>
     </message>
     <message>
       <source>Clear log</source>
@@ -1900,23 +1900,23 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     </message>
     <message>
       <source>Config Directory</source>
-      <translation type="unfinished">Config Directory</translation>
+      <translation>設定檔目錄</translation>
     </message>
     <message>
       <source>Open Directory</source>
-      <translation type="unfinished">Open Directory</translation>
+      <translation>開啟目錄</translation>
     </message>
     <message>
       <source>Test Latency On Connected</source>
-      <translation type="unfinished">Test Latency On Connected</translation>
+      <translation>連接實測試延遲</translation>
     </message>
     <message>
       <source>Start Minimized</source>
-      <translation type="unfinished">Start Minimized</translation>
+      <translation>啟動時最小化</translation>
     </message>
     <message>
       <source>Adapt Glyph Tray Icon</source>
-      <translation type="unfinished">Adapt Glyph Tray Icon</translation>
+      <translation>粒子效果托盤圖示</translation>
     </message>
     <message>
       <source>Destination Override</source>
@@ -1932,51 +1932,51 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     </message>
     <message>
       <source>Please synchronize your system to use the VMess protocol.</source>
-      <translation type="unfinished">Please synchronize your system to use the VMess protocol.</translation>
+      <translation>請同步系統時間，否則無法正常使用 VMess協議。</translation>
     </message>
     <message>
       <source>VMess protocol may still work, but we suggest you synchronize your clock.</source>
-      <translation type="unfinished">VMess protocol may still work, but we suggest you synchronize your clock.</translation>
+      <translation>VMess協議運作可能不受影響，但我們建議同步時間。</translation>
     </message>
     <message>
       <source>VMess protocol may not suffer from time inaccuracy.</source>
-      <translation type="unfinished">VMess protocol may not suffer from time inaccuracy.</translation>
+      <translation>VMess協議會正常運作。</translation>
     </message>
     <message>
       <source>This does not seem like an output from V2Ray Core.</source>
-      <translation type="unfinished">This does not seem like an output from V2Ray Core.</translation>
+      <translation>這似乎不是來自 V2Ray Core 的輸出。</translation>
     </message>
     <message>
       <source>Output:</source>
-      <translation type="unfinished">Output:</translation>
+      <translation>輸出：</translation>
     </message>
     <message>
       <source>If you are looking for plugins settings, you should go to plugin settings.</source>
-      <translation type="unfinished">If you are looking for plugins settings, you should go to plugin settings.</translation>
+      <translation>如果你正在尋找插件設定，你應該去插件設定。</translation>
     </message>
     <message>
       <source>No NTP Backend</source>
-      <translation type="unfinished">No NTP Backend</translation>
+      <translation>無 NTP 後端</translation>
     </message>
     <message>
       <source>Qv2ray was not built with NTP support.</source>
-      <translation type="unfinished">Qv2ray was not built with NTP support.</translation>
+      <translation>Qv2ray 構建時未開啟 NTP 支援選項。</translation>
     </message>
     <message>
       <source>Metadata Only</source>
-      <translation type="unfinished">Metadata Only</translation>
+      <translation>僅限元資料</translation>
     </message>
     <message>
       <source>FakeDNS</source>
-      <translation type="unfinished">FakeDNS</translation>
+      <translation>FakeDNS</translation>
     </message>
     <message>
       <source>Invalid tproxy listening ipv4 address.</source>
-      <translation type="unfinished">Invalid tproxy listening ipv4 address.</translation>
+      <translation>無效的透明代理 IPv4 監聽位址。</translation>
     </message>
     <message>
       <source>Browser Forwarder Settings</source>
-      <translation type="unfinished">Browser Forwarder Settings</translation>
+      <translation>瀏覽器轉發器設定</translation>
     </message>
     <message>
       <source>Listening Address</source>
@@ -1986,7 +1986,7 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     <message>
       <source>Listening Port</source>
       <comment>Listening Port for Browser Forwarder</comment>
-      <translation type="unfinished">Listening Port</translation>
+      <translation>監聽端口</translation>
     </message>
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
@@ -2462,7 +2462,7 @@ This option may be useful for some desktop environments without tray support.</t
     </message>
     <message>
       <source>Enabling a plugin</source>
-      <translation type="unfinished">Enabling a plugin</translation>
+      <translation>啟用外掛程式</translation>
     </message>
     <message>
       <source>The plugin will become fully functional after restarting Qv2ray.</source>
@@ -2814,23 +2814,23 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Connection</source>
-      <translation type="unfinished">Connection</translation>
+      <translation>連線</translation>
     </message>
     <message>
       <source>Copy Connection</source>
-      <translation type="unfinished">Copy Connection</translation>
+      <translation>複製連接</translation>
     </message>
     <message>
       <source>Reference Connection</source>
-      <translation type="unfinished">Reference Connection</translation>
+      <translation>引用連接</translation>
     </message>
     <message>
       <source>Misc</source>
-      <translation type="unfinished">Misc</translation>
+      <translation>其它</translation>
     </message>
     <message>
       <source>Browser Forwarder</source>
-      <translation type="unfinished">Browser Forwarder</translation>
+      <translation>瀏覽器轉發器</translation>
     </message>
     <message>
       <source>Listening Address</source>
@@ -2838,15 +2838,15 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>:Listening Port</source>
-      <translation type="unfinished">:Listening Port</translation>
+      <translation>:監聽端口</translation>
     </message>
     <message>
       <source> Observatory</source>
-      <translation type="unfinished"> Observatory</translation>
+      <translation> 連接觀測</translation>
     </message>
     <message>
       <source>Subject Selector</source>
-      <translation type="unfinished">Subject Selector</translation>
+      <translation>主題選擇器</translation>
     </message>
   </context>
   <context>
@@ -2909,7 +2909,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Matcher</source>
-      <translation type="unfinished">Matcher</translation>
+      <translation>匹配器</translation>
     </message>
     <message>
       <source>Original</source>
@@ -2917,7 +2917,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Minimal Perfect Hash Matcher</source>
-      <translation type="unfinished">Minimal Perfect Hash Matcher</translation>
+      <translation>最小完美雜湊匹配器</translation>
     </message>
   </context>
   <context>
@@ -3194,7 +3194,7 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Enable Session Resumption</source>
-      <translation type="unfinished">Enable Session Resumption</translation>
+      <translation>啟用會話恢復</translation>
     </message>
     <message>
       <source>Security Type</source>
@@ -3250,27 +3250,27 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Open Certificate Editor</source>
-      <translation type="unfinished">Open Certificate Editor</translation>
+      <translation>開啟證書編輯器</translation>
     </message>
     <message>
       <source>Certificates</source>
-      <translation type="unfinished">Certificates</translation>
+      <translation>證書</translation>
     </message>
     <message>
       <source>AllowInsecure is insecure, do not allow insecure.</source>
-      <translation type="unfinished">AllowInsecure is insecure, do not allow insecure.</translation>
+      <translation>AllowInsecure 是不安全的，请勿 AllowInsecure。</translation>
     </message>
     <message>
       <source>Service Name</source>
-      <translation type="unfinished">Service Name</translation>
+      <translation>服務名稱</translation>
     </message>
     <message>
       <source>Max Early Data</source>
-      <translation type="unfinished">Max Early Data</translation>
+      <translation>最大 Early Data</translation>
     </message>
     <message>
       <source>Browser Forwarding</source>
-      <translation type="unfinished">Browser Forwarding</translation>
+      <translation>瀏覽器轉發</translation>
     </message>
     <message>
       <source>Mode</source>
@@ -3278,19 +3278,19 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Open pinnedPeerCertificateChainSha256 Editor</source>
-      <translation type="unfinished">Open pinnedPeerCertificateChainSha256 Editor</translation>
+      <translation>打開 pinnedPeerCerCercatateChainSha256 編輯器</translation>
     </message>
     <message>
       <source>Method</source>
-      <translation type="unfinished">Method</translation>
+      <translation>方法</translation>
     </message>
     <message>
       <source>Early Data Header Name</source>
-      <translation type="unfinished">Early Data Header Name</translation>
+      <translation>早期數據頭名稱</translation>
     </message>
     <message>
       <source>TCP Keepalive Interval</source>
-      <translation type="unfinished">TCP Keepalive Interval</translation>
+      <translation>TCP 保留存活時間</translation>
     </message>
   </context>
   <context>
@@ -3748,11 +3748,11 @@ Maybe you have downloaded the wrong core?</translation>
 &lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
 
 &lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</source>
-      <translation type="unfinished">&lt;h3&gt;Notes for &lt;code&gt;udp443&lt;/code&gt; Methods&lt;/h3&gt;
+      <translation>&lt;h3&gt;關於 &lt;code&gt;udp443&lt;/code&gt; 流控方式&lt;/h3&gt;
 
-&lt;p&gt;Some applications like Google Chrome would attempt to use QUIC protocol instead of TLS, which, won&apos;t benefit from XTLS at all. What&apos;s worse, QUIC over TCP will cause potential congestion control problem, downgrading your experience.&lt;/p&gt;
+&lt;p&gt;某些應用程序如 Google Chrome 嘗試使用 QUIC 協議而不是 TLS 協議，這將導致其無法享受到 XTLS 的加成。更糟的是，QUIC over TCP 存在潛在的擁塞控制問題，可能會令你的體驗降級。 &lt;/p&gt;
 
-&lt;p&gt;Non-&lt;code&gt;udp443&lt;/code&gt; methods block UDP 443 outbound traffic to workaround this situation. If you do want to let it go, use at your own peril.&lt;/p&gt;</translation>
+&lt;p&gt;非 &lt;code&gt;udp443&lt;/code&gt; 的流控方式會阻斷 UDP 目標端口為 443 的出站流量以繞過此情形。若你確實需要放行 UDP 443，請自行斟酌。 &lt;/p&gt;</translation>
     </message>
   </context>
   <context>
@@ -3830,11 +3830,11 @@ Maybe you have downloaded the wrong core?</translation>
     <name>VmessOutboundEditor</name>
     <message>
       <source>Non AEAD VMess detected</source>
-      <translation type="unfinished">Non AEAD VMess detected</translation>
+      <translation>檢測到非 AEAD 的 VMess。</translation>
     </message>
     <message>
       <source>VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</source>
-      <translation type="unfinished">VMess MD5 with Non-zero AlterID has been deprecated, please use VMessAEAD.</translation>
+      <translation>VMess MD5 使用非零 AlterID 已廢棄，請使用 VMessAEAD。</translation>
     </message>
   </context>
   <context>
@@ -3845,14 +3845,14 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Inbound Tag</source>
-      <translation type="unfinished">Inbound Tag</translation>
+      <translation>入站標籤</translation>
     </message>
   </context>
   <context>
     <name>MainWindowWidget</name>
     <message>
       <source>Qv2ray Utilities</source>
-      <translation type="unfinished">Qv2ray Utilities</translation>
+      <translation>Qv2ray 工具</translation>
     </message>
   </context>
   <context>
@@ -3867,26 +3867,26 @@ Maybe you have downloaded the wrong core?</translation>
     </message>
     <message>
       <source>Total</source>
-      <translation type="unfinished">Total</translation>
+      <translation>總計</translation>
     </message>
   </context>
   <context>
     <name>ChainSha256Editor</name>
     <message>
       <source>pinnedPeerCertificateChainSha256 Editor</source>
-      <translation type="unfinished">pinnedPeerCertificateChainSha256 Editor</translation>
+      <translation>pinnedPeerCerCercatateChainSha256 編輯器</translation>
     </message>
     <message>
       <source>Invalid Certificate Hash Chain</source>
-      <translation type="unfinished">Invalid Certificate Hash Chain</translation>
+      <translation>證書雜湊鏈無效</translation>
     </message>
     <message>
       <source>invalid SHA256: %1</source>
-      <translation type="unfinished">invalid SHA256: %1</translation>
+      <translation>無效 SHA256: %1</translation>
     </message>
     <message>
       <source>One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </source>
-      <translation type="unfinished">One SHA-256 per line. eg: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
+      <translation>每行一個 SHA-256 ，例如: 50c393f158c3de2db92fa9661bfb00eda5b67c3a777c88524ed3417509631625 6e6ed938298daf79a0173ebca30521a72ab07a9f535bfd6b178e0fc39dff2f4d b635d5701f7b12310fa94fae8040d3fc816a4dc2f0682a14ed4103aae39c0bd6 </translation>
     </message>
   </context>
 </TS>
