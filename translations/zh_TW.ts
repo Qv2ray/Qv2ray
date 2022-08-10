@@ -1990,31 +1990,31 @@ V2Ray 核心可執行檔的檔案名通常是 &apos;v2ray&apos; 或者 &apos;v2r
     </message>
     <message>
       <source>This applies to Simple Configs with Browser Forwarder on.</source>
-      <translation type="unfinished">This applies to Simple Configs with Browser Forwarder on.</translation>
+      <translation>適用於啟用了瀏覽器轉發器的簡單配置。</translation>
     </message>
     <message>
       <source>Test Latency Periodically</source>
-      <translation type="unfinished">Test Latency Periodically</translation>
+      <translation>定時測試延遲</translation>
     </message>
     <message>
       <source>Run TCPing or ICMPing periodically after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation type="unfinished">Run TCPing or ICMPing periodically after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</translation>
+      <translation>連接到節點之後，對節點進行週期性的延遲監測。
+若啟用，Qv2ray 對節點的延遲監測將會更加準確，但這也許會提升您伺服器被暴露的風險。</translation>
     </message>
     <message>
       <source>FakeDNS+Others</source>
-      <translation type="unfinished">FakeDNS+Others</translation>
+      <translation>FakeDNS-其他</translation>
     </message>
     <message>
       <source>Click Close Button to Exit</source>
-      <translation type="unfinished">Click Close Button to Exit</translation>
+      <translation>點擊關閉按鈕退出程序</translation>
     </message>
     <message>
       <source>Exit instead of minimizing to tray when the close button clicked.
 This option may be useful for some desktop environments without tray support.</source>
-      <translation type="unfinished">Exit instead of minimizing to tray when the close button clicked.
-This option may be useful for some desktop environments without tray support.</translation>
+      <translation>退出程序，而不是在點擊關閉按鈕時最小化到托盤。
+此選項可能對某些桌面環境有用，而無需托盤支援。</translation>
     </message>
   </context>
   <context>
@@ -2037,23 +2037,23 @@ This option may be useful for some desktop environments without tray support.</t
     </message>
     <message>
       <source>Disable gRPC API subsystem</source>
-      <translation type="unfinished">Disable gRPC API subsystem</translation>
+      <translation>停用 gRPC API 子系統</translation>
     </message>
     <message>
       <source>Disable plugins feature</source>
-      <translation type="unfinished">Disable plugins feature</translation>
+      <translation>停用插件功能</translation>
     </message>
     <message>
       <source>Enable debug output</source>
-      <translation type="unfinished">Enable debug output</translation>
+      <translation>開啟除錯輸出</translation>
     </message>
     <message>
       <source>Do not automatically connect</source>
-      <translation type="unfinished">Do not automatically connect</translation>
+      <translation>不要自動連接</translation>
     </message>
     <message>
       <source>Stop current connection</source>
-      <translation type="unfinished">Stop current connection</translation>
+      <translation>終止當前連線</translation>
     </message>
     <message>
       <source>Reconnect last connection</source>
@@ -2113,11 +2113,11 @@ This option may be useful for some desktop environments without tray support.</t
     </message>
     <message>
       <source>Unknown type.</source>
-      <translation type="unfinished">Unknown type.</translation>
+      <translation>未知類型</translation>
     </message>
     <message>
       <source>Kernel</source>
-      <translation type="unfinished">Kernel</translation>
+      <translation>核心</translation>
     </message>
     <message>
       <source>Outbound Handler/Parser</source>
