@@ -2057,31 +2057,31 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>Reconnect last connection</source>
-      <translation type="unfinished">Reconnect last connection</translation>
+      <translation>重新連接上次連接</translation>
     </message>
     <message>
       <source>Exit Qv2ray</source>
-      <translation type="unfinished">Exit Qv2ray</translation>
+      <translation>退出 Qv2ray</translation>
     </message>
     <message>
       <source>Qv2ray - A cross-platform Qt frontend for V2Ray.</source>
-      <translation type="unfinished">Qv2ray - A cross-platform Qt frontend for V2Ray.</translation>
+      <translation>Qv2ray - 跨平台的 V2Ray Qt 前端。</translation>
     </message>
     <message>
       <source>DNS not resolved</source>
-      <translation type="unfinished">DNS not resolved</translation>
+      <translation>無法解析 DNS</translation>
     </message>
     <message>
       <source>Socket creation failed</source>
-      <translation type="unfinished">Socket creation failed</translation>
+      <translation>插座創建失敗</translation>
     </message>
     <message>
       <source>Failed to setup TTL value</source>
-      <translation type="unfinished">Failed to setup TTL value</translation>
+      <translation>無法設定 TTL 數值</translation>
     </message>
     <message>
       <source>Destination unreachable</source>
-      <translation type="unfinished">Destination unreachable</translation>
+      <translation>無法到達目標</translation>
     </message>
     <message>
       <source>Timeout</source>
@@ -2089,7 +2089,7 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>Unknown error</source>
-      <translation type="unfinished">Unknown error</translation>
+      <translation>未知錯誤</translation>
     </message>
     <message>
       <source>None</source>
@@ -2097,7 +2097,7 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>Settings Widget</source>
-      <translation type="unfinished">Settings Widget</translation>
+      <translation>設定組件</translation>
     </message>
     <message>
       <source>Inbound Editor</source>
@@ -2105,11 +2105,11 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>Outbound Editor</source>
-      <translation type="unfinished">Outbound Editor</translation>
+      <translation>出站編輯器</translation>
     </message>
     <message>
       <source>MainWindow Widget</source>
-      <translation type="unfinished">MainWindow Widget</translation>
+      <translation>主視窗組件</translation>
     </message>
     <message>
       <source>Unknown type.</source>
@@ -2121,15 +2121,15 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>Outbound Handler/Parser</source>
-      <translation type="unfinished">Outbound Handler/Parser</translation>
+      <translation>出站處理/分析器</translation>
     </message>
     <message>
       <source>Subscription Adapter</source>
-      <translation type="unfinished">Subscription Adapter</translation>
+      <translation>訂閱適配器</translation>
     </message>
     <message>
       <source>Event Handler</source>
-      <translation type="unfinished">Event Handler</translation>
+      <translation>事件處理</translation>
     </message>
     <message>
       <source>GUI Components</source>
@@ -2137,95 +2137,95 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>Unsupported share link format.</source>
-      <translation type="unfinished">Unsupported share link format.</translation>
+      <translation>不支援的分享鏈接格式。</translation>
     </message>
     <message>
       <source>SS URI is too short</source>
-      <translation type="unfinished">SS URI is too short</translation>
+      <translation>Shadowsocks 分享鏈接過短</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between method and password</source>
-      <translation type="unfinished">Can&apos;t find the colon separator between method and password</translation>
+      <translation>模式和密碼之間缺少冒號</translation>
     </message>
     <message>
       <source>Can&apos;t find the at separator between password and hostname</source>
-      <translation type="unfinished">Can&apos;t find the at separator between password and hostname</translation>
+      <translation>密碼和主機名之間缺少分隔符</translation>
     </message>
     <message>
       <source>Can&apos;t find the colon separator between hostname and port</source>
-      <translation type="unfinished">Can&apos;t find the colon separator between hostname and port</translation>
+      <translation>主機名和端口之間缺少冒號分隔符</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must exist</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must exist</translation>
+      <translation>無效的 ssd 鏈接: json: 字段 %1 必須存在</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be valid port number</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be valid port number</translation>
+      <translation>無效的 ssd 鏈接: json: 字段 %1 必須是有效的端口號</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be of type &apos;string&apos;</translation>
+      <translation>無效的 ssd 鏈接: json: 字段 %1 必須是 &apos;字符串&apos; 類型</translation>
     </message>
     <message>
       <source>Invalid ssd link: json: field %1 must be an array</source>
-      <translation type="unfinished">Invalid ssd link: json: field %1 must be an array</translation>
+      <translation>無效的 ssd 鏈接: json: 字段 %1 必須是一個陣列</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: server must be an object</source>
-      <translation type="unfinished">Skipping invalid ssd server: server must be an object</translation>
+      <translation>跳過無效的 ssd 服務器：服務器必須是對象</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: missing required field %1</source>
-      <translation type="unfinished">Skipping invalid ssd server: missing required field %1</translation>
+      <translation>跳过无效的 ssd 服务器: 缺少必填字段 %1</translation>
     </message>
     <message>
       <source>Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
-      <translation type="unfinished">Skipping invalid ssd server: field %1 should be of type &apos;string&apos;</translation>
+      <translation>跳過無效的 ssd 服務器: 字段 %1 應該是 &apos;字符串&apos; 類型</translation>
     </message>
     <message>
       <source>Invalid ssd link: should begin with ssd://</source>
-      <translation type="unfinished">Invalid ssd link: should begin with ssd://</translation>
+      <translation>無效的 ssd 鏈接: 應以 ssd:// 開頭</translation>
     </message>
     <message>
       <source>Invalid ssd link: base64 parse failed</source>
-      <translation type="unfinished">Invalid ssd link: base64 parse failed</translation>
+      <translation>無效的 ssd 鏈接: Base64 解析失敗</translation>
     </message>
     <message>
       <source>Invalid ssd link: json parse failed: </source>
-      <translation type="unfinished">Invalid ssd link: json parse failed: </translation>
+      <translation>無效的 ssd 鏈接: JSON 解析失敗: </translation>
     </message>
     <message>
       <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
-      <translation type="unfinished">Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</translation>
+      <translation>無效的 ssd 鏈接: rc4-md5 加密不被 v2ray-core 支援</translation>
     </message>
     <message>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+      <translation>VMess 鏈接應以 &apos;vmess://&apos; 開頭</translation>
     </message>
     <message>
       <source>VMess string should be a valid base64 string</source>
-      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+      <translation>VMess 字符串應該是一個有效的 Base64 字符串</translation>
     </message>
     <message>
       <source>JSON should not be empty</source>
-      <translation type="unfinished">JSON should not be empty</translation>
+      <translation>JSON 不應該為空</translation>
     </message>
     <message>
       <source>vmess:// url is invalid</source>
-      <translation type="unfinished">vmess:// url is invalid</translation>
+      <translation>無效的 vmess:// 鏈接</translation>
     </message>
     <message>
       <source>Invalid streamSettings protocol: </source>
-      <translation type="unfinished">Invalid streamSettings protocol: </translation>
+      <translation>無效的流設置協議：</translation>
     </message>
     <message>
       <source>Unknown transport method: </source>
-      <translation type="unfinished">Unknown transport method: </translation>
+      <translation>未知傳輸方式：</translation>
     </message>
     <message>
       <source>(Empty Users)</source>
-      <translation type="unfinished">(Empty Users)</translation>
+      <translation>(空用戶)</translation>
     </message>
     <message>
       <source>N/A</source>
