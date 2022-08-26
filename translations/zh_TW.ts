@@ -2229,15 +2229,15 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>N/A</translation>
     </message>
     <message>
       <source>core executable file %1 does not exist</source>
-      <translation type="unfinished">core executable file %1 does not exist</translation>
+      <translation>核心執行文件 %1 不存在</translation>
     </message>
     <message>
       <source>cannot open core executable file %1 in read-only mode</source>
-      <translation type="unfinished">cannot open core executable file %1 in read-only mode</translation>
+      <translation>無法以唯讀模式打開核心執行文件 %1</translation>
     </message>
     <message>
       <source>core executable file %1 is an empty file</source>
@@ -2385,7 +2385,7 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>VLESS link should start with vless://</source>
-      <translation type="unfinished">VLESS link should start with vless://</translation>
+      <translation>VLess 鏈接應以 vless:// 開頭</translation>
     </message>
     <message>
       <source>link parse failed: %1</source>
@@ -2446,11 +2446,11 @@ This option may be useful for some desktop environments without tray support.</s
     </message>
     <message>
       <source>Cannot load plugin</source>
-      <translation type="unfinished">Cannot load plugin</translation>
+      <translation>無法載入插件</translation>
     </message>
     <message>
       <source>The plugin cannot be loaded: </source>
-      <translation type="unfinished">The plugin cannot be loaded: </translation>
+      <translation>無法載入插件：</translation>
     </message>
     <message>
       <source>This plugin was built against a different version of the Plugin Interface.</source>
