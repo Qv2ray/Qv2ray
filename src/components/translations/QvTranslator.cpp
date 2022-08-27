@@ -45,6 +45,10 @@ namespace Qv2ray::common
 
     bool QvTranslator::InstallTranslation(const QString &code)
     {
+        if (code.toLower() == "en_us")
+        {
+            return true;
+        }
         for (const auto &path : searchPaths)
         {
             if (FileExistsIn(QDir(path), code + ".qm"))
