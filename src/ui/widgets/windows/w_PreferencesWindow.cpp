@@ -764,6 +764,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
                                 "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
         QvMessageBoxWarn(this, tr("Watch Out!"), content);
     }
+#if !defined(QV2RAY_USE_V5_CORE)
     else if (vCorePathSmallCased.endsWith("v2ctl") || vCorePathSmallCased.endsWith("v2ctl.exe"))
     {
         const auto content = tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
@@ -771,6 +772,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
                                 "If you insist to proceed, we're not providing with any support.");
         QvMessageBoxWarn(this, tr("Watch Out!"), content);
     }
+#endif
 #endif
 
     if (const auto &&[result, msg] = V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath); !result)
