@@ -25,7 +25,7 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!NSIS') }}
     strategy:
       matrix:
-        qt_version: [5.15.0]
+        qt_version: [6.3.0]
         platform: [windows-latest]
         arch: [x64]
         include:
@@ -48,7 +48,7 @@ jobs:
       - name: Checking out sources
         uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       - name: Install Python 3.7 version
         uses: actions/setup-python@v1
         with:
@@ -72,7 +72,6 @@ jobs:
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
-          mirror: "http://mirrors.ocf.berkeley.edu/qt/"
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
       # =========================================================================================================
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Setup Ninja
@@ -94,7 +93,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_NSIS=ON
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_NSIS=ON -DQV2RAY_QT6=ON
           cmake --build . --target package --parallel $(nproc)
       - name: Windows - Get package name
         shell: bash
