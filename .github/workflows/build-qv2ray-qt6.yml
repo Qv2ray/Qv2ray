@@ -25,10 +25,10 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!QT6') }}
     strategy:
       matrix:
-        ui_type: [QWidget, QML]
+        ui_type: [QWidget]
         platform: [ubuntu-20.04, windows-latest]
         build_type: [RelWithDebInfo, Release]
-        qt_version: [6.0.0]
+        qt_version: [6.3.0]
         include:
           - platform: windows-latest
             qtarch: win64_msvc2019_64
@@ -48,7 +48,7 @@ jobs:
       - name: Checking out sources
         uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       # =========================================================================================================
       - name: Install MSVC compiler
         if: matrix.platform == 'windows-latest'
@@ -88,26 +88,20 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: |
           brew install protobuf grpc ninja pkg-config openssl
-          git clone https://github.com/Qv2ray/macdeployqt-patched
-          cd macdeployqt-patched
-          mkdir build; cd build;
-          cmake .. -DCMAKE_BUILD_TYPE=Release; cmake --build .
-          cp -v ./macdeployqt ${Qt6_DIR}/bin/macdeployqt
       # --------------------------------------------------------
       - name: Win - ${{ matrix.qt_version }} - Setup Ninja
         if: matrix.platform == 'windows-latest'
         uses: ashutoshvarma/setup-ninja@master
         with:
-          # ninja version to download. Default: 1.10.0
-          version: 1.10.0
-      - name: Win- - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
+          # ninja version to download. Default: 1.11
+          version: 1.11.0
+      - name: Win - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
         if: matrix.platform == 'windows-latest'
         run: |
           cd ./libs
           ./setup-libs.sh windows x64
       # ========================================================================================================= Generate MakeFile and Build
-
       - uses: actions/setup-node@v1
         if: matrix.platform == 'macos-latest'
         with:
