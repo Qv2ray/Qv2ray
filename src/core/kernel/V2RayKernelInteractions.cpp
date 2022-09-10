@@ -9,6 +9,14 @@
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
 #define QV_MODULE_NAME "V2RayInteraction"
 
+#ifdef QV2RAY_USE_V5_CORE
+constexpr auto V2RAY_CORE_VERSION_ARG = "version";
+constexpr auto V2RAY_CORE_CONFIG_ARG = "config";
+#else
+constexpr auto V2RAY_CORE_VERSION_ARG = "--version";
+constexpr auto V2RAY_CORE_CONFIG_ARG = "--config";
+#endif
+
 namespace Qv2ray::core::kernel
 {
 #if QV2RAY_FEATURE(kernel_check_permission)
@@ -132,10 +140,10 @@ namespace Qv2ray::core::kernel
         // reason...
         proc.setProcessChannelMode(QProcess::MergedChannels);
         proc.setProgram(corePath);
-        proc.setNativeArguments("--version");
+        proc.setNativeArguments(V2RAY_CORE_VERSION_ARG);
         proc.start();
 #else
-        proc.start(corePath, { "--version" });
+        proc.start(corePath, { V2RAY_CORE_VERSION_ARG });
 #endif
         proc.waitForStarted();
         proc.waitForFinished();
@@ -168,7 +176,11 @@ namespace Qv2ray::core::kernel
             QProcess process;
             process.setProcessEnvironment(env);
             DEBUG("Starting V2Ray core with test options");
+#ifdef QV2RAY_USE_V5_CORE
+            process.start(kernelPath, { "test", "-c", path }, QIODevice::ReadWrite | QIODevice::Text);
+#else
             process.start(kernelPath, { "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
+#endif
             process.waitForFinished();
 
             if (process.exitCode() != 0)
@@ -232,7 +244,7 @@ namespace Qv2ray::core::kernel
         env.insert("v2ray.location.asset", GlobalConfig.kernelConfig.AssetsPath());
         env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
         vProcess->setProcessEnvironment(env);
-        vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
+        vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { V2RAY_CORE_CONFIG_ARG, filePath }, QIODevice::ReadWrite | QIODevice::Text);
         vProcess->waitForStarted();
         kernelStarted = true;
 

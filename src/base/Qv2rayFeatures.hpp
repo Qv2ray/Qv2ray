@@ -5,9 +5,9 @@
 
 // Kernel Options
 #define QVFEATURE_kernel_check_abi              -1
-#define QVFEATURE_kernel_check_permission       -1
-#define QVFEATURE_kernel_check_output           -1
-#define QVFEATURE_kernel_check_filename         -1
+#define QVFEATURE_kernel_check_permission       1
+#define QVFEATURE_kernel_check_output           1
+#define QVFEATURE_kernel_check_filename         1
 #define QVFEATURE_kernel_set_permission         -1
 
 // UI Options
