@@ -132,10 +132,14 @@ namespace Qv2ray::core::kernel
         // reason...
         proc.setProcessChannelMode(QProcess::MergedChannels);
         proc.setProgram(corePath);
-        proc.setNativeArguments("--version");
+        
+        if (!proc.setNativeArguments("--version"))
+            proc.setNativeArguments("--version");
+        
         proc.start();
 #else
-        proc.start(corePath, { "--version" });
+        if (!proc.start(corePath, { "--version" }))
+            proc.start(corePath, { "--version" });
 #endif
         proc.waitForStarted();
         proc.waitForFinished();
