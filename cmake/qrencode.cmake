@@ -41,6 +41,16 @@ target_compile_definitions(${QV2RAY_QRENCODE_LIBRARY} PRIVATE
     -DMINOR_VERSION=9
     -DMICRO_VERSION=0
     -DVERSION="0.0.0")
+
+if(WITH_TESTS)
+  enable_testing()
+  add_definitions(-DWITH_TESTS=)
+  add_definitions(-DSTATIC_IN_RELEASE=)
+  add_subdirectory(tests)
+else()
+  add_definitions(-DSTATIC_IN_RELEASE=static)
+endif()
+
 target_link_libraries(${QV2RAY_QRENCODE_LIBRARY}
     ${QV_QT_LIBNAME}::Core
     ${QV_QT_LIBNAME}::Gui
