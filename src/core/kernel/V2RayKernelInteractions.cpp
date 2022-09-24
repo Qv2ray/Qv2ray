@@ -10,11 +10,11 @@
 #define QV_MODULE_NAME "V2RayInteraction"
 
 #ifdef QV2RAY_USE_V5_CORE
-constexpr auto V2RAY_CORE_VERSION_ARG = "version";
-constexpr auto V2RAY_CORE_CONFIG_ARG = "config";
+#define V2RAY_CORE_VERSION_ARGV "version"
+#define V2RAY_CORE_CONFIG_ARGV "run", "-config"
 #else
-constexpr auto V2RAY_CORE_VERSION_ARG = "--version";
-constexpr auto V2RAY_CORE_CONFIG_ARG = "--config";
+#define V2RAY_CORE_VERSION_ARGV "--version"
+#define V2RAY_CORE_CONFIG_ARGV = "--config"
 #endif
 
 namespace Qv2ray::core::kernel
@@ -140,10 +140,10 @@ namespace Qv2ray::core::kernel
         // reason...
         proc.setProcessChannelMode(QProcess::MergedChannels);
         proc.setProgram(corePath);
-        proc.setNativeArguments(V2RAY_CORE_VERSION_ARG);
+        proc.setNativeArguments(V2RAY_CORE_VERSION_ARGV);
         proc.start();
 #else
-        proc.start(corePath, { V2RAY_CORE_VERSION_ARG });
+        proc.start(corePath, { V2RAY_CORE_VERSION_ARGV });
 #endif
         proc.waitForStarted();
         proc.waitForFinished();
@@ -244,7 +244,7 @@ namespace Qv2ray::core::kernel
         env.insert("v2ray.location.asset", GlobalConfig.kernelConfig.AssetsPath());
         env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
         vProcess->setProcessEnvironment(env);
-        vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { V2RAY_CORE_CONFIG_ARG, filePath }, QIODevice::ReadWrite | QIODevice::Text);
+        vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { V2RAY_CORE_CONFIG_ARGV, filePath }, QIODevice::ReadWrite | QIODevice::Text);
         vProcess->waitForStarted();
         kernelStarted = true;
 
