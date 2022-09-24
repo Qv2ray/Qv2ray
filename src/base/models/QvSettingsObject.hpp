@@ -81,6 +81,12 @@ namespace Qv2ray::base::config
     {
         bool enableAPI = true;
         int statsPort = 15490;
+        enum KernelMajorVersion
+        {
+            FOUR = 4,
+            FIVE = 5,
+            UNKNOWN = -1
+        } version = UNKNOWN;
         //
         QString v2CorePath_linux;
         QString v2AssetsPath_linux;
@@ -112,14 +118,14 @@ namespace Qv2ray::base::config
 #undef _VARNAME_VCOREPATH_
 #undef _VARNAME_VASSETSPATH_
 
-        JSONSTRUCT_COMPARE(Qv2rayConfig_Kernel, enableAPI, statsPort, //
-                           v2CorePath_linux, v2AssetsPath_linux,      //
-                           v2CorePath_macx, v2AssetsPath_macx,        //
+        JSONSTRUCT_COMPARE(Qv2rayConfig_Kernel, enableAPI, statsPort, version, //
+                           v2CorePath_linux, v2AssetsPath_linux,               //
+                           v2CorePath_macx, v2AssetsPath_macx,                 //
                            v2CorePath_win, v2AssetsPath_win)
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                     //
-                            F(enableAPI, statsPort),                 //
-                            F(v2CorePath_linux, v2AssetsPath_linux), //
-                            F(v2CorePath_macx, v2AssetsPath_macx),   //
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                              //
+                            F(enableAPI, statsPort, version),                 //
+                            F(v2CorePath_linux, v2AssetsPath_linux),          //
+                            F(v2CorePath_macx, v2AssetsPath_macx),            //
                             F(v2CorePath_win, v2AssetsPath_win))
     };
 

@@ -343,6 +343,45 @@ void PreferencesWindow::on_buttonBox_accepted()
     QSet<int> ports;
     auto size = 0;
 
+    { // kernel check scope
+        auto vcorePath = vCorePathTxt->text();
+        auto vAssetsPath = vCoreAssetsPathTxt->text();
+
+#if QV2RAY_FEATURE(kernel_check_filename)
+        // prevent some bullshit situations.
+        if (const auto vCorePathSmallCased = vcorePath.toLower(); vCorePathSmallCased.endsWith("qv2ray") || vCorePathSmallCased.endsWith("qv2ray.exe"))
+        {
+            const auto content = tr("You may be about to set V2Ray core incorrectly to Qv2ray itself, which is absolutely not correct.\r\n"
+                                    "This won't trigger a fork bomb, however, since Qv2ray works in singleton mode.\r\n"
+                                    "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
+            QvMessageBoxWarn(this, tr("Watch Out!"), content);
+        }
+        else if (vCorePathSmallCased.endsWith("v2ctl") || vCorePathSmallCased.endsWith("v2ctl.exe"))
+        {
+            const auto content = tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
+                                    "The filename of V2Ray core is usually 'v2ray' or 'v2ray.exe'. Make sure to choose it wisely.\r\n"
+                                    "If you insist to proceed, we're not providing with any support.");
+            QvMessageBoxWarn(this, tr("Watch Out!"), content);
+        }
+#endif
+
+        if (const auto &&[result, msg] = V2RayKernelInstance::ValidateVersionedKernel(vcorePath, vAssetsPath); !result)
+        {
+            QvMessageBoxWarn(this, tr("V2Ray Core Settings"), *msg);
+        }
+#if QV2RAY_FEATURE(kernel_check_output)
+        else if (!msg->toLower().contains("v2ray") && !msg->toLower().contains("xray"))
+        {
+            const auto content = tr("This does not seem like an output from V2Ray Core.") + NEWLINE +                         //
+                                 tr("If you are looking for plugins settings, you should go to plugin settings.") + NEWLINE + //
+                                 tr("Output:") + NEWLINE +                                                                    //
+                                 NEWLINE + *msg;
+            QvMessageBoxWarn(this, tr("'V2Ray Core' Settings"), content);
+        }
+#endif
+        // no else branch
+    }
+
     if (CurrentConfig.inboundConfig.useHTTP)
     {
         size++;
@@ -773,7 +812,7 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     }
 #endif
 
-    if (const auto &&[result, msg] = V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath); !result)
+    if (const auto &&[result, msg] = V2RayKernelInstance::ValidateVersionedKernel(vcorePath, vAssetsPath); !result)
     {
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), *msg);
     }
@@ -1129,27 +1168,29 @@ void PreferencesWindow::on_pushButton_clicked()
         return;
 
     auto client = new ntp::NtpClient(this);
-    connect(client, &ntp::NtpClient::replyReceived, [&](const QHostAddress &, quint16, const ntp::NtpReply &reply) {
-        const int offsetSecTotal = reply.localClockOffset() / 1000;
-        if (offsetSecTotal >= 90 || offsetSecTotal <= -90)
-        {
-            const auto inaccurateWarning = tr("Your time offset is %1 seconds, which is too high.") + NEWLINE + //
-                                           tr("Please synchronize your system to use the VMess protocol.");
-            QvMessageBoxWarn(this, tr("Time Inaccurate"), inaccurateWarning.arg(offsetSecTotal));
-        }
-        else if (offsetSecTotal > 15 || offsetSecTotal < -15)
-        {
-            const auto smallErrorWarning = tr("Your time offset is %1 seconds, which is a little high.") + NEWLINE + //
-                                           tr("VMess protocol may still work, but we suggest you synchronize your clock.");
-            QvMessageBoxInfo(this, tr("Time Somewhat Inaccurate"), smallErrorWarning.arg(offsetSecTotal));
-        }
-        else
-        {
-            const auto accurateInfo = tr("Your time offset is %1 seconds, which looks good.") + NEWLINE + //
-                                      tr("VMess protocol may not suffer from time inaccuracy.");
-            QvMessageBoxInfo(this, tr("Time Accurate"), accurateInfo.arg(offsetSecTotal));
-        }
-    });
+    connect(client, &ntp::NtpClient::replyReceived,
+            [&](const QHostAddress &, quint16, const ntp::NtpReply &reply)
+            {
+                const int offsetSecTotal = reply.localClockOffset() / 1000;
+                if (offsetSecTotal >= 90 || offsetSecTotal <= -90)
+                {
+                    const auto inaccurateWarning = tr("Your time offset is %1 seconds, which is too high.") + NEWLINE + //
+                                                   tr("Please synchronize your system to use the VMess protocol.");
+                    QvMessageBoxWarn(this, tr("Time Inaccurate"), inaccurateWarning.arg(offsetSecTotal));
+                }
+                else if (offsetSecTotal > 15 || offsetSecTotal < -15)
+                {
+                    const auto smallErrorWarning = tr("Your time offset is %1 seconds, which is a little high.") + NEWLINE + //
+                                                   tr("VMess protocol may still work, but we suggest you synchronize your clock.");
+                    QvMessageBoxInfo(this, tr("Time Somewhat Inaccurate"), smallErrorWarning.arg(offsetSecTotal));
+                }
+                else
+                {
+                    const auto accurateInfo = tr("Your time offset is %1 seconds, which looks good.") + NEWLINE + //
+                                              tr("VMess protocol may not suffer from time inaccuracy.");
+                    QvMessageBoxInfo(this, tr("Time Accurate"), accurateInfo.arg(offsetSecTotal));
+                }
+            });
 
     const auto hostInfo = QHostInfo::fromName(ntpServer);
     if (hostInfo.error() == QHostInfo::NoError)

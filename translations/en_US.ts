@@ -2598,6 +2598,10 @@ Maybe you have downloaded the wrong core?</source>
         <source>V2Ray kernel failed to start: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Can not determine the version of v2ray kernel.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
