@@ -14,7 +14,7 @@
 #define V2RAY_CORE_CONFIG_ARGV "run", "-config"
 #else
 #define V2RAY_CORE_VERSION_ARGV "--version"
-#define V2RAY_CORE_CONFIG_ARGV = "--config"
+#define V2RAY_CORE_CONFIG_ARGV "--config"
 #endif
 
 namespace Qv2ray::core::kernel
