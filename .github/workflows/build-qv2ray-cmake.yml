@@ -178,8 +178,8 @@ jobs:
           cp -fv /usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so ./usr/plugins/platforminputcontexts/
           cd ..
           wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
-          chmod +x ./linuxdeployqt-6-x86_64.AppImage
-          ./linuxdeployqt-6-x86_64.AppImage AppDir/usr/share/applications/qv2ray.desktop \
+          chmod +x ./linuxdeployqt-continuous-x86_64.AppImage
+          ./linuxdeployqt-continuous-x86_64.AppImage AppDir/usr/share/applications/qv2ray.desktop \
               -appimage \
               -unsupported-allow-new-glibc \
               -no-strip \
