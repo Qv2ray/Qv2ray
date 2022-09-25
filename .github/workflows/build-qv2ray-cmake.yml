@@ -181,6 +181,7 @@ jobs:
           chmod +x ./linuxdeployqt-6-x86_64.AppImage
           ./linuxdeployqt-6-x86_64.AppImage AppDir/usr/share/applications/qv2ray.desktop \
               -appimage \
+              -unsupported-allow-new-glibc \
               -no-strip \
               -always-overwrite \
               -extra-plugins=iconengines,imageformats,platforminputcontexts
