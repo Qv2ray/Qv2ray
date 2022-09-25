@@ -25,7 +25,7 @@ jobs:
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!QT5') }}
     strategy:
       matrix:
-        platform: [ubuntu-16.04, macos-latest, windows-latest]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
         arch: [x64]
         build_type: [RelWithDebInfo, Release]
         qt_version: [5.15.0]
@@ -77,7 +77,7 @@ jobs:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
       # =========================================================================================================
       - name: Linux - ${{ matrix.qt_version }} - Build preparation - Install Packages
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:ondrej/nginx
@@ -153,7 +153,7 @@ jobs:
           cp -v ./*.pdb ./deployment || true
       # --------------------------------------------------------
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Build
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-latest'
         shell: bash
         env:
           CC: /usr/bin/gcc-9
@@ -169,7 +169,7 @@ jobs:
           cmake --install .
       # ========================================================================================================= Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-latest'
         run: |
           cd build
           cd AppDir
@@ -195,14 +195,14 @@ jobs:
               -extra-plugins=iconengines,imageformats,platforminputcontexts
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading Artifact
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-latest'
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray-${{ github.sha }}.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}-${{ matrix.build_type }}.AppImage
           path: build/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-latest' && matrix.qt_version == '5.15.0' && matrix.build_type == 'Release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.AppImage
