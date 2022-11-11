@@ -75,14 +75,13 @@ jobs:
       - name: Linux - ${{ matrix.qt_version }} - Build preparation - Install Packages
         if: matrix.platform == 'ubuntu-latest'
         run: |
-          sudo add-apt-repository ppa:webispy/grpc
-          sudo add-apt-repository ppa:ondrej/nginx
           sudo apt update
           sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libxcb-image0-dev libxcb-icccm4-dev libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 \
               libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc \
               ninja-build \
               fcitx-frontend-qt5 \
-              libcurl4-openssl-dev libssl-dev
+              libcurl4-openssl-dev libssl-dev \
+              build-essential devscripts debhelper  qtbase5-dev qttools5-dev cmake pkg-config qtdeclarative5-dev libcurl4-openssl-dev libqt5svg5-dev
       # --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages
         if: matrix.platform == 'macos-latest'
@@ -173,8 +172,7 @@ jobs:
           mkdir -p ./usr/optional/libstdc++/
           mkdir -p ./usr/optional/libgcc_s/
           mkdir -p ./usr/plugins/platforminputcontexts/
-          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun
-          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./usr/optional/exec.so
+          wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -O AppRun
           wget https://github.com/Qv2ray/qt-pkg/releases/download/bruh/libfcitx5platforminputcontextplugin.so -O ./usr/plugins/platforminputcontexts/libfcitx5platforminputcontextplugin.so
           cp -fv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./usr/optional/libstdc++/
           cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
@@ -182,9 +180,9 @@ jobs:
           cp -fv /usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so ./usr/plugins/platforminputcontexts/
           chmod a+x AppRun
           cd ..
-          wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
-          chmod +x ./linuxdeployqt-6-x86_64.AppImage
-          ./linuxdeployqt-6-x86_64.AppImage AppDir/usr/share/applications/qv2ray.desktop \
+          wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
+          chmod +x ./linuxdeployqt-continuous-x86_64.AppImage
+          ./linuxdeployqt-continuous-x86_64.AppImage AppDir/usr/share/applications/qv2ray.desktop \
               -appimage \
               -no-strip \
               -always-overwrite \
