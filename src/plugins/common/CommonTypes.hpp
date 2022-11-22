@@ -60,7 +60,7 @@ struct TrojanServerObject
 {
     QString address = "0.0.0.0";
     QString password;
-    int port = 0;
+    int port = 443;
     JSONSTRUCT_COMPARE(TrojanServerObject, address, password)
     JSONSTRUCT_REGISTER(TrojanServerObject, F(address, port, password))
 };
