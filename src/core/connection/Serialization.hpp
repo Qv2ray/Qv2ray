@@ -34,6 +34,12 @@ namespace Qv2ray::core::connection::serialization
         CONFIGROOT Deserialize(const QString &vless, QString *alias, QString *errMessage);
     } // namespace vless
 
+    namespace trojan
+    {
+        CONFIGROOT Deserialize(const QString &trojan, QString *alias, QString *errMessage);
+        const QString Serialize(const TrojanServerObject &server, const QString &alias);
+    } // namespace trojan
+
     namespace ss
     {
         CONFIGROOT Deserialize(const QString &ss, QString *alias, QString *errMessage);

@@ -53,6 +53,18 @@ struct ShadowSocksServerObject
     JSONSTRUCT_REGISTER(ShadowSocksServerObject, A(method), F(address, port, password))
 };
 
+
+//
+// Trojan Server
+struct TrojanServerObject
+{
+    QString address = "0.0.0.0";
+    QString password;
+    int port = 0;
+    JSONSTRUCT_COMPARE(TrojanServerObject, address, password)
+    JSONSTRUCT_REGISTER(TrojanServerObject, F(address, port, password))
+};
+
 //
 // VLESS Server
 struct VLESSServerObject

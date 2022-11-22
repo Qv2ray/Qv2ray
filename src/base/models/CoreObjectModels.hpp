@@ -398,5 +398,15 @@ namespace Qv2ray::base::objects
             JSONSTRUCT_COMPARE(ShadowSocksServerObject, address, method, password)
             JSONSTRUCT_REGISTER(ShadowSocksServerObject, F(address, port, method, password))
         };
+        //
+        // Trojan Server
+        struct TrojanServerObject
+        {
+            QString address;
+            QString password;
+            int port;
+            JSONSTRUCT_COMPARE(TrojanServerObject, address, password)
+            JSONSTRUCT_REGISTER(TrojanServerObject, F(address, port, password))
+        };
     } // namespace protocol
 } // namespace Qv2ray::base::objects

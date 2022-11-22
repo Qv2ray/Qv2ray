@@ -35,6 +35,12 @@ namespace Qv2ray::core::connection
                 TLSOptionsFilter(conf);
                 connectionConf << std::pair{ *aliasPrefix, conf };
             }
+            else if (link.startsWith("trojan://"))
+            {
+                auto conf = trojan::Deserialize(link, aliasPrefix, errMessage);
+                TLSOptionsFilter(conf);
+                connectionConf << std::pair{ *aliasPrefix, conf };
+            }
             else if (link.startsWith("ss://") && !link.contains("plugin="))
             {
                 auto conf = ss::Deserialize(link, aliasPrefix, errMessage);
@@ -108,6 +114,11 @@ namespace Qv2ray::core::connection
             {
                 auto ssServer = ShadowSocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
                 sharelink = ss::Serialize(ssServer, alias, isSip002);
+            }
+            else if (type == "trojan")
+            {
+                auto trojanServer = TrojanServerObject::fromJson(settings["servers"].toArray().first().toObject());
+                sharelink = trojan::Serialize(trojanServer, alias);
             }
             else
             {
