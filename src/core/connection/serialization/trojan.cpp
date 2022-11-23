@@ -14,60 +14,26 @@ namespace Qv2ray::core::connection
             TrojanServerObject server;
             QString d_name;
 
-            // auto ssUri = _ssUri.toStdString();
-            if (trojanUri.length() < 5)
+            if (trojanUri.length() < 9)
             {
                 LOG("trojan:// string too short");
                 *errMessage = QObject::tr("SS URI is too short");
             }
 
-            auto uri = trojanUri.mid(5);
-            auto hashPos = uri.lastIndexOf("#");
-            DEBUG("Hash sign position: " + QSTRN(hashPos));
-
-            if (hashPos >= 0)
+            auto url = QUrl::fromUserInput(trojanUri);
+            if (url.scheme() != "trojan")
             {
-                // Get the name/remark
-                d_name = uri.mid(uri.lastIndexOf("#") + 1);
-                uri.truncate(hashPos);
+                LOG("not a trojan share link");
+                *errMessage = QObject::tr("Not a Trojan share link!");
+            }
+            server.address = url.host();
+            server.port = url.port();
+            server.password = url.userInfo();
+            if (url.hasFragment())
+            {
+                d_name = url.fragment(QUrl::FullyDecoded);
             }
 
-            auto atPos = uri.indexOf('@');
-            DEBUG("At sign position: " + QSTRN(atPos));
-
-            if (atPos < 0)
-            {
-                QString decoded = QByteArray::fromBase64(uri.toUtf8(), QByteArray::Base64Option::OmitTrailingEquals);
-                atPos = decoded.lastIndexOf('@');
-                DEBUG("At sign position: " + QSTRN(atPos));
-
-                if (atPos < 0)
-                {
-                    *errMessage = QObject::tr("Can't find the at separator between password and hostname");
-                }
-
-                server.password = decoded.mid(0, atPos);
-                decoded.remove(0, atPos + 1);
-                auto colonPos = decoded.lastIndexOf(':');
-                DEBUG("Colon position: " + QSTRN(colonPos));
-
-                if (colonPos < 0)
-                {
-                    *errMessage = QObject::tr("Can't find the colon separator between hostname and port");
-                }
-
-                server.address = decoded.mid(0, colonPos);
-                server.port = decoded.mid(colonPos + 1).toInt();
-            }
-            else
-            {
-                auto x = QUrl::fromUserInput(uri);
-                server.address = x.host();
-                server.port = x.port();
-                server.password = x.userName();
-            }
-
-            d_name = QUrl::fromPercentEncoding(d_name.toUtf8());
             CONFIGROOT root;
             OUTBOUNDS outbounds;
             outbounds.append(GenerateOutboundEntry(OUTBOUND_TAG_PROXY, "trojan", GenerateTrojanOUT({ server }), {}));
@@ -80,8 +46,7 @@ namespace Qv2ray::core::connection
         const QString Serialize(const TrojanServerObject &server, const QString &alias)
         {
             QUrl url;
-            const auto userinfo = server.password;
-            url.setUserInfo(userinfo);
+            url.setUserInfo(server.password);
             url.setScheme("trojan");
             url.setHost(server.address);
             url.setPort(server.port);
@@ -90,4 +55,3 @@ namespace Qv2ray::core::connection
         }
     } // namespace serialization::trojan
 } // namespace Qv2ray::core::connection
-
