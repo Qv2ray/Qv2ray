@@ -62,7 +62,7 @@ struct TrojanServerObject
     QString password;
     int port = 443;
     JSONSTRUCT_COMPARE(TrojanServerObject, address, password)
-    JSONSTRUCT_REGISTER(TrojanServerObject, F(address, port, password))
+    JSONSTRUCT_REGISTER(TrojanServerObject, A(port), F(address, password))
 };
 
 //
