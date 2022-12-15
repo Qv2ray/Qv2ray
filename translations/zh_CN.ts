@@ -3874,7 +3874,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>ChainSha256Editor</name>
     <message>
       <source>pinnedPeerCertificateChainSha256 Editor</source>
-      <translation>PinnedPeerCerCercatateChainSha256编辑器</translation>
+      <translation>固定对等证书链Sha256编辑器</translation>
     </message>
     <message>
       <source>Invalid Certificate Hash Chain</source>
