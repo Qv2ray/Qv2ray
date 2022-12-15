@@ -1999,8 +1999,8 @@ V2Ray 核心可执行文件的文件名通常是 &apos;v2ray&apos; 或者 &apos;
     <message>
       <source>Run TCPing or ICMPing periodically after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
-      <translation>连接到服务器后定期运行TCPing 或 ICMPing。
-如果启用，Qv2ray 会给出更准确的延迟值，但是它很容易指纹连接。</translation>
+      <translation>连接到服务器后定期运行 TCPing 或 ICMPing。
+如果启用，Qv2ray 将提供更准确的延迟，但这也许会提升您服务器被暴露的风险。</translation>
     </message>
     <message>
       <source>FakeDNS+Others</source>
@@ -2013,7 +2013,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
     <message>
       <source>Exit instead of minimizing to tray when the close button clicked.
 This option may be useful for some desktop environments without tray support.</source>
-      <translation>退出程序，而不是在单击关闭按钮时最小化到托盘。
+      <translation>在单击关闭按钮时退出程序，而不是最小化到托盘。
 此选项可能对某些桌面环境有用，而无需托盘支持。</translation>
     </message>
   </context>
@@ -3278,7 +3278,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
       <source>Open pinnedPeerCertificateChainSha256 Editor</source>
-      <translation>打开 pinnedPeerCerCercatateChainSha256 编辑器</translation>
+      <translation>打开 固定对等证书链Sha256 编辑器</translation>
     </message>
     <message>
       <source>Method</source>
