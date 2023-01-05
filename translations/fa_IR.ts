@@ -1275,7 +1275,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished">فعال شد</translation>
+        <translation type="unfinished">فعال کردن</translation>
     </message>
     <message>
         <source>UI Theme</source>
@@ -1327,7 +1327,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Last Connected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">آخرین اتصال</translation>
     </message>
     <message>
         <source>Fixed</source>
@@ -1585,7 +1585,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Update Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">کانال بروزرسانی</translation>
     </message>
     <message>
         <source>Stable Release</source>
@@ -1601,7 +1601,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نسخه:</translation>
     </message>
     <message>
         <source>Plugin Interface</source>
