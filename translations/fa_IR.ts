@@ -1283,7 +1283,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">زبان</translation>
     </message>
     <message>
         <source>Maximum log lines</source>
@@ -1299,7 +1299,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source> Connections</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> اتصالات</translation>
     </message>
     <message>
         <source>Behavior</source>
@@ -1311,15 +1311,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Auto Connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اتصال خودکار</translation>
     </message>
     <message>
         <source>Config</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پیکربندی</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">گروه</translation>
     </message>
     <message>
         <source>None</source>
@@ -1368,11 +1368,11 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>پروکسی سیستم</translation>
     </message>
     <message>
         <source>Custom Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پروکسی سفارشی</translation>
     </message>
     <message>
         <source>Type</source>
@@ -1380,7 +1380,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>سرور</translation>
     </message>
     <message>
         <source>:</source>
@@ -1396,7 +1396,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Log Level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">سطح گزارش</translation>
     </message>
     <message>
         <source>none</source>
@@ -1404,7 +1404,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>debug</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">دیباگ</translation>
     </message>
     <message>
         <source>info</source>
@@ -1412,11 +1412,11 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>warning</source>
-        <translation type="unfinished"></translation>
+        <translation>هشدار</translation>
     </message>
     <message>
         <source>error</source>
-        <translation type="unfinished"></translation>
+        <translation>اررور</translation>
     </message>
     <message>
         <source>Select</source>
@@ -1465,7 +1465,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پورت</translation>
     </message>
     <message>
         <source>UDP Support</source>
@@ -1553,7 +1553,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>DNS Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">تنظیمات DNS</translation>
     </message>
     <message>
         <source>Forward Proxy</source>
@@ -1573,7 +1573,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished">در باره</translation>
+        <translation>درباره</translation>
     </message>
     <message>
         <source>Ignored Version</source>
@@ -1593,7 +1593,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Testing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">تست کردن</translation>
     </message>
     <message>
         <source>Qv2ray</source>
@@ -1625,7 +1625,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">لایسنس</translation>
     </message>
     <message>
         <source>About Qt</source>
@@ -1925,7 +1925,7 @@ If you insist to proceed, we&apos;re not providing with any support.</source>
     </message>
     <message>
         <source>Output:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">خروجی:</translation>
     </message>
     <message>
         <source>If you are looking for plugins settings, you should go to plugin settings.</source>
@@ -3396,7 +3396,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>w_PluginManager</name>
     <message>
         <source>Plugin Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">مدیریت پلاگین</translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -3440,7 +3440,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Plugin Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">تنظیمات پلاگین</translation>
     </message>
     <message>
         <source>Plugin Not Loaded</source>
@@ -3670,7 +3670,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>shadowsocksOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>فرم</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3809,7 +3809,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>loopback</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">فرم</translation>
+        <translation>فرم</translation>
     </message>
     <message>
         <source>Inbound Tag</source>
@@ -3827,7 +3827,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>SpeedWidget</name>
     <message>
         <source>Proxy</source>
-        <translation type="unfinished">پروکسی</translation>
+        <translation>پروکسی</translation>
     </message>
     <message>
         <source>Direct</source>
