@@ -5,7 +5,7 @@
     <name>BalancerWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
     <message>
         <source>Show / Hide</source>
@@ -29,7 +29,8 @@
     <message>
         <source>Usage</source>
         <extracomment>Certificate Usage</extracomment>
-        <translation type="unfinished"></translation>
+        <translatorcomment>استفاده از گواهی</translatorcomment>
+        <translation type="unfinished">استفاده</translation>
     </message>
     <message>
         <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
@@ -134,7 +135,7 @@
     <name>ChainWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>فرم</translation>
     </message>
     <message>
         <source>Chained</source>
@@ -145,7 +146,7 @@
     <name>ConnectionInfoWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
     <message>
         <source>Configuration Details</source>
@@ -269,7 +270,7 @@
     <name>ConnectionSettingsWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
 </context>
 <context>
@@ -303,7 +304,7 @@
     <name>DnsSettingsWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
     <message>
         <source>Client IP</source>
@@ -429,7 +430,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>New Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">گروه جدید</translation>
     </message>
     <message>
         <source>Update Subscription</source>
@@ -791,7 +792,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Locate Current Connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">محل اتصال فعلی</translation>
     </message>
     <message>
         <source>Search</source>
@@ -799,15 +800,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">مرتب سازی</translation>
     </message>
     <message>
         <source>Import Connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">وارد کردن کانکشن</translation>
     </message>
     <message>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">جدید</translation>
     </message>
     <message>
         <source>Click to toggle show/hide</source>
@@ -815,7 +816,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>  Speed Graph</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">  نمودار سرعت</translation>
     </message>
     <message>
         <source>Clear chart data</source>
@@ -823,19 +824,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>  Log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">  رویداد</translation>
     </message>
     <message>
         <source>Not Connected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">متصل نیست</translation>
     </message>
     <message>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">سرعت</translation>
     </message>
     <message>
         <source>Upload/Download speed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">سرعت آپلود/دانلود</translation>
     </message>
     <message>
         <source>0.00 B/s
@@ -844,7 +845,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">داده ها</translation>
     </message>
     <message>
         <source>Upload/Download Data</source>
@@ -857,11 +858,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پروکسی سیستمی</translation>
     </message>
     <message>
         <source>Recent Connections</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اتصالات اخیر</translation>
     </message>
     <message>
         <source>Clear Recent Connections</source>
@@ -869,11 +870,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">مخفی کردن</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ترک کردن</translation>
     </message>
     <message>
         <source>Connect</source>
@@ -889,15 +890,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Enable System Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فعال کردن پروکسی سیستم</translation>
     </message>
     <message>
         <source>Disable System Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">غیرفعال کردن پروکسی سیستم</translation>
     </message>
     <message>
         <source>Connect to this</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اتصال به این</translation>
     </message>
     <message>
         <source>Set as automatically connected</source>
@@ -905,7 +906,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ویرایش</translation>
     </message>
     <message>
         <source>Edit as JSON</source>
@@ -925,7 +926,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Test Latency</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">تست تاخیر</translation>
     </message>
     <message>
         <source>Clear Usage Data</source>
@@ -933,11 +934,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Delete Connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">حذف اتصال</translation>
     </message>
     <message>
         <source>Sort connection list.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">لیست اتصال را مرتب شود.</translation>
     </message>
     <message>
         <source>By connection name, A-Z</source>
@@ -969,7 +970,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Kernel terminated.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">کرنل خاتمه یافت.</translation>
     </message>
     <message>
         <source>The kernel terminated unexpectedly:</source>
@@ -981,15 +982,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نمایش</translation>
     </message>
     <message>
         <source>Quit Qv2ray</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">خروج از Qv2ray</translation>
     </message>
     <message>
         <source>Are you sure to exit Qv2ray?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">آیا مطمئن هستید که از Qv2ray خارج بشید؟</translation>
     </message>
     <message numerus="yes">
         <source>Removing Connection(s)</source>
@@ -1009,7 +1010,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Connected: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">متصل: </translation>
     </message>
     <message numerus="yes">
         <source>Duplicating Connection(s)</source>
@@ -1025,15 +1026,15 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source> (Copy)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> (کپی)</translation>
     </message>
     <message>
         <source>System proxy configured.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پروکسی سیستم پیکربندی شد.</translation>
     </message>
     <message>
         <source>Cannot set system proxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نمی توان پراکسی سیستم را تنظیم کرد</translation>
     </message>
     <message>
         <source>Both HTTP and SOCKS inbounds are not enabled</source>
@@ -1045,11 +1046,11 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Update Subscriptions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">بروزرسانی اشتراک ها</translation>
     </message>
     <message>
         <source>Update Subscription</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">بروزرسانی اشتراک</translation>
     </message>
     <message>
         <source>Subscription &quot;%1&quot; has been updated</source>
@@ -1065,19 +1066,19 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Do you want to update these subscriptions?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">آیا می خواهید این اشتراک ها را به روز کنید؟</translation>
     </message>
     <message>
         <source>Groups</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">گروه ها</translation>
     </message>
     <message>
         <source>Collapse all groups</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">همه گروه ها را ببندید</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">وارد كردن</translation>
     </message>
     <message>
         <source>New Complex</source>
@@ -1089,7 +1090,7 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Copy latest logs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">آخرین گزارش ها را کپی شود</translation>
     </message>
     <message>
         <source>Number of lines of logs to copy</source>
@@ -1097,35 +1098,35 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     </message>
     <message>
         <source>Test Real Latency</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">تست تاخیر واقعی</translation>
     </message>
     <message>
         <source>Switch to Core log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">به گزارش Core برود</translation>
     </message>
     <message>
         <source>Copy graph as image.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نمودار را به عنوان تصویر کپی کنید.</translation>
     </message>
     <message>
         <source>Copy latest logs.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">آخرین گزارش ها کپی شود.</translation>
     </message>
     <message>
         <source>Do you want to remove this group as well?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">آیا می خواهید این گروه را نیز حذف کنید؟</translation>
     </message>
     <message>
         <source>Group: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">گروه: </translation>
     </message>
     <message>
         <source>Removing Connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">حذف اتصال</translation>
     </message>
     <message>
         <source>Copy selected.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">کپی انتخاب شده.</translation>
     </message>
     <message>
         <source>Bypass CN Mainland</source>
@@ -1262,23 +1263,23 @@ This entry is ignored by V2Ray core when using DoH servers.</source>
     <name>PreferencesWindow</name>
     <message>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">تنظیمات</translation>
     </message>
     <message>
         <source>General Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">تنظیمات عمومی</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ظاهر</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فعال شد</translation>
     </message>
     <message>
         <source>UI Theme</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پوسته رابط کاربری</translation>
     </message>
     <message>
         <source>Language</source>
@@ -1375,7 +1376,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نوع</translation>
     </message>
     <message>
         <source>Server</source>
@@ -1407,7 +1408,7 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اطلاعات</translation>
     </message>
     <message>
         <source>warning</source>
@@ -1484,7 +1485,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">رمز عبور</translation>
     </message>
     <message>
         <source>Sniffing</source>
@@ -1572,7 +1573,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">در باره</translation>
     </message>
     <message>
         <source>Ignored Version</source>
@@ -2409,7 +2410,7 @@ This option may be useful for some desktop environments without tray support.</s
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
         <source>Qv2ray Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">بروزرسانی Qv2ray</translation>
     </message>
 </context>
 <context>
@@ -2606,7 +2607,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پروتکل</translation>
     </message>
     <message>
         <source>Tag</source>
@@ -2786,7 +2787,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اتصال</translation>
     </message>
     <message>
         <source>Copy Connection</source>
@@ -3050,7 +3051,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>ScreenShot</name>
     <message>
         <source>ScreenShot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اسکرین شات</translation>
     </message>
     <message>
         <source>Size</source>
@@ -3462,7 +3463,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>dokodemodoorInEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
     <message>
         <source>Address</source>
@@ -3505,7 +3506,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>httpInEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
     <message>
         <source>Allow Transparent</source>
@@ -3662,7 +3663,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>PluginOutboundEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
 </context>
 <context>
@@ -3699,7 +3700,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>vlessOutEditor</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
     <message>
         <source>UUID</source>
@@ -3808,7 +3809,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>loopback</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">فرم</translation>
     </message>
     <message>
         <source>Inbound Tag</source>
@@ -3826,7 +3827,7 @@ Maybe you have downloaded the wrong core?</source>
     <name>SpeedWidget</name>
     <message>
         <source>Proxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پروکسی</translation>
     </message>
     <message>
         <source>Direct</source>
