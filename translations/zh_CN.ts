@@ -3292,6 +3292,31 @@ Maybe you have downloaded the wrong core?</source>
       <source>TCP Keepalive Interval</source>
       <translation>TCP保留存活间隔</translation>
     </message>
+    <message>
+      <source>REALITY Options</source>
+      <translation>REALITY 设置</translation>
+    </message>
+    
+    <message>
+      <source>Print debug log</source>
+      <translation>打印调试信息</translation>
+    </message>
+    <message>
+      <source>Fingerprint</source>
+      <translation>指纹模拟</translation>
+    </message>
+    <message>
+      <source>Svr public key</source>
+      <translation>服务器公钥</translation>
+    </message>
+    <message>
+      <source>Short id</source>
+      <translation>短ID(不一定支持)</translation>
+    </message>
+    <message>
+      <source>SpiderX</source>
+      <translation>初始路径(不一定支持)</translation>
+    </message>
   </context>
   <context>
     <name>w_GroupManager</name>
