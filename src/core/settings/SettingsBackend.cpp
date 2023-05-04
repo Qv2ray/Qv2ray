@@ -149,7 +149,6 @@ namespace Qv2ray::core::config
         {
             // Use the config path found by the checks above
             SetConfigDirPath(configPath);
-            LOG("Using ", QV2RAY_CONFIG_DIR, " as the config path.");
         }
         else
         {
@@ -164,7 +163,6 @@ namespace Qv2ray::core::config
             {
 #if defined(Q_OS_WIN) && !defined(QV2RAY_NO_ASIDECONFIG)
                 configPath = currentPathConfig;
-                LOG("Using ", QV2RAY_CONFIG_DIR, " as the config path.");
 #else
                 configPath = configQv2ray;
 #endif

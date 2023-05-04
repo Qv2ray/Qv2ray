@@ -33,11 +33,9 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
 {
     stream = sso;
     transportCombo->setCurrentText(stream.network);
-    // LOG("RUNNNNNNNNNNNNNNNNNNNN1111111111111111::"+ JsonToString(stream.toJson()));
     const auto security = stream.security;
     // TLS XTLS REALITY
     {
-        LOG("security:::",security);
         const static QMap<QString, int> securityIndexMap{ { "none", 0 }, { "tls", 1 }, { "xtls", 2 }, { "reality", 3 } };
         if (securityIndexMap.contains(security))
             securityTypeCB->setCurrentIndex(securityIndexMap[security]);

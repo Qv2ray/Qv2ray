@@ -370,7 +370,6 @@ namespace Qv2ray::core::handler
         //
         auto path = QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         auto content = JsonToString(root);
-        LOG("Connection content:",content);
         bool result = StringToFile(content, path);
         //
         connectionRootCache[id] = root;

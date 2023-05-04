@@ -115,7 +115,6 @@ namespace Qv2ray::core::kernel
 #if QV2RAY_FEATURE(kernel_check_permission)
         // Check executable permissions.
         const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(corePath);
-        // LOG("CheckAndSetCoreExecutableState strExecutableErr::",strExecutableErr);
         if (!isExecutableOk)
             return { false, strExecutableErr.value_or("") };
 #endif
@@ -179,7 +178,6 @@ namespace Qv2ray::core::kernel
             DEBUG("Starting V2Ray core with test options");
 #ifdef QV2RAY_USE_V5_CORE
             process.start(kernelPath, { "test", "-c", path }, QIODevice::ReadWrite | QIODevice::Text);
-            DEBUG("QV2RAY_USE_V5_CORE ON");
 #else
             process.start(kernelPath, { "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
 #endif

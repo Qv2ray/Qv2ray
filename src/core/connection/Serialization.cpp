@@ -17,7 +17,6 @@ namespace Qv2ray::core::connection
                 for (const QString &prefix : { "tls", "xtls", "reality" })
                     QJsonIO::SetValue(conf, disableSystemRoot, { "outbounds", 0, "streamSettings", prefix + "Settings", "disableSystemRoot" });
             };
-            // LOG("I am RUNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN::",link.toString());
             QList<std::pair<QString, CONFIGROOT>> connectionConf;
             if (link.startsWith("vmess://") && link.contains("@"))
             {

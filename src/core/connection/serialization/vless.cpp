@@ -12,7 +12,6 @@ namespace Qv2ray::core::connection
     {
         CONFIGROOT Deserialize(const QString &str, QString *alias, QString *errMessage)
         {
-            LOG("I am RUN22222222222222222222222222::",str);
             // must start with vless://
             if (!str.startsWith("vless://"))
             {
