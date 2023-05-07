@@ -39,8 +39,6 @@ jobs:
             container: debian:unstable
           - distro: jammy
             container: ubuntu:jammy
-          - distro: focal
-            container: ubuntu:focal
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!DEB') }}
     name: Build debian package for ${{ matrix.distro }}
