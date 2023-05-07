@@ -6,6 +6,8 @@ on:
       - dev
   release:
     types: [prereleased]
+  workflow_dispatch:
+
 
 # unsafe {
 env:
