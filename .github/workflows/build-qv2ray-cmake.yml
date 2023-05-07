@@ -170,7 +170,7 @@ jobs:
           cd build
           cd AppDir
           mkdir -p ./usr/lib/
-          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.3,libcrypto.so.3} ./usr/lib/
+          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           cd ..
           wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
           chmod +x ./linuxdeployqt-continuous-x86_64.AppImage
