@@ -110,10 +110,13 @@ jobs:
           cd ./libs
           ./setup-libs.sh windows ${{ matrix.arch }}
       # ========================================================================================================= Generate MakeFile and Build
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-python@v4
+        with:
+            python-version: '3.10'
+      - uses: actions/setup-node@v3
         if: matrix.platform == 'macos-latest'
         with:
-          node-version: "12.x"
+          node-version: "18.x"
       - run: npm install -g appdmg
         if: matrix.platform == 'macos-latest'
       - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Build
