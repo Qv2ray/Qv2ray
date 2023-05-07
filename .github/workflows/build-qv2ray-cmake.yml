@@ -80,8 +80,6 @@ jobs:
       - name: Linux - ${{ matrix.qt_version }} - Build preparation - Install Packages
         if: matrix.platform == 'ubuntu-latest'
         run: |
-          sudo add-apt-repository ppa:webispy/grpc
-          sudo add-apt-repository ppa:ondrej/nginx
           sudo apt update
           sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libxcb-image0-dev libxcb-icccm4-dev libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 \
               libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc \
@@ -156,9 +154,6 @@ jobs:
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Build
         if: matrix.platform == 'ubuntu-latest'
         shell: bash
-        env:
-          CC: /usr/bin/gcc-9
-          CXX: /usr/bin/g++-9
         run: |
           mkdir build
           cd build
@@ -183,7 +178,7 @@ jobs:
           wget https://github.com/Qv2ray/qt-pkg/releases/download/bruh/libfcitx5platforminputcontextplugin.so -O ./usr/plugins/platforminputcontexts/libfcitx5platforminputcontextplugin.so
           cp -fv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./usr/optional/libstdc++/
           cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
-          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
+          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.3,libcrypto.so.3} ./usr/lib/
           cp -fv /usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so ./usr/plugins/platforminputcontexts/
           chmod a+x AppRun
           cd ..
