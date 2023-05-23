@@ -57,17 +57,3 @@ parts:
       version=$tag.$build_number
       snapcraftctl set-version "$version"
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/1024x1024/apps/qv2ray.png|g' assets/qv2ray.desktop
-
-  fcitx5-qt:
-    source: https://download.fcitx-im.org/fcitx5/fcitx5-qt/fcitx5-qt-5.0.17.tar.xz
-    plugin: cmake
-    cmake-generator: Ninja
-    build-packages:
-      - build-essential
-      - mesa-common-dev
-      - libgles-dev
-    cmake-parameters:
-      - -DCMAKE_INSTALL_PREFIX=/usr
-      - -DCMAKE_BUILD_TYPE=Release
-      - -DENABLE_QT4=0
-      - -DENABLE_QT6=1
