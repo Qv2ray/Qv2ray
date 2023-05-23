@@ -39,11 +39,9 @@ parts:
       - mesa-common-dev
       - libgles-dev
     stage-packages:
-      - libgcc1
-      - libstdc++6
-      - libssl1.1
+      - libssl3
       - libgrpc++1
-      - libprotobuf17
+      - libprotobuf23
       - libglib2.0-bin
       - libcurl4
     cmake-parameters:
