@@ -1,5 +1,5 @@
 name: qv2ray
-base: core20
+base: core22
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
 
@@ -8,7 +8,7 @@ confinement: strict
 
 apps:
   qv2ray:
-    command: qv2ray
+    command: /usr/bin/qv2ray
     extensions:
       - kde-neon
     plugs:
