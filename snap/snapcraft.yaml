@@ -37,6 +37,7 @@ parts:
       - pkg-config
       - libcurl4-openssl-dev
       - mesa-common-dev
+      - libgles-dev
     stage-packages:
       - libgcc1
       - libstdc++6
