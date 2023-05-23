@@ -8,7 +8,7 @@ confinement: strict
 
 apps:
   qv2ray:
-    command: /usr/bin/qv2ray
+    command: usr/bin/qv2ray
     extensions:
       - kde-neon
     plugs:
