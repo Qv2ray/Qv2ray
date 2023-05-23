@@ -36,6 +36,7 @@ parts:
       - protobuf-compiler-grpc
       - pkg-config
       - libcurl4-openssl-dev
+      - mesa-common-dev
     stage-packages:
       - libgcc1
       - libstdc++6
