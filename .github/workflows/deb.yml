@@ -6,6 +6,8 @@ on:
       - dev
   release:
     types: [prereleased]
+  workflow_dispatch:
+
 
 # unsafe {
 env:
@@ -37,8 +39,6 @@ jobs:
             container: debian:unstable
           - distro: jammy
             container: ubuntu:jammy
-          - distro: focal
-            container: ubuntu:focal
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, '!DEB') }}
     name: Build debian package for ${{ matrix.distro }}
@@ -145,31 +145,22 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           path: packages
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.DEBIAN_REPO_TOKEN }}
       - name: Preparing
         run: |
           sudo apt-get install reprepro
           echo ${{ secrets.DEBIAN_REPO_KEY }} | base64 -d > private.key
           gpg --import private.key
-      - name: Setup Repository
-        if: github.event_name == 'release' && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc') && !contains(github.ref, 'pre')
-        run: |
-          git clone https://github.com/Qv2ray/debian.git
-          cd debian
-          git config --local user.name "${{ github.actor }}"
-          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian.git
-          find $GITHUB_WORKSPACE/packages -type f -name *.deb -exec bash -c 'reprepro includedeb $(echo "$1" | grep -Po "(?<=-1).*(?=1_)") "$1"' bash {} \;
-          git add -A
-          git commit -am 'update'
-          git push origin master
       - name: Setup Repository (development branch)
         if: github.event_name != 'release'
         run: |
-          git clone https://github.com/Qv2ray/debian-dev.git
+          git clone git@github.com:Qv2ray/debian-dev.git
           cd debian-dev
           git config --local user.name "${{ github.actor }}"
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.DEBIAN_REPO_TOKEN }}@github.com/Qv2ray/debian-dev.git
+          reprepro --delete clearvanished
           find $GITHUB_WORKSPACE/packages -type f -name *.deb -exec bash -c 'reprepro includedeb $(echo "$1" | grep -Po "(?<=-1).*(?=1_)") "$1"' bash {} \;
           git add -A
           git commit -am 'update'

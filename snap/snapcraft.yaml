@@ -1,42 +1,22 @@
 name: qv2ray
-base: core20
+base: core22
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
 
 grade: stable
 confinement: strict
 
-plugs:
-  gsettings:
-  gtk-3-themes:
-    interface: content
-    target: $SNAP/data-dir/themes
-    default-provider: gtk-common-themes
-  icon-themes:
-    interface: content
-    target: $SNAP/data-dir/icons
-    default-provider: gtk-common-themes
-  sound-themes:
-    interface: content
-    target: $SNAP/data-dir/sounds
-    default-provider: gtk-common-themes
-
 apps:
   qv2ray:
-    command: bin/desktop-launch qv2ray
-    environment:
-      QT_QPA_PLATFORMTHEME: gtk3
+    command: usr/bin/qv2ray
+    extensions:
+      - kde-neon
     plugs:
       - home
-      - x11
-      - wayland
-      - opengl
       - network
       - network-bind
       - unity7
       - pulseaudio
-      - desktop
-      - desktop-legacy
       - gsettings
       - network-control
       - network-manager
@@ -44,17 +24,6 @@ apps:
     desktop: "usr/share/applications/qv2ray.desktop"
 
 parts:
-  ppa:
-    plugin: nil
-    build-packages:
-      - software-properties-common
-    override-pull: |
-      sudo add-apt-repository ppa:ymshenyu/libuv
-      sudo add-apt-repository ppa:ymshenyu/qv2ray-deps
-      sudo add-apt-repository ppa:ymshenyu/qt
-      sudo apt-get update
-      sudo apt-get -y dist-upgrade
-
   qv2ray:
     plugin: cmake
     source-type: git
@@ -62,28 +31,19 @@ parts:
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
-      - qttools5-dev
-      - qtbase5-dev
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
       - pkg-config
       - libcurl4-openssl-dev
-      - libqt5svg5-dev
+      - mesa-common-dev
+      - libgles-dev
     stage-packages:
-      - libgcc1
-      - libstdc++6
-      - libssl1.1
+      - libssl3
       - libgrpc++1
-      - libprotobuf17
-      - libqt5core5a
-      - libqt5gui5
-      - libqt5network5
-      - libqt5widgets5
-      - libqt5svg5
+      - libprotobuf23
       - libglib2.0-bin
       - libcurl4
-      - qtwayland5
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
@@ -97,104 +57,3 @@ parts:
       version=$tag.$build_number
       snapcraftctl set-version "$version"
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/1024x1024/apps/qv2ray.png|g' assets/qv2ray.desktop
-    after:
-      - desktop-qt5
-
-  desktop-qt5:
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: qt
-    plugin: make
-    make-parameters: ["FLAVOR=qt5"]
-    build-packages:
-      - build-essential
-      - qtbase5-dev
-      - dpkg-dev
-    stage-packages:
-      - libxkbcommon0
-      - ttf-ubuntu-font-family
-      - dmz-cursor-theme
-      - light-themes
-      - adwaita-icon-theme
-      - gnome-themes-standard
-      - shared-mime-info
-      - libqt5gui5
-      - libgdk-pixbuf2.0-0
-      - libqt5svg5 # for loading icon themes which are svg
-      - try: [appmenu-qt5] # not available on core18
-      - locales-all
-      - xdg-user-dirs
-      - fcitx-frontend-qt5
-      - fcitx5-frontend-qt5
-    after:
-      - ppa
-
-  qt5-gtk-platform:
-    plugin: nil
-    stage-packages:
-      - qt5-gtk-platformtheme
-    after:
-      - ppa
-
-  qv2ray-trojan-plugin:
-    plugin: cmake
-    source-type: git
-    source: https://github.com/Qv2ray/QvPlugin-Trojan.git
-    source-branch: dev
-    build-packages:
-      - build-essential
-      - libboost-system-dev
-      - libboost-program-options-dev
-      - libssl-dev
-      - qttools5-dev
-      - qtbase5-dev
-    stage-packages:
-      - libgcc1
-      - libstdc++6
-      - libssl1.1
-      - libqt5core5a
-      - libqt5gui5
-      - libqt5network5
-      - libqt5widgets5
-      - libboost-program-options1.71.0
-      - libboost-system1.71.0
-    cmake-parameters:
-      - -DCMAKE_INSTALL_PREFIX=/usr
-      - -DCMAKE_BUILD_TYPE=Release
-      - -DFORCE_TCP_FASTOPEN=ON
-    cmake-generator: Ninja
-    after:
-      - desktop-qt5
-
-  qv2ray-ssr-plugin:
-    plugin: cmake
-    source-type: git
-    source: https://github.com/Qv2ray/QvPlugin-SSR.git
-    source-branch: dev
-    build-packages:
-      - build-essential
-      - libsodium-dev
-      - libuv1-dev
-      - libssl-dev
-      - qttools5-dev
-      - qtbase5-dev
-    stage-packages:
-      - libgcc1
-      - libstdc++6
-      - libssl1.1
-      - libqt5core5a
-      - libqt5gui5
-      - libqt5network5
-      - libqt5widgets5
-      - libuv1
-      - libsodium23
-    cmake-parameters:
-      - -DCMAKE_INSTALL_PREFIX=/usr
-      - -DCMAKE_BUILD_TYPE=Release
-      - -DSSR_UVW_WITH_QT=ON
-      - -DUSE_SYSTEM_SODIUM=ON
-      - -DUSE_SYSTEM_LIBUV=ON
-      - -DSTATIC_LINK_LIBUV=OFF
-      - -DSTATIC_LINK_SODIUM=OFF
-    cmake-generator: Ninja
-    after:
-      - desktop-qt5
