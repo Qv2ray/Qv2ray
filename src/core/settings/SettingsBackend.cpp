@@ -87,7 +87,7 @@ namespace Qv2ray::core::config
 
         // If the file format is valid.
         const auto conf = JsonFromString(StringFromFile(configFile));
-        LOG("Found a config file," A(conf["config_version"].toString()) A(path));
+        LOG("Found a config file," QVLOG_A(conf["config_version"].toString()) QVLOG_A(path));
         configFile.close();
         return true;
     }
