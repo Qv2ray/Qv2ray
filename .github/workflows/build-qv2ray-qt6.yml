@@ -6,6 +6,7 @@ on:
       - l10n_dev
   release:
     types: [prereleased]
+  workflow_dispatch:
 
 jobs:
   check_commit_msg:
