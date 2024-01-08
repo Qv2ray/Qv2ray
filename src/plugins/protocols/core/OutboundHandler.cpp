@@ -172,7 +172,10 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
             if (!alpn.isEmpty())
                 alpnList << alpn;
         }
-        query.addQueryItem("alpn", QUrl::toPercentEncoding(alpnList.join(",")));
+        if (!alpnList.isEmpty()) {
+            query.addQueryItem("alpn", QUrl::toPercentEncoding(alpnList.join(",")));
+        }
+
 
         // -------- XTLS Flow --------
         if (security == "xtls")
