@@ -41,12 +41,18 @@ const Qv2rayPlugin::OutboundInfoObject BuiltinSerializer::GetOutboundInfo(const 
         obj[INFO_SERVER] = ss.address;
         obj[INFO_PORT] = ss.port;
     }
+    else if (protocol == "trojan")
+    {
+        const auto ss = TrojanServerObject::fromJson(outbound["servers"].toArray().first());
+        obj[INFO_SERVER] = ss.address;
+        obj[INFO_PORT] = ss.port;
+    }
     return obj;
 }
 
 const void BuiltinSerializer::SetOutboundInfo(const QString &protocol, const Qv2rayPlugin::OutboundInfoObject &info, QJsonObject &outbound) const
 {
-    if ((QStringList{ "http", "socks", "shadowsocks" }).contains(protocol))
+    if ((QStringList{ "http", "socks", "shadowsocks", "trojan" }).contains(protocol))
     {
         QJsonIO::SetValue(outbound, info[INFO_SERVER].toString(), "servers", 0, "address");
         QJsonIO::SetValue(outbound, info[INFO_PORT].toInt(), "servers", 0, "port");
