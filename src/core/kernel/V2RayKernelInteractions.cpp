@@ -182,10 +182,11 @@ namespace Qv2ray::core::kernel
             process.start(kernelPath, { "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
 #endif
             process.waitForFinished();
-
-            if (process.exitCode() != 0)
+            const auto retcode = process.exitCode();
+            DEBUG("process.exitCode:::",retcode);
+            if (retcode != 0)
             {
-                QString output = QString(process.readAllStandardOutput());
+                QString output = QString(process.readAllStandardOutput());   
                 QvMessageBoxWarn(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
                 return std::nullopt;
             }

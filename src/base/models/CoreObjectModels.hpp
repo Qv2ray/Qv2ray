@@ -331,6 +331,20 @@ namespace Qv2ray::base::objects
             JSONSTRUCT_COMPARE(XTLSObject, serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn, certificates)
             JSONSTRUCT_REGISTER(XTLSObject, F(serverName, allowInsecure, enableSessionResumption, disableSystemRoot, alpn, certificates))
         };
+        struct REALITYObject
+        {
+            QString serverName;
+            bool allowInsecure = false;
+            bool enableSessionResumption = false;
+            bool disableSystemRoot = false;
+            bool show = false;
+            QString fingerprint = "chrome";
+            QString publicKey;
+            QString shortId;
+            QString spiderX;
+            JSONSTRUCT_COMPARE(REALITYObject, serverName, allowInsecure, enableSessionResumption, disableSystemRoot, show, fingerprint, publicKey, shortId, spiderX)
+            JSONSTRUCT_REGISTER(REALITYObject, F(serverName, allowInsecure, enableSessionResumption, disableSystemRoot, show, fingerprint, publicKey, shortId, spiderX))
+        };
     } // namespace transfer
     //
     //
@@ -348,10 +362,11 @@ namespace Qv2ray::base::objects
         transfer::DomainSocketObject dsSettings;
         transfer::QuicObject quicSettings;
         transfer::gRPCObject grpcSettings;
+        transfer::REALITYObject realitySettings;
         JSONSTRUCT_COMPARE(StreamSettingsObject, network, security, sockopt, //
-                           tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings)
+                           tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings, realitySettings)
         JSONSTRUCT_REGISTER(StreamSettingsObject, F(network, security, sockopt),
-                            F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings))
+                            F(tcpSettings, tlsSettings, xtlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, grpcSettings, realitySettings))
     };
 
     struct FakeDNSObject

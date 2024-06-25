@@ -876,6 +876,11 @@
           <property name="text">
            <string notr="true">XTLS</string>
           </property>
+          </item>
+          <item>
+          <property name="text">
+           <string notr="true">REALITY</string>
+          </property>
          </item>
         </widget>
        </item>
@@ -1033,10 +1038,68 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="reality">
+        <attribute name="title">
+        <string>REALITY Options</string>
+        </attribute>
+        <layout class="QFormLayout" name="formLayout_8">
+            <item row="0" column="0" colspan="2">
+            <widget class="QCheckBox" name="printDebugLog">
+            <property name="text">
+            <string>Print debug log</string>
+            </property>
+            <property name="checked">
+            <bool>false</bool>
+            </property>
+            </widget>
+        </item>
+        <item row="1" column="0">
+            <widget class="QLabel" name="label_34">
+            <property name="text">
+            <string>Fingerprint</string>
+            </property>
+            </widget>
+        </item>
+        <item row="1" column="1">
+            <widget class="QLineEdit" name="fingerprint"/>
+        </item>
+        <item row="2" column="0">
+            <widget class="QLabel" name="label_35">
+            <property name="text">
+            <string>Svr public key</string>
+            </property>
+            </widget>
+        </item>
+        <item row="2" column="1">
+            <widget class="QLineEdit" name="publicKey"/>
+        </item>
+        <item row="3" column="0">
+            <widget class="QLabel" name="label_36">
+            <property name="text">
+            <string>Short id</string>
+            </property>
+            </widget>
+        </item>
+        <item row="3" column="1">
+            <widget class="QLineEdit" name="shortId"/>
+        </item>
+        <item row="4" column="0">
+            <widget class="QLabel" name="label_37">
+            <property name="text">
+            <string>SpiderX</string>
+            </property>
+            </widget>
+        </item>
+        <item row="4" column="1">
+            <widget class="QLineEdit" name="spiderX"/>
+        </item>
+        </layout>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
+
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>transportCombo</tabstop>
