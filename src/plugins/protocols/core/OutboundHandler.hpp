@@ -14,6 +14,6 @@ class BuiltinSerializer : public Qv2rayPlugin::PluginOutboundHandler
     const QList<QString> SupportedLinkPrefixes() const override;
     const QList<QString> SupportedProtocols() const override
     {
-        return { "http", "socks", "shadowsocks", "vmess", "vless" };
+        return { "http", "socks", "shadowsocks", "vmess", "vless", "trojan" };
     }
 };
