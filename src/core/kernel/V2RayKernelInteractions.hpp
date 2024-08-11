@@ -22,9 +22,9 @@ namespace Qv2ray::core::kernel
         }
         //
         static std::optional<QString> ValidateConfig(const QString &path);
-        static std::pair<bool, std::optional<QString>> ValidateKernel(const QString &vCorePath, const QString &vAssetsPath);
+        static std::pair<bool, std::optional<QString>> ValidateKernel(const Qv2ray::base::config::CoreVersion coreVersion, const QString &vCorePath, const QString &vAssetsPath);
 #if QV2RAY_FEATURE(kernel_check_permission)
-        static std::pair<bool, std::optional<QString>> CheckAndSetCoreExecutableState(const QString &vCorePath);
+        static std::pair<bool, std::optional<QString>> CheckAndSetCoreExecutableState(const Qv2ray::base::config::CoreVersion coreVersion, const QString &vCorePath);
 #endif
 
       signals:

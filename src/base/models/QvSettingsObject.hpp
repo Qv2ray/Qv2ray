@@ -14,7 +14,7 @@ namespace Qv2ray::base::config
         int R = 150, G = 150, B = 150;
         float width = 1.5f;
         Qt::PenStyle style = Qt::SolidLine;
-        QvGraphPenConfig(){};
+        QvGraphPenConfig() {};
         QvGraphPenConfig(int R, int G, int B, float w, Qt::PenStyle s)
         {
             this->R = R;
@@ -64,8 +64,9 @@ namespace Qv2ray::base::config
         bool exitByCloseEvent = false;
         JSONSTRUCT_COMPARE(Qv2rayConfig_UI, theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, useGlyphTrayIcon, maximumLogLines,
                            maxJumpListCount, recentConnections, useOldShareLinkFormat, startMinimized, exitByCloseEvent)
-        JSONSTRUCT_REGISTER(Qv2rayConfig_UI, F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, useGlyphTrayIcon,
-                                               maximumLogLines, maxJumpListCount, recentConnections, useOldShareLinkFormat, startMinimized, exitByCloseEvent))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_UI,
+                            F(theme, language, quietMode, graphConfig, useDarkTheme, useDarkTrayIcon, useGlyphTrayIcon, maximumLogLines,
+                              maxJumpListCount, recentConnections, useOldShareLinkFormat, startMinimized, exitByCloseEvent))
     };
 
     struct Qv2rayConfig_Plugin
@@ -75,6 +76,12 @@ namespace Qv2ray::base::config
         int portAllocationStart = 15000;
         JSONSTRUCT_COMPARE(Qv2rayConfig_Plugin, pluginStates, v2rayIntegration, portAllocationStart)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Plugin, F(pluginStates, v2rayIntegration, portAllocationStart))
+    };
+
+    enum CoreVersion
+    {
+        COREVERSION_V2RAY_V5,
+        COREVERSION_V2RAY_V4
     };
 
     struct Qv2rayConfig_Kernel
@@ -88,6 +95,8 @@ namespace Qv2ray::base::config
         QString v2AssetsPath_macx;
         QString v2CorePath_win;
         QString v2AssetsPath_win;
+
+        CoreVersion coreVersion = (CoreVersion) 0;
 
 #ifdef Q_OS_LINUX
 #define _VARNAME_VCOREPATH_ v2CorePath_linux
@@ -113,11 +122,13 @@ namespace Qv2ray::base::config
 #undef _VARNAME_VASSETSPATH_
 
         JSONSTRUCT_COMPARE(Qv2rayConfig_Kernel, enableAPI, statsPort, //
+                           coreVersion,                               //
                            v2CorePath_linux, v2AssetsPath_linux,      //
                            v2CorePath_macx, v2AssetsPath_macx,        //
                            v2CorePath_win, v2AssetsPath_win)
         JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                     //
                             F(enableAPI, statsPort),                 //
+                            F(coreVersion),                          //
                             F(v2CorePath_linux, v2AssetsPath_linux), //
                             F(v2CorePath_macx, v2AssetsPath_macx),   //
                             F(v2CorePath_win, v2AssetsPath_win))

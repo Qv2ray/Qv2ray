@@ -214,6 +214,7 @@ namespace Qv2ray::core::config
 
             GlobalConfig.kernelConfig.KernelPath(QV2RAY_DEFAULT_VCORE_PATH);
             GlobalConfig.kernelConfig.AssetsPath(QV2RAY_DEFAULT_VASSETS_PATH);
+            GlobalConfig.kernelConfig.coreVersion = Qv2ray::base::config::COREVERSION_V2RAY_V5;
             GlobalConfig.logLevel = 3;
             GlobalConfig.uiConfig.language = QLocale::system().name();
             GlobalConfig.defaultRouteConfig.dnsConfig.servers.append({ "1.1.1.1" });

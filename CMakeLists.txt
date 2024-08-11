@@ -130,9 +130,6 @@ option(QV2RAY_HAS_SINGLEAPPLICATION "Build With SingleApplication" ON)
 set(QV2RAY_UI_TYPE "QWidget" CACHE STRING "Qv2ray GUI Component")
 QVLOG(QV2RAY_UI_TYPE)
 
-option(QV2RAY_USE_V5_CORE "Use V5 Core" ON)
-QVLOG(QV2RAY_USE_V5_CORE)
-
 option(QV2RAY_QT6 "Use Qt6" OFF)
 
 if(QV2RAY_UI_TYPE STREQUAL "QWidget")
@@ -331,11 +328,6 @@ target_include_directories(qv2ray_baselib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${Protobuf_INCLUDE_DIRS}
     )
-
-if(QV2RAY_USE_V5_CORE)
-    message("-- Use V2Ray Core V5")
-    target_compile_definitions(qv2ray_baselib PUBLIC QV2RAY_USE_V5_CORE)
-endif()
 
 # ==================================================================================
 # Qv2ray Builtin Plugins

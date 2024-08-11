@@ -9,18 +9,11 @@
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
 #define QV_MODULE_NAME "V2RayInteraction"
 
-#ifdef QV2RAY_USE_V5_CORE
-#define V2RAY_CORE_VERSION_ARGV "version"
-#define V2RAY_CORE_CONFIG_ARGV "run", "-config"
-#else
-#define V2RAY_CORE_VERSION_ARGV "--version"
-#define V2RAY_CORE_CONFIG_ARGV "--config"
-#endif
-
 namespace Qv2ray::core::kernel
 {
 #if QV2RAY_FEATURE(kernel_check_permission)
-    std::pair<bool, std::optional<QString>> V2RayKernelInstance::CheckAndSetCoreExecutableState(const QString &vCorePath)
+    std::pair<bool, std::optional<QString>> V2RayKernelInstance::CheckAndSetCoreExecutableState(const Qv2ray::base::config::CoreVersion vCoreVersion,
+                                                                                                const QString &vCorePath)
     {
 #ifdef Q_OS_UNIX
         // For Linux/macOS users: if they cannot execute the core,
@@ -59,7 +52,8 @@ namespace Qv2ray::core::kernel
     }
 #endif
 
-    std::pair<bool, std::optional<QString>> V2RayKernelInstance::ValidateKernel(const QString &corePath, const QString &assetsPath)
+    std::pair<bool, std::optional<QString>> V2RayKernelInstance::ValidateKernel(const Qv2ray::base::config::CoreVersion coreVersion,
+                                                                                const QString &corePath, const QString &assetsPath)
     {
         QFile coreFile(corePath);
 
@@ -114,7 +108,7 @@ namespace Qv2ray::core::kernel
 
 #if QV2RAY_FEATURE(kernel_check_permission)
         // Check executable permissions.
-        const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(corePath);
+        const auto [isExecutableOk, strExecutableErr] = CheckAndSetCoreExecutableState(coreVersion, corePath);
         if (!isExecutableOk)
             return { false, strExecutableErr.value_or("") };
 #endif
@@ -140,10 +134,23 @@ namespace Qv2ray::core::kernel
         // reason...
         proc.setProcessChannelMode(QProcess::MergedChannels);
         proc.setProgram(corePath);
-        proc.setNativeArguments(V2RAY_CORE_VERSION_ARGV);
+        switch (coreVersion)
+        {
+            case Qv2ray::base::config::COREVERSION_V2RAY_V5: proc.setNativeArguments("version"); break;
+            case Qv2ray::base::config::COREVERSION_V2RAY_V4: proc.setNativeArguments("--version"); break;
+
+            default: break;
+        }
+
         proc.start();
 #else
-        proc.start(corePath, { V2RAY_CORE_VERSION_ARGV });
+        switch (coreVersion)
+        {
+            case Qv2ray::base::config::COREVERSION_V2RAY_V5: proc.start(corePath, { "version" }); break;
+            case Qv2ray::base::config::COREVERSION_V2RAY_V4: proc.start(corePath, { "--version" }); break;
+
+            default: break;
+        }
 #endif
         proc.waitForStarted();
         proc.waitForFinished();
@@ -165,7 +172,8 @@ namespace Qv2ray::core::kernel
     {
         const auto kernelPath = GlobalConfig.kernelConfig.KernelPath();
         const auto assetsPath = GlobalConfig.kernelConfig.AssetsPath();
-        if (const auto &[result, msg] = ValidateKernel(kernelPath, assetsPath); result)
+        const auto coreVersion = GlobalConfig.kernelConfig.coreVersion;
+        if (const auto &[result, msg] = ValidateKernel(coreVersion, kernelPath, assetsPath); result)
         {
             DEBUG("V2Ray version: " + *msg);
             // Append assets location env.
@@ -176,11 +184,17 @@ namespace Qv2ray::core::kernel
             QProcess process;
             process.setProcessEnvironment(env);
             DEBUG("Starting V2Ray core with test options");
-#ifdef QV2RAY_USE_V5_CORE
-            process.start(kernelPath, { "test", "-c", path }, QIODevice::ReadWrite | QIODevice::Text);
-#else
-            process.start(kernelPath, { "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
-#endif
+            switch (coreVersion)
+            {
+                case Qv2ray::base::config::COREVERSION_V2RAY_V5:
+                    process.start(kernelPath, { "test", "-c", path }, QIODevice::ReadWrite | QIODevice::Text);
+                    break;
+                case Qv2ray::base::config::COREVERSION_V2RAY_V4:
+                    process.start(kernelPath, { "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
+                    break;
+
+                default: break;
+            }
             process.waitForFinished();
 
             if (process.exitCode() != 0)
@@ -204,17 +218,19 @@ namespace Qv2ray::core::kernel
         vProcess = new QProcess();
         connect(vProcess, &QProcess::readyReadStandardOutput, this,
                 [&]() { emit OnProcessOutputReadyRead(vProcess->readAllStandardOutput().trimmed()); });
-        connect(vProcess, &QProcess::stateChanged, [&](QProcess::ProcessState state) {
-            DEBUG("V2Ray kernel process status changed: " + QVariant::fromValue(state).toString());
+        connect(vProcess, &QProcess::stateChanged,
+                [&](QProcess::ProcessState state)
+                {
+                    DEBUG("V2Ray kernel process status changed: " + QVariant::fromValue(state).toString());
 
-            // If V2Ray crashed AFTER we start it.
-            if (kernelStarted && state == QProcess::NotRunning)
-            {
-                LOG("V2Ray kernel crashed.");
-                StopConnection();
-                emit OnProcessErrored("V2Ray kernel crashed.");
-            }
-        });
+                    // If V2Ray crashed AFTER we start it.
+                    if (kernelStarted && state == QProcess::NotRunning)
+                    {
+                        LOG("V2Ray kernel crashed.");
+                        StopConnection();
+                        emit OnProcessErrored("V2Ray kernel crashed.");
+                    }
+                });
         apiWorker = new APIWorker();
         qRegisterMetaType<StatisticsType>();
         qRegisterMetaType<QMap<StatisticsType, QvStatsSpeed>>();
@@ -244,7 +260,17 @@ namespace Qv2ray::core::kernel
         env.insert("v2ray.location.asset", GlobalConfig.kernelConfig.AssetsPath());
         env.insert("XRAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
         vProcess->setProcessEnvironment(env);
-        vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { V2RAY_CORE_CONFIG_ARGV, filePath }, QIODevice::ReadWrite | QIODevice::Text);
+        switch (GlobalConfig.kernelConfig.coreVersion)
+        {
+            case Qv2ray::base::config::COREVERSION_V2RAY_V5:
+                vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "run", "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
+                break;
+            case Qv2ray::base::config::COREVERSION_V2RAY_V4:
+                vProcess->start(GlobalConfig.kernelConfig.KernelPath(), { "--config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
+                break;
+
+            default: break;
+        }
         vProcess->waitForStarted();
         kernelStarted = true;
 

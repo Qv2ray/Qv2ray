@@ -39,7 +39,7 @@ class PreferencesWindow
     }
 
   private:
-    void updateColorScheme() override{};
+    void updateColorScheme() override {};
     QvMessageBusSlotDecl override;
 
   private slots:
@@ -48,6 +48,7 @@ class PreferencesWindow
     void on_socksAuthCB_stateChanged(int arg1);
     void on_languageComboBox_currentTextChanged(const QString &arg1);
     void on_logLevelComboBox_currentIndexChanged(int index);
+    void on_coreVersionComboBox_currentIndexChanged(int index);
     void on_vCoreAssetsPathTxt_textEdited(const QString &arg1);
     void on_listenIPTxt_textEdited(const QString &arg1);
     void on_socksPortLE_valueChanged(int arg1);

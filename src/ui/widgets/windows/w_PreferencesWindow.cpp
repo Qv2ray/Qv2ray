@@ -93,6 +93,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QvDialog("PreferenceWind
     glyphTrayCB->setChecked(CurrentConfig.uiConfig.useGlyphTrayIcon);
     languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
+    coreVersionComboBox->setCurrentIndex(CurrentConfig.kernelConfig.coreVersion);
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     useOldShareLinkFormatCB->setChecked(CurrentConfig.uiConfig.useOldShareLinkFormat);
     startMinimizedCB->setChecked(CurrentConfig.uiConfig.startMinimized);
@@ -317,7 +318,7 @@ QvMessageBusSlotImpl(PreferencesWindow)
     }
 }
 
-PreferencesWindow::~PreferencesWindow(){};
+PreferencesWindow::~PreferencesWindow() {};
 
 std::optional<QString> PreferencesWindow::checkTProxySettings() const
 {
@@ -461,6 +462,12 @@ void PreferencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
 {
     NEEDRESTART
     CurrentConfig.logLevel = index;
+}
+
+void PreferencesWindow::on_coreVersionComboBox_currentIndexChanged(int index)
+{
+    NEEDRESTART
+    CurrentConfig.kernelConfig.coreVersion = (Qv2ray::base::config::CoreVersion) index;
 }
 
 void PreferencesWindow::on_vCoreAssetsPathTxt_textEdited(const QString &arg1)
@@ -752,6 +759,7 @@ void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
 
 void PreferencesWindow::on_checkVCoreSettings_clicked()
 {
+    auto vcoreVersion = (Qv2ray::base::config::CoreVersion) coreVersionComboBox->currentIndex();
     auto vcorePath = vCorePathTxt->text();
     auto vAssetsPath = vCoreAssetsPathTxt->text();
 
@@ -764,7 +772,6 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
                                 "If your V2Ray core filename happened to be 'qv2ray'-something, you are totally free to ignore this warning.");
         QvMessageBoxWarn(this, tr("Watch Out!"), content);
     }
-#if !defined(QV2RAY_USE_V5_CORE)
     else if (vCorePathSmallCased.endsWith("v2ctl") || vCorePathSmallCased.endsWith("v2ctl.exe"))
     {
         const auto content = tr("You may be about to set V2Ray core incorrectly to V2Ray Control executable, which is absolutely not correct.\r\n"
@@ -773,9 +780,8 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
         QvMessageBoxWarn(this, tr("Watch Out!"), content);
     }
 #endif
-#endif
 
-    if (const auto &&[result, msg] = V2RayKernelInstance::ValidateKernel(vcorePath, vAssetsPath); !result)
+    if (const auto &&[result, msg] = V2RayKernelInstance::ValidateKernel(vcoreVersion, vcorePath, vAssetsPath); !result)
     {
         QvMessageBoxWarn(this, tr("V2Ray Core Settings"), *msg);
     }
@@ -1131,27 +1137,29 @@ void PreferencesWindow::on_pushButton_clicked()
         return;
 
     auto client = new ntp::NtpClient(this);
-    connect(client, &ntp::NtpClient::replyReceived, [&](const QHostAddress &, quint16, const ntp::NtpReply &reply) {
-        const int offsetSecTotal = reply.localClockOffset() / 1000;
-        if (offsetSecTotal >= 90 || offsetSecTotal <= -90)
-        {
-            const auto inaccurateWarning = tr("Your time offset is %1 seconds, which is too high.") + NEWLINE + //
-                                           tr("Please synchronize your system to use the VMess protocol.");
-            QvMessageBoxWarn(this, tr("Time Inaccurate"), inaccurateWarning.arg(offsetSecTotal));
-        }
-        else if (offsetSecTotal > 15 || offsetSecTotal < -15)
-        {
-            const auto smallErrorWarning = tr("Your time offset is %1 seconds, which is a little high.") + NEWLINE + //
-                                           tr("VMess protocol may still work, but we suggest you synchronize your clock.");
-            QvMessageBoxInfo(this, tr("Time Somewhat Inaccurate"), smallErrorWarning.arg(offsetSecTotal));
-        }
-        else
-        {
-            const auto accurateInfo = tr("Your time offset is %1 seconds, which looks good.") + NEWLINE + //
-                                      tr("VMess protocol may not suffer from time inaccuracy.");
-            QvMessageBoxInfo(this, tr("Time Accurate"), accurateInfo.arg(offsetSecTotal));
-        }
-    });
+    connect(client, &ntp::NtpClient::replyReceived,
+            [&](const QHostAddress &, quint16, const ntp::NtpReply &reply)
+            {
+                const int offsetSecTotal = reply.localClockOffset() / 1000;
+                if (offsetSecTotal >= 90 || offsetSecTotal <= -90)
+                {
+                    const auto inaccurateWarning = tr("Your time offset is %1 seconds, which is too high.") + NEWLINE + //
+                                                   tr("Please synchronize your system to use the VMess protocol.");
+                    QvMessageBoxWarn(this, tr("Time Inaccurate"), inaccurateWarning.arg(offsetSecTotal));
+                }
+                else if (offsetSecTotal > 15 || offsetSecTotal < -15)
+                {
+                    const auto smallErrorWarning = tr("Your time offset is %1 seconds, which is a little high.") + NEWLINE + //
+                                                   tr("VMess protocol may still work, but we suggest you synchronize your clock.");
+                    QvMessageBoxInfo(this, tr("Time Somewhat Inaccurate"), smallErrorWarning.arg(offsetSecTotal));
+                }
+                else
+                {
+                    const auto accurateInfo = tr("Your time offset is %1 seconds, which looks good.") + NEWLINE + //
+                                              tr("VMess protocol may not suffer from time inaccuracy.");
+                    QvMessageBoxInfo(this, tr("Time Accurate"), accurateInfo.arg(offsetSecTotal));
+                }
+            });
 
     const auto hostInfo = QHostInfo::fromName(ntpServer);
     if (hostInfo.error() == QHostInfo::NoError)

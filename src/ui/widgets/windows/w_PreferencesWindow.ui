@@ -752,6 +752,42 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
            </widget>
           </item>
           <item row="1" column="0">
+           <widget class="QLabel" name="label_95">
+            <property name="text">
+             <string>Core Version</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="coreVersionComboBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>4</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
            <widget class="QLabel" name="label_46">
             <property name="text">
              <string>V2Ray Core Executable Path</string>
@@ -761,7 +797,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="QLineEdit" name="vCorePathTxt">
@@ -779,7 +815,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
             </item>
            </layout>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_15">
             <property name="text">
              <string>V2Ray Assets Directory</string>
@@ -789,7 +825,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_7">
             <item>
              <widget class="QLineEdit" name="vCoreAssetsPathTxt"/>
@@ -803,21 +839,21 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
             </item>
            </layout>
           </item>
-          <item row="7" column="0" colspan="2">
+          <item row="8" column="0" colspan="2">
            <widget class="QPushButton" name="checkVCoreSettings">
             <property name="text">
              <string>Check V2Ray Core Settings</string>
             </property>
            </widget>
           </item>
-          <item row="8" column="0" colspan="2">
+          <item row="9" column="0" colspan="2">
            <widget class="QPushButton" name="pushButton">
             <property name="text">
              <string>Check System Date and Time from the Internet</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_68">
             <property name="text">
              <string>V2Ray API Subsystem</string>
@@ -827,14 +863,14 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="4" column="1">
            <widget class="QCheckBox" name="enableAPI">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
+          <item row="5" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
              <string>V2Ray API Port</string>
@@ -844,7 +880,7 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
+          <item row="5" column="1">
            <widget class="QSpinBox" name="statsPortBox">
             <property name="minimumSize">
              <size>
@@ -863,14 +899,14 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="6" column="0">
            <widget class="QLabel" name="label_37">
             <property name="text">
              <string>Outbound Statistics (V2Ray Core v4.26+)</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
+          <item row="6" column="1">
            <widget class="QCheckBox" name="V2RayOutboundStatsCB">
             <property name="toolTip">
              <string>Currently:
@@ -883,14 +919,14 @@ Qv2ray will give a more accurate latency value if Enabled, but makes it easy to 
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
+          <item row="7" column="0">
            <widget class="QLabel" name="label_31">
             <property name="text">
              <string>Include Direct Connection</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
+          <item row="7" column="1">
            <widget class="QCheckBox" name="hasDirectStatisticsCB">
             <property name="text">
              <string>Enabled</string>

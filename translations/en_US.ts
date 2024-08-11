@@ -1403,6 +1403,10 @@ For example, for updating subscriptions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Core Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>none</source>
         <translation type="unfinished"></translation>
     </message>
