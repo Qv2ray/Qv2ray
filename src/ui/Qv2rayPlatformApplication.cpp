@@ -39,7 +39,7 @@ bool Qv2rayPlatformApplication::Initialize()
     const auto hasError = parseCommandLine(&errorMessage, &canContinue);
     if (hasError)
     {
-        LOG("Command line:" A(errorMessage));
+        LOG("Command line:" QVLOG_A(errorMessage));
         if (!canContinue)
         {
             LOG("Fatal, Qv2ray cannot continue.");
@@ -247,7 +247,7 @@ bool Qv2rayPlatformApplication::parseCommandLine(QString *errorMessage, bool *ca
     }
 
 #define ProcessExtraStartupOptions(option)                                                                                                           \
-    DEBUG("Startup Options:" A(parser.isSet(option##Option)));                                                                                       \
+    DEBUG("Startup Options:" QVLOG_A(parser.isSet(option##Option)));                                                                                 \
     StartupArguments.option = parser.isSet(option##Option);
 
     ProcessExtraStartupOptions(noAPI);
