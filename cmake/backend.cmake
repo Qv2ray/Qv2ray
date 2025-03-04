@@ -1,6 +1,8 @@
 find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
 
 find_package(gRPC CONFIG QUIET)
+find_package(Protobuf REQUIRED)
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_SOURCE_DIR}/assets/v2ray_geosite.proto)
 
 # Debian, for example, cannot find gRPC in a proper way.
 # This is used as a fallback searching method

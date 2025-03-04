@@ -256,7 +256,6 @@ message("Qv2ray Version: ${_QV2RAY_BUILD_INFO_STR_} - ${_QV2RAY_BUILD_EXTRA_INFO
 include(cmake/libuv.cmake)
 include(cmake/libcurl.cmake)
 include(cmake/libsemver.cmake)
-include(cmake/protobuf.cmake)
 include(cmake/backend.cmake)
 include(3rdparty/QJsonStruct/QJsonStruct.cmake)
 
@@ -315,7 +314,6 @@ add_library(qv2ray_baselib STATIC
 
 target_link_libraries(qv2ray_baselib
     ${QV2RAY_QT_LIBS}
-    ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARY}
     ${LibUV_LIBRARIES}
     ${CURL_LIBRARIES}
