@@ -29,7 +29,7 @@
     <message>
       <source>Usage</source>
       <extracomment>Certificate Usage</extracomment>
-      <translation type="unfinished">Usage</translation>
+      <translation/>
     </message>
     <message>
       <source>Usage of certifcate. The default value is &lt;code&gt;encipherment&lt;/code&gt;.
