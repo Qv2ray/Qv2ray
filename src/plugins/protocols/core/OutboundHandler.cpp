@@ -157,7 +157,7 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
                 query.addQueryItem("mode", "multi");
         }
         // -------- TLS RELATED --------
-        const auto tlsKey = security == "xtls" ? "xtlsSettings" : "tlsSettings";
+        const auto tlsKey = security == "xtls" ? "xtlsSettings" :  ( security == "tls" ? "tlsSettings" : "realitySettings" );
 
         const auto sni = QJsonIO::GetValue(objStream, { tlsKey, "serverName" }).toString();
         if (!sni.isEmpty())
@@ -175,7 +175,7 @@ const QString BuiltinSerializer::SerializeOutbound(const QString &protocol, cons
         query.addQueryItem("alpn", QUrl::toPercentEncoding(alpnList.join(",")));
 
         // -------- XTLS Flow --------
-        if (security == "xtls")
+        if (security == "xtls" || security == "reality")
         {
             const auto flow = QJsonIO::GetValue(obj, "vnext", 0, "users", 0, "flow").toString();
             query.addQueryItem("flow", flow);

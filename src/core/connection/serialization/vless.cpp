@@ -2,6 +2,7 @@
 #include "core/connection/Generation.hpp"
 #include "core/connection/Serialization.hpp"
 #include "utils/QvHelpers.hpp"
+#include "base/Qv2rayLog.hpp"
 
 #define QV_MODULE_NAME "VLESSImporter"
 
@@ -160,7 +161,7 @@ namespace Qv2ray::core::connection
             // tls-wise settings
             const auto hasSecurity = query.hasQueryItem("security");
             const auto security = hasSecurity ? query.queryItemValue("security") : "none";
-            const auto tlsKey = security == "xtls" ? "xtlsSettings" : "tlsSettings";
+            const auto tlsKey = security == "xtls" ? "xtlsSettings" : ( security == "tls" ? "tlsSettings" : "realitySettings" );
             if (security != "none")
             {
                 QJsonIO::SetValue(stream, security, "security");
@@ -181,11 +182,37 @@ namespace Qv2ray::core::connection
                 QJsonIO::SetValue(stream, alpnArray, { tlsKey, "alpn" });
             }
             // xtls-specific
-            if (security == "xtls")
+            if (security == "xtls" || security == "reality")
             {
                 const auto flow = query.queryItemValue("flow");
                 QJsonIO::SetValue(outbound, flow, { "settings", "vnext", 0, "users", 0, "flow" });
             }
+
+            if ( security == "reality" )
+            {
+                if (query.hasQueryItem("fp"))
+                {
+                    const auto fp = QUrl::fromPercentEncoding(query.queryItemValue("fp").toUtf8());
+                    QJsonIO::SetValue(stream, fp, { "realitySettings", "fingerprint" });
+                }
+                if (query.hasQueryItem("pbk"))
+                {
+                    const auto pbk = QUrl::fromPercentEncoding(query.queryItemValue("pbk").toUtf8());
+                    QJsonIO::SetValue(stream, pbk, { "realitySettings", "publicKey" });
+                }
+                if (query.hasQueryItem("spiderX"))
+                {
+                    const auto spiderX = QUrl::fromPercentEncoding(query.queryItemValue("spiderX").toUtf8());
+                    QJsonIO::SetValue(stream, spiderX, { "realitySettings", "spiderX" });
+                }
+                if (query.hasQueryItem("sid"))
+                {
+                    const auto sid = QUrl::fromPercentEncoding(query.queryItemValue("sid").toUtf8());
+                    QJsonIO::SetValue(stream, sid, { "realitySettings", "shortId" });
+                }
+            }
+
+
 
             // assembling config
             CONFIGROOT root;

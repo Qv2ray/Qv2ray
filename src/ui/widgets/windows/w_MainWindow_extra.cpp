@@ -101,7 +101,8 @@ void MainWindow::MWSetSystemProxy()
         LOG("ProxyAddress: " + proxyAddress);
         LOG("HTTP Port: " + QSTRN(httpPort));
         LOG("SOCKS Port: " + QSTRN(socksPort));
-        SetSystemProxy(proxyAddress, httpPort, socksPort);
+        // If you need to automatically set up the system proxy function,you can enable the handle commented out below
+        // SetSystemProxy(proxyAddress, httpPort, socksPort);
         qvAppTrayIcon->setIcon(Q_TRAYICON("tray-systemproxy"));
         if (!GlobalConfig.uiConfig.quietMode)
         {
